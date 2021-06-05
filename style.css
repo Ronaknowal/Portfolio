@@ -14,10 +14,15 @@ ul{
     grid-template-columns: repeat(4, minmax(10px, 1fr) 1fr);
 }
 ul li{
-    /* display: inline; */
-    /* padding: 0rem 1rem; */
+    /* display: inline;
+    padding: 0rem 1rem; */
 }
 ul li a{
     text-decoration: none;
     color: white;
+}
+img{
+    width: 30%;
+    margin:10% 2%;
+    border-radius: 5%;
 }
