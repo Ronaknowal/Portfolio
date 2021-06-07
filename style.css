@@ -3,10 +3,22 @@ p {
 }
 .content{
     display: grid;
+    grid-template-areas: 
+    'navbar navbar navbar navbar'
+    'aside section section section'
+    ;
     
 }
 nav{
     background-color:black;
+    grid-area: navbar;
+}
+aside{
+    grid-area: aside;
+    padding-left: 1rem;
+}
+section{
+    grid-area: section;
 }
 ul{
     list-style-type: none;
@@ -23,6 +35,6 @@ ul li a{
 }
 img{
     width: 30%;
-    margin:10% 2%;
+    margin:1% 2%;
     border-radius: 5%;
 }
