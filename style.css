@@ -40,8 +40,8 @@ img{
 }
 #name{
     display: inline-block;
-    /* margin-left: 1rem; */
-    /* margin-right: 70%; */
+    /* margin-left: 1rem;
+    margin-right: 70%; */
     padding: 0.5rem;
     border-radius: 29px;
     background-color: grey;
