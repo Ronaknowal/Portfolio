@@ -44,7 +44,7 @@ img{
     margin-right: 70%; */
     padding: 0.5rem;
     border-radius: 29px;
-    background-color: grey;
+    background-color: rgb(223, 223, 223);
     position: relative;
     top: 2rem;
     right: 11rem;
@@ -53,6 +53,10 @@ img{
     display: inline-block;
     display: inline;
     position: relative;
-    top: 2rem;
+    top: 5.5rem;
+    padding: 0.5rem;
+    border-radius: 29px;
+    background-color: rgb(224, 224, 224);   
+    right: 19.7rem;
 
 }
