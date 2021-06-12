@@ -25,10 +25,6 @@ ul{
     display: grid;
     grid-template-columns: repeat(4, minmax(10px, 1fr) 1fr 1fr);
 }
-ul li{
-    /* display: inline;
-    padding: 0rem 1rem; */
-}
 ul li a{
     text-decoration: none;
     color: white;
