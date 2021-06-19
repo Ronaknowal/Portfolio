@@ -65,7 +65,6 @@ img{
     BORDER-RADIUS: 1REM;
 }
 #container{
-    /* background-color: aqua; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
