@@ -65,7 +65,6 @@ img{
     BACKGROUND-COLOR: BLUE;
     PADDING: .5REM 1REM;
     BORDER-RADIUS: 1REM;
-    padding: 1%;
 }
 #container{
     display: flex;
