@@ -81,3 +81,6 @@ img{
 #aboutme{
     padding: 1.5%;
 }
+#aboutme>h1{
+    padding-bottom: 1%;
+}
