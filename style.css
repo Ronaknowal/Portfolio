@@ -72,7 +72,7 @@ img{
     flex-direction: row;
     flex-wrap: wrap;
 }
-.box{
+.box, .box2{
     margin: 1% 3%;
     background-color: rgb(160, 158, 158);
     padding: 1%;
