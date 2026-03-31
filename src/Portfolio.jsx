@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 // --- Noise Canvas Component ---
 const NoiseCanvas = ({ opacity }) => {
@@ -185,7 +186,7 @@ const Section = ({ children, id, style = {} }) => {
 // --- Project Card ---
 const ProjectCard = ({ project, index }) => {
   const [hovered, setHovered] = useState(false);
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(project.defaultStep || 0);
   const stages = ["concept", "prototype", "shipped"];
 
   return (
@@ -663,10 +664,11 @@ export default function Portfolio() {
     {
       name: "Bloospace",
       description:
-        "AI-powered mobile app that extracts and organizes actionable content from social media videos. Entity-first architecture identifies items, places, products, recipes, and people.",
-      year: "2024",
-      tags: ["AI/ML", "Mobile", "GPT-4V", "Claude", "Supabase"],
+        "AI-powered mobile app that extracts and organizes actionable content from social media videos. Entity-first architecture identifies items, places, products, recipes, and people. Vibecoded.",
+      year: "2026",
+      tags: ["AI/ML", "Mobile", "Gemini", "Claude", "Supabase"],
       metrics: { loss: "0.034", acc: "97.2%", epochs: "847", lr: "0.001", batch: "life" },
+      defaultStep: 1,
     },
     {
       name: "Autonomous Driving RL",
@@ -691,6 +693,25 @@ export default function Portfolio() {
       year: "2025",
       tags: ["Content", "AI Generation", "FFmpeg", "Automation"],
       metrics: { loss: "0.021", acc: "98.6%", epochs: "365", lr: "0.002", batch: "daily" },
+      defaultStep: 1,
+    },
+    {
+      name: "The Simulation Space",
+      description:
+        "Browser-based geospatial intelligence platform combining a 3D interactive globe with real-time data from 50+ sources, a multi-panel intelligence dashboard, an AI-powered research terminal, and a multi-agent simulation engine for geopolitical scenario modeling. 56 toggleable data layers monitoring maritime, aviation, satellites, weather, seismic, and infrastructure. Vibecoded.",
+      year: "2025",
+      tags: ["Next.js", "CesiumJS", "deck.gl", "Gemini", "CAMEL-AI", "TypeScript"],
+      metrics: { loss: "0.018", acc: "99.1%", epochs: "1200", lr: "0.0001", batch: "realtime" },
+      defaultStep: 1,
+    },
+    {
+      name: "SketchToReal",
+      description:
+        "Real-time generative canvas where users draw sketches on one side of a split-view while AI instantly transforms them into photorealistic images on the other — updating live with under 500ms latency. Powered by few-step diffusion models (SDXL Turbo / FLUX.1 Schnell) conditioned via ControlNet, optimized through StreamDiffusion for 30+ FPS on a single GPU, with optional one-click sketch-to-3D mesh generation via Stable Fast 3D. All open-source, served over WebSockets.",
+      year: "2026",
+      tags: ["Diffusion Models", "ControlNet", "StreamDiffusion", "WebSockets", "3D"],
+      metrics: { loss: "—", acc: "—", epochs: "0", lr: "TBD", batch: "stream" },
+      defaultStep: 0,
     },
   ];
 
@@ -774,6 +795,22 @@ export default function Portfolio() {
               </a>
             )
           )}
+          <Link
+            to="/learn"
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 11,
+              color: "#555",
+              textDecoration: "none",
+              letterSpacing: 1,
+              textTransform: "uppercase",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => (e.target.style.color = "#e2b55a")}
+            onMouseLeave={(e) => (e.target.style.color = "#555")}
+          >
+            learn
+          </Link>
         </div>
       </nav>
 
