@@ -1,11 +1,8 @@
 import { colors, fonts } from "../../styles";
 
 const tokenization = {
-  id: "tokenization",
-  title: "Tokenization",
-  category: "nlp",
+  title: "Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram",
   readTime: "10 min",
-  order: 8,
   content: () => (
     <div>
       <p style={{ fontFamily: fonts.mono, fontSize: 13, color: colors.textSecondary, lineHeight: 1.8, marginBottom: 20 }}>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { colors, fonts } from "../styles";
+import { colors, fonts, levelColors } from "../styles";
 import { topicMap } from "../data/topics/index";
 import ProgressBar from "./ProgressBar";
+import LevelBadge from "./LevelBadge";
 
 export default function TrackCard({ track, progress }) {
   const [hovered, setHovered] = useState(false);

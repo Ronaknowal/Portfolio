@@ -1,0 +1,1156 @@
+// Auto-generated from knowledge-map.html
+// Each track contains sections, each section contains topic objects with title and level.
+// Topics are processed into full topic objects by topics/index.js
+
+export const trackDefinitions = [
+  {
+    id: "math-foundations",
+    title: "Mathematical & Statistical Foundations",
+    description: "Linear algebra, calculus, optimization, probability, information theory, and advanced mathematical structures",
+    sections: [
+      {
+        name: "Linear Algebra",
+        topics: [
+          { title: "Vectors, Matrices & Tensor Operations", level: "foundation" },
+          { title: "Matrix Decompositions (SVD, QR, Cholesky, LU)", level: "foundation" },
+          { title: "Eigenvalues & Eigenvectors", level: "foundation" },
+          { title: "Matrix Calculus & Jacobians", level: "intermediate" },
+          { title: "Tensor Algebra & Einsum Notation", level: "intermediate" },
+          { title: "Randomized Linear Algebra", level: "advanced" },
+        ],
+      },
+      {
+        name: "Calculus & Optimization",
+        topics: [
+          { title: "Multivariate Calculus & Gradients", level: "foundation" },
+          { title: "Convex Optimization", level: "foundation" },
+          { title: "Gradient Descent Variants (SGD, Adam, AdaGrad, RMSProp, LAMB, LARS)", level: "intermediate" },
+          { title: "Learning Rate Schedules (Cosine, Warmup, OneCycleLR)", level: "intermediate" },
+          { title: "Second-Order Methods (L-BFGS, K-FAC, Shampoo, Natural Gradient)", level: "advanced" },
+          { title: "Non-Convex Optimization Landscape", level: "advanced" },
+          { title: "Constrained & Multi-Objective Optimization", level: "advanced" },
+        ],
+      },
+      {
+        name: "Probability & Statistics",
+        topics: [
+          { title: "Probability Distributions & Bayes' Theorem", level: "foundation" },
+          { title: "Maximum Likelihood & MAP Estimation", level: "foundation" },
+          { title: "Hypothesis Testing & Confidence Intervals", level: "foundation" },
+          { title: "Bayesian Inference & Conjugate Priors", level: "intermediate" },
+          { title: "Monte Carlo Methods & MCMC (Metropolis-Hastings, HMC, NUTS)", level: "intermediate" },
+          { title: "Variational Inference", level: "intermediate" },
+          { title: "Exponential Families & Sufficient Statistics", level: "advanced" },
+          { title: "Measure Theory & Probability Spaces", level: "advanced" },
+        ],
+      },
+      {
+        name: "Information Theory",
+        topics: [
+          { title: "Entropy, Cross-Entropy & KL Divergence", level: "foundation" },
+          { title: "Mutual Information & Information Bottleneck", level: "intermediate" },
+          { title: "Rate-Distortion Theory", level: "advanced" },
+          { title: "f-Divergences & Integral Probability Metrics", level: "advanced" },
+        ],
+      },
+      {
+        name: "Graph Theory & Discrete Math",
+        topics: [
+          { title: "Graph Fundamentals (Adjacency, Laplacian, Connectivity)", level: "foundation" },
+          { title: "Spectral Graph Theory", level: "intermediate" },
+          { title: "Combinatorial Optimization & Approximation Algorithms", level: "advanced" },
+        ],
+      },
+      {
+        name: "Stochastic Processes & Dynamical Systems",
+        topics: [
+          { title: "Stochastic Processes (Markov Chains, Brownian Motion, Poisson)", level: "intermediate" },
+          { title: "Random Matrix Theory", level: "intermediate" },
+          { title: "Dynamical Systems Theory & Chaos", level: "advanced" },
+          { title: "Ito Calculus & Stochastic Differential Equations", level: "advanced" },
+        ],
+      },
+      {
+        name: "Advanced Mathematical Structures",
+        topics: [
+          { title: "Functional Analysis & RKHS", level: "advanced" },
+          { title: "Topology & Topological Data Analysis (TDA)", level: "advanced" },
+          { title: "Category Theory (Emerging Use in ML)", level: "advanced" },
+          { title: "Numerical Methods (Finite Differences, Quadrature, Root Finding)", level: "foundation" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "classical-ml",
+    title: "Classical Machine Learning",
+    description: "Supervised and unsupervised learning, feature engineering, probabilistic models, and learning theory",
+    sections: [
+      {
+        name: "Supervised Learning",
+        topics: [
+          { title: "Linear & Logistic Regression", level: "foundation" },
+          { title: "Decision Trees & Random Forests", level: "foundation" },
+          { title: "K-Nearest Neighbors (KNN)", level: "foundation" },
+          { title: "Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)", level: "intermediate" },
+          { title: "Support Vector Machines (SVM)", level: "intermediate" },
+          { title: "Naive Bayes & Probabilistic Classifiers", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Unsupervised Learning",
+        topics: [
+          { title: "K-Means & Hierarchical Clustering", level: "foundation" },
+          { title: "PCA & Dimensionality Reduction", level: "foundation" },
+          { title: "DBSCAN & Density-Based Clustering", level: "intermediate" },
+          { title: "Gaussian Mixture Models (GMM) & EM Algorithm", level: "intermediate" },
+          { title: "t-SNE, UMAP & Manifold Learning", level: "intermediate" },
+          { title: "Independent Component Analysis (ICA)", level: "advanced" },
+          { title: "Non-Negative Matrix Factorization (NMF)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Feature Engineering & Model Selection",
+        topics: [
+          { title: "Feature Scaling, Encoding & Imputation", level: "foundation" },
+          { title: "Cross-Validation & Hyperparameter Tuning", level: "foundation" },
+          { title: "Regularization (L1, L2, Elastic Net, Dropout)", level: "intermediate" },
+          { title: "Feature Selection & Importance (SHAP, Permutation, Mutual Info)", level: "intermediate" },
+          { title: "Bias-Variance Tradeoff & Learning Curves", level: "intermediate" },
+          { title: "AutoML & Neural Architecture Search (NAS)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Probabilistic & Graphical Models",
+        topics: [
+          { title: "Hidden Markov Models (HMM)", level: "intermediate" },
+          { title: "Bayesian Networks & Causal Graphical Models", level: "intermediate" },
+          { title: "Conditional Random Fields (CRF)", level: "advanced" },
+          { title: "Gaussian Processes (GP)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Semi-Supervised & Self-Training",
+        topics: [
+          { title: "Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training)", level: "intermediate" },
+          { title: "Active Learning", level: "advanced" },
+        ],
+      },
+      {
+        name: "Learning Theory & Evaluation",
+        topics: [
+          { title: "PAC Learning & VC Dimension", level: "intermediate" },
+          { title: "Rademacher Complexity & Generalization Bounds", level: "advanced" },
+          { title: "Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)", level: "foundation" },
+          { title: "Calibration & Conformal Prediction", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "deep-learning-fundamentals",
+    title: "Deep Learning Fundamentals & Architectures",
+    description: "Core neural network concepts, CNNs, RNNs, transformers, GNNs, and modern architectural innovations",
+    sections: [
+      {
+        name: "Core Concepts",
+        topics: [
+          { title: "Perceptrons, Neurons & Activation Functions", level: "foundation" },
+          { title: "Backpropagation & Automatic Differentiation", level: "foundation" },
+          { title: "Loss Functions (CE, MSE, Focal, Contrastive, Triplet)", level: "foundation" },
+          { title: "Batch/Layer/Group/RMS Normalization", level: "foundation" },
+          { title: "Weight Initialization (Xavier, Kaiming, µP)", level: "intermediate" },
+          { title: "Residual Connections & Skip Connections", level: "intermediate" },
+          { title: "Dropout, DropPath & Stochastic Depth", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Convolutional Neural Networks (CNNs)",
+        topics: [
+          { title: "Convolution, Pooling & Receptive Fields", level: "foundation" },
+          { title: "Landmark Architectures (LeNet → AlexNet → VGG → ResNet → EfficientNet)", level: "intermediate" },
+          { title: "Depthwise Separable & Dilated Convolutions", level: "intermediate" },
+          { title: "ConvNeXt & Modern CNN Designs", level: "advanced" },
+        ],
+      },
+      {
+        name: "Recurrent & Sequence Models",
+        topics: [
+          { title: "RNNs, LSTMs & GRUs", level: "foundation" },
+          { title: "Sequence-to-Sequence & Encoder-Decoder", level: "intermediate" },
+          { title: "Attention Mechanism (Bahdanau, Luong)", level: "intermediate" },
+          { title: "State Space Models (S4, Mamba, Mamba-2)", level: "advanced" },
+          { title: "RWKV & Linear Attention Models", level: "frontier" },
+        ],
+      },
+      {
+        name: "Transformers",
+        topics: [
+          { title: "Self-Attention & Multi-Head Attention", level: "foundation" },
+          { title: "Transformer Block Architecture", level: "foundation" },
+          { title: "Positional Encodings (Sinusoidal, Learned, RoPE, ALiBi)", level: "intermediate" },
+          { title: "Grouped-Query Attention (GQA) & Multi-Query Attention (MQA)", level: "intermediate" },
+          { title: "Multi-Head Latent Attention (MLA)", level: "advanced" },
+          { title: "Sparse & Linear Attention Variants", level: "advanced" },
+          { title: "Vision Transformers (ViT, DeiT, Swin, DiNOv2)", level: "advanced" },
+          { title: "Mixture-of-Experts Transformers (MoE)", level: "frontier" },
+          { title: "Interleaved / Cross-Attention Architectures", level: "frontier" },
+        ],
+      },
+      {
+        name: "Graph Neural Networks",
+        topics: [
+          { title: "Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)", level: "intermediate" },
+          { title: "Graph Transformers & Geometric Deep Learning", level: "advanced" },
+        ],
+      },
+      {
+        name: "Alternative Architectures & Historical Models",
+        topics: [
+          { title: "Boltzmann Machines & Restricted Boltzmann Machines (RBM)", level: "intermediate" },
+          { title: "Modern Hopfield Networks", level: "advanced" },
+          { title: "xLSTM (Extended LSTM)", level: "advanced" },
+          { title: "Hyena & Long Convolution Models", level: "advanced" },
+          { title: "Ring Attention & Sequence Parallelism", level: "advanced" },
+          { title: "Spectral Normalization & Gradient Penalty", level: "intermediate" },
+          { title: "Advanced Optimizers (Lion, Sophia, Prodigy, Schedule-Free)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "large-language-models",
+    title: "Large Language Models — Architecture, Training & Inference",
+    description: "Tokenization, pre-training, post-training alignment, inference optimization, and long-context retrieval for LLMs",
+    sections: [
+      {
+        name: "Tokenization & Input Processing",
+        topics: [
+          { title: "Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram", level: "foundation" },
+          { title: "Byte-Level Tokenization & Token-Free Models", level: "intermediate" },
+          { title: "Vocabulary Design & Multilingual Tokenization", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Pre-Training",
+        topics: [
+          { title: "Causal Language Modeling (Next-Token Prediction)", level: "foundation" },
+          { title: "Masked Language Modeling (BERT-style)", level: "foundation" },
+          { title: "Data Curation & Deduplication (MinHash, Bloom Filters)", level: "intermediate" },
+          { title: "Scaling Laws (Kaplan, Chinchilla, Beyond)", level: "intermediate" },
+          { title: "Curriculum Learning & Data Mixing Strategies", level: "advanced" },
+          { title: "FP8 Training & Low-Precision Pre-Training", level: "advanced" },
+          { title: "Synthetic Data Generation for Pre-Training", level: "frontier" },
+        ],
+      },
+      {
+        name: "Post-Training & Alignment",
+        topics: [
+          { title: "Supervised Fine-Tuning (SFT)", level: "intermediate" },
+          { title: "RLHF (Reinforcement Learning from Human Feedback)", level: "intermediate" },
+          { title: "DPO (Direct Preference Optimization)", level: "intermediate" },
+          { title: "GRPO, RLOO, KTO & Advanced Preference Methods", level: "advanced" },
+          { title: "Constitutional AI (CAI)", level: "advanced" },
+          { title: "Process Reward Models (PRM) vs Outcome Reward Models (ORM)", level: "advanced" },
+          { title: "RLAIF, IPO, ORPO & Emerging Alignment Methods", level: "advanced" },
+          { title: "P-Tuning & Soft Prompt Methods", level: "intermediate" },
+          { title: "RL for Reasoning (DeepSeek-R1 Style)", level: "frontier" },
+        ],
+      },
+      {
+        name: "Inference Optimization",
+        topics: [
+          { title: "KV-Cache & Memory Management", level: "intermediate" },
+          { title: "Decoding Strategies (Greedy, Beam, Top-k, Top-p, Temperature)", level: "intermediate" },
+          { title: "Continuous Batching & PagedAttention", level: "advanced" },
+          { title: "Speculative Decoding", level: "foundation" },
+          { title: "Prefix Caching & Prompt Caching", level: "advanced" },
+          { title: "Test-Time Compute Scaling", level: "frontier" },
+          { title: "Inference Engines & Serving", level: "frontier" },
+        ],
+      },
+      {
+        name: "Long Context & Retrieval",
+        topics: [
+          { title: "Context Window Extension (RoPE Scaling, YaRN, NTK-Aware)", level: "intermediate" },
+          { title: "Retrieval-Augmented Generation (RAG)", level: "intermediate" },
+          { title: "Embedding Models & Vector Databases", level: "advanced" },
+          { title: "GraphRAG & Agentic RAG", level: "advanced" },
+          { title: "Model Merging (TIES, DARE, Model Soups, SLERP)", level: "advanced" },
+          { title: "Hybrid Search (Dense + Sparse + Reranking)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "reinforcement-learning",
+    title: "Reinforcement Learning",
+    description: "MDPs, value-based and policy-based methods, deep RL, model-based RL, multi-agent systems, and RL environments",
+    sections: [
+      {
+        name: "Foundations",
+        topics: [
+          { title: "MDPs, Bellman Equations & Dynamic Programming", level: "foundation" },
+          { title: "Value Iteration & Policy Iteration", level: "foundation" },
+          { title: "Monte Carlo & Temporal Difference (TD) Methods", level: "foundation" },
+          { title: "Q-Learning & SARSA", level: "foundation" },
+          { title: "Exploration vs Exploitation (ε-greedy, UCB, Thompson Sampling)", level: "foundation" },
+        ],
+      },
+      {
+        name: "Deep RL",
+        topics: [
+          { title: "DQN & Rainbow Extensions", level: "intermediate" },
+          { title: "Policy Gradient Methods (REINFORCE, A2C)", level: "intermediate" },
+          { title: "PPO (Proximal Policy Optimization)", level: "intermediate" },
+          { title: "TRPO (Trust Region Policy Optimization)", level: "intermediate" },
+          { title: "A3C, IMPALA & Scalable Distributed RL", level: "advanced" },
+          { title: "R2D2, Agent57 & Atari-Scale RL", level: "advanced" },
+          { title: "SAC (Soft Actor-Critic) & Maximum Entropy RL", level: "advanced" },
+          { title: "DDPG, TD3 & Continuous Action Spaces", level: "advanced" },
+          { title: "Distributional RL (C51, QR-DQN, IQN)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Advanced RL",
+        topics: [
+          { title: "Model-Based RL (Dreamer, MuZero, World Models)", level: "advanced" },
+          { title: "Hierarchical RL (Options, Goal-Conditioned, HAM)", level: "advanced" },
+          { title: "Multi-Agent RL (MARL)", level: "advanced" },
+          { title: "Offline RL & Conservative Q-Learning (CQL)", level: "advanced" },
+          { title: "Decision Transformer & Sequence Modeling for RL", level: "advanced" },
+          { title: "IQL (Implicit Q-Learning)", level: "advanced" },
+          { title: "Inverse RL & Imitation Learning (GAIL, DAgger, BC)", level: "advanced" },
+          { title: "Reward Shaping & Intrinsic Motivation (Curiosity, RND)", level: "advanced" },
+          { title: "Reward Modeling & RLHF for LLMs", level: "frontier" },
+          { title: "Self-Play & Population-Based Training", level: "frontier" },
+        ],
+      },
+      {
+        name: "RL Environments & Tools",
+        topics: [
+          { title: "Simulation Environments", level: "foundation" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "generative-models",
+    title: "Generative Models",
+    description: "GANs, variational autoencoders, diffusion models, normalizing flows, and autoregressive generation",
+    sections: [
+      {
+        name: "GANs",
+        topics: [
+          { title: "Generative Adversarial Networks (GAN Fundamentals)", level: "intermediate" },
+          { title: "GAN Variants (DCGAN, WGAN, StyleGAN, CycleGAN, Pix2Pix)", level: "intermediate" },
+          { title: "Mode Collapse & Training Stability", level: "advanced" },
+        ],
+      },
+      {
+        name: "Variational Autoencoders",
+        topics: [
+          { title: "VAE & ELBO", level: "intermediate" },
+          { title: "VQ-VAE & Discrete Latent Spaces", level: "advanced" },
+          { title: "Hierarchical & Conditional VAEs", level: "advanced" },
+        ],
+      },
+      {
+        name: "Diffusion Models",
+        topics: [
+          { title: "Denoising Diffusion Probabilistic Models (DDPM)", level: "intermediate" },
+          { title: "Score-Based Models & SDEs", level: "intermediate" },
+          { title: "Latent Diffusion & Stable Diffusion", level: "advanced" },
+          { title: "Classifier-Free Guidance (CFG)", level: "advanced" },
+          { title: "Rectified Flow & Flow Matching", level: "advanced" },
+          { title: "Consistency Models & Distillation", level: "advanced" },
+          { title: "DiT (Diffusion Transformers)", level: "frontier" },
+        ],
+      },
+      {
+        name: "Other Generative Approaches",
+        topics: [
+          { title: "Normalizing Flows (RealNVP, Glow, Neural ODE)", level: "advanced" },
+          { title: "Autoregressive Image Models (PixelCNN, ImageGPT, VAR)", level: "advanced" },
+          { title: "Energy-Based Models (EBMs)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "nlp-cv-multimodal",
+    title: "NLP, Computer Vision & Multimodal AI",
+    description: "Natural language processing, computer vision tasks, multimodal models, and speech/audio processing",
+    sections: [
+      {
+        name: "Natural Language Processing",
+        topics: [
+          { title: "Text Classification, NER & Sequence Labeling", level: "foundation" },
+          { title: "Machine Translation & Cross-Lingual Transfer", level: "intermediate" },
+          { title: "Question Answering & Reading Comprehension", level: "intermediate" },
+          { title: "Text Summarization (Extractive & Abstractive)", level: "intermediate" },
+          { title: "Speech Recognition (ASR) & Text-to-Speech (TTS)", level: "advanced" },
+          { title: "Information Extraction & Knowledge Graphs", level: "advanced" },
+        ],
+      },
+      {
+        name: "Classic NLP & Embeddings",
+        topics: [
+          { title: "Word Embeddings (Word2Vec, GloVe, FastText)", level: "foundation" },
+          { title: "Contextual Embeddings (ELMo, BERT Variants)", level: "intermediate" },
+          { title: "Syntactic Parsing & Coreference Resolution", level: "intermediate" },
+          { title: "Dialogue Systems & Conversational AI", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Computer Vision",
+        topics: [
+          { title: "Image Classification", level: "foundation" },
+          { title: "Object Detection (YOLO, DETR, RT-DETR)", level: "intermediate" },
+          { title: "Semantic, Instance & Panoptic Segmentation", level: "intermediate" },
+          { title: "Pose Estimation & Action Recognition", level: "intermediate" },
+          { title: "3D Vision (NeRF, 3D Gaussian Splatting, Depth Estimation)", level: "advanced" },
+          { title: "Self-Supervised Visual Learning (MAE, DINO, SimCLR, CLIP)", level: "advanced" },
+          { title: "Optical Flow & Video Understanding", level: "advanced" },
+          { title: "OCR & Document Understanding", level: "advanced" },
+          { title: "Super-Resolution & Image Restoration", level: "advanced" },
+          { title: "Medical Imaging (Segmentation, Detection, Classification)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Multimodal AI",
+        topics: [
+          { title: "Vision-Language Models (CLIP, SigLIP, BLIP-2)", level: "intermediate" },
+          { title: "Multimodal LLMs (GPT-4V, Gemini, LLaVA, Qwen-VL)", level: "advanced" },
+          { title: "Text-to-Image Generation (DALL-E, Stable Diffusion, Flux, Midjourney)", level: "advanced" },
+          { title: "Video Generation (Sora, Runway Gen-3, Kling, Wan)", level: "frontier" },
+          { title: "Audio/Music Generation (AudioLM, MusicGen, Udio, Suno)", level: "frontier" },
+          { title: "Early Fusion Multimodality (Llama 4)", level: "frontier" },
+          { title: "Any-to-Any Models (Unified Multimodal Generation)", level: "frontier" },
+        ],
+      },
+      {
+        name: "Speech & Audio (Extended)",
+        topics: [
+          { title: "Voice Cloning & Speaker Adaptation (VALL-E, OpenVoice, XTTS)", level: "advanced" },
+          { title: "Speaker Diarization & Verification", level: "intermediate" },
+          { title: "Speech Emotion Recognition & Paralinguistics", level: "intermediate" },
+          { title: "Audio Classification & Sound Event Detection", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "quantitative-finance",
+    title: "AI for Quantitative Finance",
+    description: "Time-series forecasting, portfolio optimization, derivatives pricing, alpha generation, and market microstructure",
+    sections: [
+      {
+        name: "Time-Series & Forecasting",
+        topics: [
+          { title: "ARIMA, GARCH & Classical Time-Series", level: "foundation" },
+          { title: "Temporal Fusion Transformers & Neural Forecasting", level: "intermediate" },
+          { title: "Foundation Models for Time-Series (TimesFM, Chronos, Moirai)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Portfolio & Risk",
+        topics: [
+          { title: "Portfolio Optimization (Markowitz, Black-Litterman, Risk Parity)", level: "intermediate" },
+          { title: "Options Pricing & Derivatives (Black-Scholes, Monte Carlo, Neural SDEs)", level: "intermediate" },
+          { title: "Deep Hedging & RL for Trading", level: "advanced" },
+        ],
+      },
+      {
+        name: "Alpha & Microstructure",
+        topics: [
+          { title: "Alpha Signal Generation & Factor Models", level: "advanced" },
+          { title: "Market Microstructure & Order Book Modeling", level: "advanced" },
+          { title: "Backtesting Frameworks & Avoiding Overfitting", level: "advanced" },
+          { title: "LLMs for Financial Analysis", level: "frontier" },
+        ],
+      },
+      {
+        name: "Applied Finance ML",
+        topics: [
+          { title: "Credit Scoring & Fraud Detection", level: "intermediate" },
+          { title: "Stochastic Calculus for Finance (Ito Calculus, SDEs)", level: "intermediate" },
+          { title: "High-Frequency Trading & Low-Latency Infrastructure", level: "advanced" },
+          { title: "Classical Forecasting (Prophet, N-BEATS, N-HiTS)", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "computational-neuroscience",
+    title: "Computational Neuroscience & Neuro-Inspired AI",
+    description: "Spiking neural networks, brain-computer interfaces, neuromorphic computing, and biologically-inspired learning",
+    sections: [
+      {
+        name: "Neural Computation",
+        topics: [
+          { title: "Spiking Neural Networks (SNNs)", level: "intermediate" },
+          { title: "Hebbian Learning & Synaptic Plasticity", level: "intermediate" },
+          { title: "Predictive Coding & Free Energy Principle", level: "advanced" },
+          { title: "Neural Oscillations & Attention in the Brain", level: "advanced" },
+          { title: "Brain-Computer Interfaces (BCI)", level: "advanced" },
+          { title: "Neuromorphic Computing", level: "frontier" },
+          { title: "Whole-Brain Emulation & Connectomics", level: "frontier" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "evolutionary-algorithms",
+    title: "Evolutionary & Bio-Inspired Algorithms",
+    description: "Genetic algorithms, evolution strategies, swarm intelligence, neuroevolution, and open-ended evolution",
+    sections: [
+      {
+        name: "Core Evolutionary Methods",
+        topics: [
+          { title: "Genetic Algorithms (GA)", level: "foundation" },
+          { title: "Evolution Strategies (ES, CMA-ES, OpenAI-ES)", level: "intermediate" },
+          { title: "Differential Evolution (DE)", level: "intermediate" },
+          { title: "Particle Swarm Optimization (PSO) & Swarm Intelligence", level: "intermediate" },
+          { title: "Neuroevolution (NEAT, HyperNEAT, Weight Agnostic Networks)", level: "advanced" },
+          { title: "Quality-Diversity (MAP-Elites, CMA-ME)", level: "advanced" },
+          { title: "Genetic Programming & Symbolic Regression", level: "advanced" },
+          { title: "LLM-Guided Evolution & FunSearch", level: "frontier" },
+          { title: "Ant Colony Optimization (ACO)", level: "intermediate" },
+          { title: "Multi-Objective Evolutionary Optimization (NSGA-II, MOEA/D)", level: "advanced" },
+          { title: "Coevolution & Competitive Dynamics", level: "advanced" },
+          { title: "POET & Open-Ended Evolution", level: "advanced" },
+          { title: "Artificial Life & Open-Ended Search", level: "frontier" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "hardware-systems",
+    title: "Hardware, Systems & GPU Optimization",
+    description: "CPU/GPU architecture, CUDA programming, distributed training, profiling, and custom AI accelerators",
+    sections: [
+      {
+        name: "Hardware Fundamentals",
+        topics: [
+          { title: "CPU Architecture (Cores, Caches, SIMD, Pipelining)", level: "foundation" },
+          { title: "GPU Architecture (SMs, Warps, Threads, Memory Hierarchy)", level: "foundation" },
+          { title: "Memory Hierarchy (HBM, L2, SRAM, Registers, Bandwidth)", level: "intermediate" },
+          { title: "Tensor Cores & Specialized AI Hardware", level: "intermediate" },
+          { title: "Interconnects & Network Topology (NVLink, InfiniBand, NVSwitch)", level: "advanced" },
+        ],
+      },
+      {
+        name: "CUDA & Kernel Programming",
+        topics: [
+          { title: "CUDA Programming Model", level: "intermediate" },
+          { title: "Triton (GPU Kernel DSL)", level: "intermediate" },
+          { title: "Memory Coalescing, Bank Conflicts & Shared Memory Tiling", level: "advanced" },
+          { title: "Warp-Level Primitives & Cooperative Groups", level: "advanced" },
+          { title: "Custom CUDA Kernel Writing for ML Ops", level: "advanced" },
+          { title: "Flash Attention Implementation", level: "advanced" },
+          { title: "Operator Fusion & Torch Compile", level: "advanced" },
+          { title: "CUDA Libraries (cuBLAS, cuDNN, cuFFT, NCCL, Thrust, CUB)", level: "intermediate" },
+          { title: "Ring-AllReduce & Communication Primitives", level: "advanced" },
+        ],
+      },
+      {
+        name: "Distributed Training",
+        topics: [
+          { title: "Data Parallelism (DDP)", level: "intermediate" },
+          { title: "FSDP (Fully Sharded Data Parallelism)", level: "advanced" },
+          { title: "Tensor Parallelism (TP)", level: "advanced" },
+          { title: "Pipeline Parallelism (PP)", level: "advanced" },
+          { title: "Expert Parallelism & All-to-All Communication", level: "advanced" },
+          { title: "3D Parallelism & Hybrid Strategies", level: "advanced" },
+          { title: "Gradient Checkpointing (Activation Recomputation)", level: "advanced" },
+          { title: "ZeRO Optimization Stages (1, 2, 3)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Profiling & Performance",
+        topics: [
+          { title: "GPU Profiling & Roofline Analysis", level: "intermediate" },
+          { title: "FLOP Utilization (MFU) & Training Efficiency", level: "advanced" },
+        ],
+      },
+      {
+        name: "Custom AI Hardware",
+        topics: [
+          { title: "Google TPUs (Tensor Processing Units)", level: "advanced" },
+          { title: "Cerebras Wafer-Scale Engine", level: "advanced" },
+          { title: "Groq LPU (Language Processing Unit)", level: "advanced" },
+          { title: "Other AI Accelerators (Graphcore IPU, Intel Gaudi, Apple Neural Engine)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "model-optimization",
+    title: "Model Optimization & Efficiency",
+    description: "Quantization, parameter-efficient fine-tuning (LoRA/QLoRA), pruning, distillation, and edge deployment",
+    sections: [
+      {
+        name: "Quantization",
+        topics: [
+          { title: "Post-Training Quantization (PTQ)", level: "intermediate" },
+          { title: "Mixed Precision Training (FP16, BF16, TF32)", level: "intermediate" },
+          { title: "Quantization-Aware Training (QAT)", level: "advanced" },
+          { title: "Weight-Only vs. Weight-Activation Quantization", level: "advanced" },
+          { title: "Sub-4-Bit & 1-Bit Quantization (BitNet, AQLM)", level: "frontier" },
+        ],
+      },
+      {
+        name: "Parameter-Efficient Fine-Tuning (PEFT)",
+        topics: [
+          { title: "LoRA (Low-Rank Adaptation)", level: "intermediate" },
+          { title: "QLoRA", level: "intermediate" },
+          { title: "Adapters, Prefix Tuning, Prompt Tuning & IA3", level: "advanced" },
+          { title: "DoRA, rsLoRA & Advanced LoRA Variants", level: "advanced" },
+        ],
+      },
+      {
+        name: "Pruning & Distillation",
+        topics: [
+          { title: "Knowledge Distillation", level: "intermediate" },
+          { title: "Structured & Unstructured Pruning", level: "advanced" },
+          { title: "Layer Pruning & Depth Reduction", level: "advanced" },
+          { title: "Neural Architecture Search (NAS)", level: "advanced" },
+        ],
+      },
+      {
+        name: "On-Device & Edge Deployment",
+        topics: [
+          { title: "ONNX & Model Export", level: "intermediate" },
+          { title: "Edge Inference (TensorRT, CoreML, TFLite)", level: "intermediate" },
+          { title: "On-Device SLMs (Small Language Models)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "mlops-infrastructure",
+    title: "MLOps & Infrastructure",
+    description: "Experiment tracking, model serving, containerization, feature stores, monitoring, and cloud platforms",
+    sections: [
+      {
+        name: "Experiment Management",
+        topics: [
+          { title: "Experiment Tracking & Logging", level: "foundation" },
+          { title: "Hyperparameter Optimization", level: "intermediate" },
+          { title: "Data Versioning & Pipeline Management", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Model Serving & Deployment",
+        topics: [
+          { title: "Model Serving & API Frameworks", level: "intermediate" },
+          { title: "Containerization & Orchestration", level: "intermediate" },
+          { title: "Feature Stores", level: "advanced" },
+          { title: "Model Monitoring & Drift Detection", level: "advanced" },
+          { title: "CI/CD for ML Pipelines", level: "advanced" },
+        ],
+      },
+      {
+        name: "Cloud & Compute",
+        topics: [
+          { title: "GPU Cloud & Training Platforms", level: "intermediate" },
+          { title: "Hugging Face Ecosystem", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ai-safety-alignment",
+    title: "AI Safety, Alignment & Evaluation",
+    description: "Alignment techniques, mechanistic interpretability, adversarial robustness, benchmarks, and AI governance",
+    sections: [
+      {
+        name: "Alignment Techniques",
+        topics: [
+          { title: "RLHF, DPO & Preference Learning", level: "intermediate" },
+          { title: "Constitutional AI & Rule-Based Rewards (RBRM)", level: "advanced" },
+          { title: "Debate, Recursive Reward Modeling & Iterated Amplification", level: "advanced" },
+          { title: "Superalignment & Weak-to-Strong Generalization", level: "frontier" },
+        ],
+      },
+      {
+        name: "Interpretability",
+        topics: [
+          { title: "Attention Visualization & Probing", level: "intermediate" },
+          { title: "Mechanistic Interpretability", level: "advanced" },
+          { title: "Sparse Autoencoders (SAE) for Feature Discovery", level: "advanced" },
+          { title: "Circuit Analysis & Causal Tracing", level: "advanced" },
+        ],
+      },
+      {
+        name: "Safety & Robustness",
+        topics: [
+          { title: "Red-Teaming & Adversarial Testing", level: "intermediate" },
+          { title: "Hallucination Detection & Mitigation", level: "intermediate" },
+          { title: "Sycophancy & Reward Hacking", level: "advanced" },
+          { title: "Adversarial Robustness & Certified Defenses", level: "advanced" },
+          { title: "Fairness, Bias & Responsible AI", level: "advanced" },
+        ],
+      },
+      {
+        name: "Evaluation & Benchmarks",
+        topics: [
+          { title: "LLM Benchmarks (MMLU, HellaSwag, HumanEval, GSM8K, MATH)", level: "intermediate" },
+          { title: "LLM-as-Judge & Arena-Style Evaluation", level: "advanced" },
+          { title: "Contamination Detection & Evaluation Integrity", level: "advanced" },
+        ],
+      },
+      {
+        name: "Advanced Alignment Theory",
+        topics: [
+          { title: "Deceptive Alignment & Mesa-Optimization", level: "advanced" },
+          { title: "Goodhart's Law in RLHF & Reward Overoptimization", level: "advanced" },
+          { title: "Lottery Ticket Hypothesis & Sparse Subnetworks", level: "frontier" },
+        ],
+      },
+      {
+        name: "Governance, Ethics & Societal Impact",
+        topics: [
+          { title: "AI-Generated Content Watermarking", level: "intermediate" },
+          { title: "Deepfake Detection", level: "intermediate" },
+          { title: "Copyright, Training Data Legality & Data Rights", level: "advanced" },
+          { title: "Environmental Impact of Training", level: "advanced" },
+          { title: "Existential Risk & AI Governance Frameworks", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "agents-tool-use",
+    title: "Agents, Tool Use & Prompting",
+    description: "Prompt engineering, agentic systems, multi-agent architectures, structured output, and planning",
+    sections: [
+      {
+        name: "Prompt Engineering",
+        topics: [
+          { title: "Prompt Design Fundamentals (Zero/Few-Shot, System Prompts)", level: "foundation" },
+          { title: "Chain-of-Thought (CoT) & Step-by-Step Reasoning", level: "intermediate" },
+          { title: "Self-Consistency & Majority Voting", level: "intermediate" },
+          { title: "Tree-of-Thought, Graph-of-Thought & Search-Based Prompting", level: "advanced" },
+          { title: "Prompt Optimization & DSPy", level: "advanced" },
+        ],
+      },
+      {
+        name: "Agentic Systems",
+        topics: [
+          { title: "Function Calling & Tool Use", level: "intermediate" },
+          { title: "ReAct (Reasoning + Acting)", level: "intermediate" },
+          { title: "Agentic Frameworks", level: "intermediate" },
+          { title: "Multi-Agent Systems & Agent Communication", level: "advanced" },
+          { title: "Agent Memory Architectures", level: "advanced" },
+          { title: "Code Generation Agents & Computer Use", level: "advanced" },
+          { title: "Model Context Protocol (MCP)", level: "advanced" },
+          { title: "Planning & Reasoning in Agents", level: "frontier" },
+        ],
+      },
+      {
+        name: "Structured Output & Grounding",
+        topics: [
+          { title: "Structured Output (JSON Mode, Outlines, Grammar Constraints)", level: "intermediate" },
+          { title: "Grounding & Factuality Verification", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "frontier-research",
+    title: "Frontier Research Areas",
+    description: "Emerging paradigms, causal learning, continual learning, AI for science, robotics, and privacy-preserving ML",
+    sections: [
+      {
+        name: "Emerging Paradigms",
+        topics: [
+          { title: "In-Context Learning Theory", level: "frontier" },
+          { title: "World Models & Predictive Learning", level: "frontier" },
+          { title: "Causal Representation Learning", level: "frontier" },
+          { title: "Continual / Lifelong Learning", level: "frontier" },
+          { title: "Grokking & Delayed Generalization", level: "frontier" },
+          { title: "Emergent Abilities & Phase Transitions", level: "frontier" },
+          { title: "Synthetic Data & Self-Improvement Loops", level: "frontier" },
+          { title: "Test-Time Training (TTT) & Adaptive Inference", level: "frontier" },
+          { title: "Reasoning Scaling & Extended Thinking", level: "frontier" },
+          { title: "Neural Scaling Laws Beyond Chinchilla", level: "frontier" },
+          { title: "Geometric & Topological Deep Learning", level: "frontier" },
+          { title: "Federated Learning & Privacy-Preserving ML", level: "advanced" },
+          { title: "Differential Privacy in ML", level: "advanced" },
+          { title: "Neuro-Symbolic AI", level: "advanced" },
+          { title: "Dataset Distillation & Data-Centric AI", level: "advanced" },
+          { title: "Model Merging & Weight Space Methods", level: "advanced" },
+          { title: "Embodied AI & Sim-to-Real Transfer", level: "frontier" },
+          { title: "Robotics Foundation Models (RT-2, Octo, π₀)", level: "frontier" },
+        ],
+      },
+      {
+        name: "AI for Science",
+        topics: [
+          { title: "Protein Structure Prediction (AlphaFold, ESMFold)", level: "advanced" },
+          { title: "Drug Discovery & Molecular Generation", level: "advanced" },
+          { title: "Physics-Informed Neural Networks (PINNs)", level: "advanced" },
+          { title: "Neural Operators (FNO, DeepONet)", level: "advanced" },
+          { title: "Weather & Climate Prediction (GraphCast, Pangu-Weather, GenCast)", level: "frontier" },
+          { title: "AI for Mathematics (AlphaProof, FunSearch)", level: "frontier" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "self-supervised-learning",
+    title: "Self-Supervised & Contrastive Learning",
+    description: "Contrastive methods, self-distillation, masked autoencoders, CLIP, and joint embedding architectures",
+    sections: [
+      {
+        name: "Methods",
+        topics: [
+          { title: "Contrastive Learning (SimCLR, MoCo, InfoNCE Loss)", level: "intermediate" },
+          { title: "Self-Distillation (BYOL, DINO, DINOv2)", level: "intermediate" },
+          { title: "Masked Autoencoders (MAE, BEiT, data2vec)", level: "intermediate" },
+          { title: "CLIP & Language-Supervised Visual Learning", level: "advanced" },
+          { title: "Joint Embedding Predictive Architectures (JEPA)", level: "advanced" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "meta-learning",
+    title: "Meta-Learning (Learning to Learn)",
+    description: "Few-shot learning, optimization-based and metric-based meta-learning, memory-augmented networks, and meta-RL",
+    sections: [
+      {
+        name: "Foundations & Problem Setup",
+        topics: [
+          { title: "Meta-Learning Problem Formulation", level: "foundation" },
+          { title: "Few-Shot Learning & N-Way K-Shot Setup", level: "foundation" },
+          { title: "Episodic Training", level: "foundation" },
+          { title: "Meta-Train / Meta-Test Split", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Optimization-Based Meta-Learning",
+        topics: [
+          { title: "MAML (Model-Agnostic Meta-Learning)", level: "intermediate" },
+          { title: "Reptile", level: "intermediate" },
+          { title: "ANIL (Almost No Inner Loop) & Meta-SGD", level: "advanced" },
+          { title: "Implicit MAML & iMAML", level: "advanced" },
+          { title: "Warped Gradient Descent & Task-Specific Parameterization", level: "advanced" },
+        ],
+      },
+      {
+        name: "Metric-Based Meta-Learning",
+        topics: [
+          { title: "Siamese Networks", level: "intermediate" },
+          { title: "Prototypical Networks", level: "intermediate" },
+          { title: "Matching Networks", level: "intermediate" },
+          { title: "Relation Networks", level: "advanced" },
+          { title: "Graph Neural Network-Based Meta-Learning", level: "advanced" },
+        ],
+      },
+      {
+        name: "Model-Based (Memory-Augmented) Meta-Learning",
+        topics: [
+          { title: "Memory-Augmented Neural Networks (MANN)", level: "intermediate" },
+          { title: "Neural Turing Machines & Differentiable Memory", level: "advanced" },
+          { title: "Meta-Networks (MetaNet) & Hypernetworks for Meta-Learning", level: "advanced" },
+          { title: "Conditional Neural Processes (CNP) & Neural Processes", level: "advanced" },
+        ],
+      },
+      {
+        name: "Advanced Meta-Learning",
+        topics: [
+          { title: "Meta-Reinforcement Learning", level: "advanced" },
+          { title: "Task-Agnostic & Unsupervised Meta-Learning", level: "advanced" },
+          { title: "Bayesian Meta-Learning (BMAML, VERSA)", level: "advanced" },
+          { title: "Learned Optimizers & Learning to Optimize", level: "advanced" },
+          { title: "AutoML as Meta-Learning", level: "advanced" },
+          { title: "In-Context Learning as Meta-Learning", level: "frontier" },
+          { title: "Foundation Models as Few-Shot Learners", level: "frontier" },
+          { title: "Meta-Learning for Continual Learning", level: "frontier" },
+        ],
+      },
+      {
+        name: "Black-Box & Amortized Meta-Learning",
+        topics: [
+          { title: "Recurrent Meta-Learners (RL², SNAIL)", level: "advanced" },
+          { title: "Transformer-Based Meta-Learners (TNP, In-Context Learners)", level: "advanced" },
+          { title: "Fast-Weight Programmers", level: "advanced" },
+        ],
+      },
+      {
+        name: "Meta-Learning for Specific Domains",
+        topics: [
+          { title: "Few-Shot Object Detection & Segmentation", level: "advanced" },
+          { title: "Meta-RL: PEARL, VariBAD & Context-Based Adaptation", level: "advanced" },
+          { title: "Meta-Learning for Drug Discovery & Molecular Properties", level: "advanced" },
+          { title: "Meta-Learning for NLP (Cross-Lingual Transfer, Prompt Learning)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Meta-Learning + AutoML & Curriculum",
+        topics: [
+          { title: "DARTS & Meta-Learned Architectures", level: "advanced" },
+          { title: "Meta-Learned Data Augmentation & Curriculum", level: "advanced" },
+          { title: "LEO, CAVIA & Latent Space Meta-Learning", level: "advanced" },
+          { title: "Meta-Learned Loss Functions & Regularizers", level: "advanced" },
+        ],
+      },
+      {
+        name: "Theoretical Foundations & Connections",
+        topics: [
+          { title: "PAC-Bayes Bounds for Meta-Learning", level: "advanced" },
+          { title: "Meta-Overfitting & When Meta-Learning Helps", level: "advanced" },
+          { title: "Transfer Learning vs. Meta-Learning", level: "advanced" },
+          { title: "Compositional Meta-Learning", level: "frontier" },
+          { title: "Meta-Learning at Scale & Scaling Laws", level: "frontier" },
+          { title: "Task Vectors & Gradient Descent in Transformers", level: "frontier" },
+        ],
+      },
+      {
+        name: "Benchmarks & Tools",
+        topics: [
+          { title: "Meta-Learning Benchmarks", level: "intermediate" },
+          { title: "Meta-Learning Libraries", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "quantum-ai",
+    title: "Quantum AI & Quantum Computing for ML",
+    description: "Quantum computing fundamentals, quantum algorithms, quantum machine learning, and NISQ-era hardware",
+    sections: [
+      {
+        name: "Quantum Computing Fundamentals",
+        topics: [
+          { title: "Qubits, Superposition & Entanglement", level: "foundation" },
+          { title: "Quantum Gates & Circuits", level: "foundation" },
+          { title: "Measurement & Born Rule", level: "foundation" },
+          { title: "Quantum State Spaces & Hilbert Space", level: "intermediate" },
+          { title: "Density Matrices & Mixed States", level: "intermediate" },
+          { title: "Quantum Complexity Theory & BQP", level: "intermediate" },
+          { title: "No-Cloning Theorem & Quantum Teleportation", level: "foundation" },
+          { title: "Quantum Annealing & Adiabatic Quantum Computing", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Quantum Algorithms",
+        topics: [
+          { title: "Grover's Search Algorithm", level: "intermediate" },
+          { title: "Shor's Factoring Algorithm", level: "intermediate" },
+          { title: "Quantum Fourier Transform (QFT)", level: "intermediate" },
+          { title: "Variational Quantum Eigensolver (VQE)", level: "intermediate" },
+          { title: "Quantum Walks", level: "intermediate" },
+          { title: "Quantum Approximate Optimization Algorithm (QAOA)", level: "advanced" },
+          { title: "Quantum Phase Estimation (QPE)", level: "advanced" },
+          { title: "HHL Algorithm (Quantum Linear Systems)", level: "advanced" },
+          { title: "Quantum Simulation (Hamiltonian Simulation)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Quantum Machine Learning",
+        topics: [
+          { title: "Variational Quantum Circuits (VQC) / Parameterized Quantum Circuits", level: "intermediate" },
+          { title: "Quantum Kernel Methods", level: "intermediate" },
+          { title: "Quantum Data Encoding (Amplitude, Angle, Basis Encoding)", level: "intermediate" },
+          { title: "Quantum Neural Networks (QNN) & Hybrid Models", level: "advanced" },
+          { title: "Barren Plateaus & Trainability", level: "advanced" },
+          { title: "Quantum Generative Models (QGAN, Quantum Boltzmann Machines)", level: "advanced" },
+          { title: "Quantum Reinforcement Learning", level: "advanced" },
+          { title: "Quantum Transfer Learning", level: "advanced" },
+          { title: "Quantum Reservoir Computing", level: "advanced" },
+        ],
+      },
+      {
+        name: "Quantum for Optimization & Finance",
+        topics: [
+          { title: "Quantum Monte Carlo Methods", level: "advanced" },
+          { title: "Quantum Portfolio Optimization & Risk Analysis", level: "advanced" },
+          { title: "Combinatorial Optimization on Quantum Hardware (MaxCut, TSP via QAOA)", level: "advanced" },
+        ],
+      },
+      {
+        name: "Quantum Information Theory & Frontier Research",
+        topics: [
+          { title: "Quantum Information Theory (von Neumann Entropy, Fidelity, Tomography)", level: "advanced" },
+          { title: "Quantum Natural Language Processing (QNLP)", level: "frontier" },
+          { title: "Quantum Foundation Models & Advantage Benchmarks", level: "frontier" },
+        ],
+      },
+      {
+        name: "Quantum-Inspired Classical Methods",
+        topics: [
+          { title: "Tensor Networks (MPS, PEPS, MERA)", level: "intermediate" },
+          { title: "Quantum-Inspired Optimization (Simulated Annealing, DMRG-Inspired)", level: "advanced" },
+          { title: "Dequantization & Classical Simulation of Quantum ML", level: "advanced" },
+        ],
+      },
+      {
+        name: "Hardware & NISQ Era",
+        topics: [
+          { title: "NISQ (Noisy Intermediate-Scale Quantum) Devices", level: "intermediate" },
+          { title: "Quantum Hardware Technologies (Superconducting, Trapped Ion, Photonic, Neutral Atom)", level: "intermediate" },
+          { title: "Quantum Error Correction (Surface Codes, Logical Qubits)", level: "advanced" },
+          { title: "Quantum Error Mitigation", level: "advanced" },
+          { title: "Fault-Tolerant Quantum Computing", level: "frontier" },
+          { title: "Quantum Advantage for ML — Status & Outlook", level: "frontier" },
+        ],
+      },
+      {
+        name: "Quantum Computing Frameworks",
+        topics: [
+          { title: "Quantum Programming Frameworks", level: "foundation" },
+          { title: "Quantum Circuit Languages & Additional Tools", level: "intermediate" },
+          { title: "Quantum Simulators", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "landmark-models",
+    title: "Landmark Models & What Makes Them Notable",
+    description: "Key AI models that defined eras and introduced breakthrough innovations, from GPT to DeepSeek-R1",
+    sections: [
+      {
+        name: "Notable Models",
+        topics: [
+          { title: "DeepSeek-R1", level: "intermediate" },
+          { title: "DeepSeek-V3", level: "intermediate" },
+          { title: "Meta Llama 4 (Scout & Maverick)", level: "intermediate" },
+          { title: "OpenAI o-Series (o1, o3, o4-mini)", level: "intermediate" },
+          { title: "Claude 4.6 (Opus, Sonnet)", level: "intermediate" },
+          { title: "Google Gemini (1.5 Pro, 2.0, 2.5)", level: "intermediate" },
+          { title: "Mistral & Mixtral", level: "intermediate" },
+          { title: "Qwen Series (Qwen 2.5, Qwen3)", level: "intermediate" },
+          { title: "Stable Diffusion 3 / Flux", level: "intermediate" },
+          { title: "Sora", level: "intermediate" },
+          { title: "Mamba / Mamba-2", level: "intermediate" },
+          { title: "GPT Series (GPT-1 → GPT-4o)", level: "intermediate" },
+          { title: "Phi Series (Phi-1 → Phi-4)", level: "intermediate" },
+          { title: "Grok Series (Grok-1, Grok-2, Grok-3)", level: "intermediate" },
+          { title: "Command R & Command R+", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "core-frameworks",
+    title: "Core Frameworks & Tool Ecosystem",
+    description: "Deep learning frameworks, training libraries, data tools, NLP/vision libraries, and vector databases",
+    sections: [
+      {
+        name: "Deep Learning Frameworks",
+        topics: [
+          { title: "PyTorch", level: "foundation" },
+          { title: "JAX", level: "foundation" },
+          { title: "TensorFlow & Keras", level: "foundation" },
+        ],
+      },
+      {
+        name: "Training & Optimization Libraries",
+        topics: [
+          { title: "Training Acceleration", level: "intermediate" },
+          { title: "LLM Fine-Tuning Platforms", level: "intermediate" },
+        ],
+      },
+      {
+        name: "Data & Annotation",
+        topics: [
+          { title: "Data Processing & Loading", level: "foundation" },
+          { title: "Data Annotation & Labeling", level: "intermediate" },
+        ],
+      },
+      {
+        name: "NLP, Vision & Data Libraries",
+        topics: [
+          { title: "NLP Libraries", level: "foundation" },
+          { title: "Computer Vision Libraries", level: "foundation" },
+          { title: "Visualization", level: "foundation" },
+          { title: "GPU-Accelerated Computing", level: "foundation" },
+        ],
+      },
+      {
+        name: "Vector Databases & Annotation",
+        topics: [
+          { title: "Vector Databases", level: "intermediate" },
+          { title: "Data Annotation & Labeling (Extended)", level: "intermediate" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "terminology-glossary",
+    title: "Key Terminology Glossary",
+    description: "Essential AI/ML terms and definitions covering scaling laws, alignment concepts, quantum computing, and more",
+    sections: [
+      {
+        name: "Glossary Terms",
+        topics: [
+          { title: "Arithmetic Intensity", level: "foundation" },
+          { title: "FLOP Utilization (MFU)", level: "foundation" },
+          { title: "Scaling Laws", level: "foundation" },
+          { title: "Chinchilla-Optimal", level: "foundation" },
+          { title: "Emergent Abilities", level: "foundation" },
+          { title: "Grokking", level: "foundation" },
+          { title: "Mode Collapse", level: "foundation" },
+          { title: "Reward Hacking", level: "foundation" },
+          { title: "Sycophancy", level: "foundation" },
+          { title: "Catastrophic Forgetting", level: "foundation" },
+          { title: "KV-Cache", level: "foundation" },
+          { title: "Perplexity", level: "foundation" },
+          { title: "Overparameterized", level: "foundation" },
+          { title: "Double Descent", level: "foundation" },
+          { title: "Mixture-of-Experts (MoE)", level: "foundation" },
+          { title: "Token", level: "foundation" },
+          { title: "Inference-Time Compute", level: "foundation" },
+          { title: "RLHF", level: "foundation" },
+          { title: "DPO", level: "foundation" },
+          { title: "LoRA", level: "foundation" },
+          { title: "Flash Attention", level: "foundation" },
+          { title: "Speculative Decoding", level: "foundation" },
+          { title: "Activation Checkpointing", level: "foundation" },
+          { title: "RoPE", level: "foundation" },
+          { title: "SwiGLU", level: "foundation" },
+          { title: "RMSNorm", level: "foundation" },
+          { title: "Attention Sink", level: "foundation" },
+          { title: "Hallucination", level: "foundation" },
+          { title: "Distillation", level: "foundation" },
+          { title: "Data Contamination", level: "foundation" },
+          { title: "Alignment Tax", level: "foundation" },
+          { title: "Loss Spike", level: "foundation" },
+          { title: "µP (Maximal Update Parameterization)", level: "foundation" },
+          { title: "Auxiliary Loss", level: "foundation" },
+          { title: "Soft Labels", level: "foundation" },
+          { title: "Few-Shot Learning", level: "foundation" },
+          { title: "MAML", level: "foundation" },
+          { title: "Episodic Training", level: "foundation" },
+          { title: "Qubit", level: "foundation" },
+          { title: "Superposition", level: "foundation" },
+          { title: "Entanglement", level: "foundation" },
+          { title: "NISQ", level: "foundation" },
+          { title: "Barren Plateau", level: "foundation" },
+          { title: "Variational Quantum Circuit", level: "foundation" },
+          { title: "Quantum Advantage", level: "foundation" },
+          { title: "Hypernetwork", level: "foundation" },
+          { title: "Goodhart's Law (in RLHF)", level: "foundation" },
+          { title: "Lottery Ticket Hypothesis", level: "foundation" },
+          { title: "Representational Collapse", level: "foundation" },
+          { title: "Loss Landscape Geometry", level: "foundation" },
+          { title: "PAC Learning", level: "foundation" },
+          { title: "VC Dimension", level: "foundation" },
+          { title: "Deceptive Alignment", level: "foundation" },
+          { title: "Mesa-Optimization", level: "foundation" },
+          { title: "Model Merging", level: "foundation" },
+          { title: "Conformal Prediction", level: "foundation" },
+          { title: "Federated Learning", level: "foundation" },
+          { title: "No-Cloning Theorem", level: "foundation" },
+          { title: "Quantum Annealing", level: "foundation" },
+          { title: "QNLP", level: "foundation" },
+        ],
+      },
+    ],
+  },
+];

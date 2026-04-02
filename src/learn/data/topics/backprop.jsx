@@ -2,11 +2,8 @@ import { colors, fonts } from "../../styles";
 import BackpropVisualizer from "../../components/BackpropVisualizer";
 
 const backprop = {
-  id: "backprop",
-  title: "Backpropagation",
-  category: "fundamentals",
+  title: "Backpropagation & Automatic Differentiation",
   readTime: "12 min",
-  order: 2,
   content: () => (
     <div>
       <p style={{ fontFamily: fonts.mono, fontSize: 13, color: colors.textSecondary, lineHeight: 1.8, marginBottom: 20 }}>

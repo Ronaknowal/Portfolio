@@ -13,6 +13,21 @@ export const colors = {
   cardHoverBorder: "#e2b55a33",
 };
 
+// Difficulty level colors (single-hue approach — gold shades for consistency)
+export const levelColors = {
+  foundation: "#4ade80",   // green — basics
+  intermediate: "#e2b55a", // gold — core
+  advanced: "#c084fc",     // purple — deep
+  frontier: "#f87171",     // red — cutting edge
+};
+
+export const levelLabels = {
+  foundation: "Foundation",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+  frontier: "Frontier",
+};
+
 export const fonts = {
   mono: "'JetBrains Mono', 'Fira Code', monospace",
   sans: "'Space Grotesk', sans-serif",

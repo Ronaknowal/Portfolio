@@ -2,11 +2,8 @@ import { colors, fonts } from "../../styles";
 import AttentionVisualizer from "../../components/AttentionVisualizer";
 
 const attention = {
-  id: "attention",
-  title: "Attention Mechanism",
-  category: "nlp",
+  title: "Attention Mechanism (Bahdanau, Luong)",
   readTime: "8 min",
-  order: 10,
   content: () => (
     <div>
       <p style={{ fontFamily: fonts.mono, fontSize: 13, color: colors.textSecondary, lineHeight: 1.8, marginBottom: 20 }}>

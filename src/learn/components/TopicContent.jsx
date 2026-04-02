@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { colors, fonts } from "../styles";
 import { tracks } from "../data/tracks";
+import PlaceholderContent from "./PlaceholderContent";
+import LevelBadge from "./LevelBadge";
 
 export default function TopicContent({ topic, track, topicIds, currentIndex, isComplete, toggleComplete, basePath }) {
   const navigate = useNavigate();
@@ -82,35 +84,40 @@ export default function TopicContent({ topic, track, topicIds, currentIndex, isC
       <h1 style={{ fontFamily: fonts.sans, fontSize: 28, fontWeight: 600, color: colors.textPrimary, margin: "0 0 6px" }}>
         {topic.title}
       </h1>
-      <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 28 }}>
-        {topic.category} · {topic.readTime} · Topic {currentIndex + 1} of {topicIds.length}
+      <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 28, display: "flex", alignItems: "center", gap: 8 }}>
+        <LevelBadge level={topic.level} size="normal" />
+        <span>{topic.readTime} · Topic {currentIndex + 1} of {topicIds.length}</span>
       </div>
 
-      {/* Article content (JSX) — supports single content or sections */}
-      {topic.sections ? (
-        topic.sections.map((section, i) => {
-          const SectionContent = section.content;
-          return (
-            <div key={section.id || i} id={section.id} style={{ marginBottom: i < topic.sections.length - 1 ? 40 : 0 }}>
-              {section.title && (
-                <h2 style={{
-                  fontFamily: fonts.sans,
-                  fontSize: 22,
-                  fontWeight: 600,
-                  color: colors.textPrimary,
-                  margin: "0 0 16px 0",
-                  paddingTop: i > 0 ? 20 : 0,
-                  borderTop: i > 0 ? `1px solid ${colors.border}` : "none",
-                }}>
-                  {section.title}
-                </h2>
-              )}
-              <SectionContent />
-            </div>
-          );
-        })
+      {/* Article content (JSX) — supports sections, single content, or placeholder */}
+      {topic.content ? (
+        topic.sections ? (
+          topic.sections.map((section, i) => {
+            const SectionContent = section.content;
+            return (
+              <div key={section.id || i} id={section.id} style={{ marginBottom: i < topic.sections.length - 1 ? 40 : 0 }}>
+                {section.title && (
+                  <h2 style={{
+                    fontFamily: fonts.sans,
+                    fontSize: 22,
+                    fontWeight: 600,
+                    color: colors.textPrimary,
+                    margin: "0 0 16px 0",
+                    paddingTop: i > 0 ? 20 : 0,
+                    borderTop: i > 0 ? `1px solid ${colors.border}` : "none",
+                  }}>
+                    {section.title}
+                  </h2>
+                )}
+                <SectionContent />
+              </div>
+            );
+          })
+        ) : (
+          <Content />
+        )
       ) : (
-        <Content />
+        <PlaceholderContent title={topic.title} />
       )}
 
       {/* Bottom bar */}
