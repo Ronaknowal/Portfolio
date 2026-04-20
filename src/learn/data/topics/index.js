@@ -8,6 +8,17 @@ import byteLevelContent from "./byte-level-tokenization";
 import vocabularyMultilingualContent from "./vocabulary-multilingual";
 import multimodalContent from "./multimodal-tokenization";
 import dynamicContent from "./dynamic-tokenization";
+// Pre-Training section
+import causalLMContent from "./causal-language-modeling";
+import maskedLMContent from "./masked-language-modeling";
+import dedupContent from "./data-curation-deduplication";
+import scalingLawsContent from "./scaling-laws";
+import curriculumContent from "./curriculum-data-mixing";
+import fp8Content from "./fp8-training";
+import moeContent from "./moe-training";
+import multimodalPretrainingContent from "./multimodal-pretraining";
+import curationPipelinesContent from "./data-curation-pipelines";
+import syntheticDataContent from "./synthetic-data-pretraining";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -18,6 +29,17 @@ const customContent = {
   "vocabulary-design-multilingual-tokenization": vocabularyMultilingualContent,
   "multimodal-tokenization-visual-audio-video": multimodalContent,
   "dynamic-tokenization-adat-boundlessbpe-litetoken": dynamicContent,
+  // Pre-Training
+  "causal-language-modeling-next-token-prediction": causalLMContent,
+  "masked-language-modeling-bert-style": maskedLMContent,
+  "data-curation-deduplication-minhash-bloom-filters": dedupContent,
+  "scaling-laws-kaplan-chinchilla-beyond": scalingLawsContent,
+  "curriculum-learning-data-mixing-strategies": curriculumContent,
+  "fp8-training-low-precision-pre-training": fp8Content,
+  "moe-training-expert-load-balancing": moeContent,
+  "multimodal-pre-training-vision-encoders-cross-modal-alignment": multimodalPretrainingContent,
+  "data-curation-pipelines-curator-models-quality-filtering": curationPipelinesContent,
+  "synthetic-data-generation-for-pre-training": syntheticDataContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
