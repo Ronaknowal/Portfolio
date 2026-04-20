@@ -6,6 +6,7 @@ import backpropContent from "./backprop";
 import tokenizationContent from "./tokenization";
 import byteLevelContent from "./byte-level-tokenization";
 import vocabularyMultilingualContent from "./vocabulary-multilingual";
+import multimodalContent from "./multimodal-tokenization";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -14,6 +15,7 @@ const customContent = {
   "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram": tokenizationContent,
   "byte-level-tokenization-token-free-models": byteLevelContent,
   "vocabulary-design-multilingual-tokenization": vocabularyMultilingualContent,
+  "multimodal-tokenization-visual-audio-video": multimodalContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
