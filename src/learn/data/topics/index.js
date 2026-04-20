@@ -19,6 +19,20 @@ import moeContent from "./moe-training";
 import multimodalPretrainingContent from "./multimodal-pretraining";
 import curationPipelinesContent from "./data-curation-pipelines";
 import syntheticDataContent from "./synthetic-data-pretraining";
+// Post-Training & Alignment section
+import sftContent from "./supervised-fine-tuning";
+import rlhfContent from "./rlhf";
+import dpoContent from "./dpo";
+import simpoContent from "./simpo";
+import pTuningContent from "./p-tuning-soft-prompts";
+import grpoRlooKtoContent from "./grpo-rloo-kto";
+import constitutionalAIContent from "./constitutional-ai";
+import prmVsOrmContent from "./prm-vs-orm";
+import rlaifIpoOrpoContent from "./rlaif-ipo-orpo";
+import rlvrContent from "./rlvr";
+import dapoContent from "./dapo";
+import knowledgeDistillationContent from "./knowledge-distillation-llms";
+import rlForReasoningContent from "./rl-for-reasoning";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -40,6 +54,20 @@ const customContent = {
   "multimodal-pre-training-vision-encoders-cross-modal-alignment": multimodalPretrainingContent,
   "data-curation-pipelines-curator-models-quality-filtering": curationPipelinesContent,
   "synthetic-data-generation-for-pre-training": syntheticDataContent,
+  // Post-Training & Alignment
+  "supervised-fine-tuning-sft": sftContent,
+  "rlhf-reinforcement-learning-from-human-feedback": rlhfContent,
+  "dpo-direct-preference-optimization": dpoContent,
+  "simpo-simple-preference-optimization": simpoContent,
+  "p-tuning-soft-prompt-methods": pTuningContent,
+  "grpo-rloo-kto-advanced-preference-methods": grpoRlooKtoContent,
+  "constitutional-ai-cai": constitutionalAIContent,
+  "process-reward-models-prm-vs-outcome-reward-models-orm": prmVsOrmContent,
+  "rlaif-ipo-orpo-emerging-alignment-methods": rlaifIpoOrpoContent,
+  "rlvr-reinforcement-learning-with-verifiable-rewards": rlvrContent,
+  "dapo-dynamic-adaptive-policy-optimization": dapoContent,
+  "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation": knowledgeDistillationContent,
+  "rl-for-reasoning-deepseek-r1-style": rlForReasoningContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
