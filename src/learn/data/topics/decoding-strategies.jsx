@@ -133,15 +133,11 @@ const decodingStrategies = {
       <H2>Combining knobs in practice</H2>
 
       <Prose>
-        Real inference systems do not pick one of these strategies and ignore the others — they stack them. The typical pipeline applies transformations in a specific order: temperature scaling comes first, dividing the raw logits before any truncation. Top-k is applied next, acting as a hard floor that prevents any token outside the top <Code>k</Code> from being selected regardless of what top-p does. Top-p then selects adaptively within that already-filtered set. Finally, the model samples from the resulting distribution.
+        Real inference systems stack multiple filters. The typical order: temperature scaling first, then top-k (acting as a hard floor against catastrophically unlikely tokens), then top-p (the main adaptive mechanism), then sample. The order matters — applying top-p on un-scaled logits gives different results than applying it on temperature-scaled ones, because the rescaling shifts relative probability mass before the cumulative sum is computed.
       </Prose>
 
       <Prose>
-        The order matters. Applying top-p on un-temperature-scaled logits gives different results than applying it on scaled ones, because temperature shifts probability mass before the cumulative sum is computed. Top-k before top-p means top-p never has to consider the bottom of the distribution at all — top-k handles the catastrophically unlikely tokens, and top-p handles the fine-grained trimming within the plausible set.
-      </Prose>
-
-      <Prose>
-        Additional knobs exist at the margins. Min-p is a recent variant where a token is kept only if its probability exceeds <Code>p × max_probability</Code> — the cutoff scales with the peak of the distribution rather than being an absolute threshold, which makes it more robust at low temperatures where the absolute probabilities of non-peak tokens collapse anyway. Repetition penalties are a separate mechanism entirely: before sampling, logits for tokens that have already appeared in the context are divided by a penalty factor greater than one, reducing their probability proportionally. This directly attacks the looping behavior that plagues greedy and low-temperature sampling. Frequency penalties go further, scaling the penalty by how many times a token has appeared rather than just whether it has appeared at all.
+        Additional knobs exist at the margins. Min-p is a recent variant where a token must exceed <Code>p × max_probability</Code> to be kept — the threshold scales with the peak of the distribution, which makes it more robust at low temperatures where absolute probabilities of non-peak tokens collapse. Repetition penalties subtract from (or divide into) logits for tokens already present in the context, directly targeting the looping behavior that plagues greedy and low-temperature outputs. Frequency penalties go further, scaling the penalty by occurrence count rather than just presence.
       </Prose>
 
       <H2>Task-dependent defaults</H2>
@@ -155,7 +151,7 @@ const decodingStrategies = {
       </Prose>
 
       <Prose>
-        General conversational chat sits in a moderate regime. <Code>T = 0.7</Code> with <Code>top_p = 0.9</Code> is the de facto default across most major chat APIs, and it is a reasonable starting point for nearly any dialogue application. The moderate temperature keeps outputs varied enough to feel natural without letting the model stray into incoherence. Creative writing shifts the configuration upward: <Code>T = 1.0</Code> or slightly above, <Code>top_p = 0.95</Code>. At these settings the model samples closer to its actual learned distribution, which tends to produce more idiosyncratic and interesting language at the cost of occasional incoherence. The practical implication is that most APIs now expose per-call parameter overrides, because the gap between optimal settings for code generation and optimal settings for story generation is too large to cover with a single system-wide default.
+        General conversational chat sits in a moderate regime. <Code>T = 0.7</Code> with <Code>top_p = 0.9</Code> is the de facto default across most major chat APIs — varied enough to feel natural, not loose enough to incohere. Creative writing shifts upward: <Code>T = 1.0</Code> or slightly above with <Code>top_p = 0.95</Code>, sampling closer to the model's actual learned distribution at the cost of occasional drift. Most APIs now expose per-call overrides, because the gap between optimal settings for code generation and story generation is too wide for any single system default to bridge.
       </Prose>
 
       <H3>Structural decoding — the frontier</H3>
@@ -165,11 +161,11 @@ const decodingStrategies = {
       </Prose>
 
       <Prose>
-        The technique requires a parser that can tell you, given the tokens emitted so far, which tokens are valid next. For JSON this is straightforward. For arbitrary context-free grammars it is more expensive but tractable. For regular expressions it reduces to walking a finite automaton in parallel with the decoding loop. Constrained decoding has moved from a research curiosity to a standard feature in several inference frameworks — Outlines, Guidance, and llama.cpp's grammar sampling being the most widely used. The next topic in this track covers constrained decoding in depth.
+        The technique requires a parser that can report, given the tokens emitted so far, which tokens are valid next. For JSON this is straightforward; for regular expressions it reduces to walking a finite automaton in parallel with the decoding loop. Constrained decoding has moved from a research curiosity to a standard feature in several inference frameworks — Outlines, Guidance, and llama.cpp's grammar sampling among them. The next topic covers it in depth.
       </Prose>
 
       <Prose>
-        Worth noting separately: beam search is making a quiet comeback in agentic settings. When a model is being used as a reasoner inside a loop — generating candidate solutions, having a verifier judge them, iterating — the ability to produce multiple diverse candidates and select the best by an external score function is exactly what beam search provides. The verifier partially compensates for the quality-ordering limitation of pure probability scoring. This pattern appears in AlphaCode 2, in OpenAI's o-series model family, and in several open-source reasoning systems that have appeared since late 2023.
+        Worth noting: beam search is making a quiet comeback in agentic settings. When a model generates candidate solutions and a verifier scores them, the ability to produce diverse candidates and select the best by an external criterion is exactly what beam search provides. The verifier compensates for pure probability scoring's quality-ordering limitation. This pattern appears in AlphaCode 2, OpenAI's o-series, and several open-source reasoning systems that have emerged since 2023.
       </Prose>
 
       <Callout accent="gold">
