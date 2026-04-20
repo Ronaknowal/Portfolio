@@ -33,6 +33,17 @@ import rlvrContent from "./rlvr";
 import dapoContent from "./dapo";
 import knowledgeDistillationContent from "./knowledge-distillation-llms";
 import rlForReasoningContent from "./rl-for-reasoning";
+// Inference Optimization section
+import kvCacheContent from "./kv-cache";
+import decodingStrategiesContent from "./decoding-strategies";
+import constrainedDecodingContent from "./constrained-decoding";
+import continuousBatchingContent from "./continuous-batching";
+import queueingTheoryContent from "./queueing-theory-llm-serving";
+import speculativeDecodingContent from "./speculative-decoding";
+import prefixCachingContent from "./prefix-caching";
+import inferenceCostContent from "./inference-cost-economics";
+import testTimeComputeContent from "./test-time-compute";
+import inferenceEnginesContent from "./inference-engines";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -68,6 +79,17 @@ const customContent = {
   "dapo-dynamic-adaptive-policy-optimization": dapoContent,
   "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation": knowledgeDistillationContent,
   "rl-for-reasoning-deepseek-r1-style": rlForReasoningContent,
+  // Inference Optimization
+  "kv-cache-memory-management": kvCacheContent,
+  "decoding-strategies-greedy-beam-top-k-top-p-temperature": decodingStrategiesContent,
+  "structured-output-constrained-decoding-outlines-xgrammar": constrainedDecodingContent,
+  "continuous-batching-pagedattention": continuousBatchingContent,
+  "queueing-theory-for-llm-serving": queueingTheoryContent,
+  "speculative-decoding": speculativeDecodingContent,
+  "prefix-caching-prompt-caching": prefixCachingContent,
+  "inference-cost-economics-compute-scaling": inferenceCostContent,
+  "test-time-compute-scaling": testTimeComputeContent,
+  "inference-engines-serving": inferenceEnginesContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
