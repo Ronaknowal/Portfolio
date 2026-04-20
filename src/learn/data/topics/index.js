@@ -44,6 +44,20 @@ import prefixCachingContent from "./prefix-caching";
 import inferenceCostContent from "./inference-cost-economics";
 import testTimeComputeContent from "./test-time-compute";
 import inferenceEnginesContent from "./inference-engines";
+// AI Inference System Design section
+import systemArchitectureContent from "./inference-system-architecture";
+import routingLBContent from "./request-routing-load-balancing";
+import autoscalingGPUContent from "./autoscaling-gpu";
+import disaggregatedPDContent from "./disaggregated-prefill-decode";
+import cachingStrategiesContent from "./caching-strategies";
+import multiModelServingContent from "./multi-model-serving";
+import rateLimitingContent from "./rate-limiting";
+import guardrailsContent from "./guardrails";
+import observabilityContent from "./observability-llm";
+import streamingSSEContent from "./streaming-sse";
+import costOptimizationContent from "./cost-optimization-tco";
+import edgeOnPremiseContent from "./edge-on-premise";
+import multiRegionContent from "./multi-region-global";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -90,6 +104,20 @@ const customContent = {
   "inference-cost-economics-compute-scaling": inferenceCostContent,
   "test-time-compute-scaling": testTimeComputeContent,
   "inference-engines-serving": inferenceEnginesContent,
+  // AI Inference System Design
+  "inference-system-architecture-end-to-end": systemArchitectureContent,
+  "request-routing-load-balancing": routingLBContent,
+  "autoscaling-gpu-resource-management": autoscalingGPUContent,
+  "disaggregated-prefill-decode": disaggregatedPDContent,
+  "caching-strategies-semantic-exact-kv-cache-sharing": cachingStrategiesContent,
+  "multi-model-serving-model-routing": multiModelServingContent,
+  "rate-limiting-quota-management-fairness": rateLimitingContent,
+  "guardrails-input-output-filtering-safety-layers": guardrailsContent,
+  "observability-llm-monitoring": observabilityContent,
+  "streaming-server-sent-events-sse": streamingSSEContent,
+  "cost-optimization-tco-analysis": costOptimizationContent,
+  "edge-on-premise-deployment-architectures": edgeOnPremiseContent,
+  "multi-region-global-inference-infrastructure": multiRegionContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
