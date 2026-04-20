@@ -7,6 +7,7 @@ import tokenizationContent from "./tokenization";
 import byteLevelContent from "./byte-level-tokenization";
 import vocabularyMultilingualContent from "./vocabulary-multilingual";
 import multimodalContent from "./multimodal-tokenization";
+import dynamicContent from "./dynamic-tokenization";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -16,6 +17,7 @@ const customContent = {
   "byte-level-tokenization-token-free-models": byteLevelContent,
   "vocabulary-design-multilingual-tokenization": vocabularyMultilingualContent,
   "multimodal-tokenization-visual-audio-video": multimodalContent,
+  "dynamic-tokenization-adat-boundlessbpe-litetoken": dynamicContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
