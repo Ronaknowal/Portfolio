@@ -1,3 +1,4 @@
+import "katex/dist/katex.min.css";
 import { useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { colors, fonts, navLinkStyle } from "./styles";
