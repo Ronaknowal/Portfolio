@@ -58,6 +58,13 @@ import streamingSSEContent from "./streaming-sse";
 import costOptimizationContent from "./cost-optimization-tco";
 import edgeOnPremiseContent from "./edge-on-premise";
 import multiRegionContent from "./multi-region-global";
+// Long Context & Retrieval section
+import contextWindowExtensionContent from "./context-window-extension";
+import ragContent from "./rag";
+import embeddingsVectorDBContent from "./embedding-models-vector-db";
+import graphragAgenticContent from "./graphrag-agentic";
+import modelMergingContent from "./model-merging";
+import hybridSearchContent from "./hybrid-search";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -118,6 +125,13 @@ const customContent = {
   "cost-optimization-tco-analysis": costOptimizationContent,
   "edge-on-premise-deployment-architectures": edgeOnPremiseContent,
   "multi-region-global-inference-infrastructure": multiRegionContent,
+  // Long Context & Retrieval
+  "context-window-extension-rope-scaling-yarn-ntk-aware": contextWindowExtensionContent,
+  "retrieval-augmented-generation-rag": ragContent,
+  "embedding-models-vector-databases": embeddingsVectorDBContent,
+  "graphrag-agentic-rag": graphragAgenticContent,
+  "model-merging-ties-dare-model-soups-slerp": modelMergingContent,
+  "hybrid-search-dense-sparse-reranking": hybridSearchContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
