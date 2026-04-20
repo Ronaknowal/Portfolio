@@ -4,12 +4,14 @@ import { trackDefinitions } from "../track-definitions";
 import attentionContent from "./attention";
 import backpropContent from "./backprop";
 import tokenizationContent from "./tokenization";
+import byteLevelContent from "./byte-level-tokenization";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
   "attention-mechanism-bahdanau-luong": attentionContent,
   "backpropagation-automatic-differentiation": backpropContent,
   "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram": tokenizationContent,
+  "byte-level-tokenization-token-free-models": byteLevelContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
