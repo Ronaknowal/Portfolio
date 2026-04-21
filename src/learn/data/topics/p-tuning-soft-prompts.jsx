@@ -49,6 +49,18 @@ const pTuningSoftPrompts = {
         Together these papers demonstrated that fine-tuning billions of parameters is not a prerequisite for strong task performance — a finding that reoriented the parameter-efficient fine-tuning (PEFT) research agenda and directly influenced the development of LoRA and IA3.
       </Prose>
 
+      <Prose>
+        To understand why these methods matter beyond the academic setting, it helps to look at the practical economics. A company with ten internal tools — customer support, document summarization, code completion, translation, structured extraction — faces a choice. Full fine-tuning means ten full-model checkpoints: at 14 GB each for a 7B model in float16, that is 140 GB of storage just for model weights, plus the GPU-hours to produce each one. Soft prompts collapse that to one shared frozen checkpoint plus ten tiny parameter files totaling a few megabytes. The operational difference is significant: you can update a task's soft prompt in minutes on a CPU, swap task behavior at runtime with a vector copy, and keep the serving infrastructure stateless with respect to model weights.
+      </Prose>
+
+      <Prose>
+        The historical timing is also worth noting. All four foundational papers appeared between October 2020 and March 2021 — before LoRA (June 2021) and before adapter-based methods became dominant. Soft prompts were the first widely-adopted PEFT technique that did not require modifying the model architecture at all, only the input sequence. That zero-architecture-change property meant they could be applied to any model without the model needing to be explicitly designed to accommodate adapters, and they introduced the core vocabulary of the field: "frozen base," "trainable prompt," "parameter-efficient."
+      </Prose>
+
+      <Prose>
+        It is also worth situating these methods against adapter tuning (Houlsby et al., 2019), which was the dominant lightweight fine-tuning technique before soft prompts. Adapter tuning inserts small bottleneck MLP modules into each transformer layer — typically after the attention and feed-forward sublayers — and trains only those new parameters. Adapters modify the model architecture and add small per-layer computation at inference. Soft prompts avoid both: they require no architecture change, and the "extra computation" at inference is just the attention cost of extra prefix tokens, which can often be cached. This made soft prompts attractive for serving scenarios where you want to reuse a single deployment of the original model architecture without modification.
+      </Prose>
+
       {/* ======================================================================
           2. CORE INTUITION
           ====================================================================== */}
@@ -94,6 +106,14 @@ const pTuningSoftPrompts = {
 
       <Prose>
         A useful mental model for the difference: prompt tuning whispers instructions to the model at the door; prefix tuning whispers instructions at every floor of the building. The deeper injection gives more precise control over intermediate representations, which matters when the base model is not large enough to propagate the initial signal cleanly through many layers.
+      </Prose>
+
+      <Prose>
+        There is a subtler intuition worth sitting with: soft prompts are not learning a "better prompt." They are learning a coordinate in embedding space that, when placed before any input, biases the model's internal computation in a consistent direction. The model was trained on an astronomically large corpus, and within its frozen weights it has learned to produce different internal activations depending on context. The soft prompt is optimizing which context to invoke. It is less like writing instructions and more like tuning the initial conditions of a dynamical system — nudging the starting state so that the attractor the model naturally gravitates toward is the right one for your task.
+      </Prose>
+
+      <Prose>
+        This framing also explains why soft prompts generalize reasonably to held-out inputs from the same distribution. The soft prompt does not memorize input-output pairs; it shifts the model's baseline activation pattern in a way that makes the right output more probable for any input in the domain. A soft prompt trained on five hundred sentiment examples is not encoding those examples — it is encoding something like "be in sentiment-classification mode," a shift in the model's effective prior that propagates through every layer via attention.
       </Prose>
 
       {/* ======================================================================
@@ -150,7 +170,29 @@ const pTuningSoftPrompts = {
       <H3>3c. P-Tuning v1</H3>
 
       <Prose>
-        P-Tuning v1 introduces a lightweight LSTM encoder to generate the soft prompt rather than training raw vectors directly. Let <Code>h_1, ..., h_N</Code> be the hidden states of an LSTM over a learned input sequence. The prompt embedding at position <Code>i</Code> is a linear projection of <Code>h_i</Code>. The LSTM adds temporal structure to the prompt vectors — adjacent prompt tokens are correlated by the recurrent state — which was hypothesized to produce smoother loss surfaces and better convergence. In practice, P-Tuning v2's ablations showed the LSTM provided marginal benefit, and the simpler flat parameter approach is now preferred.
+        P-Tuning v1 introduces a lightweight LSTM encoder to generate the soft prompt rather than training raw vectors directly. Let <Code>h_1, ..., h_N</Code> be the hidden states of an LSTM over a learned input sequence. The prompt embedding at position <Code>i</Code> is a linear projection of <Code>h_i</Code>:
+      </Prose>
+
+      <MathBlock>{"\\mathbf{p}_i = W_{\\text{proj}} \\cdot h_i + b, \\quad [h_1, \\ldots, h_N] = \\text{LSTM}(\\mathbf{e}_1, \\ldots, \\mathbf{e}_N)"}</MathBlock>
+
+      <Prose>
+        where <Code>e_1, ..., e_N</Code> are learnable input embeddings to the LSTM, distinct from the transformer's token embeddings. The LSTM adds temporal structure to the prompt vectors — adjacent prompt tokens are correlated by the recurrent state, which was hypothesized to produce smoother loss surfaces and better convergence than optimizing an unconstrained parameter matrix. The intuition: if prompt position 3 is allowed to vary completely independently of position 2, the loss landscape has many more local minima; the LSTM's sequential dependence constrains the space and makes gradient descent more reliable.
+      </Prose>
+
+      <Prose>
+        In practice, P-Tuning v2's ablations showed the LSTM provided marginal benefit on most tasks, and the additional complexity — a separate LSTM with its own parameters that must be discarded before deployment — was not worth the engineering overhead. The simpler flat parameter matrix approach is now universally preferred. The LSTM variant is worth knowing about for historical context and because the motivating intuition (conditioning adjacent prompt tokens on each other) occasionally reappears in newer work on structured prompt optimization.
+      </Prose>
+
+      <H3>3e. The reparameterization trick (prefix tuning)</H3>
+
+      <Prose>
+        Li and Liang observed that directly optimizing raw prefix matrices <Code>K^l_prefix</Code> and <Code>V^l_prefix</Code> was unstable in practice — the loss would oscillate without converging, particularly in early training. Their solution was a reparameterization: during training, the prefix at each layer is produced by a small two-layer MLP from a lower-dimensional latent vector:
+      </Prose>
+
+      <MathBlock>{"[K^l_{\\text{prefix}}, V^l_{\\text{prefix}}] = \\text{MLP}_l(\\mathbf{z}_l), \\quad \\mathbf{z}_l \\in \\mathbb{R}^{d_{\\text{latent}}}"}</MathBlock>
+
+      <Prose>
+        After training, the MLP is applied once to each layer's latent vector, the resulting prefix matrices are stored, and the MLP is discarded. Inference is identical to training — the pre-computed prefix matrices are prepended to the KV cache — but the optimization landscape during training is smoother because the MLP provides implicit regularization: nearby latent values produce nearby prefix matrices, preventing the optimizer from jumping to distant regions that happen to slightly reduce the loss on the current batch. The authors used <Code>d_latent = 512</Code> for a model with <Code>d = 1024</Code>, effectively compressing the per-layer prefix into half-dimension during training.
       </Prose>
 
       <H3>3d. Parameter count comparison</H3>
@@ -168,6 +210,14 @@ const pTuningSoftPrompts = {
       <Callout accent="green">
         Prompt Tuning: 81,920 params (0.00117%) — Prefix Tuning: 5,242,880 params (0.07%) — LoRA r=8: 4,194,304 params (0.06%) — Full FT: 7,000,000,000 params (100%)
       </Callout>
+
+      <Prose>
+        Two things are worth observing about this comparison. First, prompt tuning at <Code>N=20</Code> is genuinely tiny — 81K parameters is smaller than a single JPEG thumbnail. Training it takes minutes on a single GPU even for a 7B frozen base. Second, prefix tuning's parameter count scales with both the number of layers and the hidden dimension, not just the prompt length. On a 32-layer model, a 20-token prefix adds <Code>32 × 2 × 20 × 4096 = 5.2M</Code> parameters. LoRA at rank 8 on the same model, targeting Q/K/V/O across all layers, comes to a similar budget (about 4.2M). The two methods are roughly cost-comparable on parameters; the difference is where those parameters live and what they do.
+      </Prose>
+
+      <Prose>
+        LoRA's parameters live in the weight matrices themselves — they shift the model's linear transformations. Prefix tuning's parameters live in the sequence — they add extra context tokens that every attention head can attend to. These are mechanistically very different interventions. LoRA changes how the model computes with any given input; prefix tuning changes what the model sees. Empirically, LoRA's weight-level intervention is more expressive and generalizes better, which is why it has become the default. But understanding the distinction helps reason about when each approach is appropriate.
+      </Prose>
 
       {/* ======================================================================
           4. FROM-SCRATCH IMPLEMENTATION
@@ -395,6 +445,30 @@ model.print_trainable_parameters()
         LoRA has largely won for LLMs. Soft prompts retain a niche: when you cannot access model weights (some hosted APIs expose a virtual-token interface), when you need per-task customization at kilobyte scale, or when you are doing rapid multi-task inference and task-switching is a concatenation operation, not a weight reload.
       </Callout>
 
+      <H3>5d. Saving and loading</H3>
+
+      <CodeBlock language="python">
+{`# Save: only the prompt weights — a few hundred KB
+model.save_pretrained("./sentiment_prompt")
+# Loads: adapter_config.json + adapter_model.bin (tiny)
+
+# Load at inference: base model stays resident, load prompt per-request
+from peft import PeftModel
+base = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
+model_a = PeftModel.from_pretrained(base, "./task_a_prompt")
+model_b = PeftModel.from_pretrained(base, "./task_b_prompt")
+# base model is shared in memory; only the prompt matrices differ
+
+# For high-throughput multi-task serving:
+# pre-load all prompt matrices as numpy arrays
+# prepend the correct one at request dispatch time
+# no model reload, no CUDA context switch`}
+      </CodeBlock>
+
+      <Prose>
+        One implementation detail matters at inference: if you are using a KV cache for long-context generation (as most production systems do), prefix tuning's virtual tokens are naturally cacheable. Pre-compute the KV representations of the prefix once per task at server startup and cache them. Subsequent requests only need to process their actual input tokens, with the prefix KV pairs already available. This eliminates most of the prefix tuning inference overhead for long outputs and makes it more competitive with prompt tuning in latency-sensitive settings.
+      </Prose>
+
       {/* ======================================================================
           6. VISUAL WALKTHROUGH
           ====================================================================== */}
@@ -544,6 +618,14 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
         The honest summary: if you have access to model weights and are training on a model under 10B parameters, LoRA is almost always the better choice. Soft prompts retain real value at the extremes — when memory is catastrophically constrained (a 20-token prompt is literally 81K floats), when you are working via an API that exposes only a virtual-token interface, or when you are running inference over hundreds of tasks and need task-switching to be a vector prepend rather than an adapter reload.
       </Prose>
 
+      <Prose>
+        A note on the "no weight access" case. Several commercial inference providers have experimented with virtual-token or "system prompt embedding" interfaces that are mechanistically identical to soft prompts. You pass a vector of continuous embeddings that get prepended before your text prompt; the model treats them as virtual context tokens. This lets you personalize model behavior without the provider giving you access to model weights — the soft prompt is the entire extent of your customization surface. In this setting, the efficiency arguments about LoRA are irrelevant, because LoRA requires weight access. Soft prompts are the only PEFT method that works through a pure inference-time API with no weight modification.
+      </Prose>
+
+      <Prose>
+        The multi-task serving scenario also deserves more detail. Imagine a customer-facing platform with one shared 70B base model and two thousand tenant-specific customizations — each tenant has a slightly different persona, tone, vocabulary, and set of allowed response types. Storing two thousand LoRA adapters at, say, 200MB each would be 400GB. Storing two thousand soft prompts at 320KB each would be 640MB — three orders of magnitude smaller. At inference time, serving a request means: look up the tenant's soft prompt vector (a memory read of 320KB), prepend it to the input, run the shared model. No weight loading, no adapter merging, no per-tenant GPU memory. The shared model is loaded once and stays resident. This is the architecture that makes soft prompts worth knowing even in the LoRA era.
+      </Prose>
+
       {/* ======================================================================
           8. WHAT SCALES AND WHAT DOESN'T
           ====================================================================== */}
@@ -552,25 +634,25 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
       <H3>What scales</H3>
 
       <Prose>
-        <strong>Accuracy with model size.</strong> Lester et al.'s central finding is that prompt tuning performance scales with model size. At 250M parameters, prompt tuning trails full fine-tuning by ten or more SuperGLUE points. At 780M, the gap narrows. At 11B (T5-XXL), prompt tuning effectively closes the gap — accuracy is within noise of full fine-tuning on the benchmark. The implication: soft prompts are pointing the model, not teaching it. The capability has to already exist in the base model. Large models have more latent capability to point.
+        <strong>Accuracy with model size.</strong> Lester et al.'s central finding is that prompt tuning performance scales with model size. At 250M parameters, prompt tuning trails full fine-tuning by ten or more SuperGLUE points. At 780M, the gap narrows. At 11B (T5-XXL), prompt tuning effectively closes the gap — accuracy is within noise of full fine-tuning on the benchmark. The implication: soft prompts are pointing the model, not teaching it. The capability has to already exist in the base model. Large models have more latent capability to point. The same pattern has been observed across model families beyond T5: instruction-tuned large models (Flan-T5-XXL, LLaMA-65B, etc.) respond better to soft prompt steering than smaller models, consistent with the idea that the scaling applies to the frozen base's capability, not to the tuning method itself.
       </Prose>
 
       <Prose>
-        <strong>Storage efficiency.</strong> A 20-token soft prompt for a 4096-dimensional model is 320KB at float32. A LoRA adapter for the same model at rank 8 might be 30–50MB. A full fine-tuned checkpoint is 28GB. For deployments with hundreds of task-specific customizations, the storage difference between soft prompts and LoRA is two to three orders of magnitude.
+        <strong>Storage efficiency.</strong> A 20-token soft prompt for a 4096-dimensional model is 320KB at float32. A LoRA adapter for the same model at rank 8 might be 30–50MB. A full fine-tuned checkpoint is 28GB. For deployments with hundreds of task-specific customizations, the storage difference between soft prompts and LoRA is two to three orders of magnitude. When multiplied across thousands of enterprise tenants, the storage argument becomes decisive — not because LoRA is impractical, but because soft prompts make per-tenant customization economically trivial.
       </Prose>
 
       <Prose>
-        <strong>Prefix tuning across scales.</strong> Unlike single-layer prompt tuning, prefix tuning maintains reasonable performance at 300M–1B scale because deep injection allows it to influence intermediate representations at each layer independently. P-Tuning v2 showed this explicitly: multi-layer deep prompts match full fine-tuning on named entity recognition and other structured NLU tasks at scales as small as 330M parameters.
+        <strong>Prefix tuning across scales.</strong> Unlike single-layer prompt tuning, prefix tuning maintains reasonable performance at 300M–1B scale because deep injection allows it to influence intermediate representations at each layer independently. P-Tuning v2 showed this explicitly: multi-layer deep prompts match full fine-tuning on named entity recognition and other structured NLU tasks at scales as small as 330M parameters. The mechanism is that the prefix KV tokens provide task-relevant context at every layer's attention computation, effectively giving each layer a task-conditioned "working memory" it can retrieve from, rather than relying on a single initial context signal to propagate unchanged through all layers.
       </Prose>
 
       <H3>What doesn't scale</H3>
 
       <Prose>
-        <strong>Prompt length.</strong> Adding more soft tokens improves performance up to a point — typically 10–100 tokens depending on task complexity — and then plateaus or regresses. Unlike LoRA's rank, soft prompt length does not consistently unlock new capability; it adds parameters to a constrained injection point.
+        <strong>Prompt length.</strong> Adding more soft tokens improves performance up to a point — typically 10–100 tokens depending on task complexity — and then plateaus or regresses. Unlike LoRA's rank, soft prompt length does not consistently unlock new capability; it adds parameters to a constrained injection point. Lester et al. found performance was relatively stable from 20 to 100 tokens for most tasks, with little benefit beyond 100. Very short prompts (under 5 tokens) often underperform because there are too few degrees of freedom to encode task-relevant context.
       </Prose>
 
       <Prose>
-        <strong>Generative tasks.</strong> Prompt tuning works well on classification and structured extraction. It struggles on open-ended generation — long-form text, reasoning chains, code generation — where the model needs deep integration of the task signal throughout its computation, not just a steered starting state.
+        <strong>Generative tasks.</strong> Prompt tuning works well on classification and structured extraction. It struggles on open-ended generation — long-form text, reasoning chains, code generation — where the model needs deep integration of the task signal throughout its computation, not just a steered starting state. Li and Liang's original prefix tuning paper showed this more explicitly: for table-to-text generation and summarization, prefix tuning (deep injection) significantly outperformed single-layer prompt tuning on the same tasks. When the generation requires multi-step reasoning that builds across many layers, you need to influence those intermediate layers, not just the starting context.
       </Prose>
 
       <Prose>
@@ -579,6 +661,14 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
 
       <Prose>
         <strong>Cross-model transfer.</strong> Soft prompts trained for one base model do not transfer to another, even if the second model has the same architecture and hidden dimension. The prompt vectors were optimized to steer a specific set of frozen weights. Different weights produce different representations of the same soft vectors, and performance degrades to random on a new model.
+      </Prose>
+
+      <Prose>
+        <strong>Multi-task prompt length.</strong> When serving many tasks via soft prompts, each task may have been trained with a different prompt length. At inference time, all requests in a batch must be padded or truncated to a common prompt length, which adds implementation complexity and may degrade per-task accuracy for tasks whose optimal prompt length was shorter. LoRA has no such constraint — adapter weights are applied to all inputs uniformly without changing sequence length.
+      </Prose>
+
+      <Prose>
+        <strong>Compute cost of the forward pass.</strong> Prompt tuning adds <Code>N</Code> tokens to the sequence, which increases attention compute by a factor of roughly <Code>((L + N)/L)^2</Code> due to the quadratic attention cost. For long inputs (L=2048, N=20) this is less than 2% overhead. For short inputs (L=32, N=20) it is a 280% increase. If your application processes primarily short inputs — single-sentence classification, short question answering — the sequence-length overhead of soft prompts is significant. Prefix tuning multiplies this overhead by the number of layers since the K/V cache is extended at every layer, though modern implementations pre-compute the prefix KV cache once per task and amortize the cost across all inputs.
       </Prose>
 
       {/* ======================================================================
@@ -626,6 +716,18 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
 
       <Prose>
         When running inference over many tasks simultaneously — a common deployment pattern for soft prompts — padding all inputs to accommodate different prompt lengths or batching inputs from different tasks requires careful engineering. Mixing task A and task B in the same batch means both tasks see the same physical input after the padding token, which is fine, but the prompt vectors for different tasks must be kept separate and prepended correctly. Implementation errors here produce subtle bugs where the wrong task's prompt is applied to an input, with no error message — just wrong outputs.
+      </Prose>
+
+      <H3>8. Overfitting on small datasets</H3>
+
+      <Prose>
+        Soft prompts have very few trainable parameters, which naively suggests they should be resistant to overfitting. In practice, the opposite can occur on very small datasets (under a few hundred examples): because the soft prompt controls a high-leverage part of the input that the model is sensitive to, the optimizer can find prompt vectors that exploit spurious patterns in the small training set. Symptoms include training accuracy rising to near-perfect while validation accuracy stays low. Standard remedies — dropout on the prompt vectors during training, early stopping on validation loss, data augmentation — apply, but they are less commonly discussed in the soft-prompt literature than in adapter-tuning literature.
+      </Prose>
+
+      <H3>9. Inconsistent behavior under paraphrasing</H3>
+
+      <Prose>
+        A soft prompt optimized to steer the model toward a specific output pattern can be disrupted by paraphrasing the input in ways that shift the model's internal representations. Discrete prompts are at least interpretable — you can manually inspect whether a paraphrased input would reasonably evoke the same response. Soft prompts interact with the model's representation of the input through attention, and that interaction can be non-monotonic: inputs that are semantically equivalent to humans may differ substantially in the embedding space the attention mechanism sees, causing the soft prompt's influence to vary unpredictably. This is not catastrophic but it is worth auditing on a held-out set of paraphrased examples before deploying a soft-prompt-based system.
       </Prose>
 
       {/* ======================================================================
@@ -693,7 +795,19 @@ Research / ablation / understanding PEFT    Try prompt tuning first — minimal
       <H3>Exercise 5 — Initialization strategy</H3>
 
       <Prose>
-        You are training a soft prompt for a medical diagnosis classification task on a 13B frozen model. Design an initialization strategy for the soft prompt vectors. What are the tradeoffs between random Gaussian initialization, vocabulary-sampled initialization, and initialization from embeddings of task-relevant terms like "diagnosis," "symptom," "condition"? How would you evaluate which initialization converges faster and which achieves better final accuracy?
+        You are training a soft prompt for a medical diagnosis classification task on a 13B frozen model. Design an initialization strategy for the soft prompt vectors. What are the tradeoffs between random Gaussian initialization, vocabulary-sampled initialization, and initialization from embeddings of task-relevant terms like "diagnosis," "symptom," "condition"? How would you evaluate which initialization converges faster and which achieves better final accuracy? Consider also: if your dataset has class-imbalanced labels, should the initialization reflect that imbalance in any way?
+      </Prose>
+
+      <H3>Exercise 6 — Prefix vs prompt at inference</H3>
+
+      <Prose>
+        A system processes 10,000 requests per second, each with an average input length of 48 tokens. You are deciding between prompt tuning (N=20 prepended embedding tokens) and prefix tuning (N=20 per-layer KV prefixes across L=32 layers). Calculate the approximate increase in attention compute cost for each method relative to the baseline with no soft prompt. Assume standard quadratic attention with no KV cache. Which method adds more inference cost in this short-input regime? At what input length would the two methods have comparable relative overhead? Now factor in that prefix tuning's per-layer KV prefixes can be pre-computed and cached before any request arrives — does this change your analysis, and if so, how?
+      </Prose>
+
+      <H3>Exercise 7 — Conceptual: discrete vs continuous search</H3>
+
+      <Prose>
+        Prompt engineering searches for a good discrete token sequence. Prompt tuning searches for good continuous vectors. Explain why the continuous search is easier for gradient-based optimization but harder for human interpretation. What does "nearest vocabulary token" analysis of a trained soft prompt tell you, and what are its limitations? If you found that a trained soft prompt's five tokens all mapped to the word "because," what would you infer about the task the prompt was trained for?
       </Prose>
 
     </div>
