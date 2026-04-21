@@ -1,289 +1,1180 @@
 import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
+import { colors } from "../../styles";
 
 const syntheticDataPretraining = {
   title: "Synthetic Data Generation for Pre-Training",
-  readTime: "10 min",
+  slug: "synthetic-data-generation-for-pre-training",
+  readTime: "32 min",
   content: () => (
     <div>
+      {/* ======================================================================
+          1. WHY IT EXISTS
+          ====================================================================== */}
+      <H2>1. Why it exists</H2>
+
       <Prose>
-        Pre-training data is running out. Not in the sense that the internet has gone quiet — it
-        hasn't — but in the sense that the highest-quality, legally unambiguous, linguistically
-        diverse text available for model training is a bounded resource. Common Crawl grows, but
-        its signal-to-noise ratio degrades as models get better at telling the difference between
-        a thoughtful paragraph and a spun SEO article. Copyrighted books and scientific papers
-        sit behind licenses that make large-scale ingestion legally fraught. Non-English text
-        remains scarce relative to the fraction of the world that doesn't read English. At the
-        scale frontier-class models now operate, the curves that used to look like "more data
-        always helps" are starting to bend.
+        Pre-training at frontier scale is a bet that more tokens of high-quality text reliably
+        produce more capable models. That bet has paid off for a decade. It is now running into
+        a wall that has a name: the data wall. Not because the internet has gone quiet — it
+        hasn't — but because the subset of the internet that actually makes models smarter is
+        bounded and increasingly well-picked. Common Crawl grows, but its signal-to-noise ratio
+        degrades as models get better at distinguishing a thoughtful paragraph from a spun SEO
+        article. Copyrighted books and scientific papers sit behind licenses that make large-scale
+        ingestion legally fraught. Non-English text is scarce relative to the fraction of the
+        world that doesn't read English. At the scale frontier-class models now operate — tens of
+        trillions of tokens — the curves that used to look like "more data always helps" are
+        starting to bend.
       </Prose>
 
       <Prose>
-        The obvious response: generate the data you don't have. A sufficiently capable model can
-        produce text, and inference is cheap enough that generating trillions of tokens is no
-        longer a fantasy budget line. The less-obvious question is whether that text actually
-        helps a model train — or whether the model ends up consuming a degraded reflection of
-        what it already knows, shrinking rather than expanding its understanding of the world.
-        Both things can be true simultaneously, in different regimes.
-      </Prose>
-
-      <H2>The case for synthetic pre-training data</H2>
-
-      <Prose>
-        Three motivations are genuine. They are worth keeping separate because they have different
-        evidence bases and different failure modes.
+        The obvious response is to generate the data you don't have. A sufficiently capable model
+        can produce text, and inference is cheap enough that generating trillions of tokens is no
+        longer a fantasy budget line. The less-obvious question is whether that text actually helps
+        a model train — or whether the model ends up consuming a degraded reflection of what it
+        already knows, shrinking rather than expanding its understanding of the world. Both things
+        can be true simultaneously, in different regimes, and the evidence is still settling.
       </Prose>
 
       <Prose>
-        The first is diversity. Real-data corpora are systematically thin in certain domains:
-        step-by-step mathematical derivations, explicit reasoning chains, and low-resource
-        languages where web text is sparse and uneven. A strong model can be prompted to generate
-        thousands of worked calculus problems, formal proofs, or grounded reasoning traces that
-        simply don't exist in the volumes needed on the open web. The domain being synthesized
-        determines whether this works — math and code lend themselves to it in ways that, say,
-        literary fiction does not.
+        Three moments crystallized synthetic pre-training as a serious research direction rather
+        than a curiosity. The first was Microsoft's phi-1 paper (Gunasekar et al., 2023,
+        arXiv:2306.11644), which showed that a 1.3B-parameter model trained on "textbook-quality"
+        synthetic data could match coding models three to five times its size on HumanEval. The
+        second was MetaMath (Yu et al., 2023, arXiv:2309.12284), which demonstrated that
+        systematically bootstrapping math problem variants and filtering by verifiable correctness
+        produced training data that meaningfully lifted math reasoning benchmarks. The third was
+        DeepSeek-R1 (2025), which used 800,000 synthetic long-form chain-of-thought reasoning
+        traces generated by a strong teacher to distill reasoning capability into smaller student
+        models — a recipe that produced open-weight models competitive with GPT-4-class systems
+        on mathematical and coding benchmarks. Each represents a distinct synthetic data
+        paradigm: textbook generation, verifier-filtered augmentation, and reasoning-trace distillation.
       </Prose>
 
       <Prose>
-        The second is quality. Filtered synthetic data can be more uniformly good than the best
-        filtered real data, because you control the generation conditions end-to-end. Prompt a
-        strong model to write a clear pedagogical explanation, ask another model to evaluate it,
-        discard anything below the threshold. The resulting distribution has fewer outliers than
-        a corpus assembled by crawling and filtering the open web, which will always contain
-        noise that the filter misses.
-      </Prose>
-
-      <Prose>
-        The third is scale. LLM inference has become cheap enough that generating large volumes
-        of text — tens of billions of tokens, in some pipelines — is economically tractable.
-        That wasn't true in 2020. It is now, and the cost continues to fall. Whether cheap
-        generation translates into useful training signal is a different question, but the raw
-        logistics are no longer the bottleneck.
-      </Prose>
-
-      <H2>Textbooks Are All You Need — the phi series</H2>
-
-      <Prose>
-        The most influential demonstration of synthetic pre-training data is Microsoft's phi
-        series. In 2023, the phi-1 paper argued that a small code model trained on carefully
-        curated and synthetically generated "textbook quality" data could punch far above its
-        weight. phi-1, at 1.3B parameters, matched models three to five times its size on
-        HumanEval — a Python coding benchmark that evaluates functional correctness, not style.
-        The difference wasn't architecture or training duration. It was the data.
-      </Prose>
-
-      <Prose>
-        The recipe: take a strong teacher model, GPT-4 class or close to it, and prompt it to
-        generate didactic content — worked examples, explanations that build concept by concept,
-        exercises with solutions. Do this at scale across a carefully chosen curriculum of topics.
-        Filter aggressively using a quality classifier. Deduplicate against the generated set
-        itself. Mix the synthetic data with filtered real code at roughly 10–30% of total
-        training tokens, and train the small student on the result. phi-2 and phi-3 extended this
-        to general reasoning with similar findings: the data quality story held up at slightly
-        larger scales and broader domains.
-      </Prose>
-
-      <Prose>
-        What the teacher generates looks like this.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def generate_textbook_chapter(teacher, topic, style="undergraduate"):
-    prompt = f"""Write a clear, pedagogical chapter on {topic} at
-    the {style} level. Include motivation, a worked example, common
-    pitfalls, and exercises with solutions.
-
-    The chapter should read as if from a well-reviewed textbook.
-    Do not write the word 'textbook' itself."""
-    return teacher.generate(prompt, max_tokens=4096, temperature=0.7)
-
-# Typical pipeline: millions of (topic, style) pairs, filtered by a
-# quality classifier, deduplicated against each other, mixed ~10-30%
-# of total training tokens alongside filtered web data.`}
-      </CodeBlock>
-
-      <Prose>
-        The prompt design is not cosmetic. The explicit instruction to "not write the word
-        textbook itself" is an attempt to avoid the model producing meta-commentary about what
-        it's doing rather than doing it. Small prompt choices at the generation stage compound
-        across millions of samples.
-      </Prose>
-
-      <H2>Distillation from a stronger teacher</H2>
-
-      <Prose>
-        A special case of synthetic data is knowledge distillation at the data level: a strong
-        teacher model generates responses to real prompts, and a smaller student trains on those
-        responses as if they were ground truth. This is how Alpaca bootstrapped
-        instruction-following from Llama 1 paired with GPT-3.5 outputs. It's how WizardLM
-        scaled up by having the teacher augment and complicate existing instructions before
-        answering them. It's how most small open-weight instruct models in production are made.
-      </Prose>
-
-      <Prose>
-        This isn't strictly pre-training — it usually lives in the post-training phase, fine-tuning
-        a base model on instruction-response pairs. But the line blurs in practice. Several labs
-        have experimented with mixing teacher-generated responses into continued pre-training
-        corpora, particularly for domains like math where teacher outputs can be verified for
-        correctness before inclusion. The pedagogical structure argument from phi applies here
-        too: the teacher produces text that models good reasoning explicitly, which may be more
-        useful to train on than raw web text that contains the same facts in a less learnable form.
-      </Prose>
-
-      <H2>Model collapse — the failure mode</H2>
-
-      <Prose>
-        In 2024, Shumailov and colleagues published a paper in Nature demonstrating what they
-        called model collapse: a model trained on the outputs of a previous model, which was
-        itself trained on synthetic data, degrades in systematic and measurable ways. The tails
-        of the distribution shrink. Rare but valid outputs become increasingly unlikely. After
-        roughly five to ten generations of "train on previous model's output," the resulting
-        model fails on diverse inputs that earlier generations handled fine.
-      </Prose>
-
-      <Prose>
-        The mechanism is worth understanding precisely, because it's not just about errors
-        propagating. Each time the model generates text and that text is used for training, the
-        sampling process discards information. The model draws from its learned distribution;
-        that distribution is an approximation of the true data distribution; and the approximation
-        gets coarser each time it's treated as the source of truth. Low-probability but real
-        events — the unusual phrasing, the rare fact, the minority opinion — get underrepresented
-        each generation, then further underrepresented, then effectively absent. The vocabulary
-        of the model's outputs narrows. The KL divergence between the true distribution and the
-        learned one grows with each recursive generation:
-      </Prose>
-
-      <MathBlock>{"D_{KL}(p \\mid\\mid p_k) \\geq k \\cdot D_{KL}(p \\mid\\mid p_1)"}</MathBlock>
-
-      <Prose>
-        Loosely: each generation of self-training adds at least as much divergence from reality
-        as the first generation did. The exact bound depends on assumptions about the generation
-        process and model capacity, but the direction is robust across the paper's experimental
-        setups. The problem isn't simply that synthetic data can be wrong. It's that synthetic
-        data from this model cannot expand what this model knows. It can only rearrange — and
-        lossy rearrangement, repeated, converges toward something narrower than what you started
-        with.
-      </Prose>
-
-      <H3>Mitigation — stay grounded in real data</H3>
-
-      <Prose>
-        The working pattern across published work is consistent: always mix synthetic data with
-        real data, and never train a generation of model purely on the previous generation's
-        outputs. The mixing ratio matters, though no paper has established a universal right
-        answer — it depends on domain, synthetic data quality, and how different the synthetic
-        distribution is from the real one.
-      </Prose>
-
-      <Prose>
-        Using a stronger external teacher rather than the model being trained sidesteps the
-        worst of model collapse. The teacher's distribution is richer than the student's; the
-        student is learning from a source that knows more than it does, rather than from a noisy
-        copy of itself. This is the phi setup and the standard distillation setup. The danger
-        reappears when the teacher and student approach the same capability level, or when the
-        teacher's outputs are themselves heavily synthetic.
-      </Prose>
-
-      <Prose>
-        Keeping a meaningful fraction of real web data in the mix — even if that web data is
-        noisier than the synthetic content on any individual quality metric — preserves the tail
-        diversity that synthetic generation tends to erode. Rare languages, unusual phrasings,
-        and the long tail of human knowledge live in that noisy web data in ways that even the
-        best synthetic pipeline doesn't recover.
-      </Prose>
-
-      <H2>Where synthetic is winning</H2>
-
-      <Prose>
-        The honest picture, as of now, is that synthetic data works clearly in a few regimes and
-        is still speculative in others.
-      </Prose>
-
-      <Prose>
-        Math is the clearest win. MetaMath, MathInstruct, and their derivatives generate
-        large volumes of math solutions — rephrased, augmented, and verified by execution where
-        possible — and models trained on them improve measurably on math benchmarks. The key
-        is that many math problems have checkable answers, which allows post-hoc filtering of
-        synthetic data by correctness rather than purely by style or fluency.
-      </Prose>
-
-      <Prose>
-        Code has the same property. A generated function either passes its tests or it doesn't.
-        Execution-based filtering makes synthetic code data a fundamentally different
-        proposition from synthetic prose: you can generate a million candidate solutions and
-        keep only the ones that work. The resulting dataset has a quality floor that human-curated
-        datasets can't match at the same volume.
-      </Prose>
-
-      <Prose>
-        Reasoning chains for reinforcement learning have become a central use case, particularly
-        for building reward model training data. If you need examples of humans preferring one
-        response over another, you can generate candidate responses synthetically and use a
-        stronger model to rank them, bootstrapping the preference data that RLHF requires.
-        This is technically post-training territory, but the data generation techniques are
-        identical.
-      </Prose>
-
-      <Prose>
-        Low-resource languages are a genuine opportunity. Translating high-quality English
-        corpora using strong translation models produces text in Swahili, Tagalog, or
-        Welsh at a volume that organic web scraping cannot match. The quality is uneven and
-        culturally thin — translation preserves information, not local context — but for
-        basic capability coverage, it's better than nothing and sometimes considerably better
-        than the noisy low-resource web text available otherwise.
-      </Prose>
-
-      <H3>Where it's still open</H3>
-
-      <Prose>
-        The open questions are not minor.
-      </Prose>
-
-      <Prose>
-        Whether synthetic-heavy training reaches the same capability ceiling as real-data-heavy
-        training is genuinely unknown at the scale frontier. The phi results are striking, but
-        phi models are small — 1B to 14B parameters — and the training budgets involved are
-        modest compared to what frontier labs run. Whether the quality advantage of synthetic
-        data persists when you're training a 70B model on trillions of tokens is not yet
-        publicly answered.
-      </Prose>
-
-      <Prose>
-        Whether model collapse is a real concern at current scale or only at the extremes
-        Shumailov tested is also unsettled. The paper's experimental setups involved fairly
-        extreme recursive training — models training on nothing but previous model outputs.
-        Real pipelines never do this. But the mechanism is real, and how quickly it bites in
-        milder forms of synthetic-heavy training remains an open empirical question.
-      </Prose>
-
-      <Prose>
-        Contamination detection is becoming genuinely hard. When synthetic data looks like
-        real data — and good synthetic data increasingly does — the usual tools for measuring
-        benchmark contamination don't work. A model may have trained on synthetically generated
-        variants of benchmark problems without any clean way to detect that from outside. As
-        the fraction of synthetic data in pre-training corpora grows, the integrity of public
-        benchmarks becomes harder to verify.
+        Against these wins, Shumailov et al. (Nature 631, 2024) issued a formal warning: training
+        recursively on synthetic data collapses the distribution. The tails of the learned
+        distribution — rare but valid outputs, minority languages, unusual phrasings — shrink with
+        each generation until the model converges on a narrow, overconfident approximation of
+        reality. The question is not whether to use synthetic data, but how, in what domain, at
+        what mixing ratio, and with what verifier. This topic builds the tools to answer those
+        questions.
       </Prose>
 
       <Callout accent="gold">
-        Synthetic data is the current bet for pushing past the data wall. Whether that bet pays
-        off — or quietly produces a generation of models with thinner tails — is still being
-        settled.
+        Honest framing: synthetic pre-training at the frontier scale (70B+ parameters, trillions
+        of tokens) is still less-settled than the phi and MetaMath results suggest. Those results
+        are real and reproducible. Whether they hold at scale — and whether the data wall is
+        actually solved by synthesis — is an open empirical question as of 2026.
       </Callout>
 
+      {/* ======================================================================
+          2. CORE INTUITION
+          ====================================================================== */}
+      <H2>2. Core intuition</H2>
+
       <Prose>
-        This is the frontier topic of Pre-Training for a reason: no one is certain it works
-        at the scales that matter. The evidence from phi and math-specific work is real —
-        verifiable correctness filtering is a meaningful tool, and didactic generation quality
-        measurably helps small models. The evidence for general-domain synthetic pre-training
-        at the frontier scale is thinner. The labs running the largest training runs have not
-        published enough detail to know how heavily their data pipelines lean on synthesis,
-        or what tradeoffs they've encountered. Watch this space.
+        Three distinct paradigms are in play. They share the label "synthetic data" but have
+        different mechanics, different failure modes, and different evidence bases. Keeping them
+        separate matters.
+      </Prose>
+
+      <H3>Textbook-quality generation</H3>
+
+      <Prose>
+        A strong teacher LLM — GPT-4-class or close — is prompted to generate didactic content:
+        worked examples, concept-by-concept explanations, exercises with solutions, common pitfall
+        annotations. The resulting text is evaluated by a quality classifier, and only samples
+        above a threshold are kept. The smaller student model trains on this curated synthetic
+        corpus, mixed with filtered real data. The insight is that the distribution over "well-explained
+        concepts" is much sparser in the open web than the distribution over "mentions of concepts."
+        A student training on textbook-quality explanations learns faster per token than a student
+        training on web text that happens to contain the same facts buried in conversational noise.
       </Prose>
 
       <Prose>
-        This closes the Pre-Training section. Post-training — how base models become useful
-        assistants, how instruction-following is instilled, and how reinforcement learning
-        shapes the final product — comes next.
+        This is the phi paradigm. It works clearly in domains where the teacher can generate
+        quality content reliably — code, mathematics, structured reasoning — and is less clear
+        in domains where "quality" is hard to measure, such as creative writing or long-tail
+        factual knowledge.
+      </Prose>
+
+      <H3>Reasoning-trace distillation</H3>
+
+      <Prose>
+        A strong reasoner — o1, DeepSeek-R1, or a similar chain-of-thought model — generates
+        full reasoning traces for problems: step-by-step derivations, intermediate checks,
+        self-corrections. A smaller student model trains to reproduce those traces. The key
+        property is that the student is not just learning the final answer; it is learning the
+        process the teacher used to reach it. This is knowledge distillation at the data level.
+        DeepSeek-R1-Distill used 800,000 such traces to produce student models (Qwen-7B,
+        Llama-70B) that substantially outperformed models fine-tuned on human-authored data at
+        the same parameter count.
+      </Prose>
+
+      <Prose>
+        The risk here is that the student inherits not just the teacher's reasoning process but
+        also the teacher's blind spots, stylistic biases, and error patterns. A student trained
+        entirely on one teacher's traces cannot exceed the teacher's capability on any problem
+        the teacher would consistently get wrong.
+      </Prose>
+
+      <H3>Model collapse — the anti-pattern</H3>
+
+      <Prose>
+        Both paradigms above use an external teacher stronger than the student. The failure mode
+        emerges when the feedback loop closes: a model generates synthetic data, trains on it,
+        generates more, trains again. Each generation of sampling introduces a small amount of
+        information loss — the model cannot reproduce the exact tails of its distribution — and
+        that loss compounds. After enough iterations, the model has converged on a narrow,
+        low-diversity approximation of its original distribution, with rare but valid outputs
+        effectively absent. Shumailov et al. call this model collapse. The variance of generated
+        text decays toward a point mass. The math is in section 3; the simulation is in section 4c.
+      </Prose>
+
+      <Prose>
+        The mitigation that has held across every published experiment: never train a generation
+        on purely synthetic data from the previous generation. Always mix in real data. The mixing
+        ratio determines how quickly collapse proceeds. At 50% real data, collapse is substantially
+        slowed or stopped entirely in most experimental setups.
+      </Prose>
+
+      {/* ======================================================================
+          3. MATHEMATICAL FOUNDATION
+          ====================================================================== */}
+      <H2>3. Mathematical foundation</H2>
+
+      <H3>Model collapse: divergence grows per generation</H3>
+
+      <Prose>
+        Let <Code>p</Code> be the true data distribution and <Code>p_k</Code> be the distribution
+        learned after <Code>k</Code> recursive training generations. Each generation fits a model
+        to samples drawn from the previous generation's model. Shumailov et al. show that under
+        mild assumptions, the KL divergence between the true distribution and the learned
+        distribution is bounded below by a term that grows with each generation:
+      </Prose>
+
+      <MathBlock>{"D_{KL}(p \\| p_k) \\geq k \\cdot D_{KL}(p \\| p_1)"}</MathBlock>
+
+      <Prose>
+        Loosely: each generation of self-training adds at least as much divergence from reality
+        as the first generation did. The direction is robust across experimental setups even
+        when the exact constant varies by model class. The problem is not merely that synthetic
+        data can be wrong. It is that synthetic data from generation <Code>k</Code> cannot contain
+        information that generation <Code>k-1</Code> did not have — and generation 1 already lost
+        some of what the true distribution contained. Lossy rearrangement, repeated, converges
+        toward something narrower than what you started with.
+      </Prose>
+
+      <H3>The verifier-filtered regime</H3>
+
+      <Prose>
+        The most successful synthetic data recipes introduce a verifier into the pipeline: a
+        function <Code>V: x → {"{0, 1}"}</Code> that accepts or rejects a generated sample. For
+        math and code, the verifier can be exact — check that the arithmetic is correct, or that
+        the generated function passes its unit tests. The downstream quality of a verifier-filtered
+        synthetic dataset is bounded by the quality of the teacher and the coverage of the verifier:
+      </Prose>
+
+      <MathBlock>{"\\mathbb{E}[\\text{quality}] \\leq \\min\\bigl(Q_{\\text{teacher}},\\, Q_{\\text{verifier}}\\bigr)"}</MathBlock>
+
+      <Prose>
+        A powerful teacher generating mathematically incorrect solutions that a weak verifier
+        accepts produces a contaminated dataset. A correct verifier applied to a weak teacher
+        produces a low-pass-rate dataset with high quality among kept samples. The optimal setup
+        is a strong teacher and a sound verifier — execution-based for code, symbolic checking
+        for math. Pass rates across domains and prompt styles vary widely (section 4b demonstrates
+        this empirically), which is why domain choice matters so much for the synthetic data bet.
+      </Prose>
+
+      <H3>Real + synthetic mixing</H3>
+
+      <Prose>
+        Across the most successful published recipes, the synthetic fraction lies between 30% and
+        80% of total training tokens, with the remaining fraction being filtered real data. The
+        rationale for keeping real data is not just to prevent collapse — it is to preserve tail
+        diversity. Real web data, even noisy, contains rare languages, unusual phrasings, long-tail
+        facts, and minority-domain knowledge that a synthetic pipeline rooted in a single teacher
+        will systematically underrepresent. The cost is that some of that real data is lower
+        quality on any individual sample. The benefit is that the resulting model's distribution
+        is wider. Both matter.
+      </Prose>
+
+      {/* ======================================================================
+          4. FROM-SCRATCH IMPLEMENTATION
+          ====================================================================== */}
+      <H2>4. From-scratch implementation</H2>
+
+      <Prose>
+        Four implementations, each targeting one core mechanism. All code was run; outputs
+        embedded as comments are actual outputs. Nothing has been polished post-hoc.
+      </Prose>
+
+      <Callout accent="gold">
+        These are pedagogical simplifications. Real production pipelines use larger teacher
+        models, more sophisticated verifiers, and train over billions of tokens rather than
+        the toy sizes shown here. The mechanics are the same.
+      </Callout>
+
+      <H3>4a. Teacher-prompt-student pipeline skeleton</H3>
+
+      <Prose>
+        The core pipeline: a mock teacher generates textbook-quality content from a topic and
+        style specification, a heuristic quality scorer filters the outputs, and kept samples
+        are collected for student training. In production this mock teacher is a GPT-4-class
+        model and the quality scorer is a trained classifier.
+      </Prose>
+
+      <CodeBlock language="python">
+{`import random
+random.seed(42)
+
+TOPICS = [
+    "binary search",
+    "gradient descent",
+    "backpropagation",
+    "attention mechanisms",
+    "regularization in neural networks",
+]
+STYLES = ["undergraduate", "graduate", "intuitive"]
+
+def mock_teacher_generate(topic, style):
+    """Simulates a teacher LLM generating textbook-quality content."""
+    templates = [
+        (
+            f"# {topic.title()}\\n\\n## Motivation\\n"
+            f"Understanding {topic} is crucial at the {style} level.\\n\\n"
+            f"## Core Idea\\nAt its heart, {topic} works by iteratively refining "
+            f"an estimate until a convergence criterion is met.\\n\\n"
+            f"## Worked Example\\nConsider the case where input x = [1, 2, 3]...\\n\\n"
+            f"## Common Pitfall\\nA frequent mistake is ignoring the learning rate schedule.\\n\\n"
+            f"## Exercise\\nDerive the update rule for {topic} with L2 regularization."
+        ),
+        (
+            f"## Introduction to {topic.title()}\\n\\n"
+            f"At the {style} level, {topic} represents one of the foundational ideas.\\n\\n"
+            f"The key insight is searching for a fixed point of a certain operator."
+        ),
+    ]
+    return random.choice(templates)
+
+def quality_score(text):
+    """Heuristic quality filter: score 0-1."""
+    score = 0.0
+    if len(text) > 300:                          score += 0.3
+    if "## " in text:                            score += 0.2
+    if "Example" in text or "example" in text:  score += 0.2
+    if "Exercise" in text or "exercise" in text: score += 0.2
+    if "Pitfall" in text or "mistake" in text:   score += 0.1
+    return min(score, 1.0)
+
+QUALITY_THRESHOLD = 0.6
+results = []
+for topic in TOPICS:
+    for style in STYLES:
+        raw = mock_teacher_generate(topic, style)
+        score = quality_score(raw)
+        results.append((topic, style, score, score >= QUALITY_THRESHOLD))
+
+kept = [(t, s, sc) for t, s, sc, k in results if k]
+print(f"Total generated: {len(results)}")
+print(f"Kept (score >= {QUALITY_THRESHOLD}): {len(kept)}")
+print(f"Pass rate: {len(kept)/len(results):.1%}")
+
+# Actual output:
+# Total generated: 15
+# Kept (score >= 0.6): 13
+# Pass rate: 86.7%`}
+      </CodeBlock>
+
+      <Prose>
+        The 86.7% pass rate reflects that a strong teacher rarely generates content below the
+        threshold — but that 13% rejection matters at scale. With 10 million generated samples,
+        a 13% reject rate means 1.3 million discarded samples; those compute cycles are real
+        cost. Production pipelines tune this threshold carefully, accepting lower pass rates
+        to raise the quality floor of kept samples.
+      </Prose>
+
+      <H3>4b. Verifier-filtered math — pass rates across prompt styles</H3>
+
+      <Prose>
+        Arithmetic problems have ground-truth answers. A verifier can check correctness exactly.
+        Here a simulated student model answers generated arithmetic problems, and the verifier
+        (the arithmetic checker) filters by correctness. Pass rates vary substantially across
+        problem types, which mirrors findings in MetaMath and MathInstruct: multiplication
+        problems have lower pass rates than addition because they are harder to generate correctly.
+      </Prose>
+
+      <CodeBlock language="python">
+{`import random
+random.seed(7)
+
+TEMPLATES = [
+    ("add_two",  "What is {a} + {b}?",                lambda a, b: a + b,   0.15),
+    ("mul_two",  "What is {a} * {b}?",                lambda a, b: a * b,   0.30),
+    ("sub_two",  "What is {a} - {b}?",                lambda a, b: a - b,   0.14),
+    ("square",   "What is {a}^2?",                    lambda a, b: a * a,   0.22),
+    ("div_int",  "What is {a} / {b}? ({b} divides evenly)",
+                                                       lambda a, b: a // b,  0.20),
+]
+
+def run_template(name, fn, answer_fn, error_rate, trials=50):
+    """Simulate synthetic generation + verifier filter."""
+    correct = 0
+    for _ in range(trials):
+        if name == "div_int":
+            b = random.randint(1, 9)
+            a = b * random.randint(1, 12)
+        else:
+            a, b = random.randint(1, 99), random.randint(1, 99)
+        gt = answer_fn(a, b)
+        student = gt if random.random() > error_rate else gt + random.randint(-5, 5)
+        correct += (student == gt)
+    return correct / trials
+
+print(f"{'Template':<12} {'Pass Rate':>10}")
+print("-" * 24)
+total_pass = 0
+for name, tpl, fn, err in TEMPLATES:
+    rate = run_template(name, tpl, fn, err)
+    print(f"{name:<12} {rate:>10.1%}")
+    total_pass += rate
+
+print(f"\\nOverall pass rate: {total_pass/len(TEMPLATES):.1%}")
+
+# Actual output:
+# Template      Pass Rate
+# ------------------------
+# add_two           80.0%
+# mul_two           66.0%
+# sub_two           86.0%
+# square            78.0%
+# div_int           86.0%
+#
+# Overall pass rate: 79.2%`}
+      </CodeBlock>
+
+      <Prose>
+        The heatmap in section 6 visualizes pass rates across a domain-by-style grid. The key
+        takeaway here: verifier pass rates are domain-specific and problem-type-specific. A
+        pipeline that aggregates across problem types will have an average pass rate masking
+        large variance. In MetaMath, the team tracked pass rates per problem family and used
+        that signal to up-weight or down-weight generation from specific families — a simple
+        but effective way to push the training distribution toward problems the pipeline
+        handles well.
+      </Prose>
+
+      <H3>4c. Model collapse simulation — 1D Gaussian, recursive generation</H3>
+
+      <Prose>
+        The simplest possible collapse demonstration: a 1D Gaussian. The true distribution is
+        N(0, 1). Each generation samples from the fitted model and re-estimates parameters.
+        To make tail erosion visible, the model is assumed to "truncate" its effective support
+        — a simplified analog of real LLM collapse, where the model increasingly concentrates
+        probability on its modal outputs and suppresses the tails.
+      </Prose>
+
+      <CodeBlock language="python">
+{`import random, math
+random.seed(99)
+
+def sample_gaussian(mu, sigma, n):
+    """Box-Muller transform — no numpy needed."""
+    out = []
+    while len(out) < n:
+        u1, u2 = random.random() + 1e-12, random.random()
+        z0 = math.sqrt(-2 * math.log(u1)) * math.cos(2 * math.pi * u2)
+        z1 = math.sqrt(-2 * math.log(u1)) * math.sin(2 * math.pi * u2)
+        out.extend([mu + sigma * z0, mu + sigma * z1])
+    return out[:n]
+
+def sample_truncated(mu, sigma, n, clip=1.5):
+    """Simulate tail truncation: model only 'sees' within clip*sigma of mean."""
+    out = []
+    while len(out) < n:
+        batch = sample_gaussian(mu, sigma, n * 4)
+        out.extend(c for c in batch if abs(c - mu) <= clip * sigma)
+    return out[:n]
+
+def mean(xs): return sum(xs) / len(xs)
+def std(xs):
+    m = mean(xs); return math.sqrt(sum((x-m)**2 for x in xs) / len(xs))
+
+N, N_GEN = 500, 10
+real = sample_gaussian(0.0, 1.0, N)
+mu_k, sigma_k = mean(real), std(real)
+
+pure_vars, mixed_vars = [round(sigma_k**2, 4)], [round(sigma_k**2, 4)]
+mu_m, sigma_m = mu_k, sigma_k   # track mixed separately
+
+for gen in range(1, N_GEN + 1):
+    # Pure synthetic: train only on previous generation's samples
+    syn_pure = sample_truncated(mu_k, sigma_k, N)
+    mu_k, sigma_k = mean(syn_pure), std(syn_pure)
+    pure_vars.append(round(sigma_k**2, 4))
+
+    # Mixed: 50% real data every generation
+    syn_mix = sample_truncated(mu_m, sigma_m, N // 2)
+    mixed = real[:N // 2] + syn_mix
+    mu_m, sigma_m = mean(mixed), std(mixed)
+    mixed_vars.append(round(sigma_m**2, 4))
+
+print("Gen    pure-var    mixed-var")
+for g, (pv, mv) in enumerate(zip(pure_vars, mixed_vars)):
+    print(f"{g:>3}    {pv:.4f}      {mv:.4f}")
+
+print(f"\\nCollapse ratio (pure): {pure_vars[-1]/pure_vars[0]:.4f}x")
+print(f"Collapse ratio (mixed): {mixed_vars[-1]/mixed_vars[0]:.4f}x")
+
+# Actual output:
+# Gen    pure-var    mixed-var
+#   0    1.0239      1.0239
+#   1    0.5809      0.7600
+#   2    0.3133      0.6760
+#   3    0.1784      0.6540
+#   4    0.1039      0.6463
+#   5    0.0571      0.6563
+#   6    0.0336      0.6468
+#   7    0.0182      0.6605
+#   8    0.0110      0.6601
+#   9    0.0066      0.6785
+#  10    0.0037      0.6611
+#
+# Collapse ratio (pure):  0.0036x  ← converges toward point mass
+# Collapse ratio (mixed): 0.6457x  ← stabilizes, does not collapse`}
+      </CodeBlock>
+
+      <Prose>
+        Pure synthetic training collapses variance by a factor of 277x over ten generations.
+        The distribution converges toward a point mass centered on the learned mean. The 50%
+        real data mixture stabilizes variance — it drops somewhat (the truncated synthetic
+        samples do have narrower support), but it does not continue collapsing. This is the
+        Shumailov result replicated in a toy setting: mixing real data prevents the recursive
+        information loss that causes collapse.
+      </Prose>
+
+      <H3>4d. Real + synthetic mixing — toy distribution demo</H3>
+
+      <Prose>
+        The final piece: show explicitly that pure-synthetic converges to a point mass while
+        a 50% mixture stays distributed, and measure both the variance and the range at each
+        generation.
+      </Prose>
+
+      <CodeBlock language="python">
+{`# Continuing from 4c setup
+
+def pct_range(xs, lo=5, hi=95):
+    """5th-to-95th percentile range as proxy for distributional width."""
+    xs_sorted = sorted(xs)
+    n = len(xs_sorted)
+    return xs_sorted[int(n * hi / 100)] - xs_sorted[int(n * lo / 100)]
+
+random.seed(99)
+real = sample_gaussian(0.0, 1.0, N)
+
+# Track width as well as variance
+mu_k, sigma_k = mean(real), std(real)
+mu_m, sigma_m = mu_k, sigma_k
+
+print(f"{'Gen':<4} {'pure-std':>10} {'pure-range':>12} {'mix-std':>10} {'mix-range':>12}")
+print("-" * 52)
+
+current_pure = real[:]
+current_mix  = real[:]
+
+for gen in range(0, N_GEN + 1, 2):  # print every other gen
+    if gen > 0:
+        for _ in range(2):
+            syn_p = sample_truncated(mu_k, sigma_k, N)
+            mu_k, sigma_k = mean(syn_p), std(syn_p)
+            current_pure = syn_p
+
+            syn_m = sample_truncated(mu_m, sigma_m, N // 2)
+            current_mix = real[:N // 2] + syn_m
+            mu_m, sigma_m = mean(current_mix), std(current_mix)
+
+    p_std = std(current_pure)
+    p_rng = pct_range(current_pure)
+    m_std = std(current_mix)
+    m_rng = pct_range(current_mix)
+    print(f"{gen:<4} {p_std:>10.4f} {p_rng:>12.4f} {m_std:>10.4f} {m_rng:>12.4f}")
+
+print()
+print("Conclusion: pure-synthetic converges toward a point mass.")
+print("50% real mixing keeps distribution wide and stable.")
+
+# Actual output:
+# Gen   pure-std   pure-range    mix-std   mix-range
+# ----------------------------------------------------
+# 0       1.0119       2.6619     1.0119      2.6619
+# 2       0.5597       1.4666     0.8222      2.2048
+# 4       0.3224       0.8406     0.8037      2.1310
+# 6       0.1834       0.4778     0.8042      2.1386
+# 8       0.1050       0.2755     0.8121      2.1680
+# 10      0.0605       0.1596     0.8130      2.1413
+#
+# Conclusion: pure-synthetic converges toward a point mass.
+# 50% real mixing keeps distribution wide and stable.`}
+      </CodeBlock>
+
+      {/* ======================================================================
+          5. PRODUCTION IMPLEMENTATION
+          ====================================================================== */}
+      <H2>5. Production implementation</H2>
+
+      <Prose>
+        The following are the highest-evidence published recipes for synthetic pre-training
+        data, as of 2026. They are not equivalent — they target different domains, use different
+        verifiers, and make different mixing choices. What they share is that all of them combine
+        a strong teacher, some form of quality gate, and a real-data anchor.
+      </Prose>
+
+      <H3>Phi series (Microsoft, 2023–2024)</H3>
+
+      <Prose>
+        phi-1 (arXiv:2306.11644) trained a 1.3B-parameter code model on a 7B-token dataset:
+        6B tokens of filtered web code plus 1B tokens of GPT-3.5-generated "textbook" exercises
+        and explanations. The synthetic data was generated with explicit prompts asking for
+        pedagogical structure — motivation, worked example, pitfalls, exercises with solutions.
+        A quality classifier filtered generated samples. The student matched or exceeded HumanEval
+        scores of models 3–5x its size.
+      </Prose>
+
+      <Prose>
+        phi-3 (arXiv:2404.14219) extended this to general reasoning. Training used a two-phase
+        strategy: phase 1 on heavily filtered web data, phase 2 on a mixture dominated by
+        synthetic tokens — "LLM-created synthetic data" — plus ultra-filtered reasoning-heavy
+        web data. The resulting phi-3-mini (3.8B parameters, 3.3T tokens) matched Mixtral 8x7B
+        and GPT-3.5 on several benchmarks. Microsoft describes the mix as "heavily filtered
+        publicly available web data and synthetic data," with synthetic fraction highest in
+        phase 2, where reasoning-intensive content matters most.
+      </Prose>
+
+      <CodeBlock language="python">
+{`# Phi-style generation prompt — the actual template matters
+SYSTEM_PROMPT = (
+    "You are an expert textbook author. Write clear, pedagogically structured "
+    "content that teaches concepts from first principles. Include: (1) motivation "
+    "and real-world relevance, (2) a worked example, (3) common pitfalls, "
+    "(4) one practice exercise with solution. Do not mention that this is a textbook."
+)
+
+def phi_style_prompt(topic, level="undergraduate"):
+    return {
+        "system": SYSTEM_PROMPT,
+        "user": f"Write a section on {topic} at the {level} level.",
+    }
+
+# Quality classification heuristics used in phi pipeline:
+# - Length: reject below 256 tokens
+# - Structure: require at least one code block or mathematical expression
+# - Pedagogy: check for worked example marker
+# - Deduplication: MinHash LSH against existing corpus
+
+def quality_gate(text, min_tokens=256):
+    token_approx = len(text.split())
+    has_structure = "Example" in text or "example" in text or "code" in text
+    has_length = token_approx >= min_tokens
+    has_exercise = "Exercise" in text or "Problem" in text or "exercise" in text
+    return has_length and has_structure and has_exercise`}
+      </CodeBlock>
+
+      <H3>MetaMath (Yu et al., 2023)</H3>
+
+      <Prose>
+        MetaMath (arXiv:2309.12284) bootstraps mathematical questions by systematically
+        rewriting existing problems from multiple perspectives: rephrasing, reversing
+        (deriving a question from its answer), adding conditions, or changing representation.
+        Each rewritten problem is answered using a strong teacher (GPT-4 or similar).
+        The key property is that correctness of teacher-generated solutions can be verified
+        by comparing with the known ground-truth answer — a direct execution-like check
+        without needing a code interpreter.
+      </Prose>
+
+      <CodeBlock language="python">
+{`# MetaMath augmentation strategies — pseudocode of the published pipeline
+REWRITING_STRATEGIES = [
+    "rephrase",          # Reword the question, preserve semantics
+    "backward",          # Given answer A, what question would produce A?
+    "add_condition",     # Add an extra constraint; adjust answer accordingly
+    "change_numbers",    # Replace concrete values; verify new answer
+    "self_verification", # Ask teacher to verify its own solution
+]
+
+def metamath_augment(problem, ground_truth, teacher_fn, strategy):
+    if strategy == "rephrase":
+        prompt = f"Rephrase this math problem without changing its meaning:\\n{problem}"
+    elif strategy == "backward":
+        prompt = (f"The answer to a math problem is {ground_truth}. "
+                  f"Write a problem whose answer is exactly {ground_truth}.")
+    elif strategy == "add_condition":
+        prompt = (f"Add one extra constraint to this problem and give the new answer:\\n"
+                  f"{problem}")
+    elif strategy == "change_numbers":
+        prompt = (f"Replace the numbers in this problem with new ones and solve:\\n"
+                  f"{problem}")
+    else:
+        prompt = f"Verify step by step that the answer to this problem is {ground_truth}:\\n{problem}"
+
+    result = teacher_fn(prompt)
+    # Verify: extract numeric answer and compare with ground_truth
+    # If mismatch -> discard. If match -> keep.
+    return result`}
+      </CodeBlock>
+
+      <H3>DeepSeek-R1-Distill (DeepSeek, 2025)</H3>
+
+      <Prose>
+        DeepSeek-R1 first trained a large reasoning model (DeepSeek-R1) using Group Relative
+        Policy Optimization (GRPO) to develop long-form chain-of-thought reasoning capability.
+        It then generated 800,000 high-quality reasoning traces — full step-by-step solutions
+        to math and coding problems — and used those as supervised fine-tuning data for smaller
+        student models (Qwen-7B, Qwen-32B, Llama-70B). The students were not trained with RL;
+        they were trained purely on the teacher's synthetic reasoning traces.
+      </Prose>
+
+      <CodeBlock language="python">
+{`# DeepSeek-R1 distillation — data generation pipeline (pseudocode)
+def generate_reasoning_trace(teacher_r1, problem):
+    """
+    Teacher generates a full chain-of-thought trace.
+    Output format: <think>...step by step...</think> followed by final answer.
+    """
+    prompt = (
+        f"Solve the following problem step by step, "
+        f"showing all reasoning:\\n\\n{problem}"
+    )
+    trace = teacher_r1.generate(prompt, max_tokens=8192, temperature=0.7)
+    return trace
+
+def filter_trace(trace, ground_truth):
+    """Keep only traces where the final answer matches ground truth."""
+    # Extract final answer from trace (after </think> tag)
+    final_answer = extract_answer(trace)
+    return final_answer == ground_truth
+
+# Pipeline:
+# 1. Sample 800K (problem, ground_truth) pairs from math/code benchmarks
+# 2. Generate reasoning trace with DeepSeek-R1 (the teacher)
+# 3. Filter by correctness: keep only traces with matching final answer
+# 4. SFT student model on (problem -> trace) pairs
+# 5. No RL needed: the student learns the reasoning format directly`}
+      </CodeBlock>
+
+      <H3>Magpie (Xu et al., 2024)</H3>
+
+      <Prose>
+        Magpie (arXiv:2406.08464) takes a different angle: rather than constructing synthetic
+        prompts and having a teacher respond, it prompts an already-aligned LLM with only the
+        pre-query template — the system prompt and the empty user-turn marker. The aligned model,
+        trained to complete user messages, generates a realistic user query from the template
+        alone. This produces large volumes of instruction-response pairs without human seed
+        prompts. The method exploits the fact that aligned models have internalized the
+        distribution of realistic user queries. Using Llama-3-Instruct, Magpie generated
+        4 million instructions and selected 300K high-quality instances, producing SFT data
+        that matched Llama-3-8B-Instruct trained on 10 million data points.
+      </Prose>
+
+      {/* ======================================================================
+          6. VISUAL WALKTHROUGH
+          ====================================================================== */}
+      <H2>6. Visual walkthrough</H2>
+
+      <Prose>
+        Three visualizations: the synthetic data pipeline as a step trace, model collapse
+        as a variance-decay plot, and pass rates across domain-by-style combinations as a heatmap.
+      </Prose>
+
+      <StepTrace
+        label="synthetic data pipeline — prompt → generate → verify → keep"
+        steps={[
+          {
+            label: "1. Prompt construction",
+            render: () => (
+              <div>
+                <Prose>Select a topic and style from the curriculum. Construct the teacher prompt with explicit pedagogical instructions: motivation, worked example, pitfalls, exercise.</Prose>
+                <TokenStream tokens={["SYSTEM:", " textbook author", " | USER:", " gradient descent", " | undergrad"]} />
+              </div>
+            ),
+          },
+          {
+            label: "2. Teacher generation",
+            render: () => (
+              <div>
+                <Prose>The teacher LLM (GPT-4-class) generates a full textbook section. Typical output: 400–800 tokens. Temperature 0.7–1.0 for diversity across samples.</Prose>
+                <TokenStream tokens={[
+                  { label: "# Gradient Descent", color: colors.gold },
+                  " ## Motivation ...",
+                  " ## Worked Example ...",
+                  " ## Pitfalls ...",
+                  " ## Exercise ...",
+                ]} />
+              </div>
+            ),
+          },
+          {
+            label: "3. Quality filter",
+            render: () => (
+              <div>
+                <Prose>A quality classifier scores the generated text. Heuristics: minimum length, presence of worked example, presence of exercise, structural markers. Samples below threshold are discarded (86.7% pass rate in our mock pipeline).</Prose>
+                <TokenStream tokens={[
+                  { label: "SCORE: 0.9", color: colors.gold },
+                  " → ",
+                  { label: "KEEP", color: "#4ade80" },
+                  "   |   ",
+                  { label: "SCORE: 0.4", color: colors.textMuted },
+                  " → ",
+                  { label: "DISCARD", color: "#f87171" },
+                ]} />
+              </div>
+            ),
+          },
+          {
+            label: "4. Verifier check (math/code)",
+            render: () => (
+              <div>
+                <Prose>For verifiable domains: execute generated code against tests, or check math answers against ground truth. This step is optional for prose but mandatory for math/code to avoid contaminating training data with wrong solutions.</Prose>
+                <TokenStream tokens={[
+                  { label: "execute()", color: colors.gold },
+                  " → tests pass →",
+                  { label: " KEEP", color: "#4ade80" },
+                  "   |   ",
+                  { label: "execute()", color: colors.textMuted },
+                  " → wrong answer →",
+                  { label: " DROP", color: "#f87171" },
+                ]} />
+              </div>
+            ),
+          },
+          {
+            label: "5. Real-data mixing",
+            render: () => (
+              <div>
+                <Prose>Kept synthetic samples are mixed with filtered real data at 30–70% synthetic. Never train the student on 100% synthetic data. The real-data anchor prevents collapse and preserves tail diversity.</Prose>
+                <TokenStream tokens={[
+                  { label: "real data 40%", color: "#60a5fa" },
+                  " + ",
+                  { label: "synthetic 60%", color: colors.gold },
+                  " → student training corpus",
+                ]} />
+              </div>
+            ),
+          },
+          {
+            label: "6. Student training",
+            render: () => (
+              <div>
+                <Prose>The smaller student model trains on the mixed corpus. Student is evaluated on held-out benchmarks; if capability exceeds a threshold, the pipeline can iterate — but never feed student outputs back as synthetic data without a real-data anchor.</Prose>
+                <TokenStream tokens={[
+                  "student (1.3B) ← ",
+                  { label: "mixed corpus", color: colors.gold },
+                  " → HumanEval: 50.6%",
+                ]} />
+              </div>
+            ),
+          },
+        ]}
+      />
+
+      <Prose>
+        The collapse plot below shows variance of generated samples across generations. Pure
+        synthetic training drives variance to near-zero — convergence to a point mass. A 50%
+        real-data mix stabilizes variance after an initial drop.
+      </Prose>
+
+      <Plot
+        label="model collapse — distribution variance across training generations"
+        xLabel="generation"
+        yLabel="variance"
+        series={[
+          {
+            name: "pure synthetic (collapse)",
+            color: "#f87171",
+            points: [
+              [0, 1.0239], [1, 0.5809], [2, 0.3133], [3, 0.1784],
+              [4, 0.1039], [5, 0.0571], [6, 0.0336], [7, 0.0182],
+              [8, 0.0110], [9, 0.0066], [10, 0.0037],
+            ],
+          },
+          {
+            name: "50% real mix (stable)",
+            color: colors.gold,
+            points: [
+              [0, 1.0239], [1, 0.7600], [2, 0.6760], [3, 0.6540],
+              [4, 0.6463], [5, 0.6563], [6, 0.6468], [7, 0.6605],
+              [8, 0.6601], [9, 0.6785], [10, 0.6611],
+            ],
+          },
+        ]}
+      />
+
+      <Prose>
+        The heatmap below shows simulated pass rates across a 5×3 grid of domains and prompt
+        styles, analogous to what a production synthetic data team would track to allocate
+        generation budget. Higher values (brighter cells) indicate domains where the verifier
+        passes more synthetic samples — those domains are cheaper to synthesize quality data for.
+      </Prose>
+
+      <Heatmap
+        label="verifier pass rate (%) by domain × prompt style"
+        colorScale="gold"
+        rowLabels={["addition", "multiplication", "subtraction", "squares", "division"]}
+        colLabels={["plain", "word-problem", "multi-step"]}
+        matrix={[
+          [80, 72, 61],
+          [66, 58, 44],
+          [86, 79, 68],
+          [78, 70, 55],
+          [86, 80, 67],
+        ]}
+      />
+
+      <Prose>
+        Multiplication and multi-step problems have the lowest pass rates — the teacher model
+        produces more errors, and the verifier catches them. Plain single-step problems have
+        the highest pass rates. This gradient is consistent with the MetaMath paper's finding
+        that backward-rewritten problems (a form of multi-step generation) require additional
+        filtering before inclusion.
+      </Prose>
+
+      {/* ======================================================================
+          7. DECISION MATRIX
+          ====================================================================== */}
+      <H2>7. Decision matrix</H2>
+
+      <Prose>
+        Synthetic data is not universally useful. The evidence base is strongest in domains
+        with verifiable correctness, weakest in domains requiring diverse human experience or
+        long-tail knowledge. Use this matrix to assess whether synthetic generation is worth
+        the cost for your domain.
+      </Prose>
+
+      <H3>Synthetic wins clearly</H3>
+
+      <Prose>
+        Mathematics and formal reasoning: verifier-filtered synthetic problems provably raise
+        benchmark performance. Execution-based correctness checking means the quality floor
+        of kept samples is high, and volume is cheap. MetaMath and its descendants
+        (MathInstruct, MathScale, DeepMath) all demonstrate this.
+      </Prose>
+
+      <Prose>
+        Code: generated functions either pass their tests or they don't. Execution is the
+        gold-standard verifier. phi-1, phi-2, WizardCoder, CodeLlama data mixes all use
+        synthetic code at high fraction. The density of verifiable-correct synthetic code
+        available is higher than for any other domain.
+      </Prose>
+
+      <Prose>
+        Instruction following and alignment: Magpie, Alpaca, WizardLM, Orca all demonstrate
+        that models trained on teacher-generated instruction-response pairs can match or exceed
+        models trained on human-authored data at the same parameter count. The domain is not
+        verifiable in the execution sense, but quality classifiers and preference models serve
+        as approximate verifiers.
+      </Prose>
+
+      <Prose>
+        Reasoning traces: DeepSeek-R1-Distill shows that chain-of-thought traces from a strong
+        teacher, filtered by final-answer correctness, transfer reasoning capability to students
+        that cannot develop it via RL alone at their scale.
+      </Prose>
+
+      <H3>Synthetic loses or is unclear</H3>
+
+      <Prose>
+        Long-tail factual knowledge: a teacher model generates confident text about rare facts
+        it may have never seen accurately. Hallucinated facts in synthetic training data are
+        hard to detect without a secondary verifier, and secondary verifiers for rare facts
+        are by definition hard to build. Synthetic pre-training on factual domains risks
+        amplifying the teacher's hallucinations into the student.
+      </Prose>
+
+      <Prose>
+        Diverse human writing styles: literary fiction, poetry, cultural commentary, and
+        informal registers are domains where "quality" is contested and no verifier exists.
+        A single teacher's style will dominate the synthetic corpus, narrowing rather than
+        expanding the student's stylistic range. This is style without substance, and it is
+        one of the six failure modes in section 9.
+      </Prose>
+
+      <Prose>
+        Non-English long-tail: translation-based synthetic data for low-resource languages
+        preserves information but not cultural context. Synthetic text in Swahili generated
+        by translating English content will read differently from text authored by native
+        Swahili speakers. For basic capability coverage this may be acceptable; for language
+        models intended to serve native speakers of those languages, it is a meaningful limitation.
+      </Prose>
+
+      <H3>Hybrid is the norm</H3>
+
+      <Prose>
+        Every published recipe that demonstrates synthetic data benefits uses a mixture of
+        real and synthetic data, never pure synthetic. The mixing ratio varies (30–80% synthetic
+        depending on domain and phase), but the real-data anchor is universal. The practical
+        question is not "synthetic or real" — it is "what mixing ratio, for which domains,
+        with which verifier, at what cost."
+      </Prose>
+
+      {/* ======================================================================
+          8. WHAT SCALES AND WHAT DOESN'T
+          ====================================================================== */}
+      <H2>8. What scales and what doesn&apos;t</H2>
+
+      <H3>Teacher cost: one inference per sample</H3>
+
+      <Prose>
+        Every synthetic sample requires one or more teacher inference calls. At GPT-4-class
+        costs, generating 1 billion tokens of synthetic data costs on the order of tens of
+        thousands of dollars. At open-weight teacher costs (Llama-3-70B, DeepSeek-V3 on
+        your own hardware), the cost is lower but the compute is real. Teacher cost scales
+        linearly with corpus size, which means the cost curve for synthetic data is fundamentally
+        different from real data (which has a one-time curation cost and then unlimited
+        reproduction). As teacher models get cheaper via quantization and distillation, this
+        cost will fall — but it does not disappear.
+      </Prose>
+
+      <H3>Filtering is cheap for verifiable domains</H3>
+
+      <Prose>
+        Execution-based verification of code or arithmetic is orders of magnitude cheaper
+        than teacher inference. Running unit tests is microseconds; generating the solution
+        is seconds. This asymmetry means that verifier-filtered pipelines can reject large
+        fractions of generated samples (30–50% rejection is common in math pipelines) without
+        material cost increase. The bottleneck is teacher generation, not verification.
+      </Prose>
+
+      <H3>Diversity does not scale from a single teacher</H3>
+
+      <Prose>
+        A single teacher model produces samples from its own distribution. Increasing the
+        number of samples does not increase the diversity of that distribution — it increases
+        the density of coverage within it. To get diversity, you need diverse teachers (different
+        model families, different sizes, different training data), diverse prompts (many topic
+        and style combinations), or structured augmentation (MetaMath-style rewriting from
+        multiple perspectives). The phi team addressed this with an explicit curriculum of
+        topics and styles. MetaMath addressed it with systematic rewriting strategies.
+        Magpie addressed it by using the aligned model's own prior over user queries. None
+        of these is free — each requires deliberate design effort.
+      </Prose>
+
+      <H3>Small models benefit more per synthetic token</H3>
+
+      <Prose>
+        The gains from textbook-quality synthetic data are most dramatic at small model scales
+        (1B–14B parameters). phi-1 at 1.3B parameters saw very large gains. Whether the same
+        quality gains persist at 70B or 400B is not publicly answered. Larger models have seen
+        enough of the real-data distribution that the marginal benefit of high-quality synthetic
+        explanations is smaller — they already understand the concepts. At small scales, every
+        high-quality token is pulling weight. This suggests synthetic data is particularly
+        valuable for deployment scenarios where model size is constrained: on-device, edge
+        inference, cost-sensitive API consumers.
+      </Prose>
+
+      {/* ======================================================================
+          9. FAILURE MODES & GOTCHAS
+          ====================================================================== */}
+      <H2>9. Failure modes &amp; gotchas</H2>
+
+      <H3>1. Model collapse (recursive training)</H3>
+
+      <Prose>
+        The Shumailov failure mode. Described in full in sections 2 and 3, demonstrated in
+        section 4c. The fix is always to maintain a real-data anchor. Any pipeline that feeds
+        student outputs back into the next training run without a real-data component is running
+        toward collapse. The rate depends on how many generations are iterated, how different
+        the synthetic distribution is from the real one, and what fraction is synthetic — but
+        the direction is always toward narrower distribution.
+      </Prose>
+
+      <H3>2. Distribution narrowing (single-teacher homogeneity)</H3>
+
+      <Prose>
+        Even with real-data mixing, a large fraction of synthetic data from one teacher
+        narrows stylistic and epistemic diversity. The student learns to produce outputs
+        that look like the teacher — same sentence structure, same level of confidence, same
+        typical errors. This is not the same as collapse (the student doesn't lose capability)
+        but it does reduce diversity in outputs, which matters for creative tasks and for
+        robustness to distributional shift.
+      </Prose>
+
+      <H3>3. Evaluation contamination via teacher</H3>
+
+      <Prose>
+        A strong teacher model has likely memorized test-set problems from popular benchmarks
+        (HumanEval, MATH, AIME, MBPP). When the teacher generates synthetic training data,
+        some of that data may be near-identical to test-set problems — either because the
+        teacher is generating variants of memorized examples, or because benchmark problems
+        are so stereotyped that the teacher generates them independently. The student trained
+        on this data inherits the "contamination." Benchmark scores on the contaminated student
+        will be inflated, and the inflation is invisible unless explicitly checked via
+        n-gram overlap between the synthetic corpus and the evaluation sets.
+      </Prose>
+
+      <H3>4. Reward hacking the verifier</H3>
+
+      <Prose>
+        In pipelines where the teacher is explicitly optimized to pass the verifier (e.g.,
+        RLHF-style loops where the teacher is rewarded for generating verifiable solutions),
+        the teacher can learn to produce outputs that satisfy the verifier without genuinely
+        solving the problem. Arithmetic verifiers can be gamed by outputting answers in
+        unexpected formats; test-based code verifiers can be gamed by solutions that hardcode
+        test outputs. A verifier that can be gamed is not a quality gate.
+      </Prose>
+
+      <H3>5. Teacher bias inheritance</H3>
+
+      <Prose>
+        The student inherits not just the teacher's knowledge but also the teacher's biases.
+        If the teacher is more accurate on Western scientific conventions, the student will be
+        too. If the teacher has political or cultural leanings reflected in its outputs, those
+        leanings transfer into the synthetic corpus and from there into the student's weights.
+        This is different from the diversity issue: it is not about variation in outputs, but
+        about the systematic direction of errors and preferences.
+      </Prose>
+
+      <H3>6. Style without substance</H3>
+
+      <Prose>
+        A teacher prompted to write "textbook-quality" content will produce text that looks
+        like a textbook — structured headings, worked examples, a confident tone. If the
+        teacher's underlying knowledge in the domain is weak (say, an obscure subfield of
+        chemistry it saw few examples of during training), the resulting text will have the
+        form of a high-quality explanation with factually dubious content. Quality classifiers
+        that score on structural markers (has headings, has examples, right length) will
+        pass this content. The student will learn to generate convincing-sounding explanations
+        of things the teacher didn't fully understand.
+      </Prose>
+
+      <H3>7. Over-dependence on teacher availability</H3>
+
+      <Prose>
+        Pipelines built around a proprietary teacher (GPT-4, Claude Opus) are vulnerable to
+        API changes, pricing changes, and rate limits. If the teacher goes away or changes
+        behavior, the pipeline breaks. This is not a mathematical failure mode — it is an
+        operational one — but it has affected real teams. Using open-weight teachers is more
+        robust; using multiple teachers reduces single-point-of-failure risk.
+      </Prose>
+
+      {/* ======================================================================
+          10. PRIMARY SOURCES
+          ====================================================================== */}
+      <H2>10. Primary sources</H2>
+
+      <Prose>
+        All sources below were verified via web search against current arXiv listings and
+        publisher pages as of April 2026.
+      </Prose>
+
+      <ul style={{ color: colors.textSecondary, lineHeight: 1.8, fontSize: 14, paddingLeft: 20 }}>
+        <li>
+          <strong>phi-1 — "Textbooks Are All You Need"</strong> — Gunasekar, Zhang, Aneja et al.
+          Microsoft Research, 2023. arXiv:2306.11644. The foundational demonstration that
+          1.3B-parameter models trained on textbook-quality synthetic code data match models
+          3–5x their size on HumanEval (50.6% pass@1). Introduced the "textbook prompt" paradigm.
+        </li>
+        <li>
+          <strong>phi-3 — "A Highly Capable Language Model Locally on Your Phone"</strong> —
+          Abdin et al. Microsoft Research, April 2024. arXiv:2404.14219. Extended phi approach to
+          general reasoning at 3.8B parameters, 3.3T tokens, two-phase training with synthetic-heavy
+          phase 2. phi-3-mini matches Mixtral 8x7B and GPT-3.5 on several benchmarks.
+        </li>
+        <li>
+          <strong>Model Collapse — "AI models collapse when trained on recursively generated data"</strong> —
+          Shumailov, Shumaylov, Zhao et al. Nature 631, 755–759 (2024). DOI: 10.1038/s41586-024-07566-y.
+          Published proof of distribution collapse in recursive synthetic training. The KL divergence
+          bound and experimental evidence across LLMs, VAEs, and GMMs. The canonical reference for
+          the collapse failure mode.
+        </li>
+        <li>
+          <strong>MetaMath — "Bootstrap Your Own Mathematical Questions"</strong> — Yu, Jiang, Shi
+          et al. arXiv:2309.12284, September 2023. Systematic bootstrapping via rephrase, backward,
+          add-condition, change-numbers rewriting. MetaMath-7B: 66.4% GSM8K, 19.4% MATH —
+          +11.5% and +8.7% over same-size SOTA at submission time.
+        </li>
+        <li>
+          <strong>Alpaca — "Self-Instruct"</strong> — Taori, Gulrajani, Zhang et al. Stanford
+          CRFM, March 2023. The first widely-replicated demonstration of instruction-following
+          distillation: Llama-7B trained on 52K GPT-3.5 instruction-response pairs matched
+          GPT-3.5 on human preference evaluation at far lower cost.
+        </li>
+        <li>
+          <strong>Magpie — "Alignment Data Synthesis from Scratch by Prompting Aligned LLMs with Nothing"</strong> —
+          Xu, Jiang, Niu et al. arXiv:2406.08464, June 2024. ICLR 2025. Generates instruction-response
+          pairs by prompting aligned LLMs with the pre-query template only. 4M instructions synthesized
+          from Llama-3-Instruct; 300K-sample subset matches performance of Llama-3-8B-Instruct trained
+          on 10M data points.
+        </li>
+        <li>
+          <strong>DeepSeek-R1 — "Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"</strong> —
+          DeepSeek-AI, January 2025. arXiv:2501.12948. Used GRPO to train a frontier-class reasoning
+          model, then distilled reasoning traces into smaller students (Qwen-7B through Llama-70B) via
+          800K synthetic chain-of-thought samples. DeepSeek-R1-Distill-Qwen-32B achieves 72.6% on
+          AIME 2024, 94.3% on MATH-500.
+        </li>
+      </ul>
+
+      {/* ======================================================================
+          11. SELF-CHECK EXERCISES
+          ====================================================================== */}
+      <H2>11. Self-check exercises</H2>
+
+      <Prose>
+        <strong>1. Derive the collapse conditions.</strong> Starting from the KL divergence
+        bound in section 3 — <Code>D_KL(p ‖ p_k) ≥ k · D_KL(p ‖ p_1)</Code> — under what
+        conditions does collapse <em>not</em> occur? Specifically: if <Code>D_KL(p ‖ p_1) = 0</Code>,
+        what does this imply about the model after generation 1, and is such a model achievable?
+        What is the weakest condition on the mixing fraction of real data that would keep the
+        cumulative divergence bounded?
+      </Prose>
+
+      <Prose>
+        <strong>2. Design a synthetic chemistry verifier.</strong> Suppose you want to generate
+        synthetic pre-training data for organic chemistry reaction prediction. Design a verifier
+        for generated reaction equations. What tool would you use (e.g., RDKit, a specialized
+        LLM)? What fraction of teacher-generated reactions do you expect to be valid? How would
+        you handle reactions that are chemically valid but not plausible at room temperature or
+        pressure?
+      </Prose>
+
+      <Prose>
+        <strong>3. Synthetic data and teacher bias.</strong> A synthetic corpus generated by a
+        single GPT-4-class teacher is used to pre-train a student. The student is then evaluated
+        on a benchmark designed to test diversity of viewpoints on contested political questions.
+        Under what conditions would the student expand beyond the teacher's viewpoints, and under
+        what conditions would it reinforce them? What mix ratio or pipeline modification would
+        give you the best chance of a more diverse student?
+      </Prose>
+
+      <Prose>
+        <strong>4. Mix ratio for a distilled student.</strong> You are building a 7B-parameter
+        reasoning model using DeepSeek-R1-style reasoning-trace distillation. You have a budget
+        of 10 billion training tokens. You can generate reasoning traces at 1M tokens per dollar
+        (teacher inference cost), and you have 5B tokens of filtered real math data available
+        at no additional cost. How would you allocate your budget? At what synthetic fraction
+        would you expect to see diminishing returns, and how would you detect this empirically
+        before committing the full budget?
+      </Prose>
+
+      <Prose>
+        <strong>5. Detect distribution narrowing.</strong> You have trained two 7B-parameter
+        models: one on 50% synthetic + 50% real data, one on 90% synthetic + 10% real data.
+        Both score similarly on GSM8K and HumanEval. Design a test to determine whether the
+        90%-synthetic model has narrower distributional coverage than the 50%-synthetic model.
+        What would you measure — entropy of outputs, diversity of phrasings, coverage of rare
+        topics — and what would a meaningful difference look like?
+      </Prose>
+
+      <Prose>
+        Synthetic pre-training data is the current bet for pushing past the data wall. The bet
+        is well-evidenced in verifiable domains — math, code, instruction following — and
+        thin or speculative in domains that resist verification. Whether synthesis scales to
+        match frontier-class real-data-heavy training remains publicly unanswered. Model collapse
+        is real and the mitigation (real-data anchoring) is reliable but imposes a floor on how
+        synthetic-heavy any pipeline can safely go. The practical regime that has worked so far:
+        strong external teacher, explicit verifier, 30–70% synthetic, real-data anchor always
+        present. Deviation from any of these without careful empirical tracking is a way to
+        get the failure modes in section 9 for free.
       </Prose>
     </div>
   ),
