@@ -343,7 +343,224 @@ assert tok.encode("lowest") == ["low", "est</w>"]`}
       </CodeBlock>
 
       <Prose>
-        That is a complete BPE tokenizer in under fifty lines of pure Python. It trains, it encodes, it decodes, it round-trips, and its first ten merges on the Sennrich corpus match what the 2016 paper reports. What it does not do is what production tokenizers spend most of their code on: byte-level handling of arbitrary Unicode, a cache for repeated encodings, special tokens for chat formatting or end-of-sequence, an Aho-Corasick trie to make encoding run in near-linear time on long documents, thread-safe access for multi-process workers, serialization to a format other libraries can load, and graceful handling of inputs that contain bytes the tokenizer has never seen. Those are engineering concerns, and the next section is about how the HuggingFace, SentencePiece, and <Code>tiktoken</Code> libraries handle them.
+        That is a complete BPE tokenizer in under fifty lines of pure Python. It trains, it encodes, it decodes, it round-trips, and its first ten merges on the Sennrich corpus match what the 2016 paper reports. What it does not do is what production tokenizers spend most of their code on: byte-level handling of arbitrary Unicode, a cache for repeated encodings, special tokens for chat formatting or end-of-sequence, an Aho-Corasick trie to make encoding run in near-linear time on long documents, thread-safe access for multi-process workers, serialization to a format other libraries can load, and graceful handling of inputs that contain bytes the tokenizer has never seen. Those are engineering concerns, and section 5 is about how the HuggingFace, SentencePiece, and <Code>tiktoken</Code> libraries handle them. Before we get there, there are two more from-scratch implementations worth building, because they share so much of this scaffolding that the differences fit on one screen.
+      </Prose>
+
+      <H3>4f. WordPiece from scratch</H3>
+
+      <Prose>
+        WordPiece is what you get when you keep every structural piece of BPE and swap out exactly one function. The pre-tokenization is the same. The end-of-word marker is the same — or rather, the <em>idea</em> of a boundary marker is the same; BERT chose a different convention, which we will get to in a moment. The corpus representation as a dict of symbol tuples to word frequencies is the same. The outer loop is the same. The rewriting step — replace every adjacent occurrence of the chosen pair with its concatenation — is the same. The only difference, algorithmically, is which pair the loop picks at each step. BPE picks <Code>argmax freq(a, b)</Code>. WordPiece picks <Code>argmax freq(a, b) / (freq(a) · freq(b))</Code>. That is a one-line change, and it produces a measurably different vocabulary on the same corpus.
+      </Prose>
+
+      <Prose>
+        The math connects back to section 3. Up to a constant, the WordPiece score is the pointwise mutual information between symbols <Code>A</Code> and <Code>B</Code>: log of joint probability divided by the product of marginals. PMI is the right quantity here because the question we care about is not "how often does this pair show up" but "how informative is this pair above and beyond the fact that its pieces are each individually common." The pair <Code>t + h</Code> is very common. Most of that commonness is already captured by how often <Code>t</Code> and <Code>h</Code> appear on their own. A merge that bakes <Code>th</Code> into a single token does not buy you much new information; it just shortens sequences. By contrast, the pair <Code>q + u</Code> is not especially frequent in raw counts, but almost every <Code>q</Code> is followed by <Code>u</Code>, so the PMI is huge. WordPiece spends merges on pairs like this. The edge case where <Code>freq(A) = 1</Code> is informative: the score collapses to <Code>freq(AB) / freq(B)</Code>, which is just "what fraction of <Code>B</Code>'s occurrences are preceded by <Code>A</Code>." When a symbol appears exactly once and it appears right before <Code>B</Code>, the score is high — which is exactly what you want, because that unique pair is a perfect predictor and deserves a dedicated token.
+      </Prose>
+
+      <CodeBlock language="python">
+{`def get_symbol_freqs(vocab):
+    """Count occurrences of each single symbol, weighted by word frequency."""
+    freqs = Counter()
+    for symbols, freq in vocab.items():
+        for s in symbols:
+            freqs[s] += freq
+    return freqs
+
+def get_wordpiece_stats(vocab):
+    """PMI-style score: freq(AB) / (freq(A) * freq(B)) for every adjacent pair."""
+    sym_freqs = get_symbol_freqs(vocab)
+    pair_freqs = get_stats(vocab)    # reuse the BPE helper
+    scores = {}
+    for (a, b), ab_freq in pair_freqs.items():
+        scores[(a, b)] = ab_freq / (sym_freqs[a] * sym_freqs[b])
+    return scores, pair_freqs
+
+def train_wordpiece(corpus, num_merges):
+    word_freqs = pre_tokenize(corpus)
+    vocab = init_vocab(word_freqs)
+    merges = []
+    for _ in range(num_merges):
+        scores, pair_freqs = get_wordpiece_stats(vocab)
+        if not scores:
+            break
+        best = max(scores, key=scores.get)
+        vocab = merge_vocab(best, vocab)   # reuse the BPE rewriter
+        merges.append((best, scores[best], pair_freqs[best]))
+    return merges, vocab
+
+# Run on the same classic corpus as BPE, print the first five merges.
+merges, _ = train_wordpiece(corpus, num_merges=10)
+for i, (pair, score, count) in enumerate(merges[:5], 1):
+    print(f"{i}. {pair[0]!r} + {pair[1]!r}  score={score:.4f}  freq={count}")
+
+# Actual output (verified by running this code):
+# 1. 'i' + 'd'      score=0.3333  freq=3  -> id
+# 2. 'l' + 'o'      score=0.1429  freq=7  -> lo
+# 3. 's' + 't'      score=0.1111  freq=9  -> st
+# 4. 'lo' + 'w'     score=0.0625  freq=7  -> low
+# 5. 'w' + 'id'     score=0.1111  freq=3  -> wid`}
+      </CodeBlock>
+
+      <Prose>
+        Compare this to BPE's first five merges on the same corpus. BPE picked <Code>e + s</Code>, <Code>es + t</Code>, <Code>est + {"</w>"}</Code>, <Code>l + o</Code>, <Code>lo + w</Code> — the most frequent pairs in raw count, which happened to walk down the suffix <Code>est</Code> before ever looking at anything else. WordPiece's first pick is <Code>i + d</Code>, with a PMI score of 0.333. That pair only occurs three times — nothing close to the most frequent — but <Code>i</Code> and <Code>d</Code> each occur only three times in the entire corpus, and every time they appear, they appear together, inside <Code>widest</Code>. That is a perfect co-occurrence, and WordPiece spends its first merge on it. By contrast, <Code>s + t</Code> has the highest joint count (nine) but a lower score because <Code>s</Code> and <Code>t</Code> each show up on their own frequently. BPE and WordPiece agree on some merges (both eventually produce <Code>lo</Code> and <Code>low</Code>) and disagree on others. Roughly, BPE prefers pairs that are common-but-independent; WordPiece prefers pairs that are rare-but-locked-together.
+      </Prose>
+
+      <Prose>
+        A note on the surface convention. The reference BPE implementation in the previous subsection uses <Code>{"</w>"}</Code> to mark the end of a word. BERT's WordPiece uses the opposite convention: the <em>first</em> piece of a word is bare, and every subsequent piece is prefixed with <Code>##</Code>. The word <Code>unbelievably</Code> under BERT's tokenizer comes out as <Code>['un', '##bel', '##ievably']</Code>. The information content is the same — you can recover word boundaries from either marker scheme — but the continuation-prefix convention has two practical advantages. The first is that it generalizes cleanly to languages without whitespace. In Chinese or Japanese, there is no notion of "end of word" that a training corpus can give you for free, but there is still a notion of "this token attaches to the previous one," which is exactly what <Code>##</Code> expresses. The second is detokenization: to reconstruct a sentence, walk left-to-right and prepend a space to every token that does <em>not</em> start with <Code>##</Code>. No stripping of suffix markers, no ambiguity about what a space means. The algorithm underneath is unchanged; the convention is a serialization choice.
+      </Prose>
+
+      <H3>4g. Unigram LM from scratch</H3>
+
+      <Prose>
+        Unigram is where things actually change. Kudo 2018 is not a merge algorithm with a different scoring rule. There is no merge loop at all. Instead, the training procedure is top-down: start with a deliberately oversized vocabulary, fit a unigram language model over it with Expectation-Maximization, score each token by how much it contributes to compression, drop the worst ones, and repeat. The mental model is sculpture rather than additive construction. BPE and WordPiece start with characters and glue outward. Unigram starts with a pile of candidate tokens and chisels away until only the useful ones remain.
+      </Prose>
+
+      <Prose>
+        Build it up in four stages.
+      </Prose>
+
+      <Prose>
+        <strong>Stage 1 — seed.</strong> Enumerate every substring of every word up to some maximum length, count occurrences weighted by word frequency, and keep the top <Code>N</Code> where <Code>N</Code> is two or three times the target vocabulary size. Always include every single character that appears in the corpus, so that no word is ever un-segmentable. Normalize the counts into a probability distribution — this is the initial unigram model.
+      </Prose>
+
+      <Prose>
+        <strong>Stage 2 — segment.</strong> Given a vocabulary and its log-probabilities, the best segmentation of a word under the unigram model is the one that maximizes the product of token probabilities, equivalently the one that minimizes the sum of negative log-probabilities. That is a shortest-path problem on the segmentation lattice, and Viterbi solves it in <Code>O(n · L)</Code> time per word of length <Code>n</Code> with maximum token length <Code>L</Code>. The recursion is <Code>cost[i] = min over tokens t ending at i of cost[i - len(t)] - log p(t)</Code>. This is equation 3 of the Kudo paper, written in imperative form.
+      </Prose>
+
+      <Prose>
+        <strong>Stage 3 — EM.</strong> The E-step computes, for each token, its expected count across the corpus under the current model. The exact expectation requires summing over every valid segmentation, which is a forward-backward computation. In practice the Viterbi approximation is used — treat the MAP segmentation as if it were the full posterior, collect token counts from it, and weight by word frequency. The MAP segmentation is the mode of the distribution over segmentations, and on natural-language corpora with sharp posteriors it is close to the full marginal. The M-step is trivial: re-estimate each token's probability as its expected count divided by the total expected count. Repeat until convergence, which in practice takes a handful of iterations.
+      </Prose>
+
+      <Prose>
+        <strong>Stage 4 — prune.</strong> After EM has settled, score each token by the drop in total corpus log-likelihood if that token were removed from the vocabulary and the words that used it had to be re-segmented using the remaining tokens. A token that is the only way to cheaply express some common substring will have a large score — removing it forces the corpus to pay extra log-probability elsewhere. A token that is already shadowed by its pieces (say, <Code>lo</Code> when <Code>l</Code> and <Code>o</Code> are both around and the combination rarely segments as one piece anyway) will have a score near zero. Drop the bottom <Code>k</Code> percent — Kudo uses around twenty — and go back to Stage 3. Stop when the vocabulary reaches the target size.
+      </Prose>
+
+      <CodeBlock language="python">
+{`import math
+from collections import Counter
+
+def seed_vocab(corpus, max_len=6, top_n=60):
+    """Enumerate substrings up to max_len, keep top_n by weighted count,
+    always retain every single character so words stay segmentable."""
+    word_freqs = pre_tokenize(corpus)
+    counts = Counter()
+    for w, f in word_freqs.items():
+        n = len(w)
+        for i in range(n):
+            for j in range(i + 1, min(i + max_len, n) + 1):
+                counts[w[i:j]] += f
+    chars = {c for w in word_freqs for c in w}
+    kept = {t for t, _ in counts.most_common(top_n)} | chars
+    total = sum(counts[t] for t in kept)
+    return {t: counts[t] / total for t in kept}, word_freqs
+
+def viterbi_segment(word, vocab_logprobs):
+    """Best segmentation of word under the unigram model (MAP via DP).
+    Returns (tokens, log_probability)."""
+    n, INF = len(word), float("inf")
+    cost = [INF] * (n + 1); back = [None] * (n + 1); cost[0] = 0.0
+    for i in range(1, n + 1):
+        for j in range(max(0, i - 16), i):
+            tok = word[j:i]
+            if tok in vocab_logprobs:
+                c = cost[j] - vocab_logprobs[tok]
+                if c < cost[i]:
+                    cost[i] = c; back[i] = (j, tok)
+    if cost[n] == INF:
+        return None, -INF
+    segs = []; i = n
+    while i > 0:
+        j, tok = back[i]; segs.append(tok); i = j
+    return list(reversed(segs)), -cost[n]
+
+def em_step(vocab_logprobs, word_freqs):
+    """One EM iteration. E-step: Viterbi-approximated expected counts.
+    M-step: normalize to a probability distribution."""
+    expected = Counter()
+    for w, f in word_freqs.items():
+        segs, _ = viterbi_segment(w, vocab_logprobs)
+        if segs is None: continue
+        for tok in segs: expected[tok] += f
+    total = sum(expected.values())
+    if total == 0: return vocab_logprobs
+    return {t: math.log(expected[t] / total) if expected[t] > 0
+            else math.log(1e-12) for t in vocab_logprobs}
+
+def corpus_loglik(vocab_logprobs, word_freqs):
+    return sum(f * viterbi_segment(w, vocab_logprobs)[1]
+               for w, f in word_freqs.items())
+
+def score_token_loss(token, vocab_logprobs, word_freqs):
+    """Drop in corpus log-likelihood if token were removed.
+    Higher = token is more load-bearing for compression."""
+    if token not in vocab_logprobs: return 0.0
+    base = corpus_loglik(vocab_logprobs, word_freqs)
+    reduced = {t: lp for t, lp in vocab_logprobs.items() if t != token}
+    return base - corpus_loglik(reduced, word_freqs)
+
+def train_unigram(corpus, target_vocab_size, prune_fraction=0.2, em_iters=2):
+    probs, word_freqs = seed_vocab(corpus, max_len=6,
+                                   top_n=max(target_vocab_size * 3, 30))
+    logprobs = {t: math.log(p) for t, p in probs.items() if p > 0}
+    chars = {c for w in word_freqs for c in w}
+    while True:
+        for _ in range(em_iters):
+            logprobs = em_step(logprobs, word_freqs)
+        if len(logprobs) <= target_vocab_size: break
+        scores = {t: score_token_loss(t, logprobs, word_freqs)
+                  for t in logprobs if t not in chars}
+        if not scores: break
+        sorted_toks = sorted(scores.items(), key=lambda kv: kv[1])
+        n_drop = min(max(1, int(len(sorted_toks) * prune_fraction)),
+                     len(logprobs) - target_vocab_size)
+        for t, _ in sorted_toks[:n_drop]: del logprobs[t]
+        z = sum(math.exp(lp) for lp in logprobs.values())
+        logprobs = {t: lp - math.log(z) for t, lp in logprobs.items()}
+    return logprobs, word_freqs
+
+# Run on the same classic corpus, target a tiny 15-token vocab.
+final, wf = train_unigram(corpus, target_vocab_size=15,
+                          prune_fraction=0.2, em_iters=3)
+for tok, lp in sorted(final.items(), key=lambda kv: -kv[1]):
+    print(f"{tok!r:>10}  p={math.exp(lp):.4f}")
+
+# Actual output (verified by running this code):
+#   'newest'  p=0.3750
+#      'low'  p=0.3125
+#   'widest'  p=0.1875
+#    'lower'  p=0.1250
+#        'e'  p=0.0000   (retained as a character fallback; prob ~ 1e-12)
+#        'r'  p=0.0000
+#        'l'  p=0.0000
+#        'd'  p=0.0000
+#        'o'  p=0.0000
+#        't'  p=0.0000
+#        's'  p=0.0000
+#        'i'  p=0.0000
+#        'n'  p=0.0000
+#        'w'  p=0.0000
+#      'wid'  p=0.0000
+#
+# Viterbi segmentations under this vocab:
+#   'newest'  -> ['newest']           # full word is one token
+#   'widest'  -> ['widest']           # full word is one token
+#   'lowest'  -> ['low', 'e', 's', 't']  # unseen word falls back to pieces
+#   'slowest' -> ['s', 'low', 'e', 's', 't']`}
+      </CodeBlock>
+
+      <Prose>
+        The final vocabulary is dominated by the four full words in the training corpus, with every single character retained as a fallback token for anything the model has never seen. That is a reasonable outcome for a target size of fifteen on a corpus of four distinct words: the full words themselves are by far the most compressive units, and the character fallbacks exist so that out-of-vocabulary text like <Code>lowest</Code> or <Code>slowest</Code> still has a valid segmentation. Run the same procedure on a realistic corpus with target 32,000 and you get a vocabulary that looks much more like BPE's — full common words, frequent prefixes and suffixes, residual characters — but chosen by likelihood rather than by greedy counting.
+      </Prose>
+
+      <Prose>
+        Three things to notice about this construction. First, the pruning score is the right quantity. It is not "how often does this token appear" but "how much worse does the corpus compress if I take it away." A token that is a perfect substring of a more compressive token, and whose appearances always get absorbed by the longer one under Viterbi, has a pruning score of zero, and it should be the first to go. That is exactly what drives the vocabulary toward a minimum description length optimum. Second, because the segmentation model is explicit and probabilistic, Unigram gives you subword regularization for free at training time. Instead of always using the MAP segmentation, you can sample a segmentation from the distribution <Code>P(s | w) ∝ ∏ p(sᵢ)</Code> with temperature, which exposes the downstream model to multiple plausible tokenizations of the same word and generally improves robustness — this is the "subword regularization" in the title of Kudo's paper. BPE has no equivalent hook, because it is not a probabilistic model; later work ("BPE Dropout," Provilkov 2020) retrofits a similar effect onto BPE, but it is a less principled mechanism.
+      </Prose>
+
+      <Prose>
+        Third, the cost. One EM iteration is <Code>O(|corpus| · L_max · |V|)</Code> — every word has to be Viterbi-segmented, and Viterbi over a word of length <Code>n</Code> with <Code>V</Code> candidate tokens costs roughly <Code>n · L_max</Code> if you use a prefix index. One pruning iteration is more expensive: each candidate token's score is a full <Code>corpus_loglik</Code> computation, which is another pass over the corpus, so the pruning step is <Code>O(|V| · |corpus| · n)</Code>. Total training is a handful of EM-plus-prune rounds — usually five to ten before the vocabulary reaches target size. Every iteration is more expensive than a BPE merge step, but there are fewer iterations overall, so the two algorithms end up in the same rough neighborhood for final wall-clock time on a given corpus. In production the SentencePiece C++ implementation uses a smarter prefix index and parallelizes over the corpus; the pure-Python version above is useful as a specification, not as a tool to actually train a ten-gigabyte corpus tokenizer.
+      </Prose>
+
+      <Prose>
+        With BPE, WordPiece, and Unigram all implemented from scratch, the picture of section 5 changes. If you have read this section end to end, you have written working reference implementations of all three major subword algorithms, and you understand exactly what each one is doing at the level of a counter update and a dictionary rewrite. The library code in section 5 is then not a black box; it is the same algorithm with the Rust-and-C++ engineering concerns — parallelism, memory layout, trie-based encoding, serialization — layered on top. Read the libraries looking for those engineering concerns specifically, and the structure of their APIs stops feeling arbitrary.
       </Prose>
 
       {/* ======================================================================
