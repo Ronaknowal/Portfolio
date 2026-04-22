@@ -493,7 +493,7 @@ print(f"Recall@10 (PQ M=16): {hits / (100*10):.3f}")
 {`import numpy as np
 
 def truncate_and_normalize(vecs: np.ndarray, dim: int) -> np.ndarray:
-    """Take first `dim` dimensions and renormalize to unit norm."""
+    """Take first 'dim' dimensions and renormalize to unit norm."""
     sub = vecs[:, :dim].copy()
     norms = np.linalg.norm(sub, axis=1, keepdims=True)
     norms = np.where(norms == 0, 1.0, norms)   # avoid divide-by-zero
@@ -544,7 +544,7 @@ for dim in [32, 64, 128, 256, 512]:
       </Prose>
 
       <Prose>
-        The MRL training modification itself is straightforward: the standard contrastive loss is applied at each of a set of nested prefix lengths {m₁, m₂, ..., m_L = d}, and the total loss is a weighted sum. Models trained this way pay a small penalty on the full-dimension task — roughly 0.5–1% on MTEB retrieval — in exchange for near-optimal performance at every prefix length. Kusupati et al. report that MRL at 64 dimensions matches independently-trained 64-dimensional models, which are already a well-studied baseline for fast approximate retrieval. The practical upshot: an MRL model with d=1536 and a 64-dimensional first-pass shortlist gives you a 24× speedup on the coarse retrieval step with a recall cost that is largely recovered by the full-precision rerank over the shortlist.
+        The MRL training modification itself is straightforward: the standard contrastive loss is applied at each of a set of nested prefix lengths {"{m₁, m₂, ..., m_L = d}"}, and the total loss is a weighted sum. Models trained this way pay a small penalty on the full-dimension task — roughly 0.5–1% on MTEB retrieval — in exchange for near-optimal performance at every prefix length. Kusupati et al. report that MRL at 64 dimensions matches independently-trained 64-dimensional models, which are already a well-studied baseline for fast approximate retrieval. The practical upshot: an MRL model with d=1536 and a 64-dimensional first-pass shortlist gives you a 24× speedup on the coarse retrieval step with a recall cost that is largely recovered by the full-precision rerank over the shortlist.
       </Prose>
 
       {/* ======================================================================
