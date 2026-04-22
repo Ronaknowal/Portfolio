@@ -499,11 +499,11 @@ print(f"RSF concordance: {rsf.score(X_rsf, y):.4f}")
       </Prose>
 
       <Heatmap
-        title="Schoenfeld residuals vs event time — treatment covariate"
-        xLabels={["t≈0.1", "t≈0.5", "t≈1.2", "t≈2.1", "t≈3.3", "t≈4.4", "t≈5.7", "t≈7.4", "t≈9.3", "t≈10.7", "t≈14.2"]}
-        yLabels={["treatment beta"]}
-        data={[[-0.289, -0.304, -0.311, 0.685, -0.325, -0.324, 0.661, -0.356, -0.344, 0.654, -0.418]]}
-        colorScheme="cool"
+        label="Schoenfeld residuals vs event time — treatment covariate"
+        colLabels={["t≈0.1", "t≈0.5", "t≈1.2", "t≈2.1", "t≈3.3", "t≈4.4", "t≈5.7", "t≈7.4", "t≈9.3", "t≈10.7", "t≈14.2"]}
+        rowLabels={["treatment beta"]}
+        matrix={[[-0.289, -0.304, -0.311, 0.685, -0.325, -0.324, 0.661, -0.356, -0.344, 0.654, -0.418]]}
+        colorScale="gold"
       />
 
       <Prose>

@@ -713,10 +713,10 @@ CatBoost (classifier, cat_features=[0,1])  best_iter=7  accuracy=1.0000`}
       </Prose>
 
       <Heatmap
-        title="Normalized feature importance — XGBoost vs LightGBM vs CatBoost"
+        label="Normalized feature importance — XGBoost vs LightGBM vs CatBoost"
         rowLabels={["XGBoost", "LightGBM", "CatBoost"]}
         colLabels={["f0","f1","f2","f3","f4","f5","f6","f7","f8","f9"]}
-        data={[
+        matrix={[
           [0.05, 0.08, 0.06, 0.28, 0.02, 0.03, 0.30, 0.03, 0.02, 0.13],
           [0.07, 0.10, 0.08, 0.22, 0.04, 0.04, 0.24, 0.04, 0.04, 0.13],
           [0.06, 0.05, 0.05, 0.30, 0.02, 0.01, 0.29, 0.01, 0.01, 0.23],

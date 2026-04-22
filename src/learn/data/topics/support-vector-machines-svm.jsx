@@ -597,17 +597,17 @@ print(f"SVR n_support_vectors: {len(svr.support_)}")
       </Prose>
 
       <Heatmap
-        title="gamma sweep — effect on train accuracy and n_sv (kernel=rbf, C=1.0, two-moons)"
+        label="gamma sweep — effect on train accuracy and n_sv (kernel=rbf, C=1.0, two-moons)"
         rowLabels={["gamma=0.01", "gamma=0.10", "gamma=0.50", "gamma=2.00", "gamma=10.0"]}
         colLabels={["n_support_vectors", "train_accuracy"]}
-        data={[
+        matrix={[
           [114, 0.835],
           [77,  0.850],
           [60,  0.945],
           [57,  0.970],
           [118, 0.985],
         ]}
-        colorScale="diverging"
+        colorScale="gold"
       />
 
       <Prose>

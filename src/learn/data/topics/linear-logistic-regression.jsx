@@ -525,11 +525,11 @@ print(f"liblinear, class_weight='balanced'  ->  test accuracy: {accuracy_score(y
       </Prose>
 
       <Heatmap
-        title="Confusion matrix — logistic regression (lbfgs, C=1.0)"
-        xLabels={["Pred: 0", "Pred: 1"]}
-        yLabels={["True: 0", "True: 1"]}
-        data={[[45, 5], [13, 37]]}
-        colorScheme="cool"
+        label="Confusion matrix — logistic regression (lbfgs, C=1.0)"
+        colLabels={["Pred: 0", "Pred: 1"]}
+        rowLabels={["True: 0", "True: 1"]}
+        matrix={[[45, 5], [13, 37]]}
+        colorScale="gold"
       />
 
       <H3>6c. Loss curves</H3>

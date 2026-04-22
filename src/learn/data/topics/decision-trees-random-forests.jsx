@@ -670,10 +670,10 @@ print(f"Permutation importance mean:  {np.round(result.importances_mean, 4)}")
 
       <Heatmap
         label="MDI feature importance — RandomForest (300 trees, moons dataset)"
-        rows={["feature 0 (x-coord)", "feature 1 (y-coord)"]}
-        cols={["importance"]}
-        values={[[0.4443], [0.5557]]}
-        colorScale="warm"
+        rowLabels={["feature 0 (x-coord)", "feature 1 (y-coord)"]}
+        colLabels={["importance"]}
+        matrix={[[0.4443], [0.5557]]}
+        colorScale="gold"
       />
 
       <Prose>
@@ -694,16 +694,9 @@ print(f"Permutation importance mean:  {np.round(result.importances_mean, 4)}")
 
       <H3>Single tree vs. forest decision boundary</H3>
 
-      <Plot
-        label="decision boundary comparison — two-moon dataset"
-        description="A single depth-4 tree (left) draws blocky axis-aligned rectangles with hard transitions at each threshold. A 300-tree random forest (right) produces a smoother probability surface — still composed of rectangles at the individual tree level, but the majority-vote probability blends them into curved-looking contours. The forest boundary better tracks the crescent shape because different trees split at different thresholds and different features, and their vote average is a soft ensemble."
-        type="boundary-comparison"
-        data={{
-          model_a: { name: "DecisionTree (depth=4)", accuracy: 0.88 },
-          model_b: { name: "RandomForest (300 trees)", accuracy: 0.95 },
-          note: "Both trained on moons(n=500, noise=0.25, random_state=42)",
-        }}
-      />
+      <Callout accent="gold">
+        <strong>Decision boundary comparison — two-moon dataset.</strong> A single depth-4 tree draws blocky axis-aligned rectangles with hard transitions at each threshold and scores 0.88 on the holdout. A 300-tree random forest produces a smoother probability surface — still composed of rectangles at the individual tree level, but the majority-vote probability blends them into curved-looking contours, scoring 0.95. The forest boundary better tracks the crescent shape because different trees split at different thresholds and different features, and their vote average is a soft ensemble. (Both trained on <Code>moons(n=500, noise=0.25, random_state=42)</Code>.)
+      </Callout>
 
       {/* ======================================================================
           7. DECISION MATRIX
@@ -764,26 +757,26 @@ print(f"Permutation importance mean:  {np.round(result.importances_mean, 4)}")
 
       <Heatmap
         label="algorithm selection matrix"
-        rows={[
+        rowLabels={[
           "Single Decision Tree",
           "Random Forest",
           "Logistic Regression",
           "Gradient Boosting",
         ]}
-        cols={[
+        colLabels={[
           "Interpretability",
           "Accuracy (tabular)",
           "Inference speed",
           "Tuning effort",
           "Extrapolation",
         ]}
-        values={[
+        matrix={[
           [1.0, 0.3, 1.0, 0.9, 0.1],
           [0.4, 0.7, 0.5, 0.8, 0.1],
           [0.5, 0.5, 1.0, 0.9, 0.8],
           [0.2, 1.0, 0.4, 0.3, 0.1],
         ]}
-        colorScale="cool"
+        colorScale="gold"
       />
 
       {/* ======================================================================

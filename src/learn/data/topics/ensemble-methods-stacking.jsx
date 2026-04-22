@@ -895,14 +895,14 @@ for name, clf in [
 
       <Heatmap
         label="pairwise prediction correlation — base models on circles dataset (cv=5 OOF)"
-        rows={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
-        cols={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
-        values={[
+        rowLabels={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
+        colLabels={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
+        matrix={[
           [1.0, 0.61, 0.58],
           [0.61, 1.0, 0.72],
           [0.58, 0.72, 1.0],
         ]}
-        colorScale="warm"
+        colorScale="gold"
       />
 
       <Prose>
@@ -918,16 +918,9 @@ for name, clf in [
 
       <H3>Decision boundary comparison</H3>
 
-      <Plot
-        label="decision boundaries — base models vs. stacking ensemble"
-        description="Each base model (BaggingClassifier depth-3, AdaBoostClassifier stumps, KNeighborsClassifier k=9) draws its boundary independently on the concentric circles dataset. The bagged trees draw blocky axis-aligned rectangles that approximate the circle poorly at low depth. AdaBoost's weighted stumps create a piecewise boundary that improves with more rounds. KNN draws a smooth, locally adaptive boundary. The StackingClassifier's boundary (meta-learner combination) leverages all three: it inherits AdaBoost's global structure, smooths it with KNN's local sensitivity, and handles the inner-ring region where bagging is weakest."
-        type="boundary-comparison"
-        data={{
-          model_a: { name: "AdaBoostClassifier (50 rounds)", accuracy: 0.97 },
-          model_b: { name: "StackingClassifier (5-fold, logistic meta)", accuracy: 0.96 },
-          note: "circles(n=500, noise=0.12, factor=0.5, random_state=42), 80/20 split",
-        }}
-      />
+      <Callout accent="gold">
+        <strong>Decision boundaries — base models vs stacking ensemble.</strong> On the concentric-circles dataset (<Code>circles(n=500, noise=0.12, factor=0.5, random_state=42)</Code>, 80/20 split), each base model draws its boundary independently: BaggingClassifier (depth-3 trees) produces blocky axis-aligned rectangles that approximate the circle poorly; AdaBoostClassifier (stumps, 50 rounds) creates a piecewise boundary that improves with more rounds and scores 0.97; KNeighborsClassifier (k=9) draws a smooth, locally adaptive boundary. The StackingClassifier (5-fold OOF, logistic meta-learner) leverages all three — inheriting AdaBoost's global structure, smoothing with KNN's local sensitivity, and handling the inner-ring region where bagging is weakest — and scores 0.96, slightly below AdaBoost alone because the meta-learner's limited capacity can't always beat the strongest base on near-symmetric data.
+      </Callout>
 
       {/* ======================================================================
           7. DECISION MATRIX
@@ -943,14 +936,14 @@ for name, clf in [
 
       <Heatmap
         label="ensemble method selection matrix"
-        rows={[
+        rowLabels={[
           "Bagging (e.g., RF)",
           "AdaBoost",
           "Hard Voting",
           "Soft Voting",
           "Stacking",
         ]}
-        cols={[
+        colLabels={[
           "Reduces variance",
           "Reduces bias",
           "Interpretable",
@@ -958,14 +951,14 @@ for name, clf in [
           "Inference latency",
           "Engineering cost",
         ]}
-        values={[
+        matrix={[
           [1.0, 0.1, 0.3, 0.8, 0.6, 0.9],
           [0.4, 0.9, 0.2, 0.2, 0.6, 0.8],
           [0.5, 0.4, 0.6, 0.7, 0.5, 0.9],
           [0.6, 0.5, 0.4, 0.6, 0.5, 0.8],
           [0.7, 0.6, 0.1, 0.5, 0.2, 0.2],
         ]}
-        colorScale="cool"
+        colorScale="gold"
       />
 
       <H3>When to use bagging</H3>

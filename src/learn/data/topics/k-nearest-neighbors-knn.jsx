@@ -440,18 +440,16 @@ distances, indices = nn.kneighbors(query_embedding.reshape(1, -1))`}
       <H3>6a. Effect of k on decision boundary smoothing</H3>
 
       <Plot
-        title="Decision boundary at k=1, k=5, k=25 (2-D, 3 classes)"
-        description="k=1 produces a jagged Voronoi boundary that memorizes every training point. k=5 smooths the boundary substantially, reducing variance. k=25 washes out small clusters — note that the isolated C-cluster at [3,3] becomes misclassified once k grows large enough that A-points at the periphery outvote it."
-        data={[
-          {
-            label: "k=1 (high variance, low bias)",
-            x: [1, 5, 11, 25, 51],
-            y: [0.798, 0.909, 0.929, 0.919, 0.950],
-            color: "#f87171",
-          },
-        ]}
+        label="test accuracy vs k — 3-class, 20-feature noisy dataset (U-shape: k=1 underfits noise; k=5–11 near-optimal; k=51 oversmooths)"
         xLabel="k"
         yLabel="test accuracy"
+        series={[
+          {
+            name: "test accuracy",
+            color: colors.gold,
+            points: [[1, 0.798], [5, 0.909], [11, 0.929], [25, 0.919], [51, 0.950]],
+          },
+        ]}
       />
 
       <Prose>
@@ -471,17 +469,17 @@ distances, indices = nn.kneighbors(query_embedding.reshape(1, -1))`}
       <H3>6b. Distance-weighted voting heatmap</H3>
 
       <Heatmap
-        title="Vote weight by distance: uniform vs 1/d weighting"
-        description="Each row is a neighbor; each column is a voting scheme. Under uniform weighting, all k neighbors contribute equally. Under 1/d weighting, the two nearest neighbors (distance 0.14) each contribute ~7× more than a neighbor at distance 1.0. When the nearest neighbors form a minority class but are tightly clustered, 1/d weighting corrects the prediction."
-        rows={["neighbor 1 (d=0.14)", "neighbor 2 (d=0.14)", "neighbor 3 (d=2.19)", "neighbor 4 (d=2.05)", "neighbor 5 (d=2.24)"]}
-        cols={["uniform weight", "1/d weight"]}
-        values={[
+        label="Vote weight by distance: uniform vs 1/d weighting (nearest two at d=0.14 contribute ~7× more under inverse-distance)"
+        rowLabels={["neighbor 1 (d=0.14)", "neighbor 2 (d=0.14)", "neighbor 3 (d=2.19)", "neighbor 4 (d=2.05)", "neighbor 5 (d=2.24)"]}
+        colLabels={["uniform weight", "1/d weight"]}
+        matrix={[
           [1.0, 7.14],
           [1.0, 7.14],
           [1.0, 0.46],
           [1.0, 0.49],
           [1.0, 0.45],
         ]}
+        colorScale="gold"
       />
 
       {/* ======================================================================
