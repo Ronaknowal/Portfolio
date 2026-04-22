@@ -118,7 +118,7 @@ const rateLimiting = {
       </MathBlock>
 
       <Prose>
-        The capacity <Code>C</Code> governs burst tolerance. A bucket with <Code>C = 40{,}000</Code> tokens and <Code>R = 667</Code> tokens/second allows a client to arrive after a 60-second idle period with full burst credit and immediately fire a 40k-token request. That burst is absorbed without a rejection. Then the client must wait for tokens to refill before the next large request. Over any long window the sustained rate is bounded by <Code>R</Code>, but short spikes up to <Code>C</Code> are accommodated — which is the correct behavior for clients that batch their work rather than streaming it continuously.
+        The capacity <Code>C</Code> governs burst tolerance. A bucket with <Code>C = 40,000</Code> tokens and <Code>R = 667</Code> tokens/second allows a client to arrive after a 60-second idle period with full burst credit and immediately fire a 40k-token request. That burst is absorbed without a rejection. Then the client must wait for tokens to refill before the next large request. Over any long window the sustained rate is bounded by <Code>R</Code>, but short spikes up to <Code>C</Code> are accommodated — which is the correct behavior for clients that batch their work rather than streaming it continuously.
       </Prose>
 
       <H3>Leaky bucket</H3>
@@ -160,7 +160,7 @@ const rateLimiting = {
       <H3>Deficit round-robin for fairness</H3>
 
       <Prose>
-        Deficit Round-Robin (DRR), introduced by Shreedhar and Varghese (1995), is the standard algorithm for providing weighted fair service across multiple queues. Each queue (tenant class) has a weight <Code>w_i</Code> and a quantum <Code>Q_i = w_i \times Q_{\text{base}}</Code>, where <Code>Q_{\text{base}}</Code> is the base scheduling unit in tokens. Each queue also carries a <em>deficit counter</em> <Code>D_i</Code> that accumulates unspent credit across rounds.
+        Deficit Round-Robin (DRR), introduced by Shreedhar and Varghese (1995), is the standard algorithm for providing weighted fair service across multiple queues. Each queue (tenant class) has a weight <Code>w_i</Code> and a quantum <Code>{"Q_i = w_i × Q_base"}</Code>, where <Code>Q_base</Code> is the base scheduling unit in tokens. Each queue also carries a <em>deficit counter</em> <Code>D_i</Code> that accumulates unspent credit across rounds.
       </Prose>
 
       <MathBlock>
@@ -174,7 +174,7 @@ const rateLimiting = {
       <H3>Quota budgets and reset logic</H3>
 
       <Prose>
-        A monthly token quota <Code>B_{\text{monthly}}</Code> converts to a daily budget approximation:
+        A monthly token quota <Code>B_monthly</Code> converts to a daily budget approximation:
       </Prose>
 
       <MathBlock>
