@@ -571,17 +571,17 @@ print(f"F1 samples:      {f1_score(Y_test, Y_pred, average='samples', zero_divis
       </Prose>
 
       <Heatmap
-        title="Normalized label co-occurrence matrix (P(col | row), training set)"
-        xLabels={["L0", "L1", "L2", "L3", "L4"]}
-        yLabels={["L0", "L1", "L2", "L3", "L4"]}
-        data={[
+        label="Normalized label co-occurrence matrix (P(col | row), training set)"
+        colLabels={["L0", "L1", "L2", "L3", "L4"]}
+        rowLabels={["L0", "L1", "L2", "L3", "L4"]}
+        matrix={[
           [1.000, 0.392, 0.370, 0.380, 0.368],
           [0.683, 1.000, 0.627, 0.647, 0.632],
           [0.586, 0.570, 1.000, 0.581, 0.579],
           [0.500, 0.489, 0.484, 1.000, 0.520],
           [0.193, 0.190, 0.192, 0.207, 1.000],
         ]}
-        colorScheme="cool"
+        colorScale="gold"
       />
 
       <Prose>

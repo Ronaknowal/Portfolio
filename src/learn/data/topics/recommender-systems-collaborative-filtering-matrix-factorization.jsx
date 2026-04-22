@@ -587,17 +587,17 @@ for item in [2, 4, 6]:
       </Prose>
 
       <Heatmap
-        caption="Left: observed rating matrix (0 = missing). Right: MF-predicted full matrix."
-        rows={["user 0", "user 1", "user 2", "user 3", "user 4"]}
-        cols={["item 0", "item 1", "item 2", "item 3", "item 4", "item 5", "item 6"]}
-        data={[
+        label="Observed rating matrix (0 = missing)"
+        rowLabels={["user 0", "user 1", "user 2", "user 3", "user 4"]}
+        colLabels={["item 0", "item 1", "item 2", "item 3", "item 4", "item 5", "item 6"]}
+        matrix={[
           [5, 3, 0, 1, 0, 4, 0],
           [4, 0, 4, 1, 2, 0, 3],
           [0, 3, 0, 0, 4, 3, 0],
           [1, 0, 0, 5, 4, 0, 2],
           [0, 1, 5, 4, 0, 0, 3],
         ]}
-        colorScale={["#1e1e2e", "#3b4a6b", "#6272a4", "#50fa7b"]}
+        colorScale="gold"
       />
 
       <Prose>
@@ -684,39 +684,24 @@ for item in [2, 4, 6]:
       </Prose>
 
       <Plot
-        caption="2D item embedding space after MF training. Clusters correspond to latent genre factors. (Illustrative projection from k=2 MF run on synthetic genre-structured data.)"
+        label="2D item embedding space after MF — illustrative projection from k=2 MF run on synthetic genre-structured data"
         xLabel="latent factor 1"
         yLabel="latent factor 2"
         series={[
           {
-            label: "Action/Thriller",
+            name: "Action/Thriller",
             color: "#f87171",
-            points: [
-              { x: 0.82, y: 0.61 },
-              { x: 0.75, y: 0.71 },
-              { x: 0.91, y: 0.55 },
-              { x: 0.78, y: 0.67 },
-            ],
+            points: [[0.82, 0.61], [0.75, 0.71], [0.91, 0.55], [0.78, 0.67]],
           },
           {
-            label: "Drama/Character",
+            name: "Drama/Character",
             color: "#60a5fa",
-            points: [
-              { x: -0.70, y: 0.65 },
-              { x: -0.80, y: 0.72 },
-              { x: -0.65, y: 0.58 },
-              { x: -0.75, y: 0.63 },
-            ],
+            points: [[-0.70, 0.65], [-0.80, 0.72], [-0.65, 0.58], [-0.75, 0.63]],
           },
           {
-            label: "Sci-Fi/Concept",
+            name: "Sci-Fi/Concept",
             color: "#a78bfa",
-            points: [
-              { x: 0.10, y: -0.88 },
-              { x: 0.20, y: -0.82 },
-              { x: -0.05, y: -0.91 },
-              { x: 0.15, y: -0.85 },
-            ],
+            points: [[0.10, -0.88], [0.20, -0.82], [-0.05, -0.91], [0.15, -0.85]],
           },
         ]}
       />

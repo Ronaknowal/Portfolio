@@ -625,14 +625,14 @@ print(f"streaming partial_fit accuracy: {acc_stream:.4f}")
       </Prose>
 
       <Heatmap
-        title="log P(word | class) — Multinomial NB, 8-word toy corpus"
-        xLabels={["free", "money", "win", "prize", "meeting", "agenda", "report", "quarter"]}
-        yLabels={["ham", "spam"]}
-        data={[
+        label="log P(word | class) — Multinomial NB, 8-word toy corpus"
+        colLabels={["free", "money", "win", "prize", "meeting", "agenda", "report", "quarter"]}
+        rowLabels={["ham", "spam"]}
+        matrix={[
           [-3.61, -2.92, -3.61, -3.61, -1.41, -1.53, -1.53, -1.67],
           [-1.19, -1.39, -1.64, -1.97, -3.58, -3.58, -3.58, -3.58],
         ]}
-        colorScheme="cool"
+        colorScale="gold"
       />
 
       {/* ======================================================================
