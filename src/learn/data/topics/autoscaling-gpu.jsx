@@ -468,9 +468,9 @@ def fleet_hourly_cost(od_count: int, spot_count: int,
     return od_count * od_price + spot_count * spot_price
 
 # Compare: 8 on-demand vs 4 on-demand + 4 spot
-print(f"8 on-demand:          ${fleet_hourly_cost(8, 0):.2f}/hr")
-print(f"4 on-demand + 4 spot: ${fleet_hourly_cost(4, 4):.2f}/hr")
-print(f"Savings:              ${fleet_hourly_cost(8,0) - fleet_hourly_cost(4,4):.2f}/hr")`}
+print(f"8 on-demand:          \${fleet_hourly_cost(8, 0):.2f}/hr")
+print(f"4 on-demand + 4 spot: \${fleet_hourly_cost(4, 4):.2f}/hr")
+print(f"Savings:              \${fleet_hourly_cost(8,0) - fleet_hourly_cost(4,4):.2f}/hr")`}
       </CodeBlock>
 
       <CodeBlock language="text">
