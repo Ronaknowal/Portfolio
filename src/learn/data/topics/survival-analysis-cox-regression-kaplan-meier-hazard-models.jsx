@@ -754,7 +754,7 @@ print(f"RSF concordance: {rsf.score(X_rsf, y):.4f}")
         Derive the Cox partial likelihood from the definition of proportional hazards. Specifically: what conditional probability does each term in the product represent, and why does the baseline hazard <Code>h₀(t)</Code> cancel?
       </Prose>
       <Callout type="answer" title="Answer 2">
-        At each observed event time tᵢ, consider the conditional probability that individual i is the one to fail, given that exactly one failure occurs from the risk set R(tᵢ). Under PH, the probability that individual j fails at tᵢ is proportional to h₀(tᵢ) · exp(βᵀxⱼ). When we divide by the sum over all j in R(tᵢ), h₀(tᵢ) appears in both numerator and denominator and cancels exactly: P(i fails | R(tᵢ)) = exp(βᵀxᵢ) / Σ_{j ∈ R(tᵢ)} exp(βᵀxⱼ). The partial likelihood is the product of these probabilities over all event times where δᵢ=1. Because h₀(t) cancels at every term, beta can be estimated without ever specifying the baseline hazard distribution.
+        At each observed event time tᵢ, consider the conditional probability that individual i is the one to fail, given that exactly one failure occurs from the risk set R(tᵢ). Under PH, the probability that individual j fails at tᵢ is proportional to h₀(tᵢ) · exp(βᵀxⱼ). When we divide by the sum over all j in R(tᵢ), h₀(tᵢ) appears in both numerator and denominator and cancels exactly: {"P(i fails | R(tᵢ)) = exp(βᵀxᵢ) / Σ_{j ∈ R(tᵢ)} exp(βᵀxⱼ)"}. The partial likelihood is the product of these probabilities over all event times where δᵢ=1. Because h₀(t) cancels at every term, beta can be estimated without ever specifying the baseline hazard distribution.
       </Callout>
 
       <H3>Exercise 3 (diagnostics)</H3>

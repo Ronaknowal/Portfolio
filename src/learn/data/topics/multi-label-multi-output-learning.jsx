@@ -26,11 +26,11 @@ const multiLabelContent = {
       </Prose>
 
       <Prose>
-        <strong>Multi-class classification</strong> assigns exactly one label from a set of K mutually exclusive classes. A digit recognition model produces a single digit from {"{"}{0}–{9}{"}"}. An ImageNet classifier returns exactly one of 1,000 categories. The label space is {"{"}{0, 1, ..., K-1}{"}"} and the output is a single integer or a K-dimensional probability vector that sums to one.
+        <strong>Multi-class classification</strong> assigns exactly one label from a set of K mutually exclusive classes. A digit recognition model produces a single digit from {"{0–9}"}. An ImageNet classifier returns exactly one of 1,000 categories. The label space is {"{0, 1, ..., K-1}"} and the output is a single integer or a K-dimensional probability vector that sums to one.
       </Prose>
 
       <Prose>
-        <strong>Multi-label classification</strong> assigns a subset of L possible labels. The label for each sample is a binary vector <Code>y ∈ {"{"}{"{0,1}^L"}{"}"}</Code>, where each component is 1 if that label applies and 0 otherwise. Labels are not mutually exclusive — any combination is valid. The output is L independent binary decisions, and the probability model does not sum to one across labels. This is the primary focus of this topic.
+        <strong>Multi-label classification</strong> assigns a subset of L possible labels. The label for each sample is a binary vector <Code>{"y ∈ {{0,1}^L}"}</Code>, where each component is 1 if that label applies and 0 otherwise. Labels are not mutually exclusive — any combination is valid. The output is L independent binary decisions, and the probability model does not sum to one across labels. This is the primary focus of this topic.
       </Prose>
 
       <Prose>
@@ -825,7 +825,7 @@ print(f"F1 samples:      {f1_score(Y_test, Y_pred, average='samples', zero_divis
             label: "Boutell, Luo, Shen, Brown 2004 — founding paper",
             render: () => (
               <Prose>
-                Boutell, M.R., Luo, J., Shen, X., and Brown, C.M. (2004). "Learning Multi-Label Scene Classification." <em>Pattern Recognition</em>, 37(9), 1757–1771. DOI: 10.1016/j.patcog.2004.03.009. The first systematic treatment of the problem from a machine learning perspective. Motivated by the observation that natural images belong to multiple semantic classes simultaneously — a beach scene with people is both <em>beach</em> and <em>people</em>, not one or the other. Introduced the term "multi-label machine learning," surveyed early approaches, and benchmarked them on a scene classification dataset. Established the binary relevance baseline and showed that exploiting label co-occurrence improves performance. The notation y ∈ {"{"}{"{0,1}^L"}{"}"} that the field uses universally originates here.
+                Boutell, M.R., Luo, J., Shen, X., and Brown, C.M. (2004). "Learning Multi-Label Scene Classification." <em>Pattern Recognition</em>, 37(9), 1757–1771. DOI: 10.1016/j.patcog.2004.03.009. The first systematic treatment of the problem from a machine learning perspective. Motivated by the observation that natural images belong to multiple semantic classes simultaneously — a beach scene with people is both <em>beach</em> and <em>people</em>, not one or the other. Introduced the term "multi-label machine learning," surveyed early approaches, and benchmarked them on a scene classification dataset. Established the binary relevance baseline and showed that exploiting label co-occurrence improves performance. The notation {"y ∈ {{0,1}^L}"} that the field uses universally originates here.
               </Prose>
             ),
           },
@@ -870,7 +870,7 @@ print(f"F1 samples:      {f1_score(Y_test, Y_pred, average='samples', zero_divis
         Explain the difference between multi-class, multi-label, and multi-output regression. Give one real-world example of each. What is the shape of the output vector for each problem type?
       </Prose>
       <Callout type="answer" title="Answer 1">
-        Multi-class: one label from K mutually exclusive classes. Output: integer in {"{"}{0,...,K-1}{"}"} or K-dimensional probability vector summing to 1. Example: digit recognition (one digit per image). Multi-label: subset of L possible labels as a binary vector y ∈ {"{"}{"{0,1}^L"}{"}"} where entries are independent and do not sum to 1. Example: movie genre tagging (a film can be Action AND Romance AND Thriller simultaneously). Multi-output regression: real-valued vector y ∈ ℝ^T of T continuous targets. Example: predicting both tomorrow's high temperature and humidity from today's weather features. Key distinction: multi-class has exactly one positive, multi-label has any number of positives, multi-output regression has continuous values.
+        Multi-class: one label from K mutually exclusive classes. Output: integer in {"{0, ..., K-1}"} or K-dimensional probability vector summing to 1. Example: digit recognition (one digit per image). Multi-label: subset of L possible labels as a binary vector {"y ∈ {{0,1}^L}"} where entries are independent and do not sum to 1. Example: movie genre tagging (a film can be Action AND Romance AND Thriller simultaneously). Multi-output regression: real-valued vector y ∈ ℝ^T of T continuous targets. Example: predicting both tomorrow's high temperature and humidity from today's weather features. Key distinction: multi-class has exactly one positive, multi-label has any number of positives, multi-output regression has continuous values.
       </Callout>
 
       <H3>Exercise 2 (derivation)</H3>
