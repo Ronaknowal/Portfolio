@@ -111,7 +111,7 @@ const linearLogisticRegressionContent = {
       />
 
       <Prose>
-        The decision boundary of logistic regression is the set of points where the predicted probability equals 0.5 — equivalently, where the linear score equals zero. Because the score is linear in the features, the boundary is a hyperplane (a line in 2D, a plane in 3D). Logistic regression can only learn linearly separable boundaries. This is both its central limitation and its greatest virtue: the decision boundary is literally a line you can draw, explain, and interrogate. "The model predicts positive when <Code>2.1 × age - 0.4 × income + 0.8 > 0</Code>" is an auditable statement. A 10-layer neural network cannot say the same.
+        The decision boundary of logistic regression is the set of points where the predicted probability equals 0.5 — equivalently, where the linear score equals zero. Because the score is linear in the features, the boundary is a hyperplane (a line in 2D, a plane in 3D). Logistic regression can only learn linearly separable boundaries. This is both its central limitation and its greatest virtue: the decision boundary is literally a line you can draw, explain, and interrogate. "The model predicts positive when <Code>{"2.1 × age - 0.4 × income + 0.8 > 0"}</Code>" is an auditable statement. A 10-layer neural network cannot say the same.
       </Prose>
 
       <Prose>
