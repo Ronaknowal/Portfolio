@@ -65,6 +65,17 @@ import embeddingsVectorDBContent from "./embedding-models-vector-db";
 import graphragAgenticContent from "./graphrag-agentic";
 import modelMergingContent from "./model-merging";
 import hybridSearchContent from "./hybrid-search";
+// Classical Machine Learning — Supervised Learning section
+import linearLogisticRegressionContent from "./linear-logistic-regression";
+import decisionTreesRandomForestsContent from "./decision-trees-random-forests";
+import kNearestNeighborsContent from "./k-nearest-neighbors-knn";
+import gradientBoostedTreesContent from "./gradient-boosted-trees-xgboost-lightgbm-catboost";
+import supportVectorMachinesContent from "./support-vector-machines-svm";
+import naiveBayesContent from "./naive-bayes-probabilistic-classifiers";
+import ensembleMethodsContent from "./ensemble-methods-stacking";
+import recommenderSystemsContent from "./recommender-systems-collaborative-filtering-matrix-factorization";
+import multiLabelContent from "./multi-label-multi-output-learning";
+import survivalAnalysisContent from "./survival-analysis-cox-regression-kaplan-meier-hazard-models";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -132,6 +143,17 @@ const customContent = {
   "graphrag-agentic-rag": graphragAgenticContent,
   "model-merging-ties-dare-model-soups-slerp": modelMergingContent,
   "hybrid-search-dense-sparse-reranking": hybridSearchContent,
+  // Classical Machine Learning — Supervised Learning
+  "linear-logistic-regression": linearLogisticRegressionContent,
+  "decision-trees-random-forests": decisionTreesRandomForestsContent,
+  "k-nearest-neighbors-knn": kNearestNeighborsContent,
+  "gradient-boosted-trees-xgboost-lightgbm-catboost": gradientBoostedTreesContent,
+  "support-vector-machines-svm": supportVectorMachinesContent,
+  "naive-bayes-probabilistic-classifiers": naiveBayesContent,
+  "ensemble-methods-stacking": ensembleMethodsContent,
+  "recommender-systems-collaborative-filtering-matrix-factorization": recommenderSystemsContent,
+  "multi-label-multi-output-learning": multiLabelContent,
+  "survival-analysis-cox-regression-kaplan-meier-hazard-models": survivalAnalysisContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
