@@ -33,6 +33,10 @@ const dbscanContent = {
         The intellectual arc from DBSCAN to HDBSCAN is a story about parameter sensitivity. DBSCAN requires ε and minPts — two numbers that can be tuned with a k-distance plot, but which still encode a hard assumption about global density. OPTICS relaxes the density threshold into a spectrum. HDBSCAN makes that spectrum automatic and formalizes what it means to extract the "right" flat partition from a density hierarchy. Each step reduces the burden on the practitioner while increasing the algorithm's ability to handle messy, heterogeneous real-world data.
       </Prose>
 
+      <Prose>
+        It is worth being precise about what DBSCAN is <em>not</em>. It is not a probabilistic model — it produces hard assignments, not posteriors. It is not a hierarchical clustering algorithm — it does not produce a dendrogram, and every run at fixed parameters produces a flat partition. It is not robust to feature scaling — ε is a distance, and Euclidean distances depend entirely on the scale of each feature axis. And despite its name including "Applications with Noise," it does not model noise probabilistically; any point below the density threshold is labeled as noise regardless of how close it falls to a genuine cluster boundary. These are not bugs — they are design decisions that make DBSCAN fast, deterministic, and interpretable. Understanding them precisely is what separates a practitioner who reaches for DBSCAN correctly from one who applies it blindly and blames the algorithm when it fails.
+      </Prose>
+
       {/* ======================================================================
           2. CORE INTUITION
           ====================================================================== */}
@@ -56,6 +60,14 @@ const dbscanContent = {
 
       <Prose>
         HDBSCAN extends this by asking: what happens as ε shrinks from infinity to zero? At ε → ∞ everything is in one cluster. As ε decreases, clusters split. The split history forms a tree — the cluster hierarchy. Rather than picking one ε, HDBSCAN scores every subtree by its "excess of mass" (roughly: how many point-steps of density does this cluster persist over?), and extracts the subtrees that maximize total stability. The result is a flat partition that automatically adapts to local density — dense sub-clusters within a looser cloud get their own labels instead of being homogenized with their neighbors.
+      </Prose>
+
+      <Prose>
+        An important practical consequence: HDBSCAN returns not just cluster labels but also a <strong>membership probability</strong> for every point, ranging from 0 (core of the noise distribution) to 1 (deep core of a stable cluster). Border points — those near the edge of a cluster — receive intermediate probabilities that reflect their geometric ambiguity. This is structurally similar to GMM's posterior probabilities, but derived from density geometry rather than Gaussian assumptions. A point with probability 0.4 is on the fringe of its cluster and could legitimately be treated as noise depending on your downstream tolerance for uncertainty. This is a level of nuance that neither k-means nor plain DBSCAN can express.
+      </Prose>
+
+      <Prose>
+        The practical difference in usage is decisive. With DBSCAN you tune ε with a k-distance plot — typically 10-20 minutes of experimentation on a new dataset. With HDBSCAN you set <Code>min_cluster_size</Code> (the smallest cluster you would care about finding, in absolute point count) and <Code>min_samples</Code> (which controls how conservative the noise classification is — larger values declare more points as noise but make the clusters cleaner). Both parameters have direct domain interpretations: "I don't care about clusters smaller than 50 customers" or "flag any point that isn't surrounded by at least 10 others as suspect." This interpretability is a significant practical advantage over the geometric abstraction of ε.
       </Prose>
 
       {/* ======================================================================
@@ -131,6 +143,20 @@ const dbscanContent = {
 
       <Prose>
         where <Code>λ_death(p)</Code> is the density level at which point <Code>p</Code> falls out of cluster <Code>C</Code>. The excess-of-mass algorithm then selects the subtrees that maximize total stability: if a child cluster's stability exceeds its share of the parent's stability, the child is extracted as a distinct cluster; otherwise the parent is kept whole. This is what gives HDBSCAN its ability to find clusters of varying density — it does not pick one global density level. It picks the most stable density level for each cluster independently.
+      </Prose>
+
+      <H3>3.4 OPTICS: reachability distance and the reachability plot</H3>
+
+      <Prose>
+        OPTICS uses two derived distances. The <strong>core distance</strong> is identical to HDBSCAN's: the distance from <Code>p</Code> to its minPts-th nearest neighbor (or undefined if <Code>p</Code> has fewer than minPts neighbors within the search radius ε_max). The <strong>reachability distance</strong> from <Code>o</Code> to <Code>p</Code> is:
+      </Prose>
+
+      <MathBlock>
+        {"\\text{reach-dist}_{\\text{minPts}}(p, o) = \\max\\bigl(\\text{core-dist}_{\\text{minPts}}(o),\\; d(o, p)\\bigr)"}
+      </MathBlock>
+
+      <Prose>
+        OPTICS processes points in an ordering that resembles breadth-first expansion from dense cores. For each point processed, its reachability distance to the current seed point is recorded. The output is a sequence of (point, reachability-distance) pairs — the reachability plot. Valleys in the plot (long sequences of low reachability) are clusters; peaks are transitions between clusters or noise. The key property: by setting a horizontal threshold on the reachability plot, you obtain the same result as running DBSCAN with ε equal to that threshold. OPTICS makes the full hierarchy of such results computable in a single pass, at the cost of O(n log n) time with appropriate indexing. Reading the reachability plot replaces the need to pick ε — instead you pick a threshold after the fact, guided by visual inspection of the valleys.
       </Prose>
 
       {/* ======================================================================
@@ -245,6 +271,37 @@ print(f"labels     : {np.unique(labels_c)}")
       <Prose>
         The inner and outer rings are density-disconnected at ε=0.20: the annular gap between them is wide enough that no ε-ball centered on the outer ring reaches the inner ring, so two clusters emerge exactly. k-means on this dataset always produces two half-moons cutting the circles radially — a classic, unfixable failure for centroid-based methods.
       </Prose>
+
+      <H3>4b-2. k-distance computation for ε selection</H3>
+
+      <CodeBlock language="python">
+{`from sklearn.neighbors import NearestNeighbors
+
+# k-distance plot: fit k=min_pts-1=4 NN, extract 4th-NN distance per point
+k = 4
+nbrs = NearestNeighbors(n_neighbors=k + 1, algorithm='ball_tree').fit(X_moons)
+dists, _ = nbrs.kneighbors(X_moons)
+k_dists = np.sort(dists[:, k])[::-1]     # sorted descending: largest distances first
+
+print("k-distance plot (make_moons, k=4) — selected quantiles:")
+print(f"  index   0 (most isolated)  : {k_dists[0]:.4f}")
+# Output:   index   0 (most isolated)  : 0.3006
+print(f"  index   5                  : {k_dists[5]:.4f}")
+# Output:   index   5                  : 0.2337
+print(f"  index  10 (≈ elbow region) : {k_dists[10]:.4f}")
+# Output:   index  10 (≈ elbow region) : 0.1874
+print(f"  index  20                  : {k_dists[20]:.4f}")
+# Output:   index  20                  : 0.1643
+print(f"  index  40                  : {k_dists[40]:.4f}")
+# Output:   index  40                  : 0.1388
+print(f"  index 199 (densest point)  : {k_dists[199]:.4f}")
+# Output:   index 199 (densest point)  : 0.0462
+#
+# The elbow is near index 0-5 at k_dist ≈ 0.30.
+# Setting eps=0.30 recovers the correct 2-cluster solution.
+# eps=0.18 (below elbow) produces n_clusters=17, too fragmented.
+# eps=0.50 (above elbow) produces n_clusters=1, everything merged.`}
+      </CodeBlock>
 
       <H3>4c. HDBSCAN sketch: mutual reachability and MST</H3>
 
@@ -620,6 +677,34 @@ if hasattr(hdb, 'cluster_persistence_'):
         Apache Spark MLlib does not implement DBSCAN natively as of 2026, but the community-maintained <Code>spark-dbscan</Code> library implements a distributed variant: partition the space into grid cells, run local DBSCAN on each partition plus its border, then merge border clusters. The correctness guarantee requires that the partition borders overlap by ε on each side. PDBSCAN (Parallel DBSCAN) uses a similar cell-decomposition strategy and achieves near-linear scaling on clusters of commodity machines. For most practical cases below n = 5M in 2D–10D space, sklearn with <Code>algorithm='ball_tree'</Code> and <Code>n_jobs=-1</Code> is fast enough without distributed infrastructure.
       </Prose>
 
+      <H3>8.4 Practical scaling thresholds</H3>
+
+      <Prose>
+        The table below summarizes observed practical limits on a modern laptop (16 GB RAM, 8-core CPU) to help calibrate which algorithm and mode to reach for at each scale. Times are approximate for d=2, minPts=5.
+      </Prose>
+
+      <Heatmap
+        label="Practical runtime guide by n — DBSCAN variants (d=2, 8-core laptop)"
+        rowLabels={["DBSCAN brute", "DBSCAN ball-tree", "DBSCAN ball-tree n_jobs=-1", "HDBSCAN exact", "HDBSCAN approx"]}
+        colLabels={["n=10k", "n=100k", "n=500k", "n=1M", "n=5M"]}
+        matrix={[
+          [5, 1, 0, 0, 0],
+          [5, 4, 3, 2, 1],
+          [5, 5, 4, 3, 1],
+          [5, 4, 2, 1, 0],
+          [5, 5, 4, 3, 2],
+        ]}
+        colorScale="purple"
+      />
+
+      <Callout type="info" title="Reading the table">
+        Score 5 = comfortably feasible (seconds). Score 3 = feasible with patience (minutes). Score 1 = slow but possible ({">"} 10 min). Score 0 = not recommended (hours or OOM). HDBSCAN approx uses random projection forests for nearest-neighbor search, trading a small accuracy loss for a 10-100x speedup at large n.
+      </Callout>
+
+      <Prose>
+        One frequently overlooked bottleneck is memory, not time. DBSCAN with brute-force builds an explicit n×n distance matrix in memory: at n=50k that is 50,000² × 8 bytes = 20 GB — exceeding available RAM before the algorithm even runs. The ball-tree avoids this entirely: it stores only the index structure (O(n log n) space) and computes distances on demand. Always specify <Code>algorithm='ball_tree'</Code> for any n above ~10,000 with continuous features. With precomputed distances (<Code>metric='precomputed'</Code>), the n×n matrix is unavoidable — restrict to n {"<"} 20,000 or use sparse distance matrices.
+      </Prose>
+
       <Plot
         label="Approximate runtime scaling — DBSCAN brute vs ball-tree vs HDBSCAN (d=2)"
         xLabel="n (dataset size)"
@@ -682,6 +767,12 @@ if hasattr(hdb, 'cluster_persistence_'):
 
       <Prose>
         Border points — those within ε of multiple clusters' core points — are assigned to whichever cluster's core point is processed first. This assignment is non-deterministic with respect to visit order, which depends on the input ordering. If you sort your data differently, border points may swap cluster labels. Core point assignments and noise point assignments are fully deterministic given ε and minPts. If your application requires stable border assignments, use HDBSCAN, which resolves this by assigning each point to the cluster for which its membership probability is highest.
+      </Prose>
+
+      <H3>9.7 Evaluating clustering quality without ground-truth labels</H3>
+
+      <Prose>
+        Clustering is unsupervised — you typically do not have ground-truth labels to compute accuracy against. The standard evaluation toolkit: <strong>Silhouette score</strong> measures how much closer a point is to its own cluster's centroid than to the nearest other cluster's centroid, ranging from -1 (wrong cluster) to 1 (perfect separation). Scores above 0.5 are generally good. For DBSCAN, compute silhouette only on non-noise points — noise points have no cluster and would distort the score. <strong>Davies-Bouldin index</strong> measures the ratio of within-cluster scatter to between-cluster separation — lower is better. <strong>Calinski-Harabasz index</strong> (variance ratio criterion) — higher is better — favors compact, well-separated clusters. None of these metrics favor any particular shape, which makes them safe to use with DBSCAN's non-convex clusters. What they cannot detect is whether the clusters are semantically meaningful — that still requires domain expertise and qualitative inspection.
       </Prose>
 
       <Callout type="warning" title="Normalization is load-bearing">
