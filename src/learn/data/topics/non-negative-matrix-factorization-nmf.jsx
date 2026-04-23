@@ -59,7 +59,7 @@ const nmfContent = {
       </MathBlock>
 
       <Prose>
-        Because every <Code>W_{ik} \geq 0</Code> and every <Code>H_{k,:} \geq 0</Code>, this sum is a purely additive combination of the basis vectors. The face image for person <Code>i</Code> is literally a weighted sum of facial parts — you add "0.8 × nose component" and "0.6 × left-eye component" and "0.3 × forehead shadow component" to reconstruct the face. No component subtracts from another. The constraints prevent the algorithm from finding convenient cancellations that would make individual factors uninterpretable.
+        Because every <Code>{"W_{ik} ≥ 0"}</Code> and every <Code>{"H_{k,:} ≥ 0"}</Code>, this sum is a purely additive combination of the basis vectors. The face image for person <Code>i</Code> is literally a weighted sum of facial parts — you add "0.8 × nose component" and "0.6 × left-eye component" and "0.3 × forehead shadow component" to reconstruct the face. No component subtracts from another. The constraints prevent the algorithm from finding convenient cancellations that would make individual factors uninterpretable.
       </Prose>
 
       <Prose>

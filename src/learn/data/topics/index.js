@@ -76,6 +76,16 @@ import ensembleMethodsContent from "./ensemble-methods-stacking";
 import recommenderSystemsContent from "./recommender-systems-collaborative-filtering-matrix-factorization";
 import multiLabelContent from "./multi-label-multi-output-learning";
 import survivalAnalysisContent from "./survival-analysis-cox-regression-kaplan-meier-hazard-models";
+// Classical Machine Learning — Unsupervised Learning section
+import kMeansHierarchicalContent from "./k-means-hierarchical-clustering";
+import pcaContent from "./pca-dimensionality-reduction";
+import clusteringEvaluationContent from "./clustering-evaluation-validation-silhouette-ari-nmi";
+import dbscanContent from "./dbscan-density-based-clustering";
+import anomalyDetectionContent from "./anomaly-outlier-detection-isolation-forest-one-class-svm-lof";
+import gmmContent from "./gaussian-mixture-models-gmm-em-algorithm";
+import tsneUmapContent from "./t-sne-umap-manifold-learning";
+import icaContent from "./independent-component-analysis-ica";
+import nmfContent from "./non-negative-matrix-factorization-nmf";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -154,6 +164,16 @@ const customContent = {
   "recommender-systems-collaborative-filtering-matrix-factorization": recommenderSystemsContent,
   "multi-label-multi-output-learning": multiLabelContent,
   "survival-analysis-cox-regression-kaplan-meier-hazard-models": survivalAnalysisContent,
+  // Classical Machine Learning — Unsupervised Learning
+  "k-means-hierarchical-clustering": kMeansHierarchicalContent,
+  "pca-dimensionality-reduction": pcaContent,
+  "clustering-evaluation-validation-silhouette-ari-nmi": clusteringEvaluationContent,
+  "dbscan-density-based-clustering": dbscanContent,
+  "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": anomalyDetectionContent,
+  "gaussian-mixture-models-gmm-em-algorithm": gmmContent,
+  "t-sne-umap-manifold-learning": tsneUmapContent,
+  "independent-component-analysis-ica": icaContent,
+  "non-negative-matrix-factorization-nmf": nmfContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
