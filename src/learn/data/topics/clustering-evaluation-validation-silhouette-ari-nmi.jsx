@@ -571,7 +571,7 @@ for c in range(4):
       <H3>8.1 Computational complexity</H3>
 
       <Prose>
-        Silhouette is expensive. The naive implementation requires computing the full pairwise distance matrix <Code>D ∈ R^{n×n}</Code>, which costs O(n²d) time and O(n²) memory. For n=10,000 and d=100, this is already a 100M-element float64 matrix — 800 MB. For n=100,000, it becomes 80 GB, which exceeds RAM on any typical machine. The sklearn implementation uses a loop over clusters to avoid materializing the full matrix, but the asymptotic complexity is still O(n²).
+        Silhouette is expensive. The naive implementation requires computing the full pairwise distance matrix <Code>{"D ∈ R^{n×n}"}</Code>, which costs O(n²d) time and O(n²) memory. For n=10,000 and d=100, this is already a 100M-element float64 matrix — 800 MB. For n=100,000, it becomes 80 GB, which exceeds RAM on any typical machine. The sklearn implementation uses a loop over clusters to avoid materializing the full matrix, but the asymptotic complexity is still O(n²).
       </Prose>
 
       <Prose>
