@@ -86,6 +86,14 @@ import gmmContent from "./gaussian-mixture-models-gmm-em-algorithm";
 import tsneUmapContent from "./t-sne-umap-manifold-learning";
 import icaContent from "./independent-component-analysis-ica";
 import nmfContent from "./non-negative-matrix-factorization-nmf";
+// Classical Machine Learning — Feature Engineering & Model Selection section
+import featureScalingContent from "./feature-scaling-encoding-imputation";
+import crossValidationContent from "./cross-validation-hyperparameter-tuning";
+import regularizationContent from "./regularization-l1-l2-elastic-net-dropout";
+import featureSelectionContent from "./feature-selection-importance-shap-permutation-mutual-info";
+import biasVarianceContent from "./bias-variance-tradeoff-learning-curves";
+import imbalancedLearningContent from "./imbalanced-learning-smote-cost-sensitive-learning";
+import automlContent from "./automl-neural-architecture-search-nas";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -174,6 +182,14 @@ const customContent = {
   "t-sne-umap-manifold-learning": tsneUmapContent,
   "independent-component-analysis-ica": icaContent,
   "non-negative-matrix-factorization-nmf": nmfContent,
+  // Classical Machine Learning — Feature Engineering & Model Selection
+  "feature-scaling-encoding-imputation": featureScalingContent,
+  "cross-validation-hyperparameter-tuning": crossValidationContent,
+  "regularization-l1-l2-elastic-net-dropout": regularizationContent,
+  "feature-selection-importance-shap-permutation-mutual-info": featureSelectionContent,
+  "bias-variance-tradeoff-learning-curves": biasVarianceContent,
+  "imbalanced-learning-smote-cost-sensitive-learning": imbalancedLearningContent,
+  "automl-neural-architecture-search-nas": automlContent,
 };
 
 // --- Slugify: title → URL-safe ID ---

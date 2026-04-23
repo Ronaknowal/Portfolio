@@ -974,8 +974,8 @@ print(f"LightGBM reg_alpha=0.1  reg_lambda=1.0  -> best_iter={lgb_model.best_ite
         {"∂|w| = {1} if w > 0; {−1} if w < 0; [−1, +1] if w = 0."}
         Case 1 (z {">"} λ): Try w* = z − λ {">"} 0. Then ∂f(w*) = (w* − z) + λ·1 = (z − λ − z) + λ = 0. Optimality holds. ✓
         Case 2 (z {"<"} −λ): Try w* = z + λ {"<"} 0. Then ∂f(w*) = (w* − z) + λ·(−1) = (z + λ − z) − λ = 0. Optimality holds. ✓
-        Case 3 (|z| ≤ λ): Try w* = 0. Then ∂f(0) = (0 − z) + λ[−1, +1] = {−z + s : s ∈ [−λ, λ]}. For 0 ∈ ∂f(0) we need −z + s = 0 for some s ∈ [−λ, λ], i.e., s = z, which holds iff |z| ≤ λ. Optimality holds. ✓
-        Combining: w* = sign(z) · max(|z| − λ, 0). This is the soft-thresholding operator S(z, λ). Note: hard thresholding (keep z if |z| {">"} λ, else 0) sets w* = z·1{|z|>λ} — no shrinkage of large values, no subgradient proof.
+        {"Case 3 (|z| ≤ λ): Try w* = 0. Then ∂f(0) = (0 − z) + λ[−1, +1] = {−z + s : s ∈ [−λ, λ]}. For 0 ∈ ∂f(0) we need −z + s = 0 for some s ∈ [−λ, λ], i.e., s = z, which holds iff |z| ≤ λ. Optimality holds. ✓"}
+        {"Combining: w* = sign(z) · max(|z| − λ, 0). This is the soft-thresholding operator S(z, λ). Note: hard thresholding (keep z if |z| > λ, else 0) sets w* = z·1{|z|>λ} — no shrinkage of large values, no subgradient proof."}
       </Callout>
 
     </div>
