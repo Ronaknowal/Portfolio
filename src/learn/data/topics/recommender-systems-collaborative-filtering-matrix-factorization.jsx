@@ -220,7 +220,7 @@ const recommenderSystemsContent = {
       </MathBlock>
 
       <Prose>
-        where <Code>C^u</Code> is a diagonal matrix with entries <Code>conf_{ui}</Code>. The key trick that makes this tractable: <Code>Q^T C^u Q = Q^T Q + Q^T (C^u - I) Q</Code>. The term <Code>Q^T Q</Code> is computed once per epoch. The second term only touches items where <Code>conf_{ui} {">"} 1</Code>, i.e., observed interactions, which is sparse. So each user update costs O(k² × |observed_i|) rather than O(k² × n_items). The parameter <Code>α</Code> controls how fast confidence grows with count; the original paper uses α = 40.
+        where <Code>C^u</Code> is a diagonal matrix with entries <Code>{"conf_{ui}"}</Code>. The key trick that makes this tractable: <Code>Q^T C^u Q = Q^T Q + Q^T (C^u - I) Q</Code>. The term <Code>Q^T Q</Code> is computed once per epoch. The second term only touches items where <Code>conf_{ui} {">"} 1</Code>, i.e., observed interactions, which is sparse. So each user update costs O(k² × |observed_i|) rather than O(k² × n_items). The parameter <Code>α</Code> controls how fast confidence grows with count; the original paper uses α = 40.
       </Prose>
 
       <H3>3f. BPR — pairwise ranking objective</H3>

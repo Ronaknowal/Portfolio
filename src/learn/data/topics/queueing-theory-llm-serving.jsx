@@ -702,7 +702,7 @@ def route_request(replicas):
       </Prose>
 
       <Prose>
-        When to reject rather than queue: when queue wait time would exceed a meaningful timeout or SLA threshold. The calculation is direct via Little's Law: if your SLA is <Code>W_{max}</Code> and the current queue depth is <Code>L_q</Code>, a new arrival would wait approximately <Code>L_q / μ</Code> seconds before service begins. If that exceeds <Code>W_{max} - 1/μ</Code> (leaving no room for service time), reject immediately with a meaningful error. Queuing a request that will time out anyway wastes GPU resources on a request whose result will never be used.
+        When to reject rather than queue: when queue wait time would exceed a meaningful timeout or SLA threshold. The calculation is direct via Little's Law: if your SLA is <Code>{"W_{max}"}</Code> and the current queue depth is <Code>L_q</Code>, a new arrival would wait approximately <Code>L_q / μ</Code> seconds before service begins. If that exceeds <Code>{"W_{max} - 1/μ"}</Code> (leaving no room for service time), reject immediately with a meaningful error. Queuing a request that will time out anyway wastes GPU resources on a request whose result will never be used.
       </Prose>
 
       <Prose>
