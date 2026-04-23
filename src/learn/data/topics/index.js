@@ -94,6 +94,13 @@ import featureSelectionContent from "./feature-selection-importance-shap-permuta
 import biasVarianceContent from "./bias-variance-tradeoff-learning-curves";
 import imbalancedLearningContent from "./imbalanced-learning-smote-cost-sensitive-learning";
 import automlContent from "./automl-neural-architecture-search-nas";
+// Classical Machine Learning — Probabilistic & Graphical Models section
+import hmmContent from "./hidden-markov-models-hmm";
+import crfContent from "./conditional-random-fields-crf";
+import gpContent from "./gaussian-processes-gp";
+// Classical Machine Learning — Semi-Supervised & Self-Training section
+import semiSupervisedContent from "./semi-supervised-learning-label-propagation-self-training-co-training";
+import activeLearningContent from "./active-learning";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -190,6 +197,13 @@ const customContent = {
   "bias-variance-tradeoff-learning-curves": biasVarianceContent,
   "imbalanced-learning-smote-cost-sensitive-learning": imbalancedLearningContent,
   "automl-neural-architecture-search-nas": automlContent,
+  // Classical Machine Learning — Probabilistic & Graphical Models
+  "hidden-markov-models-hmm": hmmContent,
+  "conditional-random-fields-crf": crfContent,
+  "gaussian-processes-gp": gpContent,
+  // Classical Machine Learning — Semi-Supervised & Self-Training
+  "semi-supervised-learning-label-propagation-self-training-co-training": semiSupervisedContent,
+  "active-learning": activeLearningContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
