@@ -121,6 +121,10 @@ import landmarkArchitecturesContent from "./landmark-architectures-lenet-alexnet
 import depthwiseDilatedContent from "./depthwise-separable-dilated-convolutions";
 import convnextModernContent from "./convnext-modern-cnn-designs";
 import capsuleNetworksContent from "./capsule-networks";
+// Deep Learning Fundamentals & Architectures — Recurrent & Sequence Models
+import rnnsLstmsGrusContent from "./rnns-lstms-grus";
+import seq2seqContent from "./sequence-to-sequence-encoder-decoder";
+import rwkvLinearAttentionContent from "./rwkv-linear-attention-models";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -244,6 +248,10 @@ const customContent = {
   "depthwise-separable-dilated-convolutions": depthwiseDilatedContent,
   "convnext-modern-cnn-designs": convnextModernContent,
   "capsule-networks": capsuleNetworksContent,
+  // Deep Learning — Recurrent & Sequence Models
+  "rnns-lstms-grus": rnnsLstmsGrusContent,
+  "sequence-to-sequence-encoder-decoder": seq2seqContent,
+  "rwkv-linear-attention-models": rwkvLinearAttentionContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
