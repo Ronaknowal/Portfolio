@@ -124,6 +124,7 @@ import capsuleNetworksContent from "./capsule-networks";
 // Deep Learning Fundamentals & Architectures — Recurrent & Sequence Models
 import rnnsLstmsGrusContent from "./rnns-lstms-grus";
 import seq2seqContent from "./sequence-to-sequence-encoder-decoder";
+import ssmContent from "./state-space-models-s4-mamba-mamba-2";
 import rwkvLinearAttentionContent from "./rwkv-linear-attention-models";
 
 // Map custom content by the slugified title they correspond to in track-definitions
@@ -251,6 +252,7 @@ const customContent = {
   // Deep Learning — Recurrent & Sequence Models
   "rnns-lstms-grus": rnnsLstmsGrusContent,
   "sequence-to-sequence-encoder-decoder": seq2seqContent,
+  "state-space-models-s4-mamba-mamba-2": ssmContent,
   "rwkv-linear-attention-models": rwkvLinearAttentionContent,
 };
 
