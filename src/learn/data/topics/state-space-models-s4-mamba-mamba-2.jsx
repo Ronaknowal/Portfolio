@@ -1015,7 +1015,7 @@ print(model.config.layers_block_type)
       <H3>9.3 Delta out of range</H3>
 
       <Prose>
-        The discretization step <Code>{"\\Delta}"</Code> must be positive (use softplus) and should be initialized in a reasonable range. The Mamba paper recommends initializing <Code>{"\\log \\Delta"}</Code> uniformly in <Code>{"[\\log(0.001), \\log(0.1)]"}</Code>. Outside this range: too small <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx I"}</Code>, no decay, state grows unboundedly; too large <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx 0"}</Code>, state is overwritten each step (loses memory). Diagnose by printing <Code>{"\\Delta"}</Code> statistics during training; if the mean drifts outside <Code>{"[0.001, 1.0]"}</Code> you have a problem. Fix: tighter parameterization (softplus with bias init) or gradient clipping on the <Code>{"\\Delta"}</Code>-projection weights.
+        The discretization step <Code>{"\\Delta"}</Code> must be positive (use softplus) and should be initialized in a reasonable range. The Mamba paper recommends initializing <Code>{"\\log \\Delta"}</Code> uniformly in <Code>{"[\\log(0.001), \\log(0.1)]"}</Code>. Outside this range: too small <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx I"}</Code>, no decay, state grows unboundedly; too large <Code>{"\\Delta"}</Code> means <Code>{"\\bar A \\approx 0"}</Code>, state is overwritten each step (loses memory). Diagnose by printing <Code>{"\\Delta"}</Code> statistics during training; if the mean drifts outside <Code>{"[0.001, 1.0]"}</Code> you have a problem. Fix: tighter parameterization (softplus with bias init) or gradient clipping on the <Code>{"\\Delta"}</Code>-projection weights.
       </Prose>
 
       <H3>9.4 Non-causal misuse</H3>
