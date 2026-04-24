@@ -126,6 +126,12 @@ import rnnsLstmsGrusContent from "./rnns-lstms-grus";
 import seq2seqContent from "./sequence-to-sequence-encoder-decoder";
 import ssmContent from "./state-space-models-s4-mamba-mamba-2";
 import rwkvLinearAttentionContent from "./rwkv-linear-attention-models";
+// Deep Learning Fundamentals & Architectures — Transformers
+import selfAttentionContent from "./self-attention-multi-head-attention";
+import transformerBlockContent from "./transformer-block-architecture";
+import positionalEncodingsContent from "./positional-encodings-sinusoidal-learned-rope-alibi";
+import gqaMqaContent from "./grouped-query-attention-gqa-multi-query-attention-mqa";
+import mlaContent from "./multi-head-latent-attention-mla";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -254,6 +260,12 @@ const customContent = {
   "sequence-to-sequence-encoder-decoder": seq2seqContent,
   "state-space-models-s4-mamba-mamba-2": ssmContent,
   "rwkv-linear-attention-models": rwkvLinearAttentionContent,
+  // Deep Learning — Transformers
+  "self-attention-multi-head-attention": selfAttentionContent,
+  "transformer-block-architecture": transformerBlockContent,
+  "positional-encodings-sinusoidal-learned-rope-alibi": positionalEncodingsContent,
+  "grouped-query-attention-gqa-multi-query-attention-mqa": gqaMqaContent,
+  "multi-head-latent-attention-mla": mlaContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
