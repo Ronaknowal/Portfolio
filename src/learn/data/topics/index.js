@@ -98,9 +98,15 @@ import automlContent from "./automl-neural-architecture-search-nas";
 import hmmContent from "./hidden-markov-models-hmm";
 import crfContent from "./conditional-random-fields-crf";
 import gpContent from "./gaussian-processes-gp";
+import bayesianNetworksContent from "./bayesian-networks-causal-graphical-models";
 // Classical Machine Learning — Semi-Supervised & Self-Training section
 import semiSupervisedContent from "./semi-supervised-learning-label-propagation-self-training-co-training";
 import activeLearningContent from "./active-learning";
+// Classical Machine Learning — Learning Theory & Evaluation section
+import evaluationMetricsContent from "./evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae";
+import pacVcContent from "./pac-learning-vc-dimension";
+import calibrationConformalContent from "./calibration-conformal-prediction";
+import rademacherContent from "./rademacher-complexity-generalization-bounds";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -201,9 +207,15 @@ const customContent = {
   "hidden-markov-models-hmm": hmmContent,
   "conditional-random-fields-crf": crfContent,
   "gaussian-processes-gp": gpContent,
+  "bayesian-networks-causal-graphical-models": bayesianNetworksContent,
   // Classical Machine Learning — Semi-Supervised & Self-Training
   "semi-supervised-learning-label-propagation-self-training-co-training": semiSupervisedContent,
   "active-learning": activeLearningContent,
+  // Classical Machine Learning — Learning Theory & Evaluation
+  "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae": evaluationMetricsContent,
+  "pac-learning-vc-dimension": pacVcContent,
+  "calibration-conformal-prediction": calibrationConformalContent,
+  "rademacher-complexity-generalization-bounds": rademacherContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
