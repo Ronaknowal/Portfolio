@@ -107,6 +107,8 @@ import evaluationMetricsContent from "./evaluation-metrics-precision-recall-f1-a
 import pacVcContent from "./pac-learning-vc-dimension";
 import calibrationConformalContent from "./calibration-conformal-prediction";
 import rademacherContent from "./rademacher-complexity-generalization-bounds";
+// Deep Learning Fundamentals & Architectures — Core Concepts
+import normalizationContent from "./batch-layer-group-rms-normalization";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -216,6 +218,8 @@ const customContent = {
   "pac-learning-vc-dimension": pacVcContent,
   "calibration-conformal-prediction": calibrationConformalContent,
   "rademacher-complexity-generalization-bounds": rademacherContent,
+  // Deep Learning Fundamentals & Architectures — Core Concepts
+  "batch-layer-group-rms-normalization": normalizationContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
