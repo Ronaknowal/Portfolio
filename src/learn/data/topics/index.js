@@ -108,6 +108,8 @@ import pacVcContent from "./pac-learning-vc-dimension";
 import calibrationConformalContent from "./calibration-conformal-prediction";
 import rademacherContent from "./rademacher-complexity-generalization-bounds";
 // Deep Learning Fundamentals & Architectures — Core Concepts
+import perceptronsNeuronsActivationsContent from "./perceptrons-neurons-activation-functions";
+import lossFunctionsContent from "./loss-functions-ce-mse-focal-contrastive-triplet";
 import normalizationContent from "./batch-layer-group-rms-normalization";
 import dropoutDroppathContent from "./dropout-droppath-stochastic-depth";
 import transferLearningContent from "./transfer-learning-fine-tuning-strategies";
@@ -223,6 +225,8 @@ const customContent = {
   "calibration-conformal-prediction": calibrationConformalContent,
   "rademacher-complexity-generalization-bounds": rademacherContent,
   // Deep Learning Fundamentals & Architectures — Core Concepts
+  "perceptrons-neurons-activation-functions": perceptronsNeuronsActivationsContent,
+  "loss-functions-ce-mse-focal-contrastive-triplet": lossFunctionsContent,
   "batch-layer-group-rms-normalization": normalizationContent,
   "dropout-droppath-stochastic-depth": dropoutDroppathContent,
   "transfer-learning-fine-tuning-strategies": transferLearningContent,
