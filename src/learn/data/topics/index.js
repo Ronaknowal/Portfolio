@@ -111,6 +111,8 @@ import rademacherContent from "./rademacher-complexity-generalization-bounds";
 import normalizationContent from "./batch-layer-group-rms-normalization";
 import dropoutDroppathContent from "./dropout-droppath-stochastic-depth";
 import transferLearningContent from "./transfer-learning-fine-tuning-strategies";
+import weightInitContent from "./weight-initialization-xavier-kaiming-p";
+import residualConnectionsContent from "./residual-connections-skip-connections";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -224,6 +226,8 @@ const customContent = {
   "batch-layer-group-rms-normalization": normalizationContent,
   "dropout-droppath-stochastic-depth": dropoutDroppathContent,
   "transfer-learning-fine-tuning-strategies": transferLearningContent,
+  "weight-initialization-xavier-kaiming-p": weightInitContent,
+  "residual-connections-skip-connections": residualConnectionsContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
