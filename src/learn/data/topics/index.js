@@ -115,6 +115,12 @@ import dropoutDroppathContent from "./dropout-droppath-stochastic-depth";
 import transferLearningContent from "./transfer-learning-fine-tuning-strategies";
 import weightInitContent from "./weight-initialization-xavier-kaiming-p";
 import residualConnectionsContent from "./residual-connections-skip-connections";
+// Deep Learning Fundamentals & Architectures — CNNs
+import convolutionPoolingRFContent from "./convolution-pooling-receptive-fields";
+import landmarkArchitecturesContent from "./landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet";
+import depthwiseDilatedContent from "./depthwise-separable-dilated-convolutions";
+import convnextModernContent from "./convnext-modern-cnn-designs";
+import capsuleNetworksContent from "./capsule-networks";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -232,6 +238,12 @@ const customContent = {
   "transfer-learning-fine-tuning-strategies": transferLearningContent,
   "weight-initialization-xavier-kaiming-p": weightInitContent,
   "residual-connections-skip-connections": residualConnectionsContent,
+  // Deep Learning — CNNs
+  "convolution-pooling-receptive-fields": convolutionPoolingRFContent,
+  "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet": landmarkArchitecturesContent,
+  "depthwise-separable-dilated-convolutions": depthwiseDilatedContent,
+  "convnext-modern-cnn-designs": convnextModernContent,
+  "capsule-networks": capsuleNetworksContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
