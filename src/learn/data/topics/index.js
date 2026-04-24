@@ -109,6 +109,7 @@ import calibrationConformalContent from "./calibration-conformal-prediction";
 import rademacherContent from "./rademacher-complexity-generalization-bounds";
 // Deep Learning Fundamentals & Architectures — Core Concepts
 import normalizationContent from "./batch-layer-group-rms-normalization";
+import dropoutDroppathContent from "./dropout-droppath-stochastic-depth";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -220,6 +221,7 @@ const customContent = {
   "rademacher-complexity-generalization-bounds": rademacherContent,
   // Deep Learning Fundamentals & Architectures — Core Concepts
   "batch-layer-group-rms-normalization": normalizationContent,
+  "dropout-droppath-stochastic-depth": dropoutDroppathContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
