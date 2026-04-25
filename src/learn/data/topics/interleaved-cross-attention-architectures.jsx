@@ -26,7 +26,7 @@ const interleavedCrossAttentionContent = {
       </Prose>
 
       <Prose>
-        Liu et al.'s LLaVA (arXiv:2304.08485, 2023) flipped the design once more. Rather than adding new cross-attention layers, LLaVA's recipe is almost embarrassingly simple: run CLIP-ViT-L/14 to get 256 image patch features, pass them through a single linear projection (later versions use a 2-layer MLP) to map from the 1024-d CLIP space to the LLM's 4096-d embedding space, and <em>concatenate</em> the projected visual tokens with the text tokens into one sequence. Run the LLM's native self-attention over the joined sequence. No new attention layers, no gates — just treat visual tokens like text tokens. This is the <em>interleaved</em> or <em>early-fusion</em> design. It works shockingly well: LLaVA-1.5 was trained with a 7B LLaMA-2 backbone, a trivial projector, and {"~}1M image-instruction pairs, and it matched or beat more elaborate VLMs on most VQA benchmarks.
+        Liu et al.'s LLaVA (arXiv:2304.08485, 2023) flipped the design once more. Rather than adding new cross-attention layers, LLaVA's recipe is almost embarrassingly simple: run CLIP-ViT-L/14 to get 256 image patch features, pass them through a single linear projection (later versions use a 2-layer MLP) to map from the 1024-d CLIP space to the LLM's 4096-d embedding space, and <em>concatenate</em> the projected visual tokens with the text tokens into one sequence. Run the LLM's native self-attention over the joined sequence. No new attention layers, no gates — just treat visual tokens like text tokens. This is the <em>interleaved</em> or <em>early-fusion</em> design. It works shockingly well: LLaVA-1.5 was trained with a 7B LLaMA-2 backbone, a trivial projector, and roughly 1M image-instruction pairs, and it matched or beat more elaborate VLMs on most VQA benchmarks (the original spec says ~1M image-instruction pairs).
       </Prose>
 
       <Prose>
@@ -689,7 +689,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       </Prose>
 
       <Prose>
-        3. Stage 1: freeze everything except the projector. Train on {"~}500k to 1M image-caption pairs (LAION, COYO, Web-scale CC-3M). Loss is standard next-token prediction over the caption, conditioned on the (projected) visual tokens prepended. This teaches the projector to map vision into LLM-readable embeddings.
+        3. Stage 1: freeze everything except the projector. Train on ~500k to 1M image-caption pairs (LAION, COYO, Web-scale CC-3M). Loss is standard next-token prediction over the caption, conditioned on the (projected) visual tokens prepended. This teaches the projector to map vision into LLM-readable embeddings.
       </Prose>
 
       <Prose>
@@ -697,7 +697,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       </Prose>
 
       <Prose>
-        The whole process costs {"~}100-300 GPU-hours on 8×A100 for a 7B model and produces a VLM competitive with GPT-4V on most benchmarks. The critical thing is that stage 1 is cheap — most of the model is frozen, only the projector (40M-100M parameters) is training. Stage 2 is expensive but shorter because the projector already maps vision into the LLM's space.
+        The whole process costs ~100-300 GPU-hours on 8×A100 for a 7B model and produces a VLM competitive with GPT-4V on most benchmarks. The critical thing is that stage 1 is cheap — most of the model is frozen, only the projector (40M-100M parameters) is training. Stage 2 is expensive but shorter because the projector already maps vision into the LLM's space.
       </Prose>
 
       <H3>5.3 Vision encoders as plug-ins</H3>
@@ -840,7 +840,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       <H3>6.3 Training curves: interleaved vs gated cross-attention</H3>
 
       <Prose>
-        Loss over training steps for the two architectures on the toy copy task from Section 4.6. Interleaved converges almost immediately because self-attention can see visual tokens from layer 1. Gated cross-attention shows a characteristic lag — the gate has to open from zero before visual signal flows, so the first {"~}50 steps look nearly random. After the gate opens, both curves converge to the same loss. This is the fundamental trade-off: gated cross-attention is safer for frozen backbones but slower to start learning.
+        Loss over training steps for the two architectures on the toy copy task from Section 4.6. Interleaved converges almost immediately because self-attention can see visual tokens from layer 1. Gated cross-attention shows a characteristic lag — the gate has to open from zero before visual signal flows, so the first ~50 steps look nearly random. After the gate opens, both curves converge to the same loss. This is the fundamental trade-off: gated cross-attention is safer for frozen backbones but slower to start learning.
       </Prose>
 
       <Plot
@@ -905,7 +905,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       <H3>7.5 Simple and good enough</H3>
 
       <Prose>
-        LLaVA-style interleaved projection. 2-layer MLP projector, no Q-Former, no gating, no Perceiver. Concatenate vision tokens with text and run self-attention. This is the winning simplicity-vs-capability point for {"~}80% of VLM use cases in 2026. LLaVA-1.5 and LLaVA-NeXT are the reference implementations; Qwen2-VL is the production-hardened descendant. Unless you have a specific reason (frozen LLM requirement, very long input, decoupled training) to pick one of the others, pick this.
+        LLaVA-style interleaved projection. 2-layer MLP projector, no Q-Former, no gating, no Perceiver. Concatenate vision tokens with text and run self-attention. This is the winning simplicity-vs-capability point for ~80% of VLM use cases in 2026. LLaVA-1.5 and LLaVA-NeXT are the reference implementations; Qwen2-VL is the production-hardened descendant. Unless you have a specific reason (frozen LLM requirement, very long input, decoupled training) to pick one of the others, pick this.
       </Prose>
 
       <H3>7.6 Very small budget, tight latency</H3>
@@ -991,7 +991,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       <H3>9.4 Q-Former under-trained</H3>
 
       <Prose>
-        The Q-Former has {"~}100M parameters and its training is the bottleneck of BLIP-2-style recipes. Under-training (too few steps, too small batch) produces queries that attend to noise or to a single patch — the 32 output tokens duplicate rather than covering the image. Diagnostic: look at the cross-attention weights of the final layer. Healthy Q-Formers show diverse, spatially-distributed attention patterns across queries; broken ones show the same pattern on every query. BLIP-2 trains the Q-Former for {"~}2M steps in stage 1 alone; shortcuts below 500k steps produce visibly degraded queries.
+        The Q-Former has ~100M parameters and its training is the bottleneck of BLIP-2-style recipes. Under-training (too few steps, too small batch) produces queries that attend to noise or to a single patch — the 32 output tokens duplicate rather than covering the image. Diagnostic: look at the cross-attention weights of the final layer. Healthy Q-Formers show diverse, spatially-distributed attention patterns across queries; broken ones show the same pattern on every query. BLIP-2 trains the Q-Former for ~2M steps in stage 1 alone; shortcuts below 500k steps produce visibly degraded queries.
       </Prose>
 
       <H3>9.5 Position embeddings mismatched across modalities</H3>
@@ -1009,7 +1009,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       <H3>9.7 Vision encoder and LLM tokenisation drift</H3>
 
       <Prose>
-        A subtle failure specific to cross-attention VLMs: the vision encoder produces feature vectors in its own space, and the cross-attention K,V projections learn to map that space into the LLM's attention space. If the vision encoder is updated (e.g., CLIP-ViT-L/14 replaced with SigLIP-SO400M) without retraining the cross-attention layers, the K,V projections produce garbage — the inputs no longer match what the layers were trained on. Always retrain at least the projection and cross-attention layers when the vision encoder changes. This is cheap ({"~}1% of total training cost) and prevents silent quality collapse.
+        A subtle failure specific to cross-attention VLMs: the vision encoder produces feature vectors in its own space, and the cross-attention K,V projections learn to map that space into the LLM's attention space. If the vision encoder is updated (e.g., CLIP-ViT-L/14 replaced with SigLIP-SO400M) without retraining the cross-attention layers, the K,V projections produce garbage — the inputs no longer match what the layers were trained on. Always retrain at least the projection and cross-attention layers when the vision encoder changes. This is cheap (~1% of total training cost) and prevents silent quality collapse.
       </Prose>
 
       {/* ======================================================================
@@ -1034,15 +1034,15 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       </Prose>
 
       <Prose>
-        <strong>Liu, Li, Wu, Lee (UW, 2023).</strong> "Visual Instruction Tuning" (LLaVA). arXiv:2304.08485. NeurIPS 2023. The paper that introduced the interleaved projection recipe that now dominates VLM design. Section 3 describes the architecture: CLIP-ViT-L/14 vision encoder, linear projection, Vicuna-7B LLM, concatenate. Section 4 describes the two-stage training: stage 1 on image-caption pairs for feature alignment, stage 2 on {"~}158k GPT-4-generated multimodal instructions for instruction tuning. LLaVA-1.5 (arXiv:2310.03744) upgraded the projector to a 2-layer MLP and scaled the instruction data to {"~}665k; every modern interleaved VLM descends from this template.
+        <strong>Liu, Li, Wu, Lee (UW, 2023).</strong> "Visual Instruction Tuning" (LLaVA). arXiv:2304.08485. NeurIPS 2023. The paper that introduced the interleaved projection recipe that now dominates VLM design. Section 3 describes the architecture: CLIP-ViT-L/14 vision encoder, linear projection, Vicuna-7B LLM, concatenate. Section 4 describes the two-stage training: stage 1 on image-caption pairs for feature alignment, stage 2 on ~158k GPT-4-generated multimodal instructions for instruction tuning. LLaVA-1.5 (arXiv:2310.03744) upgraded the projector to a 2-layer MLP and scaled the instruction data to ~665k; every modern interleaved VLM descends from this template.
       </Prose>
 
       <Prose>
-        <strong>Li, Li, Savarese, Hoi (Salesforce, 2023).</strong> "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models." arXiv:2301.12597. ICML 2023. The Q-Former paper. Section 3 (Q-Former architecture) and Section 4 (two-stage pretraining: vision-language representation learning, then vision-to-language generative learning) are the canonical reference. The Q-Former has 32 learnable queries and {"~}188M parameters; the key design choice is the two-stage training with contrastive + matching + captioning losses in stage 1.
+        <strong>Li, Li, Savarese, Hoi (Salesforce, 2023).</strong> "BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models." arXiv:2301.12597. ICML 2023. The Q-Former paper. Section 3 (Q-Former architecture) and Section 4 (two-stage pretraining: vision-language representation learning, then vision-to-language generative learning) are the canonical reference. The Q-Former has 32 learnable queries and ~188M parameters; the key design choice is the two-stage training with contrastive + matching + captioning losses in stage 1.
       </Prose>
 
       <Prose>
-        <strong>Laurençon, Tronchon, Cord, Sanh (HuggingFace, 2024).</strong> "What matters when building vision-language models?" (Idefics2). arXiv:2405.02246. A systematic ablation of VLM design choices — architecture (gated cross-attn vs interleaved), vision encoder (CLIP vs SigLIP), pretraining data, instruction-tuning data. Table 2's comparison of gated cross-attention vs interleaved (both with SigLIP + Mistral-7B) is the best direct apples-to-apples comparison in the literature: interleaved with {"~}half the parameters achieves similar quality, at the cost of longer sequences. This paper's conclusions drove HuggingFace's move from Idefics1 (gated cross-attn) to Idefics2's hybrid and then to Idefics3 (interleaved).
+        <strong>Laurençon, Tronchon, Cord, Sanh (HuggingFace, 2024).</strong> "What matters when building vision-language models?" (Idefics2). arXiv:2405.02246. A systematic ablation of VLM design choices — architecture (gated cross-attn vs interleaved), vision encoder (CLIP vs SigLIP), pretraining data, instruction-tuning data. Table 2's comparison of gated cross-attention vs interleaved (both with SigLIP + Mistral-7B) is the best direct apples-to-apples comparison in the literature: interleaved with ~half the parameters achieves similar quality, at the cost of longer sequences. This paper's conclusions drove HuggingFace's move from Idefics1 (gated cross-attn) to Idefics2's hybrid and then to Idefics3 (interleaved).
       </Prose>
 
       <Prose>
@@ -1073,7 +1073,7 @@ model4 = Qwen2VLForConditionalGeneration.from_pretrained("Qwen/Qwen2-VL-7B-Instr
       <H3>11.3 Compare the memory cost of interleaved vs cross-attention for a 16-frame video at 576 tokens per frame, LLaMA-2-7B scale.</H3>
 
       <Prose>
-        16 frames × 576 tokens = 9216 visual tokens. Interleaved: these enter the KV cache at every layer. For LLaMA-2-7B (n_layers = 32, d = 4096, fp16), the cache cost is {"2 × 32 × 4096 × 9216 × 2"} bytes = 4.83 GB per sample, per sequence. Cross-attention: the 9216 visual features are held once, outside the KV cache, at their native dim (say 1024 for CLIP-ViT). Cost is {"9216 × 1024 × 2"} = 18.9 MB. The ratio is {"~}255x. For interactive serving where multiple video conversations are concurrent, this difference can be the line between feasible (cross-attn) and infeasible (interleaved) on a single 80 GB GPU. Interleaving is dominant for single-image workloads; for video it often must fall back to cross-attention or hierarchical compression.
+        16 frames × 576 tokens = 9216 visual tokens. Interleaved: these enter the KV cache at every layer. For LLaMA-2-7B (n_layers = 32, d = 4096, fp16), the cache cost is {"2 × 32 × 4096 × 9216 × 2"} bytes = 4.83 GB per sample, per sequence. Cross-attention: the 9216 visual features are held once, outside the KV cache, at their native dim (say 1024 for CLIP-ViT). Cost is {"9216 × 1024 × 2"} = 18.9 MB. The ratio is ~255x. For interactive serving where multiple video conversations are concurrent, this difference can be the line between feasible (cross-attn) and infeasible (interleaved) on a single 80 GB GPU. Interleaving is dominant for single-image workloads; for video it often must fall back to cross-attention or hierarchical compression.
       </Prose>
 
       <H3>11.4 What is the key architectural role of the Perceiver Resampler in Flamingo, and why is it not just a Q-Former?</H3>

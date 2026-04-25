@@ -982,7 +982,7 @@ for name, w in [("w=8 (covers src)", 8), ("w=2 (truncated)", 2)]:
       <H3>9.4 LSH bucket collisions underestimated</H3>
 
       <Prose>
-        Reformer's expected {"O(L \\log L)"} cost assumes balanced buckets. In practice, the distribution of hash bucket sizes is heavy-tailed: a few large buckets dominate the wall-clock, and the {"L^2"} within-bucket attention in a large bucket dominates the entire layer. Reformer's paper recommends multi-round LSH (running the hash 4-8 times with different random projections and unioning) to reduce variance. Even so, on inputs with many similar keys (e.g., repeated boilerplate), buckets can collapse to size {"L}" and destroy the asymptotic advantage. Fix: use LSH only when the key distribution is known to be diverse; multi-round; sort-and-chunk with overflow handling.
+        Reformer's expected {"O(L \\log L)"} cost assumes balanced buckets. In practice, the distribution of hash bucket sizes is heavy-tailed: a few large buckets dominate the wall-clock, and the {"L^2"} within-bucket attention in a large bucket dominates the entire layer. Reformer's paper recommends multi-round LSH (running the hash 4-8 times with different random projections and unioning) to reduce variance. Even so, on inputs with many similar keys (e.g., repeated boilerplate), buckets can collapse to size {"L"} and destroy the asymptotic advantage. Fix: use LSH only when the key distribution is known to be diverse; multi-round; sort-and-chunk with overflow handling.
       </Prose>
 
       <H3>9.5 Sparse pattern incompatible with FlashAttention</H3>
@@ -1000,7 +1000,7 @@ for name, w in [("w=8 (covers src)", 8), ("w=2 (truncated)", 2)]:
       <H3>9.7 Linformer losing causality in decoders</H3>
 
       <Prose>
-        The default Linformer projection {"E K"} mixes future keys into each summary key, so a decoder using it attends to the future — a silent bug that produces spuriously good training loss and catastrophic generation. Fix: use a lower-triangular {"E"} (zero out {"E_{i, j}"} for {"j > i}" — wait, that's the wrong direction) — the correct fix is per-prefix projection, which destroys the linear complexity. There is no clean causal Linformer; this is a known limitation and the reason it shipped only as an encoder architecture.
+        The default Linformer projection {"E K"} mixes future keys into each summary key, so a decoder using it attends to the future — a silent bug that produces spuriously good training loss and catastrophic generation. Fix: use a lower-triangular {"E"} (zero out {"E_{i, j}"} for {"j > i"} — wait, that's the wrong direction) — the correct fix is per-prefix projection, which destroys the linear complexity. There is no clean causal Linformer; this is a known limitation and the reason it shipped only as an encoder architecture.
       </Prose>
 
       <H3>9.8 Performer numerical stability at high temperature</H3>
