@@ -136,6 +136,14 @@ import sparseLinearAttentionContent from "./sparse-linear-attention-variants";
 import visionTransformersContent from "./vision-transformers-vit-deit-swin-dinov2";
 import moeArchContent from "./mixture-of-experts-transformers-moe";
 import interleavedCrossAttentionContent from "./interleaved-cross-attention-architectures";
+// Deep Learning Fundamentals & Architectures — Graph Neural Networks
+import messagePassingGNNContent from "./message-passing-graph-convolutions-gcn-gat-graphsage";
+import graphTransformersContent from "./graph-transformers-geometric-deep-learning";
+// Deep Learning Fundamentals & Architectures — Alternative Architectures & Historical Models
+import rbmContent from "./boltzmann-machines-restricted-boltzmann-machines-rbm";
+import spectralNormGPContent from "./spectral-normalization-gradient-penalty";
+import modernHopfieldContent from "./modern-hopfield-networks";
+import xlstmContent from "./xlstm-extended-lstm";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -274,6 +282,14 @@ const customContent = {
   "vision-transformers-vit-deit-swin-dinov2": visionTransformersContent,
   "mixture-of-experts-transformers-moe": moeArchContent,
   "interleaved-cross-attention-architectures": interleavedCrossAttentionContent,
+  // Deep Learning — Graph Neural Networks
+  "message-passing-graph-convolutions-gcn-gat-graphsage": messagePassingGNNContent,
+  "graph-transformers-geometric-deep-learning": graphTransformersContent,
+  // Deep Learning — Alternative Architectures & Historical Models
+  "boltzmann-machines-restricted-boltzmann-machines-rbm": rbmContent,
+  "spectral-normalization-gradient-penalty": spectralNormGPContent,
+  "modern-hopfield-networks": modernHopfieldContent,
+  "xlstm-extended-lstm": xlstmContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
