@@ -132,6 +132,10 @@ import transformerBlockContent from "./transformer-block-architecture";
 import positionalEncodingsContent from "./positional-encodings-sinusoidal-learned-rope-alibi";
 import gqaMqaContent from "./grouped-query-attention-gqa-multi-query-attention-mqa";
 import mlaContent from "./multi-head-latent-attention-mla";
+import sparseLinearAttentionContent from "./sparse-linear-attention-variants";
+import visionTransformersContent from "./vision-transformers-vit-deit-swin-dinov2";
+import moeArchContent from "./mixture-of-experts-transformers-moe";
+import interleavedCrossAttentionContent from "./interleaved-cross-attention-architectures";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -266,6 +270,10 @@ const customContent = {
   "positional-encodings-sinusoidal-learned-rope-alibi": positionalEncodingsContent,
   "grouped-query-attention-gqa-multi-query-attention-mqa": gqaMqaContent,
   "multi-head-latent-attention-mla": mlaContent,
+  "sparse-linear-attention-variants": sparseLinearAttentionContent,
+  "vision-transformers-vit-deit-swin-dinov2": visionTransformersContent,
+  "mixture-of-experts-transformers-moe": moeArchContent,
+  "interleaved-cross-attention-architectures": interleavedCrossAttentionContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
