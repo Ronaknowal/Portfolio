@@ -861,7 +861,7 @@ nodes/edges)`}
 
       <Prose>
         <strong>Problem 2.</strong> You implement an EGNN layer and run the equivariance check by computing {"\\| f(R x) - R f(x) \\|"} for a random rotation R. You get an error of {"10^{-3}"}, much larger than the floating-point precision of {"10^{-7}"}. Your equivariance is approximately correct but not exactly correct. What are the two most likely bugs and how would you diagnose each?
-      </Callout>
+      </Prose>
 
       <Callout accent="green">
         Two likely culprits. (a) You included a non-invariant input feature in {"\\phi_e"}. The most common case is concatenating raw coordinates {"x_i"} (not the relative vector {"x_i - x_j"}) into the message MLP, which makes {"m_{ij}"} not invariant. Diagnosis: print the inputs to {"\\phi_e"} before and after rotation; they should be identical. (b) You used a non-equivariant operation in the coordinate update — for instance, multiplying the relative vector by a vector of weights produced by an MLP that consumes coordinate-frame information. The coordinate update must be of the form {"\\sum_j (x_i - x_j) \\cdot s_{ij}"} where {"s_{ij}"} is a scalar (invariant) function. Diagnosis: replace your scalar weight with a fixed constant 1.0 — equivariance error should drop to numerical precision. If it doesn't, the bug is elsewhere. A 10^{"-3"} error can also indicate using a non-orthogonal "rotation" matrix; verify that {"R^T R = I"} and {"\\det(R) = 1"} before using it in the test.
