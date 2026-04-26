@@ -149,6 +149,7 @@ import ringAttentionContent from "./ring-attention-sequence-parallelism";
 import advancedOptimizersContent from "./advanced-optimizers-lion-sophia-prodigy-schedule-free";
 import neuralODEContent from "./neural-ode-continuous-depth-models";
 import titansContent from "./titans-multi-memory-architecture";
+import jambaContent from "./hybrid-ssm-transformer-architectures-jamba";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -300,6 +301,7 @@ const customContent = {
   "advanced-optimizers-lion-sophia-prodigy-schedule-free": advancedOptimizersContent,
   "neural-ode-continuous-depth-models": neuralODEContent,
   "titans-multi-memory-architecture": titansContent,
+  "hybrid-ssm-transformer-architectures-jamba": jambaContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
