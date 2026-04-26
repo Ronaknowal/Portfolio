@@ -34,7 +34,7 @@ const residualConnectionsContent = {
       </Prose>
 
       <Prose>
-        In 2017, Gao Huang, Zhuang Liu, Laurens van der Maaten, and Kilian Weinberger published "Densely Connected Convolutional Networks" (DenseNet) at CVPR 2017 (arXiv 1608.06993). DenseNet pushed the skip idea further: within a block, every layer receives the <em>concatenation</em> of all prior layers' outputs, so y_l = H_l([x_0, x_1, ..., x_{l-1}]). Gradients flow back through a dense web of shortcut paths rather than a single additive one. DenseNet-BC-190 achieved state-of-the-art on CIFAR-10/100 with roughly a third the parameters of a comparable ResNet. Concatenation trades memory for parameter efficiency; the core insight — force strong connectivity between distant layers — is the same.
+        In 2017, Gao Huang, Zhuang Liu, Laurens van der Maaten, and Kilian Weinberger published "Densely Connected Convolutional Networks" (DenseNet) at CVPR 2017 (arXiv 1608.06993). DenseNet pushed the skip idea further: within a block, every layer receives the <em>concatenation</em> of all prior layers' outputs, so <Code>{"y_l = H_l([x_0, x_1, ..., x_{l-1}])"}</Code>. Gradients flow back through a dense web of shortcut paths rather than a single additive one. DenseNet-BC-190 achieved state-of-the-art on CIFAR-10/100 with roughly a third the parameters of a comparable ResNet. Concatenation trades memory for parameter efficiency; the core insight — force strong connectivity between distant layers — is the same.
       </Prose>
 
       <Prose>

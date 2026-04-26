@@ -482,33 +482,21 @@ print(f"SVR n_support_vectors: {len(svr.support_)}")
         The same two-moons dataset (200 points, 0.2 noise) with three kernels, all trained with <Code>C=1.0</Code>. The decision boundary character changes dramatically with kernel choice.
       </Prose>
 
-      <Plot
-        title="Decision boundary: linear vs polynomial vs RBF (two-moons, C=1.0)"
-        xLabel="x₁"
-        yLabel="x₂"
-        series={[
-          {
-            label: "linear  — n_sv=67  train_acc=0.850",
-            color: colors.textMuted,
-            data: [{ x: 0, y: 0.850 }],
-          },
-          {
-            label: "poly(d=3) — n_sv=72  train_acc=0.845",
-            color: colors.gold,
-            data: [{ x: 0, y: 0.845 }],
-          },
-          {
-            label: "rbf(γ=0.5) — n_sv=60  train_acc=0.945",
-            color: colors.green,
-            data: [{ x: 0, y: 0.945 }],
-          },
+      <Heatmap
+        label="Kernel comparison on two-moons (C=1.0): n_support_vectors and train_accuracy"
+        rowLabels={["linear", "poly (d=3)", "rbf (γ=0.5)"]}
+        colLabels={["n_sv", "train_acc"]}
+        matrix={[
+          [67, 0.850],
+          [72, 0.845],
+          [60, 0.945],
         ]}
-        annotations={[
-          "Linear kernel cannot capture the curved boundary → underfits",
-          "Polynomial kernel d=3: marginal improvement over linear",
-          "RBF kernel: +9.5 pp accuracy, fewer support vectors → tighter fit",
-        ]}
+        colorScale="gold"
       />
+
+      <Callout accent="gold">
+        Linear kernel cannot capture the curved boundary → underfits. Polynomial kernel d=3: marginal improvement over linear. RBF kernel: +9.5 percentage points accuracy with fewer support vectors → tighter, more efficient fit.
+      </Callout>
 
       <Prose>
         Fewer support vectors with higher accuracy (RBF vs linear) means the RBF model found a more efficient representation: the decision boundary is well-specified by a compact subset of training points. More support vectors often signals that the model is struggling — either underfitting (linear on nonlinear data) or the margin is very tight.
