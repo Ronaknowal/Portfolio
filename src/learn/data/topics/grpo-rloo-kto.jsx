@@ -546,63 +546,46 @@ trainer.train()`}
       <H3>Advantage variance: GRPO vs RLOO over training</H3>
 
       <Plot
-        title="Advantage estimator variance during training"
-        description="Lower variance means more stable gradient signal. RLOO's raw mean subtraction produces ~3× lower variance than GRPO's group-std normalization in the early training regime where group rewards are nearly constant."
-        data={[
-          {
-            label: "GRPO advantage variance",
-            color: colors.gold,
-            points: [
-              { x: 1,  y: 0.88 }, { x: 10, y: 0.83 }, { x: 20, y: 0.79 },
-              { x: 30, y: 0.75 }, { x: 40, y: 0.71 }, { x: 50, y: 0.66 },
-            ],
-          },
-          {
-            label: "RLOO advantage variance",
-            color: "#60a5fa",
-            points: [
-              { x: 1,  y: 0.30 }, { x: 10, y: 0.28 }, { x: 20, y: 0.26 },
-              { x: 30, y: 0.24 }, { x: 40, y: 0.22 }, { x: 50, y: 0.19 },
-            ],
-          },
-        ]}
+        label="Advantage estimator variance during training (lower is more stable; RLOO ~3× lower than GRPO early on)"
         xLabel="Training epoch"
         yLabel="Advantage variance"
+        series={[
+          {
+            name: "GRPO advantage variance",
+            color: colors.gold,
+            points: [[1, 0.88], [10, 0.83], [20, 0.79], [30, 0.75], [40, 0.71], [50, 0.66]],
+          },
+          {
+            name: "RLOO advantage variance",
+            color: "#60a5fa",
+            points: [[1, 0.30], [10, 0.28], [20, 0.26], [30, 0.24], [40, 0.22], [50, 0.19]],
+          },
+        ]}
       />
 
       <H3>Mean reward over training: GRPO, RLOO, KTO</H3>
 
       <Plot
-        title="Mean reward over training steps (toy task)"
-        description="All three methods improve from chance (0.50) on the same toy task. RLOO and GRPO converge at similar rates; KTO converges via a different signal — the implicit reward margin — rather than direct reward maximization."
-        data={[
-          {
-            label: "GRPO",
-            color: colors.gold,
-            points: [
-              { x: 1,  y: 0.49 }, { x: 10, y: 0.56 }, { x: 25, y: 0.70 },
-              { x: 40, y: 0.72 }, { x: 50, y: 0.73 },
-            ],
-          },
-          {
-            label: "RLOO",
-            color: "#60a5fa",
-            points: [
-              { x: 1,  y: 0.52 }, { x: 10, y: 0.55 }, { x: 25, y: 0.56 },
-              { x: 40, y: 0.63 }, { x: 50, y: 0.68 },
-            ],
-          },
-          {
-            label: "KTO (implicit reward margin)",
-            color: "#a78bfa",
-            points: [
-              { x: 1,  y: 0.13 }, { x: 20, y: 0.30 }, { x: 40, y: 0.45 },
-              { x: 60, y: 0.63 }, { x: 80, y: 0.79 },
-            ],
-          },
-        ]}
+        label="Mean reward over training steps (toy task) — RLOO/GRPO converge similarly; KTO uses implicit reward margin"
         xLabel="Training step"
         yLabel="Mean reward / margin"
+        series={[
+          {
+            name: "GRPO",
+            color: colors.gold,
+            points: [[1, 0.49], [10, 0.56], [25, 0.70], [40, 0.72], [50, 0.73]],
+          },
+          {
+            name: "RLOO",
+            color: "#60a5fa",
+            points: [[1, 0.52], [10, 0.55], [25, 0.56], [40, 0.63], [50, 0.68]],
+          },
+          {
+            name: "KTO (implicit reward margin)",
+            color: "#a78bfa",
+            points: [[1, 0.13], [20, 0.30], [40, 0.45], [60, 0.63], [80, 0.79]],
+          },
+        ]}
       />
 
       {/* ======================================================================
@@ -643,15 +626,16 @@ trainer.train()`}
       </Prose>
 
       <Heatmap
-        title="Method selection by axis"
+        label="Method selection by axis"
         rowLabels={["GRPO", "RLOO", "KTO", "DPO/SimPO"]}
         colLabels={["Verifiable reward", "On-policy", "Binary labels", "Low memory", "Simple impl"]}
-        values={[
+        matrix={[
           [1.0, 1.0, 0.0, 0.9, 0.5],
           [0.5, 1.0, 0.0, 0.9, 0.9],
           [0.3, 0.5, 1.0, 1.0, 0.8],
           [0.3, 0.0, 0.0, 1.0, 1.0],
         ]}
+        colorScale="gold"
       />
 
       {/* ======================================================================

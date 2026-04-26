@@ -90,7 +90,7 @@ smartphone / IoT      | 1B-4B (INT4)       | 1-10W         | zero (local)     | 
       <MathBlock>{"\\text{memory (GB)} = \\frac{N \\times b}{8 \\times 10^9}"}</MathBlock>
 
       <Prose>
-        For a Llama 3 8B model: at FP16 (<Code>b=16</Code>), that is <Code>8 \\ \\times 10^9 \\times 16 / (8 \\times 10^9) = 16\\ \\text{GB}</Code>. At INT4 (<Code>b=4</Code>), the same model occupies 4 GB — a 4× reduction that is the difference between "edge is impossible" and "edge is routine" on commodity hardware. At INT2, it falls to 2 GB, though quality degradation at 2-bit is severe for most tasks. Modern mixed-precision schemes like AWQ and GPTQ apply 4-bit quantization to weights while preserving activations at higher precision, recovering most of the quality loss from naive rounding.
+        For a Llama 3 8B model: at FP16 (<Code>b=16</Code>), that is <Code>{"8 \\times 10^9 \\times 16 / (8 \\times 10^9) = 16\\ \\text{GB}"}</Code>. At INT4 (<Code>b=4</Code>), the same model occupies 4 GB — a 4× reduction that is the difference between "edge is impossible" and "edge is routine" on commodity hardware. At INT2, it falls to 2 GB, though quality degradation at 2-bit is severe for most tasks. Modern mixed-precision schemes like AWQ and GPTQ apply 4-bit quantization to weights while preserving activations at higher precision, recovering most of the quality loss from naive rounding.
       </Prose>
 
       <MathBlock>{"\\text{compression ratio} = \\frac{b_{\\text{original}}}{b_{\\text{quantized}}} = \\frac{16}{4} = 4\\times"}</MathBlock>
@@ -102,7 +102,7 @@ smartphone / IoT      | 1B-4B (INT4)       | 1-10W         | zero (local)     | 
       <H3>Edge latency advantage</H3>
 
       <Prose>
-        The latency comparison between cloud and edge deployment reduces to a simple inequality. Let <Code>RTT</Code> be the network round-trip time to the cloud, <Code>T_{cloud}</Code> be cloud inference time for the full-size model, <Code>T_{edge}</Code> be edge inference time for the quantized model, and <Code>L_{LAN}</Code> be local area network latency (sub-millisecond for wired, 1–5ms for wireless):
+        The latency comparison between cloud and edge deployment reduces to a simple inequality. Let <Code>RTT</Code> be the network round-trip time to the cloud, <Code>{"T_{cloud}"}</Code> be cloud inference time for the full-size model, <Code>{"T_{edge}"}</Code> be edge inference time for the quantized model, and <Code>{"L_{LAN}"}</Code> be local area network latency (sub-millisecond for wired, 1–5ms for wireless):
       </Prose>
 
       <MathBlock>{"\\text{latency}_{\\text{cloud}} = RTT + T_{\\text{cloud}}"}</MathBlock>

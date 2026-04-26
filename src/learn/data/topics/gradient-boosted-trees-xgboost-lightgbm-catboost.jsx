@@ -232,7 +232,7 @@ const gradientBoostedTreesContent = {
       <H3>3.4 CatBoost: ordered boosting and ordered target statistics</H3>
 
       <Prose>
-        <strong>Prediction shift.</strong> In standard GBDT, the gradient for example <Code>i</Code> at round <Code>m</Code> is computed using a model <Code>F_{m-1}</Code> that was fitted on all <Code>n</Code> examples including <Code>i</Code> itself. This causes a conditional bias: <Code>E[g_i | x_i] ≠ 0</Code>, because the model has partially memorized <Code>x_i</Code>. Prokhorenkova et al. show this bias causes the boosted model to underfit, especially with many trees.
+        <strong>Prediction shift.</strong> In standard GBDT, the gradient for example <Code>i</Code> at round <Code>m</Code> is computed using a model <Code>{"F_{m-1}"}</Code> that was fitted on all <Code>n</Code> examples including <Code>i</Code> itself. This causes a conditional bias: <Code>{"E[g_i | x_i] ≠ 0"}</Code>, because the model has partially memorized <Code>{"x_i"}</Code>. Prokhorenkova et al. show this bias causes the boosted model to underfit, especially with many trees.
       </Prose>
 
       <Prose>
@@ -648,59 +648,32 @@ CatBoost (classifier, cat_features=[0,1])  best_iter=7  accuracy=1.0000`}
       <H3>6a. Loss vs iteration across all three libraries</H3>
 
       <Plot
-        title="Test RMSE vs boosting round — XGBoost, LightGBM, CatBoost (synthetic regression, n=1000)"
+        label="Test RMSE vs boosting round — XGBoost, LightGBM, CatBoost (synthetic regression, n=1000)"
         xLabel="Boosting round"
         yLabel="Test RMSE"
         series={[
           {
-            label: "XGBoost (hist)",
+            name: "XGBoost (hist)",
             color: colors.gold,
-            data: [
-              { x: 1,   y: 87.2  },
-              { x: 10,  y: 62.4  },
-              { x: 20,  y: 51.3  },
-              { x: 30,  y: 45.1  },
-              { x: 40,  y: 41.6  },
-              { x: 50,  y: 39.1  },
-              { x: 60,  y: 37.8  },
-              { x: 70,  y: 37.0  },
-              { x: 80,  y: 36.6  },
-              { x: 90,  y: 36.3  },
-              { x: 100, y: 36.1  },
+            points: [
+              [1, 87.2], [10, 62.4], [20, 51.3], [30, 45.1], [40, 41.6],
+              [50, 39.1], [60, 37.8], [70, 37.0], [80, 36.6], [90, 36.3], [100, 36.1],
             ],
           },
           {
-            label: "LightGBM",
+            name: "LightGBM",
             color: "#86efac",
-            data: [
-              { x: 1,   y: 85.8  },
-              { x: 10,  y: 60.1  },
-              { x: 20,  y: 49.7  },
-              { x: 30,  y: 44.0  },
-              { x: 40,  y: 40.8  },
-              { x: 50,  y: 38.5  },
-              { x: 60,  y: 37.0  },
-              { x: 70,  y: 36.1  },
-              { x: 80,  y: 35.5  },
-              { x: 90,  y: 35.3  },
-              { x: 100, y: 35.3  },
+            points: [
+              [1, 85.8], [10, 60.1], [20, 49.7], [30, 44.0], [40, 40.8],
+              [50, 38.5], [60, 37.0], [70, 36.1], [80, 35.5], [90, 35.3], [100, 35.3],
             ],
           },
           {
-            label: "CatBoost",
+            name: "CatBoost",
             color: "#c084fc",
-            data: [
-              { x: 1,   y: 88.5  },
-              { x: 10,  y: 64.2  },
-              { x: 20,  y: 52.1  },
-              { x: 30,  y: 44.3  },
-              { x: 40,  y: 38.9  },
-              { x: 50,  y: 35.4  },
-              { x: 60,  y: 32.8  },
-              { x: 70,  y: 31.0  },
-              { x: 80,  y: 29.9  },
-              { x: 90,  y: 29.4  },
-              { x: 100, y: 29.3  },
+            points: [
+              [1, 88.5], [10, 64.2], [20, 52.1], [30, 44.3], [40, 38.9],
+              [50, 35.4], [60, 32.8], [70, 31.0], [80, 29.9], [90, 29.4], [100, 29.3],
             ],
           },
         ]}

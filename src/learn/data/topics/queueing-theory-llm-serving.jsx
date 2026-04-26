@@ -100,7 +100,7 @@ const queueingTheoryLLMServing = {
       <MathBlock>{"P(W > t) = \\rho \\cdot e^{-(\\mu - \\lambda)\\,t}"}</MathBlock>
 
       <Prose>
-        Inverting this gives the theoretical p99 threshold: the time <Code>t</Code> such that only 1% of requests exceed it is <Code>t_{p99} = -\ln(0.01/\rho) / (\mu - \lambda)</Code>. At <Code>ρ = 0.9</Code> with <Code>μ = 1</Code>, this gives <Code>t_{p99} ≈ 25.2</Code> seconds — already catastrophic for interactive use. This is not a worst-case estimate; it is the expected p99 under steady-state load.
+        Inverting this gives the theoretical p99 threshold: the time <Code>t</Code> such that only 1% of requests exceed it is <Code>{"t_{p99} = -\\ln(0.01/\\rho) / (\\mu - \\lambda)"}</Code>. At <Code>ρ = 0.9</Code> with <Code>μ = 1</Code>, this gives <Code>{"t_{p99} ≈ 25.2"}</Code> seconds — already catastrophic for interactive use. This is not a worst-case estimate; it is the expected p99 under steady-state load.
       </Prose>
 
       <H3>M/G/c and Kingman's approximation</H3>
@@ -780,7 +780,7 @@ def route_request(replicas):
       <H3>6. Incorrectly assuming Poisson arrivals</H3>
 
       <Prose>
-        Real LLM traffic is bursty. Social media events, cron-triggered batch jobs, and user behavior patterns all create arrival processes with higher variance than Poisson (super-Poisson). The Kingman formula captures this: when <Code>C_a &gt; 1</Code> (bursty arrivals), wait time is multiplied by <Code>(C_a² + 1)/2 &gt; 1</Code>. A Poisson-calibrated capacity plan underprovisions for super-Poisson traffic. The practical fix is to add a burst multiplier to the planned capacity: if 95th-percentile arrival rate is 2× the mean, plan for <Code>λ_{peak} = 2× λ_{mean}</Code> in your target utilization calculation.
+        Real LLM traffic is bursty. Social media events, cron-triggered batch jobs, and user behavior patterns all create arrival processes with higher variance than Poisson (super-Poisson). The Kingman formula captures this: when <Code>C_a &gt; 1</Code> (bursty arrivals), wait time is multiplied by <Code>(C_a² + 1)/2 &gt; 1</Code>. A Poisson-calibrated capacity plan underprovisions for super-Poisson traffic. The practical fix is to add a burst multiplier to the planned capacity: if 95th-percentile arrival rate is 2× the mean, plan for <Code>{"λ_{peak} = 2× λ_{mean}"}</Code> in your target utilization calculation.
       </Prose>
 
       <H3>7. Queue starvation when long requests block short ones</H3>
