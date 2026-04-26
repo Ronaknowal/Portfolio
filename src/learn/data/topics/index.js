@@ -144,6 +144,11 @@ import rbmContent from "./boltzmann-machines-restricted-boltzmann-machines-rbm";
 import spectralNormGPContent from "./spectral-normalization-gradient-penalty";
 import modernHopfieldContent from "./modern-hopfield-networks";
 import xlstmContent from "./xlstm-extended-lstm";
+import hyenaContent from "./hyena-long-convolution-models";
+import ringAttentionContent from "./ring-attention-sequence-parallelism";
+import advancedOptimizersContent from "./advanced-optimizers-lion-sophia-prodigy-schedule-free";
+import neuralODEContent from "./neural-ode-continuous-depth-models";
+import titansContent from "./titans-multi-memory-architecture";
 
 // Map custom content by the slugified title they correspond to in track-definitions
 const customContent = {
@@ -290,6 +295,11 @@ const customContent = {
   "spectral-normalization-gradient-penalty": spectralNormGPContent,
   "modern-hopfield-networks": modernHopfieldContent,
   "xlstm-extended-lstm": xlstmContent,
+  "hyena-long-convolution-models": hyenaContent,
+  "ring-attention-sequence-parallelism": ringAttentionContent,
+  "advanced-optimizers-lion-sophia-prodigy-schedule-free": advancedOptimizersContent,
+  "neural-ode-continuous-depth-models": neuralODEContent,
+  "titans-multi-memory-architecture": titansContent,
 };
 
 // --- Slugify: title → URL-safe ID ---
