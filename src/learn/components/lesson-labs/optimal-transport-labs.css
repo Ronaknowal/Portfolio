@@ -1,0 +1,237 @@
+.transport-lab {
+  margin: 2rem 0;
+  padding: clamp(.8rem, 3vw, 1.5rem);
+  border: 1px solid #3d4c55;
+  background: #10171b;
+  color: #d6e1e7;
+  min-width: 0;
+}
+
+.transport-lab h3 {
+  color: #efe6d5;
+  margin: 0 0 1rem;
+  font-size: 1.14rem;
+}
+
+.transport-lab p, .transport-inline p {
+  line-height: 1.75;
+  font-size: .94rem;
+}
+
+.transport-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.transport-control {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  min-width: 0;
+  font-size: .88rem;
+  line-height: 1.55;
+  margin: .8rem 0;
+}
+
+.transport-control strong {
+  color: #e6b75f;
+}
+
+.transport-control input {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: #e6b75f;
+}
+
+.transport-control select {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid #6b7b86;
+  border-radius: 3px;
+  background: #14222b;
+  color: #e1e7ea;
+  padding: .6rem;
+  font: inherit;
+}
+
+.transport-lab button {
+  min-height: 44px;
+  padding: .5rem .8rem;
+  border: 1px solid #758a96;
+  background: #13212a;
+  color: #f1d49e;
+  border-radius: 3px;
+  font: inherit;
+  font-size: .88rem;
+  cursor: pointer;
+}
+
+.transport-lab button:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+.transport-lab button[aria-pressed="true"] {
+  border-color: #f3c771;
+  background: #3c301d;
+  color: #ffe2ad;
+}
+
+.transport-lab :is(button, select, input, summary, [tabindex]):focus-visible {
+  outline: 3px solid #a2ccdf;
+  outline-offset: 3px;
+}
+
+.transport-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.transport-reset {
+  margin-top: 1rem;
+}
+
+.transport-figure {
+  margin: 1.5rem 0;
+  min-width: 0;
+}
+
+.transport-figure figcaption, .transport-inline figcaption {
+  font-size: .91rem;
+  line-height: 1.7;
+  margin-bottom: .8rem;
+}
+
+.transport-figure svg, .transport-inline svg {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.transport-figure svg text, .transport-inline svg text {
+  fill: #dce4e9;
+  font: 17px ui-monospace, monospace;
+}
+
+.transport-caption {
+  font-size: .84rem !important;
+  color: #c1d0d9;
+}
+
+.transport-table {
+  overflow-x: auto;
+  margin: 1rem 0;
+  padding-bottom: .5rem;
+}
+
+.transport-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .87rem;
+}
+
+.transport-table caption {
+  text-align: left;
+  padding-bottom: .8rem;
+  line-height: 1.7;
+}
+
+.transport-table :is(th, td) {
+  padding: .65rem .55rem;
+  border-bottom: 1px solid #40535e;
+  text-align: left;
+  min-width: 76px;
+  font-variant-numeric: tabular-nums;
+}
+
+.transport-table th {
+  color: #ccdce7;
+  font-weight: 500;
+}
+
+.transport-table td {
+  color: #f1d49e;
+}
+
+.transport-table button {
+  width: 100%;
+  padding: .5rem .25rem;
+}
+
+.transport-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 195px), 1fr));
+  margin: 1.2rem 0;
+  border-top: 1px solid #40535e;
+}
+
+.transport-metrics > div {
+  padding: .85rem .65rem .85rem 0;
+  border-bottom: 1px solid #40535e;
+}
+
+.transport-metrics dt {
+  font-size: .83rem;
+  color: #c2d2dc;
+  line-height: 1.5;
+}
+
+.transport-metrics dd {
+  color: #f1c775;
+  margin: .45rem 0 0;
+  font-size: 1.03rem;
+  overflow-wrap: anywhere;
+}
+
+.transport-observation {
+  background: #172931;
+  padding: 1rem;
+  border-block: 1px solid #527080;
+}
+
+.transport-inline {
+  padding: 1.25rem 0;
+  margin: 1.8rem 0;
+  border-block: 1px solid #3f505a;
+}
+
+.transport-interpolation {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr));
+  margin: 1.2rem 0;
+}
+
+.transport-interpolation strong {
+  color: #e6b75f;
+}
+
+.transport-interpolation p {
+  font-size: 1.04rem;
+  letter-spacing: .01em;
+}
+
+.transport-interpolation span {
+  font-size: .85rem;
+  color: #c7d8e2;
+}
+
+@media (max-width: 380px) {
+  .transport-lab {
+    padding: .6rem;
+  }
+  .transport-figure svg text, .transport-inline svg text {
+    font-size: 19px;
+  }
+  .transport-table :is(th, td) {
+    padding-inline: .4rem;
+  }
+}

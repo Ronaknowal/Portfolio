@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-10T12:35:52.706Z",
+  "rootRead": "Complete body, all ten programs, pure models and six practice solutions; focused independent mathematical review.",
+  "repairedCases": [
+    {
+      "budget": 2.75,
+      "rate": 1.75,
+      "step": 18,
+      "subtraction": -1.7763568394002505e-15,
+      "stableGap": 8.619797554970754e-18
+    },
+    {
+      "budget": 3.25,
+      "rate": 1.75,
+      "step": 17,
+      "subtraction": -1.7763568394002505e-15,
+      "stableGap": 1.2027443572980586e-20
+    },
+    {
+      "budget": 4,
+      "rate": 1.75,
+      "step": 16,
+      "subtraction": -8.881784197001252e-16,
+      "stableGap": 1.2316099133059338e-15
+    }
+  ],
+  "optimumChecks": 11,
+  "boundaryChecks": 3,
+  "changedProjection": true,
+  "sourceHashes": {
+    "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx": "7c88da6ad04a6e35eb0590a71f65d710d3d2864acbde24f42b3e6e8069dc5790",
+    "src/learn/data/duality-kkt-models.js": "79df9a71d12f20493df2225b16647d93340b1822c80696735dcf8c5cdbce988e",
+    "src/learn/data/duality-kkt-examples.js": "6f0fb0a1fff198d67786612e48a5c57b0a0fed72ddff75fe130547211a70d2e1"
+  },
+  "finding": "Naive gap subtraction could display a negative certificate. Author replaced it with a nonnegative decomposition and explained the numerical distinction; targeted reproductions pass."
+}

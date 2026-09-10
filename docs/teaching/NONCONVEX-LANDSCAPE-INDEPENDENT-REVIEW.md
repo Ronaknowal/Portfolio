@@ -1,0 +1,21 @@
+# Non-Convex Optimization Landscape — independent source review
+
+10 September 2026. Root reviewed the complete final lesson's definitions, derivations, worked interpretations, seven changed practice answers and the four pure visual models after the author freeze. This is a bounded mathematical/source cross-review; the separate [author record](NONCONVEX-LANDSCAPE-VERIFICATION.md) owns executed native, oracle, desktop/mobile, keyboard and actually opened screenshot evidence.
+
+The tilted quartic's global comparison is justified by coercivity and its exhaustive stationary-root list within the stated tilt range. The C² stationary tests correctly separate positive definiteness from singular semidefiniteness, and the higher-order examples have explicit increasing/decreasing directions. Local classification is not confused with algorithm escape: the deterministic saddle has an exactly invariant stable axis, while the controlled two-loss example specifies its noise direction and sign sampling.
+
+The optional second-moment calculation correctly uses independence to remove cross terms and sums the amplified squared coefficients; an average position of zero is not a statement about individual paths. The bounded browser run explicitly reports a proposed exit from its local window rather than clipping that point into apparent convergence. The exact diagonal repair preserves neutral slices; it does not convert near-diagonal directions into exact identities.
+
+The factor model's Hessian, normal/tangent directions and fourth-order tangent loss agree algebraically: at ab=1 the straight tangent changes the product by −ε²/(a²+b²), whereas the curved scaling path preserves it. Positive ReLU scaling includes biases and outgoing inverse scaling; negative scaling is rejected. A stationary smooth coordinate change uses the full Hessian congruence with the gradient-dependent term removed only at stationarity. The regularization qualification is restricted to the zero-data-loss curve and does not claim the entire regularized optimum stays there.
+
+The positive-branch straight-path barriers 1/128 and changed-practice 1/18 follow from the stated products. The opposite-branch lower barrier 1/2 follows from continuity through a=0 and is attained by the displayed straight route. A selected slice is correctly presented as restricted curvature. The interpolation counterexample compares a declared held-out point and competing target rules rather than claiming a universal population result. The inactive ReLU plateau is locally constant and therefore both a non-strict local minimum and maximum; the boundary kink is not labelled classically differentiable.
+
+Primary-source spot checks independently opened [Jin et al.](https://proceedings.mlr.press/v70/jin17a/jin17a.pdf), theorem 3 and section 3.1/A2, and [Dinh et al.](https://proceedings.mlr.press/v70/dinh17b/dinh17b.pdf), the Hessian sharpness theorem/discussion. The lesson's conditions distinguish specified perturbation theory from arbitrary SGD and coordinate curvature from predictor quality. This review did not watch a video or claim to inspect every paper proof.
+
+No actionable mathematical or scope defect was found. No production source was changed by this cross-review. The six final author fingerprints remain the source version to integrate; this record does not replace production loading and route validation or imply user approval.
+
+## Subsequent paragraph repair
+
+Root later found invalid paragraph groups nested in Prose, which itself renders a paragraph. The author replaced49 such groups with65 individual Prose paragraphs while preserving text, equations and all model/example values. Normalized AST assertions verify this exact tag-only change. Final body hash: `a5808ff066db96746c4976775a377d9bdfde1f976cd8ec65d7d7dd385a3f75ed`. The six-file freeze and author record now refer to that replacement.
+
+The author's actual1440/390/320 console/DOM/ordinary-reading checks pass without nested blocks, overflow, math errors or application warnings; root also opened the final390px opening and confirmed readable paragraph flow. Evidence lives in `scratch/optimization-paragraph-repair/{source-results,browser-results}.json`. Earlier mathematical evidence remains applicable to unchanged content; production integration must use the revised body hash.

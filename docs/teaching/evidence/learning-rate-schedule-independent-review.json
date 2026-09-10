@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-09-10T11:37:32.571Z",
+  "sourceHashes": {
+    "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx": "557b67ea918e17b1b9c499409ea825dcaf65eae4d7e7389490af47eef0f945a1",
+    "src/learn/data/learning-rate-schedule-models.js": "cf3db9b95a15f38577ae26db8f49059f5d238dd8ce220ce4c3c3aeebd9657126",
+    "src/learn/data/learning-rate-schedule-examples.js": "d0736b1353b13b6e1a6ea4b4c376810b9d6c69a8d859ffd92b7d3feb30f2c771",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b"
+  },
+  "torchVersion": "2.14.0+cpu",
+  "oneCyclePolicies": 10,
+  "oneCycleUsedStates": 126,
+  "exactNoisePolicies": 36,
+  "exactNoiseStates": 135,
+  "plateauPolicies": 16,
+  "plateauStates": 192,
+  "exactHandChecks": 4,
+  "findings": []
+}

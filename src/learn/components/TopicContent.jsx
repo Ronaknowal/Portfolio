@@ -1,176 +1,118 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { colors, fonts } from "../styles";
 import { tracks } from "../data/tracks";
+import { topicMap } from "../data/catalogue";
 import PlaceholderContent from "./PlaceholderContent";
 import LevelBadge from "./LevelBadge";
+import LessonGuide from "./LessonGuide";
+import useTopicResource from "../hooks/useTopicResource.js";
+import LessonBoundary, { LessonLoadError } from "./LessonBoundary.jsx";
+import "./topic-content.css";
 
-export default function TopicContent({ topic, track, topicIds, currentIndex, isComplete, toggleComplete, basePath }) {
+export default function TopicContent({ topic, context, track, currentModule, previousStep, nextStep, isComplete, toggleComplete, basePath }) {
   const navigate = useNavigate();
   const done = isComplete(topic.id);
+  const otherTracks = tracks.filter((candidate) => candidate.topicIds.includes(topic.id) && (!track || candidate.id !== track.id));
+  const prevId = previousStep?.topicId;
+  const nextId = nextStep?.topicId;
+  const { status, resource, retry, attempt } = useTopicResource(topic);
+  const [renderFailed, setRenderFailed] = useState(false);
+  const retryLesson = () => { setRenderFailed(false); retry(); };
+  const lesson = topic.status === "published" ? resource : null;
+  const Content = lesson?.content;
+  useEffect(() => {
+    if (status !== "ready" || !window.location.hash) return;
+    const frame = requestAnimationFrame(() => {
+      try { document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView(); }
+      catch { /* A malformed URL fragment must not prevent reading the lesson. */ }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [topic.id, status]);
 
-  // Find other tracks that contain this topic
-  const otherTracks = tracks.filter(
-    (t) => t.topicIds.includes(topic.id) && (!track || t.id !== track.id)
-  );
-
-  // Previous / Next
-  const prevId = currentIndex > 0 ? topicIds[currentIndex - 1] : null;
-  const nextId = currentIndex < topicIds.length - 1 ? topicIds[currentIndex + 1] : null;
-
-  const handleNav = (id) => {
-    navigate(`${basePath}/${id}`);
+  const handleNav = (step) => {
+    navigate(`${basePath}/${step.topicId}?module=${encodeURIComponent(step.moduleId)}`);
     window.scrollTo(0, 0);
   };
 
-  const Content = topic.content;
-
   return (
-    <div style={{ flex: 1, padding: "20px 32px", overflowY: "auto", minHeight: "calc(100vh - 57px)" }}>
-      {/* Breadcrumb */}
-      <div style={{ fontFamily: fonts.mono, fontSize: 9, color: colors.textDim, marginBottom: 16 }}>
-        <span
-          onClick={() => navigate("/learn")}
-          style={{ color: colors.textMuted, cursor: "pointer" }}
-        >
-          Learn
-        </span>
-        <span style={{ color: colors.textDark }}> → </span>
-        {track ? (
-          <>
-            <span
-              onClick={() => navigate(`/learn/track/${track.id}`)}
-              style={{ color: colors.textMuted, cursor: "pointer" }}
-            >
-              {track.title}
-            </span>
-            <span style={{ color: colors.textDark }}> → </span>
-          </>
-        ) : (
-          <>
-            <span style={{ color: colors.textMuted }}>All Topics</span>
-            <span style={{ color: colors.textDark }}> → </span>
-          </>
-        )}
-        <span style={{ color: colors.gold }}>{topic.title}</span>
-      </div>
+    <main className="reader-content">
+      <nav className="reader-breadcrumb" aria-label="Breadcrumb">
+        <button type="button" onClick={() => navigate("/learn")}>Learn</button>
+        <span aria-hidden="true">→</span>
+        <button type="button" onClick={() => navigate(context.href)}>{context.title}</button>
+        <span aria-hidden="true">→</span>
+        <span aria-current="page">{topic.title}</span>
+      </nav>
 
-      {/* "Also in" badges */}
       {otherTracks.length > 0 && (
-        <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
-          {otherTracks.map((t) => (
-            <span
-              key={t.id}
-              onClick={() => navigate(`/learn/track/${t.id}/${topic.id}`)}
-              style={{
-                fontFamily: fonts.mono,
-                fontSize: 8,
-                color: colors.textMuted,
-                padding: "2px 6px",
-                border: `1px solid ${colors.border}`,
-                borderRadius: 2,
-                cursor: "pointer",
-                transition: "color 0.2s ease",
-              }}
-              onMouseEnter={(e) => (e.target.style.color = colors.gold)}
-              onMouseLeave={(e) => (e.target.style.color = colors.textMuted)}
-            >
-              Also in: {t.title}
-            </span>
+        <div className="reader-related" aria-label="Topic modules">
+          {otherTracks.map((candidate) => (
+            <button key={candidate.id} type="button" onClick={() => navigate(`/learn/track/${candidate.id}/${topic.id}`)}>
+              {track ? "Also in" : "Module"}: {candidate.title}
+            </button>
           ))}
         </div>
       )}
 
-      {/* Topic header */}
-      <h1 style={{ fontFamily: fonts.sans, fontSize: 28, fontWeight: 600, color: colors.textPrimary, margin: "0 0 6px" }}>
-        {topic.title}
-      </h1>
-      <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 28, display: "flex", alignItems: "center", gap: 8 }}>
-        <LevelBadge level={topic.level} size="normal" />
-        <span>{topic.readTime} · Topic {currentIndex + 1} of {topicIds.length}</span>
-      </div>
+      <header className="reader-header">
+        <h1>{topic.title}</h1>
+        <div className="reader-header__meta">
+          <LevelBadge level={topic.level} size="normal" />
+          <span className={`topic-status topic-status--${topic.status}`}>{topic.status}</span>
+          {topic.depth && <span>{topic.depth === "core" ? "Core study" : `${topic.depth === "frontier" ? "Frontier" : "Specialist"} branch`}</span>}
+          <span>{topic.readTime}</span>
+          {currentModule && <span>{currentModule.label} · {currentModule.topicIds.indexOf(topic.id) + 1} of {currentModule.topicIds.length} topics on this route</span>}
+        </div>
+      </header>
 
-      {/* Article content (JSX) — supports sections, single content, or placeholder */}
-      {topic.content ? (
-        topic.sections ? (
-          topic.sections.map((section, i) => {
-            const SectionContent = section.content;
-            return (
-              <div key={section.id || i} id={section.id} style={{ marginBottom: i < topic.sections.length - 1 ? 40 : 0 }}>
-                {section.title && (
-                  <h2 style={{
-                    fontFamily: fonts.sans,
-                    fontSize: 22,
-                    fontWeight: 600,
-                    color: colors.textPrimary,
-                    margin: "0 0 16px 0",
-                    paddingTop: i > 0 ? 20 : 0,
-                    borderTop: i > 0 ? `1px solid ${colors.border}` : "none",
-                  }}>
-                    {section.title}
-                  </h2>
-                )}
-                <SectionContent />
-              </div>
-            );
-          })
+      {Content && topic.prerequisiteIds?.length > 0 && <details className="reader-prerequisites">
+        <summary>Before this lesson · {topic.prerequisiteIds.length} prerequisite {topic.prerequisiteIds.length === 1 ? "topic" : "topics"}</summary>
+        <p>Review these if their ideas are unfamiliar. The reading sequence follows the module contents; these links let you revisit supporting concepts.</p>
+        <ul>{topic.prerequisiteIds.map(id => <li key={id}><a href={`/learn/topic/${id}`}>{topicMap[id].title}</a>{isComplete(id) ? " · completed" : ""}</li>)}</ul>
+      </details>}
+
+      {Content && !topic.hasIntegratedGuide && <LessonGuide topic={topic} />}
+
+      <div className="reader-article" aria-busy={status === "loading"}>
+        {status === "loading" ? <p className="lesson-loading" role="status">{topic.status === "published" ? "Loading lesson…" : "Loading syllabus outline…"}</p>
+        : status === "error" ? <LessonLoadError onRetry={retry} />
+        : <LessonBoundary key={`${topic.id}:${attempt}`} onRetry={retryLesson} onError={() => setRenderFailed(true)}>{Content ? (
+          lesson.sections ? (
+            lesson.sections.map((section, index) => {
+              const SectionContent = section.content;
+              return (
+                <section key={section.id || index} id={section.id} className="reader-article__section">
+                  {section.title && <h2>{section.title}</h2>}
+                  <SectionContent />
+                </section>
+              );
+            })
+          ) : <Content />
         ) : (
-          <Content />
-        )
-      ) : (
-        <PlaceholderContent title={topic.title} />
-      )}
-
-      {/* Bottom bar */}
-      <div
-        style={{
-          marginTop: 40,
-          paddingTop: 16,
-          borderTop: `1px solid ${colors.border}`,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: 12,
-        }}
-      >
-        {/* Mark complete toggle */}
-        <div
-          onClick={() => toggleComplete(topic.id)}
-          style={{
-            padding: "8px 16px",
-            border: `1px solid ${colors.green}44`,
-            borderRadius: 4,
-            fontFamily: fonts.mono,
-            fontSize: 11,
-            color: colors.green,
-            background: done ? `${colors.green}11` : "transparent",
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-          }}
-        >
-          {done ? "✓ Completed" : "○ Mark as Complete"}
-        </div>
-
-        {/* Prev / Next */}
-        <div style={{ display: "flex", gap: 16 }}>
-          {prevId && (
-            <span
-              onClick={() => handleNav(prevId)}
-              style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, cursor: "pointer" }}
-            >
-              ← Previous
-            </span>
-          )}
-          {nextId && (
-            <span
-              onClick={() => handleNav(nextId)}
-              style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.gold, cursor: "pointer" }}
-            >
-              Next →
-            </span>
-          )}
-        </div>
+          <PlaceholderContent title={topic.title} blueprint={resource} prerequisiteIds={topic.prerequisiteIds} />
+        )}</LessonBoundary>}
       </div>
-    </div>
+
+      <footer className="reader-footer">
+        <button
+          type="button"
+          className={`reader-complete ${done ? "is-complete" : ""}`}
+          disabled={topic.status === "planned" || status !== "ready" || renderFailed}
+          onClick={() => toggleComplete(topic.id)}
+        >
+          {topic.status === "planned" ? "Lesson not yet published" : done ? "✓ Completed" : "○ Mark as complete"}
+        </button>
+        <div className="reader-footer__nav" aria-label="Lesson navigation">
+          {prevId && <button type="button" className="reader-footer__previous" onClick={() => handleNav(previousStep)}>
+            <span className="reader-footer__direction">← Previous</span>
+            <span>{topicMap[prevId].title}</span>
+          </button>}
+          {nextId && <button type="button" className="reader-footer__next" onClick={() => handleNav(nextStep)}>
+            <span className="reader-footer__direction">Next in sequence →</span>
+            <span>{topicMap[nextId].title}</span>
+          </button>}
+        </div>
+      </footer>
+    </main>
   );
 }

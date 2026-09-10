@@ -1,0 +1,88 @@
+{
+  "reviewedAt": "2026-09-10T18:56:37.437Z",
+  "status": "passed; no remaining actionable finding",
+  "authorFrozenAt": "2026-09-10T18:51:00.172Z",
+  "sourceHashes": [
+    {
+      "file": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "sha256": "7526c9d2895f5164061de7ce26f24b27b0534ee404455f3ee0af5353fe3a0882"
+    },
+    {
+      "file": "src/learn/data/divergence-ipm-models.js",
+      "sha256": "0bd0c775c7b5b27a3d90117d27e3fb615516c64151c2d5c9ff08e63245308ffe"
+    },
+    {
+      "file": "src/learn/data/divergence-ipm-examples.js",
+      "sha256": "2e99f9317c1e13a301349a3e3450d74bd3e8a22e2a42f0cea929fc9feb824057"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx",
+      "sha256": "586ed0bdedec90f73d922c4da12ce4aabf54fd224d1950a17abdeaa14754349b"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/divergence-ipm-labs.css",
+      "sha256": "616b50a7cfce7b315a4b410a3af652b2b34e0310b8aa492f2d7dd15efe64db96"
+    },
+    {
+      "file": "src/learn/data/curriculum/blueprints/f-divergences-integral-probability-metrics.js",
+      "sha256": "11193f06a6e317bc20c51d682cd71a720e575149500e0731b14f729b580a45b5"
+    }
+  ],
+  "models": {
+    "checkedAt": "2026-09-10T18:49:11.436Z",
+    "counts": {
+      "bernoulliDivergences": 361,
+      "sufficientChannelEqualities": 64,
+      "estimatorExpectationLaws": 27,
+      "variationalShiftIdentities": 41,
+      "atomIdentities": 20,
+      "rangeRegressions": 2
+    },
+    "allPassed": true,
+    "finding": "Rejected a previously accepted subnormal channel that fabricated support loss and infinite post-processing KL/JS.",
+    "scope": "Complementary closed-form Bernoulli checks, sufficient-statistic equality, repeated-sampling estimator expectations and actual accepted/rejected channel range."
+  },
+  "native": {
+    "checkedAt": "2026-09-10T18:52:38.800914+00:00",
+    "displayedPrograms": 10,
+    "changedExactTests": 18,
+    "independentMethod": "Gaussian Gram quadratic forms, unequal sample sizes, ties, complete bandwidth-selection rules and inclusive-tail rank calibration",
+    "allPassed": true
+  },
+  "scripts": [
+    {
+      "file": "scripts/review-divergence-ipm-independent.mjs",
+      "sha256": "4f15a3bec620a4519d80794995d083a64bc2d073afa0a020c2fc6d5f6891ac77"
+    },
+    {
+      "file": "scripts/review-divergence-ipm-native-independent.py",
+      "sha256": "6b65cb3f52e3123b28f6e4e4b639c930fc9438385504e7f0b36a5282e5744200"
+    }
+  ],
+  "actuallyOpenedAuthorCaptures": [
+    {
+      "file": "scratch/divergence-ipm-browser/observer-lipschitz-390.png",
+      "sha256": "c136c39e3e069f902eb4d13018217bd546fc348715ac1bd12ade6aaff5310be0"
+    },
+    {
+      "file": "scratch/divergence-ipm-browser/kernel-negative-unbiased-390.png",
+      "sha256": "51a79eaef8dd611fa7a0525431b9415ab61f87c3b737b59574dc63911250faa4"
+    },
+    {
+      "file": "scratch/divergence-ipm-browser/final-bias-moment-contract-320.png",
+      "sha256": "6b3609f762f0e5ce796831a4437a3cd6fdf268007f55d97fe830b92873dde493"
+    },
+    {
+      "file": "scratch/divergence-ipm-browser/moving-small-disjoint-320.png",
+      "sha256": "88e30b207221528fd00478b49899377231589d55f74c4b367c4ef0b2803d225d"
+    },
+    {
+      "file": "scratch/divergence-ipm-browser/permutation-small-bandwidth-390.png",
+      "sha256": "e844c9546a41a8f24161304b0a1c0f56a3cea74b25c50d1b6e791cd025074cd3"
+    },
+    {
+      "file": "scratch/divergence-ipm-browser/inline-figure-2-320.png",
+      "sha256": "bd1c84b0375c80b8c22e55ef40ea3199dd9ab6090e735e10b203022b6b480827"
+    }
+  ]
+}

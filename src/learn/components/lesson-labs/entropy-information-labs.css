@@ -1,0 +1,417 @@
+.entropy-lab,.entropy-inline {
+  margin: 30px 0;
+  padding: 24px 0;
+  border-block: 1px solid #3b4245;
+  color: #bdbdbd;
+  font-family: Arial,sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  min-width: 0;
+}
+
+.entropy-lab h3,.entropy-inline>figcaption {
+  color: #eee;
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.5;
+  margin: 0 0 18px;
+}
+
+.entropy-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px 22px;
+  margin: 20px 0;
+}
+
+.entropy-controls label {
+  display: flex;
+  flex: 1 1 250px;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.entropy-controls label:has(select) {
+  flex-basis: 100%;
+}
+
+.entropy-controls strong {
+  color: #e2b55a;
+}
+
+.entropy-controls input[type=range] {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: #e2b55a;
+}
+
+.entropy-controls input:not([type=range]),.entropy-controls select,.entropy-controls button {
+  background: #151515;
+  border: 1px solid #666;
+  border-radius: 3px;
+  color: #eee;
+  font: inherit;
+  line-height: 1.5;
+  padding: 9px 12px;
+  min-height: 44px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.entropy-controls button {
+  cursor: pointer;
+}
+
+.entropy-controls button:disabled {
+  opacity: .4;
+  cursor: default;
+}
+
+.entropy-lab :focus-visible,.entropy-practice :focus-visible {
+  outline: 2px solid #e2b55a;
+  outline-offset: 4px;
+}
+
+.entropy-lab [role=alert] {
+  color: #ffbdcc;
+  border-left: 3px solid #ff9db2;
+  padding-left: 12px;
+}
+
+.entropy-metrics {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px 24px;
+  margin: 24px 0;
+}
+
+.entropy-metrics div {
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  min-width: 0;
+}
+
+.entropy-metrics dt {
+  color: #aaa;
+  font-size: .9rem;
+}
+
+.entropy-metrics dd {
+  color: #eee;
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.entropy-note {
+  color: #aaa;
+  font-size: .88rem;
+}
+
+.entropy-lab summary,.entropy-practice summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 9px;
+}
+
+.entropy-plot {
+  width: min(100%,410px);
+  height: auto;
+  display: block;
+  margin: 22px auto 0;
+}
+
+.entropy-plot text,.entropy-tree text {
+  font: 17px Arial,sans-serif;
+  fill: #bbb;
+}
+
+.entropy-tree {
+  display: block;
+  width: min(100%,370px);
+  height: auto;
+  margin: 20px auto;
+}
+
+.entropy-tree .entropy-symbol,.entropy-plot .entropy-symbol {
+  fill: #eee;
+  font-weight: 650;
+}
+
+.entropy-tree .entropy-edge-label text {
+  fill: #e2b55a;
+}
+
+.entropy-word-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.entropy-word-strip>div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  border: 1px solid #716140;
+  padding: 7px 14px;
+}
+
+.entropy-word-strip strong {
+  font-family: monospace;
+  color: #e2b55a;
+  font-size: 1.2rem;
+}
+
+.entropy-bitstream {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.entropy-bitstream span {
+  padding: 3px 6px;
+  border: 1px solid #454545;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.entropy-bitstream span.consumed {
+  background: #e2b55a;
+  color: #141414;
+}
+
+.entropy-mass-bars>div {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.entropy-mass-bars i {
+  display: block;
+  height: 12px;
+  background: #e2b55a;
+}
+
+.entropy-mass-bars i.model {
+  background: #a7c2c8;
+  border: 1px solid #edf4f5;
+  box-sizing: border-box;
+}
+
+.entropy-mass-bars span {
+  display: block;
+  font-size: .88rem;
+  margin: 4px 0;
+}
+
+.entropy-signed-terms>div {
+  display: grid;
+  grid-template-columns: 24px 1fr 84px;
+  gap: 10px;
+  align-items: center;
+  margin: 13px 0;
+}
+
+.entropy-signed-terms>div>div {
+  height: 20px;
+  position: relative;
+  background: #242424;
+}
+
+.entropy-signed-terms>div>div:before {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #ddd;
+  content: '';
+}
+
+.entropy-signed-terms i {
+  position: absolute;
+  top: 3px;
+  height: 14px;
+  background: #e2b55a;
+}
+
+.entropy-signed-terms i.negative {
+  background: #a7c2c8;
+}
+
+.entropy-signed-terms strong {
+  font-size: .92rem;
+  overflow-wrap: anywhere;
+}
+
+.entropy-mosaic {
+  border: 1px solid #777;
+  margin: 25px 0;
+}
+
+.entropy-mosaic>div {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.entropy-mosaic>div>span {
+  width: 40px;
+  flex-shrink: 0;
+  padding-left: 7px;
+}
+
+.entropy-mosaic>div>div {
+  display: flex;
+  width: 100%;
+  height: 74px;
+}
+
+.entropy-mosaic>div>div>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  color: #171717;
+  font-weight: 600;
+}
+
+.entropy-mosaic .y0 {
+  background: #e2b55a;
+}
+
+.entropy-mosaic .y1 {
+  background: #a7c2c8;
+  border: 3px double #304448;
+}
+
+.entropy-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.entropy-pipeline>span:not([aria-hidden]) {
+  flex: 1 1 160px;
+  padding: 10px 0;
+  border-block: 1px solid #555;
+}
+
+.entropy-pipeline strong {
+  display: block;
+  color: #e2b55a;
+}
+
+.entropy-two-plots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.entropy-two-plots figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.entropy-two-plots figcaption {
+  font-size: .88rem;
+  line-height: 1.7;
+  margin: 12px 0;
+}
+
+.entropy-case-row {
+  margin: 25px 0;
+}
+
+.entropy-case-row>div {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  align-items: end;
+  height: 160px;
+  border-bottom: 1px solid #888;
+}
+
+.entropy-case-row>div>div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  gap: 7px;
+  flex: 1;
+  min-width: 0;
+}
+
+.entropy-case-row i {
+  width: 100%;
+  max-width: 30px;
+  background: #a7c2c8;
+}
+
+.entropy-case-row i.wrong {
+  background: #e2b55a;
+}
+
+.entropy-case-row small {
+  font-size: 1rem;
+}
+
+.entropy-case-row p {
+  font-size: .9rem;
+}
+
+.entropy-practice {
+  border-top: 1px solid #3b4245;
+  padding-top: 22px;
+  margin: 30px 0;
+}
+
+.entropy-lesson .lesson-sources li {
+  margin-bottom: 14px;
+}
+
+@media (max-width:620px) {
+  .entropy-metrics,.entropy-two-plots {
+    grid-template-columns: 1fr;
+  }
+  .entropy-controls label {
+    flex-basis: 100%;
+  }
+  .entropy-plot text {
+    font-size: 19px;
+  }
+  .entropy-tree text {
+    font-size: 20px;
+  }
+  .entropy-signed-terms>div {
+    grid-template-columns: 22px 1fr 77px;
+    gap: 8px;
+  }
+  .entropy-case-row>div {
+    gap: 5px;
+  }
+  .entropy-case-row>div span {
+    font-size: .86rem;
+  }
+}
+
+@media (max-width:620px) {
+  .entropy-pipeline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .entropy-pipeline>span:not([aria-hidden]) {
+    flex: 0 1 auto;
+  }
+  .entropy-pipeline>span[aria-hidden] {
+    align-self: center;
+    transform: rotate(90deg);
+  }
+}

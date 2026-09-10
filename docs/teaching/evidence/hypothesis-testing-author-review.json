@@ -1,0 +1,13 @@
+{
+  "topicId": "hypothesis-testing-confidence-intervals",
+  "frozenAt": "2026-09-10T15:09:53.0204187Z",
+  "rootCheckedAt": "2026-09-10T15:13:07.958Z",
+  "files": {
+    "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx": "49feeebc7a2e535711a59cb702a096a26c7d4e6b86eed323d1a6bd6bb73c89d5",
+    "src/learn/data/hypothesis-testing-models.js": "6ba4629748ac5ec1557b58e50ff951966cbc33a0a8a53b4afad5f1307904a1c5",
+    "src/learn/data/hypothesis-testing-examples.js": "28287d0593616eb194640544d0b38e9edf594ec87bdf7a29cf3aeed5019e19bf",
+    "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "44b0e97eb565050a622368d8d0f1d2293a1efde5ef628277d76fbfbf56e43281",
+    "src/learn/components/lesson-labs/hypothesis-testing-labs.css": "eb41e0a8ab23b7fa47a0e800b574cc245dea2cb256defd604785d2225caa5f43",
+    "src/learn/data/curriculum/blueprints/hypothesis-testing-confidence-intervals.js": "915dd07e38e68de97c2a52413f57570c1517aedcbb66475fa241b16de8f1517b"
+  }
+}

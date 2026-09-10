@@ -1,0 +1,44 @@
+# Bayesian Inference & Conjugate Priors — lesson design
+
+10 September 2026. Mathematics 18, stable ID `bayesian-inference-conjugate-priors`. Complete source is author-verified and independently reviewed; production integration is recorded separately. Root read the entire earlier pilot, BayesLab, BetaUpdateFigure and exact inventory/returned notes. No incoming destination note existed. The original body is preserved in `scratch/bayesian-inference-review/original-published-body.jsx`; its baseline hash remains in the 74-topic ledger. See [verification](BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md).
+
+## Preserve and extend the reference
+
+Retain the eight-of-ten visitor question, Beta(2,2)→Beta(10,4), mean10/14, posterior threshold probability, credible interval, prior-strength comparison and effective prior/posterior density investigation. Retain the two separate evidence-count lanes, sequential update and zero-success practice. These are useful mechanisms, not a ceiling on depth. Preserve the stable title and actual module order: Hypothesis Testing17 → Bayesian18 → Concentration Inequalities19. Parameter likelihood/MAP is taught in16 and probability modeling in15; recap the necessary distinctions locally.
+
+The present pilot is a good introduction but its batch prediction, Gamma/Dirichlet/Normal conjugacy and predictive checks are mostly assertions/table rows. Develop them into derivations, worked computations and changed practice. Conjugacy does not validate a model; a precise distribution can express a wrong common-rate/independence assumption.
+
+## Hurdles, representations and evidence
+
+| Learning job | Chosen mechanism and form | Verification / boundary |
+| --- | --- | --- |
+| Turn prior and new evidence into a distribution | Preserve and improve labelled prior/posterior curves, actual credible area and two parameter lanes; asymmetric prior option and independent fresh-count changes | Exact Beta normalization/moments, integer-tail identities and SciPy quantile/survival oracles; bounded browser parameters, clear general-real-shape boundary |
+| Carry shared uncertainty into future outcomes | Side-by-side Beta-Binomial and plug-in Binomial count masses, linked batch-size/tail question; immediate shared-parameter diagram | Direct integrated likelihood and enumeration, covariance/variance identity, m=1 agreement; no empirical simulation histogram passed off as exact mass |
+| Count exposure as well as events | Gamma-Poisson update with labelled observation intervals/event counts and posterior rate uncertainty; change duration without changing counts | Independent quadrature and unit conversion; positive Gamma rate has time units, unlike the inferred event rate |
+| Combine noisy measurements by information | Known-variance Normal precision contributions and distinct parameter/prediction intervals; change measurement noise or prior spread | Completing-square/quadrature identities, predictive variance adds observation noise; correlated/repeated measurements violate the simple sum |
+| Generalize binary categories without leaving the simplex | Three-category composition figure and numerical Dirichlet updates, mean/covariance and unseen-existing-category prediction | Exact Gamma-ratio integrals and normalized vectors; finite declared category universe is not discovery of arbitrary new categories |
+| Detect patterns totals discard | Same-count binary sequences, transition/run statistic and exact small replicated-sequence distribution; show posterior unchanged while temporal pattern changes | Enumerate2^10 sequences with integrated probabilities; prior/posterior predictive checks are model diagnostics, not classical calibrated p-values |
+| Retain constants and make a decision | Exact fair-coin versus alternative-model evidence example; expected-loss calculation distinguishes parameter threshold probability from future reward | Same observation event and proper priors, exact evidence ratios/decision losses; model comparison does not assign probability to an ordinary continuous point |
+| Move beyond easy conjugacy | Small nonconjugate grid with explicit spacing/refinement, optional unknown-variance Normal–Inverse-Gamma derivation/predictive Student t | Independent numerical reference, support/truncation/properness limits; full MCMC/VI algorithms remain their later owners |
+
+The implemented choices comprise five different investigations and three inline figures, not a lab/program quota. Important mechanisms remain in ordinary reading; controls require prediction, meaningful change, interpretable result, reset and independent transfer. Browser computation stays small, deterministic where exact enumeration is intended, and topic-owned.
+
+## Reading and practice flow
+
+Question/model → normalize and derive Beta → summarize uncertainty without conflating intervals → predict a shared-rate batch → sequential evidence and prior sensitivity → Gamma exposure → categorical/Normal conjugacy with optional unknown variance → predictive model criticism → evidence/decision/nonconjugate boundary → independent practice and actual next topic. Revise the grouping if a novice reading pass exposes a dependency gap.
+
+Retain all original changed tasks with fresh standalone hints/solutions and add model choice, exposure/units, predictive variance, categorical support, ordering mismatch, decision loss and invalid-prior cases. Programs must be complete with actual native stdout and interpretation. Do not claim every individual posterior variance shrinks after every observation. Distinguish an improper prior from a very diffuse proper one, prior support from likelihood support, and credible mass from repeated-sampling coverage.
+
+## Research actually inspected
+
+- The Book of Statistical Proofs: Binomial posterior page inspected, with direct normalization and kernel derivation checked independently. Its Poisson posterior page was also inspected; it contains transcription errors in the exponential grouping and final Gamma normalizer (the denominator must use the posterior shape). Do not reproduce those errors or rely on that page alone.
+- Kevin Murphy, `Conjugate Bayesian analysis of the Gaussian distribution`, October 2007, official author PDF at https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf: sections 2.1–2.4 read for known-variance likelihood, completing-square precision update and predictive noise decomposition; section 6 and the inverse-Gamma definition/moment appendix read for the coupled unknown-variance model. The lesson explicitly translates V₀=1/κ₀, scale/precision and Student-t conventions. No claim of reviewing every equation in the report.
+- Stan User's Guide2.39, https://mc-stan.org/docs/stan-users-guide/posterior-predictive-checks.html: prior/posterior generation, statistic choice, overdispersion and non-calibrated posterior predictive p-value discussion read. Its illustrative source code is not copied or claimed executed; examples contain convention inconsistencies that our own fixtures must avoid.
+- Harvard Stat110 official video index https://stat110.hsites.harvard.edu/youtube and official playlist metadata: lectures 23–25 concern Beta/Gamma and 27 conditional expectation/variance. Direct individual-video fetches failed; the verified index/playlist is selected without a full-playback claim.
+- Brown Seeing Theory Bayesian written sections and described prior/likelihood/update controls were inspected at https://seeing-theory.brown.edu/bayesian-inference/index.html. External interactions were not independently tested. 3Blue1Brown was opened as a candidate but not selected or claimed fully reviewed.
+- Durham https://www.maths.dur.ac.uk/stats/stats2/practical_1-4.html: Gamma-Poisson modeling, explicit shape/rate, prior quantiles, likelihood/posterior and sensitivity exercises (``2.2–3.1) were read. Its grid rescaling is for a discrete display; it does not replace cell widths in a continuous evidence integral. Later asymptotic wording is not relied upon. Historical volcano counts are an alternate exercise, not current monitoring.
+- SciPy Beta and Student-t distribution/API pages were read for support, quantiles, direct survival and scale conventions. The retrieved manual identifies 1.18.0; actual native verification uses installed SciPy 1.18.1. No source-code claim or general numerical-library validation is implied.
+
+## Finish line
+
+The complete lesson follows the scoped flow above with eleven executed programs, two early checkpoints and eight independent closing exercises with separate hints and explained solutions. Native/library checks, a second reviewer's distinct mathematical calculations and actual 1440/390/320 interaction/reading checks are in the [verification record](BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md). Final owned hashes and integration evidence, rather than this design, establish implementation status. User acceptance remains separate.

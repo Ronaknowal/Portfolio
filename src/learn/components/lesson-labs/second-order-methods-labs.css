@@ -1,0 +1,83 @@
+.second-order-lab,
+.second-order-inline {
+  margin: 1.6rem 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--border, #343434);
+  background: #0b1014;
+  border-radius: 8px;
+  min-width: 0;
+}
+.second-order-lab h3 { margin-top: 0; color: #f0e9dc; }
+.second-order-lab p,
+.second-order-inline figcaption { line-height: 1.65; }
+.second-order-lab figure { margin: 1rem 0; min-width: 0; }
+.second-order-lab figcaption,
+.second-order-inline figcaption { color: #b9c4cc; font-size: .875rem; }
+.second-order-controls,
+.second-order-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1rem 0; }
+.second-order-field { min-width: 0; flex: 1 1 190px; display: grid; gap: .45rem; }
+.second-order-field label { color: #d7dce1; font-size: .9rem; }
+.second-order-field input[type="range"] { width: 100%; min-height: 32px; accent-color: #e2b55a; }
+.second-order-field select { width: 100%; min-width: 0; background: #151a20; color: #eee8de; border: 1px solid #64717b; border-radius: 4px; padding: .6rem; }
+.second-order-lab button { min-height: 42px; border: 1px solid #6f654e; border-radius: 4px; background: #141719; color: #e2b55a; padding: .5rem .7rem; cursor: pointer; font: inherit; font-size: .875rem; }
+.second-order-lab button:disabled { color: #8c959c; border-color: #48515a; cursor: default; }
+.second-order-lab :focus-visible { outline: 2px solid #efc86f; outline-offset: 4px; }
+.second-order-lab input[type="checkbox"] { accent-color: #e2b55a; width: 18px; height: 18px; vertical-align: middle; }
+.second-order-controls > label { flex: 1 1 210px; font-size: .9rem; line-height: 1.6; }
+.second-order-plane { max-width: 430px; margin-inline: auto !important; }
+.second-order-plane svg,
+.second-order-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.second-order-plane svg text,
+.second-order-chart svg text { fill: #c9d2db; font: 13px system-ui, sans-serif; }
+.second-order-plane svg line,
+.second-order-chart svg line { stroke: #71808d; }
+.second-order-chart { max-width: 510px; }
+.second-order-chart figcaption span { display: inline-block; margin-right: .6rem; }
+.second-order-readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: .7rem 1rem; margin: 1rem 0; }
+.second-order-readout > div { min-width: 0; padding-top: .6rem; border-top: 1px solid #343e47; }
+.second-order-readout dt { font-size: .82rem; color: #b9c3cb; }
+.second-order-readout dd { margin: .25rem 0 0; font-variant-numeric: tabular-nums; color: #f0d08d; overflow-wrap: anywhere; }
+.second-order-attempts { display: flex; flex-wrap: wrap; gap: .7rem; }
+.second-order-attempts > div { display: grid; gap: .3rem; padding: .65rem; background: #151b21; border-left: 2px solid #e2b55a; font-size: .85rem; }
+.second-order-correspondence,
+.second-order-contraction { display: flex; flex-wrap: wrap; gap: .8rem; }
+.second-order-correspondence > div,
+.second-order-contraction > span { display: grid; flex: 1 1 160px; gap: .6rem; padding: .8rem; border-left: 2px solid #8bb8d3; background: #141d25; }
+.second-order-inline figcaption { margin-top: 1rem; }
+.second-order-secant { display: block; width: 100%; max-width: 420px; height: auto; }
+.second-order-secant text { fill: #d7dfe5; font: 14px system-ui, sans-serif; }
+.second-order-contraction-example { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(180px, 1.5fr); gap: 1.2rem; align-items: center; }
+.second-order-dot-pair { display: flex; align-items: center; gap: .6rem; }
+.second-order-dot-pair > span:first-child { color: #e2b55a; border-bottom: 2px solid #e2b55a; }
+.second-order-dot-pair > span:last-child { color: #84bcd7; border-bottom: 2px solid #84bcd7; }
+.second-order-contraction strong { font-size: 1.6rem; color: #e2b55a; }
+.second-order-contraction small { font-size: .875rem; }
+.second-order-history { padding-left: 1.4rem; }
+.second-order-history li { border-left: 3px solid #4b535d; margin: .65rem 0; padding: .6rem .8rem; display: flex; flex-wrap: wrap; gap: .4rem .8rem; font-size: .875rem; }
+.second-order-history li.is-retained { border-color: #e2b55a; background: #171b20; }
+.second-order-history em { flex-basis: 100%; font-style: normal; color: #c5cdd4; }
+.second-order-vector-stage { border: 1px solid #53616d; border-radius: 5px; padding: 1rem; }
+.second-order-vector-cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.second-order-vector-cells > div { display: grid; gap: .4rem; font-size: .85rem; }
+.second-order-vector-cells strong { font-size: 1.2rem; color: #e2b55a; }
+.second-order-signed-track { position: relative; height: 25px; background: linear-gradient(to right, #171f27 49.5%, #b0bdc8 49.5%, #b0bdc8 50.5%, #171f27 50.5%); }
+.second-order-signed-track > span { display: block; position: absolute; top: 6px; height: 13px; background: #e2b55a; }
+.second-order-signed-track > span.is-negative { background: #84bcd7; }
+.second-order-factor-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+.second-order-matrix { max-width: 440px; }
+.second-order-matrix figcaption { margin-bottom: .6rem; }
+.second-order-matrix-grid { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: 3px; }
+.second-order-matrix-row { display: contents; }
+.second-order-matrix-row > span { padding: .6rem .2rem; text-align: center; font: .8rem ui-monospace, monospace; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; color: #ede7da; }
+.second-order-matrix-row > .second-order-matrix-heading { font: .875rem system-ui, sans-serif; }
+.second-order-probabilities { display: grid; gap: 1rem; }
+.second-order-probabilities > div { display: grid; gap: .4rem; font-size: .875rem; }
+.second-order-probability-bar { display: flex; height: 28px; border: 1px solid #8697a5; }
+.second-order-probability-bar span:first-child { background: #e2b55a; }
+.second-order-probability-bar span:last-child { background: #5987a2; }
+@media (max-width: 520px) {
+  .second-order-contraction-example { grid-template-columns: 1fr; gap: 0; }
+  .second-order-factor-pair { grid-template-columns: 1fr; gap: 0; }
+  .second-order-lab { padding: .85rem; }
+  .second-order-matrix-row > span { font-size: .75rem; }
+}

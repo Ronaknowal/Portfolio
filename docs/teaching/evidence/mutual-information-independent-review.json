@@ -1,0 +1,298 @@
+{
+  "checkedAt": "2026-09-10T17:30:30.976945+00:00",
+  "sourceFiles": [
+    {
+      "path": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "sha256": "07ae308c3464f2b65e26c07bfd28face7903b0d8d42dc5a053b88cf2fcd86e35"
+    },
+    {
+      "path": "src/learn/data/mutual-information-models.js",
+      "sha256": "f3c40318bf0235e545f6882f40c92c6bafdbfff622f041b493d444181cb3540a"
+    },
+    {
+      "path": "src/learn/data/mutual-information-examples.js",
+      "sha256": "e961c99921b332e99108e1bae07e7bda43f61f8100e8b240cf22664663c38098"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "sha256": "dba25a9eb1bd8f15e69299c179e03636fc5ae60242ed5d381eee4daf51b03d1a"
+    }
+  ],
+  "rectangularAndRefinedLaws": 6,
+  "mutualInformationBits": 0.5904685707328281,
+  "ibLocalCurvatureCases": [
+    {
+      "labelError": 0.1,
+      "beta": 1.25,
+      "noise": 0.4999,
+      "objective": 5.770780257427213e-09,
+      "quadraticCoefficient": 0.5770780163555853
+    },
+    {
+      "labelError": 0.1,
+      "beta": 1.875,
+      "noise": 0.4999,
+      "objective": -5.770780118928486e-09,
+      "quadraticCoefficient": -0.5770780163555853
+    },
+    {
+      "labelError": 0.2,
+      "beta": 2.2222222222222223,
+      "noise": 0.4999,
+      "objective": 5.770780300515705e-09,
+      "quadraticCoefficient": 0.5770780163555853
+    },
+    {
+      "labelError": 0.2,
+      "beta": 3.3333333333333335,
+      "noise": 0.4999,
+      "objective": -5.770780054295747e-09,
+      "quadraticCoefficient": -0.5770780163555853
+    },
+    {
+      "labelError": 0.3,
+      "beta": 5.0,
+      "noise": 0.4999,
+      "objective": 5.7707803312932e-09,
+      "quadraticCoefficient": 0.5770780163555853
+    },
+    {
+      "labelError": 0.3,
+      "beta": 7.5,
+      "noise": 0.4999,
+      "objective": -5.770780008129505e-09,
+      "quadraticCoefficient": -0.5770780163555853
+    }
+  ],
+  "changedNonuniformFreeEnergyCases": [
+    {
+      "beta": 0.0,
+      "identityError": "3E-70",
+      "nonnegativeGap": "0.2606255163362103951346955117705866090424586865917922824807309591893673"
+    },
+    {
+      "beta": 0.7,
+      "identityError": "1E-70",
+      "nonnegativeGap": "0.4054166431995086538540482787247662292774850501520607134689818509377200"
+    },
+    {
+      "beta": 3.0,
+      "identityError": "0E-70",
+      "nonnegativeGap": "0.8811589171789172182176359415742135529068573875643712724303776381108790"
+    },
+    {
+      "beta": 0.0,
+      "identityError": "1.1E-69",
+      "nonnegativeGap": "0.3219280948873623478703194294893901758648313930245806120547563958159347"
+    },
+    {
+      "beta": 0.7,
+      "identityError": "3E-70",
+      "nonnegativeGap": "0.4385690058083315906150016248180208265722070165988207047017743510425015"
+    },
+    {
+      "beta": 3.0,
+      "identityError": "-2.5E-69",
+      "nonnegativeGap": "0.8218177131200876739189574094692358217535840654856095805419762039297925"
+    },
+    {
+      "beta": 0.0,
+      "identityError": "-6E-70",
+      "nonnegativeGap": "0.7369655941662061664165804855415736671050169853320995515990037412748366"
+    },
+    {
+      "beta": 0.7,
+      "identityError": "-1.8E-69",
+      "nonnegativeGap": "0.8163254878434162472007537260721318975872292610153751278580412817752394"
+    },
+    {
+      "beta": 3.0,
+      "identityError": "-4E-69",
+      "nonnegativeGap": "1.077079424211392226920180087815394654885926738260423449852021771990849"
+    }
+  ],
+  "contrastiveExpectedLossCases": [
+    {
+      "K": 2,
+      "scores": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "expectedLossBits": 1.0,
+      "lowerBound": 0.0
+    },
+    {
+      "K": 2,
+      "scores": [
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "expectedLossBits": 0.8609640474436812,
+      "lowerBound": 0.13903595255631881
+    },
+    {
+      "K": 2,
+      "scores": [
+        [
+          1,
+          9
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "expectedLossBits": 1.84397154729945,
+      "lowerBound": -0.8439715472994499
+    },
+    {
+      "K": 2,
+      "scores": [
+        [
+          3,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "expectedLossBits": 1.3231217774747293,
+      "lowerBound": -0.32312177747472914
+    },
+    {
+      "K": 3,
+      "scores": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "expectedLossBits": 1.584962500721156,
+      "lowerBound": 0.0
+    },
+    {
+      "K": 3,
+      "scores": [
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "expectedLossBits": 1.3981956260456765,
+      "lowerBound": 0.18676687467547973
+    },
+    {
+      "K": 3,
+      "scores": [
+        [
+          1,
+          9
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "expectedLossBits": 2.7518743573838016,
+      "lowerBound": -1.1669118566626455
+    },
+    {
+      "K": 3,
+      "scores": [
+        [
+          3,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "expectedLossBits": 2.0305702087840607,
+      "lowerBound": -0.4456077080629044
+    },
+    {
+      "K": 4,
+      "scores": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "expectedLossBits": 2.0,
+      "lowerBound": 0.0
+    },
+    {
+      "K": 4,
+      "scores": [
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "expectedLossBits": 1.7896530553386965,
+      "lowerBound": 0.21034694466130344
+    },
+    {
+      "K": 4,
+      "scores": [
+        [
+          1,
+          9
+        ],
+        [
+          9,
+          1
+        ]
+      ],
+      "expectedLossBits": 3.3223860844248128,
+      "lowerBound": -1.3223860844248128
+    },
+    {
+      "K": 4,
+      "scores": [
+        [
+          3,
+          2
+        ],
+        [
+          7,
+          1
+        ]
+      ],
+      "expectedLossBits": 2.5045207445636586,
+      "lowerBound": -0.5045207445636585
+    }
+  ],
+  "wrongNegativeSamplingLowerBound": 0.49275021515244244,
+  "allPassed": true
+}

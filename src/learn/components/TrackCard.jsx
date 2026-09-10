@@ -1,140 +1,80 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { colors, fonts } from "../styles";
-import { topicMap } from "../data/topics/index";
+import { topicMap } from "../data/catalogue";
 import ProgressBar from "./ProgressBar";
-import LevelBadge from "./LevelBadge";
 
 export default function TrackCard({ track, progress }) {
-  const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const { done, total, percent } = progress;
-
-  const handleCardClick = () => {
-    navigate(`/learn/track/${track.id}`);
-  };
-
-  const handleTopicClick = (e, topicId) => {
-    e.stopPropagation();
-    navigate(`/learn/track/${track.id}/${topicId}`);
-  };
-
-  const handleToggleExpand = (e) => {
-    e.stopPropagation();
-    setExpanded((prev) => !prev);
-  };
+  const published = track.topicIds.filter((id) => topicMap[id]?.status === "published").length;
 
   return (
-    <div
-      onClick={handleCardClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        border: `1px solid ${hovered ? colors.cardHoverBorder : colors.border}`,
-        borderRadius: 6,
-        padding: 16,
-        background: hovered ? colors.cardHoverBg : colors.cardBg,
-        cursor: "pointer",
-        transition: "all 0.3s ease",
-      }}
-    >
-      {/* Header row */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+    <article className="track-card">
+      <div className="track-card__header">
         <div>
-          <div style={{ fontFamily: fonts.mono, fontSize: 9, color: colors.gold, letterSpacing: 1, marginBottom: 4 }}>
-            DEEP DIVE · {total} TOPICS · {track.sections?.length || 0} SECTIONS
+          <div className="track-card__eyebrow">
+            MODULE · {total} TOPICS · {track.sections?.length || 0} SECTIONS
           </div>
-          <div style={{ fontFamily: fonts.sans, fontSize: 18, fontWeight: 600, color: colors.textPrimary }}>
-            {track.title}
-          </div>
+          <h3 className="track-card__title">{track.title}</h3>
         </div>
-        <div style={{ fontFamily: fonts.mono, fontSize: 10, color: done > 0 ? colors.green : colors.textMuted }}>
-          {done}/{total} {done > 0 && "✓"}
-        </div>
+        <div className="track-card__progress">{done}/{total} complete</div>
       </div>
 
-      {/* Description */}
-      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, marginBottom: 10 }}>
-        {track.description}
+      <p className="track-card__description">{track.description}</p>
+      <div className="track-card__availability">
+        <span className="topic-status topic-status--published">{published} published</span>
+        <span className="topic-status topic-status--planned">{total - published} planned</span>
       </div>
-
-      {/* Progress bar */}
       <ProgressBar percent={percent} />
 
-      {/* Expandable sections with topics */}
-      <div
-        onClick={handleToggleExpand}
-        style={{ marginTop: 12, paddingTop: 10, borderTop: "1px solid #111", cursor: "pointer" }}
-      >
-        <div style={{ fontFamily: fonts.mono, fontSize: 9, color: colors.textDim, marginBottom: 8 }}>
-          {expanded ? "▾" : "▸"} SECTIONS & TOPICS
-        </div>
-        {expanded && track.sections && (
-          <div onClick={(e) => e.stopPropagation()}>
-            {track.sections.map((section, si) => {
-              const sectionDone = section.topicIds.filter((id) => progress.completedIds?.has(id)).length;
-              return (
-                <div key={si} style={{ marginBottom: si < track.sections.length - 1 ? 14 : 0 }}>
-                  {/* Section header */}
-                  <div style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 6,
-                    paddingBottom: 4,
-                    borderBottom: `1px solid #111`,
-                  }}>
-                    <span style={{
-                      fontFamily: fonts.mono,
-                      fontSize: 9,
-                      color: colors.gold,
-                      letterSpacing: 0.5,
-                      textTransform: "uppercase",
-                    }}>
-                      {section.name}
-                    </span>
-                    <span style={{ fontFamily: fonts.mono, fontSize: 8, color: colors.textDim }}>
-                      {sectionDone}/{section.topicIds.length}
-                    </span>
-                  </div>
-
-                  {/* Topic chips in this section */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                    {section.topicIds.map((id) => {
-                      const topic = topicMap[id];
-                      if (!topic) return null;
-                      const isDone = progress.completedIds?.has(id);
-                      return (
-                        <span
-                          key={id}
-                          onClick={(e) => handleTopicClick(e, id)}
-                          style={{
-                            padding: "2px 6px",
-                            borderRadius: 3,
-                            fontFamily: fonts.mono,
-                            fontSize: 8,
-                            color: isDone ? colors.green : colors.textMuted,
-                            background: isDone ? `${colors.green}11` : "transparent",
-                            border: `1px solid ${isDone ? `${colors.green}33` : colors.border}`,
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 4,
-                          }}
-                        >
-                          {isDone ? "✓ " : ""}{topic.title}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+      <div className="track-card__actions">
+        <button type="button" className="track-card__start" onClick={() => navigate(`/learn/track/${track.id}`)}>
+          {done > 0 ? "Resume module" : published > 0 ? "Start module" : "View syllabus"} →
+        </button>
+        <button
+          type="button"
+          className="track-card__expand"
+          onClick={() => setExpanded((value) => !value)}
+          aria-expanded={expanded}
+        >
+          {expanded ? "Hide outline" : "View outline"}
+        </button>
       </div>
-    </div>
+
+      {expanded && track.sections && (
+        <div className="track-card__outline">
+          {track.sections.map((section) => {
+            const sectionDone = section.topicIds.filter((id) => progress.completedIds?.has(id)).length;
+            return (
+              <section key={section.name} className="track-section">
+                <div className="track-section__header">
+                  <span>{section.name}</span>
+                  <span>{sectionDone}/{section.topicIds.length}</span>
+                </div>
+                <div className="track-section__topics">
+                  {section.topicIds.map((id) => {
+                    const topic = topicMap[id];
+                    if (!topic) return null;
+                    const complete = progress.completedIds?.has(id);
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => navigate(`/learn/track/${track.id}/${topic.id}`)}
+                        className={`track-topic ${complete ? "is-complete" : ""}`}
+                      >
+                        {complete ? "✓ " : ""}{topic.title}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
+    </article>
   );
 }

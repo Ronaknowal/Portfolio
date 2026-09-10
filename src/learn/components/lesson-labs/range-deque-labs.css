@@ -1,0 +1,21 @@
+.range-candidates { display: flex; align-items: center; gap: .5rem; width: max-content; padding: .4rem 0; }
+.range-candidates > span { font: .75rem var(--font-mono, monospace); color: #b3bfcc; }
+.range-candidates > div { display: flex; flex-direction: column; gap: .3rem; align-items: center; min-width: 80px; padding: .6rem; border: 1px solid #72d39c; background: #173026; }
+.range-candidates small { font-size: .72rem; color: #c2d8ca; }
+.range-candidates strong { font: 1.25rem var(--font-mono, monospace); color: #e6efe8; }
+.range-candidates em { min-width: 75px; text-align: center; color: #acb7c4; }
+.range-removal { display: flex; flex-direction: column; gap: .4rem; padding: .8rem; border: 1px solid #48515d; min-height: 80px; box-sizing: border-box; font-size: .84rem; }
+.range-removal strong { color: #bfc8d3; font: .78rem var(--font-mono, monospace); }
+.range-removal.is-removing { border-color: #efbf53; background: #211e15; }
+.range-removal.is-removing strong { color: #efbf53; }
+.prefix-boundary-plot { display: block; max-width: none; margin: auto; overflow: visible; }
+.prefix-boundary-plot text { font: 12px var(--font-mono, monospace); fill: #c0c9d4; text-anchor: middle; }
+.prefix-boundary-plot .prefix-y-label { text-anchor: end; }
+.prefix-boundary-plot .prefix-point-label { fill: #ecedef; font-weight: 600; }
+.prefix-boundary-plot .prefix-grid { stroke: #354250; stroke-width: 1; }
+.prefix-boundary-plot .prefix-threshold { stroke: #efbf53; stroke-width: 1.5; stroke-dasharray: 6 4; }
+.prefix-boundary-plot .prefix-history { stroke: #8794a5; stroke-width: 1.5; fill: none; stroke-dasharray: 2 4; }
+.prefix-boundary-plot circle { fill: #0f1720; stroke: #bec8d4; stroke-width: 1.5; }
+.prefix-boundary-plot .is-candidate circle { fill: #19452d; stroke: #72d39c; stroke-width: 3; }
+.prefix-boundary-plot .is-current circle { stroke: #efbf53; stroke-width: 3; }
+.prefix-boundary-plot .is-future { opacity: .48; }

@@ -1,0 +1,52 @@
+.numpy-lesson .numpy-deeper { border-top: 1px solid #39332a; margin: 22px 0; padding: 10px 0; }
+.numpy-lesson .numpy-deeper > summary { color: #e2b55a; cursor: pointer; padding: 9px 0; min-height: 44px; }
+.numpy-lab { font-size: 14px; }
+.numpy-lab *, .numpy-data-diagram * { box-sizing: border-box; }
+.numpy-lab code, .numpy-data-diagram code { overflow-wrap: anywhere; }
+.numpy-array { margin: 0; min-width: 0; }
+.numpy-array figcaption { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: space-between; font-size: 12px; margin-bottom: 10px; line-height: 1.6; }
+.numpy-array figcaption span { color: #bdb9af; }
+.numpy-array__grid { display: grid; grid-template-columns: repeat(var(--numpy-columns), minmax(0, 1fr)); gap: 5px; }
+.numpy-array__grid > :is(div, button) { min-height: 65px; min-width: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #484138; background: #181714; color: #efefef; border-radius: 3px; padding: 5px 2px; text-align: center; font: inherit; line-height: 1.45; }
+.numpy-array__grid > button { cursor: pointer; }
+.numpy-array__grid small { color: #bbb7af; font-size: 11px; }
+.numpy-array__grid strong { font-size: 20px; font-variant-numeric: tabular-nums; }
+.numpy-array__grid > .is-selected, .numpy-storage-track .is-selected { border: 2px solid #e2b55a; background: #302713; }
+.numpy-array__grid > .is-selected small { color: #f4d797; }
+.numpy-linked-arrays, .numpy-operand-arrays { display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); align-items: center; gap: 10px; margin: 20px 0; }
+.numpy-flow-arrow { text-align: center; font-size: 26px; color: #e2b55a; pointer-events: none; }
+.numpy-await { padding: 18px; border: 1px dashed #5e5546; color: #c7c1b4; }
+.numpy-feedback { border-left: 2px solid #9bab8a; padding: 1px 0 1px 16px; margin: 20px 0; }
+.numpy-code-line { background: #171715; padding: 12px; border-left: 2px solid #e2b55a; overflow-wrap: anywhere; }
+.numpy-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.numpy-actions button { min-height: 44px; padding: 8px 12px; background: #211d15; color: #eedcb6; border: 1px solid #74623c; border-radius: 3px; font: inherit; cursor: pointer; }
+.numpy-actions button:disabled { opacity: .5; cursor: default; }
+.numpy-storage-track { margin: 20px 0; font-size: 12px; }
+.numpy-storage-track > div { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin-top: 10px; }
+.numpy-storage-track span { display: grid; gap: 3px; border: 1px solid #555048; padding: 6px 2px; text-align: center; }
+.numpy-storage-track small { font-size: 10px; }
+.numpy-storage-track b { font-size: 17px; }
+.numpy-memory-copy { border-left: 2px dashed #9bab8a; padding-left: 14px; }
+.numpy-alignment { width: min(100%, 330px); margin: 18px 0; }
+.numpy-alignment > div { display: grid; grid-template-columns: minmax(90px, 1fr) 56px 56px; gap: 4px; margin-bottom: 4px; }
+.numpy-alignment b { text-align: center; border-bottom: 1px solid #74623c; color: #e2b55a; }
+.numpy-alignment p { font-size: 12px; color: #bdb9af; }
+.numpy-output { border-top: 1px solid #474037; padding-top: 16px; max-width: 380px; margin: 22px auto; }
+.numpy-equation { font-variant-numeric: tabular-nums; color: #ead7ad; font-size: 18px; }
+.numpy-data-diagram { margin: 24px 0; border-block: 1px solid #39332a; padding: 22px 0; font-size: 14px; }
+.numpy-data-diagram > figcaption { color: #e2b55a; margin-bottom: 16px; }
+.numpy-data-layout { display: grid; grid-template-columns: 64px minmax(0, 380px); align-items: center; gap: 16px; }
+.numpy-axis-label { font-size: 12px; color: #c7c1b4; text-align: center; line-height: 2; }
+.numpy-sensor-labels { display: grid; grid-template-columns: 1fr 1fr; text-align: center; color: #c7c1b4; font-size: 11px; margin: 8px 0; }
+.numpy-workflow { padding-left: 24px; }
+.numpy-workflow li { margin: 12px 0; padding-left: 4px; }
+@media (max-width: 620px) {
+  .numpy-linked-arrays, .numpy-operand-arrays { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .numpy-linked-arrays > .numpy-flow-arrow { transform: rotate(90deg); width: 36px; height: 36px; justify-self: center; }
+  .numpy-operand-arrays > .numpy-flow-arrow { line-height: 1; }
+  .numpy-array { width: 100%; }
+  .numpy-data-layout { grid-template-columns: 42px minmax(0, 1fr); gap: 8px; }
+  .numpy-lab .lesson-controls label { flex-basis: 100%; min-width: 0; }
+  .numpy-lab .lesson-controls select { width: 100%; min-width: 0; font-size: 13px; padding: 8px 6px; }
+  .numpy-actions button { flex: 1 1 140px; }
+}

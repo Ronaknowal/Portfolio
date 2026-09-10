@@ -1,0 +1,34 @@
+.foundation-timeline { display:flex; flex-wrap:wrap; gap:6px; margin:16px 0; padding:0; list-style:none; }
+.foundation-timeline li { border-bottom:3px solid #9a7a3a; padding:8px 12px; text-align:center; min-width:38px; }
+.foundation-timeline small { display:block; font-size:12px; color:#c9bfae; }
+.foundation-timeline .is-b { border-color:#87a891; }
+.nt-lab[data-investigation="os-scheduler"] .nt-columns ol { padding-left:24px; }
+.foundation-reference { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
+.foundation-reference span { border-bottom:2px solid #726345; padding:8px; }
+.foundation-units { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.foundation-units button { display:grid; gap:5px; min-width:72px; text-align:center; }
+.foundation-units strong { font-size:24px; }
+.foundation-units small { font-size:12px; }
+.foundation-stack { margin:15px 0; min-height:90px; display:flex; flex-direction:column-reverse; align-items:flex-start; gap:5px; padding:10px 0; border-bottom:3px solid #9d824d; }
+.foundation-stack span { min-width:145px; border:1px solid #766240; padding:10px; background:#211b12; }
+.foundation-stack small { margin-left:12px; color:#d4c6a9; }
+.foundation-bucket { display:grid; grid-template-columns:76px minmax(0,1fr); align-items:start; gap:8px; border-bottom:1px solid #463e30; padding:12px 0; }
+.foundation-bucket ol { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0; }
+.foundation-bucket li { border:1px solid #62523a; padding:10px; }
+.foundation-bucket .is-selected { border-color:#efc86d; background:#322615; }
+.foundation-bucket.is-active { border-color:#d0aa5a; }
+.foundation-buffer { display:grid; gap:8px; grid-template-columns:repeat(4,minmax(0,1fr)); margin:20px 0; }
+.foundation-buffer>div { border:1px solid #7c6943; padding:12px 4px; text-align:center; }
+.foundation-buffer strong { display:block; font-size:24px; margin:8px 0; }
+.foundation-buffer small { display:block; color:#cfc0a5; font-size:12px; }
+.foundation-buffer .is-head { border-top:4px solid #e1b661; }
+.foundation-buffer .is-changed { background:#292316; }
+.foundation-state { font-weight:600; color:#e6bf73; }
+.foundation-figure { margin:22px 0; }
+.foundation-figure figcaption { margin-top:12px; line-height:1.7; color:#c8bfaf; }
+.foundation-figure svg { width:100%; max-width:650px; height:auto; display:block; margin-inline:auto; }
+.foundation-figure svg text { fill:#e2d9c9; font:15px sans-serif; }
+.foundation-figure svg .minor { font-size:12px; }
+.foundation-rule { border-block:1px solid #72603c; padding:16px 0; margin:18px 0; line-height:1.8; }
+.nt-lab .foundation-diagram { max-width:600px; margin-inline:auto; }
+@media(max-width:620px){.foundation-bucket{grid-template-columns:65px minmax(0,1fr)}.foundation-bucket li{padding:8px}.foundation-buffer{gap:5px}.foundation-reference{gap:5px}.foundation-reference span{font-size:13px}}

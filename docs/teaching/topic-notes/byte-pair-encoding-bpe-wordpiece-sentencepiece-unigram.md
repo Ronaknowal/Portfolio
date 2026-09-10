@@ -1,0 +1,17 @@
+# Authoring notes: Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram
+
+Canonical topic ID: byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram
+
+## 2026-09-10 — Preserve useful visual forms and substantiate the timing comparison
+
+- Status: open
+- Origin: the user's annotated BPE walkthrough, trainer and timing chart; [current handoff](../../../LESSON-AUTHORING-HANDOFF.md#follow-up-feedback-inline-diagrams-and-concept-specific-labs).
+- Destination and ownership rationale: this lesson owns the displayed tokenizer training comparison and its interpretation. General visual-design and evidence requirements are now in the teaching standard; the concrete chart correction belongs here.
+- Idea and learning benefit: retain the ability to inspect token boundaries, follow a merge and explore a changed corpus. Quantitative graphics should help the learner interpret evidence without mistaking illustrative curves for real performance measurements. The user's praise concerns these visual forms, not a certification of the models or surrounding text.
+- Existing coverage: taught but not verified in this review. In [tokenization.jsx](../../../src/learn/data/topics/tokenization.jsx), find `illustrative: tokenizer training wall-clock vs. corpus size`. The plot receives literal point arrays for pure Python, HuggingFace (Rust, 32c) and SentencePiece (C++, 32c), with log10 corpus-token and seconds axes. Its following paragraph asserts stable relative positions and workload-scale performance rankings. No measurement record is attached to this chart; literal arrays alone neither establish nor disprove underlying measurement.
+- Proposed treatment: at the next requested revision, locate and validate applicable measurement provenance, or replace/reframe the figure and adjacent empirical claims. Do not merely add “illustrative” while retaining unsupported real-product rankings. A hypothetical model needs generic series, explicit assumptions and a reproducible formula; a real benchmark needs sources or reproducible measurements and scoped conclusions. No title change is proposed.
+- Explanation/example: use a controlled workload comparison with the same task and documented settings if real performance is taught. Explain how to read the log axes, what changes across inputs, what is held fixed and what the data cannot establish. Keep the guided merge trace and editable trainer when they serve distinct learner questions, after checking their stated algorithm, input application, labels and outputs.
+- Prerequisites and boundaries: distinguish training from encoding, vocabulary/merge settings, corpus size and hardware parallelism before comparing time. This is a saved concern from the selected visuals, not a full audit or authorization to rewrite the lesson now.
+- Evidence: local source inspection on 10 September 2026 of `src/learn/data/topics/tokenization.jsx` and `src/learn/components/BPETrainer.jsx`. No external benchmark, full algorithm validation or new runtime measurement was performed. Follow the standard's [visual and lab requirements](../../../LESSON-TEACHING-STANDARD.md#5-visuals-and-labs-no-fixed-count).
+- Resolution: not yet reviewed for implementation; evaluate provenance and choose verified data, a clearly hypothetical model or removal of the unsupported comparison.
+- Implementation/verification links: none yet; the authoring-guidance change does not fix the existing chart.

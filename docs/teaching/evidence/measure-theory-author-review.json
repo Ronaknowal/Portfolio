@@ -1,0 +1,452 @@
+{
+  "frozenAt": "2026-09-10T16:09:03.036639+00:00",
+  "files": {
+    "src/learn/data/topics/measure-theory-probability-spaces.jsx": "0f1fc496e0259136c7013a69a19c0ca9dd93cefdee2ad56f5e9c7c7901dc2c1d",
+    "src/learn/data/measure-theory-models.js": "4ec09eb7b22b456f4e4157c096e2a1931109985ce9aebde4638fb8556eb3daa3",
+    "src/learn/data/measure-theory-examples.js": "9b45f281c45121d50b5a444ad1b75bbec635fe84e7cf8a3633016d38ee00c75f",
+    "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx": "b332496d1cb8f8714debbec7067c75b5f5980bb5df9072d51278f0309b1c277a",
+    "src/learn/components/lesson-labs/measure-theory-labs.css": "70737673d01b0f4723aa2ce7f0ead640a0cce08f40c815f79ebbbc72e3c6cbdb",
+    "src/learn/data/curriculum/blueprints/measure-theory-probability-spaces.js": "b72ee8f74ae9f71d244640ce6ff3ec29b11aa22b8834b2d5ba0e13924db141ee"
+  },
+  "native": {
+    "status": "passed",
+    "completedAt": "2026-09-10T16:01:22.249881+00:00",
+    "counts": {
+      "invalid": 35,
+      "examples": 12,
+      "events": 256,
+      "preimages": 13,
+      "mixtures": 588,
+      "cantor": 7,
+      "simple": 7,
+      "limits": 1344,
+      "joint": 576,
+      "arrays": 156,
+      "conditional": 800,
+      "ratios": 6
+    },
+    "independentQuadratures": 1351,
+    "oracles": [
+      "Exact finite event enumeration and Fraction arithmetic",
+      "Direct ternary-prefix Cantor intervals",
+      "SciPy quadrature of actual functions and transformed cells",
+      "NumPy weighted least-squares for conditional projections",
+      "Changed practice and actual runnable helper support cases"
+    ],
+    "limits": "Finite tests complement the written infinite-limit proofs; they do not establish those theorems or all measurable-space cases."
+  },
+  "modelCounts": {
+    "invalid": 35,
+    "examples": 12,
+    "events": 256,
+    "preimages": 13,
+    "mixtures": 588,
+    "cantor": 7,
+    "simple": 7,
+    "limits": 1344,
+    "joint": 576,
+    "arrays": 156,
+    "conditional": 800,
+    "ratios": 6
+  },
+  "browser": {
+    "status": "passed",
+    "at": "2026-09-10T16:05:07.244Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 118,
+        "keyboardControls": 27,
+        "keyboardTables": 0,
+        "ordinarySections": 10,
+        "inlineFigures": 3,
+        "examples": 12,
+        "checkpoints": 2,
+        "practice": 9,
+        "maths": [
+          {
+            "index": 0,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ω∈F,A∈F⇒Ac∈F,A1,A2,…∈F⟹⋃n=1∞An∈F.\\begin{gathered}\\Omega\\in\\mathcal F,\\qquad A\\in\\mathcal F\\Rightarro"
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "scroll": 760,
+            "text": "P(∅)=0,P(Ω)=1,P ⁣(⋃n=1∞An)=∑n=1∞P(An)for pairwise disjoint An.\\begin{gathered}P(\\varnothing)=0,\\qqua"
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "scroll": 760,
+            "text": "Z−1(B)={ω:Z(ω)∈B},PZ(B)=P(Z−1(B)).\\begin{aligned}Z^{-1}(B)&=\\{\\omega:Z(\\omega)\\in B\\},\\\\\n      P_Z(B"
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "scroll": 760,
+            "text": "∫Sh(x) dPX(x)=∫Ωh(X(ω)) dP(ω).\\begin{gathered}\\int_S h(x)\\,dP_X(x)\\\\=\\int_\\Omega h(X(\\omega))\\,dP(\\o"
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "scroll": 760,
+            "text": "PX=14δ0+34 U[0,1],PX(B)=14 1{0∈B}+34 λ(B∩[0,1]).\\begin{aligned}P_X&=\\tfrac14\\delta_0+\\tfrac34\\,U[0,1"
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "scroll": 760,
+            "text": "∫s dμ=∑k=1mckμ(Ak).\\int s\\,d\\mu=\\sum_{k=1}^{m}c_k\\mu(A_k).∫sdμ=k=1∑m​ck​μ(Ak​)."
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "scroll": 760,
+            "text": "∫01sn(x) dx=∑k=0N−1kN(k+1N−kN).\\begin{gathered}\\int_0^1s_n(x)\\,dx\\\\\n      =\\sum_{k=0}^{N-1}\\frac{k}{"
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "scroll": 760,
+            "text": "∫01fn(x) dx=∫01/n2n dx+∫1/n21x−1/2 dx=1n+2(1−1n)=2−1n⟶2.\\begin{aligned}\\int_0^1 f_n(x)\\,dx\n      &=\\"
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "scroll": 760,
+            "text": "P(x0≤X≤x1, y0≤Y≤y1)=∫x0x1∫y0y14xy dy dx=(x12−x02)(y12−y02).\\begin{aligned}\n      &P(x_0\\le X\\le x_1,"
+          },
+          {
+            "index": 9,
+            "width": 760,
+            "scroll": 760,
+            "text": "q(u,v)=p(u/2,v/3)6=4(u/2)(v/3)6=uv9,0≤u≤2,0≤v≤3.\\begin{aligned}q(u,v)&=\\frac{p(u/2,v/3)}{6}\\\\\n      "
+          },
+          {
+            "index": 10,
+            "width": 760,
+            "scroll": 760,
+            "text": "∫AZ dP=∫AY dPfor every A∈G.\\begin{gathered}\\int_A Z\\,dP=\\int_A Y\\,dP\\\\\n      \\text{for every }A\\in\\m"
+          },
+          {
+            "index": 11,
+            "width": 760,
+            "scroll": 760,
+            "text": "E[(Y−W)2]=E[(Y−Z)2]+E[(Z−W)2]+2E[(Y−Z)(Z−W)]=E[(Y−Z)2]+E[(Z−W)2].\\begin{gathered}E[(Y-W)^2]\\\\\n      "
+          },
+          {
+            "index": 12,
+            "width": 760,
+            "scroll": 760,
+            "text": "ν(A)=∫Adνdμ dμ,EQ[h]=EP ⁣[h dQdP],when EQ[∣h∣]<∞.\\begin{gathered}\\nu(A)=\\int_A\\frac{d\\nu}{d\\mu}\\,d\\m"
+          }
+        ],
+        "overflowMath": [],
+        "clippedLabels": [],
+        "pageOverflow": false,
+        "resourceLinks": [
+          {
+            "text": "Bright Side of Mathematics — Measure Theory, part 1",
+            "url": "https://www.youtube.com/watch?v=xZ69KEg7ccU"
+          },
+          {
+            "text": "creator's complete transcript and notes page",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/mt01_info/"
+          },
+          {
+            "text": "Sheldon Axler's free author-hosted Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "Axler, Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "MIT 18.175, Scott Sheffield — conditional expectation",
+            "url": "https://math.mit.edu/~sheffield/2016175/Lecture16.pdf"
+          },
+          {
+            "text": "Bright Side of Mathematics — course overview",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/overview/"
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 118,
+        "keyboardControls": 27,
+        "keyboardTables": 2,
+        "ordinarySections": 10,
+        "inlineFigures": 3,
+        "examples": 12,
+        "checkpoints": 2,
+        "practice": 9,
+        "maths": [
+          {
+            "index": 0,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ω∈F,A∈F⇒Ac∈F,A1,A2,…∈F⟹⋃n=1∞An∈F.\\begin{gathered}\\Omega\\in\\mathcal F,\\qquad A\\in\\mathcal F\\Rightarro"
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "scroll": 350,
+            "text": "P(∅)=0,P(Ω)=1,P ⁣(⋃n=1∞An)=∑n=1∞P(An)for pairwise disjoint An.\\begin{gathered}P(\\varnothing)=0,\\qqua"
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "scroll": 350,
+            "text": "Z−1(B)={ω:Z(ω)∈B},PZ(B)=P(Z−1(B)).\\begin{aligned}Z^{-1}(B)&=\\{\\omega:Z(\\omega)\\in B\\},\\\\\n      P_Z(B"
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "scroll": 350,
+            "text": "∫Sh(x) dPX(x)=∫Ωh(X(ω)) dP(ω).\\begin{gathered}\\int_S h(x)\\,dP_X(x)\\\\=\\int_\\Omega h(X(\\omega))\\,dP(\\o"
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "scroll": 350,
+            "text": "PX=14δ0+34 U[0,1],PX(B)=14 1{0∈B}+34 λ(B∩[0,1]).\\begin{aligned}P_X&=\\tfrac14\\delta_0+\\tfrac34\\,U[0,1"
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "scroll": 350,
+            "text": "∫s dμ=∑k=1mckμ(Ak).\\int s\\,d\\mu=\\sum_{k=1}^{m}c_k\\mu(A_k).∫sdμ=k=1∑m​ck​μ(Ak​)."
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "scroll": 350,
+            "text": "∫01sn(x) dx=∑k=0N−1kN(k+1N−kN).\\begin{gathered}\\int_0^1s_n(x)\\,dx\\\\\n      =\\sum_{k=0}^{N-1}\\frac{k}{"
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "scroll": 350,
+            "text": "∫01fn(x) dx=∫01/n2n dx+∫1/n21x−1/2 dx=1n+2(1−1n)=2−1n⟶2.\\begin{aligned}\\int_0^1 f_n(x)\\,dx\n      &=\\"
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "scroll": 350,
+            "text": "P(x0≤X≤x1, y0≤Y≤y1)=∫x0x1∫y0y14xy dy dx=(x12−x02)(y12−y02).\\begin{aligned}\n      &P(x_0\\le X\\le x_1,"
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "scroll": 350,
+            "text": "q(u,v)=p(u/2,v/3)6=4(u/2)(v/3)6=uv9,0≤u≤2,0≤v≤3.\\begin{aligned}q(u,v)&=\\frac{p(u/2,v/3)}{6}\\\\\n      "
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "scroll": 350,
+            "text": "∫AZ dP=∫AY dPfor every A∈G.\\begin{gathered}\\int_A Z\\,dP=\\int_A Y\\,dP\\\\\n      \\text{for every }A\\in\\m"
+          },
+          {
+            "index": 11,
+            "width": 350,
+            "scroll": 350,
+            "text": "E[(Y−W)2]=E[(Y−Z)2]+E[(Z−W)2]+2E[(Y−Z)(Z−W)]=E[(Y−Z)2]+E[(Z−W)2].\\begin{gathered}E[(Y-W)^2]\\\\\n      "
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "scroll": 350,
+            "text": "ν(A)=∫Adνdμ dμ,EQ[h]=EP ⁣[h dQdP],when EQ[∣h∣]<∞.\\begin{gathered}\\nu(A)=\\int_A\\frac{d\\nu}{d\\mu}\\,d\\m"
+          }
+        ],
+        "overflowMath": [],
+        "clippedLabels": [],
+        "pageOverflow": false,
+        "resourceLinks": [
+          {
+            "text": "Bright Side of Mathematics — Measure Theory, part 1",
+            "url": "https://www.youtube.com/watch?v=xZ69KEg7ccU"
+          },
+          {
+            "text": "creator's complete transcript and notes page",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/mt01_info/"
+          },
+          {
+            "text": "Sheldon Axler's free author-hosted Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "Axler, Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "MIT 18.175, Scott Sheffield — conditional expectation",
+            "url": "https://math.mit.edu/~sheffield/2016175/Lecture16.pdf"
+          },
+          {
+            "text": "Bright Side of Mathematics — course overview",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/overview/"
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 0,
+        "keyboardControls": 27,
+        "keyboardTables": 3,
+        "ordinarySections": 10,
+        "inlineFigures": 3,
+        "examples": 12,
+        "checkpoints": 2,
+        "practice": 9,
+        "maths": [
+          {
+            "index": 0,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ω∈F,A∈F⇒Ac∈F,A1,A2,…∈F⟹⋃n=1∞An∈F.\\begin{gathered}\\Omega\\in\\mathcal F,\\qquad A\\in\\mathcal F\\Rightarro"
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "scroll": 280,
+            "text": "P(∅)=0,P(Ω)=1,P ⁣(⋃n=1∞An)=∑n=1∞P(An)for pairwise disjoint An.\\begin{gathered}P(\\varnothing)=0,\\qqua"
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "scroll": 280,
+            "text": "Z−1(B)={ω:Z(ω)∈B},PZ(B)=P(Z−1(B)).\\begin{aligned}Z^{-1}(B)&=\\{\\omega:Z(\\omega)\\in B\\},\\\\\n      P_Z(B"
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "scroll": 280,
+            "text": "∫Sh(x) dPX(x)=∫Ωh(X(ω)) dP(ω).\\begin{gathered}\\int_S h(x)\\,dP_X(x)\\\\=\\int_\\Omega h(X(\\omega))\\,dP(\\o"
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "scroll": 280,
+            "text": "PX=14δ0+34 U[0,1],PX(B)=14 1{0∈B}+34 λ(B∩[0,1]).\\begin{aligned}P_X&=\\tfrac14\\delta_0+\\tfrac34\\,U[0,1"
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "scroll": 280,
+            "text": "∫s dμ=∑k=1mckμ(Ak).\\int s\\,d\\mu=\\sum_{k=1}^{m}c_k\\mu(A_k).∫sdμ=k=1∑m​ck​μ(Ak​)."
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "scroll": 280,
+            "text": "∫01sn(x) dx=∑k=0N−1kN(k+1N−kN).\\begin{gathered}\\int_0^1s_n(x)\\,dx\\\\\n      =\\sum_{k=0}^{N-1}\\frac{k}{"
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "scroll": 280,
+            "text": "∫01fn(x) dx=∫01/n2n dx+∫1/n21x−1/2 dx=1n+2(1−1n)=2−1n⟶2.\\begin{aligned}\\int_0^1 f_n(x)\\,dx\n      &=\\"
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "scroll": 280,
+            "text": "P(x0≤X≤x1, y0≤Y≤y1)=∫x0x1∫y0y14xy dy dx=(x12−x02)(y12−y02).\\begin{aligned}\n      &P(x_0\\le X\\le x_1,"
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "scroll": 280,
+            "text": "q(u,v)=p(u/2,v/3)6=4(u/2)(v/3)6=uv9,0≤u≤2,0≤v≤3.\\begin{aligned}q(u,v)&=\\frac{p(u/2,v/3)}{6}\\\\\n      "
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "scroll": 280,
+            "text": "∫AZ dP=∫AY dPfor every A∈G.\\begin{gathered}\\int_A Z\\,dP=\\int_A Y\\,dP\\\\\n      \\text{for every }A\\in\\m"
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "scroll": 280,
+            "text": "E[(Y−W)2]=E[(Y−Z)2]+E[(Z−W)2]+2E[(Y−Z)(Z−W)]=E[(Y−Z)2]+E[(Z−W)2].\\begin{gathered}E[(Y-W)^2]\\\\\n      "
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "scroll": 280,
+            "text": "ν(A)=∫Adνdμ dμ,EQ[h]=EP ⁣[h dQdP],when EQ[∣h∣]<∞.\\begin{gathered}\\nu(A)=\\int_A\\frac{d\\nu}{d\\mu}\\,d\\m"
+          }
+        ],
+        "overflowMath": [],
+        "clippedLabels": [],
+        "pageOverflow": false,
+        "resourceLinks": [
+          {
+            "text": "Bright Side of Mathematics — Measure Theory, part 1",
+            "url": "https://www.youtube.com/watch?v=xZ69KEg7ccU"
+          },
+          {
+            "text": "creator's complete transcript and notes page",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/mt01_info/"
+          },
+          {
+            "text": "Sheldon Axler's free author-hosted Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "Axler, Measure, Integration & Real Analysis",
+            "url": "https://measure.axler.net/MIRA.pdf"
+          },
+          {
+            "text": "MIT 18.175, Scott Sheffield — conditional expectation",
+            "url": "https://math.mit.edu/~sheffield/2016175/Lecture16.pdf"
+          },
+          {
+            "text": "Bright Side of Mathematics — course overview",
+            "url": "https://thebrightsideofmathematics.com/courses/measure_theory/overview/"
+          }
+        ],
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "finalLabel": {
+    "status": "passed",
+    "at": "2026-09-10T16:08:39.539Z",
+    "results": [
+      {
+        "width": 390,
+        "dimensions": {
+          "text": "Faces 1–5: 1/5 each; face 6: 0",
+          "needed": 261.25,
+          "available": 348
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "dimensions": {
+          "text": "Faces 1–5: 1/5 each; face 6: 0",
+          "needed": 261.25,
+          "available": 278
+        },
+        "errors": []
+      }
+    ]
+  },
+  "independentReview": "docs/teaching/MEASURE-THEORY-INDEPENDENT-REVIEW.md"
+}

@@ -1,0 +1,285 @@
+.geometry-lab {
+  margin: 1.8rem 0;
+  padding: clamp(.85rem, 2vw, 1.4rem);
+  border: 1px solid #41443e;
+  background: #10140f;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+.geometry-calculation {
+  margin: 1.4rem 0;
+  padding: 1rem;
+  border-left: 2px solid #b99b52;
+  background: #11150e;
+  color: #eed697;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: .83rem;
+  line-height: 1.9;
+}
+
+.geometry-calculation code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.geometry-lab h3 {
+  margin-top: 0;
+}
+
+.geometry-lab p {
+  line-height: 1.65;
+}
+
+.geometry-lab label {
+  display: grid;
+  gap: .5rem;
+  margin: .8rem 0;
+  color: #dddccf;
+}
+
+.geometry-lab input[type="range"] {
+  width: 100%;
+  min-height: 32px;
+  accent-color: #e1b45c;
+}
+
+.geometry-lab input[type="checkbox"] {
+  accent-color: #e1b45c;
+  width: 18px;
+  height: 18px;
+}
+
+.geometry-lab label.geometry-toggle {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+}
+
+.geometry-lab select, .geometry-lab textarea {
+  width: 100%;
+  min-width: 0;
+  padding: .7rem;
+  border: 1px solid #687260;
+  border-radius: 3px;
+  background: #181e16;
+  color: #f0e8d8;
+  font: inherit;
+  font-size: .9rem;
+}
+
+.geometry-lab textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.geometry-actions, .geometry-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem 1rem;
+  margin: 1rem 0;
+}
+
+.geometry-controls label {
+  flex: 1 1 170px;
+}
+
+.geometry-lab button {
+  min-height: 44px;
+  padding: .55rem .7rem;
+  border: 1px solid #71674a;
+  border-radius: 3px;
+  background: #171b14;
+  color: #ecc879;
+  font: inherit;
+  font-size: .875rem;
+  cursor: pointer;
+}
+
+.geometry-lab button:disabled {
+  color: #92988b;
+  border-color: #454d40;
+  cursor: default;
+}
+
+.geometry-lab :focus-visible {
+  outline: 2px solid #f1cb77;
+  outline-offset: 4px;
+}
+
+.geometry-lab figure, .geometry-inline {
+  margin: 1.3rem 0;
+}
+
+.geometry-plane {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  overflow: visible;
+}
+
+.geometry-plane text {
+  fill: #c3c9b9;
+  font: 12px system-ui, sans-serif;
+}
+
+.geometry-plane .geometry-point-label {
+  fill: #f4ead6;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: #10140f;
+  stroke-width: 3px;
+}
+
+.geometry-grid {
+  stroke: #30372b;
+  stroke-width: .7;
+}
+
+.geometry-fill {
+  fill: #d1b86c;
+  fill-opacity: .12;
+}
+
+.geometry-gold {
+  stroke: #e9bd64;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.geometry-fill.geometry-gold {
+  fill: #d1b86c;
+}
+
+.geometry-blue {
+  stroke: #8ab7c4;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.geometry-dashed {
+  stroke-dasharray: 5 4;
+}
+
+.geometry-muted {
+  stroke: #8c9881;
+  stroke-width: 1.8;
+}
+
+.geometry-overlap {
+  stroke: #ebe6d4;
+  stroke-width: 6;
+  fill: none;
+}
+
+.geometry-point {
+  fill: #e8dcac;
+  stroke: #10140f;
+  stroke-width: 1.5;
+}
+
+.geometry-removed {
+  fill: none;
+  stroke: #df9a7b;
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+}
+
+.geometry-lab figcaption, .geometry-inline figcaption {
+  color: #bfc7b6;
+  font-size: .875rem;
+  line-height: 1.65;
+  margin-top: .8rem;
+}
+
+.geometry-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: .8rem 1rem;
+  margin: 1rem 0;
+}
+
+.geometry-facts > div {
+  border-top: 1px solid #414a37;
+  padding-top: .6rem;
+  min-width: 0;
+}
+
+.geometry-facts dt {
+  color: #bbc5b0;
+  font-size: .83rem;
+}
+
+.geometry-facts dd {
+  margin: .3rem 0 0;
+  color: #f1d58f;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.geometry-arithmetic {
+  display: grid;
+  gap: .65rem;
+  margin: 1.2rem 0;
+}
+
+.geometry-arithmetic > div {
+  display: grid;
+  gap: .35rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid #404932;
+}
+
+.geometry-arithmetic span, .geometry-arithmetic small, .geometry-arithmetic-paths p {
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.geometry-arithmetic small {
+  color: #c7c7b5;
+}
+
+.geometry-arithmetic-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.geometry-arithmetic-paths h4 {
+  font-size: 1rem;
+  margin-bottom: .6rem;
+}
+
+.geometry-arithmetic-paths strong {
+  color: #efc875;
+}
+
+.geometry-current {
+  border-block: 1px solid #50563e;
+  padding-block: .8rem;
+}
+
+.geometry-point-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  list-style: none;
+  padding: 0;
+  font-size: .875rem;
+  color: #ced3c1;
+}
+
+@media (max-width: 520px) {
+  .geometry-arithmetic-paths {
+    grid-template-columns: 1fr;
+    gap: .3rem;
+  }
+  .geometry-lab select {
+    font-size: .85rem;
+  }
+}

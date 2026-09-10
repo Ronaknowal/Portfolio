@@ -1,0 +1,2166 @@
+{
+  "integratedAt": "2026-09-10T14:28:42.537Z",
+  "publications": 213,
+  "counts": {
+    "modules": 28,
+    "uniqueTopics": 1218,
+    "published": 213,
+    "topicBriefs": 317,
+    "prerequisiteReviewsRecorded": 351,
+    "guidedPaths": 7
+  },
+  "reviewedScope": 33,
+  "newReviewedIds": [
+    "computational-geometry-robust-predicates-convex-hulls",
+    "persistent-data-structures-structural-sharing-versioned-queries",
+    "external-memory-algorithms-b-trees-i-o-complexity",
+    "constrained-multi-objective-optimization",
+    "probability-distributions-bayes-theorem",
+    "maximum-likelihood-map-estimation"
+  ],
+  "loading": {
+    "measuredAt": "2026-09-10T14:25:22.322Z",
+    "browser": "152.0.4191.66",
+    "base": "http://127.0.0.1:4173",
+    "results": [
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "computational-geometry-robust-predicates-convex-hulls",
+        "practiceSources": [
+          "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js"
+        ],
+        "dataSources": [
+          "src/learn/data/computational-geometry-models.js",
+          "src/learn/data/computational-geometry-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx",
+          "src/learn/data/computational-geometry-models.js",
+          "src/learn/components/lesson-labs/computational-geometry-labs.css",
+          "src/learn/data/computational-geometry-examples.js",
+          "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/computational-geometry-robust-predicates-convex-hulls-zx4HpKst.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/computational-geometry-robust-predicates-convex-hulls-zx4HpKst.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "persistent-data-structures-structural-sharing-versioned-queries",
+        "practiceSources": [
+          "src/learn/data/practice/persistent-data-structures-structural-sharing-versioned-queries.js"
+        ],
+        "dataSources": [
+          "src/learn/data/persistent-structures-models.js",
+          "src/learn/data/persistent-structures-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx",
+          "src/learn/data/persistent-structures-models.js",
+          "src/learn/components/lesson-labs/persistent-structures-labs.css",
+          "src/learn/data/persistent-structures-examples.js",
+          "src/learn/data/practice/persistent-data-structures-structural-sharing-versioned-queries.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/persistent-data-structures-structural-sharing-versioned-queries-CqXuptHU.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/persistent-data-structures-structural-sharing-versioned-queries-CqXuptHU.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "external-memory-algorithms-b-trees-i-o-complexity",
+        "practiceSources": [
+          "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js"
+        ],
+        "dataSources": [
+          "src/learn/data/external-memory-models.js",
+          "src/learn/data/external-memory-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx",
+          "src/learn/data/external-memory-models.js",
+          "src/learn/components/lesson-labs/external-memory-labs.css",
+          "src/learn/data/external-memory-examples.js",
+          "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/external-memory-algorithms-b-trees-i-o-complexity-Cn0xMe0t.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/external-memory-algorithms-b-trees-i-o-complexity-Cn0xMe0t.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "network-flow-minimum-cuts-bipartite-matching",
+        "practiceSources": [
+          "src/learn/data/practice/network-flow-minimum-cuts-bipartite-matching.js"
+        ],
+        "dataSources": [
+          "src/learn/data/network-flow-models.js",
+          "src/learn/data/network-flow-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/NetworkFlowLabs.jsx",
+          "src/learn/data/network-flow-models.js",
+          "src/learn/components/lesson-labs/network-flow-labs.css",
+          "src/learn/data/network-flow-examples.js",
+          "src/learn/data/practice/network-flow-minimum-cuts-bipartite-matching.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/network-flow-minimum-cuts-bipartite-matching-B3W_ffbx.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/network-flow-minimum-cuts-bipartite-matching-B3W_ffbx.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "randomized-algorithms-sampling-error-guarantees",
+        "practiceSources": [
+          "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js"
+        ],
+        "dataSources": [
+          "src/learn/data/randomized-algorithm-models.js",
+          "src/learn/data/randomized-algorithm-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx",
+          "src/learn/data/randomized-algorithm-models.js",
+          "src/learn/components/lesson-labs/randomized-algorithm-labs.css",
+          "src/learn/data/randomized-algorithm-examples.js",
+          "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/randomized-algorithms-sampling-error-guarantees-CjDVQJiG.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/randomized-algorithms-sampling-error-guarantees-CjDVQJiG.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "reductions-p-np-computational-intractability",
+        "practiceSources": [
+          "src/learn/data/practice/reductions-p-np-computational-intractability.js"
+        ],
+        "dataSources": [
+          "src/learn/data/intractability-models.js",
+          "src/learn/data/intractability-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/reductions-p-np-computational-intractability.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+          "src/learn/data/intractability-models.js",
+          "src/learn/components/lesson-labs/intractability-labs.css",
+          "src/learn/data/intractability-examples.js",
+          "src/learn/data/practice/reductions-p-np-computational-intractability.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/reductions-p-np-computational-intractability-Dx2vDD2s.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/reductions-p-np-computational-intractability-Dx2vDD2s.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "arrays-strings-hash-maps",
+        "practiceSources": [
+          "src/learn/data/practice/arrays-strings-hash-maps.js"
+        ],
+        "dataSources": [
+          "src/learn/data/array-map-foundations-model.js",
+          "src/learn/data/array-map-foundations-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/LessonInvestigation.jsx",
+          "src/learn/components/lesson-labs/lesson-investigations.css",
+          "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+          "src/learn/data/array-map-foundations-model.js",
+          "src/learn/components/lesson-labs/systems-structures.css",
+          "src/learn/components/lesson-labs/PythonExample.jsx",
+          "src/learn/data/array-map-foundations-examples.js",
+          "src/learn/components/lesson-labs/SystemsMechanismFigures.jsx",
+          "src/learn/components/lesson-labs/mechanism-figures.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/arrays-strings-hash-maps.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/arrays-strings-hash-maps-BN5GPPSl.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/LessonInvestigation-BI4PpcwL.js",
+          "assets/SystemsMechanismFigures-BjGP9dt0.js",
+          "assets/PythonExample-CiCOMUPG.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/arrays-strings-hash-maps-BN5GPPSl.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "linked-lists-stacks-queues",
+        "practiceSources": [
+          "src/learn/data/practice/linked-lists-stacks-queues.js"
+        ],
+        "dataSources": [
+          "src/learn/data/linked-foundations-model.js",
+          "src/learn/data/linked-foundations-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/LessonInvestigation.jsx",
+          "src/learn/components/lesson-labs/lesson-investigations.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/linked-lists-stacks-queues.js",
+          "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx",
+          "src/learn/data/linked-foundations-model.js",
+          "src/learn/components/lesson-labs/systems-structures.css",
+          "src/learn/components/lesson-labs/SystemsMechanismFigures.jsx",
+          "src/learn/components/lesson-labs/mechanism-figures.css",
+          "src/learn/components/lesson-labs/PythonExample.jsx",
+          "src/learn/data/linked-foundations-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/linked-lists-stacks-queues-6COm717p.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/LessonInvestigation-BI4PpcwL.js",
+          "assets/DsaPractice-fbCqz85e.js",
+          "assets/SystemsMechanismFigures-BjGP9dt0.js",
+          "assets/PythonExample-CiCOMUPG.js"
+        ],
+        "lessonBodies": [
+          "assets/linked-lists-stacks-queues-6COm717p.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "trees-binary-search-trees",
+        "practiceSources": [
+          "src/learn/data/practice/trees-binary-search-trees.js"
+        ],
+        "dataSources": [
+          "src/learn/data/tree-models.js",
+          "src/learn/data/tree-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/trees-binary-search-trees.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/TreeLabs.jsx",
+          "src/learn/data/tree-models.js",
+          "src/learn/components/lesson-labs/tree-labs.css",
+          "src/learn/data/tree-examples.js",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/trees-binary-search-trees.js",
+          "src/learn/components/lesson-labs/ExpressionTreeFigure.jsx"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/trees-binary-search-trees-BPV38Cr5.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/trees-binary-search-trees-BPV38Cr5.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "heaps-priority-queues-tries",
+        "practiceSources": [
+          "src/learn/data/practice/heaps-priority-queues-tries.js"
+        ],
+        "dataSources": [
+          "src/learn/data/heap-trie-models.js",
+          "src/learn/data/heap-trie-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/heaps-priority-queues-tries.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/HeapTrieLabs.jsx",
+          "src/learn/data/heap-trie-models.js",
+          "src/learn/components/lesson-labs/heap-trie-labs.css",
+          "src/learn/data/heap-trie-examples.js",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/heaps-priority-queues-tries.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/heaps-priority-queues-tries-ByKcAi2F.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/heaps-priority-queues-tries-ByKcAi2F.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "graphs-representations-bfs-dfs",
+        "practiceSources": [
+          "src/learn/data/practice/graphs-representations-bfs-dfs.js"
+        ],
+        "dataSources": [
+          "src/learn/data/graph-traversal-models.js",
+          "src/learn/data/graph-traversal-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/GraphTraversalLabs.jsx",
+          "src/learn/data/graph-traversal-models.js",
+          "src/learn/components/lesson-labs/graph-traversal-labs.css",
+          "src/learn/components/lesson-labs/GraphCloneFigure.jsx",
+          "src/learn/data/graph-traversal-examples.js",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/graphs-representations-bfs-dfs.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/graphs-representations-bfs-dfs-Sq53afrR.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/graphs-representations-bfs-dfs-Sq53afrR.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "disjoint-sets-union-find",
+        "practiceSources": [
+          "src/learn/data/practice/disjoint-sets-union-find.js"
+        ],
+        "dataSources": [
+          "src/learn/data/union-find-models.js",
+          "src/learn/data/union-find-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/disjoint-sets-union-find.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+          "src/learn/data/union-find-models.js",
+          "src/learn/components/lesson-labs/union-find-labs.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/union-find-examples.js",
+          "src/learn/data/practice/disjoint-sets-union-find.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/disjoint-sets-union-find-Ccwn7Nz9.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/disjoint-sets-union-find-Ccwn7Nz9.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "complexity-analysis-recursion",
+        "practiceSources": [
+          "src/learn/data/practice/complexity-analysis-recursion.js"
+        ],
+        "dataSources": [
+          "src/learn/data/complexity-recursion-models.js",
+          "src/learn/data/complexity-recursion-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/complexity-analysis-recursion.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx",
+          "src/learn/data/complexity-recursion-models.js",
+          "src/learn/components/lesson-labs/complexity-recursion-labs.css",
+          "src/learn/data/complexity-recursion-examples.js",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/complexity-analysis-recursion.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/complexity-analysis-recursion-CqtEBrco.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/complexity-analysis-recursion-CqtEBrco.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "binary-search-sorting-two-pointer-patterns",
+        "practiceSources": [
+          "src/learn/data/practice/binary-search-sorting-two-pointer-patterns.js"
+        ],
+        "dataSources": [
+          "src/learn/data/ordered-pattern-models.js",
+          "src/learn/data/ordered-pattern-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/OrderedPatternLabs.jsx",
+          "src/learn/data/ordered-pattern-models.js",
+          "src/learn/components/lesson-labs/ordered-pattern-labs.css",
+          "src/learn/data/ordered-pattern-examples.js",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/practice/binary-search-sorting-two-pointer-patterns.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/binary-search-sorting-two-pointer-patterns-BeEYTPjJ.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/binary-search-sorting-two-pointer-patterns-BeEYTPjJ.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "backtracking-divide-and-conquer",
+        "practiceSources": [
+          "src/learn/data/practice/backtracking-divide-and-conquer.js"
+        ],
+        "dataSources": [
+          "src/learn/data/backtracking-divide-models.js",
+          "src/learn/data/backtracking-divide-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx",
+          "src/learn/data/backtracking-divide-models.js",
+          "src/learn/components/lesson-labs/backtracking-divide-labs.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/backtracking-divide-examples.js",
+          "src/learn/data/practice/backtracking-divide-and-conquer.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/backtracking-divide-and-conquer-C-xTx94U.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/backtracking-divide-and-conquer-C-xTx94U.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "greedy-algorithms-exchange-arguments",
+        "practiceSources": [
+          "src/learn/data/practice/greedy-algorithms-exchange-arguments.js"
+        ],
+        "dataSources": [
+          "src/learn/data/greedy-exchange-models.js",
+          "src/learn/data/greedy-exchange-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx",
+          "src/learn/data/greedy-exchange-models.js",
+          "src/learn/components/lesson-labs/greedy-exchange-labs.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/greedy-exchange-examples.js",
+          "src/learn/data/practice/greedy-algorithms-exchange-arguments.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/greedy-algorithms-exchange-arguments-EBAsXBY0.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/greedy-algorithms-exchange-arguments-EBAsXBY0.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "dynamic-programming-states-transitions-optimization",
+        "practiceSources": [
+          "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js"
+        ],
+        "dataSources": [
+          "src/learn/data/dynamic-programming-models.js",
+          "src/learn/data/dynamic-programming-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+          "src/learn/data/dynamic-programming-models.js",
+          "src/learn/components/lesson-labs/dynamic-programming-labs.css",
+          "src/learn/data/dynamic-programming-examples.js",
+          "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/dynamic-programming-states-transitions-optimization-BiBzhIsR.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/dynamic-programming-states-transitions-optimization-BiBzhIsR.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "segment-trees-fenwick-trees-range-queries",
+        "practiceSources": [
+          "src/learn/data/practice/segment-trees-fenwick-trees-range-queries.js"
+        ],
+        "dataSources": [
+          "src/learn/data/range-query-models.js",
+          "src/learn/data/range-deque-models.js",
+          "src/learn/data/range-query-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/RangeQueryLabs.jsx",
+          "src/learn/data/range-query-models.js",
+          "src/learn/components/lesson-labs/range-query-labs.css",
+          "src/learn/components/lesson-labs/RangeDequeLabs.jsx",
+          "src/learn/data/range-deque-models.js",
+          "src/learn/components/lesson-labs/range-deque-labs.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/range-query-examples.js",
+          "src/learn/data/practice/segment-trees-fenwick-trees-range-queries.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/segment-trees-fenwick-trees-range-queries-CxQ2K6Bs.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/segment-trees-fenwick-trees-range-queries-CxQ2K6Bs.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "algorithm-correctness-loop-invariants-termination",
+        "practiceSources": [
+          "src/learn/data/practice/algorithm-correctness-loop-invariants-termination.js"
+        ],
+        "dataSources": [
+          "src/learn/data/algorithm-correctness-models.js",
+          "src/learn/data/algorithm-correctness-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/AlgorithmCorrectnessLabs.jsx",
+          "src/learn/data/algorithm-correctness-models.js",
+          "src/learn/components/lesson-labs/algorithm-correctness-labs.css",
+          "src/learn/data/algorithm-correctness-examples.js",
+          "src/learn/data/practice/algorithm-correctness-loop-invariants-termination.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/algorithm-correctness-loop-invariants-termination-CZesLb5D.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/algorithm-correctness-loop-invariants-termination-CZesLb5D.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "hashing-collision-resolution-amortized-analysis",
+        "practiceSources": [
+          "src/learn/data/practice/hashing-collision-resolution-amortized-analysis.js"
+        ],
+        "dataSources": [
+          "src/learn/data/hashing-amortized-models.js",
+          "src/learn/data/hashing-amortized-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/HashingAmortizedLabs.jsx",
+          "src/learn/data/hashing-amortized-models.js",
+          "src/learn/components/lesson-labs/hashing-amortized-labs.css",
+          "src/learn/data/hashing-amortized-examples.js",
+          "src/learn/data/practice/hashing-collision-resolution-amortized-analysis.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/hashing-collision-resolution-amortized-analysis-DArVpfsN.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/hashing-collision-resolution-amortized-analysis-DArVpfsN.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "shortest-paths-spanning-trees-topological-ordering",
+        "practiceSources": [
+          "src/learn/data/practice/shortest-paths-spanning-trees-topological-ordering.js"
+        ],
+        "dataSources": [
+          "src/learn/data/weighted-graph-models.js",
+          "src/learn/data/weighted-graph-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+          "src/learn/data/weighted-graph-models.js",
+          "src/learn/components/lesson-labs/weighted-graph-labs.css",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/data/weighted-graph-examples.js",
+          "src/learn/data/practice/shortest-paths-spanning-trees-topological-ordering.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/shortest-paths-spanning-trees-topological-ordering-CTXkQ-92.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/shortest-paths-spanning-trees-topological-ordering-CTXkQ-92.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "DSA lesson loads its own body/practice/examples/models, allowed shared controls and no math renderer",
+        "topicId": "string-matching-prefix-functions-rolling-hashes",
+        "practiceSources": [
+          "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js"
+        ],
+        "dataSources": [
+          "src/learn/data/string-matching-models.js",
+          "src/learn/data/string-matching-examples.js"
+        ],
+        "sourceFiles": [
+          "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DsaPractice.jsx",
+          "src/learn/components/lesson-labs/dsa-practice.css",
+          "src/learn/components/lesson-labs/StringMatchingLabs.jsx",
+          "src/learn/data/string-matching-models.js",
+          "src/learn/components/lesson-labs/string-matching-labs.css",
+          "src/learn/data/string-matching-examples.js",
+          "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/string-matching-prefix-functions-rolling-hashes-BYS4q1jX.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js",
+          "assets/DsaPractice-fbCqz85e.js"
+        ],
+        "lessonBodies": [
+          "assets/string-matching-prefix-functions-rolling-hashes-BYS4q1jX.js"
+        ],
+        "outlines": []
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "maximum-likelihood-map-estimation",
+        "sourceFiles": [
+          "src/learn/data/topics/maximum-likelihood-map-estimation.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+          "src/learn/data/maximum-likelihood-models.js",
+          "src/learn/components/lesson-labs/maximum-likelihood-labs.css",
+          "src/learn/data/maximum-likelihood-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/maximum-likelihood-map-estimation-Dp4YxSRY.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/maximum-likelihood-map-estimation-Dp4YxSRY.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "constrained-multi-objective-optimization",
+        "sourceFiles": [
+          "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/ConstrainedMultiobjectiveLabs.jsx",
+          "src/learn/data/constrained-multiobjective-models.js",
+          "src/learn/components/lesson-labs/constrained-multiobjective-labs.css",
+          "src/learn/data/constrained-multiobjective-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/constrained-multi-objective-optimization-DtJ9i1yb.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/constrained-multi-objective-optimization-DtJ9i1yb.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "probability-distributions-bayes-theorem",
+        "sourceFiles": [
+          "src/learn/data/topics/probability-distributions-bayes-theorem.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx",
+          "src/learn/data/probability-distributions-models.js",
+          "src/learn/components/lesson-labs/probability-distributions-labs.css",
+          "src/learn/data/probability-distributions-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/probability-distributions-bayes-theorem-DNQsX4GR.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/probability-distributions-bayes-theorem-DNQsX4GR.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "non-convex-optimization-landscape",
+        "sourceFiles": [
+          "src/learn/data/topics/non-convex-optimization-landscape.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx",
+          "src/learn/data/nonconvex-landscape-models.js",
+          "src/learn/components/lesson-labs/nonconvex-landscape-labs.css",
+          "src/learn/data/nonconvex-landscape-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/non-convex-optimization-landscape-Ceh5nuUs.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/non-convex-optimization-landscape-Ceh5nuUs.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+        "sourceFiles": [
+          "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx",
+          "src/learn/data/second-order-methods-models.js",
+          "src/learn/components/lesson-labs/second-order-methods-labs.css",
+          "src/learn/data/second-order-methods-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient-C7LZHVIy.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient-C7LZHVIy.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "convex-duality-lagrangian-methods-kkt-conditions",
+        "sourceFiles": [
+          "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/DualityKktLabs.jsx",
+          "src/learn/data/duality-kkt-models.js",
+          "src/learn/components/lesson-labs/duality-kkt-labs.css",
+          "src/learn/data/duality-kkt-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/convex-duality-lagrangian-methods-kkt-conditions-CznhW115.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/convex-duality-lagrangian-methods-kkt-conditions-CznhW115.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "vectors-matrices-tensor-operations",
+        "sourceFiles": [
+          "src/learn/data/topics/vectors-matrices-tensor-operations.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/VectorTensorLabs.jsx",
+          "src/learn/data/vector-tensor-models.js",
+          "src/learn/components/lesson-labs/vector-tensor-labs.css",
+          "src/learn/data/vector-tensor-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/vectors-matrices-tensor-operations-CKxcayup.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/vectors-matrices-tensor-operations-CKxcayup.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "matrix-decompositions-svd-qr-cholesky-lu",
+        "sourceFiles": [
+          "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+          "src/learn/data/matrix-decomposition-models.js",
+          "src/learn/components/lesson-labs/matrix-decomposition-labs.css",
+          "src/learn/data/matrix-decomposition-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/matrix-decompositions-svd-qr-cholesky-lu-BhV6WfJp.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/matrix-decompositions-svd-qr-cholesky-lu-BhV6WfJp.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "eigenvalues-eigenvectors",
+        "sourceFiles": [
+          "src/learn/data/topics/eigenvalues-eigenvectors.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+          "src/learn/data/eigenvalue-models.js",
+          "src/learn/components/lesson-labs/eigenvalue-labs.css",
+          "src/learn/data/eigenvalue-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/eigenvalues-eigenvectors-DYFlC0i4.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/eigenvalues-eigenvectors-DYFlC0i4.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "matrix-calculus-jacobians",
+        "sourceFiles": [
+          "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx",
+          "src/learn/data/matrix-calculus-models.js",
+          "src/learn/components/lesson-labs/matrix-calculus-labs.css",
+          "src/learn/data/matrix-calculus-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/matrix-calculus-jacobians-B5sl1990.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/matrix-calculus-jacobians-B5sl1990.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "tensor-algebra-einsum-notation",
+        "sourceFiles": [
+          "src/learn/data/topics/tensor-algebra-einsum-notation.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/EinsumLabs.jsx",
+          "src/learn/data/einsum-models.js",
+          "src/learn/components/lesson-labs/einsum-labs.css",
+          "src/learn/data/einsum-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/tensor-algebra-einsum-notation-BalAUzfa.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/tensor-algebra-einsum-notation-BalAUzfa.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "randomized-linear-algebra",
+        "sourceFiles": [
+          "src/learn/data/topics/randomized-linear-algebra.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+          "src/learn/data/randomized-linear-algebra-models.js",
+          "src/learn/components/lesson-labs/randomized-linear-algebra-labs.css",
+          "src/learn/data/randomized-linear-algebra-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/randomized-linear-algebra-CpQD_Cwq.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/randomized-linear-algebra-CpQD_Cwq.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "multivariate-calculus-gradients",
+        "sourceFiles": [
+          "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx",
+          "src/learn/data/multivariate-calculus-models.js",
+          "src/learn/components/lesson-labs/multivariate-calculus-labs.css",
+          "src/learn/data/multivariate-calculus-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/multivariate-calculus-gradients-Bdmh81LT.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Callout-Cq3M6Sw4.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/multivariate-calculus-gradients-Bdmh81LT.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "convex-optimization",
+        "sourceFiles": [
+          "src/learn/data/topics/convex-optimization.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+          "src/learn/data/convex-optimization-models.js",
+          "src/learn/components/lesson-labs/convex-optimization-labs.css",
+          "src/learn/data/convex-optimization-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/convex-optimization-8a1mcAoI.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/convex-optimization-8a1mcAoI.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+        "sourceFiles": [
+          "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/GradientVariantsLabs.jsx",
+          "src/learn/data/gradient-variants-models.js",
+          "src/learn/components/lesson-labs/gradient-variants-labs.css",
+          "src/learn/data/gradient-variants-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars-DyY4l_LD.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars-DyY4l_LD.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "reviewed matrix lesson loads only its selected body and actual dependencies",
+        "topicId": "learning-rate-schedules-cosine-warmup-onecyclelr",
+        "sourceFiles": [
+          "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx",
+          "src/learn/components/content/index.js",
+          "src/learn/components/content/Prose.jsx",
+          "src/learn/styles.js",
+          "src/learn/components/content/Headings.jsx",
+          "src/learn/components/content/Code.jsx",
+          "src/learn/components/content/Callout.jsx",
+          "src/learn/components/content/Figure.jsx",
+          "src/learn/components/content/Math.jsx",
+          "src/learn/components/lesson-labs/LessonElements.jsx",
+          "src/learn/components/lesson-labs/lessons.css",
+          "src/learn/components/lesson-labs/RunnableExample.jsx",
+          "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx",
+          "src/learn/data/learning-rate-schedule-models.js",
+          "src/learn/components/lesson-labs/learning-rate-schedule-labs.css",
+          "src/learn/data/learning-rate-schedule-examples.js"
+        ],
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/learning-rate-schedules-cosine-warmup-onecyclelr-BHXutxRQ.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/learning-rate-schedules-cosine-warmup-onecyclelr-BHXutxRQ.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "hub loads metadata and no lesson bodies or outlines",
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/LearnHub-v4wSOpnH.js",
+          "assets/LevelBadge-BqCJVeU5.js"
+        ],
+        "lessonBodies": [],
+        "outlines": []
+      },
+      {
+        "case": "selected lesson and next destination only; footer previous and browser Back reuse imports",
+        "initialJs": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/python-basics-types-control-flow-functions-modules-D1fY96-T.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/PythonExample-CiCOMUPG.js"
+        ],
+        "destinationJs": [
+          "assets/object-oriented-programming-in-python-DDWLfk9W.js"
+        ]
+      },
+      {
+        "case": "mathematical lesson loads its renderer and styles and renders notation",
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/eigenvalues-eigenvectors-DYFlC0i4.js",
+          "assets/Code-DSb7zTyJ.js",
+          "assets/Math-C2x8vRwV.js",
+          "assets/LessonElements-Bl4dBGwJ.js",
+          "assets/RunnableExample-B7ErpacM.js"
+        ],
+        "lessonBodies": [
+          "assets/eigenvalues-eigenvectors-DYFlC0i4.js"
+        ],
+        "outlines": [],
+        "rendererJs": [
+          "assets/Math-C2x8vRwV.js"
+        ],
+        "fontCss": [
+          "assets/Math-CfVKi3_s.css"
+        ]
+      },
+      {
+        "case": "planned topic fetches only its outline and stays uncompletable",
+        "topicId": "algebra-functions-exponentials-logarithms",
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js",
+          "assets/algebra-functions-exponentials-logarithms-Dop5YjV8.js"
+        ],
+        "lessonBodies": [],
+        "outlines": [
+          "assets/algebra-functions-exponentials-logarithms-Dop5YjV8.js"
+        ]
+      },
+      {
+        "case": "planned entry without an individual outline makes no nonexistent-resource request",
+        "topicId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+        "jsFiles": [
+          "assets/index-BP1uY2TK.js",
+          "assets/Reader-DBgRKFvw.js",
+          "assets/LevelBadge-BqCJVeU5.js"
+        ],
+        "lessonBodies": [],
+        "outlines": []
+      },
+      {
+        "case": "shell stays available while loading; stale completion cannot replace destination"
+      },
+      {
+        "case": "failed lesson stays distinct from planned; keyboard retry and explicit reload provide recovery",
+        "retryRecovered": false,
+        "reloadRequired": true,
+        "requestsForFailedChunk": 2
+      },
+      {
+        "case": "controlled render failure preserves shell, prevents completion and recovers after reload",
+        "requestsForLessonChunk": 2,
+        "intentionalFixture": "Browser-only one-response replacement; no application or lesson source mutation."
+      }
+    ]
+  },
+  "routing": {
+    "results": [
+      {
+        "width": 1440,
+        "programmingSteps": 17,
+        "paths": 7,
+        "sharedModuleContext": true,
+        "plannedResume": true,
+        "plannedFixture": "deep-learning-fundamentals",
+        "seededPlannedPrefix": [
+          "perceptrons-neurons-activation-functions",
+          "backpropagation-automatic-differentiation",
+          "loss-functions-ce-mse-focal-contrastive-triplet",
+          "batch-layer-group-rms-normalization",
+          "transfer-learning-fine-tuning-strategies",
+          "weight-initialization-xavier-kaiming-p",
+          "residual-connections-skip-connections",
+          "dropout-droppath-stochastic-depth",
+          "convolution-pooling-receptive-fields",
+          "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+          "depthwise-separable-dilated-convolutions",
+          "convnext-modern-cnn-designs",
+          "capsule-networks",
+          "rnns-lstms-grus",
+          "sequence-to-sequence-encoder-decoder",
+          "attention-mechanism-bahdanau-luong"
+        ],
+        "plannedResumeId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+        "dsaCompletedIds": [
+          "arrays-strings-hash-maps",
+          "linked-lists-stacks-queues",
+          "trees-binary-search-trees",
+          "heaps-priority-queues-tries",
+          "graphs-representations-bfs-dfs",
+          "disjoint-sets-union-find",
+          "complexity-analysis-recursion",
+          "binary-search-sorting-two-pointer-patterns",
+          "backtracking-divide-and-conquer",
+          "greedy-algorithms-exchange-arguments",
+          "dynamic-programming-states-transitions-optimization",
+          "segment-trees-fenwick-trees-range-queries",
+          "algorithm-correctness-loop-invariants-termination",
+          "hashing-collision-resolution-amortized-analysis",
+          "shortest-paths-spanning-trees-topological-ordering",
+          "string-matching-prefix-functions-rolling-hashes",
+          "reductions-p-np-computational-intractability",
+          "randomized-algorithms-sampling-error-guarantees",
+          "network-flow-minimum-cuts-bipartite-matching",
+          "computational-geometry-robust-predicates-convex-hulls",
+          "persistent-data-structures-structural-sharing-versioned-queries",
+          "external-memory-algorithms-b-trees-i-o-complexity"
+        ],
+        "nextPlannedId": null,
+        "expectedDsaResume": "python-basics-types-control-flow-functions-modules",
+        "counts": true,
+        "prerequisiteLinks": true
+      },
+      {
+        "width": 390,
+        "programmingSteps": 17,
+        "paths": 7,
+        "sharedModuleContext": true,
+        "plannedResume": true,
+        "plannedFixture": "deep-learning-fundamentals",
+        "seededPlannedPrefix": [
+          "perceptrons-neurons-activation-functions",
+          "backpropagation-automatic-differentiation",
+          "loss-functions-ce-mse-focal-contrastive-triplet",
+          "batch-layer-group-rms-normalization",
+          "transfer-learning-fine-tuning-strategies",
+          "weight-initialization-xavier-kaiming-p",
+          "residual-connections-skip-connections",
+          "dropout-droppath-stochastic-depth",
+          "convolution-pooling-receptive-fields",
+          "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+          "depthwise-separable-dilated-convolutions",
+          "convnext-modern-cnn-designs",
+          "capsule-networks",
+          "rnns-lstms-grus",
+          "sequence-to-sequence-encoder-decoder",
+          "attention-mechanism-bahdanau-luong"
+        ],
+        "plannedResumeId": "long-context-sequence-models-transformer-xl-griffin-perceiver",
+        "dsaCompletedIds": [
+          "arrays-strings-hash-maps",
+          "linked-lists-stacks-queues",
+          "trees-binary-search-trees",
+          "heaps-priority-queues-tries",
+          "graphs-representations-bfs-dfs",
+          "disjoint-sets-union-find",
+          "complexity-analysis-recursion",
+          "binary-search-sorting-two-pointer-patterns",
+          "backtracking-divide-and-conquer",
+          "greedy-algorithms-exchange-arguments",
+          "dynamic-programming-states-transitions-optimization",
+          "segment-trees-fenwick-trees-range-queries",
+          "algorithm-correctness-loop-invariants-termination",
+          "hashing-collision-resolution-amortized-analysis",
+          "shortest-paths-spanning-trees-topological-ordering",
+          "string-matching-prefix-functions-rolling-hashes",
+          "reductions-p-np-computational-intractability",
+          "randomized-algorithms-sampling-error-guarantees",
+          "network-flow-minimum-cuts-bipartite-matching",
+          "computational-geometry-robust-predicates-convex-hulls",
+          "persistent-data-structures-structural-sharing-versioned-queries",
+          "external-memory-algorithms-b-trees-i-o-complexity"
+        ],
+        "nextPlannedId": null,
+        "expectedDsaResume": "python-basics-types-control-flow-functions-modules",
+        "counts": true,
+        "prerequisiteLinks": true
+      }
+    ],
+    "errors": []
+  },
+  "routingScope": "All 22 DSA completions exercised through the UI. The Deep Learning planned-entry fixture seeds its existing published prefix in isolated browser storage. The final entity-only amendments preserve normalized AST and the Bayesian brief does not change route membership/order.",
+  "sourceAmendments": {
+    "at": "2026-09-10T14:21:20.701Z",
+    "results": [
+      {
+        "file": "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+        "textNodesEscaped": 1,
+        "beforeSha256": "7c88da6ad04a6e35eb0590a71f65d710d3d2864acbde24f42b3e6e8069dc5790",
+        "afterSha256": "3051164629e9ebcab2de42ad6de094b5d62b378c0a52aaa6c07c7ae883ab236f",
+        "normalizedAstEqual": true
+      },
+      {
+        "file": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+        "textNodesEscaped": 3,
+        "beforeSha256": "e759c9895f04e8b018ec3cbf06d149aadd6e53b759fe2b6b742eb1d53603f4bf",
+        "afterSha256": "410c36f6376fa5b24b70e46429139863c0b4b09938b723d98f3b29d229a61137",
+        "normalizedAstEqual": true
+      },
+      {
+        "file": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+        "textNodesEscaped": 1,
+        "beforeSha256": "21b2e91db9c27a2cc389ca3443eb31bcd0112bc5c91d0ffad7bea96224309201",
+        "afterSha256": "60c6b3a2ec9f590aa4dc67ef3c95b97d49dfee5602d8328b70a2f93ac9f3384f",
+        "normalizedAstEqual": true
+      }
+    ]
+  },
+  "reviewedFiles": {
+    "src/learn/data/topics/vectors-matrices-tensor-operations.jsx": "6036bf455fb84f6d0a939a473b73a752bab8e307557fb067d5b39795c54e3018",
+    "src/learn/data/vector-tensor-models.js": "179df74c47fdd527864bfa3867f5b57fd5ede7004062825b720beefb3c045e64",
+    "src/learn/data/vector-tensor-examples.js": "f514720d06f0b48517688f4884e553fad3cfe92982db8fe59b192701e538a5fe",
+    "src/learn/components/lesson-labs/VectorTensorLabs.jsx": "d37366542123f0689429b31d4fcc85e5dd17dd0f600400ee3ef887b963c045f1",
+    "src/learn/components/lesson-labs/vector-tensor-labs.css": "f78e044cfc01cc5a0d10f5ccb8d74982b135bb3cb2ce929fa24adc6d1c192830",
+    "src/learn/data/curriculum/blueprints/vectors-matrices-tensor-operations.js": "f903f8ad0759e666bce41117e15c47a750ee38f3b0228df05486e9add6823c67",
+    "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx": "d9c913667990f254aa14a15c322643e78d63f49f5c5d6ea6b1f4dcfffa28bfe7",
+    "src/learn/data/matrix-decomposition-models.js": "6c3536f7cc2b13a64d3aff61efb04e88e63727ea2aba45b825550c440d35395e",
+    "src/learn/data/matrix-decomposition-examples.js": "2f6b1cd53ebd1ebf1053ef139fe39b5a94016aa98dc2b68de94ecba83fe76d2a",
+    "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "b2fad697b41bb376dcd7c344c31d9c8eb8dfe3a49785c4e6eada7c370d53a2a0",
+    "src/learn/components/lesson-labs/matrix-decomposition-labs.css": "4d305c26ed34d7662e7213d9c9951d87d1fee905a6234cae2520ee75bcddc7cc",
+    "src/learn/data/curriculum/blueprints/matrix-decompositions-svd-qr-cholesky-lu.js": "249d15f4352ec9f7aa95625655448569fe9fba5040bd6aad5069ae7925e6719e",
+    "src/learn/data/topics/eigenvalues-eigenvectors.jsx": "9b6a8e6fdc094935a10844633da2fc6f0eaf12d041c479ca9adb0833ebea8da0",
+    "src/learn/data/eigenvalue-models.js": "033c9d123d336a45020a2b7496048dfccf32dd4ae2f973e96672ca4377591c48",
+    "src/learn/data/eigenvalue-examples.js": "e918f6eef7294ff8a70fb6303903c8f549712d62074efc96b45852ffefbf8073",
+    "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "e37fcc065d99178742e4bec68468c9c3ae7614c60ff7ceeb89fa7bc27b34f6be",
+    "src/learn/components/lesson-labs/eigenvalue-labs.css": "a044d72b36b1950ba4cd7fbe25b0c5ff545cab65d2f0cc7839ad3439bfefe85d",
+    "src/learn/data/curriculum/blueprints/eigenvalues-eigenvectors.js": "daeffeda730b570538dbe02cb052d3ca3c835a090d4c26431cc27e93dbbf6a9f",
+    "src/learn/data/topics/matrix-calculus-jacobians.jsx": "efa0f0d78634d261c991328ab812671bb5774af3c82e6ca4b7c3827daaa9c0bf",
+    "src/learn/data/matrix-calculus-models.js": "691573901499ab4fbe6c654f4555f696372e8aab5a559a6dafd780ddb6a743a5",
+    "src/learn/data/matrix-calculus-examples.js": "0a68ba25ba37933659baae3215654a4a9ba0d16959a9c7d2c99179f4e8d65810",
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "65bd096fb897dad7f6c74e938f6d3aaaa2c853fb8cbe2458a1e4c0552817942b",
+    "src/learn/components/lesson-labs/matrix-calculus-labs.css": "1e1a54caa5feafa30061838b82aed07e4150339601052c1873fb142ba2e54ed9",
+    "src/learn/data/curriculum/blueprints/matrix-calculus-jacobians.js": "f3a2797d5ca6fa3c93433337b2ea1e1512241651bdc34782d2f712c74991292d",
+    "src/learn/data/topics/tensor-algebra-einsum-notation.jsx": "a2fcd3b41b8192eab264a4619c88bb3e8033c71a8ec16f6e5776e78fc7e202d8",
+    "src/learn/data/einsum-models.js": "9f4f77f43dfc626154eec2ce74f6ad771665c8bf3007a0b18b3978302dee95d1",
+    "src/learn/data/einsum-examples.js": "1a432349d20a018e2a502abd02ebacec65b9b189c82fa99362faf22771153ad9",
+    "src/learn/components/lesson-labs/EinsumLabs.jsx": "baa00e44604e5de55f7af7117b4844a80ac6f0c2f40fc31a730f29820088c9ef",
+    "src/learn/components/lesson-labs/einsum-labs.css": "08378dacfd33842e945bedbbd0f894d6760112ad35637cfadf3b841905378264",
+    "src/learn/data/curriculum/blueprints/tensor-algebra-einsum-notation.js": "e3a52858f69ec3cb2c5b46413d7fecd93f454d8e8b840df9c39320c4e3271cf0",
+    "src/learn/data/topics/randomized-linear-algebra.jsx": "64f9fb065d7db6c6a707839ef4bd03b8810e8fa3ac7d424dd8e4b3c79750988c",
+    "src/learn/data/randomized-linear-algebra-models.js": "416c53e5cee508b73eb836ee997a7f89ff8a80c79de1d39fafa492c1a79c2f89",
+    "src/learn/data/randomized-linear-algebra-examples.js": "203d8e3b7535826e0914d7451b0e45aa4a4e5e7011e103ec370bb493b526be96",
+    "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx": "4b8137bc32c2ab2d24fcfba39b6cbf1783f87e98c2cb663b3039253c33fedbbb",
+    "src/learn/components/lesson-labs/randomized-linear-algebra-labs.css": "689ce8b7c40d0fc27ffc0a92fbef9a7b17cbdf4ff48346027b3584bc9d250203",
+    "src/learn/data/curriculum/blueprints/randomized-linear-algebra.js": "cc07a6355658ab09bd381215d6299aafb8bdfe81966a5343f6573da3a27202c7",
+    "src/learn/data/topics/multivariate-calculus-gradients.jsx": "2f2801575051d48009fccbff4fa640fa2a2051eee98cd8ffde903d4c93d8e834",
+    "src/learn/data/multivariate-calculus-models.js": "05cfaf91ed5d3f979e873c40253593a612b773ff19b56cdb445cba1058ac66e2",
+    "src/learn/data/multivariate-calculus-examples.js": "0931cecfdca0afd4d55970d17a84aace35d2780f97c2e3ed8c04f0637b1a9101",
+    "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "051cb92fbed63c283f4f2856b4392e6b4b14de5deddce874a44b3f3bd1d8dfe3",
+    "src/learn/components/lesson-labs/multivariate-calculus-labs.css": "07b75ee77ff610137b3a59f8a0bddbe6ea2865fc21c5deb5337934759b071281",
+    "src/learn/data/curriculum/blueprints/multivariate-calculus-gradients.js": "2e12099daf1cdaad6fd33b25d9cd6fb37b63ca90b8d301e5d292b6cc8fb5dd64",
+    "src/learn/data/topics/convex-optimization.jsx": "c01fdc899c9795ffad83c9762dba3800922abc839a3f38cd8154f19366bcb567",
+    "src/learn/data/convex-optimization-models.js": "986b677b203bb28dc42c856bcfeb5b11c12dc28a744f71bf3414b492f3845121",
+    "src/learn/data/convex-optimization-examples.js": "316d9be1ada616a9132d9523cba8495bfd2577b9f9502f857320d99d96746496",
+    "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "42cc19b9af5899015613b0b3badf4426da41fa9b48882157c17b55ced018edd9",
+    "src/learn/components/lesson-labs/convex-optimization-labs.css": "b2bea6b5738f95d2d78e19ce7381e63cbaa1ab5e9e810c0f37f0010cee5947f2",
+    "src/learn/data/curriculum/blueprints/convex-optimization.js": "c4e7ff0cc2a6d85395b8c1071a9901337a7ef554336ca73c51c287ba9ccee0cb",
+    "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "368eabcb472dd140d35bad33b76d81d08c31c166aea82743881a9f6fe5a6c736",
+    "src/learn/data/gradient-variants-models.js": "e8d4a5dfed21caa76ea7770bed46f75cb04eab32263e8001e498a073ed57afd7",
+    "src/learn/data/gradient-variants-examples.js": "b78c34b57482a3c934c7626ec195ee62963b5242ce639d4f7fe469da29c580ce",
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "70a048459a683b06983db9501c11c205f8fbc5a296e1d94a84f402459e1eebce",
+    "src/learn/components/lesson-labs/gradient-variants-labs.css": "c142961279cc36e593c7d911b12b739d92d1152d9710a029f3311d2f79921d12",
+    "src/learn/data/curriculum/blueprints/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.js": "a61d2ec8a255fc85d80ebebf14a15aeabd293a3299618b7349709e97b8c78680",
+    "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx": "557b67ea918e17b1b9c499409ea825dcaf65eae4d7e7389490af47eef0f945a1",
+    "src/learn/data/learning-rate-schedule-models.js": "cf3db9b95a15f38577ae26db8f49059f5d238dd8ce220ce4c3c3aeebd9657126",
+    "src/learn/data/learning-rate-schedule-examples.js": "d0736b1353b13b6e1a6ea4b4c376810b9d6c69a8d859ffd92b7d3feb30f2c771",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
+    "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789",
+    "src/learn/data/curriculum/blueprints/learning-rate-schedules-cosine-warmup-onecyclelr.js": "7be2e6fa70e9b2a602c806c23bfd8332284c268cfe7f2aebfcc48c09ec06e6ff",
+    "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx": "3051164629e9ebcab2de42ad6de094b5d62b378c0a52aaa6c07c7ae883ab236f",
+    "src/learn/data/duality-kkt-models.js": "79df9a71d12f20493df2225b16647d93340b1822c80696735dcf8c5cdbce988e",
+    "src/learn/data/duality-kkt-examples.js": "6f0fb0a1fff198d67786612e48a5c57b0a0fed72ddff75fe130547211a70d2e1",
+    "src/learn/components/lesson-labs/DualityKktLabs.jsx": "49c439d12f8c334d72b04d189f4a25ac92e62f0dc32564d9e539a84808186b95",
+    "src/learn/components/lesson-labs/duality-kkt-labs.css": "71142447afd1e15b848c2ad0c5b1ff828318e6a9800973c80df8a654b06eb0a0",
+    "src/learn/data/curriculum/blueprints/convex-duality-lagrangian-methods-kkt-conditions.js": "2a292bc38404d7ad3d07e1bba01bd33754f59068e2650a60aa19fee750f581df",
+    "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "531411b6eb84162625f9fbbc23212dd331d2c43c0124d6829393aaf9db3f5432",
+    "src/learn/data/second-order-methods-models.js": "591e3c4a14c775a8743f37c8975b81ef7cebb818ce60839ef4e1b10920bd2bae",
+    "src/learn/data/second-order-methods-examples.js": "1ef99b964aa721ded6e803c8a80708c8136b03aa9f0c58280cce603b742e5396",
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": "c3310642673fb30bae1a4202706be8c666ed55cb11a951bb8fc409c85b7c6b63",
+    "src/learn/components/lesson-labs/second-order-methods-labs.css": "34828d0c001197acce6d67152581e87b3c75f8acaf2de284980395bbce09fa5c",
+    "src/learn/data/curriculum/blueprints/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.js": "8699bfb23a6d432324b10bc6b632ad7dfa1325eba6aae0c8bb9208c4342d0c5c",
+    "src/learn/data/topics/non-convex-optimization-landscape.jsx": "a5808ff066db96746c4976775a377d9bdfde1f976cd8ec65d7d7dd385a3f75ed",
+    "src/learn/data/nonconvex-landscape-models.js": "15097305c56efd5868458a0d6fa68ee9da279daa8ca21123beecdd6099e787ca",
+    "src/learn/data/nonconvex-landscape-examples.js": "0e9a24b2e971c075300f63bd586db6b6d8be4667b7161d7602d81d4c124488e5",
+    "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "05b3cd25da9aa3c5093f07e5ef61aabbef9ea7b38530fe5370992faac1d72371",
+    "src/learn/components/lesson-labs/nonconvex-landscape-labs.css": "0bf9578876cadf3ebdf73e4aa4fce742611b2196c6c31fc844b3659a3d3da4c9",
+    "src/learn/data/curriculum/blueprints/non-convex-optimization-landscape.js": "33876560bcaf8dff8a22ab94098bc7bd7fd30ad53e42f749f552d9d8064d5c9e",
+    "src/learn/data/topics/constrained-multi-objective-optimization.jsx": "2dbf3150a4e5fdbef457e0670de54ccc034016f02c6f675f78b39415763a824f",
+    "src/learn/data/constrained-multiobjective-models.js": "bbd2dfa16bd687b40cb729042de05c2e2a6e7eb3abab7b26363c8ddd86fc3f2d",
+    "src/learn/data/constrained-multiobjective-examples.js": "c46e5c9938ceea682d11ccd57b40a8457e7bf430178b6a9f0fa16c903b11149b",
+    "src/learn/components/lesson-labs/ConstrainedMultiobjectiveLabs.jsx": "976482ab61718952461ef2a33e33d836c3ac0c8997c4a40a68842beb441b491f",
+    "src/learn/components/lesson-labs/constrained-multiobjective-labs.css": "7e45678cbe51cf0ba1b9ed8e7d1c4f69d5101598244ddbe9f31283c2b8702d6a",
+    "src/learn/data/curriculum/blueprints/constrained-multi-objective-optimization.js": "5b0e9943d4ccf9ea67ec9738919f52a0990281bd6a095ad28bfb01e9761746d5",
+    "src/learn/data/topics/probability-distributions-bayes-theorem.jsx": "a64788c0a9679e92f52ac739bb424f89b9d705599a3939c120b778fbef5c3664",
+    "src/learn/data/probability-distributions-models.js": "6cacb671c8a46701780ef98a4d2c70fe1c1981737544342f47dae76f6411e60e",
+    "src/learn/data/probability-distributions-examples.js": "b3bdfe47ea5c5934aced2722dcbaa2d9379820e69c305ce45db772584f5e5a3a",
+    "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee",
+    "src/learn/components/lesson-labs/probability-distributions-labs.css": "8be2293f8dbdc0c19322ceacad35b8a4be3dd91f481eb181430c3c6d26bb2e55",
+    "src/learn/data/curriculum/blueprints/probability-distributions-bayes-theorem.js": "1c57bb7af95d959272ce9d0afcfa88843fb0a7756b75bd565ef0fa67e2407a6a",
+    "src/learn/data/topics/maximum-likelihood-map-estimation.jsx": "00064b38ea3f1fc6607a522d2514faa1e9c5f08e0128ed789644aee8117169f9",
+    "src/learn/data/maximum-likelihood-models.js": "55a2f198b40e8b7e196157ea6b35bae258554029d3cb277e86aff4f5826f1ebb",
+    "src/learn/data/maximum-likelihood-examples.js": "2ea19d10692c5dc5c8159f4190df5dc0b96ac5d571751b5e4b5b7bbee96c5a15",
+    "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "5ea8076f620693ece6630332fdb0aefb9b39707db0e83b77f491bbdf20cdf172",
+    "src/learn/components/lesson-labs/maximum-likelihood-labs.css": "e4885658388a9ee35f6a7353f9e07aaadf13499e7b573827d8853c467298ba34",
+    "src/learn/data/curriculum/blueprints/maximum-likelihood-map-estimation.js": "4c99fe3a89c53ab72cd88b8f99075e2834e5b945099bf67718ebfd9013bec859",
+    "src/learn/data/topics/disjoint-sets-union-find.jsx": "6b21464bc42aa47b4f8283734cfb0a3bd77cecd7a04f86365bee170e67c10db7",
+    "src/learn/data/union-find-models.js": "b7bc43b23f910ae42dffb1cf887d3432323955cb0b10351d801432c42bc3eea8",
+    "src/learn/data/union-find-examples.js": "3ce09e621188ca1ea5c8e6d9d1bcda82219bb888d78c09bf56e7afa1b0518cf1",
+    "src/learn/components/lesson-labs/UnionFindLabs.jsx": "dbdf1d5057e91438984694370fdb1a6cec80503d6339de9f34ac91f2952c56e7",
+    "src/learn/components/lesson-labs/union-find-labs.css": "66bbb7e07a2ca1e8f577d9b60093cc4c9a41f145057a548a3ef9107c1068dac2",
+    "src/learn/data/curriculum/blueprints/disjoint-sets-union-find.js": "2ddcef9b9c831b1d55f8986578996814412c3d24f51e5df0d6ba5e1efcdf1c84",
+    "src/learn/data/practice/disjoint-sets-union-find.js": "10eeb917016bf6707312e5eb39b6044216b4025826d828443846aa8a96342e18",
+    "src/learn/data/topics/complexity-analysis-recursion.jsx": "8d4c074c80f995d4450f5efc8a4210e8462a4b6972b97286ee2e85a6a39d95aa",
+    "src/learn/data/complexity-recursion-models.js": "0643a855829079cfa3473b8b27ad25963635797f2b825fd4f1b192ed38f6b72b",
+    "src/learn/data/complexity-recursion-examples.js": "69b26a5ed54ecbbc3ddae7feef54e46df8c0c69bcc261cc5bd5b098635170bcc",
+    "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx": "e91810416e8f49c622242c65b28c730daf41d12efe52141910070ed8033e93c8",
+    "src/learn/components/lesson-labs/complexity-recursion-labs.css": "88fe71c88adffa90141c7c6453ab4ea22adaec7b9ccf195a563f277c1f4a6842",
+    "src/learn/data/curriculum/blueprints/complexity-analysis-recursion.js": "81f5622b48834896a8694777b64c1b43b2dc1f4b764fb70c9d6a5029baf4dbc4",
+    "src/learn/data/practice/complexity-analysis-recursion.js": "47a7932dae718d4608024d9ee861782ece855f3ee6e74b54e2574be0ffa99dc7",
+    "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx": "f92191b5613b42143dcab350480685c13659d1250214c38c979ee583b96ee0d9",
+    "src/learn/data/ordered-pattern-models.js": "a4d5c1eed44de8cf49a3ef1ae51698e2d1426311ada9f15a777935c4127a8ae3",
+    "src/learn/data/ordered-pattern-examples.js": "a90f753f72eb5e1d4c4cdc767c49c0d9503ba5cbadf7525427757a785d655e3f",
+    "src/learn/components/lesson-labs/OrderedPatternLabs.jsx": "793d4c38fb05f8336a7c2183e3dc235a636b3f11d0c35a18f3d9f6778d12b884",
+    "src/learn/components/lesson-labs/ordered-pattern-labs.css": "449492503f5d3fbc91d5497310a7c0b134d9a7a2d7cd03f9551be87bdcaf95b2",
+    "src/learn/data/curriculum/blueprints/binary-search-sorting-two-pointer-patterns.js": "02128a621a7cbed435fff7bfab686dbe2351ea213c5a89e3eaba494947222f12",
+    "src/learn/data/practice/binary-search-sorting-two-pointer-patterns.js": "e0fbae49f9095d1673fcbd7837bcc3caa362c69541731f13710aa581c3dd199a",
+    "src/learn/data/topics/backtracking-divide-and-conquer.jsx": "58df12c81aaf774c9d5cc86be95ffb3d731e6d1b983fe44bbc081e108d50d9c4",
+    "src/learn/data/backtracking-divide-models.js": "751484f65d9bb421ffeda9cbbf370b6fb48a397f26032431f1cda58f6d4ca62e",
+    "src/learn/data/backtracking-divide-examples.js": "d30dc86c1829d989e9e5d8f0c1d90794465b741d3fbdbc62c8be4cbf528f8965",
+    "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": "4b9cd8c6bc3a6c83466cf09ce451f654b9f634f5f45633101a9b70fea3da03b8",
+    "src/learn/components/lesson-labs/backtracking-divide-labs.css": "6b98750449c50b142e4e89785b5b8fc088f04d7ea28bc033481ad168ba4c3195",
+    "src/learn/data/curriculum/blueprints/backtracking-divide-and-conquer.js": "6be3a2c15d1074c6e40f1a9e664ce6426439638eddee5661630355afcc8d2d2f",
+    "src/learn/data/practice/backtracking-divide-and-conquer.js": "5bc54f654f222ad751aa0a77504c092a0df686a6a5292bc9dfdf8c6d78758f69",
+    "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx": "6c9dd04e742d5317cc06802862d425cea6f806eff7c2d6f80a77d4d4c6b3b316",
+    "src/learn/data/greedy-exchange-models.js": "2e4fa1ce100653497e9f9ce77ea3a3441d3dd24a7a1862c31e4400e1f1195c37",
+    "src/learn/data/greedy-exchange-examples.js": "df7378bec39993678ef16849272b99e1dfd915aac9f1e581d9792baddb10e6e3",
+    "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx": "57614d0a81adcc01a27420ed3100d47e134e93a5f257db8d5add16ceb156015e",
+    "src/learn/components/lesson-labs/greedy-exchange-labs.css": "5842f5a0bd990504f7285d3713faaf060099af3de7ab3b5a8c73cce9417330ef",
+    "src/learn/data/curriculum/blueprints/greedy-algorithms-exchange-arguments.js": "24379220d7f26c344b34c0a76f382696f48cef33f315aec520ee532757740926",
+    "src/learn/data/practice/greedy-algorithms-exchange-arguments.js": "08f14e38a0cf8e6a8e0fefeed81f5336801c479aecf4fac9c461fdda439a3d79",
+    "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx": "bcf47ccd3ff828d286f5a8acaeb0780e3b3e9f67c19fea5e9d0757d4720222b7",
+    "src/learn/data/dynamic-programming-models.js": "affba29a503b11eb4a3dde7fbad71794d3c7964d60d11f2fb63bc7d29864e51e",
+    "src/learn/data/dynamic-programming-examples.js": "5262a24e6f55e32c1826cdf51cce18b2b736720c082df9674df68e1c23064f8b",
+    "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx": "3afe2b2bbef2c15aed08fe69c725e376eda1bdd4fb9c5b4e5f8996d1b232820c",
+    "src/learn/components/lesson-labs/dynamic-programming-labs.css": "a7452202039808866b83b4e978f9e773a66b6c8434dd75d363fa75b7b2f766ea",
+    "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js": "a457585d63c8b67a23cae5d96f1f5e30f7b114ab58859e6fbc47fc991b6cb992",
+    "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js": "2f4641d4bc1ec78bc41fa1826fa6f29919cbd7560d95d9a98b561280951e75da",
+    "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx": "ca95db9999f077481ac6d544f7785f254700e844fc69d0ffce4fb834ea7272bd",
+    "src/learn/data/range-query-models.js": "5944d2dd0ca621c8cca9e78a5115317a2a4435047cb28bc54264a30d1053877e",
+    "src/learn/data/range-deque-models.js": "b55835f4b29ffab6c2a6147f1a312fc7cec5131b93594dbd35b7f530643f785e",
+    "src/learn/data/range-query-examples.js": "da98e9b037ca8f5863983772c4cadf29c14caa55c6538b17fa8e09598f883ec1",
+    "src/learn/components/lesson-labs/RangeQueryLabs.jsx": "c13b54e897175e99a58f654fcba61a882e165a2173f504faab7dd40e779fbada",
+    "src/learn/components/lesson-labs/RangeDequeLabs.jsx": "1891c881275c48489299a837a8344becd06c6b7ba332e52dfe03d301368dd867",
+    "src/learn/components/lesson-labs/range-query-labs.css": "bc92ad1faed5a34378e50e17627575682dd33112da3ec21f86cbd303ce6da7bf",
+    "src/learn/data/practice/segment-trees-fenwick-trees-range-queries.js": "bdf62a7e31ecec6f1fe9c06ec6088b2985cd1ad944533744de665c2d31292d61",
+    "src/learn/data/curriculum/blueprints/segment-trees-fenwick-trees-range-queries.js": "f1cb8704449a70142d23216aac7a207e9357a330350e7005825027bf4e350db9",
+    "src/learn/components/lesson-labs/range-deque-labs.css": "a48a322dd0cfbc7ce4ffb82b19a4757d50ffecf831c6a1f223b934c4ba4a16a9",
+    "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx": "e7052f4ed8a3c126423afa37be405f4ebb9f319005a3b6db884b96016c350f3d",
+    "src/learn/data/algorithm-correctness-models.js": "27747725d48d0f37f5fe662b95585a3a523a875d37ed3dd90f4e3009c9ccfbc2",
+    "src/learn/data/algorithm-correctness-examples.js": "bd2b5d5a46c66f54653e78f7916bdc1c1ef680240253ec080d3262f1bda48f96",
+    "src/learn/components/lesson-labs/AlgorithmCorrectnessLabs.jsx": "c3d5882db39542b0754bda7916e1754a6dc0e2cc16acb672ba4716b50faf8498",
+    "src/learn/components/lesson-labs/algorithm-correctness-labs.css": "72f336da3665c79411aeb87f4d5adc77bd589a0dab69d0fe9d4f896e141169cb",
+    "src/learn/data/curriculum/blueprints/algorithm-correctness-loop-invariants-termination.js": "4c0ee7d24f673d3663306ab91faa3a39edc1ee2fb6ddb0b8ab24f9bc758cc5f4",
+    "src/learn/data/practice/algorithm-correctness-loop-invariants-termination.js": "0451767caa693d864f39469aa679f1b829cccf3253ad2a163f2a1f70de326dcc",
+    "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx": "c6b8352dd1abc38211a7ed83239e456f3f0d751194170b4641d630f1e0d9d4c4",
+    "src/learn/data/hashing-amortized-models.js": "5c80c4f925a40ec64a31cef051051c197f04b869507f9f2202ce1a1ae0d93393",
+    "src/learn/data/hashing-amortized-examples.js": "5aff2763bcaa5d1c8b0741274e4f8edcfe0c410028a01aef721d042c75f01c0e",
+    "src/learn/components/lesson-labs/HashingAmortizedLabs.jsx": "d5c29019244b2579a1f67fef942159d02b7015f5ac50defb27d8864e8925ba69",
+    "src/learn/components/lesson-labs/hashing-amortized-labs.css": "c77fd154a35f38eb1bb22a19ebb1fabcba8818378388ec8f39d10f4dd7a6a545",
+    "src/learn/data/curriculum/blueprints/hashing-collision-resolution-amortized-analysis.js": "b7ba51b384b9b18b2f908b27e597fc30ad4c2026b73a3b379896d81ab39486ad",
+    "src/learn/data/practice/hashing-collision-resolution-amortized-analysis.js": "d719b273557fc2fcf3d3d68a7dbc0cb8aee364978dc3143a0ee022434c78af9e",
+    "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx": "07dcee3a85272c4f6bf8dd65f76159faf33326fcc9f2f93ab8db4b995baa99b8",
+    "src/learn/data/weighted-graph-examples.js": "9dfd5c61d2a904d9f0e49655af9a58a94a6ee37c89297609067f4bcb2db250f7",
+    "src/learn/data/weighted-graph-models.js": "2e46dad2364acb34626ade4b0680af06f50cc39844a7cc79c24e3f41c0db0b38",
+    "src/learn/components/lesson-labs/WeightedGraphLabs.jsx": "ce6b52a9a1edaf9aabeccd47998256f3898a5b520714a9c9837b434dfbe0e340",
+    "src/learn/components/lesson-labs/weighted-graph-labs.css": "0fd516660f8c0ea88725fbcb3ee06725adf22c63dd0f729891910766372515f4",
+    "src/learn/data/practice/shortest-paths-spanning-trees-topological-ordering.js": "ff767a22f1db14652f32475d10defc8a42a0bb44f02351f35d8bd20ec86b7bb6",
+    "src/learn/data/curriculum/blueprints/shortest-paths-spanning-trees-topological-ordering.js": "cf9d5ee1870be71a716e4e2dce5d1c223ed089b21b8ce943ce5a6a271c366d50",
+    "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": "2c7760c953a78e01c9dde655e4fe036d9552a8b8ca5cb4dee7f7683aa1b7403f",
+    "src/learn/data/string-matching-models.js": "6857a8decf367d569a3ba520dbfcd04f21ec83347647d997244ad2ed892759bb",
+    "src/learn/data/string-matching-examples.js": "006b33c4b902342700d99a2ea1b757b49f0781659cd424b90016817749961612",
+    "src/learn/components/lesson-labs/StringMatchingLabs.jsx": "cdd31069d4c146a8031554d612df61512daabdb55102fe9e45033c50d497b887",
+    "src/learn/components/lesson-labs/string-matching-labs.css": "1d1348b27c32d29a6a72091f72bfa5f85849981992fc1b3b767ccd14c108469b",
+    "src/learn/data/curriculum/blueprints/string-matching-prefix-functions-rolling-hashes.js": "efdae6ef725ccd51d07c6732d39b6696779a6ee4505c3bbd3f969be6596e2bda",
+    "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js": "5aaedcbc43ce4ff1e2db9c03d38a36596b7d315d1abc439e49a155e9522d63ce",
+    "src/learn/data/topics/reductions-p-np-computational-intractability.jsx": "fdc5875df4716b099c7744fb0508eda600b14450da65c489d88ed71313f0379e",
+    "src/learn/data/intractability-models.js": "6bd3e87f56fd2a73c6dc279474e53ee6495a4e32bc54540216c3ec67fd96c168",
+    "src/learn/data/intractability-examples.js": "9877de555b4d9733ac9aff60e55cad039d9a3f321b9321ae44a4d443e85ee22b",
+    "src/learn/components/lesson-labs/IntractabilityLabs.jsx": "a510f867e876c1ff86aca5c2ea494f66444d7ff19e14e688e40d747472e8bba5",
+    "src/learn/components/lesson-labs/intractability-labs.css": "af67fc775a82b26b81dbc59c22f00f8c0b5c414bfae14d5e573c883735edab2a",
+    "src/learn/data/practice/reductions-p-np-computational-intractability.js": "a46d15d2a9fb6008bd4320ed5a4e9c9bca812eec391a94f2199143917be5403e",
+    "src/learn/data/curriculum/blueprints/reductions-p-np-computational-intractability.js": "3287106311cec76776e2ca90955f8049b718b2c4120c3344b0a2b99e3a82f991",
+    "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": "410c36f6376fa5b24b70e46429139863c0b4b09938b723d98f3b29d229a61137",
+    "src/learn/data/randomized-algorithm-models.js": "637f2f9b4ede19506348a0c5ade5f8d18eba3bc688e00e4ac7c892d49c3817b7",
+    "src/learn/data/randomized-algorithm-examples.js": "59a3e6399781b18d4810a8b76ece8172741b5570b152178c63399ee486fa04b2",
+    "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx": "404688d9d04789fca9b8f8c2af7f3c336abaa8c00367c9c8bdca21ccf3cf71c6",
+    "src/learn/components/lesson-labs/randomized-algorithm-labs.css": "02d76f9ff6214b5984a26a7ae147e4205421035b2aeba558220c7ad158e94fa1",
+    "src/learn/data/curriculum/blueprints/randomized-algorithms-sampling-error-guarantees.js": "ea970bcbbe2dfee6f126a09b1a4e040cdc3e1fd96b4cf19a7b594b53481f6172",
+    "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js": "67b00ac1a2c5532617866462e36c096f62289ed1e344b5b0bf7cd17349d13996",
+    "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx": "bcf01af1dca1a5cfd3c6eadcb8ad548ad522c86d1e2fa807f573aceb8a8dfdcc",
+    "src/learn/data/network-flow-models.js": "de1f0050c6d0e68e3ed0693c46a08bbd2d471c098768cf741609e9735bf97e67",
+    "src/learn/data/network-flow-examples.js": "85caf4c93aec4c4226062cba39e14fc3a167fc20db970743cf8d9722bebb70f9",
+    "src/learn/components/lesson-labs/NetworkFlowLabs.jsx": "0ccdd6761b6d6c86883e6275b479ca24446f946bab3375c3e8d6524659d796cc",
+    "src/learn/components/lesson-labs/network-flow-labs.css": "36f6a764ecdaa475b148428ac6c448e0cc73bd1a4ab9147ec8d62dbc325a88de",
+    "src/learn/data/practice/network-flow-minimum-cuts-bipartite-matching.js": "b194bbee11e0bb27ff6f0b0de0fdfd288a141a6430c45c4d3eba246ec4f34aae",
+    "src/learn/data/curriculum/blueprints/network-flow-minimum-cuts-bipartite-matching.js": "7b1e2c9b9fce6e708cefd88d04675ef0ca28995ea08a08769ddf3b3e86998f20",
+    "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx": "86cd3e801ab261c58bacad0e09a223ce300723f117ba6eaa532368fed258dd38",
+    "src/learn/data/computational-geometry-models.js": "cdeec084e7c77f7f0de5c8c8453a9086b47b409a5ee9e2710725670f1b3d615d",
+    "src/learn/data/computational-geometry-examples.js": "0604ad285016a72363515606af24476f96b4213d38c43a25789f99f4599a7ff4",
+    "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx": "a85fbb1a956b332d0f53fd6e5cce2cf4650440a7d0d18787deec13a365a6d7a8",
+    "src/learn/data/curriculum/blueprints/computational-geometry-robust-predicates-convex-hulls.js": "f69e07cfaa26fdf83ee1305ace9be8a2a29e9ae3b2631c786c7adb28a3f09baa",
+    "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js": "f7928a09ffc52455ff9824848c80e36b466bf9d5eaab9acbf5c2bcf3f2db0626",
+    "src/learn/components/lesson-labs/computational-geometry-labs.css": "ead0b07c205c062192f73b2dec0a003fd7da47fea301648d4667b55a41f81a41",
+    "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx": "c17eadb43bb9d4aff6a363e45100b2d298b4077a6953df072215ecc9a9340ce8",
+    "src/learn/data/persistent-structures-models.js": "7f70d1a7119f41c053279abd19057d120330cebeae32b48fa9f2bd99d95c2a13",
+    "src/learn/data/persistent-structures-examples.js": "576e18685645836863935521033ca2d2171dc0810c26a097ae2cb25ab630aca7",
+    "src/learn/components/lesson-labs/PersistentStructuresLabs.jsx": "8e4571ee8ca9fee5c704608f47ff8900a2125f06b245c9c4f362ac75119390e1",
+    "src/learn/components/lesson-labs/persistent-structures-labs.css": "2f404d34e493e9a0103e55ccddc3a8a2bb2b895e311fe934df2e58ff36e6abf5",
+    "src/learn/data/practice/persistent-data-structures-structural-sharing-versioned-queries.js": "ae9d6faec5674e3897046e2c36a33e08175cb1f27622712a4f027b319841849c",
+    "src/learn/data/curriculum/blueprints/persistent-data-structures-structural-sharing-versioned-queries.js": "acbb5254030b741d00d740ab904c7efd87626abf50b95131f5e956d48398cc91",
+    "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "60c6b3a2ec9f590aa4dc67ef3c95b97d49dfee5602d8328b70a2f93ac9f3384f",
+    "src/learn/data/external-memory-models.js": "daf2d5500705d464b79a16a981e1ccccc528b3dd31f427a45cfcb822ff68582b",
+    "src/learn/data/external-memory-examples.js": "0a0f8f74b5f28879e9c352de6d7629bb6c63d78b92ce0b95b1dbde7eae6d68a4",
+    "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx": "92c40ce9c5176fa5fd5637747dc035efafc31f9b06bb1beb10f6a4fb0b883a9e",
+    "src/learn/data/curriculum/blueprints/external-memory-algorithms-b-trees-i-o-complexity.js": "492d9b3dcef07d702962d4d4532e11e9c09b4e3589b934358c7567d2de04ffa0",
+    "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd",
+    "src/learn/components/lesson-labs/external-memory-labs.css": "4051c60ceb370b9bb6f86ead6f5b72443d2c99d7e94372a90e946d925821c3a1"
+  },
+  "buildLogSha256": "2ff1cde61d87aedd52bfb839b172cbad35d5da2a23fae71940751a502a3c9dbe",
+  "buildManifestSha256": "8d0f39e20fcdac7d83e7d3be90a1c665f4144eb9b0402d0cf7baf3d3baa9e587"
+}

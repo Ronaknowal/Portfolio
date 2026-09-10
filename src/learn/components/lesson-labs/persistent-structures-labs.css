@@ -1,0 +1,268 @@
+.persistent-lab,.persistent-visual {
+  margin: 2rem 0;
+  padding: 1.2rem;
+  border: 1px solid #343a3e;
+  background: #0b1014;
+  color: #d9e0e5;
+  border-radius: 5px;
+  min-width: 0
+}
+.persistent-lab h3 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  color: #f0f2f3
+}
+.persistent-lab p,.persistent-visual figcaption {
+  font-size: .98rem;
+  line-height: 1.7
+}
+.persistent-controls {
+  display: flex;
+  gap: .9rem;
+  flex-wrap: wrap;
+  align-items: end;
+  margin: 1rem 0
+}
+.persistent-lab label {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  flex: 1;
+  min-width: 135px;
+  font-size: .9rem
+}
+.persistent-lab input,.persistent-lab select,.persistent-lab button {
+  font: inherit;
+  color: #edf0f2;
+  background: #11191e;
+  border: 1px solid #606d75;
+  border-radius: 4px;
+  min-height: 44px;
+  padding: .5rem .65rem;
+  max-width: 100%;
+  box-sizing: border-box
+}
+.persistent-lab label input {
+  width: 100%
+}
+.persistent-lab button {
+  cursor: pointer;
+  color: #f6c763;
+  margin: .3rem .4rem .3rem 0
+}
+.persistent-lab button:disabled {
+  opacity: .5;
+  cursor: default
+}
+.persistent-lab :focus-visible {
+  outline: 2px solid #ffd376;
+  outline-offset: 3px
+}
+.persistent-lab [role=alert] {
+  border-left: 3px solid #ff967b;
+  padding: .6rem;
+  color: #ffc5b5
+}
+.persistent-result {
+  border-left: 3px solid #79c9a6;
+  padding: .7rem;
+  background: #12201a
+}
+.persistent-scroll {
+  max-width: 100%;
+  overflow: auto;
+  margin: 1rem 0;
+  overscroll-behavior-inline: contain
+}
+.persistent-dag {
+  max-width: none;
+  display: block;
+  height: auto
+}
+.persistent-lab svg text,.persistent-visual svg text {
+  fill: #e0e7eb;
+  font-family: ui-monospace,monospace;
+  font-size: 18px;
+  text-anchor: middle
+}
+.persistent-lab svg path,.persistent-visual svg path {
+  stroke: #a7b9c5;
+  stroke-width: 2;
+  fill: none
+}
+.persistent-lab svg marker path,.persistent-visual svg marker path {
+  fill: #a7b9c5;
+  stroke: none
+}
+.persistent-lab svg rect,.persistent-visual svg rect {
+  fill: #16232c;
+  stroke: #8ca1b0;
+  stroke-width: 2
+}
+.persistent-lab svg .new-node rect {
+  stroke: #f2bf59;
+  stroke-width: 3
+}
+.persistent-lab svg rect.query-node {
+  stroke: #75d3a3;
+  stroke-width: 5
+}
+.persistent-lab svg text.interval {
+  font-size: 16px
+}
+.persistent-stack svg {
+  display: block;
+  max-width: 360px;
+  width: 100%;
+  margin: auto
+}
+.persistent-copy-figure svg {
+  display: block;
+  max-width: 400px;
+  width: 100%;
+  margin: auto
+}
+.persistent-copy-figure svg rect.copied {
+  stroke: #f2bf59;
+  stroke-width: 3
+}
+.persistent-copy-figure svg text.shared-label {
+  font-size: 16px;
+  fill: #a6ddc2
+}
+.persistent-visual svg rect.shared {
+  fill: #143126;
+  stroke: #7fd2a5
+}
+.persistent-lab table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: .9rem;
+  line-height: 1.5
+}
+.persistent-lab td,.persistent-lab th {
+  text-align: left;
+  padding: .6rem;
+  border-bottom: 1px solid #344149;
+  white-space: nowrap
+}
+.persistent-lab caption {
+  text-align: left;
+  white-space: normal;
+  margin-bottom: .7rem;
+  color: #bdcbd4
+}
+.persistent-lab details {
+  padding: .8rem 0;
+  border-top: 1px solid #344149;
+  margin-top: 1rem
+}
+.persistent-lab summary {
+  cursor: pointer;
+  line-height: 1.7;
+  min-height: 35px;
+  color: #f0d39b
+}
+.persistent-lab ol,.persistent-lab ul {
+  padding-inline-start: 1.4rem;
+  margin-inline: 0;
+}
+.persistent-handles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem
+}
+.persistent-lab .persistent-handles label {
+  flex: 0 0 104px;
+  min-width: 104px;
+  min-height: 44px;
+  flex-direction: row;
+  align-items: center
+}
+.persistent-handles input {
+  width: 22px!important;
+  min-height: 22px;
+  flex-shrink: 0
+}
+.persistent-allocation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 1rem 0
+}
+.persistent-allocation span {
+  font: .85rem ui-monospace,monospace;
+  border: 1px solid #4c7967;
+  padding: .45rem;
+  border-radius: 4px
+}
+.persistent-allocation .live {
+  background: #183429;
+  color: #c5efda
+}
+.persistent-allocation .released {
+  border-style: dashed;
+  color: #a9b1b7
+}
+.persistent-timeline {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #6f808b;
+  padding: 1rem 0
+}
+.persistent-timeline>div {
+  border: 1px solid #6e7a82;
+  padding: .8rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  flex: 1;
+  min-width: 105px
+}
+.persistent-timeline strong {
+  font-size: 1.5rem;
+  color: #e8edf0
+}
+.persistent-timeline .chosen {
+  border: 3px solid #f2bf59;
+  background: #2b2518
+}
+.persistent-timeline .future {
+  border-style: dashed;
+  color: #acb2b7
+}
+.persistent-histogram td {
+  text-align: center
+}
+.persistent-histogram td span {
+  display: block;
+  color: #8ddbbb;
+  letter-spacing: 2px;
+  min-height: 24px
+}
+.persistent-histogram td.active-bucket {
+  background: #263125;
+  border-top: 2px solid #e9bd69
+}
+@media(max-width:500px) {
+  .persistent-lab,.persistent-visual {
+    padding: .8rem
+  }
+  .persistent-controls {
+    display: grid;
+    grid-template-columns: 1fr
+  }
+  .persistent-lab label {
+    min-width: 0
+  }
+  .persistent-lab table {
+    font-size: .85rem
+  }
+  .persistent-lab td,.persistent-lab th {
+    padding: .45rem
+  }
+  .persistent-timeline {
+    gap: .6rem
+  }
+}

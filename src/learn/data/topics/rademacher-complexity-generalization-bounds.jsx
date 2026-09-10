@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 

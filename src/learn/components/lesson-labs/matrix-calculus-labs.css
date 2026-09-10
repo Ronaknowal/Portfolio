@@ -1,0 +1,60 @@
+.calculus-investigation, .calculus-inline { color: #ded5bf; border-block: 1px solid #51482f; padding: 24px 0; margin: 32px 0; font-size: 14px; line-height: 1.75; }
+.calculus-investigation *, .calculus-inline * { box-sizing: border-box; }
+.calculus-investigation h3 { font-size: 24px; line-height: 1.35; color: #eadcb8; margin: 0 0 14px; }
+.calculus-inline figcaption { color: #e8c77e; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.calculus-controls { display: flex; flex-wrap: wrap; gap: 16px; margin: 20px 0; align-items: end; }
+.calculus-controls label { flex: 1 1 200px; display: grid; gap: 6px; min-width: 0; }
+.calculus-controls output { font-weight: 700; color: #efce85; }
+.calculus-investigation :is(button,input,select) { min-height: 44px; max-width: 100%; color: #e8d9b8; background: #242117; border: 1px solid #93815a; border-radius: 2px; font: inherit; padding: 8px 10px; }
+.calculus-investigation input[type=range] { width: 100%; padding: 0; accent-color: #dbb360; }
+.calculus-investigation button, .calculus-investigation summary, .calculus-practice summary { cursor: pointer; }
+.calculus-investigation button:disabled { opacity: .45; cursor: default; }
+.calculus-investigation :is(button,input,select,summary,[tabindex]):focus-visible, .calculus-inline [tabindex]:focus-visible, .calculus-practice summary:focus-visible { outline: 2px solid #efc66f; outline-offset: 3px; }
+.calculus-investigation summary, .calculus-practice summary { color: #ddbd7b; min-height: 44px; padding: 10px 0; }
+.calculus-two-plots, .calculus-results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; align-items: center; }
+.calculus-plot { display: block; width: 100%; max-width: 410px; margin-inline: auto; height: auto; }
+.calculus-plot text { fill: #d8caad; font-size: 13px; }
+.calculus-plot .calculus-axis-note { font-size: 10px; }
+.calculus-axis { stroke: #a59677; fill: none; stroke-width: 1; }
+.calculus-grid line { stroke: #343b31; stroke-width: .75; }
+.calculus-grid text { font-size: 11px; }
+.calculus-curve { fill: none; stroke-width: 2.6; }
+.calculus-curve.actual { stroke: #e9c273; }
+.calculus-curve.linear { stroke: #96c5d0; stroke-dasharray: 6 4; }
+.calculus-marker { stroke: #82765b; stroke-dasharray: 2 4; }
+.calculus-mark.actual { fill: #edc66d; }
+.calculus-mark.linear { fill: #96c5d0; }
+.calculus-matrices { display: flex; flex-wrap: wrap; gap: 22px; align-items: start; }
+.calculus-matrix-region { min-width: 0; max-width: 100%; overflow-x: auto; margin: 14px 0; }
+.calculus-matrix { border-collapse: separate; border-spacing: 5px; font-variant-numeric: tabular-nums; }
+.calculus-matrix caption { color: #dbbd77; text-align: left; padding-bottom: 8px; font-size: 12px; max-width: 200px; }
+.calculus-matrix td { min-width: 48px; padding: 10px; text-align: center; border: 1px solid #565d48; background: #20271c; }
+.calculus-matrix td.is-selected { background: #554725; border-color: #e3b852; outline: 1px solid #e3b852; }
+.calculus-matrix td:has(button) { padding: 0; }
+.calculus-matrix button { border: 0; background: transparent; width: 100%; min-width: 46px; }
+.calculus-labelled-jacobian, .calculus-differences { border-collapse: collapse; width: 100%; font-size: 13px; }
+.calculus-labelled-jacobian :is(td,th), .calculus-differences :is(td,th) { padding: 10px; text-align: left; border-bottom: 1px solid #51482f; }
+.calculus-labelled-jacobian td { text-align: center; color: #e8c573; }
+.calculus-differences { min-width: 390px; }
+.calculus-direction { font-weight: 700; color: #dfc68a; }
+.calculus-chain { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 22px; list-style: none; padding: 0; }
+.calculus-chain li { position: relative; border-top: 2px solid #5c634e; padding: 16px 4px; display: grid; gap: 10px; align-content: start; overflow-wrap: anywhere; }
+.calculus-chain li:not(:last-child)::after { content: '→'; position: absolute; right: -20px; top: 25px; color: #b8a16f; }
+.calculus-chain li.is-active { border-color: #edc66d; background: #dbc2640a; }
+.calculus-chain strong { color: #ead4a5; }
+.calculus-derivative { color: #9fc5ce; }
+.calculus-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.calculus-contributions { border-left: 2px solid #ae9156; padding: 4px 16px; margin: 18px 0; }
+.calculus-branch { display: grid; gap: 10px; }
+.calculus-branch p { border-left: 2px solid #719397; padding-left: 14px; }
+.calculus-shared-bias { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.calculus-practice { border-top: 1px solid #51482f; margin: 26px 0; padding-top: 16px; }
+.matrix-calculus-lesson .katex-display { overflow-x: auto; overflow-y: hidden; padding-block: 4px; }
+@media (max-width: 620px) {
+  .calculus-two-plots, .calculus-results, .calculus-shared-bias { grid-template-columns: 1fr; }
+  .calculus-chain { grid-template-columns: 1fr; gap: 22px; }
+  .calculus-chain li { padding: 12px; }
+  .calculus-chain li:not(:last-child)::after { content: '↓'; left: 16px; right: auto; top: auto; bottom: -26px; }
+  .calculus-investigation h3 { font-size: 22px; }
+  .calculus-labelled-jacobian :is(td,th) { padding: 8px 5px; }
+}

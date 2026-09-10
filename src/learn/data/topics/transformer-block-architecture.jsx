@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -943,7 +944,7 @@ from transformers.models.llama.modeling_llama   import LlamaDecoderLayer
       <H3>9.5 Dropout at the wrong position</H3>
 
       <Prose>
-        Dropout belongs <em>inside</em> the sublayer — on the attention weights (after softmax), on the FFN's hidden activations, and optionally on the sublayer output before it is added to the residual. It does <em>not</em> belong after the residual, because doing so breaks the identity path that residual connections depend on: the model can no longer propagate an unchanged signal through a layer, since dropout will randomly zero it. Symptoms: unstable training with large dropout rates (>0.2); validation loss that is erratic across epochs; sensitivity to the dropout seed that no normal architecture has. Fix: in PyTorch, use {"nn.MultiheadAttention(dropout=p)"} for attention-weight dropout and add dropout between the FFN's two linears, not after the residual add. For models above 1B parameters, drop dropout entirely — Llama uses zero dropout.
+        Dropout belongs <em>inside</em> the sublayer — on the attention weights (after softmax), on the FFN's hidden activations, and optionally on the sublayer output before it is added to the residual. It does <em>not</em> belong after the residual, because doing so breaks the identity path that residual connections depend on: the model can no longer propagate an unchanged signal through a layer, since dropout will randomly zero it. Symptoms: unstable training with large dropout rates (&gt;0.2); validation loss that is erratic across epochs; sensitivity to the dropout seed that no normal architecture has. Fix: in PyTorch, use {"nn.MultiheadAttention(dropout=p)"} for attention-weight dropout and add dropout between the FFN's two linears, not after the residual add. For models above 1B parameters, drop dropout entirely — Llama uses zero dropout.
       </Prose>
 
       <H3>9.6 Mixing architectures between training and inference</H3>

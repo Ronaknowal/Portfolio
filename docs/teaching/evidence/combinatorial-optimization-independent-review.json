@@ -1,0 +1,68 @@
+{
+  "topicId": "combinatorial-optimization-approximation-algorithms",
+  "reviewClosedAt": "2026-09-10T19:02:07.885242+00:00",
+  "status": "independent finite review complete; no unresolved material issue",
+  "executedReview": {
+    "checkedAt": "2026-09-10T18:56:01.909047+00:00",
+    "actualDisplayedPrograms": 10,
+    "rectangularSignedMissingAssignmentStates": 228,
+    "independentlyEnumeratedStageCosts": 554,
+    "independentlyRebuiltResidualClosures": 228,
+    "changedScalingStates": 54,
+    "exactRoundedObjectiveChecks": 45,
+    "signedGreedyForestChecks": 40,
+    "allPassed": true,
+    "sourceHashes": [
+      {
+        "file": "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx",
+        "sha256": "08208a16b3d083069099564e0db29845a8d386c8c75825e94881f27b97e38118"
+      },
+      {
+        "file": "src/learn/data/combinatorial-optimization-models.js",
+        "sha256": "3f04f45e48774be13206264d3143e8607eddac126264472b8bb485b3ac42dcf1"
+      },
+      {
+        "file": "src/learn/data/combinatorial-optimization-examples.js",
+        "sha256": "957b6359d75d71df6fd06a6b56ba76d0e5b782104456d1015d6662a662290fdc"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx",
+        "sha256": "ca48fe00bc131e76a34db7fe04c680f3a43c785be0fd64f7edb1664ac2b3ed85"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/combinatorial-optimization-labs.css",
+        "sha256": "1826eb2c413bf2bad561cd71c27cf5c0c63b6853eb90033a2e37c7e8f349a953"
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/combinatorial-optimization-approximation-algorithms.js",
+        "sha256": "40a5550ad2e2eb525b1ef8ab42b57c2dc25502c5b720f8182f46788c22bcebf3"
+      }
+    ]
+  },
+  "finalAuthorFreeze": "2026-09-10T18:58:36.802Z",
+  "finalSourceHashes": {
+    "src/learn/data/topics/combinatorial-optimization-approximation-algorithms.jsx": "6b1ffdcc3d5f6c350cd57aaf3f3fe8bace7c4a1417929dea6c51f299c2098eda",
+    "src/learn/data/combinatorial-optimization-models.js": "3f04f45e48774be13206264d3143e8607eddac126264472b8bb485b3ac42dcf1",
+    "src/learn/data/combinatorial-optimization-examples.js": "957b6359d75d71df6fd06a6b56ba76d0e5b782104456d1015d6662a662290fdc",
+    "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx": "ca48fe00bc131e76a34db7fe04c680f3a43c785be0fd64f7edb1664ac2b3ed85",
+    "src/learn/components/lesson-labs/combinatorial-optimization-labs.css": "1826eb2c413bf2bad561cd71c27cf5c0c63b6853eb90033a2e37c7e8f349a953",
+    "src/learn/data/curriculum/blueprints/combinatorial-optimization-approximation-algorithms.js": "40a5550ad2e2eb525b1ef8ab42b57c2dc25502c5b720f8182f46788c22bcebf3"
+  },
+  "resolvedFinding": {
+    "severity": "wording clarification",
+    "original": "a different weighted objective",
+    "final": "a different, unweighted objective",
+    "scope": "Practice 2; all five other owned production sources unchanged",
+    "closure": "Final wording and current six source hashes independently inspected; author final-reading-results records actual rendering at 1440/390/320, not rerun by reviewer"
+  },
+  "independentVisualReview": [
+    "scratch/combinatorial-optimization-review/browser/assignment-refund-1440.png",
+    "scratch/combinatorial-optimization-review/browser/scaling-fine-320.png",
+    "scratch/combinatorial-optimization-review/browser/vertex-fractional-390.png"
+  ],
+  "limits": [
+    "Finite source/mathematical/numerical review, not arbitrary-input exhaustive proof",
+    "Author browser operation is attributed; reviewer opened three author screenshots",
+    "Production integration and user acceptance remain separate"
+  ]
+}

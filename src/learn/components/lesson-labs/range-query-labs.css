@@ -1,0 +1,74 @@
+.range-lab, .range-figure { --rq-line: #343a42; --rq-amber: #efbf53; --rq-green: #72d39c; margin: 1.8rem 0; padding: 1.1rem; border: 1px solid var(--rq-line); background: #0b0f13; color: #d5d7da; border-radius: 5px; min-width: 0; }
+.range-lab h3 { margin: .45rem 0 .8rem; color: #f0f0ee; font-size: 1.22rem; }
+.range-lab p, .range-figure p { font-size: .92rem; line-height: 1.65; }
+.range-eyebrow { color: var(--rq-amber); font-family: var(--font-mono, monospace); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.range-controls { display: flex; flex-wrap: wrap; align-items: end; gap: .7rem; margin: 1rem 0; }
+.range-field { display: flex; flex: 1 1 120px; flex-direction: column; gap: .3rem; max-width: 100%; font-size: .78rem; color: #b8c0c9; }
+.range-field:has(input[type=text]) { flex-basis: 280px; }
+.range-field input, .range-field select, .range-lab button { min-height: 44px; border: 1px solid #4a535f; border-radius: 3px; background: #10161d; color: #e4e6e8; padding: .5rem .65rem; font: inherit; max-width: 100%; }
+.range-field input, .range-field select { width: 100%; box-sizing: border-box; }
+.range-lab button { cursor: pointer; color: var(--rq-amber); font-size: .8rem; }
+.range-lab button:disabled { cursor: default; opacity: .48; }
+.range-lab :focus-visible, .range-figure :focus-visible { outline: 2px solid var(--rq-amber); outline-offset: 3px; }
+.range-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-color: #697685 #11171e; margin: .8rem 0; }
+.range-cells { display: flex; width: max-content; min-width: min(100%, 180px); gap: 3px; }
+.range-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 48px; min-height: 59px; background: #141b23; border: 1px solid #38414c; box-sizing: border-box; }
+.range-cell small { color: #b4bdc7; font-size: 11px; }
+.range-cell strong { font: 17px var(--font-mono, monospace); color: #eff0ee; }
+.range-cell.is-active { background: #173225; border-color: var(--rq-green); }
+.range-tree { display: block; overflow: visible; margin: auto; max-width: none; }
+.range-tree line { stroke: #626d7b; stroke-width: 1.5; }
+.range-tree rect { fill: #151c24; stroke: #647183; }
+.range-tree text { text-anchor: middle; fill: #e5e7e9; font-family: var(--font-mono, monospace); }
+.range-tree .range-node-interval { font-size: 12px; }
+.range-tree .range-node-value { font-size: 17px; font-weight: 600; }
+.range-tree .range-node-tag { font-size: 12px; fill: var(--rq-amber); }
+.range-tree .is-selected rect { fill: #183c2c; stroke: var(--rq-green); stroke-width: 2; }
+.range-tree .is-current rect { stroke: var(--rq-amber); stroke-width: 3; }
+.range-tree .is-padding rect, .range-tree .is-dirty rect { stroke-dasharray: 4 3; }
+.range-tree .is-padding text { fill: #a1aab5; }
+.range-lab .range-key { color: #b6c0cc; font-size: .78rem; }
+.range-steps { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .8rem 0; }
+.range-steps span { font-size: .78rem; color: #b8c0cb; }
+.range-event { border-left: 3px solid var(--rq-amber); padding: .65rem .8rem; background: #151a1f; min-height: 3.5em; }
+.range-error { color: #ffa8a8; }
+.range-pan-hint { display: none; }
+.range-transfer { border-top: 1px solid var(--rq-line); padding-top: .85rem; }
+.range-accumulators, .range-readout { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin: 1rem 0; }
+.range-accumulators > div { flex: 1; min-width: 100px; display: flex; flex-direction: column; gap: .25rem; padding: .75rem; border: 1px solid #557a65; }
+.range-accumulators strong { color: var(--rq-green); font: 1.5rem var(--font-mono, monospace); }
+.range-accumulators small, .range-accumulators span, .range-readout span { font-size: .8rem; }
+.range-readout span { display: flex; flex-direction: column; gap: .25rem; }
+.range-readout b { color: var(--rq-green); }
+.range-data summary { cursor: pointer; min-height: 44px; line-height: 44px; font-size: .83rem; }
+.range-lab table, .range-figure table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.range-lab td, .range-lab th, .range-figure td, .range-figure th { text-align: left; padding: .6rem; border-bottom: 1px solid var(--rq-line); min-width: 75px; }
+.range-figure figcaption { color: #e8e9eb; font-weight: 600; font-size: 1rem; }
+.range-equation { display: flex; flex-direction: column; gap: .4rem; border-left: 3px solid var(--rq-green); padding: .6rem .8rem; font-size: .9rem; }
+.range-equation strong { color: var(--rq-green); }
+.fenwick-heading, .fenwick-lane { display: flex; align-items: center; min-height: 61px; }
+.fenwick-heading > span, .fenwick-lane > span { width: 130px; flex-shrink: 0; font-family: var(--font-mono, monospace); font-size: 12px; }
+.fenwick-lane > span small { display: block; color: #abb6c3; margin-top: .3rem; }
+.fenwick-array { display: flex; }
+.fenwick-array > div { width: 48px; display: flex; flex-direction: column; text-align: center; }
+.fenwick-array small { color: #b9c3ce; font-size: 11px; }
+.fenwick-array strong { font-size: 16px; }
+.fenwick-track { position: relative; height: 56px; flex: 1; background: repeating-linear-gradient(90deg, transparent 0 47px, #2b343e 47px 48px); }
+.fenwick-track > div { position: absolute; height: 48px; top: 4px; border: 1px solid #637084; background: #17212d; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; }
+.fenwick-track strong { font-size: 15px; }
+.fenwick-track small { font: 11px var(--font-mono, monospace); }
+.fenwick-lane.is-selected .fenwick-track > div { background: #173b2b; border-color: var(--rq-green); }
+.fenwick-lane.is-current .fenwick-track > div { outline: 2px solid var(--rq-amber); outline-offset: -2px; }
+@media (max-width: 480px) {
+  .range-lab .range-pan-hint, .range-figure .range-pan-hint { display: block; color: #bdc8d4; font-size: .76rem; }
+  .range-lab, .range-figure { padding: .7rem; }
+  .range-controls { gap: .6rem; }
+  .range-controls > button { flex: 1 1 130px; }
+  .range-steps > button { flex: 1 1 100px; }
+  .range-steps > span { flex-basis: 100%; order: -1; }
+}
+@media (max-width: 360px) {
+  .range-accumulators { flex-direction: column; align-items: stretch; gap: .45rem; }
+  .range-accumulators > span { text-align: center; }
+  .range-accumulators > div { min-width: 0; }
+}

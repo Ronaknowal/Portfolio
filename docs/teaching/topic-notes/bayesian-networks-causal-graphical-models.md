@@ -1,0 +1,12 @@
+# Bayesian Networks & Causal Graphical Models — destination notes
+
+## 2026-09-10 — Repair the education/training adjustment exercise
+
+- Status: open; receiving author must reassess during that topic's next authorized rewrite.
+- Origin: scoped Causal Inference & Do-Calculus design, `docs/teaching/CAUSAL-INFERENCE-LESSON-DESIGN.md`. Exact topic-plan CLI confirms this published owner and no existing note. No Bayesian Networks body was changed.
+- Actual source: `src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx`, exercise4 around lines991–996. Its stated edges are S→E, S→Y, E→T and T→Y. The prompt asserts that E alone is not a valid backdoor set, while its answer contradicts itself several times and eventually admits validity.
+- Correct reasoning for the stated graph: the sole backdoor path T←E←S→Y is blocked by conditioning on E, a non-collider that is not a descendant of T. Both {E} and {S} are valid backdoor sets, subject to required data support. Conditioning on E creates no additional path in this graph. There is no general preference justified merely by calling S more upstream; precision, cost and assumptions need their own evidence.
+- Proposed treatment: rewrite the prompt as a comparison or diagnosis, draw the actual path, and provide one coherent answer. If the author intends a counterexample where E is invalid, change and justify the graph explicitly rather than retaining contradictory prose.
+- Adjacent scope concern: section9.3's claim that an unobserved common cause means no observed set can block any relevant path is too broad. An observed non-collider elsewhere on a backdoor path may suffice; other graphs permit frontdoor identification. Review against the exact graph and distinguish lack of a valid backdoor set from general nonidentification.
+- Sources/validation: Pearl's d-separation/backdoor definitions in `https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf`, printed pp2517–2519, plus the original four-edge graph's path enumeration. The current causal lesson will derive the criteria locally; the receiving author should independently execute the changed exercise and check surrounding graphical claims.
+- Boundaries: this is one concrete correctness discovery, not a full audit or authorization to rewrite the separate Bayesian Networks topic. Preserve its useful factorization/inference content and do not make it a hidden prerequisite of the causal foundations lesson.

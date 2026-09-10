@@ -1,0 +1,640 @@
+{
+  "frozenAt": "2026-09-10T16:25:20.517Z",
+  "files": {
+    "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": "a57be40c56de4099b9ddc99ff4d9185071d2ca790e56425759fb6aa0a72b1839",
+    "src/learn/data/optimal-transport-models.js": "708de3b363dfcb6231907edcd0abe56da25e30e60f772a43bfe99eb428aa195b",
+    "src/learn/data/optimal-transport-examples.js": "47fab6c1d8e3e40c68fcf0c7c7fcb990ae514f04e06ed3c7e545c2f8bba130b2",
+    "src/learn/components/lesson-labs/OptimalTransportLabs.jsx": "d61276a4fb2ab8ac32c2fc44fd3658a8d0a92644920eed64538f9eb0c34aed1a",
+    "src/learn/components/lesson-labs/optimal-transport-labs.css": "8a68bade1e9934c855e1bd588e6ac58691aa7d3094d806f8d23f77b11c17c960",
+    "src/learn/data/curriculum/blueprints/optimal-transport-wasserstein-distance-sinkhorn.js": "c950437f35f6f30b0208e02cbd6d22101cd453d14205a21def4e65d7ae0d42d0"
+  },
+  "native": {
+    "at": "2026-09-10T16:17:24.813421+00:00",
+    "python": "3.12.14",
+    "scipy": "1.18.1",
+    "numpy": "2.3.5",
+    "numericComparisons": 8570,
+    "independentTwoLocationLPs": 484,
+    "orderedLPs": 180,
+    "programs": [
+      "originalScaling",
+      "twoLocationCertificate",
+      "weightedLine",
+      "linearProgram",
+      "stableSinkhorn",
+      "projection",
+      "relaxedMass",
+      "slicedDirections"
+    ],
+    "practiceReferences": {
+      "changed_plan": "13/10",
+      "root_units": "[Fraction(3, 2), Fraction(3, 1)]",
+      "cdf_changed": "1",
+      "entropy_self": "-2.006408868078168",
+      "projection_variance": "3"
+    },
+    "scope": "Independent finite LP/scalar minimization/direct matrix normalization, SciPy W1, exact practice arithmetic and exact native stdout. No theorem proof is inferred from numeric coverage."
+  },
+  "models": {
+    "at": "2026-09-10T16:17:24.906Z",
+    "modelCases": {
+      "twoLocation": 1452,
+      "ordered": 180,
+      "scaling": 36,
+      "equalWeight": 24,
+      "comparisons": 15,
+      "stability": 11,
+      "cumulative": 12
+    },
+    "invalidContracts": 13,
+    "proseBlocks": 89,
+    "localLinks": [
+      "rectified-flow-flow-matching",
+      "gan-variants-dcgan-wgan-stylegan-cyclegan-pix2pix",
+      "distributional-rl-c51-qr-dqn-iqn",
+      "causal-inference-do-calculus"
+    ],
+    "nodeOnlyWorstCaseMilliseconds": {
+      "minimum": 9.156500000000051,
+      "maximum": 12.033800000000042,
+      "median": 9.540099999999995,
+      "note": "15 warm local Node measurements of the bounded5000-sweep2x2 case; not browser or universal timing."
+    }
+  },
+  "browser": {
+    "at": "2026-09-10T16:20:13.429Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 18,
+        "keyboardControls": 28,
+        "keyboardTables": 0,
+        "changedControlMilliseconds": 58.85580000000027,
+        "equations": [
+          {
+            "index": 0,
+            "width": 760,
+            "scroll": 760,
+            "text": "πij≥0,∑jπij=ai,∑iπij=bj,∑iai=∑jbj=1.\\begin{gathered}\n\\pi_{ij}\\geq0,\\qquad \\sum_j\\pi_{ij}=a_i,\\\\\n\\sum_i\\pi_{ij}=b_j,\\\\\n\\sum_i a_i=\\sum_j b_j=1.\n\\end{gathered}πij​≥0,j∑​πij​=ai​,i∑​π"
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "scroll": 760,
+            "text": "C=[0121],π∗=[.500.5].C=\\begin{bmatrix}0&1\\\\2&1\\end{bmatrix},\n\\qquad \\pi^*=\\begin{bmatrix}.5&0\\\\0&.5\\end{bmatrix}.C=[02​11​],π∗=[.50​0.5​]."
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "scroll": 760,
+            "text": "π(t)=[ta−tb−t1−a−b+t],max⁡(0,a+b−1)≤t,t≤min⁡(a,b).\\begin{gathered}\n\\pi(t)=\n\\begin{bmatrix}t&a-t\\\\b-t&1-a-b+t\\end{bmatrix},\\\\\n\\max(0,a+b-1)\\leq t,\\\\\nt\\leq\\min(a,b).\n\\end{gathered}π("
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "scroll": 760,
+            "text": "TC(a,b)=min⁡π∈Π(a,b)⟨C,π⟩,⟨C,π⟩=∑i,jCijπij.\\begin{gathered}\n\\mathcal T_C(a,b)=\n\\min_{\\pi\\in\\Pi(a,b)}\\langle C,\\pi\\rangle,\\\\\n\\langle C,\\pi\\rangle=\\sum_{i,j}C_{ij}\\pi_{ij}.\n\\end{gath"
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "scroll": 760,
+            "text": "Cij=d(xi,yj)r,Wr(α,β)=(min⁡π∈Π(a,b)⟨C,π⟩)1/r.\\begin{gathered}\nC_{ij}=d(x_i,y_j)^r,\\\\\nW_r(\\alpha,\\beta)=\n\\left(\\min_{\\pi\\in\\Pi(a,b)}\n\\langle C,\\pi\\rangle\\right)^{1/r}.\n\\end{gathered"
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "scroll": 760,
+            "text": "Rijk=PijQjkbj(bj>0),Sik=∑j:bj>0Rijk.\\begin{gathered}\nR_{ijk}=\\frac{P_{ij}Q_{jk}}{b_j}\\quad(b_j>0),\\\\\nS_{ik}=\\sum_{j:b_j>0}R_{ijk}.\n\\end{gathered}Rijk​=bj​Pij​Qjk​​(bj​>0),Sik​=j:bj"
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "scroll": 760,
+            "text": "fi+gj≤Cijfor every route,D(f,g)=∑iaifi+∑jbjgj.\\begin{gathered}\nf_i+g_j\\leq C_{ij}\\quad\\text{for every route},\\\\\nD(f,g)=\\sum_i a_if_i+\\sum_j b_jg_j.\n\\end{gathered}fi​+gj​≤Cij​for ev"
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "scroll": 760,
+            "text": "⟨C,π⟩−D(f,g)=∑i,jπij(Cij−fi−gj)≥0.\\begin{gathered}\n\\langle C,\\pi\\rangle-D(f,g)\\\\\n=\\sum_{i,j}\\pi_{ij}(C_{ij}-f_i-g_j)\\geq0.\n\\end{gathered}⟨C,π⟩−D(f,g)=i,j∑​πij​(Cij​−fi​−gj​)≥0.​"
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "scroll": 760,
+            "text": "L=⟨C,π⟩+f⊤(a−π1)+g⊤(b−π⊤1)=a⊤f+b⊤g+∑i,jπij(Cij−fi−gj).\\begin{gathered}\n\\begin{aligned}\nL&=\\langle C,\\pi\\rangle\\\\\n&\\quad+f^\\top(a-\\pi\\mathbf1)\\\\\n&\\quad+g^\\top(b-\\pi^\\top\\mathbf1)\\\\\n"
+          },
+          {
+            "index": 9,
+            "width": 760,
+            "scroll": 760,
+            "text": "W1(α,β)=∫R∣Fα(x)−Fβ(x)∣ dx.\\begin{gathered}\nW_1(\\alpha,\\beta)\\\\\n=\\int_{\\mathbb R}|F_\\alpha(x)-F_\\beta(x)|\\,dx.\n\\end{gathered}W1​(α,β)=∫R​∣Fα​(x)−Fβ​(x)∣dx.​"
+          },
+          {
+            "index": 10,
+            "width": 760,
+            "scroll": 760,
+            "text": "Wr(α,β)r=∫01∣Fα−1(u)−Fβ−1(u)∣r du.\\begin{gathered}\nW_r(\\alpha,\\beta)^r\\\\\n=\\int_0^1|F_\\alpha^{-1}(u)-F_\\beta^{-1}(u)|^r\\,du.\n\\end{gathered}Wr​(α,β)r=∫01​∣Fα−1​(u)−Fβ−1​(u)∣rdu.​"
+          },
+          {
+            "index": 11,
+            "width": 760,
+            "scroll": 760,
+            "text": "Fε(a,b)=min⁡π∈Π(a,b)Jε(π),Jε(π)=⟨C,π⟩+ε∑i,jπij(log⁡πij−1),ε>0.\\begin{gathered}\nF_\\varepsilon(a,b)=\\min_{\\pi\\in\\Pi(a,b)}J_\\varepsilon(\\pi),\\\\\n\\begin{aligned}\nJ_\\varepsilon(\\pi)&=\\la"
+          },
+          {
+            "index": 12,
+            "width": 760,
+            "scroll": 760,
+            "text": "Cij+εlog⁡πij−fi−gj=0,πij=efi/ε e−Cij/ε egj/ε=uiKijvj.\\begin{gathered}\nC_{ij}+\\varepsilon\\log\\pi_{ij}-f_i-g_j=0,\\\\\n\\pi_{ij}\n=e^{f_i/\\varepsilon}\\,\ne^{-C_{ij}/\\varepsilon}\\,\ne^{g_j/\\"
+          },
+          {
+            "index": 13,
+            "width": 760,
+            "scroll": 760,
+            "text": "u←a / (Kv),v←b / (K⊤u).\\begin{gathered}\nu\\leftarrow a\\,/\\,(Kv),\\\\\nv\\leftarrow b\\,/\\,(K^\\top u).\n\\end{gathered}u←a/(Kv),v←b/(K⊤u).​"
+          },
+          {
+            "index": 14,
+            "width": 760,
+            "scroll": 760,
+            "text": "t=.51+exp⁡(Δ/(2ε)).t=\n\\frac{.5}{1+\\exp(\\Delta/(2\\varepsilon))}.t=1+exp(Δ/(2ε)).5​."
+          },
+          {
+            "index": 15,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ai←log⁡ai−LSE⁡j(ℓij+Bj),Bj←log⁡bj−LSE⁡i(ℓij+Ai).\\begin{gathered}\nA_i\\leftarrow\\log a_i-\n\\operatorname{LSE}_j(\\ell_{ij}+B_j),\\\\\nB_j\\leftarrow\\log b_j-\n\\operatorname{LSE}_i(\\ell_{ij}"
+          },
+          {
+            "index": 16,
+            "width": 760,
+            "scroll": 760,
+            "text": "LSE⁡(z)=M+log⁡∑kezk−M,M=max⁡kzk.\\begin{gathered}\n\\operatorname{LSE}(z)=M+\\log\\sum_k e^{z_k-M},\\\\\nM=\\max_k z_k.\n\\end{gathered}LSE(z)=M+logk∑​ezk​−M,M=kmax​zk​.​"
+          },
+          {
+            "index": 17,
+            "width": 760,
+            "scroll": 760,
+            "text": "0≤⟨C,πε⟩−⟨C,π∗⟩≤ε[H(πε)−H(π∗)]≤εmin⁡{H(a),H(b)}.\\begin{gathered}\n0\\leq \\langle C,\\pi_\\varepsilon\\rangle\n-\\langle C,\\pi^*\\rangle\\\\\n\\leq\\varepsilon\\bigl[H(\\pi_\\varepsilon)-H(\\pi^*)\\b"
+          },
+          {
+            "index": 18,
+            "width": 760,
+            "scroll": 760,
+            "text": "Sε(α,β)=Fε(α,β)−12Fε(α,α)−12Fε(β,β).\\begin{gathered}\nS_\\varepsilon(\\alpha,\\beta)=F_\\varepsilon(\\alpha,\\beta)\\\\\n-\\tfrac12F_\\varepsilon(\\alpha,\\alpha)\n-\\tfrac12F_\\varepsilon(\\beta,\\b"
+          },
+          {
+            "index": 19,
+            "width": 760,
+            "scroll": 760,
+            "text": "min⁡π≥0Uτ(π),Uτ(π)=⟨C,π⟩+τ KL⁡+(π1∣a)+τ KL⁡+(π⊤1∣b),KL⁡+(r∣a)=∑iϕ(ri,ai),ϕ(s,t)=slog⁡(s/t)−s+t.\\begin{gathered}\n\\min_{\\pi\\geq0}U_\\tau(\\pi),\\\\\n\\begin{aligned}\nU_\\tau(\\pi)&=\\langle C"
+          },
+          {
+            "index": 20,
+            "width": 760,
+            "scroll": 760,
+            "text": "Dikjl=∣dX(xi,xk)−dY(yj,yl)∣2,min⁡π∈Π(a,b)∑i,k,j,lDikjlπijπkl.\\begin{gathered}\nD_{ikjl}=|d_X(x_i,x_k)-d_Y(y_j,y_l)|^2,\\\\\n\\min_{\\pi\\in\\Pi(a,b)}\n\\sum_{i,k,j,l}D_{ikjl}\\pi_{ij}\\pi_{kl}"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 23.375,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 23.375,
+            "clipped": []
+          },
+          {
+            "index": 2,
+            "minimumTextPx": 23.375,
+            "clipped": []
+          },
+          {
+            "index": 3,
+            "minimumTextPx": 23.375,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 18,
+        "keyboardControls": 28,
+        "keyboardTables": 0,
+        "changedControlMilliseconds": 60.25,
+        "equations": [
+          {
+            "index": 0,
+            "width": 350,
+            "scroll": 350,
+            "text": "πij≥0,∑jπij=ai,∑iπij=bj,∑iai=∑jbj=1.\\begin{gathered}\n\\pi_{ij}\\geq0,\\qquad \\sum_j\\pi_{ij}=a_i,\\\\\n\\sum_i\\pi_{ij}=b_j,\\\\\n\\sum_i a_i=\\sum_j b_j=1.\n\\end{gathered}πij​≥0,j∑​πij​=ai​,i∑​π"
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "scroll": 350,
+            "text": "C=[0121],π∗=[.500.5].C=\\begin{bmatrix}0&1\\\\2&1\\end{bmatrix},\n\\qquad \\pi^*=\\begin{bmatrix}.5&0\\\\0&.5\\end{bmatrix}.C=[02​11​],π∗=[.50​0.5​]."
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "scroll": 350,
+            "text": "π(t)=[ta−tb−t1−a−b+t],max⁡(0,a+b−1)≤t,t≤min⁡(a,b).\\begin{gathered}\n\\pi(t)=\n\\begin{bmatrix}t&a-t\\\\b-t&1-a-b+t\\end{bmatrix},\\\\\n\\max(0,a+b-1)\\leq t,\\\\\nt\\leq\\min(a,b).\n\\end{gathered}π("
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "scroll": 350,
+            "text": "TC(a,b)=min⁡π∈Π(a,b)⟨C,π⟩,⟨C,π⟩=∑i,jCijπij.\\begin{gathered}\n\\mathcal T_C(a,b)=\n\\min_{\\pi\\in\\Pi(a,b)}\\langle C,\\pi\\rangle,\\\\\n\\langle C,\\pi\\rangle=\\sum_{i,j}C_{ij}\\pi_{ij}.\n\\end{gath"
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "scroll": 350,
+            "text": "Cij=d(xi,yj)r,Wr(α,β)=(min⁡π∈Π(a,b)⟨C,π⟩)1/r.\\begin{gathered}\nC_{ij}=d(x_i,y_j)^r,\\\\\nW_r(\\alpha,\\beta)=\n\\left(\\min_{\\pi\\in\\Pi(a,b)}\n\\langle C,\\pi\\rangle\\right)^{1/r}.\n\\end{gathered"
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "scroll": 350,
+            "text": "Rijk=PijQjkbj(bj>0),Sik=∑j:bj>0Rijk.\\begin{gathered}\nR_{ijk}=\\frac{P_{ij}Q_{jk}}{b_j}\\quad(b_j>0),\\\\\nS_{ik}=\\sum_{j:b_j>0}R_{ijk}.\n\\end{gathered}Rijk​=bj​Pij​Qjk​​(bj​>0),Sik​=j:bj"
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "scroll": 350,
+            "text": "fi+gj≤Cijfor every route,D(f,g)=∑iaifi+∑jbjgj.\\begin{gathered}\nf_i+g_j\\leq C_{ij}\\quad\\text{for every route},\\\\\nD(f,g)=\\sum_i a_if_i+\\sum_j b_jg_j.\n\\end{gathered}fi​+gj​≤Cij​for ev"
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "scroll": 350,
+            "text": "⟨C,π⟩−D(f,g)=∑i,jπij(Cij−fi−gj)≥0.\\begin{gathered}\n\\langle C,\\pi\\rangle-D(f,g)\\\\\n=\\sum_{i,j}\\pi_{ij}(C_{ij}-f_i-g_j)\\geq0.\n\\end{gathered}⟨C,π⟩−D(f,g)=i,j∑​πij​(Cij​−fi​−gj​)≥0.​"
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "scroll": 350,
+            "text": "L=⟨C,π⟩+f⊤(a−π1)+g⊤(b−π⊤1)=a⊤f+b⊤g+∑i,jπij(Cij−fi−gj).\\begin{gathered}\n\\begin{aligned}\nL&=\\langle C,\\pi\\rangle\\\\\n&\\quad+f^\\top(a-\\pi\\mathbf1)\\\\\n&\\quad+g^\\top(b-\\pi^\\top\\mathbf1)\\\\\n"
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "scroll": 350,
+            "text": "W1(α,β)=∫R∣Fα(x)−Fβ(x)∣ dx.\\begin{gathered}\nW_1(\\alpha,\\beta)\\\\\n=\\int_{\\mathbb R}|F_\\alpha(x)-F_\\beta(x)|\\,dx.\n\\end{gathered}W1​(α,β)=∫R​∣Fα​(x)−Fβ​(x)∣dx.​"
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "scroll": 350,
+            "text": "Wr(α,β)r=∫01∣Fα−1(u)−Fβ−1(u)∣r du.\\begin{gathered}\nW_r(\\alpha,\\beta)^r\\\\\n=\\int_0^1|F_\\alpha^{-1}(u)-F_\\beta^{-1}(u)|^r\\,du.\n\\end{gathered}Wr​(α,β)r=∫01​∣Fα−1​(u)−Fβ−1​(u)∣rdu.​"
+          },
+          {
+            "index": 11,
+            "width": 350,
+            "scroll": 350,
+            "text": "Fε(a,b)=min⁡π∈Π(a,b)Jε(π),Jε(π)=⟨C,π⟩+ε∑i,jπij(log⁡πij−1),ε>0.\\begin{gathered}\nF_\\varepsilon(a,b)=\\min_{\\pi\\in\\Pi(a,b)}J_\\varepsilon(\\pi),\\\\\n\\begin{aligned}\nJ_\\varepsilon(\\pi)&=\\la"
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "scroll": 350,
+            "text": "Cij+εlog⁡πij−fi−gj=0,πij=efi/ε e−Cij/ε egj/ε=uiKijvj.\\begin{gathered}\nC_{ij}+\\varepsilon\\log\\pi_{ij}-f_i-g_j=0,\\\\\n\\pi_{ij}\n=e^{f_i/\\varepsilon}\\,\ne^{-C_{ij}/\\varepsilon}\\,\ne^{g_j/\\"
+          },
+          {
+            "index": 13,
+            "width": 350,
+            "scroll": 350,
+            "text": "u←a / (Kv),v←b / (K⊤u).\\begin{gathered}\nu\\leftarrow a\\,/\\,(Kv),\\\\\nv\\leftarrow b\\,/\\,(K^\\top u).\n\\end{gathered}u←a/(Kv),v←b/(K⊤u).​"
+          },
+          {
+            "index": 14,
+            "width": 350,
+            "scroll": 350,
+            "text": "t=.51+exp⁡(Δ/(2ε)).t=\n\\frac{.5}{1+\\exp(\\Delta/(2\\varepsilon))}.t=1+exp(Δ/(2ε)).5​."
+          },
+          {
+            "index": 15,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ai←log⁡ai−LSE⁡j(ℓij+Bj),Bj←log⁡bj−LSE⁡i(ℓij+Ai).\\begin{gathered}\nA_i\\leftarrow\\log a_i-\n\\operatorname{LSE}_j(\\ell_{ij}+B_j),\\\\\nB_j\\leftarrow\\log b_j-\n\\operatorname{LSE}_i(\\ell_{ij}"
+          },
+          {
+            "index": 16,
+            "width": 350,
+            "scroll": 350,
+            "text": "LSE⁡(z)=M+log⁡∑kezk−M,M=max⁡kzk.\\begin{gathered}\n\\operatorname{LSE}(z)=M+\\log\\sum_k e^{z_k-M},\\\\\nM=\\max_k z_k.\n\\end{gathered}LSE(z)=M+logk∑​ezk​−M,M=kmax​zk​.​"
+          },
+          {
+            "index": 17,
+            "width": 350,
+            "scroll": 350,
+            "text": "0≤⟨C,πε⟩−⟨C,π∗⟩≤ε[H(πε)−H(π∗)]≤εmin⁡{H(a),H(b)}.\\begin{gathered}\n0\\leq \\langle C,\\pi_\\varepsilon\\rangle\n-\\langle C,\\pi^*\\rangle\\\\\n\\leq\\varepsilon\\bigl[H(\\pi_\\varepsilon)-H(\\pi^*)\\b"
+          },
+          {
+            "index": 18,
+            "width": 350,
+            "scroll": 350,
+            "text": "Sε(α,β)=Fε(α,β)−12Fε(α,α)−12Fε(β,β).\\begin{gathered}\nS_\\varepsilon(\\alpha,\\beta)=F_\\varepsilon(\\alpha,\\beta)\\\\\n-\\tfrac12F_\\varepsilon(\\alpha,\\alpha)\n-\\tfrac12F_\\varepsilon(\\beta,\\b"
+          },
+          {
+            "index": 19,
+            "width": 350,
+            "scroll": 350,
+            "text": "min⁡π≥0Uτ(π),Uτ(π)=⟨C,π⟩+τ KL⁡+(π1∣a)+τ KL⁡+(π⊤1∣b),KL⁡+(r∣a)=∑iϕ(ri,ai),ϕ(s,t)=slog⁡(s/t)−s+t.\\begin{gathered}\n\\min_{\\pi\\geq0}U_\\tau(\\pi),\\\\\n\\begin{aligned}\nU_\\tau(\\pi)&=\\langle C"
+          },
+          {
+            "index": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Dikjl=∣dX(xi,xk)−dY(yj,yl)∣2,min⁡π∈Π(a,b)∑i,k,j,lDikjlπijπkl.\\begin{gathered}\nD_{ikjl}=|d_X(x_i,x_k)-d_Y(y_j,y_l)|^2,\\\\\n\\min_{\\pi\\in\\Pi(a,b)}\n\\sum_{i,k,j,l}D_{ikjl}\\pi_{ij}\\pi_{kl}"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 18.59375,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 17.12783203125,
+            "clipped": []
+          },
+          {
+            "index": 2,
+            "minimumTextPx": 17.12783203125,
+            "clipped": []
+          },
+          {
+            "index": 3,
+            "minimumTextPx": 18.59375,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 18,
+        "keyboardControls": 28,
+        "keyboardTables": 5,
+        "changedControlMilliseconds": 73.42130000000179,
+        "equations": [
+          {
+            "index": 0,
+            "width": 280,
+            "scroll": 280,
+            "text": "πij≥0,∑jπij=ai,∑iπij=bj,∑iai=∑jbj=1.\\begin{gathered}\n\\pi_{ij}\\geq0,\\qquad \\sum_j\\pi_{ij}=a_i,\\\\\n\\sum_i\\pi_{ij}=b_j,\\\\\n\\sum_i a_i=\\sum_j b_j=1.\n\\end{gathered}πij​≥0,j∑​πij​=ai​,i∑​π"
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "scroll": 280,
+            "text": "C=[0121],π∗=[.500.5].C=\\begin{bmatrix}0&1\\\\2&1\\end{bmatrix},\n\\qquad \\pi^*=\\begin{bmatrix}.5&0\\\\0&.5\\end{bmatrix}.C=[02​11​],π∗=[.50​0.5​]."
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "scroll": 280,
+            "text": "π(t)=[ta−tb−t1−a−b+t],max⁡(0,a+b−1)≤t,t≤min⁡(a,b).\\begin{gathered}\n\\pi(t)=\n\\begin{bmatrix}t&a-t\\\\b-t&1-a-b+t\\end{bmatrix},\\\\\n\\max(0,a+b-1)\\leq t,\\\\\nt\\leq\\min(a,b).\n\\end{gathered}π("
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "scroll": 280,
+            "text": "TC(a,b)=min⁡π∈Π(a,b)⟨C,π⟩,⟨C,π⟩=∑i,jCijπij.\\begin{gathered}\n\\mathcal T_C(a,b)=\n\\min_{\\pi\\in\\Pi(a,b)}\\langle C,\\pi\\rangle,\\\\\n\\langle C,\\pi\\rangle=\\sum_{i,j}C_{ij}\\pi_{ij}.\n\\end{gath"
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "scroll": 280,
+            "text": "Cij=d(xi,yj)r,Wr(α,β)=(min⁡π∈Π(a,b)⟨C,π⟩)1/r.\\begin{gathered}\nC_{ij}=d(x_i,y_j)^r,\\\\\nW_r(\\alpha,\\beta)=\n\\left(\\min_{\\pi\\in\\Pi(a,b)}\n\\langle C,\\pi\\rangle\\right)^{1/r}.\n\\end{gathered"
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "scroll": 280,
+            "text": "Rijk=PijQjkbj(bj>0),Sik=∑j:bj>0Rijk.\\begin{gathered}\nR_{ijk}=\\frac{P_{ij}Q_{jk}}{b_j}\\quad(b_j>0),\\\\\nS_{ik}=\\sum_{j:b_j>0}R_{ijk}.\n\\end{gathered}Rijk​=bj​Pij​Qjk​​(bj​>0),Sik​=j:bj"
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "scroll": 280,
+            "text": "fi+gj≤Cijfor every route,D(f,g)=∑iaifi+∑jbjgj.\\begin{gathered}\nf_i+g_j\\leq C_{ij}\\quad\\text{for every route},\\\\\nD(f,g)=\\sum_i a_if_i+\\sum_j b_jg_j.\n\\end{gathered}fi​+gj​≤Cij​for ev"
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "scroll": 280,
+            "text": "⟨C,π⟩−D(f,g)=∑i,jπij(Cij−fi−gj)≥0.\\begin{gathered}\n\\langle C,\\pi\\rangle-D(f,g)\\\\\n=\\sum_{i,j}\\pi_{ij}(C_{ij}-f_i-g_j)\\geq0.\n\\end{gathered}⟨C,π⟩−D(f,g)=i,j∑​πij​(Cij​−fi​−gj​)≥0.​"
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "scroll": 280,
+            "text": "L=⟨C,π⟩+f⊤(a−π1)+g⊤(b−π⊤1)=a⊤f+b⊤g+∑i,jπij(Cij−fi−gj).\\begin{gathered}\n\\begin{aligned}\nL&=\\langle C,\\pi\\rangle\\\\\n&\\quad+f^\\top(a-\\pi\\mathbf1)\\\\\n&\\quad+g^\\top(b-\\pi^\\top\\mathbf1)\\\\\n"
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "scroll": 280,
+            "text": "W1(α,β)=∫R∣Fα(x)−Fβ(x)∣ dx.\\begin{gathered}\nW_1(\\alpha,\\beta)\\\\\n=\\int_{\\mathbb R}|F_\\alpha(x)-F_\\beta(x)|\\,dx.\n\\end{gathered}W1​(α,β)=∫R​∣Fα​(x)−Fβ​(x)∣dx.​"
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "scroll": 280,
+            "text": "Wr(α,β)r=∫01∣Fα−1(u)−Fβ−1(u)∣r du.\\begin{gathered}\nW_r(\\alpha,\\beta)^r\\\\\n=\\int_0^1|F_\\alpha^{-1}(u)-F_\\beta^{-1}(u)|^r\\,du.\n\\end{gathered}Wr​(α,β)r=∫01​∣Fα−1​(u)−Fβ−1​(u)∣rdu.​"
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "scroll": 280,
+            "text": "Fε(a,b)=min⁡π∈Π(a,b)Jε(π),Jε(π)=⟨C,π⟩+ε∑i,jπij(log⁡πij−1),ε>0.\\begin{gathered}\nF_\\varepsilon(a,b)=\\min_{\\pi\\in\\Pi(a,b)}J_\\varepsilon(\\pi),\\\\\n\\begin{aligned}\nJ_\\varepsilon(\\pi)&=\\la"
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "scroll": 280,
+            "text": "Cij+εlog⁡πij−fi−gj=0,πij=efi/ε e−Cij/ε egj/ε=uiKijvj.\\begin{gathered}\nC_{ij}+\\varepsilon\\log\\pi_{ij}-f_i-g_j=0,\\\\\n\\pi_{ij}\n=e^{f_i/\\varepsilon}\\,\ne^{-C_{ij}/\\varepsilon}\\,\ne^{g_j/\\"
+          },
+          {
+            "index": 13,
+            "width": 280,
+            "scroll": 280,
+            "text": "u←a / (Kv),v←b / (K⊤u).\\begin{gathered}\nu\\leftarrow a\\,/\\,(Kv),\\\\\nv\\leftarrow b\\,/\\,(K^\\top u).\n\\end{gathered}u←a/(Kv),v←b/(K⊤u).​"
+          },
+          {
+            "index": 14,
+            "width": 280,
+            "scroll": 280,
+            "text": "t=.51+exp⁡(Δ/(2ε)).t=\n\\frac{.5}{1+\\exp(\\Delta/(2\\varepsilon))}.t=1+exp(Δ/(2ε)).5​."
+          },
+          {
+            "index": 15,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ai←log⁡ai−LSE⁡j(ℓij+Bj),Bj←log⁡bj−LSE⁡i(ℓij+Ai).\\begin{gathered}\nA_i\\leftarrow\\log a_i-\n\\operatorname{LSE}_j(\\ell_{ij}+B_j),\\\\\nB_j\\leftarrow\\log b_j-\n\\operatorname{LSE}_i(\\ell_{ij}"
+          },
+          {
+            "index": 16,
+            "width": 280,
+            "scroll": 280,
+            "text": "LSE⁡(z)=M+log⁡∑kezk−M,M=max⁡kzk.\\begin{gathered}\n\\operatorname{LSE}(z)=M+\\log\\sum_k e^{z_k-M},\\\\\nM=\\max_k z_k.\n\\end{gathered}LSE(z)=M+logk∑​ezk​−M,M=kmax​zk​.​"
+          },
+          {
+            "index": 17,
+            "width": 280,
+            "scroll": 280,
+            "text": "0≤⟨C,πε⟩−⟨C,π∗⟩≤ε[H(πε)−H(π∗)]≤εmin⁡{H(a),H(b)}.\\begin{gathered}\n0\\leq \\langle C,\\pi_\\varepsilon\\rangle\n-\\langle C,\\pi^*\\rangle\\\\\n\\leq\\varepsilon\\bigl[H(\\pi_\\varepsilon)-H(\\pi^*)\\b"
+          },
+          {
+            "index": 18,
+            "width": 280,
+            "scroll": 280,
+            "text": "Sε(α,β)=Fε(α,β)−12Fε(α,α)−12Fε(β,β).\\begin{gathered}\nS_\\varepsilon(\\alpha,\\beta)=F_\\varepsilon(\\alpha,\\beta)\\\\\n-\\tfrac12F_\\varepsilon(\\alpha,\\alpha)\n-\\tfrac12F_\\varepsilon(\\beta,\\b"
+          },
+          {
+            "index": 19,
+            "width": 280,
+            "scroll": 280,
+            "text": "min⁡π≥0Uτ(π),Uτ(π)=⟨C,π⟩+τ KL⁡+(π1∣a)+τ KL⁡+(π⊤1∣b),KL⁡+(r∣a)=∑iϕ(ri,ai),ϕ(s,t)=slog⁡(s/t)−s+t.\\begin{gathered}\n\\min_{\\pi\\geq0}U_\\tau(\\pi),\\\\\n\\begin{aligned}\nU_\\tau(\\pi)&=\\langle C"
+          },
+          {
+            "index": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Dikjl=∣dX(xi,xk)−dY(yj,yl)∣2,min⁡π∈Π(a,b)∑i,k,j,lDikjlπijπkl.\\begin{gathered}\nD_{ikjl}=|d_X(x_i,x_k)-d_Y(y_j,y_l)|^2,\\\\\n\\min_{\\pi\\in\\Pi(a,b)}\n\\sum_{i,k,j,l}D_{ikjl}\\pi_{ij}\\pi_{kl}"
+          }
+        ],
+        "overflowMath": [],
+        "figures": [
+          {
+            "index": 0,
+            "minimumTextPx": 16.625,
+            "clipped": []
+          },
+          {
+            "index": 1,
+            "minimumTextPx": 15.3669921875,
+            "clipped": []
+          },
+          {
+            "index": 2,
+            "minimumTextPx": 15.3669921875,
+            "clipped": []
+          },
+          {
+            "index": 3,
+            "minimumTextPx": 16.625,
+            "clipped": []
+          }
+        ],
+        "pageOverflow": false,
+        "errors": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "applicationErrors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T16:19:31.874Z",
+    "files": [
+      "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+      "src/learn/data/optimal-transport-models.js",
+      "src/learn/data/optimal-transport-examples.js",
+      "src/learn/components/lesson-labs/OptimalTransportLabs.jsx",
+      "src/learn/data/curriculum/blueprints/optimal-transport-wasserstein-distance-sinkhorn.js",
+      "src/learn/components/lesson-labs/optimal-transport-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "independentReview": "docs/teaching/OPTIMAL-TRANSPORT-INDEPENDENT-REVIEW.md",
+  "independentResults": {
+    "ordinaryChecks": "passed",
+    "weightedLPs": 24,
+    "orders": [
+      1.5,
+      4
+    ],
+    "entropyKLConstantChecks": 21,
+    "invarianceConfigurations": 3,
+    "maxAbsoluteDiscrepancy": 7.46813721974604e-12,
+    "tinyMassRegression": {
+      "passed": true,
+      "actual": 1.0000000000000001e-7,
+      "expected": 1e-7
+    }
+  },
+  "actuallyOpenedScreenshots": [
+    {
+      "file": "scratch/optimal-transport-review/browser/mass-split-390.png",
+      "sha256": "38b010dc487c68cfa58e2da43b9b4bd8fcab763fe8115e3982e8323a91e3473f"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/scaling-2-390.png",
+      "sha256": "fbc56f353e6b852a9d4d70c042dca5a061a990659da01bddc261e36d276b3a21"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/cdf-distance-320.png",
+      "sha256": "3fc230ddfc230f0f9918acc210845a90dd7d7fc889113e22f5299df25946c500"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/reading-1-390.png",
+      "sha256": "703687734eb4229f20e832f5c8d36ebc1ac6e46c8ff96138898585a189a8eda0"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/bias-capped-390.png",
+      "sha256": "7a977a560415c2dfba7a211d09a23830405ce7b6aa53d7f995b92bf5b0111da3"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/inline-1-320.png",
+      "sha256": "af838b2bed6ac4be9f9d0440ac8acbbb30dc8ffa11dcb6d114f97aa056031d8c"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/equation-8-320.png",
+      "sha256": "4f3274c9f6295d3f98e1a41962514a4a82d5fe9f958ff03c9b246a895a755208"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/reading-6-390.png",
+      "sha256": "0bad5950eacc49521bb7600cfb509de3c705221dfc7f12fcd9fb39ab2c03d97d"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/reading-9-320.png",
+      "sha256": "1c0266339d60e197ef9cb91bbf7b1c824c57bd64d13ef48b96a61aa8c091cf4b"
+    },
+    {
+      "file": "scratch/optimal-transport-review/browser/practice-transfer-320.png",
+      "sha256": "2db854af9211a144d450857af6161c56cd11016829f54ad0ec39650189182164"
+    }
+  ],
+  "originalBody": {
+    "path": "scratch/optimal-transport-review/original-lesson.jsx",
+    "sha256": "a1ad58038dd29146e4f64d1ec73749c3e1d539f90480306e669a8184bfb8b076"
+  }
+}

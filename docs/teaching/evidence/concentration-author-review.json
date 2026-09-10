@@ -1,0 +1,947 @@
+{
+  "topicId": "concentration-inequalities-hoeffding-bernstein-chernoff",
+  "frozenAt": "2026-09-10T15:16:03.042342+00:00",
+  "status": "author-verified; root integrated review and user acceptance are separate",
+  "runtimeSourceFingerprints": [
+    {
+      "path": "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+      "bytes": 41339,
+      "sha256": "04c2e8ed5cad44eec55006f612643cc00666f7163939a15ac833ca1d9da569cc"
+    },
+    {
+      "path": "src/learn/data/concentration-inequalities-models.js",
+      "bytes": 11181,
+      "sha256": "d11166e83cd61474e0af5ae1940a5d1f35ed62aba6a184acebb70031c839c337"
+    },
+    {
+      "path": "src/learn/data/concentration-inequalities-examples.js",
+      "bytes": 10061,
+      "sha256": "6e495ff6077784b59495b0bc203fef12315f6eaf1344d3566424e509c36a8d2d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx",
+      "bytes": 24161,
+      "sha256": "31c71e9f6ba8803031cb0c49a843da9bcb2740c8bc62739be57cb4e824f76912"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/concentration-inequality-labs.css",
+      "bytes": 6169,
+      "sha256": "d16da8b042f4ea9c4aaf44acf418b50d89311f104f6e93a444378c1c0a46351a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/concentration-inequalities-hoeffding-bernstein-chernoff.js",
+      "bytes": 4076,
+      "sha256": "50df308f8fdc06ea2d4704ebd1672f0c55beaadd1b995bed07924a046fbc5618"
+    }
+  ],
+  "ownedFiles": [
+    {
+      "path": "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+      "bytes": 41339,
+      "sha256": "04c2e8ed5cad44eec55006f612643cc00666f7163939a15ac833ca1d9da569cc"
+    },
+    {
+      "path": "src/learn/data/concentration-inequalities-models.js",
+      "bytes": 11181,
+      "sha256": "d11166e83cd61474e0af5ae1940a5d1f35ed62aba6a184acebb70031c839c337"
+    },
+    {
+      "path": "src/learn/data/concentration-inequalities-examples.js",
+      "bytes": 10061,
+      "sha256": "6e495ff6077784b59495b0bc203fef12315f6eaf1344d3566424e509c36a8d2d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx",
+      "bytes": 24161,
+      "sha256": "31c71e9f6ba8803031cb0c49a843da9bcb2740c8bc62739be57cb4e824f76912"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/concentration-inequality-labs.css",
+      "bytes": 6169,
+      "sha256": "d16da8b042f4ea9c4aaf44acf418b50d89311f104f6e93a444378c1c0a46351a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/concentration-inequalities-hoeffding-bernstein-chernoff.js",
+      "bytes": 4076,
+      "sha256": "50df308f8fdc06ea2d4704ebd1672f0c55beaadd1b995bed07924a046fbc5618"
+    },
+    {
+      "path": "scripts/prepare-concentration-examples.py",
+      "bytes": 9062,
+      "sha256": "d9f11c2030ec2f8a00444dc0b78084577a74b3e67f84b1895c669b7c39307ca8"
+    },
+    {
+      "path": "scripts/verify-concentration-inequalities.py",
+      "bytes": 11535,
+      "sha256": "a84c16487d000ee8ac773b0e67794a8d81d8e66a5bc0b2ebf6791efbb85a96e7"
+    },
+    {
+      "path": "scripts/format-concentration-inequalities.cjs",
+      "bytes": 2906,
+      "sha256": "e8716c74e93e98455359165a7b835ac68fd15d1ba88ccfea5bb5c1d4effdf919"
+    },
+    {
+      "path": "scripts/review-concentration-inequalities.cjs",
+      "bytes": 11064,
+      "sha256": "a938ad43340d5f08662533f5e637294dcadee1291f2ef2c8cf1ce597c67c9c64"
+    },
+    {
+      "path": "scripts/review-concentration-reading.cjs",
+      "bytes": 5079,
+      "sha256": "a8062308b591f894b5e645160ae0db698248fef7eab6e794076af8586acb1c68"
+    },
+    {
+      "path": "scripts/finalize-concentration-evidence.py",
+      "bytes": 5119,
+      "sha256": "ebfa13aa704e31981c4389c42ff1c721923c983d80f45d9c0f89fc7fd26d7bc9"
+    },
+    {
+      "path": "docs/teaching/CONCENTRATION-INEQUALITIES-LESSON-DESIGN.md",
+      "bytes": 14399,
+      "sha256": "cb29438bd0293898d85a84bda0c6098ea5499960364e6e3841cee99e8fbeef6b"
+    },
+    {
+      "path": "docs/teaching/CONCENTRATION-INEQUALITIES-VERIFICATION.md",
+      "bytes": 12608,
+      "sha256": "d88ed2843471d1558de5498b026f2247a90a7b403860786e63a4e6aa72020008"
+    },
+    {
+      "path": "docs/teaching/topic-notes/concentration-inequalities-hoeffding-bernstein-chernoff.md",
+      "bytes": 5754,
+      "sha256": "764088c19d9d218ec3b3b1ed5ab8a7c31881996d16f7ea0a85f49539d1f16e3d"
+    },
+    {
+      "path": "docs/teaching/topic-notes/pac-learning-vc-dimension.md",
+      "bytes": 3129,
+      "sha256": "f5d9e614d68ef4cd119c057792b2926110890d422d5a5ff444cc032cb322ce36"
+    },
+    {
+      "path": "docs/teaching/evidence/concentration-original-content.json",
+      "bytes": 9126,
+      "sha256": "420877b1364b135bb164091de834bb63ddf4766620a6536747bf9339bf2d638c"
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T15:06:11.683497+00:00",
+    "nativePrograms": [
+      "hoeffdingBudget",
+      "varianceRadii",
+      "rareCount",
+      "exactBinomial",
+      "exponentialWitness",
+      "unequalRanges",
+      "bernsteinInversion",
+      "samplingLaws",
+      "simultaneousBudget"
+    ],
+    "threeOriginalProgramsExactlyPreserved": true,
+    "tailCases": 3555,
+    "maximumAbsoluteLogTailError": 2.2737367544323206e-13,
+    "budgetRootCases": 192,
+    "samplingCases": 1600,
+    "witnessCases": 101,
+    "familyCases": 144,
+    "independentBoundedMgfCases": 500,
+    "invalidInputs": 12,
+    "extremeFormats": {
+      "zero": "0",
+      "one": "1",
+      "tiny": "≈ 10^(-3320.036)",
+      "near": "1 − 1.000e-200",
+      "extreme": "1 − 10^(-4000.000)"
+    },
+    "changedPractice": {
+      "radius400": 0.06790507578703098,
+      "samples1060": 1060,
+      "coin8": "37/256",
+      "unequal": 0.20340278460845368,
+      "weighted": 0.088142184190561,
+      "bernstein200": 0.045049948755661755,
+      "relative": 4427,
+      "additive": 73778,
+      "subsetVariance": 0.009868421052631578,
+      "familyRadius": 0.0831129068134555,
+      "timeBudget": "1/20",
+      "invalidVarianceEvent": 0.0795172898618316
+    },
+    "sourceSha256": {
+      "src/learn/data/concentration-inequalities-models.js": "d11166e83cd61474e0af5ae1940a5d1f35ed62aba6a184acebb70031c839c337",
+      "src/learn/data/concentration-inequalities-examples.js": "6e495ff6077784b59495b0bc203fef12315f6eaf1344d3566424e509c36a8d2d",
+      "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx": "04c2e8ed5cad44eec55006f612643cc00666f7163939a15ac833ca1d9da569cc"
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T15:10:22.622Z",
+    "records": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-state-the-event-before-bounding-it",
+            "top": 100.046875
+          },
+          {
+            "href": "#2-turn-an-event-into-an-expectation",
+            "top": 100.09375
+          },
+          {
+            "href": "#3-derive-a-bound-from-a-known-range",
+            "top": 100.3125
+          },
+          {
+            "href": "#4-use-variance-with-a-valid-contract",
+            "top": 100.328125
+          },
+          {
+            "href": "#5-count-rare-events-with-chernoff",
+            "top": 99.828125
+          },
+          {
+            "href": "#6-check-what-independent-evidence-means",
+            "top": 99.96875
+          },
+          {
+            "href": "#7-budget-for-selection-and-stopping",
+            "top": 99.546875
+          },
+          {
+            "href": "#8-practise-changing-the-contract",
+            "top": 99.515625
+          }
+        ],
+        "tailCases": 10,
+        "samplingCases": 6,
+        "budgetCases": 4,
+        "familyCases": 4,
+        "screenshots": [
+          "reading-1-1440.png",
+          "reading-2-1440.png",
+          "reading-3-1440.png",
+          "reading-4-1440.png",
+          "reading-5-1440.png",
+          "reading-6-1440.png",
+          "reading-7-1440.png",
+          "reading-8-1440.png",
+          "near-one-probability-1440.png",
+          "tail-default-1440.png",
+          "witness-optimum-1440.png",
+          "witness-contributions-1440.png",
+          "budget-default-1440.png",
+          "sampling-1-1440.png",
+          "sampling-2-1440.png",
+          "sampling-3-1440.png",
+          "family-default-1440.png",
+          "proof-17-1440.png",
+          "proof-18-1440.png"
+        ],
+        "independentHints": 8,
+        "mathBounds": [
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "S=∑i=1nXi,Xˉ=S/nS=\\sum_{i=1}^{n}X_i,\\qquad \\bar X=S/nS=i=1∑n​Xi​,Xˉ=S/"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "Pr⁡ ⁣(∣Xˉ−μ∣≥ε)≤δ\\Pr\\!\\left(|\\bar X-\\mu|\\geq\\varepsilon\\right)\\leq\\del"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "Pr⁡(T≥t)≤e−2t2/D\\Pr(T\\geq t)\\leq e^{-2t^2/D}Pr(T≥t)≤e−2t2/D"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "Pr⁡(∣Xˉ−μ∣≥ε)≤2e−2nε2/w2\\Pr(|\\bar X-\\mu|\\geq\\varepsilon)\\leq 2e^{-2n\\v"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "n≥w2log⁡(2/δ)2ε2n\\geq\\frac{w^2\\log(2/\\delta)}{2\\varepsilon^2}n≥2ε2w2lo"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "Pr⁡(∣T∣≥t)≤2exp⁡ ⁣(−t22(v+ct/3))\\begin{gathered}\\Pr(|T|\\geq t)\\\\\\leq 2"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "a=cL3n,L=log⁡(2/δ),rroot=a+2σ2L/n+a2,reasy=2σ2L/n+2a.\\begin{aligned}a&"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "Pr⁡(S≥(1+r)m)≤e−mh(r),h(r)=(1+r)log⁡(1+r)−r.\\begin{gathered}\\Pr(S\\geq("
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "0<r≤1:e−mh(r)≤e−mr2/30<r\\leq1:\\qquad e^{-mh(r)}\\leq e^{-mr^2/3}0<r≤1:e"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "D(q∥p)=qlog⁡(q/p)+(1−q)log⁡((1−q)/(1−p)).\\begin{gathered}D(q\\Vert p)=q"
+          },
+          {
+            "width": 760,
+            "scroll": 760,
+            "text": "rt=wlog⁡(2t(t+1)/δ)2tr_t=w\\sqrt{\\frac{\\log(2t(t+1)/\\delta)}{2t}}rt​=w2"
+          }
+        ],
+        "svgTextOverflow": []
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-state-the-event-before-bounding-it",
+            "top": 100.234375
+          },
+          {
+            "href": "#2-turn-an-event-into-an-expectation",
+            "top": 99.875
+          },
+          {
+            "href": "#3-derive-a-bound-from-a-known-range",
+            "top": 100.09375
+          },
+          {
+            "href": "#4-use-variance-with-a-valid-contract",
+            "top": 100.484375
+          },
+          {
+            "href": "#5-count-rare-events-with-chernoff",
+            "top": 99.90625
+          },
+          {
+            "href": "#6-check-what-independent-evidence-means",
+            "top": 100.25
+          },
+          {
+            "href": "#7-budget-for-selection-and-stopping",
+            "top": 99.53125
+          },
+          {
+            "href": "#8-practise-changing-the-contract",
+            "top": 99.75
+          }
+        ],
+        "tailCases": 10,
+        "samplingCases": 6,
+        "budgetCases": 4,
+        "familyCases": 4,
+        "screenshots": [
+          "reading-1-390.png",
+          "reading-2-390.png",
+          "reading-3-390.png",
+          "reading-4-390.png",
+          "reading-5-390.png",
+          "reading-6-390.png",
+          "reading-7-390.png",
+          "reading-8-390.png",
+          "near-one-probability-390.png",
+          "tail-default-390.png",
+          "witness-optimum-390.png",
+          "witness-contributions-390.png",
+          "budget-default-390.png",
+          "sampling-1-390.png",
+          "sampling-2-390.png",
+          "sampling-3-390.png",
+          "family-default-390.png",
+          "proof-17-390.png",
+          "proof-18-390.png"
+        ],
+        "independentHints": 8,
+        "mathBounds": [
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "S=∑i=1nXi,Xˉ=S/nS=\\sum_{i=1}^{n}X_i,\\qquad \\bar X=S/nS=i=1∑n​Xi​,Xˉ=S/"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "Pr⁡ ⁣(∣Xˉ−μ∣≥ε)≤δ\\Pr\\!\\left(|\\bar X-\\mu|\\geq\\varepsilon\\right)\\leq\\del"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "Pr⁡(T≥t)≤e−2t2/D\\Pr(T\\geq t)\\leq e^{-2t^2/D}Pr(T≥t)≤e−2t2/D"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "Pr⁡(∣Xˉ−μ∣≥ε)≤2e−2nε2/w2\\Pr(|\\bar X-\\mu|\\geq\\varepsilon)\\leq 2e^{-2n\\v"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "n≥w2log⁡(2/δ)2ε2n\\geq\\frac{w^2\\log(2/\\delta)}{2\\varepsilon^2}n≥2ε2w2lo"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "Pr⁡(∣T∣≥t)≤2exp⁡ ⁣(−t22(v+ct/3))\\begin{gathered}\\Pr(|T|\\geq t)\\\\\\leq 2"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "a=cL3n,L=log⁡(2/δ),rroot=a+2σ2L/n+a2,reasy=2σ2L/n+2a.\\begin{aligned}a&"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "Pr⁡(S≥(1+r)m)≤e−mh(r),h(r)=(1+r)log⁡(1+r)−r.\\begin{gathered}\\Pr(S\\geq("
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "0<r≤1:e−mh(r)≤e−mr2/30<r\\leq1:\\qquad e^{-mh(r)}\\leq e^{-mr^2/3}0<r≤1:e"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "D(q∥p)=qlog⁡(q/p)+(1−q)log⁡((1−q)/(1−p)).\\begin{gathered}D(q\\Vert p)=q"
+          },
+          {
+            "width": 350,
+            "scroll": 350,
+            "text": "rt=wlog⁡(2t(t+1)/δ)2tr_t=w\\sqrt{\\frac{\\log(2t(t+1)/\\delta)}{2t}}rt​=w2"
+          }
+        ],
+        "svgTextOverflow": []
+      }
+    ],
+    "errors": []
+  },
+  "ordinaryReading": {
+    "checkedAt": "2026-09-10T15:10:42.394Z",
+    "records": [
+      {
+        "width": 1440,
+        "captures": [
+          "detail-route-1440.png",
+          "detail-proof-chain-1440.png",
+          "detail-zero-variance-1440.png",
+          "detail-native-program-1440.png",
+          "detail-native-output-1440.png",
+          "detail-changed-variance-task-1440.png",
+          "detail-changed-variance-hint-1440.png",
+          "detail-changed-variance-solution-1440.png",
+          "detail-sources-1440.png",
+          "detail-equation-1-1440.png",
+          "detail-equation-6-1440.png",
+          "detail-equation-7-1440.png",
+          "detail-equation-10-1440.png"
+        ],
+        "math": [
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          }
+        ],
+        "code": [
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 821,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 834,
+            "overflow": "auto"
+          },
+          {
+            "client": 758,
+            "scroll": 788,
+            "overflow": "auto"
+          }
+        ],
+        "boxOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0,
+        "svgTextOverflow": []
+      },
+      {
+        "width": 390,
+        "captures": [
+          "detail-route-390.png",
+          "detail-proof-chain-390.png",
+          "detail-zero-variance-390.png",
+          "detail-native-program-390.png",
+          "detail-native-output-390.png",
+          "detail-changed-variance-task-390.png",
+          "detail-changed-variance-hint-390.png",
+          "detail-changed-variance-solution-390.png",
+          "detail-sources-390.png",
+          "detail-equation-1-390.png",
+          "detail-equation-6-390.png",
+          "detail-equation-7-390.png",
+          "detail-equation-10-390.png"
+        ],
+        "math": [
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          }
+        ],
+        "code": [
+          {
+            "client": 348,
+            "scroll": 636,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 399,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 722,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 405,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 656,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 385,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 821,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 834,
+            "overflow": "auto"
+          },
+          {
+            "client": 348,
+            "scroll": 788,
+            "overflow": "auto"
+          }
+        ],
+        "boxOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0,
+        "svgTextOverflow": []
+      },
+      {
+        "width": 320,
+        "captures": [
+          "detail-route-320.png",
+          "detail-proof-chain-320.png",
+          "detail-zero-variance-320.png",
+          "detail-native-program-320.png",
+          "detail-native-output-320.png",
+          "detail-changed-variance-task-320.png",
+          "detail-changed-variance-hint-320.png",
+          "detail-changed-variance-solution-320.png",
+          "detail-sources-320.png",
+          "detail-equation-1-320.png",
+          "detail-equation-2-320.png",
+          "detail-equation-3-320.png",
+          "detail-equation-4-320.png",
+          "detail-equation-5-320.png",
+          "detail-equation-6-320.png",
+          "detail-equation-7-320.png",
+          "detail-equation-8-320.png",
+          "detail-equation-9-320.png",
+          "detail-equation-10-320.png",
+          "detail-equation-11-320.png",
+          "detail-plot-1-320.png",
+          "detail-plot-2-320.png",
+          "detail-plot-3-320.png",
+          "detail-plot-4-320.png",
+          "detail-plot-5-320.png",
+          "detail-plot-6-320.png",
+          "detail-plot-7-320.png"
+        ],
+        "math": [
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          }
+        ],
+        "code": [
+          {
+            "client": 278,
+            "scroll": 636,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 399,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 722,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 405,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 656,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 385,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 821,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 834,
+            "overflow": "auto"
+          },
+          {
+            "client": 278,
+            "scroll": 788,
+            "overflow": "auto"
+          }
+        ],
+        "boxOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0,
+        "svgTextOverflow": []
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T15:09:48.634Z",
+    "files": [
+      "src/learn/data/topics/concentration-inequalities-hoeffding-bernstein-chernoff.jsx",
+      "src/learn/data/concentration-inequalities-models.js",
+      "src/learn/data/concentration-inequalities-examples.js",
+      "src/learn/components/lesson-labs/ConcentrationInequalityLabs.jsx",
+      "src/learn/data/curriculum/blueprints/concentration-inequalities-hoeffding-bernstein-chernoff.js",
+      "src/learn/components/lesson-labs/concentration-inequality-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/concentration-browser/tail-default-1440.png",
+      "bytes": 95237,
+      "sha256": "927393c90edf18ed608bf3ec95e9da09f09e05e57ecbe4b38e0ee281cd3faf59"
+    },
+    {
+      "path": "scratch/concentration-browser/witness-optimum-1440.png",
+      "bytes": 118867,
+      "sha256": "ac585344a375b2cad601de069a6ab26fb344b668d35e0c2918893e2a3d50ba5a"
+    },
+    {
+      "path": "scratch/concentration-browser/reading-4-1440.png",
+      "bytes": 134365,
+      "sha256": "26f023fa2513f05d40cffd713b6171469449c8df58c1d2f1832c66a7d8a4f06c"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-proof-chain-390.png",
+      "bytes": 51869,
+      "sha256": "fa003920d48cd231901751cb66d07ccb057c2c48fe7ac63c6e893eef3d851fe1"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-zero-variance-390.png",
+      "bytes": 45576,
+      "sha256": "4f0a7af8ae6a02577b000cef5816b57a2c0109dee5ea81e2f24be90e192345c4"
+    },
+    {
+      "path": "scratch/concentration-browser/tail-default-390.png",
+      "bytes": 34603,
+      "sha256": "123d878e59ed65818f129b2eae73a405adc8ea660b8f37372839e509b7549bf7"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-equation-8-320.png",
+      "bytes": 48960,
+      "sha256": "c142e0478ae2141448a1e1f8e7d9bd2521ba36c87c5b5adebbd124fdcb9150ef"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-equation-10-320.png",
+      "bytes": 44742,
+      "sha256": "b3ea7f8bddf7d875791dc0cf7d41ea1d53ea26b30742c98cefa8fd9881b0ca71"
+    },
+    {
+      "path": "scratch/concentration-browser/witness-optimum-390.png",
+      "bytes": 46064,
+      "sha256": "524e6b1af8873a9ba89d2b81dc6e0cac8a10f444aa301583dd8501bf861fa912"
+    },
+    {
+      "path": "scratch/concentration-browser/budget-default-390.png",
+      "bytes": 42465,
+      "sha256": "194b4510ebf6dfa9af1ef88c8fe7fa86b20a2db212ddfc7a8d57fdca5e9df2a2"
+    },
+    {
+      "path": "scratch/concentration-browser/sampling-1-390.png",
+      "bytes": 29915,
+      "sha256": "99a02b6d0ae41ab8498ab30498793a8c216b5b76d900bb5e469d1938734842ed"
+    },
+    {
+      "path": "scratch/concentration-browser/sampling-2-390.png",
+      "bytes": 26928,
+      "sha256": "23ef857fc2095c05ede2c7b1b2e25f343132af0647e706b14223abc57d7a9454"
+    },
+    {
+      "path": "scratch/concentration-browser/sampling-3-390.png",
+      "bytes": 38164,
+      "sha256": "d1d0a972011440b706e06c6a47c4df4c445743ca0fec2289ff8a1b78dd67147f"
+    },
+    {
+      "path": "scratch/concentration-browser/family-default-390.png",
+      "bytes": 35296,
+      "sha256": "0716a262aeb201d9f5bc3f79a2ec607d0c68efd169803e0ad2e9b591d679356e"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-plot-2-320.png",
+      "bytes": 40013,
+      "sha256": "f2136d54cba0966ef7f25c1310a1dba13b2009d0b0a0dc832b98ba2ee7835b41"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-plot-3-320.png",
+      "bytes": 38344,
+      "sha256": "547c87172677c811467fd30e4e5bfe21ca4395c1a52420a7b4ac4db8d096c663"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-plot-7-320.png",
+      "bytes": 33504,
+      "sha256": "60bf7ec9aee3dcec0515b6989690cfcbadd2340a77f8503fd43fe15408eda5fa"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-zero-variance-320.png",
+      "bytes": 38162,
+      "sha256": "24774328b272b4a10eb0ea68bdbb5e758e894ff02f3499c7bd843fd6e2caacd7"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-native-program-390.png",
+      "bytes": 47667,
+      "sha256": "6a176c2998ee46bb895fd22df16cf0a5d3a39346b9c4ccb1caa74007c5b9ba9a"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-changed-variance-hint-390.png",
+      "bytes": 49327,
+      "sha256": "1f98843dfa3d50346afc54ac886f9ece1b373d253aa8d074332388fb09dc4281"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-changed-variance-solution-390.png",
+      "bytes": 49823,
+      "sha256": "17ea597af5aabdf2e95e41da2c8b95597d1b2b424696b153d0b2425d3efb34b1"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-native-output-390.png",
+      "bytes": 56277,
+      "sha256": "e31ac4fcd119f19286927bef85db4d20397e81a740b96dc76344b7a2e045fd9d"
+    },
+    {
+      "path": "scratch/concentration-browser/detail-sources-390.png",
+      "bytes": 55299,
+      "sha256": "1b36cc29f7c979c201596f75b05b4f54df40694cfb16670226b87b055b7113b2"
+    },
+    {
+      "path": "scratch/concentration-browser/budget-default-1440.png",
+      "bytes": 135502,
+      "sha256": "d67d1388bfee58669bab835c9b0bbaa3f0c222349a52d302c652d11c0dd013ed"
+    },
+    {
+      "path": "scratch/concentration-browser/sampling-3-1440.png",
+      "bytes": 101646,
+      "sha256": "d5d093477e260b25056113fc5671915ef1971198e94ba40e2d8a6b18d5a4ae53"
+    },
+    {
+      "path": "scratch/concentration-browser/family-default-1440.png",
+      "bytes": 113921,
+      "sha256": "41ee529c164c11d5e63b3f85142575be7aa7c5b62f1b5a7f741a1a153e61f990"
+    }
+  ],
+  "openedScreenshotReview": "Actually opened with view_image, not inferred from a successful capture or element bounds. Models/plots, proof flow, count and variance contracts, figures, program/output, separate hint/solution and references were inspected. No real novice-user study claimed.",
+  "independentReview": {
+    "reviewer": "root",
+    "scope": "Full lesson proofs/constants, model contracts, variance counterexample, fixed-bucket application, finite-population and countable-budget reasoning. No mathematical blocker found.",
+    "findingsResolved": [
+      "Optional hints added before all eight substantial practice solutions",
+      "Visible investigation questions added before all nine native programs"
+    ],
+    "independence": "Complementary source review, not an additional numerical case count."
+  },
+  "limitations": [
+    "Graph values are calculated finite-law/analytic quantities, not collected data or benchmarks.",
+    "Browser models are separate from the complete standard-library Python programs.",
+    "MIT video page and description were inspected; full playback was not reviewed.",
+    "Sharper empirical-Bernstein, martingale, mixture and stitching methods remain explicitly routed/deferred with scope reasons.",
+    "No deployment or global integration build by this scoped author."
+  ]
+}

@@ -1,0 +1,531 @@
+{
+  "completed_utc": "2026-09-10T16:15:27.424242+00:00",
+  "before": {
+    "model_sha256": "e17c198b9b2f0416aaf7e78044af6931ccc539aa93151e57785ad3e000678257",
+    "finite": {
+      "q": [
+        1,
+        0
+      ],
+      "joint": [
+        1e-310,
+        1
+      ],
+      "observed_elbo": -713.8013788281542,
+      "observed_kl": "Infinity"
+    },
+    "gaussian": {
+      "q_covariance": [
+        [
+          1e-100,
+          0
+        ],
+        [
+          0,
+          1e-100
+        ]
+      ],
+      "target_covariance": [
+        [
+          1e+100,
+          0
+        ],
+        [
+          0,
+          1e+100
+        ]
+      ],
+      "means": [
+        0,
+        0
+      ],
+      "observed_kl": "Infinity"
+    },
+    "interpretation": "Accepted model inputs outside the current fixed UI fixtures; no claim that ordinary controls broke."
+  },
+  "final_model_sha256": "75401daaae5e5fb3356129baa7e6e23c29b1594d59c8176d43379dbcb2ba1538",
+  "checks": [
+    {
+      "kind": "finite",
+      "q": [
+        1,
+        0
+      ],
+      "joint": [
+        1e-310,
+        1
+      ],
+      "reference_elbo": "-713.8013788281542",
+      "reference_kl": "713.8013788281542",
+      "actual": {
+        "q": [
+          1,
+          0
+        ],
+        "posterior": [
+          1e-310,
+          1
+        ],
+        "rows": [
+          {
+            "probability": 1,
+            "posterior": 1e-310,
+            "joint": 1e-310,
+            "expectedLogJoint": -713.8013788281542,
+            "entropy": 0,
+            "kl": 713.8013788281542
+          },
+          {
+            "probability": 0,
+            "posterior": 1,
+            "joint": 1,
+            "expectedLogJoint": 0,
+            "entropy": 0,
+            "kl": 0
+          }
+        ],
+        "evidence": 1,
+        "logEvidence": 0,
+        "expectedLogJoint": -713.8013788281542,
+        "entropy": 0,
+        "elbo": -713.8013788281542,
+        "kl": 713.8013788281542
+      }
+    },
+    {
+      "kind": "finite",
+      "q": [
+        1,
+        0
+      ],
+      "joint": [
+        5e-324,
+        1e+100
+      ],
+      "reference_elbo": "-744.4400719213812",
+      "reference_kl": "974.6985812207859",
+      "actual": {
+        "q": [
+          1,
+          0
+        ],
+        "posterior": [
+          0,
+          1
+        ],
+        "rows": [
+          {
+            "probability": 1,
+            "posterior": 0,
+            "joint": 5e-324,
+            "expectedLogJoint": -744.4400719213812,
+            "entropy": 0,
+            "kl": 974.6985812207859
+          },
+          {
+            "probability": 0,
+            "posterior": 1,
+            "joint": 1e+100,
+            "expectedLogJoint": 0,
+            "entropy": 0,
+            "kl": 0
+          }
+        ],
+        "evidence": 1e+100,
+        "logEvidence": 230.25850929940458,
+        "expectedLogJoint": -744.4400719213812,
+        "entropy": 0,
+        "elbo": -744.4400719213812,
+        "kl": 974.6985812207859
+      }
+    },
+    {
+      "kind": "finite",
+      "q": [
+        0.25,
+        0.75
+      ],
+      "joint": [
+        1e-310,
+        1e+100
+      ],
+      "reference_elbo": "-5.194127587866307",
+      "reference_kl": "235.45263688727087",
+      "actual": {
+        "q": [
+          0.25,
+          0.75
+        ],
+        "posterior": [
+          0,
+          1
+        ],
+        "rows": [
+          {
+            "probability": 0.25,
+            "posterior": 0,
+            "joint": 1e-310,
+            "expectedLogJoint": -178.45034470703854,
+            "entropy": 0.34657359027997264,
+            "kl": 235.66839844160972
+          },
+          {
+            "probability": 0.75,
+            "posterior": 1,
+            "joint": 1e+100,
+            "expectedLogJoint": 172.69388197455345,
+            "entropy": 0.21576155433883568,
+            "kl": -0.21576155433884026
+          }
+        ],
+        "evidence": 1e+100,
+        "logEvidence": 230.25850929940458,
+        "expectedLogJoint": -5.75646273248509,
+        "entropy": 0.5623351446188083,
+        "elbo": -5.194127587866281,
+        "kl": 235.4526368872709
+      }
+    },
+    {
+      "kind": "finite",
+      "q": [
+        0.25,
+        0.75
+      ],
+      "joint": [
+        0.02,
+        0.9
+      ],
+      "reference_elbo": "-0.49469099348159784",
+      "reference_kl": "0.41130938454254684",
+      "actual": {
+        "q": [
+          0.25,
+          0.75
+        ],
+        "posterior": [
+          0.021739130434782608,
+          0.9782608695652174
+        ],
+        "rows": [
+          {
+            "probability": 0.25,
+            "posterior": 0.021739130434782608,
+            "joint": 0.02,
+            "expectedLogJoint": -0.9780057513570365,
+            "entropy": 0.34657359027997264,
+            "kl": 0.6105867588423012
+          },
+          {
+            "probability": 0.75,
+            "posterior": 0.9782608695652174,
+            "joint": 0.9,
+            "expectedLogJoint": -0.07902038674336971,
+            "entropy": 0.21576155433883568,
+            "kl": -0.19927737429975423
+          }
+        ],
+        "evidence": 0.92,
+        "logEvidence": -0.08338160893905101,
+        "expectedLogJoint": -1.0570261381004062,
+        "entropy": 0.5623351446188083,
+        "elbo": -0.49469099348159795,
+        "kl": 0.41130938454254695
+      }
+    },
+    {
+      "kind": "finite",
+      "q": [
+        1,
+        0
+      ],
+      "joint": [
+        0,
+        1
+      ],
+      "reference_elbo": "-inf",
+      "reference_kl": "inf",
+      "actual": {
+        "q": [
+          1,
+          0
+        ],
+        "posterior": [
+          0,
+          1
+        ],
+        "rows": [
+          {
+            "probability": 1,
+            "posterior": 0,
+            "joint": 0,
+            "expectedLogJoint": "-Infinity",
+            "entropy": 0,
+            "kl": "Infinity"
+          },
+          {
+            "probability": 0,
+            "posterior": 1,
+            "joint": 1,
+            "expectedLogJoint": 0,
+            "entropy": 0,
+            "kl": 0
+          }
+        ],
+        "evidence": 1,
+        "logEvidence": 0,
+        "expectedLogJoint": "-Infinity",
+        "entropy": 0,
+        "elbo": "-Infinity",
+        "kl": "Infinity"
+      }
+    },
+    {
+      "kind": "finite",
+      "q": [
+        0,
+        1
+      ],
+      "joint": [
+        0,
+        1
+      ],
+      "reference_elbo": "0.0",
+      "reference_kl": "0.0",
+      "actual": {
+        "q": [
+          0,
+          1
+        ],
+        "posterior": [
+          0,
+          1
+        ],
+        "rows": [
+          {
+            "probability": 0,
+            "posterior": 0,
+            "joint": 0,
+            "expectedLogJoint": 0,
+            "entropy": 0,
+            "kl": 0
+          },
+          {
+            "probability": 1,
+            "posterior": 1,
+            "joint": 1,
+            "expectedLogJoint": 0,
+            "entropy": 0,
+            "kl": 0
+          }
+        ],
+        "evidence": 1,
+        "logEvidence": 0,
+        "expectedLogJoint": 0,
+        "entropy": 0,
+        "elbo": 0,
+        "kl": 0
+      }
+    },
+    {
+      "kind": "gaussian",
+      "covariance": [
+        [
+          1e-100,
+          0
+        ],
+        [
+          0,
+          1e-100
+        ]
+      ],
+      "targetCovariance": [
+        [
+          1e+100,
+          0
+        ],
+        [
+          0,
+          1e+100
+        ]
+      ],
+      "mean": [
+        0,
+        0
+      ],
+      "targetMean": [
+        0,
+        0
+      ],
+      "reference": 459.51701859880916,
+      "actual": 459.51701859880916
+    },
+    {
+      "kind": "gaussian",
+      "covariance": [
+        [
+          2,
+          0.4
+        ],
+        [
+          0.4,
+          0.7
+        ]
+      ],
+      "targetCovariance": [
+        [
+          0.8,
+          -0.2
+        ],
+        [
+          -0.2,
+          1.6
+        ]
+      ],
+      "mean": [
+        -1,
+        2
+      ],
+      "targetMean": [
+        0.2,
+        -0.5
+      ],
+      "reference": 3.041935483870968,
+      "actual": 3.041935483870967
+    },
+    {
+      "kind": "gaussian",
+      "covariance": [
+        [
+          0.3,
+          -0.15
+        ],
+        [
+          -0.15,
+          2
+        ]
+      ],
+      "targetCovariance": [
+        [
+          4,
+          1
+        ],
+        [
+          1,
+          0.5
+        ]
+      ],
+      "mean": [
+        1.3,
+        -1.2
+      ],
+      "targetMean": [
+        -0.7,
+        0.9
+      ],
+      "reference": 17.519523418293094,
+      "actual": 17.519523418293094
+    },
+    {
+      "kind": "gaussian",
+      "covariance": [
+        [
+          10.3,
+          0.7000000000000001
+        ],
+        [
+          0.7000000000000001,
+          0.7999999999999999
+        ]
+      ],
+      "targetCovariance": [
+        [
+          4.0,
+          -0.5
+        ],
+        [
+          -0.5,
+          2.0
+        ]
+      ],
+      "mean": [
+        2.0,
+        -2.8
+      ],
+      "targetMean": [
+        1.9,
+        0.3
+      ],
+      "reference": 3.0419354838709665,
+      "actual": 3.0419354838709665
+    },
+    {
+      "kind": "gradient",
+      "mean": -0.7,
+      "sd": 0.3,
+      "targetMean": 2.2,
+      "targetSd": 1.4,
+      "seed": 41,
+      "count": 13,
+      "integrated": [
+        1.479591836734694,
+        0.9540816326530612,
+        1.4795918367346947,
+        0.9540816326530603
+      ],
+      "finite_difference": [
+        1.4795918366949932,
+        0.9540816326758516
+      ],
+      "checked_draws": 13
+    },
+    {
+      "kind": "gradient",
+      "mean": 1.8,
+      "sd": 1.7,
+      "targetMean": -0.4,
+      "targetSd": 0.4,
+      "seed": 92,
+      "count": 17,
+      "integrated": [
+        -13.75,
+        -17.062500000000007,
+        -13.750000000000009,
+        -17.062500000000018
+      ],
+      "finite_difference": [
+        -13.749999999745908,
+        -17.06250000097498
+      ],
+      "checked_draws": 17
+    },
+    {
+      "kind": "gradient",
+      "mean": -0.3,
+      "sd": 1.1,
+      "targetMean": -0.3,
+      "targetSd": 1.1,
+      "seed": 7,
+      "count": 19,
+      "integrated": [
+        5.2902501511951396e-18,
+        -3.446119664586231e-16,
+        0.0,
+        0.0
+      ],
+      "finite_difference": [
+        0.0,
+        -6.661338147750939e-11
+      ],
+      "checked_draws": 19
+    }
+  ],
+  "summary": {
+    "finite_support_log_domain_cases": 6,
+    "nonunit_gaussian_cases": 4,
+    "nonorthogonal_affine_invariance": true,
+    "changed_target_gradient_cases": 3,
+    "changed_target_draws": 49,
+    "all_passed": true
+  }
+}

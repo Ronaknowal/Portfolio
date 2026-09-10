@@ -1,0 +1,34 @@
+.mle-lab, .mle-coordinate { border-block: 1px solid #343431; padding: 22px 0; margin: 28px 0; }
+.mle-lab h3 { margin-top: 0; }
+.mle-lab label { display: block; margin-block: 14px; color: #ddd; }
+.mle-lab textarea, .mle-lab select { display: block; width: 100%; min-height: 46px; margin-top: 7px; border: 1px solid #555; background: #111310; color: #eee; border-radius: 3px; padding: 10px; font: inherit; }
+.mle-lab textarea { min-height: 75px; resize: vertical; }
+.mle-lab input[type=range] { display: block; width: 100%; height: 44px; accent-color: #f0bd58; }
+.mle-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-block: 13px; }
+.mle-lab button { min-height: 44px; padding: 9px 12px; background: #151711; color: #f0bd58; border: 1px solid #66634b; border-radius: 3px; font: inherit; cursor: pointer; }
+.mle-lab button:hover { background: #252a1b; }
+.mle-lab [role=alert] { color: #ffb4a7; }
+.mle-data-strip { display: flex; flex-wrap: wrap; gap: 7px; margin-block: 18px; }
+.mle-data-strip span { padding: 6px 10px; border: 1px solid #57685c; font-family: ui-monospace, monospace; }
+.mle-data-strip .success { color: #70d5b0; }
+.mle-data-strip .failure { color: #f0bd58; }
+.mle-lab figure, .mle-coordinate figure { margin: 18px 0; }
+.mle-lab svg, .mle-coordinate svg { display: block; width: 100%; max-width: 540px; margin-inline: auto; overflow: visible; }
+.mle-lab svg text, .mle-coordinate svg text { fill: #c9ccc5; font-size: 18px; font-family: ui-monospace, monospace; }
+.mle-axis { stroke: #899184; stroke-width: 1; fill: none; }
+.mle-lab figcaption, .mle-coordinate figcaption { color: #d9ded3; font-weight: 600; font-size: 15px; margin-bottom: 7px; }
+.mle-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 20px; font-size: 14px; }
+.mle-readouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; margin: 18px 0; }
+.mle-readouts > div { border-bottom: 1px solid #33382e; padding: 12px 0; }
+.mle-readouts dt { color: #b9c0b0; font-size: 14px; }
+.mle-readouts dd { margin: 4px 0 0; color: #f0bd58; font-size: 19px; overflow-wrap: anywhere; }
+.mle-note { font-size: 14px; color: #b6beb0; }
+.mle-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 25px; }
+.mle-two-plots { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 25px; }
+.mle-lab details, .mle-practice details { margin-block: 12px; }
+.mle-lab summary, .mle-practice summary { min-height: 44px; padding-block: 10px; cursor: pointer; color: #f0bd58; }
+.mle-lab table { width: 100%; font-size: 14px; border-collapse: collapse; }
+.mle-lab th, .mle-lab td { text-align: left; padding: 8px 4px; border-bottom: 1px solid #353a30; }
+.mle-practice { margin: 26px 0; }
+@media (max-width: 1000px) { .mle-two-plots { grid-template-columns: 1fr; } }
+@media (max-width: 500px) { .mle-controls, .mle-readouts { grid-template-columns: 1fr; } .mle-lab button { width: 100%; } .mle-lab, .mle-coordinate { padding-block: 17px; } }

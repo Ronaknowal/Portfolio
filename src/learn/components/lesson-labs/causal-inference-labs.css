@@ -1,0 +1,534 @@
+.causal-lab, .causal-figure {
+  margin: 2rem 0;
+  color: var(--text, #ddd8cc);
+  line-height: 1.6;
+}
+
+.causal-lab {
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+  background: #0c1113;
+  border: 1px solid #303a3d;
+  border-radius: 4px;
+}
+
+.causal-lab h3, .causal-figure h3 {
+  margin: .35rem 0 .8rem;
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
+.causal-lab p, .causal-figure p {
+  margin: .7rem 0;
+}
+
+.causal-eyebrow {
+  color: #e8b75b;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.causal-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.1rem;
+  margin: 1.3rem 0;
+}
+
+.causal-controls > *, .causal-wide-control {
+  min-width: 0;
+}
+
+.causal-controls label, .causal-wide-control {
+  display: grid;
+  gap: .45rem;
+  font-size: .92rem;
+}
+
+.causal-controls select, .causal-wide-control select {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  min-height: 44px;
+  padding: .55rem;
+  color: #eee5d4;
+  background: #10181b;
+  border: 1px solid #536166;
+  border-radius: 3px;
+  font: inherit;
+}
+
+.causal-range input {
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  accent-color: #e8b75b;
+}
+
+.causal-controls fieldset {
+  border: 1px solid #3b484c;
+  padding: .5rem .8rem;
+  margin: 0;
+}
+
+.causal-controls .causal-check {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+}
+
+.causal-check input {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  accent-color: #e8b75b;
+}
+
+.causal-lab button {
+  min-height: 44px;
+  padding: .6rem .85rem;
+  font: inherit;
+  font-size: .9rem;
+  background: #182023;
+  color: #edc477;
+  border: 1px solid #647176;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.causal-lab button:hover {
+  background: #243034;
+}
+
+.causal-lab :is(button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid #efc773;
+  outline-offset: 4px;
+}
+
+.causal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1rem;
+}
+
+.causal-investigation-layout, .causal-paired-graphs, .causal-ambiguity-models {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.3rem;
+  align-items: start;
+}
+
+.causal-investigation-layout > *, .causal-paired-graphs > *, .causal-ambiguity-models > * {
+  min-width: 0;
+}
+
+.causal-graph {
+  margin: 1rem 0;
+  min-width: 0;
+}
+
+.causal-graph figcaption {
+  font-size: .95rem;
+  color: #ece2ce;
+}
+
+.causal-graph svg {
+  display: block;
+  width: 100%;
+  max-width: 390px;
+  height: auto;
+}
+
+.causal-graph svg text {
+  fill: #f0e7d7;
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.causal-edge {
+  fill: none;
+  stroke: #809498;
+  stroke-width: 2.8;
+}
+
+.causal-edge.is-active {
+  stroke: #e8b75b;
+  stroke-width: 3.5;
+}
+
+.causal-edge.is-cut {
+  stroke: #a28f6b;
+  stroke-dasharray: 5 7;
+  stroke-width: 2;
+}
+
+.causal-node {
+  fill: #122125;
+  stroke: #78cbb1;
+  stroke-width: 2;
+}
+
+.causal-node.is-hidden {
+  stroke-dasharray: 4 4;
+}
+
+.causal-node.is-forced {
+  fill: #56431f;
+  stroke: #efbf64;
+  stroke-width: 3;
+}
+
+.causal-conditioned-ring {
+  fill: none;
+  stroke: #efbf64;
+  stroke-width: 2;
+}
+
+.causal-edge-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .8rem;
+  font-size: .9rem;
+  color: #c0d1d0;
+}
+
+.causal-cut-label {
+  color: #e3c589;
+}
+
+.causal-caption {
+  font-size: .87rem;
+  color: #b9c5c3;
+}
+
+.causal-feedback {
+  padding: .9rem 0;
+  border-top: 1px solid #536269;
+  border-bottom: 1px solid #536269;
+}
+
+.causal-rule-expression {
+  display: grid;
+  justify-items: center;
+  gap: .25rem;
+  margin: 1.4rem 0;
+}
+
+.causal-rule-expression p {
+  justify-self: stretch;
+  font-size: .9rem;
+}
+
+.causal-rule-expression code {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: #edc477;
+  font-size: .92rem;
+}
+
+.causal-path-reason {
+  padding: .65rem 0;
+}
+
+.causal-path-reason p {
+  font-size: .94rem;
+}
+
+.causal-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1.2rem 0;
+  gap: .95rem 1.3rem;
+}
+
+.causal-facts dt {
+  font-size: .87rem;
+  color: #bdc9c7;
+}
+
+.causal-facts dd {
+  margin: .3rem 0 0;
+  color: #e9c67e;
+  font-size: 1.03rem;
+  overflow-wrap: anywhere;
+}
+
+.causal-weight-comparison {
+  margin: 1.4rem 0;
+}
+
+.causal-mixture {
+  margin: .85rem 0;
+}
+
+.causal-mixture > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .3rem 1rem;
+  font-size: .91rem;
+}
+
+.causal-composition {
+  height: 22px;
+  display: flex;
+  margin-top: .4rem;
+  background: #20292b;
+}
+
+.causal-composition .is-low {
+  background: #a1b8ba;
+}
+
+.causal-composition .is-high {
+  background: #dfaf52;
+}
+
+.causal-table {
+  margin: 1rem 0;
+}
+
+.causal-table summary {
+  cursor: pointer;
+  padding: .6rem 0;
+  color: #dbc594;
+}
+
+.causal-table > div {
+  overflow-x: auto;
+}
+
+.causal-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .86rem;
+}
+
+.causal-table th, .causal-table td {
+  border-bottom: 1px solid #34454a;
+  text-align: left;
+  padding: .6rem;
+  vertical-align: top;
+}
+
+.causal-table th {
+  color: #d9e3df;
+  font-weight: 600;
+}
+
+.causal-table td {
+  color: #c4d1cf;
+}
+
+.causal-figure > figcaption {
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin-bottom: .8rem;
+  color: #efe3c9;
+}
+
+.causal-figure code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: .86rem;
+}
+
+.causal-ambiguity-models table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+.causal-ambiguity-models caption {
+  text-align: left;
+  color: #b9c5c3;
+  margin-bottom: .5rem;
+  font-size: .85rem;
+}
+
+.causal-ambiguity-models :is(th, td) {
+  padding: .55rem;
+  border: 1px solid #3e4a4b;
+  text-align: center;
+}
+
+.causal-ambiguity-models td span {
+  display: block;
+  font-size: .75rem;
+  line-height: 1.4;
+}
+
+.causal-ambiguity-models td strong {
+  display: block;
+  font-size: 1.12rem;
+}
+
+.causal-ambiguity-models .is-observed {
+  color: #a1dfc5;
+  background: #11271f;
+}
+
+.causal-ambiguity-models .is-unseen {
+  color: #e6c991;
+  background: #272117;
+}
+
+.causal-frontdoor-chain {
+  display: grid;
+  gap: .6rem;
+}
+
+.causal-frontdoor-chain > div {
+  padding: .75rem 0;
+  border-top: 1px solid #506162;
+}
+
+.causal-frontdoor-chain span {
+  display: block;
+  color: #d3dddd;
+  font-size: .9rem;
+}
+
+.causal-frontdoor-chain strong {
+  display: block;
+  font-size: 1.25rem;
+  color: #e9c16f;
+  margin-top: .3rem;
+}
+
+.causal-frontdoor-chain p {
+  font-size: .85rem;
+  color: #b9c5c3;
+}
+
+.causal-response-types {
+  margin: 1.2rem 0;
+}
+
+.causal-response-type {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid #425358;
+}
+
+.causal-outcome-pair > strong {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .9rem;
+}
+
+.causal-outcome-pair > div {
+  display: flex;
+  gap: .7rem;
+}
+
+.causal-outcome-pair span {
+  display: grid;
+  justify-items: center;
+}
+
+.causal-outcome-pair small {
+  color: #c5d0cb;
+  font-size: .8rem;
+}
+
+.causal-outcome-pair b {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #74837e;
+  border-radius: 50%;
+}
+
+.causal-outcome-pair .is-read b {
+  border: 2px solid #e9bd61;
+  background: #2e291e;
+}
+
+.causal-type-weights > div {
+  position: relative;
+  min-height: 42px;
+  padding-bottom: 12px;
+  margin-bottom: .3rem;
+}
+
+.causal-type-weights span {
+  font-size: .88rem;
+}
+
+.causal-type-weights i {
+  display: block;
+  height: 8px;
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+  background: #8aaba9;
+}
+
+.causal-type-weights .is-posterior {
+  background: #e5b454;
+}
+
+.causal-type-weights p {
+  font-size: .83rem;
+  color: #c4cecc;
+}
+
+.causal-response-type.is-excluded .causal-outcome-pair b {
+  border-style: dashed;
+}
+
+.causal-example {
+  margin: 1.7rem 0;
+}
+
+.causal-exercise {
+  margin: 1.6rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid #3a4241;
+}
+
+.causal-exercise summary {
+  cursor: pointer;
+  padding: .6rem 0;
+  color: #e6c487;
+}
+
+@media (max-width: 740px) {
+  .causal-investigation-layout, .causal-paired-graphs, .causal-ambiguity-models {
+    grid-template-columns: 1fr;
+    gap: .8rem;
+  }
+  .causal-graph svg {
+    max-width: 360px;
+  }
+  .causal-facts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .causal-controls {
+    grid-template-columns: 1fr;
+  }
+  .causal-response-type {
+    grid-template-columns: 100px minmax(0, 1fr);
+    gap: .7rem;
+  }
+  .causal-type-weights span {
+    font-size: .85rem;
+  }
+  .causal-outcome-pair b {
+    width: 34px;
+    height: 34px;
+  }
+  .causal-lab {
+    padding: 1rem .85rem;
+  }
+}

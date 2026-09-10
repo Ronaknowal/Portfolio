@@ -1,0 +1,83 @@
+.tree-lab, .tree-inline-figure { margin: 28px 0; padding: 22px 0; border-block: 1px solid #494132; color: #ded8cd; font-size: 14px; line-height: 1.7; }
+.tree-lab *, .tree-inline-figure * { box-sizing: border-box; }
+.tree-lab h3 { margin: 6px 0 14px; color: #f0e9dc; font-size: 22px; line-height: 1.35; }
+.tree-lab h4 { color: #e4d2ab; margin: 10px 0; font-size: 14px; }
+.tree-eyebrow { font-size: 11px; letter-spacing: .07em; color: #dfbd73; }
+.tree-lab :is(input, select, button), .tree-diagram-tools button { font: inherit; color: #eaddbd; background: #211d15; border: 1px solid #766443; border-radius: 3px; min-height: 44px; padding: 8px 10px; max-width: 100%; }
+.tree-lab button, .tree-diagram-tools button { cursor: pointer; }
+.tree-lab button:disabled { opacity: .5; cursor: default; }
+.tree-lab :is(button,input,select,summary):focus-visible, .tree-diagram :is(button,summary,[tabindex]):focus-visible { outline: 2px solid #f0cf84; outline-offset: 4px; }
+.tree-lab label { display: grid; gap: 5px; min-width: 0; }
+.tree-controls, .tree-build-form, .tree-preset-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; align-items: end; }
+.tree-build-form label { flex: 1 1 300px; }
+.tree-controls label { flex: 1 1 170px; }
+.tree-controls input { width: 100%; }
+.tree-preset-buttons button { font-size: 12px; }
+.tree-note, .tree-legend { font-size: 12px; color: #c4bbab; line-height: 1.6; }
+.tree-error, .tree-transient-note { color: #f0b7a4; border-left: 2px solid #c88874; padding-left: 12px; }
+.tree-readouts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 20px 0; font-variant-numeric: tabular-nums; color: #e3c685; }
+.tree-diagram { min-width: 0; margin: 16px 0; }
+.tree-diagram-tools { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 12px; }
+.tree-diagram-tools button { font-size: 12px; }
+.tree-diagram-scroll { overflow-x: auto; overscroll-behavior-x: contain; padding: 4px 0; }
+.tree-diagram svg { display: block; width: 100%; height: auto; max-height: none; }
+.tree-edge { color: #a3b39d; stroke: currentColor; }
+.tree-edge line { stroke-width: 1.8; }
+.tree-edge.is-active { color: #f0c568; }
+.tree-edge.is-active line { stroke-width: 3; }
+.tree-edge text { fill: #c5c5b5; stroke: none; font-size: 12px; }
+.tree-node > circle { fill: #17221a; stroke: #9aac91; stroke-width: 1.7; }
+.tree-node.is-path > circle { fill: #263126; stroke-width: 2.4; }
+.tree-node.is-emitted > circle { fill: #29432f; }
+.tree-node.is-active > circle { fill: #3b2d15; stroke: #efc469; stroke-width: 3; }
+.tree-node.is-successor > circle { stroke-dasharray: 5 3; }
+.tree-node > .tree-target-ring { fill: none; stroke: #e4bc6a; stroke-dasharray: 2 3; stroke-width: 1.5; }
+.tree-node-key { fill: #f5e5bd; font-size: 19px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tree-node-id, .tree-annotation { fill: #cbbfa5; font-size: 11px; }
+.tree-empty-label { fill: #ddc388; font-size: 18px; }
+.tree-structure-details summary, .tree-lab > details > summary { cursor: pointer; color: #e5bd6f; min-height: 44px; padding: 10px 0; }
+.tree-table-scroll { max-width: 100%; overflow-x: auto; }
+.tree-table-scroll table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.tree-table-scroll :is(td, th) { border-bottom: 1px solid #454036; padding: 7px 9px; text-align: left; white-space: nowrap; }
+.tree-table-scroll caption { text-align: left; color: #d7c394; padding: 8px 0; }
+.tree-bounds { display: grid; gap: 4px; border-left: 2px solid #d9b35c; padding: 8px 14px; margin: 18px 0; }
+.tree-bounds strong { font-size: 20px; color: #ecd097; }
+.tree-bounds small { color: #c4bbab; }
+.tree-feedback { padding: 12px 14px; background: #192019; border-left: 2px solid #92ab87; margin: 18px 0; }
+.tree-feedback.is-transient { background: #2a211a; border-color: #d09676; }
+.tree-trace-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.tree-trace-controls > span { font-size: 12px; }
+.tree-traversal-state { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; margin: 18px 0; }
+.tree-frontier, .tree-output { list-style: none; padding: 0; margin: 0; }
+.tree-frontier { display: grid; gap: 5px; }
+.tree-frontier > li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 3px 8px; padding: 8px 10px; border: 1px solid #7c7052; }
+.tree-frontier > li:first-child { border-width: 2px; border-color: #dfba69; }
+.tree-frontier strong { font-size: 19px; grid-row: span 2; }
+.tree-frontier span, .tree-frontier small { font-size: 11px; }
+.tree-frontier--queue > li { border-left-width: 4px; }
+.tree-output { display: flex; flex-wrap: wrap; gap: 6px; }
+.tree-output li { display: grid; justify-items: center; min-width: 44px; padding: 6px; border: 1px solid #8ba48a; background: #19271c; }
+.tree-output strong { font-size: 18px; color: #c5dbb9; }
+.tree-output small { font-size: 10px; }
+.tree-empty { color: #c4bbab; border: 1px dashed #686047; padding: 10px; }
+.tree-identity-readout { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 12px; }
+.tree-validity { color: #bfd0b3; font-size: 12px; }
+.tree-inline-figure { padding: 18px 0; }
+.tree-inline-figure > figcaption { color: #e3c27e; margin-bottom: 12px; font-size: 16px; }
+.tree-inline-figure .tree-legend { font-size: 11px; }
+.tree-inline-figure > p { font-size: 14px; }
+.tree-bounds-chain { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.tree-bounds-chain > span:not([aria-hidden]) { border-bottom: 2px solid #96835a; padding: 8px 4px; }
+.tree-bounds-chain .is-invalid { color: #ecb2a0; border-color: #bd826e !important; }
+.tree-rotation-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.tree-rotation-pair h4 { color: #dfc38d; font-size: 14px; margin-bottom: 0; }
+.tree-inorder-proof { color: #d9c28a; font-variant-numeric: tabular-nums; }
+@media (max-width: 620px) {
+  .tree-controls > label, .tree-build-form > label { flex-basis: 100%; }
+  .tree-controls > button, .tree-build-form > button { flex: 1; }
+  .tree-traversal-state, .tree-rotation-pair { grid-template-columns: minmax(0, 1fr); }
+  .tree-trace-controls > button:nth-of-type(2) { flex: 1 1 200px; }
+  .tree-lab h3 { font-size: 20px; }
+  .tree-inline-figure .tree-node-key { font-size: 27px; }
+  .tree-inline-figure .tree-edge text { font-size: 20px; }
+}

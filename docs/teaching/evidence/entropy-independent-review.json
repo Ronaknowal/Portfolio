@@ -1,0 +1,309 @@
+{
+  "at": "2026-09-10T17:38:15.019882+00:00",
+  "sourceSnapshot": {
+    "timestamp": "2026-09-10T17:34:22.3076173Z",
+    "status": "author-refrozen-after-numeric-review",
+    "files": [
+      {
+        "file": "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx",
+        "sha256": "20dc4ed0f32a6cf0811af9809f68e48a63d28aa0eaff0eb7fb688f70d93d5a1b"
+      },
+      {
+        "file": "src/learn/data/entropy-information-models.js",
+        "sha256": "519d1fff3ae48c1cd36e11a3bce3a0e31880b8286ca8188faddfe958c0ccf49f"
+      },
+      {
+        "file": "src/learn/data/entropy-information-examples.js",
+        "sha256": "0797f36c9bc513c7367bfe2388a23103fba50725f3862430e1afe5e6d5502163"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/EntropyInformationLabs.jsx",
+        "sha256": "8ec85643c632c838051cba9e8bf5299d5e2ccb6b74b7e90cd72e18f9c02358a3"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/entropy-information-labs.css",
+        "sha256": "2b370e2ac65d7db1a3175bad05e1067716dbb870c0d34b8e9fff73d8c3d59f4d"
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/entropy-cross-entropy-kl-divergence.js",
+        "sha256": "52644d709aa664c88f5760fa0d7095ea16b3a5b58605194fb48192c4aeb4cdee"
+      }
+    ],
+    "previousFreeze": {
+      "timestamp": "2026-09-10T17:21:01.4303975Z",
+      "status": "author-frozen",
+      "files": [
+        {
+          "file": "src/learn/data/topics/entropy-cross-entropy-kl-divergence.jsx",
+          "sha256": "20dc4ed0f32a6cf0811af9809f68e48a63d28aa0eaff0eb7fb688f70d93d5a1b"
+        },
+        {
+          "file": "src/learn/data/entropy-information-models.js",
+          "sha256": "cc259356798fb47d9febaff16fb6fe3694e896a7397620509c50b290027a5356"
+        },
+        {
+          "file": "src/learn/data/entropy-information-examples.js",
+          "sha256": "0797f36c9bc513c7367bfe2388a23103fba50725f3862430e1afe5e6d5502163"
+        },
+        {
+          "file": "src/learn/components/lesson-labs/EntropyInformationLabs.jsx",
+          "sha256": "c602c47d717c3f0b74c98b6e6f56caaa6158cecf1bd28ea45ccba9020336e1c8"
+        },
+        {
+          "file": "src/learn/components/lesson-labs/entropy-information-labs.css",
+          "sha256": "2b370e2ac65d7db1a3175bad05e1067716dbb870c0d34b8e9fff73d8c3d59f4d"
+        },
+        {
+          "file": "src/learn/data/curriculum/blueprints/entropy-cross-entropy-kl-divergence.js",
+          "sha256": "52644d709aa664c88f5760fa0d7095ea16b3a5b58605194fb48192c4aeb4cdee"
+        }
+      ]
+    }
+  },
+  "decimalKlCases": 21,
+  "maximumRelativeKlError": 5.311554493245629e-14,
+  "rejectedUnderflowAndRangeInputs": [
+    {
+      "kind": "maximum-entropy mean",
+      "input": 1e-200
+    },
+    {
+      "kind": "maximum-entropy mean",
+      "input": 1e-100
+    },
+    {
+      "kind": "maximum-entropy mean",
+      "input": 5e-07
+    },
+    {
+      "kind": "maximum-entropy mean",
+      "input": 1.9999995
+    },
+    {
+      "kind": "positive probability underflow",
+      "input": "100,1e-322,0,0"
+    },
+    {
+      "kind": "positive probability underflow",
+      "input": "1,1e-9999,0,0"
+    }
+  ],
+  "maximumCases": [
+    {
+      "mean": 0,
+      "boundary": true
+    },
+    {
+      "mean": 0,
+      "boundary": true
+    },
+    {
+      "mean": 0,
+      "boundary": true
+    },
+    {
+      "mean": 0,
+      "boundary": true
+    },
+    {
+      "mean": 1e-06,
+      "fraction": 0,
+      "gap": 1.442693598198491e-12,
+      "independentEntropyDeficit": 1.4427211968224673e-12
+    },
+    {
+      "mean": 1e-06,
+      "fraction": 0.15,
+      "gap": 1.12350322416105e-06,
+      "independentEntropyDeficit": 1.123503224171737e-06
+    },
+    {
+      "mean": 1e-06,
+      "fraction": 0.55,
+      "gap": 4.847335670293792e-06,
+      "independentEntropyDeficit": 4.847335670312776e-06
+    },
+    {
+      "mean": 1e-06,
+      "fraction": 1,
+      "gap": 1.0187132706789316e-05,
+      "independentEntropyDeficit": 1.0187132706757571e-05
+    },
+    {
+      "mean": 0.03,
+      "fraction": 0,
+      "gap": 0.0012628435315509797,
+      "independentEntropyDeficit": 0.0012628435315509556
+    },
+    {
+      "mean": 0.03,
+      "fraction": 0.15,
+      "gap": 0.0014092709444675073,
+      "independentEntropyDeficit": 0.0014092709444674112
+    },
+    {
+      "mean": 0.03,
+      "fraction": 0.55,
+      "gap": 0.02367125252665612,
+      "independentEntropyDeficit": 0.023671252526656056
+    },
+    {
+      "mean": 0.03,
+      "fraction": 1,
+      "gap": 0.0832939912637504,
+      "independentEntropyDeficit": 0.0832939912637504
+    },
+    {
+      "mean": 0.5,
+      "fraction": 0,
+      "gap": 0.30020683328195424,
+      "independentEntropyDeficit": 0.3002068332819543
+    },
+    {
+      "mean": 0.5,
+      "fraction": 0.15,
+      "gap": 0.11650384535540718,
+      "independentEntropyDeficit": 0.11650384535540703
+    },
+    {
+      "mean": 0.5,
+      "fraction": 0.55,
+      "gap": 0.008354866788568959,
+      "independentEntropyDeficit": 0.008354866788568893
+    },
+    {
+      "mean": 0.5,
+      "fraction": 1,
+      "gap": 0.48892870882282147,
+      "independentEntropyDeficit": 0.48892870882282147
+    },
+    {
+      "mean": 1,
+      "fraction": 0,
+      "gap": 1.5849625007211563,
+      "independentEntropyDeficit": 1.584962500721156
+    },
+    {
+      "mean": 1,
+      "fraction": 0.15,
+      "gap": 0.8251221960047559,
+      "independentEntropyDeficit": 0.8251221960047557
+    },
+    {
+      "mean": 1,
+      "fraction": 0.55,
+      "gap": 0.04218804673334794,
+      "independentEntropyDeficit": 0.04218804673334775
+    },
+    {
+      "mean": 1,
+      "fraction": 1,
+      "gap": 0.5849625007211563,
+      "independentEntropyDeficit": 0.5849625007211561
+    },
+    {
+      "mean": 1.75,
+      "fraction": 0,
+      "gap": 0.0778376478989498,
+      "independentEntropyDeficit": 0.07783764789895031
+    },
+    {
+      "mean": 1.75,
+      "fraction": 0.15,
+      "gap": 0.015049604104479673,
+      "independentEntropyDeficit": 0.015049604104480196
+    },
+    {
+      "mean": 1.75,
+      "fraction": 0.55,
+      "gap": 0.032755246423082016,
+      "independentEntropyDeficit": 0.03275524642308236
+    },
+    {
+      "mean": 1.75,
+      "fraction": 1,
+      "gap": 0.34555132915848635,
+      "independentEntropyDeficit": 0.34555132915848674
+    },
+    {
+      "mean": 1.999999,
+      "fraction": 0,
+      "gap": 1.44269359796112e-12,
+      "independentEntropyDeficit": 1.4491617202571326e-12
+    },
+    {
+      "mean": 1.999999,
+      "fraction": 0.15,
+      "gap": 1.1235032239850236e-06,
+      "independentEntropyDeficit": 1.1235032304531436e-06
+    },
+    {
+      "mean": 1.999999,
+      "fraction": 0.55,
+      "gap": 4.847335670266936e-06,
+      "independentEntropyDeficit": 4.847335676735055e-06
+    },
+    {
+      "mean": 1.999999,
+      "fraction": 1,
+      "gap": 1.0187132706010598e-05,
+      "independentEntropyDeficit": 1.0187132712478718e-05
+    },
+    {
+      "mean": 2,
+      "boundary": true
+    },
+    {
+      "mean": 2,
+      "boundary": true
+    },
+    {
+      "mean": 2,
+      "boundary": true
+    },
+    {
+      "mean": 2,
+      "boundary": true
+    }
+  ],
+  "nonuniformBaseCertificatesAndScaleChecks": 606,
+  "changedFiveSymbolMessages": 780,
+  "rejectedCodeStreams": 2,
+  "normalKlIndependentIntegrals": [
+    {
+      "parameters": [
+        0,
+        1,
+        1,
+        2
+      ],
+      "integral": 0.443147180559945,
+      "native": 0.4431471805599453
+    },
+    {
+      "parameters": [
+        -2,
+        0.5,
+        1,
+        1.5
+      ],
+      "integral": 2.654167844223666,
+      "native": 2.6541678442236654
+    },
+    {
+      "parameters": [
+        3,
+        2,
+        -1,
+        0.75
+      ],
+      "integral": 16.296948524766055,
+      "native": 16.29694852476605
+    }
+  ],
+  "unequalContextPractice": {
+    "hy": 0.9340680553754911,
+    "conditional": 0.7219280948873624,
+    "reduction": 0.21213996048812866
+  }
+}

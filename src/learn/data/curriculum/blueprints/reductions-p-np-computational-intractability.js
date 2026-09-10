@@ -1,0 +1,20 @@
+export default {
+  summary: 'Separate solving from verifying, transform instances with correct polynomial reductions, prove a complete SAT-to-graph reduction and choose practical contracts for computationally hard problems.',
+  outcomes: [
+    'Specify an instance, decision question, polynomial-size yes certificate and polynomial verifier in the encoded input length',
+    'Explain P, NP, NP hardness, NP completeness and unresolved P versus NP without equating unknown with impossible',
+    'Prove both implications and the output-size bound for a many-one reduction; transfer solvers and hardness in the right direction',
+    'Construct a literal-occurrence graph from three-literal clauses, recover assignments and connect clique, independent set and vertex cover',
+    'Recover SAT search witnesses through decision queries and explain existential auxiliary variables in a three-CNF conversion',
+    'Distinguish numerical pseudopolynomial DP, small-parameter exact search, structural restrictions and certified approximation',
+    'Implement and verify subset witnesses, budgeted vertex cover, matching lower bounds and weighted path independent sets',
+  ],
+  prerequisites: ['Complexity Analysis & Recursion', 'Sets, Logic, Relations & Proof Techniques'],
+  sequence: ['Check a proposed Boolean assignment before searching', 'Measure encoded inputs and define P and NP', 'Transfer a solver through a polynomial conversion', 'Build and prove a SAT-to-clique reduction', 'Establish membership and hardness separately', 'Connect decision, search and optimization', 'Choose a practical exact or approximate contract', 'Practise implications, witnesses and changed constraints'],
+  visual: { type: 'Clause truth circuit, solver-conversion boundary, clause-grouped literal occurrence graph, exact bit-length versus state count, and cover graph with disjoint-matching lower bounds', question: 'Which precise claim does this certificate, transformation or bound establish?', interaction: 'Toggle assignment bits, change a bounded formula, choose compatible occurrences, inspect exact encoding counts, edit a small graph, build covers and inspect an edge-budget branch tree.' },
+  practice: { task: 'Prove reduction direction and equivalence, recover witnesses, diagnose invalid clause gadgets and numerical size arguments, and choose a justified contract for a changed hard problem.', success: 'Give both directions, polynomial size/time, explicit feasibility/witness checks and meaningful optimality or approximation bounds; pass independent finite assignment/subset oracles.' },
+  misconceptions: ['NP means not polynomial', 'One failed certificate proves no solution', 'An exponential baseline proves every algorithm exponential', 'Reducing the new problem to a known hard problem proves hardness', 'A reduction must shrink the input', 'Polynomial in a numeric value is polynomial in its bit length', 'Every NP problem is NP-complete', 'A decision reduction automatically recovers all witnesses', 'A feasible heuristic answer proves optimality', 'NP-hard means every practical instance is impossible'],
+  sources: ['https://www.claymath.org/millennium/p-vs-np/', 'https://www.claymath.org/wp-content/uploads/2022/06/pvsnp.pdf', 'https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/mit6_006f11_lec23/', 'https://ocw.mit.edu/courses/6-046j-design-and-analysis-of-algorithms-spring-2015/2cf0d5a0689efafd2bf2d13954d8ad9b_MIT6_046JS15_lec18.pdf'],
+  depth: 'core',
+  reviewFocus: 'Existential certificate versus universal no claim; bit-length and actual copying/validation costs; total many-one mapping and both implications; distinct literal occurrences and existential auxiliary variables; NP-completeness proof premises; polynomially many oracle calls versus cost of supplied oracle; unweighted matching bound, valid cover witness and bounded edge-branch search; no lower-bound or universal performance claims from finite illustrations.',
+};

@@ -1,0 +1,1087 @@
+{
+  "frozenAt": "2026-09-10T16:18:34.286242+00:00",
+  "status": "author-verified; independent cross-review and root integration separate; user acceptance pending",
+  "sourceFiles": [
+    {
+      "path": "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+      "bytes": 42976,
+      "sha256": "64a1ae33f30b28d62cf691c12a2ba86bfab637647f3a323e2793ed534320c75d"
+    },
+    {
+      "path": "src/learn/data/exponential-family-models.js",
+      "bytes": 7414,
+      "sha256": "b371f7f03adebd0d60f21ab7b4ac3e1568465bd0db605c9a34a5cc58d8132a7c"
+    },
+    {
+      "path": "src/learn/data/exponential-family-examples.js",
+      "bytes": 11130,
+      "sha256": "fc115d8d97394fb82a40931a7bdf55776015fe7d71a7505295cdb9465dd41521"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+      "bytes": 20272,
+      "sha256": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/exponential-family-labs.css",
+      "bytes": 6083,
+      "sha256": "f15c93899232877b131554bb297c483c94388dae33924d08a0d117c70e4459ae"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/exponential-families-sufficient-statistics.js",
+      "bytes": 3488,
+      "sha256": "93b8ab71e3aa79c55167f0cb2b709bd009a2e1106b97caf1425614e07bb1dfbe"
+    },
+    {
+      "path": "docs/teaching/EXPONENTIAL-FAMILIES-LESSON-DESIGN.md",
+      "bytes": 11939,
+      "sha256": "b5d45d08d77e4e5ed47cf8a58496ae8f17efc0b024157c4012d9d33e0ed46832"
+    },
+    {
+      "path": "docs/teaching/topic-notes/entropy-cross-entropy-kl-divergence.md",
+      "bytes": 3169,
+      "sha256": "3b03308ed54952f050de3efb648b9958b8ca8ffa90c8223b929e7aedf27dbfe0"
+    },
+    {
+      "path": "docs/teaching/evidence/exponential-family-original-content.json",
+      "bytes": 7259,
+      "sha256": "d54da4af6c910f57c40440d6643ca5eae41d3970707344b76adda04ac453cf01"
+    },
+    {
+      "path": "scripts/prepare-exponential-family-examples.py",
+      "bytes": 10351,
+      "sha256": "69c60a2e0be31868a690e6ee10d2390b69b99b094bd7c62ebe56ac29c0ab896c"
+    },
+    {
+      "path": "scripts/verify-exponential-family.py",
+      "bytes": 11676,
+      "sha256": "8b62e14f04d43fbe216ab44a77ef3970c904e69fea569e867a5ff2826fac8c1c"
+    },
+    {
+      "path": "scripts/format-exponential-family.cjs",
+      "bytes": 2862,
+      "sha256": "5a78993dc420ed9605f2e5f732aca8b978c812ab4f5fcc1185913b7e744c6b19"
+    },
+    {
+      "path": "scripts/review-exponential-family.cjs",
+      "bytes": 11899,
+      "sha256": "ae5eb35b5e7700b647e6451295e9e5e4316702ca05d03bee6d33e022585144de"
+    },
+    {
+      "path": "scripts/finalize-exponential-family-evidence.py",
+      "bytes": 3544,
+      "sha256": "4c4694f839b191511dd1b3c8e16218cce841785a07c92d92ecd03140bcbb96a9"
+    },
+    {
+      "path": "scripts/review-exponential-family-setup.cjs",
+      "bytes": 3577,
+      "sha256": "237e95f38d9cc1a58352e9115619cd921ad6fc174c10800d7a0443280eaa19d7"
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T16:01:47.505996+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "programs": [
+      {
+        "key": "bernoulli",
+        "stdout": "6 8 0.75\n1.099 1.386\n6.0"
+      },
+      {
+        "key": "conditional",
+        "stdout": "p = 1/5 | group size = 6 | conditional masses = 1/6\np = 4/5 | group size = 6 | conditional masses = 1/6\n1001 belongs: True"
+      },
+      {
+        "key": "poissonRatio",
+        "stdout": "n and totals: 3 4 4\nrate 0.5: likelihood ratio 0.333333\nrate 2.0: likelihood ratio 0.333333\nrate 7.0: likelihood ratio 0.333333"
+      },
+      {
+        "key": "normalizer",
+        "stdout": "probabilities: [0.110099, 0.443426, 0.446475]\nA, mean, variance: [1.506372, 0.336376, 0.443426]\nfinite differences: 0.336376 0.443426\nlog MGF: 0.075936 0.075936\nA at eta=1000: 1000.0"
+      },
+      {
+        "key": "moments",
+        "stdout": "[2, 5, 3] finite\neta: [0.202733, -0.713558]\nmodel masses: [0.2, 0.5, 0.3]\n[2, 0, 3] boundary: no finite natural-parameter MLE\n[0, 0, 0] no observations"
+      },
+      {
+        "key": "gaussianMerge",
+        "stdout": "left: (3, 2.0, 2.0) | right: (2, 5.5, 0.5)\nmerged: (5, 3.4, 17.2)\nGaussian MLE mean and variance: 3.4 3.44\nunbiased sample variance: 4.3\nsame as one pass: True"
+      },
+      {
+        "key": "features",
+        "stdout": "X-transpose y: [2, 1]\nloss: 1.61337\ngradient: [-0.638324, -0.666591]\nHessian: [[0.688021, 0.029503], [0.029503, 0.440504]]"
+      },
+      {
+        "key": "exposure",
+        "stdout": "events, hours: 12 3.5\nposterior shape, rate: 14.0 4.5\nmean events per hour: 3.111111\nsequential equals combined: True"
+      },
+      {
+        "key": "coordinates",
+        "stdout": "p=0.2: density_p=1.536000, density_eta=0.245760, equal=True\np=0.5: density_p=1.500000, density_eta=0.375000, equal=True\np=0.8: density_p=0.384000, density_eta=0.061440, equal=True"
+      }
+    ],
+    "preservedOriginalPrograms": 1,
+    "finiteFamilies": 135,
+    "momentCountCases": 729,
+    "exactLikelihoodComparisons": 512,
+    "betaPriorCases": 64,
+    "gaussianDensityCases": 100,
+    "gaussianSummaryCases": 90,
+    "invalidContracts": 11,
+    "maximumErrors": {
+      "finite": 4.440892098500626e-16,
+      "gaussian": 1.1368683772161603e-13,
+      "prior": 5.551115123125783e-15,
+      "merge": 4.6177515116596624e-05
+    },
+    "changedPractice": "All numerical hand-task results and model-change counterexamples checked; capstone and constrained-family argument inspected logically."
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T16:01:40.050Z",
+    "records": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-what-can-you-forget-without-changing-the-inference",
+            "top": 99.640625
+          },
+          {
+            "href": "#2-factor-the-likelihood-and-test-the-model",
+            "top": 99.875
+          },
+          {
+            "href": "#3-build-the-family-from-weights",
+            "top": 99.5
+          },
+          {
+            "href": "#4-differentiate-the-normalizer",
+            "top": 99.890625
+          },
+          {
+            "href": "#5-fit-moments-and-recognize-boundaries",
+            "top": 99.921875
+          },
+          {
+            "href": "#6-keep-the-right-gaussian-summary",
+            "top": 100.28125
+          },
+          {
+            "href": "#7-connect-the-model-to-features",
+            "top": 100.25
+          },
+          {
+            "href": "#8-update-a-prior-with-the-right-units",
+            "top": 100.453125
+          },
+          {
+            "href": "#9-practise-changing-the-inference-contract",
+            "top": 99.953125
+          },
+          {
+            "href": "#10-connect-the-ideas-and-continue",
+            "top": 100.1875
+          }
+        ],
+        "captures": [
+          "ordinary-intro-1440.png",
+          "ordinary-section-1-1440.png",
+          "ordinary-section-2-1440.png",
+          "ordinary-section-3-1440.png",
+          "ordinary-section-4-1440.png",
+          "ordinary-section-5-1440.png",
+          "ordinary-section-6-1440.png",
+          "ordinary-section-7-1440.png",
+          "ordinary-section-8-1440.png",
+          "ordinary-section-9-1440.png",
+          "ordinary-section-10-1440.png",
+          "ordinary-figure-1-1440.png",
+          "ordinary-figure-2-1440.png",
+          "ordinary-figure-3-1440.png",
+          "ordinary-lab-1-1440.png",
+          "ordinary-lab-2-1440.png",
+          "ordinary-lab-3-1440.png",
+          "ordinary-lab-4-1440.png",
+          "fitted-moments-1440.png",
+          "boundary-moments-1440.png",
+          "uniform-coordinate-density-1440.png",
+          "program-question-1440.png",
+          "program-output-1440.png",
+          "changed-task-solution-1440.png",
+          "sources-1440.png"
+        ],
+        "equations": [
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "client": 760,
+            "scroll": 760
+          }
+        ],
+        "controls": [
+          "model change, exact ratio, keyboard bit/probability, count mismatch and reset",
+          "normalizer endpoint tilts, visible mean/variance and keyboard reset",
+          "finite fit retains exact coordinates, boundary, empty dataset, parameter keyboard and reset",
+          "uniform versus log-odds density, skewed prior, interval mass, keyboard and reset"
+        ],
+        "code": [
+          {
+            "title": "Enumerate a summary group",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Same information, different raw likelihood",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compute normalization, moments and a tilt",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "The original six-of-eight fit",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Fit a three-outcome family",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Merge Gaussian summaries without raw records",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Differentiate a fixed-feature Bernoulli model",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Verify the prior-density Jacobian",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          },
+          {
+            "title": "Update a shared rate with unequal exposures",
+            "client": 758,
+            "scroll": 758,
+            "overflow": "auto"
+          }
+        ],
+        "fittedRangeValues": [
+          0.202732554054082,
+          -0.713558177820073
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/resources/lecture-21-video/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-655-mathematical-statistics-spring-2016/resources/mit18_655s16_lecnote6/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/exponential-families.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://slinderman.github.io/stats305b/lectures/04_expfam.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.umn.edu/geyer/f22/5421/notes/prior.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-what-can-you-forget-without-changing-the-inference",
+            "top": 99.953125
+          },
+          {
+            "href": "#2-factor-the-likelihood-and-test-the-model",
+            "top": 100.28125
+          },
+          {
+            "href": "#3-build-the-family-from-weights",
+            "top": 100.15625
+          },
+          {
+            "href": "#4-differentiate-the-normalizer",
+            "top": 100.390625
+          },
+          {
+            "href": "#5-fit-moments-and-recognize-boundaries",
+            "top": 99.96875
+          },
+          {
+            "href": "#6-keep-the-right-gaussian-summary",
+            "top": 100.15625
+          },
+          {
+            "href": "#7-connect-the-model-to-features",
+            "top": 100.09375
+          },
+          {
+            "href": "#8-update-a-prior-with-the-right-units",
+            "top": 100.328125
+          },
+          {
+            "href": "#9-practise-changing-the-inference-contract",
+            "top": 99.984375
+          },
+          {
+            "href": "#10-connect-the-ideas-and-continue",
+            "top": 100.46875
+          }
+        ],
+        "captures": [
+          "ordinary-intro-390.png",
+          "ordinary-section-1-390.png",
+          "ordinary-section-2-390.png",
+          "ordinary-section-3-390.png",
+          "ordinary-section-4-390.png",
+          "ordinary-section-5-390.png",
+          "ordinary-section-6-390.png",
+          "ordinary-section-7-390.png",
+          "ordinary-section-8-390.png",
+          "ordinary-section-9-390.png",
+          "ordinary-section-10-390.png",
+          "ordinary-figure-1-390.png",
+          "ordinary-figure-2-390.png",
+          "ordinary-figure-3-390.png",
+          "ordinary-lab-1-390.png",
+          "ordinary-lab-2-390.png",
+          "ordinary-lab-3-390.png",
+          "ordinary-lab-4-390.png",
+          "fitted-moments-390.png",
+          "boundary-moments-390.png",
+          "uniform-coordinate-density-390.png",
+          "program-question-390.png",
+          "program-output-390.png",
+          "changed-task-solution-390.png",
+          "sources-390.png"
+        ],
+        "equations": [
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "client": 350,
+            "scroll": 350
+          }
+        ],
+        "controls": [
+          "model change, exact ratio, keyboard bit/probability, count mismatch and reset",
+          "normalizer endpoint tilts, visible mean/variance and keyboard reset",
+          "finite fit retains exact coordinates, boundary, empty dataset, parameter keyboard and reset",
+          "uniform versus log-odds density, skewed prior, interval mass, keyboard and reset"
+        ],
+        "code": [
+          {
+            "title": "Enumerate a summary group",
+            "client": 348,
+            "scroll": 524,
+            "overflow": "auto"
+          },
+          {
+            "title": "Same information, different raw likelihood",
+            "client": 348,
+            "scroll": 504,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compute normalization, moments and a tilt",
+            "client": 348,
+            "scroll": 590,
+            "overflow": "auto"
+          },
+          {
+            "title": "The original six-of-eight fit",
+            "client": 348,
+            "scroll": 352,
+            "overflow": "auto"
+          },
+          {
+            "title": "Fit a three-outcome family",
+            "client": 348,
+            "scroll": 597,
+            "overflow": "auto"
+          },
+          {
+            "title": "Merge Gaussian summaries without raw records",
+            "client": 348,
+            "scroll": 564,
+            "overflow": "auto"
+          },
+          {
+            "title": "Differentiate a fixed-feature Bernoulli model",
+            "client": 348,
+            "scroll": 590,
+            "overflow": "auto"
+          },
+          {
+            "title": "Verify the prior-density Jacobian",
+            "client": 348,
+            "scroll": 603,
+            "overflow": "auto"
+          },
+          {
+            "title": "Update a shared rate with unequal exposures",
+            "client": 348,
+            "scroll": 544,
+            "overflow": "auto"
+          }
+        ],
+        "fittedRangeValues": [
+          0.202732554054082,
+          -0.713558177820073
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/resources/lecture-21-video/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-655-mathematical-statistics-spring-2016/resources/mit18_655s16_lecnote6/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/exponential-families.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://slinderman.github.io/stats305b/lectures/04_expfam.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.umn.edu/geyer/f22/5421/notes/prior.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      },
+      {
+        "width": 320,
+        "anchors": [
+          {
+            "href": "#1-what-can-you-forget-without-changing-the-inference",
+            "top": 99.828125
+          },
+          {
+            "href": "#2-factor-the-likelihood-and-test-the-model",
+            "top": 99.90625
+          },
+          {
+            "href": "#3-build-the-family-from-weights",
+            "top": 99.921875
+          },
+          {
+            "href": "#4-differentiate-the-normalizer",
+            "top": 99.71875
+          },
+          {
+            "href": "#5-fit-moments-and-recognize-boundaries",
+            "top": 100.3125
+          },
+          {
+            "href": "#6-keep-the-right-gaussian-summary",
+            "top": 100.078125
+          },
+          {
+            "href": "#7-connect-the-model-to-features",
+            "top": 99.984375
+          },
+          {
+            "href": "#8-update-a-prior-with-the-right-units",
+            "top": 99.71875
+          },
+          {
+            "href": "#9-practise-changing-the-inference-contract",
+            "top": 99.953125
+          },
+          {
+            "href": "#10-connect-the-ideas-and-continue",
+            "top": 99.625
+          }
+        ],
+        "captures": [
+          "ordinary-intro-320.png",
+          "ordinary-figure-1-320.png",
+          "ordinary-figure-2-320.png",
+          "ordinary-figure-3-320.png",
+          "ordinary-lab-1-320.png",
+          "ordinary-lab-2-320.png",
+          "ordinary-lab-3-320.png",
+          "ordinary-lab-4-320.png",
+          "equation-1-320.png",
+          "equation-2-320.png",
+          "equation-3-320.png",
+          "equation-4-320.png",
+          "equation-5-320.png",
+          "equation-6-320.png",
+          "equation-7-320.png",
+          "equation-8-320.png",
+          "equation-9-320.png",
+          "equation-10-320.png",
+          "equation-11-320.png",
+          "equation-12-320.png",
+          "equation-13-320.png",
+          "equation-14-320.png",
+          "equation-15-320.png",
+          "fitted-moments-320.png",
+          "boundary-moments-320.png",
+          "uniform-coordinate-density-320.png",
+          "program-question-320.png",
+          "program-output-320.png",
+          "changed-task-solution-320.png",
+          "sources-320.png"
+        ],
+        "equations": [
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 282
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "client": 280,
+            "scroll": 280
+          }
+        ],
+        "controls": [
+          "model change, exact ratio, keyboard bit/probability, count mismatch and reset",
+          "normalizer endpoint tilts, visible mean/variance and keyboard reset",
+          "finite fit retains exact coordinates, boundary, empty dataset, parameter keyboard and reset",
+          "uniform versus log-odds density, skewed prior, interval mass, keyboard and reset"
+        ],
+        "code": [
+          {
+            "title": "Enumerate a summary group",
+            "client": 278,
+            "scroll": 524,
+            "overflow": "auto"
+          },
+          {
+            "title": "Same information, different raw likelihood",
+            "client": 278,
+            "scroll": 504,
+            "overflow": "auto"
+          },
+          {
+            "title": "Compute normalization, moments and a tilt",
+            "client": 278,
+            "scroll": 590,
+            "overflow": "auto"
+          },
+          {
+            "title": "The original six-of-eight fit",
+            "client": 278,
+            "scroll": 352,
+            "overflow": "auto"
+          },
+          {
+            "title": "Fit a three-outcome family",
+            "client": 278,
+            "scroll": 597,
+            "overflow": "auto"
+          },
+          {
+            "title": "Merge Gaussian summaries without raw records",
+            "client": 278,
+            "scroll": 564,
+            "overflow": "auto"
+          },
+          {
+            "title": "Differentiate a fixed-feature Bernoulli model",
+            "client": 278,
+            "scroll": 590,
+            "overflow": "auto"
+          },
+          {
+            "title": "Verify the prior-density Jacobian",
+            "client": 278,
+            "scroll": 603,
+            "overflow": "auto"
+          },
+          {
+            "title": "Update a shared rate with unequal exposures",
+            "client": 278,
+            "scroll": 544,
+            "overflow": "auto"
+          }
+        ],
+        "fittedRangeValues": [
+          0.202732554054082,
+          -0.713558177820073
+        ],
+        "externalLinks": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-650-statistics-for-applications-fall-2016/resources/lecture-21-video/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-655-mathematical-statistics-spring-2016/resources/mit18_655s16_lecnote6/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.berkeley.edu/~wfithian/courses/stat210a/exponential-families.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://slinderman.github.io/stats305b/lectures/04_expfam.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.stat.umn.edu/geyer/f22/5421/notes/prior.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      }
+    ],
+    "errors": []
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T16:01:11.000Z",
+    "files": [
+      "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+      "src/learn/data/exponential-family-models.js",
+      "src/learn/data/exponential-family-examples.js",
+      "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+      "src/learn/data/curriculum/blueprints/exponential-families-sufficient-statistics.js",
+      "src/learn/components/lesson-labs/exponential-family-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "actuallyOpenedFinalScreenshots": [
+    {
+      "path": "scratch/exponential-family-browser/ordinary-lab-1-390.png",
+      "bytes": 34523,
+      "sha256": "141b11646445b40cd7d8a26b967dd0faf3ddff478a31ebd8ec8a0a4aa883e608"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-lab-4-1440.png",
+      "bytes": 110625,
+      "sha256": "005dfa766df7020fbcbd32b40d095edb058640d1c83d784d6abf9440a908eac7"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-section-4-390.png",
+      "bytes": 64788,
+      "sha256": "71ae0832c3c94d592fd0839dfa7ff450078f829df29aabcf41dcade57c2b8086"
+    },
+    {
+      "path": "scratch/exponential-family-browser/sources-390.png",
+      "bytes": 57696,
+      "sha256": "cab483624248a7dcccfa37a3f5325ef691ceba8e9c72c4518931d51ccf07ff0a"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-figure-1-390.png",
+      "bytes": 48732,
+      "sha256": "42beb51151494f75d2c4039a5b52e2c024f5ad9c2486860f46bf180fdd41463a"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-figure-2-320.png",
+      "bytes": 40417,
+      "sha256": "134f21839b8748fe060e2bbe804c753d168e95cd818df73575966f2b53ac80de"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-figure-3-390.png",
+      "bytes": 43255,
+      "sha256": "548f1997f117f2ed2c6b8327f72354fd6cad5af767ef1e69ad7c9937faa4a223"
+    },
+    {
+      "path": "scratch/exponential-family-browser/fitted-moments-390.png",
+      "bytes": 36198,
+      "sha256": "7d615c06b3b488b7e51f4f43bd990b816edbb171eea97aab1079f70de3c67fc7"
+    },
+    {
+      "path": "scratch/exponential-family-browser/uniform-coordinate-density-390.png",
+      "bytes": 27020,
+      "sha256": "9c0d450771db917538bf227b25c9aa92df40aa4bd6150fdf07829268788426bd"
+    },
+    {
+      "path": "scratch/exponential-family-browser/equation-1-320.png",
+      "bytes": 43669,
+      "sha256": "1e2cadd1a4be4fa495ac3dfeb20655e6b05ba0578b65752be481c36155f5f4bd"
+    },
+    {
+      "path": "scratch/exponential-family-browser/equation-3-320.png",
+      "bytes": 47785,
+      "sha256": "42502e540d238695cbff676a4473a755f12e0fc4d72db952394211966884c1e6"
+    },
+    {
+      "path": "scratch/exponential-family-browser/equation-9-320.png",
+      "bytes": 29341,
+      "sha256": "f989247ff93af80020ae7d4c76be94c95e6a584da0ffe57b38485ef8e4db831c"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-lab-2-390.png",
+      "bytes": 30693,
+      "sha256": "de1e3eca7c701b5555cbd78f38e0bc834d8f93a7269b8dd9afb324c277c04098"
+    },
+    {
+      "path": "scratch/exponential-family-browser/boundary-moments-320.png",
+      "bytes": 32390,
+      "sha256": "910fa19047c16a93fc6ee51337f5e39440f8dde9e8ecb7e5ddd7de5621947450"
+    },
+    {
+      "path": "scratch/exponential-family-browser/ordinary-intro-1440.png",
+      "bytes": 151150,
+      "sha256": "c78dc64de4b3a38539d8594635bf2085c110398d86878afd6c86b1153d46dd95"
+    },
+    {
+      "path": "scratch/exponential-family-browser/changed-task-solution-390.png",
+      "bytes": 48185,
+      "sha256": "35db98fbebfd5487ce6d510db71e2d6794a6f77c23680abbf7b8a4c208cbd3da"
+    },
+    {
+      "path": "scratch/exponential-family-browser/program-output-390.png",
+      "bytes": 52909,
+      "sha256": "0871ee3e4e5f030c0a6240d6cff4a4999fbe12c543d0a1a7ed1fe9943fdb04bc"
+    },
+    {
+      "path": "scratch/exponential-family-browser/first-program-setup-1440.png",
+      "bytes": 114022,
+      "sha256": "f6db4c81c46f9e14163d2d452943a8723e57a7bd983544a4481f0b1ebfceb8c8"
+    },
+    {
+      "path": "scratch/exponential-family-browser/first-program-setup-390.png",
+      "bytes": 45820,
+      "sha256": "26163f7b08307f5a4b09ce99073839705f03bc1c86c2074544e50e3e986e7815"
+    },
+    {
+      "path": "scratch/exponential-family-browser/first-program-setup-320.png",
+      "bytes": 39772,
+      "sha256": "b8758de4fb7dafd3aea0c6c6b6b3a3746641e2122cfe347d036e79e4373f72c2"
+    }
+  ],
+  "limits": [
+    "Finite displayed models are calculated rather than empirical evidence for an application.",
+    "Beta plot is truncated at eta=plus/minus6 and is not renormalized.",
+    "Source/model/browser verification is not a beginner user study or universal statistical-mastery guarantee.",
+    "Full video playback was not performed; official page and specified transcript passages were inspected.",
+    "Root owns shared registrations, production build and integrated-route review."
+  ],
+  "initialFrozenAt": "2026-09-10T16:04:22.012978+00:00",
+  "initialSourceFiles": [
+    {
+      "path": "src/learn/data/topics/exponential-families-sufficient-statistics.jsx",
+      "bytes": 42958,
+      "sha256": "f4a0a591778f2de011efc3f25198d79f790e45e9ca0cccfbaebc6a84327d3972"
+    },
+    {
+      "path": "src/learn/data/exponential-family-models.js",
+      "bytes": 7414,
+      "sha256": "b371f7f03adebd0d60f21ab7b4ac3e1568465bd0db605c9a34a5cc58d8132a7c"
+    },
+    {
+      "path": "src/learn/data/exponential-family-examples.js",
+      "bytes": 11130,
+      "sha256": "fc115d8d97394fb82a40931a7bdf55776015fe7d71a7505295cdb9465dd41521"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+      "bytes": 20272,
+      "sha256": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/exponential-family-labs.css",
+      "bytes": 6083,
+      "sha256": "f15c93899232877b131554bb297c483c94388dae33924d08a0d117c70e4459ae"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/exponential-families-sufficient-statistics.js",
+      "bytes": 3488,
+      "sha256": "93b8ab71e3aa79c55167f0cb2b709bd009a2e1106b97caf1425614e07bb1dfbe"
+    },
+    {
+      "path": "docs/teaching/EXPONENTIAL-FAMILIES-LESSON-DESIGN.md",
+      "bytes": 11939,
+      "sha256": "b5d45d08d77e4e5ed47cf8a58496ae8f17efc0b024157c4012d9d33e0ed46832"
+    },
+    {
+      "path": "docs/teaching/topic-notes/entropy-cross-entropy-kl-divergence.md",
+      "bytes": 3169,
+      "sha256": "3b03308ed54952f050de3efb648b9958b8ca8ffa90c8223b929e7aedf27dbfe0"
+    },
+    {
+      "path": "docs/teaching/evidence/exponential-family-original-content.json",
+      "bytes": 7259,
+      "sha256": "d54da4af6c910f57c40440d6643ca5eae41d3970707344b76adda04ac453cf01"
+    },
+    {
+      "path": "scripts/prepare-exponential-family-examples.py",
+      "bytes": 10351,
+      "sha256": "69c60a2e0be31868a690e6ee10d2390b69b99b094bd7c62ebe56ac29c0ab896c"
+    },
+    {
+      "path": "scripts/verify-exponential-family.py",
+      "bytes": 11676,
+      "sha256": "8b62e14f04d43fbe216ab44a77ef3970c904e69fea569e867a5ff2826fac8c1c"
+    },
+    {
+      "path": "scripts/format-exponential-family.cjs",
+      "bytes": 2862,
+      "sha256": "5a78993dc420ed9605f2e5f732aca8b978c812ab4f5fcc1185913b7e744c6b19"
+    },
+    {
+      "path": "scripts/review-exponential-family.cjs",
+      "bytes": 11899,
+      "sha256": "ae5eb35b5e7700b647e6451295e9e5e4316702ca05d03bee6d33e022585144de"
+    },
+    {
+      "path": "scripts/finalize-exponential-family-evidence.py",
+      "bytes": 3544,
+      "sha256": "4c4694f839b191511dd1b3c8e16218cce841785a07c92d92ecd03140bcbb96a9"
+    }
+  ],
+  "postFreezeAmendments": [
+    {
+      "checkedAt": "2026-09-10T16:16:27.766Z",
+      "reason": "Independent reviewer requested setup before the first runnable program.",
+      "beforeBodySha256": "f4a0a591778f2de011efc3f25198d79f790e45e9ca0cccfbaebc6a84327d3972",
+      "afterBodySha256": "64a1ae33f30b28d62cf691c12a2ba86bfab637647f3a323e2793ed534320c75d",
+      "unchangedModelExampleLabStyleBlueprint": [
+        "src/learn/data/exponential-family-models.js",
+        "src/learn/data/exponential-family-examples.js",
+        "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+        "src/learn/components/lesson-labs/exponential-family-labs.css",
+        "src/learn/data/curriculum/blueprints/exponential-families-sufficient-statistics.js"
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "placement": {
+            "nextIsFirstProgram": true,
+            "precedesAllPrograms": true,
+            "text": "Programs use Python 3 and its standard library: copy a whole program to a file and run python example.py or py example.py. Printed values are rounded. Labs execute here; Python runs in your environment."
+          },
+          "overflow": false,
+          "screenshot": "first-program-setup-1440.png"
+        },
+        {
+          "width": 390,
+          "placement": {
+            "nextIsFirstProgram": true,
+            "precedesAllPrograms": true,
+            "text": "Programs use Python 3 and its standard library: copy a whole program to a file and run python example.py or py example.py. Printed values are rounded. Labs execute here; Python runs in your environment."
+          },
+          "overflow": false,
+          "screenshot": "first-program-setup-390.png"
+        },
+        {
+          "width": 320,
+          "placement": {
+            "nextIsFirstProgram": true,
+            "precedesAllPrograms": true,
+            "text": "Programs use Python 3 and its standard library: copy a whole program to a file and run python example.py or py example.py. Printed values are rounded. Labs execute here; Python runs in your environment."
+          },
+          "overflow": false,
+          "screenshot": "first-program-setup-320.png"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

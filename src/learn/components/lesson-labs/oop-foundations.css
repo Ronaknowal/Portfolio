@@ -1,0 +1,77 @@
+.oop-lesson .oop-lab { margin: 28px 0; padding: clamp(16px, 3vw, 26px); border: 1px solid #625339; background: #12120f; }
+.oop-lesson .oop-lab h3 { margin: 8px 0 14px; color: #f1ece0; font-size: 21px; }
+.oop-lesson .oop-lab p, .oop-lesson .oop-static p, .oop-lesson .oop-mission p { line-height: 1.75; }
+.oop-lesson .oop-lab code, .oop-lesson .oop-static code { color: #e2bd78; font-size: .9em; overflow-wrap: anywhere; }
+.oop-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 9px; margin: 18px 0; }
+.oop-controls button, .oop-controls select { background: #242117; color: #f0dcac; border: 1px solid #75603b; border-radius: 3px; min-height: 44px; padding: 9px 12px; font: inherit; font-size: 13px; cursor: pointer; max-width: 100%; }
+.oop-controls button:disabled { cursor: not-allowed; opacity: .45; }
+.oop-controls label { display: grid; gap: 7px; color: #d2cabc; font-size: 12px; max-width: 100%; }
+.oop-controls select { width: 100%; }
+.oop-controls button:focus-visible, .oop-controls select:focus-visible, .oop-lesson summary:focus-visible { outline: 2px solid #efbf61; outline-offset: 4px; }
+.oop-controls button:hover:not(:disabled) { background: #3a3020; }
+.oop-label { display: block; margin-bottom: 8px; font-size: 10px; letter-spacing: .08em; color: #c9b994; line-height: 1.5; }
+.oop-reference-map { display: grid; gap: 14px; margin: 22px 0; }
+.oop-reference-row { display: grid; grid-template-columns: 86px 32px minmax(0, 1fr); align-items: center; gap: 10px; }
+.oop-names { display: grid; gap: 8px; }
+.oop-names code { padding: 3px 5px; border-left: 2px solid transparent; }
+.oop-names .oop-selected-name { border-color: #e2b55a; background: #332a1c; }
+.oop-reference-arrow { font-size: 25px; color: #d4b369; }
+.oop-object { border: 1px solid #5a5140; padding: 14px; }
+.oop-reference-row--selected .oop-object { border-color: #e2b55a; box-shadow: inset 3px 0 #e2b55a; }
+.oop-owned-list { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #5a5140; font-size: 13px; line-height: 1.75; overflow-wrap: anywhere; }
+.oop-owned-list strong { color: #a8d5b4; }
+.oop-call-strip, .oop-collaboration-map, .oop-before-after { display: grid; grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1fr); align-items: center; gap: 12px; margin: 24px 0; }
+.oop-node { padding: 16px; border: 1px solid #514a3b; background: #181813; min-width: 0; }
+.oop-node p { font-size: 13px; margin: 8px 0 0; }
+.oop-node--active { border-color: #d6ad63; box-shadow: inset 0 3px #d6ad63; }
+.oop-arrow { text-align: center; color: #d4b369; }
+.oop-arrow > span { display: block; font-size: 27px; }
+.oop-arrow small { display: block; font-size: 10px; line-height: 1.6; color: #c9bd9f; }
+.oop-arrow .oop-arrow__narrow { display: none; }
+.oop-command { background: #0d0e0b; border-left: 2px solid #72603c; padding: 12px; margin: 18px 0; font-size: 13px; overflow-wrap: anywhere; }
+.oop-command span { color: #bdb7aa; font-size: 12px; }
+.oop-feedback { padding: 16px; background: #19211a; border-left: 3px solid #8ebc9c; margin: 18px 0 12px; }
+.oop-feedback strong { color: #bbddc3; font-size: 14px; }
+.oop-feedback p { margin: 8px 0 0; font-size: 13px; }
+.oop-lesson .oop-deeper, .oop-lesson .oop-mission details { border-block: 1px solid #413a2d; margin: 22px 0; padding: 4px 0; }
+.oop-lesson .oop-deeper > summary, .oop-lesson .oop-mission summary { min-height: 44px; padding: 12px 0; color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.oop-lesson .oop-deeper[open] > summary { margin-bottom: 8px; }
+.oop-lesson .oop-deeper > :last-child { margin-bottom: 16px; }
+.oop-lookup-map { margin: 22px 0; }
+.oop-lookup-map__instances, .oop-record-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
+.oop-lookup-route { color: #e2b55a; padding: 9px 0; border-block: 1px dashed #514a3b; }
+.oop-class-node { border-top: 2px solid #b99857; margin-top: 20px; }
+.oop-gates { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 22px; }
+.oop-gates li { position: relative; display: flex; align-items: center; gap: 14px; padding: 14px; border: 1px solid #514a3b; }
+.oop-gate-number { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid #776541; border-radius: 50%; color: #ddbb72; }
+.oop-gates strong { display: block; font-size: 13px; }
+.oop-gates li div > span { display: block; margin-top: 5px; font-size: 12px; color: #bfb8a7; }
+.oop-gates .oop-gate--passed { border-color: #659875; }
+.oop-gates .oop-gate--passed div > span { color: #a7d4b4; }
+.oop-gates .oop-gate--blocked { border-color: #daab66; background: #302719; }
+.oop-gates .oop-gate--blocked div > span { color: #f1c58c; }
+.oop-gate-arrow { position: absolute; bottom: -21px; left: 29px; color: #b29a65; }
+.oop-before-after > div:not(.oop-arrow) { padding: 14px; border-top: 2px solid #665537; }
+.oop-return-flow { display: flex; gap: 12px; align-items: center; border-bottom: 1px dashed #725d36; color: #a9ceb2; padding: 0 10px 12px; }
+.oop-return-flow > span { font-size: 30px; }
+.oop-return-flow p { margin: 0; font-size: 13px; }
+.oop-static { margin: 26px 0; padding: 22px 0; border-block: 1px solid #4c4230; }
+.oop-static figcaption { margin-bottom: 20px; color: #e6d6b6; }
+.oop-mission { margin: 26px 0; border: 1px solid #665538; background: #13130e; padding: clamp(16px, 3vw, 26px); }
+.oop-mission > h3 { margin-top: 0; color: #eee3cd; }
+.oop-mission li { margin: 12px 0; line-height: 1.75; }
+@media (max-width: 650px) {
+  .oop-call-strip, .oop-collaboration-map, .oop-before-after { grid-template-columns: 1fr; gap: 9px; }
+  .oop-arrow { display: flex; text-align: left; align-items: center; gap: 12px; padding-left: 18px; }
+  .oop-arrow .oop-arrow__wide { display: none; }
+  .oop-arrow .oop-arrow__narrow { display: block; }
+  .oop-arrow small { font-size: 12px; }
+  .oop-reference-row { grid-template-columns: 68px 19px minmax(0, 1fr); gap: 6px; }
+  .oop-reference-arrow { font-size: 21px; }
+  .oop-object { padding: 11px; }
+  .oop-object strong { font-size: 13px; }
+  .oop-names code { font-size: 11px; }
+  .oop-lookup-map__instances, .oop-record-pair { grid-template-columns: 1fr; }
+  .oop-controls--inputs { align-items: stretch; }
+  .oop-controls--inputs label { flex: 1 1 160px; }
+}

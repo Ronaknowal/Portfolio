@@ -1,2 +1,61 @@
-node_modules
-dist
+# ---------------------------------------------------------------------------
+# IMPORTANT: Markdown is intentionally NOT ignored anywhere in this repo.
+# The root *.md files and everything under docs/ are the authoring
+# instructions agents follow to implement lessons and learning content.
+# They must stay committed. Do not add *.md patterns here.
+# Also kept: public/learn-assets/ (loaded at runtime by lesson-labs),
+# src/learn/data/generated/ (imported by the build) and docs/**/*.json.
+# ---------------------------------------------------------------------------
+
+# Dependencies
+node_modules/
+
+# Build output / bundler cache
+dist/
+.vite/
+
+# One-off working material (includes a bundled Python venv under
+# scratch/lesson-tools and hundreds of MB of capture logs)
+scratch/
+scratch_*.py
+tmp_*/
+tmp_*.py
+
+# ML training artifacts written into the working tree
+catboost_info/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Headless-browser review output (scripts/*.cjs playwright runs)
+playwright-report/
+test-results/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Machine-local agent + editor settings (.claude/launch.json is committed)
+.claude/settings.local.json
+.claude/local/
+.idea/
+*.swp
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Stray zero-byte file left by a shell redirect
+/npm

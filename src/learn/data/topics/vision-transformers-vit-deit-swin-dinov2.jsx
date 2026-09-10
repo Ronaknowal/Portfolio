@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -1156,7 +1157,7 @@ print(f"Uniform baseline 1/64 = {1/64:.4f}")
             label: "General classification baseline (2026 default) — DiNOv2 + linear probe",
             render: () => (
               <Prose>
-                For any classification task where you have labels on one end and don't know what backbone to start with, use <Code>vit_large_patch14_dinov2.lvd142m</Code> as a frozen feature extractor with a linear probe on top. It matches or beats supervised ImageNet features on almost every downstream benchmark, works out of the box with no fine-tuning, and is 10-100x cheaper than fine-tuning a ViT-L end-to-end. Fine-tune only when linear probe leaves >3% on the table after a proper augmentation sweep.
+                For any classification task where you have labels on one end and don't know what backbone to start with, use <Code>vit_large_patch14_dinov2.lvd142m</Code> as a frozen feature extractor with a linear probe on top. It matches or beats supervised ImageNet features on almost every downstream benchmark, works out of the box with no fine-tuning, and is 10-100x cheaper than fine-tuning a ViT-L end-to-end. Fine-tune only when linear probe leaves &gt;3% on the table after a proper augmentation sweep.
               </Prose>
             ),
           },

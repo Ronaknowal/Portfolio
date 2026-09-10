@@ -1,0 +1,79 @@
+.hypothesis-lab, .hypothesis-inline {
+  margin: 30px 0;
+  padding: 22px 0;
+  border-top: 1px solid #3b4245;
+  border-bottom: 1px solid #3b4245;
+  color: #bdbdbd;
+  font-family: Arial, sans-serif;
+  line-height: 1.8;
+  font-size: 1rem;
+  min-width: 0;
+}
+.hypothesis-inline { margin-inline: 0; }
+.hypothesis-lab h3, .hypothesis-inline figcaption {
+  color: #eee;
+  font-size: 1.18rem;
+  font-weight: 650;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+.hypothesis-lab h4 { margin: 0 0 12px; color: #eee; }
+.hypothesis-lab p, .hypothesis-inline p { margin: 14px 0; }
+.hypothesis-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 18px 24px;
+  margin: 20px 0;
+}
+.hypothesis-controls label { display: flex; flex: 1 1 220px; flex-direction: column; gap: 7px; min-width: 0; }
+.hypothesis-controls label strong { font-weight: 500; color: #e2b55a; }
+.hypothesis-controls input[type="range"] { width: 100%; margin: 0; min-height: 44px; accent-color: #e2b55a; }
+.hypothesis-controls select, .hypothesis-controls button {
+  background: #151515;
+  border: 1px solid #666;
+  border-radius: 3px;
+  color: #eee;
+  font: inherit;
+  line-height: 1.5;
+  padding: 9px 12px;
+  min-height: 44px;
+  max-width: 100%;
+}
+.hypothesis-controls button { cursor: pointer; }
+.hypothesis-controls button:hover { border-color: #e2b55a; }
+.hypothesis-controls button:disabled { opacity: .5; cursor: default; }
+.hypothesis-lab :focus-visible, .hypothesis-practice :focus-visible { outline: 2px solid #e2b55a; outline-offset: 4px; }
+.hypothesis-plot { display: block; width: min(100%, 600px); height: auto; overflow: visible; margin: 24px auto 0; }
+.hypothesis-plot text { font: 16px Arial, sans-serif; }
+.hypothesis-axis text { fill: #bdbdbd; }
+.hypothesis-axis line { stroke: #777; stroke-width: 1; }
+.hypothesis-coverage { width: min(100%, 530px); }
+.hypothesis-axis-label { text-align: center; font-size: .9rem; }
+.hypothesis-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 16px 0; font-size: .92rem; }
+.hypothesis-gold { color: #e2b55a; }
+.hypothesis-pink { color: #ff9db2; }
+.hypothesis-blue { color: #8ecbd1; }
+.hypothesis-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 24px; margin: 24px 0; }
+.hypothesis-metrics div { border-top: 1px solid #333; padding-top: 10px; min-width: 0; }
+.hypothesis-metrics dt { color: #aaa; font-size: .9rem; }
+.hypothesis-metrics dd { color: #eee; margin: 5px 0 0; overflow-wrap: anywhere; }
+.hypothesis-lab summary, .hypothesis-practice summary { cursor: pointer; min-height: 44px; padding-block: 9px; }
+.hypothesis-comparisons { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 25px 0; }
+.hypothesis-probability-bar { height: 16px; background: #252525; border: 1px solid #555; }
+.hypothesis-probability-bar span { display: block; height: 100%; background: #e2b55a; }
+.hypothesis-unit-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.hypothesis-unit-grid div { flex: 1 1 110px; border-left: 2px solid #8ecbd1; padding: 4px 12px; }
+.hypothesis-unit-grid strong, .hypothesis-unit-grid span, .hypothesis-unit-grid small { display: block; }
+.hypothesis-unit-grid strong { color: #eee; }
+.hypothesis-unit-grid small { font-size: .8rem; color: #999; }
+.hypothesis-practice { border-top: 1px solid #3b4245; padding-top: 22px; margin: 30px 0; }
+.hypothesis-lesson details > summary { line-height: 1.7; }
+.hypothesis-lesson .lesson-sources li { margin-bottom: 14px; }
+@media (max-width: 620px) {
+  .hypothesis-metrics, .hypothesis-comparisons { grid-template-columns: 1fr; }
+  .hypothesis-controls { gap: 14px; }
+  .hypothesis-controls label { flex-basis: 100%; }
+  .hypothesis-lab { padding: 20px 0; }
+  .hypothesis-plot text { font-size: 18px; }
+}

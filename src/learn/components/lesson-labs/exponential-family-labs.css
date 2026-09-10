@@ -1,0 +1,375 @@
+.family-lab, .family-figure {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border, #263029);
+  border-radius: 6px;
+  background: #0b100d;
+}
+
+.family-lab h3 {
+  margin: .4rem 0 1rem;
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.family-lab p, .family-figure figcaption {
+  line-height: 1.7;
+}
+
+.family-figure figcaption {
+  margin-top: 1rem;
+  font-size: .9rem;
+  color: #b1bbb2;
+}
+
+.family-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.family-controls label, .family-slider {
+  display: flex;
+  flex: 1 1 150px;
+  flex-direction: column;
+  gap: .45rem;
+  color: #d7ddcf;
+  font-size: .9rem;
+}
+
+.family-slider {
+  margin: 1.25rem 0;
+}
+
+.family-lab input[type=range] {
+  width: 100%;
+  min-height: 32px;
+  accent-color: #e9c077;
+}
+
+.family-lab input[type=number], .family-lab select {
+  width: 100%;
+  min-height: 42px;
+  padding: .45rem;
+  border: 1px solid #536354;
+  background: #101810;
+  color: #e1e7dc;
+  font: inherit;
+}
+
+.family-lab button {
+  min-height: 42px;
+  padding: .55rem .75rem;
+  color: #e9c077;
+  background: #151c15;
+  border: 1px solid #596247;
+  border-radius: 3px;
+  font: inherit;
+  font-size: .88rem;
+  cursor: pointer;
+}
+
+.family-lab button:disabled {
+  opacity: .48;
+  cursor: not-allowed;
+}
+
+.family-lab :focus-visible, .family-exercise summary:focus-visible {
+  outline: 2px solid #e9c077;
+  outline-offset: 4px;
+}
+
+.family-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin: 1rem 0;
+}
+
+.family-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+  gap: .85rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.family-facts div {
+  border-top: 1px solid #354333;
+  padding-top: .5rem;
+  min-width: 0;
+}
+
+.family-facts dt {
+  font-size: .8rem;
+  color: #b1beb0;
+}
+
+.family-facts dd {
+  margin: .3rem 0 0;
+  color: #e9c077;
+  font-family: var(--font-mono,monospace);
+  font-size: .9rem;
+  overflow-wrap: anywhere;
+}
+
+.family-feedback {
+  padding-left: .9rem;
+  border-left: 2px solid #e9c077;
+}
+
+.family-binary {
+  display: flex;
+  gap: .3rem;
+  flex-wrap: wrap;
+}
+
+.family-binary > span {
+  min-width: 23px;
+  text-align: center;
+  padding: .15rem;
+  border: 1px solid #45513f;
+  font: .9rem var(--font-mono,monospace);
+  color: #a9b5a3;
+}
+
+.family-binary > .is-success {
+  background: #39331c;
+  color: #e9c077;
+  border-color: #7d7243;
+}
+
+.family-fiber-strings {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
+}
+
+.family-fiber-strings > div {
+  display: flex;
+  gap: .35rem;
+  flex-direction: column;
+}
+
+.family-fiber-strings > div > span:last-child {
+  font-size: .72rem;
+  color: #bac6b6;
+}
+
+.family-fiber-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .3rem;
+  margin-top: 1rem;
+  color: #e9c077;
+}
+
+.family-fiber-result > span:first-child {
+  font-size: 1.8rem;
+}
+
+.family-data-rows > div {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  margin: 1rem 0;
+}
+
+.family-data-rows > div > span:last-child {
+  color: #b8c5b3;
+  font-size: .85rem;
+}
+
+.family-edit-bits {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.family-edit-bits fieldset {
+  padding: .55rem;
+  border: 1px solid #49563e;
+  display: flex;
+  gap: .4rem;
+}
+
+.family-edit-bits legend {
+  font-size: .85rem;
+  padding: 0 .3rem;
+}
+
+.family-edit-bits button {
+  width: 42px;
+  padding: .3rem;
+}
+
+.family-edit-bits button[aria-pressed=true] {
+  background: #39331c;
+  border-color: #8c7842;
+}
+
+.family-weight-ledger {
+  font: .8rem var(--font-mono,monospace);
+}
+
+.family-weight-ledger > div {
+  display: grid;
+  grid-template-columns: .8fr 1fr 1fr 1.25fr;
+  gap: .45rem;
+  padding: .8rem 0;
+  border-bottom: 1px solid #2b3729;
+  align-items: center;
+}
+
+.family-weight-head {
+  color: #b9c7b4;
+}
+
+.family-weight-ledger span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.family-mass-bar {
+  display: block;
+  height: 8px;
+  background: #283324;
+  margin-bottom: .4rem;
+}
+
+.family-mass-bar i {
+  display: block;
+  height: 100%;
+  background: #e9c077;
+}
+
+.family-svg {
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  overflow: visible;
+}
+
+.family-svg text {
+  fill: #cad4c4;
+  font: 12px var(--font-mono,monospace);
+}
+
+.family-axis {
+  stroke: #64735d;
+  stroke-width: 1;
+}
+
+.family-moment-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.family-density-pair {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.2rem;
+}
+
+.family-wide-svg {
+  max-width: 470px;
+}
+
+.family-feature-flow {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.family-feature-flow > div {
+  flex: 1 1 140px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-width: 0;
+  font-size: .9rem;
+}
+
+.family-feature-flow > div > span {
+  color: #e9c077;
+}
+
+.family-feature-flow small {
+  color: #acbca5;
+}
+
+.family-feature-flow figcaption {
+  flex-basis: 100%;
+}
+
+.family-exercise {
+  margin: 1.75rem 0;
+}
+
+.family-exercise details {
+  margin-top: .8rem;
+}
+
+.family-exercise summary {
+  cursor: pointer;
+  color: #e9c077;
+  padding: .4rem 0;
+}
+
+.family-example {
+  margin: 1.75rem 0;
+}
+
+@media (max-width:600px) {
+  .family-controls label:has(select) {
+    flex-basis: 100%;
+  }
+  .family-lab, .family-figure {
+    padding: .85rem;
+  }
+  .family-fiber-strings {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .family-moment-layout, .family-density-pair {
+    grid-template-columns: 1fr;
+  }
+  .family-weight-ledger {
+    font-size: .7rem;
+  }
+  .family-weight-ledger > div {
+    grid-template-columns: .7fr 1fr 1fr 1.3fr;
+    gap: .25rem;
+  }
+  .family-feature-flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .family-feature-flow > div {
+    flex: auto;
+  }
+  .family-feature-flow > span {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+  .family-svg text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width:360px) {
+  .family-facts {
+    grid-template-columns: 1fr;
+  }
+  .family-svg text {
+    font-size: 14px;
+  }
+}
+
+.family-lab > p {
+  margin: .9rem 0;
+}

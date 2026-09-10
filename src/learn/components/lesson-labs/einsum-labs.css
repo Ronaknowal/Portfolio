@@ -1,0 +1,56 @@
+.einsum-lab { margin: 2.1rem 0; padding: clamp(16px, 3vw, 28px); border-block: 1px solid #6e623e; background: #14130e; }
+.einsum-lab h3 { margin-top: 0; color: #f5cf71; font-size: 1.3rem; }
+.einsum-lab h4 { color: #f3d68f; font-size: 1.1rem; }
+.einsum-lab p, .einsum-inline p { line-height: 1.65; }
+.einsum-lab label { display: flex; flex-direction: column; gap: 7px; }
+.einsum-lab select, .einsum-lab input:not([type=checkbox]), .einsum-lab button { min-height: 44px; max-width: 100%; padding: 9px 11px; background: #282519; color: #f5dfaa; border: 1px solid #8b7a4f; font: inherit; border-radius: 2px; }
+.einsum-lab select, .einsum-lab input:not([type=checkbox]) { width: 100%; box-sizing: border-box; }
+.einsum-lab button { cursor: pointer; margin: 5px 7px 5px 0; }
+.einsum-lab button[aria-pressed=true] { background: #5b451e; border-color: #f5cb65; box-shadow: inset 0 -3px #f5cb65; }
+.einsum-lab :focus-visible, .einsum-inline :focus-visible { outline: 3px solid #a7d8c1; outline-offset: 3px; }
+.einsum-lab [role=alert] { padding: 12px; border: 1px solid #d89c77; color: #ffd6bc; }
+.einsum-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 14px; margin: 14px 0; }
+.einsum-expression { margin-block: 16px; }
+.einsum-expression input { font-family: ui-monospace, monospace; }
+.einsum-operands, .einsum-basis-layout, .einsum-order-comparison, .einsum-batch-pairs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.einsum-matrix-scroll { max-width: 100%; overflow-x: auto; margin-block: 12px; }
+.einsum-matrix { border-collapse: collapse; width: max-content; min-width: 130px; }
+.einsum-matrix caption { text-align: left; margin-bottom: 8px; color: #dccb9e; font-size: .92rem; caption-side: top; }
+.einsum-matrix td { text-align: center; min-width: 46px; padding: 9px; border: 1px solid #625a40; font-variant-numeric: tabular-nums; }
+.einsum-matrix td.is-selected { background: #59451f; color: #ffe5a4; border-bottom: 3px solid #d9b658; }
+.einsum-equation { font-weight: 600; color: #f3d184; overflow-wrap: anywhere; }
+.einsum-output { display: flex; gap: 6px; flex-wrap: wrap; }
+.einsum-terms { padding-left: 24px; }
+.einsum-terms li { padding: 9px 0; border-bottom: 1px solid #453e2b; }
+.einsum-terms li span, .einsum-terms li strong { display: block; overflow-wrap: anywhere; line-height: 1.6; }
+.einsum-inline { margin: 1.6rem 0; padding: 18px 0; border-block: 1px solid #494432; }
+.einsum-inline figcaption { color: #c9c2af; line-height: 1.6; font-size: .93rem; margin-top: 12px; }
+.einsum-diagonal-routes { display: flex; flex-wrap: wrap; gap: 0 24px; }
+.einsum-diagonal-routes p { padding-block: 8px; border-bottom: 1px solid #807048; }
+.einsum-lab label.einsum-checkbox { flex-direction: row; align-items: center; min-height: 44px; gap: 12px; }
+.einsum-checkbox input { width: 20px; height: 20px; accent-color: #deb65d; }
+.einsum-lab fieldset { margin-block: 16px; border: 1px solid #625a40; display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.einsum-attention-rows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.einsum-attention-row { border-block: 1px solid #625a40; padding-block: 15px; min-width: 0; }
+.einsum-weight { width: 100%; height: 12px; background: #3a3526; border-inline: 1px solid #9d8b59; margin-block: 12px; }
+.einsum-weight span { display: block; height: 100%; background: #dfb958; }
+.einsum-intermediate { border: 1px dashed #c1a668; padding: 14px; }
+.einsum-order-route { min-width: 0; }
+.einsum-basis-plot { width: 100%; max-width: 430px; height: auto; display: block; margin: auto; }
+.einsum-basis-plot text { fill: #d8d2c1; font-size: 14px; }
+.einsum-basis-plot .grid { stroke: #4d493b; stroke-width: 1; }
+.einsum-basis-plot .basis-one { stroke: #a5c5b5; stroke-width: 6; }
+.einsum-basis-plot .basis-two { stroke: #c4b4dc; stroke-width: 6; }
+.einsum-basis-plot .component { stroke: #b7c9c0; stroke-width: 2; stroke-dasharray: 6 4; }
+.einsum-basis-plot .world-vector { stroke: #ecc56a; stroke-width: 3; }
+.einsum-basis-plot .endpoint { fill: #ecc56a; }
+.einsum-invariants { border-block: 1px solid #625a40; }
+.einsum-practice { margin-block: 28px; }
+.einsum-lab details { margin-top: 20px; }
+.einsum-lab summary { cursor: pointer; padding-block: 12px; }
+@media (max-width: 740px) {
+  .einsum-attention-rows { grid-template-columns: 1fr; }
+  .einsum-operands, .einsum-basis-layout, .einsum-order-comparison, .einsum-batch-pairs { grid-template-columns: 1fr; gap: 14px; }
+  .einsum-lab { padding-inline: 14px; }
+  .einsum-order-route + .einsum-order-route { border-top: 1px solid #6e623e; padding-top: 12px; }
+}

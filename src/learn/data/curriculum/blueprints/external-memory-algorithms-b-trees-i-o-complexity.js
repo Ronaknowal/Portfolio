@@ -1,0 +1,20 @@
+export default {
+  summary: 'Design algorithms around movement of pages: model locality and writeback, preserve multiway-tree invariants, exploit linked leaf ranges and schedule external sorting under a bounded buffer budget.',
+  outcomes: ['Distinguish record operations, page visits, cache misses, writes and durable publication', 'Count sequential and scattered accesses under a declared page/cache model', 'Derive B-tree search height from minimum occupancy and preserve it through split, borrow and merge', 'Implement B-tree search, insertion and deletion with duplicate, missing-key and root boundary contracts', 'Explain B+ separator copies and perform a linked-leaf range query', 'Build sorted runs and execute bounded multiway merges with explicit input/output buffers', 'Derive exact small pass counts and asymptotic I/O bounds without claiming measured device speed', 'Explain crash recovery of a page-copy update under explicit atomicity and ordering assumptions'],
+  prerequisites: ['Trees & Binary Search Trees', 'Complexity Analysis & Recursion', 'SQL, Relational Data & Transactions for ML'],
+  sequence: ['Map record addresses to pages and expose cold versus resident accesses', 'Trace dirty eviction and final flush with separate read/write counters', 'Pack sorted keys and child ranges into B-tree pages and derive the height bound', 'Preserve occupancy through insertion splits and deletion rotations/merges', 'Distinguish B+ leaf records, separator copies, bulk loading and range scans', 'Form memory-sized sorted runs and schedule P−1-way merges', 'Execute real temporary-file examples while distinguishing logical I/O from physical storage', 'Connect immutable roots to an explicit shadow-page durability protocol', 'Choose workload-sensitive structures and practise changed cost/contract cases'],
+  visual: {
+    type: 'Storage pages and buffer frames, multi-key page trees, linked B+ leaves, materialized run/merge lanes and volatile/durable root publication',
+    question: 'Which data move across the costly boundary, and which invariant permits the next page operation?',
+    interaction: 'Step actual page references and dirty evictions, insert/delete tree keys, follow a range across leaves, vary merge buffers and interrupt staged page publication.'
+  },
+  practice: {
+    task: 'Implement and verify page-aware structures and external sorting, diagnose bad occupancy/caching/durability assumptions, then compare changed workloads under the same cost model.',
+    success: 'Preserves keys/order/equal leaf depth, matches independent cache/set/sorted-output and page-count oracles, handles partial/empty runs and crashes, and states exactly what the model does not measure.'
+  },
+  misconceptions: ['Fewer CPU comparisons always means fewer storage transfers', 'Every reference to a tree node is a cache miss', 'Dirty pages can be discarded like clean ones', 'A B-tree is a binary search tree or a B+ tree with identical record placement', 'Splitting and merging may change the global key order or leaf depths', 'All memory pages can be allocated to input runs with no output buffer', 'External merge code that stores all runs in RAM proves bounded real memory', 'Logical read/write calls equal physical disk operations or latency', 'A path-copied root is automatically a durable committed root'],
+  sources: ['https://courses.csail.mit.edu/6.851/spring12/lectures/L07.html', 'https://opendatastructures.org/ods-python/14_2_B_Trees.html', 'https://www.cs.cornell.edu/courses/cs4320/2008fa/slides/20081008_ExtSort.pdf', 'https://15415.courses.cs.cmu.edu/spring2014/slides/24Recovery1.pdf', 'https://www.sqlite.org/atomiccommit.html'],
+  depth: 'specialist',
+  reviewFocus: 'Units and cache/write policies; minimum-degree versus page-capacity conventions; B-tree/B+ records; update/leaf invariants; buffer and partial-page accounting; abstract versus real durability and physical I/O; honest external-practice fit.',
+  designRecord: 'docs/teaching/EXTERNAL-MEMORY-LESSON-DESIGN.md'
+};

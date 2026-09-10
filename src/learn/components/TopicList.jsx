@@ -1,177 +1,140 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { colors, fonts, levelColors, levelLabels } from "../styles";
-import { allTopicsOrdered, categories } from "../data/topics/index";
-import { tracks } from "../data/tracks";
+import { allTopicsOrdered, categories } from "../data/catalogue";
+import { topicMap as topicCatalogue } from "../data/catalogue.js";
 import LevelBadge from "./LevelBadge";
 
 const LEVELS = ["foundation", "intermediate", "advanced", "frontier"];
+const RESULTS_PER_PAGE = 100;
 
 export default function TopicList({ isComplete }) {
+  const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeLevel, setActiveLevel] = useState("all");
+  const [activeStatus, setActiveStatus] = useState("all");
+  const [visibleCount, setVisibleCount] = useState(RESULTS_PER_PAGE);
   const navigate = useNavigate();
 
-  let filtered = activeCategory === "all"
-    ? allTopicsOrdered
-    : allTopicsOrdered.filter((t) => t.category === activeCategory);
+  const filtered = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    return allTopicsOrdered.filter((topic) => {
+      const matchesQuery = !normalizedQuery || topic.title.toLowerCase().includes(normalizedQuery);
+      const matchesCategory = activeCategory === "all" || topicCatalogue[topic.id]?.trackIds.includes(activeCategory);
+      const matchesLevel = activeLevel === "all" || topic.level === activeLevel;
+      const matchesStatus = activeStatus === "all" || topic.status === activeStatus;
+      return matchesQuery && matchesCategory && matchesLevel && matchesStatus;
+    });
+  }, [activeCategory, activeLevel, activeStatus, query]);
 
-  if (activeLevel !== "all") {
-    filtered = filtered.filter((t) => t.level === activeLevel);
-  }
+  useEffect(() => {
+    setVisibleCount(RESULTS_PER_PAGE);
+  }, [query, activeCategory, activeLevel, activeStatus]);
 
-  // Build a reverse lookup: topicId → track titles
-  const topicToTracks = {};
-  for (const track of tracks) {
-    for (const id of track.topicIds) {
-      if (!topicToTracks[id]) topicToTracks[id] = [];
-      topicToTracks[id].push(track.title);
-    }
-  }
-
-  // Find track label for category ID
-  const categoryLabel = (catId) => {
-    const cat = categories.find((c) => c.id === catId);
-    return cat ? cat.label : catId;
-  };
+  const visibleTopics = filtered.slice(0, visibleCount);
 
   return (
-    <div>
-      {/* Category filter pills */}
-      <div style={{ display: "flex", gap: 6, marginBottom: 16, flexWrap: "wrap" }}>
-        <span
-          onClick={() => setActiveCategory("all")}
-          style={{
-            padding: "3px 10px",
-            border: `1px solid ${activeCategory === "all" ? `${colors.gold}44` : colors.border}`,
-            borderRadius: 3,
-            fontFamily: fonts.mono,
-            fontSize: 9,
-            color: activeCategory === "all" ? colors.gold : colors.textMuted,
-            cursor: "pointer",
-            textTransform: "uppercase",
-            transition: "all 0.2s ease",
-          }}
-        >
-          all ({allTopicsOrdered.length})
-        </span>
-        {categories.map((cat) => {
-          const isActive = activeCategory === cat.id;
-          const count = allTopicsOrdered.filter((t) => t.category === cat.id).length;
-          return (
-            <span
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              style={{
-                padding: "3px 10px",
-                border: `1px solid ${isActive ? `${colors.gold}44` : colors.border}`,
-                borderRadius: 3,
-                fontFamily: fonts.mono,
-                fontSize: 9,
-                color: isActive ? colors.gold : colors.textMuted,
-                cursor: "pointer",
-                textTransform: "uppercase",
-                transition: "all 0.2s ease",
-                maxWidth: 200,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {cat.label.length > 25 ? cat.label.slice(0, 22) + "..." : cat.label} ({count})
-            </span>
-          );
-        })}
+    <section aria-label="Topic catalogue">
+      <div className="catalogue-controls">
+        <label className="sr-only" htmlFor="topic-search">Search the curriculum</label>
+        <input
+          id="topic-search"
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search topics, e.g. Kalman, JAX, backprop..."
+          className="catalogue-search"
+        />
+
+        <div className="catalogue-selects">
+          <label className="catalogue-select-label">
+            <span>Module</span>
+            <select aria-label="Module" value={activeCategory} onChange={(event) => setActiveCategory(event.target.value)}>
+              <option value="all">All modules</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>{category.label}</option>
+              ))}
+            </select>
+          </label>
+          <label className="catalogue-select-label">
+            <span>Availability</span>
+            <select value={activeStatus} onChange={(event) => setActiveStatus(event.target.value)}>
+              <option value="all">Published + planned</option>
+              <option value="published">Published lessons</option>
+              <option value="planned">Planned lessons</option>
+            </select>
+          </label>
+        </div>
       </div>
 
-      {/* Level filter pills */}
-      <div style={{ display: "flex", gap: 6, marginBottom: 16 }}>
-        <span
+      <div className="catalogue-filter-row" aria-label="Filter by difficulty">
+        <button
+          type="button"
           onClick={() => setActiveLevel("all")}
-          style={{
-            padding: "3px 10px",
-            border: `1px solid ${activeLevel === "all" ? `${colors.gold}44` : colors.border}`,
-            borderRadius: 3,
-            fontFamily: fonts.mono,
-            fontSize: 9,
-            color: activeLevel === "all" ? colors.gold : colors.textMuted,
-            cursor: "pointer",
-            textTransform: "uppercase",
-          }}
+          className={`catalogue-filter ${activeLevel === "all" ? "is-active" : ""}`}
         >
-          all levels
-        </span>
-        {LEVELS.map((lvl) => {
-          const isActive = activeLevel === lvl;
-          const lvlColor = levelColors[lvl];
-          return (
-            <span
-              key={lvl}
-              onClick={() => setActiveLevel(lvl)}
-              style={{
-                padding: "3px 10px",
-                border: `1px solid ${isActive ? `${lvlColor}44` : colors.border}`,
-                borderRadius: 3,
-                fontFamily: fonts.mono,
-                fontSize: 9,
-                color: isActive ? lvlColor : colors.textMuted,
-                cursor: "pointer",
-                textTransform: "uppercase",
-                transition: "all 0.2s ease",
-              }}
-            >
-              {levelLabels[lvl]}
-            </span>
-          );
-        })}
+          All levels
+        </button>
+        {LEVELS.map((level) => (
+          <button
+            key={level}
+            type="button"
+            onClick={() => setActiveLevel(level)}
+            className={`catalogue-filter ${activeLevel === level ? "is-active" : ""}`}
+            style={activeLevel === level ? { color: levelColors[level], borderColor: `${levelColors[level]}66` } : undefined}
+          >
+            {levelLabels[level]}
+          </button>
+        ))}
       </div>
 
-      {/* Topic rows */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        {filtered.map((topic) => {
+      <p className="catalogue-result-count" aria-live="polite">
+        {filtered.length.toLocaleString()} matching topic{filtered.length === 1 ? "" : "s"}
+        {filtered.length > visibleTopics.length ? ` · showing first ${visibleTopics.length}` : ""}
+      </p>
+
+      <ul className="topic-results">
+        {visibleTopics.map((topic) => {
           const done = isComplete(topic.id);
-          const inTracks = topicToTracks[topic.id];
           return (
-            <div
-              key={topic.id}
-              onClick={() => navigate(`/learn/topic/${topic.id}`)}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px 12px",
-                border: `1px solid ${colors.border}`,
-                borderRadius: 4,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = colors.cardHoverBorder;
-                e.currentTarget.style.background = colors.cardHoverBg;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = colors.border;
-                e.currentTarget.style.background = "transparent";
-              }}
-            >
-              <div style={{ minWidth: 0, flex: 1 }}>
-                <span style={{ fontFamily: fonts.sans, fontSize: 13, color: colors.textSecondary }}>
-                  {topic.title}
+            <li key={topic.id}>
+              <button
+                type="button"
+                onClick={() => navigate(`/learn/topic/${topic.id}`)}
+                className="topic-result"
+                data-topic-id={topic.id}
+                aria-label={`Read ${topic.title}, ${topic.status} lesson`}
+              >
+                <span className="topic-result-main">
+                  <span className="topic-result-title">{topic.title}</span>
+                  <span className={`topic-status topic-status--${topic.status}`}>{topic.status}</span>
+                  <span className="topic-result-time">{topic.readTime}</span>
                 </span>
-                <span style={{ fontFamily: fonts.mono, fontSize: 9, color: colors.textDim, marginLeft: 8 }}>
-                  {topic.readTime}
+                <span className="topic-result-meta">
+                  <LevelBadge level={topic.level} />
+                  <span className={done ? "topic-done" : "topic-not-done"} aria-label={done ? "Complete" : "Not complete"}>
+                    {done ? "✓" : "○"}
+                  </span>
                 </span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-                <LevelBadge level={topic.level} />
-                <span style={{ fontSize: 12, color: done ? colors.green : colors.textDark }}>
-                  {done ? "✓" : "○"}
-                </span>
-              </div>
-            </div>
+              </button>
+            </li>
           );
         })}
-      </div>
-    </div>
+      </ul>
+
+      {visibleTopics.length === 0 && (
+        <p className="catalogue-empty">Nothing matches those filters. Try a broader term or include planned lessons.</p>
+      )}
+
+      {visibleCount < filtered.length && (
+        <button
+          type="button"
+          className="catalogue-more"
+          onClick={() => setVisibleCount((count) => count + RESULTS_PER_PAGE)}
+        >
+          Show 100 more
+        </button>
+      )}
+    </section>
   );
 }

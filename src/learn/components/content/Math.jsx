@@ -1,3 +1,4 @@
+import "katex/dist/katex.min.css";
 import katex from "katex";
 import { colors, fonts } from "../../styles";
 

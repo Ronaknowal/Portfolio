@@ -1,0 +1,253 @@
+.random-matrix-lesson {
+  --rm-gold: #ecc574;
+  --rm-blue: #88bdeb;
+  --rm-green: #88d1ad;
+  --rm-line: #65717a;
+}
+
+.random-matrix-lesson .rm-inline {
+  margin: 1.8rem 0;
+  padding: 1.2rem 0;
+  border-block: 1px solid #343a3c;
+}
+
+.random-matrix-lesson figcaption,.random-matrix-lesson .rm-note {
+  font-size: .9rem;
+  line-height: 1.7;
+  color: #b4bbbd;
+}
+
+.rm-counted,.rm-rank,.rm-gains {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.3rem;
+  align-items: start;
+}
+
+.random-matrix-lesson table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.random-matrix-lesson th,.random-matrix-lesson td {
+  padding: .45rem .55rem;
+  text-align: center;
+  border-bottom: 1px solid #394044;
+}
+
+.rm-matrix {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.rm-matrix td {
+  font-family: monospace;
+  min-width: 2.7rem;
+}
+
+.rm-matrix .positive {
+  background: #233b42;
+}
+
+.rm-matrix .negative {
+  background: #403323;
+}
+
+.rm-matrix caption {
+  padding: .5rem;
+  font-size: .9rem;
+}
+
+.rm-plot {
+  width: 100%;
+  max-width: 560px;
+  display: block;
+  margin: 1rem auto;
+  overflow: visible;
+  font: 15px monospace;
+}
+
+.rm-plot text {
+  fill: #cbd2d4;
+}
+
+.rm-plot text[fill] {
+  fill: inherit;
+}
+
+.rm-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+
+.rm-control {
+  flex: 1 1 180px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+
+.rm-control select {
+  width: 100%;
+  min-height: 44px;
+  padding: .5rem;
+  background: #111719;
+  color: #e5e5df;
+  border: 1px solid #606b70;
+  border-radius: 3px;
+}
+
+.rm-control input[type=range] {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--rm-gold);
+}
+
+.rm-check {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 44px;
+}
+
+.rm-check input {
+  min-width: 20px;
+  min-height: 20px;
+  accent-color: var(--rm-gold);
+}
+
+.random-matrix-lesson .lesson-lab button {
+  min-height: 44px;
+  padding: .55rem .85rem;
+  color: var(--rm-gold);
+  background: #101517;
+  border: 1px solid #737a74;
+  border-radius: 3px;
+}
+
+.rm-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin: 1rem 0;
+}
+
+.random-matrix-lesson :is(button,input,select,summary,[tabindex]):focus-visible {
+  outline: 2px solid var(--rm-gold);
+  outline-offset: 4px;
+}
+
+.rm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: .85rem;
+}
+
+.rm-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: .5rem;
+  background: currentColor;
+  margin-right: .4rem;
+}
+
+.rm-blue {
+  color: var(--rm-blue);
+}
+
+.rm-gold {
+  color: var(--rm-gold);
+}
+
+.rm-green {
+  color: var(--rm-green);
+}
+
+.rm-zero {
+  border-left: 3px solid var(--rm-green);
+  padding-left: .8rem;
+}
+
+.rm-mass-track {
+  height: 12px;
+  width: 100%;
+  background: #273037;
+  margin: .5rem 0 1rem;
+}
+
+.rm-mass-track span {
+  height: 100%;
+  display: block;
+  background: var(--rm-blue);
+}
+
+.rm-mass-track .gold {
+  background: var(--rm-gold);
+}
+
+.rm-overlap {
+  display: grid;
+  gap: .5rem;
+  font-size: .9rem;
+}
+
+.rm-dots {
+  display: flex;
+  gap: .3rem;
+  margin: 1rem 0;
+}
+
+.rm-dots span {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #525a60;
+  color: #a9b1b5;
+}
+
+.rm-dots .active {
+  background: #35475c;
+  color: var(--rm-blue);
+}
+
+.random-matrix-lesson details {
+  margin: 1rem 0;
+}
+
+.random-matrix-lesson summary {
+  cursor: pointer;
+  padding: .65rem 0;
+}
+
+.rm-values {
+  overflow-wrap: anywhere;
+  font: .9rem/1.9 monospace;
+}
+
+.rm-table-scroll {
+  overflow: auto;
+  max-width: 100%;
+}
+
+.rm-practice {
+  margin: 2rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid #444b4e;
+}
+
+@media (max-width:560px) {
+  .rm-counted,.rm-rank,.rm-gains {
+    grid-template-columns: 1fr;
+  }
+  .rm-plot {
+    font-size: 16px;
+  }
+  .random-matrix-lesson th,.random-matrix-lesson td {
+    padding: .4rem .3rem;
+  }
+}

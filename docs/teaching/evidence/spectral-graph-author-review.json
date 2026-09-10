@@ -1,0 +1,2568 @@
+{
+  "topicId": "spectral-graph-theory",
+  "authorFrozenAt": "2026-09-10T18:50:00.943703+00:00",
+  "status": "author verified; independent review and root production integration separately recorded",
+  "productionHashes": {
+    "src/learn/data/topics/spectral-graph-theory.jsx": "3f9acc7d7c524e9dbb145818c4ceacdf8c0b84179f0e88016e8e5fe061935e8d",
+    "src/learn/data/spectral-graph-models.js": "9612dfa5e766706dcad6b7e7b7edd5d54efaf0ae34585c108607ca007377b61e",
+    "src/learn/data/spectral-graph-examples.js": "ad9b8bcfe1fda36648b9560ac662f2b5afca9be886cc04e970a9373879b2b8f4",
+    "src/learn/components/lesson-labs/SpectralLab.jsx": "9dbfd43637a70d8aeb627962c434b47223ec986bc152ec3a642b01d3e48e12a0",
+    "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
+    "src/learn/components/lesson-labs/spectral-graph-labs.css": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1",
+    "src/learn/data/curriculum/blueprints/spectral-graph-theory.js": "a2b03f010850cc14115e57b1a77e6a630c6e86da8c58d64e593177b588ad4755"
+  },
+  "verificationSourceHashes": {
+    "scripts/generate-spectral-examples.py": "cde9eba1af1f255b24be60c9ced6b4b04b155fc0546e22df1fb38cee5f3191ad",
+    "scripts/verify-spectral-graph.mjs": "5db93f46021f73341fa1d33497eb7fe2c0b53d6f6f8a13c2be9793414486b43e",
+    "scripts/verify-spectral-graph-native.py": "149ec15751c3ffb164fde6e14b48a2bf18610fa644bcee5d85d9f9bddb9ef4c5",
+    "scripts/review-spectral-graph-lesson.cjs": "0336471b67227d2a2148935c484270ae670c81f02efba4e977a395651fcb7314",
+    "scripts/review-spectral-reading.cjs": "ac0a89ab61a98f542077f9cc17a1ecae62384094bfd510423cf7e523883dad3f",
+    "docs/teaching/SPECTRAL-GRAPH-THEORY-DESIGN.md": "7b2b2a611106e459f5f4f66716421aa83734c91823c82970508b05846dfca8f5",
+    "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md": "a5ba87473d0ca0c8bfe4d08e42a325728818f9ee505050969d47cfd4e3ebc765",
+    "docs/teaching/topic-notes/message-passing-graph-convolutions-gcn-gat-graphsage.md": "6b9d5bf9c173057c08c7a8b2a06f7b01ca04ad72d9ab3c6ce36cced5355d4021"
+  },
+  "native": {
+    "verifiedAt": "2026-09-10T18:23:48.138664+00:00",
+    "versions": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "counts": {
+      "bridge_spectra": 41,
+      "arbitrary_weighted_graphs": 240,
+      "normalized_sweep_graphs": 82,
+      "exhaustive_cut_partitions": 5084,
+      "clustering_runs": 152,
+      "filter_states": 14432,
+      "independent_matrix_functions": 3362,
+      "displayed_native_programs": 9,
+      "changed_native_series_circuits": 288,
+      "changed_native_clustering_trials": 56,
+      "invalid_model_inputs": 21
+    },
+    "originalProgramPreserved": true,
+    "limits": "Finite bounded graphs and fixtures, independent library/finite oracles; not empirical clustering quality or a proof that floating-point thresholds attain exact theorem bounds in arbitrary ranges."
+  },
+  "browser": {
+    "verifiedAt": "2026-09-10T18:24:46.203Z",
+    "records": [
+      {
+        "width": 1440,
+        "states": 193,
+        "anchors": 10,
+        "examples": 9,
+        "checks": 12,
+        "keyboardControls": 59,
+        "localKeyboardScrolls": 0,
+        "math": 11,
+        "errors": []
+      },
+      {
+        "width": 390,
+        "states": 193,
+        "anchors": 10,
+        "examples": 9,
+        "checks": 12,
+        "keyboardControls": 59,
+        "localKeyboardScrolls": 6,
+        "math": 11,
+        "errors": []
+      },
+      {
+        "width": 320,
+        "states": 193,
+        "anchors": 10,
+        "examples": 9,
+        "checks": 12,
+        "keyboardControls": 59,
+        "localKeyboardScrolls": 11,
+        "math": 11,
+        "errors": []
+      }
+    ]
+  },
+  "finalReading": {
+    "verifiedAt": "2026-09-10T18:47:55.357Z",
+    "records": [
+      {
+        "width": 1440,
+        "edgeGeometry": [
+          [
+            55,
+            45,
+            205,
+            45
+          ],
+          [
+            55,
+            45,
+            130,
+            140
+          ],
+          [
+            205,
+            45,
+            130,
+            140
+          ],
+          [
+            130,
+            140,
+            130,
+            245
+          ],
+          [
+            130,
+            245,
+            55,
+            340
+          ],
+          [
+            130,
+            245,
+            205,
+            340
+          ],
+          [
+            55,
+            340,
+            205,
+            340
+          ]
+        ],
+        "geometry": {
+          "pageWidth": 1440,
+          "scrollWidth": 1440,
+          "math": [
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "svgText": [
+            {
+              "label": "w = 0.2",
+              "size": 18.307692307692307,
+              "inside": true
+            },
+            {
+              "label": "A",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "B",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "C",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "D",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "E",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "F",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            }
+          ]
+        },
+        "labText": [
+          {
+            "label": "A",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.373",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.373",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "0.261",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.261",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 28.925925925925927,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 26.296296296296298,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "G",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "H",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "I",
+            "size": 25.193548387096776,
+            "inside": true
+          },
+          {
+            "label": "coordinate 2",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "coordinate 3",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "A B C",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "D E F",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "G H I",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "c1",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "c2",
+            "size": 22.325,
+            "inside": true
+          },
+          {
+            "label": "c3",
+            "size": 22.325,
+            "inside": true
+          }
+        ],
+        "paragraphs": [
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A node is an object and an edg"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A graph signal puts one number"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Let A be the symmetric adjacen"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Node C has degree 1+1+0.2=2.2."
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Multiply each row result by it"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The first sum counts each undi"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Running the examples: save any"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Which edges co"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "An eigenvector u satisfies Lu="
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Zero energy means every positi"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "When the graph is connected, t"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A minimizing direction is a Fi"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Predict which "
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A cut chooses a nonempty prope"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Here vol(S)=\u03a3\u1d62\u2208S d\u1d62: an intern"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Why does an eigenvector enter?"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Its sum is zero, its squared l"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For the balanced triangle spli"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A zero sign threshold is a sim"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "When degrees differ greatly, e"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For volume a=vol(S), b=vol(T),"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A nonempty set can still have "
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Which diagonal"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For a connected undirected non"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For the lower bound, every cut"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Does the small"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For more than two groups, one "
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The exact disconnected case ex"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Now group these row points usi"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The point coordinates stay fix"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Watch the dist"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The gap \u03bd\u2096\u208a\u2081\u2212\u03bd\u2096 can suggest a "
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Use the combinatorial L again."
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The last two quantities answer"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A spectral filter chooses a ga"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Take the unit-weight path A\u2013B\u2013"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "At ridge penalty \u03b1=1, the gain"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Where did ridge\u2019s gain come fr"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: At the same nu"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A temperature network might le"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Suppose each node\u2019s value chan"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "The sum stays fixed because 1\u1d40"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "This follows by squaring the n"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "With positive degrees, the ord"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "A connected bipartite graph ca"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: The graph is c"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "If B contains an orthonormal b"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Why can one re"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "We can also filter locally wit"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Here is a different use of the"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Inject one ampere at node a an"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For a connected graph, the non"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "This is also (e\u2090\u2212e\u1d66)\u1d40L\u207a(e\u2090\u2212e\u1d66)"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Before running: Why do the two"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "If a and b are in different co"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Start with what an edge means."
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For an n-node dense graph, mer"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For symmetric inputs, numpy.li"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Scikit-learn\u2019s SpectralCluster"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "For a prediction application, "
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Attempt each task before openi"
+          },
+          {
+            "left": 352,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ready to continue: you can com"
+          }
+        ],
+        "spectrumGeometry": {
+          "width": 710,
+          "parentWidth": 710,
+          "points": [
+            [
+              55,
+              65
+            ],
+            [
+              55,
+              205
+            ],
+            [
+              190,
+              135
+            ],
+            [
+              350,
+              135
+            ],
+            [
+              485,
+              65
+            ],
+            [
+              485,
+              205
+            ]
+          ],
+          "lines": [
+            [
+              55,
+              65,
+              55,
+              205
+            ],
+            [
+              55,
+              65,
+              190,
+              135
+            ],
+            [
+              55,
+              205,
+              190,
+              135
+            ],
+            [
+              190,
+              135,
+              350,
+              135
+            ],
+            [
+              350,
+              135,
+              485,
+              65
+            ],
+            [
+              350,
+              135,
+              485,
+              205
+            ],
+            [
+              485,
+              65,
+              485,
+              205
+            ]
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "edgeGeometry": [
+          [
+            55,
+            45,
+            205,
+            45
+          ],
+          [
+            55,
+            45,
+            130,
+            140
+          ],
+          [
+            205,
+            45,
+            130,
+            140
+          ],
+          [
+            130,
+            140,
+            130,
+            245
+          ],
+          [
+            130,
+            245,
+            55,
+            340
+          ],
+          [
+            130,
+            245,
+            205,
+            340
+          ],
+          [
+            55,
+            340,
+            205,
+            340
+          ]
+        ],
+        "geometry": {
+          "pageWidth": 390,
+          "scrollWidth": 390,
+          "math": [
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "svgText": [
+            {
+              "label": "w = 0.2",
+              "size": 18.307692307692307,
+              "inside": true
+            },
+            {
+              "label": "A",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "B",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "C",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "D",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "E",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "F",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            }
+          ]
+        },
+        "labText": [
+          {
+            "label": "A",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.373",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.373",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "0.261",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.261",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 25.384615384615383,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 23.076923076923077,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "G",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "H",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "I",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "coordinate 2",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "coordinate 3",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "A B C",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "D E F",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "G H I",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "c1",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "c2",
+            "size": 19.44,
+            "inside": true
+          },
+          {
+            "label": "c3",
+            "size": 19.44,
+            "inside": true
+          }
+        ],
+        "paragraphs": [
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A node is an object and an edg"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A graph signal puts one number"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Let A be the symmetric adjacen"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Node C has degree 1+1+0.2=2.2."
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Multiply each row result by it"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The first sum counts each undi"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Running the examples: save any"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Which edges co"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "An eigenvector u satisfies Lu="
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Zero energy means every positi"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "When the graph is connected, t"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A minimizing direction is a Fi"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Predict which "
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A cut chooses a nonempty prope"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Here vol(S)=\u03a3\u1d62\u2208S d\u1d62: an intern"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Why does an eigenvector enter?"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Its sum is zero, its squared l"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For the balanced triangle spli"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A zero sign threshold is a sim"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "When degrees differ greatly, e"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For volume a=vol(S), b=vol(T),"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A nonempty set can still have "
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Which diagonal"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For a connected undirected non"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For the lower bound, every cut"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Does the small"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For more than two groups, one "
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The exact disconnected case ex"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Now group these row points usi"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The point coordinates stay fix"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Watch the dist"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The gap \u03bd\u2096\u208a\u2081\u2212\u03bd\u2096 can suggest a "
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Use the combinatorial L again."
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The last two quantities answer"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A spectral filter chooses a ga"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Take the unit-weight path A\u2013B\u2013"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "At ridge penalty \u03b1=1, the gain"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Where did ridge\u2019s gain come fr"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: At the same nu"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A temperature network might le"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Suppose each node\u2019s value chan"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "The sum stays fixed because 1\u1d40"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "This follows by squaring the n"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "With positive degrees, the ord"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "A connected bipartite graph ca"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: The graph is c"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "If B contains an orthonormal b"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Why can one re"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "We can also filter locally wit"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Here is a different use of the"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Inject one ampere at node a an"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For a connected graph, the non"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "This is also (e\u2090\u2212e\u1d66)\u1d40L\u207a(e\u2090\u2212e\u1d66)"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Before running: Why do the two"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "If a and b are in different co"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Start with what an edge means."
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For an n-node dense graph, mer"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For symmetric inputs, numpy.li"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Scikit-learn\u2019s SpectralCluster"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "For a prediction application, "
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Attempt each task before openi"
+          },
+          {
+            "left": 20,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ready to continue: you can com"
+          }
+        ],
+        "spectrumGeometry": {
+          "width": 300,
+          "parentWidth": 324,
+          "points": [
+            [
+              55,
+              45
+            ],
+            [
+              205,
+              45
+            ],
+            [
+              130,
+              140
+            ],
+            [
+              130,
+              245
+            ],
+            [
+              55,
+              340
+            ],
+            [
+              205,
+              340
+            ]
+          ],
+          "lines": [
+            [
+              55,
+              45,
+              205,
+              45
+            ],
+            [
+              55,
+              45,
+              130,
+              140
+            ],
+            [
+              205,
+              45,
+              130,
+              140
+            ],
+            [
+              130,
+              140,
+              130,
+              245
+            ],
+            [
+              130,
+              245,
+              55,
+              340
+            ],
+            [
+              130,
+              245,
+              205,
+              340
+            ],
+            [
+              55,
+              340,
+              205,
+              340
+            ]
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "edgeGeometry": [
+          [
+            55,
+            45,
+            205,
+            45
+          ],
+          [
+            55,
+            45,
+            130,
+            140
+          ],
+          [
+            205,
+            45,
+            130,
+            140
+          ],
+          [
+            130,
+            140,
+            130,
+            245
+          ],
+          [
+            130,
+            245,
+            55,
+            340
+          ],
+          [
+            130,
+            245,
+            205,
+            340
+          ],
+          [
+            55,
+            340,
+            205,
+            340
+          ]
+        ],
+        "geometry": {
+          "pageWidth": 320,
+          "scrollWidth": 320,
+          "math": [
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "svgText": [
+            {
+              "label": "w = 0.2",
+              "size": 18.307692307692307,
+              "inside": true
+            },
+            {
+              "label": "A",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "B",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "C",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "+1",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "D",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "E",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            },
+            {
+              "label": "F",
+              "size": 21.53846153846154,
+              "inside": true
+            },
+            {
+              "label": "\u22121",
+              "size": 17.23076923076923,
+              "inside": true
+            }
+          ]
+        },
+        "labText": [
+          {
+            "label": "A",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.425",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.373",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.373",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.425",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.296",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "0.261",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.261",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 21.49230769230769,
+            "inside": true
+          },
+          {
+            "label": "-0.296",
+            "size": 19.53846153846154,
+            "inside": true
+          },
+          {
+            "label": "A",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "B",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "C",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "D",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "E",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "F",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "G",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "H",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "I",
+            "size": 18.806451612903224,
+            "inside": true
+          },
+          {
+            "label": "coordinate 2",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "coordinate 3",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "A B C",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "D E F",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "G H I",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "c1",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "c2",
+            "size": 15.24,
+            "inside": true
+          },
+          {
+            "label": "c3",
+            "size": 15.24,
+            "inside": true
+          }
+        ],
+        "paragraphs": [
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A node is an object and an edg"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A graph signal puts one number"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Let A be the symmetric adjacen"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Node C has degree 1+1+0.2=2.2."
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Multiply each row result by it"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The first sum counts each undi"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Running the examples: save any"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Which edges co"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "An eigenvector u satisfies Lu="
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Zero energy means every positi"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "When the graph is connected, t"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A minimizing direction is a Fi"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Predict which "
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A cut chooses a nonempty prope"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Here vol(S)=\u03a3\u1d62\u2208S d\u1d62: an intern"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Why does an eigenvector enter?"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Its sum is zero, its squared l"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For the balanced triangle spli"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A zero sign threshold is a sim"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "When degrees differ greatly, e"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For volume a=vol(S), b=vol(T),"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A nonempty set can still have "
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Which diagonal"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For a connected undirected non"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For the lower bound, every cut"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Does the small"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For more than two groups, one "
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The exact disconnected case ex"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Now group these row points usi"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The point coordinates stay fix"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Watch the dist"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The gap \u03bd\u2096\u208a\u2081\u2212\u03bd\u2096 can suggest a "
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Use the combinatorial L again."
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The last two quantities answer"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A spectral filter chooses a ga"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Take the unit-weight path A\u2013B\u2013"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "At ridge penalty \u03b1=1, the gain"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Where did ridge\u2019s gain come fr"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: At the same nu"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A temperature network might le"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Suppose each node\u2019s value chan"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "The sum stays fixed because 1\u1d40"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "This follows by squaring the n"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "With positive degrees, the ord"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "A connected bipartite graph ca"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: The graph is c"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "If B contains an orthonormal b"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Why can one re"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "We can also filter locally wit"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Here is a different use of the"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Inject one ampere at node a an"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For a connected graph, the non"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "This is also (e\u2090\u2212e\u1d66)\u1d40L\u207a(e\u2090\u2212e\u1d66)"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Before running: Why do the two"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "If a and b are in different co"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Start with what an edge means."
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For an n-node dense graph, mer"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For symmetric inputs, numpy.li"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Scikit-learn\u2019s SpectralCluster"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "For a prediction application, "
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Attempt each task before openi"
+          },
+          {
+            "left": 20,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ready to continue: you can com"
+          }
+        ],
+        "spectrumGeometry": {
+          "width": 254,
+          "parentWidth": 254,
+          "points": [
+            [
+              55,
+              45
+            ],
+            [
+              205,
+              45
+            ],
+            [
+              130,
+              140
+            ],
+            [
+              130,
+              245
+            ],
+            [
+              55,
+              340
+            ],
+            [
+              205,
+              340
+            ]
+          ],
+          "lines": [
+            [
+              55,
+              45,
+              205,
+              45
+            ],
+            [
+              55,
+              45,
+              130,
+              140
+            ],
+            [
+              205,
+              45,
+              130,
+              140
+            ],
+            [
+              130,
+              140,
+              130,
+              245
+            ],
+            [
+              130,
+              245,
+              55,
+              340
+            ],
+            [
+              130,
+              245,
+              205,
+              340
+            ],
+            [
+              55,
+              340,
+              205,
+              340
+            ]
+          ]
+        },
+        "errors": []
+      }
+    ]
+  },
+  "finalOpenedScreenshots": {
+    "scratch/spectral-browser/reading-final-10-390.png": "7ec8a3e0b06476eca9e8a51f04704f2cd67fe0364029eebcf1a4e6c2cb58c882",
+    "scratch/spectral-browser/reading-final-4-390.png": "3091777ce03a81c5a1fc82b81f2766bb1958c551e4ce3ad29062849de9a74b06",
+    "scratch/spectral-browser/reading-final-6-390.png": "e8ffb08eb3f96cdab6c5c4e9365cd88e3880d688ce45635634eafd9bac968cf6",
+    "scratch/spectral-browser/reading-final-1-320.png": "f69ffeee6c277b4d074f42d8347c210d78b152b5bdea76f5b62c35f75cb2c4c9",
+    "scratch/spectral-browser/spectrum-graph-final-390.png": "d68b151e657f2687bc2746c25c80c290551f8c307d85c022ec54d53fa77307c8",
+    "scratch/spectral-browser/embedding-plot-final-320.png": "d02b1c3db75fef1cc773a147e1bba443db39565f20235f9b2da46690dd188e81",
+    "scratch/spectral-browser/cheeger-proof-final-390.png": "9683f82890a583b549e1b9d97b8f1ec5dc8effcebd8043b8bab11ea47e2eb1cf"
+  },
+  "earlierOpenedEvidence": "Baseline pilot, ordinary section starts, final graph/coordinate/circuit/source figures and changed states are itemized in the verification narrative. Only the listed final files are claimed opened after the last instant-scroll refresh.",
+  "independentReview": "docs/teaching/SPECTRAL-GRAPH-THEORY-INDEPENDENT-REVIEW.md",
+  "limits": [
+    "Finite bounded-model checks supplement written proofs; no claim of empirical clustering quality.",
+    "Full interaction run predates final layout and prose-only changes; finalReading supersedes those display changes. Model and examples unchanged.",
+    "Current optional scikit-learn reference was researched; package not installed or executed.",
+    "MIT transcript portions inspected; no full-video viewing claim.",
+    "Parent production integration and user acceptance remain separate."
+  ]
+}
