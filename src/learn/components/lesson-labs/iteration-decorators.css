@@ -1,0 +1,26 @@
+.id-spatial { margin: 1.2rem 0; padding: 1rem; border-block: 1px solid #3b3528; }
+.id-lane { display:grid; grid-template-columns: 5rem 1fr; align-items:center; gap:.5rem; margin:.75rem 0; }
+.id-slots { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.4rem; }
+.id-slot { padding:.7rem .25rem; text-align:center; border:1px solid #625539; background:#171713; border-radius:3px; }
+.id-slot strong,.id-slot small { display:block; }
+.id-slot small { font-size:.78rem; color:#b8b5a8; }
+.id-slot[data-current="true"] { border:2px solid #e3b865; background:#332918; }
+.id-name { color:#e2bd7b; font-family:var(--font-mono,monospace); }
+.id-frame { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+.id-frame>div { padding:.8rem; background:#191b16; border-left:2px solid #b79860; }
+.id-frame strong,.id-frame span { display:block; }
+.id-frame span { margin-top:.35rem; overflow-wrap:anywhere; }
+.id-flow { display:flex; flex-direction:column; gap:.4rem; max-width:30rem; margin:1rem auto; }
+.id-flow-node { border:1px solid #55513e; padding:.7rem 1rem; }
+.id-flow-node[data-active="true"] { border-color:#edc375; background:#352b19; }
+.id-flow-arrow { align-self:center; color:#c9b683; font-size:.83rem; }
+.id-output { font-family:var(--font-mono,monospace); overflow-wrap:anywhere; min-height:2rem; }
+.id-call-layer { border-left:2px solid #877243; padding:.65rem .65rem .65rem 1rem; margin:.4rem 0 .4rem .6rem; }
+.id-call-layer[data-active="true"] { background:#342b1d; border-color:#f0c478; }
+.id-call-result { color:#b6d3b3; }
+.id-stack { display:flex; flex-direction:column-reverse; gap:.4rem; min-height:3rem; margin:1rem 0; }
+.id-stack>div { padding:.7rem; border:1px solid #877243; }
+.id-lifetime { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.25rem; margin:1rem 0; }
+.id-lifetime span { text-align:center; font-size:.82rem; padding:.8rem .2rem; border-bottom:2px solid #4a483d; }
+.id-lifetime [data-active="true"] { color:#efc781; border-color:#efc781; background:#2a241a; }
+@media(max-width:600px){ .id-lane{grid-template-columns:1fr}.id-frame{grid-template-columns:1fr}.id-lifetime span{font-size:.75rem}.id-call-layer{padding-left:.65rem;margin-left:.35rem} }

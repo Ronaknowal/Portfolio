@@ -1,0 +1,12 @@
+export default {
+  summary: "Use branching references to organize a hierarchy and maintain an ordered set. Trace searches, traversals and deletion, justify their invariants, and adapt them to ordered queries and subtree computations.",
+  outcomes: ["Distinguish a binary tree from a globally ordered BST and state height conventions", "Trace recursive and iterative traversals with their pending work", "Implement search, insertion, deletion and validation including empty, duplicate and skewed cases", "Explain O(h) operations and why balance is a separate guarantee", "Transfer ordered queries and subtree summaries to new tasks"],
+  prerequisites: ["Linked Lists, Stacks & Queues", "Complexity Analysis & Recursion"],
+  sequence: ["Read branching references and subtree structure", "Search and insert using ancestor bounds", "Understand call/return and four traversal orders", "Delete without losing either subtree", "Validate globally and answer ordered queries", "Compare skew, balanced rebuilding and rotations", "Practise independent algorithms and selected interview problems"],
+  visual: { type: "Tree topology linked to path, bounds, frontier and output", question: "Which relationships and pending work must survive this operation?", interaction: "Search or insert bounded integer keys, step four traversals, and trace leaf/one-child/two-child deletion while node identity remains visible." },
+  practice: { task: "Implement a ceiling query and a one-pass diameter computation; construct a global-order counterexample and explain successor replacement.", success: "Pass empty, singleton, skewed, missing-key and ancestor-bound cases; explain correctness, termination and height-dependent time/space." },
+  misconceptions: ["Any binary tree is a BST", "Checking each parent-child pair proves global ordering", "Every BST operation is logarithmic", "Recursive stack frames are already output", "Replacing a key is the same as replacing node identity"],
+  sources: ["https://algs4.cs.princeton.edu/32bst/", "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-5-binary-search-trees-bst-sort/", "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/resources/lecture-6-avl-trees-avl-sort/", "https://visualgo.net/en/bst"],
+  depth: "core",
+  reviewFocus: "Global bounds, duplicate/set policy, height-in-edges convention, successor identity and lost subtrees, recursion limits, O(h) versus balanced guarantees, native/model correspondence and transfer practice."
+};

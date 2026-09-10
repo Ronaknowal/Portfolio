@@ -1,0 +1,172 @@
+const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'C:/Users/ronak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const output = path.resolve(__dirname, '../scratch/monte-carlo-mcmc-lesson-review');
+fs.mkdirSync(output, { recursive: true });
+async function capture(page, target, name) {
+  await page.locator('.learn-nav').evaluateAll(nodes => nodes.forEach(node => { node.style.visibility = 'hidden'; }));
+  await target.screenshot({ path: path.join(output, name) });
+  await page.locator('.learn-nav').evaluateAll(nodes => nodes.forEach(node => { node.style.visibility = ''; }));
+}
+(async () => {
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const results = [];
+  for (const width of [1440, 390, 320]) {
+    const page = await browser.newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
+    await page.routeWebSocket('**', socket => socket.close());
+    const errors = [], failedRequests = [], consoleErrors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    page.on('requestfailed', request => failedRequests.push({ url: request.url(), failure: request.failure() }));
+    page.on('console', message => { if (message.type() === 'error' && !message.text().startsWith('[vite] failed to connect to websocket.')) consoleErrors.push({ text: message.text(), location: message.location() }); });
+    await page.goto('http://127.0.0.1:5173/learn/path/full-curriculum/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts?module=math-foundations');
+    const average = page.getByRole('region', { name: 'Independent Monte Carlo investigation', exact: true });
+    await average.waitFor({ timeout: 60000 });
+    assert.equal(await page.locator('.python-example').count(), 8);
+    assert.equal(await page.locator('.katex-error').count(), 0);
+    const anchors = await page.locator('.lesson-intro a[href^="#"]').evaluateAll(nodes => nodes.map(node => node.hash.slice(1)));
+    assert.equal(anchors.length, 9);
+    for (const id of anchors) {
+      assert.equal(await page.locator(`[id="${id}"]`).count(), 1, id);
+      await page.locator(`.lesson-intro a[href="#${id}"]`).click();
+      await page.waitForFunction(anchor => { const top = document.getElementById(anchor).getBoundingClientRect().top; return top >= -1 && top < innerHeight; }, id);
+    }
+    await capture(page, average, `average-default-${width}.png`);
+    await average.getByLabel('Sampling design', { exact: true }).selectOption('paired');
+    assert.match(await average.locator('dl').innerText(), /Independent groups\s+50/);
+    await average.getByLabel('Evaluation budget', { exact: true }).selectOption('20');
+    await average.getByLabel('Inspect independent group', { exact: true }).fill('10');
+    assert.equal(await average.locator('.mcmc-contributions > div').count(), 3);
+    await capture(page, average, `average-paired-${width}.png`);
+    await average.getByLabel('Average seed', { exact: true }).fill('0');
+    await average.getByRole('button', { name: 'Apply average seed', exact: true }).click();
+    assert.match(await average.getByRole('alert').innerText(), /has not changed/);
+    await average.getByLabel('Average seed', { exact: true }).fill('99');
+    await average.getByRole('button', { name: 'Apply average seed', exact: true }).click();
+    assert.equal(await average.getByRole('alert').count(), 0);
+    await average.getByText('Contribution and running-average table', { exact: true }).click();
+    assert.equal(await average.locator('tbody tr').count(), 10);
+    await average.getByRole('button', { name: 'Reset average experiment', exact: true }).focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await average.getByLabel('Average seed', { exact: true }).inputValue(), '7');
+    await average.getByLabel('Inspect independent group', { exact: true }).focus();
+    await page.keyboard.press('ArrowRight');
+    assert.equal(await average.getByLabel('Inspect independent group', { exact: true }).inputValue(), '2');
+    const focus = await average.getByLabel('Inspect independent group', { exact: true }).evaluate(node => ({ active: document.activeElement === node, outline: getComputedStyle(node).outlineWidth }));
+    assert.ok(focus.active && parseFloat(focus.outline) >= 2);
+
+    const flow = page.getByRole('region', { name: 'Metropolis probability flow investigation', exact: true });
+    assert.match(await flow.locator('.mcmc-flow-equations').innerText(), /0.625/);
+    await capture(page, flow, `flow-correct-${width}.png`);
+    await flow.getByLabel('Acceptance rule', { exact: true }).selectOption('wrong');
+    assert.match(await flow.getByRole('status').innerText(), /moves it away/);
+    await capture(page, flow, `flow-wrong-${width}.png`);
+    await flow.getByLabel('Proposal matrix', { exact: true }).selectOption('symmetric');
+    assert.match(await flow.getByRole('status').innerText(), /unchanged/);
+    await flow.getByLabel('Inspect state pair', { exact: true }).selectOption('1,2');
+    await flow.getByText('Proposal, acceptance and transition matrices', { exact: true }).click();
+    assert.equal(await flow.locator('tbody tr').count(), 9);
+    await flow.getByRole('button', { name: 'Reset probability flow', exact: true }).click();
+
+    const chain = page.getByRole('region', { name: 'Metropolis chain investigation', exact: true });
+    await capture(page, chain, `chain-start-${width}.png`);
+    await chain.getByRole('button', { name: 'Inspect all 200', exact: true }).click();
+    assert.match(await chain.locator('dl').innerText(), /Retained through transition 200\s+160/);
+    await chain.getByLabel('Proposal standard deviation', { exact: true }).selectOption('0.5');
+    await chain.getByRole('button', { name: 'Inspect all 200', exact: true }).click();
+    await capture(page, chain, `chain-large-proposals-${width}.png`);
+    await chain.getByRole('button', { name: 'Previous proposal', exact: true }).click();
+    assert.equal(await chain.getByLabel('Inspect transition', { exact: true }).inputValue(), '199');
+    await chain.getByRole('button', { name: 'Next proposal', exact: true }).click();
+    await chain.getByLabel('Warmup transitions omitted', { exact: true }).fill('100');
+    assert.match(await chain.locator('dl').innerText(), /Retained through transition 200\s+100/);
+    await chain.getByLabel('Chain seed', { exact: true }).fill('12');
+    await chain.getByRole('button', { name: 'Apply chain seed', exact: true }).click();
+    assert.equal(await chain.getByLabel('Inspect transition', { exact: true }).inputValue(), '1');
+    await chain.getByText('Every proposal and resulting state', { exact: true }).click();
+    assert.equal(await chain.locator('tbody tr').count(), 200);
+    await chain.getByRole('button', { name: 'Reset chain investigation', exact: true }).click();
+
+    const hmc = page.getByRole('region', { name: 'Hamiltonian trajectory investigation', exact: true });
+    assert.match(await hmc.locator('.mcmc-kicks').innerText(), /0.6/);
+    assert.match(await hmc.locator('.mcmc-kicks').innerText(), /1.12/);
+    assert.match(await hmc.locator('dl').innerText(), /0.0013/);
+    await capture(page, hmc, `hmc-default-${width}.png`);
+    await hmc.getByLabel('Target standard deviation', { exact: true }).selectOption('0.25');
+    await hmc.getByLabel('Leapfrog step size', { exact: true }).fill('1');
+    assert.match(await hmc.getByRole('status').innerText(), /guard stopped/);
+    assert.match(await hmc.locator('dl').innerText(), /Whole proposal acceptance\s+0/);
+    await capture(page, hmc, `hmc-energy-guard-${width}.png`);
+    await hmc.getByLabel('Leapfrog step size', { exact: true }).fill('0.1');
+    await hmc.getByLabel('Leapfrog step count', { exact: true }).fill('20');
+    await hmc.getByLabel('Inspect integration state', { exact: true }).fill('20');
+    assert.equal(await hmc.getByRole('status').count(), 0);
+    await hmc.getByText('Leapfrog states and energy errors', { exact: true }).click();
+    assert.equal(await hmc.locator('tbody tr').count(), 21);
+    await capture(page, hmc, `hmc-narrow-repaired-${width}.png`);
+    await hmc.getByRole('button', { name: 'Reset Hamiltonian trajectory', exact: true }).click();
+
+    const nuts = page.getByRole('region', { name: 'NUTS candidate tree investigation', exact: true });
+    await capture(page, nuts, `nuts-first-expansion-${width}.png`);
+    await nuts.getByRole('button', { name: 'Next doubling', exact: true }).click();
+    assert.equal(await nuts.getByLabel('Inspect doubling round', { exact: true }).inputValue(), '2');
+    await nuts.getByRole('button', { name: 'Show final candidate set', exact: true }).click();
+    assert.match(await nuts.locator('dl').innerText(), /Internal subtree turn/);
+    assert.match(await nuts.getByRole('status').innerText(), /Final uniform selection/);
+    await capture(page, nuts, `nuts-internal-subtree-${width}.png`);
+    await nuts.getByLabel('NUTS step size', { exact: true }).fill('0.7');
+    await nuts.getByLabel('Tree seed', { exact: true }).fill('4');
+    await nuts.getByRole('button', { name: 'Apply tree seed', exact: true }).click();
+    await nuts.getByRole('button', { name: 'Show final candidate set', exact: true }).click();
+    assert.match(await nuts.locator('dl').innerText(), /Whole-tree turn/);
+    assert.match(await nuts.locator('dl').innerText(), /Eligible candidates \(includes initial\)\s+4/);
+    await capture(page, nuts, `nuts-whole-tree-${width}.png`);
+    await nuts.getByLabel('NUTS maximum depth', { exact: true }).fill('1');
+    assert.match(await nuts.locator('dl').innerText(), /Depth cap/);
+    await nuts.getByLabel('Tree seed', { exact: true }).fill('99');
+    await nuts.getByRole('button', { name: 'Apply tree seed', exact: true }).click();
+    await nuts.getByText('Explored trajectory states and candidate eligibility', { exact: true }).click();
+    assert.equal(await nuts.locator('tbody tr').count(), 1);
+    await nuts.getByRole('button', { name: 'Reset NUTS construction', exact: true }).click();
+
+    const precision = page.getByRole('region', { name: 'Correlated precision investigation', exact: true });
+    await capture(page, precision, `precision-correlated-${width}.png`);
+    await precision.getByLabel('Lag-one correlation', { exact: true }).fill('-0.8');
+    assert.match(await precision.locator('dl').innerText(), /861.7021/);
+    await precision.getByLabel('Keep every kth state', { exact: true }).selectOption('2');
+    assert.equal(await precision.locator('.retained').count(), 50);
+    assert.match(await precision.locator('dl').innerText(), /Exact MCSE after thinning\s+0.1476/);
+    await capture(page, precision, `precision-thinned-anticorrelation-${width}.png`);
+    await precision.getByLabel('Transition budget', { exact: true }).selectOption('50');
+    assert.equal(await precision.locator('.retained').count(), 25);
+    await precision.getByLabel('Precision seed', { exact: true }).fill('12');
+    await precision.getByRole('button', { name: 'Apply precision seed', exact: true }).click();
+    await precision.getByText('Resulting states and retention table', { exact: true }).click();
+    assert.equal(await precision.locator('tbody tr').count(), 50);
+    await precision.getByRole('button', { name: 'Reset precision experiment', exact: true }).click();
+
+    const practice = page.locator('.mcmc-practice').first();
+    await practice.getByText('Hint', { exact: true }).click();
+    await practice.getByText('Show explained solution', { exact: true }).click();
+    assert.match(await practice.innerText(), /variance is zero/);
+    await capture(page, practice, `practice-open-${width}.png`);
+    const geometry = await page.evaluate(() => {
+      const math = [...document.querySelectorAll('.katex-display')].map(node => ({ text: node.textContent.slice(0,90), width: node.getBoundingClientRect().width, scroll: node.scrollWidth, parent: node.parentElement.clientWidth }));
+      const svgText = [...document.querySelectorAll('.mcmc-lab svg text')].map(node => { const rect = node.getBoundingClientRect(), svg = node.ownerSVGElement.getBoundingClientRect(); return { text: node.textContent, effectiveFont: parseFloat(getComputedStyle(node).fontSize)*node.ownerSVGElement.getScreenCTM().a, inside: rect.left >= svg.left-1 && rect.right <= svg.right+1 }; });
+      return { pageWidth: document.documentElement.scrollWidth, viewport: innerWidth, math, svgText };
+    });
+    for (const [id, name] of [[anchors[0],'opening'],[anchors[2],'flow-reading'],[anchors[4],'hamiltonian-reading'],[anchors[5],'nuts-reading'],[anchors[7],'diagnostics-reading']]) {
+      await page.locator(`[id="${id}"]`).evaluate(node => scrollTo({ top: node.getBoundingClientRect().top+scrollY-180, behavior:'instant' }));
+      await page.screenshot({ path: path.join(output, `ordinary-${name}-${width}.png`) });
+    }
+    assert.deepEqual(errors, []);
+    assert.ok(geometry.pageWidth <= width+1, JSON.stringify(geometry));
+    assert.ok(geometry.math.every(row => row.scroll <= row.parent + 1), JSON.stringify(geometry.math));
+    assert.ok(geometry.svgText.every(row => row.inside && row.effectiveFont >= 13.5), JSON.stringify(geometry.svgText));
+    results.push({ width, anchors, errors, failedRequests, consoleErrors, focus, geometry });
+    await page.close();
+  }
+  fs.writeFileSync(path.join(output, 'results.json'), JSON.stringify(results,null,2));
+  await browser.close();
+  console.log('Monte Carlo/MCMC browser interactions passed at 1440/390/320. Inspect saved geometry and actual screenshots before freeze.');
+})().catch(error => { console.error(error); process.exit(1); });

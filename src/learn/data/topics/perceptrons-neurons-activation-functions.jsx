@@ -1,6 +1,7 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
+import { StepTrace, Heatmap, Plot } from "../../components/viz";
+
 
 const perceptronsNeuronsActivationsContent = {
   title: "Perceptrons, Neurons & Activation Functions",

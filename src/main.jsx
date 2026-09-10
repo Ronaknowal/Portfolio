@@ -21,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<Portfolio />} />
           <Route path="/learn" element={<LearnHub />} />
+          <Route path="/learn/path/:pathId/:topicId?" element={<Reader />} />
           <Route path="/learn/track/:trackId/:topicId?" element={<Reader />} />
           <Route path="/learn/topic/:topicId" element={<Reader />} />
         </Routes>

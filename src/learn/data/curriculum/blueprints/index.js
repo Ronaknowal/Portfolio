@@ -1,0 +1,156 @@
+import dynamicalSystemsBlueprint from './dynamical-systems-theory-chaos.js';
+import stochasticProcessesBlueprint from './stochastic-processes-markov-chains-brownian-motion-poisson.js';
+import queueingTheoryBlueprint from './queueing-theory-m-m-1-m-g-1-little-s-law.js';
+import randomMatrixTheoryBlueprint from './random-matrix-theory.js';
+import combinatorialOptimizationBlueprint from './combinatorial-optimization-approximation-algorithms.js';
+import spectralGraphBlueprint from './spectral-graph-theory.js';
+import divergenceIpmBlueprint from './f-divergences-integral-probability-metrics.js';
+import graphFundamentalsBlueprint from './graph-fundamentals-adjacency-laplacian-connectivity.js';
+import rateDistortionBlueprint from './rate-distortion-theory.js';
+import mutualInformationBlueprint from './mutual-information-information-bottleneck.js';
+import causalInferenceBlueprint from './causal-inference-do-calculus.js';
+import entropyCrossEntropyKlBlueprint from './entropy-cross-entropy-kl-divergence.js';
+import optimalTransportBlueprint from './optimal-transport-wasserstein-distance-sinkhorn.js';
+import exponentialFamiliesBlueprint from './exponential-families-sufficient-statistics.js';
+import variationalInferenceBlueprint from './variational-inference.js';
+import measureTheoryBlueprint from './measure-theory-probability-spaces.js';
+import monteCarloMcmcBlueprint from './monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.js';
+import concentrationInequalitiesBlueprint from './concentration-inequalities-hoeffding-bernstein-chernoff.js';
+import bayesianInferenceBlueprint from './bayesian-inference-conjugate-priors.js';
+import hypothesisTestingBlueprint from './hypothesis-testing-confidence-intervals.js';
+import maximumLikelihoodBlueprint from './maximum-likelihood-map-estimation.js';
+import externalMemoryBlueprint from './external-memory-algorithms-b-trees-i-o-complexity.js';
+import persistentStructuresBlueprint from './persistent-data-structures-structural-sharing-versioned-queries.js';
+import constrainedMultiobjectiveBlueprint from './constrained-multi-objective-optimization.js';
+import probabilityDistributionsBlueprint from './probability-distributions-bayes-theorem.js';
+import computationalGeometryBlueprint from './computational-geometry-robust-predicates-convex-hulls.js';
+import nonconvexLandscapeBlueprint from './non-convex-optimization-landscape.js';
+import networkFlowBlueprint from './network-flow-minimum-cuts-bipartite-matching.js';
+import randomizedAlgorithmsBlueprint from './randomized-algorithms-sampling-error-guarantees.js';
+import secondOrderMethodsBlueprint from './second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.js';
+import intractabilityBlueprint from './reductions-p-np-computational-intractability.js';
+// Authored lesson designs, owned by stable topic ID.
+// This map registers titles; track-definitions.js owns the teaching order.
+// Browser navigation uses generated runtime metadata, not these authoring plans.
+import hashingAmortizedBlueprint from './hashing-collision-resolution-amortized-analysis.js';
+import gradientDescentVariantsBlueprint from './gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.js';
+import weightedGraphsBlueprint from './shortest-paths-spanning-trees-topological-ordering.js';
+import learningRateSchedulesBlueprint from './learning-rate-schedules-cosine-warmup-onecyclelr.js';
+import stringMatchingBlueprint from './string-matching-prefix-functions-rolling-hashes.js';
+import convexDualityKktBlueprint from './convex-duality-lagrangian-methods-kkt-conditions.js';
+import arraysStringsHashMapsBlueprint from './arrays-strings-hash-maps.js';
+import graphsRepresentationsBfsDfsBlueprint from './graphs-representations-bfs-dfs.js';
+import heapsPriorityQueuesTriesBlueprint from './heaps-priority-queues-tries.js';
+import bashScriptingCommandLineAutomationBlueprint from './bash-scripting-command-line-automation.js';
+import codeDocumentationTypeHintsApiDesignBlueprint from './code-documentation-type-hints-api-design.js';
+import decoratorsContextManagersBlueprint from './decorators-context-managers.js';
+import gitGithubCollaborativeVersionControlBlueprint from './git-github-collaborative-version-control.js';
+import iteratorsIterablesGeneratorsBlueprint from './iterators-iterables-generators.js';
+import linkedListsStacksQueuesBlueprint from './linked-lists-stacks-queues.js';
+import linuxBasicsFilesystemsProcessesBlueprint from './linux-basics-filesystems-processes.js';
+import matplotlibScientificPlottingBlueprint from './matplotlib-scientific-plotting.js';
+import numpyArraysBroadcastingVectorizationBlueprint from './numpy-arrays-broadcasting-vectorization.js';
+import objectOrientedProgrammingInPythonBlueprint from './object-oriented-programming-in-python.js';
+import osProcessesVirtualMemoryIsolationBlueprint from './os-processes-virtual-memory-isolation.js';
+import pandasDataWranglingJoinsGroupingBlueprint from './pandas-data-wrangling-joins-grouping.js';
+import pythonBasicsTypesControlFlowFunctionsModulesBlueprint from './python-basics-types-control-flow-functions-modules.js';
+import reproducibleNotebooksExperimentStructureBlueprint from './reproducible-notebooks-experiment-structure.js';
+import scientificFileFormatsSchemasReliableDataIOBlueprint from './scientific-file-formats-schemas-reliable-data-i-o.js';
+import sqlRelationalDataTransactionsForMlBlueprint from './sql-relational-data-transactions-for-ml.js';
+import testingDebuggingDependencyManagementBlueprint from './testing-debugging-dependency-management.js';
+import threadsConcurrencyLocksDeadlocksBlueprint from './threads-concurrency-locks-deadlocks.js';
+import treesBinarySearchTreesBlueprint from './trees-binary-search-trees.js';
+import disjointSetsUnionFindBlueprint from './disjoint-sets-union-find.js';
+import complexityAnalysisRecursionBlueprint from './complexity-analysis-recursion.js';
+import matrixDecompositionsBlueprint from './matrix-decompositions-svd-qr-cholesky-lu.js';
+import vectorsMatricesTensorOperationsBlueprint from './vectors-matrices-tensor-operations.js';
+import binarySearchSortingTwoPointerPatternsBlueprint from './binary-search-sorting-two-pointer-patterns.js';
+import backtrackingDivideAndConquerBlueprint from './backtracking-divide-and-conquer.js';
+import eigenvaluesEigenvectorsBlueprint from './eigenvalues-eigenvectors.js';
+import matrixCalculusJacobiansBlueprint from './matrix-calculus-jacobians.js';
+import dynamicProgrammingBlueprint from './dynamic-programming-states-transitions-optimization.js';
+import tensorAlgebraEinsumBlueprint from './tensor-algebra-einsum-notation.js';
+import randomizedLinearAlgebraBlueprint from './randomized-linear-algebra.js';
+import multivariateCalculusGradientsBlueprint from './multivariate-calculus-gradients.js';
+import greedyAlgorithmsBlueprint from './greedy-algorithms-exchange-arguments.js';
+import algorithmCorrectnessBlueprint from './algorithm-correctness-loop-invariants-termination.js';
+import convexOptimizationBlueprint from './convex-optimization.js';
+import rangeQueriesBlueprint from './segment-trees-fenwick-trees-range-queries.js';
+
+export const authoredBlueprints = {
+  "Arrays, Strings & Hash Maps": arraysStringsHashMapsBlueprint,
+  "Bash Scripting & Command-Line Automation": bashScriptingCommandLineAutomationBlueprint,
+  "Code Documentation, Type Hints & API Design": codeDocumentationTypeHintsApiDesignBlueprint,
+  "Decorators & Context Managers": decoratorsContextManagersBlueprint,
+  "Git, GitHub & Collaborative Version Control": gitGithubCollaborativeVersionControlBlueprint,
+  "Iterators, Iterables & Generators": iteratorsIterablesGeneratorsBlueprint,
+  "Linked Lists, Stacks & Queues": linkedListsStacksQueuesBlueprint,
+  "Linux Basics, Filesystems & Processes": linuxBasicsFilesystemsProcessesBlueprint,
+  "Matplotlib & Scientific Plotting": matplotlibScientificPlottingBlueprint,
+  "NumPy: Arrays, Broadcasting & Vectorization": numpyArraysBroadcastingVectorizationBlueprint,
+  "Object-Oriented Programming in Python": objectOrientedProgrammingInPythonBlueprint,
+  "OS Processes, Virtual Memory & Isolation": osProcessesVirtualMemoryIsolationBlueprint,
+  "Pandas: Data Wrangling, Joins & Grouping": pandasDataWranglingJoinsGroupingBlueprint,
+  "Python Basics: Types, Control Flow, Functions & Modules": pythonBasicsTypesControlFlowFunctionsModulesBlueprint,
+  "Reproducible Notebooks & Experiment Structure": reproducibleNotebooksExperimentStructureBlueprint,
+  "Scientific File Formats, Schemas & Reliable Data I/O": scientificFileFormatsSchemasReliableDataIOBlueprint,
+  "SQL, Relational Data & Transactions for ML": sqlRelationalDataTransactionsForMlBlueprint,
+  "Testing, Debugging & Dependency Management": testingDebuggingDependencyManagementBlueprint,
+  "Threads, Concurrency, Locks & Deadlocks": threadsConcurrencyLocksDeadlocksBlueprint,
+  "Trees & Binary Search Trees": treesBinarySearchTreesBlueprint,
+  "Heaps, Priority Queues & Tries": heapsPriorityQueuesTriesBlueprint,
+  "Graphs: Representations, BFS & DFS": graphsRepresentationsBfsDfsBlueprint,
+  "Disjoint Sets & Union-Find": disjointSetsUnionFindBlueprint,
+  "Complexity Analysis & Recursion": complexityAnalysisRecursionBlueprint,
+  "Matrix Decompositions (SVD, QR, Cholesky, LU)": matrixDecompositionsBlueprint,
+  "Vectors, Matrices & Tensor Operations": vectorsMatricesTensorOperationsBlueprint,
+  "Binary Search, Sorting & Two-Pointer Patterns": binarySearchSortingTwoPointerPatternsBlueprint,
+  "Backtracking & Divide-and-Conquer": backtrackingDivideAndConquerBlueprint,
+  "Eigenvalues & Eigenvectors": eigenvaluesEigenvectorsBlueprint,
+  "Matrix Calculus & Jacobians": matrixCalculusJacobiansBlueprint,
+  "Dynamic Programming: States, Transitions & Optimization": dynamicProgrammingBlueprint,
+  "Tensor Algebra & Einsum Notation": tensorAlgebraEinsumBlueprint,
+  "Randomized Linear Algebra": randomizedLinearAlgebraBlueprint,
+  "Multivariate Calculus & Gradients": multivariateCalculusGradientsBlueprint,
+  "Greedy Algorithms & Exchange Arguments": greedyAlgorithmsBlueprint,
+  "Algorithm Correctness, Loop Invariants & Termination": algorithmCorrectnessBlueprint,
+  "Convex Optimization": convexOptimizationBlueprint,
+  "Segment Trees, Fenwick Trees & Range Queries": rangeQueriesBlueprint,
+  "Hashing, Collision Resolution & Amortized Analysis": hashingAmortizedBlueprint,
+  "Gradient Descent Variants (SGD, Adam, AdaGrad, RMSProp, LAMB, LARS)": gradientDescentVariantsBlueprint,
+  "Shortest Paths, Spanning Trees & Topological Ordering": weightedGraphsBlueprint,
+  "Learning Rate Schedules (Cosine, Warmup, OneCycleLR)": learningRateSchedulesBlueprint,
+  "String Matching, Prefix Functions & Rolling Hashes": stringMatchingBlueprint,
+  "Convex Duality & Lagrangian Methods (KKT Conditions)": convexDualityKktBlueprint,
+  "Reductions, P, NP & Computational Intractability": intractabilityBlueprint,
+  "Second-Order Methods (L-BFGS, K-FAC, Shampoo, Natural Gradient)": secondOrderMethodsBlueprint,
+  "Randomized Algorithms, Sampling & Error Guarantees": randomizedAlgorithmsBlueprint,
+  "Network Flow, Minimum Cuts & Bipartite Matching": networkFlowBlueprint,
+  "Non-Convex Optimization Landscape": nonconvexLandscapeBlueprint,
+  "Computational Geometry, Robust Predicates & Convex Hulls": computationalGeometryBlueprint,
+  "Probability Distributions & Bayes' Theorem": probabilityDistributionsBlueprint,
+  "Constrained & Multi-Objective Optimization": constrainedMultiobjectiveBlueprint,
+  "Persistent Data Structures, Structural Sharing & Versioned Queries": persistentStructuresBlueprint,
+  "External-Memory Algorithms, B-Trees & I/O Complexity": externalMemoryBlueprint,
+  "Maximum Likelihood & MAP Estimation": maximumLikelihoodBlueprint,
+  "Hypothesis Testing & Confidence Intervals": hypothesisTestingBlueprint,
+  "Bayesian Inference & Conjugate Priors": bayesianInferenceBlueprint,
+  "Concentration Inequalities (Hoeffding, Bernstein, Chernoff)": concentrationInequalitiesBlueprint,
+  "Monte Carlo Methods & MCMC (Metropolis-Hastings, HMC, NUTS)": monteCarloMcmcBlueprint,
+  'Measure Theory & Probability Spaces': measureTheoryBlueprint,
+  "Variational Inference": variationalInferenceBlueprint,
+  "Exponential Families & Sufficient Statistics": exponentialFamiliesBlueprint,
+  'Optimal Transport (Wasserstein Distance, Sinkhorn)': optimalTransportBlueprint,
+  'Entropy, Cross-Entropy & KL Divergence': entropyCrossEntropyKlBlueprint,
+  'Causal Inference & Do-Calculus': causalInferenceBlueprint,
+  'Mutual Information & Information Bottleneck': mutualInformationBlueprint,
+  'Rate-Distortion Theory': rateDistortionBlueprint,
+  'Graph Fundamentals (Adjacency, Laplacian, Connectivity)': graphFundamentalsBlueprint,
+  'f-Divergences & Integral Probability Metrics': divergenceIpmBlueprint,
+  'Spectral Graph Theory': spectralGraphBlueprint,
+  'Combinatorial Optimization & Approximation Algorithms': combinatorialOptimizationBlueprint,
+  "Random Matrix Theory": randomMatrixTheoryBlueprint,
+  "Queueing Theory (M/M/1, M/G/1, Little's Law)": queueingTheoryBlueprint,
+  "Stochastic Processes (Markov Chains, Brownian Motion, Poisson)": stochasticProcessesBlueprint,
+  "Dynamical Systems Theory & Chaos": dynamicalSystemsBlueprint,
+};

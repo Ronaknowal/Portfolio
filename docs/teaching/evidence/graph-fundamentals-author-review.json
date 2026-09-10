@@ -1,0 +1,1646 @@
+{
+  "topicId": "graph-fundamentals-adjacency-laplacian-connectivity",
+  "authorFrozenAt": "2026-09-10T18:55:55.437494+00:00",
+  "status": "author-verified; independent review and root production integration separate",
+  "productionHashes": {
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "72a7d2a8ce2842b07386ad9bec78bd0d9444ca375fec181de7e3886b0f53d73a",
+    "src/learn/data/graph-fundamentals-models.js": "ba77012855dd218f7be27f58cae58ed789475359cb1febef41cdf9ec23d82546",
+    "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454",
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "d9e2fd4eb289ffd356f6c844af4c56c80ed1a5b411bbc8ca51204e42e2ecb645",
+    "src/learn/components/lesson-labs/graph-fundamentals-labs.css": "eb97008da68614aea30a1b8b6e71e1791175f1efcff588fa47fbd163e72a3171",
+    "src/learn/data/curriculum/blueprints/graph-fundamentals-adjacency-laplacian-connectivity.js": "570e797ddaf3c45c5b8caaee64238109e5637ed4876d4611ae418fbbc84c8513"
+  },
+  "verificationSourceHashes": {
+    "scripts/prepare-graph-fundamentals-examples.py": "437d84b7a417f6a024c1970ec587df00f9fbeb4532dec4abb4d2185aa020d5bf",
+    "scripts/verify-graph-fundamentals.py": "0a527b50d8e053d49f96a9dcb412f2a5a0a11831829c2632e886490e63a94ebf",
+    "scripts/format-graph-fundamentals.cjs": "5bd4e853ba1c97614e417962e488a0a23afc4961e8ff2aaecce8d6c30d39d5ac",
+    "scripts/review-graph-fundamentals.cjs": "0044f333e1a78ef78cfd89c30e11303475f0b8e02d10fbcbd597f275dab211db",
+    "scripts/review-graph-fundamentals-reading.cjs": "1effa43ed546387977a497348f060d35b61053c1b672f9ba10eaf5715d3fa1ef",
+    "docs/teaching/GRAPH-FUNDAMENTALS-LESSON-DESIGN.md": "a111f66c20aa1d266cf388ba2c51fd5b1c30c9303e1ce131e09e897dc497248e",
+    "docs/teaching/evidence/graph-fundamentals-original-content.json": "5c6a1cebda2b7a30e85721267392a35ceefb8ff0e59e6bab71da492d76e26e04",
+    "scripts/review-graph-normalization-range.cjs": "4b648aaa53692bd2ee56ee522569dcda74e8527f1363b73489293028278c0f38"
+  },
+  "native": {
+    "checkedAt": "2026-09-10T18:52:41.684641+00:00",
+    "allPassed": true,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "networkx": "3.6.1",
+    "nativePrograms": 11,
+    "originalProgramAndOutputPreserved": true,
+    "undirectedWeightedGraphs": 140,
+    "directedGraphs": 64,
+    "walkCases": 45,
+    "harmonicCases": 420,
+    "averagingCases": 45,
+    "invalidContracts": 15,
+    "maxEnergyError": 0,
+    "maximumHarmonicResidual": 8.881784197001252e-15,
+    "changedPractice": "Actual learner functions: ordering, matrix walks, signed energy, averaging, rational harmonic solving and rejected unanchored isolate; independent directed eigenvalue counterexample.",
+    "sourceHashes": {
+      "src/learn/data/graph-fundamentals-models.js": "ba77012855dd218f7be27f58cae58ed789475359cb1febef41cdf9ec23d82546",
+      "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454"
+    },
+    "normalizationRangeRegression": {
+      "rejectedNonfiniteReciprocalWeights": [
+        1e-310,
+        5e-309,
+        5e-324
+      ],
+      "acceptedFiniteReciprocalWeight": 1e-308,
+      "finiteNormalizedMatricesPassed": true,
+      "actualNativeHelperRejectionsAndFiniteMatricesPassed": true
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T18:29:50.966Z",
+    "records": [
+      {
+        "width": 1440,
+        "captures": [
+          "ordinary-intro-1440.png",
+          "ordinary-section-1-1440.png",
+          "ordinary-section-4-1440.png",
+          "ordinary-section-6-1440.png",
+          "ordinary-section-8-1440.png",
+          "ordinary-section-9-1440.png",
+          "foundation-matrix-1440.png",
+          "directed-components-1440.png",
+          "incidence-flow-1440.png",
+          "availability-1440.png",
+          "graph-matrix-walks-initial-1440.png",
+          "graph-edge-energy-initial-1440.png",
+          "graph-normalization-initial-1440.png",
+          "graph-averaging-initial-1440.png",
+          "graph-harmonic-anchors-initial-1440.png",
+          "directed-linked-matrix-1440.png",
+          "bridge-energy-change-1440.png",
+          "local-cancellation-1440.png",
+          "loop-and-isolate-1440.png",
+          "alternating-neighbor-1440.png",
+          "growing-discrete-mode-1440.png",
+          "connected-interpolation-1440.png",
+          "visible-question-program-1440.png",
+          "visible-program-output-1440.png",
+          "changed-harmonic-solution-1440.png",
+          "sources-1440.png"
+        ],
+        "anchors": [
+          {
+            "href": "#1-choose-the-relationship-before-the-matrix",
+            "top": 100.03125
+          },
+          {
+            "href": "#2-multiply-a-matrix-and-follow-a-walk",
+            "top": 99.671875
+          },
+          {
+            "href": "#3-connectivity-has-an-algebraic-footprint",
+            "top": 99.84375
+          },
+          {
+            "href": "#4-the-laplacian-adds-local-disagreements",
+            "top": 100.125
+          },
+          {
+            "href": "#5-move-from-nodes-to-edges-and-back",
+            "top": 99.546875
+          },
+          {
+            "href": "#6-normalization-changes-the-question",
+            "top": 100.484375
+          },
+          {
+            "href": "#7-which-average-does-a-network-preserve",
+            "top": 99.515625
+          },
+          {
+            "href": "#8-anchor-a-component-to-determine-its-level",
+            "top": 99.609375
+          },
+          {
+            "href": "#9-use-graph-structure-with-a-clear-contract",
+            "top": 99.625
+          },
+          {
+            "href": "#10-practise-the-reasoning-on-a-different-graph",
+            "top": 99.984375
+          }
+        ],
+        "controls": [
+          "weighted return, zero-step identity/absence, directed reverse edge and reset",
+          "componentwise constants, positive bridge, signed local cancellation with nonzero energy, keyboard ranges/reset",
+          "product-versus-naive isolated diagonals, stochastic hold, loop and root-degree signal",
+          "ordinary-versus-weighted mean, two-cycle, lazy damping, growing beyond-bound mode, previous/reset",
+          "partial undetermined result, independent anchor/bridge repairs, changed boundary and reset"
+        ],
+        "programs": [
+          "Declare the vertices before reading the edges",
+          "Read powers as sums over walks",
+          "Find the components and build their Laplacian",
+          "Compute drops, currents and net outflow",
+          "Check component indicators with exact arithmetic",
+          "Keep the isolated row explicit",
+          "Compare two different meanings of averaging",
+          "Solve the unknown values and reject missing anchors",
+          "Count triangles without mistaking degree for clustering",
+          "Run one shaped graph-convolution calculation",
+          "Construct only the relationships available for a prediction"
+        ],
+        "normalizedRoot": "A\n0\nB\n0\nC\n0\nD\n0",
+        "equations": [
+          {
+            "text": "(Ax)i=∑jAijxj(Ax)_i=\\sum_j A_{ij}x_j(Ax)i​=j∑​Aij​xj​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "(A2)ij=∑kAikAkj(A^2)_{ij}=\\sum_k A_{ik}A_{kj}(A2)ij​=k∑​Aik​Akj​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "(Lx)i=dixi−∑jAijxj=∑jAij(xi−xj)(Lx)_i=d_i x_i-\\sum_j A_{ij}x_j\\\\=\\sum_j A_{ij}(x_i-x_j)(Lx)i​=di​xi​−j∑​Aij​xj​=j∑​Aij​(xi​−xj​)",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "xTLx=∑{i,j}∈Ewij(xi−xj)2x^\\mathsf{T}Lx=\\sum_{\\{i,j\\}\\in E}w_{ij}(x_i-x_j)^2xTLx={i,j}∈E∑​wij​(xi​−xj​)2",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "xTLx=12∑i,jAij(xi−xj)2x^\\mathsf{T}Lx=\\frac12\\sum_{i,j}A_{ij}(x_i-x_j)^2xTLx=21​i,j∑​Aij​(xi​−xj​)2",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "L⏟n×n=CT⏟n×mW⏟m×mC⏟m×n\\underbrace{L}_{n\\times n}=\\underbrace{C^\\mathsf{T}}_{n\\times m}\\underbrace{W}_{m\\times m}\\underbrace{C}_{m\\times n}n×nL​​=n×mCT​​m×mW​​m×nC​​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "Hii={1/di,di>00,di=0H_{ii}=\\begin{cases}1/\\sqrt{d_i},&d_i>0\\\\0,&d_i=0\\end{cases}Hii​={1/di​​,0,​di​>0di​=0​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "S=HLH=J−HAHS=HLH=J-HAHS=HLH=J−HAH",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "P=D†A+I−JR=I−PP=D^\\dagger A+I-J\\\\R=I-PP=D†A+I−JR=I−P",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "xinew=(1−τdi)xi+τ∑jAijxjx_i^{\\mathrm{new}}=(1-\\tau d_i)x_i+\\tau\\sum_j A_{ij}x_jxinew​=(1−τdi​)xi​+τj∑​Aij​xj​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "πi=di∑jdj,πTP=πT\\pi_i=\\frac{d_i}{\\sum_j d_j},\\qquad \\pi^\\mathsf{T}P=\\pi^\\mathsf{T}πi​=∑j​dj​di​​,πTP=πT",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "xi=∑jAijxjdi(di>0)x_i=\\frac{\\sum_j A_{ij}x_j}{d_i}\\quad(d_i>0)xi​=di​∑j​Aij​xj​​(di​>0)",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "LUUxU=−LUBxBL_{UU}x_U=-L_{UB}x_BLUU​xU​=−LUB​xB​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "A~=A+I,d~i=∑jA~ij\\widetilde A=A+I,\\qquad \\widetilde d_i=\\sum_j\\widetilde A_{ij}A=A+I,di​=j∑​Aij​",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "T=D~−1/2A~D~−1/2T=\\widetilde D^{-1/2}\\widetilde A\\widetilde D^{-1/2}T=D−1/2AD−1/2",
+            "client": 760,
+            "scroll": 760
+          },
+          {
+            "text": "Xnext⏟n×g=σ ⁣(T⏟n×nX⏟n×fW⏟f×g)\\underbrace{X_{\\rm next}}_{n\\times g}=\\sigma\\!\\left(\\underbrace{T}_{n\\times n}\\underbrace{X}_{n\\times f}\\underbrace{W}_{f\\times g}\\right)n×gXnext​​​=σ​n×nT​​n×fX​​f×gW​​​",
+            "client": 760,
+            "scroll": 760
+          }
+        ],
+        "links": [
+          {
+            "href": "https://www.youtube.com/watch?v=6-wh6yvk6uc",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/d71b25b942dd3dec0ede49d712deb4b0_MIT18_06SCF11_Ses1.12sum.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/561/lect02-15.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/generated/networkx.linalg.laplacianmatrix.normalized_laplacian_matrix.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/462/2007/lect3-07.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.cluster.clustering.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/abs/1609.02907",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "fonts": [
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      },
+      {
+        "width": 390,
+        "captures": [
+          "ordinary-intro-390.png",
+          "ordinary-section-1-390.png",
+          "ordinary-section-4-390.png",
+          "ordinary-section-6-390.png",
+          "ordinary-section-8-390.png",
+          "ordinary-section-9-390.png",
+          "foundation-matrix-390.png",
+          "directed-components-390.png",
+          "incidence-flow-390.png",
+          "availability-390.png",
+          "graph-matrix-walks-initial-390.png",
+          "graph-edge-energy-initial-390.png",
+          "graph-normalization-initial-390.png",
+          "graph-averaging-initial-390.png",
+          "graph-harmonic-anchors-initial-390.png",
+          "directed-linked-matrix-390.png",
+          "bridge-energy-change-390.png",
+          "local-cancellation-390.png",
+          "loop-and-isolate-390.png",
+          "alternating-neighbor-390.png",
+          "growing-discrete-mode-390.png",
+          "connected-interpolation-390.png",
+          "visible-question-program-390.png",
+          "visible-program-output-390.png",
+          "changed-harmonic-solution-390.png",
+          "sources-390.png"
+        ],
+        "anchors": [
+          {
+            "href": "#1-choose-the-relationship-before-the-matrix",
+            "top": 100.15625
+          },
+          {
+            "href": "#2-multiply-a-matrix-and-follow-a-walk",
+            "top": 100.46875
+          },
+          {
+            "href": "#3-connectivity-has-an-algebraic-footprint",
+            "top": 100.15625
+          },
+          {
+            "href": "#4-the-laplacian-adds-local-disagreements",
+            "top": 100
+          },
+          {
+            "href": "#5-move-from-nodes-to-edges-and-back",
+            "top": 100.34375
+          },
+          {
+            "href": "#6-normalization-changes-the-question",
+            "top": 99.640625
+          },
+          {
+            "href": "#7-which-average-does-a-network-preserve",
+            "top": 100.0625
+          },
+          {
+            "href": "#8-anchor-a-component-to-determine-its-level",
+            "top": 99.640625
+          },
+          {
+            "href": "#9-use-graph-structure-with-a-clear-contract",
+            "top": 99.671875
+          },
+          {
+            "href": "#10-practise-the-reasoning-on-a-different-graph",
+            "top": 100.375
+          }
+        ],
+        "controls": [
+          "weighted return, zero-step identity/absence, directed reverse edge and reset",
+          "componentwise constants, positive bridge, signed local cancellation with nonzero energy, keyboard ranges/reset",
+          "product-versus-naive isolated diagonals, stochastic hold, loop and root-degree signal",
+          "ordinary-versus-weighted mean, two-cycle, lazy damping, growing beyond-bound mode, previous/reset",
+          "partial undetermined result, independent anchor/bridge repairs, changed boundary and reset"
+        ],
+        "programs": [
+          "Declare the vertices before reading the edges",
+          "Read powers as sums over walks",
+          "Find the components and build their Laplacian",
+          "Compute drops, currents and net outflow",
+          "Check component indicators with exact arithmetic",
+          "Keep the isolated row explicit",
+          "Compare two different meanings of averaging",
+          "Solve the unknown values and reject missing anchors",
+          "Count triangles without mistaking degree for clustering",
+          "Run one shaped graph-convolution calculation",
+          "Construct only the relationships available for a prediction"
+        ],
+        "normalizedRoot": "A\n0\nB\n0\nC\n0\nD\n0",
+        "equations": [
+          {
+            "text": "(Ax)i=∑jAijxj(Ax)_i=\\sum_j A_{ij}x_j(Ax)i​=j∑​Aij​xj​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "(A2)ij=∑kAikAkj(A^2)_{ij}=\\sum_k A_{ik}A_{kj}(A2)ij​=k∑​Aik​Akj​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "(Lx)i=dixi−∑jAijxj=∑jAij(xi−xj)(Lx)_i=d_i x_i-\\sum_j A_{ij}x_j\\\\=\\sum_j A_{ij}(x_i-x_j)(Lx)i​=di​xi​−j∑​Aij​xj​=j∑​Aij​(xi​−xj​)",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "xTLx=∑{i,j}∈Ewij(xi−xj)2x^\\mathsf{T}Lx=\\sum_{\\{i,j\\}\\in E}w_{ij}(x_i-x_j)^2xTLx={i,j}∈E∑​wij​(xi​−xj​)2",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "xTLx=12∑i,jAij(xi−xj)2x^\\mathsf{T}Lx=\\frac12\\sum_{i,j}A_{ij}(x_i-x_j)^2xTLx=21​i,j∑​Aij​(xi​−xj​)2",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "L⏟n×n=CT⏟n×mW⏟m×mC⏟m×n\\underbrace{L}_{n\\times n}=\\underbrace{C^\\mathsf{T}}_{n\\times m}\\underbrace{W}_{m\\times m}\\underbrace{C}_{m\\times n}n×nL​​=n×mCT​​m×mW​​m×nC​​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "Hii={1/di,di>00,di=0H_{ii}=\\begin{cases}1/\\sqrt{d_i},&d_i>0\\\\0,&d_i=0\\end{cases}Hii​={1/di​​,0,​di​>0di​=0​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "S=HLH=J−HAHS=HLH=J-HAHS=HLH=J−HAH",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "P=D†A+I−JR=I−PP=D^\\dagger A+I-J\\\\R=I-PP=D†A+I−JR=I−P",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "xinew=(1−τdi)xi+τ∑jAijxjx_i^{\\mathrm{new}}=(1-\\tau d_i)x_i+\\tau\\sum_j A_{ij}x_jxinew​=(1−τdi​)xi​+τj∑​Aij​xj​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "πi=di∑jdj,πTP=πT\\pi_i=\\frac{d_i}{\\sum_j d_j},\\qquad \\pi^\\mathsf{T}P=\\pi^\\mathsf{T}πi​=∑j​dj​di​​,πTP=πT",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "xi=∑jAijxjdi(di>0)x_i=\\frac{\\sum_j A_{ij}x_j}{d_i}\\quad(d_i>0)xi​=di​∑j​Aij​xj​​(di​>0)",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "LUUxU=−LUBxBL_{UU}x_U=-L_{UB}x_BLUU​xU​=−LUB​xB​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "A~=A+I,d~i=∑jA~ij\\widetilde A=A+I,\\qquad \\widetilde d_i=\\sum_j\\widetilde A_{ij}A=A+I,di​=j∑​Aij​",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "T=D~−1/2A~D~−1/2T=\\widetilde D^{-1/2}\\widetilde A\\widetilde D^{-1/2}T=D−1/2AD−1/2",
+            "client": 350,
+            "scroll": 350
+          },
+          {
+            "text": "Xnext⏟n×g=σ ⁣(T⏟n×nX⏟n×fW⏟f×g)\\underbrace{X_{\\rm next}}_{n\\times g}=\\sigma\\!\\left(\\underbrace{T}_{n\\times n}\\underbrace{X}_{n\\times f}\\underbrace{W}_{f\\times g}\\right)n×gXnext​​​=σ​n×nT​​n×fX​​f×gW​​​",
+            "client": 350,
+            "scroll": 350
+          }
+        ],
+        "links": [
+          {
+            "href": "https://www.youtube.com/watch?v=6-wh6yvk6uc",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/d71b25b942dd3dec0ede49d712deb4b0_MIT18_06SCF11_Ses1.12sum.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/561/lect02-15.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/generated/networkx.linalg.laplacianmatrix.normalized_laplacian_matrix.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/462/2007/lect3-07.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.cluster.clustering.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/abs/1609.02907",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "fonts": [
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      },
+      {
+        "width": 320,
+        "captures": [
+          "ordinary-intro-320.png",
+          "ordinary-section-1-320.png",
+          "ordinary-section-4-320.png",
+          "ordinary-section-6-320.png",
+          "ordinary-section-8-320.png",
+          "ordinary-section-9-320.png",
+          "foundation-matrix-320.png",
+          "directed-components-320.png",
+          "incidence-flow-320.png",
+          "availability-320.png",
+          "graph-matrix-walks-initial-320.png",
+          "graph-edge-energy-initial-320.png",
+          "graph-normalization-initial-320.png",
+          "graph-averaging-initial-320.png",
+          "graph-harmonic-anchors-initial-320.png",
+          "directed-linked-matrix-320.png",
+          "bridge-energy-change-320.png",
+          "local-cancellation-320.png",
+          "loop-and-isolate-320.png",
+          "alternating-neighbor-320.png",
+          "growing-discrete-mode-320.png",
+          "connected-interpolation-320.png",
+          "visible-question-program-320.png",
+          "visible-program-output-320.png",
+          "changed-harmonic-solution-320.png",
+          "equation-1-320.png",
+          "equation-2-320.png",
+          "equation-3-320.png",
+          "equation-4-320.png",
+          "equation-5-320.png",
+          "equation-6-320.png",
+          "equation-7-320.png",
+          "equation-8-320.png",
+          "equation-9-320.png",
+          "equation-10-320.png",
+          "equation-11-320.png",
+          "equation-12-320.png",
+          "equation-13-320.png",
+          "equation-14-320.png",
+          "equation-15-320.png",
+          "equation-16-320.png",
+          "sources-320.png"
+        ],
+        "anchors": [
+          {
+            "href": "#1-choose-the-relationship-before-the-matrix",
+            "top": 100.109375
+          },
+          {
+            "href": "#2-multiply-a-matrix-and-follow-a-walk",
+            "top": 100.140625
+          },
+          {
+            "href": "#3-connectivity-has-an-algebraic-footprint",
+            "top": 99.71875
+          },
+          {
+            "href": "#4-the-laplacian-adds-local-disagreements",
+            "top": 99.875
+          },
+          {
+            "href": "#5-move-from-nodes-to-edges-and-back",
+            "top": 99.828125
+          },
+          {
+            "href": "#6-normalization-changes-the-question",
+            "top": 100.25
+          },
+          {
+            "href": "#7-which-average-does-a-network-preserve",
+            "top": 99.609375
+          },
+          {
+            "href": "#8-anchor-a-component-to-determine-its-level",
+            "top": 100.421875
+          },
+          {
+            "href": "#9-use-graph-structure-with-a-clear-contract",
+            "top": 99.578125
+          },
+          {
+            "href": "#10-practise-the-reasoning-on-a-different-graph",
+            "top": 100.03125
+          }
+        ],
+        "controls": [
+          "weighted return, zero-step identity/absence, directed reverse edge and reset",
+          "componentwise constants, positive bridge, signed local cancellation with nonzero energy, keyboard ranges/reset",
+          "product-versus-naive isolated diagonals, stochastic hold, loop and root-degree signal",
+          "ordinary-versus-weighted mean, two-cycle, lazy damping, growing beyond-bound mode, previous/reset",
+          "partial undetermined result, independent anchor/bridge repairs, changed boundary and reset"
+        ],
+        "programs": [
+          "Declare the vertices before reading the edges",
+          "Read powers as sums over walks",
+          "Find the components and build their Laplacian",
+          "Compute drops, currents and net outflow",
+          "Check component indicators with exact arithmetic",
+          "Keep the isolated row explicit",
+          "Compare two different meanings of averaging",
+          "Solve the unknown values and reject missing anchors",
+          "Count triangles without mistaking degree for clustering",
+          "Run one shaped graph-convolution calculation",
+          "Construct only the relationships available for a prediction"
+        ],
+        "normalizedRoot": "A\n0\nB\n0\nC\n0\nD\n0",
+        "equations": [
+          {
+            "text": "(Ax)i=∑jAijxj(Ax)_i=\\sum_j A_{ij}x_j(Ax)i​=j∑​Aij​xj​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "(A2)ij=∑kAikAkj(A^2)_{ij}=\\sum_k A_{ik}A_{kj}(A2)ij​=k∑​Aik​Akj​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "(Lx)i=dixi−∑jAijxj=∑jAij(xi−xj)(Lx)_i=d_i x_i-\\sum_j A_{ij}x_j\\\\=\\sum_j A_{ij}(x_i-x_j)(Lx)i​=di​xi​−j∑​Aij​xj​=j∑​Aij​(xi​−xj​)",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "xTLx=∑{i,j}∈Ewij(xi−xj)2x^\\mathsf{T}Lx=\\sum_{\\{i,j\\}\\in E}w_{ij}(x_i-x_j)^2xTLx={i,j}∈E∑​wij​(xi​−xj​)2",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "xTLx=12∑i,jAij(xi−xj)2x^\\mathsf{T}Lx=\\frac12\\sum_{i,j}A_{ij}(x_i-x_j)^2xTLx=21​i,j∑​Aij​(xi​−xj​)2",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "L⏟n×n=CT⏟n×mW⏟m×mC⏟m×n\\underbrace{L}_{n\\times n}=\\underbrace{C^\\mathsf{T}}_{n\\times m}\\underbrace{W}_{m\\times m}\\underbrace{C}_{m\\times n}n×nL​​=n×mCT​​m×mW​​m×nC​​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "Hii={1/di,di>00,di=0H_{ii}=\\begin{cases}1/\\sqrt{d_i},&d_i>0\\\\0,&d_i=0\\end{cases}Hii​={1/di​​,0,​di​>0di​=0​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "S=HLH=J−HAHS=HLH=J-HAHS=HLH=J−HAH",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "P=D†A+I−JR=I−PP=D^\\dagger A+I-J\\\\R=I-PP=D†A+I−JR=I−P",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "xinew=(1−τdi)xi+τ∑jAijxjx_i^{\\mathrm{new}}=(1-\\tau d_i)x_i+\\tau\\sum_j A_{ij}x_jxinew​=(1−τdi​)xi​+τj∑​Aij​xj​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "πi=di∑jdj,πTP=πT\\pi_i=\\frac{d_i}{\\sum_j d_j},\\qquad \\pi^\\mathsf{T}P=\\pi^\\mathsf{T}πi​=∑j​dj​di​​,πTP=πT",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "xi=∑jAijxjdi(di>0)x_i=\\frac{\\sum_j A_{ij}x_j}{d_i}\\quad(d_i>0)xi​=di​∑j​Aij​xj​​(di​>0)",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "LUUxU=−LUBxBL_{UU}x_U=-L_{UB}x_BLUU​xU​=−LUB​xB​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "A~=A+I,d~i=∑jA~ij\\widetilde A=A+I,\\qquad \\widetilde d_i=\\sum_j\\widetilde A_{ij}A=A+I,di​=j∑​Aij​",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "T=D~−1/2A~D~−1/2T=\\widetilde D^{-1/2}\\widetilde A\\widetilde D^{-1/2}T=D−1/2AD−1/2",
+            "client": 280,
+            "scroll": 280
+          },
+          {
+            "text": "Xnext⏟n×g=σ ⁣(T⏟n×nX⏟n×fW⏟f×g)\\underbrace{X_{\\rm next}}_{n\\times g}=\\sigma\\!\\left(\\underbrace{T}_{n\\times n}\\underbrace{X}_{n\\times f}\\underbrace{W}_{f\\times g}\\right)n×gXnext​​​=σ​n×nT​​n×fX​​f×gW​​​",
+            "client": 280,
+            "scroll": 280
+          }
+        ],
+        "links": [
+          {
+            "href": "https://www.youtube.com/watch?v=6-wh6yvk6uc",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/d71b25b942dd3dec0ede49d712deb4b0_MIT18_06SCF11_Ses1.12sum.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/561/lect02-15.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/generated/networkx.linalg.laplacianmatrix.normalized_laplacian_matrix.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://www.cs.yale.edu/homes/spielman/462/2007/lect3-07.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.cluster.clustering.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://arxiv.org/abs/1609.02907",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ],
+        "fonts": [
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "loaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "JetBrains Mono",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "unloaded"
+          },
+          {
+            "family": "Space Grotesk",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_AMS",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Caligraphic",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Fraktur",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Main",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Math",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_SansSerif",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Script",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size1",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size2",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Size3",
+            "status": "unloaded"
+          },
+          {
+            "family": "KaTeX_Size4",
+            "status": "loaded"
+          },
+          {
+            "family": "KaTeX_Typewriter",
+            "status": "unloaded"
+          }
+        ],
+        "overflow": [],
+        "svgTextOverflow": [],
+        "pageOverflow": false,
+        "mathErrors": 0
+      }
+    ],
+    "errors": [],
+    "environmentMessages": [
+      {
+        "width": 1440,
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      },
+      {
+        "width": 390,
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      },
+      {
+        "width": 320,
+        "text": "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+      }
+    ]
+  },
+  "firstProgramReading": {
+    "checkedAt": "2026-09-10T18:33:17.067Z",
+    "allPassed": true,
+    "records": [
+      {
+        "width": 1440,
+        "question": "Before running: What happens to a repeated edge, a reversed arrow and a vertex absent from every edge?",
+        "setup": "Read the equations and their small worked values first; then use the investigations to test a prediction. The eleven complete programs use Python 3 and its standard library. Save one as example.py and run python example.py. They include their own inputs and print the displayed outputs. The browser calculates the bounded graph models shown on the page; it does not execute arbitrary Python.",
+        "title": "Declare the vertices before reading the edges",
+        "capture": "question-before-first-program-1440.png"
+      },
+      {
+        "width": 390,
+        "question": "Before running: What happens to a repeated edge, a reversed arrow and a vertex absent from every edge?",
+        "setup": "Read the equations and their small worked values first; then use the investigations to test a prediction. The eleven complete programs use Python 3 and its standard library. Save one as example.py and run python example.py. They include their own inputs and print the displayed outputs. The browser calculates the bounded graph models shown on the page; it does not execute arbitrary Python.",
+        "title": "Declare the vertices before reading the edges",
+        "capture": "question-before-first-program-390.png"
+      },
+      {
+        "width": 320,
+        "question": "Before running: What happens to a repeated edge, a reversed arrow and a vertex absent from every edge?",
+        "setup": "Read the equations and their small worked values first; then use the investigations to test a prediction. The eleven complete programs use Python 3 and its standard library. Save one as example.py and run python example.py. They include their own inputs and print the displayed outputs. The browser calculates the bounded graph models shown on the page; it does not execute arbitrary Python.",
+        "title": "Declare the vertices before reading the edges",
+        "capture": "question-before-first-program-320.png"
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T18:20:05.122Z",
+    "files": [
+      "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+      "src/learn/data/graph-fundamentals-models.js",
+      "src/learn/data/graph-fundamentals-examples.js",
+      "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "src/learn/data/curriculum/blueprints/graph-fundamentals-adjacency-laplacian-connectivity.js",
+      "src/learn/components/lesson-labs/graph-fundamentals-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "openedFinalImages": {
+    "scratch/graph-fundamentals-browser/graph-edge-energy-initial-1440.png": "21911a2ee45fcde9fbf5e2534c94e3c8e2bbe18d797ba6f4cd9e5cf084dd7989",
+    "scratch/graph-fundamentals-browser/foundation-matrix-390.png": "ff029d7f933a53ce4a017926eb3f0575ceea36a587e33ae65c7bbccd9e50cc00",
+    "scratch/graph-fundamentals-browser/directed-components-390.png": "6d76db06c99b518d60b31ba8728a4b8b8bc61d48130ec2c6383419b5ac102a34",
+    "scratch/graph-fundamentals-browser/incidence-flow-390.png": "a3a988c2b0938a4341d7dc33e303c8d98f181926e523be613c2358e9f5a18ac5",
+    "scratch/graph-fundamentals-browser/availability-390.png": "d7f68988f0ceb551ff84b3eb75bf6162d9528588612e49678c178880b854a583",
+    "scratch/graph-fundamentals-browser/graph-matrix-walks-initial-1440.png": "0bc15fe2c643339854fd09cdd4aa5009c08ac7bad42cf2e54cbc27f8d71b0a92",
+    "scratch/graph-fundamentals-browser/graph-normalization-initial-320.png": "447db21f6bc7c3196560f7b8af842dcc0afe56cd6e7bd9b4053d160a0c2c9a24",
+    "scratch/graph-fundamentals-browser/loop-and-isolate-320.png": "c728e04178bf920e9f4c55c6dc88dd0bb2db1005cbbf1bf7e63c805f44c0b979",
+    "scratch/graph-fundamentals-browser/graph-averaging-initial-1440.png": "be3a9e45b6633fe87782f3493df6d8bb755f944af6ddeddaaa1efd5f477ef25e",
+    "scratch/graph-fundamentals-browser/growing-discrete-mode-320.png": "a64c89a287bec5089b39fb92d0047b74d70316085ba0afdeb88f4c4208c76b07",
+    "scratch/graph-fundamentals-browser/connected-interpolation-320.png": "11a40fd24c27d19b55b868968f9c3b321cb493bd0c1319ad7c47276909ea421a",
+    "scratch/graph-fundamentals-browser/ordinary-section-4-390.png": "9a8e33d0da1e3c36c96bed9861ad03128ebfb2beb320e1d04aae5ef7140b50eb",
+    "scratch/graph-fundamentals-browser/ordinary-section-6-320.png": "6977dd0bf9f4bc3d4672bdfa309ab950b1d28a3c1f61f9c78004978858e94db9",
+    "scratch/graph-fundamentals-browser/ordinary-section-8-390.png": "35af4c83ba01d2938d251224bc6203da578e4ef3d74b70abe710ed60d735b655",
+    "scratch/graph-fundamentals-browser/ordinary-section-9-390.png": "1328fbf738a6406a7305b73596f4de2b71cfc8f842f05e929e7b0d3b47c0a2b0",
+    "scratch/graph-fundamentals-browser/changed-harmonic-solution-320.png": "4dc08397fa4afc14ed6de15a41ffb209e58bf3465e723c1840629aa9593c4e56",
+    "scratch/graph-fundamentals-browser/sources-390.png": "04ada508c0816ecfc76213aca44c5f093adf526c146a8558d3d27fb60acbcbda",
+    "scratch/graph-fundamentals-browser/question-before-first-program-390.png": "c67f14e5ecda837fbe26f4cf54b5d2127e45c4aad929f99a9724b52ccc0ba168",
+    "scratch/graph-fundamentals-browser/question-before-first-program-320.png": "c67d192bf9445bb2eb01ef2b7ffdf3cbcf9d1753c2f2e66daede63769b00da26",
+    "scratch/graph-fundamentals-browser/normalization-range-amendment-320.png": "5c64c86e31a027f5925f1f7a66ed81221b236feeee95deedeb07c36689524695"
+  },
+  "limits": [
+    "Finite tests complement proofs, not exhaustive verification.",
+    "Video metadata and official course summary inspected; full video playback not performed.",
+    "Computed toy graph trajectories are not measured physical or performance data.",
+    "Browser review covers this lesson; production loading/build belongs to root integration.",
+    "User acceptance is pending."
+  ],
+  "amendments": [
+    {
+      "checkedAt": "2026-09-10T18:50:29.732078+00:00",
+      "previousFreeze": "2026-09-10T18:34:10.109910+00:00",
+      "previousModelHash": "8740e750218b88919e741e8871603627e8bc7978b717de2ac8586f74c0345468",
+      "finding": "A positive degree whose reciprocal overflows was accepted by graphNormalizations; 1e-310 yielded non-finite normalized matrices.",
+      "repair": "Reject non-finite inverse degrees with RangeError and request a weight rescale. Keep zero-degree convention and finite reciprocal behavior.",
+      "verification": "Full owned native/oracle suite rerun, plus three rejected subnormal weights and accepted 1e-308 with independently expected two-node matrices.",
+      "browserScope": "Existing final browser and opened images predate this guard. All body/lab/CSS/example/brief bytes are unchanged; UI exposes no rejected subnormal weights. No new browser run is claimed."
+    },
+    {
+      "checkedAt": "2026-09-10T18:55:55.437494+00:00",
+      "previousFreeze": "2026-09-10T18:50:29.732078+00:00",
+      "previousExamplesHash": "9776c920d483b1b0adb50ecc58a10e10791243a1b599cd8a7cd29b170114cbba",
+      "finding": "The actual displayed Python normalized_operators helper also needed the same explicit reciprocal-range guard.",
+      "repair": "Import math.isfinite and reject non-finite inverse degrees with ValueError; all eleven program outputs unchanged.",
+      "verification": "Full native/oracle run with actual Python and JS rejected-subnormal and accepted-finite regressions. Targeted original-font browser check at 1440/390/320 verifies the corrected code, unchanged output, preceding question and page bounds; final 320 capture opened."
+    }
+  ],
+  "rangeAmendmentBrowser": {
+    "checkedAt": "2026-09-10T18:54:55.669Z",
+    "allPassed": true,
+    "records": [
+      {
+        "width": 1440,
+        "question": "Before running: For a weighted path plus an isolate, compare H L H with blindly writing I − H A H, then add a self-loop.",
+        "pageOverflow": false,
+        "capture": "normalization-range-amendment-1440.png",
+        "errors": [],
+        "guardAndOutputVisible": true
+      },
+      {
+        "width": 390,
+        "question": "Before running: For a weighted path plus an isolate, compare H L H with blindly writing I − H A H, then add a self-loop.",
+        "pageOverflow": false,
+        "capture": "normalization-range-amendment-390.png",
+        "errors": [],
+        "guardAndOutputVisible": true
+      },
+      {
+        "width": 320,
+        "question": "Before running: For a weighted path plus an isolate, compare H L H with blindly writing I − H A H, then add a self-loop.",
+        "pageOverflow": false,
+        "capture": "normalization-range-amendment-320.png",
+        "errors": [],
+        "guardAndOutputVisible": true
+      }
+    ]
+  }
+}

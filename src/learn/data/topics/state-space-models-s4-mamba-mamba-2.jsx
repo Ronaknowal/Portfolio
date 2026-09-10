@@ -1,4 +1,5 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
 import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
@@ -791,7 +792,7 @@ print(model.config.layers_block_type)
             label: "Step 2: state carries forward, new input writes in",
             render: () => (
               <Prose>
-                At <Code>t = 2</Code>, the state carries from step 1 with decay <Code>{"\\bar A_2"}</Code> applied, and the new input's contribution <Code>{"\\bar B_2 u_2"}</Code> is added: <Code>{"x_2 = \\bar A_2 \\odot x_1 + \\bar B_2 u_2"}</Code>. Because <Code>{"\\bar A_2"}</Code> has different values per state dim (from <Code>A = [-1, -2, -3, -4]"}</Code>), dimensions with larger <Code>|A|</Code> decay faster and capture local-context patterns, while dimensions with smaller <Code>|A|</Code> accumulate slower and capture long-range context. This is the "multiscale memory" that HiPPO-initialized state dims provide.
+                At <Code>t = 2</Code>, the state carries from step 1 with decay <Code>{"\\bar A_2"}</Code> applied, and the new input's contribution <Code>{"\\bar B_2 u_2"}</Code> is added: <Code>{"x_2 = \\bar A_2 \\odot x_1 + \\bar B_2 u_2"}</Code>. Because <Code>{"\\bar A_2"}</Code> has different values per state dim (from <Code>{"A = [-1, -2, -3, -4]"}</Code>), dimensions with larger <Code>|A|</Code> decay faster and capture local-context patterns, while dimensions with smaller <Code>|A|</Code> accumulate slower and capture long-range context. This is the "multiscale memory" that HiPPO-initialized state dims provide.
               </Prose>
             ),
           },

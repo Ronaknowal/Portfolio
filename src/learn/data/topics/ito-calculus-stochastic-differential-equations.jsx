@@ -1,0 +1,92 @@
+import { Callout, Code, CodeBlock, H2, Prose } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
+
+const content = {
+  title: "Itô Calculus & Stochastic Differential Equations",
+  readTime: "~46 min",
+  content: () => <div>
+    <H2>1. Why ordinary differential equations are not enough</H2>
+    <Prose>
+      An ordinary differential equation describes a smooth state changing under a deterministic rule. Many systems also receive unresolved shocks: thermal noise, random arrivals, microscopic interactions, uncertain demand, or deliberately injected noise in a generative model. A stochastic differential equation (SDE) combines systematic drift with random diffusion, describing a distribution over trajectories rather than one predetermined future.
+    </Prose>
+    <MathBlock>{`dX_t=a(X_t,t)\\,dt+b(X_t,t)\\,dW_t`}</MathBlock>
+    <Prose>
+      Here a is drift, b is diffusion scale, and W is Brownian motion. The notation looks like ordinary calculus, but <Code>dW</Code> is not an infinitesimal differentiable change. That difference is exactly why Itô calculus exists.
+    </Prose>
+
+    <H2>2. Brownian motion has quadratic variation</H2>
+    <Prose>
+      Brownian motion has independent increments with <Code>W(t + dt) - W(t)</Code> distributed as Normal(0, dt). Its increments are typically of size sqrt(dt), much larger than dt at tiny time scales. The paths are continuous but almost surely nowhere differentiable. In Itô algebra, the accumulated squared increments survive in the limit.
+    </Prose>
+    <MathBlock>{`(dW_t)^2=dt, \\qquad dW_t\\,dt=0, \\qquad (dt)^2=0`}</MathBlock>
+    <Prose>
+      These are bookkeeping rules for quadratic variation, not ordinary algebraic equalities. They explain the extra second-derivative term in Itô's formula. Ignoring it produces systematically wrong transformations of stochastic models.
+    </Prose>
+
+    <H2>3. Itô's formula is the stochastic chain rule</H2>
+    <Prose>
+      If X follows an SDE and f is sufficiently smooth, Itô's formula describes how f(t, X_t) changes. It looks like the usual chain rule plus a correction from the noise. The correction becomes important whenever f is curved and diffusion is nonzero.
+    </Prose>
+    <MathBlock>{`df(t,X_t)=\\left(f_t+a f_x+\\tfrac12b^2f_{xx}\\right)dt+b f_x\\,dW_t`}</MathBlock>
+    <Prose>
+      For example, applying the formula to the logarithm of a multiplicative process creates a negative half-variance drift correction. This is not a technical quirk: it distinguishes the average of a process from the typical growth of a realised path.
+    </Prose>
+
+    <H2>4. Geometric Brownian motion is a useful worked model</H2>
+    <Prose>
+      Geometric Brownian motion (GBM) uses drift and noise proportional to the current positive state. It is a classic mathematical model for multiplicative growth and is often introduced in finance, though real prices have jumps, changing volatility, and other violations. Its exact solution remains positive, while a crude numerical step may not.
+    </Prose>
+    <MathBlock>{`dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dW_t, \\qquad X_t=X_0\\exp\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)`}</MathBlock>
+    <Prose>
+      The expected value is <Code>X_0 exp(mu t)</Code>, but one simulated path can be far below or above that expectation. An expectation is a population average across possible paths, not a prediction that one path follows the mean.
+    </Prose>
+
+    <H2>5. Euler-Maruyama simulates an SDE step by step</H2>
+    <Prose>
+      Euler-Maruyama is the stochastic analogue of Euler's ODE method. At every step, draw a standard normal value, multiply by sqrt(dt), and add drift plus diffusion. It is ideal for understanding the mechanism; production work must assess time-step error, stability, constraints, and convergence for the specific SDE.
+    </Prose>
+    <MathBlock>{`X_{n+1}=X_n+a(X_n,t_n)\\Delta t+b(X_n,t_n)\\sqrt{\\Delta t}Z_n, \\qquad Z_n\\sim\\mathcal{N}(0,1)`}</MathBlock>
+    <CodeBlock language="python">{`import math
+import random
+
+rng = random.Random(5)
+x, mu, sigma, dt = 1.0, 0.4, 0.3, 0.25
+path = [x]
+
+for _ in range(4):
+    z = rng.gauss(0, 1)
+    x += mu * x * dt + sigma * x * math.sqrt(dt) * z
+    path.append(round(x, 3))
+
+print(path)
+print(round(math.exp(mu), 3))  # E[X_1] for X_0 = 1 in this GBM model`}</CodeBlock>
+    <CodeBlock language="output">{`[1.0, 0.923, 0.856, 1.028, 0.777]
+1.492`}</CodeBlock>
+    <Prose>
+      This one path ends at 0.777 while the model expectation at time one is 1.492. That apparent contradiction is the lesson: stochastic simulation should be summarised with many paths, quantiles, event probabilities, and uncertainty intervals, not one lucky trajectory.
+    </Prose>
+
+    <H2>6. Itô versus Stratonovich is a modelling choice</H2>
+    <Prose>
+      The Itô integral evaluates its integrand using information available at the left endpoint, making it natural for adapted stochastic processes and probabilistic modelling. The Stratonovich integral uses a symmetric limit and often follows the ordinary chain rule, which can match some physical-noise limits. They describe different equations unless their drift is converted correctly; in one dimension the conversion adds a half times b times its derivative to the Itô drift.
+    </Prose>
+    <Callout accent="green" label="Do not mix conventions">
+      Before copying an SDE from a paper or library, identify the calculus convention. An Itô solver applied to a Stratonovich equation without conversion changes the model's mean behaviour, not just its notation.
+    </Callout>
+
+    <H2>7. Where SDEs appear in modern ML</H2>
+    <Prose>
+      Diffusion generative models use forward noise processes and learned reverse-time dynamics. Neural SDEs learn drift and diffusion functions from irregular trajectories. Continuous-time Bayesian filtering and control use state-space SDEs to represent process uncertainty. The same discipline applies everywhere: define what is observed, what is latent, which randomness is epistemic versus process noise, and what time resolution supports the approximation.
+    </Prose>
+
+    <H2>8. A trustworthy modelling workflow</H2>
+    <Prose>
+      Begin with units and a physical or domain story for drift and diffusion. Check whether increments resemble the assumed distribution and whether their variance scales with elapsed time. Fit and validate on held-out trajectories, comparing multi-step distributions rather than only one-step errors. Reduce the simulation step size to test numerical convergence, use positivity-preserving or higher-order schemes when needed, and report sensitivity to parameters. An SDE can quantify uncertainty beautifully; it cannot compensate for a missing state variable or a mismeasured time axis.
+    </Prose>
+    <Callout label="Practice">
+      Modify the GBM simulation to use 40 steps of 0.025 and simulate 1,000 paths. Compare the terminal mean, median, and 5th/95th percentiles with the one-path output. Why can the mean exceed the median for a multiplicative-noise process?
+    </Callout>
+  </div>,
+};
+
+export default content;

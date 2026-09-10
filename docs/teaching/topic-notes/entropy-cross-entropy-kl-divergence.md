@@ -1,0 +1,19 @@
+# Authoring notes: Entropy, Cross-Entropy & KL Divergence
+
+Canonical topic ID: `entropy-cross-entropy-kl-divergence`.
+
+## 2026-09-10 — Explain the maximum-entropy connection after KL
+
+- Status: implemented, 10 September 2026, in Entropy section 9 and its maximum-entropy investigation, complete program and changed-mean practice. See [design and research](../ENTROPY-CROSS-ENTROPY-KL-DESIGN.md) and [author verification](../ENTROPY-CROSS-ENTROPY-KL-VERIFICATION.md).
+- Origin: [Exponential Families scoped design](../EXPONENTIAL-FAMILIES-LESSON-DESIGN.md), particularly finite moments and fitting. That lesson derives normalization and sufficiency without presupposing this later entropy/KL chapter.
+- Ownership: this destination can first establish nonnegative KL, entropy and the reference measure, then prove why an exponential tilt solves a moment-constrained entropy problem. Do not duplicate the entire family chapter or insert an unexplained proof in its beginner opening.
+- Existing scoped coverage: read the current entropy/cross-entropy/KL, likelihood and interpretation sections. They connect empirical cross-entropy to fitting but do not develop constrained maximum entropy. This is a local source review, not a full-catalogue audit.
+- Proposed treatment: on fixed finite support with h=1, suppose an interior exponential-family distribution pη has required mean statistic m. Every q with that mean has E_q[log pη]=ηᵀm−A, so KL(q∥pη)=H(pη)−H(q)≥0. This certifies a maximum, not merely stationarity. Use at least three outcomes and one mean constraint, leaving genuine freedom; show distributions on a mean-preserving slice and their entropy. General h changes the objective to entropy relative to that base; do not call every tilt a maximizer of ordinary Shannon entropy.
+- Boundaries: fixed support/reference, feasible constraints, positive fitted pη and finite quantities in the chosen finite example. Boundary targets may require closure. Do not assert that every unbounded moment problem has an attained finite optimizer. Link the prior triangle boundary rather than repeating it.
+- Implementation: the required mean 10/7 leaves a one-dimensional simplex slice. The positive candidate (1,2,4)/7 supplies a global KL certificate; mean 0/2 controls expose singleton boundary limits. The optional h=(1,2,1) example demonstrates that base-relative entropy and ordinary Shannon entropy differ. Independent SciPy moment roots/optimizers and high-precision boundary checks are recorded in the linked verification. [Wainwright & Jordan](https://people.eecs.berkeley.edu/~jordan/sail/readings/wainwright-jordan-fnt.pdf) remained inaccessible; its contents are not claimed as reviewed. Primary MIT/Stanford notes and independent derivations supplied the implemented evidence.
+
+## 2026-09-10 — Repair the existing classifier-count exercise
+
+- Status: implemented, 10 September 2026. Section 7 enumerates one shared ten-case comparison with eight correct/two wrong under both models. The final six-case exercise intentionally compares different accuracies with complete correct-label probabilities, one consistent denominator, a separate hint and a computed explanation.
+- Existing issue from the scoped read: the final exercise says both classifiers make eight correct predictions, then describes the second as seven correct and one wrong. Probabilities for every observation in one consistent shared evaluation set are not specified.
+- Resolution: the original inconsistent counts are removed. The complete evaluation program computes both metrics, and independent native checks verify the worked and changed-practice calculations. The scope is binary threshold/no ties; the text explicitly uses argmax for multiclass transfer and does not infer calibration, fairness or shifted-distribution guarantees from these finite cases.

@@ -1,5 +1,6 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
+import { StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
 const messagePassingGNNContent = {
@@ -1056,7 +1057,7 @@ for batch in train_loader:
       />
 
       <Prose>
-        Both matrices have non-zero entries only where edges (or self-loops) exist. GCN's pattern is exactly <Code>{"1/3"}</Code> per non-zero, mirroring the regular degree structure. GAT's pattern, even at random init, varies — node 1 weights itself at 0.38 (> the GCN baseline), node 0 at 0.32, node 3 at 0.30. After training, those differences would carry semantic signal: a noisy or class-irrelevant neighbor would be down-weighted toward 0, while a class-informative neighbor would be up-weighted.
+        Both matrices have non-zero entries only where edges (or self-loops) exist. GCN's pattern is exactly <Code>{"1/3"}</Code> per non-zero, mirroring the regular degree structure. GAT's pattern, even at random init, varies — node 1 weights itself at 0.38 (&gt; the GCN baseline), node 0 at 0.32, node 3 at 0.30. After training, those differences would carry semantic signal: a noisy or class-irrelevant neighbor would be down-weighted toward 0, while a class-informative neighbor would be up-weighted.
       </Prose>
 
       <H3>6.3 Training curves on the Cora-like graph</H3>

@@ -1,0 +1,359 @@
+{
+  "topic_id": "external-memory-algorithms-b-trees-i-o-complexity",
+  "status": "author-verified; root integration and user acceptance separate",
+  "frozen_at": "2026-09-10T14:14:23.410195+00:00",
+  "source_sha256": {
+    "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "21b2e91db9c27a2cc389ca3443eb31bcd0112bc5c91d0ffad7bea96224309201",
+    "src/learn/data/external-memory-models.js": "daf2d5500705d464b79a16a981e1ccccc528b3dd31f427a45cfcb822ff68582b",
+    "src/learn/data/external-memory-examples.js": "0a0f8f74b5f28879e9c352de6d7629bb6c63d78b92ce0b95b1dbde7eae6d68a4",
+    "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx": "92c40ce9c5176fa5fd5637747dc035efafc31f9b06bb1beb10f6a4fb0b883a9e",
+    "src/learn/data/curriculum/blueprints/external-memory-algorithms-b-trees-i-o-complexity.js": "492d9b3dcef07d702962d4d4532e11e9c09b4e3589b934358c7567d2de04ffa0",
+    "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd",
+    "src/learn/components/lesson-labs/external-memory-labs.css": "4051c60ceb370b9bb6f86ead6f5b72443d2c99d7e94372a90e946d925821c3a1"
+  },
+  "owned_file_sha256": {
+    "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "21b2e91db9c27a2cc389ca3443eb31bcd0112bc5c91d0ffad7bea96224309201",
+    "src/learn/data/external-memory-models.js": "daf2d5500705d464b79a16a981e1ccccc528b3dd31f427a45cfcb822ff68582b",
+    "src/learn/data/external-memory-examples.js": "0a0f8f74b5f28879e9c352de6d7629bb6c63d78b92ce0b95b1dbde7eae6d68a4",
+    "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx": "92c40ce9c5176fa5fd5637747dc035efafc31f9b06bb1beb10f6a4fb0b883a9e",
+    "src/learn/data/curriculum/blueprints/external-memory-algorithms-b-trees-i-o-complexity.js": "492d9b3dcef07d702962d4d4532e11e9c09b4e3589b934358c7567d2de04ffa0",
+    "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd",
+    "src/learn/components/lesson-labs/external-memory-labs.css": "4051c60ceb370b9bb6f86ead6f5b72443d2c99d7e94372a90e946d925821c3a1",
+    "docs/teaching/EXTERNAL-MEMORY-LESSON-DESIGN.md": "d5771d8fd17e08d9deaffd390c4b7a56a65dd26dd73d63a84f13a50c34a6ff51",
+    "docs/teaching/EXTERNAL-MEMORY-VERIFICATION.md": "7ec7d42bfd6d9e31d2b5e84defdc0eab95c66f1636952dca2048f64ad58a47c6",
+    "docs/teaching/topic-notes/external-memory-algorithms-b-trees-i-o-complexity.md": "9c3826cae17899f88a39ac671f72027caef1e73b1e73c9e9fc351424f535e2aa",
+    "scripts/prepare-external-memory-examples.py": "80d480acb8cf4baebd7b902082f4e1c836b8bf160f0b9606a00540f4f46adc29",
+    "scripts/verify-external-memory.py": "056688e0d4b6d26fb3c9bdf9bd2b7d3fc4f94e78374b0a0bd7d056331523f4ff",
+    "scripts/review-external-memory.cjs": "811bcc3b460657c53804db063c5689f407d31d3e2100bdf2a08eac7f3cd6dba7",
+    "scripts/review-external-memory-reading.cjs": "95478b698974e29649e7617cbfa72af0f1eecfdf6cd1e0fd4144341d13575e8d",
+    "scripts/format-external-memory.cjs": "66d791758e4e61804cc2a14cbaa0a87c411986a7c939bf9fd9b85b3c40ca814b",
+    "scripts/finalize-external-memory-evidence.py": "6396a02cc2e781e78963d9e6b1ecc576b71cf9b87a953fe4642d7872c7970dc3"
+  },
+  "native": {
+    "checkedAt": "2026-09-10T14:01:30.951496+00:00",
+    "nativePrograms": [
+      "locality",
+      "writeback",
+      "btreeUpdates",
+      "leafRanges",
+      "fanout",
+      "externalSort",
+      "batchJoin",
+      "crashRoots"
+    ],
+    "bufferCases": 192,
+    "javascriptCompletedTreeStates": 5760,
+    "nativeTreeOperations": 28000,
+    "nativeRepairEvents": [
+      "borrow-left",
+      "borrow-right",
+      "merge",
+      "predecessor",
+      "shrink-root",
+      "split",
+      "successor"
+    ],
+    "bplusRanges": 15129,
+    "mergeSchedules": 4656,
+    "actualTemporaryFileSortCases": 48,
+    "crashFrames": 12,
+    "changedExerciseGroups": 7,
+    "invalidModelInputs": 8,
+    "sha256": {
+      "src\\learn\\data\\external-memory-models.js": "daf2d5500705d464b79a16a981e1ccccc528b3dd31f427a45cfcb822ff68582b",
+      "src\\learn\\data\\external-memory-examples.js": "0a0f8f74b5f28879e9c352de6d7629bb6c63d78b92ce0b95b1dbde7eae6d68a4"
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T14:11:25.446Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-count-the-data-that-move",
+            "top": 100.25
+          },
+          {
+            "href": "#2-pack-search-decisions-into-a-page",
+            "top": 99.78125
+          },
+          {
+            "href": "#3-keep-the-page-tree-balanced",
+            "top": 99.75
+          },
+          {
+            "href": "#4-follow-records-through-b-leaves",
+            "top": 99.796875
+          },
+          {
+            "href": "#5-sort-more-than-memory-can-hold",
+            "top": 100.390625
+          },
+          {
+            "href": "#6-publish-a-root-that-can-survive",
+            "top": 99.796875
+          },
+          {
+            "href": "#7-choose-for-the-workload",
+            "top": 100.328125
+          },
+          {
+            "href": "#8-practise-a-changed-storage-contract",
+            "top": 100.46875
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 89.703125
+          }
+        ],
+        "bufferStates": 52,
+        "treeStates": 107,
+        "rangeCases": 6,
+        "mergeCases": 6,
+        "crashStates": 12,
+        "examples": [
+          "locality",
+          "writeback",
+          "fanout",
+          "btreeUpdates",
+          "leafRanges",
+          "externalSort",
+          "crashRoots",
+          "batchJoin"
+        ],
+        "screenshots": [
+          "buffer-initial-1440.png",
+          "tree-final-insert-1440.png",
+          "tree-final-delete-1440.png",
+          "tree-final-duplicates-1440.png",
+          "tree-search-1440.png",
+          "tree-reset-1440.png",
+          "bplus-contrast-1440.png",
+          "bplus-initial-1440.png",
+          "bplus-pages-1440.png",
+          "merge-initial-1440.png",
+          "merge-runs-1440.png",
+          "crash-invalid-pages-1440.png",
+          "crash-reset-1440.png",
+          "sources-1440.png",
+          "intro-1440.png"
+        ]
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-count-the-data-that-move",
+            "top": 100.234375
+          },
+          {
+            "href": "#2-pack-search-decisions-into-a-page",
+            "top": 100.390625
+          },
+          {
+            "href": "#3-keep-the-page-tree-balanced",
+            "top": 99.671875
+          },
+          {
+            "href": "#4-follow-records-through-b-leaves",
+            "top": 99.96875
+          },
+          {
+            "href": "#5-sort-more-than-memory-can-hold",
+            "top": 100.265625
+          },
+          {
+            "href": "#6-publish-a-root-that-can-survive",
+            "top": 99.546875
+          },
+          {
+            "href": "#7-choose-for-the-workload",
+            "top": 99.71875
+          },
+          {
+            "href": "#8-practise-a-changed-storage-contract",
+            "top": 100.109375
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 89.953125
+          }
+        ],
+        "bufferStates": 52,
+        "treeStates": 107,
+        "rangeCases": 6,
+        "mergeCases": 6,
+        "crashStates": 12,
+        "examples": [
+          "locality",
+          "writeback",
+          "fanout",
+          "btreeUpdates",
+          "leafRanges",
+          "externalSort",
+          "crashRoots",
+          "batchJoin"
+        ],
+        "screenshots": [
+          "buffer-initial-390.png",
+          "tree-final-insert-390.png",
+          "tree-final-delete-390.png",
+          "tree-final-duplicates-390.png",
+          "tree-search-390.png",
+          "tree-reset-390.png",
+          "bplus-contrast-390.png",
+          "bplus-initial-390.png",
+          "bplus-pages-390.png",
+          "merge-initial-390.png",
+          "merge-runs-390.png",
+          "crash-invalid-pages-390.png",
+          "crash-reset-390.png",
+          "sources-390.png",
+          "intro-390.png"
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "ordinary_reading": {
+    "checkedAt": "2026-09-10T14:13:14.357Z",
+    "results": [
+      {
+        "width": 1440,
+        "captures": [
+          "detail-calculation-1-1440.png",
+          "detail-calculation-2-1440.png",
+          "detail-height-proof-1440.png",
+          "detail-deletion-proof-1440.png",
+          "detail-bplus-contrast-1440.png",
+          "detail-native-program-1440.png",
+          "detail-native-output-1440.png",
+          "detail-changed-passes-1440.png",
+          "detail-sources-1440.png",
+          "detail-large-tree-controls-1440.png",
+          "detail-large-tree-pages-1440.png",
+          "detail-merge-runs-final-1440.png"
+        ],
+        "codeScrolling": {
+          "client": 758,
+          "scroll": 758,
+          "mode": "auto"
+        }
+      },
+      {
+        "width": 390,
+        "captures": [
+          "detail-calculation-1-390.png",
+          "detail-calculation-2-390.png",
+          "detail-height-proof-390.png",
+          "detail-deletion-proof-390.png",
+          "detail-bplus-contrast-390.png",
+          "detail-native-program-390.png",
+          "detail-native-output-390.png",
+          "detail-changed-passes-390.png",
+          "detail-sources-390.png",
+          "detail-large-tree-controls-390.png",
+          "detail-large-tree-pages-390.png",
+          "detail-merge-runs-final-390.png"
+        ],
+        "codeScrolling": {
+          "client": 348,
+          "scroll": 491,
+          "mode": "auto"
+        }
+      },
+      {
+        "width": 320,
+        "captures": [
+          "detail-calculation-1-320.png",
+          "detail-calculation-2-320.png",
+          "detail-height-proof-320.png",
+          "detail-deletion-proof-320.png",
+          "detail-bplus-contrast-320.png",
+          "detail-native-program-320.png",
+          "detail-native-output-320.png",
+          "detail-changed-passes-320.png",
+          "detail-sources-320.png",
+          "detail-large-tree-controls-320.png",
+          "detail-large-tree-pages-320.png",
+          "detail-crash-invalid-320.png",
+          "detail-merge-runs-final-320.png"
+        ],
+        "codeScrolling": {
+          "client": 278,
+          "scroll": 491,
+          "mode": "auto"
+        }
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T14:10:57.756Z",
+    "files": [
+      "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+      "src/learn/data/external-memory-models.js",
+      "src/learn/data/external-memory-examples.js",
+      "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx",
+      "src/learn/data/curriculum/blueprints/external-memory-algorithms-b-trees-i-o-complexity.js",
+      "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js",
+      "src/learn/components/lesson-labs/external-memory-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "actually_opened_images": [
+    "reading-1-1440.png",
+    "buffer-initial-1440.png",
+    "tree-final-insert-1440.png",
+    "reading-6-1440.png",
+    "bplus-contrast-390.png",
+    "tree-search-390.png",
+    "merge-runs-390.png",
+    "crash-invalid-pages-390.png",
+    "reading-5-390.png",
+    "intro-390.png",
+    "detail-large-tree-pages-320.png",
+    "detail-calculation-2-320.png",
+    "detail-native-program-1440.png",
+    "detail-native-output-390.png",
+    "detail-sources-390.png",
+    "detail-height-proof-390.png",
+    "detail-large-tree-controls-390.png",
+    "detail-merge-runs-final-390.png",
+    "detail-bplus-contrast-320.png",
+    "detail-crash-invalid-320.png",
+    "detail-deletion-proof-390.png",
+    "bplus-pages-390.png",
+    "buffer-initial-390.png",
+    "bplus-initial-390.png",
+    "reading-8-390.png",
+    "reading-9-1440.png",
+    "detail-calculation-1-320.png"
+  ],
+  "research": {
+    "checked_on": "2026-09-10",
+    "record": "docs/teaching/EXTERNAL-MEMORY-LESSON-DESIGN.md",
+    "official_leetcode_ids": [
+      146,
+      23,
+      148,
+      378
+    ],
+    "alternate_video": "MIT 6.851 Lecture7 official page and relevant scribe text inspected; no full playback",
+    "written": "Open Data Structures B-Trees; Cornell external sorting; CMU shadow paging; SQLite atomic commit. Exact inspected sections recorded in design.",
+    "limits": "No LeetCode submission/editorial review, physical I/O or timing benchmark, real fsync/crash experiment, strict Python process-memory cap, full B+ update/database engine or novice study claimed."
+  },
+  "root_source_review": {
+    "status": "no actionable source defect reported before final freeze",
+    "scope": "full body, page/record units, B-tree repair/height proofs, B+ routing/payload bounds, materialized sorting and partial pages/RAM caveats, shadow-root proof and changed tasks",
+    "limit": "bounded independent source/proof review; not additional numerical tests"
+  },
+  "refinements": [
+    "Moved B-tree and B+ current-event controls above tall page hierarchies.",
+    "Highlighted final-tree search path; cleared stale search results on changed keys/steps.",
+    "Shortened root-order option labels and separated reset controls from following prose.",
+    "Used native superscripts/subscripts for height and split sort notation into explicit scan/scale factors; checked final1440/390/320 reading."
+  ],
+  "notes": "Incoming persistent-root note adapted with actual reachability verification; deeper I/O/storage-engine mechanisms deferred with explicit owner-reassessment reasoning in the same stable-ID note."
+}

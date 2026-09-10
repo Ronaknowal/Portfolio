@@ -1,0 +1,104 @@
+{
+  "closedAt": "2026-09-10T18:56:41.956557+00:00",
+  "authorFrozenAt": "2026-09-10T18:55:55.437494+00:00",
+  "topicId": "graph-fundamentals-adjacency-laplacian-connectivity",
+  "allReviewedHashesMatchAuthorFreeze": true,
+  "productionHashes": {
+    "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "72a7d2a8ce2842b07386ad9bec78bd0d9444ca375fec181de7e3886b0f53d73a",
+    "src/learn/data/graph-fundamentals-models.js": "ba77012855dd218f7be27f58cae58ed789475359cb1febef41cdf9ec23d82546",
+    "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454",
+    "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "d9e2fd4eb289ffd356f6c844af4c56c80ed1a5b411bbc8ca51204e42e2ecb645",
+    "src/learn/components/lesson-labs/graph-fundamentals-labs.css": "eb97008da68614aea30a1b8b6e71e1791175f1efcff588fa47fbd163e72a3171",
+    "src/learn/data/curriculum/blueprints/graph-fundamentals-adjacency-laplacian-connectivity.js": "570e797ddaf3c45c5b8caaee64238109e5637ed4876d4611ae418fbbc84c8513"
+  },
+  "complementaryExecution": {
+    "verifiedAt": "2026-09-10T18:53:42.386730+00:00",
+    "allPassed": true,
+    "counts": {
+      "changedCycleCircuits": 81,
+      "loopPartialAndCoordinateCases": 81,
+      "exactClosedModeIterations": 13,
+      "simpleFourVertexGraphsWithIsolate": 64,
+      "jsBoundaryCases": 4,
+      "nativeBoundaryCases": 4
+    },
+    "maximumHarmonicError": 0.0,
+    "jsBoundaries": [
+      {
+        "weight": 5e-324,
+        "accepted": false,
+        "name": "RangeError",
+        "message": "Positive degrees must have finite reciprocals in the normalization model. Rescale the edge weights."
+      },
+      {
+        "weight": 1e-320,
+        "accepted": false,
+        "name": "RangeError",
+        "message": "Positive degrees must have finite reciprocals in the normalization model. Rescale the edge weights."
+      },
+      {
+        "weight": 1e-310,
+        "accepted": false,
+        "name": "RangeError",
+        "message": "Positive degrees must have finite reciprocals in the normalization model. Rescale the edge weights."
+      },
+      {
+        "weight": 1e-308,
+        "accepted": true,
+        "finite": true,
+        "transition": [
+          [
+            0,
+            0.9999999999999999
+          ],
+          [
+            0.9999999999999999,
+            0
+          ]
+        ]
+      }
+    ],
+    "nativeBoundaries": [
+      {
+        "weight": 5e-324,
+        "accepted": false,
+        "message": "Positive degrees need finite reciprocals; rescale the weights"
+      },
+      {
+        "weight": 1e-320,
+        "accepted": false,
+        "message": "Positive degrees need finite reciprocals; rescale the weights"
+      },
+      {
+        "weight": 1e-310,
+        "accepted": false,
+        "message": "Positive degrees need finite reciprocals; rescale the weights"
+      },
+      {
+        "weight": 1e-308,
+        "accepted": true,
+        "finite": true
+      }
+    ],
+    "productionHashes": {
+      "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "72a7d2a8ce2842b07386ad9bec78bd0d9444ca375fec181de7e3886b0f53d73a",
+      "src/learn/data/graph-fundamentals-models.js": "ba77012855dd218f7be27f58cae58ed789475359cb1febef41cdf9ec23d82546",
+      "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454",
+      "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx": "d9e2fd4eb289ffd356f6c844af4c56c80ed1a5b411bbc8ca51204e42e2ecb645",
+      "src/learn/components/lesson-labs/graph-fundamentals-labs.css": "eb97008da68614aea30a1b8b6e71e1791175f1efcff588fa47fbd163e72a3171",
+      "src/learn/data/curriculum/blueprints/graph-fundamentals-adjacency-laplacian-connectivity.js": "570e797ddaf3c45c5b8caaee64238109e5637ed4876d4611ae418fbbc84c8513"
+    },
+    "authorFreezeHashMatches": false,
+    "limits": "Scoped complementary oracles and full source read; the author's broad browser/native suites remain separately attributed. Not an arbitrary floating-point guarantee."
+  },
+  "executionIdentityNote": "Execution occurred before the author refreshed its paired-example freeze. The results historical authorFreezeHashMatches=false is superseded only for identity here: its six actually tested source hashes exactly match the now-final author freeze. No numerical result was changed.",
+  "openedAuthorScreenshots": {
+    "ordinary-section-8-390.png": "35af4c83ba01d2938d251224bc6203da578e4ef3d74b70abe710ed60d735b655",
+    "loop-and-isolate-390.png": "4fc8e10deb53430f5e8aa61e654aa6a99b8e8baf7745cdd174b4a7433daa49c2",
+    "connected-interpolation-390.png": "57ab8b0dbc9734f082e2d4128ecee43419456fba96ab6eeaf2b3970b25fadaa3"
+  },
+  "resolvedFinding": "Explicit reciprocal-range rejection added by author to both JS normalization and actual displayed Python helper; subnormal rejects and representable boundary independently passed.",
+  "remainingMaterialFindings": [],
+  "reviewScriptHash": "5811c6d75c54f63eb3186622920d821dbf73ac69c735dfd96863ba1f4c92c1c7",
+  "limits": "Full body/program/model/render logic read plus scoped independent oracles. Author browser captures opened with attribution; no duplicate comprehensive browser suite or user acceptance claimed."
+}

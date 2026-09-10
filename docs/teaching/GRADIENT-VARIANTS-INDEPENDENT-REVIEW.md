@@ -1,0 +1,21 @@
+# Gradient variants — independent finite review
+
+10 September2026. Reviewer: the separate DSA author, at the root agent's request. **No actionable correctness defect found in the requested scope; no lesson/model/lab/example source changed.** This finite check does not replace the owning author's full browser, research or integration evidence.
+
+Read the complete relevant sampling/momentum/Adam/L2/LARS/LAMB explanations, model functions and native helpers; inspected the prior independent verifier's construction to choose complementary checks. Particular findings:
+
+- **LARS:** the page declares its gradient-norm-plus-decay denominator, trust coefficient, global rate inside velocity, zero-norm fallback and lack of parameter exclusions. The native block function uses exactly that rule. Its no-old-velocity relative bound follows from the triangle inequality; the page correctly declines to extend the same equality to retained velocity. The lab explicitly computes only a first update with zero memory.
+- **LAMB:** corrected data-gradient moments feed the adaptive direction; decay is added before the layer ratio; identity norm scaling and ratio1 fallback are explicit. Nonzero parameter/direction norms yield relative displacement η; clipping or zero norms require the qualifications already supplied. Raw moments are retained separately for the next recurrence. The code does not accidentally overwrite raw moments with corrected state.
+- **Nesterov:** the chosen lookahead q=θ−ηβb, followed by the gradient at q, agrees between prose, native scalar example and browser model. With constant η on curvature λ, eliminating b gives θₜ=(1−ηλ)(1+β)θₜ₋₁−(1−ηλ)βθₜ₋₂. This differs from heavy-ball's recurrence, and the text explicitly separates its stability claim. The rate-convention caveat is necessary and present.
+- **Noisy scalar moments:** for fresh independent zero-mean perturbations, the conditional cross term vanishes. The stated finite-variance fixed-rate second-moment limit ησ²/[B(2−η)] agrees with the exact geometric sum for0<η<2. Sampling without replacement and shuffled epochs are qualified separately, avoiding applying the independent-draw proof to every shuffled step.
+- **Displayed units:** the example measurements/parameter are explicitly dimensionless. Adaptive-history plots show g, a first-moment/current-gradient numerator and √(square-history)+ε; those share gradient units when ε has the specified outside-root placement. The actual parameter displacement remains in its own table. Momentum's solid/dashed arrows both multiply by the same rate and use one equal x/y coordinate scale; the plot does not overlay an unscaled gradient as if it were a displacement. The fixed gradient replay is labelled an arithmetic comparison, not shared-objective training performance.
+
+Primary confirmation: independently opened the original [LARS report](https://arxiv.org/pdf/1708.03888), equation6 and Algorithm1; and [LAMB paper](https://arxiv.org/pdf/1904.00962), Algorithm2 and surrounding scaling-function discussion. Their different conventions/notation are not silently collapsed into one canonical LARS implementation. The lesson's explicit convention is internally consistent; no source formula was copied without its required definitions. Framework-specific execution was not repeated in this review.
+
+Complementary check executed: `node scratch/gradient-variants-independent-review/check.mjs` (Python3.12 with NumPy).
+
+- **324 Nesterov coordinate states** matched exact rational second-order recurrences for18 parameter/curvature cases; this avoids repeating the browser's buffer update or the author's matrix-power oracle.
+- **768 exhaustive noise paths** across three stable learning rates matched exact finite-time mean/second-moment geometric sums and the stationary-limit identity. No sampled empirical fit was used to justify the limit.
+- **120 arbitrary block-vector cases** verified the actual native LARS first-step bound with decay and LAMB's identity-scaling relative equality.
+
+Evidence and reproducible scripts: `scratch/gradient-variants-independent-review/{check.mjs,check.py,cases.json,results.json}`. The review changes only this new record and scratch evidence, preserving the owning author's source.

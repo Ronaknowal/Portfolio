@@ -1,0 +1,875 @@
+{
+  "topicId": "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+  "frozenAt": "2026-09-10T15:26:44.786Z",
+  "files": {
+    "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx": "b7b5b6fdf3dc6fa27cf364806fb3a3774207cc8b59a5ab524727b970b454d9dc",
+    "src/learn/data/monte-carlo-mcmc-models.js": "3aeda838b018ed3e7ea5f74cd3ec6f5f3a226cdf724305c0e5404b2d1d20b5fa",
+    "src/learn/data/monte-carlo-mcmc-examples.js": "85b3e97fb4a90794f93d538d6048c35e7355a6128add8cdc99525c2530929717",
+    "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx": "724c3842313e202c2cc3b654cb9ea33e3dabb2ef898e3b2c81d42dbba88bb3d4",
+    "src/learn/components/lesson-labs/monte-carlo-mcmc-labs.css": "fd391c99dbc11086f3d0433de01928a57af719fe1864c676ce09528238dbaad3",
+    "src/learn/data/curriculum/blueprints/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.js": "6b3c35dad39613a4c065bd08a650a350b395c13243bf7a081d15f8f22e0ed756"
+  },
+  "native": {
+    "beta_mean": 0.7142857142857141,
+    "beta_tail_above_point7": 0.5793943542389999,
+    "changed_beta_3_7_tail": 0.004290894,
+    "changed_beta_3_7_tail_fraction": "2145447/500000000",
+    "one_step_stationarity_checks": [
+      [
+        0.1,
+        1,
+        0.007794649528074395,
+        1.0116710216850224
+      ],
+      [
+        0.25,
+        6,
+        -0.009028739221378713,
+        1.0010390219330971
+      ],
+      [
+        0.7,
+        5,
+        -0.008109992434807508,
+        1.0068381794633794
+      ],
+      [
+        1.2,
+        4,
+        0.0004899213728195658,
+        0.9953343456723741
+      ]
+    ]
+  },
+  "browser": [
+    {
+      "width": 1440,
+      "anchors": [
+        "1-turn-a-question-into-a-random-average",
+        "2-spend-randomness-on-the-right-calculation",
+        "3-build-a-transition-that-preserves-the-target",
+        "4-follow-a-complete-posterior-chain",
+        "5-use-gradients-to-travel-through-the-distribution",
+        "6-choose-a-trajectory-without-breaking-the-target",
+        "7-measure-the-error-caused-by-dependence",
+        "8-check-exploration-and-computational-precision",
+        "9-practise-and-choose-the-next-method"
+      ],
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "focus": {
+        "active": true,
+        "outline": "2px"
+      },
+      "geometry": {
+        "pageWidth": 1440,
+        "viewport": 1440,
+        "math": [
+          {
+            "text": "μ=Eπ[h(θ)]=∫h(θ)π(θ) dθ,μ^N=1N∑i=1Nh(θi).\\begin{gathered}\\mu=\\mathbb E_{\\pi}[h(\\theta)]\\\\ ",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "Var⁡(μ^N)  =  Var⁡π(h)N,MCSE⁡^  =  shN.\\begin{gathered}\\operatorname{Var}(\\widehat\\mu_N)\\;",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "g(U)=U2+(1−U)22=U2−U+12.\\begin{aligned}g(U)&=\\frac{U^2+(1-U)^2}{2}\\\\ &=U^2-U+\\frac12.\\end{",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "Eq[w(X)h(X)]=∫q(x)π(x)q(x)h(x) dx=Eπ[h(X)].\\begin{gathered}\\mathbb E_q[w(X)h(X)]\\\\ =\\int q",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "R(x,y)=π~(y)q(x∣y)π~(x)q(y∣x),α(x,y)=min⁡(1,R(x,y)),P(x,y)=q(y∣x)α(x,y).\\begin{gathered}R(",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "H(q,r)=U(q)+12r2,dqdt=r,drdt=−U′(q).\\begin{gathered}H(q,r)=U(q)+\\frac12r^2,\\\\ \\frac{dq}{dt",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "r1/2=r−ϵ2∇U(q),q′=q+ϵr1/2,r′=r1/2−ϵ2∇U(q′).\\begin{aligned}r_{1/2}&=r-\\frac\\epsilon2\\nabla ",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "ΔH=Hnew−Hold,αHMC=min⁡{1,exp⁡(−ΔH)}.\\begin{gathered}\\Delta H=H_{\\mathrm{new}}-H_{\\mathrm{o",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "Δq=q+−q−,Δq⋅r−<0orΔq⋅r+<0.\\begin{gathered}\\Delta q=q^+-q^-,\\\\ \\Delta q\\cdot r^-<0\\quad\\tex",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          },
+          {
+            "text": "Var⁡(Y‾N)=γ0N[1+2∑k=1N−1(1−kN)ρk].\\begin{gathered}\\operatorname{Var}(\\overline Y_N)\\\\ =\\fr",
+            "width": 760,
+            "scroll": 760,
+            "parent": 760
+          }
+        ],
+        "svgText": [
+          {
+            "text": "running mean",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "50",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "function evaluations",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "A",
+            "effectiveFont": 29.44345238095238,
+            "inside": true
+          },
+          {
+            "text": "B",
+            "effectiveFont": 29.44345238095238,
+            "inside": true
+          },
+          {
+            "text": "0.1 →",
+            "effectiveFont": 29.44345238095238,
+            "inside": true
+          },
+          {
+            "text": "← 0.1",
+            "effectiveFont": 29.44345238095238,
+            "inside": true
+          },
+          {
+            "text": "Pairwise flow balances",
+            "effectiveFont": 29.44345238095238,
+            "inside": true
+          },
+          {
+            "text": "probability θ",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "200",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "transition",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "momentum r",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "position q",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "correlation",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "-1",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          },
+          {
+            "text": "lag in retained draws",
+            "effectiveFont": 29.443277310924373,
+            "inside": true
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "anchors": [
+        "1-turn-a-question-into-a-random-average",
+        "2-spend-randomness-on-the-right-calculation",
+        "3-build-a-transition-that-preserves-the-target",
+        "4-follow-a-complete-posterior-chain",
+        "5-use-gradients-to-travel-through-the-distribution",
+        "6-choose-a-trajectory-without-breaking-the-target",
+        "7-measure-the-error-caused-by-dependence",
+        "8-check-exploration-and-computational-precision",
+        "9-practise-and-choose-the-next-method"
+      ],
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "focus": {
+        "active": true,
+        "outline": "2px"
+      },
+      "geometry": {
+        "pageWidth": 390,
+        "viewport": 390,
+        "math": [
+          {
+            "text": "μ=Eπ[h(θ)]=∫h(θ)π(θ) dθ,μ^N=1N∑i=1Nh(θi).\\begin{gathered}\\mu=\\mathbb E_{\\pi}[h(\\theta)]\\\\ ",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "Var⁡(μ^N)  =  Var⁡π(h)N,MCSE⁡^  =  shN.\\begin{gathered}\\operatorname{Var}(\\widehat\\mu_N)\\;",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "g(U)=U2+(1−U)22=U2−U+12.\\begin{aligned}g(U)&=\\frac{U^2+(1-U)^2}{2}\\\\ &=U^2-U+\\frac12.\\end{",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "Eq[w(X)h(X)]=∫q(x)π(x)q(x)h(x) dx=Eπ[h(X)].\\begin{gathered}\\mathbb E_q[w(X)h(X)]\\\\ =\\int q",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "R(x,y)=π~(y)q(x∣y)π~(x)q(y∣x),α(x,y)=min⁡(1,R(x,y)),P(x,y)=q(y∣x)α(x,y).\\begin{gathered}R(",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "H(q,r)=U(q)+12r2,dqdt=r,drdt=−U′(q).\\begin{gathered}H(q,r)=U(q)+\\frac12r^2,\\\\ \\frac{dq}{dt",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "r1/2=r−ϵ2∇U(q),q′=q+ϵr1/2,r′=r1/2−ϵ2∇U(q′).\\begin{aligned}r_{1/2}&=r-\\frac\\epsilon2\\nabla ",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "ΔH=Hnew−Hold,αHMC=min⁡{1,exp⁡(−ΔH)}.\\begin{gathered}\\Delta H=H_{\\mathrm{new}}-H_{\\mathrm{o",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "Δq=q+−q−,Δq⋅r−<0orΔq⋅r+<0.\\begin{gathered}\\Delta q=q^+-q^-,\\\\ \\Delta q\\cdot r^-<0\\quad\\tex",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          },
+          {
+            "text": "Var⁡(Y‾N)=γ0N[1+2∑k=1N−1(1−kN)ρk].\\begin{gathered}\\operatorname{Var}(\\overline Y_N)\\\\ =\\fr",
+            "width": 350,
+            "scroll": 350,
+            "parent": 350
+          }
+        ],
+        "svgText": [
+          {
+            "text": "running mean",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "50",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "function evaluations",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "A",
+            "effectiveFont": 18.24404761904762,
+            "inside": true
+          },
+          {
+            "text": "B",
+            "effectiveFont": 18.24404761904762,
+            "inside": true
+          },
+          {
+            "text": "0.1 →",
+            "effectiveFont": 18.24404761904762,
+            "inside": true
+          },
+          {
+            "text": "← 0.1",
+            "effectiveFont": 18.24404761904762,
+            "inside": true
+          },
+          {
+            "text": "Pairwise flow balances",
+            "effectiveFont": 18.24404761904762,
+            "inside": true
+          },
+          {
+            "text": "probability θ",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "200",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "transition",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "momentum r",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "position q",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "correlation",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "-1",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          },
+          {
+            "text": "lag in retained draws",
+            "effectiveFont": 18.24448529411765,
+            "inside": true
+          }
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "anchors": [
+        "1-turn-a-question-into-a-random-average",
+        "2-spend-randomness-on-the-right-calculation",
+        "3-build-a-transition-that-preserves-the-target",
+        "4-follow-a-complete-posterior-chain",
+        "5-use-gradients-to-travel-through-the-distribution",
+        "6-choose-a-trajectory-without-breaking-the-target",
+        "7-measure-the-error-caused-by-dependence",
+        "8-check-exploration-and-computational-precision",
+        "9-practise-and-choose-the-next-method"
+      ],
+      "errors": [],
+      "failedRequests": [
+        {
+          "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+          "failure": {
+            "errorText": "net::ERR_NETWORK_ACCESS_DENIED"
+          }
+        }
+      ],
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: net::ERR_NETWORK_ACCESS_DENIED",
+          "location": {
+            "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "focus": {
+        "active": true,
+        "outline": "2px"
+      },
+      "geometry": {
+        "pageWidth": 320,
+        "viewport": 320,
+        "math": [
+          {
+            "text": "μ=Eπ[h(θ)]=∫h(θ)π(θ) dθ,μ^N=1N∑i=1Nh(θi).\\begin{gathered}\\mu=\\mathbb E_{\\pi}[h(\\theta)]\\\\ ",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "Var⁡(μ^N)  =  Var⁡π(h)N,MCSE⁡^  =  shN.\\begin{gathered}\\operatorname{Var}(\\widehat\\mu_N)\\;",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "g(U)=U2+(1−U)22=U2−U+12.\\begin{aligned}g(U)&=\\frac{U^2+(1-U)^2}{2}\\\\ &=U^2-U+\\frac12.\\end{",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "Eq[w(X)h(X)]=∫q(x)π(x)q(x)h(x) dx=Eπ[h(X)].\\begin{gathered}\\mathbb E_q[w(X)h(X)]\\\\ =\\int q",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "R(x,y)=π~(y)q(x∣y)π~(x)q(y∣x),α(x,y)=min⁡(1,R(x,y)),P(x,y)=q(y∣x)α(x,y).\\begin{gathered}R(",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "H(q,r)=U(q)+12r2,dqdt=r,drdt=−U′(q).\\begin{gathered}H(q,r)=U(q)+\\frac12r^2,\\\\ \\frac{dq}{dt",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "r1/2=r−ϵ2∇U(q),q′=q+ϵr1/2,r′=r1/2−ϵ2∇U(q′).\\begin{aligned}r_{1/2}&=r-\\frac\\epsilon2\\nabla ",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "ΔH=Hnew−Hold,αHMC=min⁡{1,exp⁡(−ΔH)}.\\begin{gathered}\\Delta H=H_{\\mathrm{new}}-H_{\\mathrm{o",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "Δq=q+−q−,Δq⋅r−<0orΔq⋅r+<0.\\begin{gathered}\\Delta q=q^+-q^-,\\\\ \\Delta q\\cdot r^-<0\\quad\\tex",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          },
+          {
+            "text": "Var⁡(Y‾N)=γ0N[1+2∑k=1N−1(1−kN)ρk].\\begin{gathered}\\operatorname{Var}(\\overline Y_N)\\\\ =\\fr",
+            "width": 280,
+            "scroll": 280,
+            "parent": 280
+          }
+        ],
+        "svgText": [
+          {
+            "text": "running mean",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "50",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "function evaluations",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "A",
+            "effectiveFont": 14.355654761904761,
+            "inside": true
+          },
+          {
+            "text": "B",
+            "effectiveFont": 14.355654761904761,
+            "inside": true
+          },
+          {
+            "text": "0.1 →",
+            "effectiveFont": 14.355654761904761,
+            "inside": true
+          },
+          {
+            "text": "← 0.1",
+            "effectiveFont": 14.355654761904761,
+            "inside": true
+          },
+          {
+            "text": "Pairwise flow balances",
+            "effectiveFont": 14.355654761904761,
+            "inside": true
+          },
+          {
+            "text": "probability θ",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "100",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "200",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "transition",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "momentum r",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "-1.5",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "1.5",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "position q",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "correlation",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "1",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "-1",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "0",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "4",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "8",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          },
+          {
+            "text": "lag in retained draws",
+            "effectiveFont": 14.355304621848738,
+            "inside": true
+          }
+        ]
+      }
+    }
+  ],
+  "changedTargetReview": [
+    {
+      "width": 390,
+      "tailVisible": true,
+      "pageOverflow": false
+    },
+    {
+      "width": 320,
+      "tailVisible": true,
+      "pageOverflow": false
+    }
+  ],
+  "independentReview": "docs/teaching/MONTE-CARLO-MCMC-INDEPENDENT-REVIEW.md"
+}

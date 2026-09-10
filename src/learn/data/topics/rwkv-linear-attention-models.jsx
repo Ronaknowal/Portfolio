@@ -1,5 +1,6 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout, MathBlock } from "../../components/content";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
+import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
+import { MathBlock } from "../../components/content/Math.jsx";
+import { StepTrace, Heatmap, Plot } from "../../components/viz";
 import { colors } from "../../styles";
 
 const rwkvLinearAttentionContent = {
@@ -664,7 +665,7 @@ y = rwkv_attn(x)[0]
       </CodeBlock>
 
       <Prose>
-        The library uses Triton kernels internally, which makes it portable across GPU architectures. For the chunked parallel path it implements the three-form decomposition described in section 3.6 — training uses the chunkwise form, inference uses the recurrent form, and a small "parallel within chunk" kernel handles the BMM within each chunk. Benchmarks on A100 and H100 show the fla kernels within 2x of FlashAttention-2 for softmax attention at short sequence lengths, and significantly faster at <Code>L > 16K</Code>.
+        The library uses Triton kernels internally, which makes it portable across GPU architectures. For the chunked parallel path it implements the three-form decomposition described in section 3.6 — training uses the chunkwise form, inference uses the recurrent form, and a small "parallel within chunk" kernel handles the BMM within each chunk. Benchmarks on A100 and H100 show the fla kernels within 2x of FlashAttention-2 for softmax attention at short sequence lengths, and significantly faster at <Code>{"L > 16K"}</Code>.
       </Prose>
 
       <H3>5.3 A minimal RWKV block in PyTorch</H3>

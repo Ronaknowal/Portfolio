@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-09-10T12:41:27.548717+00:00",
+  "exact_authored_stdout": true,
+  "independent_analytic_numpy_checks": [
+    {
+      "method": "L-BFGS",
+      "evaluations_including_final_check": 15,
+      "numpy_mse": 4.710055231541857e-05,
+      "numpy_gradient_infinity_norm": 6.008173197582405e-08,
+      "gradient_error": 2.4927617154877523e-18
+    },
+    {
+      "method": "gradient descent",
+      "evaluations_including_final_check": 1000,
+      "numpy_mse": 4.7800117944029675e-05,
+      "numpy_gradient_infinity_norm": 0.0001421243705369792,
+      "gradient_error": 4.87890977618477e-18
+    }
+  ]
+}

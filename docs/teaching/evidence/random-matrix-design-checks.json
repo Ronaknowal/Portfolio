@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-09-10T19:08:35.169219+00:00",
+  "allPassed": true,
+  "scope": "Design-stage finite fixture, MP integrals, two-level gap and worked spike values only. No final lesson models, simulations, programs or browser verification implied.",
+  "countedCovariance": [
+    [
+      1.0,
+      0.5
+    ],
+    [
+      0.5,
+      1.0
+    ]
+  ],
+  "mpIntegrals": [
+    {
+      "gamma": 0.25,
+      "variance": 0.25,
+      "continuousMoments": [
+        0.9999999999999749,
+        0.25000000000000006,
+        0.0781250000000001
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 0.25,
+      "variance": 1,
+      "continuousMoments": [
+        0.9999999999999749,
+        1.0000000000000002,
+        1.2500000000000016
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 0.25,
+      "variance": 9,
+      "continuousMoments": [
+        0.9999999999999749,
+        9.000000000000016,
+        101.25000000000016
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 1,
+      "variance": 0.25,
+      "continuousMoments": [
+        0.9999999999999862,
+        0.25000000000000006,
+        0.12499999999102604
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 1,
+      "variance": 1,
+      "continuousMoments": [
+        0.9999999999999862,
+        1.0000000000000002,
+        1.9999999998564166
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 1,
+      "variance": 9,
+      "continuousMoments": [
+        1.0,
+        9.000000000000014,
+        161.99999998836992
+      ],
+      "zeroMass": 0
+    },
+    {
+      "gamma": 4,
+      "variance": 0.25,
+      "continuousMoments": [
+        0.24999999999999373,
+        0.25000000000000006,
+        0.3125000000000004
+      ],
+      "zeroMass": 0.75
+    },
+    {
+      "gamma": 4,
+      "variance": 1,
+      "continuousMoments": [
+        0.24999999999999373,
+        1.0000000000000002,
+        5.000000000000006
+      ],
+      "zeroMass": 0.75
+    },
+    {
+      "gamma": 4,
+      "variance": 9,
+      "continuousMoments": [
+        0.24999999999999373,
+        9.000000000000016,
+        405.0000000000006
+      ],
+      "zeroMass": 0.75
+    }
+  ],
+  "twoLevelGapChecks": [
+    {
+      "gap": 0.1,
+      "cdf": 0.0012492190754191338
+    },
+    {
+      "gap": 1,
+      "cdf": 0.11750309741540459
+    },
+    {
+      "gap": 3,
+      "cdf": 0.6753475326416503
+    },
+    {
+      "gap": 8,
+      "cdf": 0.9996645373720975
+    }
+  ],
+  "workedSpike": {
+    "gamma": 0.25,
+    "population": 2,
+    "sampleLimit": 2.5,
+    "squaredAlignmentLimit": 0.6
+  }
+}

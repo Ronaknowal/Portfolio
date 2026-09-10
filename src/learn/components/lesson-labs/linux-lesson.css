@@ -1,0 +1,45 @@
+.linux-lesson .linux-deeper { margin: 22px 0; border-block: 1px solid #39362d; padding: 4px 0; }
+.linux-lesson .linux-deeper > summary { cursor: pointer; color: #e2b55a; padding: 12px 0; min-height: 44px; line-height: 1.5; }
+.linux-lesson .linux-deeper[open] > summary { margin-bottom: 10px; }
+.linux-lesson .linux-deeper > :last-child { margin-bottom: 18px; }
+.linux-lesson .linux-command { white-space: pre-wrap; overflow-wrap: anywhere; color: #e5c67f; font-size: 14px; line-height: 1.7; background: #161510; padding: 14px; border: 1px solid #39362d; }
+.linux-diagram-label { display: block; font-size: 11px; letter-spacing: .09em; color: #c4b693; margin-bottom: 10px; }
+.linux-static-diagram { margin: 24px 0; padding: 24px 0; border-block: 1px solid #39362d; }
+.linux-static-diagram figcaption { margin-bottom: 20px; font-size: 17px; }
+.linux-inheritance { display: grid; grid-template-columns: 1fr .65fr 1fr; align-items: start; gap: 16px; }
+.linux-inheritance > div:not(.linux-inheritance__arrow) { border-top: 2px solid #e2b55a; padding-top: 14px; min-width: 0; }
+.linux-inheritance code { overflow-wrap: anywhere; }
+.linux-inheritance p { margin: 10px 0; }
+.linux-inheritance__arrow { text-align: center; color: #e2b55a; padding-top: 36px; }
+.linux-inheritance__arrow small { display: block; color: #bfb9ac; font-size: 12px; line-height: 1.6; }
+.linux-process__relationship { display: grid; grid-template-columns: 1fr .65fr 1fr; align-items: center; gap: 10px; margin: 24px 0; }
+.linux-process__parent, .linux-process__child { display: grid; gap: 5px; padding: 18px; border: 1px solid #655b43; background: #171610; min-width: 0; }
+.linux-process__child--ready { border-style: dashed; background: transparent; }
+.linux-process__child--stopped { border-color: #e2b55a; border-width: 2px; }
+.linux-process__child--exited, .linux-process__child--collected { background: #15201a; border-color: #88bea0; }
+.linux-process__connection { color: #e2b55a; text-align: center; font-size: 13px; }
+.linux-flow-narrow { display: none; }
+.linux-process .lesson-controls { gap: 8px; }
+.linux-process .lesson-controls button { font-size: 13px; }
+.linux-process .lesson-controls button:disabled { opacity: .46; cursor: not-allowed; }
+.linux-process__history { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-left: 22px; font-size: 13px; }
+.linux-links-map { display: grid; grid-template-columns: 1fr 40px 1.3fr; gap: 12px; align-items: center; }
+.linux-links-map__names { display: grid; gap: 20px; }
+.linux-links-map__names code { padding: 8px; border-bottom: 1px solid #655b43; }
+.linux-links-map__arrow { color: #e2b55a; font-size: 30px; line-height: 1.8; }
+.linux-links-map__file { display: grid; gap: 8px; border: 1px solid #655b43; padding: 18px; }
+.linux-links-map__shortcut { padding-top: 16px; border-top: 1px dashed #655b43; }
+.linux-mission { margin: 24px 0; border: 1px solid #655b43; padding: clamp(14px, 3vw, 24px); background: #12110e; }
+.linux-mission > h3 { color: #efefef; margin-top: 0; }
+.linux-mission details > summary { cursor: pointer; padding: 12px 0; color: #e2b55a; min-height: 44px; }
+.linux-mission li { margin: 8px 0; }
+@media (max-width: 650px) {
+  .linux-flow-wide { display: none; }
+  .linux-flow-narrow { display: inline; }
+  .linux-inheritance, .linux-process__relationship { grid-template-columns: 1fr; }
+  .linux-inheritance__arrow { padding: 0; text-align: left; border-left: 2px solid #e2b55a; padding-left: 14px; }
+  .linux-process__connection { text-align: left; border-left: 2px solid #e2b55a; padding-left: 14px; }
+  .linux-links-map { grid-template-columns: 1fr 24px 1.1fr; gap: 5px; font-size: 13px; }
+  .linux-links-map__file { padding: 10px; overflow-wrap: anywhere; }
+  .linux-links-map__arrow { font-size: 23px; }
+}

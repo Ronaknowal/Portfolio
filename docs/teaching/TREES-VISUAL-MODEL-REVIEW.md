@@ -1,0 +1,53 @@
+# Trees: visual and model contract
+
+Reviewed 10 September 2026 for `trees-binary-search-trees`. This is implementation evidence, read alongside the [lesson design](TREES-LESSON-DESIGN.md) and current teaching standard. It does not set a fixed number of visuals for other topics.
+
+## Learning hurdles and chosen representations
+
+| Hurdle | Representation and purpose | Why this format |
+| --- | --- | --- |
+| A tree branches; a binary tree is not automatically ordered. | `TreeAnatomyFigure`: actual sample child links, L/R edge labels, root/leaf/depth/height explanation immediately beside the picture. | The learner needs simultaneous topology before algorithm controls. A static figure is sufficient. |
+| A search comparison eliminates a whole subtree, while ancestor restrictions persist. | `TreeSearchLab`: pointer-derived tree, highlighted comparison path, strict lower/upper interval, comparison count, sample/ascending/custom insertion orders, search or insertion. | Changing the target or insertion order should change the path and cost. A plain output box would hide the excluded branches and inherited interval. |
+| Entering a recursive call differs from emitting its key; breadth-first work uses a different frontier. | `TreeTraversalLab`: fixed tree, four traversal choices, actual call frames or FIFO queue, separate emitted-key sequence. | Linked topology/frontier/output expose the mechanism and allow an exact prediction. The four modes share an appropriate representation because the topology stays fixed. |
+| Deletion edits references and may preserve target identity while replacing its key. | `TreeDeletionLab`: target and successor identities, leaf/one-child/two-child investigations, intermediate key-copy state and final rewiring, exact links table. | State-derived edges reveal a lost subtree or wrong replacement. The successor-with-right-child fixture makes a normally hidden edge case inspectable. |
+| Checking only a parent can accept an invalid BST. | `TreeBoundsFigure`: deliberately invalid `10 → left 5 → right 12`, accompanied by the inherited interval `5 < key < 10`. | A compact counterexample makes the global rule concrete; additional controls add no value to this proof. |
+| A rotation changes shape without changing sorted order. | `TreeRotationFigure`: simultaneous before/after right rotation with the transferred subtree rooted at 25 highlighted and both inorder sequences shown. | Comparing complete pointer structures is clearer than an unexplained animation or a generic slider. The figure states that a rotation alone is not a balancing policy. |
+
+The lesson also contains a separate expression-tree figure owned by the lesson author. These six exports cover different difficulties, not a quota or a requirement to repeat these formats elsewhere.
+
+## Shared data and visual encoding
+
+Source: [tree-models.js](../../src/learn/data/tree-models.js), [TreeLabs.jsx](../../src/learn/components/lesson-labs/TreeLabs.jsx), [scoped stylesheet](../../src/learn/components/lesson-labs/tree-labs.css). No mathematical rendering engine is required.
+
+- A model is `{rootId, nodes: [{id, key, leftId, rightId}], nextId}`. Node IDs `n1`, `n2`, … are stable identities; the large number inside each circle is its key. Successful insertion allocates a fresh ID; ignored duplicates and deletion allocate none.
+- Default insertion order: `[8, 3, 10, 1, 6, 14, 4, 7, 13]`. This gives nine nodes, four leaves, height three and diameter six. Height and diameter count edges. Empty height is −1; a leaf's height is zero; empty diameter is zero by convention.
+- Each edge comes from a real `leftId` or `rightId`. Inorder rank sets horizontal position and depth sets vertical position. Layout changes are diagram organization, not memory relocation or physical key distance. Edge letters supplement color. The SVG's accessible description names the root, every key, every child and each depth.
+- Amber indicates the current action. Target identity has an extra dotted ring; a successor has a dashed outline. Text readouts name both roles. Traversal output is separately labelled and numbered; color is never the only encoding of membership or order.
+- Interactive diagrams have an Enlarge/Fit control, keyboard-scrollable enlarged region and an exact keys/links/depths HTML table. Static figures have readable prose and complete SVG descriptions. Mobile review identified tiny overlapping anatomy annotations: their information was moved into the caption, and narrow static key/edge labels enlarged.
+
+## Interaction contracts
+
+**Search and insertion.** Start with target 7 and the sample. Predict `8 → 3 → 6 → 7`, then step. Switch to target 14 and compare sample versus ascending insertion: three versus nine node comparisons, while height changes from three to eight. Insert 5 to see the interval `(4, 6)` and one new leaf; insert 6 to see duplicate-ignore behavior. Empty-tree search has zero node comparisons. Draft input applies only through its explicit Build/Trace action. Invalid tree or target input preserves the active tree and trace, including when a preset is pressed with an invalid target. Each operation starts from the last built tree; insertion edits the trace result rather than silently changing the saved insertion order. Back replays the prior snapshot; Reset restores sample/search/7.
+
+**Traversal.** The fixed sample makes output orders directly comparable. A DFS frontier contains nonempty recursive calls from bottom to top; the UI presents top first and records what the caller resumes after. Immediate calls on empty references are omitted explicitly. The queue presents front first, enqueues left before right and distinguishes dequeuing from emitting. Each key is emitted once. Inorder is sorted; the other orders follow their specified visit positions. Output storage is displayed separately from auxiliary frontier storage. Changing traversal resets to its starting frame; Reset restores inorder.
+
+**Deletion.** The default deletes 8. A two-child deletion copies successor key 10 into target identity n1, then removes successor identity n3 and reconnects its right child n6. The key-copy snapshot intentionally contains a duplicate and is visibly marked as intermediate; it must not be used as a completed ordered set. The deeper fixture `[20, 10, 40, 30, 50, 35]`, deleting 20, copies 30 into n1 and reconnects the successor's right child 35/n6 at 40/n3's left link. Other presets cover a one-node tree, a root with one child and an empty tree. Editable keys allow leaf, one-child, two-child and absent-key comparisons within the sample. Input applies through Trace deletion; each run starts from its preset. Reset restores sample/delete 8. Other correct implementations transplant node objects; this lab explicitly models key-copy semantics.
+
+**Rotation.** Before insertion order `[30, 20, 40, 10, 25]` becomes a right rotation around root 30. Identity n2/key20 is promoted; n1/key30 becomes its right child; transferred n5/key25 becomes 30's left child. Inorder remains `10, 20, 25, 30, 40`. Neither key data nor identities change. The figure does not imply that one arbitrary rotation fully balances a tree.
+
+## Accuracy, provenance and limits
+
+The model computes exact operations on small integer fixtures; geometry is derived from those operations. There are no measured timings, invented benchmark points, stochastic simulations or generated images. UI limits are at most 12 comma-separated entries, at most 12 visible nodes, and integer keys −99 through 99. Blank insertion order builds an empty tree. Duplicate entries are accepted and ignored. A size-limit message is a browser investigation limit, not a BST restriction. The model does not run arbitrary learner Python, model physical allocation costs, reclaim memory, handle concurrent access or implement a balancing algorithm.
+
+[Princeton Algorithms, Binary Search Trees](https://algs4.cs.princeton.edu/32bst/) was reviewed for strict global subtree ordering, search/insertion paths, height-dependent cost, inorder traversal and successor deletion. Its illustrated implementation transplants the successor; this lesson's explicit key-copy implementation preserves a different target identity while producing the same ordered key set. The native Python examples and independent checks establish the specific implementation's behavior. No claim of average logarithmic cost is inferred from the small sample: ascending insertion demonstrates the linear-height counterexample.
+
+The model's array lookup helper and SVG layout are implementation conveniences. Displayed node comparison counts count the conceptual BST search comparisons only; they are not JavaScript operation counts or wall-clock benchmarks.
+
+## Verification
+
+- `node scripts/verify-tree-models.mjs` passes 2,190 traversal/insertion/deletion cases. It covers all 120 insertion permutations of five distinct keys using an independent nested-node reference built by recursive partition; expected key sets use sorting/set semantics. It checks all four traversal outputs, ancestor-bound search paths, height, mutation purity, duplicate/absent behavior, deletion identity and transient states, direct/deeper successor right-child preservation, root leaf/one-child/two-child cases, layout-edge correspondence, rotation conservation, input parsing and the browser size bound.
+- The validator checks global ancestor bounds and structure. Negative tests reject a parent-only false positive, cycles/shared children, dangling references, unreachable nodes, repeated IDs and duplicate keys. It does not silently validate intermediate key-copy state as a completed BST.
+- The owned JSX parses with the repository's Babel parser. Full application build/publication and native Python example/oracle checks are coordinated by the parent lesson author; their evidence belongs to the integrated Trees lesson record.
+- [Integrated native/browser verification](TREES-VERIFICATION.md) passed at 1440px and 390px: 53 search/insertion states, all four traversal traces and nine deletion cases, keyboard controls, disclosures, invalid-input preservation and no page/lab overflow or page errors. [Browser results](../../scratch/tree-lesson-review/results.json) retain the observed run. Additional 320px anatomy/rotation screenshots confirmed the annotation fix. The coordinating author also shortened target/successor labels inside the SVG to IDs, preserving their roles in adjacent readouts; [the targeted recheck](../../scratch/tree-lesson-review/deletion-label-recheck.json) confirmed no overlap at 1440px/390px. No browser-review blocker remains.
+
+Implementation and author verification do not constitute an observed beginner learning study.

@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-09-10T14:13:12.002Z",
+  "status": "author-verified",
+  "verificationRecord": "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md",
+  "source_sha256": {
+    "src/learn/data/topics/probability-distributions-bayes-theorem.jsx": "a64788c0a9679e92f52ac739bb424f89b9d705599a3939c120b778fbef5c3664",
+    "src/learn/data/probability-distributions-models.js": "6cacb671c8a46701780ef98a4d2c70fe1c1981737544342f47dae76f6411e60e",
+    "src/learn/data/probability-distributions-examples.js": "b3bdfe47ea5c5934aced2722dcbaa2d9379820e69c305ce45db772584f5e5a3a",
+    "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee",
+    "src/learn/components/lesson-labs/probability-distributions-labs.css": "8be2293f8dbdc0c19322ceacad35b8a4be3dd91f481eb181430c3c6d26bb2e55",
+    "src/learn/data/curriculum/blueprints/probability-distributions-bayes-theorem.js": "1c57bb7af95d959272ce9d0afcfa88843fb0a7756b75bd565ef0fa67e2407a6a"
+  }
+}

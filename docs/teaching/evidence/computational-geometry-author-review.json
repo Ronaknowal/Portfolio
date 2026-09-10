@@ -1,0 +1,312 @@
+{
+  "topic_id": "computational-geometry-robust-predicates-convex-hulls",
+  "status": "author-verified; root integration and user acceptance separate",
+  "frozen_at": "2026-09-10T13:19:54.115494+00:00",
+  "source_sha256": {
+    "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx": "86cd3e801ab261c58bacad0e09a223ce300723f117ba6eaa532368fed258dd38",
+    "src/learn/data/computational-geometry-models.js": "cdeec084e7c77f7f0de5c8c8453a9086b47b409a5ee9e2710725670f1b3d615d",
+    "src/learn/data/computational-geometry-examples.js": "0604ad285016a72363515606af24476f96b4213d38c43a25789f99f4599a7ff4",
+    "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx": "a85fbb1a956b332d0f53fd6e5cce2cf4650440a7d0d18787deec13a365a6d7a8",
+    "src/learn/data/curriculum/blueprints/computational-geometry-robust-predicates-convex-hulls.js": "f69e07cfaa26fdf83ee1305ace9be8a2a29e9ae3b2631c786c7adb28a3f09baa",
+    "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js": "f7928a09ffc52455ff9824848c80e36b466bf9d5eaab9acbf5c2bcf3f2db0626",
+    "src/learn/components/lesson-labs/computational-geometry-labs.css": "ead0b07c205c062192f73b2dec0a003fd7da47fea301648d4667b55a41f81a41"
+  },
+  "native": {
+    "status": "passed",
+    "checked_at": "2026-09-10T13:02:19.938723+00:00",
+    "python": "3.12.14",
+    "exact_stdout_programs": 8,
+    "orientation_cases": 829,
+    "segment_fraction_oracle_cases": 6561,
+    "hull_supporting_oracle_cases_both_policies": 1224,
+    "polygon_vertical_winding_and_signed_fan_cases": 648,
+    "precision_cases": 5,
+    "invalid_model_cases": 9,
+    "native_line_group_bruteforce_cases": 200,
+    "independent_practice_groups": 6,
+    "source_sha256": {
+      "src\\learn\\data\\computational-geometry-models.js": "cdeec084e7c77f7f0de5c8c8453a9086b47b409a5ee9e2710725670f1b3d615d",
+      "src\\learn\\data\\computational-geometry-examples.js": "0604ad285016a72363515606af24476f96b4213d38c43a25789f99f4599a7ff4"
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T13:14:15.200Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-make-a-geometric-decision",
+            "top": 100.25
+          },
+          {
+            "href": "#2-test-segments-with-a-boundary-contract",
+            "top": 99.796875
+          },
+          {
+            "href": "#3-keep-the-sign-reliable",
+            "top": 99.59375
+          },
+          {
+            "href": "#4-wrap-a-point-set-with-a-convex-hull",
+            "top": 100.03125
+          },
+          {
+            "href": "#5-query-a-polygon-without-erasing-its-shape",
+            "top": 100.1875
+          },
+          {
+            "href": "#6-use-the-geometry-with-a-clear-contract",
+            "top": 100.21875
+          },
+          {
+            "href": "#7-practise-changed-geometric-cases",
+            "top": 100.46875
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 90.234375
+          }
+        ],
+        "orientations": 10,
+        "segments": 6,
+        "precisions": 5,
+        "hullFrames": 35,
+        "hullContracts": 10,
+        "polygonEdges": 90,
+        "examples": [
+          "turnAndArea",
+          "segments",
+          "precision",
+          "rationalIntersection",
+          "monotoneHull",
+          "polygonQuery",
+          "supportAndBounds",
+          "lineGroups"
+        ],
+        "images": [
+          "orientation-1440.png",
+          "segments-overlap-1440.png",
+          "segments-point-1440.png",
+          "precision-products-1440.png",
+          "precision-input-1440.png",
+          "concave-envelope-1440.png",
+          "hull-fence-1440.png",
+          "hull-pop-1440.png",
+          "hull-line-1440.png",
+          "hull-edge-coordinates-1440.png",
+          "polygon-opening-1440.png",
+          "polygon-boundary-1440.png",
+          "intro-1440.png",
+          "sources-1440.png"
+        ],
+        "svgTextOutsideViewBox": []
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-make-a-geometric-decision",
+            "top": 99.90625
+          },
+          {
+            "href": "#2-test-segments-with-a-boundary-contract",
+            "top": 100.140625
+          },
+          {
+            "href": "#3-keep-the-sign-reliable",
+            "top": 99.59375
+          },
+          {
+            "href": "#4-wrap-a-point-set-with-a-convex-hull",
+            "top": 99.703125
+          },
+          {
+            "href": "#5-query-a-polygon-without-erasing-its-shape",
+            "top": 100.203125
+          },
+          {
+            "href": "#6-use-the-geometry-with-a-clear-contract",
+            "top": 99.984375
+          },
+          {
+            "href": "#7-practise-changed-geometric-cases",
+            "top": 100.171875
+          },
+          {
+            "href": "#guided-dsa-practice",
+            "top": 90.34375
+          }
+        ],
+        "orientations": 10,
+        "segments": 6,
+        "precisions": 5,
+        "hullFrames": 35,
+        "hullContracts": 10,
+        "polygonEdges": 90,
+        "examples": [
+          "turnAndArea",
+          "segments",
+          "precision",
+          "rationalIntersection",
+          "monotoneHull",
+          "polygonQuery",
+          "supportAndBounds",
+          "lineGroups"
+        ],
+        "images": [
+          "orientation-390.png",
+          "segments-overlap-390.png",
+          "segments-point-390.png",
+          "precision-products-390.png",
+          "precision-input-390.png",
+          "concave-envelope-390.png",
+          "hull-fence-390.png",
+          "hull-pop-390.png",
+          "hull-line-390.png",
+          "hull-edge-coordinates-390.png",
+          "polygon-opening-390.png",
+          "polygon-boundary-390.png",
+          "intro-390.png",
+          "sources-390.png"
+        ],
+        "svgTextOutsideViewBox": []
+      }
+    ],
+    "errors": []
+  },
+  "ordinary_reading": {
+    "checkedAt": "2026-09-10T13:16:11.363Z",
+    "results": [
+      {
+        "width": 1440,
+        "captures": [
+          "detail-calculation-1440.png",
+          "detail-hull-invariant-1440.png",
+          "detail-ray-rule-1440.png",
+          "detail-python-program-1440.png",
+          "detail-python-output-1440.png",
+          "detail-sources-1440.png"
+        ],
+        "nativeCodeOverflow": {
+          "client": 758,
+          "scroll": 758,
+          "mode": "auto"
+        }
+      },
+      {
+        "width": 390,
+        "captures": [
+          "detail-calculation-390.png",
+          "detail-hull-invariant-390.png",
+          "detail-ray-rule-390.png",
+          "detail-python-program-390.png",
+          "detail-python-output-390.png",
+          "detail-sources-390.png"
+        ],
+        "nativeCodeOverflow": {
+          "client": 348,
+          "scroll": 583,
+          "mode": "auto"
+        }
+      },
+      {
+        "width": 320,
+        "captures": [
+          "detail-calculation-320.png",
+          "detail-hull-invariant-320.png",
+          "detail-ray-rule-320.png",
+          "detail-python-program-320.png",
+          "detail-python-output-320.png",
+          "detail-sources-320.png",
+          "detail-edge-point-labels-320.png",
+          "detail-exact-input-320.png"
+        ],
+        "nativeCodeOverflow": {
+          "client": 278,
+          "scroll": 583,
+          "mode": "auto"
+        }
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T13:13:43.521Z",
+    "files": [
+      "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+      "src/learn/data/computational-geometry-models.js",
+      "src/learn/data/computational-geometry-examples.js",
+      "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx",
+      "src/learn/data/curriculum/blueprints/computational-geometry-robust-predicates-convex-hulls.js",
+      "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js",
+      "src/learn/components/lesson-labs/computational-geometry-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "actually_opened_images": [
+    "orientation-1440.png",
+    "orientation-390.png",
+    "segments-point-1440.png",
+    "segments-overlap-390.png",
+    "precision-input-1440.png",
+    "precision-products-390.png",
+    "precision-input-390.png",
+    "hull-fence-1440.png",
+    "hull-fence-390.png",
+    "hull-pop-390.png",
+    "hull-edge-coordinates-390.png",
+    "polygon-boundary-1440.png",
+    "polygon-boundary-390.png",
+    "polygon-opening-390.png",
+    "concave-envelope-1440.png",
+    "concave-envelope-390.png",
+    "intro-390.png",
+    "detail-sources-390.png",
+    "detail-calculation-320.png",
+    "detail-hull-invariant-390.png",
+    "detail-ray-rule-390.png",
+    "detail-python-program-1440.png",
+    "detail-python-output-390.png",
+    "detail-edge-point-labels-320.png",
+    "detail-exact-input-320.png",
+    "reading-1-390.png",
+    "reading-2-390.png",
+    "reading-3-390.png",
+    "reading-4-390.png",
+    "reading-5-390.png",
+    "reading-6-390.png",
+    "reading-7-390.png",
+    "reading-8-390.png",
+    "reading-1-1440.png",
+    "reading-4-1440.png",
+    "reading-5-1440.png",
+    "reading-8-1440.png"
+  ],
+  "repairs": [
+    "Centered point labels so nearby B and D remain visually separate; coincident labels stay grouped.",
+    "Reset crossing restores both the original points and endpoint D selection.",
+    "Replaced inline Code helper in the first worked determinant calculation with a scoped multiline calculation; verified at 1440,390,320.",
+    "Strengthened browser assertions for all six local hidden-answer groups and the optional LeetCode direction-grouping stage."
+  ],
+  "independent_root_review": {
+    "status": "no actionable source/proof defect reported before freeze",
+    "scope": "all-boundary monotone chain, half-open polygon crossing/area, precision/construction, support application, canonical line keys and changed local practice",
+    "limit": "source/proof review, not additional numerical tests; root will preserve a separate final-fingerprint record"
+  },
+  "research": {
+    "checked_on": "2026-09-10",
+    "record": "docs/teaching/COMPUTATIONAL-GEOMETRY-LESSON-DESIGN.md",
+    "official_leetcode_ids": [
+      1037,
+      1232,
+      812,
+      836,
+      587,
+      149
+    ],
+    "alternate_video": "MIT6.046 lecture2 official page, hull notes pages1–3 and opening hull transcript inspected; no full playback",
+    "written": "Shewchuk author page; CGAL6.2.1 Kernel, Convex Hull2 and Polygon manual contracts; Python Fraction constructors",
+    "limits": "No CGAL execution, LeetCode submission/editorial verification, timing benchmark, production adaptive-predicate implementation or novice study claimed."
+  }
+}

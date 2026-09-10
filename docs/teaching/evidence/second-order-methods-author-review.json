@@ -1,0 +1,13 @@
+{
+  "frozenAt": "2026-09-10T13:01:17.487Z",
+  "files": {
+    "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "531411b6eb84162625f9fbbc23212dd331d2c43c0124d6829393aaf9db3f5432",
+    "src/learn/data/second-order-methods-models.js": "591e3c4a14c775a8743f37c8975b81ef7cebb818ce60839ef4e1b10920bd2bae",
+    "src/learn/data/second-order-methods-examples.js": "1ef99b964aa721ded6e803c8a80708c8136b03aa9f0c58280cce603b742e5396",
+    "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx": "c3310642673fb30bae1a4202706be8c666ed55cb11a951bb8fc409c85b7c6b63",
+    "src/learn/components/lesson-labs/second-order-methods-labs.css": "34828d0c001197acce6d67152581e87b3c75f8acaf2de284980395bbce09fa5c",
+    "src/learn/data/curriculum/blueprints/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.js": "8699bfb23a6d432324b10bc6b632ad7dfa1325eba6aae0c8bb9208c4342d0c5c"
+  },
+  "verificationRecord": "docs/teaching/SECOND-ORDER-METHODS-VERIFICATION.md",
+  "status": "author-verified"
+}

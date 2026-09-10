@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "reviewed_at": "2026-09-10T12:35:28.394807+00:00",
+  "review_type": "Independent mathematical draft review; not final source freeze or browser evidence",
+  "model_sha256_at_review": "591e3c4a14c775a8743f37c8975b81ef7cebb818ce60839ef4e1b10920bd2bae",
+  "case_counts": {
+    "secant": 16,
+    "fisher": 6,
+    "shampoo": 9,
+    "natural": 6,
+    "newton": 4,
+    "curvature": 4
+  },
+  "exact_or_changed_hand_exercises": 6,
+  "seventh_exercise": "Reviewed experiment requirements; author preparing worked native comparison separately",
+  "maximum_absolute_errors": {
+    "inverse from Hessian BFGS": 1.1102230246251565e-16,
+    "two-loop versus Hessian solve": 1.6653345369377348e-16,
+    "newest inverse secant": 2.220446049250313e-16,
+    "finite-difference joint score Fisher": 4.732214620162267e-11,
+    "finite-difference supervised column order": 3.719669017243632e-11,
+    "finite-difference Fisher direction": 1.305868746470651e-10,
+    "factor damping cross terms": 8.881784197001252e-16,
+    "column-major two-factor inverse": 1.1102230246251565e-16,
+    "constant covariance exactness": 0,
+    "Shampoo NumPy spectral left root": 6.661338147750939e-16,
+    "Shampoo NumPy spectral right root": 1.1102230246251565e-16,
+    "fourth-root inverse residual": 1.4432899320127035e-15,
+    "Shampoo direction": 4.440892098500626e-16,
+    "orthogonal row equivariance": 4.440892098500626e-16,
+    "Bernoulli model expectation": 8.881784197001252e-16,
+    "natural tangent mapping": 1.1102230246251565e-16,
+    "natural direct endpoint": 0,
+    "natural logit endpoint": 0,
+    "Bernoulli actual KL": 0,
+    "GD matrix power": 6.106226635438361e-16,
+    "coupled Newton solve": 4.884981308350689e-15,
+    "damped Newton solve": 5.551115123125783e-17,
+    "nonlinear loss along fixed direction": 0,
+    "practice 1 coupled solve": 4.440892098500626e-16,
+    "practice 3 secant": 0,
+    "practice 3 descent": 0,
+    "practice 6 spectral transform": 0
+  },
+  "limitations": [
+    "Finite fixtures complement, not replace, author native and browser verification.",
+    "No final hash assertion: author source remains under active review."
+  ]
+}

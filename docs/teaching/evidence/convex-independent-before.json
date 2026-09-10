@@ -1,0 +1,119 @@
+{
+  "reviewedAt": "2026-09-10T10:31:44.652Z",
+  "scope": "Finite independent source/math review, not a replacement for the author browser/native record.",
+  "ridge": [
+    {
+      "penalty": 0,
+      "reportedUnique": false,
+      "expectedUnique": false,
+      "reportedCurvature": 0,
+      "expectedCurvature": 0,
+      "reportedOptimum": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "expectedCoefficient": 0.8333333333333334
+    },
+    {
+      "penalty": 1e-16,
+      "reportedUnique": false,
+      "expectedUnique": true,
+      "reportedCurvature": 0,
+      "expectedCurvature": 2e-16,
+      "reportedOptimum": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "expectedCoefficient": 0.8333333333333334
+    },
+    {
+      "penalty": 1e-13,
+      "reportedUnique": false,
+      "expectedUnique": true,
+      "reportedCurvature": 1.9984014443252818e-13,
+      "expectedCurvature": 2e-13,
+      "reportedOptimum": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "expectedCoefficient": 0.8333333333333194
+    },
+    {
+      "penalty": 1e-12,
+      "reportedUnique": true,
+      "expectedUnique": true,
+      "reportedCurvature": 2.000177801164682e-12,
+      "expectedCurvature": 2e-12,
+      "reportedOptimum": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "expectedCoefficient": 0.8333333333331945
+    },
+    {
+      "penalty": 1e-10,
+      "reportedUnique": true,
+      "expectedUnique": true,
+      "reportedCurvature": 2.000000165480742e-10,
+      "expectedCurvature": 2e-10,
+      "reportedOptimum": [
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "expectedCoefficient": 0.8333333333194445
+    },
+    {
+      "penalty": 1e-8,
+      "reportedUnique": true,
+      "expectedUnique": true,
+      "reportedCurvature": 1.999999987845058e-8,
+      "expectedCurvature": 2e-8,
+      "reportedOptimum": [
+        0.8333333481363071,
+        0.8333333481363071
+      ],
+      "expectedCoefficient": 0.8333333319444445
+    },
+    {
+      "penalty": 0.1,
+      "reportedUnique": true,
+      "expectedUnique": true,
+      "reportedCurvature": 0.20000000000000018,
+      "expectedCurvature": 0.2,
+      "reportedOptimum": [
+        0.8196721311475393,
+        0.8196721311475393
+      ],
+      "expectedCoefficient": 0.819672131147541
+    }
+  ],
+  "continuousCertificateCases": {
+    "allocation": {
+      "candidate": [
+        2.50000000005,
+        1.5
+      ],
+      "reportedFeasible": true,
+      "actualViolation": 5.000000413701855e-11,
+      "candidateCost": 2.249999999925,
+      "actualOptimalCost": 2.25
+    },
+    "threshold": {
+      "reportedStationary": true,
+      "candidate": 5e-11,
+      "subgradient": [
+        5e-11,
+        5e-11
+      ],
+      "exactOptimum": 0
+    }
+  },
+  "independentNative": {
+    "exactTVCertificates": [
+      "137/150",
+      "15/8"
+    ],
+    "exactOriginalRidgeObjective": "35/41",
+    "weightedFeasibleCertificateChecks": 6390
+  }
+}

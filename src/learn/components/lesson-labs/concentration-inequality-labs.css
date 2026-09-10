@@ -1,0 +1,368 @@
+.concentration-lab {
+  margin: 2rem 0;
+  padding: clamp(.8rem, 2vw, 1.4rem);
+  background: #101612;
+  border: 1px solid #495549;
+  border-radius: 5px;
+  min-width: 0;
+}
+
+.concentration-lab h3 {
+  margin-top: 0;
+}
+
+.concentration-lab p {
+  line-height: 1.7;
+}
+
+.concentration-lab > button + p {
+  margin-top: .9rem;
+}
+
+.concentration-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem 1rem;
+  margin: 1.2rem 0;
+}
+
+.concentration-controls label {
+  flex: 1 1 190px;
+}
+
+.concentration-lab label {
+  display: grid;
+  gap: .5rem;
+  min-width: 0;
+  font-size: .93rem;
+  color: #dbe2d4;
+}
+
+.concentration-lab select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: .5rem;
+  background: #1b241b;
+  color: #eee3c8;
+  border: 1px solid #748170;
+  font: inherit;
+}
+
+.concentration-lab input[type="range"] {
+  width: 100%;
+  min-height: 34px;
+  accent-color: #dfbb76;
+}
+
+.concentration-lab button {
+  min-height: 44px;
+  padding: .55rem .75rem;
+  color: #ead194;
+  background: #1c2419;
+  border: 1px solid #817655;
+  border-radius: 3px;
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+.concentration-lab button:hover {
+  background: #2b3322;
+}
+
+.concentration-lab :is(button, select, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid #edc47e;
+  outline-offset: 4px;
+}
+
+.concentration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin: 1rem 0;
+}
+
+.concentration-lab figure, .concentration-inline {
+  margin: 1.4rem 0;
+  min-width: 0;
+}
+
+.concentration-lab figcaption, .concentration-inline figcaption {
+  color: #c0cbbb;
+  font-size: .875rem;
+  line-height: 1.7;
+  margin-top: .7rem;
+}
+
+.concentration-plot {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  margin: .7rem auto;
+  overflow: visible;
+}
+
+.concentration-plot text {
+  fill: #d4ddca;
+  font-family: inherit;
+  font-size: 10px;
+}
+
+.concentration-axis {
+  stroke: #8a9882;
+  stroke-width: .8;
+}
+
+.concentration-grid {
+  stroke: #465241;
+  stroke-width: .6;
+  stroke-dasharray: 2 3;
+}
+
+.concentration-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: .9rem 1rem;
+  margin: 1rem 0;
+}
+
+.concentration-facts > div {
+  padding-top: .6rem;
+  border-top: 1px solid #495240;
+  min-width: 0;
+}
+
+.concentration-facts dt {
+  font-size: .81rem;
+  line-height: 1.6;
+  color: #bfcebb;
+}
+
+.concentration-facts dd {
+  margin: .3rem 0 0;
+  color: #edd397;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.concentration-legend {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem 1rem;
+  font-size: .8rem;
+}
+
+.concentration-legend li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  color: #d6dfcf;
+}
+
+.concentration-legend span {
+  display: inline-block;
+  width: 16px;
+  height: 3px;
+  flex: 0 0 16px;
+}
+
+.concentration-table {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.concentration-table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: .86rem;
+}
+
+.concentration-table :is(td, th) {
+  text-align: left;
+  padding: .65rem .5rem;
+  border-bottom: 1px solid #46513d;
+  overflow-wrap: anywhere;
+}
+
+.concentration-table th {
+  color: #d7e0ce;
+  font-weight: 500;
+}
+
+.concentration-table td {
+  color: #efd296;
+  font-variant-numeric: tabular-nums;
+}
+
+.concentration-lab details {
+  margin: 1rem 0;
+}
+
+.concentration-lab summary {
+  cursor: pointer;
+  color: #e9c881;
+  min-height: 44px;
+  padding: .6rem 0;
+}
+
+.concentration-inline h4 {
+  font-size: 1rem;
+  margin: 0 0 .8rem;
+}
+
+.concentration-zero-variance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+}
+
+.concentration-zero-variance p {
+  font-size: .9rem;
+  line-height: 1.7;
+  margin-top: .75rem;
+}
+
+.concentration-zero-variance figcaption {
+  grid-column: 1 / -1;
+}
+
+.concentration-tickets {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+}
+
+.concentration-tickets span {
+  display: grid;
+  place-items: center;
+  min-height: 24px;
+  background: #233023;
+  color: #c4d5be;
+  font-size: .78rem;
+}
+
+.concentration-tickets .is-marked {
+  background: #695426;
+  color: #ffdc89;
+  outline: 1px solid #e8c178;
+}
+
+.concentration-zero-sample {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 1px;
+}
+
+.concentration-zero-sample span {
+  display: grid;
+  place-items: center;
+  min-height: 20px;
+  background: #1c281c;
+  color: #b9cdb1;
+  font-size: .6rem;
+}
+
+.concentration-law-comparison {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.concentration-law-comparison figure {
+  padding-block: 1rem;
+  border-top: 1px solid #56634b;
+  margin: 0;
+}
+
+.concentration-law-comparison h4 {
+  color: #e1e7d7;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.concentration-event {
+  border-block: 1px solid #626345;
+  padding-block: .8rem;
+  color: #efd493;
+}
+
+.concentration-proof-flow ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: proof-step;
+}
+
+.concentration-proof-flow li {
+  display: grid;
+  grid-template-columns: minmax(150px, .7fr) 1.3fr;
+  gap: .5rem 1.2rem;
+  padding: .9rem 0 .9rem 1.2rem;
+  border-left: 2px solid #728468;
+  position: relative;
+  font-size: .93rem;
+  line-height: 1.7;
+}
+
+.concentration-proof-flow li + li::before {
+  content: '↓';
+  position: absolute;
+  left: -.48rem;
+  top: -.6rem;
+  color: #e9c077;
+  background: #0b100c;
+}
+
+.concentration-proof-flow strong {
+  color: #e5ce97;
+}
+
+.concentration-proof-flow span {
+  color: #cbd7c5;
+}
+
+.concentration-proof {
+  margin-block: 1.5rem;
+  padding: .8rem 0;
+  border-block: 1px solid #485441;
+}
+
+.concentration-proof > summary {
+  min-height: 44px;
+  padding-block: .6rem;
+  cursor: pointer;
+  color: #ecd092;
+}
+
+.concentration-proof > summary:focus-visible {
+  outline: 2px solid #edc47e;
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .concentration-proof-flow li {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .concentration-plot text {
+    font-size: 12px;
+  }
+  .concentration-zero-variance {
+    grid-template-columns: 1fr;
+  }
+  .concentration-lab select {
+    font-size: .82rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .concentration-plot text {
+    font-size: 14px;
+  }
+}

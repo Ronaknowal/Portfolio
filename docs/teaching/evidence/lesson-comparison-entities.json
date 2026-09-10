@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-10T14:21:20.701Z",
+  "results": [
+    {
+      "file": "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx",
+      "textNodesEscaped": 1,
+      "beforeSha256": "7c88da6ad04a6e35eb0590a71f65d710d3d2864acbde24f42b3e6e8069dc5790",
+      "afterSha256": "3051164629e9ebcab2de42ad6de094b5d62b378c0a52aaa6c07c7ae883ab236f",
+      "normalizedAstEqual": true
+    },
+    {
+      "file": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+      "textNodesEscaped": 3,
+      "beforeSha256": "e759c9895f04e8b018ec3cbf06d149aadd6e53b759fe2b6b742eb1d53603f4bf",
+      "afterSha256": "410c36f6376fa5b24b70e46429139863c0b4b09938b723d98f3b29d229a61137",
+      "normalizedAstEqual": true
+    },
+    {
+      "file": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+      "textNodesEscaped": 1,
+      "beforeSha256": "21b2e91db9c27a2cc389ca3443eb31bcd0112bc5c91d0ffad7bea96224309201",
+      "afterSha256": "60c6b3a2ec9f590aa4dc67ef3c95b97d49dfee5602d8328b70a2f93ac9f3384f",
+      "normalizedAstEqual": true
+    }
+  ]
+}

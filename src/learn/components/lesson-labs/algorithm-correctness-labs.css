@@ -1,0 +1,93 @@
+.proof-lab, .proof-inline {
+  margin: 1.7rem 0;
+  padding: clamp(.9rem, 2vw, 1.35rem);
+  border: 1px solid color-mix(in srgb, var(--gold, #edc46b) 24%, transparent);
+  background: #12140f;
+  color: #e9e6d8;
+  min-width: 0;
+}
+.proof-inline { background: #0e1415; }
+.proof-lab h3 { margin: 0 0 .75rem; color: #edc46b; }
+.proof-lab p, .proof-inline p { margin: .7rem 0; line-height: 1.6; }
+.proof-lab button, .proof-lab input, .proof-lab select {
+  font: inherit;
+  color: inherit;
+  background: #1d2119;
+  border: 1px solid #77704a;
+  border-radius: 2px;
+  padding: .55rem .7rem;
+  min-height: 44px;
+  max-width: 100%;
+}
+.proof-lab button { cursor: pointer; color: #f3d689; }
+.proof-lab button:disabled { opacity: .45; cursor: default; }
+.proof-lab :focus-visible, .proof-inline :focus-visible { outline: 2px solid #f0ca72; outline-offset: 3px; }
+.proof-inputs, .proof-controls { display: flex; align-items: end; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+.proof-inputs label { display: grid; gap: .3rem; flex: 1 1 140px; min-width: 0; }
+.proof-inputs label:first-child { flex-grow: 2; }
+.proof-inputs input { width: 100%; min-width: 0; box-sizing: border-box; }
+.proof-checkbox { display: flex; gap: .6rem; align-items: center; margin: .8rem 0; }
+.proof-checkbox input { min-height: 22px; width: 22px; flex: 0 0 22px; }
+.proof-lab [role="alert"], .proof-failure { color: #ffb7aa; }
+.proof-state-label { font-weight: 650; font-variant-numeric: tabular-nums; }
+.proof-array-scroll { overflow-x: auto; margin: .6rem 0; padding: .35rem .15rem .65rem; }
+.proof-array { display: flex; gap: 5px; width: max-content; min-width: 100%; align-items: stretch; }
+.proof-array > p { max-width: 290px; }
+.proof-cell { width: 58px; flex: 0 0 58px; padding: .4rem .15rem; text-align: center; border: 1px solid #637167; min-height: 76px; }
+.proof-cell small, .proof-cell strong, .proof-pointer { display: block; }
+.proof-cell strong { font-size: 1.18rem; }
+.proof-cell small { font-size: .7rem; line-height: 1.4; }
+.proof-pointer { color: #ffe7a3; font-size: .7rem; }
+.proof-cell.is-current { outline: 2px solid #e4bd67; outline-offset: 0; }
+.proof-cell.is-known, .proof-zone-key .is-zero, .proof-cell.is-zero { background: #173d2c; }
+.proof-lab .is-unknown { background: #182026; }
+.proof-cell.is-unused { background: repeating-linear-gradient(135deg, #25241c, #25241c 5px, #151711 5px, #151711 10px); }
+.proof-zone-key .is-one, .proof-cell.is-one { background: #343828; }
+.proof-zone-key .is-two, .proof-cell.is-two { background: #27364a; }
+.proof-cell.is-false { background: #492922; }
+.proof-row-label { font-size: .85rem; }
+.proof-checks { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: .8rem 0; }
+.proof-check { line-height: 1.5; }
+.proof-check.is-valid { color: #b3dfbc; }
+.proof-check.is-false { color: #ffb7aa; }
+.proof-obligations { border-top: 1px solid #56553d; margin-top: 1.3rem; padding-top: 1rem; }
+.proof-obligations label { display: grid; gap: .4rem; }
+.proof-obligations dl { margin: 0; }
+.proof-obligations dl > div { border-bottom: 1px solid #454839; padding: .6rem 0; }
+.proof-obligations dt { font-weight: 650; }
+.proof-obligations dd { margin: .25rem 0 0; font-size: .93rem; }
+.proof-lab details { margin-top: 1rem; }
+.proof-lab summary, .correctness-practice summary { cursor: pointer; color: #efcd83; padding: .55rem 0; }
+.proof-zone-key { display: flex; flex-wrap: wrap; gap: .35rem; font-size: .85rem; }
+.proof-zone-key span { padding: .35rem .5rem; border: 1px solid #627064; }
+.proof-division { font-size: clamp(1.3rem, 4vw, 1.9rem); font-variant-numeric: tabular-nums; }
+.proof-remainder-bar { display: flex; height: 27px; border: 1px solid #7d8768; }
+.proof-multiples { background: #699a75; }
+.proof-remainder { background: #d3ae60; border-left: 1px solid #151711; }
+.proof-divisors { display: flex; flex-wrap: wrap; gap: .45rem; }
+.proof-divisors span { border-bottom: 2px solid #a1c09b; padding: .2rem .5rem; font-variant-numeric: tabular-nums; }
+.proof-measure-history { overflow-wrap: anywhere; }
+.proof-flow-entry { border-bottom: 2px solid #c8b276; padding-bottom: .7rem; }
+.proof-flow-branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+.proof-flow-branches > div { display: flex; flex-direction: column; gap: .55rem; border-top: 1px solid #6d846f; padding-top: .7rem; }
+.proof-flow-branches b { font-weight: 550; color: #c8dfbe; }
+.proof-inline figcaption { margin-top: 1rem; line-height: 1.6; font-size: .92rem; }
+.proof-history { border-collapse: collapse; width: 100%; font-size: .9rem; table-layout: fixed; }
+.proof-history caption { text-align: left; margin-bottom: .7rem; font-weight: 600; }
+.proof-history th, .proof-history td { text-align: left; padding: .6rem .4rem; border-bottom: 1px solid #566357; overflow-wrap: anywhere; }
+.proof-descent + .proof-descent { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #566357; }
+.proof-descent p { font-size: 1.08rem; font-variant-numeric: tabular-nums; }
+.proof-contract-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+.proof-contract-comparison > div { display: grid; gap: .35rem; border-top: 1px solid #566357; padding-top: .65rem; }
+.proof-contract-comparison b { font-size: .9rem; font-weight: 550; color: #d8c48d; }
+.correctness-practice { margin: 1.6rem 0; padding-top: 1rem; border-top: 1px solid #534d38; }
+@media (max-width: 600px) {
+  .proof-cell { width: 44px; flex-basis: 44px; }
+  .proof-cell small, .proof-pointer { font-size: .65rem; }
+  .proof-cell strong { font-size: 1.1rem; }
+  .proof-flow-branches { grid-template-columns: 1fr; gap: .7rem; }
+  .proof-history { font-size: .82rem; }
+  .proof-history th, .proof-history td { padding: .5rem .25rem; }
+  .proof-inputs label { flex-basis: 115px; }
+  .proof-obligations dd { font-size: .9rem; }
+}

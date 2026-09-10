@@ -1,0 +1,578 @@
+{
+  "topicId": "f-divergences-integral-probability-metrics",
+  "title": "f-Divergences & Integral Probability Metrics",
+  "modulePosition": 29,
+  "frozenAt": "2026-09-10T18:51:00.172Z",
+  "status": {
+    "authorImplementation": "complete",
+    "authorNativeModel": "passed",
+    "authorActualBrowser": "passed",
+    "independentReview": "parent owns; reported channel-underflow defect repaired and regression checked",
+    "integratedProduction": "parent owns subsequent snapshot",
+    "userAcceptance": "not claimed"
+  },
+  "sourceHashes": [
+    {
+      "file": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "sha256": "7526c9d2895f5164061de7ce26f24b27b0534ee404455f3ee0af5353fe3a0882"
+    },
+    {
+      "file": "src/learn/data/divergence-ipm-models.js",
+      "sha256": "0bd0c775c7b5b27a3d90117d27e3fb615516c64151c2d5c9ff08e63245308ffe"
+    },
+    {
+      "file": "src/learn/data/divergence-ipm-examples.js",
+      "sha256": "2e99f9317c1e13a301349a3e3450d74bd3e8a22e2a42f0cea929fc9feb824057"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx",
+      "sha256": "586ed0bdedec90f73d922c4da12ce4aabf54fd224d1950a17abdeaa14754349b"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/divergence-ipm-labs.css",
+      "sha256": "616b50a7cfce7b315a4b410a3af652b2b34e0310b8aa492f2d7dd15efe64db96"
+    },
+    {
+      "file": "src/learn/data/curriculum/blueprints/f-divergences-integral-probability-metrics.js",
+      "sha256": "11193f06a6e317bc20c51d682cd71a720e575149500e0731b14f729b580a45b5"
+    }
+  ],
+  "originalBody": {
+    "path": "scratch/divergence-ipm-native-verification/original-lesson.jsx",
+    "sha256": "c90f3b99d51419b83b8fd81a2ef8887edb60a46cb4136a8909e8728fd482d042",
+    "originalOutputPreserved": "0.208 0.054 0.3"
+  },
+  "native": {
+    "at": "2026-09-10T18:45:42.199343+00:00",
+    "nativePrograms": [
+      "original",
+      "support",
+      "events",
+      "observers",
+      "kernel",
+      "permutation",
+      "variational",
+      "weights",
+      "stress",
+      "project"
+    ],
+    "python": "3.12.14",
+    "knownLawPairs": 441,
+    "decimalNearEqualityCases": 5,
+    "maximumRelativeNearKlError": 0,
+    "sharedChannels": 89,
+    "observerStates": 252,
+    "independentTransportAndCriticLinearPrograms": 168,
+    "kernelStates": 122,
+    "exactFiniteSampleUnbiasedExpectations": 6,
+    "exactPermutationAllocationsAndRankValidity": 350,
+    "variationalStates": 25,
+    "pointMassDecimalCases": 21,
+    "rejectedInputs": 26,
+    "changedNativeMmdInputs": 15,
+    "changedCompleteNativePermutationRules": 8,
+    "nativeProjectInvalidInputs": 6,
+    "changedNumericalPracticeChecks": 14,
+    "numericalComparisons": 6373,
+    "maximumAbsoluteDifference": 1.4210854715202004e-14
+  },
+  "fullBrowser": {
+    "at": "2026-09-10T18:41:31.971Z",
+    "results": [
+      {
+        "width": 1440,
+        "anchors": [
+          {
+            "href": "#1-ask-what-difference-matters",
+            "exists": true
+          },
+          {
+            "href": "#2-build-a-family-from-probability-ratios",
+            "exists": true
+          },
+          {
+            "href": "#3-turn-discrepancy-into-a-decision",
+            "exists": true
+          },
+          {
+            "href": "#4-choose-what-an-observer-can-see",
+            "exists": true
+          },
+          {
+            "href": "#5-separate-overlap-from-geometric-closeness",
+            "exists": true
+          },
+          {
+            "href": "#6-compare-means-in-a-feature-space",
+            "exists": true
+          },
+          {
+            "href": "#7-separate-a-sample-score-from-a-test",
+            "exists": true
+          },
+          {
+            "href": "#8-build-a-variational-critic",
+            "exists": true
+          },
+          {
+            "href": "#9-test-the-comparison-against-the-real-task",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-changed-laws-and-assumptions",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "The original categorical calculation",
+            "question": "Which mismatch does each of the three numbers describe, and are their scales directly comparable?",
+            "preCount": 2
+          },
+          {
+            "title": "Find the event that separates two sources",
+            "question": "Enumerate every event, calculate optimal equal-prior classification accuracy, and see what merging outcomes loses.",
+            "preCount": 2
+          },
+          {
+            "title": "Keep zero support and metric conventions explicit",
+            "question": "Compare overlapping and disjoint laws. Then test whether JS itself obeys the triangle inequality.",
+            "preCount": 2
+          },
+          {
+            "title": "Construct an optimal one-dimensional Lipschitz critic",
+            "question": "Two laws have the same mean. Can an event test or a slope-limited nonlinear function still distinguish them?",
+            "preCount": 2
+          },
+          {
+            "title": "Calculate kernel pair similarities and the witness",
+            "question": "Detect a variance change despite equal means, then inspect a valid negative unbiased squared estimate.",
+            "preCount": 2
+          },
+          {
+            "title": "Enumerate the entire finite permutation reference",
+            "question": "How unusual is the observed split among all 70 label allocations? If selecting among bandwidths is part of the statistic, repeat that selection for every allocation.",
+            "preCount": 2
+          },
+          {
+            "title": "Measure the gap between a critic and exact KL",
+            "question": "Change a known optimal critic while holding both laws fixed. Then verify the optimal discriminator/JS identity without training a neural network.",
+            "preCount": 2
+          },
+          {
+            "title": "Use chi-square to diagnose an importance proposal",
+            "question": "A proposal underrepresents a rare outcome. What happens to its likelihood-ratio weights and their variance?",
+            "preCount": 2
+          },
+          {
+            "title": "Stress-test a score against a missing rare outcome",
+            "question": "A model omits a 1% event entirely. Which comparisons remain small, and how often does a sample of 20 miss that event even under the true law?",
+            "preCount": 2
+          },
+          {
+            "title": "A complete changed-sample permutation comparison",
+            "question": "Build and check a small reusable exact test. What resolution does a three-versus-three sample permit?",
+            "preCount": 2
+          }
+        ],
+        "mechanisms": [
+          "ratio: six generators; support infinity; draft/apply; rejected literal preserves state; swap; keyboard reset",
+          "observer: zero linear gap versus positive TV/W1; changed pair; reset",
+          "moving atoms: keyboard zero versus positive small displacement; extrema; bandwidth; reset",
+          "kernel: linear blindness; quadratic feature gap; Gaussian witness; negative U; invalid preservation; unequal samples; keyboard Gram scroll; bandwidth; reset",
+          "permutation: exact reference invariant to inspected split; keyboard final allocation; three bandwidths; reset",
+          "variational: exact optimum; constant restriction; negative suboptimal bound; keyboard range extremes; restore"
+        ],
+        "practiceOpened": 20,
+        "geometry": {
+          "page": 1440,
+          "loadedOriginalFont": true,
+          "equationOverflow": [],
+          "svgIssues": [],
+          "shortControls": [],
+          "clippedSelectLabels": []
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "anchors": [
+          {
+            "href": "#1-ask-what-difference-matters",
+            "exists": true
+          },
+          {
+            "href": "#2-build-a-family-from-probability-ratios",
+            "exists": true
+          },
+          {
+            "href": "#3-turn-discrepancy-into-a-decision",
+            "exists": true
+          },
+          {
+            "href": "#4-choose-what-an-observer-can-see",
+            "exists": true
+          },
+          {
+            "href": "#5-separate-overlap-from-geometric-closeness",
+            "exists": true
+          },
+          {
+            "href": "#6-compare-means-in-a-feature-space",
+            "exists": true
+          },
+          {
+            "href": "#7-separate-a-sample-score-from-a-test",
+            "exists": true
+          },
+          {
+            "href": "#8-build-a-variational-critic",
+            "exists": true
+          },
+          {
+            "href": "#9-test-the-comparison-against-the-real-task",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-changed-laws-and-assumptions",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "The original categorical calculation",
+            "question": "Which mismatch does each of the three numbers describe, and are their scales directly comparable?",
+            "preCount": 2
+          },
+          {
+            "title": "Find the event that separates two sources",
+            "question": "Enumerate every event, calculate optimal equal-prior classification accuracy, and see what merging outcomes loses.",
+            "preCount": 2
+          },
+          {
+            "title": "Keep zero support and metric conventions explicit",
+            "question": "Compare overlapping and disjoint laws. Then test whether JS itself obeys the triangle inequality.",
+            "preCount": 2
+          },
+          {
+            "title": "Construct an optimal one-dimensional Lipschitz critic",
+            "question": "Two laws have the same mean. Can an event test or a slope-limited nonlinear function still distinguish them?",
+            "preCount": 2
+          },
+          {
+            "title": "Calculate kernel pair similarities and the witness",
+            "question": "Detect a variance change despite equal means, then inspect a valid negative unbiased squared estimate.",
+            "preCount": 2
+          },
+          {
+            "title": "Enumerate the entire finite permutation reference",
+            "question": "How unusual is the observed split among all 70 label allocations? If selecting among bandwidths is part of the statistic, repeat that selection for every allocation.",
+            "preCount": 2
+          },
+          {
+            "title": "Measure the gap between a critic and exact KL",
+            "question": "Change a known optimal critic while holding both laws fixed. Then verify the optimal discriminator/JS identity without training a neural network.",
+            "preCount": 2
+          },
+          {
+            "title": "Use chi-square to diagnose an importance proposal",
+            "question": "A proposal underrepresents a rare outcome. What happens to its likelihood-ratio weights and their variance?",
+            "preCount": 2
+          },
+          {
+            "title": "Stress-test a score against a missing rare outcome",
+            "question": "A model omits a 1% event entirely. Which comparisons remain small, and how often does a sample of 20 miss that event even under the true law?",
+            "preCount": 2
+          },
+          {
+            "title": "A complete changed-sample permutation comparison",
+            "question": "Build and check a small reusable exact test. What resolution does a three-versus-three sample permit?",
+            "preCount": 2
+          }
+        ],
+        "mechanisms": [
+          "ratio: six generators; support infinity; draft/apply; rejected literal preserves state; swap; keyboard reset",
+          "observer: zero linear gap versus positive TV/W1; changed pair; reset",
+          "moving atoms: keyboard zero versus positive small displacement; extrema; bandwidth; reset",
+          "kernel: linear blindness; quadratic feature gap; Gaussian witness; negative U; invalid preservation; unequal samples; keyboard Gram scroll; bandwidth; reset",
+          "permutation: exact reference invariant to inspected split; keyboard final allocation; three bandwidths; reset",
+          "variational: exact optimum; constant restriction; negative suboptimal bound; keyboard range extremes; restore"
+        ],
+        "practiceOpened": 20,
+        "geometry": {
+          "page": 390,
+          "loadedOriginalFont": true,
+          "equationOverflow": [],
+          "svgIssues": [],
+          "shortControls": [],
+          "clippedSelectLabels": []
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "anchors": [
+          {
+            "href": "#1-ask-what-difference-matters",
+            "exists": true
+          },
+          {
+            "href": "#2-build-a-family-from-probability-ratios",
+            "exists": true
+          },
+          {
+            "href": "#3-turn-discrepancy-into-a-decision",
+            "exists": true
+          },
+          {
+            "href": "#4-choose-what-an-observer-can-see",
+            "exists": true
+          },
+          {
+            "href": "#5-separate-overlap-from-geometric-closeness",
+            "exists": true
+          },
+          {
+            "href": "#6-compare-means-in-a-feature-space",
+            "exists": true
+          },
+          {
+            "href": "#7-separate-a-sample-score-from-a-test",
+            "exists": true
+          },
+          {
+            "href": "#8-build-a-variational-critic",
+            "exists": true
+          },
+          {
+            "href": "#9-test-the-comparison-against-the-real-task",
+            "exists": true
+          },
+          {
+            "href": "#10-practise-changed-laws-and-assumptions",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "The original categorical calculation",
+            "question": "Which mismatch does each of the three numbers describe, and are their scales directly comparable?",
+            "preCount": 2
+          },
+          {
+            "title": "Find the event that separates two sources",
+            "question": "Enumerate every event, calculate optimal equal-prior classification accuracy, and see what merging outcomes loses.",
+            "preCount": 2
+          },
+          {
+            "title": "Keep zero support and metric conventions explicit",
+            "question": "Compare overlapping and disjoint laws. Then test whether JS itself obeys the triangle inequality.",
+            "preCount": 2
+          },
+          {
+            "title": "Construct an optimal one-dimensional Lipschitz critic",
+            "question": "Two laws have the same mean. Can an event test or a slope-limited nonlinear function still distinguish them?",
+            "preCount": 2
+          },
+          {
+            "title": "Calculate kernel pair similarities and the witness",
+            "question": "Detect a variance change despite equal means, then inspect a valid negative unbiased squared estimate.",
+            "preCount": 2
+          },
+          {
+            "title": "Enumerate the entire finite permutation reference",
+            "question": "How unusual is the observed split among all 70 label allocations? If selecting among bandwidths is part of the statistic, repeat that selection for every allocation.",
+            "preCount": 2
+          },
+          {
+            "title": "Measure the gap between a critic and exact KL",
+            "question": "Change a known optimal critic while holding both laws fixed. Then verify the optimal discriminator/JS identity without training a neural network.",
+            "preCount": 2
+          },
+          {
+            "title": "Use chi-square to diagnose an importance proposal",
+            "question": "A proposal underrepresents a rare outcome. What happens to its likelihood-ratio weights and their variance?",
+            "preCount": 2
+          },
+          {
+            "title": "Stress-test a score against a missing rare outcome",
+            "question": "A model omits a 1% event entirely. Which comparisons remain small, and how often does a sample of 20 miss that event even under the true law?",
+            "preCount": 2
+          },
+          {
+            "title": "A complete changed-sample permutation comparison",
+            "question": "Build and check a small reusable exact test. What resolution does a three-versus-three sample permit?",
+            "preCount": 2
+          }
+        ],
+        "mechanisms": [
+          "ratio: six generators; support infinity; draft/apply; rejected literal preserves state; swap; keyboard reset",
+          "observer: zero linear gap versus positive TV/W1; changed pair; reset",
+          "moving atoms: keyboard zero versus positive small displacement; extrema; bandwidth; reset",
+          "kernel: linear blindness; quadratic feature gap; Gaussian witness; negative U; invalid preservation; unequal samples; keyboard Gram scroll; bandwidth; reset",
+          "permutation: exact reference invariant to inspected split; keyboard final allocation; three bandwidths; reset",
+          "variational: exact optimum; constant restriction; negative suboptimal bound; keyboard range extremes; restore"
+        ],
+        "practiceOpened": 20,
+        "geometry": {
+          "page": 320,
+          "loadedOriginalFont": true,
+          "equationOverflow": [],
+          "svgIssues": [],
+          "shortControls": [],
+          "clippedSelectLabels": []
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "finalReadingAndChannelRepair": {
+    "at": "2026-09-10T18:46:03.059Z",
+    "results": [
+      {
+        "width": 1440,
+        "geometry": {
+          "width": 1440,
+          "fonts": true
+        },
+        "errors": [],
+        "failedRequests": [],
+        "meanExistenceAndBiasContractRead": true,
+        "channelBoundary": {
+          "rejected": true,
+          "finiteMinimum": true,
+          "js": 3.4657359032868018e-9,
+          "kl": 2.2025850932837877e-7,
+          "beforeKl": 23.025850925335288,
+          "exactZeroOutput": true,
+          "mergedKl": 0
+        }
+      },
+      {
+        "width": 390,
+        "geometry": {
+          "width": 390,
+          "fonts": true
+        },
+        "errors": [],
+        "failedRequests": [],
+        "meanExistenceAndBiasContractRead": true,
+        "channelBoundary": {
+          "rejected": true,
+          "finiteMinimum": true,
+          "js": 3.4657359032868018e-9,
+          "kl": 2.2025850932837877e-7,
+          "beforeKl": 23.025850925335288,
+          "exactZeroOutput": true,
+          "mergedKl": 0
+        }
+      },
+      {
+        "width": 320,
+        "geometry": {
+          "width": 320,
+          "fonts": true
+        },
+        "errors": [],
+        "failedRequests": [],
+        "meanExistenceAndBiasContractRead": true,
+        "channelBoundary": {
+          "rejected": true,
+          "finiteMinimum": true,
+          "js": 3.4657359032868018e-9,
+          "kl": 2.2025850932837877e-7,
+          "beforeKl": 23.025850925335288,
+          "exactZeroOutput": true,
+          "mergedKl": 0
+        }
+      }
+    ],
+    "hashes": [
+      {
+        "file": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+        "sha256": "7526c9d2895f5164061de7ce26f24b27b0534ee404455f3ee0af5353fe3a0882"
+      },
+      {
+        "file": "src/learn/data/divergence-ipm-models.js",
+        "sha256": "0bd0c775c7b5b27a3d90117d27e3fb615516c64151c2d5c9ff08e63245308ffe"
+      },
+      {
+        "file": "src/learn/data/divergence-ipm-examples.js",
+        "sha256": "2e99f9317c1e13a301349a3e3450d74bd3e8a22e2a42f0cea929fc9feb824057"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx",
+        "sha256": "586ed0bdedec90f73d922c4da12ce4aabf54fd224d1950a17abdeaa14754349b"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/divergence-ipm-labs.css",
+        "sha256": "616b50a7cfce7b315a4b410a3af652b2b34e0310b8aa492f2d7dd15efe64db96"
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/f-divergences-integral-probability-metrics.js",
+        "sha256": "11193f06a6e317bc20c51d682cd71a720e575149500e0731b14f729b580a45b5"
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T18:45:38.963Z",
+    "files": [
+      "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "src/learn/data/divergence-ipm-models.js",
+      "src/learn/data/divergence-ipm-examples.js",
+      "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx",
+      "src/learn/data/curriculum/blueprints/f-divergences-integral-probability-metrics.js",
+      "src/learn/components/lesson-labs/divergence-ipm-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "channelRepair": {
+    "reportedBy": "parent independent reviewer",
+    "previousModelSha256": "7117c02922fc53dad85760877e1840d395f37aaf8811377b03c2b396ebfc933f",
+    "counterexample": "processDivergence([100,1e-8],[1e-8,100], [[Number.MIN_VALUE,1],[0,1]])",
+    "defect": "positive product rounded to zero, creating false support loss and infinite processed KL/JS",
+    "repair": "reject positive channel entries below 1e-8; true zero permitted; safe positive processed mass lower bound 1.25e-19",
+    "modelRegressions": "exact counterexample and just-below-range reject; five safe boundary/identity/constant maps independently checked",
+    "browser": "actual loaded export verified at 1440,390,320"
+  },
+  "screenshotsActuallyOpened": [
+    "scratch/divergence-ipm-browser/observer-lipschitz-390.png",
+    "scratch/divergence-ipm-browser/kernel-two-features-390.png",
+    "scratch/divergence-ipm-browser/ratio-support-390.png",
+    "scratch/divergence-ipm-browser/section-6-1440.png",
+    "scratch/divergence-ipm-browser/moving-small-disjoint-320.png",
+    "scratch/divergence-ipm-browser/critic-negative-bound-320.png",
+    "scratch/divergence-ipm-browser/permutation-small-bandwidth-390.png",
+    "scratch/divergence-ipm-browser/ratio-support-320.png",
+    "scratch/divergence-ipm-browser/inline-figure-1-320.png",
+    "scratch/divergence-ipm-browser/inline-figure-2-320.png",
+    "scratch/divergence-ipm-browser/inline-figure-3-320.png",
+    "scratch/divergence-ipm-browser/section-2-320.png",
+    "scratch/divergence-ipm-browser/section-7-390.png",
+    "scratch/divergence-ipm-browser/section-8-320.png",
+    "scratch/divergence-ipm-browser/final-mean-existence-320.png",
+    "scratch/divergence-ipm-browser/final-bias-moment-contract-320.png",
+    "scratch/divergence-ipm-browser/final-bias-moment-contract-1440.png"
+  ],
+  "records": {
+    "design": "docs/teaching/F-DIVERGENCES-IPMS-LESSON-DESIGN.md",
+    "verification": "docs/teaching/F-DIVERGENCES-IPMS-VERIFICATION.md",
+    "destinationNotes": [
+      "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+      "docs/teaching/topic-notes/generative-adversarial-networks-gan-fundamentals.md"
+    ]
+  },
+  "limits": [
+    "Finite educational model arithmetic, not arbitrary-range probability software.",
+    "No measured deployment benchmarks, beginner study, screen-reader listening session or user approval claimed.",
+    "Video target and creator description verified; recording not watched in full and large slides not fully reviewed.",
+    "Independent integration and full-goal status remain separate from author freeze."
+  ]
+}
