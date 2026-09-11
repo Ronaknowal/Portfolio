@@ -1,0 +1,270 @@
+.single-calculus-lesson {
+  --calculus-gold: #f4bd63;
+  --calculus-blue: #8db9df;
+  --calculus-rose: #e9a8a5;
+}
+.calculus-lab, .calculus-figure {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  background: #19191d;
+  border: 1px solid #49434a;
+  border-radius: 6px;
+}
+.calculus-lab h3 {
+  margin: 0 0 .8rem;
+  color: #f4e7d2;
+  font-size: 1.3rem;
+}
+.calculus-lab p, .calculus-figure figcaption {
+  line-height: 1.75;
+  color: #ded4d1;
+}
+.calculus-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+  margin: 1.2rem 0;
+}
+.calculus-field {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  color: #f1dfc5;
+  min-width: 0;
+  max-width: 100%;
+}
+.calculus-field input[type=range] {
+  min-height: 36px;
+  min-width: 150px;
+  accent-color: var(--calculus-gold);
+}
+.calculus-field select, .calculus-field input:not([type=range]) {
+  max-width: 100%;
+  padding: .6rem;
+  color: #f5eada;
+  background: #26232a;
+  border: 1px solid #887758;
+  border-radius: 3px;
+  font: inherit;
+  min-height: 44px;
+}
+.calculus-field input:not([type=range]) {
+  width: 6rem;
+}
+.calculus-lab button {
+  padding: .6rem .9rem;
+  min-height: 44px;
+  font: inherit;
+  cursor: pointer;
+  background: #2e271e;
+  color: #f5d39e;
+  border: 1px solid #927247;
+  border-radius: 4px;
+}
+.calculus-lab :focus-visible {
+  outline: 2px solid var(--calculus-gold);
+  outline-offset: 4px;
+}
+.calculus-lab [role=alert] {
+  border-left: 3px solid var(--calculus-rose);
+  padding: .75rem;
+  color: #f5c7b9;
+}
+.calculus-plot, .calculus-figure svg {
+  display: block;
+  width: min(100%, 430px);
+  margin: 1.2rem auto;
+  overflow: visible;
+}
+.calculus-lab svg text, .calculus-figure svg text {
+  fill: #e6dacf;
+  font: 16px 'Space Grotesk', sans-serif;
+}
+.calculus-lab svg .axis-title {
+  font-size: 16px;
+}
+.calculus-lab .grid {
+  stroke: #3d3940;
+  stroke-width: .7;
+}
+.calculus-lab .axis, .calculus-figure .axis {
+  stroke: #b1a18b;
+  stroke-width: 1.3;
+  fill: none;
+}
+.calculus-lab .zero-line {
+  stroke: #a99c8e;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.calculus-lab .gold, .calculus-figure .gold {
+  stroke: var(--calculus-gold);
+  stroke-width: 2.8;
+  fill: none;
+}
+.calculus-lab .blue, .calculus-figure .blue {
+  stroke: var(--calculus-blue);
+  stroke-width: 2.5;
+  fill: none;
+}
+.calculus-lab .rose, .calculus-figure .rose {
+  stroke: var(--calculus-rose);
+  stroke-width: 2.2;
+  fill: none;
+}
+.calculus-lab .dashed, .calculus-figure .dashed {
+  stroke-dasharray: 6 4;
+}
+.calculus-lab .point, .calculus-figure .point {
+  fill: var(--calculus-gold);
+  stroke: #17171b;
+  stroke-width: 1.5;
+}
+.calculus-lab .blue-point {
+  fill: var(--calculus-blue);
+  stroke: #17171b;
+  stroke-width: 1.5;
+}
+.calculus-lab .rose-point {
+  fill: var(--calculus-rose);
+  stroke: #17171b;
+  stroke-width: 1.5;
+}
+.calculus-lab .open-point {
+  fill: #19191d;
+  stroke: var(--calculus-gold);
+  stroke-width: 2;
+}
+.calculus-lab .input-band {
+  fill: #8db9df17;
+}
+.calculus-lab .output-band {
+  fill: #f4bd6330;
+}
+.calculus-lab .positive-panel {
+  fill: #f4bd634a;
+  stroke: #f4bd63;
+  stroke-width: .8;
+}
+.calculus-lab .negative-panel {
+  fill: #8db9df40;
+  stroke: #8db9df;
+  stroke-width: .8;
+}
+.calculus-readout {
+  margin: 1.2rem 0;
+  padding: .7rem 0;
+  border-block: 1px solid #514636;
+}
+.calculus-readout p {
+  color: #f6dfb7;
+  margin: .35rem 0;
+  overflow-wrap: anywhere;
+}
+.calculus-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.1rem;
+  font-size: .95rem;
+}
+.calculus-legend span {
+  color: var(--calculus-gold);
+}
+.calculus-legend .blue-key {
+  color: var(--calculus-blue);
+}
+.calculus-legend .rose-key {
+  color: var(--calculus-rose);
+}
+.calculus-chain {
+  max-width: 28rem;
+  margin: 1.5rem auto;
+}
+.calculus-chain > div {
+  border-left: 3px solid var(--calculus-blue);
+  padding: .7rem 1rem;
+  background: #202029;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.calculus-chain strong {
+  color: #f5d095;
+}
+.calculus-chain span, .calculus-chain small {
+  color: #ddd3ce;
+}
+.calculus-chain .chain-arrow {
+  margin: .55rem 0 .55rem 1rem;
+  color: var(--calculus-blue);
+}
+.calculus-candidates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.calculus-candidates > div {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .75rem;
+  border-left: 2px solid #8db9df;
+  background: #212027;
+}
+.calculus-candidates strong {
+  color: #f2d197;
+  overflow-wrap: anywhere;
+}
+.calculus-candidates span {
+  color: #d6c9c6;
+}
+.calculus-signs {
+  font-size: .95rem;
+}
+.calculus-two-plots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+}
+.calculus-practice {
+  margin: 2rem 0;
+  padding-top: .25rem;
+}
+.calculus-practice details {
+  margin: .65rem 0;
+}
+.calculus-practice summary {
+  cursor: pointer;
+  color: #f4d391;
+}
+.calculus-figure .gold-fill {
+  fill: #f4bd6335;
+  stroke: var(--calculus-gold);
+  stroke-width: 1.5;
+}
+.calculus-figure .blue-fill {
+  fill: #8db9df30;
+  stroke: var(--calculus-blue);
+  stroke-width: 1.5;
+}
+.calculus-figure .rose-fill {
+  fill: #e9a8a540;
+  stroke: var(--calculus-rose);
+  stroke-width: 1.5;
+}
+@media (max-width: 680px) {
+  .calculus-lab, .calculus-figure {
+    padding: .9rem .65rem;
+    margin-inline: 0;
+  }
+  .calculus-two-plots, .calculus-candidates {
+    grid-template-columns: 1fr;
+  }
+  .calculus-controls {
+    gap: 1rem .75rem;
+  }
+  .calculus-lab svg text, .calculus-figure svg text {
+    font-size: 17px;
+  }
+}

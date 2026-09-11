@@ -12,8 +12,10 @@
 .dynamics-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: .75rem 0; }
 .dynamics-lab :focus-visible,.dynamics-figure :focus-visible { outline: 3px solid #91c8ff; outline-offset: 3px; }
 .dynamics-plot { overflow-x: auto; margin: 1rem 0; }
+.dynamics-scroll-hint { display: none; font-size: .85rem; color: #becada; }
+.dynamics-cursor { stroke: #cbd8e9; stroke-width: 1; stroke-dasharray: 3 4; }
 .dynamics-plot svg { display: block; width: 100%; min-width: 430px; }
-.dynamics-plot text { fill: #d0dae7; font: 12px system-ui,sans-serif; }
+.dynamics-plot text { fill: #d0dae7; font: 18px system-ui,sans-serif; }
 .dynamics-grid { stroke: #323d4d; stroke-width: 1; }
 .dynamics-zero { stroke: #9ca9bb; }
 .dynamics-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
@@ -33,7 +35,7 @@
 .dynamics-equation { font-family: ui-monospace,monospace; overflow-wrap: anywhere; }
 .dynamics-state-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.3rem; }
 .dynamics-state-pair>div { display: flex; flex-direction: column; gap: .5rem; }
-.dynamics-cart { border-bottom: 2px solid #8392a7; padding: 1rem 0; color: #f4bf58; font-family: ui-monospace,monospace; font-size: 1.1rem; }
+.dynamics-cart-drawing { width: 100%; max-width: 300px; }
 .dynamics-state-flow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; margin-top: 1.4rem; }
 .dynamics-cylinder { display: flex; align-items: center; gap: .7rem; margin-top: 1rem; }
 .dynamics-cylinder>div { flex: 1; height: 24px; position: relative; border: 1px solid #a7b4c5; }
@@ -47,3 +49,4 @@
 .dynamics-lab details { margin: 1rem 0; }
 .dynamics-lab summary { cursor: pointer; min-height: 44px; padding: .6rem 0; color: #ead09b; }
 @media(max-width: 480px) { .dynamics-lab,.dynamics-figure { padding: .8rem; } .dynamics-state-pair { grid-template-columns: 1fr; } .dynamics-control { flex-basis: 100%; } }
+@media(max-width: 580px) { .dynamics-scroll-hint { display: block; } }

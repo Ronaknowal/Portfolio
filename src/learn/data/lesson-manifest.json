@@ -211,5 +211,20 @@
   "network-flow-minimum-cuts-bipartite-matching": "./topics/network-flow-minimum-cuts-bipartite-matching.jsx",
   "computational-geometry-robust-predicates-convex-hulls": "./topics/computational-geometry-robust-predicates-convex-hulls.jsx",
   "persistent-data-structures-structural-sharing-versioned-queries": "./topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
-  "external-memory-algorithms-b-trees-i-o-complexity": "./topics/external-memory-algorithms-b-trees-i-o-complexity.jsx"
+  "external-memory-algorithms-b-trees-i-o-complexity": "./topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+  "algebra-functions-exponentials-logarithms": "./topics/algebra-functions-exponentials-logarithms.jsx",
+  "sets-logic-relations-proof-techniques": "./topics/sets-logic-relations-proof-techniques.jsx",
+  "geometry-trigonometry-coordinate-reasoning": "./topics/geometry-trigonometry-coordinate-reasoning.jsx",
+  "counting-combinatorics-mathematical-induction": "./topics/counting-combinatorics-mathematical-induction.jsx",
+  "random-variables-expectation-covariance": "./topics/random-variables-expectation-covariance.jsx",
+  "single-variable-calculus-limits-derivatives-integrals": "./topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+  "sampling-measurement-experimental-design": "./topics/sampling-measurement-experimental-design.jsx",
+  "ordinary-differential-equations-linear-systems": "./topics/ordinary-differential-equations-linear-systems.jsx",
+  "complex-numbers-fourier-laplace-transforms": "./topics/complex-numbers-fourier-laplace-transforms.jsx",
+  "conditioning-stability-numerical-analysis": "./topics/conditioning-stability-numerical-analysis.jsx",
+  "decision-theory-risk-cost-sensitive-decisions": "./topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+  "real-analysis-sequences-modes-of-convergence": "./topics/real-analysis-sequences-modes-of-convergence.jsx",
+  "abstract-algebra-groups-symmetry-actions": "./topics/abstract-algebra-groups-symmetry-actions.jsx",
+  "partial-differential-equations-conservation-boundary-conditions": "./topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+  "numerical-pdes-grids-finite-elements-stability": "./topics/numerical-pdes-grids-finite-elements-stability.jsx"
 }

@@ -1,0 +1,74 @@
+.ensemble-lesson { --ensemble-line: #343a3b; --ensemble-a: #7fc9ba; --ensemble-b: #b2b7e1; --ensemble-mix: #e8bb60; }
+.ensemble-lesson .nt-lab { margin-block: 2rem 2.8rem; }
+.ensemble-lesson .nt-lab p { line-height: 1.8; }
+.ensemble-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem 2rem; margin-block: 1.5rem; }
+.ensemble-range { display: grid; gap: .7rem; margin-block: 1.2rem; font-size: .96rem; }
+.ensemble-range span { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.ensemble-range output { color: var(--ensemble-mix); font-variant-numeric: tabular-nums; }
+.ensemble-range input { width: 100%; min-width: 0; accent-color: var(--ensemble-mix); min-height: 30px; }
+.ensemble-select { display: grid; gap: .55rem; margin-block: 1rem; max-width: 100%; }
+.ensemble-select select { width: 100%; min-width: 0; min-height: 44px; padding: .65rem; background: #171915; color: #e0daca; border: 1px solid #6f6140; font: inherit; }
+.ensemble-lesson button { min-height: 42px; }
+.ensemble-lesson :is(button, input, select, [tabindex]):focus-visible { outline: 2px solid var(--ensemble-mix); outline-offset: 4px; }
+.ensemble-figure { margin: 1.6rem 0; }
+.ensemble-figure figcaption, .ensemble-flow figcaption, .ensemble-context figcaption, .ensemble-time figcaption, .ensemble-calibration figcaption { color: #b2babc; font-size: .93rem; line-height: 1.7; margin-top: .9rem; }
+.ensemble-note { color: #aeb6b9; font-size: .88rem; }
+.ensemble-plot-scroll { overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--ensemble-line); background: #0d1418; }
+.ensemble-plot-scroll > svg { display: block; width: 100%; min-width: 510px; }
+.ensemble-compact-plot { max-width: 440px; margin-inline: auto; }
+.ensemble-compact-plot svg { width: 100%; display: block; }
+.ensemble-figure svg text { fill: #c6cfd0; font-family: inherit; font-size: 15px; }
+.ensemble-figure svg .ensemble-point-id { fill: #dae1df; font-weight: 700; font-size: 14px; }
+.ensemble-axis { stroke: #828d90; fill: none; stroke-width: 1.2; }
+.ensemble-grid { stroke: #29363b; stroke-width: 1; }
+.ensemble-zero { stroke: #707b7f; stroke-dasharray: 3 4; }
+.ensemble-split { stroke: var(--ensemble-mix); stroke-dasharray: 5 4; stroke-width: 1.5; }
+.ensemble-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; border-block: 1px solid var(--ensemble-line); padding-block: .4rem; margin-block: 1.5rem; }
+.ensemble-comparison strong, .ensemble-readout strong { color: #eee2c8; }
+.ensemble-readout { padding-block: 1rem; border-block: 1px solid #5e573c; margin-block: 1.5rem; }
+.ensemble-three, .ensemble-ballots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.ensemble-ballots > div { display: grid; gap: .5rem; padding-block: .8rem; border-block: 1px solid var(--ensemble-line); }
+.ensemble-ballots > div > span { font-size: .9rem; color: #b7bfc0; }
+.ensemble-ballots strong { color: var(--ensemble-mix); }
+.ensemble-flow { margin-block: 2rem; }
+.ensemble-flow > div:not(.ensemble-three), .ensemble-context > div { display: grid; gap: .6rem; padding-block: 1rem; border-block: 1px solid var(--ensemble-line); }
+.ensemble-flow .ensemble-three > span { line-height: 1.8; }
+.ensemble-flow strong, .ensemble-context strong { color: #ddd4bd; }
+.ensemble-flow-arrow { color: var(--ensemble-mix); text-align: center; font-size: 1.4rem; margin: .4rem; }
+.ensemble-error-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; margin-block: 1.4rem; }
+.ensemble-error-rows figure { margin: 0; padding-block: .6rem; border-top: 1px solid var(--ensemble-line); }
+.ensemble-error-rows figcaption { font-weight: 600; color: #d5dbdc; margin-bottom: .5rem; }
+.ensemble-error-rows svg { width: 100%; display: block; overflow: visible; }
+.ensemble-error-rows svg text { font-family: inherit; font-size: 15px; }
+.ensemble-error-rows svg > text { fill: #aeb8bc; }
+.ensemble-draws { list-style: none; display: flex; gap: .6rem; flex-wrap: wrap; margin: .8rem 0 1.3rem; padding: 0; }
+.ensemble-draws li { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border: 1px solid #739186; color: #aed5c2; font-weight: 600; }
+.ensemble-ownership { border-left: 3px solid var(--ensemble-a); padding-left: 1rem; margin-block: 1.5rem; }
+.ensemble-leaking { border-color: #e69b8c; }
+.ensemble-ownership p { margin-block: .6rem; }
+.ensemble-time { display: grid; gap: .8rem; margin-block: 2rem; }
+.ensemble-time > div { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+.ensemble-time > div > strong { min-width: 5.4rem; }
+.ensemble-time > div > span { padding: .5rem .6rem; border-bottom: 2px solid #626969; }
+.ensemble-time-train { color: #93c9b8; }
+.ensemble-time-predict { color: #e6c477; }
+.ensemble-time-gap { color: #b1b6b9; font-style: italic; }
+.ensemble-context { margin-block: 2rem; }
+.ensemble-context code { overflow-wrap: anywhere; font-size: .98em; color: var(--ensemble-mix); }
+.ensemble-calibration { margin: 1.6rem 0; }
+.ensemble-figure svg.ensemble-map text { font-size: 17px; }
+.ensemble-api-contract { margin-block: 1.5rem; }
+.ensemble-api-contract > div { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 2fr); gap: 1.3rem; padding-block: 1.3rem; border-top: 1px solid var(--ensemble-line); }
+.ensemble-api-contract dt { color: #e0c68e; font-weight: 600; overflow-wrap: anywhere; }
+.ensemble-api-contract dd { margin: 0; line-height: 1.85; }
+.ensemble-api-contract dd strong { font-weight: 500; color: #d7d1c3; }
+@media (max-width: 680px) {
+  .ensemble-api-contract > div { grid-template-columns: 1fr; gap: .6rem; }
+  .ensemble-controls, .ensemble-comparison { grid-template-columns: 1fr; gap: .35rem; }
+  .ensemble-error-rows { grid-template-columns: 1fr; gap: .8rem; }
+  .ensemble-error-rows svg { max-width: 360px; margin-inline: auto; }
+  .ensemble-three, .ensemble-ballots { gap: .5rem; }
+  .ensemble-ballots > div > span { font-size: .85rem; }
+  .ensemble-time > div { gap: .5rem; padding-block: .4rem; border-top: 1px solid var(--ensemble-line); }
+  .ensemble-time > div > strong { width: 100%; }
+}

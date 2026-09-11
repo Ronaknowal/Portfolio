@@ -24,7 +24,7 @@ for (const kind of ["pitchfork", "tilted"]) {
 }
 fixtures.planar = [];
 for (const mode of ["center", "spiral", "saddle", "transient", "hopf"]) {
-  const parameters = mode === "hopf" ? [-1, -0.01, 0, 0.01, 0.4, 1] : [0.4];
+  const parameters = mode === "hopf" ? [-1, -0.01, -1e-12, -Number.MIN_VALUE, 0, Number.MIN_VALUE, 1e-12, 0.01, 0.4, 1] : [0.4];
   for (const parameter of parameters) for (const initial of [[0, 0], [0, 1], [0.2, -0.3], [1.5, 0.4]]) {
     const input = { mode, parameter, initial, duration: 6, steps: 120 };
     fixtures.planar.push({ input, output: models.planarTrace(input) });

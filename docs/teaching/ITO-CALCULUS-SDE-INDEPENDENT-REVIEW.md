@@ -1,0 +1,35 @@
+# Itô Calculus & SDEs — independent review
+
+Bounded complementary review for mathematics position 37, stable ID `it-calculus-stochastic-differential-equations`. The filename retains the legacy `ito` stem. This review read the complete actual lesson, all thirteen stored Python programs, pure models, lab components, approved design and author verification record. Production source was not edited by this reviewer. **Closed against the author's 22:31:02.154959 UTC amended freeze**, matching all six actual production hashes. [The independent evidence](evidence/ito-sde-independent-review.json) contains exact identities, executed results and fourteen actually opened final screenshots. Parent production integration remains separate.
+
+## Mathematical and teaching scope
+
+The full source read covered filtration-relative Brownian increments; deterministic versus dyadic QV convergence; adapted simple sums, conditional centering and isometry; progressive/predictable measurability and local versus true martingales; the scalar/time-dependent/vector Itô formula; GBM positivity, quantiles, moments and non-uniform-integrability example; OU Gaussian initial laws, semigroup moments and weighted-noise coupling; convention conversion and sufficient existence hypotheses; scalar Milstein and common-driver refinement; strong/weak/sampling error distinctions; moment stability; generator/adjoint/PDE boundary conditions; finite-horizon exponential change of measure; applications and every changed practice solution.
+
+The original complete program and output match the durable archive exactly. Original useful educational coverage remains visible: GBM's single path versus mean, numerical update, converted convention, ML/contextual uses and the 40-step/1,000-path practice are retained and developed. The implementation adds actual local mechanisms and assumptions rather than relying on references for essential explanations. Five investigations and four inline figures are topic-specific; their number is not a reusable quota.
+
+Two narrow wording issues and one displayed-state issue were sent to the author:
+
+1. Section 2 and the changed-increment practice called the conclusion a “random partition” statement even though the stated proof concerns random Brownian increments on deterministic partitions. Both now explicitly describe deterministic partition refinements, preserving the separate dyadic almost-sure argument. The proof does not establish arbitrary adaptive partition results.
+2. The GBM quantile formula uses sigma as a nonnegative scale. Section 4 now explicitly declares volatility σ≥0 and explains that a negative written scalar diffusion coefficient would require |σ| in that quantile scale. The model already rejected negative sigma; no runtime algorithm changed.
+3. The one-step stress fixture used forced sigma 1 but its disabled seeded controls could still display a previous 128-step resolution or a previous noise scale. The correct stress calculation/readout did not make those stale labels accurate. The repaired controls display the forced active values while preserving seeded drafts for switching back. The author's targeted actual-font 1440/390/320 check passed at 22:29:35 UTC, including restoration and keyboard reset. This reviewer read the final code/results and opened all three corrective reading captures. The initial observed screenshot is preserved at `scratch/ito-sde-independent-review/initial-stress-320.png`.
+
+No further material mathematical defect was identified within this finite read. In particular, the OU joint-noise construction contains the nonzero conditional residual; the finite GBM error calculation keeps the coupled cross moment; the forward derivative acts on the coefficient-times-density product; the centered cubic verifies its integrability before claiming a true martingale; and the Gaussian tilt is explicitly finite-horizon. The mostly verbal existence/order statements retain sufficient hypotheses and are not asserted proved by simulation.
+
+## Complementary execution
+
+Run `node scripts/verify-ito-sde-independent.mjs`; this exports actual model values and invokes `scripts/verify-ito-sde-independent.py`. Results are in `scratch/ito-sde-independent-review/results.json`. The final execution time and source identities belong to that file and the durable evidence record.
+
+- Thirteen actual stored programs executed and matched displayed stdout; the original decoded program and output matched their archive exactly.
+- Sixteen OU cases compared model and native covariance/variance/residual with independent adaptive integrals of the weighted Brownian kernels. The residual oracle integrates the centered exponential kernel squared; it does not repeat the author's near-cancelling subtraction or positive-series implementation.
+- Twelve changed two-step configurations integrated 6,912 calls to the actual native EM/Milstein/exact solver over a tensor Gaussian quadrature. Bias, MSE, second-moment bias and numerical mean were compared with the model. This checks full coupled outputs independently of the closed-form cross-moment equations under review, including zero noise and negative drift.
+- Four nested deterministic groupings used exact Fraction endpoint/Q/sum identities and the actual native summation helper.
+- Eight OU semigroup and moment identities, three conditional cubic identities and three changed normalized Gaussian tilts supplied additional independent cases.
+
+The recorded maximum absolute discrepancy was approximately 1.25e−14. This is a finite numerical comparison bound on the tested cases, not uniform accuracy for arbitrary coefficients, arbitrary time ranges or general SDEs. It does not prove the infinite-horizon/pathwise theorems. The author's much broader native/model/browser suites are complementary evidence, not work rerun or claimed by this reviewer.
+
+## Visual and final identity
+
+Final author screenshot paths, hashes, actually opened reading states and author freeze match are recorded in `docs/teaching/evidence/ito-sde-independent-review.json`. Fourteen final captures were opened: deterministic QV and GBM assumptions, OU derivation, phone curvature chart, stationary OU budget, invalid increment-seed state, mean/median geometry, sampled and zero-error states, generator/application reading, and all three corrected stress views. The prior contradictory-control capture remains separate. Narrow plots now show readable full axes where appropriate; dense paths retain explicitly announced local scrolling. No further visual issue was found.
+
+This reviewer did not duplicate the broad browser suite: the author owns interactive/keyboard/error-state automation, whose evidence was read and attributed. Models and example hashes match the independent native run; only the final stress control display changed afterward. No video was watched in this independent review; references were assessed for their role, annotation and honest inspected-scope contract. No learner study, user approval, production integration or deployment is implied.

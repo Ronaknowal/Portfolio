@@ -1,0 +1,1811 @@
+{
+  "authorFrozenAt": "2026-09-10T23:41:35.041868+00:00",
+  "topicId": "sets-logic-relations-proof-techniques",
+  "status": "author-verified; independent review and production integration separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+      "sha256": "3684b0b92bd6ae38b75491d5a600c3d0439494e23b44366d13cde9002bd78f81",
+      "bytes": 54691
+    },
+    {
+      "path": "src/learn/data/sets-logic-models.js",
+      "sha256": "d20028bb2576028eb9fbfd1d9df57611ae7cf7daab9112169a7358db9013de32",
+      "bytes": 10415
+    },
+    {
+      "path": "src/learn/data/sets-logic-examples.js",
+      "sha256": "d5e359467a17a44359ff7b1d998097e637d063abb361d9287c7df9361dce016a",
+      "bytes": 14002
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SetsLogicLabs.jsx",
+      "sha256": "f9914cfefdfb8515610599ad02932905396e3fcea4bd5893ca4ca2967ed666b2",
+      "bytes": 30361
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sets-logic-labs.css",
+      "sha256": "b4ba373295096954d74de7309c354336db6c26008458682c874df5538c07e6ef",
+      "bytes": 7172
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/sets-logic-relations-proof-techniques.js",
+      "sha256": "0bd2936a2c10b1abc6b20b805a6fbacb8e249c0d84dc3b06c1fe44e9670cae5c",
+      "bytes": 4381
+    }
+  ],
+  "records": {
+    "models": {
+      "file": {
+        "path": "scratch/sets-logic-verification/model-results.json",
+        "sha256": "daf48efdf71c562e0a1b8abc4c252fd552eaf19b327ca37c8f4f85108d3a44c0",
+        "bytes": 254
+      },
+      "result": {
+        "checkedAt": "2026-09-10T23:41:27.535Z",
+        "passed": true,
+        "counts": {
+          "setStates": 1536,
+          "argumentStates": 352,
+          "quantifierStates": 8192,
+          "relations": 66067,
+          "diagonalStates": 531,
+          "squareStates": 8,
+          "rejected": 9
+        }
+      }
+    },
+    "native": {
+      "file": {
+        "path": "scratch/sets-logic-verification/native-results.json",
+        "sha256": "5a19b5216e37fd0f7626a94801b0b32a5af8a62d3c4dceea0ed5d427fff4d742",
+        "bytes": 358
+      },
+      "result": {
+        "checkedAt": "2026-09-10T23:41:27.652117+00:00",
+        "passed": true,
+        "counts": {
+          "completePrograms": 11,
+          "parityInputs": 102,
+          "quantifierBoards": 689,
+          "relationChecks": 512,
+          "changedOrders": 5,
+          "diagonalBoards": 531,
+          "finiteCounterexamples": 20,
+          "changedPolicy": 1,
+          "setAndFunctionProofCases": 2240
+        }
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/sets-logic-browser/results.json",
+        "sha256": "3980cfe282de7906aba6354a40e307d3f0640047bbad841bb76e515c704f4eb2",
+        "bytes": 30764
+      },
+      "result": {
+        "checkedAt": "2026-09-10T23:36:35.706Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "anchors": [
+              "#1-say-exactly-which-objects-you-mean",
+              "#2-build-conditions-with-set-operations",
+              "#3-read-the-direction-of-a-claim",
+              "#4-follow-the-order-of-the-witnesses",
+              "#5-build-a-proof-one-justified-step-at-a-time",
+              "#6-move-between-sets-and-functions",
+              "#7-decide-when-two-objects-count-as-equivalent",
+              "#8-order-without-forcing-every-pair-to-compare",
+              "#9-prove-the-next-case-for-an-arbitrary-size",
+              "#10-a-subset-that-escapes-every-proposed-row",
+              "#11-practise-with-changed-claims",
+              "#12-carry-the-method-into-the-next-topic"
+            ],
+            "states": [
+              [
+                "set",
+                "union"
+              ],
+              [
+                "set",
+                "difference"
+              ],
+              [
+                "set",
+                "reverseDifference"
+              ],
+              [
+                "set",
+                "complement"
+              ],
+              [
+                "set",
+                "symmetricDifference"
+              ],
+              [
+                "argument",
+                "consequent"
+              ],
+              [
+                "argument",
+                "ponens"
+              ],
+              [
+                "argument",
+                "tollens"
+              ],
+              [
+                "argument",
+                "contradiction"
+              ],
+              [
+                "argument",
+                "equivalence"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notCommon"
+              ],
+              [
+                "relation",
+                "nearby",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "nearby",
+                "transitive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "transitive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "identity",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "transitive"
+              ],
+              [
+                "relation",
+                "identity",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "transitive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "transitive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "antisymmetric"
+              ],
+              [
+                "square",
+                0
+              ],
+              [
+                "square",
+                1
+              ],
+              [
+                "square",
+                2
+              ],
+              [
+                "square",
+                3
+              ],
+              [
+                "square",
+                4
+              ],
+              [
+                "square",
+                5
+              ],
+              [
+                "square",
+                6
+              ],
+              [
+                "square",
+                7
+              ],
+              [
+                "diagonal",
+                0
+              ],
+              [
+                "diagonal",
+                1
+              ],
+              [
+                "diagonal",
+                2
+              ],
+              [
+                "diagonal",
+                3
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-1440.png",
+              "ordinary-section-1-1440.png",
+              "ordinary-section-2-1440.png",
+              "ordinary-section-3-1440.png",
+              "ordinary-section-4-1440.png",
+              "ordinary-section-5-1440.png",
+              "ordinary-section-6-1440.png",
+              "ordinary-section-7-1440.png",
+              "ordinary-section-8-1440.png",
+              "ordinary-section-9-1440.png",
+              "ordinary-section-10-1440.png",
+              "ordinary-section-11-1440.png",
+              "ordinary-section-12-1440.png",
+              "inline-0-1440.png",
+              "inline-1-1440.png",
+              "inline-2-1440.png",
+              "inline-3-1440.png",
+              "inline-4-1440.png",
+              "initial-Set-1440.png",
+              "initial-Truth-1440.png",
+              "initial-Quantifier-1440.png",
+              "initial-Relation-1440.png",
+              "initial-Induction-1440.png",
+              "initial-Diagonal-1440.png",
+              "set-empty-complement-1440.png",
+              "set-all-overlap-1440.png",
+              "countermodel-worlds-1440.png",
+              "quantifier-empty-domains-1440.png",
+              "quantifier-common-witness-1440.png",
+              "relation-classes-1440.png",
+              "order-no-least-1440.png",
+              "missing-reflexive-loop-1440.png",
+              "missing-transitive-edge-1440.png",
+              "induction-last-square-1440.png",
+              "diagonal-changed-output-1440.png",
+              "quantifier-program-1440.png",
+              "policy-output-1440.png",
+              "practice-2-1440.png",
+              "practice-3-1440.png",
+              "practice-6-1440.png",
+              "practice-9-1440.png",
+              "practice-10-1440.png",
+              "equation-0-1440.png",
+              "equation-1-1440.png",
+              "equation-2-1440.png",
+              "equation-3-1440.png",
+              "learning-resources-1440.png"
+            ],
+            "programs": [
+              "A roster is a set of distinct people",
+              "Find an admitted countermodel",
+              "A witness per job versus one common witness",
+              "Inspect the arbitrary odd-number algebra",
+              "Forward images can merge different inputs",
+              "A failed property must have a witness",
+              "Covers omit implied comparisons",
+              "Count the border before using the formula",
+              "Build a subset that is missing from every proposed row",
+              "A finite run can miss the next counterexample",
+              "Choose the claim before fixing the data"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760
+              },
+              {
+                "width": 760,
+                "scroll": 760
+              },
+              {
+                "width": 760,
+                "scroll": 760
+              },
+              {
+                "width": 760,
+                "scroll": 760
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-1-introduction-and-proofs/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-2-induction/index.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/pages/readings/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_session5.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/efac321fdc8d0b27586ca35b04aab808_MIT6_042JF10_chap07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/Main.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 390,
+            "anchors": [
+              "#1-say-exactly-which-objects-you-mean",
+              "#2-build-conditions-with-set-operations",
+              "#3-read-the-direction-of-a-claim",
+              "#4-follow-the-order-of-the-witnesses",
+              "#5-build-a-proof-one-justified-step-at-a-time",
+              "#6-move-between-sets-and-functions",
+              "#7-decide-when-two-objects-count-as-equivalent",
+              "#8-order-without-forcing-every-pair-to-compare",
+              "#9-prove-the-next-case-for-an-arbitrary-size",
+              "#10-a-subset-that-escapes-every-proposed-row",
+              "#11-practise-with-changed-claims",
+              "#12-carry-the-method-into-the-next-topic"
+            ],
+            "states": [
+              [
+                "set",
+                "union"
+              ],
+              [
+                "set",
+                "difference"
+              ],
+              [
+                "set",
+                "reverseDifference"
+              ],
+              [
+                "set",
+                "complement"
+              ],
+              [
+                "set",
+                "symmetricDifference"
+              ],
+              [
+                "argument",
+                "consequent"
+              ],
+              [
+                "argument",
+                "ponens"
+              ],
+              [
+                "argument",
+                "tollens"
+              ],
+              [
+                "argument",
+                "contradiction"
+              ],
+              [
+                "argument",
+                "equivalence"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notCommon"
+              ],
+              [
+                "relation",
+                "nearby",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "nearby",
+                "transitive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "transitive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "identity",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "transitive"
+              ],
+              [
+                "relation",
+                "identity",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "transitive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "transitive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "antisymmetric"
+              ],
+              [
+                "square",
+                0
+              ],
+              [
+                "square",
+                1
+              ],
+              [
+                "square",
+                2
+              ],
+              [
+                "square",
+                3
+              ],
+              [
+                "square",
+                4
+              ],
+              [
+                "square",
+                5
+              ],
+              [
+                "square",
+                6
+              ],
+              [
+                "square",
+                7
+              ],
+              [
+                "diagonal",
+                0
+              ],
+              [
+                "diagonal",
+                1
+              ],
+              [
+                "diagonal",
+                2
+              ],
+              [
+                "diagonal",
+                3
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-390.png",
+              "ordinary-section-1-390.png",
+              "ordinary-section-2-390.png",
+              "ordinary-section-3-390.png",
+              "ordinary-section-4-390.png",
+              "ordinary-section-5-390.png",
+              "ordinary-section-6-390.png",
+              "ordinary-section-7-390.png",
+              "ordinary-section-8-390.png",
+              "ordinary-section-9-390.png",
+              "ordinary-section-10-390.png",
+              "ordinary-section-11-390.png",
+              "ordinary-section-12-390.png",
+              "inline-0-390.png",
+              "inline-1-390.png",
+              "inline-2-390.png",
+              "inline-3-390.png",
+              "inline-4-390.png",
+              "initial-Set-390.png",
+              "initial-Truth-390.png",
+              "initial-Quantifier-390.png",
+              "initial-Relation-390.png",
+              "initial-Induction-390.png",
+              "initial-Diagonal-390.png",
+              "set-empty-complement-390.png",
+              "set-all-overlap-390.png",
+              "countermodel-worlds-390.png",
+              "quantifier-empty-domains-390.png",
+              "quantifier-common-witness-390.png",
+              "relation-classes-390.png",
+              "order-no-least-390.png",
+              "missing-reflexive-loop-390.png",
+              "missing-transitive-edge-390.png",
+              "induction-last-square-390.png",
+              "diagonal-changed-output-390.png",
+              "quantifier-program-390.png",
+              "policy-output-390.png",
+              "practice-2-390.png",
+              "practice-3-390.png",
+              "practice-6-390.png",
+              "practice-9-390.png",
+              "practice-10-390.png",
+              "equation-0-390.png",
+              "equation-1-390.png",
+              "equation-2-390.png",
+              "equation-3-390.png",
+              "learning-resources-390.png"
+            ],
+            "programs": [
+              "A roster is a set of distinct people",
+              "Find an admitted countermodel",
+              "A witness per job versus one common witness",
+              "Inspect the arbitrary odd-number algebra",
+              "Forward images can merge different inputs",
+              "A failed property must have a witness",
+              "Covers omit implied comparisons",
+              "Count the border before using the formula",
+              "Build a subset that is missing from every proposed row",
+              "A finite run can miss the next counterexample",
+              "Choose the claim before fixing the data"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350
+              },
+              {
+                "width": 350,
+                "scroll": 350
+              },
+              {
+                "width": 350,
+                "scroll": 350
+              },
+              {
+                "width": 350,
+                "scroll": 350
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-1-introduction-and-proofs/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-2-induction/index.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/pages/readings/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_session5.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/efac321fdc8d0b27586ca35b04aab808_MIT6_042JF10_chap07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/Main.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 320,
+            "anchors": [
+              "#1-say-exactly-which-objects-you-mean",
+              "#2-build-conditions-with-set-operations",
+              "#3-read-the-direction-of-a-claim",
+              "#4-follow-the-order-of-the-witnesses",
+              "#5-build-a-proof-one-justified-step-at-a-time",
+              "#6-move-between-sets-and-functions",
+              "#7-decide-when-two-objects-count-as-equivalent",
+              "#8-order-without-forcing-every-pair-to-compare",
+              "#9-prove-the-next-case-for-an-arbitrary-size",
+              "#10-a-subset-that-escapes-every-proposed-row",
+              "#11-practise-with-changed-claims",
+              "#12-carry-the-method-into-the-next-topic"
+            ],
+            "states": [
+              [
+                "set",
+                "union"
+              ],
+              [
+                "set",
+                "difference"
+              ],
+              [
+                "set",
+                "reverseDifference"
+              ],
+              [
+                "set",
+                "complement"
+              ],
+              [
+                "set",
+                "symmetricDifference"
+              ],
+              [
+                "argument",
+                "consequent"
+              ],
+              [
+                "argument",
+                "ponens"
+              ],
+              [
+                "argument",
+                "tollens"
+              ],
+              [
+                "argument",
+                "contradiction"
+              ],
+              [
+                "argument",
+                "equivalence"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                3,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                3,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "each"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "common"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                0,
+                0,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                1,
+                1,
+                "notCommon"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "each"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "common"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notEach"
+              ],
+              [
+                "quantifiers",
+                2,
+                1,
+                "notCommon"
+              ],
+              [
+                "relation",
+                "nearby",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "nearby",
+                "transitive"
+              ],
+              [
+                "relation",
+                "nearby",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "transitive"
+              ],
+              [
+                "relation",
+                "moduloThree",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "identity",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "identity",
+                "transitive"
+              ],
+              [
+                "relation",
+                "identity",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "divisors",
+                "transitive"
+              ],
+              [
+                "relation",
+                "divisors",
+                "antisymmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "reflexive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "symmetric"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "transitive"
+              ],
+              [
+                "relation",
+                "noLeast",
+                "antisymmetric"
+              ],
+              [
+                "square",
+                0
+              ],
+              [
+                "square",
+                1
+              ],
+              [
+                "square",
+                2
+              ],
+              [
+                "square",
+                3
+              ],
+              [
+                "square",
+                4
+              ],
+              [
+                "square",
+                5
+              ],
+              [
+                "square",
+                6
+              ],
+              [
+                "square",
+                7
+              ],
+              [
+                "diagonal",
+                0
+              ],
+              [
+                "diagonal",
+                1
+              ],
+              [
+                "diagonal",
+                2
+              ],
+              [
+                "diagonal",
+                3
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-320.png",
+              "ordinary-section-1-320.png",
+              "ordinary-section-2-320.png",
+              "ordinary-section-3-320.png",
+              "ordinary-section-4-320.png",
+              "ordinary-section-5-320.png",
+              "ordinary-section-6-320.png",
+              "ordinary-section-7-320.png",
+              "ordinary-section-8-320.png",
+              "ordinary-section-9-320.png",
+              "ordinary-section-10-320.png",
+              "ordinary-section-11-320.png",
+              "ordinary-section-12-320.png",
+              "inline-0-320.png",
+              "inline-1-320.png",
+              "inline-2-320.png",
+              "inline-3-320.png",
+              "inline-4-320.png",
+              "initial-Set-320.png",
+              "initial-Truth-320.png",
+              "initial-Quantifier-320.png",
+              "initial-Relation-320.png",
+              "initial-Induction-320.png",
+              "initial-Diagonal-320.png",
+              "set-empty-complement-320.png",
+              "set-all-overlap-320.png",
+              "countermodel-worlds-320.png",
+              "quantifier-empty-domains-320.png",
+              "quantifier-common-witness-320.png",
+              "relation-classes-320.png",
+              "order-no-least-320.png",
+              "missing-reflexive-loop-320.png",
+              "missing-transitive-edge-320.png",
+              "induction-last-square-320.png",
+              "diagonal-changed-output-320.png",
+              "quantifier-program-320.png",
+              "policy-output-320.png",
+              "practice-2-320.png",
+              "practice-3-320.png",
+              "practice-6-320.png",
+              "practice-9-320.png",
+              "practice-10-320.png",
+              "equation-0-320.png",
+              "equation-1-320.png",
+              "equation-2-320.png",
+              "equation-3-320.png",
+              "learning-resources-320.png"
+            ],
+            "programs": [
+              "A roster is a set of distinct people",
+              "Find an admitted countermodel",
+              "A witness per job versus one common witness",
+              "Inspect the arbitrary odd-number algebra",
+              "Forward images can merge different inputs",
+              "A failed property must have a witness",
+              "Covers omit implied comparisons",
+              "Count the border before using the formula",
+              "Build a subset that is missing from every proposed row",
+              "A finite run can miss the next counterexample",
+              "Choose the claim before fixing the data"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ],
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280
+              },
+              {
+                "width": 280,
+                "scroll": 280
+              },
+              {
+                "width": 280,
+                "scroll": 280
+              },
+              {
+                "width": 280,
+                "scroll": 280
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-1-introduction-and-proofs/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/resources/lecture-2-induction/index.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/pages/readings/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_session5.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/efac321fdc8d0b27586ca35b04aab808_MIT6_042JF10_chap07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://richardhammack.github.io/BookOfProof/Main.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          }
+        ],
+        "errors": []
+      }
+    },
+    "keyboard": {
+      "file": {
+        "path": "scratch/sets-logic-browser/keyboard-results.json",
+        "sha256": "f4297f8ba6ca9c4ce5c15ae6f4df00add44cb49d3a24193aa823d10c8ef71682",
+        "bytes": 2206
+      },
+      "result": {
+        "checkedAt": "2026-09-10T23:37:41.577Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "controls": [
+              "Selection rule",
+              "Argument to investigate",
+              "Proposed conclusion",
+              "Quantified claim",
+              "Jobs in the domain",
+              "Reviewers in the domain",
+              "Relation preset",
+              "Inspect an axiom",
+              "Compare D with this row"
+            ],
+            "matrix": {
+              "visible": 718,
+              "full": 718
+            },
+            "capture": "keyboard-final-negation-1440.png",
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ]
+          },
+          {
+            "width": 390,
+            "controls": [
+              "Selection rule",
+              "Argument to investigate",
+              "Proposed conclusion",
+              "Quantified claim",
+              "Jobs in the domain",
+              "Reviewers in the domain",
+              "Relation preset",
+              "Inspect an axiom",
+              "Compare D with this row"
+            ],
+            "matrix": {
+              "visible": 324,
+              "full": 324
+            },
+            "capture": "keyboard-final-negation-390.png",
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ]
+          },
+          {
+            "width": 320,
+            "controls": [
+              "Selection rule",
+              "Argument to investigate",
+              "Proposed conclusion",
+              "Quantified claim",
+              "Jobs in the domain",
+              "Reviewers in the domain",
+              "Relation preset",
+              "Inspect an axiom",
+              "Compare D with this row"
+            ],
+            "matrix": {
+              "visible": 254,
+              "full": 307
+            },
+            "capture": "keyboard-final-negation-320.png",
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size2"
+            ]
+          }
+        ],
+        "errors": []
+      }
+    },
+    "format": {
+      "file": {
+        "path": "scratch/sets-logic-verification/format-conservation.json",
+        "sha256": "e72f440334c6dee943d7cc932659919e188018da791939c8c6b10d80e89c9cfb",
+        "bytes": 681
+      },
+      "result": {
+        "checkedAt": "2026-09-10T23:35:16.203Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/SetsLogicLabs.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/sets-logic-models.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/sets-logic-relations-proof-techniques.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/sets-logic-labs.css",
+            "normalizedASTConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "openedImages": [
+    {
+      "path": "scratch/sets-logic-browser/ordinary-section-1-1440.png",
+      "sha256": "d30f2b97a5ae177c536d6f250f621f4de7e8d30e46427a2b9091d56687f5c029",
+      "bytes": 209683
+    },
+    {
+      "path": "scratch/sets-logic-browser/ordinary-section-5-390.png",
+      "sha256": "e82d45042fce8ae61519098f93731ae814bedfa139c4df94087c59588d815645",
+      "bytes": 92004
+    },
+    {
+      "path": "scratch/sets-logic-browser/ordinary-section-7-320.png",
+      "sha256": "a78a97ce4945176155fe2e2f1b09ab810ca128618e01c0a0bb10769fd60e5791",
+      "bytes": 61034
+    },
+    {
+      "path": "scratch/sets-logic-browser/inline-0-390.png",
+      "sha256": "6cc339fb5f1d1f021b11aef4ada7407bf1d90940a0cd4bec4664e5d1ca8fe7e1",
+      "bytes": 68695
+    },
+    {
+      "path": "scratch/sets-logic-browser/inline-1-390.png",
+      "sha256": "250a7dc4b1893a342112db1b77625e7943aaf22967e88b9124c7847d4af07bd5",
+      "bytes": 73531
+    },
+    {
+      "path": "scratch/sets-logic-browser/inline-2-390.png",
+      "sha256": "f6e3ce75b809f227624002da981e23b1f49e25d470e505d626ce796085c99b79",
+      "bytes": 77936
+    },
+    {
+      "path": "scratch/sets-logic-browser/inline-3-390.png",
+      "sha256": "47a3df4091d7900ab019ab5320a2630b8e179364413128ab23f01d02ccc37211",
+      "bytes": 85524
+    },
+    {
+      "path": "scratch/sets-logic-browser/inline-4-390.png",
+      "sha256": "d392054d76aa4b51cda1b174999bbb3c2d517c0080049ae7138fedb3b07a230a",
+      "bytes": 74331
+    },
+    {
+      "path": "scratch/sets-logic-browser/set-all-overlap-320.png",
+      "sha256": "785fec349e05f62fec107833c68d68da6cd8790aed14b5e5233d9ad0abcdfebf",
+      "bytes": 52770
+    },
+    {
+      "path": "scratch/sets-logic-browser/countermodel-worlds-390.png",
+      "sha256": "fff47332cd5f388cb7a3046d182547ed01c5954ae3c4ec7f7761330a463de55f",
+      "bytes": 50260
+    },
+    {
+      "path": "scratch/sets-logic-browser/quantifier-common-witness-390.png",
+      "sha256": "ef8bc774b7389b6b78a78e2cd37d3bbec193a3c0a955f89a1a9379d61f9559d5",
+      "bytes": 55813
+    },
+    {
+      "path": "scratch/sets-logic-browser/quantifier-empty-domains-320.png",
+      "sha256": "babba265f4faff1e92bb63a2f393209dcb9016fd5ba2d058c3905afcf8c2d738",
+      "bytes": 52455
+    },
+    {
+      "path": "scratch/sets-logic-browser/relation-classes-390.png",
+      "sha256": "1ab38667efef6096df2052765da8b5f10c8190b1d340ea112142b96d714839d8",
+      "bytes": 86703
+    },
+    {
+      "path": "scratch/sets-logic-browser/missing-reflexive-loop-320.png",
+      "sha256": "32366b283eb7deb4784c3a8f0704dd4a41af999a404ffcf3da06fd405f2c2de0",
+      "bytes": 57347
+    },
+    {
+      "path": "scratch/sets-logic-browser/missing-transitive-edge-390.png",
+      "sha256": "15d2467a355e9c868899e94d3d0b47ac6c844b1456e68a8b11f53ba06d2c742a",
+      "bytes": 72518
+    },
+    {
+      "path": "scratch/sets-logic-browser/induction-last-square-390.png",
+      "sha256": "902016eb22cdda8855021e060cd8f097b5cff748349ed81e88784cd2a5257145",
+      "bytes": 53530
+    },
+    {
+      "path": "scratch/sets-logic-browser/diagonal-changed-output-320.png",
+      "sha256": "14aa4ae4620941d9d27e332258e7c3ddef392ab4bfb8164715c300da8a4bc1a4",
+      "bytes": 60964
+    },
+    {
+      "path": "scratch/sets-logic-browser/keyboard-final-negation-320.png",
+      "sha256": "ceaa3241a709e3732eecccc46545ed09edec875301e08d46b31e637c35d9b4d3",
+      "bytes": 58354
+    },
+    {
+      "path": "scratch/sets-logic-browser/quantifier-program-390.png",
+      "sha256": "54b70c32d9edd84788c6c80e4582a839051b95ade9ecca01f62c285eea2d5bdc",
+      "bytes": 76036
+    },
+    {
+      "path": "scratch/sets-logic-browser/policy-output-320.png",
+      "sha256": "167029a1dac9a351585adbff6f0675a4f41e36df39ec1b70be05e5f419b21b91",
+      "bytes": 67359
+    },
+    {
+      "path": "scratch/sets-logic-browser/practice-3-390.png",
+      "sha256": "7ffc0122710a220b302758f7bd766e862551287c98ab5695171a16ad01501785",
+      "bytes": 87432
+    },
+    {
+      "path": "scratch/sets-logic-browser/practice-9-320.png",
+      "sha256": "231c1b97731c605247750775cd7c7a0dd1e88f0667c4a0f07848d2c21ef77d98",
+      "bytes": 71291
+    },
+    {
+      "path": "scratch/sets-logic-browser/practice-10-390.png",
+      "sha256": "c580497a6deab984fcf8bd24450c3643fd9eb4bd03b9c52166767b36ee3c0f76",
+      "bytes": 100665
+    },
+    {
+      "path": "scratch/sets-logic-browser/learning-resources-390.png",
+      "sha256": "37b29e6b64505abbc1f9b95667275dfae6f4cd5818e410c6344aead17d94c244",
+      "bytes": 104763
+    }
+  ],
+  "imageReview": "These 24 final images were actually opened with view_image and read. Earlier provisional images are not substituted for final identities.",
+  "knownLimits": [
+    "Bounded finite investigations do not automatically prove unrestricted integer or infinite-set statements; the body supplies separate general arguments.",
+    "Native examples and comparison tables retain local horizontal scrolling on narrow screens; diagrams and all four displayed equations fit without it.",
+    "Official video identity/descriptions and written sources were inspected; full video playback is not claimed.",
+    "Classical two-valued logic, natural numbers starting at zero and total functions on an explicit domain are stated conventions.",
+    "No legacy body or programs existed. Shared registration belongs to parent; author verification does not imply independent review, production integration or user acceptance."
+  ],
+  "resolvedAuthorFindings": [
+    "Named selects now have explicit accessible labels, separate from their option text.",
+    "The function-image annotation is separated from the lower input node.",
+    "All four roster labels fit the overlap; the outside-region caption is separated from the circle boundaries.",
+    "The quantified-negation formula uses explicit multi-line layout at320px; 315px pre-fix content no longer overflows its280px available width.",
+    "Local paragraph and reset spacing now separate readouts from following explanatory text."
+  ],
+  "harnessCorrections": [
+    "Native parity/relations helpers return tuples; tests were corrected to use their actual contracts.",
+    "CodeBlock renders direct div text rather than pre; browser checks inspect actual renderer text.",
+    "Displayed program order differs from object serialization order; checks identify programs by their exact heading.",
+    "The first route attempt encountered parent-owned temporary generation failure; final checks used the repaired current server."
+  ]
+}

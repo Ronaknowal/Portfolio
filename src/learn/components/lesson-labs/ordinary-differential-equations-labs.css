@@ -1,0 +1,259 @@
+.ode-lesson {
+  --ode-gold: #e7bd53;
+  --ode-cyan: #80c9cf;
+}
+.ode-lab {
+  margin: 2rem 0;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid #343536;
+  background: #0b1013;
+  border-radius: 6px;
+}
+.ode-lab h3 {
+  margin: 0 0 .7rem;
+  font-size: 1.15rem;
+  color: #f0eeee;
+}
+.ode-lab p {
+  line-height: 1.7;
+  color: #bdc1c6;
+}
+.ode-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+  margin: 1.2rem 0;
+}
+.ode-control {
+  display: flex;
+  flex: 1 1 180px;
+  min-width: 0;
+  flex-direction: column;
+  gap: .45rem;
+  color: #e1e2e3;
+  font-size: .9rem;
+}
+.ode-control select, .ode-lab button {
+  max-width: 100%;
+  min-height: 44px;
+  border: 1px solid #5d6063;
+  border-radius: 4px;
+  color: #e6e7e9;
+  background: #151b1f;
+  padding: .55rem .65rem;
+  font: inherit;
+}
+.ode-control input {
+  width: 100%;
+  min-height: 32px;
+  accent-color: var(--ode-gold);
+}
+.ode-lab button {
+  cursor: pointer;
+  color: var(--ode-gold);
+}
+.ode-lab :is(button, select, input, summary):focus-visible, .ode-practice summary:focus-visible, .ode-depth summary:focus-visible {
+  outline: 2px solid #80c9cf;
+  outline-offset: 4px;
+}
+.ode-plot {
+  margin: 1rem 0;
+  min-width: 0;
+}
+.ode-inline-figure {
+  margin: 1.6rem 0;
+  padding: .8rem 0;
+  border-block: 1px solid #353d42;
+}
+.ode-plot svg {
+  display: block;
+  width: 100%;
+  max-width: 490px;
+  margin: auto;
+  overflow: visible;
+}
+.ode-plot svg text {
+  fill: #cbd0d4;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+.ode-grid {
+  stroke: #384249;
+  stroke-width: .6;
+}
+.ode-plot figcaption, .ode-balance figcaption {
+  color: #b4bbc1;
+  line-height: 1.6;
+  font-size: .88rem;
+  margin-top: .5rem;
+}
+.ode-legend {
+  display: flex;
+  gap: .5rem 1rem;
+  flex-wrap: wrap;
+  margin-top: .5rem;
+}
+.ode-legend > span {
+  display: inline-flex;
+  gap: .4rem;
+  align-items: center;
+}
+.ode-legend i {
+  width: 18px;
+  height: 3px;
+  flex-shrink: 0;
+}
+.ode-two-plots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.ode-state-strip, .ode-matrix-readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  padding: .8rem 0;
+}
+.ode-state-strip > span {
+  padding: .6rem;
+  border-left: 2px solid var(--ode-cyan);
+}
+.ode-vector {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding: .7rem 1rem;
+  border-left: 2px solid var(--ode-gold);
+  background: #13191d;
+  min-width: 0;
+}
+.ode-vector span {
+  color: #aebbc3;
+  font-size: .82rem;
+}
+.ode-vector strong {
+  color: #f0e7cb;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .9rem;
+  overflow-wrap: anywhere;
+}
+.ode-stage-chain {
+  width: min(100%, 350px);
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  margin: 1.3rem auto;
+}
+.ode-stage-chain > span {
+  color: var(--ode-cyan);
+  margin-left: 1rem;
+}
+.ode-input-timeline {
+  display: flex;
+  gap: 3px;
+  margin: 1rem 0;
+}
+.ode-input-timeline span {
+  flex-basis: 0;
+  min-width: 70px;
+  padding: .6rem;
+  background: #302918;
+  border-top: 3px solid var(--ode-gold);
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.ode-input-timeline span + span {
+  border-color: var(--ode-cyan);
+  background: #172a30;
+}
+.ode-readout {
+  border-left: 3px solid var(--ode-gold);
+  padding: .7rem 1rem;
+  background: #171b1e;
+}
+.ode-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.ode-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+.ode-table-wrap caption {
+  text-align: left;
+  margin: .6rem 0;
+  color: #d6d7d8;
+}
+.ode-table-wrap :is(td, th) {
+  padding: .55rem .4rem;
+  text-align: left;
+  border-bottom: 1px solid #384249;
+}
+.ode-balance {
+  margin: 1.7rem 0;
+  padding: 1.2rem 0;
+  border-block: 1px solid #434038;
+}
+.ode-balance-flow {
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: .92rem;
+  line-height: 1.8;
+}
+.ode-balance-flow > span:nth-child(even) {
+  color: var(--ode-gold);
+  font-size: 1.5rem;
+}
+.ode-balance-flow strong {
+  color: #ece3c7;
+}
+.ode-object {
+  border: 1px solid #8b7647;
+  padding: .8rem;
+}
+.ode-practice, .ode-depth {
+  margin: 1.5rem 0;
+  padding: 1.1rem 0;
+  border-top: 1px solid #45413a;
+}
+.ode-practice details, .ode-depth details {
+  margin: .8rem 0;
+}
+.ode-practice summary, .ode-depth > summary {
+  cursor: pointer;
+  color: #dec88d;
+  min-height: 38px;
+  line-height: 1.7;
+  padding: .4rem 0;
+}
+.ode-lesson .math-block {
+  max-width: 100%;
+}
+@media (max-width: 620px) {
+  .ode-two-plots {
+    grid-template-columns: 1fr;
+  }
+  .ode-state-strip, .ode-matrix-readout {
+    grid-template-columns: 1fr;
+  }
+  .ode-balance-flow {
+    flex-direction: column;
+    text-align: center;
+  }
+  .ode-balance-flow > span:nth-child(even) {
+    transform: rotate(90deg);
+  }
+  .ode-plot svg text {
+    font-size: 11px;
+  }
+  .ode-table-wrap table {
+    font-size: .79rem;
+  }
+  .ode-table-wrap :is(td, th) {
+    padding: .45rem .25rem;
+  }
+}

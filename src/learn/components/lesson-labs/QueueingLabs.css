@@ -285,3 +285,6 @@
     grid-template-columns: 1fr;
   }
 }
+.queueing-scroll:has(.queueing-compact-axis) + .queueing-scroll-hint {
+  display: none !important;
+}

@@ -1,0 +1,2124 @@
+{
+  "authorFrozenAt": "2026-09-11T07:20:48.539Z",
+  "topicId": "real-analysis-sequences-modes-of-convergence",
+  "status": "author-verified; independent review, production integration and user acceptance separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+      "sha256": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3",
+      "bytes": 76010
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js",
+      "sha256": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7",
+      "bytes": 4498
+    },
+    {
+      "path": "src/learn/data/real-analysis-models.js",
+      "sha256": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a",
+      "bytes": 9717
+    },
+    {
+      "path": "src/learn/data/real-analysis-examples.js",
+      "sha256": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850",
+      "bytes": 19737
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+      "sha256": "f5cbe48a6bfd91a1aff4f7c9866f692232782ce3ac18f2c278e8747e3fe1a6f0",
+      "bytes": 28786
+    },
+    {
+      "path": "src/learn/components/lesson-labs/real-analysis-labs.css",
+      "sha256": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094",
+      "bytes": 5129
+    }
+  ],
+  "records": {
+    "native": {
+      "file": {
+        "path": "scratch/real-analysis-verification/results.json",
+        "sha256": "04f9cca45842d515448aa215cf7314811790e62254cfe1594a1b63ef990142e3",
+        "bytes": 2813
+      },
+      "result": {
+        "completedAt": "2026-09-11T07:09:40.016521+00:00",
+        "scope": "Author verification of actual published programs and bounded models; independent design fixtures retained and extended, separate final independent review pending",
+        "checks": {
+          "actual-program-stdout": 13,
+          "exact-bracket-invariant": 15,
+          "exact-bracket-width": 15,
+          "actual-native-bracket": 15,
+          "enumerated-strict-tail": 27,
+          "actual-strict-tail": 27,
+          "chosen-tail-decision": 27,
+          "piecewise-exact-triangle-integral": 15,
+          "piecewise-exact-triangle-square": 15,
+          "bernstein-changed-value": 30,
+          "bernstein-first-moment": 30,
+          "bernstein-quadratic-reproduction": 30,
+          "bernstein-lipschitz-certificate": 30,
+          "expanded-polynomial-integral": 6,
+          "report-exact-error": 6,
+          "dyadic-left-boundary": 62,
+          "dyadic-midpoint": 62,
+          "dyadic-right-excluded": 57,
+          "cauchy-block-exact-sum": 10,
+          "harmonic-block-lower-bound": 5,
+          "telescoping-exact-block": 5,
+          "power-fixed-point": 36,
+          "power-limit": 36,
+          "power-domain-supremum": 36,
+          "power-moving-witness": 36,
+          "derivative-independent-differentiation": 50,
+          "function-high-precision": 50,
+          "actual-native-derivative": 50,
+          "series-native-exact-function": 25,
+          "series-native-exact-derivative": 25,
+          "series-uniform-tail": 25,
+          "typewriter-shared-observer": 48,
+          "typewriter-global-index": 48,
+          "typewriter-probability": 48,
+          "typewriter-actual-native": 48,
+          "native-typewriter-invalid": 6,
+          "positive-bound-underflow-repaired": 1,
+          "changed-strict-tail": 2,
+          "changed-geometric-boundary": 1,
+          "changed-alternating-sufficient": 1,
+          "capstone-original-25": 1,
+          "capstone-original-100": 1,
+          "capstone-changed": 1
+        },
+        "invalidInputsRejected": 24,
+        "programs": 13,
+        "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+        "mpmath": "1.3.0",
+        "sympy": "1.14.0",
+        "sourceHashes": {
+          "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3",
+          "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7",
+          "src/learn/data/real-analysis-models.js": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a",
+          "src/learn/data/real-analysis-examples.js": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850",
+          "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "f5cbe48a6bfd91a1aff4f7c9866f692232782ce3ac18f2c278e8747e3fe1a6f0",
+          "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094"
+        }
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/real-analysis-browser/results.json",
+        "sha256": "528aaff13fb46893da86b718c737d695a5224cbfb620c115419f779a85205fde",
+        "bytes": 64061
+      },
+      "result": {
+        "checkedAt": "2026-09-11T07:11:07.858Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "anchors": [
+              "#1-make-a-promise-about-every-later-estimate",
+              "#2-explain-why-a-real-limit-exists",
+              "#3-test-convergence-without-knowing-the-limit",
+              "#4-turn-local-continuity-into-interval-theorems",
+              "#5-treat-an-infinite-sum-as-a-limit",
+              "#6-choose-one-bound-for-an-entire-domain",
+              "#7-find-the-error-that-moves-away",
+              "#8-justify-continuity-and-integral-interchanges",
+              "#9-control-derivatives-as-well-as-values",
+              "#10-build-functions-from-controlled-series",
+              "#11-approximate-a-corner-with-positive-weights",
+              "#12-optional-bridge-to-probability-convergence",
+              "#13-practise-with-changed-claims",
+              "#14-write-a-checkable-approximation-report"
+            ],
+            "states": [
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "2"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "5"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "10"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "20"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "1"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "25"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "2"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "3"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "5"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "0"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "harmonic"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "telescoping"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "2"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "4"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "8"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "32"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "closed-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "open-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "compact-subinterval"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "1"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "64"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "0"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "1"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "4"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "16"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "64"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "256"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-height"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-area"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "shrinking-height"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "10"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "20"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "80"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "4"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "8"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "16"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "2"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "-3"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "3"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "8"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "32"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "128"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "512"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-1"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "1"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "4"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "16"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "64"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "100"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.3"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.5"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.7"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "0"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "2"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "3"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "4"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.25"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.75"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "3"
+              }
+            ],
+            "keyboard": [
+              "Requested tolerance: ArrowDown/Enter",
+              "Squared target: ArrowDown/Enter",
+              "Series increments: ArrowDown/Enter",
+              "Block begins after N: ArrowDown/Enter",
+              "Function domain: ArrowDown/Enter",
+              "Triangle index n: ArrowDown/Enter",
+              "Triangle amplitude: ArrowDown/Enter",
+              "Coarse grid intervals: ArrowDown/Enter",
+              "Oscillation index n: ArrowDown/Enter",
+              "Amplitude rule: ArrowDown/Enter",
+              "Number of series terms: ArrowDown/Enter",
+              "Series evaluation point: ArrowDown/Enter",
+              "Polynomial degree n: ArrowDown/Enter",
+              "Corner location c: ArrowDown/Enter",
+              "Dyadic block k: ArrowDown/Enter",
+              "Fixed observer U: ArrowDown/Enter",
+              "Proposed start N: arrow change",
+              "Bisection steps: arrow change",
+              "Power index n: arrow change",
+              "Fixed input x: arrow change",
+              "Inspect x: arrow change",
+              "Weighted evaluation x: arrow change",
+              "Interval position j: arrow change",
+              "Reset sequence tail",
+              "Reset exact bracket",
+              "Reset Cauchy block",
+              "Reset power convergence",
+              "Reset moving triangle",
+              "Reset derivative comparison",
+              "Reset series endpoint",
+              "Reset polynomial approximation",
+              "Reset interval sweep",
+              "Bisect once"
+            ],
+            "captures": [
+              "analysis-intro-1440.png",
+              "reading-section-1-1440.png",
+              "reading-section-2-1440.png",
+              "reading-section-3-1440.png",
+              "reading-section-4-1440.png",
+              "reading-section-5-1440.png",
+              "reading-section-6-1440.png",
+              "reading-section-7-1440.png",
+              "reading-section-8-1440.png",
+              "reading-section-9-1440.png",
+              "reading-section-10-1440.png",
+              "reading-section-11-1440.png",
+              "reading-section-12-1440.png",
+              "reading-section-13-1440.png",
+              "reading-section-14-1440.png",
+              "reading-figure-0-1440.png",
+              "reading-figure-1-1440.png",
+              "reading-figure-2-1440.png",
+              "reading-figure-3-1440.png",
+              "reading-figure-4-1440.png",
+              "reading-figure-5-1440.png",
+              "investigation-0-1440.png",
+              "investigation-1-1440.png",
+              "investigation-2-1440.png",
+              "investigation-3-1440.png",
+              "investigation-4-1440.png",
+              "investigation-5-1440.png",
+              "investigation-6-1440.png",
+              "investigation-7-1440.png",
+              "investigation-8-1440.png",
+              "strict-tail-passes-1440.png",
+              "changed-exact-bracket-1440.png",
+              "compact-domain-bound-1440.png",
+              "missed-unit-area-peak-1440.png",
+              "both-derivative-bounds-1440.png",
+              "changed-series-endpoint-1440.png",
+              "changed-corner-weights-1440.png",
+              "half-open-boundary-hit-1440.png",
+              "changed-practice-2-1440.png",
+              "changed-practice-6-1440.png",
+              "changed-practice-10-1440.png",
+              "changed-practice-13-1440.png",
+              "approximation-complete-program-1440.png",
+              "changed-output-1440.png",
+              "equation-0-1440.png",
+              "equation-1-1440.png",
+              "equation-2-1440.png",
+              "equation-3-1440.png",
+              "equation-4-1440.png",
+              "equation-5-1440.png",
+              "equation-6-1440.png",
+              "equation-7-1440.png",
+              "equation-8-1440.png",
+              "equation-9-1440.png",
+              "equation-10-1440.png",
+              "equation-11-1440.png",
+              "equation-12-1440.png",
+              "equation-13-1440.png",
+              "equation-14-1440.png",
+              "equation-15-1440.png",
+              "learning-resources-1440.png"
+            ],
+            "programs": [
+              "Certify every later estimate",
+              "Keep the interval as exact fractions",
+              "Compare a small step with an entire later block",
+              "Bracket a sum before trusting its digits",
+              "Inspect a fixed input and a moving witness",
+              "Let exact geometry expose a missed peak",
+              "Compare an integral with an all-domain bound",
+              "Keep height and slope errors separate",
+              "Check the endpoint after proving the interior",
+              "Build a polynomial value from exact weights",
+              "Follow the same observer through shrinking intervals",
+              "A bounded mean can hide tail mass at larger values",
+              "Certify a changed polynomial-integral approximation"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "an⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an−L∣<ε.\\begin{gathered}a_n\\longrightarrow L\\quad\\text{means}\\\\\n      \\text{for every }\\varepsilon>0\\text{ there is }N\\in\\mathbb N\\\\\n      \\text{such that every }n\\ge N\\text{ satisfies}\\\\\n      |a_n-L|<\\varepsilon.\\end{gathered}an​⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an​−L∣<ε.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "(an) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am−an∣<ε.\\begin{gathered}(a_n)\\text{ is Cauchy if}\\\\\n      \\forall\\varepsilon>0\\ \\exists N\\ \\forall m,n\\ge N,\\\\\n      |a_m-a_n|<\\varepsilon.\\end{gathered}(an​) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am​−an​∣<ε.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Sn=1+r+⋯+rn,(1−r)Sn=1−rn+1,Sn=1−rn+11−r(r≠1).\\begin{aligned}\n      S_n&=1+r+\\cdots+r^n,\\\\\n      (1-r)S_n&=1-r^{n+1},\\\\\n      S_n&=\\frac{1-r^{n+1}}{1-r}\\quad(r\\ne1).\n    \\end{aligned}Sn​(1−r)Sn​Sn​​=1+r+⋯+rn,=1−rn+1,=1−r1−rn+1​(r=1).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn(x)−f(x)∣<ε.\\begin{gathered}\\text{Pointwise:}\\\\\n      \\forall x\\in S\\ \\forall\\varepsilon>0\\ \\exists N(x,\\varepsilon)\\\\\n      \\forall n\\ge N:\\ |f_n(x)-f(x)|<\\varepsilon.\\\\[4pt]\n      \\text{Uniform:}\\\\\n      \\forall\\varepsilon>0\\ \\exists N(\\varepsilon)\\\\\n      \\forall x\\in S\\ \\forall n\\ge N:\\\\\n      |f_n(x)-f(x)|<\\varepsilon.\n    \\end{gathered}Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn​(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn​(x)−f(x)∣<ε.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "En=sup⁡x∈S∣fn(x)−f(x)∣.E_n=\\sup_{x\\in S}|f_n(x)-f(x)|.En​=x∈Ssup​∣fn​(x)−f(x)∣."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Tn(x)=max⁡{1−∣nx−1∣,0}.T_n(x)=\\max\\{1-|nx-1|,0\\}.Tn​(x)=max{1−∣nx−1∣,0}."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∣∫abfn−∫abf∣≤∫ab∣fn−f∣≤(b−a)En⟶0.\\begin{aligned}\n      &\\left|\\int_a^b f_n-\\int_a^b f\\right|\\\\\n      &\\le\\int_a^b|f_n-f|\\\\\n      &\\le(b-a)E_n\\longrightarrow0.\n    \\end{aligned}​​∫ab​fn​−∫ab​f​≤∫ab​∣fn​−f∣≤(b−a)En​⟶0.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "fn(x)−f(x)=fn(c)−ℓ+∫cx(fn′(t)−g(t)) dt.\\begin{aligned}\n      &f_n(x)-f(x)\\\\\n      &=f_n(c)-\\ell\\\\\n      &\\quad+\\int_c^x\\bigl(f_n'(t)-g(t)\\bigr)\\,dt.\n    \\end{aligned}​fn​(x)−f(x)=fn​(c)−ℓ+∫cx​(fn′​(t)−g(t))dt.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "sup⁡x∈[a,b]∣fn(x)−f(x)∣≤∣fn(c)−ℓ∣+(b−a)Dn.\\begin{aligned}\n      &\\sup_{x\\in[a,b]}|f_n(x)-f(x)|\\\\\n      &\\quad\\le |f_n(c)-\\ell|+(b-a)D_n.\n    \\end{aligned}​x∈[a,b]sup​∣fn​(x)−f(x)∣≤∣fn​(c)−ℓ∣+(b−a)Dn​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∣∑k=n+1muk(x)∣≤∑k=n+1mMk,m>n.\\begin{gathered}\\left|\\sum_{k=n+1}^{m}u_k(x)\\right|\n      \\le\\sum_{k=n+1}^{m}M_k,\\\\m>n.\\end{gathered}​k=n+1∑m​uk​(x)​≤k=n+1∑m​Mk​,m>n.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "f′(x)=∑k=1∞kck(x−a)k−1,∫axf(t) dt=∑k=0∞ckk+1(x−a)k+1,∣x−a∣<R.\\begin{gathered}\n      f'(x)=\\sum_{k=1}^{\\infty}k c_k(x-a)^{k-1},\\\\\n      \\int_a^x f(t)\\,dt\\\\\n      =\\sum_{k=0}^{\\infty}\\frac{c_k}{k+1}(x-a)^{k+1},\\\\\n      |x-a|<R.\n    \\end{gathered}f′(x)=k=1∑∞​kck​(x−a)k−1,∫ax​f(t)dt=k=0∑∞​k+1ck​​(x−a)k+1,∣x−a∣<R.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "bn,k(x)=(nk)xk(1−x)n−k,Bnf(x)=∑k=0nbn,k(x)f(k/n).\\begin{aligned}\n      b_{n,k}(x)&={n\\choose k}x^k(1-x)^{n-k},\\\\\n      B_n f(x)&=\\sum_{k=0}^{n}b_{n,k}(x)f(k/n).\n    \\end{aligned}bn,k​(x)Bn​f(x)​=(kn​)xk(1−x)n−k,=k=0∑n​bn,k​(x)f(k/n).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∑k=0nbn,k(x)=1,∑k=0nbn,k(x)kn=x,∑k=0nbn,k(x)(kn−x)2=x(1−x)n.\\begin{gathered}\n      \\sum_{k=0}^n b_{n,k}(x)=1,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\frac{k}{n}=x,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\left(\\frac{k}{n}-x\\right)^2\\\\\n      =\\frac{x(1-x)}n.\n    \\end{gathered}k=0∑n​bn,k​(x)=1,k=0∑n​bn,k​(x)nk​=x,k=0∑n​bn,k​(x)(nk​−x)2=nx(1−x)​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∣Bnf(x)−f(x)∣≤L∑k=0nbn,k(x)∣k/n−x∣≤Lx(1−x)n≤L2n.\\begin{aligned}\n      &|B_n f(x)-f(x)|\\\\\n      &\\le L\\sum_{k=0}^n b_{n,k}(x)|k/n-x|\\\\\n      &\\le L\\sqrt{\\frac{x(1-x)}n}\\\\\n      &\\le\\frac{L}{2\\sqrt n}.\n    \\end{aligned}​∣Bn​f(x)−f(x)∣≤Lk=0∑n​bn,k​(x)∣k/n−x∣≤Lnx(1−x)​​≤2n​L​.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "{Xn} is uniformly integrable iflim⁡M→∞sup⁡nE ⁣[∣Xn∣1{∣Xn∣>M}]=0.\\begin{gathered}\\{X_n\\}\\text{ is uniformly integrable if}\\\\\n        \\lim_{M\\to\\infty}\\sup_n\n        E\\!\\left[|X_n|\\mathbf1_{\\{|X_n|>M\\}}\\right]=0.\n      \\end{gathered}{Xn​} is uniformly integrable ifM→∞lim​nsup​E[∣Xn​∣1{∣Xn​∣>M}​]=0.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∫01Bnf(x) dx=1n+1∑k=0nf(k/n),∫01L∣x−c∣ dx=L2(c2+(1−c)2).\\begin{aligned}\n      &\\int_0^1 B_nf(x)\\,dx\\\\\n      &=\\frac1{n+1}\\sum_{k=0}^n f(k/n),\\\\\n      &\\int_0^1 L|x-c|\\,dx\\\\\n      &=\\frac L2\\bigl(c^2+(1-c)^2\\bigr).\n    \\end{aligned}​∫01​Bn​f(x)dx=n+11​k=0∑n​f(k/n),∫01​L∣x−c∣dx=2L​(c2+(1−c)2).​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.youtube.com/watch?v=_HRTdXJgZ0Q",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.youtube.com/watch?v=gXPX29KfEc4",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/ra.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_puconv.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_liminter.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.ocw.mit.edu/courses/18-100a-real-analysis-fall-2020/mit18_100af20_lec_full2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-226-probabilistic-methods-in-combinatorics-fall-2022/mit18_226_f22_lec06-07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.duke.edu/~rtd/PTE/PTE5_011119.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 390,
+            "anchors": [
+              "#1-make-a-promise-about-every-later-estimate",
+              "#2-explain-why-a-real-limit-exists",
+              "#3-test-convergence-without-knowing-the-limit",
+              "#4-turn-local-continuity-into-interval-theorems",
+              "#5-treat-an-infinite-sum-as-a-limit",
+              "#6-choose-one-bound-for-an-entire-domain",
+              "#7-find-the-error-that-moves-away",
+              "#8-justify-continuity-and-integral-interchanges",
+              "#9-control-derivatives-as-well-as-values",
+              "#10-build-functions-from-controlled-series",
+              "#11-approximate-a-corner-with-positive-weights",
+              "#12-optional-bridge-to-probability-convergence",
+              "#13-practise-with-changed-claims",
+              "#14-write-a-checkable-approximation-report"
+            ],
+            "states": [
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "2"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "5"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "10"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "20"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "1"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "25"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "2"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "3"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "5"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "0"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "harmonic"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "telescoping"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "2"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "4"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "8"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "32"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "closed-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "open-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "compact-subinterval"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "1"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "64"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "0"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "1"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "4"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "16"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "64"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "256"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-height"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-area"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "shrinking-height"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "10"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "20"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "80"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "4"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "8"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "16"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "2"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "-3"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "3"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "8"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "32"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "128"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "512"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-1"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "1"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "4"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "16"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "64"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "100"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.3"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.5"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.7"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "0"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "2"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "3"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "4"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.25"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.75"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "3"
+              }
+            ],
+            "keyboard": [
+              "Requested tolerance: ArrowDown/Enter",
+              "Squared target: ArrowDown/Enter",
+              "Series increments: ArrowDown/Enter",
+              "Block begins after N: ArrowDown/Enter",
+              "Function domain: ArrowDown/Enter",
+              "Triangle index n: ArrowDown/Enter",
+              "Triangle amplitude: ArrowDown/Enter",
+              "Coarse grid intervals: ArrowDown/Enter",
+              "Oscillation index n: ArrowDown/Enter",
+              "Amplitude rule: ArrowDown/Enter",
+              "Number of series terms: ArrowDown/Enter",
+              "Series evaluation point: ArrowDown/Enter",
+              "Polynomial degree n: ArrowDown/Enter",
+              "Corner location c: ArrowDown/Enter",
+              "Dyadic block k: ArrowDown/Enter",
+              "Fixed observer U: ArrowDown/Enter",
+              "Proposed start N: arrow change",
+              "Bisection steps: arrow change",
+              "Power index n: arrow change",
+              "Fixed input x: arrow change",
+              "Inspect x: arrow change",
+              "Weighted evaluation x: arrow change",
+              "Interval position j: arrow change",
+              "Reset sequence tail",
+              "Reset exact bracket",
+              "Reset Cauchy block",
+              "Reset power convergence",
+              "Reset moving triangle",
+              "Reset derivative comparison",
+              "Reset series endpoint",
+              "Reset polynomial approximation",
+              "Reset interval sweep",
+              "Bisect once"
+            ],
+            "captures": [
+              "analysis-intro-390.png",
+              "reading-section-1-390.png",
+              "reading-section-2-390.png",
+              "reading-section-3-390.png",
+              "reading-section-4-390.png",
+              "reading-section-5-390.png",
+              "reading-section-6-390.png",
+              "reading-section-7-390.png",
+              "reading-section-8-390.png",
+              "reading-section-9-390.png",
+              "reading-section-10-390.png",
+              "reading-section-11-390.png",
+              "reading-section-12-390.png",
+              "reading-section-13-390.png",
+              "reading-section-14-390.png",
+              "reading-figure-0-390.png",
+              "reading-figure-1-390.png",
+              "reading-figure-2-390.png",
+              "reading-figure-3-390.png",
+              "reading-figure-4-390.png",
+              "reading-figure-5-390.png",
+              "investigation-0-390.png",
+              "investigation-1-390.png",
+              "investigation-2-390.png",
+              "investigation-3-390.png",
+              "investigation-4-390.png",
+              "investigation-5-390.png",
+              "investigation-6-390.png",
+              "investigation-7-390.png",
+              "investigation-8-390.png",
+              "strict-tail-passes-390.png",
+              "changed-exact-bracket-390.png",
+              "compact-domain-bound-390.png",
+              "missed-unit-area-peak-390.png",
+              "both-derivative-bounds-390.png",
+              "changed-series-endpoint-390.png",
+              "changed-corner-weights-390.png",
+              "half-open-boundary-hit-390.png",
+              "changed-practice-2-390.png",
+              "changed-practice-6-390.png",
+              "changed-practice-10-390.png",
+              "changed-practice-13-390.png",
+              "approximation-complete-program-390.png",
+              "changed-output-390.png",
+              "equation-0-390.png",
+              "equation-1-390.png",
+              "equation-2-390.png",
+              "equation-3-390.png",
+              "equation-4-390.png",
+              "equation-5-390.png",
+              "equation-6-390.png",
+              "equation-7-390.png",
+              "equation-8-390.png",
+              "equation-9-390.png",
+              "equation-10-390.png",
+              "equation-11-390.png",
+              "equation-12-390.png",
+              "equation-13-390.png",
+              "equation-14-390.png",
+              "equation-15-390.png",
+              "learning-resources-390.png"
+            ],
+            "programs": [
+              "Certify every later estimate",
+              "Keep the interval as exact fractions",
+              "Compare a small step with an entire later block",
+              "Bracket a sum before trusting its digits",
+              "Inspect a fixed input and a moving witness",
+              "Let exact geometry expose a missed peak",
+              "Compare an integral with an all-domain bound",
+              "Keep height and slope errors separate",
+              "Check the endpoint after proving the interior",
+              "Build a polynomial value from exact weights",
+              "Follow the same observer through shrinking intervals",
+              "A bounded mean can hide tail mass at larger values",
+              "Certify a changed polynomial-integral approximation"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "an⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an−L∣<ε.\\begin{gathered}a_n\\longrightarrow L\\quad\\text{means}\\\\\n      \\text{for every }\\varepsilon>0\\text{ there is }N\\in\\mathbb N\\\\\n      \\text{such that every }n\\ge N\\text{ satisfies}\\\\\n      |a_n-L|<\\varepsilon.\\end{gathered}an​⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an​−L∣<ε.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "(an) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am−an∣<ε.\\begin{gathered}(a_n)\\text{ is Cauchy if}\\\\\n      \\forall\\varepsilon>0\\ \\exists N\\ \\forall m,n\\ge N,\\\\\n      |a_m-a_n|<\\varepsilon.\\end{gathered}(an​) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am​−an​∣<ε.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Sn=1+r+⋯+rn,(1−r)Sn=1−rn+1,Sn=1−rn+11−r(r≠1).\\begin{aligned}\n      S_n&=1+r+\\cdots+r^n,\\\\\n      (1-r)S_n&=1-r^{n+1},\\\\\n      S_n&=\\frac{1-r^{n+1}}{1-r}\\quad(r\\ne1).\n    \\end{aligned}Sn​(1−r)Sn​Sn​​=1+r+⋯+rn,=1−rn+1,=1−r1−rn+1​(r=1).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn(x)−f(x)∣<ε.\\begin{gathered}\\text{Pointwise:}\\\\\n      \\forall x\\in S\\ \\forall\\varepsilon>0\\ \\exists N(x,\\varepsilon)\\\\\n      \\forall n\\ge N:\\ |f_n(x)-f(x)|<\\varepsilon.\\\\[4pt]\n      \\text{Uniform:}\\\\\n      \\forall\\varepsilon>0\\ \\exists N(\\varepsilon)\\\\\n      \\forall x\\in S\\ \\forall n\\ge N:\\\\\n      |f_n(x)-f(x)|<\\varepsilon.\n    \\end{gathered}Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn​(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn​(x)−f(x)∣<ε.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "En=sup⁡x∈S∣fn(x)−f(x)∣.E_n=\\sup_{x\\in S}|f_n(x)-f(x)|.En​=x∈Ssup​∣fn​(x)−f(x)∣."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Tn(x)=max⁡{1−∣nx−1∣,0}.T_n(x)=\\max\\{1-|nx-1|,0\\}.Tn​(x)=max{1−∣nx−1∣,0}."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∣∫abfn−∫abf∣≤∫ab∣fn−f∣≤(b−a)En⟶0.\\begin{aligned}\n      &\\left|\\int_a^b f_n-\\int_a^b f\\right|\\\\\n      &\\le\\int_a^b|f_n-f|\\\\\n      &\\le(b-a)E_n\\longrightarrow0.\n    \\end{aligned}​​∫ab​fn​−∫ab​f​≤∫ab​∣fn​−f∣≤(b−a)En​⟶0.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "fn(x)−f(x)=fn(c)−ℓ+∫cx(fn′(t)−g(t)) dt.\\begin{aligned}\n      &f_n(x)-f(x)\\\\\n      &=f_n(c)-\\ell\\\\\n      &\\quad+\\int_c^x\\bigl(f_n'(t)-g(t)\\bigr)\\,dt.\n    \\end{aligned}​fn​(x)−f(x)=fn​(c)−ℓ+∫cx​(fn′​(t)−g(t))dt.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "sup⁡x∈[a,b]∣fn(x)−f(x)∣≤∣fn(c)−ℓ∣+(b−a)Dn.\\begin{aligned}\n      &\\sup_{x\\in[a,b]}|f_n(x)-f(x)|\\\\\n      &\\quad\\le |f_n(c)-\\ell|+(b-a)D_n.\n    \\end{aligned}​x∈[a,b]sup​∣fn​(x)−f(x)∣≤∣fn​(c)−ℓ∣+(b−a)Dn​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∣∑k=n+1muk(x)∣≤∑k=n+1mMk,m>n.\\begin{gathered}\\left|\\sum_{k=n+1}^{m}u_k(x)\\right|\n      \\le\\sum_{k=n+1}^{m}M_k,\\\\m>n.\\end{gathered}​k=n+1∑m​uk​(x)​≤k=n+1∑m​Mk​,m>n.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "f′(x)=∑k=1∞kck(x−a)k−1,∫axf(t) dt=∑k=0∞ckk+1(x−a)k+1,∣x−a∣<R.\\begin{gathered}\n      f'(x)=\\sum_{k=1}^{\\infty}k c_k(x-a)^{k-1},\\\\\n      \\int_a^x f(t)\\,dt\\\\\n      =\\sum_{k=0}^{\\infty}\\frac{c_k}{k+1}(x-a)^{k+1},\\\\\n      |x-a|<R.\n    \\end{gathered}f′(x)=k=1∑∞​kck​(x−a)k−1,∫ax​f(t)dt=k=0∑∞​k+1ck​​(x−a)k+1,∣x−a∣<R.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "bn,k(x)=(nk)xk(1−x)n−k,Bnf(x)=∑k=0nbn,k(x)f(k/n).\\begin{aligned}\n      b_{n,k}(x)&={n\\choose k}x^k(1-x)^{n-k},\\\\\n      B_n f(x)&=\\sum_{k=0}^{n}b_{n,k}(x)f(k/n).\n    \\end{aligned}bn,k​(x)Bn​f(x)​=(kn​)xk(1−x)n−k,=k=0∑n​bn,k​(x)f(k/n).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∑k=0nbn,k(x)=1,∑k=0nbn,k(x)kn=x,∑k=0nbn,k(x)(kn−x)2=x(1−x)n.\\begin{gathered}\n      \\sum_{k=0}^n b_{n,k}(x)=1,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\frac{k}{n}=x,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\left(\\frac{k}{n}-x\\right)^2\\\\\n      =\\frac{x(1-x)}n.\n    \\end{gathered}k=0∑n​bn,k​(x)=1,k=0∑n​bn,k​(x)nk​=x,k=0∑n​bn,k​(x)(nk​−x)2=nx(1−x)​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∣Bnf(x)−f(x)∣≤L∑k=0nbn,k(x)∣k/n−x∣≤Lx(1−x)n≤L2n.\\begin{aligned}\n      &|B_n f(x)-f(x)|\\\\\n      &\\le L\\sum_{k=0}^n b_{n,k}(x)|k/n-x|\\\\\n      &\\le L\\sqrt{\\frac{x(1-x)}n}\\\\\n      &\\le\\frac{L}{2\\sqrt n}.\n    \\end{aligned}​∣Bn​f(x)−f(x)∣≤Lk=0∑n​bn,k​(x)∣k/n−x∣≤Lnx(1−x)​​≤2n​L​.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "{Xn} is uniformly integrable iflim⁡M→∞sup⁡nE ⁣[∣Xn∣1{∣Xn∣>M}]=0.\\begin{gathered}\\{X_n\\}\\text{ is uniformly integrable if}\\\\\n        \\lim_{M\\to\\infty}\\sup_n\n        E\\!\\left[|X_n|\\mathbf1_{\\{|X_n|>M\\}}\\right]=0.\n      \\end{gathered}{Xn​} is uniformly integrable ifM→∞lim​nsup​E[∣Xn​∣1{∣Xn​∣>M}​]=0.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∫01Bnf(x) dx=1n+1∑k=0nf(k/n),∫01L∣x−c∣ dx=L2(c2+(1−c)2).\\begin{aligned}\n      &\\int_0^1 B_nf(x)\\,dx\\\\\n      &=\\frac1{n+1}\\sum_{k=0}^n f(k/n),\\\\\n      &\\int_0^1 L|x-c|\\,dx\\\\\n      &=\\frac L2\\bigl(c^2+(1-c)^2\\bigr).\n    \\end{aligned}​∫01​Bn​f(x)dx=n+11​k=0∑n​f(k/n),∫01​L∣x−c∣dx=2L​(c2+(1−c)2).​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.youtube.com/watch?v=_HRTdXJgZ0Q",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.youtube.com/watch?v=gXPX29KfEc4",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/ra.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_puconv.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_liminter.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.ocw.mit.edu/courses/18-100a-real-analysis-fall-2020/mit18_100af20_lec_full2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-226-probabilistic-methods-in-combinatorics-fall-2022/mit18_226_f22_lec06-07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.duke.edu/~rtd/PTE/PTE5_011119.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 320,
+            "anchors": [
+              "#1-make-a-promise-about-every-later-estimate",
+              "#2-explain-why-a-real-limit-exists",
+              "#3-test-convergence-without-knowing-the-limit",
+              "#4-turn-local-continuity-into-interval-theorems",
+              "#5-treat-an-infinite-sum-as-a-limit",
+              "#6-choose-one-bound-for-an-entire-domain",
+              "#7-find-the-error-that-moves-away",
+              "#8-justify-continuity-and-integral-interchanges",
+              "#9-control-derivatives-as-well-as-values",
+              "#10-build-functions-from-controlled-series",
+              "#11-approximate-a-corner-with-positive-weights",
+              "#12-optional-bridge-to-probability-convergence",
+              "#13-practise-with-changed-claims",
+              "#14-write-a-checkable-approximation-report"
+            ],
+            "states": [
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "2"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "5"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "10"
+              },
+              {
+                "lab": 0,
+                "label": "Requested tolerance",
+                "value": "20"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "1"
+              },
+              {
+                "lab": 0,
+                "label": "Proposed start N",
+                "value": "25"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "2"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "3"
+              },
+              {
+                "lab": 1,
+                "label": "Squared target",
+                "value": "5"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "0"
+              },
+              {
+                "lab": 1,
+                "label": "Bisection steps",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "harmonic"
+              },
+              {
+                "lab": 2,
+                "label": "Series increments",
+                "value": "telescoping"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "2"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "4"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "8"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "16"
+              },
+              {
+                "lab": 2,
+                "label": "Block begins after N",
+                "value": "32"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "closed-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "open-unit"
+              },
+              {
+                "lab": 3,
+                "label": "Function domain",
+                "value": "compact-subinterval"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "1"
+              },
+              {
+                "lab": 3,
+                "label": "Power index n",
+                "value": "64"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "0"
+              },
+              {
+                "lab": 3,
+                "label": "Fixed input x",
+                "value": "1"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "4"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "16"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "64"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle index n",
+                "value": "256"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-height"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "unit-area"
+              },
+              {
+                "lab": 4,
+                "label": "Triangle amplitude",
+                "value": "shrinking-height"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "10"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "20"
+              },
+              {
+                "lab": 4,
+                "label": "Coarse grid intervals",
+                "value": "80"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "4"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "8"
+              },
+              {
+                "lab": 5,
+                "label": "Oscillation index n",
+                "value": "16"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "1"
+              },
+              {
+                "lab": 5,
+                "label": "Amplitude rule",
+                "value": "2"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "-3"
+              },
+              {
+                "lab": 5,
+                "label": "Inspect x",
+                "value": "3"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "8"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "32"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "128"
+              },
+              {
+                "lab": 6,
+                "label": "Number of series terms",
+                "value": "512"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-1"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "-0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "0.5"
+              },
+              {
+                "lab": 6,
+                "label": "Series evaluation point",
+                "value": "1"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "4"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "16"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "64"
+              },
+              {
+                "lab": 7,
+                "label": "Polynomial degree n",
+                "value": "100"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.3"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.5"
+              },
+              {
+                "lab": 7,
+                "label": "Corner location c",
+                "value": "0.7"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "0"
+              },
+              {
+                "lab": 7,
+                "label": "Weighted evaluation x",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "1"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "2"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "3"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "4"
+              },
+              {
+                "lab": 8,
+                "label": "Dyadic block k",
+                "value": "5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.25"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.5"
+              },
+              {
+                "lab": 8,
+                "label": "Fixed observer U",
+                "value": "0.75"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "0"
+              },
+              {
+                "lab": 8,
+                "label": "Interval position j",
+                "value": "3"
+              }
+            ],
+            "keyboard": [
+              "Requested tolerance: ArrowDown/Enter",
+              "Squared target: ArrowDown/Enter",
+              "Series increments: ArrowDown/Enter",
+              "Block begins after N: ArrowDown/Enter",
+              "Function domain: ArrowDown/Enter",
+              "Triangle index n: ArrowDown/Enter",
+              "Triangle amplitude: ArrowDown/Enter",
+              "Coarse grid intervals: ArrowDown/Enter",
+              "Oscillation index n: ArrowDown/Enter",
+              "Amplitude rule: ArrowDown/Enter",
+              "Number of series terms: ArrowDown/Enter",
+              "Series evaluation point: ArrowDown/Enter",
+              "Polynomial degree n: ArrowDown/Enter",
+              "Corner location c: ArrowDown/Enter",
+              "Dyadic block k: ArrowDown/Enter",
+              "Fixed observer U: ArrowDown/Enter",
+              "Proposed start N: arrow change",
+              "Bisection steps: arrow change",
+              "Power index n: arrow change",
+              "Fixed input x: arrow change",
+              "Inspect x: arrow change",
+              "Weighted evaluation x: arrow change",
+              "Interval position j: arrow change",
+              "Reset sequence tail",
+              "Reset exact bracket",
+              "Reset Cauchy block",
+              "Reset power convergence",
+              "Reset moving triangle",
+              "Reset derivative comparison",
+              "Reset series endpoint",
+              "Reset polynomial approximation",
+              "Reset interval sweep",
+              "Bisect once"
+            ],
+            "captures": [
+              "analysis-intro-320.png",
+              "reading-section-1-320.png",
+              "reading-section-2-320.png",
+              "reading-section-3-320.png",
+              "reading-section-4-320.png",
+              "reading-section-5-320.png",
+              "reading-section-6-320.png",
+              "reading-section-7-320.png",
+              "reading-section-8-320.png",
+              "reading-section-9-320.png",
+              "reading-section-10-320.png",
+              "reading-section-11-320.png",
+              "reading-section-12-320.png",
+              "reading-section-13-320.png",
+              "reading-section-14-320.png",
+              "reading-figure-0-320.png",
+              "reading-figure-1-320.png",
+              "reading-figure-2-320.png",
+              "reading-figure-3-320.png",
+              "reading-figure-4-320.png",
+              "reading-figure-5-320.png",
+              "investigation-0-320.png",
+              "investigation-1-320.png",
+              "investigation-2-320.png",
+              "investigation-3-320.png",
+              "investigation-4-320.png",
+              "investigation-5-320.png",
+              "investigation-6-320.png",
+              "investigation-7-320.png",
+              "investigation-8-320.png",
+              "strict-tail-passes-320.png",
+              "changed-exact-bracket-320.png",
+              "compact-domain-bound-320.png",
+              "missed-unit-area-peak-320.png",
+              "both-derivative-bounds-320.png",
+              "changed-series-endpoint-320.png",
+              "changed-corner-weights-320.png",
+              "half-open-boundary-hit-320.png",
+              "changed-practice-2-320.png",
+              "changed-practice-6-320.png",
+              "changed-practice-10-320.png",
+              "changed-practice-13-320.png",
+              "approximation-complete-program-320.png",
+              "changed-output-320.png",
+              "equation-0-320.png",
+              "equation-1-320.png",
+              "equation-2-320.png",
+              "equation-3-320.png",
+              "equation-4-320.png",
+              "equation-5-320.png",
+              "equation-6-320.png",
+              "equation-7-320.png",
+              "equation-8-320.png",
+              "equation-9-320.png",
+              "equation-10-320.png",
+              "equation-11-320.png",
+              "equation-12-320.png",
+              "equation-13-320.png",
+              "equation-14-320.png",
+              "equation-15-320.png",
+              "learning-resources-320.png"
+            ],
+            "programs": [
+              "Certify every later estimate",
+              "Keep the interval as exact fractions",
+              "Compare a small step with an entire later block",
+              "Bracket a sum before trusting its digits",
+              "Inspect a fixed input and a moving witness",
+              "Let exact geometry expose a missed peak",
+              "Compare an integral with an all-domain bound",
+              "Keep height and slope errors separate",
+              "Check the endpoint after proving the interior",
+              "Build a polynomial value from exact weights",
+              "Follow the same observer through shrinking intervals",
+              "A bounded mean can hide tail mass at larger values",
+              "Certify a changed polynomial-integral approximation"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3"
+            ],
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "an⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an−L∣<ε.\\begin{gathered}a_n\\longrightarrow L\\quad\\text{means}\\\\\n      \\text{for every }\\varepsilon>0\\text{ there is }N\\in\\mathbb N\\\\\n      \\text{such that every }n\\ge N\\text{ satisfies}\\\\\n      |a_n-L|<\\varepsilon.\\end{gathered}an​⟶Lmeansfor every ε>0 there is N∈Nsuch that every n≥N satisfies∣an​−L∣<ε.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "(an) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am−an∣<ε.\\begin{gathered}(a_n)\\text{ is Cauchy if}\\\\\n      \\forall\\varepsilon>0\\ \\exists N\\ \\forall m,n\\ge N,\\\\\n      |a_m-a_n|<\\varepsilon.\\end{gathered}(an​) is Cauchy if∀ε>0 ∃N ∀m,n≥N,∣am​−an​∣<ε.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Sn=1+r+⋯+rn,(1−r)Sn=1−rn+1,Sn=1−rn+11−r(r≠1).\\begin{aligned}\n      S_n&=1+r+\\cdots+r^n,\\\\\n      (1-r)S_n&=1-r^{n+1},\\\\\n      S_n&=\\frac{1-r^{n+1}}{1-r}\\quad(r\\ne1).\n    \\end{aligned}Sn​(1−r)Sn​Sn​​=1+r+⋯+rn,=1−rn+1,=1−r1−rn+1​(r=1).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn(x)−f(x)∣<ε.\\begin{gathered}\\text{Pointwise:}\\\\\n      \\forall x\\in S\\ \\forall\\varepsilon>0\\ \\exists N(x,\\varepsilon)\\\\\n      \\forall n\\ge N:\\ |f_n(x)-f(x)|<\\varepsilon.\\\\[4pt]\n      \\text{Uniform:}\\\\\n      \\forall\\varepsilon>0\\ \\exists N(\\varepsilon)\\\\\n      \\forall x\\in S\\ \\forall n\\ge N:\\\\\n      |f_n(x)-f(x)|<\\varepsilon.\n    \\end{gathered}Pointwise:∀x∈S ∀ε>0 ∃N(x,ε)∀n≥N: ∣fn​(x)−f(x)∣<ε.Uniform:∀ε>0 ∃N(ε)∀x∈S ∀n≥N:∣fn​(x)−f(x)∣<ε.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "En=sup⁡x∈S∣fn(x)−f(x)∣.E_n=\\sup_{x\\in S}|f_n(x)-f(x)|.En​=x∈Ssup​∣fn​(x)−f(x)∣."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Tn(x)=max⁡{1−∣nx−1∣,0}.T_n(x)=\\max\\{1-|nx-1|,0\\}.Tn​(x)=max{1−∣nx−1∣,0}."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∣∫abfn−∫abf∣≤∫ab∣fn−f∣≤(b−a)En⟶0.\\begin{aligned}\n      &\\left|\\int_a^b f_n-\\int_a^b f\\right|\\\\\n      &\\le\\int_a^b|f_n-f|\\\\\n      &\\le(b-a)E_n\\longrightarrow0.\n    \\end{aligned}​​∫ab​fn​−∫ab​f​≤∫ab​∣fn​−f∣≤(b−a)En​⟶0.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "fn(x)−f(x)=fn(c)−ℓ+∫cx(fn′(t)−g(t)) dt.\\begin{aligned}\n      &f_n(x)-f(x)\\\\\n      &=f_n(c)-\\ell\\\\\n      &\\quad+\\int_c^x\\bigl(f_n'(t)-g(t)\\bigr)\\,dt.\n    \\end{aligned}​fn​(x)−f(x)=fn​(c)−ℓ+∫cx​(fn′​(t)−g(t))dt.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "sup⁡x∈[a,b]∣fn(x)−f(x)∣≤∣fn(c)−ℓ∣+(b−a)Dn.\\begin{aligned}\n      &\\sup_{x\\in[a,b]}|f_n(x)-f(x)|\\\\\n      &\\quad\\le |f_n(c)-\\ell|+(b-a)D_n.\n    \\end{aligned}​x∈[a,b]sup​∣fn​(x)−f(x)∣≤∣fn​(c)−ℓ∣+(b−a)Dn​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∣∑k=n+1muk(x)∣≤∑k=n+1mMk,m>n.\\begin{gathered}\\left|\\sum_{k=n+1}^{m}u_k(x)\\right|\n      \\le\\sum_{k=n+1}^{m}M_k,\\\\m>n.\\end{gathered}​k=n+1∑m​uk​(x)​≤k=n+1∑m​Mk​,m>n.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "f′(x)=∑k=1∞kck(x−a)k−1,∫axf(t) dt=∑k=0∞ckk+1(x−a)k+1,∣x−a∣<R.\\begin{gathered}\n      f'(x)=\\sum_{k=1}^{\\infty}k c_k(x-a)^{k-1},\\\\\n      \\int_a^x f(t)\\,dt\\\\\n      =\\sum_{k=0}^{\\infty}\\frac{c_k}{k+1}(x-a)^{k+1},\\\\\n      |x-a|<R.\n    \\end{gathered}f′(x)=k=1∑∞​kck​(x−a)k−1,∫ax​f(t)dt=k=0∑∞​k+1ck​​(x−a)k+1,∣x−a∣<R.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "bn,k(x)=(nk)xk(1−x)n−k,Bnf(x)=∑k=0nbn,k(x)f(k/n).\\begin{aligned}\n      b_{n,k}(x)&={n\\choose k}x^k(1-x)^{n-k},\\\\\n      B_n f(x)&=\\sum_{k=0}^{n}b_{n,k}(x)f(k/n).\n    \\end{aligned}bn,k​(x)Bn​f(x)​=(kn​)xk(1−x)n−k,=k=0∑n​bn,k​(x)f(k/n).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∑k=0nbn,k(x)=1,∑k=0nbn,k(x)kn=x,∑k=0nbn,k(x)(kn−x)2=x(1−x)n.\\begin{gathered}\n      \\sum_{k=0}^n b_{n,k}(x)=1,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\frac{k}{n}=x,\\\\\n      \\sum_{k=0}^n b_{n,k}(x)\\left(\\frac{k}{n}-x\\right)^2\\\\\n      =\\frac{x(1-x)}n.\n    \\end{gathered}k=0∑n​bn,k​(x)=1,k=0∑n​bn,k​(x)nk​=x,k=0∑n​bn,k​(x)(nk​−x)2=nx(1−x)​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∣Bnf(x)−f(x)∣≤L∑k=0nbn,k(x)∣k/n−x∣≤Lx(1−x)n≤L2n.\\begin{aligned}\n      &|B_n f(x)-f(x)|\\\\\n      &\\le L\\sum_{k=0}^n b_{n,k}(x)|k/n-x|\\\\\n      &\\le L\\sqrt{\\frac{x(1-x)}n}\\\\\n      &\\le\\frac{L}{2\\sqrt n}.\n    \\end{aligned}​∣Bn​f(x)−f(x)∣≤Lk=0∑n​bn,k​(x)∣k/n−x∣≤Lnx(1−x)​​≤2n​L​.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "{Xn} is uniformly integrable iflim⁡M→∞sup⁡nE ⁣[∣Xn∣1{∣Xn∣>M}]=0.\\begin{gathered}\\{X_n\\}\\text{ is uniformly integrable if}\\\\\n        \\lim_{M\\to\\infty}\\sup_n\n        E\\!\\left[|X_n|\\mathbf1_{\\{|X_n|>M\\}}\\right]=0.\n      \\end{gathered}{Xn​} is uniformly integrable ifM→∞lim​nsup​E[∣Xn​∣1{∣Xn​∣>M}​]=0.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∫01Bnf(x) dx=1n+1∑k=0nf(k/n),∫01L∣x−c∣ dx=L2(c2+(1−c)2).\\begin{aligned}\n      &\\int_0^1 B_nf(x)\\,dx\\\\\n      &=\\frac1{n+1}\\sum_{k=0}^n f(k/n),\\\\\n      &\\int_0^1 L|x-c|\\,dx\\\\\n      &=\\frac L2\\bigl(c^2+(1-c)^2\\bigr).\n    \\end{aligned}​∫01​Bn​f(x)dx=n+11​k=0∑n​f(k/n),∫01​L∣x−c∣dx=2L​(c2+(1−c)2).​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://www.youtube.com/watch?v=_HRTdXJgZ0Q",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.youtube.com/watch?v=gXPX29KfEc4",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/ra.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_puconv.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.jirka.org/ra/html/sec_liminter.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://www.ocw.mit.edu/courses/18-100a-real-analysis-fall-2020/mit18_100af20_lec_full2.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/18-226-probabilistic-methods-in-combinatorics-fall-2022/mit18_226_f22_lec06-07.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://sites.math.duke.edu/~rtd/PTE/PTE5_011119.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          }
+        ],
+        "errors": [],
+        "sourceHashes": {
+          "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3",
+          "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7",
+          "src/learn/data/real-analysis-models.js": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a",
+          "src/learn/data/real-analysis-examples.js": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850",
+          "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "f5cbe48a6bfd91a1aff4f7c9866f692232782ce3ac18f2c278e8747e3fe1a6f0",
+          "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094"
+        }
+      }
+    }
+  },
+  "finalImagesActuallyOpened": [
+    {
+      "path": "scratch/real-analysis-browser/investigation-0-320.png",
+      "sha256": "9b4ac3f4bbdf4fd8cfb0deff6074ebbbb47b4226f9e85a30f7e88100971a05fe",
+      "bytes": 42813
+    },
+    {
+      "path": "scratch/real-analysis-browser/investigation-1-320.png",
+      "sha256": "ce5d7402bbd3913e226aaa4b224025fb4d7fa8afda96df25e159ed8daa723f32",
+      "bytes": 45684
+    },
+    {
+      "path": "scratch/real-analysis-browser/investigation-2-320.png",
+      "sha256": "9394c6954d065831564de748734329bd272b7b3d576e72d691951d5b77199666",
+      "bytes": 41490
+    },
+    {
+      "path": "scratch/real-analysis-browser/investigation-3-320.png",
+      "sha256": "2ea40e7aecf80bcf448796256944c069d456fcbd6a4813ef163eec09c3b008a6",
+      "bytes": 38727
+    },
+    {
+      "path": "scratch/real-analysis-browser/missed-unit-area-peak-320.png",
+      "sha256": "0cbb6ac2563c2a623bc82b337acecd4ab6d9754f1c8a4200206b8fc1f6140576",
+      "bytes": 39017
+    },
+    {
+      "path": "scratch/real-analysis-browser/both-derivative-bounds-320.png",
+      "sha256": "ab4ba1f62e4e9bc73103d5c550fb5a388593471ee49b18b2a10de36c3ef9fb53",
+      "bytes": 34649
+    },
+    {
+      "path": "scratch/real-analysis-browser/changed-series-endpoint-320.png",
+      "sha256": "b0e917acb047f17107c93adf7bb3243969835445d9f8cccc4dbeee3d5679e348",
+      "bytes": 39307
+    },
+    {
+      "path": "scratch/real-analysis-browser/changed-corner-weights-320.png",
+      "sha256": "a1e2ff12a6a6829cfa0c2dd1a8f8bb6916ff672f31939d577fdbdd2331075b89",
+      "bytes": 39307
+    },
+    {
+      "path": "scratch/real-analysis-browser/half-open-boundary-hit-320.png",
+      "sha256": "d3cbdc199b9f791a226e1fae33b9c12c5117ae572d01b294b991ff08007b56b5",
+      "bytes": 41127
+    },
+    {
+      "path": "scratch/real-analysis-browser/reading-figure-2-320.png",
+      "sha256": "5a283c312a64cb95e709158c762321a03660f971f7021603c7955bffa5943a96",
+      "bytes": 63053
+    },
+    {
+      "path": "scratch/real-analysis-browser/reading-figure-3-320.png",
+      "sha256": "d27b23b7caa512383fd983f51eefaba3969d7ec0cd78d793dd5ea04b28be2ebd",
+      "bytes": 65360
+    },
+    {
+      "path": "scratch/real-analysis-browser/equation-13-320.png",
+      "sha256": "9f0f0f42e364886c5a88a1f8fc6e9c017d121c584c71b296b7358c77500b6b8e",
+      "bytes": 67334
+    },
+    {
+      "path": "scratch/real-analysis-browser/changed-practice-13-320.png",
+      "sha256": "828538418f99678da0fa446cdd43c03deaa0ee11f7883fd288a1c669dc29e484",
+      "bytes": 69917
+    },
+    {
+      "path": "scratch/real-analysis-browser/changed-output-320.png",
+      "sha256": "d4cc9f4762f14c5d1c763d51ce1efe0d2e73b9b00951dcd0370828de4cc0e0fa",
+      "bytes": 68798
+    },
+    {
+      "path": "scratch/real-analysis-browser/learning-resources-320.png",
+      "sha256": "42a8f95e36177b1924e4cf681767eed6cd9d1c7fc4beb0ea076460adb328f30c",
+      "bytes": 75125
+    }
+  ],
+  "design": {
+    "path": "docs/teaching/REAL-ANALYSIS-LESSON-DESIGN.md",
+    "sha256": "7595af1c87f8306e63dcced7c7df3f1131c5f9fdb472b9522febd857dc030aa4",
+    "bytes": 27987
+  },
+  "report": {
+    "path": "docs/teaching/REAL-ANALYSIS-VERIFICATION.md",
+    "sha256": "e3bfc17f725a376531afa4719d0e028a9bd899366c7405cbd1a8f76bf0272dd0",
+    "bytes": 5186
+  },
+  "reviewAttention": [
+    "Recheck the painted minus sign in the changed native series select; selected DOM value and calculated result agree."
+  ],
+  "limitations": [
+    "Author checks extend preserved independent design fixtures; whole-lesson independent review is still pending.",
+    "No complete network-warning audit or observed learner study is claimed.",
+    "No production integration or user acceptance is inferred from publication."
+  ]
+}

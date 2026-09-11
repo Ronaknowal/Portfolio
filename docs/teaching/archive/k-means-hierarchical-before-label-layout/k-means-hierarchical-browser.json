@@ -1,0 +1,82 @@
+{
+  "startedAt": "2026-09-11T17:18:38.037Z",
+  "completedAt": "2026-09-11T17:18:59.791Z",
+  "topicId": "k-means-hierarchical-clustering",
+  "status": "passed",
+  "browser": "152.0.4191.66",
+  "buildManifestHash": "8b8fa8765cf6f470f0408e6f85d3e9757bfe983d6da3d5c96797af4f4f73bd47",
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "bf89d7ba6add457467b803aaf5458936de661ee3227e857dd697483661f7596f",
+    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+    "src/learn/data/k-means-hierarchical-examples.js": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "715a18e243d9f1115d287e1d314c3d7ca0fc42d306718261e35f49cd3ea29226",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "5d45d3ea076cdf00275c3c74ffeb352cb7151ef515ca2638122a5cd6d8a45477",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "25f9e3311801550d271c8b45b589fc80eb520ef00dd20d23419ec8b8ec83b07b",
+    "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "6f74f6a098dc78efbd85b99cdf6672dd8594925d5267594a73cf09a66441d86a"
+  },
+  "catalogueIds": 1218,
+  "publicationMappings": 228,
+  "moduleTopicCount": 39,
+  "records": [
+    {
+      "case": "Complete visible code/output, 14 route anchors, practice, figures, current metadata and actual module sequence"
+    },
+    {
+      "case": "Lloyd keyboard, assignment/update values, back/reset, fixed-point disable, nonoptimal rectangle and duplicate center"
+    },
+    {
+      "case": "Unadjusted unit change alters geometry; compensating squared weight restores it"
+    },
+    {
+      "case": "D² first/last positive intervals, keyboard draw, zero-mass state and reset"
+    },
+    {
+      "case": "All four linkages, exact count prefixes, whole tied-height cuts, endpoints and reset"
+    },
+    {
+      "case": "Palette keyboard endpoints, actual byte-color error and reset"
+    },
+    {
+      "case": "Fresh route requests only selected lesson and actual shared closure",
+      "requestedScripts": [
+        "assets/index-Cx2yE1w6.js",
+        "assets/Reader-B-07nmqq.js",
+        "assets/LevelBadge-Dl53tshz.js",
+        "assets/k-means-hierarchical-clustering-C2WIZYta.js",
+        "assets/Code-C5JUGq_m.js",
+        "assets/Callout-s6ZxgPdE.js",
+        "assets/Math-C4Rku5U4.js",
+        "assets/LessonElements-Bse7e3b3.js",
+        "assets/RunnableExample-uHZHzTBn.js"
+      ],
+      "rawScriptBytes": 1446426,
+      "gzipEstimateBytes": 324797,
+      "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Completion persists under stable ID without auto-advance; Next opens actual PCA successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/k-means-lloyd-desktop.png",
+    "docs/teaching/evidence/k-means-seeding-desktop.png",
+    "docs/teaching/evidence/k-means-tree-mobile.png",
+    "docs/teaching/evidence/k-means-mean-mobile.png",
+    "docs/teaching/evidence/k-means-diagnostics-mobile.png",
+    "docs/teaching/evidence/k-means-palette-mobile.png"
+  ],
+  "visualInterpretation": "Intended Space Grotesk font loaded before checks. Tall element captures temporarily extend viewport height to keep the fixed site header outside the selected region. Screenshots require the author’s separate visual inspection; structural checks alone do not establish pedagogical quality."
+}

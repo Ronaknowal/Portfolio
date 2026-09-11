@@ -1,0 +1,1733 @@
+{
+  "authorFrozenAt": "2026-09-11T04:47:32.559Z",
+  "topicId": "single-variable-calculus-limits-derivatives-integrals",
+  "status": "author-verified; independent closure, production integration and user acceptance separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+      "sha256": "bcabd09809a076699c116449792cba1c060258fb9f280f3842402bba57c04edf",
+      "bytes": 65855
+    },
+    {
+      "path": "src/learn/data/single-variable-calculus-models.js",
+      "sha256": "3d6163cbfc8607fd982eb332bbacad0df873e71099c9c24d659e527fd953918f",
+      "bytes": 13326
+    },
+    {
+      "path": "src/learn/data/single-variable-calculus-examples.js",
+      "sha256": "aa2c46ac6583c007e8a2413eac33a421bf87f0b09f4e39234c3554045b4d90ab",
+      "bytes": 16035
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+      "sha256": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8",
+      "bytes": 34241
+    },
+    {
+      "path": "src/learn/components/lesson-labs/single-variable-calculus-labs.css",
+      "sha256": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033",
+      "bytes": 5451
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js",
+      "sha256": "7449af8c2552218c932c71ba586cac3d4ae92b1fd41f1d271bc654ed511f953f",
+      "bytes": 5209
+    }
+  ],
+  "records": {
+    "native": {
+      "file": {
+        "path": "scratch/single-variable-calculus-verification/results.json",
+        "sha256": "f8a3f5d34639c4ee20386582c8e04b9e6a57ce17c0b5a39aeae19c9d3624aeac",
+        "bytes": 2224
+      },
+      "result": {
+        "at": "2026-09-11T01:43:18.703319+00:00",
+        "passed": true,
+        "python": "3.12.14",
+        "mpmathPrecision": 65,
+        "cases": {
+          "rates": 90,
+          "limits": 240,
+          "compositions": 49,
+          "extrema": 423,
+          "accumulations": 480,
+          "growth": 264,
+          "taylors": 251,
+          "improper": 450
+        },
+        "actualPrograms": [
+          "motion-secants",
+          "limit-guarantee",
+          "local-operations",
+          "interval-extrema",
+          "signed-rectangles",
+          "square-riemann-limit",
+          "moving-bounds",
+          "integration-operations",
+          "exponential-rate",
+          "taylor-remainders",
+          "finite-difference-rounding",
+          "improper-cutoffs",
+          "weighted-material",
+          "decay-steps",
+          "changed-motion"
+        ],
+        "changedNativeHelpers": 16,
+        "practiceAndApplicationChecks": 16,
+        "syntax": {
+          "equations": 24,
+          "invalidRejected": 25
+        },
+        "sources": [
+          {
+            "path": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+            "sha256": "bcabd09809a076699c116449792cba1c060258fb9f280f3842402bba57c04edf"
+          },
+          {
+            "path": "src/learn/data/single-variable-calculus-models.js",
+            "sha256": "3d6163cbfc8607fd982eb332bbacad0df873e71099c9c24d659e527fd953918f"
+          },
+          {
+            "path": "src/learn/data/single-variable-calculus-examples.js",
+            "sha256": "aa2c46ac6583c007e8a2413eac33a421bf87f0b09f4e39234c3554045b4d90ab"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+            "sha256": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/single-variable-calculus-labs.css",
+            "sha256": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js",
+            "sha256": "7449af8c2552218c932c71ba586cac3d4ae92b1fd41f1d271bc654ed511f953f"
+          }
+        ],
+        "limits": [
+          "Finite and symbolic checks support the implementations; they do not replace the written real-analysis proofs.",
+          "Browser geometry, readable rendering and production loading have separate records."
+        ]
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/single-variable-calculus-browser/results.json",
+        "sha256": "4419a127af7b7bd7e74ab07a39e88dc40f0048123c37878f2efe89dba4371c58",
+        "bytes": 109380
+      },
+      "result": {
+        "at": "2026-09-11T01:44:06.538Z",
+        "browser": "152.0.4191.66",
+        "widths": [
+          {
+            "width": 1440,
+            "keyboardChecks": 14,
+            "states": [
+              {
+                "name": "turning-point",
+                "text": "Bring a second observation closer\n\nAt t=2 the object is moving backwards. Predict whether the interval slope is also negative, then shrink the interval. Next move to a turning point at t=1.\n\nBase time: 1 s\nSigned time increment\n+1 s\n+0.5 s\n+0.1 s\n+0.01 s\n-0.01 s\n-0.1 s\n-0.5 s\n-1 s\nPosition (m)\n-2\n2\n6\n0\n2\n4\nTime (s)\n\nGold: position\nDashed blue: secant\nRose: tangent\n\nPositions: 4 → 3.969 m\n\nInterval slope: 0.31 m/s · local velocity: 0 m/s\n\nLinear change: 0 m · exact change: -0.031 m\n\nRemainder: -0.031 m\n\nThe two points determine the secant. The tangent uses the derivative of the stated cubic, not a fitted line. At t=2 the tangent crosses the curve; crossing does not disqualify a tangent. All graph values come from the analytic model on 0–4 seconds.\n\nReset motion rate"
+              },
+              {
+                "name": "exact-limit-boundary",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "changed-center",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=6\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "jump-witness",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius fails the requested accuracy.\n\nSupremum of nearby output error: 2.84 · requested: 0.84\n\nInterior witness: x=2.1. Its exact error is 241/100 ≥ epsilon.\n\nLeft limit: 4 · right limit: 6 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "zero-outer-slope",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: 0.1\nMake the outer slope zero\nInput x\n-0.3333 → -0.2333\nChange h=0.1\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → 0.3\nChange 3h=0.3\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 0.09\nActual change 0.09\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 0.09\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "negative-composition-change",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: -0.5\nMake the outer slope zero\nInput x\n-0.3333 → -0.8333\nChange h=-0.5\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → -1.5\nChange 3h=-1.5\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 2.25\nActual change 2.25\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 2.25\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "cusp-tied-endpoints",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "invalid-interval-retains-state",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\n\nEnter both endpoints. The last valid interval is retained.\n\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "interval-excludes-critical-points",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [3.25, 3.75]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=3.25 → approximately 0.2031\nleft endpoint\nGlobal minimum on this interval.\nt=3.75 → approximately 2.1094\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (3.25, 3.75): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "signed-three-rectangles",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 4 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 1.3333 s × sampled velocity.\n\nSigned sum: 2.2222 m · exact displacement: 4 m\n\nAbsolute-strip sum: 10.2222 m · exact distance: 12 m\n\nSigned-sum error: -1.7778 m\n\nRate of the exact accumulation at T: 9 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "early-accumulation",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 0.25 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 0.0039 s × sampled velocity.\n\nSigned sum: 1.8906 m · exact displacement: 1.8906 m\n\nAbsolute-strip sum: 1.8906 m · exact distance: 1.8906 m\n\nSigned-sum error: -9.537e-7 m\n\nRate of the exact accumulation at T: 6.1875 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "decay-tangent",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: -0.8 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 2.019 · after this period: 0.4076\n\nInstantaneous rate: -1.6152 amount/time\n\nAverage rate over the period: -0.8057 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = -0.7981 (-79.8103%)\n\nFraction divided by period: -0.3991 /time · instantaneous relative rate: -0.8 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "zero-growth",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: 0 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 10 · after this period: 10\n\nInstantaneous rate: 0 amount/time\n\nAverage rate over the period: 0 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = 0 (0%)\n\nFraction divided by period: 0 /time · instantaneous relative rate: 0 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "log-outside-series-radius",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: 1.5\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: 0.9162907 · polynomial: -5.3518775\n\nComputed polynomial minus function: -6.2681682\n\nAnalytic truncation bound, evaluated approximately: 14.9707313\n\nOutside the open interval |x|<1. Existence of log(1+x) does not make this power series converge here; endpoints need separate assessment.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "log-near-domain-edge",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: -0.9\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: -2.3025851 · polynomial: -2.1708116\n\nComputed polynomial minus function: 0.1317735\n\nAnalytic truncation bound, evaluated approximately: 1.955e+11\n\nInside |x|<1, where the geometric-remainder argument establishes convergence.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "improper-endpoint-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n1.12\n2.24\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 1.98\n\nFinite total: 2 · omitted contribution: 0.02\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5599.44\n1.120e+4\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9999\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n110.88\n221.76\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 198\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n0.56\n1.12\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 0.9999\n\nFinite total: 1 · omitted contribution: 1.000e-4\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "inline-0",
+                "text": "Position 0 m\n4 m\nt=0 → 1 s: +4 m\nt=1 → 3 s: −4 m\nt=3 → 4 s: +4 m\nEach row is one leg of the same journey on the same position scale. The vertical separation only organizes the legs; it is not another direction of motion. Signed changes sum to 4 m, while the three travelled lengths sum to 12 m."
+              },
+              {
+                "name": "inline-1",
+                "text": "ab\naΔb\nbΔa\nΔaΔb\na\nΔa\nb\nTwo edge strips + one corner\nThis structural area diagram uses positive increments; its lengths are schematic. The exact algebra is Δ(ab)=bΔa+aΔb+ΔaΔb. When both increments are proportional to a small h, the corner is proportional to h². Signed increments use the same algebra without requiring literal added rectangles."
+              },
+              {
+                "name": "inline-2",
+                "text": "0\n1\n1.5\n2\n2.5\nA(1)\n1\nerror 1/8\nt (chosen units)\nFor f(t)=1+t and h=1/2, the added area is 1+1/8=9/8. The rectangle f(1)h is 1; its triangular error is h²/2. Divide by h: the added-area rate is 2+h/2, which tends to f(1)=2. The proof in the text extends the residual bound beyond this linear example."
+              },
+              {
+                "name": "inline-3",
+                "text": "2\n4\n0\n2 m\nDensity ρ(x)=2+x kg/m\nMidpoint 1 · center 10/9 m\nThe area under density is mass: 6 kg. Weight each strip again by its position to get first moment 20/3 kg·m. Their ratio is the center 10/9 m. The dashed midpoint and rose center use the same position scale; the denser right half moves the balance point rightwards."
+              },
+              {
+                "name": "changed-decay-practice",
+                "text": "I. Translate a decay fraction into a rate\n\nA positive model retains 80% of its amount every three time units. Find its constant continuous rate k and its half-life. State the model assumption.\n\nGet a hint\n\nexp(3k)=0.8; a half-life H satisfies exp(kH)=1/2.\n\nShow explained solution\n\nAssuming exact exponential decay with constant k, k=ln(0.8)/3≈−0.0743812 per time unit. The half-life is ln(1/2)/k≈9.318851 time units. Dividing −0.2 by 3 gives a finite-fraction approximation, not the exact continuous rate. These conclusions depend on the exponential model; one observed retention interval alone would not establish it."
+              }
+            ],
+            "equations": 24,
+            "equationOverflow": [],
+            "svgTextOverflow": [],
+            "anchors": [
+              {
+                "href": "#1-ask-three-questions-about-one-journey",
+                "exists": true
+              },
+              {
+                "href": "#2-make-approaching-precise",
+                "exists": true
+              },
+              {
+                "href": "#3-extract-the-local-linear-rate",
+                "exists": true
+              },
+              {
+                "href": "#4-build-rules-from-changing-operations",
+                "exists": true
+              },
+              {
+                "href": "#5-connect-local-rates-to-global-decisions",
+                "exists": true
+              },
+              {
+                "href": "#6-accumulate-signed-contributions",
+                "exists": true
+              },
+              {
+                "href": "#7-prove-the-bridge-between-rate-and-total",
+                "exists": true
+              },
+              {
+                "href": "#8-reverse-operations-to-integrate",
+                "exists": true
+              },
+              {
+                "href": "#9-complete-the-exponential-growth-story",
+                "exists": true
+              },
+              {
+                "href": "#10-keep-the-remainder-with-the-approximation",
+                "exists": true
+              },
+              {
+                "href": "#11-check-what-happens-at-the-edge",
+                "exists": true
+              },
+              {
+                "href": "#12-transfer-the-same-idea-to-new-quantities",
+                "exists": true
+              },
+              {
+                "href": "#13-practise-with-changed-assumptions",
+                "exists": true
+              },
+              {
+                "href": "#14-connect-the-pieces-and-continue",
+                "exists": true
+              }
+            ],
+            "docOverflow": {
+              "viewport": 1440,
+              "actual": 1440
+            },
+            "errors": []
+          },
+          {
+            "width": 390,
+            "keyboardChecks": 14,
+            "states": [
+              {
+                "name": "turning-point",
+                "text": "Bring a second observation closer\n\nAt t=2 the object is moving backwards. Predict whether the interval slope is also negative, then shrink the interval. Next move to a turning point at t=1.\n\nBase time: 1 s\nSigned time increment\n+1 s\n+0.5 s\n+0.1 s\n+0.01 s\n-0.01 s\n-0.1 s\n-0.5 s\n-1 s\nPosition (m)\n-2\n2\n6\n0\n2\n4\nTime (s)\n\nGold: position\nDashed blue: secant\nRose: tangent\n\nPositions: 4 → 3.969 m\n\nInterval slope: 0.31 m/s · local velocity: 0 m/s\n\nLinear change: 0 m · exact change: -0.031 m\n\nRemainder: -0.031 m\n\nThe two points determine the secant. The tangent uses the derivative of the stated cubic, not a fitted line. At t=2 the tangent crosses the curve; crossing does not disqualify a tangent. All graph values come from the analytic model on 0–4 seconds.\n\nReset motion rate"
+              },
+              {
+                "name": "exact-limit-boundary",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "changed-center",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=6\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "jump-witness",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius fails the requested accuracy.\n\nSupremum of nearby output error: 2.84 · requested: 0.84\n\nInterior witness: x=2.1. Its exact error is 241/100 ≥ epsilon.\n\nLeft limit: 4 · right limit: 6 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "zero-outer-slope",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: 0.1\nMake the outer slope zero\nInput x\n-0.3333 → -0.2333\nChange h=0.1\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → 0.3\nChange 3h=0.3\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 0.09\nActual change 0.09\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 0.09\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "negative-composition-change",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: -0.5\nMake the outer slope zero\nInput x\n-0.3333 → -0.8333\nChange h=-0.5\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → -1.5\nChange 3h=-1.5\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 2.25\nActual change 2.25\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 2.25\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "cusp-tied-endpoints",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "invalid-interval-retains-state",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\n\nEnter both endpoints. The last valid interval is retained.\n\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "interval-excludes-critical-points",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [3.25, 3.75]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=3.25 → approximately 0.2031\nleft endpoint\nGlobal minimum on this interval.\nt=3.75 → approximately 2.1094\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (3.25, 3.75): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "signed-three-rectangles",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 4 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 1.3333 s × sampled velocity.\n\nSigned sum: 2.2222 m · exact displacement: 4 m\n\nAbsolute-strip sum: 10.2222 m · exact distance: 12 m\n\nSigned-sum error: -1.7778 m\n\nRate of the exact accumulation at T: 9 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "early-accumulation",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 0.25 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 0.0039 s × sampled velocity.\n\nSigned sum: 1.8906 m · exact displacement: 1.8906 m\n\nAbsolute-strip sum: 1.8906 m · exact distance: 1.8906 m\n\nSigned-sum error: -9.537e-7 m\n\nRate of the exact accumulation at T: 6.1875 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "decay-tangent",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: -0.8 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 2.019 · after this period: 0.4076\n\nInstantaneous rate: -1.6152 amount/time\n\nAverage rate over the period: -0.8057 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = -0.7981 (-79.8103%)\n\nFraction divided by period: -0.3991 /time · instantaneous relative rate: -0.8 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "zero-growth",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: 0 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 10 · after this period: 10\n\nInstantaneous rate: 0 amount/time\n\nAverage rate over the period: 0 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = 0 (0%)\n\nFraction divided by period: 0 /time · instantaneous relative rate: 0 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "log-outside-series-radius",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: 1.5\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: 0.9162907 · polynomial: -5.3518775\n\nComputed polynomial minus function: -6.2681682\n\nAnalytic truncation bound, evaluated approximately: 14.9707313\n\nOutside the open interval |x|<1. Existence of log(1+x) does not make this power series converge here; endpoints need separate assessment.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "log-near-domain-edge",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: -0.9\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: -2.3025851 · polynomial: -2.1708116\n\nComputed polynomial minus function: 0.1317735\n\nAnalytic truncation bound, evaluated approximately: 1.955e+11\n\nInside |x|<1, where the geometric-remainder argument establishes convergence.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "improper-endpoint-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n1.12\n2.24\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 1.98\n\nFinite total: 2 · omitted contribution: 0.02\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5599.44\n1.120e+4\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9999\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n110.88\n221.76\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 198\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n0.56\n1.12\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 0.9999\n\nFinite total: 1 · omitted contribution: 1.000e-4\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "inline-0",
+                "text": "Position 0 m\n4 m\nt=0 → 1 s: +4 m\nt=1 → 3 s: −4 m\nt=3 → 4 s: +4 m\nEach row is one leg of the same journey on the same position scale. The vertical separation only organizes the legs; it is not another direction of motion. Signed changes sum to 4 m, while the three travelled lengths sum to 12 m."
+              },
+              {
+                "name": "inline-1",
+                "text": "ab\naΔb\nbΔa\nΔaΔb\na\nΔa\nb\nTwo edge strips + one corner\nThis structural area diagram uses positive increments; its lengths are schematic. The exact algebra is Δ(ab)=bΔa+aΔb+ΔaΔb. When both increments are proportional to a small h, the corner is proportional to h². Signed increments use the same algebra without requiring literal added rectangles."
+              },
+              {
+                "name": "inline-2",
+                "text": "0\n1\n1.5\n2\n2.5\nA(1)\n1\nerror 1/8\nt (chosen units)\nFor f(t)=1+t and h=1/2, the added area is 1+1/8=9/8. The rectangle f(1)h is 1; its triangular error is h²/2. Divide by h: the added-area rate is 2+h/2, which tends to f(1)=2. The proof in the text extends the residual bound beyond this linear example."
+              },
+              {
+                "name": "inline-3",
+                "text": "2\n4\n0\n2 m\nDensity ρ(x)=2+x kg/m\nMidpoint 1 · center 10/9 m\nThe area under density is mass: 6 kg. Weight each strip again by its position to get first moment 20/3 kg·m. Their ratio is the center 10/9 m. The dashed midpoint and rose center use the same position scale; the denser right half moves the balance point rightwards."
+              },
+              {
+                "name": "changed-decay-practice",
+                "text": "I. Translate a decay fraction into a rate\n\nA positive model retains 80% of its amount every three time units. Find its constant continuous rate k and its half-life. State the model assumption.\n\nGet a hint\n\nexp(3k)=0.8; a half-life H satisfies exp(kH)=1/2.\n\nShow explained solution\n\nAssuming exact exponential decay with constant k, k=ln(0.8)/3≈−0.0743812 per time unit. The half-life is ln(1/2)/k≈9.318851 time units. Dividing −0.2 by 3 gives a finite-fraction approximation, not the exact continuous rate. These conclusions depend on the exponential model; one observed retention interval alone would not establish it."
+              }
+            ],
+            "equations": 24,
+            "equationOverflow": [],
+            "svgTextOverflow": [],
+            "anchors": [
+              {
+                "href": "#1-ask-three-questions-about-one-journey",
+                "exists": true
+              },
+              {
+                "href": "#2-make-approaching-precise",
+                "exists": true
+              },
+              {
+                "href": "#3-extract-the-local-linear-rate",
+                "exists": true
+              },
+              {
+                "href": "#4-build-rules-from-changing-operations",
+                "exists": true
+              },
+              {
+                "href": "#5-connect-local-rates-to-global-decisions",
+                "exists": true
+              },
+              {
+                "href": "#6-accumulate-signed-contributions",
+                "exists": true
+              },
+              {
+                "href": "#7-prove-the-bridge-between-rate-and-total",
+                "exists": true
+              },
+              {
+                "href": "#8-reverse-operations-to-integrate",
+                "exists": true
+              },
+              {
+                "href": "#9-complete-the-exponential-growth-story",
+                "exists": true
+              },
+              {
+                "href": "#10-keep-the-remainder-with-the-approximation",
+                "exists": true
+              },
+              {
+                "href": "#11-check-what-happens-at-the-edge",
+                "exists": true
+              },
+              {
+                "href": "#12-transfer-the-same-idea-to-new-quantities",
+                "exists": true
+              },
+              {
+                "href": "#13-practise-with-changed-assumptions",
+                "exists": true
+              },
+              {
+                "href": "#14-connect-the-pieces-and-continue",
+                "exists": true
+              }
+            ],
+            "docOverflow": {
+              "viewport": 390,
+              "actual": 390
+            },
+            "errors": []
+          },
+          {
+            "width": 320,
+            "keyboardChecks": 14,
+            "states": [
+              {
+                "name": "turning-point",
+                "text": "Bring a second observation closer\n\nAt t=2 the object is moving backwards. Predict whether the interval slope is also negative, then shrink the interval. Next move to a turning point at t=1.\n\nBase time: 1 s\nSigned time increment\n+1 s\n+0.5 s\n+0.1 s\n+0.01 s\n-0.01 s\n-0.1 s\n-0.5 s\n-1 s\nPosition (m)\n-2\n2\n6\n0\n2\n4\nTime (s)\n\nGold: position\nDashed blue: secant\nRose: tangent\n\nPositions: 4 → 3.969 m\n\nInterval slope: 0.31 m/s · local velocity: 0 m/s\n\nLinear change: 0 m · exact change: -0.031 m\n\nRemainder: -0.031 m\n\nThe two points determine the secant. The tangent uses the derivative of the stated cubic, not a fitted line. At t=2 the tangent crosses the curve; crossing does not disqualify a tangent. All graph values come from the analytic model on 0–4 seconds.\n\nReset motion rate"
+              },
+              {
+                "name": "exact-limit-boundary",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "changed-center",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius guarantees the requested accuracy.\n\nSupremum of nearby output error: 0.84 · requested: 0.84\n\nLeft limit: 4 · right limit: 4 · f(2)=6\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "jump-witness",
+                "text": "Make a promise about every nearby input\n\nThe target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?\n\nFunction near two\nx² everywhere\nx² nearby; f(2)=6\nx² left; x²+2 right\nOutput tolerance epsilon: 0.84\nInput radius delta: 0.2\nOutput f(x)\n0\n4\n8\n1\n2\n3\nInput x\n\nGold band: allowed output\nBlue strip: nearby inputs\nRose dot: counterexample\n\nThis input radius fails the requested accuracy.\n\nSupremum of nearby output error: 2.84 · requested: 0.84\n\nInterior witness: x=2.1. Its exact error is 241/100 ≥ epsilon.\n\nLeft limit: 4 · right limit: 6 · f(2)=4\n\nThe punctured strip excludes x=2 and its boundary lines. Decimal controls are compared exactly, so an open-strip supremum equal to epsilon is valid. The guarantee comes from algebra, not from sampling the drawing. For x², delta=min(1,epsilon/5) is one sufficient choice. The right jump fails for every shown epsilon, however small the positive input radius.\n\nReset limit guarantee"
+              },
+              {
+                "name": "zero-outer-slope",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: 0.1\nMake the outer slope zero\nInput x\n-0.3333 → -0.2333\nChange h=0.1\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → 0.3\nChange 3h=0.3\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 0.09\nActual change 0.09\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 0.09\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "negative-composition-change",
+                "text": "Follow a change through two functions\n\nThe inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change.\n\nInput x: -0.3333\nInput change h: -0.5\nMake the outer slope zero\nInput x\n-0.3333 → -0.8333\nChange h=-0.5\n\n↓ multiply by 3, then add 1\n\nIntermediate u\n0 → -1.5\nChange 3h=-1.5\n\n↓ square; local slope 2u=0\n\nOutput u²\n0 → 2.25\nActual change 2.25\n\nDerivative: outer slope × inner slope = 0 × 3 = 0\n\nFirst-order change: 0 · remainder 9h²: 2.25\n\nActual change = first-order change + remainder.\n\nAt u=0 the output's first-order change vanishes, but a nonzero h still changes the square by 9h². The chain rule predicts a local linear contribution; it does not remove higher-order terms. The diagram uses values and labelled operations, not distances proportional to their magnitudes.\n\nReset composition"
+              },
+              {
+                "name": "cusp-tied-endpoints",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "invalid-interval-retains-state",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\n\nEnter both endpoints. The last valid interval is retained.\n\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [0, 4]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=0 → approximately 2\nleft endpoint\nGlobal maximum on this interval.\nt=2 → approximately 0\nderivative undefined\nGlobal minimum on this interval.\nt=4 → approximately 2\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (0, 2): decreasing · (2, 4): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "interval-excludes-critical-points",
+                "text": "Compare every candidate inside the allowed interval\n\nThe derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp.\n\nExtrema function\nt(t−3)²\n(t−2)³\n|t−2|\nLeft endpoint\nRight endpoint\nApply interval\nFunction value\n-1\n2\n5\n0\n2\n4\nInput t\n\nActive interval: [3.25, 3.75]. Inputs may be any finite decimals from 0 to 4 with left < right. Blue candidates attain the minimum; rose candidates attain the maximum. Classifications use exact decimal values of the accepted inputs. Heights are rounded for display; nearby points can overlap in the drawing.\n\nt=3.25 → approximately 0.2031\nleft endpoint\nGlobal minimum on this interval.\nt=3.75 → approximately 2.1094\nright endpoint\nGlobal maximum on this interval.\n\nBetween candidates: (3.25, 3.75): increasing\n\nThe sign statements refer to each open interval between listed boundaries. They come from the factored derivative, not a grid search. A derivative of zero at the middle of (t−2)³ does not give an extremum. The cusp's minimum has no finite derivative there.\n\nReset extrema"
+              },
+              {
+                "name": "signed-three-rectangles",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 4 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 1.3333 s × sampled velocity.\n\nSigned sum: 2.2222 m · exact displacement: 4 m\n\nAbsolute-strip sum: 10.2222 m · exact distance: 12 m\n\nSigned-sum error: -1.7778 m\n\nRate of the exact accumulation at T: 9 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "early-accumulation",
+                "text": "Add forward and backward contributions\n\nFrom t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles.\n\nUpper time T: 0.25 s\nRectangle count\n3\n4\n8\n16\n32\n64\nSample in each strip\nLeft endpoint\nMidpoint\nRight endpoint\nVelocity (m/s)\n-4\n3\n10\n0\n2\n4\nTime (s)\nAccumulation A(T) (m)\n-1\n2\n5\n0\n2\n4\nUpper time T (s)\n\nAbove zero: positive contribution\nBelow zero: negative contribution\n\nEach strip: 0.0039 s × sampled velocity.\n\nSigned sum: 1.8906 m · exact displacement: 1.8906 m\n\nAbsolute-strip sum: 1.8906 m · exact distance: 1.8906 m\n\nSigned-sum error: -9.537e-7 m\n\nRate of the exact accumulation at T: 6.1875 m/s\n\nThe second curve is the analytic accumulation, not an interpolation of the rectangle totals. Negative velocity makes that curve decrease while travelled distance still increases. Some equal grids happen to give the exact distance for this cubic; three panels or a changed endpoint exposes why this coincidence is not a general integration guarantee.\n\nReset accumulation"
+              },
+              {
+                "name": "decay-tangent",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: -0.8 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 2.019 · after this period: 0.4076\n\nInstantaneous rate: -1.6152 amount/time\n\nAverage rate over the period: -0.8057 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = -0.7981 (-79.8103%)\n\nFraction divided by period: -0.3991 /time · instantaneous relative rate: -0.8 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "zero-growth",
+                "text": "Separate a local relative rate from a period's gain\n\nAt k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent.\n\nContinuous rate k: 0 /time\nPeriod length: 2 time units\nAmount\n0\n5.5\n11\n0\n2\n4\nTime\n\nGold: 10 exp(kt)\nDashed blue: local prediction at t=2\n\nAmount at t=2: 10 · after this period: 10\n\nInstantaneous rate: 0 amount/time\n\nAverage rate over the period: 0 amount/time\n\nPeriod's fraction: exp(kΔ)−1 = 0 (0%)\n\nFraction divided by period: 0 /time · instantaneous relative rate: 0 /time\n\nThe period's relative change uses the amount at t=2 as its denominator. It is not the average of all instantaneous relative rates along the curve; those are constantly k. This is a declared growth/decay model, not evidence that a measured system will follow it.\n\nReset exponential rate"
+              },
+              {
+                "name": "log-outside-series-radius",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: 1.5\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: 0.9162907 · polynomial: -5.3518775\n\nComputed polynomial minus function: -6.2681682\n\nAnalytic truncation bound, evaluated approximately: 14.9707313\n\nOutside the open interval |x|<1. Existence of log(1+x) does not make this power series converge here; endpoints need separate assessment.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "log-near-domain-edge",
+                "text": "Ask how much of the function a polynomial captures\n\nNear zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them.\n\nApproximated function\nexp(x), around zero\nlog(1+x), around zero\nPolynomial degree: 12\nEvaluation input: -0.9\nFunction / polynomial\n-4\n-1\n2\n-0.9\n0.3\n1.5\nInput x\n\nGold: function\nDashed blue: finite polynomial\nRose: computed difference at selected x\n\nFunction: -2.3025851 · polynomial: -2.1708116\n\nComputed polynomial minus function: 0.1317735\n\nAnalytic truncation bound, evaluated approximately: 1.955e+11\n\nInside |x|<1, where the geometric-remainder argument establishes convergence.\n\nThe theorem bounds the exact polynomial's truncation error. The computed difference also includes floating-point roundoff: it can exceed a tiny analytic bound or round to zero while the true error remains nonzero. Try exp(x), degree 12 and x=0.05. No rounding allowance has been added to the mathematical bound, and its displayed decimal is not a rigorously rounded interval bound.\n\nPₙ(x)=Σ from j=1 to n of (−1)ʲ⁺¹xʲ/j. The derivative bound uses n! / min(1,1+x)ⁿ⁺¹. These are analytic polynomial evaluations. The plot clips values outside its labelled vertical range; the numerical result still reports them. A large valid bound can be uninformative without the approximation itself being equally bad.\n\nReset Taylor approximation"
+              },
+              {
+                "name": "improper-endpoint-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n1.12\n2.24\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 1.98\n\nFinite total: 2 · omitted contribution: 0.02\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-endpoint-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5599.44\n1.120e+4\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means delta=10⁻ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent lower bound delta: 1.000e-4\n\nRetained integral: 9999\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p < 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-0.5",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n110.88\n221.76\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 198\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-1",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n5.16\n10.32\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 9.2103404\n\nThe improper integral diverges; a finite cutoff is still finite.\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "improper-tail-2",
+                "text": "Measure what a cutoff leaves out\n\nAn unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides.\n\nDifficult endpoint\nFrom delta to 1; delta → 0\nFrom 1 to B; B → infinity\nPower p in x to minus p\np=0.5\np=1\np=1.5\np=2\nCutoff exponent q: 4\nTruncated integral\n0\n0.56\n1.12\n0\n2\n4\nCutoff exponent q\n\nHorizontal q means B=10ᑫ. This is a plot of the finite integral against cutoff, not a plot of density or integrand height. Its vertical scale adapts to the selected power.\n\nCurrent upper bound B: 1.000e+4\n\nRetained integral: 0.9999\n\nFinite total: 1 · omitted contribution: 1.000e-4\n\nFor this endpoint, convergence requires p > 1. At p=1 the logarithm diverges.\n\nThe finite total and omitted contribution follow from the antiderivative and its limit. A curve that looks settled over four cutoff decades is not, by itself, proof of convergence. No infinite endpoint is replaced with a finite plotted height.\n\nReset improper integral"
+              },
+              {
+                "name": "inline-0",
+                "text": "Position 0 m\n4 m\nt=0 → 1 s: +4 m\nt=1 → 3 s: −4 m\nt=3 → 4 s: +4 m\nEach row is one leg of the same journey on the same position scale. The vertical separation only organizes the legs; it is not another direction of motion. Signed changes sum to 4 m, while the three travelled lengths sum to 12 m."
+              },
+              {
+                "name": "inline-1",
+                "text": "ab\naΔb\nbΔa\nΔaΔb\na\nΔa\nb\nTwo edge strips + one corner\nThis structural area diagram uses positive increments; its lengths are schematic. The exact algebra is Δ(ab)=bΔa+aΔb+ΔaΔb. When both increments are proportional to a small h, the corner is proportional to h². Signed increments use the same algebra without requiring literal added rectangles."
+              },
+              {
+                "name": "inline-2",
+                "text": "0\n1\n1.5\n2\n2.5\nA(1)\n1\nerror 1/8\nt (chosen units)\nFor f(t)=1+t and h=1/2, the added area is 1+1/8=9/8. The rectangle f(1)h is 1; its triangular error is h²/2. Divide by h: the added-area rate is 2+h/2, which tends to f(1)=2. The proof in the text extends the residual bound beyond this linear example."
+              },
+              {
+                "name": "inline-3",
+                "text": "2\n4\n0\n2 m\nDensity ρ(x)=2+x kg/m\nMidpoint 1 · center 10/9 m\nThe area under density is mass: 6 kg. Weight each strip again by its position to get first moment 20/3 kg·m. Their ratio is the center 10/9 m. The dashed midpoint and rose center use the same position scale; the denser right half moves the balance point rightwards."
+              },
+              {
+                "name": "changed-decay-practice",
+                "text": "I. Translate a decay fraction into a rate\n\nA positive model retains 80% of its amount every three time units. Find its constant continuous rate k and its half-life. State the model assumption.\n\nGet a hint\n\nexp(3k)=0.8; a half-life H satisfies exp(kH)=1/2.\n\nShow explained solution\n\nAssuming exact exponential decay with constant k, k=ln(0.8)/3≈−0.0743812 per time unit. The half-life is ln(1/2)/k≈9.318851 time units. Dividing −0.2 by 3 gives a finite-fraction approximation, not the exact continuous rate. These conclusions depend on the exponential model; one observed retention interval alone would not establish it."
+              }
+            ],
+            "equations": 24,
+            "equationOverflow": [],
+            "svgTextOverflow": [],
+            "anchors": [
+              {
+                "href": "#1-ask-three-questions-about-one-journey",
+                "exists": true
+              },
+              {
+                "href": "#2-make-approaching-precise",
+                "exists": true
+              },
+              {
+                "href": "#3-extract-the-local-linear-rate",
+                "exists": true
+              },
+              {
+                "href": "#4-build-rules-from-changing-operations",
+                "exists": true
+              },
+              {
+                "href": "#5-connect-local-rates-to-global-decisions",
+                "exists": true
+              },
+              {
+                "href": "#6-accumulate-signed-contributions",
+                "exists": true
+              },
+              {
+                "href": "#7-prove-the-bridge-between-rate-and-total",
+                "exists": true
+              },
+              {
+                "href": "#8-reverse-operations-to-integrate",
+                "exists": true
+              },
+              {
+                "href": "#9-complete-the-exponential-growth-story",
+                "exists": true
+              },
+              {
+                "href": "#10-keep-the-remainder-with-the-approximation",
+                "exists": true
+              },
+              {
+                "href": "#11-check-what-happens-at-the-edge",
+                "exists": true
+              },
+              {
+                "href": "#12-transfer-the-same-idea-to-new-quantities",
+                "exists": true
+              },
+              {
+                "href": "#13-practise-with-changed-assumptions",
+                "exists": true
+              },
+              {
+                "href": "#14-connect-the-pieces-and-continue",
+                "exists": true
+              }
+            ],
+            "docOverflow": {
+              "viewport": 320,
+              "actual": 320
+            },
+            "errors": []
+          }
+        ],
+        "images": [
+          {
+            "path": "scratch/single-variable-calculus-browser/turning-point-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1181
+            },
+            "sha256": "f7e4edd3a88f556f15b74f77a873e6fd6706e5f45a3150c707949b81a032a689"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/exact-limit-boundary-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1175
+            },
+            "sha256": "332f73dc59e2895208a12c9ad715e5b6723b32124cb360ad668f83fdf9f3a932"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-center-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1175
+            },
+            "sha256": "539c2a8ee57ff6bec2f3a4a7b8c4c2712ebacd0e364c3e4de4e5297e571304ff"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/jump-witness-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1209
+            },
+            "sha256": "a9428fdaa78185518ec3f09ab7408cf6c98bc22f061d764257fc70a0ee208617"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-outer-slope-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1220
+            },
+            "sha256": "402b74e1414a6d9abb68e72c4c8f8a2e9c41325e44bee58e10f31235dd60f9ab"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/negative-composition-change-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1220
+            },
+            "sha256": "87719c0bd2bfae060ebf447346c10d36f9b5cf2c81131d2b89f80031d7a67dcf"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/cusp-tied-endpoints-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1372
+            },
+            "sha256": "626cf68d7feed15fb084a0927949e5192b32bdfe53e260312663c63f4d97c0f6"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/invalid-interval-retains-state-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1444
+            },
+            "sha256": "4a6dd0c6f50e316017897b63f34413c641aa4bd32c34bb903af14436f7c0cba2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/interval-excludes-critical-points-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1242
+            },
+            "sha256": "0b45808b07a0a3c89a2f5dfdea78f527dc1f688e70ed9ab0ad09ebd2426521ee"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/signed-three-rectangles-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1225
+            },
+            "sha256": "c592a3f09c86c6e392e7833c57606d777121df704dd9bd534910a9e03a847e6e"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/early-accumulation-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1225
+            },
+            "sha256": "74b931a71415241fdb53a6066d3190517822642db3e39033b1f49b498a3d121b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/decay-tangent-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1206
+            },
+            "sha256": "a3eca3d8f1011231951be3649156692d1e0565cd0b81fe6b9d44ccf4ae87a1f4"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-growth-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1206
+            },
+            "sha256": "5783010c0754c313f64c5dc74b7e643a95b9fbbf387bb20c94225fe12bad0d5a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-outside-series-radius-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1405
+            },
+            "sha256": "27969d1c18698c9b93589ed67e0bcb44812bf6891d6b2cb83cec46c0c72a958d"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-near-domain-edge-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1377
+            },
+            "sha256": "e98d615417328ee2bf30af55e626db87dc79e934ebd5f05355e5d030fdf34dd2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-0.5-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "afcf759e5d7b94586a46280f9161d581fc1522e574044ca3ddf466f5abc14a78"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-1-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "9c58e7ef87a1a12bbc50501ed791fa6de5cd1242aa810e8feb20d0afab6b158d"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-2-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "2539380e4c727a7cf9bedf68b87cb71a67411e1d365900b0dce83e05b3d41fc3"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-0.5-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "c718cc2e11f2acee0808b70d9919c4135bb2ebfadd004d78d579e217ea31d22c"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-1-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "eb91f06b11adaf84cb52e03b47bee8e73cad683d8f1f02f7b7aedcc51a7254ab"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-2-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1238
+            },
+            "sha256": "d8bb75a6dacba6d791f3b830c2964de051726965231870ca4fb04f77fd62e3a2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-0-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "c847117e986f8915c8bd83ab6defaede3b40e445cffdc8cef63186066755b97b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-1-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "e9e6aa24858a227a4bac8364ae232904cf8eb5f9e4b6ea8d03b801b532c7323a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-2-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "5fa93190ec7e976ada6265bd28e40ae9bf677aaa1a3cd9f61bbcdeb79454a564"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-3-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "6d1567c4ca6774157cb683f6bd787bf82f554738fb8c9b217e792966007721dc"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-decay-practice-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "ab6e964bd6d1aab5efe2e3c410066d5cbd25ef126e5fdf0a61121f4cc9f83818"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/turning-point-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1465
+            },
+            "sha256": "148a5ac2ee8ca3f0e86ff8bd55d0939888a759033bf4c0af4ca8cddac056369a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/exact-limit-boundary-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1666
+            },
+            "sha256": "f870941353a96b7fa43dbbdae04852ae3f91a486cbbcaa9d841129058ef4ae15"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-center-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1666
+            },
+            "sha256": "217927c3e5901bd5ffd643f552c7326da1fb30dca4fb7efbe9cb6394e7643228"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/jump-witness-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1727
+            },
+            "sha256": "9e66979200683863b9aa88a28f1f255f4cece6f145d41745e2f492466f0d3d7a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-outer-slope-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1536
+            },
+            "sha256": "8f8fa547de982edbbeafb0e78ceedc07269966e920b24e7c4a656007f6bb2be4"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/negative-composition-change-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1536
+            },
+            "sha256": "6ceec22b85179ce5fa89e1e0211b11317e4a3aa9535b27c672417c062946333d"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/cusp-tied-endpoints-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1877
+            },
+            "sha256": "211ad05be27fa09aac7dc91e95f34205e17a8914b39ebe83e1ab31b01663a34c"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/invalid-interval-retains-state-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1976
+            },
+            "sha256": "9a60797057e6ae3f0656b2f945e3ca481cde5d5fe0c6b1844fbb5eeac7c85c73"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/interval-excludes-critical-points-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1720
+            },
+            "sha256": "45b851b3f2feefb1ad8dfd167b1fbf4feb2f07956e1c1f8aa44ce507467ee3a4"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/signed-three-rectangles-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1938
+            },
+            "sha256": "edc7f69110e0b7517f6ef714fc12bedd3a0962c9c56c69233beb08431bfed015"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/early-accumulation-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1966
+            },
+            "sha256": "fcb2a04e598dbab59f0e5c60765fc11797e5ee5733bb8c872697fe96323419b2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/decay-tangent-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1574
+            },
+            "sha256": "7220d31b61a9fd24278d544a57b07cf5a9bb77f9b3558bb810496ffab50cdecc"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-growth-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1518
+            },
+            "sha256": "d200d4bc8e338162df4c590536871a221603356528f4775e622dd77e32f06577"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-outside-series-radius-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 2091
+            },
+            "sha256": "506931b0a0723e211c68ddd06c5445dcd008f823800aca34357301d236a3dad9"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-near-domain-edge-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 2063
+            },
+            "sha256": "4f4affd15782c885bec8188f443cc4cbf6a7c9d4e0facbced82ee2d4205b6e65"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-0.5-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1612
+            },
+            "sha256": "a3e932423a6fbee999478f2600720c9f096953ebf41e0e92ad42a47e579de0f4"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-1-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1640
+            },
+            "sha256": "eb4a18d092b1a5d7725bd83d021b8cc541aa4755d4edfd2182f5328866614721"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-2-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1640
+            },
+            "sha256": "52209643aae45d7abb34368c2d02eea34d41eb19dd05be93a2a3c099bfbfae38"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-0.5-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1640
+            },
+            "sha256": "ab5ad6cfe87a21193f99a1c9610a595716f523625f3c1933cc37bb3ad5aae022"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-1-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1640
+            },
+            "sha256": "8d73c722219175276d5f927eb5b246759d4ea084528a28ec2868cf5221fe9e94"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-2-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1640
+            },
+            "sha256": "1d49180cf99c812a40ed74ec6627b638aece96c7d5c4f0ebefe6543432ac228f"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-0-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "32bb9f5b0bf615d15dbe6b230fbb36102fe524aadd79f21dd3f12ec100a1535e"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-1-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "6c9dfd2339c6c1646323512b94f116b18521200077520c66a0dd9488a36753c2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-2-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "3931fe55651840ffe75dab874757696725922de6b71881cdc1b048d888eba38f"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-3-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "4a0e1fc7260e6f2cae7c8de3e52e890a5e80c9b61d2e60ccb1c1c47f6afd56aa"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-decay-practice-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "ab375f48dfbdf5a1c197238d03a7aa5eda277cb9de342d3727ef1f2a3c97b0e6"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/turning-point-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1523
+            },
+            "sha256": "315956215f01e8df5883361241adfe04ffd0436f4f57cd72d68309c458942ffd"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/exact-limit-boundary-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1717
+            },
+            "sha256": "2d61f24b7c00e817d01448f2f08150489e6a3e084a39115a467e2efc647461e9"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-center-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1717
+            },
+            "sha256": "0cf7bf9e6c99ace41df393acf43d73ca5c6912a8e0ca8ec81d15173134362119"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/jump-witness-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1779
+            },
+            "sha256": "669555fb9d3367aa853b39ed5cc9360dcf8a1ccd4d6ff11f6ba0d7e953d056b8"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-outer-slope-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1764
+            },
+            "sha256": "c7211dc871bdbe031e309ca77f313eece040e81ff5052d5bed2a665ed26e3c7d"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/negative-composition-change-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1764
+            },
+            "sha256": "2e249c0d2a7abb5f927cb54481595898e48f6029d152854caa514c91a9f17d99"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/cusp-tied-endpoints-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2202
+            },
+            "sha256": "0a9ca4c8337db2f557b2eb747e4bf4b50f042f0857e2136adf890e49be35787c"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/invalid-interval-retains-state-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2302
+            },
+            "sha256": "0aee42444103765f170b98a3cfcb14a7dd02fd5c7a6c290e6a6f4223935a520c"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/interval-excludes-critical-points-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2101
+            },
+            "sha256": "61f3fad33adca0fc873157ad43dbbad1b2ea0f69db16c518ed1019cd45582ef0"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/signed-three-rectangles-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2074
+            },
+            "sha256": "b2ae9db388c1714c24e0dcdfe5f26cd339126e31f09ff97891006dd090fa809b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/early-accumulation-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2074
+            },
+            "sha256": "b66a986774afa4d1df17d3603859805cbb0fb3fe22b2354fd801a7e707522bff"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/decay-tangent-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1680
+            },
+            "sha256": "b55527800ecc757eb62da332f73d4d3f2dcaa0331d13fbb28f12d0e617508489"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/zero-growth-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1680
+            },
+            "sha256": "b5688ca68d86bcb543ef6cb0d7adaa715ae937588ae72f40ad41c6f138b8a6b2"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-outside-series-radius-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2347
+            },
+            "sha256": "1d05213048a92e0b9d93024cdcb1f74605cd1afacb2c4fac39ff10aa13315cb9"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/log-near-domain-edge-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 2291
+            },
+            "sha256": "eba23f357c31003606182f9c080a55a9abc75dbc08a892949e34bba3d184751a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-0.5-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1775
+            },
+            "sha256": "dab6422c66a5914ad9a9378b31009f8898fac561c220c95aded514a30c23c64b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-1-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1775
+            },
+            "sha256": "09de15b1ab273c429be50a21c3e8d3c4c622994d6df83246bfb1a2aca6de0d9f"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-endpoint-2-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1775
+            },
+            "sha256": "f41e934f85718e51f2b1a21b181c843c680c1bf31c899a6f159f2d9383dd0773"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-0.5-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1747
+            },
+            "sha256": "7a8ad18a7e5f1e5c0fdeb8718d2b8c1c25d77a7e558bc3a8991381ffaf936f40"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-1-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1747
+            },
+            "sha256": "500148834d31409b441159e97c6ae447c354bbbe6bdd3a50f5605a1dc5280cf3"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/improper-tail-2-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1747
+            },
+            "sha256": "ef38b4fc72555acff512d8a47e5ceb7a1ebe7a416315705b4b1f24c266ffef76"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-0-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "1ee49e9a579e2cb296f1342b3ea35d7d21b77ac8580052a97b9e95da905900bb"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-1-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "df1444e59902f1194826710c4dc3604c5671b48ffb7b85495892b658e07f7228"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-2-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "fa2de4873553fb4668406ac022af37d4ab8d966d161e6301a588e97ace12c653"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/inline-3-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "465aaef3b6b5388a6b1d44d68dab64665ed293e23f4511e2a18fb4dd05deecd6"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/changed-decay-practice-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "48db5f4162454c5e07fad6b08ebde7f72f160d49d3dcba20b79444c958497b91"
+          }
+        ],
+        "passed": true
+      }
+    },
+    "finalReading": {
+      "file": {
+        "path": "scratch/single-variable-calculus-browser/final-reading-results.json",
+        "sha256": "66a7d1e771d4f0c8b538957dda6361267653302b9ae5a20dec46cd3740a7d3ae",
+        "bytes": 11799
+      },
+      "result": {
+        "at": "2026-09-11T01:51:46.299Z",
+        "records": [
+          {
+            "width": 1440,
+            "equations": 24,
+            "actualPrograms": 15,
+            "actualMotionCurvePoints": 161,
+            "maxSvgFloatError": 3.220578452811651e-7,
+            "errors": []
+          },
+          {
+            "width": 390,
+            "equations": 24,
+            "actualPrograms": 15,
+            "actualMotionCurvePoints": 161,
+            "maxSvgFloatError": 3.220578452811651e-7,
+            "errors": []
+          },
+          {
+            "width": 320,
+            "equations": 24,
+            "actualPrograms": 15,
+            "actualMotionCurvePoints": 161,
+            "maxSvgFloatError": 3.220578452811651e-7,
+            "errors": []
+          }
+        ],
+        "images": [
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-0-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "c847117e986f8915c8bd83ab6defaede3b40e445cffdc8cef63186066755b97b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-1-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "39bad43f653827224bf0c20eaf3bc597c282474e78570332dd1cb34a13881e29"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-2-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "9e53852f90eb5d452f0b85c82387118f43046585570dfaaef7eb5a4c497226ae"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-3-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "ef6a4666bdf00bb71925a470c48a64c07a0b32ff988a2a6fd0995855fa4f8ee4"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-decay-practice-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "4c0e7dda6b993383aee490dada7a58f2984d2cb6ae542eeda74fd24875035fa3"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-motion-program-1440.png",
+            "captureViewport": {
+              "width": 1440,
+              "height": 1050
+            },
+            "sha256": "994bb3c5d62f784a5e20ea124ac397b52079044d2e7582a85bd102167b509e88"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-0-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "32bb9f5b0bf615d15dbe6b230fbb36102fe524aadd79f21dd3f12ec100a1535e"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-1-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "9e73734d1c535daa8cda60ae546c90f566199c315caac53886b26beceb9450f9"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-2-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "4a7387baaa0ae4de102e70c5ec1c5a4c014ef3d6f12789979a628c38291890bd"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-3-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "83b9ec70602a824316086e8984e7f2f1ef68ffb16e650c4298b8a36e4b4dbc9b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-decay-practice-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "65771701d29009a0017b21cdb6843c09e6f09d83bcd903c97db46211228ae561"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-motion-program-390.png",
+            "captureViewport": {
+              "width": 390,
+              "height": 1050
+            },
+            "sha256": "b1759b07abae89ebef6e1a34881d06aa7fd5e1e7873273a5c4dd07c4be3ca8e7"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-0-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "3113022c2d735b6b8bfdfb0a982874a8c9ba89e7b0c8f33ea0c5f9e47a036757"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-1-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "0bd6b1a53b5c91926605a2a82bec15c3ec64a169ba2d30ece82f4e359a531edd"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-2-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "50a6a4f78631d70c40d03326caf9f22b38348385c7ed1ab99663222524017bb1"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-3-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "c3db8baa0bd4e22bcca672c5a487108cff04ab5650306f6a20c59b6a6a0dbdd5"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-4-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "d75a9384f716ed01af525a1129ae9b8d6820c124c98aa303aa31cb452f787dcb"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-5-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "f4aa7a75bf9b9791073ef7315922521c16684597efac44db8e40bdaabc4e520e"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-6-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "4e5f65150d6c23c35597a23994a673177796d496d2c7e7c027d75f6984f5a79c"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-7-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "868191dd8e8744cc9a98fc8b57d452d5d933b22152836b7c45405aa092447da8"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-8-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "107de520182975bed6c680edae7128d98e5de7e2ad9f05c029151fa9020d1929"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-9-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "19563d2a91079dbc40bbbb5e6632efddec2bf118cd7f165c81ea6d425d554063"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-10-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "f5686e8c608cf73209c05e7725460366704942485e0897d794ec72856c208db7"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-11-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "3a07b95f6ad80d3288f589c85e4d283668348a360cbcba9ffaf93f9ed31fc3f0"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-12-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "26abb0691bfb7e929b04cfeca05d203e2185bb72ae28ce4d812ea7806631ba6b"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-13-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "7a8a18b5fe69607792272685e0578ec7576799c96840f5be4b53a6ef3d11dbd7"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-14-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "b8852f8df958619f6d854a44b6175c282df1a8e308b51079af0c1aea3dbe00f1"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-15-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "0e64fdc215628e84e7949e3bcfc1e48945cdaea85aac6f8752289bc86f326da5"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-16-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "2d175c8da932381022d7bf21a134682fb0c5be32063faf7d0d38067f6f1fe77a"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-17-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "a0e387f735de387c25b0372e8f27bc0ffdb368e5ce781ec06175f0892858a643"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-18-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "d5b4a83457df47e2d747d81adca6e2d8a8e18df797f7a8f9ce500838169cc3ff"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-19-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "fe969250ed148d2cb2aff470db4dffef3cc42a044ebb9eb7245069428459cba9"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-20-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "a82d8757eddf73b64d18c6b5d7c408cf043d2fcdeaea9cafef630d01c4413fc6"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-21-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "71f42c22a633bea8a59965f84b2f3309674c6a5f581f9fbf78eb02b67c4b9f50"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-22-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "ebf3037f021ed9859b97c963778954b4097791542dbccbf8c6012dc7e793e352"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-equation-23-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "210283fbb12a5f09a891065055d8017c98906ed2a089cc8703b34a1b841ce023"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-0-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "1ee49e9a579e2cb296f1342b3ea35d7d21b77ac8580052a97b9e95da905900bb"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-1-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "3f7fd5c04444e7436ac577ed4a248e4b0df22e6b73c993034146cfb68edef535"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-2-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "7fd8a692ddf88ef60161b04ee26d3bc9b396d41ab73fa57dd634cdf9f108fd7d"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-inline-3-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "465aaef3b6b5388a6b1d44d68dab64665ed293e23f4511e2a18fb4dd05deecd6"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-decay-practice-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1050
+            },
+            "sha256": "b6cc5243ff0c1cfcde737d291bf9e8ede867cc9d8c7af0c4270ebd420ef90efc"
+          },
+          {
+            "path": "scratch/single-variable-calculus-browser/final-changed-motion-program-320.png",
+            "captureViewport": {
+              "width": 320,
+              "height": 1133
+            },
+            "sha256": "e686acfd79f3f23d7ae36afb3b9337a334c655ee4a9308eb907757e3fb907503"
+          }
+        ],
+        "purpose": "Final equation and reading review after line-break-only body amendments; complete behavioral states remain recorded separately.",
+        "passed": true
+      }
+    },
+    "formatConservation": {
+      "file": {
+        "path": "scratch/single-variable-calculus-review/format-conservation.json",
+        "sha256": "0775c26c38686d36dc587f718606bfdaa43be1b38e9d6c178c6805f96f91543c",
+        "bytes": 875
+      },
+      "result": {
+        "checkedAt": "2026-09-11T01:43:03.665Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/data/single-variable-calculus-models.js",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/components/lesson-labs/single-variable-calculus-labs.css",
+            "normalizedAstConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "openedFinalAmendmentImages": [
+    {
+      "path": "scratch/single-variable-calculus-browser/cusp-tied-endpoints-390.png",
+      "sha256": "211ad05be27fa09aac7dc91e95f34205e17a8914b39ebe83e1ab31b01663a34c",
+      "bytes": 110151
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/log-outside-series-radius-390.png",
+      "sha256": "506931b0a0723e211c68ddd06c5445dcd008f823800aca34357301d236a3dad9",
+      "bytes": 131410
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/invalid-interval-retains-state-320.png",
+      "sha256": "0aee42444103765f170b98a3cfcb14a7dd02fd5c7a6c290e6a6f4223935a520c",
+      "bytes": 119142
+    }
+  ],
+  "earlierVisualReview": "The author opened all 24 narrow-screen equation images, the four inline figures, changed program/practice and selected lab images during authoring. The final reading run repeats geometry and exact displayed-program checks on the final sources; only the three explicitly listed final amendment images are claimed here as reopened after that rerun. The verification Markdown distinguishes unchanged regions from amended ones.",
+  "baseline": {
+    "path": "scratch/single-variable-calculus-original-plan.json",
+    "sha256": "9aec11749dce9b73981ff40dbd082003730a44cf0cb7398f01d36018a0345495",
+    "bytes": 8181
+  },
+  "teachingInventory": {
+    "sections": 14,
+    "investigations": 8,
+    "inlineFigures": 4,
+    "completePrograms": 15,
+    "changedPractice": 13,
+    "displayedEquations": 24
+  },
+  "limitations": [
+    "Finite exact and high-precision cases support the implementation; the general mathematical proofs were read separately.",
+    "Plots are finite sampled drawings. Limit guarantees and extrema classifications use their stated analytic or exact decimal rules, not pixel proximity.",
+    "Taylor truncation bounds are evaluated approximately and do not bound floating-point roundoff or constitute outward-rounded certified intervals.",
+    "Browser code examples are displayed Python programs; the page does not run arbitrary Python.",
+    "Production route/loading integration, user acceptance and observed learning outcomes remain separate."
+  ]
+}

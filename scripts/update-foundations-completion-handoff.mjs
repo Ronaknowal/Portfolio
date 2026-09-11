@@ -1,0 +1,75 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { tracks } from './lib/authoring-curriculum.mjs';
+
+const snapshot = JSON.parse(fs.readFileSync('docs/teaching/evidence/dsa-math-foundations-complete-integration.json', 'utf8'));
+assert.equal(snapshot.reviewedScope, 74);
+assert.equal(snapshot.remainingScope, 0);
+const dsa = tracks.find(track => track.id === 'data-structures-algorithms');
+const placements = [];
+for (const id of dsa.topicIds) {
+  const practice = (await import(`../src/learn/data/practice/${id}.js`)).default;
+  for (const group of practice.groups) for (const problem of group.problems) placements.push({ ...problem, topicId: id });
+}
+const distinct = new Set(placements.map(problem => problem.number)).size;
+const practiceSummary = `${placements.length} problem placements covering ${distinct} distinct official LeetCode problems`;
+const fileCount = Object.keys(snapshot.reviewedFiles).length;
+function change(file, replacements) {
+  let text = fs.readFileSync(file, 'utf8');
+  for (const [pattern, replacement] of replacements) {
+    assert(pattern.test(text), `Missing handoff target in ${file}: ${pattern}`);
+    text = text.replace(pattern, replacement);
+  }
+  fs.writeFileSync(file, text);
+}
+
+change('docs/teaching/DSA-PRACTICE-STANDARD.md', [
+  [/Production integration for these extensions is still a separate pending gate\./, `Production integration completed at ${snapshot.integratedAt}; [the final snapshot](evidence/dsa-math-foundations-complete-integration.json) binds all three extensions and the full scoped rollout.`],
+  [/Production integration remains pending\./, 'Production integration is complete in [the final snapshot](evidence/dsa-math-foundations-complete-integration.json).'],
+  [/Their scoped independent review is complete; integrated completion requires the separate production snapshot\./, 'Their scoped independent review and production integration are complete; user acceptance remains separate.'],
+  [/Production integration remains separate\./g, 'Production integration is complete in [the final snapshot](evidence/dsa-math-foundations-complete-integration.json).'],
+]);
+change('docs/teaching/topic-notes/arrays-strings-hash-maps.md', [
+  [/production integration and user acceptance remain separate\./, 'production integration is complete; user acceptance remains separate.'],
+  [/Production integration remains a separate gate\./, 'The [final production integration](../evidence/dsa-math-foundations-complete-integration.json) is complete.'],
+]);
+change('docs/teaching/topic-notes/linked-lists-stacks-queues.md', [
+  [/production integration and user acceptance remain separate\./, 'production integration is complete; user acceptance remains separate.'],
+  [/- Resolution: the two selected ownership gaps[^\r\n]*/, '- Resolution: the selected ownership gaps are implemented, independently reviewed and [integrated](../evidence/dsa-math-foundations-complete-integration.json). The bounded scope and finite practice set do not guarantee complete interview mastery. User acceptance remains separate.'],
+]);
+change('docs/teaching/topic-notes/dynamic-programming-states-transitions-optimization.md', [
+  [/Production integration is pending;/, 'Production integration is complete;'],
+  [/Production integration remains separate\./, 'The [final production integration](../evidence/dsa-math-foundations-complete-integration.json) is complete.'],
+]);
+change('docs/teaching/topic-notes/UNASSIGNED.md', [
+  [/production integration remains separate\./, 'production integration is complete.'],
+  [/Production integration remains separate; do not implement/, 'The [final production integration](../evidence/dsa-math-foundations-complete-integration.json) is complete; do not implement'],
+]);
+
+change('LESSON-AUTHORING-HANDOFF.md', [
+  [/Updated 11 September 2026 for the active goal[^\r\n]*/, 'Updated 11 September 2026 after completing the DSA and Mathematical & Statistical Foundations rollout. This is the entry point for future sessions. The user’s current instructions control scope; historical increments do not define the next authoring task.'],
+  [/\*\*Active goal:\*\*[^\r\n]*/, `**Completed rollout:** all **17 remaining DSA topics and all 57 Mathematical & Statistical Foundations topics** are implementation-reviewed, including the formerly published mathematics lessons. Read [the implementation record](DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md), [exact 74-topic ledger](docs/teaching/dsa-math-foundations-progress.json) and [final integrated evidence](docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md). Together with the preserved first five DSA lessons, all **22 DSA and 57 mathematics topics** now have reviewed teaching. The bounded follow-ups in Arrays (bitwise representation), Linked Lists (cycle entry, middle/split and monotonic stacks) and Dynamic Programming (interval, tree and digit state families) are also implemented, independently reviewed and integrated. The 22 topic-owned practice datasets contain ${practiceSummary}; repeated placements have different teaching purposes. This is broad scoped coverage, not a guarantee of solving every possible interview question. User acceptance remains separate. No unfinished topic remains in this authorized rollout; use the next user request to choose further work.`],
+  [/Fifty official problem links currently span the five lessons; the count is not a quota or mastery guarantee\./, 'That dated increment added fifty placements across the first five lessons; current practice coverage is recorded in the practice standard. Counts are not a quota or mastery guarantee.'],
+  [/\| Remaining DSA and all Mathematical & Statistical Foundations \|[^\r\n]*/, '| Remaining DSA and all Mathematical & Statistical Foundations | Completed 74-topic rollout in [the implementation record](DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md), plus three bounded DSA extensions. All source/version and production checks passed; user acceptance is separate. |'],
+  [/There are \*\*1,218 unique topics[^\r\n]*/, `There are **1,218 unique topics, 28 modules, seven paths, ${snapshot.counts.published} published lessons, 341 individual briefs and ${snapshot.counts.prerequisiteReviewsRecorded} recorded prerequisite reviews** in the final integrated snapshot. **877 topics still need individual design** elsewhere in the catalogue. All original identities, memberships and the scoped module orders are conserved. The [frozen completion snapshot](docs/teaching/evidence/dsa-math-foundations-complete-integration.json) covers **74 reviewed scoped topics, three bounded DSA extensions and 87 production loading/recovery cases**, including actual final-mathematics completion actions into the next module. Earlier dated snapshots remain unchanged; three former DP source hashes were replaced by the reviewed extension with original bytes archived. The generated inventory and source-versioned evidence own current state.`],
+  [/\*\*Active authoring locations:\*\*[^\r\n]*/, '**Authoring location:** the requested DSA/mathematics rollout is complete. Each module keeps its actual catalogue order, including shared topic context; no active batch queue remains. Other website modules are outside this completed scope. Before the next requested lesson, retrieve its individual plan and destination notes. Publication, author verification, independent review, integrated review and user acceptance remain distinct.'],
+  [/The \[routing inbox\]\(docs\/teaching\/topic-notes\/UNASSIGNED\.md\) now records[^\r\n]*/, 'The [routing inbox](docs/teaching/topic-notes/UNASSIGNED.md) records the bitwise discovery as assigned and resolved in the existing Arrays topic, with its design and evidence linked. DP’s existing mask primer and Fenwick’s lowest-bit proof are retained; the new Arrays branch teaches broader finite-set, signed-word, XOR and population-count reasoning. Remaining specialist discoveries require reasoned ownership assessment in a relevant future scope, not automatic expansion of every lesson.'],
+]);
+
+change('DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md', [
+  [/^# DSA and mathematical foundations: active implementation/, '# DSA and mathematical foundations: completed implementation'],
+  [/Started 10 September 2026\.[^\r\n]*/, 'Started 10 September and completed 11 September 2026. The authorized rollout implemented all 17 remaining Data Structures & Algorithms topics and all 57 Mathematical & Statistical Foundations topics to the project standard. Every scoped entry now has final source evidence and integrated verification. User acceptance and observed learning outcomes remain separate.'],
+  [/## Active work[\s\S]*?(?=The ledger records reviewed source\/dependency hashes\.)/, `## Completed work\n\n**All 74 scoped topics are implementation-reviewed:** DSA positions 6–22 and mathematics positions 1–57. The preserved first five DSA topics complete the 22-topic module. Abstract Algebra, PDEs and Numerical PDEs close the mathematics sequence. Each scoped topic has an individual design, complete teaching, appropriate native/model evidence and actual desktop/mobile/keyboard review. [The final integration](docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md) binds ${fileCount} scoped source hashes, ${snapshot.counts.published} publications and 87 production loading/recovery cases.\n\nThe [bounded practice ownership review](docs/teaching/DSA-PRACTICE-OWNERSHIP-REVIEW.md) remains a dated record of the gaps it found. Those selected follow-ups are now complete in existing owners: Arrays adds binary sets, signed-word interpretation, XOR and sparse-bit reasoning; Linked Lists adds Floyd entry, middle/splitting and two distinct monotonic-stack mechanisms; DP adds proved interval/tree/digit state families with reconstruction and complete programs. Existing teaching and practice are preserved, with documented narrow amendments. All22 datasets together have ${practiceSummary}. The [current practice map](docs/teaching/DSA-PRACTICE-STANDARD.md) distinguishes taught families from reasoned specialist deferrals.\n\nThe final snapshot preserves all 196 original publication mappings, all 1,218 identities and the exact scoped module orders. Three original DP files have archived predecessors; Algebra, PDE and Numerical PDE independent-review corrections retain original author evidence. The route reaches the actual next module after mathematics 57, irrespective of publication status. No deployment or user acceptance is inferred.\n\n`],
+  [/Preserve the full objective across sessions\./, 'This completed record does not authorize additional website modules; follow the next user request.'],
+]);
+
+change('AGENTS.md', [
+  [/Published content is not automatically reviewed or approved\.[^\r\n]*/, 'Published content is not automatically reviewed or approved. All 17 Programming & Scientific Computing topics, all 22 DSA topics and all 57 Mathematical & Statistical Foundations topics now have recorded implementation review. The completed DSA/mathematics rollout and three bounded DSA extensions are documented in [DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md](DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md), its exact 74-topic ledger and final integration snapshot. Reviewed-source hashes, independent evidence and user acceptance remain distinct. Linux remains the explicitly user-approved reference. This completed rollout does not authorize rewriting other modules or reopening old batches; use the current user request and destination notes for the next scoped task.'],
+]);
+
+const integrationPath = 'docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md';
+const historical = fs.readFileSync(integrationPath, 'utf8');
+assert(!historical.includes('## Completed rollout — all 74 topics'));
+const current = `## Completed rollout — all 74 topics\n\nThe [frozen completion snapshot](evidence/dsa-math-foundations-complete-integration.json), integrated at **${snapshot.integratedAt}**, closes all 17 remaining DSA and all 57 mathematical/statistical topics. Including the preserved first five DSA topics, the website now has reviewed teaching in **all 22 DSA and 57 mathematics lessons**. The three bounded Arrays/Linked/DP follow-ups are also independently reviewed and integrated. User acceptance remains separate.\n\n- **${fileCount} scoped source hashes** match the final ledger. The previous 71-topic snapshot remains unchanged; ${snapshot.previousSnapshot.unchangedReviewedFileCount} of its 450 source hashes are conserved, and three DP predecessors are archived for the new state-family extension. Original author evidence for Algebra, PDE and Numerical PDE corrections is retained. Numerical PDEs pins declared mesh endpoints to prevent a valid length such as 0.7 from falling outside its rounded grid. A separate tiny Trees amendment removes an obsolete publication label.\n- The production build passed in **${snapshot.buildSeconds} seconds** after the final production sources. Curriculum and artifact checks agree on 1,218 identities, 28 modules, 228 publications, 245 separate planned outlines, 341 briefs, ${snapshot.counts.prerequisiteReviewsRecorded} recorded prerequisite reviews and seven paths. All 196 baseline publication mappings and both scoped module orders remain intact.\n- **87 production loading/recovery cases passed:** 22 DSA, 57 mathematics and eight shell/outline/renderer/cache/stale/import/render cases. Each selected lesson loads its own body and required dependencies. The three extended DSA lessons include their new topic-owned models/programs in exact dependency checks.\n- Production route checks at 1440/390 passed all 17 programming steps, seven path/count displays, 22 actual DSA completion actions and three actual final mathematics completion actions into the next module. Shared context/progress, stable URLs and the isolated planned-resume fixture remain correct. The sequence does not skip to a later published lesson.\n- The current 22 practice datasets contain **${practiceSummary}**. Each entry has a learning focus, hint and changed-constraint transfer; optional specialist work has prerequisites. These figures describe scope and do not guarantee universal interview success.\n\nAuthor and independent records keep their actual executed, read and visually inspected scopes. Integration does not claim every per-topic suite was rerun. The existing unrelated Bayesian Networks JSX warning and shared-navigation chunk warning remain visible; thresholds were not raised and teaching was not reduced. These are local checks, not universal performance or observed-learning guarantees. No deployment was requested.\n\n## Earlier dated integration records\n\nThe records below describe their historical source snapshots. Their former pending stages are superseded by the completion record above; original evidence is preserved.\n\n`;
+fs.writeFileSync(integrationPath, historical.replace(/^(# [^\r\n]+\r?\n\r?\n)/, `$1${current}`));
+console.log(JSON.stringify({ updatedCurrentHandoff: true, scopedTopics: 74, practicePlacements: placements.length, distinctLeetCodeProblems: distinct, reviewedFiles: fileCount }));

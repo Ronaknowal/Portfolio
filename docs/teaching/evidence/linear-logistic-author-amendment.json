@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-09-11T13:13:53.836Z",
+  "topicId": "linear-logistic-regression",
+  "status": "author amendment; independent closure pending",
+  "baseEvidence": "docs/teaching/evidence/linear-logistic-author-freeze.json",
+  "changes": [
+    "MSE accumulates scaled squared terms so a representable mean is not lost to sum overflow.",
+    "Residual intercept slider step .05 accommodates both training mean baselines."
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "sha256": "01fc9b7a36cd61fa58db89e34a6d465abf91b68b3b1b7cd9a0208328119c2791"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-models.js",
+      "sha256": "9e33b78b08446964f0843a4b8999181377bad4b4d74b935d5bc16ead00f605c5"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-examples.js",
+      "sha256": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinearLogisticLabs.jsx",
+      "sha256": "5b6ecca121344575923bd4c78566300b5cc4929de1eb2671f66062a19e8b6870"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/linear-logistic-labs.css",
+      "sha256": "d3c111d30de29fec03a17990885647c019ded2c93e153637f59a91f9341a3c70"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/linear-logistic-regression.js",
+      "sha256": "21a03684215efec028f1554edded746c7bc45c926b3f4236c25e3ea655059ecb"
+    },
+    {
+      "path": "scripts/generate-linear-logistic-examples.py",
+      "sha256": "316155d8044a8988af630078f53b03d83e84fed2fd69cbb6197ca709427aa8c6"
+    },
+    {
+      "path": "scripts/verify-linear-logistic-models.mjs",
+      "sha256": "f5a62c03f44e3ff3371202fa11b2d526cade7d2e6ca974c56d8a9c0f5fbe2259"
+    },
+    {
+      "path": "scripts/verify-linear-logistic-native.py",
+      "sha256": "b944d55c271e87cf128213e87e457033499357a3fe1fb154aa0d41c3543e2dc4"
+    },
+    {
+      "path": "scripts/review-linear-logistic-lesson.cjs",
+      "sha256": "8b0c2fadd9fdfe7d0a05d28b8ae50c7a1296da257ce357ff7ab4c0f6007de6fa"
+    },
+    {
+      "path": "docs/teaching/LINEAR-LOGISTIC-REGRESSION-DESIGN.md",
+      "sha256": "aaf029d1b7a103fe850e5f427260b2424801c994704e6175383a97b284db2f87"
+    }
+  ],
+  "focusedModelEvidence": {
+    "path": "scratch/linear-logistic-independent-review/model-boundaries.json",
+    "sha256": "95cbd373018df748fd4111101c2516c896fc03f8af21bb9a5cf4fed64f9a70ad"
+  },
+  "focusedBrowser": {
+    "states": [
+      {
+        "hours": "4",
+        "value": "2.25",
+        "validity": true,
+        "readout": "Mean squared error: 1.188 hours². Current line: 2.250 + 0.000x."
+      },
+      {
+        "hours": "8",
+        "value": "3.25",
+        "validity": true,
+        "readout": "Mean squared error: 7.688 hours². Current line: 3.250 + 0.000x."
+      }
+    ],
+    "screenshot": "scratch/linear-logistic-independent-review/mean-baseline-amendment-390.png",
+    "sha256": "d871e79d8a654359ee5f813a855d2fba36ec72bff3bce2d8914b801d7009d76d",
+    "captureRestoredAt": "2026-09-11T13:16:30.065Z"
+  },
+  "reusedEvidence": [
+    {
+      "path": "docs/teaching/evidence/linear-logistic-native-review.json",
+      "sha256": "304956d9828390c958e39c0791efbabbbe33d377b4b33ac3ea3fbb2c5f4875f8"
+    },
+    {
+      "path": "docs/teaching/evidence/linear-logistic-browser-review.json",
+      "sha256": "114cacdde97a0abc1695a55553cf514fffb76225a7c7cf887bdfbc70504d4159"
+    }
+  ],
+  "scope": "Unchanged native programs, lesson prose and unrelated interactions reuse prior passing author evidence; no claim of a full browser rerun after the two bounded repairs."
+}

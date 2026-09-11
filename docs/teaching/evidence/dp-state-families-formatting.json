@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-09-11T09:21:45.415Z",
+  "records": [
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "before": "530cc2d856dc682b293d3185a08dae6eb53af9e99c783afb16715ef97c81a0f4",
+      "after": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d",
+      "normalizedAstEqual": true
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "before": "529cde4d7f96f3c77ed0441565e525f380f5d8a4bd16d0d25ac8a1de990fdae5",
+      "after": "46abad66f50cb72a26ede64ec36448ac294ea6ee7e98aaf383d14164571ea56f",
+      "normalizedAstEqual": true
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "before": "09d66b607f6465b4283ffbf53c2ce77c84a7dff622b4d67b11c14e529ca124c2",
+      "after": "7ba4ce0a0c790a8f6c30f50d81cfb0a083f981eec4fa1cfa624f8ebbd7062848",
+      "parsedCssEqual": true
+    }
+  ]
+}

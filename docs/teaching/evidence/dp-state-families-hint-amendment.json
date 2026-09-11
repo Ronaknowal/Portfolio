@@ -1,0 +1,31 @@
+{
+  "amendedAt": "2026-09-11T10:00:04.944Z",
+  "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+  "archive": "docs/teaching/archive/dynamic-programming-before-state-families/author-frozen-body-before-hints.txt",
+  "previousPacket": "docs/teaching/evidence/dp-state-families-author-review-before-hints.json",
+  "beforeSha256": "4775925f5bd7e5c953d32777cb5500e6c4e4a081f74d4c1f342c9ec99d67fbd9",
+  "afterSha256": "4b9ac1fa3c2e828a78544433c3774204791bf492aa2847fab1dd42cf8a016dd9",
+  "changedCheckpoints": [
+    {
+      "promptStart": "Change the dimensions to [3,7,2,5]",
+      "hint": "Write the shape of each intermediate first, then the two scalar-multiplication totals. With equal dimensions, does changing the split change either multiplication cost?"
+    },
+    {
+      "promptStart": "Why would reading the split tree root-first fail?",
+      "hint": "Replay the proposed first removal using its actual live neighbors. For the signed singleton, list the legal complete removal plans before choosing an initial maximum."
+    },
+    {
+      "promptStart": "Use a star with weights [4,3,3,3]",
+      "hint": "Compare taking the center with taking its leaves. After adding the new edge, test whether the separately optimal child selections can still be combined legally."
+    },
+    {
+      "promptStart": "Change a two-node chain to weights [−2,−5]",
+      "hint": "What choice does an all-zero answer represent? Name one extra distinction that separates an empty selection from a legal nonempty selection while combining children."
+    },
+    {
+      "promptStart": "For bound 213, explain why tight=false",
+      "hint": "Compare the prefixes 12 and 21 before placing the final digit. For the range count, group candidates by their first two actual digits and reject a repeated digit."
+    }
+  ],
+  "reason": "Independent reviewer found five new tasks lacked the separately disclosed hints promised by the approved design. The question now precedes an optional hint and a separate hidden explanation; original checkpoints and all numerical sources are unchanged."
+}

@@ -64,6 +64,8 @@ add("markov", "Propagate, fit and distinguish equilibrium",
 
 
     def propagate(matrix, initial, steps):
+        if type(steps) is not int or steps < 0:
+            raise ValueError("Use a nonnegative integer step count.")
         if not matrix or len(matrix) != len(initial):
             raise ValueError("Shapes must match.")
         n = len(initial)
@@ -78,6 +80,8 @@ add("markov", "Propagate, fit and distinguish equilibrium",
 
 
     def fit_transitions(trajectories, states):
+        if type(states) is not int or states < 1 or not trajectories:
+            raise ValueError("Use a positive state count and separate trajectories.")
         counts = [[0] * states for _ in range(states)]
         for path in trajectories:
             if not path or any(type(x) is not int or not 0 <= x < states for x in path):
@@ -166,7 +170,10 @@ add("arrivals", "Simulate event times and route the same arrivals",
         rng = random.Random(seed)
         time, events = 0.0, []
         for _ in range(cap):
-            time += -math.log1p(-rng.random()) / rate
+            duration = -math.log1p(-rng.random()) / rate
+            if duration <= 0 or time + duration <= time:
+                raise ArithmeticError("The next positive wait cannot be represented.")
+            time += duration
             if time > horizon:
                 return events
             events.append(time)
@@ -202,7 +209,7 @@ add("intensity", "Turn cumulative intensity back into event time",
     def event_clock(unit_times, first_rate, second_rate, change, horizon):
         if any(not math.isfinite(x) or x < 0 for x in [first_rate, second_rate, change, horizon]):
             raise ValueError("Clock parameters must be finite and nonnegative.")
-        if change > horizon or any(x <= 0 for x in unit_times):
+        if change > horizon or any(not math.isfinite(x) or x <= 0 for x in unit_times):
             raise ValueError("Use positive unit-clock event times and an in-window change.")
         if any(b <= a for a, b in zip(unit_times, unit_times[1:])):
             raise ValueError("Unit-clock times must increase.")
@@ -240,6 +247,8 @@ add("jumpClock", "Count time exposure instead of only state visits",
         exposure, departures = [0.0, 0.0], [0, 0]
         for _ in range(cap):
             duration = -math.log1p(-rng.random()) / [alpha, beta][state]
+            if duration <= 0 or time + duration <= time:
+                raise ArithmeticError("The next positive hold cannot be represented.")
             available = min(duration, horizon-time)
             exposure[state] += available
             time += available
@@ -272,7 +281,7 @@ add("brownianGrid", "Scale increments and inspect the same path twice",
     def brownian_path(normals, horizon, drift=0.0, scale=1.0):
         if not normals or any(not math.isfinite(z) for z in normals):
             raise ValueError("Provide finite normal draws.")
-        if not math.isfinite(horizon) or horizon <= 0 or not math.isfinite(scale) or scale <= 0:
+        if not math.isfinite(horizon) or horizon <= 0 or not math.isfinite(scale) or scale <= 0 or not math.isfinite(drift):
             raise ValueError("Positive finite horizon and scale required.")
         dt = horizon/len(normals)
         path = [0.0]
@@ -307,6 +316,8 @@ add("bridgeVariation", "Calculate hidden-between-sample uncertainty",
 
 
     def bridge(left, right, duration, scale, fraction, barrier):
+        if any(not math.isfinite(value) for value in [left, right, duration, scale, fraction, barrier]):
+            raise ValueError("All bridge parameters must be finite.")
         if duration <= 0 or scale <= 0 or not 0 <= fraction <= 1:
             raise ValueError("Use positive duration/scale and fraction in [0,1].")
         mean = left+(right-left)*fraction

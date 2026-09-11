@@ -1,0 +1,2538 @@
+{
+  "topicId": "naive-bayes-probabilistic-classifiers",
+  "authorFrozenAt": "2026-09-11T12:05:14.012110+00:00",
+  "status": "author-reviewed; separate independent review and parent production integration pending",
+  "production": [
+    {
+      "path": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+      "sha256": "6a73f01a50c186b519e678b15a11b5ac80d663c45f9fb986162785ffe7cf4a95",
+      "bytes": 73606
+    },
+    {
+      "path": "src/learn/data/naive-bayes-models.js",
+      "sha256": "48d7ff7c4035bc469e45d0f030455992a007927edc3af4b36bf4b1d8130f4dba",
+      "bytes": 13575
+    },
+    {
+      "path": "src/learn/data/naive-bayes-examples.js",
+      "sha256": "c4b49e0871564320a19cb8adde2d50037c0f656ebb71ad10397422644624d8a3",
+      "bytes": 30471
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "sha256": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
+      "bytes": 25115
+    },
+    {
+      "path": "src/learn/components/lesson-labs/naive-bayes-labs.css",
+      "sha256": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76",
+      "bytes": 5908
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/naive-bayes-probabilistic-classifiers.js",
+      "sha256": "f20e99c6de994a410b3c1977e203ec4712c486d884a4f18f606ab9bdf5fd9506",
+      "bytes": 4737
+    }
+  ],
+  "sourceArchive": {
+    "path": "docs/teaching/evidence/naive-bayes-author-sources.json",
+    "sha256": "882f718378ae75885ff046e414e0339c03be1368ab86c614c17cc6371df54142",
+    "bytes": 206001
+  },
+  "originalEvidence": {
+    "path": "docs/teaching/evidence/naive-bayes-original-review.json",
+    "sha256": "efc169f4404353b127942a8e9870b0439e88492bede6c2d840886884264fc14c",
+    "bytes": 93990
+  },
+  "support": [
+    {
+      "path": "docs/teaching/NAIVE-BAYES-LESSON-DESIGN.md",
+      "sha256": "b1f6efdc3eedb43ca4ab7a3e48742a9e0ff77ad302ce3e0274299642d6254b2c",
+      "bytes": 20092
+    },
+    {
+      "path": "docs/teaching/NAIVE-BAYES-VERIFICATION.md",
+      "sha256": "1c2e74ec2adf0da8aadabc99666916c9c66770d6dff6f9ffa1aed428b3c4ec52",
+      "bytes": 9913
+    },
+    {
+      "path": "scripts/generate-naive-bayes-examples.py",
+      "sha256": "efe611b7b337430a68771333f918e1b5840723695013aa885371540d20334a23",
+      "bytes": 25293
+    },
+    {
+      "path": "scripts/verify-naive-bayes-examples.mjs",
+      "sha256": "34e3e104506b9f06274db7abc550521c91076a02c592cfe41aa036139958b233",
+      "bytes": 4749
+    },
+    {
+      "path": "scripts/verify-naive-bayes-native.py",
+      "sha256": "1238cdfee556c8f6ed063547053046c18633d78b4205150c0bf5bbea1c0116bd",
+      "bytes": 11228
+    },
+    {
+      "path": "scripts/verify-naive-bayes-practice.py",
+      "sha256": "ebf09fbf9952e1908221446e3fcf5d1b513edc0df8ac5ae77af9c6afcf84a73c",
+      "bytes": 3067
+    },
+    {
+      "path": "scripts/review-naive-bayes-lesson.cjs",
+      "sha256": "ea4522e87db843dc293e920d15fb799af133a0873f1784888bc2c30fe4dd20d4",
+      "bytes": 13850
+    },
+    {
+      "path": "scripts/review-naive-bayes-reading.cjs",
+      "sha256": "7942a42fd6671cdf932603627ab4fb2c6b37f78730a8e862019370dcd64b7d37",
+      "bytes": 4176
+    },
+    {
+      "path": "scripts/format-naive-bayes-source.cjs",
+      "sha256": "1db7286d2a7602f8b86450dda60dfa7bb43e308fe8b1ebf98a4583d965e9b68d",
+      "bytes": 2627
+    },
+    {
+      "path": "scripts/archive-naive-bayes-original.mjs",
+      "sha256": "c0ede5fbe0cf5d6ff5b26e486b069fb1f2ac0f3dc0171d47c6869dad49123776",
+      "bytes": 2682
+    },
+    {
+      "path": "scripts/freeze-naive-bayes-author.py",
+      "sha256": "e20e92a8c3f5fd1739ccfe7b1f56bc2831d0c3b85e10b0c80ae6d58ccddaf14f",
+      "bytes": 8326
+    }
+  ],
+  "checks": {
+    "native": {
+      "record": {
+        "path": "scratch/naive-bayes-verification/results.json",
+        "sha256": "4ade59dee95108677e95c41ad13d357c966d42160db89a5e336b8370179a0aed",
+        "bytes": 2828
+      },
+      "result": {
+        "completedAt": "2026-09-11T11:50:35.479524+00:00",
+        "programs": [
+          {
+            "id": "normalized-scores",
+            "stdoutMatch": true,
+            "codeSha256": "c195168c5a436302263778f0a8752e907187932bc8f04506e7763106ac826a92"
+          },
+          {
+            "id": "count-classifier",
+            "stdoutMatch": true,
+            "codeSha256": "a3af3f87b46390217be819f8f140e52f42b4de7f451eeeae3b9217c475a8ea1a"
+          },
+          {
+            "id": "event-models",
+            "stdoutMatch": true,
+            "codeSha256": "bc1cee9e3c4601481c70fd6657b91a9854029be1c7405e5f5fd4b2cd2176cd54"
+          },
+          {
+            "id": "count-law",
+            "stdoutMatch": true,
+            "codeSha256": "7d8e4d29d3e3f721d57e8cd709aa4bbf3d778e5fed5dfcf6d41d51cce30a4b04"
+          },
+          {
+            "id": "gaussian-fit",
+            "stdoutMatch": true,
+            "codeSha256": "477fbf2cffe36c69025b007c9d4d433c6a23764323202260d2f54dc42d364bdc"
+          },
+          {
+            "id": "gaussian-boundaries",
+            "stdoutMatch": true,
+            "codeSha256": "8db91e507e5b5e24d1b29bc7102db84b6bdb1fe450b233f0ce8c79d51aaf9179"
+          },
+          {
+            "id": "dependence",
+            "stdoutMatch": true,
+            "codeSha256": "26b673e604da1f87ea5b5f18162d9b415dd138edb2800866c90a2acf5f5258af"
+          },
+          {
+            "id": "complement",
+            "stdoutMatch": true,
+            "codeSha256": "40ed59fcef08d586356fc19568c9c737ade02c3b2a25be30426bb0d6fb79a515"
+          },
+          {
+            "id": "text-pipeline",
+            "stdoutMatch": true,
+            "codeSha256": "c6874d1812d89f1512d6ab43bf3dc69d6a94e996ab26f7eaf0f5669abc0f8486"
+          },
+          {
+            "id": "streaming",
+            "stdoutMatch": true,
+            "codeSha256": "01f6299e9d53387a51358e7300b5f90d4f50b44f582531ec2b95ed4bd41a2ec2"
+          },
+          {
+            "id": "calibrated-report",
+            "stdoutMatch": true,
+            "codeSha256": "3f7519c58affcdb723ff0e08356f300bd5724370e2b7828b705252a69c5c07d8"
+          }
+        ],
+        "modelCases": {
+          "token": 3124,
+          "presence": 243,
+          "gaussian": 153,
+          "geometry": 14,
+          "copied": 60,
+          "reliability": 10
+        },
+        "nativeCountCases": 2780,
+        "nativeGaussianCases": 180,
+        "nativeIntegratedCases": 900,
+        "maximumGaussianIntervalAbsoluteError": 3.206425125412693e-10,
+        "changedCapstoneOutput": "prior-only accuracy 0.7225 Brier 0.201183 log loss 0.592234\nraw duplicate GNB accuracy 0.7258 Brier 0.181789 log loss 0.552812\nsigmoid calibrated accuracy 0.7492 Brier 0.167991 log loss 0.510724\nchanged .5 decisions: 134\nmean prediction by nonempty bin: [0.1538, 0.2859, 0.5042, 0.642]\nobserved positive fractions: [0.1166, 0.283, 0.4502, 0.6768]\nbin sizes: [506, 364, 231, 99, 0]\ndeclared-cost threshold: 0.8 realized test cost per case: 0.277500\nFixed synthetic law and seed; finite test metrics do not guarantee future calibration.\n",
+        "status": "passed; production browser and independent cross-review remain separate"
+      }
+    },
+    "validation": {
+      "record": {
+        "path": "scratch/naive-bayes-verification/js-validation.json",
+        "sha256": "e47f7380468bc661639a9bc4534ea2371df323b048b80eefe4ac754cbfff8dad",
+        "bytes": 545
+      },
+      "result": {
+        "at": "2026-09-11T11:50:17.144Z",
+        "rejected": [
+          "sparse scores",
+          "NaN score",
+          "positive infinity",
+          "overflow difference",
+          "negative alpha",
+          "tiny unsupported alpha",
+          "nonfinite alpha",
+          "oversize message",
+          "too many tokens",
+          "sparse presence",
+          "fractional count",
+          "oversize probe",
+          "invalid mode",
+          "invalid copies",
+          "invalid bins"
+        ],
+        "caseCounts": {
+          "token": 3124,
+          "presence": 243,
+          "gaussian": 153,
+          "geometry": 14,
+          "copied": 60,
+          "reliability": 10
+        }
+      }
+    },
+    "practiceApi": {
+      "record": {
+        "path": "scratch/naive-bayes-verification/practice-api-results.json",
+        "sha256": "79c747e765c259bcd6c4a35a005c6617d6ea9996d6e34949ddebdca6b65066e4",
+        "bytes": 6732
+      },
+      "result": {
+        "completedAt": "2026-09-11T11:58:05.878050+00:00",
+        "practice": {
+          "opposingWords": "49/170",
+          "observedAbsence": "4/5",
+          "missingSecond": "2/3",
+          "gaussianCrossing": 1.5722206109523076,
+          "copiedTrue": "1/4",
+          "copiedReported": "3/4",
+          "copiedActualAccuracy": "18/25",
+          "changedComplementScores": [
+            2.403417189000987,
+            3.990382245583029,
+            3.702700173131248
+          ],
+          "rareDeployment": "9/58",
+          "rareCostThreshold": "1/21",
+          "integratedTwoA": "3/10"
+        },
+        "installedApi": {
+          "sklearn": "1.9.1",
+          "calibrationSourceSha256": "52339970c65ed05602a8515ebbbdacb2fef1ef24fc683cbace7683fd964269e9",
+          "sourceFile": "C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\sklearn\\calibration.py",
+          "gaussianHasDecisionFunction": false,
+          "readSections": "CalibratedClassifierCV.fit; _fit_calibrator sigmoid/isotonic branch; _CalibratedClassifier.predict_proba; response selection and separate temperature branch",
+          "conclusion": "The executed sigmoid receives GaussianNB predict_proba outputs. Temperature-specific logit conversion does not apply to sigmoid. FrozenEstimator is preserved through calibration fitting.",
+          "fitBranch": "def _fit_calibrator(clf, predictions, y, classes, method, xp, sample_weight=None):\n    \"\"\"Fit calibrator(s) and return a `_CalibratedClassifier`\n    instance.\n\n    A separate calibrator is fitted for each of the `n_classes`\n    (i.e. `len(clf.classes_)`). However, if `n_classes` is 2 or if\n    `method` is 'temperature', only one calibrator is fitted.\n\n    Parameters\n    ----------\n    clf : estimator instance\n        Fitted classifier.\n\n    predictions : array-like, shape (n_samples, n_classes) or (n_samples, 1) \\\n                    when binary.\n        Raw predictions returned by the un-calibrated base classifier.\n\n    y : array-like, shape (n_samples,)\n        The targets. For `method=\"temperature\"`, `y` needs to be label encoded.\n\n    classes : ndarray, shape (n_classes,)\n        All the prediction classes.\n\n    method : {'sigmoid', 'isotonic', 'temperature'}\n        The method to use for calibration.\n\n    xp : namespace\n        Array API namespace.\n\n    sample_weight : ndarray, shape (n_samples,), default=None\n        Sample weights. If None, then samples are equally weighted.\n\n    Returns\n    -------\n    pipeline : _CalibratedClassifier instance\n    \"\"\"\n    calibrators = []\n\n    if method in (\"isotonic\", \"sigmoid\"):\n        Y = label_binarize(y, classes=classes)\n        label_encoder = LabelEncoder().fit(classes)\n        pos_class_indices = label_encoder.transform(clf.classes_)\n        for class_idx, this_pred in zip(pos_class_indices, predictions.T):\n            if method == \"isotonic\":\n                calibrator = IsotonicRegression(out_of_bounds=\"clip\")\n            else:  # \"sigmoid\"\n                calibrator = _SigmoidCalibration()\n            calibrator.fit(this_pred, Y[:, class_idx], sample_weight)\n            calibrators.append(calibrator)\n    elif method == \"temperature\":\n        if classes.shape[0] == 2 and predictions.shape[-1] == 1:\n            response_method_name = _check_response_method(\n                clf,\n                [\"decision_function\", \"predict_proba\"],\n            ).__name__\n            if response_method_name == \"predict_proba\":\n                predictions = xp.concat([1 - predictions, predictions], axis=1)\n        calibrator = _TemperatureScaling()\n        calibrator.fit(predictions, y, sample_weight)\n        calibrators.append(calibrator)\n\n    pipeline = _CalibratedClassifier(clf, calibrators, method=method, classes=classes)\n    return pipeline\n",
+          "predictionBranch": "    def predict_proba(self, X):\n        \"\"\"Calculate calibrated probabilities.\n\n        Calculates classification calibrated probabilities\n        for each class, in a one-vs-all manner, for `X`.\n\n        Parameters\n        ----------\n        X : ndarray of shape (n_samples, n_features)\n            The sample data.\n\n        Returns\n        -------\n        proba : array, shape (n_samples, n_classes)\n            The predicted probabilities. Can be exact zeros.\n        \"\"\"\n        predictions, _ = _get_response_values(\n            self.estimator,\n            X,\n            response_method=[\"decision_function\", \"predict_proba\"],\n        )\n        if predictions.ndim == 1:\n            # Reshape binary output from `(n_samples,)` to `(n_samples, 1)`\n            predictions = predictions.reshape(-1, 1)\n\n        n_classes = self.classes.shape[0]\n\n        proba = np.zeros((_num_samples(X), n_classes))\n\n        if self.method in (\"sigmoid\", \"isotonic\"):\n            label_encoder = LabelEncoder().fit(self.classes)\n            pos_class_indices = label_encoder.transform(self.estimator.classes_)\n            for class_idx, this_pred, calibrator in zip(\n                pos_class_indices, predictions.T, self.calibrators\n            ):\n                if n_classes == 2:\n                    # When binary, `predictions` consists only of predictions for\n                    # clf.classes_[1] but `pos_class_indices` = 0\n                    class_idx += 1\n                proba[:, class_idx] = calibrator.predict(this_pred)\n            # Normalize the probabilities\n            if n_classes == 2:\n                proba[:, 0] = 1.0 - proba[:, 1]\n            else:\n                denominator = np.sum(proba, axis=1)[:, np.newaxis]\n                # In the edge case where for each class calibrator returns a zero\n                # probability for a given sample, use the uniform distribution\n                # instead.\n                uniform_proba = np.full_like(proba, 1 / n_classes)\n                proba = np.divide(\n                    proba, denominator, out=uniform_proba, where=denominator != 0\n                )\n        elif self.method == \"temperature\":\n            xp, _ = get_namespace(predictions)\n            if n_classes == 2 and predictions.shape[-1] == 1:\n                response_method_name = _check_response_method(\n                    self.estimator,\n                    [\"decision_function\", \"predict_proba\"],\n                ).__name__\n                if response_method_name == \"predict_proba\":\n                    predictions = xp.concat([1 - predictions, predictions], axis=1)\n            proba = self.calibrators[0].predict(predictions)\n\n        # Deal with cases where the predicted probability minimally exceeds 1.0\n        proba[(1.0 < proba) & (proba <= 1.0 + 1e-5)] = 1.0\n\n        return proba\n"
+        }
+      }
+    },
+    "browser": {
+      "record": {
+        "path": "scratch/naive-bayes-browser/results.json",
+        "sha256": "cc8d567fb5ce30cc8ab757a380398cfe221e22ef727dab790b59e0c482299d0e",
+        "bytes": 40967
+      },
+      "result": {
+        "completedAt": "2026-09-11T11:57:28.589Z",
+        "records": [
+          {
+            "width": 1440,
+            "states": 87,
+            "errors": [],
+            "equations": [
+              {
+                "index": 0,
+                "width": 760,
+                "content": 760,
+                "text": "wc(x)=\u03c0cLc(x),P(Y=c\u2223x)=wc(x)\u2211rwr(x),y^=arg\u2061max\u2061cwc(x).\\begin{aligned}w_c(x)&=\\pi_c L_c(x),\\\\P(Y=c\\mid x)&=\\frac{w_c(x)}{\\sum_r w_r(x)},\\\\\\widehat y&=\\arg\\max_c w_c(x).\\end{aligned}wc\u200b(x)P(Y=c\u2223x)y\u200b\u200b=\u03c0c\u200bLc\u200b(x),=\u2211r\u200bwr\u200b(x)wc\u200b(x)\u200b,=argcmax\u200bwc\u200b(x).\u200b"
+              },
+              {
+                "index": 1,
+                "width": 760,
+                "content": 760,
+                "text": "P(spam\u2223free)=8/338/33+1/21=5667,P(ham\u2223free)=1167.\\begin{gathered}P(\\text{spam}\\mid\\text{free})\\\\=\\frac{8/33}{8/33+1/21}=\\frac{56}{67},\\\\P(\\text{ham}\\mid\\text{free})=\\frac{11}{67}.\\end{gathered}P(spam\u2223free)=8/33+1/218/33\u200b=6756\u200b,P(ham\u2223free)=6711\u200b.\u200b"
+              },
+              {
+                "index": 2,
+                "width": 760,
+                "content": 760,
+                "text": "sc(x)=log\u2061\u03c0c+\u2211jlog\u2061P(xj\u2223c),m=max\u2061rsr,\u2113=m+log\u2061\u2211rexp\u2061(sr\u2212m),log\u2061P(c\u2223x)=sc\u2212\u2113.\\begin{gathered}s_c(x)=\\log\\pi_c+\\sum_j\\log P(x_j\\mid c),\\\\m=\\max_r s_r,\\\\\\ell=m+\\log\\sum_r\\exp(s_r-m),\\\\\\log P(c\\mid x)=s_c-\\ell.\\end{gathered}sc\u200b(x)=log\u03c0c\u200b+j\u2211\u200blogP(xj\u200b\u2223c),m=rmax\u200bsr\u200b,\u2113=m+logr\u2211\u200bexp(sr\u200b\u2212m),logP(c\u2223x)=sc\u200b\u2212\u2113.\u200b"
+              },
+              {
+                "index": 3,
+                "width": 760,
+                "content": 760,
+                "text": "N=\u2211j=1Vxj,\u2211j=1V\u03b8cj=1,P(x\u2223c,N)=N!\u220fjxj!\u220fj\u03b8cjxj,sc(x)=log\u2061\u03c0c+\u2211j:xj>0xjlog\u2061\u03b8cj.\\begin{gathered}N=\\sum_{j=1}^{V}x_j,\\qquad \\sum_{j=1}^{V}\\theta_{cj}=1,\\\\P(x\\mid c,N)=\\frac{N!}{\\prod_jx_j!}\\prod_j\\theta_{cj}^{x_j},\\\\s_c(x)=\\log\\pi_c+\\sum_{j:x_j>0}x_j\\log\\theta_{cj}.\\end{gathered}N=j=1\u2211V\u200bxj\u200b,j=1\u2211V\u200b\u03b8cj\u200b=1,P(x\u2223c,N)=\u220fj\u200bxj\u200b!N!\u200bj\u220f\u200b\u03b8cjxj\u200b\u200b,sc\u200b(x)=log\u03c0c\u200b+j:xj\u200b>0\u2211\u200bxj\u200blog\u03b8cj\u200b.\u200b"
+              },
+              {
+                "index": 4,
+                "width": 760,
+                "content": 760,
+                "text": "\u03b8^cj=Ccj+\u03b1Tc+\u03b1V,\u03b1>0.\\widehat\\theta_{cj}=\\frac{C_{cj}+\\alpha}{T_c+\\alpha V},\\qquad \\alpha>0.\u03b8cj\u200b=Tc\u200b+\u03b1VCcj\u200b+\u03b1\u200b,\u03b1>0."
+              },
+              {
+                "index": 5,
+                "width": 760,
+                "content": 760,
+                "text": "P(b\u2223c)=\u220fj\u03d5cjbj(1\u2212\u03d5cj)1\u2212bj,tcj={log\u2061\u03d5cjbj=1,log\u2061(1\u2212\u03d5cj)bj=0,sc(b)=log\u2061\u03c0c+\u2211jtcj.\\begin{gathered}P(b\\mid c)=\\prod_j\\phi_{cj}^{b_j}(1-\\phi_{cj})^{1-b_j},\\\\t_{cj}=\\begin{cases}\\log\\phi_{cj}&b_j=1,\\\\\\log(1-\\phi_{cj})&b_j=0,\\end{cases}\\\\s_c(b)=\\log\\pi_c+\\sum_jt_{cj}.\\end{gathered}P(b\u2223c)=j\u220f\u200b\u03d5cjbj\u200b\u200b(1\u2212\u03d5cj\u200b)1\u2212bj\u200b,tcj\u200b={log\u03d5cj\u200blog(1\u2212\u03d5cj\u200b)\u200bbj\u200b=1,bj\u200b=0,\u200bsc\u200b(b)=log\u03c0c\u200b+j\u2211\u200btcj\u200b.\u200b"
+              },
+              {
+                "index": 6,
+                "width": 760,
+                "content": 760,
+                "text": "P(Xj=t\u2223c)=Dcjt+\u03b1Dc+\u03b1Mj.P(X_j=t\\mid c)=\\frac{D_{cjt}+\\alpha}{D_c+\\alpha M_j}.P(Xj\u200b=t\u2223c)=Dc\u200b+\u03b1Mj\u200bDcjt\u200b+\u03b1\u200b."
+              },
+              {
+                "index": 7,
+                "width": 760,
+                "content": 760,
+                "text": "zcj=xj\u2212\u03bccj\u03c3cj,f(xj\u2223c)=exp\u2061(\u2212zcj2/2)2\u03c0\u2009\u03c3cj.\\begin{gathered}z_{cj}=\\frac{x_j-\\mu_{cj}}{\\sigma_{cj}},\\\\f(x_j\\mid c)=\\frac{\\exp(-z_{cj}^{2}/2)}{\\sqrt{2\\pi}\\,\\sigma_{cj}}.\\end{gathered}zcj\u200b=\u03c3cj\u200bxj\u200b\u2212\u03bccj\u200b\u200b,f(xj\u200b\u2223c)=2\u03c0\u200b\u03c3cj\u200bexp(\u2212zcj2\u200b/2)\u200b.\u200b"
+              },
+              {
+                "index": 8,
+                "width": 760,
+                "content": 760,
+                "text": "\u03bc^=1D\u2211ixi,\u03c3^2=1D\u2211i(xi\u2212\u03bc^)2.\\begin{gathered}\\widehat\\mu=\\frac1D\\sum_i x_i,\\\\\\widehat\\sigma^2=\\frac1D\\sum_i(x_i-\\widehat\\mu)^2.\\end{gathered}\u03bc\u200b=D1\u200bi\u2211\u200bxi\u200b,\u03c32=D1\u200bi\u2211\u200b(xi\u200b\u2212\u03bc\u200b)2.\u200b"
+              },
+              {
+                "index": 9,
+                "width": 760,
+                "content": 760,
+                "text": "Qcj=(xj\u2212\u03bccj)2\u03c3cj2,Dj=log\u2061\u03c31j2\u03c30j2+Q1j\u2212Q0j,s1(x)\u2212s0(x)=log\u2061\u03c01\u03c00\u221212\u2211jDj.\\begin{gathered}Q_{cj}=\\frac{(x_j-\\mu_{cj})^2}{\\sigma_{cj}^2},\\\\D_j=\\log\\frac{\\sigma_{1j}^2}{\\sigma_{0j}^2}+Q_{1j}-Q_{0j},\\\\s_1(x)-s_0(x)\\\\=\\log\\frac{\\pi_1}{\\pi_0}-\\frac12\\sum_jD_j.\\end{gathered}Qcj\u200b=\u03c3cj2\u200b(xj\u200b\u2212\u03bccj\u200b)2\u200b,Dj\u200b=log\u03c30j2\u200b\u03c31j2\u200b\u200b+Q1j\u200b\u2212Q0j\u200b,s1\u200b(x)\u2212s0\u200b(x)=log\u03c00\u200b\u03c01\u200b\u200b\u221221\u200bj\u2211\u200bDj\u200b.\u200b"
+              },
+              {
+                "index": 10,
+                "width": 760,
+                "content": 760,
+                "text": "P(fault\u2223+,+,+)=0.2\u22c50.80.2\u22c50.8+0.8\u22c50.4=13,P^ind(fault\u2223+,+,+)=0.2\u22c50.830.2\u22c50.83+0.8\u22c50.43=23.\\begin{gathered}P(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8}{0.2\\cdot0.8+0.8\\cdot0.4}=\\frac13,\\\\\\widehat P_{\\mathrm{ind}}(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8^3}{0.2\\cdot0.8^3+0.8\\cdot0.4^3}=\\frac23.\\end{gathered}P(fault\u2223+,+,+)=0.2\u22c50.8+0.8\u22c50.40.2\u22c50.8\u200b=31\u200b,Pind\u200b(fault\u2223+,+,+)=0.2\u22c50.83+0.8\u22c50.430.2\u22c50.83\u200b=32\u200b.\u200b"
+              },
+              {
+                "index": 11,
+                "width": 760,
+                "content": 760,
+                "text": "C\u02c9cj=\u2211r\u2260cCrj,\u03b8\u02c9cj=C\u02c9cj+\u03b1\u2211kC\u02c9ck+\u03b1V,acj=\u2212log\u2061\u03b8\u02c9cj,sc(x)=\u2211jxjacj.\\begin{aligned}\\bar C_{cj}&=\\sum_{r\\ne c}C_{rj},\\\\\\bar\\theta_{cj}&=\\frac{\\bar C_{cj}+\\alpha}{\\sum_k\\bar C_{ck}+\\alpha V},\\\\a_{cj}&=-\\log\\bar\\theta_{cj},\\\\s_c(x)&=\\sum_jx_j a_{cj}.\\end{aligned}C\u02c9cj\u200b\u03b8\u02c9cj\u200bacj\u200bsc\u200b(x)\u200b=r\ue020=c\u2211\u200bCrj\u200b,=\u2211k\u200bC\u02c9ck\u200b+\u03b1VC\u02c9cj\u200b+\u03b1\u200b,=\u2212log\u03b8\u02c9cj\u200b,=j\u2211\u200bxj\u200bacj\u200b.\u200b"
+              },
+              {
+                "index": 12,
+                "width": 760,
+                "content": 760,
+                "text": "log\u2061Onew(x)=log\u2061Oold(x)+log\u2061\u03c0new,1/\u03c0new,0\u03c0old,1/\u03c0old,0.\\begin{aligned}\\log O_{\\mathrm{new}}(x)&=\\log O_{\\mathrm{old}}(x)\\\\&\\quad+\\log\\frac{\\pi_{\\mathrm{new},1}/\\pi_{\\mathrm{new},0}}{\\pi_{\\mathrm{old},1}/\\pi_{\\mathrm{old},0}}.\\end{aligned}logOnew\u200b(x)\u200b=logOold\u200b(x)+log\u03c0old,1\u200b/\u03c0old,0\u200b\u03c0new,1\u200b/\u03c0new,0\u200b\u200b.\u200b"
+              },
+              {
+                "index": 13,
+                "width": 760,
+                "content": 760,
+                "text": "E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\\begin{gathered}\\mathbb E[(p-Y)^2\\mid x]\\\\=(p-q)^2+q(1-q),\\\\q=P(Y=1\\mid x).\\end{gathered}E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\u200b"
+              },
+              {
+                "index": 14,
+                "width": 760,
+                "content": 760,
+                "text": "CFP(1\u2212p)<CFNp\u27fap>CFPCFP+CFN.\\begin{aligned}C_{\\mathrm{FP}}(1-p)&<C_{\\mathrm{FN}}p\\\\\\Longleftrightarrow\\quad p&>\\frac{C_{\\mathrm{FP}}}{C_{\\mathrm{FP}}+C_{\\mathrm{FN}}}.\\end{aligned}CFP\u200b(1\u2212p)\u27fap\u200b<CFN\u200bp>CFP\u200b+CFN\u200bCFP\u200b\u200b.\u200b"
+              },
+              {
+                "index": 15,
+                "width": 760,
+                "content": 760,
+                "text": "log\u2061O(x)=log\u2061\u03c01\u03c00+\u2211jxjlog\u2061\u03b81j\u03b80j.\\begin{aligned}\\log O(x)&=\\log\\frac{\\pi_1}{\\pi_0}\\\\&\\quad+\\sum_jx_j\\log\\frac{\\theta_{1j}}{\\theta_{0j}}.\\end{aligned}logO(x)\u200b=log\u03c00\u200b\u03c01\u200b\u200b+j\u2211\u200bxj\u200blog\u03b80j\u200b\u03b81j\u200b\u200b.\u200b"
+              },
+              {
+                "index": 16,
+                "width": 760,
+                "content": 760,
+                "text": "P(x\u2223training)=N!\u220fjxj!\u220fjAjxj\u203eA0N\u203e,A0=\u2211jAj,am\u203e=a(a+1)\u22ef(a+m\u22121),a0\u203e=1.\\begin{gathered}P(x\\mid\\text{training})=\\frac{N!}{\\prod_jx_j!}\\frac{\\prod_j A_j^{\\overline{x_j}}}{A_0^{\\overline N}},\\\\A_0=\\sum_j A_j,\\\\a^{\\overline m}=a(a+1)\\cdots(a+m-1),\\\\a^{\\overline0}=1.\\end{gathered}P(x\u2223training)=\u220fj\u200bxj\u200b!N!\u200bA0N\u200b\u220fj\u200bAjxj\u200b\u200b\u200b\u200b,A0\u200b=j\u2211\u200bAj\u200b,am=a(a+1)\u22ef(a+m\u22121),a0=1.\u200b"
+              }
+            ],
+            "overflow": {
+              "page": 1440,
+              "viewport": 1440
+            },
+            "labels": [
+              {
+                "text": "-6",
+                "left": 42.063331604003906,
+                "right": 55.936668395996094,
+                "bound": 330
+              },
+              {
+                "text": "-3",
+                "left": 107.61683654785156,
+                "right": 121.38315677642822,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 175.83119201660156,
+                "right": 184.16881465911865,
+                "bound": 330
+              },
+              {
+                "text": "3",
+                "left": 241.5744171142578,
+                "right": 249.4255976676941,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 307.0209045410156,
+                "right": 314.9791021347046,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 31.662378311157227,
+                "right": 40.000000953674316,
+                "bound": 330
+              },
+              {
+                "text": "0.2",
+                "left": 20.746612548828125,
+                "right": 40.00000190734863,
+                "bound": 330
+              },
+              {
+                "text": "0.4",
+                "left": 20.45474624633789,
+                "right": 40.00000190734863,
+                "bound": 330
+              },
+              {
+                "text": "Reading (mV)",
+                "left": 138.28271484375,
+                "right": 221.71731567382812,
+                "bound": 330
+              },
+              {
+                "text": "Density (1/mV)",
+                "left": 49,
+                "right": 160.31746673583984,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 41.99510955810547,
+                "right": 56.00489616394043,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 116.83765411376953,
+                "right": 130.8766279220581,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 194.54541015625,
+                "right": 202.8831787109375,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 269.50958251953125,
+                "right": 277.6333131790161,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 307.0208435058594,
+                "right": 314.9791808128357,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 25.99021339416504,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 25.96102523803711,
+                "right": 39.999999046325684,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 31.6622314453125,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 31.87626838684082,
+                "right": 39.999999046325684,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 32.041664123535156,
+                "right": 40.000001430511475,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc0",
+                "left": 171.2857208251953,
+                "right": 187.1148223876953,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc1",
+                "left": 246.14285278320312,
+                "right": 259.0727233886719,
+                "bound": 330
+              },
+              {
+                "text": "Feature 1 (units)",
+                "left": 129.12210083007812,
+                "right": 230.8779067993164,
+                "bound": 330
+              },
+              {
+                "text": "Feature 2 (units)",
+                "left": 49,
+                "right": 177.20901489257812,
+                "bound": 330
+              },
+              {
+                "text": "One alarm +",
+                "left": 128.34548950195312,
+                "right": 201.65452575683594,
+                "bound": 330
+              },
+              {
+                "text": "X1",
+                "left": 97.13317108154297,
+                "right": 110.86683654785156,
+                "bound": 330
+              },
+              {
+                "text": "X2",
+                "left": 156.92837524414062,
+                "right": 173.07164001464844,
+                "bound": 330
+              },
+              {
+                "text": "X3",
+                "left": 217.9234161376953,
+                "right": 234.0765838623047,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 44.8311882019043,
+                "right": 53.16881084442139,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 170.39764404296875,
+                "right": 189.60239028930664,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 308.2807922363281,
+                "right": 313.71921825408936,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 31.662378311157227,
+                "right": 40.000000953674316,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 20.795255661010742,
+                "right": 40.00000190734863,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 34.56157684326172,
+                "right": 40.00000286102295,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 90.4749984741211,
+                "right": 114.62200164794922,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 146.14999389648438,
+                "right": 170.0148468017578,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 211.65000915527344,
+                "right": 235.51486206054688,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 235.5530242919922,
+                "right": 259.70001220703125,
+                "bound": 330
+              },
+              {
+                "text": "Mean predicted probability",
+                "left": 94.29370880126953,
+                "right": 265.7062759399414,
+                "bound": 330
+              },
+              {
+                "text": "Observed positive fraction",
+                "left": 49,
+                "right": 253.83116149902344,
+                "bound": 330
+              }
+            ],
+            "tableGeometry": {
+              "width": 710,
+              "content": 710,
+              "offset": 0
+            },
+            "programs": 11,
+            "practice": 12,
+            "checkpoints": 2,
+            "fonts": {
+              "sans": true,
+              "mono": true
+            }
+          },
+          {
+            "width": 390,
+            "states": 87,
+            "errors": [],
+            "equations": [
+              {
+                "index": 0,
+                "width": 350,
+                "content": 350,
+                "text": "wc(x)=\u03c0cLc(x),P(Y=c\u2223x)=wc(x)\u2211rwr(x),y^=arg\u2061max\u2061cwc(x).\\begin{aligned}w_c(x)&=\\pi_c L_c(x),\\\\P(Y=c\\mid x)&=\\frac{w_c(x)}{\\sum_r w_r(x)},\\\\\\widehat y&=\\arg\\max_c w_c(x).\\end{aligned}wc\u200b(x)P(Y=c\u2223x)y\u200b\u200b=\u03c0c\u200bLc\u200b(x),=\u2211r\u200bwr\u200b(x)wc\u200b(x)\u200b,=argcmax\u200bwc\u200b(x).\u200b"
+              },
+              {
+                "index": 1,
+                "width": 350,
+                "content": 350,
+                "text": "P(spam\u2223free)=8/338/33+1/21=5667,P(ham\u2223free)=1167.\\begin{gathered}P(\\text{spam}\\mid\\text{free})\\\\=\\frac{8/33}{8/33+1/21}=\\frac{56}{67},\\\\P(\\text{ham}\\mid\\text{free})=\\frac{11}{67}.\\end{gathered}P(spam\u2223free)=8/33+1/218/33\u200b=6756\u200b,P(ham\u2223free)=6711\u200b.\u200b"
+              },
+              {
+                "index": 2,
+                "width": 350,
+                "content": 350,
+                "text": "sc(x)=log\u2061\u03c0c+\u2211jlog\u2061P(xj\u2223c),m=max\u2061rsr,\u2113=m+log\u2061\u2211rexp\u2061(sr\u2212m),log\u2061P(c\u2223x)=sc\u2212\u2113.\\begin{gathered}s_c(x)=\\log\\pi_c+\\sum_j\\log P(x_j\\mid c),\\\\m=\\max_r s_r,\\\\\\ell=m+\\log\\sum_r\\exp(s_r-m),\\\\\\log P(c\\mid x)=s_c-\\ell.\\end{gathered}sc\u200b(x)=log\u03c0c\u200b+j\u2211\u200blogP(xj\u200b\u2223c),m=rmax\u200bsr\u200b,\u2113=m+logr\u2211\u200bexp(sr\u200b\u2212m),logP(c\u2223x)=sc\u200b\u2212\u2113.\u200b"
+              },
+              {
+                "index": 3,
+                "width": 350,
+                "content": 350,
+                "text": "N=\u2211j=1Vxj,\u2211j=1V\u03b8cj=1,P(x\u2223c,N)=N!\u220fjxj!\u220fj\u03b8cjxj,sc(x)=log\u2061\u03c0c+\u2211j:xj>0xjlog\u2061\u03b8cj.\\begin{gathered}N=\\sum_{j=1}^{V}x_j,\\qquad \\sum_{j=1}^{V}\\theta_{cj}=1,\\\\P(x\\mid c,N)=\\frac{N!}{\\prod_jx_j!}\\prod_j\\theta_{cj}^{x_j},\\\\s_c(x)=\\log\\pi_c+\\sum_{j:x_j>0}x_j\\log\\theta_{cj}.\\end{gathered}N=j=1\u2211V\u200bxj\u200b,j=1\u2211V\u200b\u03b8cj\u200b=1,P(x\u2223c,N)=\u220fj\u200bxj\u200b!N!\u200bj\u220f\u200b\u03b8cjxj\u200b\u200b,sc\u200b(x)=log\u03c0c\u200b+j:xj\u200b>0\u2211\u200bxj\u200blog\u03b8cj\u200b.\u200b"
+              },
+              {
+                "index": 4,
+                "width": 350,
+                "content": 350,
+                "text": "\u03b8^cj=Ccj+\u03b1Tc+\u03b1V,\u03b1>0.\\widehat\\theta_{cj}=\\frac{C_{cj}+\\alpha}{T_c+\\alpha V},\\qquad \\alpha>0.\u03b8cj\u200b=Tc\u200b+\u03b1VCcj\u200b+\u03b1\u200b,\u03b1>0."
+              },
+              {
+                "index": 5,
+                "width": 350,
+                "content": 350,
+                "text": "P(b\u2223c)=\u220fj\u03d5cjbj(1\u2212\u03d5cj)1\u2212bj,tcj={log\u2061\u03d5cjbj=1,log\u2061(1\u2212\u03d5cj)bj=0,sc(b)=log\u2061\u03c0c+\u2211jtcj.\\begin{gathered}P(b\\mid c)=\\prod_j\\phi_{cj}^{b_j}(1-\\phi_{cj})^{1-b_j},\\\\t_{cj}=\\begin{cases}\\log\\phi_{cj}&b_j=1,\\\\\\log(1-\\phi_{cj})&b_j=0,\\end{cases}\\\\s_c(b)=\\log\\pi_c+\\sum_jt_{cj}.\\end{gathered}P(b\u2223c)=j\u220f\u200b\u03d5cjbj\u200b\u200b(1\u2212\u03d5cj\u200b)1\u2212bj\u200b,tcj\u200b={log\u03d5cj\u200blog(1\u2212\u03d5cj\u200b)\u200bbj\u200b=1,bj\u200b=0,\u200bsc\u200b(b)=log\u03c0c\u200b+j\u2211\u200btcj\u200b.\u200b"
+              },
+              {
+                "index": 6,
+                "width": 350,
+                "content": 350,
+                "text": "P(Xj=t\u2223c)=Dcjt+\u03b1Dc+\u03b1Mj.P(X_j=t\\mid c)=\\frac{D_{cjt}+\\alpha}{D_c+\\alpha M_j}.P(Xj\u200b=t\u2223c)=Dc\u200b+\u03b1Mj\u200bDcjt\u200b+\u03b1\u200b."
+              },
+              {
+                "index": 7,
+                "width": 350,
+                "content": 350,
+                "text": "zcj=xj\u2212\u03bccj\u03c3cj,f(xj\u2223c)=exp\u2061(\u2212zcj2/2)2\u03c0\u2009\u03c3cj.\\begin{gathered}z_{cj}=\\frac{x_j-\\mu_{cj}}{\\sigma_{cj}},\\\\f(x_j\\mid c)=\\frac{\\exp(-z_{cj}^{2}/2)}{\\sqrt{2\\pi}\\,\\sigma_{cj}}.\\end{gathered}zcj\u200b=\u03c3cj\u200bxj\u200b\u2212\u03bccj\u200b\u200b,f(xj\u200b\u2223c)=2\u03c0\u200b\u03c3cj\u200bexp(\u2212zcj2\u200b/2)\u200b.\u200b"
+              },
+              {
+                "index": 8,
+                "width": 350,
+                "content": 350,
+                "text": "\u03bc^=1D\u2211ixi,\u03c3^2=1D\u2211i(xi\u2212\u03bc^)2.\\begin{gathered}\\widehat\\mu=\\frac1D\\sum_i x_i,\\\\\\widehat\\sigma^2=\\frac1D\\sum_i(x_i-\\widehat\\mu)^2.\\end{gathered}\u03bc\u200b=D1\u200bi\u2211\u200bxi\u200b,\u03c32=D1\u200bi\u2211\u200b(xi\u200b\u2212\u03bc\u200b)2.\u200b"
+              },
+              {
+                "index": 9,
+                "width": 350,
+                "content": 350,
+                "text": "Qcj=(xj\u2212\u03bccj)2\u03c3cj2,Dj=log\u2061\u03c31j2\u03c30j2+Q1j\u2212Q0j,s1(x)\u2212s0(x)=log\u2061\u03c01\u03c00\u221212\u2211jDj.\\begin{gathered}Q_{cj}=\\frac{(x_j-\\mu_{cj})^2}{\\sigma_{cj}^2},\\\\D_j=\\log\\frac{\\sigma_{1j}^2}{\\sigma_{0j}^2}+Q_{1j}-Q_{0j},\\\\s_1(x)-s_0(x)\\\\=\\log\\frac{\\pi_1}{\\pi_0}-\\frac12\\sum_jD_j.\\end{gathered}Qcj\u200b=\u03c3cj2\u200b(xj\u200b\u2212\u03bccj\u200b)2\u200b,Dj\u200b=log\u03c30j2\u200b\u03c31j2\u200b\u200b+Q1j\u200b\u2212Q0j\u200b,s1\u200b(x)\u2212s0\u200b(x)=log\u03c00\u200b\u03c01\u200b\u200b\u221221\u200bj\u2211\u200bDj\u200b.\u200b"
+              },
+              {
+                "index": 10,
+                "width": 350,
+                "content": 350,
+                "text": "P(fault\u2223+,+,+)=0.2\u22c50.80.2\u22c50.8+0.8\u22c50.4=13,P^ind(fault\u2223+,+,+)=0.2\u22c50.830.2\u22c50.83+0.8\u22c50.43=23.\\begin{gathered}P(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8}{0.2\\cdot0.8+0.8\\cdot0.4}=\\frac13,\\\\\\widehat P_{\\mathrm{ind}}(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8^3}{0.2\\cdot0.8^3+0.8\\cdot0.4^3}=\\frac23.\\end{gathered}P(fault\u2223+,+,+)=0.2\u22c50.8+0.8\u22c50.40.2\u22c50.8\u200b=31\u200b,Pind\u200b(fault\u2223+,+,+)=0.2\u22c50.83+0.8\u22c50.430.2\u22c50.83\u200b=32\u200b.\u200b"
+              },
+              {
+                "index": 11,
+                "width": 350,
+                "content": 350,
+                "text": "C\u02c9cj=\u2211r\u2260cCrj,\u03b8\u02c9cj=C\u02c9cj+\u03b1\u2211kC\u02c9ck+\u03b1V,acj=\u2212log\u2061\u03b8\u02c9cj,sc(x)=\u2211jxjacj.\\begin{aligned}\\bar C_{cj}&=\\sum_{r\\ne c}C_{rj},\\\\\\bar\\theta_{cj}&=\\frac{\\bar C_{cj}+\\alpha}{\\sum_k\\bar C_{ck}+\\alpha V},\\\\a_{cj}&=-\\log\\bar\\theta_{cj},\\\\s_c(x)&=\\sum_jx_j a_{cj}.\\end{aligned}C\u02c9cj\u200b\u03b8\u02c9cj\u200bacj\u200bsc\u200b(x)\u200b=r\ue020=c\u2211\u200bCrj\u200b,=\u2211k\u200bC\u02c9ck\u200b+\u03b1VC\u02c9cj\u200b+\u03b1\u200b,=\u2212log\u03b8\u02c9cj\u200b,=j\u2211\u200bxj\u200bacj\u200b.\u200b"
+              },
+              {
+                "index": 12,
+                "width": 350,
+                "content": 350,
+                "text": "log\u2061Onew(x)=log\u2061Oold(x)+log\u2061\u03c0new,1/\u03c0new,0\u03c0old,1/\u03c0old,0.\\begin{aligned}\\log O_{\\mathrm{new}}(x)&=\\log O_{\\mathrm{old}}(x)\\\\&\\quad+\\log\\frac{\\pi_{\\mathrm{new},1}/\\pi_{\\mathrm{new},0}}{\\pi_{\\mathrm{old},1}/\\pi_{\\mathrm{old},0}}.\\end{aligned}logOnew\u200b(x)\u200b=logOold\u200b(x)+log\u03c0old,1\u200b/\u03c0old,0\u200b\u03c0new,1\u200b/\u03c0new,0\u200b\u200b.\u200b"
+              },
+              {
+                "index": 13,
+                "width": 350,
+                "content": 350,
+                "text": "E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\\begin{gathered}\\mathbb E[(p-Y)^2\\mid x]\\\\=(p-q)^2+q(1-q),\\\\q=P(Y=1\\mid x).\\end{gathered}E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\u200b"
+              },
+              {
+                "index": 14,
+                "width": 350,
+                "content": 350,
+                "text": "CFP(1\u2212p)<CFNp\u27fap>CFPCFP+CFN.\\begin{aligned}C_{\\mathrm{FP}}(1-p)&<C_{\\mathrm{FN}}p\\\\\\Longleftrightarrow\\quad p&>\\frac{C_{\\mathrm{FP}}}{C_{\\mathrm{FP}}+C_{\\mathrm{FN}}}.\\end{aligned}CFP\u200b(1\u2212p)\u27fap\u200b<CFN\u200bp>CFP\u200b+CFN\u200bCFP\u200b\u200b.\u200b"
+              },
+              {
+                "index": 15,
+                "width": 350,
+                "content": 350,
+                "text": "log\u2061O(x)=log\u2061\u03c01\u03c00+\u2211jxjlog\u2061\u03b81j\u03b80j.\\begin{aligned}\\log O(x)&=\\log\\frac{\\pi_1}{\\pi_0}\\\\&\\quad+\\sum_jx_j\\log\\frac{\\theta_{1j}}{\\theta_{0j}}.\\end{aligned}logO(x)\u200b=log\u03c00\u200b\u03c01\u200b\u200b+j\u2211\u200bxj\u200blog\u03b80j\u200b\u03b81j\u200b\u200b.\u200b"
+              },
+              {
+                "index": 16,
+                "width": 350,
+                "content": 350,
+                "text": "P(x\u2223training)=N!\u220fjxj!\u220fjAjxj\u203eA0N\u203e,A0=\u2211jAj,am\u203e=a(a+1)\u22ef(a+m\u22121),a0\u203e=1.\\begin{gathered}P(x\\mid\\text{training})=\\frac{N!}{\\prod_jx_j!}\\frac{\\prod_j A_j^{\\overline{x_j}}}{A_0^{\\overline N}},\\\\A_0=\\sum_j A_j,\\\\a^{\\overline m}=a(a+1)\\cdots(a+m-1),\\\\a^{\\overline0}=1.\\end{gathered}P(x\u2223training)=\u220fj\u200bxj\u200b!N!\u200bA0N\u200b\u220fj\u200bAjxj\u200b\u200b\u200b\u200b,A0\u200b=j\u2211\u200bAj\u200b,am=a(a+1)\u22ef(a+m\u22121),a0=1.\u200b"
+              }
+            ],
+            "overflow": {
+              "page": 390,
+              "viewport": 390
+            },
+            "labels": [
+              {
+                "text": "-6",
+                "left": 37.263004302978516,
+                "right": 60.73700141906738,
+                "bound": 330
+              },
+              {
+                "text": "-3",
+                "left": 102.85053253173828,
+                "right": 126.14946937561035,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 172.9498291015625,
+                "right": 187.050142288208,
+                "bound": 330
+              },
+              {
+                "text": "3",
+                "left": 238.8556671142578,
+                "right": 252.14433670043945,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 304.26812744140625,
+                "right": 317.7318572998047,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.899686813354492,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "0.2",
+                "left": 7.406951904296875,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "0.4",
+                "left": 6.9295148849487305,
+                "right": 40.50617504119873,
+                "bound": 330
+              },
+              {
+                "text": "Reading (mV)",
+                "left": 109.40293884277344,
+                "right": 250.5970458984375,
+                "bound": 330
+              },
+              {
+                "text": "Density (1/mV)",
+                "left": 49,
+                "right": 160.36619567871094,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 37.14360427856445,
+                "right": 60.85639190673828,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 111.97686767578125,
+                "right": 136.24189567565918,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 191.66409301757812,
+                "right": 205.76444911956787,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 266.6963195800781,
+                "right": 280.9558219909668,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 304.2680969238281,
+                "right": 317.73186779022217,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 16.28721046447754,
+                "right": 39.99999809265137,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 16.239465713500977,
+                "right": 40.504493713378906,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.899641036987305,
+                "right": 39.99999713897705,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 26.24976348876953,
+                "right": 40.5092658996582,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 26.536226272583008,
+                "right": 39.99999713897705,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc0",
+                "left": 171.28570556640625,
+                "right": 198.0700225830078,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc1",
+                "left": 246.14283752441406,
+                "right": 268.02545166015625,
+                "bound": 330
+              },
+              {
+                "text": "Feature 1 (units)",
+                "left": 93.90190124511719,
+                "right": 266.0981140136719,
+                "bound": 330
+              },
+              {
+                "text": "Feature 2 (units)",
+                "left": 49,
+                "right": 177.2490692138672,
+                "bound": 330
+              },
+              {
+                "text": "One alarm +",
+                "left": 102.98069763183594,
+                "right": 227.019287109375,
+                "bound": 330
+              },
+              {
+                "text": "X1",
+                "left": 92.38232421875,
+                "right": 115.61767578125,
+                "bound": 330
+              },
+              {
+                "text": "X2",
+                "left": 151.34524536132812,
+                "right": 178.6547393798828,
+                "bound": 330
+              },
+              {
+                "text": "X3",
+                "left": 212.33729553222656,
+                "right": 239.66270446777344,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 41.94984436035156,
+                "right": 56.05015754699707,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 163.75120544433594,
+                "right": 196.30932998657227,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 306.40069580078125,
+                "right": 315.5993194580078,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.899686813354492,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 7.502439498901367,
+                "right": 40.060564041137695,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 30.801376342773438,
+                "right": 40,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 90.47499084472656,
+                "right": 131.85289001464844,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 146.1499786376953,
+                "right": 186.54116821289062,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 211.64999389648438,
+                "right": 252.04116821289062,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 218.83139038085938,
+                "right": 260.2092590332031,
+                "bound": 330
+              },
+              {
+                "text": "Mean predicted probability",
+                "left": 34.96251678466797,
+                "right": 325.03746795654297,
+                "bound": 330
+              },
+              {
+                "text": "Observed positive fraction",
+                "left": 49,
+                "right": 253.7728271484375,
+                "bound": 330
+              }
+            ],
+            "tableGeometry": {
+              "width": 324,
+              "content": 324,
+              "offset": 0
+            },
+            "programs": 11,
+            "practice": 12,
+            "checkpoints": 2,
+            "fonts": {
+              "sans": true,
+              "mono": true
+            }
+          },
+          {
+            "width": 320,
+            "states": 87,
+            "errors": [],
+            "equations": [
+              {
+                "index": 0,
+                "width": 280,
+                "content": 280,
+                "text": "wc(x)=\u03c0cLc(x),P(Y=c\u2223x)=wc(x)\u2211rwr(x),y^=arg\u2061max\u2061cwc(x).\\begin{aligned}w_c(x)&=\\pi_c L_c(x),\\\\P(Y=c\\mid x)&=\\frac{w_c(x)}{\\sum_r w_r(x)},\\\\\\widehat y&=\\arg\\max_c w_c(x).\\end{aligned}wc\u200b(x)P(Y=c\u2223x)y\u200b\u200b=\u03c0c\u200bLc\u200b(x),=\u2211r\u200bwr\u200b(x)wc\u200b(x)\u200b,=argcmax\u200bwc\u200b(x).\u200b"
+              },
+              {
+                "index": 1,
+                "width": 280,
+                "content": 280,
+                "text": "P(spam\u2223free)=8/338/33+1/21=5667,P(ham\u2223free)=1167.\\begin{gathered}P(\\text{spam}\\mid\\text{free})\\\\=\\frac{8/33}{8/33+1/21}=\\frac{56}{67},\\\\P(\\text{ham}\\mid\\text{free})=\\frac{11}{67}.\\end{gathered}P(spam\u2223free)=8/33+1/218/33\u200b=6756\u200b,P(ham\u2223free)=6711\u200b.\u200b"
+              },
+              {
+                "index": 2,
+                "width": 280,
+                "content": 280,
+                "text": "sc(x)=log\u2061\u03c0c+\u2211jlog\u2061P(xj\u2223c),m=max\u2061rsr,\u2113=m+log\u2061\u2211rexp\u2061(sr\u2212m),log\u2061P(c\u2223x)=sc\u2212\u2113.\\begin{gathered}s_c(x)=\\log\\pi_c+\\sum_j\\log P(x_j\\mid c),\\\\m=\\max_r s_r,\\\\\\ell=m+\\log\\sum_r\\exp(s_r-m),\\\\\\log P(c\\mid x)=s_c-\\ell.\\end{gathered}sc\u200b(x)=log\u03c0c\u200b+j\u2211\u200blogP(xj\u200b\u2223c),m=rmax\u200bsr\u200b,\u2113=m+logr\u2211\u200bexp(sr\u200b\u2212m),logP(c\u2223x)=sc\u200b\u2212\u2113.\u200b"
+              },
+              {
+                "index": 3,
+                "width": 280,
+                "content": 280,
+                "text": "N=\u2211j=1Vxj,\u2211j=1V\u03b8cj=1,P(x\u2223c,N)=N!\u220fjxj!\u220fj\u03b8cjxj,sc(x)=log\u2061\u03c0c+\u2211j:xj>0xjlog\u2061\u03b8cj.\\begin{gathered}N=\\sum_{j=1}^{V}x_j,\\qquad \\sum_{j=1}^{V}\\theta_{cj}=1,\\\\P(x\\mid c,N)=\\frac{N!}{\\prod_jx_j!}\\prod_j\\theta_{cj}^{x_j},\\\\s_c(x)=\\log\\pi_c+\\sum_{j:x_j>0}x_j\\log\\theta_{cj}.\\end{gathered}N=j=1\u2211V\u200bxj\u200b,j=1\u2211V\u200b\u03b8cj\u200b=1,P(x\u2223c,N)=\u220fj\u200bxj\u200b!N!\u200bj\u220f\u200b\u03b8cjxj\u200b\u200b,sc\u200b(x)=log\u03c0c\u200b+j:xj\u200b>0\u2211\u200bxj\u200blog\u03b8cj\u200b.\u200b"
+              },
+              {
+                "index": 4,
+                "width": 280,
+                "content": 280,
+                "text": "\u03b8^cj=Ccj+\u03b1Tc+\u03b1V,\u03b1>0.\\widehat\\theta_{cj}=\\frac{C_{cj}+\\alpha}{T_c+\\alpha V},\\qquad \\alpha>0.\u03b8cj\u200b=Tc\u200b+\u03b1VCcj\u200b+\u03b1\u200b,\u03b1>0."
+              },
+              {
+                "index": 5,
+                "width": 280,
+                "content": 280,
+                "text": "P(b\u2223c)=\u220fj\u03d5cjbj(1\u2212\u03d5cj)1\u2212bj,tcj={log\u2061\u03d5cjbj=1,log\u2061(1\u2212\u03d5cj)bj=0,sc(b)=log\u2061\u03c0c+\u2211jtcj.\\begin{gathered}P(b\\mid c)=\\prod_j\\phi_{cj}^{b_j}(1-\\phi_{cj})^{1-b_j},\\\\t_{cj}=\\begin{cases}\\log\\phi_{cj}&b_j=1,\\\\\\log(1-\\phi_{cj})&b_j=0,\\end{cases}\\\\s_c(b)=\\log\\pi_c+\\sum_jt_{cj}.\\end{gathered}P(b\u2223c)=j\u220f\u200b\u03d5cjbj\u200b\u200b(1\u2212\u03d5cj\u200b)1\u2212bj\u200b,tcj\u200b={log\u03d5cj\u200blog(1\u2212\u03d5cj\u200b)\u200bbj\u200b=1,bj\u200b=0,\u200bsc\u200b(b)=log\u03c0c\u200b+j\u2211\u200btcj\u200b.\u200b"
+              },
+              {
+                "index": 6,
+                "width": 280,
+                "content": 280,
+                "text": "P(Xj=t\u2223c)=Dcjt+\u03b1Dc+\u03b1Mj.P(X_j=t\\mid c)=\\frac{D_{cjt}+\\alpha}{D_c+\\alpha M_j}.P(Xj\u200b=t\u2223c)=Dc\u200b+\u03b1Mj\u200bDcjt\u200b+\u03b1\u200b."
+              },
+              {
+                "index": 7,
+                "width": 280,
+                "content": 280,
+                "text": "zcj=xj\u2212\u03bccj\u03c3cj,f(xj\u2223c)=exp\u2061(\u2212zcj2/2)2\u03c0\u2009\u03c3cj.\\begin{gathered}z_{cj}=\\frac{x_j-\\mu_{cj}}{\\sigma_{cj}},\\\\f(x_j\\mid c)=\\frac{\\exp(-z_{cj}^{2}/2)}{\\sqrt{2\\pi}\\,\\sigma_{cj}}.\\end{gathered}zcj\u200b=\u03c3cj\u200bxj\u200b\u2212\u03bccj\u200b\u200b,f(xj\u200b\u2223c)=2\u03c0\u200b\u03c3cj\u200bexp(\u2212zcj2\u200b/2)\u200b.\u200b"
+              },
+              {
+                "index": 8,
+                "width": 280,
+                "content": 280,
+                "text": "\u03bc^=1D\u2211ixi,\u03c3^2=1D\u2211i(xi\u2212\u03bc^)2.\\begin{gathered}\\widehat\\mu=\\frac1D\\sum_i x_i,\\\\\\widehat\\sigma^2=\\frac1D\\sum_i(x_i-\\widehat\\mu)^2.\\end{gathered}\u03bc\u200b=D1\u200bi\u2211\u200bxi\u200b,\u03c32=D1\u200bi\u2211\u200b(xi\u200b\u2212\u03bc\u200b)2.\u200b"
+              },
+              {
+                "index": 9,
+                "width": 280,
+                "content": 280,
+                "text": "Qcj=(xj\u2212\u03bccj)2\u03c3cj2,Dj=log\u2061\u03c31j2\u03c30j2+Q1j\u2212Q0j,s1(x)\u2212s0(x)=log\u2061\u03c01\u03c00\u221212\u2211jDj.\\begin{gathered}Q_{cj}=\\frac{(x_j-\\mu_{cj})^2}{\\sigma_{cj}^2},\\\\D_j=\\log\\frac{\\sigma_{1j}^2}{\\sigma_{0j}^2}+Q_{1j}-Q_{0j},\\\\s_1(x)-s_0(x)\\\\=\\log\\frac{\\pi_1}{\\pi_0}-\\frac12\\sum_jD_j.\\end{gathered}Qcj\u200b=\u03c3cj2\u200b(xj\u200b\u2212\u03bccj\u200b)2\u200b,Dj\u200b=log\u03c30j2\u200b\u03c31j2\u200b\u200b+Q1j\u200b\u2212Q0j\u200b,s1\u200b(x)\u2212s0\u200b(x)=log\u03c00\u200b\u03c01\u200b\u200b\u221221\u200bj\u2211\u200bDj\u200b.\u200b"
+              },
+              {
+                "index": 10,
+                "width": 280,
+                "content": 280,
+                "text": "P(fault\u2223+,+,+)=0.2\u22c50.80.2\u22c50.8+0.8\u22c50.4=13,P^ind(fault\u2223+,+,+)=0.2\u22c50.830.2\u22c50.83+0.8\u22c50.43=23.\\begin{gathered}P(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8}{0.2\\cdot0.8+0.8\\cdot0.4}=\\frac13,\\\\\\widehat P_{\\mathrm{ind}}(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8^3}{0.2\\cdot0.8^3+0.8\\cdot0.4^3}=\\frac23.\\end{gathered}P(fault\u2223+,+,+)=0.2\u22c50.8+0.8\u22c50.40.2\u22c50.8\u200b=31\u200b,Pind\u200b(fault\u2223+,+,+)=0.2\u22c50.83+0.8\u22c50.430.2\u22c50.83\u200b=32\u200b.\u200b"
+              },
+              {
+                "index": 11,
+                "width": 280,
+                "content": 280,
+                "text": "C\u02c9cj=\u2211r\u2260cCrj,\u03b8\u02c9cj=C\u02c9cj+\u03b1\u2211kC\u02c9ck+\u03b1V,acj=\u2212log\u2061\u03b8\u02c9cj,sc(x)=\u2211jxjacj.\\begin{aligned}\\bar C_{cj}&=\\sum_{r\\ne c}C_{rj},\\\\\\bar\\theta_{cj}&=\\frac{\\bar C_{cj}+\\alpha}{\\sum_k\\bar C_{ck}+\\alpha V},\\\\a_{cj}&=-\\log\\bar\\theta_{cj},\\\\s_c(x)&=\\sum_jx_j a_{cj}.\\end{aligned}C\u02c9cj\u200b\u03b8\u02c9cj\u200bacj\u200bsc\u200b(x)\u200b=r\ue020=c\u2211\u200bCrj\u200b,=\u2211k\u200bC\u02c9ck\u200b+\u03b1VC\u02c9cj\u200b+\u03b1\u200b,=\u2212log\u03b8\u02c9cj\u200b,=j\u2211\u200bxj\u200bacj\u200b.\u200b"
+              },
+              {
+                "index": 12,
+                "width": 280,
+                "content": 280,
+                "text": "log\u2061Onew(x)=log\u2061Oold(x)+log\u2061\u03c0new,1/\u03c0new,0\u03c0old,1/\u03c0old,0.\\begin{aligned}\\log O_{\\mathrm{new}}(x)&=\\log O_{\\mathrm{old}}(x)\\\\&\\quad+\\log\\frac{\\pi_{\\mathrm{new},1}/\\pi_{\\mathrm{new},0}}{\\pi_{\\mathrm{old},1}/\\pi_{\\mathrm{old},0}}.\\end{aligned}logOnew\u200b(x)\u200b=logOold\u200b(x)+log\u03c0old,1\u200b/\u03c0old,0\u200b\u03c0new,1\u200b/\u03c0new,0\u200b\u200b.\u200b"
+              },
+              {
+                "index": 13,
+                "width": 280,
+                "content": 280,
+                "text": "E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\\begin{gathered}\\mathbb E[(p-Y)^2\\mid x]\\\\=(p-q)^2+q(1-q),\\\\q=P(Y=1\\mid x).\\end{gathered}E[(p\u2212Y)2\u2223x]=(p\u2212q)2+q(1\u2212q),q=P(Y=1\u2223x).\u200b"
+              },
+              {
+                "index": 14,
+                "width": 280,
+                "content": 280,
+                "text": "CFP(1\u2212p)<CFNp\u27fap>CFPCFP+CFN.\\begin{aligned}C_{\\mathrm{FP}}(1-p)&<C_{\\mathrm{FN}}p\\\\\\Longleftrightarrow\\quad p&>\\frac{C_{\\mathrm{FP}}}{C_{\\mathrm{FP}}+C_{\\mathrm{FN}}}.\\end{aligned}CFP\u200b(1\u2212p)\u27fap\u200b<CFN\u200bp>CFP\u200b+CFN\u200bCFP\u200b\u200b.\u200b"
+              },
+              {
+                "index": 15,
+                "width": 280,
+                "content": 280,
+                "text": "log\u2061O(x)=log\u2061\u03c01\u03c00+\u2211jxjlog\u2061\u03b81j\u03b80j.\\begin{aligned}\\log O(x)&=\\log\\frac{\\pi_1}{\\pi_0}\\\\&\\quad+\\sum_jx_j\\log\\frac{\\theta_{1j}}{\\theta_{0j}}.\\end{aligned}logO(x)\u200b=log\u03c00\u200b\u03c01\u200b\u200b+j\u2211\u200bxj\u200blog\u03b80j\u200b\u03b81j\u200b\u200b.\u200b"
+              },
+              {
+                "index": 16,
+                "width": 280,
+                "content": 280,
+                "text": "P(x\u2223training)=N!\u220fjxj!\u220fjAjxj\u203eA0N\u203e,A0=\u2211jAj,am\u203e=a(a+1)\u22ef(a+m\u22121),a0\u203e=1.\\begin{gathered}P(x\\mid\\text{training})=\\frac{N!}{\\prod_jx_j!}\\frac{\\prod_j A_j^{\\overline{x_j}}}{A_0^{\\overline N}},\\\\A_0=\\sum_j A_j,\\\\a^{\\overline m}=a(a+1)\\cdots(a+m-1),\\\\a^{\\overline0}=1.\\end{gathered}P(x\u2223training)=\u220fj\u200bxj\u200b!N!\u200bA0N\u200b\u220fj\u200bAjxj\u200b\u200b\u200b\u200b,A0\u200b=j\u2211\u200bAj\u200b,am=a(a+1)\u22ef(a+m\u22121),a0=1.\u200b"
+              }
+            ],
+            "overflow": {
+              "page": 320,
+              "viewport": 320
+            },
+            "labels": [
+              {
+                "text": "-6",
+                "left": 37.255733489990234,
+                "right": 60.7442741394043,
+                "bound": 330
+              },
+              {
+                "text": "-3",
+                "left": 102.84709167480469,
+                "right": 126.15292167663574,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 172.9453125,
+                "right": 187.23738861083984,
+                "bound": 330
+              },
+              {
+                "text": "3",
+                "left": 238.85134887695312,
+                "right": 252.1486644744873,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 304.260009765625,
+                "right": 317.7400369644165,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.890634536743164,
+                "right": 40.18271064758301,
+                "bound": 330
+              },
+              {
+                "text": "0.2",
+                "left": 7.396200656890869,
+                "right": 39.999998569488525,
+                "bound": 330
+              },
+              {
+                "text": "0.4",
+                "left": 6.908970832824707,
+                "right": 40.52412509918213,
+                "bound": 330
+              },
+              {
+                "text": "Reading (mV)",
+                "left": 109.38211822509766,
+                "right": 250.61788177490234,
+                "bound": 330
+              },
+              {
+                "text": "Density (1/mV)",
+                "left": 49.000003814697266,
+                "right": 160.77223587036133,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 37.13410568237305,
+                "right": 61.43434143066406,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 111.97095489501953,
+                "right": 136.27119064331055,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 191.6597137451172,
+                "right": 205.95157051086426,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 266.689453125,
+                "right": 280.98130989074707,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 304.2601013183594,
+                "right": 317.7399206161499,
+                "bound": 330
+              },
+              {
+                "text": "-8",
+                "left": 16.26820945739746,
+                "right": 40.56844520568848,
+                "bound": 330
+              },
+              {
+                "text": "-4",
+                "left": 16.22760581970215,
+                "right": 40.527841567993164,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.890850067138672,
+                "right": 40.18270683288574,
+                "bound": 330
+              },
+              {
+                "text": "4",
+                "left": 26.235965728759766,
+                "right": 40.527822494506836,
+                "bound": 330
+              },
+              {
+                "text": "6",
+                "left": 26.520179748535156,
+                "right": 39.999999046325684,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc0",
+                "left": 171.2857208251953,
+                "right": 198.26565551757812,
+                "bound": 330
+              },
+              {
+                "text": "\u03bc1",
+                "left": 246.14285278320312,
+                "right": 268.0272521972656,
+                "bound": 330
+              },
+              {
+                "text": "Feature 1 (units)",
+                "left": 93.8834457397461,
+                "right": 266.1165542602539,
+                "bound": 330
+              },
+              {
+                "text": "Feature 2 (units)",
+                "left": 49.000003814697266,
+                "right": 177.65607070922852,
+                "bound": 330
+              },
+              {
+                "text": "One alarm +",
+                "left": 102.96035766601562,
+                "right": 227.03965759277344,
+                "bound": 330
+              },
+              {
+                "text": "X1",
+                "left": 92.37771606445312,
+                "right": 115.62228393554688,
+                "bound": 330
+              },
+              {
+                "text": "X2",
+                "left": 151.3374786376953,
+                "right": 178.66253662109375,
+                "bound": 330
+              },
+              {
+                "text": "X3",
+                "left": 212.32733154296875,
+                "right": 239.6726837158203,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 41.94532012939453,
+                "right": 56.237396240234375,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 163.7488555908203,
+                "right": 196.25114822387695,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 306.4017639160156,
+                "right": 315.5982275009155,
+                "bound": 330
+              },
+              {
+                "text": "0",
+                "left": 25.890634536743164,
+                "right": 40.18271064758301,
+                "bound": 330
+              },
+              {
+                "text": "0.5",
+                "left": 7.497706890106201,
+                "right": 39.99999952316284,
+                "bound": 330
+              },
+              {
+                "text": "1",
+                "left": 30.80353546142578,
+                "right": 39.999999046325684,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 90.4749984741211,
+                "right": 131.8895263671875,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 146.15000915527344,
+                "right": 186.5494842529297,
+                "bound": 330
+              },
+              {
+                "text": "n=2",
+                "left": 211.64999389648438,
+                "right": 252.04946899414062,
+                "bound": 330
+              },
+              {
+                "text": "n=4",
+                "left": 218.81332397460938,
+                "right": 260.2278747558594,
+                "bound": 330
+              },
+              {
+                "text": "Mean predicted probability",
+                "left": 34.91714859008789,
+                "right": 325.08285903930664,
+                "bound": 330
+              },
+              {
+                "text": "Observed positive fraction",
+                "left": 49.000003814697266,
+                "right": 253.81926345825195,
+                "bound": 330
+              }
+            ],
+            "tableGeometry": {
+              "width": 254,
+              "content": 254,
+              "offset": 0
+            },
+            "programs": 11,
+            "practice": 12,
+            "checkpoints": 2,
+            "fonts": {
+              "sans": true,
+              "mono": true
+            }
+          }
+        ]
+      }
+    },
+    "finalReading": {
+      "record": {
+        "path": "scratch/naive-bayes-browser/final-reading-results.json",
+        "sha256": "ff3402a3fd0b67d7e66d22de3f3905fe031c771987dc457f84314616a9ec356d",
+        "bytes": 20886
+      },
+      "result": {
+        "completedAt": "2026-09-11T12:02:06.907Z",
+        "records": [
+          {
+            "width": 1440,
+            "metrics": [
+              {
+                "i": 0,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 604.546875,
+                "actualRight": 861.453125
+              },
+              {
+                "i": 1,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 641.296875,
+                "actualRight": 824.6875
+              },
+              {
+                "i": 2,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 594.21875,
+                "actualRight": 871.78125
+              },
+              {
+                "i": 3,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 602.4375,
+                "actualRight": 863.546875
+              },
+              {
+                "i": 4,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 620.390625,
+                "actualRight": 843.609375
+              },
+              {
+                "i": 5,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 607.15625,
+                "actualRight": 858.84375
+              },
+              {
+                "i": 6,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 616.109375,
+                "actualRight": 847.875
+              },
+              {
+                "i": 7,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 628.65625,
+                "actualRight": 837.34375
+              },
+              {
+                "i": 8,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 643.03125,
+                "actualRight": 822.953125
+              },
+              {
+                "i": 9,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 622.640625,
+                "actualRight": 843.359375
+              },
+              {
+                "i": 10,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 613.65625,
+                "actualRight": 852.328125
+              },
+              {
+                "i": 11,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 637.0625,
+                "actualRight": 828.921875
+              },
+              {
+                "i": 12,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 593.609375,
+                "actualRight": 872.390625
+              },
+              {
+                "i": 13,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 640.953125,
+                "actualRight": 825.03125
+              },
+              {
+                "i": 14,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 623.390625,
+                "actualRight": 842.59375
+              },
+              {
+                "i": 15,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 618.53125,
+                "actualRight": 847.46875
+              },
+              {
+                "i": 16,
+                "left": 352,
+                "right": 1112,
+                "actualLeft": 594.59375,
+                "actualRight": 871.390625
+              }
+            ],
+            "fonts": [
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              }
+            ],
+            "errors": [],
+            "alarmBounds": {
+              "boxLeft": 85,
+              "boxRight": 245,
+              "textLeft": 128.34548950195312,
+              "textRight": 201.65452575683594
+            }
+          },
+          {
+            "width": 390,
+            "metrics": [
+              {
+                "i": 0,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 67.546875,
+                "actualRight": 324.453125
+              },
+              {
+                "i": 1,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 104.296875,
+                "actualRight": 287.6875
+              },
+              {
+                "i": 2,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 57.21875,
+                "actualRight": 334.78125
+              },
+              {
+                "i": 3,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 65.4375,
+                "actualRight": 326.546875
+              },
+              {
+                "i": 4,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 83.390625,
+                "actualRight": 306.609375
+              },
+              {
+                "i": 5,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 70.15625,
+                "actualRight": 321.84375
+              },
+              {
+                "i": 6,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 79.109375,
+                "actualRight": 310.875
+              },
+              {
+                "i": 7,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 91.65625,
+                "actualRight": 300.34375
+              },
+              {
+                "i": 8,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 106.03125,
+                "actualRight": 285.953125
+              },
+              {
+                "i": 9,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 85.640625,
+                "actualRight": 306.359375
+              },
+              {
+                "i": 10,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 76.65625,
+                "actualRight": 315.328125
+              },
+              {
+                "i": 11,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 100.0625,
+                "actualRight": 291.921875
+              },
+              {
+                "i": 12,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 56.609375,
+                "actualRight": 335.390625
+              },
+              {
+                "i": 13,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 103.953125,
+                "actualRight": 288.03125
+              },
+              {
+                "i": 14,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 86.390625,
+                "actualRight": 305.59375
+              },
+              {
+                "i": 15,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 81.53125,
+                "actualRight": 310.46875
+              },
+              {
+                "i": 16,
+                "left": 20,
+                "right": 370,
+                "actualLeft": 57.59375,
+                "actualRight": 334.390625
+              }
+            ],
+            "fonts": [
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              }
+            ],
+            "errors": [],
+            "alarmBounds": {
+              "boxLeft": 85,
+              "boxRight": 245,
+              "textLeft": 102.98069763183594,
+              "textRight": 227.019287109375
+            }
+          },
+          {
+            "width": 320,
+            "metrics": [
+              {
+                "i": 0,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 32.546875,
+                "actualRight": 289.453125
+              },
+              {
+                "i": 1,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 69.296875,
+                "actualRight": 252.6875
+              },
+              {
+                "i": 2,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 22.21875,
+                "actualRight": 299.78125
+              },
+              {
+                "i": 3,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 30.4375,
+                "actualRight": 291.546875
+              },
+              {
+                "i": 4,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 48.390625,
+                "actualRight": 271.609375
+              },
+              {
+                "i": 5,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 35.15625,
+                "actualRight": 286.84375
+              },
+              {
+                "i": 6,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 44.109375,
+                "actualRight": 275.875
+              },
+              {
+                "i": 7,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 56.65625,
+                "actualRight": 265.34375
+              },
+              {
+                "i": 8,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 71.03125,
+                "actualRight": 250.953125
+              },
+              {
+                "i": 9,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 50.640625,
+                "actualRight": 271.359375
+              },
+              {
+                "i": 10,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 41.65625,
+                "actualRight": 280.328125
+              },
+              {
+                "i": 11,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 65.0625,
+                "actualRight": 256.921875
+              },
+              {
+                "i": 12,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 21.609375,
+                "actualRight": 300.390625
+              },
+              {
+                "i": 13,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 68.953125,
+                "actualRight": 253.03125
+              },
+              {
+                "i": 14,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 51.390625,
+                "actualRight": 270.59375
+              },
+              {
+                "i": 15,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 46.53125,
+                "actualRight": 275.46875
+              },
+              {
+                "i": 16,
+                "left": 20,
+                "right": 300,
+                "actualLeft": 22.59375,
+                "actualRight": 299.390625
+              }
+            ],
+            "fonts": [
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "loaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "JetBrains Mono",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "unloaded"
+              },
+              {
+                "family": "Space Grotesk",
+                "status": "loaded"
+              }
+            ],
+            "errors": [],
+            "alarmBounds": {
+              "boxLeft": 85,
+              "boxRight": 245,
+              "textLeft": 102.96035766601562,
+              "textRight": 227.03965759277344
+            }
+          }
+        ]
+      }
+    },
+    "formatConservation": {
+      "record": {
+        "path": "scratch/naive-bayes-verification/format-conservation.json",
+        "sha256": "f5f46d0daf19a66cbbcbb5a3d3d2b63ce19ce5819d7f8741d273698fd360774a",
+        "bytes": 805
+      },
+      "result": {
+        "checkedAt": "2026-09-11T11:56:31.303Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/data/naive-bayes-models.js",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/naive-bayes-probabilistic-classifiers.js",
+            "normalizedAstConserved": true,
+            "transformWarnings": 0
+          },
+          {
+            "file": "src/learn/components/lesson-labs/naive-bayes-labs.css",
+            "normalizedAstConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "openedImages": [
+    {
+      "path": "scratch/naive-bayes-browser/reading-1-320.png",
+      "sha256": "55b5cd7cea56559eb2b46ace9ec0f61cb37e6327bd21be07f8c3434ae26e332d",
+      "bytes": 73698
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-2-320.png",
+      "sha256": "818300dbea250b59a5f4a6c1707f3315f6a44207e4beaceebf5585ce8c9d6153",
+      "bytes": 74798
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-3-320.png",
+      "sha256": "1270a70d4e0049974d2c67297bcdd498bd21a38517ecc05437cdc48c17934099",
+      "bytes": 55883
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-4-320.png",
+      "sha256": "dde5c032bd981ee17b2d5fd7d3e623155b066e06e5bdc3da16ee42e781422bce",
+      "bytes": 76191
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-5-320.png",
+      "sha256": "bfc3ed2a8a0c35b85f935b72b69e581db876b852f4159f640e7d74186f111b6f",
+      "bytes": 67677
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-6-320.png",
+      "sha256": "b1f10c8bd906b4b735731aedffd7ff67cac594a8b5efbed82fd3afbe27ffec23",
+      "bytes": 77647
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-7-320.png",
+      "sha256": "167120fbdc7fe957f5435a14a5d783494a9a366fe1e52bd72454da498bc0b9b4",
+      "bytes": 72473
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-8-320.png",
+      "sha256": "cec2c11fd440d679476ddba1d7b9790296b0c8e0448910458a337cfb54638ec9",
+      "bytes": 76082
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-9-320.png",
+      "sha256": "8e7a5d3a04d39b953c78667f07d3e8922abb9fb6d8bddebf894f9cc8b8f91783",
+      "bytes": 75678
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-10-320.png",
+      "sha256": "9e1834bd228e217d9ff91737299f20eea69388193b34b8a1fa8823892236987c",
+      "bytes": 72001
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reading-11-320.png",
+      "sha256": "3a239f1b4a1d7910b42c2cf9fe891a23fa6fc20b2207eb020491833b9540ad71",
+      "bytes": 58670
+    },
+    {
+      "path": "scratch/naive-bayes-browser/geometry-unequal-390.png",
+      "sha256": "369012a9221aa7ace9633919230a86caceec640a1dccf181d4d208d2daddc98b",
+      "bytes": 86496
+    },
+    {
+      "path": "scratch/naive-bayes-browser/density-crossing-390.png",
+      "sha256": "dddaa69e23b7e5ed763432aefeafd41ed6961a590a5326e539fdc2981e8ba6dc",
+      "bytes": 81133
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reliability-true-390.png",
+      "sha256": "e90ce7dbe76b563b1509619ab8b2405b2d1a5e4cb45a7cc045e90abe0ba68c6b",
+      "bytes": 77181
+    },
+    {
+      "path": "scratch/naive-bayes-browser/corpus-390.png",
+      "sha256": "68d43819d529e3d2718e4d96ac043956984a03b80e2d4a40d5231e7d6ed36b48",
+      "bytes": 72085
+    },
+    {
+      "path": "scratch/naive-bayes-browser/token-evidence-1440.png",
+      "sha256": "12865ec8efb1c910f43187858d37d632e8a0ca7dc60c160880f2dbaee7ce9fd9",
+      "bytes": 192093
+    },
+    {
+      "path": "scratch/naive-bayes-browser/repeat-presence-390.png",
+      "sha256": "1c912ea9c9574c39fea698f440cd05ba80538178ea4d48fb1c06578063302279",
+      "bytes": 58398
+    },
+    {
+      "path": "scratch/naive-bayes-browser/copied-risk-320.png",
+      "sha256": "b1c2831ecfbb277a9e61c8341e675fdb6dedc1f69622513f276938a19f394227",
+      "bytes": 68764
+    },
+    {
+      "path": "scratch/naive-bayes-browser/changed-solution-390.png",
+      "sha256": "239b75c35e7a0e5b5ee9483bb73dcbabd654e1730429f55ae102955629fceee5",
+      "bytes": 123396
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-equation-10-320.png",
+      "sha256": "ebcf858b9a42a3cdab5f46d1f48b19fe81ecce3a30096e18ce3df4b5d96f40a6",
+      "bytes": 68337
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-equation-16-320.png",
+      "sha256": "22dc8ec702ce4596019b2c63d7980f2bd2b9ed989934c2f63d3be63749586247",
+      "bytes": 71048
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-gaussian-proof-390.png",
+      "sha256": "cf7cd47352efa4b6f1ec2125bfd5df97bec93a1a7787a03e6b5dc6adc09d8720",
+      "bytes": 117041
+    },
+    {
+      "path": "scratch/naive-bayes-browser/sources-320.png",
+      "sha256": "80d7cd9f215063f317043d1c4e7fbb0e6edc7a7b1703527c87d2740b1fee4021",
+      "bytes": 91194
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-report-consequence-320.png",
+      "sha256": "1f1261991f69faf1544c7de7376e09b8f279fbe4a23e62f2cca6582b044f34a3",
+      "bytes": 79026
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-intro-390.png",
+      "sha256": "d5a663951f5db14960b71df4379d505a6e582cb0fc6e1434a41784472831ed1e",
+      "bytes": 103627
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-rare-class-answer-390.png",
+      "sha256": "a662ac9a26a077e95ad90183e58f6ccea30384788265d9b1a9444168a16c587b",
+      "bytes": 104444
+    },
+    {
+      "path": "scratch/naive-bayes-browser/geometry-unequal-1440.png",
+      "sha256": "555000f8ae52b2f30976d52a52ebe3be6125aa20807c075b01efa6855af8b8fc",
+      "bytes": 182339
+    },
+    {
+      "path": "scratch/naive-bayes-browser/calibrated-program-1440.png",
+      "sha256": "09b11aee95a38bc59a4cf593b99aa6418d24237748ea6e93068f4263e46e604c",
+      "bytes": 215258
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reliability-true-320.png",
+      "sha256": "b3e91f922fc134cbd838ea225121c5c34d667b34751ffcaa8de57aaa6e3f128a",
+      "bytes": 64282
+    },
+    {
+      "path": "scratch/naive-bayes-browser/complement-pooling-320.png",
+      "sha256": "8e6220e9ab249ddec781e521859442e56c75e08658b89ed319899ef892a9f524",
+      "bytes": 74475
+    },
+    {
+      "path": "scratch/naive-bayes-browser/model-fork-320.png",
+      "sha256": "fc4b2bda52d9fc2da3c74cb2cf25de0e7165fa09f09440ba1d88458a1480b99e",
+      "bytes": 70875
+    },
+    {
+      "path": "scratch/naive-bayes-browser/invalid-alpha-390.png",
+      "sha256": "4943f2dd28e82be6432e11114c406ce863432ac527f990cb3f5e3d562deed635",
+      "bytes": 65278
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-copied-node-320.png",
+      "sha256": "556d63a94b10fef0492ef3188dd2f90d6bcbee2f577db975e995f12e4433ff3d",
+      "bytes": 62265
+    },
+    {
+      "path": "scratch/naive-bayes-browser/final-copied-node-390.png",
+      "sha256": "84d19be2ffd96942fd3bcb694d3ff403c3c7db2e498a27f3d9019268979801ac",
+      "bytes": 71846
+    }
+  ],
+  "reviewScope": {
+    "source": "Full original/revised body, proofs, all program source, practice, model/labs/CSS and annotated references",
+    "visual": "Author opened listed ordinary-reading, mechanisms, errors, proof, program, answers and sources; rechecked affected final contexts",
+    "lastDisplayAmendment": "After full behavior, copied-alarm source box width 116\u2192160 native units; no model/interaction change. Final focused three-width record verifies actual text containment and reopened final phone images.",
+    "resource": "Primary written/API material and official video/course context plus corresponding substantive notes; no full-video viewing claimed",
+    "limits": "Bounded synthetic and arithmetic domains. No real deployment benchmark, learner study, user acceptance, independent approval or production integration inferred."
+  }
+}

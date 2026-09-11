@@ -1,0 +1,241 @@
+{
+  "reviewedAt": "2026-09-11T13:14:33.984822+00:00",
+  "status": "Bounded independent source/numerical review closed; independent live three-width browser completion unavailable; parent owns focused author amendment and production integration",
+  "topicId": "linear-logistic-regression",
+  "originalAuthorFreeze": "2026-09-11T11:43:30.560Z",
+  "originalAuthorPacketAtReview": {
+    "path": "docs/teaching/evidence/linear-logistic-author-freeze.json",
+    "sha256": "e5e5253d8fa56db160e0b4dff19cbdb65d144b1b85362f6ef111924d6ab451e5"
+  },
+  "authorAmendmentBinding": {
+    "path": "docs/teaching/evidence/linear-logistic-author-amendment.json",
+    "checkedAt": "2026-09-11T13:13:53.836Z",
+    "sixProductionHashesMatch": true,
+    "focusedControlStates": [
+      {
+        "hours": "4",
+        "value": "2.25",
+        "validity": true,
+        "readout": "Mean squared error: 1.188 hours\u00c2\u00b2. Current line: 2.250 + 0.000x."
+      },
+      {
+        "hours": "8",
+        "value": "3.25",
+        "validity": true,
+        "readout": "Mean squared error: 7.688 hours\u00c2\u00b2. Current line: 3.250 + 0.000x."
+      }
+    ],
+    "attribution": "Author ran final390px baseline control check; no reviewer rerun. Parent is re-saving its screenshot after a reviewer cleanup ownership mistake; image binding stays in author packet."
+  },
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/linear-logistic-regression.jsx",
+      "sha256": "01fc9b7a36cd61fa58db89e34a6d465abf91b68b3b1b7cd9a0208328119c2791"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-models.js",
+      "sha256": "9e33b78b08446964f0843a4b8999181377bad4b4d74b935d5bc16ead00f605c5"
+    },
+    {
+      "path": "src/learn/data/linear-logistic-examples.js",
+      "sha256": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinearLogisticLabs.jsx",
+      "sha256": "5b6ecca121344575923bd4c78566300b5cc4929de1eb2671f66062a19e8b6870"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/linear-logistic-labs.css",
+      "sha256": "d3c111d30de29fec03a17990885647c019ded2c93e153637f59a91f9341a3c70"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/linear-logistic-regression.js",
+      "sha256": "21a03684215efec028f1554edded746c7bc45c926b3f4236c25e3ea655059ecb"
+    }
+  ],
+  "independentNative": {
+    "checkedAt": "2026-09-11T12:11:54.622140+00:00",
+    "programs": [
+      {
+        "id": "scalar-fit",
+        "sha256": "2628be72f2ac0ed9471bb06873fd8b417e1418e30d9d49d61176d179838dae6c",
+        "stdoutMatch": true
+      },
+      {
+        "id": "least-squares",
+        "sha256": "14b50171298ea7ffaca3f495546f79578ddb35f5a075185746c39e433f67e5c3",
+        "stdoutMatch": true
+      },
+      {
+        "id": "gradient-descent",
+        "sha256": "ac521f235688c86a6d84c2ec6c342354e05fa2a0b65831e6ad560408474ed538",
+        "stdoutMatch": true
+      },
+      {
+        "id": "logistic-fit",
+        "sha256": "72d05f710dcd8a80d06ae1b3d9ded35bd52f4166fb4c633178070972966f50b1",
+        "stdoutMatch": true
+      },
+      {
+        "id": "separation",
+        "sha256": "9e89b51b6f3231b442a33921546f1f3b79950cfa9177685ab830ca384a9930d3",
+        "stdoutMatch": true
+      },
+      {
+        "id": "held-out-pipeline",
+        "sha256": "18727aca20a44cabc784a8b94fbdc6db6fdeef8c41f32934097ef291bb5d5725",
+        "stdoutMatch": true
+      },
+      {
+        "id": "polynomial-map",
+        "sha256": "e8e5fe60e9c7fb55a8c3ae0518733799896a0d295f704f37023bb329704e57fc",
+        "stdoutMatch": true
+      },
+      {
+        "id": "uncertainty",
+        "sha256": "5df19fd0e5741b9f3a2c43a02ccadceee3f54d5eae3e25dbf377fea328621c00",
+        "stdoutMatch": true
+      },
+      {
+        "id": "sparse-stream",
+        "sha256": "f86b285ebfa7fb1cb40c0ea3fe2ee2b67f862f183b917bd4d2564319b5d6522b",
+        "stdoutMatch": true
+      },
+      {
+        "id": "changed-report",
+        "sha256": "ae26a6b99a00db1a134c13ca126cd0f6724719dcd768de07dc07531321d472ea",
+        "stdoutMatch": true
+      }
+    ],
+    "changedObjectiveGradientStates": 45,
+    "weightedRiskMinima": 12,
+    "fitOnlyScalerChecks": 7,
+    "exactCenteredLeverageLocations": 4,
+    "scope": "Complementary checks of actual displayed source, not a duplicate of the author suite"
+  },
+  "independentModelRepair": {
+    "checkedAt": "2026-09-11T12:57:26.455Z",
+    "modelHash": "9e33b78b08446964f0843a4b8999181377bad4b4d74b935d5bc16ead00f605c5",
+    "initialFinding": {
+      "observedBeforeRepair": true,
+      "originalModelHash": "1cc8b6ba6d7df1b1b882476a90da59c67163658127ed328b2a21409c047f2795",
+      "input": {
+        "intercept": 1e+154,
+        "slope": 0
+      },
+      "observedMse": "Infinity",
+      "explanation": "Four finite squares near 1e308 overflowed their total although their mean is representable. This historical observation was reported to the author before this final regression record was created."
+    },
+    "changedConstantPredictionCases": [
+      {
+        "intercept": -1e+154,
+        "actual": 1e+308,
+        "expected": 1e+308
+      },
+      {
+        "intercept": -1e+150,
+        "actual": 9.999999999999999e+299,
+        "expected": 9.999999999999999e+299
+      },
+      {
+        "intercept": -1000,
+        "actual": 1004506.25,
+        "expected": 1004506.25
+      },
+      {
+        "intercept": 0,
+        "actual": 6.25,
+        "expected": 6.25
+      },
+      {
+        "intercept": 0.25,
+        "actual": 5.1875,
+        "expected": 5.1875
+      },
+      {
+        "intercept": 2.25,
+        "actual": 1.1875,
+        "expected": 1.1875
+      },
+      {
+        "intercept": 1000,
+        "actual": 995506.25,
+        "expected": 995506.25
+      },
+      {
+        "intercept": 1e+150,
+        "actual": 9.999999999999999e+299,
+        "expected": 9.999999999999999e+299
+      },
+      {
+        "intercept": 1e+154,
+        "actual": 1e+308,
+        "expected": 1e+308
+      }
+    ],
+    "unrepresentableSquaredResidualRejected": true
+  },
+  "sourceOnlyControlRepair": "Source step=.05 verified; final DOM values2.25/3.25 and validity are confirmed by the separately attributed author amendment.",
+  "browser": {
+    "complete": false,
+    "script": "scripts/review-linear-logistic-independent.cjs",
+    "limits": [
+      "Interrupted initial run produced partial captures, not a full passing JSON.",
+      "Continuation encountered refused/reset preview connections.",
+      "Single final permitted retry timed out waiting60seconds for lesson mount.",
+      "No additional browser run after parent instruction to continue Ensemble."
+    ],
+    "openedImages": [
+      {
+        "path": "scratch/linear-logistic-independent-review/mean-baseline-390.png",
+        "sha256": "be0d50c9c1ff866ff0bd0dbe497cb7efbd1d7c2c12cc6dfa2aa371132673cec8",
+        "attribution": "Reviewer captured before interruption; actual image opened during final review"
+      },
+      {
+        "path": "scratch/linear-logistic-independent-review/changed-gradient-1440.png",
+        "sha256": "a683dba3bc817a5327d3cda3d15ba5047071be9db11405cbe9ef9ed0f4c92962",
+        "attribution": "Reviewer operated/captured partial run; actual image opened during final review"
+      },
+      {
+        "path": "scratch/linear-logistic-independent-review/reading-11-1440.png",
+        "sha256": "3d4d5eef69c73f9c03f18b1726c5ad08b837df2e3f7b71c739c08d32cd2c782f",
+        "attribution": "Reviewer captured ordinary reading; actual image opened during final review"
+      },
+      {
+        "path": "scratch/linear-logistic-browser/information-reading-320.png",
+        "sha256": "2e9a0ad780ee43b07e98e7d4d02b47cc89f19069fde5d27314755d4e9ab93485",
+        "attribution": "Author capture independently opened"
+      },
+      {
+        "path": "scratch/linear-logistic-browser/regression-logistic-score-changed-390.png",
+        "sha256": "748eddf352e22f38d235fec774d97e383e1ee87de100ee3fb1bb837cc521beaf",
+        "attribution": "Author capture independently opened"
+      },
+      {
+        "path": "scratch/linear-logistic-browser/uncertainty-reading-320.png",
+        "sha256": "d4a3a361007bf16a56fd1a3b10a3bb5795aa86e1890801412218a9bd18b583a7",
+        "attribution": "Author capture independently opened"
+      }
+    ]
+  },
+  "scripts": [
+    {
+      "path": "scripts/verify-linear-logistic-independent.py",
+      "sha256": "ccfc77e359a7a71e2e82b86dcb97c524799b29fd217afe00b285ac7a5a116bcf"
+    },
+    {
+      "path": "scripts/verify-linear-logistic-independent.mjs",
+      "sha256": "655b6400df9a69769ad5d3c3300cb94a9a38a2fc058643d72c5c2552f5e89f02"
+    },
+    {
+      "path": "scripts/review-linear-logistic-independent.cjs",
+      "sha256": "340024ae7089dab32ab9fe1acc27bc6ea422af207f64124f5b245858c012ee68"
+    }
+  ],
+  "scope": "Full current teaching/design/practice/program/model/lab/CSS read; complementary objective/risk/preprocessing/interval/overflow checks; no learner-study, broader integration or universal numerical-range certification",
+  "closedAt": "2026-09-11T13:17:03.766766+00:00",
+  "retention": {
+    "kept": "Three opened reviewer images, three separately author-owned opened images, native/model JSON and actual examples input",
+    "cleanup": "Removed ten uninspected reviewer/working captures and redundant programs text. The removal also mistakenly caught the new parent-owned amendment capture in this directory; parent was immediately notified and is re-saving it. No further cleanup of this active shared directory."
+  }
+}

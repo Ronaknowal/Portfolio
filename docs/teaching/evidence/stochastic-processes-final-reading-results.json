@@ -1,0 +1,425 @@
+{
+  "checkedAt": "2026-09-10T20:51:45.299Z",
+  "results": [
+    {
+      "width": 1440,
+      "geometry": {
+        "documentWidth": 1440,
+        "fonts": true,
+        "equations": [
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+          },
+          {
+            "width": 760,
+            "content": 760,
+            "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+          }
+        ],
+        "unclippedOutside": [],
+        "svgOverflow": [],
+        "mathErrors": [],
+        "wordCount": 12009
+      },
+      "boundary": {
+        "tinyIntervalMean": 4.440892098500626e-18,
+        "expected": 4.440892098500626e-18,
+        "rejected": [
+          true,
+          true,
+          true
+        ],
+        "impossible": {
+          "conditional": null,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": false,
+          "joint": 0,
+          "product": 0
+        },
+        "possibleZero": {
+          "conditional": 1,
+          "markKernel": 1,
+          "conditioningEventPossible": true,
+          "joint": 1,
+          "product": 1
+        },
+        "meanThree": {
+          "conditional": 0.43200000000000005,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": true,
+          "joint": 0.0967860609071275,
+          "product": 0.0967860609071275
+        }
+      },
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 390,
+      "geometry": {
+        "documentWidth": 390,
+        "fonts": true,
+        "equations": [
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+          },
+          {
+            "width": 350,
+            "content": 350,
+            "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+          }
+        ],
+        "unclippedOutside": [],
+        "svgOverflow": [],
+        "mathErrors": [],
+        "wordCount": 12009
+      },
+      "boundary": {
+        "tinyIntervalMean": 4.440892098500626e-18,
+        "expected": 4.440892098500626e-18,
+        "rejected": [
+          true,
+          true,
+          true
+        ],
+        "impossible": {
+          "conditional": null,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": false,
+          "joint": 0,
+          "product": 0
+        },
+        "possibleZero": {
+          "conditional": 1,
+          "markKernel": 1,
+          "conditioningEventPossible": true,
+          "joint": 1,
+          "product": 1
+        },
+        "meanThree": {
+          "conditional": 0.43200000000000005,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": true,
+          "joint": 0.0967860609071275,
+          "product": 0.0967860609071275
+        }
+      },
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 320,
+      "geometry": {
+        "documentWidth": 320,
+        "fonts": true,
+        "equations": [
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+          },
+          {
+            "width": 280,
+            "content": 281,
+            "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+          },
+          {
+            "width": 280,
+            "content": 280,
+            "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+          }
+        ],
+        "unclippedOutside": [],
+        "svgOverflow": [],
+        "mathErrors": [],
+        "wordCount": 12009
+      },
+      "boundary": {
+        "tinyIntervalMean": 4.440892098500626e-18,
+        "expected": 4.440892098500626e-18,
+        "rejected": [
+          true,
+          true,
+          true
+        ],
+        "impossible": {
+          "conditional": null,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": false,
+          "joint": 0,
+          "product": 0
+        },
+        "possibleZero": {
+          "conditional": 1,
+          "markKernel": 1,
+          "conditioningEventPossible": true,
+          "joint": 1,
+          "product": 1
+        },
+        "meanThree": {
+          "conditional": 0.43200000000000005,
+          "markKernel": 0.43200000000000005,
+          "conditioningEventPossible": true,
+          "joint": 0.0967860609071275,
+          "product": 0.0967860609071275
+        }
+      },
+      "errors": [],
+      "failedRequests": []
+    }
+  ]
+}

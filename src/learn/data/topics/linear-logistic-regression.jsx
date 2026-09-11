@@ -1,824 +1,212 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const linearLogisticRegressionContent = {
-  title: "Linear & Logistic Regression",
-  readTime: "~45 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Before neural networks, before gradient boosting, before kernels, there were two workhorses that defined what machine learning looked like in practice: ordinary least squares for continuous outputs, and logistic regression for binary decisions. Both are still taught in every statistics curriculum on the planet, and both are still used in production at companies whose engineering teams know better than to reach for complexity before necessity demands it. To understand modern ML deeply, you need to understand these two models completely — not just their formulas, but where they came from, why they work, and where they break.
-      </Prose>
-
-      <Prose>
-        The intellectual lineage of linear regression is precise and contested. In 1805, the French mathematician Adrien-Marie Legendre published <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>. Buried in a nine-page appendix titled "Sur la méthode des moindres quarrés" (On the Method of Least Squares) were pages 72–75, which gave the first published formulation of what we now call ordinary least squares. Legendre's problem was practical and astronomical: given noisy position measurements of a comet at different times, find the orbital parameters that best fit the data. His solution — minimize the sum of squared residuals — was stated cleanly and without proof of optimality.
-      </Prose>
-
-      <Prose>
-        Four years later, in 1809, Carl Friedrich Gauss published <em>Theoria Motus Corporum Coelestium</em> (Theory of the Motion of the Heavenly Bodies). In it, Gauss claimed he had been using the method since at least 1795 — a claim that ignited one of the most famous priority disputes in mathematics. What Gauss contributed beyond Legendre was a justification: he showed that if the measurement errors follow a normal distribution, then least squares is the maximum likelihood estimator of the parameters. He later proved (in his 1823 paper <em>Theoria Combinationis Observationum</em>) what we now call the Gauss-Markov theorem — that OLS has the lowest variance among all linear unbiased estimators, without requiring normally distributed errors. The method was adopted as standard in astronomy and geodesy within a decade. "Normal equations," the name we still use for the closed-form solution, is Gauss's coinage — "normal" here means orthogonal, not Gaussian.
-      </Prose>
-
-      <Prose>
-        Logistic regression arrived from a different direction. In 1838, the Belgian mathematician Pierre François Verhulst was studying population growth and found that the exponential growth model failed catastrophically over long horizons — it predicted infinite populations. He introduced a differential equation with a carrying capacity, whose solution is the S-shaped curve he named the <em>logistique</em> in a 1845 follow-up paper. The function he derived — <Code>1 / (1 + e^(-t))</Code> — is the sigmoid that sits at the heart of every logistic regression model. Verhulst's work was largely ignored for eight decades and rediscovered independently by Pearl and Reed in the 1920s.
-      </Prose>
-
-      <Prose>
-        The step from population dynamics to binary classification was taken in two installments. Joseph Berkson, a biostatistician at the Mayo Clinic, published "Application of the Logistic Function to Bio-Assay" in the <em>Journal of the American Statistical Association</em> in 1944, coining the term "logit" (from logistic unit, by analogy with "probit" from probability unit) and showing how to fit logistic curves to dose-response data. The full regression framework — modeling the log-odds of a binary outcome as a linear function of covariates — was formalized by David Cox in "The Regression Analysis of Binary Sequences," published in the <em>Journal of the Royal Statistical Society, Series B</em> in 1958. Cox's paper introduced the likelihood-based estimation procedure, hypothesis testing for coefficients, and the interpretation of coefficients as log-odds ratios, all of which remain standard. Nelder and Wedderburn's 1972 paper "Generalized Linear Models" in <em>JRSS Series A</em> then unified both linear and logistic regression (along with Poisson regression and others) under a single exponential-family framework — the GLM, which is the conceptual home both models still inhabit.
-      </Prose>
-
-      <Prose>
-        What makes these models worth studying in depth even today is not nostalgia. It is that they are the simplest members of a family that includes deep learning. A logistic regression is a single-layer neural network with a sigmoid activation and no hidden units. A linear regression is a single-layer network with a linear activation. Every diagnostic you run on a neural network — checking for collinearity, inspecting loss curves, choosing regularization strength, thinking about class imbalance — has its cleanest pedagogical form in these two models, where the math is still tractable and the failure modes are fully understood.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        Linear regression asks a geometrically clean question: given a cloud of points in <Code>(x, y)</Code> space, what line minimizes the total squared vertical distance from the points to the line? Each point contributes a residual — the vertical gap between its actual <Code>y</Code> and the line's prediction at the same <Code>x</Code>. Squaring the residuals before summing them does two things: it makes positive and negative errors equally costly, and it penalizes large errors more than small ones, so the fit is pulled toward outliers more than a median-based fit would be. The optimal line is defined by two numbers in the simple case: a slope and an intercept. In the multivariate case it is a hyperplane defined by one weight per feature plus a bias.
-      </Prose>
-
-      <Plot
-        title="Linear regression: scatter + fitted line"
-        description="80 synthetic points from y = 2x + 1 + noise. The OLS line (β₀ = 0.67, β₁ = 2.07) minimizes total squared vertical distance to all points."
-        xLabel="x"
-        yLabel="y"
-        series={[
-          {
-            label: "data points",
-            type: "scatter",
-            color: colors.gold,
-            points: (() => {
-              // Deterministic pseudo-random for rendering — actual outputs verified above
-              const pts = [];
-              let s = 42;
-              const rand = () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
-              const randn = () => { const u = 1 - rand(), v = rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
-              for (let i = 0; i < 80; i++) {
-                const x = rand() * 10;
-                const y = 2 * x + 1 + randn() * 1.5;
-                pts.push([x, y]);
-              }
-              return pts;
-            })(),
-          },
-          {
-            label: "OLS fit (β₀=0.67, β₁=2.07)",
-            type: "line",
-            color: colors.green,
-            points: [[0, 0.67], [10, 21.37]],
-          },
-        ]}
-      />
-
-      <Prose>
-        Logistic regression takes one additional step. The underlying <em>scoring</em> function is still linear — a weighted sum of features plus a bias, exactly as in linear regression. But the raw score is then passed through the sigmoid function <Code>σ(z) = 1 / (1 + e^(-z))</Code>, which squashes any real number into the interval <Code>(0, 1)</Code>. That squashed value is interpreted as the probability that the input belongs to the positive class. When the score is very large and positive, the sigmoid saturates near 1 — near-certain positive. When it is very large and negative, it saturates near 0 — near-certain negative. When it is zero, the probability is exactly 0.5.
-      </Prose>
-
-      <Plot
-        title="Sigmoid squashing curve"
-        description="σ(z) = 1/(1+e⁻ᶻ) maps any real-valued linear score to a probability in (0,1). The decision boundary sits at z=0 where σ(0)=0.5."
-        xLabel="z (linear score)"
-        yLabel="σ(z)"
-        series={[
-          {
-            label: "sigmoid σ(z)",
-            type: "line",
-            color: colors.gold,
-            points: (() => {
-              const pts = [];
-              for (let z = -6; z <= 6; z += 0.25) {
-                pts.push([z, 1 / (1 + Math.exp(-z))]);
-              }
-              return pts;
-            })(),
-          },
-          {
-            label: "decision boundary (z=0, p=0.5)",
-            type: "line",
-            color: colors.textMuted,
-            points: [[-6, 0.5], [6, 0.5]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The decision boundary of logistic regression is the set of points where the predicted probability equals 0.5 — equivalently, where the linear score equals zero. Because the score is linear in the features, the boundary is a hyperplane (a line in 2D, a plane in 3D). Logistic regression can only learn linearly separable boundaries. This is both its central limitation and its greatest virtue: the decision boundary is literally a line you can draw, explain, and interrogate. "The model predicts positive when <Code>{"2.1 × age - 0.4 × income + 0.8 > 0"}</Code>" is an auditable statement. A 10-layer neural network cannot say the same.
-      </Prose>
-
-      <Prose>
-        The mental model for both algorithms: <strong>linear regression is projection onto a learned hyperplane; logistic regression is projection onto a learned hyperplane followed by a probability-squashing function</strong>. Everything else — the math, the solvers, the regularization, the failure modes — is working out the consequences of that structure.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 OLS closed-form derivation</H3>
-
-      <Prose>
-        Let <Code>X</Code> be an <Code>n × d</Code> design matrix (rows are samples, columns are features — convention: the first column is all ones to absorb the bias), and let <Code>y</Code> be an <Code>n × 1</Code> vector of targets. We seek the weight vector <Code>β</Code> that minimizes the residual sum of squares:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}(\\beta) = \\|y - X\\beta\\|^2 = (y - X\\beta)^\\top (y - X\\beta)"}
-      </MathBlock>
-
-      <Prose>
-        Expanding the product:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}(\\beta) = y^\\top y - 2\\beta^\\top X^\\top y + \\beta^\\top X^\\top X \\beta"}
-      </MathBlock>
-
-      <Prose>
-        Take the gradient with respect to <Code>β</Code> and set it to zero:
-      </Prose>
-
-      <MathBlock>
-        {"\\nabla_\\beta \\mathcal{L} = -2X^\\top y + 2X^\\top X \\beta = 0"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\Rightarrow \\quad X^\\top X \\beta = X^\\top y"}
-      </MathBlock>
-
-      <Prose>
-        These are the <em>normal equations</em>. If <Code>XᵀX</Code> is invertible (which requires <Code>n {"≥"} d</Code> and no perfect collinearity), there is a unique solution:
-      </Prose>
-
-      <MathBlock>
-        {"\\beta^* = (X^\\top X)^{-1} X^\\top y"}
-      </MathBlock>
-
-      <Prose>
-        The matrix <Code>(XᵀX)⁻¹Xᵀ</Code> is called the Moore-Penrose pseudoinverse of <Code>X</Code>. Geometrically, <Code>Xβ*</Code> is the orthogonal projection of <Code>y</Code> onto the column space of <Code>X</Code> — the closest point to <Code>y</Code> that lives in the span of the features. The residual vector <Code>y - Xβ*</Code> is orthogonal to every column of <Code>X</Code>, which is exactly what the normal equations say.
-      </Prose>
-
-      <H3>3.2 MLE connection for linear regression</H3>
-
-      <Prose>
-        Gauss's justification was probabilistic. Assume <Code>y = Xβ + ε</Code> where <Code>ε ~ N(0, σ²I)</Code>. The likelihood of observing <Code>y</Code> given parameters <Code>β</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"p(y \\mid X, \\beta, \\sigma^2) = \\prod_{i=1}^{n} \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\!\\left(-\\frac{(y_i - x_i^\\top \\beta)^2}{2\\sigma^2}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        Taking the log and discarding constants that don't depend on <Code>β</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"\\log p(y \\mid X, \\beta) = -\\frac{1}{2\\sigma^2} \\sum_{i=1}^{n} (y_i - x_i^\\top \\beta)^2 + \\text{const}"}
-      </MathBlock>
-
-      <Prose>
-        Maximizing this log-likelihood is identical to minimizing the sum of squared residuals. OLS = MLE under Gaussian noise. The assumption of Gaussian errors is doing real work here: it is what makes squared loss the "correct" choice. Under Laplace noise you would get least absolute deviations; under Student-t noise you would get something more robust. Always know your generative assumptions.
-      </Prose>
-
-      <H3>3.3 Gradient descent for linear regression</H3>
-
-      <Prose>
-        The MSE loss as a function of <Code>β</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}(\\beta) = \\frac{1}{n} \\sum_{i=1}^{n} (x_i^\\top \\beta - y_i)^2"}
-      </MathBlock>
-
-      <Prose>
-        The gradient is:
-      </Prose>
-
-      <MathBlock>
-        {"\\nabla_\\beta \\mathcal{L} = \\frac{2}{n} X^\\top (X\\beta - y)"}
-      </MathBlock>
-
-      <Prose>
-        Each gradient descent step subtracts a learning-rate-scaled gradient:
-      </Prose>
-
-      <MathBlock>
-        {"\\beta \\leftarrow \\beta - \\eta \\cdot \\frac{2}{n} X^\\top (X\\beta - y)"}
-      </MathBlock>
-
-      <Prose>
-        For well-conditioned problems with a small learning rate, this converges to the same solution as the closed form. The trade-off: closed form requires inverting an <Code>d × d</Code> matrix, which costs <Code>O(nd² + d³)</Code>; gradient descent costs <Code>O(nd)</Code> per iteration and can be run in mini-batch mode for very large datasets.
-      </Prose>
-
-      <H3>3.4 Log-loss derivation for logistic regression</H3>
-
-      <Prose>
-        Logistic regression models each label <Code>y_i ∈ {"{0, 1}"}</Code> as a Bernoulli random variable. The predicted probability is:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{p}_i = \\sigma(x_i^\\top w) = \\frac{1}{1 + e^{-x_i^\\top w}}"}
-      </MathBlock>
-
-      <Prose>
-        The likelihood of observing all labels given the weights is:
-      </Prose>
-
-      <MathBlock>
-        {"p(\\mathbf{y} \\mid X, w) = \\prod_{i=1}^{n} \\hat{p}_i^{y_i} (1 - \\hat{p}_i)^{1 - y_i}"}
-      </MathBlock>
-
-      <Prose>
-        Taking the negative log-likelihood (the quantity we minimize):
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}(w) = -\\frac{1}{n} \\sum_{i=1}^{n} \\left[ y_i \\log \\hat{p}_i + (1 - y_i) \\log (1 - \\hat{p}_i) \\right]"}
-      </MathBlock>
-
-      <Prose>
-        This is the binary cross-entropy loss, also called log-loss. Computing its gradient requires the derivative of the sigmoid, which has the elegant form <Code>σ'(z) = σ(z)(1 - σ(z))</Code>. Applying the chain rule:
-      </Prose>
-
-      <MathBlock>
-        {"\\frac{\\partial \\mathcal{L}}{\\partial w} = \\frac{1}{n} \\sum_{i=1}^{n} (\\hat{p}_i - y_i) \\, x_i = \\frac{1}{n} X^\\top (\\hat{p} - y)"}
-      </MathBlock>
-
-      <Prose>
-        Remarkably, the gradient of logistic regression's log-loss has the same form as the gradient of linear regression's MSE: it is the design matrix transposed times the residuals <Code>(predictions - targets)</Code>. The difference is that for linear regression the predictions are <Code>Xw</Code> and for logistic regression they are <Code>σ(Xw)</Code>. This structural similarity is not coincidence — it falls out of the exponential family framework that Nelder and Wedderburn formalized. The weight update:
-      </Prose>
-
-      <MathBlock>
-        {"w \\leftarrow w - \\eta \\cdot \\frac{1}{n} X^\\top (\\hat{p} - y)"}
-      </MathBlock>
-
-      <Prose>
-        Unlike linear regression, there is no closed-form solution for logistic regression weights — the normal equations become nonlinear because <Code>σ</Code> is nonlinear. In practice, the loss is convex, so gradient-based methods (gradient descent, L-BFGS, Newton's method) converge to the global minimum.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was run against synthetic data and the outputs embedded as comments are verbatim terminal output. NumPy only — no scikit-learn, no PyTorch. By the end of this section you will have working implementations of four things: closed-form OLS, gradient descent for linear regression, gradient descent for logistic regression, and a quick accuracy check.
-      </Prose>
-
-      <H3>4a. Closed-form linear regression</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-n = 80
-X_raw = np.random.uniform(0, 10, n)
-y = 2.0 * X_raw + 1.0 + np.random.randn(n) * 1.5
-
-# Design matrix: bias column + feature column
-X = np.column_stack([np.ones(n), X_raw])
-
-# Closed-form OLS: beta = (X^T X)^{-1} X^T y
-# Use np.linalg.solve for numerical stability over explicit inverse
-beta = np.linalg.solve(X.T @ X, X.T @ y)
-print(f"intercept: {beta[0]:.4f},  slope: {beta[1]:.4f}")
-# Output: intercept: 0.6717,  slope: 2.0674
-
-y_pred = X @ beta
-mse = np.mean((y - y_pred) ** 2)
-print(f"MSE: {mse:.4f}")
-# Output: MSE: 2.0219`}
-      </CodeBlock>
-
-      <Prose>
-        Note <Code>np.linalg.solve(A, b)</Code> instead of <Code>np.linalg.inv(A) @ b</Code>. Both give the same answer for well-conditioned <Code>A</Code>, but <Code>solve</Code> uses LU decomposition and is more numerically stable — it avoids explicitly forming the inverse matrix, which amplifies floating-point errors.
-      </Prose>
-
-      <H3>4b. Gradient descent for linear regression</H3>
-
-      <CodeBlock language="python">
-{`def linear_gd(X, y, lr=0.001, n_iter=3000):
-    """
-    Gradient descent for OLS.
-    Gradient of MSE = (2/n) * X^T (X beta - y)
-    """
-    n, d = X.shape
-    beta = np.zeros(d)
-    losses = []
-    for i in range(n_iter):
-        residual = X @ beta - y
-        loss = np.mean(residual ** 2)
-        losses.append(loss)
-        grad = (2 / n) * (X.T @ residual)
-        beta -= lr * grad
-    return beta, losses
-
-beta_gd, losses = linear_gd(X, y, lr=0.001, n_iter=3000)
-print(f"GD intercept: {beta_gd[0]:.4f},  slope: {beta_gd[1]:.4f}")
-# Output: GD intercept: 0.6110,  slope: 2.0766
-
-print(f"Loss at iter    0: {losses[0]:.4f}")
-# Output: Loss at iter    0: 147.6272
-print(f"Loss at iter  100: {losses[100]:.4f}")
-# Output: Loss at iter  100: 2.0546
-print(f"Loss at iter  500: {losses[500]:.4f}")
-# Output: Loss at iter  500: 2.0422
-print(f"Loss at iter 1000: {losses[1000]:.4f}")
-# Output: Loss at iter 1000: 2.0333
-print(f"Loss at iter 2999: {losses[2999]:.4f}")
-# Output: Loss at iter 2999: 2.0230`}
-      </CodeBlock>
-
-      <Prose>
-        The loss drops from 147 to 2.05 within the first 100 iterations — rapid early progress, then slow convergence as the gradient shrinks near the minimum. This shape (steep descent followed by a long tail) is characteristic of gradient descent on convex loss surfaces. Closed form lands at MSE 2.0219; gradient descent with 3000 iterations reaches 2.0230 — within 0.05% of optimal. Choosing a larger learning rate speeds up convergence but risks overshooting; <Code>lr=0.01</Code> causes divergence on this problem because the condition number of <Code>XᵀX</Code> makes the loss surface elongated.
-      </Prose>
-
-      <H3>4c. Logistic regression from scratch</H3>
-
-      <CodeBlock language="python">
-{`np.random.seed(42)
-
-# Two-class dataset: positive class around (+2, +2), negative around (-2, -2)
-n_pos, n_neg = 100, 100
-X_pos = np.random.randn(n_pos, 2) + np.array([2, 2])
-X_neg = np.random.randn(n_neg, 2) + np.array([-2, -2])
-X_clf_raw = np.vstack([X_pos, X_neg])
-y_clf = np.hstack([np.ones(n_pos), np.zeros(n_neg)])
-
-# Add bias column
-X_clf = np.column_stack([np.ones(len(y_clf)), X_clf_raw])
-
-def sigmoid(z):
-    # Clip prevents overflow in exp for large negative z
-    return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
-
-def log_loss(y, y_hat, eps=1e-15):
-    y_hat = np.clip(y_hat, eps, 1 - eps)
-    return -np.mean(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat))
-
-def logistic_gd(X, y, lr=0.1, n_iter=500):
-    """
-    Gradient of log-loss = (1/n) * X^T (sigma(Xw) - y)
-    Identical structure to linear GD — residuals drive the update.
-    """
-    n, d = X.shape
-    w = np.zeros(d)
-    losses = []
-    for _ in range(n_iter):
-        y_hat = sigmoid(X @ w)
-        losses.append(log_loss(y, y_hat))
-        grad = (1 / n) * (X.T @ (y_hat - y))
-        w -= lr * grad
-    return w, losses
-
-w, losses_clf = logistic_gd(X_clf, y_clf, lr=0.1, n_iter=500)
-print(f"weights (bias, w1, w2): [{w[0]:.4f}, {w[1]:.4f}, {w[2]:.4f}]")
-# Output: weights (bias, w1, w2): [-0.1267, 1.8309, 1.6034]
-
-print(f"Log-loss at iter   0: {losses_clf[0]:.4f}")
-# Output: Log-loss at iter   0: 0.6931
-print(f"Log-loss at iter  50: {losses_clf[50]:.4f}")
-# Output: Log-loss at iter  50: 0.0515
-print(f"Log-loss at iter 200: {losses_clf[200]:.4f}")
-# Output: Log-loss at iter 200: 0.0208
-print(f"Log-loss at iter 499: {losses_clf[499]:.4f}")
-# Output: Log-loss at iter 499: 0.0122
-
-# Accuracy
-y_pred_class = (sigmoid(X_clf @ w) >= 0.5).astype(int)
-acc = np.mean(y_pred_class == y_clf)
-print(f"Accuracy: {acc:.4f}")
-# Output: Accuracy: 0.9950`}
-      </CodeBlock>
-
-      <Prose>
-        Starting log-loss is <Code>ln(2) ≈ 0.693</Code> — the entropy of a fair coin, which is what you get when all weights are zero and the model predicts 50% for everything. It drops to 0.051 by iteration 50, reflecting the model quickly learning that the two clusters are well-separated. The final accuracy of 99.5% on this clean toy dataset is expected; real datasets are noisier and the two classes overlap.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        Scikit-learn's <Code>sklearn.linear_model</Code> module is the standard production choice for both models. The API is identical to every other sklearn estimator: <Code>fit</Code>, <Code>predict</Code>, <Code>score</Code>. For logistic regression, <Code>predict_proba</Code> returns the probability vector.
-      </Prose>
-
-      <H3>5a. Linear regression</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.linear_model import LinearRegression
-
-np.random.seed(42)
-n = 80
-X = np.random.uniform(0, 10, n).reshape(-1, 1)   # sklearn expects 2-D input
-y = 2.0 * X.ravel() + 1.0 + np.random.randn(n) * 1.5
-
-model = LinearRegression()       # no hyperparameters — always closed-form OLS
-model.fit(X, y)
-
-print(f"intercept_: {model.intercept_:.4f}")
-# Output: intercept_: 0.6717
-print(f"coef_:      {model.coef_[0]:.4f}")
-# Output: coef_:      2.0674
-print(f"R^2 score:  {model.score(X, y):.4f}")
-# Output: R^2 score:  0.9512
-
-# Predict new points
-X_new = np.array([[0], [5], [10]])
-print(model.predict(X_new))
-# Output (approx): [ 0.67  10.71  21.34]`}
-      </CodeBlock>
-
-      <H3>5b. Logistic regression: solvers and regularization</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, confusion_matrix
-
-X, y = make_classification(
-    n_samples=500, n_features=10, n_informative=5,
-    n_redundant=2, random_state=42
-)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-# Feature scaling is important for gradient-based solvers (sag, saga, lbfgs)
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
-# --- Default: lbfgs, L2 regularization, C=1.0 ---
-clf = LogisticRegression(solver='lbfgs', C=1.0, max_iter=200)
-clf.fit(X_train, y_train)
-print(f"lbfgs, C=1.0  ->  test accuracy: {accuracy_score(y_test, clf.predict(X_test)):.4f}")
-# Output: lbfgs, C=1.0  ->  test accuracy: 0.8200
-
-proba = clf.predict_proba(X_test)
-print(f"predict_proba (first 3 rows): {proba[:3].round(3).tolist()}")
-# Output: predict_proba (first 3 rows): [[0.785, 0.215], [0.929, 0.071], [0.005, 0.995]]
-
-cm = confusion_matrix(y_test, clf.predict(X_test))
-print(f"Confusion matrix:\n{cm}")
-# Output:
-# [[45  5]
-#  [13 37]]
-
-# --- saga + L1 sparsity (l1_ratio=1.0 in sklearn >=1.8) ---
-clf_l1 = LogisticRegression(solver='saga', l1_ratio=1.0, C=0.5, max_iter=500)
-clf_l1.fit(X_train, y_train)
-print(f"saga, l1_ratio=1, C=0.5  ->  test accuracy: {accuracy_score(y_test, clf_l1.predict(X_test)):.4f}")
-# Output: saga, l1_ratio=1, C=0.5  ->  test accuracy: 0.8200
-print(f"Zero weights (L1 sparsity): {(clf_l1.coef_[0] == 0).sum()}/{clf_l1.coef_.shape[1]}")
-# Output: Zero weights (L1 sparsity): 5/10
-
-# --- liblinear with balanced class weights ---
-clf_cw = LogisticRegression(solver='liblinear', C=1.0, class_weight='balanced')
-clf_cw.fit(X_train, y_train)
-print(f"liblinear, class_weight='balanced'  ->  test accuracy: {accuracy_score(y_test, clf_cw.predict(X_test)):.4f}")
-# Output: liblinear, class_weight='balanced'  ->  test accuracy: 0.8200`}
-      </CodeBlock>
-
-      <Callout type="info" title="Solver guide (sklearn 1.8+)">
-        lbfgs is the default and works well for most problems with L2 or no regularization. saga handles L1 and elastic-net and scales to large datasets. liblinear is the fastest for small datasets and handles L1 natively but only supports one-vs-rest multiclass. The old penalty parameter was deprecated in sklearn 1.8 — use l1_ratio instead (0 = pure L2, 1 = pure L1). C is the inverse regularization strength: smaller C = stronger regularization.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Gradient descent trajectory</H3>
-
-      <Prose>
-        The following trace shows 10 steps of gradient descent on the linear regression problem from Section 4. Start at <Code>β = [0, 0]</Code>; the model predicts zero for every input, so the initial MSE loss is 147.6 — just the variance of <Code>y</Code>. Each step moves the intercept and slope toward the OLS optimum of <Code>[0.67, 2.07]</Code>.
-      </Prose>
-
-      <StepTrace
-        label="SGD trajectory — linear regression (lr=0.001)"
-        steps={[
-          { label: "Step 0 — init", render: () => (<Prose>β = [0.0000, 0.0000]  |  MSE = 147.6272. Both weights at zero. Prediction: ŷ = 0 for all x. Residuals are the full y values.</Prose>) },
-          { label: "Step 1", render: () => (<Prose>β = [0.0206, 0.1342]  |  MSE = 129.7859. First gradient step. Slope jumps quickly because x values are large (mean ≈ 5), amplifying the gradient signal.</Prose>) },
-          { label: "Step 2", render: () => (<Prose>β = [0.0399, 0.2598]  |  MSE = 114.1313. Loss falls by ≈12.5% per step in this early regime — steep descent.</Prose>) },
-          { label: "Step 3", render: () => (<Prose>β = [0.0580, 0.3775]  |  MSE = 100.3953. Slope is now ~0.38, intercept still small. The model is learning slope faster because its gradient component is larger.</Prose>) },
-          { label: "Step 5", render: () => (<Prose>β = [0.0909, 0.5911]  |  MSE = 77.7676. Halfway through first 10 steps. Loss already halved from init.</Prose>) },
-          { label: "Step 7", render: () => (<Prose>β = [0.1198, 0.7785]  |  MSE = 60.3465. Gradient is shrinking as residuals shrink. Steps are getting smaller in effect even with fixed lr.</Prose>) },
-          { label: "Step 10", render: () => (<Prose>β = [0.1568, 1.0173]  |  MSE = 41.4339. After 10 steps, MSE is 41.4 — still 20× above the optimal 2.02. Convergence is slow with lr=0.001. After 100 steps it reaches 2.05; after 3000 steps it converges to 2.02.</Prose>) },
-        ]}
-      />
-
-      <H3>6b. Confusion matrix heatmap</H3>
-
-      <Prose>
-        On the sklearn logistic regression run from Section 5 (200-sample test set, lbfgs, C=1.0), the confusion matrix shows 45 true negatives, 37 true positives, 5 false positives, and 13 false negatives. The model is more conservative about predicting the positive class — common with default thresholds on balanced datasets.
-      </Prose>
-
-      <Heatmap
-        label="Confusion matrix — logistic regression (lbfgs, C=1.0)"
-        colLabels={["Pred: 0", "Pred: 1"]}
-        rowLabels={["True: 0", "True: 1"]}
-        matrix={[[45, 5], [13, 37]]}
-        colorScale="gold"
-      />
-
-      <H3>6c. Loss curves</H3>
-
-      <Plot
-        title="Training loss curves — linear vs logistic regression"
-        description="Linear regression MSE (left axis) vs logistic regression log-loss (right axis) across gradient descent iterations. Both models show the characteristic steep-then-flat convergence profile."
-        xLabel="gradient descent iteration"
-        yLabel="loss"
-        series={[
-          {
-            label: "linear regression MSE",
-            type: "line",
-            color: colors.gold,
-            points: [
-              [0, 147.63], [10, 47.5], [20, 20.1], [30, 10.2], [50, 5.1],
-              [100, 2.05], [200, 2.04], [500, 2.04], [1000, 2.03], [3000, 2.02],
-            ],
-          },
-          {
-            label: "logistic regression log-loss (×80)",
-            type: "line",
-            color: colors.green,
-            points: [
-              [0, 55.4], [10, 18.2], [20, 8.1], [30, 4.2], [50, 4.12],
-              [100, 2.5], [200, 1.66], [300, 1.2], [499, 0.98],
-            ],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing between linear regression, logistic regression, and something else depends on the problem structure, the dataset size, the interpretability requirement, and how much you trust the linearity assumption. The following table is a concrete guide.
-      </Prose>
-
-      <StepTrace
-        label="when to use what"
-        steps={[
-          {
-            label: "Linear Regression",
-            render: () => (
-              <Prose>
-                Use when: target is continuous and unbounded (price, temperature, stock return). Dataset size: any — closed form handles n up to ~100k columns comfortably; gradient descent scales beyond. Linearity: assumes E[y|x] is linear in features — use polynomial features if you suspect curves. Interpretability: highest — each weight is the marginal effect of one feature on the output. Feature count: closed form needs d {"<"} n; if d {">"} n, use Ridge (L2-regularized OLS). When NOT to use: target is bounded, binary, or a count; there are strong nonlinear interactions you care about capturing.
-              </Prose>
-            ),
-          },
-          {
-            label: "Logistic Regression",
-            render: () => (
-              <Prose>
-                Use when: target is binary (0/1) or you need calibrated probability estimates for a classification problem. Dataset size: any — lbfgs works up to ~100k samples; saga scales to millions. Linearity: assumes log-odds are linear in features — one of the stronger assumptions in the toolbox. Interpretability: very high — coefficients are log-odds ratios, easy to report to domain experts. Feature count: regularize with L2 (lbfgs) for d {">"} 50, L1 (saga) for feature selection when d is large. When NOT to use: decision boundary is clearly nonlinear and you have enough data to fit a more flexible model.
-              </Prose>
-            ),
-          },
-          {
-            label: "Tree-Based Models (Gradient Boosting, Random Forest)",
-            render: () => (
-              <Prose>
-                Use when: features have nonlinear interactions, high cardinality categoricals, or mixed feature types. Dataset size: gradient boosting (XGBoost, LightGBM) scales to millions of rows efficiently. Linearity: no assumption — models arbitrary discontinuities. Interpretability: medium — SHAP values recoverable, but not as clean as regression coefficients. Feature count: handles high d without explicit regularization tuning. When to prefer over regression: when tabular competitions show tree models winning, which they do on structured data with cross-feature interactions.
-              </Prose>
-            ),
-          },
-          {
-            label: "Deep Learning (MLP / Transformer)",
-            render: () => (
-              <Prose>
-                Use when: data is images, text, audio, or sequences; you have {">"} 100k samples; you can afford GPU compute. Dataset size: data-hungry — linear and tree models beat neural nets on small tabular datasets. Linearity: no assumption. Interpretability: lowest — explainability is a research area, not a solved problem. Feature count: input dimensionality handled by architecture. When NOT to use: the dataset has fewer than 10k rows, or the client requires an auditable coefficient.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ridge / Lasso / ElasticNet",
-            render: () => (
-              <Prose>
-                Use when: you want linear regression with regularization. Ridge (L2) is OLS + squared weight penalty — shrinks all weights toward zero, never eliminates them. Lasso (L1) produces sparse solutions — useful for feature selection when you believe many features are irrelevant. ElasticNet mixes L1 and L2. All three have the same closed form as OLS plus a regularization term; all three are available in sklearn under <Code>Ridge</Code>, <Code>Lasso</Code>, <Code>ElasticNet</Code>.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Computational complexity</H3>
-
-      <Prose>
-        The closed-form OLS solution requires forming <Code>XᵀX</Code> at cost <Code>O(nd²)</Code> and then inverting the <Code>d × d</Code> matrix at cost <Code>O(d³)</Code>. Total: <Code>O(nd² + d³)</Code>. For <Code>n = 10,000</Code> samples and <Code>d = 1,000</Code> features, this is 10¹⁰ operations — feasible on modern hardware. For <Code>d = 100,000</Code> features (gene expression data, text bag-of-words), forming <Code>XᵀX</Code> alone requires storing a 100k × 100k matrix which costs 80 GB in float64. This is not feasible in memory.
-      </Prose>
-
-      <Prose>
-        Gradient descent costs <Code>O(nd)</Code> per iteration — one pass over the data to compute the gradient. With stochastic gradient descent (one sample or a mini-batch per step), the per-step cost drops to <Code>O(bd)</Code> for batch size <Code>b</Code>. This is what makes SGD the only option for large-scale ML: the memory footprint is <Code>O(d)</Code> for the weights plus <Code>O(bd)</Code> for the mini-batch. Saga and SAG (stochastic average gradient) variants achieve better convergence rates than plain SGD at the cost of storing one gradient per training sample — <Code>O(nd)</Code> memory, which limits them to datasets where <Code>n</Code> fits in RAM.
-      </Prose>
-
-      <Prose>
-        For logistic regression at scale, the solvers have clear performance profiles. <strong>lbfgs</strong>: quasi-Newton method, stores a small history of gradients (default: 10 vectors), convergence in <Code>O(1/k²)</Code> steps — the fastest practical convergence rate for smooth convex objectives. Best for <Code>n {"<"} 100k</Code> with L2 or no regularization. <strong>saga</strong>: stochastic variance-reduced gradient, converges in <Code>O(1/k)</Code> steps, handles L1 and elastic-net, scales to <Code>n</Code> in the millions. Requires all gradients in memory for variance reduction — not suitable when <Code>n × d</Code> doesn't fit in RAM. <strong>liblinear</strong>: coordinate descent, fastest for small datasets, handles L1 natively, one-vs-rest multiclass only.
-      </Prose>
-
-      <H3>8.2 The d {">"} n regime</H3>
-
-      <Prose>
-        When the number of features exceeds the number of samples, <Code>XᵀX</Code> is singular — the system is underdetermined and infinite solutions minimize the training loss. The closed form breaks down entirely. Ridge regression resolves this by regularizing: the normal equations become <Code>(XᵀX + λI)β = Xᵀy</Code>, and <Code>(XᵀX + λI)</Code> is always invertible for <Code>λ {">"} 0</Code>. The solution exists and is unique regardless of the relationship between <Code>n</Code> and <Code>d</Code>. For logistic regression in the <Code>d {">"} n</Code> regime with L2 regularization, lbfgs still converges — but the coefficients are not interpretable as unbiased estimates of any true parameters. Use regularization not just for better generalization but for computational stability.
-      </Prose>
-
-      <H3>8.3 Memory layout and batch processing</H3>
-
-      <Prose>
-        For large <Code>n</Code>, loading the full dataset into memory for each gradient step is impractical. Mini-batch gradient descent is the standard solution: process <Code>b</Code> samples at a time, update weights after each batch, cycle through the full data (one epoch), repeat. Batch size is a hyperparameter with real consequences: small batches (8–32) give noisy but frequent updates — faster early convergence but higher variance; large batches (512–4096) give stable gradients but slower iterations and sometimes worse generalization (the sharp minima vs. flat minima debate). For linear and logistic regression, the loss is convex, so batch size mainly affects speed, not final solution quality.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Perfect multicollinearity</H3>
-
-      <Prose>
-        If two features are exactly linearly related — for instance, you include both income in dollars and income in thousands of dollars — then <Code>XᵀX</Code> is singular and the closed form fails. Numerically, <Code>np.linalg.solve</Code> raises a <Code>LinAlgError</Code>; in practice, floating-point arithmetic produces an answer with enormous magnitude and the wrong sign. The symptom is coefficients on the order of <Code>±10⁶</Code> paired with near-zero residuals on the training set but catastrophic predictions on test data. Detection: check the condition number of <Code>XᵀX</Code> before fitting. Condition number {">"} 10⁶ is a red flag. Fix: drop one of the collinear features, or use Ridge regularization.
-      </Prose>
-
-      <H3>9.2 Separation in logistic regression</H3>
-
-      <Prose>
-        Complete separation occurs when there exists a hyperplane that perfectly separates the two classes in your training data. This sounds desirable, but it causes a serious numerical problem: the log-loss is minimized as the coefficient magnitudes go to infinity, because a perfect boundary can be made "more confident" without bound. The MLE does not exist — there is no finite weight vector that maximizes the likelihood. Gradient descent diverges (weights grow without bound), and sklearn will warn about convergence failure. This is common in small datasets, sparse data, or when a feature perfectly predicts the outcome (a clinical test with 100% sensitivity/specificity). Fix: L2 regularization acts as a prior that pulls coefficients toward zero, guaranteeing a finite solution. Alternatively, use Firth's penalized likelihood, designed specifically for this case.
-      </Prose>
-
-      <H3>9.3 Target leakage</H3>
-
-      <Prose>
-        Target leakage is when a feature in your training set contains information about the target that would not be available at prediction time. A fraud model that includes the "claim status" feature as a predictor — available only after the fraud decision is made — will achieve near-perfect training accuracy and completely fail in deployment. This error is specific to modeling pipelines, not the algorithms themselves, but it is the single most common source of "great training metrics, terrible production performance" that data scientists encounter. Linear models are not more or less vulnerable than neural networks. The fix is disciplined feature engineering with strict temporal ordering.
-      </Prose>
-
-      <H3>9.4 Unstandardized inputs and convergence</H3>
-
-      <Prose>
-        Gradient descent is sensitive to the scale of features. If one feature ranges from 0 to 1 and another ranges from 0 to 10,000, the loss surface is extremely elongated — gradients point mostly toward the large-scale feature, and the learning rate that works for that feature is too large for the small-scale feature. The result: slow, oscillating convergence, or divergence. Always standardize features before fitting any gradient-based model. <Code>StandardScaler</Code> (subtract mean, divide by std) is the standard choice. Note that sklearn's closed-form <Code>LinearRegression</Code> is scale-invariant — standardization doesn't affect its solution. But lbfgs, saga, and SGD-based solvers benefit strongly from it. The sklearn docs explicitly warn: "sag and saga fast convergence is only guaranteed on features with approximately the same scale."
-      </Prose>
-
-      <H3>9.5 Class imbalance</H3>
-
-      <Prose>
-        With a dataset that is 95% negative and 5% positive, a model that always predicts "negative" achieves 95% accuracy while being completely useless. Logistic regression fitted with default settings optimizes log-loss, and on an imbalanced dataset the loss is dominated by the majority class. The model learns to predict very low probabilities for the positive class, and adjusting the decision threshold from 0.5 to something like 0.1 or 0.05 usually recovers decent recall. Alternatively, <Code>class_weight='balanced'</Code> in sklearn reweights each sample by the inverse class frequency, effectively upsampling the minority class in the gradient. Use F1, AUC-ROC, or precision-recall curves to evaluate — not accuracy.
-      </Prose>
-
-      <H3>9.6 Outliers</H3>
-
-      <Prose>
-        Squared loss penalizes outliers quadratically. A single data point with a residual of 100 contributes 10,000 to the loss — the same as 100 points each with a residual of 10. Linear regression is therefore heavily influenced by outliers: a single extreme y value pulls the fitted line toward it. Detection: plot residuals vs. fitted values; points with standardized residuals beyond ±3 deserve inspection. Fix options include: robust regression (Huber loss, which is quadratic near zero and linear for large residuals), removing confirmed data entry errors, or using quantile regression if you care about medians rather than means. Logistic regression is somewhat more robust because the sigmoid saturates — an extreme feature value does not produce an extreme gradient because the sigmoid derivative goes to zero far from the decision boundary.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, and main claims. Read them in this order if you want to understand the intellectual lineage.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Legendre 1805 — First publication of OLS",
-            render: () => (
-              <Prose>
-                Legendre, A.-M. (1805). <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>. Paris: Courcier. Appendix: "Sur la méthode des moindres quarrés," pp. 72–75. Nine pages, no proof of optimality, no probability theory — just the clean geometric idea that the sum of squared residuals is the right thing to minimize. The rapidity of adoption (standard tool in European astronomy within a decade) is a testament to how obviously right the idea was.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gauss 1809 — Probabilistic justification, normal equations",
-            render: () => (
-              <Prose>
-                Gauss, C.F. (1809). <em>Theoria Motus Corporum Coelestium in Sectionibus Conicis Solem Ambientium</em>. Hamburg: Perthes & Besser. Part II, Section 3 derives the method from the assumption of normally distributed errors, connecting OLS to maximum likelihood for the first time. The term "normal equations" (for the conditions that define the OLS solution) originates here. Gauss later proved the Gauss-Markov theorem in <em>Theoria Combinationis Observationum Erroribus Minimis Obnoxiae</em> (1823), establishing the BLUE property without requiring normality.
-              </Prose>
-            ),
-          },
-          {
-            label: "Verhulst 1838 — The logistic function",
-            render: () => (
-              <Prose>
-                Verhulst, P.-F. (1838). "Notice sur la loi que la population suit dans son accroissement." <em>Correspondance mathématique et physique</em>, 10, 113–121. Derived the S-shaped growth curve from a differential equation with a carrying capacity. Named it <em>logistique</em> in his 1845 follow-up. The sigmoid function at the core of logistic regression is this curve. Verhulst's work was rediscovered independently in the 1920s by Pearl and Reed, who applied it to US census data.
-              </Prose>
-            ),
-          },
-          {
-            label: "Berkson 1944 — Logit and bioassay application",
-            render: () => (
-              <Prose>
-                Berkson, J. (1944). "Application of the Logistic Function to Bio-Assay." <em>Journal of the American Statistical Association</em>, 39(227), 357–365. DOI: 10.1080/01621459.1944.10500699. Introduced the term "logit" (logistic unit), showed the logistic function fits dose-response curves in pharmacology, and developed the method of minimum chi-square for estimating the parameters. This paper established logistic regression as a practical statistical tool.
-              </Prose>
-            ),
-          },
-          {
-            label: "Cox 1958 — The regression analysis of binary sequences",
-            render: () => (
-              <Prose>
-                Cox, D.R. (1958). "The Regression Analysis of Binary Sequences." <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, 20(2), 215–242. DOI: 10.1111/j.2517-6161.1958.tb00292.x. Formulated logistic regression as a statistical model for binary outcomes, gave the likelihood-based estimation procedure, developed hypothesis tests for coefficients, and introduced the interpretation of coefficients as log-odds ratios. This is the paper that established logistic regression as we use it today.
-              </Prose>
-            ),
-          },
-          {
-            label: "Nelder & Wedderburn 1972 — Generalized linear models",
-            render: () => (
-              <Prose>
-                Nelder, J.A. and Wedderburn, R.W.M. (1972). "Generalized Linear Models." <em>Journal of the Royal Statistical Society: Series A (General)</em>, 135(3), 370–384. DOI: 10.2307/2344614. Unified linear regression, logistic regression, Poisson regression, and other models under the GLM framework: a linear predictor, a link function, and an exponential family distribution. Showed that iteratively reweighted least squares (IRLS) is the general algorithm. This paper is why "logistic regression" and "linear regression" feel like variations of the same idea — they are, under GLM.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hastie, Tibshirani & Friedman 2009 — ESL, Ch. 3 & 4",
-            render: () => (
-              <Prose>
-                Hastie, T., Tibshirani, R., and Friedman, J. (2009). <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>, 2nd ed. New York: Springer. ISBN: 978-0-387-84857-0. Available free at hastie.su.domains/ElemStatLearn. Chapter 3 (linear methods for regression) and Chapter 4 (linear methods for classification) remain the canonical graduate-level treatment. The derivation of the bias-variance trade-off, the geometry of OLS projection, the analysis of Ridge and Lasso, and the comparison of LDA vs. logistic regression are all here at a depth not matched by any textbook written since.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving to the next topic. The answer key is below each exercise — resist the urge to read ahead.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Write the closed-form OLS estimator. What two conditions must hold for it to have a unique solution? What matrix do you form when implementing it numerically, and why do you use <Code>np.linalg.solve</Code> instead of <Code>np.linalg.inv</Code>?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        The OLS estimator is β* = (XᵀX)⁻¹Xᵀy. Two conditions: (1) n ≥ d — more samples than features, so the system is not underdetermined. (2) No perfect multicollinearity — no column of X is an exact linear combination of others, so XᵀX is invertible. You form the d × d matrix XᵀX and solve the linear system (XᵀX)β = Xᵀy. np.linalg.solve uses LU decomposition, which is numerically stable; np.linalg.inv explicitly computes the inverse, which amplifies floating-point errors in near-singular matrices.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Show from scratch that the gradient of the logistic regression log-loss is <Code>(1/n) Xᵀ(σ(Xw) - y)</Code>. You will need the derivative of the sigmoid function.
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        The log-loss is L(w) = -(1/n) Σ [yᵢ log σ(zᵢ) + (1-yᵢ) log(1-σ(zᵢ))], where zᵢ = xᵢᵀw. The sigmoid derivative is σ'(z) = σ(z)(1-σ(z)). Differentiating L with respect to wⱼ via chain rule: ∂L/∂wⱼ = -(1/n) Σ [yᵢ · (1-σ(zᵢ)) · xᵢⱼ - (1-yᵢ) · σ(zᵢ) · xᵢⱼ] = (1/n) Σ (σ(zᵢ) - yᵢ) · xᵢⱼ. In matrix form: ∇L = (1/n) Xᵀ(σ(Xw) - y).
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        You are fitting logistic regression on a clinical dataset to predict whether a patient has a rare disease (1% prevalence). The model achieves 99% accuracy. Is this a good result? What metric should you use instead, and what sklearn parameter is relevant?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        No. A model that always predicts "no disease" achieves 99% accuracy by doing nothing. With 1% prevalence, accuracy is dominated by the majority class and is essentially meaningless. Use AUC-ROC or the precision-recall curve, which explicitly measure the model's ability to separate classes. For threshold selection, use F1 or a cost-weighted metric. In sklearn, set class_weight='balanced' to prevent the model from ignoring the minority class during training, or adjust the decision threshold using predict_proba rather than the default 0.5 cutoff.
-      </Callout>
-
-      <H3>Exercise 4 (debugging)</H3>
-      <Prose>
-        You fit logistic regression with sklearn. The model fails to converge (ConvergenceWarning) after 100 iterations, and inspecting the learned coefficients shows some values greater than 1,000 in magnitude. What are the two most likely causes, and how do you fix each?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        Cause 1: Unstandardized features. If features have very different scales, the loss landscape is elongated and the optimizer takes many small steps along the shallow direction. Fix: apply StandardScaler before fitting. Cause 2: Complete or quasi-complete separation. A feature (or combination of features) perfectly predicts the outcome on the training set, so the coefficients grow toward ±∞ without bound. Fix: add L2 regularization (reduce C, which is the inverse regularization strength — try C=0.01 or C=0.1). You can also increase max_iter as a quick diagnostic to confirm the coefficients are still growing rather than oscillating.
-      </Callout>
-
-      <H3>Exercise 5 (applied)</H3>
-      <Prose>
-        You have a text classification problem with a bag-of-words feature matrix of shape <Code>(50,000 samples, 200,000 features)</Code>. You want logistic regression with L1 regularization for feature selection. Which solver do you choose, and why? What memory consideration matters here?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Use solver='saga' with l1_ratio=1.0. saga is the only sklearn logistic regression solver that supports L1 regularization and scales to large datasets. lbfgs only supports L2; liblinear supports L1 but only for binary classification and uses one-vs-rest which is slower for large feature counts. Memory: saga stores one gradient per training sample for variance reduction — that is 50,000 × 200,000 floats in the worst case (80 GB). In practice, the feature matrix is sparse (bag-of-words is typically 99%+ sparse), so store it as scipy.sparse.csr_matrix, which saga handles natively. The weight vector itself is only 200,000 floats — 1.6 MB. After fitting, the L1 penalty will zero out most of the 200,000 weights, giving you automatic feature selection.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        A colleague proposes adding a polynomial feature <Code>x²</Code> to a logistic regression model to handle a non-linearly separable dataset. (a) Will this work? (b) What is the decision boundary in the original feature space after this expansion? (c) What risk does this introduce?
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        (a) Yes. Adding x² as an explicit feature makes the model linear in the expanded feature space [1, x, x²], so logistic regression can fit it. This is kernel feature engineering by hand. (b) The decision boundary in the original (x) feature space is a curve (a quadratic), not a line. The model is still linear in the feature space [1, x, x²] but nonlinear in the original space — this is the core idea behind kernel methods. (c) The risk is overfitting. Polynomial features grow combinatorially (d features → d² quadratic terms → d³ cubic terms). High-degree polynomials can memorize training data while generalizing poorly. Fix: pair polynomial expansion with strong L2 regularization, or use cross-validation to select degree and regularization strength jointly.
-      </Callout>
-
-    </div>
-  ),
+import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { PredictionProtocolFigure, ResidualGeometryLab, GradientGeometryLab, LogisticScoreLab, ThresholdDecisionsLab, SeparationPenaltyLab, FeatureMapFigure, UncertaintyFigure } from '../../components/lesson-labs/LinearLogisticLabs.jsx';
+import { linearLogisticExamples } from '../linear-logistic-examples.js';
+
+function Example({ id, children }) {
+  const example = linearLogisticExamples.find(item => item.id === id);
+  return <><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></>;
+}
+
+function Practice({ title, question, hint, children }) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{question}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Explained solution</summary>{children}</details></section>;
+}
+
+export default {
+  title: 'Linear & Logistic Regression',
+  readTime: '~95 min read + 2–3 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot linear-logistic-lesson">
+    <LessonIntro prerequisites="You need arithmetic, averages and the idea of a function. We introduce features, targets, splits, losses and probabilities here. Vectors, Matrices & Tensor Operations and basic differentiation support the deeper derivations. Python and NumPy are needed only for the executable route; explanations and browser investigations stand on their own." sections={[
+      ['1-frame-the-prediction', 'Question, observation and split'],
+      ['2-make-every-residual-visible', 'Fit a number'],
+      ['3-derive-a-fit-and-understand-its-geometry', 'Least squares and rank'],
+      ['4-watch-learning-change-the-parameters', 'Gradient descent'],
+      ['5-model-a-binary-outcome', 'Score, odds and probability'],
+      ['6-derive-and-compute-log-loss', 'Logistic learning'],
+      ['7-choose-a-decision-without-refitting-the-score', 'Thresholds and costs'],
+      ['8-check-whether-a-finite-solution-exists', 'Separation and regularization'],
+      ['9-let-features-express-the-right-shape', 'Nonlinear feature maps'],
+      ['10-run-an-experiment-that-can-survive-a-new-row', 'Complete held-out pipeline'],
+      ['11-diagnose-assumptions-and-uncertainty', 'Residuals, inference and limits'],
+      ['12-match-the-solver-to-the-work', 'Libraries, sparse data and scale'],
+      ['13-practise-with-changed-questions', 'Independent practice and capstone'],
+      ['14-connect-the-two-models-and-continue', 'Connections and next lesson'],
+    ]}>Before a parcel leaves a depot, you want to predict how many hours delivery will take. You also want the probability that it will miss a deadline. These are different outputs. A linear regression learns a weighted numerical estimate; a logistic regression learns a weighted score that becomes a probability. We will follow both from visible observations to a reproducible, held-out experiment.</LessonIntro>
+
+    <H2>1. Frame the prediction</H2>
+    <Prose>One <strong>observation</strong> is one shipment. A <strong>feature</strong> is an input available when the prediction is made, such as distance or service type. The <strong>target</strong> is what we later observe: elapsed hours for regression, or a binary label for classification. Here label 1 means “missed the stated deadline” and label 0 means “met it.” A row of features is written x; its target is y. A prediction has a hat: ŷ.</Prose>
+    <Prose>The same situation can support both tasks, but a fitted mean delivery time does not automatically determine the chance of missing a deadline. Two services could have the same mean and very different variability. The binary outcome needs its own probability model, or a justified model of the entire time distribution. We will fit the two tasks separately.</Prose>
+    <PredictionProtocolFigure />
+    <Prose><strong>Training</strong> means choosing parameters using past examples. <strong>Inference</strong> means applying the frozen rule to a new feature row. During inference the new target is unknown. If “arrival scan time” or “post-delivery complaint” becomes an input to a pre-dispatch model, the experiment has crossed its information boundary. A random split cannot repair that target leakage.</Prose>
+    <LessonTable caption="Give each set a job before fitting" headers={['Set', 'Allowed use', 'What it must not do']} rows={[
+      ['Training', 'Fit coefficients and learned transforms such as means/scales', 'Use its fit as proof of future accuracy'],
+      ['Validation', 'Choose a model setting or decision threshold', 'Be described as an untouched final test after repeated selection'],
+      ['Test', 'Evaluate the locked workflow once', 'Choose the settings reported as independently tested'],
+    ]} />
+    <Prose>A split must match the deployment question. Random rows can suit independent, similarly distributed observations. Future shipments call for time ordering; repeated measurements from the same depot, machine or person may need group separation. Keeping a group out asks how the model handles an unseen group, which differs from predicting another row from a known group. Later lessons develop validation in depth; these distinctions keep our first experiment honest.</Prose>
+    <Prose>Start with a <strong>baseline</strong>: a deliberately simple rule that reveals whether the elaborate one adds useful information. A regression baseline predicts the training mean. A probability baseline predicts the training positive-label frequency. We first fit four invented shipments to reveal a mechanism. Their training error is not an estimate of future delivery performance. Section 10 uses separate synthetic data and an explicit held-out protocol.</Prose>
+
+    <details><summary>Set up the optional executable route</summary><Prose>Save each complete program separately as <Code>example.py</Code>. The first uses the Python standard library. For later programs, create an isolated environment with <Code>python -m venv .venv</Code>. Activate it using <Code>.venv\Scripts\Activate.ps1</Code> in PowerShell or <Code>source .venv/bin/activate</Code> in a POSIX shell. Install the tested scientific packages, then run the saved file. Browser labs require no installation.</Prose><CodeBlock language="bash">{`python -m pip install numpy==2.3.5 scipy==1.18.1 scikit-learn==1.9.1
+python example.py`}</CodeBlock><Prose>These programs ran with Python 3.12.14. Each includes its own imports, data and settings; no previous notebook state is needed.</Prose></details>
+    <H2>2. Make every residual visible</H2>
+    <Prose>Let x be distance in hundreds of kilometres. A line predicts ŷ=b+wx. The <strong>intercept</strong> b is predicted hours at x=0; the <strong>slope</strong> w is the change in predicted hours for another 100 km. For b=0 and w=1, inputs 0,1,2,3 receive predictions 0,1,2,3. Observed hours are 1,2,2,4, leaving residuals y−ŷ of 1,1,0,1.</Prose>
+    <Prose>A residual is a vertical difference at the same input, not the shortest perpendicular distance to a drawn line. Squaring removes its sign and gives large misses more weight. <strong>Mean squared error</strong>, or MSE, averages these squared residuals: (1+1+0+1)/4=0.75 hours². Its square root, RMSE, has units of hours. An MSE of 4 is not a typical four-hour error.</Prose>
+    <MathBlock>{String.raw`J(b,w)=\frac1n\sum_{i=1}^{n}(b+wx_i-y_i)^2.`}</MathBlock>
+    <ResidualGeometryLab />
+    <Prose>The best line for the original rows is ŷ=0.9+0.9x. Predictions 0.9,1.8,2.7,3.6 leave residuals 0.1,0.2,−0.7,0.4 and MSE 0.175. It misses every row, yet no other line has lower total squared error on these rows. The mean baseline predicts 2.25 everywhere and has MSE 1.1875. A zero prediction has MSE 6.25: the mean of y², not the variance of y.</Prose>
+    <H3>Why the mean appears even without Gaussian noise</H3>
+    <Prose>For any constant a, expand yᵢ−a=(yᵢ−ȳ)+(ȳ−a). The cross term sums to zero because centered observations sum to zero. The average squared error is therefore the average squared deviation around ȳ plus (a−ȳ)². The mean is the best constant under squared loss.</Prose>
+    <MathBlock>{String.raw`\frac1n\sum_i(y_i-a)^2=\frac1n\sum_i(y_i-\bar y)^2+(a-\bar y)^2.`}</MathBlock>
+    <Prose>If Y has a finite second moment, the population counterpart at input x is E[(Y−a)²|x]=Var(Y|x)+(E[Y|x]−a)². The conditional mean minimizes expected squared loss. No Gaussian assumption is needed for this fact. A linear model restricts candidate mean functions to weighted combinations of chosen features; it need not contain the true conditional mean.</Prose>
+    <Example id="scalar-fit"><Prose>The residuals sum to zero because an intercept is included and the unpenalized least-squares optimum is reached. Training R² compares the fit with the mean baseline: 1−0.175/1.1875≈0.853. On held-out data R² can be negative. For constant held-out targets its usual denominator is zero; libraries may use a documented finite replacement.</Prose></Example>
+
+    <H2>3. Derive a fit and understand its geometry</H2>
+    <Prose>Differentiate J with respect to b. Setting the derivative to zero gives Σ(b+wxᵢ−yᵢ)=0, hence b=ȳ−w x̄. Substitution centers both variables. Differentiating with respect to w then gives a ratio.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}b&=\bar y-w\bar x,\\w&=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2}.\end{aligned}`}</MathBlock>
+    <Prose>Here x̄=1.5 and ȳ=2.25. The numerator is 4.5 and denominator is 5, so w=0.9 and b=0.9. If every x is identical, the denominator is zero: the data cannot separate an intercept from a distance effect. Many coefficient pairs give the same predictions. That is missing information, not a request to divide by an arbitrary tiny number.</Prose>
+    <H3>Several features become one matrix multiplication</H3>
+    <Prose>With p measured features, append a leading 1 to each row for the intercept. The <strong>design matrix</strong> X has n rows and d=p+1 columns. The parameter vector β has d entries. Xβ produces n predictions, one dot product per row. A service indicator, for example, can be 1 for express and 0 for standard; its coefficient is an additive conditional difference under this model.</Prose>
+    <MathBlock>{String.raw`\underbrace{\begin{bmatrix}1&0\\1&1\\1&2\\1&3\end{bmatrix}}_{X:\,4\times2}\underbrace{\begin{bmatrix}0.9\\0.9\end{bmatrix}}_{\beta:\,2\times1}=\underbrace{\begin{bmatrix}0.9\\1.8\\2.7\\3.6\end{bmatrix}}_{\hat y:\,4\times1}.`}</MathBlock>
+    <Prose>Minimizing ‖y−Xβ‖² gives gradient 2Xᵀ(Xβ−y). At a minimum it is zero, producing the <strong>normal equations</strong> XᵀXβ=Xᵀy. Equivalently, Xᵀ(y−Xβ)=0: the residual vector is perpendicular to every feature column. In n-dimensional observation space, Xβ is the orthogonal projection of y onto the column space of X. This projection describes least-squares fitted outcomes; a logistic score xᵀw is not that projection.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}X^\top X\hat\beta=X^\top y,\\\hat\beta=(X^\top X)^{-1}X^\top y\quad\text{when }\operatorname{rank}(X)=d.\end{gathered}`}</MathBlock>
+    <Prose>Full column rank is the condition for unique coefficients. It implies n≥d, but enough rows alone do not establish rank. When rank is deficient, the projection and least-squares minimizers still exist; coefficients may not be unique. The Moore–Penrose pseudoinverse chooses the minimum-Euclidean-norm solution. Its general SVD definition works even when the displayed inverse formula does not.</Prose>
+    <Prose>Use a least-squares routine based on QR or SVD instead of implementing the inverse formula literally. Forming XᵀX squares the spectral condition number for full-rank X, potentially losing information before a solve begins. Calling <Code>solve(X.T @ X, X.T @ y)</Code> avoids an explicit inverse but not this Gram-matrix conditioning problem.</Prose>
+    <Example id="least-squares"><Prose>The duplicate distance columns each receive 0.45 in the minimum-norm solution. Replacing them with 5.45 and −4.55 preserves their sum 0.9 and all training predictions. Large opposite coefficients need not alone imply bad predictions; the concerns are instability, interpretation and which relationships persist on future inputs. Printed negative zeros are floating-point roundoff.</Prose></Example>
+
+    <H2>4. Watch learning change the parameters</H2>
+    <Prose>A <strong>gradient</strong> lists the local rate of loss increase as each parameter increases. Gradient descent starts with guesses and subtracts a positive learning rate η times the gradient. Calculate both components from the same old state before updating either.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\nabla J(\beta)&=\frac2nX^\top(X\beta-y),\\\beta_{t+1}&=\beta_t-\eta\nabla J(\beta_t).\end{aligned}`}</MathBlock>
+    <Prose>At (b,w)=(0,0), predictions are zero and the gradient is (−4.5,−9). With η=0.05 the next state is (0.225,0.45), with MSE 2.250625 instead of 6.25. A negative derivative means increasing the parameter locally reduces loss; it is not a negative learning rate.</Prose>
+    <GradientGeometryLab />
+    <H3>Why a larger step can fail</H3>
+    <Prose>For this quadratic, the Hessian H=2XᵀX/n describes curvature. Relative to an optimum, parameter error follows eₜ₊₁=(I−ηH)eₜ. In an eigenvector direction with positive curvature λ, its coefficient is multiplied by 1−ηλ. It shrinks precisely when |1−ηλ|&lt;1. A full-rank quadratic therefore converges from any finite starting point in exact arithmetic when 0&lt;η&lt;2/λₘₐₓ(H).</Prose>
+    <MathBlock>{String.raw`H=\begin{bmatrix}2&3\\3&7\end{bmatrix},\qquad\lambda_{\max}=\frac{9+\sqrt{61}}2\approx8.405125.`}</MathBlock>
+    <Prose>The upper bound here is about 0.23795. Rate 0.2 can oscillate while converging; 0.3 amplifies a direction. Conditioning affects relative progress across directions, while the largest curvature determines this stability limit. A different loss normalization, feature scale or dataset changes the bound. Convexity does not make every learning rate safe.</Prose>
+    <Example id="gradient-descent"><Prose>Iteration 16 is shown with its loss measured before the next update; a trace must not pair updated coefficients with a preceding loss. Full-batch descent uses every row for each update. Stochastic or mini-batch descent uses one row or a subset and needs additional sampling and learning-rate choices.</Prose></Example>
+    <Prose>Standardization replaces a feature with (x−training mean)/training standard deviation. It often helps optimization by changing coordinate scales. Learn those quantities on training rows and reuse them unchanged. A zero-variance column needs a handling rule. Scaling does not cure separation or leakage, and it changes what an isotropic weight penalty means unless the penalty is transformed too.</Prose>
+
+    <H2>5. Model a binary outcome</H2>
+    <Prose>For deadline status, a numerical line can produce values below 0 or above 1. Logistic regression instead computes an affine <strong>score</strong> z=b+wᵀx and converts it with the sigmoid σ(z). The result is the model's conditional probability of label 1. It is a probabilistic estimate, not automatically a well-calibrated frequency for every population or subgroup.</Prose>
+    <MathBlock>{String.raw`p=\sigma(z)=\frac1{1+e^{-z}},\qquad\frac{p}{1-p}=e^z,\qquad\log\frac{p}{1-p}=z.`}</MathBlock>
+    <Prose>Probability p compares favorable cases with all cases. <strong>Odds</strong> p/(1−p) compare favorable with unfavorable cases. If p=0.8, the odds are 4, not 0.8. The <strong>logit</strong> is the natural logarithm of those odds. Logistic regression is linear in log odds, which can take any real value; the probability itself curves and stays between 0 and 1 in exact arithmetic.</Prose>
+    <Prose>For b=−1, w=1 and x=2, z=1 and p≈0.731. Increasing x by one multiplies the odds by e≈2.718, holding the other supplied features fixed. It does not add a constant number of percentage points to the probability. An odds ratio eʷ is also not automatically a causal effect: an observational coefficient can reflect other variables and the chosen conditioning model.</Prose>
+    <LogisticScoreLab />
+    <Prose>The score-zero boundary corresponds to p=0.5. With two input features it is a line; with more, a hyperplane, provided no nonlinear transformation is hidden in the inputs. A different probability threshold τ corresponds to z=log(τ/(1−τ)) for 0&lt;τ&lt;1. Learning a score and choosing an action threshold are separate decisions.</Prose>
+
+    <H2>6. Derive and compute log loss</H2>
+    <Prose>A Bernoulli model assigns probability p to y=1 and 1−p to y=0. The expression pʸ(1−p)¹⁻ʸ selects the appropriate one. For conditionally independent training labels given inputs and parameters, multiply these probabilities across rows. Maximizing that likelihood is the same as minimizing the negative sum of its logarithms.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\ell(z,y)&=-y\log p-(1-y)\log(1-p)\\&=\log(1+e^z)-yz,\qquad p=\sigma(z),\\J(\beta)&=\frac1n\sum_i\ell(x_i^\top\beta,y_i).\end{aligned}`}</MathBlock>
+    <Prose>If the model gives probability 0.9 to the observed outcome, loss is −log(0.9)≈0.105. Giving it probability 0.01 costs about 4.605. Log loss cares how confident a mistake was, even when accuracy records both as one wrong decision. A zero score predicts 0.5 and incurs log(2)≈0.693 for either label.</Prose>
+    <Prose>Directly computing exp(z) can overflow; computing log(1−σ(z)) can take the logarithm of a rounded zero. For binary y, evaluate the identical expression <Code>logaddexp(0, (1−2*y)*z)</Code>. It combines exponentials in log space. At z=1000,y=0, the loss is approximately 1000, not infinity or a clipped constant. Stable arithmetic preserves the mathematical target; clipping probabilities is a separate approximation that can flatten extreme losses.</Prose>
+    <H3>Where the simple gradient comes from</H3>
+    <Prose>The derivative of log(1+eᶻ) is σ(z), so ∂ℓ/∂z=p−y. Then ∂z/∂βⱼ=xⱼ gives ∂ℓ/∂βⱼ=(p−y)xⱼ. The sigmoid derivative is not an extra factor in the final log-loss gradient; it cancels when the probability-form likelihood is differentiated correctly.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\nabla J(\beta)&=\frac1nX^\top(p-y),\\\nabla^2J(\beta)&=\frac1nX^\top W X,\qquad W_{ii}=p_i(1-p_i).\end{aligned}`}</MathBlock>
+    <Prose>For any v, vᵀXᵀWXv=Σpᵢ(1−pᵢ)(xᵢᵀv)²≥0, so the objective is convex. This supports principled optimization but does not establish a finite minimizer, unique parameters or convergence of an arbitrary algorithm. Separation will show why existence matters.</Prose>
+    <Prose>The probability error p−y is bounded between −1 and 1, but the weight derivative multiplies it by x. A confidently wrong example with a huge feature can still have a huge gradient. Logistic regression is not automatically robust to leverage or label contamination merely because the sigmoid saturates.</Prose>
+    <Example id="logistic-fit"><Prose>This is a new, explicitly overlapping binary fixture, not the four continuous shipment targets relabeled without explanation. Duplicated feature values have different labels. Both programs minimize mean log loss plus 0.1w²/2, leaving the intercept unpenalized. Gradient descent and BFGS agree under the stated tolerance; this check is not a theorem about every input.</Prose></Example>
+
+    <H2>7. Choose a decision without refitting the score</H2>
+    <Prose>A <strong>false positive</strong> warns about a shipment that meets its deadline; a <strong>false negative</strong> stays quiet about a missed deadline. A confusion matrix counts truth against decisions. Accuracy averages correct decisions, precision asks what fraction of warnings were true, and recall asks what fraction of actual missed deadlines received warnings.</Prose>
+    <MathBlock>{String.raw`\operatorname{precision}=\frac{TP}{TP+FP},\qquad\operatorname{recall}=\frac{TP}{TP+FN}.`}</MathBlock>
+    <Prose>If there are no warnings, precision has a zero denominator; say how the report handles that undefined quantity. For a rare task, an always-negative rule can have high accuracy while detecting no positives. This does not make accuracy mathematically meaningless: it means accuracy alone may not measure the decision you care about. Report the baseline, error counts and consequences.</Prose>
+    <ThresholdDecisionsLab />
+    <H3>Derive a cost threshold under explicit assumptions</H3>
+    <Prose>Suppose a false warning costs C_FP and a missed warning costs C_FN, with correct actions assigned zero cost. If p is an appropriate probability for deployment, warning has conditional expected cost C_FP(1−p); silence costs C_FN p. Choose warning when the first is no larger than the second.</Prose>
+    <MathBlock>{String.raw`C_{FP}(1-p)\le C_{FN}p\quad\Longleftrightarrow\quad p\ge\frac{C_{FP}}{C_{FP}+C_{FN}}.`}</MathBlock>
+    <Prose>With positive costs 1 and 4, the analytic threshold is 0.2. This requires relevant probabilities and costs; a small validation set can have a different empirical best threshold. Capacity limits, changing prevalence and uncalibrated scores require further assessment. Select settings on validation, then report performance on untouched data.</Prose>
+    <Prose>Class weighting changes the training objective; thresholding changes decisions from fixed probabilities. They are not interchangeable. If a label with true conditional probability p gets positive weight a and the other weight b, the unrestricted weighted-log-loss optimum is q=ap/[ap+b(1−p)]. A weighted model's output need not estimate the original prevalence directly. Correction or calibration requires justified assumptions and held-out evidence.</Prose>
+    <Prose>ROC and precision–recall curves inspect many thresholds and answer different questions. F1 compresses precision and recall but omits true negatives and is not automatically the right utility. Calibration asks whether predictions near 0.7 correspond to about 70% positives in a relevant evaluation population; ranking quality is different. Later Metrics and Calibration lessons deepen these distinctions.</Prose>
+
+    <H2>8. Check whether a finite solution exists</H2>
+    <Prose>Take two observations: x=−1,y=0 and x=+1,y=1, with intercept fixed at zero. Every positive w classifies both correctly at threshold 0.5. Their mean log loss is log(1+e⁻ʷ), which keeps decreasing as w grows. Its infimum is zero, approached only at infinite weight. The data are completely separated, so this unpenalized maximum-likelihood problem has no finite optimum.</Prose>
+    <SeparationPenaltyLab />
+    <Prose>Adding λw²/2 with λ&gt;0 penalizes indefinitely increasing weights and gives a finite optimum here. Penalizing every coordinate with positive L2 makes the continuous objective grow without bound as the full parameter norm grows (called coercivity), and adds positive curvature in every direction. A finite, unique optimum follows. Intercept conventions matter: penalizing only slopes does not cure an all-one-label dataset whose free intercept can diverge. A convergence warning is evidence to investigate, not proof of one specific cause.</Prose>
+    <H3>Ridge, lasso and elastic net solve different problems</H3>
+    <Prose>For a stated loss J, ridge adds λ‖w‖₂²/2; lasso adds λ‖w‖₁; elastic net combines both. Intercepts are commonly excluded. The magnitude of λ is meaningless without the loss's sum/mean and factor-of-two convention. Useful λ values depend on the data; “regularize whenever there are more than fifty features” is not a general rule.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\text{ridge: }&J(w)+\tfrac\lambda2\sum_jw_j^2,\\\text{lasso: }&J(w)+\lambda\sum_j|w_j|.\end{aligned}`}</MathBlock>
+    <Prose>Minimize the one-coordinate loss (w−a)²/2 plus a penalty. Ridge's derivative gives w=a/(1+λ). For lasso, solve positive and negative branches and check zero: w=sign(a)max(|a|−λ,0). At a=0.3,λ=0.5, ridge yields 0.2 and lasso yields exactly zero. Ridge can also yield zero when the corresponding evidence is zero; it has no positive-width soft-threshold region in this example.</Prose>
+    <Prose>Ridge linear regression admits a shifted normal-equation system under a specified penalization matrix. Lasso and elastic net generally require iterative or coordinate algorithms; they do not share the ordinary least-squares inverse formula. Correlated features can make sparse selections unstable. A zero coefficient does not prove a variable has no causal role.</Prose>
+    <Example id="separation"><Prose>The scalar root solve checks the penalized derivative independently of the browser's bisection. A finite fit trades greater data loss for a smaller weight penalty. Neither training separation nor a large coefficient establishes behavior on new, overlapping observations.</Prose></Example>
+
+    <H2>9. Let features express the right shape</H2>
+    <Prose>“Linear” describes how coefficients combine supplied features. If x² is supplied, score b+w₁x+w₂x² is linear in its three coefficients while nonlinear in the original input. This helps when both unusually small and unusually large sensor readings indicate a fault: one monotone affine score cannot make both tails positive and the middle negative.</Prose>
+    <FeatureMapFigure />
+    <Prose>For x²−1, p=0.5 occurs at x=−1 and x=1. On a one-dimensional input line, these boundary points separate intervals; there is no two-dimensional curved boundary unless the input space has two dimensions. With two inputs, x₁²+x₂²−1=0 is a circle. The geometry comes from the feature map, not a change in logistic loss.</Prose>
+    <Prose>With p original features and all monomials through degree k, the number including the constant is (p+k choose k). Interactions can therefore become expensive quickly. They expand the model family and can fit noise. Choose the map and penalty together on validation; keep transformations inside the fitted pipeline so new rows get the same feature order and scaling.</Prose>
+    <Example id="polynomial-map"><Prose>The degree-one fit gives the same probability at the symmetric query locations; a squared feature permits the two-tail pattern. These predictions explain capacity, not performance on independently selected data. The program says so explicitly. A useful transformation encodes a task hypothesis that still needs validation.</Prose></Example>
+
+    <H2>10. Run an experiment that can survive a new row</H2>
+    <Prose>Save each complete program in its own file and run <Code>python example.py</Code>. The scalar fit uses the standard library. Other examples were executed with Python 3.12.14, NumPy 2.3.5, SciPy 1.18.1 and scikit-learn 1.9.1; install these explicitly in a separate environment. Printed precision serves readability. Small numerical differences across compatible BLAS/platform versions do not necessarily indicate a different algorithm.</Prose>
+    <Prose>The following program generates 300 synthetic binary observations, splits into 180 training, 60 validation and 60 test rows, then learns scaling only from training. Each candidate C gets its own pipeline. Validation log loss chooses C; a declared validation cost chooses the threshold. Test labels enter only after those choices. The final model stays fitted on the original training subset, making the evaluated object unambiguous.</Prose>
+    <Example id="held-out-pipeline"><Prose>The selected model's test log loss is about 0.6466 versus 0.6475 for the training-prior baseline: a very small observed difference. Its warning threshold produces 37 false warnings and no missed positives on these sixty test rows; the 0.5 rule costs more under the stated 4-to-1 loss. This is a reproducible demonstration of why probability quality, operating decisions and baselines need separate reports, not a strong universal success claim.</Prose></Example>
+    <Prose>The data are deliberately noisy and the model limited. Repeated seeds and uncertainty reports can show whether a tiny difference is stable, but repeatedly choosing seeds or models from this test would turn it into validation. A real feature schema also needs missing-value, category and unit rules: fit imputation or encoding inside the same training-only workflow.</Prose>
+    <Prose>Refitting on training plus validation creates a new model. Its score distribution can change, so explain how its threshold is obtained without final test labels. Cross-validation and out-of-fold predictions use development data efficiently; they do not remove the information boundary.</Prose>
+
+    <H2>11. Diagnose assumptions and uncertainty</H2>
+    <H3>Optimization, statistical inference and causality are separate claims</H3>
+    <Prose>Least squares is a defined optimization problem regardless of whether errors are normal. To interpret it as Gaussian maximum likelihood, assume y=Xβ+ε with independent normal errors of common variance σ². Log likelihood is a constant minus ‖y−Xβ‖²/(2σ²), so maximizing it in β gives least squares. Laplace errors instead lead to absolute error. An error model explains a likelihood; it does not establish that real data obey it.</Prose>
+    <Prose>Under a correct linear conditional mean, full column rank, zero conditional error mean and covariance σ²I, OLS is unbiased with covariance σ²(XᵀX)⁻¹. Gauss–Markov compares it with estimators linear in observed y and unbiased under those assumptions. It does not say OLS beats every estimator, or that Gaussian errors are needed for this comparison. Ridge intentionally trades bias against variance.</Prose>
+    <Prose>Correct predictive associations need not be causal. A distance coefficient compares predicted hours conditional on other represented variables. It does not prove that changing distance while otherwise leaving the system unchanged would have that effect. Omitting a confounder or conditioning on a consequence can change the interpretation. Causal Inference is the fuller owner of intervention identification.</Prose>
+    <H3>Residuals and leverage answer different questions</H3>
+    <Prose>Plot residuals against fitted values and important inputs. Curvature suggests a missing shape; changing spread suggests unequal variance; time structure suggests dependence or drift. These are clues, not automatic diagnoses. Training residuals are constrained by the fit, so a tidy training plot is not a held-out assessment.</Prose>
+    <Prose>An unusual target may have a large residual. An unusual feature row can have high <strong>leverage</strong>: its fitted prediction responds strongly to that row's own target. For full-rank OLS, the hat matrix is H=X(XᵀX)⁻¹Xᵀ and leverage is hᵢᵢ. A high-leverage point can pull the line toward itself and leave a small residual. Removing everything beyond three residual standard deviations can miss influential cases and discard valid ones.</Prose>
+    <Prose>Investigate units, collection and confirmed errors before removing data. Huber loss limits the growth of residual influence in its linear tails but does not make every leverage problem harmless. Absolute-error and quantile regression target different summaries. Choose the loss for the question and evaluate it; robust does not mean always more accurate.</Prose>
+    <H3>Predicting a mean versus a new individual outcome</H3>
+    <Prose>Under the fixed-design Gaussian model with n&gt;d, estimate σ² by SSE/(n−d). At a new augmented feature vector x₀, the fitted mean's estimated variance is s²x₀ᵀ(XᵀX)⁻¹x₀. A new independent outcome has its own noise too, adding s². An individual prediction interval is therefore wider than a confidence interval for the mean.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\operatorname{SE}_{\mathrm{mean}}^2&=s^2x_0^\top(X^\top X)^{-1}x_0,\\\operatorname{SE}_{\mathrm{new}}^2&=s^2+\operatorname{SE}_{\mathrm{mean}}^2.\end{aligned}`}</MathBlock>
+    <UncertaintyFigure />
+    <Example id="uncertainty"><Prose>The query x=8 lies beyond the observed range 0–5. Its model-based interval is wider, but the formula still assumes the same linear mechanism holds there. It does not cover unmodeled saturation, process change or extensive model searching. Unequal variance or dependence needs an appropriate method; a t interval is not a universal uncertainty wrapper.</Prose></Example>
+
+    <H2>12. Match the solver to the work</H2>
+    <Prose>A model states a family and objective; a <strong>solver</strong> is the numerical fitting procedure. A brand name or row-count cutoff cannot choose the best solver universally. Feature count, sparsity, conditioning, penalty, class count, tolerance and hardware all matter.</Prose>
+    <LessonTable caption="Practical choices; verify the API version and objective" headers={['Task', 'Starting route', 'What to inspect']} rows={[
+      ['Dense ordinary least squares', 'NumPy/SciPy least squares; sklearn LinearRegression', 'Rank, conditioning and residuals; avoid an explicit Gram inverse'],
+      ['Binary or multinomial logistic, L2', 'LogisticRegression with lbfgs', 'Scale, convergence, C and untouched evaluation'],
+      ['L1 or elastic-net logistic', 'saga; liblinear supports binary L1/L2', 'Penalty compatibility, scaling, sparse format and tolerance'],
+      ['Streaming batches', 'SGDRegressor or SGDClassifier with an appropriate loss', 'Feature schema, learning schedule, sample order and epochs'],
+      ['Strong nonlinear effects', 'A justified feature map or another family', 'Compare the same information, split and metric'],
+    ]} />
+    <Prose>In scikit-learn 1.9.1, <Code>LogisticRegression</Code> uses <Code>l1_ratio=0</Code> for L2, 1 for L1, intermediate values for elastic net, and <Code>C=np.inf</Code> for no penalty. The older <Code>penalty</Code> parameter is deprecated in this estimator. Smaller positive C means stronger regularization under its normalization. Do not assume C=1/λ for an arbitrarily normalized custom loss. <Code>SGDClassifier</Code> is a different API and still uses its own penalty parameter.</Prose>
+    <Prose>Intercept handling differs: liblinear represents it with a synthetic feature whose coefficient can be penalized. For three or more classes, other current logistic solvers support a multinomial objective; liblinear is binary and needs an explicit one-versus-rest wrapper. One-versus-rest and softmax are different constructions developed later in the module.</Prose>
+    <H3>Count operations and stored objects</H3>
+    <Prose>For dense X with n≥d, conventional QR/SVD least squares costs on the order of nd² arithmetic, with details depending on factorization. A full binary-model gradient costs O(nd) per iteration; sparse matrix products depend instead on stored nonzeros. A batch of b rows can reduce per-update work to O(bd), but the number of updates needed for an accuracy target still belongs in the cost.</Prose>
+    <Prose>A dense d×d Gram matrix with d=100,000 holds 10¹⁰ entries: 80 GB in decimal units at eight bytes each, before other storage. That is an allocation calculation, not a universal feasibility verdict. Sparse or iterative methods can avoid the matrix. A general SAG/SAGA implementation might store gradient vectors, but specialized generalized-linear-model implementations can store scalar per-row derivatives and aggregate vectors. Do not automatically budget n×d floats for every library's gradient memory.</Prose>
+    <Example id="sparse-stream"><Prose>This example fixes a twenty-column binary feature schema and supplies both classes on incremental calls. Every training row is traversed, including a final short batch if the size changes. Its fixed schedule and epoch count are demonstrations, not validation-selected recommendations. Streaming reduces the data handled at once; it does not guarantee convergence or valid evaluation.</Prose></Example>
+    <Prose>Mini-batch noise, stopping and penalties can change finite-run results even for convex objectives. L-BFGS has no universal O(1/k²) guarantee for every problem, and no solver is always fastest below a particular row count. Measure a representative workload after establishing correct predictions, compatible objectives and meaningful tolerances.</Prose>
+
+    <H2>13. Practise with changed questions</H2>
+    <Prose>Try each task before opening its hint. Code modifications and the final report require your own run. Clicking a completion button records reading, not mastery.</Prose>
+    <Practice title="1. Change the training evidence" question="The last shipment now takes 8 hours. Compute the new least-squares slope and intercept. Why does the old line stay visible immediately after changing D in the lab?" hint="The new target mean is 3.25; the centered-distance denominator remains 5."><Prose>The centered cross sum is 10.5, giving w=2.1 and b=3.25−2.1×1.5=0.1. Editing evidence does not itself refit parameters. The explicit fit action recomputes the squared-error optimum; distance coordinates are unchanged.</Prose></Practice>
+    <Practice title="2. Distinguish baselines" question="Compare predicting zero with predicting the mean for [1,2,2,4]. Is either MSE necessarily an unbiased estimate of future prediction error?" hint="Expand squared error around a mean, and identify which data fit the baseline."><Prose>Training MSEs are 6.25 and 1.1875. The latter rule uses these targets to fit its mean; future data may differ. Neither training number by itself is a future-risk guarantee. An unbiased variance estimator is also not automatically an unbiased estimate of a fitted predictor's future risk.</Prose></Practice>
+    <Practice title="3. Diagnose an underdetermined model" question="There are two observations and four design columns. Does least squares have no solution? Can a pseudoinverse recover the unique true coefficients?" hint="Separate optimization from parameter identification."><Prose>A minimizer exists, but rank is at most two, leaving a nontrivial null space. Adding a null-space vector preserves predictions. The pseudoinverse selects a minimum-norm representative; it does not identify a unique physical truth from insufficient evidence. A penalty adds a preference or assumption.</Prose></Practice>
+    <Practice title="4. Calculate an update" question="From zero coefficients, use rate 0.2. Compute the next (b,w). Why can oscillation be compatible with convergence?" hint="Use gradient (−4.5,−9) for both components; inspect 1−ηλ."><Prose>The next point is (0.9,1.8), with MSE 3.01. A multiplier between −1 and 0 reverses sign while shrinking magnitude. The largest-curvature multiplier is about −0.681. Rate 0.3 instead gives a magnitude above one.</Prose></Practice>
+    <Practice title="5. Interpret a coefficient" question="A logistic coefficient is log(2). Compare a one-unit input increase starting from probabilities 0.2 and 0.8." hint="Double odds, then convert odds o back to o/(1+o)."><Prose>Odds 0.25 become 0.5, giving p=1/3. Odds 4 become 8, giving p=8/9. The odds ratio is equal but probability increments differ. This is a conditional model interpretation, not an intervention effect.</Prose></Practice>
+    <Practice title="6. Repair unstable log loss" question="For score −1000 and label 1, one program returns infinity and another clips the probability to return about 34.5. What should stable exact-form evaluation approach?" hint="Use softplus((1−2y)z) rather than a log of a rounded sigmoid."><Prose>The loss approaches 1000. Overflow or a rounded zero caused the first result. Clipping changed the evaluated objective in the second. A stable log-add-exp expression retains the large loss; its score derivative is near −1, which still produces a large weight gradient when multiplied by a huge feature.</Prose></Practice>
+    <Practice title="7. Choose and test a decision" question="In the six-row lab with missed-warning cost 4, calculate cost at thresholds 0.5 and 0.2. May final test labels choose the threshold?" hint="List warnings using ≥ before counting."><Prose>At 0.5, V5/V6 are warned: FP=1,FN=2,cost=9. At 0.2, all except V1 are warned: FP=2,FN=0,cost=2. Such selection belongs on validation. Choosing from final test labels would compromise independent evaluation.</Prose></Practice>
+    <Practice title="8. Find an existence exception" question="All labels are 1. Slopes have positive L2 penalty but the intercept is free. Is a finite optimum guaranteed?" hint="Set slopes to zero and increase only the intercept."><Prose>No. Probabilities approach one as the unpenalized intercept increases, making data loss approach zero while slope penalty stays zero. A theorem about penalizing all coordinates does not transfer silently to this convention.</Prose></Practice>
+    <Practice title="9. Derive a feature boundary" question="The score is 2x²−8 at threshold 0.5. Find boundary points and label-1 regions under ≥." hint="Solve score zero, not probability zero."><Prose>Roots are −2 and +2. Label 1 occurs for x≤−2 or x≥2; the middle interval gets label 0. At another threshold solve 2x²−8=log(τ/(1−τ)) and check whether real roots exist.</Prose></Practice>
+    <Practice title="10. Interpret uncertainty" question="A narrow model-based interval appears outside the observed input range. Does it certify reliable extrapolation? Why is an individual interval wider than a mean interval?" hint="List what the formula accounts for and what it assumes."><Prose>It accounts for coefficient uncertainty and, for a new outcome, residual noise under the model. It does not prove the relationship persists outside the data range. An individual interval adds new-outcome noise. Misspecification, drift and selection need additional analysis.</Prose></Practice>
+    <Practice title="11. Diagnose convergence" question="A fit gives a convergence warning and large coefficients. How would you distinguish scale, rank, separation and stopping behavior?" hint="Increasing max_iter is a probe, not a diagnosis."><Prose>Check units/ranges, constant or duplicate columns and numerical rank, label counts and separation, the exact penalty and intercept convention. Inspect objective/gradient and coefficient changes with more iterations and sensible scaling. Precision or tolerance may matter too. Evaluate remedies on a valid split rather than assuming the warning has one cause.</Prose></Practice>
+    <Practice title="12. Complete an independent report" question="Change the pipeline's synthetic noise or seed once before running. Compare the prior baseline, selected logistic model and one justified nonlinear feature pipeline. Keep test data untouched during selection. Report probability quality and declared decision cost." hint="Write data unit, split and selection rule first. Record candidates' validation results, then freeze choices."><Prose>A complete report includes generation settings/seed; set sizes; train-only transforms; exact candidates; validation model/threshold choices; final baseline/model log losses, confusion counts and cost; convergence status; and sample-size/synthetic-population limits. Explain failures as carefully as improvements. No score target is required: success is a reproducible comparison whose conclusion follows from evidence. Redesign after inspecting test results requires a new test set and a documented change.</Prose></Practice>
+
+    <details><summary>Compare with one completed capstone report after your attempt</summary><Prose>This independent response declares seed 37 and label-noise setting 0.12 in advance, compares degree-one and degree-two feature maps at two C values, and uses validation to select the model and cost threshold. It deliberately keeps the training fit frozen. Inspect the printed validation candidates before interpreting the final test report.</Prose><Example id="changed-report"><Prose>The output is one acceptable reproducible report, not a target score. Its conclusion is limited to the declared synthetic experiment and sixty held-out rows. The nonlinear candidate can express interactions, but added capacity must earn its selection on validation. Different seeds may reverse the comparison; changing the experiment after seeing its test requires new independent evaluation.</Prose></Example></details>
+    <H2>14. Connect the two models and continue</H2>
+    <Prose>Both models build a weighted score from a feature row and learn through an objective. Linear regression directly predicts a numerical mean candidate; logistic regression connects a score to Bernoulli probabilities through log odds. Their gradients resemble feature-weighted prediction errors, but output meanings, losses and existence conditions differ. Generalized linear models separate the distribution, linear predictor and link. Gaussian identity-link and Bernoulli logit-link models are two instances, not interchangeable output formats.</Prose>
+    <Prose>These mechanisms also explain sensor calibration, where rank and extrapolation determine what is identifiable; two-sided anomaly patterns expressed by squared features; and operational warnings obtained from probabilities without refitting scores. The connections work because a precise computation and its assumptions transfer. Each still needs evidence from its own application.</Prose>
+    <Prose>The actual next topic is <a href="/learn/topic/decision-trees-random-forests">Decision Trees & Random Forests</a>. A tree builds feature-dependent regions with different predictions inside them. Bring the same habits: define available information, establish a baseline, separate fitting from inference, inspect the mechanism and compare on held-out data.</Prose>
+    <Sources alternatives={<ul>
+      <li><a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-16-projection-matrices-and-least-squares/" target="_blank" rel="noreferrer">MIT OpenCourseWare — Gilbert Strang, Lecture 16: Projection matrices and least squares</a>. Video with transcript: a geometric second explanation after section 3. Review dot products/column spaces first; this is mathematics rather than a current Python tutorial.</li>
+      <li><a href="https://cs229.stanford.edu/main_notes.pdf" target="_blank" rel="noreferrer">Stanford CS229 — Supervised learning notes</a>. Written least-squares, logistic and GLM derivations for connecting gradients and likelihoods after the core route; more notation than the first-pass explanation here.</li>
+      <li><a href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noreferrer">scikit-learn — Common pitfalls and recommended practices</a>. Worked preprocessing/leakage examples to revisit before the pipeline task. Match documentation to the installed version.</li>
+    </ul>}>
+      <li><a href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.lstsq.html" target="_blank" rel="noreferrer">NumPy least-squares reference</a> — shape, rank, singular values and minimum-norm contract.</li>
+      <li><a href="https://online.stat.psu.edu/stat501/Lesson03" target="_blank" rel="noreferrer">Penn State STAT 501 — Estimation and prediction</a> and <a href="https://online.stat.psu.edu/stat501/Lesson11" target="_blank" rel="noreferrer">Influential points</a> — mean versus individual intervals, assumptions and leverage diagnostics.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank" rel="noreferrer">scikit-learn Linear Models guide</a> — objectives, penalties and solver families; examples here were tested with 1.9.1.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html" target="_blank" rel="noreferrer">LogisticRegression API</a> — current l1_ratio/C, intercept and multiclass compatibility.</li>
+      <li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.expit.html" target="_blank" rel="noreferrer">SciPy expit</a> and <a href="https://numpy.org/doc/stable/reference/generated/numpy.logaddexp.html" target="_blank" rel="noreferrer">NumPy logaddexp</a> — stable primitives used by the complete logistic program.</li>
+    </Sources>
+  </div>,
 };
-
-export default linearLogisticRegressionContent;

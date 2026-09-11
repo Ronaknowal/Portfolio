@@ -1,0 +1,110 @@
+{
+  "checkedAt": "2026-09-11T12:57:45.677166+00:00",
+  "status": "design fixtures evaluated; production is not implemented",
+  "joint": {
+    "states": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "mass": [
+      "3/10",
+      "1/4",
+      "1/20",
+      "2/5"
+    ],
+    "marginal": [
+      "9/20",
+      "13/20"
+    ],
+    "risks": {
+      "00": {
+        "hamming": "11/20",
+        "subset": "7/10"
+      },
+      "01": {
+        "hamming": "2/5",
+        "subset": "3/4"
+      },
+      "10": {
+        "hamming": "3/5",
+        "subset": "19/20"
+      },
+      "11": {
+        "hamming": "9/20",
+        "subset": "3/5"
+      }
+    },
+    "marginalDecision": "01",
+    "greedyAB": "00",
+    "greedyBA": "11",
+    "jointMode": "11"
+  },
+  "oldExerciseCorrection": {
+    "tp": 5,
+    "fp": 1,
+    "fn": 2,
+    "hamming": "1/4",
+    "subsetAccuracy": "1/4",
+    "microF1": "10/13"
+  },
+  "averagedMetricReversal": {
+    "A": {
+      "jaccard": "1/2",
+      "sampleF1": "1/2"
+    },
+    "B": {
+      "jaccard": "2/5",
+      "sampleF1": "4/7"
+    },
+    "construction": "Two five-positive rows. A predicts every label on one row and none on the other; B predicts two correct labels on both rows."
+  },
+  "conditionalIndependence": {
+    "stratumProbabilities": [
+      "1/10",
+      "9/10"
+    ],
+    "mixtureWeight": "1/2",
+    "pooledBoth": "41/100",
+    "pooledConditional": "41/50",
+    "withinStratumIndependent": true
+  },
+  "weightedBce": {
+    "posterior": "1/10",
+    "positiveWeight": 9,
+    "negativeWeight": 1,
+    "scoreOptimum": "1/2"
+  },
+  "sharedStumps": [
+    {
+      "energyScale": 1,
+      "threshold": 0.5,
+      "sseByOutput": [
+        2.666666666666667,
+        0.0
+      ]
+    },
+    {
+      "energyScale": 100,
+      "threshold": 1.5,
+      "sseByOutput": [
+        0.0,
+        0.5
+      ]
+    }
+  ],
+  "verificationScope": "Exact finite rational calculations and independent scikit-learn split fits; no empirical superiority or deployment inference."
+}

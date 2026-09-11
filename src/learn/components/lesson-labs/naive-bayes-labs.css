@@ -1,0 +1,340 @@
+.nb-inline, .nb-figure {
+  margin: 1.65rem 0;
+}
+.nb-inline {
+  padding: 1.1rem 0;
+  border-block: 1px solid #35372f;
+}
+.nb-inline figcaption, .nb-figure figcaption {
+  color: #b6b6a9;
+  line-height: 1.65;
+  font-size: .94rem;
+  margin-top: .9rem;
+}
+.nb-form, .nb-controls {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.15rem 0;
+}
+.nb-form label {
+  display: grid;
+  gap: .4rem;
+  flex: 1 1 170px;
+}
+.nb-form label:first-child {
+  flex: 3 1 260px;
+}
+.nb-form label:nth-child(2) {
+  flex: 0 1 90px;
+}
+.nb-form input, .nb-select select {
+  background: #151813;
+  color: #e5dfd3;
+  border: 1px solid #5c6050;
+  border-radius: 5px;
+  padding: .65rem .75rem;
+  font: inherit;
+  max-width: 100%;
+  min-width: 0;
+}
+.nb-select {
+  display: grid;
+  gap: .4rem;
+  max-width: 100%;
+  margin-block: .8rem;
+}
+.nb-form button, .nb-counter button {
+  min-height: 42px;
+}
+.nb-range {
+  display: grid;
+  gap: .65rem;
+  flex: 1 1 200px;
+  margin-block: .8rem;
+}
+.nb-range > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.nb-range input {
+  width: 100%;
+  accent-color: #e5b95b;
+  min-height: 28px;
+}
+.nb-error {
+  color: #f1b3a3;
+}
+.nb-token-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+.nb-token-strip > span {
+  display: inline-block;
+  padding: .45rem .7rem;
+  border: 1px solid #5c604e;
+  background: #1d2119;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.nb-token-strip .nb-observed {
+  border-color: #d4ac58;
+  color: #efce87;
+  background: #302918;
+}
+.nb-token-strip .nb-future {
+  border-style: dashed;
+  color: #b5b7a7;
+}
+.nb-model-fork {
+  max-width: 580px;
+  margin: auto;
+  text-align: center;
+}
+.nb-model-fork > div:first-child {
+  display: inline-grid;
+  gap: .3rem;
+  border: 1px solid #b39152;
+  padding: .6rem 1.3rem;
+}
+.nb-model-connector {
+  display: block;
+  font-size: 2rem;
+  color: #e5b95b;
+}
+.nb-feature-branches {
+  display: flex;
+  justify-content: space-around;
+  gap: .6rem;
+}
+.nb-feature-branches span {
+  border-top: 2px solid #838b6a;
+  padding-top: .7rem;
+  flex: 1;
+}
+.nb-document {
+  display: grid;
+  grid-template-columns: 80px 1fr 20px 145px;
+  gap: .7rem;
+  align-items: center;
+  padding: .75rem 0;
+}
+.nb-count-vector {
+  white-space: nowrap;
+}
+.nb-inline-arrow {
+  color: #e5b95b;
+}
+.nb-evidence-readout {
+  padding: 1rem 0;
+  margin: .75rem 0;
+  border-block: 1px solid #3b3f30;
+}
+.nb-evidence-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: .88rem;
+  gap: .5rem;
+  margin-bottom: .4rem;
+}
+.nb-evidence-track {
+  position: relative;
+  background: #24291f;
+  height: 26px;
+}
+.nb-evidence-zero {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: #d8d2bc;
+  z-index: 1;
+}
+.nb-evidence-bar {
+  position: absolute;
+  top: 5px;
+  height: 16px;
+}
+.nb-presence-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-block: 1rem;
+}
+.nb-presence-slots > div {
+  display: grid;
+  flex: 1 1 120px;
+  gap: .7rem;
+  border-bottom: 2px dashed #656756;
+  padding: .8rem .2rem;
+}
+.nb-presence-slots > .nb-slot-present {
+  border-color: #dfb257;
+  border-bottom-style: solid;
+}
+.nb-presence-slots small {
+  color: #c7c4b5;
+  font-size: .9rem;
+}
+.nb-counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.nb-counter button {
+  min-width: 40px;
+  padding: .3rem .6rem;
+}
+.nb-result-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+.nb-result-pair p {
+  margin: 0;
+  padding-block: .7rem;
+  border-top: 1px solid #666246;
+}
+.nb-result-pair strong, .nb-result-pair span {
+  display: block;
+  margin-bottom: .45rem;
+}
+.nb-result-pair span {
+  color: #efce87;
+  font-size: 1.15rem;
+}
+.nb-plot {
+  display: block;
+  width: 100%;
+  max-width: 530px;
+  margin-inline: auto;
+  overflow: visible;
+}
+.nb-plot text, .nb-copy-diagram text {
+  font-family: inherit;
+  font-size: 17px;
+  fill: #dad9c9;
+}
+.nb-plot .nb-axis-title {
+  font-size: 16px;
+}
+.nb-axis {
+  fill: none;
+  stroke: #999c89;
+  stroke-width: 1.3;
+}
+.nb-grid {
+  fill: none;
+  stroke: #464d3b;
+  stroke-width: .6;
+  opacity: .55;
+}
+.nb-copy-diagram {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+.nb-node {
+  fill: #272b1f;
+  stroke: #c2a65d;
+}
+.nb-connector {
+  fill: none;
+  stroke: #c2a65d;
+  stroke-width: 1.7;
+}
+.nb-complement-rows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.nb-complement-rows p {
+  flex: 1 1 120px;
+  margin: .3rem 0;
+}
+.nb-complement-rows strong {
+  display: block;
+  margin-bottom: .4rem;
+}
+.nb-pooling {
+  display: grid;
+  gap: .6rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #555b40;
+}
+.nb-pooling strong {
+  color: #ecd197;
+}
+.nb-fit-lanes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: lane;
+}
+.nb-fit-lanes li {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: .5rem 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #3f4433;
+}
+.nb-fit-lanes b {
+  grid-column: 2;
+  color: #d8b867;
+  font-weight: 500;
+}
+.nb-checkbox {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-block: 1rem;
+}
+.nb-checkbox input {
+  accent-color: #dcb357;
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.naive-bayes-lesson button:focus-visible, .naive-bayes-lesson input:focus-visible, .naive-bayes-lesson select:focus-visible {
+  outline: 2px solid #efce87;
+  outline-offset: 3px;
+}
+@media (max-width: 620px) {
+  .nb-document {
+    grid-template-columns: 1fr;
+    gap: .6rem;
+  }
+  .nb-inline-arrow {
+    display: none;
+  }
+  .nb-count-vector {
+    padding-left: .5rem;
+    border-left: 2px solid #c2a65d;
+  }
+  .nb-result-pair {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+  .nb-fit-lanes li {
+    grid-template-columns: 1fr;
+  }
+  .nb-fit-lanes b {
+    grid-column: 1;
+  }
+  .nb-plot {
+    max-width: 380px;
+  }
+  .nb-feature-branches {
+    gap: .3rem;
+    font-size: .96rem;
+  }
+  .nb-form button {
+    width: 100%;
+  }
+}

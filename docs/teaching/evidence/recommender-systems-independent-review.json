@@ -1,0 +1,559 @@
+{
+  "closedAt": "2026-09-11T14:43:53.323159+00:00",
+  "topicId": "recommender-systems-collaborative-filtering-matrix-factorization",
+  "status": "bounded independent review closed; the sole material finding is repaired and verified",
+  "originalAuthorFrozenAt": "2026-09-11T12:04:01.109953+00:00",
+  "amendedAuthorFrozenAt": "2026-09-11T14:41:11.182830+00:00",
+  "reviewedSources": {
+    "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c",
+    "src/learn/data/recommender-models.js": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05",
+    "src/learn/data/recommender-examples.js": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556",
+    "src/learn/components/lesson-labs/RecommenderLabs.jsx": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598",
+    "src/learn/components/lesson-labs/RecommenderFigures.jsx": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3",
+    "src/learn/components/lesson-labs/recommender-labs.css": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31",
+    "src/learn/data/curriculum/blueprints/recommender-systems-collaborative-filtering-matrix-factorization.js": "05f498069ff71e31ecdeae22caf431315e4c62666fa794cdb0e08d0490605a04"
+  },
+  "authorPacket": "docs/teaching/evidence/recommender-systems-author-review.json",
+  "preservedOriginalPacket": {
+    "path": "docs/teaching/archive/recommender-fallback-before/recommender-systems-author-review.json",
+    "sha256": "5068b860ae542b1c7d238346a84d89ccafa433afbfb43f4e46da55bb4f3e83ee"
+  },
+  "scope": "Full current body/proofs/practice, all14 actual program sources, pure models, labs, figures, CSS and design/retention/author evidence. No production or shared metadata edits by reviewer.",
+  "findings": [
+    {
+      "status": "resolved",
+      "location": "neighbors actual Python predict helper",
+      "initial": "An all-missing user returns NaN and a Mean of empty slice warning; an entirely missing matrix also returns NaN. Body and JS already specify user mean, global mean, then prior.",
+      "resolution": "Author added observed counts and masked division with global/prior default. Independent rerun now gives2.4 and3 without warnings. All14 stdout/13other program records conserved by targeted author verification.",
+      "originalExamplesSHA256": "30d9542e06602e310a71b4bf5f156f6b324fa65452b7aeb14cb536e55e75cfda",
+      "amendedExamplesSHA256": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556"
+    }
+  ],
+  "initialEvidence": {
+    "checkedAt": "2026-09-11T14:36:57.978Z",
+    "counts": {
+      "BPR old-state orthogonal equivariance": 6,
+      "JS empty-user and empty-catalogue fallback": 2,
+      "short and empty slate boundaries": 3
+    },
+    "native": {
+      "counts": {
+        "changed actual graded/empty metrics": 2,
+        "actual observed ALS empty rows/columns": 2,
+        "changed-cutoff test-label isolation": 1
+      },
+      "fallbackCases": [
+        {
+          "actual": "nan",
+          "expected": 2.4,
+          "warnings": [
+            "Mean of empty slice"
+          ],
+          "passed": false
+        },
+        {
+          "actual": "nan",
+          "expected": 3,
+          "warnings": [
+            "Mean of empty slice"
+          ],
+          "passed": false
+        }
+      ],
+      "isolation": {
+        "fitsCompared": 7,
+        "selected": "split sizes=19/6/6; selected rank=2, penalty=0.05, validation RMSE=1.302377",
+        "testRatingsChangedOnly": true
+      },
+      "limits": "Actual stored helpers; two changed cutoff experiments, not the complete author benchmark/library suite."
+    },
+    "sources": [
+      {
+        "path": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+        "sha256": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c"
+      },
+      {
+        "path": "src/learn/data/recommender-models.js",
+        "sha256": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05"
+      },
+      {
+        "path": "src/learn/data/recommender-examples.js",
+        "sha256": "30d9542e06602e310a71b4bf5f156f6b324fa65452b7aeb14cb536e55e75cfda"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RecommenderLabs.jsx",
+        "sha256": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RecommenderFigures.jsx",
+        "sha256": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/recommender-labs.css",
+        "sha256": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/recommender-systems-collaborative-filtering-matrix-factorization.js",
+        "sha256": "05f498069ff71e31ecdeae22caf431315e4c62666fa794cdb0e08d0490605a04"
+      }
+    ]
+  },
+  "finalNumerical": {
+    "checkedAt": "2026-09-11T14:42:34.330Z",
+    "counts": {
+      "BPR old-state orthogonal equivariance": 6,
+      "JS empty-user and empty-catalogue fallback": 2,
+      "short and empty slate boundaries": 3
+    },
+    "native": {
+      "counts": {
+        "changed actual graded/empty metrics": 2,
+        "actual observed ALS empty rows/columns": 2,
+        "changed-cutoff test-label isolation": 1
+      },
+      "fallbackCases": [
+        {
+          "actual": 2.4,
+          "expected": 2.4,
+          "warnings": [],
+          "passed": true
+        },
+        {
+          "actual": 3,
+          "expected": 3,
+          "warnings": [],
+          "passed": true
+        }
+      ],
+      "isolation": {
+        "fitsCompared": 7,
+        "selected": "split sizes=19/6/6; selected rank=2, penalty=0.05, validation RMSE=1.302377",
+        "testRatingsChangedOnly": true
+      },
+      "limits": "Actual stored helpers; two changed cutoff experiments, not the complete author benchmark/library suite."
+    },
+    "sources": [
+      {
+        "path": "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx",
+        "sha256": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c"
+      },
+      {
+        "path": "src/learn/data/recommender-models.js",
+        "sha256": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05"
+      },
+      {
+        "path": "src/learn/data/recommender-examples.js",
+        "sha256": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RecommenderLabs.jsx",
+        "sha256": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RecommenderFigures.jsx",
+        "sha256": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/recommender-labs.css",
+        "sha256": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/recommender-systems-collaborative-filtering-matrix-factorization.js",
+        "sha256": "05f498069ff71e31ecdeae22caf431315e4c62666fa794cdb0e08d0490605a04"
+      }
+    ]
+  },
+  "independentBrowser": {
+    "checkedAt": "2026-09-11T14:40:51.651Z",
+    "scope": "Complementary operated states; author full suite reused. Neighbor example display amendment is separately verified by its author.",
+    "records": [
+      {
+        "width": 1440,
+        "scope": "Missing versus observed implicit term; changed Gram system and keyboard removal; graded shortened slate and keyboard reorder; support-failing and supported logger endpoint.",
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 1440,
+          "scroll": 1440,
+          "equations": [
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            }
+          ]
+        },
+        "geometry": [
+          true,
+          true,
+          true
+        ],
+        "scopes": {
+          "labs": 8,
+          "programs": 14,
+          "anchors": []
+        },
+        "image": "scratch/recommender-independent/changed-1440.png"
+      },
+      {
+        "width": 390,
+        "scope": "Missing versus observed implicit term; changed Gram system and keyboard removal; graded shortened slate and keyboard reorder; support-failing and supported logger endpoint.",
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 390,
+          "scroll": 390,
+          "equations": [
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            }
+          ]
+        },
+        "geometry": [
+          true,
+          true,
+          true
+        ],
+        "scopes": {
+          "labs": 8,
+          "programs": 14,
+          "anchors": []
+        },
+        "image": "scratch/recommender-independent/changed-390.png"
+      },
+      {
+        "width": 320,
+        "scope": "Missing versus observed implicit term; changed Gram system and keyboard removal; graded shortened slate and keyboard reorder; support-failing and supported logger endpoint.",
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 320,
+          "scroll": 320,
+          "equations": [
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            }
+          ]
+        },
+        "geometry": [
+          true,
+          true,
+          true
+        ],
+        "scopes": {
+          "labs": 8,
+          "programs": 14,
+          "anchors": []
+        },
+        "image": "scratch/recommender-independent/changed-320.png"
+      }
+    ]
+  },
+  "authorAmendmentEvidence": {
+    "native": {
+      "checkedAt": "2026-09-11T14:38:43.802956+00:00",
+      "cases": [
+        {
+          "expected": 2.4,
+          "actual": 2.4
+        },
+        {
+          "expected": 3.0,
+          "actual": 3.0
+        },
+        {
+          "expected": 0.0,
+          "actual": 0.0
+        }
+      ],
+      "unchangedExampleRecords": 13,
+      "all14StdoutConserved": true,
+      "originalArchive": "docs\\teaching\\archive\\recommender-fallback-before",
+      "examplesSHA256": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556",
+      "scope": "Only the actual neighbors code and matching generator change; no model/body/style changes."
+    },
+    "browser": {
+      "checkedAt": "2026-09-11T14:40:04.619Z",
+      "rows": [
+        {
+          "width": 1440,
+          "actualCodeAndOutput": true,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 390,
+          "actualCodeAndOutput": true,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ]
+        },
+        {
+          "width": 320,
+          "actualCodeAndOutput": true,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ]
+        }
+      ],
+      "errors": [],
+      "sourceHash": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556"
+    }
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/recommender-independent/changed-1440.png",
+      "sha256": "ab5cc4b44c06c78d2348a34ce775b5e0877cb50133e65e9e6c6b720bef56a35b",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/recommender-independent/changed-390.png",
+      "sha256": "7d087560e1c5dd3fc7266357856ed77006d6a99d3d6b8bfe9d4de9976b8834fa",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/recommender-independent/changed-320.png",
+      "sha256": "3f6649d3f3825495aa5aaaec7725bb8e63068d4e17764329e348d14f90a3367b",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/recommender-browser/inline-figure-1-390.png",
+      "sha256": "adea0325ca250682845f0fc0e2cde5b500e80d0486cdf3bdedc112ca965fe72d",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/changed-gradient-practice-320.png",
+      "sha256": "b87568641405a1a404884ae0c1f012547302b1ac1b7a0ff60bcd7665d6f53f2b",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/changed-capstone-practice-390.png",
+      "sha256": "69511c64c2ae723916b742a25a0d750dfb667a8acab0723d1f9d1abd48e243e4",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/implicit-contours-320.png",
+      "sha256": "06cf78f07c435ab3abdf1edf0de71962c0b3edf9a539d048c9d8abb5c01e26fb",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/policy-no-support-390.png",
+      "sha256": "eb16a186f565703dad90fab727b4382c64e441651c5d395158c3d20cb179e147",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/inline-figure-2-390.png",
+      "sha256": "74b204a55fcd0129729b6d0d779c5fb2b8ce0c429b7572aa346657be3c9a9efe",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/recommender-browser/fallback-final-390.png",
+      "sha256": "68904c8efceb198768f191ee073462a60b7ed904de51c6575803439c68f232b6",
+      "attribution": "author capture independently opened"
+    }
+  ],
+  "destinationNoteDisposition": "Ensemble incoming bridge resolved by existing Recommender sections2,11,13\u201314; no new chapter. OOF/context-weight mathematics stays in Ensemble.",
+  "browserHarnessCorrections": [
+    "React separates Item text and numeric ID; use rendered innerText rather than firstChild.",
+    "Playwright has-locator must be relative to metric container. Both were review-only selector errors, not production defects."
+  ],
+  "primarySources": [
+    {
+      "url": "https://benfred.github.io/implicit/api/models/cpu/als.html",
+      "scope": "Public0.7.2 banner: fit user/item axes, confidence versus preference, recommend filtering/recalculate. Actual0.7.3 author API execution reused and source contract read."
+    },
+    {
+      "url": "https://arxiv.org/pdf/1205.2618",
+      "scope": "Primary BPR source for preference triple/smooth loss; local source derivation and orthogonal-equivariance check independently assessed."
+    }
+  ],
+  "limits": "Bounded complementary review, not repeat of all12771author checks/fullauthor browser suite. No GPU/deployment/user-study claim. No learner acceptance or parent integration inferred."
+}

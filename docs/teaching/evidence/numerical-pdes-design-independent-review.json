@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-09-11T07:57:50.147011+00:00",
+  "passed": true,
+  "scope": "Independent assessment of root-authored proposed fixtures; production implementation does not exist yet.",
+  "counts": {
+    "odd_grid_inverse_norm": 12,
+    "scaled_nonzero_boundary_nodal_error": 56,
+    "between_node_polynomial_extrema": 68,
+    "spectral_stable_nonpositive_ftcs": 1,
+    "robin_outward_sign_nodal_solution": 4,
+    "robin_outward_balance": 1,
+    "triangle_affine_energy": 3,
+    "pin_does_not_repair_neumann_compatibility": 1
+  },
+  "sourceFiles": [
+    {
+      "path": "docs/teaching/NUMERICAL-PDES-LESSON-DESIGN.md",
+      "sha256": "3cbea09bce7c146d7ee3b019e02b180339c4bd5fa5a08e48fbc1cfbd614f6bc4"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+      "sha256": "f162660c5f6d13616436c0c27842ba504689fe0e678aa69ffd0d4e4a51eb795a"
+    }
+  ],
+  "scriptSha256": "02143acf44a441c36e53d5064e92365ec161ff9664d7300bab0a0ead58972964",
+  "sympyVersion": "1.14.0"
+}

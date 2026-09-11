@@ -1,0 +1,1074 @@
+{
+  "topicId": "queueing-theory-m-m-1-m-g-1-little-s-law",
+  "authorFrozenAt": "2026-09-10T20:53:15.304113+00:00",
+  "status": "author-reviewed; independent and integrated review remain separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "sha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
+      "bytes": 41954
+    },
+    {
+      "path": "src/learn/data/queueing-models.js",
+      "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+      "bytes": 10616
+    },
+    {
+      "path": "src/learn/data/queueing-examples.js",
+      "sha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
+      "bytes": 20546
+    },
+    {
+      "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+      "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+      "bytes": 19488
+    },
+    {
+      "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+      "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+      "bytes": 5620
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+      "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+      "bytes": 4182
+    }
+  ],
+  "support": [
+    {
+      "path": "scripts/generate-queueing-examples.py",
+      "sha256": "a66f2faf524cdf675b074fbf385e2ee4ebfc80cc8cc17fff5b4c34108927dec5",
+      "bytes": 17162
+    },
+    {
+      "path": "scripts/verify-queueing-models.mjs",
+      "sha256": "86d19f92f9bdf62eeee643650a00cd07e7b2ef1fc5fc47cf955b47e9e9f525ec",
+      "bytes": 4019
+    },
+    {
+      "path": "scripts/verify-queueing-native.py",
+      "sha256": "75a926f032ad1b4cf041d2eb15bf506c1eb257105e1e657c8e0f4a57488d13bd",
+      "bytes": 11506
+    },
+    {
+      "path": "scripts/review-queueing-lesson.cjs",
+      "sha256": "37d9b5130e43d995b3bdfd4a29ea8632fa8d3ba9b5a0ed3a8c1888a2b8d46818",
+      "bytes": 12858
+    },
+    {
+      "path": "scripts/review-queueing-reading.cjs",
+      "sha256": "6b93e1c66d5d91604257eeba0207901dde816ad9062a7888c292d7f6e9d224f5",
+      "bytes": 4223
+    },
+    {
+      "path": "scripts/format-queueing-source.cjs",
+      "sha256": "cb43e0501fadc0a496a76afe9411024f4b38500570d6adb4138bff84b072dbea",
+      "bytes": 2534
+    },
+    {
+      "path": "docs/teaching/QUEUEING-THEORY-LESSON-DESIGN.md",
+      "sha256": "1474de92abc4996c16c82b6053f4a4bd584d46ea55bb48bb1c3bbe1977dbb241",
+      "bytes": 25103
+    },
+    {
+      "path": "docs/teaching/QUEUEING-THEORY-VERIFICATION.md",
+      "sha256": "8b07e5f9843911a622295eb7fb4a422a4f318d560618bed258337f50eb988acd",
+      "bytes": 9292
+    },
+    {
+      "path": "docs/teaching/topic-notes/queueing-theory-m-m-1-m-g-1-little-s-law.md",
+      "sha256": "194f19562a731e944d83b61c3c611adc71937b5d38be1441ccc90405a83ed615",
+      "bytes": 3994
+    },
+    {
+      "path": "docs/teaching/topic-notes/queueing-theory-for-llm-serving.md",
+      "sha256": "02f8ecd2ffe7b1b31a18d21f73877d3c227a104a045290f136c868d5206961c1",
+      "bytes": 3931
+    },
+    {
+      "path": "scripts/verify-queueing-simulation-precision.py",
+      "sha256": "3bcb970232a5b1e6d4be0356ab4a4bdef7677c51aa43b9120390ec0a2e4de810",
+      "bytes": 3404
+    },
+    {
+      "path": "scripts/review-queueing-simulation-precision.cjs",
+      "sha256": "3e246299d327e79932e0240e9d10ada5fe884efa405c9e7c90806da1addad474",
+      "bytes": 3212
+    }
+  ],
+  "native": {
+    "at": "2026-09-10T20:51:27.402492+00:00",
+    "passed": true,
+    "counts": {
+      "complete_programs_exact_stdout": 10,
+      "independent_priority_event_traces": 244,
+      "exact_fraction_windows": 2431,
+      "stationary_states_and_erlang_mixtures": 96,
+      "residual_quadrature_states": 20,
+      "changed_native_rational_mixtures": 24,
+      "erlang_b_to_c_and_native_comparisons": 240,
+      "finite_generators_decimal_and_native": 148,
+      "heavy_tail_survival_integrals": 14,
+      "changed_vacation_residual_cases": 18,
+      "native_rejections": 14,
+      "model_rejections": 18,
+      "original_code_and_output_blocks_conserved": 4
+    },
+    "limits": "Finite independent checks and exact deterministic examples; simulation is not a proof of stationarity or a production benchmark."
+  },
+  "browser": {
+    "at": "2026-09-10T19:50:11.517Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "states": 68,
+        "anchors": 10,
+        "examples": 10,
+        "practiceAndCheckpoints": 12,
+        "keyboardControls": 21,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "pageWidth": 1440,
+          "viewport": 1440,
+          "errors": 0,
+          "math": [
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 738,
+              "client": 738
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            },
+            {
+              "scroll": 760,
+              "client": 760
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "svgLabels": [
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27173913043478,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            27.27232142857143,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75258152173913,
+            20.75175,
+            20.75175,
+            20.75175,
+            20.75175,
+            20.75175,
+            20.75175,
+            20.75175,
+            20.75175,
+            21.73545918367347,
+            21.73545918367347,
+            21.73545918367347,
+            21.73545918367347
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "states": 68,
+        "anchors": 10,
+        "examples": 10,
+        "practiceAndCheckpoints": 12,
+        "keyboardControls": 21,
+        "keyboardScrolls": 3,
+        "geometry": {
+          "pageWidth": 390,
+          "viewport": 390,
+          "errors": 0,
+          "math": [
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 328,
+              "client": 328
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            },
+            {
+              "scroll": 350,
+              "client": 350
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "svgLabels": [
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.539402173913043,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            19.538690476190478,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            21.73545918367347,
+            21.73545918367347,
+            21.73545918367347,
+            21.73545918367347
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "states": 68,
+        "anchors": 10,
+        "examples": 10,
+        "practiceAndCheckpoints": 12,
+        "keyboardControls": 21,
+        "keyboardScrolls": 3,
+        "geometry": {
+          "pageWidth": 320,
+          "viewport": 320,
+          "errors": 0,
+          "math": [
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 281,
+              "client": 280
+            },
+            {
+              "scroll": 258,
+              "client": 258
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            },
+            {
+              "scroll": 280,
+              "client": 280
+            }
+          ],
+          "font": "\"Space Grotesk\", sans-serif",
+          "svgLabels": [
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296195652173914,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.296130952380953,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.67663043478261,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            15.676875,
+            17.143622448979592,
+            17.143622448979592,
+            17.143622448979592,
+            17.143622448979592
+          ]
+        },
+        "errors": []
+      }
+    ]
+  },
+  "finalReading": {
+    "at": "2026-09-10T19:51:52.359Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "geometry": {
+          "width": 1440,
+          "scroll": 1440,
+          "errors": 0,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": [],
+        "finalGrammarAndStaticGeometry": true
+      },
+      {
+        "width": 390,
+        "geometry": {
+          "width": 390,
+          "scroll": 390,
+          "errors": 0,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": [],
+        "finalGrammarAndStaticGeometry": true
+      },
+      {
+        "width": 320,
+        "geometry": {
+          "width": 320,
+          "scroll": 320,
+          "errors": 0,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": [],
+        "finalGrammarAndStaticGeometry": true
+      }
+    ]
+  },
+  "openedFinalScreenshots": [
+    {
+      "path": "scratch/queueing-reading-final/timeline-320.png",
+      "sha256": "8a8f4d073e139783e07b06e0b4357deee1d1feae912ae05f5aff5547a91db0c9",
+      "bytes": 21311
+    },
+    {
+      "path": "scratch/queueing-reading-final/birth-death-390.png",
+      "sha256": "6f5fbf2d241b3910d5f96cdca6142ec343c5146a8341d490ee613f685b238ff8",
+      "bytes": 17234
+    },
+    {
+      "path": "scratch/queueing-reading-final/censored-area-390.png",
+      "sha256": "7948423e811015c277514300243949458d3db51351e385a4299606c09d02476a",
+      "bytes": 92779
+    },
+    {
+      "path": "scratch/queueing-reading-final/rare-long-320.png",
+      "sha256": "b31e3f7dedf9c9ba1938131a0580eaa6c6eaca80ecdf6a84673aa40beb8a7c2d",
+      "bytes": 96221
+    },
+    {
+      "path": "scratch/queueing-reading-final/reading-6-1440.png",
+      "sha256": "b4f11dbeb652cc99c9f20617e50f457a4e540e57ca5ccef62e46bde89862eb66",
+      "bytes": 196135
+    },
+    {
+      "path": "scratch/queueing-reading-final/reading-8-320.png",
+      "sha256": "fc41da88a08ae8b00546eb629f1a0cc22fc1245e380bc64560fa680a3a52e66c",
+      "bytes": 69019
+    },
+    {
+      "path": "scratch/queueing-reading-final/reading-10-390.png",
+      "sha256": "e2b20b6d7e2c90f1fc585bff009e86fd5539c71c5482113d7672813d405bc6a2",
+      "bytes": 111464
+    },
+    {
+      "path": "scratch/queueing-reading-final/sources-390.png",
+      "sha256": "48c6cedcd4b1c851c3aa1e39cbff0e164616ff2640097d3f9ab07bf222dcd4ba",
+      "bytes": 101190
+    },
+    {
+      "path": "scratch/queueing-reading-final/tail-derivation-320.png",
+      "sha256": "a4daa9bf8c117ba68f603c1426d02eeb9813dd9bde5f570062059c660b9fbfd4",
+      "bytes": 12125
+    },
+    {
+      "path": "scratch/queueing-reading-final/pk-derivation-320.png",
+      "sha256": "e3839c86310f6b03cf9c00f12dc9d6a9d88895a18d5f0986eff3a081ba0185e4",
+      "bytes": 13710
+    },
+    {
+      "path": "scratch/queueing-reading-final/occupancy-equation-320.png",
+      "sha256": "6017a83af16548f1fa80660dc6ba16365fef96e1dfc74862cd9df66be12dff39",
+      "bytes": 8667
+    },
+    {
+      "path": "scratch/queueing-reading-final/finite-buffer-320.png",
+      "sha256": "4710f9f485705762c6bf0ee17827024ca43c98ba6142aabf15b8f9a1496bcdfd",
+      "bytes": 84255
+    },
+    {
+      "path": "scratch/queueing-simulation-precision/program-1440.png",
+      "sha256": "4f149058ab0e0645d1a112ceae77fc13a87e3eeed349e8de1d2daea721e97ba1",
+      "bytes": 193290
+    },
+    {
+      "path": "scratch/queueing-simulation-precision/explanation-390.png",
+      "sha256": "be7c4f76f8bdfc54f744bacdcbd9ceca0cba6deb901bbb4d28016bc04a8ab4c9",
+      "bytes": 91825
+    },
+    {
+      "path": "scratch/queueing-simulation-precision/explanation-320.png",
+      "sha256": "f1dfd37ebc55bd0a9559b41cbf1c351e42a02ed22ca23d633450bf9c7a4911d6",
+      "bytes": 72115
+    }
+  ],
+  "sourceFormatting": {
+    "at": "2026-09-10T19:46:17.256Z",
+    "records": [
+      {
+        "file": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+        "normalizedASTIdentical": true
+      },
+      {
+        "file": "src/learn/data/queueing-models.js",
+        "normalizedASTIdentical": true
+      },
+      {
+        "file": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+        "normalizedASTIdentical": true
+      },
+      {
+        "file": "scripts/verify-queueing-models.mjs",
+        "normalizedASTIdentical": true
+      },
+      {
+        "file": "scripts/review-queueing-lesson.cjs",
+        "normalizedASTIdentical": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/QueueingLabs.css",
+        "normalizedASTIdentical": true
+      }
+    ]
+  },
+  "limits": [
+    "Finite checks do not prove arbitrary-range numerical safety or production model fit.",
+    "The complete behavior suite precedes the final singular job label and later simulation precision amendment; focused final reading checks cover each change, and models/labs are unchanged.",
+    "No full video or transcript viewing is claimed.",
+    "No deployment, shared integration or user acceptance is claimed."
+  ],
+  "postFreezeAmendments": [
+    {
+      "at": "2026-09-10T20:53:15.304113+00:00",
+      "reason": "Independent reviewer found loss of short service duration at a large accumulated calendar clock.",
+      "reviewer": "workflow_visual_improvements",
+      "previousAuthorFrozenAt": "2026-09-10T19:55:04.419830+00:00",
+      "previousProduction": [
+        {
+          "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+          "sha256": "d9717e3c065863d4381c0780fe62f04adb259722e5a0fce6c29014abe376a8d5",
+          "bytes": 41593
+        },
+        {
+          "path": "src/learn/data/queueing-models.js",
+          "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+          "bytes": 10616
+        },
+        {
+          "path": "src/learn/data/queueing-examples.js",
+          "sha256": "36dd6d554893b9aaffba100854483add1bd2f9b1cbb95f4228f08e9e619c9d3e",
+          "bytes": 20294
+        },
+        {
+          "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+          "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+          "bytes": 19488
+        },
+        {
+          "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+          "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+          "bytes": 5620
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+          "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+          "bytes": 4182
+        }
+      ],
+      "previousNative": {
+        "at": "2026-09-10T19:47:40.536552+00:00",
+        "passed": true,
+        "counts": {
+          "complete_programs_exact_stdout": 10,
+          "independent_priority_event_traces": 244,
+          "exact_fraction_windows": 2431,
+          "stationary_states_and_erlang_mixtures": 96,
+          "residual_quadrature_states": 20,
+          "changed_native_rational_mixtures": 24,
+          "erlang_b_to_c_and_native_comparisons": 240,
+          "finite_generators_decimal_and_native": 148,
+          "heavy_tail_survival_integrals": 14,
+          "changed_vacation_residual_cases": 18,
+          "native_rejections": 14,
+          "model_rejections": 18,
+          "original_code_and_output_blocks_conserved": 4
+        },
+        "limits": "Finite independent checks and exact deterministic examples; simulation is not a proof of stationarity or a production benchmark."
+      },
+      "change": "Actual displayed simulate_fcfs now uses Lindley workload durations while preserving random draw order. Added a visible explanatory paragraph. No pure-model/lab/CSS/brief change.",
+      "initialReviewerFinding": {
+        "at": "2026-09-10T20:45:52.999642+00:00",
+        "counts": {
+          "actual_complete_programs": 10,
+          "byte_conserved_original_blocks": 4,
+          "admitted_customer_stage_cases": 20,
+          "tail_inverse_and_atom_cases": 20,
+          "pooled_normalization_cases": 12,
+          "rational_censored_windows": 16,
+          "residual_survival_and_vacation_cases": 9,
+          "changed_pareto_survival_cases": 12,
+          "same_draw_relative_workload_cases": 4
+        },
+        "failures": [
+          "simulation relative total: actual=1.52587890625e-07; expected=1.217625453856014e-06",
+          "simulation relative total: actual=8.35418701171875e-07; expected=9.516569796149173e-07"
+        ],
+        "simulationCases": [
+          {
+            "arrival": 1e-06,
+            "service": 1000000.0,
+            "warmup": 100000,
+            "measured": 100,
+            "seed": 17,
+            "actual": [
+              0.0,
+              1.52587890625e-07
+            ],
+            "expected": [
+              0.0,
+              1.217625453856014e-06
+            ],
+            "sampledService": 1.217625453856014e-06,
+            "disposition": "returned"
+          },
+          {
+            "arrival": 1e-06,
+            "service": 1000000.0,
+            "warmup": 10000,
+            "measured": 1000,
+            "seed": 19,
+            "actual": [
+              0.0,
+              8.35418701171875e-07
+            ],
+            "expected": [
+              0.0,
+              9.516569796149173e-07
+            ],
+            "sampledService": 9.516569796149173e-07,
+            "disposition": "returned"
+          },
+          {
+            "arrival": 3,
+            "service": 7,
+            "warmup": 333,
+            "measured": 777,
+            "seed": 23,
+            "actual": [
+              0.12305240919245877,
+              0.2626150654510715
+            ],
+            "expected": [
+              0.12305240919245675,
+              0.26261506545106944
+            ],
+            "sampledService": 0.1395626562586127,
+            "disposition": "returned"
+          },
+          {
+            "arrival": 97,
+            "service": 100,
+            "warmup": 333,
+            "measured": 777,
+            "seed": 31,
+            "actual": [
+              0.33470518874004074,
+              0.3450400365973871
+            ],
+            "expected": [
+              0.3347051887400414,
+              0.34504003659738774
+            ],
+            "sampledService": 0.010334847857346343,
+            "disposition": "returned"
+          }
+        ],
+        "production": [
+          {
+            "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+            "sha256": "d9717e3c065863d4381c0780fe62f04adb259722e5a0fce6c29014abe376a8d5",
+            "authorFrozenSha256": "d9717e3c065863d4381c0780fe62f04adb259722e5a0fce6c29014abe376a8d5"
+          },
+          {
+            "path": "src/learn/data/queueing-models.js",
+            "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+            "authorFrozenSha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b"
+          },
+          {
+            "path": "src/learn/data/queueing-examples.js",
+            "sha256": "36dd6d554893b9aaffba100854483add1bd2f9b1cbb95f4228f08e9e619c9d3e",
+            "authorFrozenSha256": "36dd6d554893b9aaffba100854483add1bd2f9b1cbb95f4228f08e9e619c9d3e"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+            "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+            "authorFrozenSha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+            "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+            "authorFrozenSha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+            "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+            "authorFrozenSha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8"
+          }
+        ],
+        "authorFreeze": "2026-09-10T19:55:04.419830+00:00",
+        "scriptSha256": "55940024035546156b27f975632af7c6e7fb149e0a7034f35978a1420693ca2a"
+      },
+      "exactCalendarOracle": {
+        "at": "2026-09-10T20:47:23.213174+00:00",
+        "passed": true,
+        "allTenPrintedOutputsUnchanged": true,
+        "otherNineExamplesUnchanged": true,
+        "oracle": "Exact Fraction calendar arrival/start/finish arithmetic using identical sampled floats; production uses relative workload recurrence.",
+        "cases": [
+          {
+            "arrivalRate": 1e-06,
+            "serviceRate": 1000000.0,
+            "seed": 17,
+            "warmup": 100000,
+            "measured": 100,
+            "actual": [
+              0.0,
+              1.217625453856014e-06
+            ],
+            "exactCalendarArithmeticMeans": [
+              0.0,
+              1.217625453856014e-06
+            ],
+            "meanSampledService": 1.217625453856014e-06
+          },
+          {
+            "arrivalRate": 1e-06,
+            "serviceRate": 1000000.0,
+            "seed": 19,
+            "warmup": 10000,
+            "measured": 1000,
+            "actual": [
+              0.0,
+              9.516569796149173e-07
+            ],
+            "exactCalendarArithmeticMeans": [
+              0.0,
+              9.516569796149173e-07
+            ],
+            "meanSampledService": 9.516569796149173e-07
+          },
+          {
+            "arrivalRate": 4,
+            "serviceRate": 7,
+            "seed": 223,
+            "warmup": 100,
+            "measured": 750,
+            "actual": [
+              0.19455721041486226,
+              0.3321395196302272
+            ],
+            "exactCalendarArithmeticMeans": [
+              0.19455721041486226,
+              0.3321395196302272
+            ],
+            "meanSampledService": 0.13758230921536496
+          },
+          {
+            "arrivalRate": 9.9,
+            "serviceRate": 10,
+            "seed": 251,
+            "warmup": 100,
+            "measured": 750,
+            "actual": [
+              1.1775700065983428,
+              1.2766740943831663
+            ],
+            "exactCalendarArithmeticMeans": [
+              1.177570006598343,
+              1.2766740943831665
+            ],
+            "meanSampledService": 0.09910408778482345
+          },
+          {
+            "arrivalRate": 100000.0,
+            "serviceRate": 1000000.0,
+            "seed": 271,
+            "warmup": 200,
+            "measured": 500,
+            "actual": [
+              1.0480398592909901e-07,
+              1.078624903852437e-06
+            ],
+            "exactCalendarArithmeticMeans": [
+              1.04803985929099e-07,
+              1.078624903852437e-06
+            ],
+            "meanSampledService": 9.73820917923338e-07
+          },
+          {
+            "arrivalRate": 1e-06,
+            "serviceRate": 2e-06,
+            "seed": 293,
+            "warmup": 200,
+            "measured": 500,
+            "actual": [
+              401500.04455777665,
+              880325.8987258322
+            ],
+            "exactCalendarArithmeticMeans": [
+              401500.0445577767,
+              880325.8987258322
+            ],
+            "meanSampledService": 478825.8541680556
+          }
+        ],
+        "exampleSha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196"
+      },
+      "targetedActualFontBrowser": {
+        "at": "2026-09-10T20:51:16.083Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "actualCodeQuestionOutputNoteMatch": true,
+            "geometry": {
+              "viewport": 1440,
+              "documentWidth": 1440,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "errors": []
+          },
+          {
+            "width": 390,
+            "actualCodeQuestionOutputNoteMatch": true,
+            "geometry": {
+              "viewport": 390,
+              "documentWidth": 390,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "errors": []
+          },
+          {
+            "width": 320,
+            "actualCodeQuestionOutputNoteMatch": true,
+            "geometry": {
+              "viewport": 320,
+              "documentWidth": 320,
+              "font": "\"Space Grotesk\", sans-serif"
+            },
+            "errors": []
+          }
+        ]
+      },
+      "openedScreenshots": [
+        {
+          "path": "scratch/queueing-simulation-precision/program-1440.png",
+          "sha256": "4f149058ab0e0645d1a112ceae77fc13a87e3eeed349e8de1d2daea721e97ba1",
+          "bytes": 193290
+        },
+        {
+          "path": "scratch/queueing-simulation-precision/explanation-390.png",
+          "sha256": "be7c4f76f8bdfc54f744bacdcbd9ceca0cba6deb901bbb4d28016bc04a8ab4c9",
+          "bytes": 91825
+        },
+        {
+          "path": "scratch/queueing-simulation-precision/explanation-320.png",
+          "sha256": "f1dfd37ebc55bd0a9559b41cbf1c351e42a02ed22ca23d633450bf9c7a4911d6",
+          "bytes": 72115
+        }
+      ],
+      "source": [
+        {
+          "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+          "sha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
+          "bytes": 41954
+        },
+        {
+          "path": "src/learn/data/queueing-models.js",
+          "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+          "bytes": 10616
+        },
+        {
+          "path": "src/learn/data/queueing-examples.js",
+          "sha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
+          "bytes": 20546
+        },
+        {
+          "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+          "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+          "bytes": 19488
+        },
+        {
+          "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+          "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+          "bytes": 5620
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+          "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+          "bytes": 4182
+        }
+      ],
+      "limits": "The earlier complete interaction suite remains evidence for the unchanged labs; final focused code/question/output/prose checks cover this amendment. No universal arbitrary-float claim."
+    }
+  ]
+}

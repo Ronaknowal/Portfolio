@@ -1,0 +1,103 @@
+{
+  "topic": {
+    "title": "Ordinary Differential Equations & Linear Systems",
+    "level": "intermediate",
+    "blueprint": {
+      "summary": "Model how a state changes over time and connect differential equations to simulation and stability.",
+      "outcomes": [
+        "Translate a rate law into a state equation",
+        "Compare equilibrium, stability and numerical trajectories"
+      ],
+      "prerequisites": [
+        "Single-Variable Calculus: Limits, Derivatives & Integrals",
+        "Eigenvalues & Eigenvectors"
+      ],
+      "sequence": [
+        "Model cooling with a rate equation",
+        "Solve a scalar initial-value problem",
+        "Write coupled first-order state equations",
+        "Relate eigenvalues to local linear behaviour",
+        "Compare Euler steps against a known solution"
+      ],
+      "visual": {
+        "type": "phase portrait and time trace",
+        "question": "Is instability caused by the system or the simulation step?",
+        "interaction": "Change decay rate and integration step independently"
+      },
+      "practice": {
+        "task": "Simulate a damped two-state system",
+        "success": "Initial conditions, units and step-size error are documented"
+      },
+      "misconceptions": [
+        "An equilibrium need not be stable",
+        "A numerically exploding trajectory need not imply unstable physics"
+      ],
+      "sources": [
+        "https://ocw.mit.edu/courses/18-03-differential-equations-spring-2010/"
+      ],
+      "depth": "core",
+      "reviewFocus": "Teach linear stability with explicit assumptions before nonlinear generalization."
+    },
+    "id": "ordinary-differential-equations-linear-systems",
+    "trackId": "math-foundations",
+    "section": "Bridges: Mathematical Language, Proof & Measurement",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "single-variable-calculus-limits-derivatives-integrals",
+      "eigenvalues-eigenvectors"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "domainGuidance": {
+    "strategy": "mathematics",
+    "flow": [
+      "Pose a concrete question and identify known/unknown quantities",
+      "Link a small numerical case, a representation and defined notation",
+      "Derive the mechanism with justified intermediate steps",
+      "Interpret a complete worked result",
+      "Test a changed case, assumption and counterexample",
+      "Connect to a formal or applied deeper branch"
+    ],
+    "visuals": [
+      "Linked geometric and symbolic views",
+      "Labeled distributions and repeated samples",
+      "Stepwise derivation with exact-value inspection"
+    ],
+    "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+    "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+    "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/ordinary-differential-equations-linear-systems.md",
+      "exists": true,
+      "markdown": "# Authoring notes: Ordinary Differential Equations & Linear Systems\n\nCanonical topic ID: ordinary-differential-equations-linear-systems\n\n## 2026-09-11 — Coordinate the local dynamics bridge with the later ODE methods lesson\n\n- Status: open\n- Origin: Dynamical Systems Theory & Chaos, [individual design](../DYNAMICAL-SYSTEMS-LESSON-DESIGN.md).\n- Destination and rationale: this planned topic owns systematic initial-value methods, coupled linear systems, forcing and numerical solution. The earlier dynamics lesson needs a self-contained rate/state refresher because module order places this page later.\n- Existing coverage: its live stored blueprint teaches cooling, a scalar IVP, coupled first-order systems, eigenvalue behavior and Euler comparison. No published body was found in the manifest at this scoped check. A stored plan is not a finished prerequisite.\n- Proposed treatment: assess the final dynamics lesson when writing this one, retain a quick review of rate versus update, then go further into solution construction, existence/uniqueness assumptions, matrix exponentials, forcing and interpretable units. Explain a second-order position equation through position and velocity. Do not assume a learner already knows how to solve an ODE because an earlier page used one.\n- Example: cooling x'=−kx gives x(t)=x0 exp(−kt); Euler changes the exact sampled multiplier exp(−kh) to1−kh. Contrast finite-time numerical stability with approximation error, and include x'=x² as a finite-time blow-up counterexample to a blanket global-solvability claim.\n- Evidence: [Menon AM219](https://www.dam.brown.edu/people/menon/publications/ds-2020-1.pdf), existence/flow chapters as a research starting point; exact local examples will receive numerical evidence in the dynamics record. No completed destination implementation is implied.\n- Resolution: not yet reviewed by the ODE author.\n- Implementation/verification links: none for this destination yet.\n"
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction.",
+  "preservation": {
+    "capturedAt": "2026-09-11T01:09:25.278689+00:00",
+    "sourcePath": "src/learn/data/curriculum/cross-domain-expansion.js",
+    "sourceSha256": "7df04e0322ee80f99d9b6e2f4ecbff01e0a635f384041bc3bce9bf09f4930a9f",
+    "bodyExists": false,
+    "individualBriefExists": false,
+    "programsToPreserve": [],
+    "status": "Original planned topic; no authored body or standalone programs found. No program execution claimed.",
+    "sourcePlanExcerpt": "    plan(\"Ordinary Differential Equations & Linear Systems\", \"intermediate\",\n      \"Model how a state changes over time and connect differential equations to simulation and stability.\", [\"Single-Variable Calculus: Limits, Derivatives & Integrals\", \"Eigenvalues & Eigenvectors\"],\n      [\"Translate a rate law into a state equation\", \"Compare equilibrium, stability and numerical trajectories\"],\n      [\"Model cooling with a rate equation\", \"Solve a scalar initial-value problem\", \"Write coupled first-order state equations\", \"Relate eigenvalues to local linear behaviour\", \"Compare Euler steps against a known solution\"],\n      [\"phase portrait and time trace\", \"Is instability caused by the system or the simulation step?\", \"Change decay rate and integration step independently\"],\n      [\"Simulate a damped two-state system\", \"Initial conditions, units and step-size error are documented\"],\n      [\"An equilibrium need not be stable\", \"A numerically exploding trajectory need not imply unstable physics\"], [S.differential], \"core\", \"Teach linear stability with explicit assumptions before nonlinear generalization.\"),"
+  }
+}

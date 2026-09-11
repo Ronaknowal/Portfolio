@@ -1,0 +1,63 @@
+{
+  "capturedAt": "2026-09-11T00:10:45.644172+00:00",
+  "topicId": "counting-combinatorics-mathematical-induction",
+  "command": "node scripts/build-curriculum-inventory.mjs --topic counting-combinatorics-mathematical-induction",
+  "publicationStatus": "planned",
+  "bodyExisted": false,
+  "individualBlueprintExisted": false,
+  "originalPlanSource": "src/learn/data/curriculum/cross-domain-expansion.js",
+  "originalTopic": {
+    "title": "Counting, Combinatorics & Mathematical Induction",
+    "level": "foundation",
+    "blueprint": {
+      "summary": "Count possibilities without double counting and explain why a pattern holds for every size.",
+      "outcomes": [
+        "Choose ordered versus unordered counting",
+        "Construct base cases and induction steps"
+      ],
+      "prerequisites": [
+        "Sets, Logic, Relations & Proof Techniques"
+      ],
+      "sequence": [
+        "Enumerate a tiny selection problem",
+        "Separate product and sum rules",
+        "Distinguish permutations from combinations",
+        "Build an induction proof",
+        "Diagnose double counting and missing base cases"
+      ],
+      "visual": {
+        "type": "choice tree",
+        "question": "Which paths represent the same unordered selection?",
+        "interaction": "Toggle order sensitivity and group duplicate outcomes"
+      },
+      "practice": {
+        "task": "Count committees and prove a sum identity",
+        "success": "Enumeration matches the formula and induction has both required parts"
+      },
+      "misconceptions": [
+        "Induction does not assume the entire conclusion",
+        "Order matters only when outcomes distinguish it"
+      ],
+      "sources": [
+        "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/"
+      ],
+      "depth": "core",
+      "reviewFocus": "Bridge concrete enumeration to symbolic n without skipping the induction hypothesis."
+    },
+    "id": "counting-combinatorics-mathematical-induction",
+    "trackId": "math-foundations",
+    "section": "Bridges: Mathematical Language, Proof & Measurement",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "sets-logic-relations-proof-techniques"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "preservationScope": "The topic is planned and has no authored lesson, examples or lab to preserve or execute. This captures its existing expanded plan before a topic-owned blueprint is added. Shared source is not changed."
+}

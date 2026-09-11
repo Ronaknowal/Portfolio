@@ -1,0 +1,134 @@
+.monostack-lab {
+  margin: 2rem 0;
+  padding: 1.4rem 0;
+  border-block: 1px solid #484d3b;
+  min-width: 0;
+  color: #e5e6d8;
+  line-height: 1.7;
+}
+.monostack-lab h3 {
+  font-size: 1.22rem;
+  line-height: 1.45;
+}
+.monostack-lab h4 {
+  font-size: 1.08rem;
+  margin: 1.7rem 0 1rem;
+}
+.monostack-lab p {
+  margin: .85rem 0;
+}
+.monostack-lab label {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin: 1rem 0;
+  min-width: 0;
+}
+.monostack-lab input,.monostack-lab select {
+  font: inherit;
+  min-height: 44px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #e9e4d4;
+  background: #151d14;
+  padding: .5rem .65rem;
+  border: 1px solid #727c5d;
+  border-radius: 2px;
+}
+.monostack-lab button {
+  font: inherit;
+  min-height: 44px;
+  color: #ecd18b;
+  background: #1d2415;
+  border: 1px solid #707950;
+  border-radius: 2px;
+  padding: .5rem .8rem;
+  cursor: pointer;
+}
+.monostack-lab button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.monostack-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1rem 0;
+}
+.monostack-lab :is(button,input,select,summary):focus-visible,.monostack-scroll:focus-visible {
+  outline: 2px solid #efbf53;
+  outline-offset: 3px;
+}
+.monostack-lab [role=status],.monostack-candidate {
+  padding: .7rem 1rem;
+  background: #1b2114;
+  border-left: 2px solid #b7a358;
+}
+.monostack-lab [role=alert] {
+  padding: .7rem 1rem;
+  background: #2b1f18;
+  border-left: 2px solid #d59a79;
+  color: #e8c3ad;
+}
+.monostack-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-color: #927e46 #151c12;
+  margin: 1rem 0;
+}
+.monostack-scroll svg {
+  display: block;
+}
+.monostack-scroll text {
+  fill: #e8e8d8;
+  font: 18px 'Space Grotesk',sans-serif;
+}
+.monostack-scroll text.monostack-small {
+  fill: #bec7af;
+  font-size: 14px;
+}
+.monostack-memory {
+  border-block: 1px solid #4e583d;
+  padding: .5rem 0;
+}
+.monostack-memory ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: .8rem 0;
+  padding: 0;
+  list-style: none;
+}
+.monostack-memory li {
+  display: flex;
+  flex-direction: column;
+  padding: .4rem .65rem;
+  border: 1px solid #8a8052;
+  background: #24281b;
+}
+.monostack-memory li:last-child {
+  border: 2px solid #e8bf5f;
+}
+.monostack-memory li span {
+  font-size: .87rem;
+}
+.monostack-scroll table {
+  border-collapse: collapse;
+  min-width: 100%;
+  font-size: .94rem;
+}
+.monostack-scroll th,.monostack-scroll td {
+  padding: .5rem .75rem;
+  border-bottom: 1px solid #4e553d;
+  text-align: left;
+  white-space: nowrap;
+}
+.monostack-scroll caption {
+  text-align: left;
+  padding: .5rem 0;
+  line-height: 1.6;
+}
+.monostack-empty {
+  padding: 1rem;
+  border: 1px dashed #7f8768;
+}

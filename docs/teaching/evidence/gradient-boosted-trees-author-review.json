@@ -1,0 +1,3782 @@
+{
+  "topicId": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+  "title": "Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)",
+  "moduleId": "classical-ml",
+  "modulePosition": 4,
+  "status": "author-reviewed; independent review and production integration remain separate",
+  "frozenAt": "2026-09-11T12:10:28.707Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "sha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f"
+    },
+    {
+      "path": "src/learn/data/gradient-boosted-trees-models.js",
+      "sha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33"
+    },
+    {
+      "path": "src/learn/data/gradient-boosted-trees-examples.js",
+      "sha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+      "sha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css",
+      "sha256": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/gradient-boosted-trees-xgboost-lightgbm-catboost.js",
+      "sha256": "b77d10906ca1873053b92088f08385211b6a50b92d448aaf25b73ddb1a764e54"
+    }
+  ],
+  "design": "docs/teaching/GRADIENT-BOOSTED-TREES-LESSON-DESIGN.md",
+  "verification": "docs/teaching/GRADIENT-BOOSTED-TREES-VERIFICATION.md",
+  "originalArchive": {
+    "path": "docs/teaching/archive/gradient-boosted-trees-before-rewrite/manifest.json",
+    "sha256": "64f8c4fd80e9d16ce4e14f04cbfd544761cbfb6229581e7e5b2fb4ccda2ea8c5",
+    "manifest": {
+      "capturedAt": "2026-09-11T10:49:27.601Z",
+      "topic": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+      "sourcePath": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "sha256": "b53b13e7f10493318875e8fa02f0f654a9e6ea98e7bbcf1a7ec0bdd37eb80bc0",
+      "bytes": 61818,
+      "originalProgramCount": 5,
+      "originalOutputCount": 5,
+      "parentBaseline": {
+        "path": "docs/teaching/evidence/classical-ml-supervised-baseline.json",
+        "sha256": "a8bf4a11a8b0430cc938135de6d817a834746842fe134083109ba1300d128fad",
+        "capturedAt": "2026-09-11T10:41:51.872Z"
+      },
+      "ownership": "The old topic has no dedicated support imports; shared visual/content implementations are not mutated.",
+      "note": "Preservation evidence only. Historical claims of executed stdout are not accepted without rerunning these extracted programs."
+    }
+  },
+  "authorEvidence": {
+    "native": {
+      "path": "scratch/gradient-boosted-trees-verification/native-results.json",
+      "sha256": "d6a5263ed284891cd4dbb57ec5330a3f3b291fe22bbc42c300ec455716001de6",
+      "result": {
+        "verifiedAt": "2026-09-11T11:57:48.139024+00:00",
+        "modelSha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33",
+        "examplesSha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda",
+        "counts": {
+          "tree leaf-center": 3644,
+          "all-partition objective": 1336,
+          "unsplit optimality": 132,
+          "projection identity": 480,
+          "additive prediction": 2880,
+          "leaf objective dual form": 1728,
+          "direct objective difference": 576,
+          "independent scalar minimum": 1728,
+          "numeric logistic gradient": 1920,
+          "numeric logistic curvature": 1920,
+          "histogram direct loss": 70,
+          "histogram exhaustive optimum": 10,
+          "finite sampling mean": 53,
+          "finite sampling second moment": 53,
+          "ordered prefix enumeration": 648,
+          "LS training curve": 732,
+          "LS validation curve": 732,
+          "LS exact plotted step": 708,
+          "saved-boundary interval-membership endpoint": 354,
+          "complete program stdout": 15,
+          "native adjacent representable features": 6,
+          "changed quarter-rate practice": 1,
+          "native unsplittable/refit": 2,
+          "changed quantile decisions": 101,
+          "JS adjacent representable features": 7
+        },
+        "rejectedInputs": 16,
+        "maximumScaledError": 3.488776654375636e-8
+      }
+    },
+    "programs": {
+      "path": "scratch/gradient-boosted-trees-verification/program-results.json",
+      "sha256": "e56f441767349bd7891777ced42eb27b3c0ed955d6f0e92c7bd6666d80d4df8d",
+      "result": {
+        "executedAt": "2026-09-11T11:46:54.964313+00:00",
+        "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+        "programCount": 15,
+        "programs": [
+          {
+            "key": "residual-corrections",
+            "program": "scripts/gradient-boosted-trees-programs/residual-corrections.py",
+            "codeSha256": "e7412691f37bf750e63e2618afb816e5d86b6817d963c7558e241a3246ac3d93",
+            "stdout": "baseline=5.000; MSE=7.333333\nround=1; cut=3.5; leaves=(-2.666667,2.666667); MSE=2.000000\nround=2; cut=3.5; leaves=(-1.333333,1.333333); MSE=0.666667\nround=3; cut=2.5; leaves=(-1.000000,0.500000); MSE=0.291667\nnew x=4.5; prediction=7.250000",
+            "returncode": 0
+          },
+          {
+            "key": "recursive-regression",
+            "program": "scripts/gradient-boosted-trees-programs/recursive-regression.py",
+            "codeSha256": "c164848a61736d5f80dd2343e778ef2c1fb2100210555d30474fb225dc4bc9c9",
+            "stdout": "=== Gradient Boosting from Scratch (MSE loss) ===\nRound        MSE    Mean pseudo-residual\n--------------------------------------------\n    0    11.1778                0.000000\n    1     7.0542                0.000000\n    2     4.8519                0.000000\n    3     3.4488                0.000000\n    4     2.4556                0.000000\n done     1.7821\n\nPredictions: [ 2.869  0.668 -3.851]\nTrue values:  [ 5.  0. -5.]",
+            "returncode": 0
+          },
+          {
+            "key": "loss-derivatives",
+            "program": "scripts/gradient-boosted-trees-programs/loss-derivatives.py",
+            "codeSha256": "930cd1807027d94a6f4ceb711a43724513a63cc9be29f5a7445377781c7f90c5",
+            "stdout": "p=0.119203; g=-0.880797; h=0.104994\nfinite differences: g=-0.880797; h=0.104994\nscore -2 plus 1: p=0.268941\nincorrect probability addition: 0.850262\nextreme wrong score loss=1000.0; correct score loss=0.0",
+            "returncode": 0
+          },
+          {
+            "key": "regularized-split",
+            "program": "scripts/gradient-boosted-trees-programs/regularized-split.py",
+            "codeSha256": "8d576df0ba113d30456ebe55e1325369ce4de414cb34ee82df33f71c67e423f8",
+            "stdout": "alpha=0; gamma=0; leaves=(-0.666667,1.125000); net gain=2.677083; accept=True\nalpha=0; gamma=3; leaves=(-0.666667,1.125000); net gain=-0.322917; accept=False\nalpha=2; gamma=0; leaves=(-0.000000,0.625000); net gain=0.760417; accept=True\nalpha=0, rate=.3 update: [2.3, 2.3, 2.8375, 2.8375, 2.8375]",
+            "returncode": 0
+          },
+          {
+            "key": "histogram-missing",
+            "program": "scripts/gradient-boosted-trees-programs/histogram-missing.py",
+            "codeSha256": "66682731db35a006027a2b71262aec676ad22fbb180cdede3f19d9e4ef06180f",
+            "stdout": "missing target=8; fine: cut=3.5; missing->right; gain=51.482143\nmissing target=8; coarse: cut=4.5; missing->right; gain=27.523810\nmissing target=2; fine: cut=3.5; missing->left; gain=51.482143\nmissing target=2; coarse: cut=2.5; missing->left; gain=27.523810",
+            "returncode": 0
+          },
+          {
+            "key": "goss-expectation",
+            "program": "scripts/gradient-boosted-trees-programs/goss-expectation.py",
+            "codeSha256": "78374b7da20d28eac1c106c8b6cc9d20cb69e22440daacd2fe715bcf5eb7ff06",
+            "stdout": "inclusion probability=1/2; small-row weight=2\nall estimated sums: [4, 10, 6, 0, -4, 2]\nfull sum=3; expected estimate=3\nsquare of full sum=9; expected squared estimate=86/3\nvariance of estimate=59/3",
+            "returncode": 0
+          },
+          {
+            "key": "exclusive-bundles",
+            "program": "scripts/gradient-boosted-trees-programs/exclusive-bundles.py",
+            "codeSha256": "c9c53307bd3a0d1e08d99be038ea378c33071efecc746089417932e2ac4ff1d4",
+            "stdout": "codes: [0, 2, 3, 6]\ndecoded: [[0, 0, 0], [2, 0, 0], [0, 1, 0], [0, 0, 2]]\nconflict: exact bundling requires exclusivity",
+            "returncode": 0
+          },
+          {
+            "key": "ordered-categories",
+            "program": "scripts/gradient-boosted-trees-programs/ordered-categories.py",
+            "codeSha256": "ac4720bedd3ba63ca308af9e4625ec70336ee7e123968dc61c7e535f8368f67e",
+            "stdout": "original prefixes: [0.5, 0.5, 0.25, 0.5, 0.75, 0.5]\nrow 3 prefix=0.250000; full-training A statistic=0.625000\nflip row 3 prefixes: [0.5, 0.5, 0.25, 0.5, 0.75, 0.166667]\nrow 3 prefix=0.250000; full-training A statistic=0.375000\nunseen category at inference: external prior=0.500000",
+            "returncode": 0
+          },
+          {
+            "key": "ordered-prefix-models",
+            "program": "scripts/gradient-boosted-trees-programs/ordered-prefix-models.py",
+            "codeSha256": "7894d2bae733d9c203ff59eedb11a17b14c6d134a143edce61ed7c1ec98f1846",
+            "stdout": "round=1; earlier-prefix residuals=[1.0, 3.0, 2.0, 6.0]\nprefix models: [0.0, 0.5, 1.0, 1.0, 1.5]\nround=2; earlier-prefix residuals=[1.0, 2.5, 1.0, 5.0]\nprefix models: [0.0, 1.0, 1.875, 1.75, 2.6875]\nnew-row prediction uses full-prefix model=2.687500\nAn earlier-prefix residual need not be zero; it excludes the row's own training target.",
+            "returncode": 0
+          },
+          {
+            "key": "xgboost-workflow",
+            "program": "scripts/gradient-boosted-trees-programs/xgboost-workflow.py",
+            "codeSha256": "2e659ea711e787f6456be464907f2183267d8a8df29874bc71e95dc8ee828244",
+            "stdout": "XGBoost 3.4.1 ; CPU; one thread; rows=700/150/150\nbest zero-based round=197; prediction rounds=198; stored=200\nbaseline test RMSE=126.813333\nselected validation RMSE=34.171658\nlocked-model test RMSE=33.363680; native/wrapper match=True\nsave/reload maximum prediction difference=0.0\nspecified monotone slice verified: True",
+            "returncode": 0
+          },
+          {
+            "key": "lightgbm-workflow",
+            "program": "scripts/gradient-boosted-trees-programs/lightgbm-workflow.py",
+            "codeSha256": "d2891e22b50def662beee0a891b23d391d4f491cc07a0fce4da07bc356541d1b",
+            "stdout": "LightGBM 4.7.0 ; CPU; one thread; rows=700/150/150\nbest iteration count=157; stored trees=157\nbaseline test RMSE=126.813333\nselected validation RMSE=37.337775\nlocked-model test RMSE=35.546372\nfeature 0: split count=235; summed gain=3083143.015",
+            "returncode": 0
+          },
+          {
+            "key": "catboost-workflow",
+            "program": "scripts/gradient-boosted-trees-programs/catboost-workflow.py",
+            "codeSha256": "f59f00acd951b8b87929ac25d2d27a6b4e7460b1dfe7bac16c2eb01d4e126d5e",
+            "stdout": "CatBoost 1.2.10 ; CPU; Ordered; one thread; rows=700/150/150\nbest zero-based round=199; retained trees=200\nbaseline test RMSE=126.813333\nselected validation RMSE=32.928121\nlocked-model test RMSE=31.679984\nThis explicit Ordered run does not establish which library wins on other data.",
+            "returncode": 0
+          },
+          {
+            "key": "catboost-categories",
+            "program": "scripts/gradient-boosted-trees-programs/catboost-categories.py",
+            "codeSha256": "859d472680967507743e41e05aee468a279491dbe051284c99d532de7e3ffb25",
+            "stdout": "raw class shape=(100,); aligned shape=(100,)\nbest zero-based round=147; retained trees=148\nlocked test accuracy=0.990000; log-loss=0.032727\nunseen-category probability is finite: True\nwrong comparison shape=(100, 100); wrong accuracy=0.501200",
+            "returncode": 0
+          },
+          {
+            "key": "native-categorical-splits",
+            "program": "scripts/gradient-boosted-trees-programs/native-categorical-splits.py",
+            "codeSha256": "c63f55900cd5b15b714b9b59f5ad1c6bfc57f3104c1b5a1dc8fd1db818cd663d",
+            "stdout": "declared category order: ['A', 'B', 'C']\nXGBoost finite predictions: True\nLightGBM finite predictions: True\ncategory=C, A, B predictions:\nXGBoost [1.0136 0.034  3.9523]\nLightGBM [1.0092 0.0231 3.9677]\nKeep the training schema; this toy does not validate arbitrary unseen-category pipelines.",
+            "returncode": 0
+          },
+          {
+            "key": "quantile-planning",
+            "program": "scripts/gradient-boosted-trees-programs/quantile-planning.py",
+            "codeSha256": "761002d61760a6b12d3791023c98456a5f8ab2084014f9f2df920d68e99868cd",
+            "stdout": "integer minimizers: [2, 3, 4, 5, 6, 7, 8]\nminimum total pinball loss=28/5\nmean demand=2.4; mean prediction pinball loss=5.600\nAt tau=.8, underprediction costs four times overprediction per unit.\nThe optimum is an interval here; a conditional quantile is not a calibrated prediction interval by itself.",
+            "returncode": 0
+          }
+        ],
+        "examplesSha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda"
+      }
+    },
+    "browser": {
+      "path": "scratch/gradient-boosted-trees-verification/browser/results.json",
+      "sha256": "d71df137b98dabe38c7913cdbec2b7dc5eccd9aa21b20392920c6363240526e8",
+      "result": {
+        "startedAt": "2026-09-11T12:06:34.849Z",
+        "checkedAt": "2026-09-11T12:07:17.818Z",
+        "sourceHashes": [
+          {
+            "path": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+            "sha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f"
+          },
+          {
+            "path": "src/learn/data/gradient-boosted-trees-models.js",
+            "sha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33"
+          },
+          {
+            "path": "src/learn/data/gradient-boosted-trees-examples.js",
+            "sha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+            "sha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446"
+          },
+          {
+            "path": "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css",
+            "sha256": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f"
+          },
+          {
+            "path": "src/learn/data/curriculum/blueprints/gradient-boosted-trees-xgboost-lightgbm-catboost.js",
+            "sha256": "b77d10906ca1873053b92088f08385211b6a50b92d448aaf25b73ddb1a764e54"
+          }
+        ],
+        "records": [
+          {
+            "width": 1440,
+            "states": [
+              {
+                "name": "default correction",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 6",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 7",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 8",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 0,0,0,0,0,0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 3,-1,2,5,-2,1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets -30,30,-30,30,-30,30",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "extreme draft + over-one step",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,1e-9999",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,31",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "Newton square, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 4",
+                "geometry": []
+              },
+              {
+                "name": "mixed confident Newton overshoot",
+                "geometry": []
+              },
+              {
+                "name": "gamma rejection",
+                "geometry": []
+              },
+              {
+                "name": "L1 zero leaf",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 0",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 2",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 5",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 8",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 10",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 0",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 2",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 5",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 8",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 10",
+                "geometry": []
+              },
+              {
+                "name": "GOSS sample 0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "own-label invariance row 1",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 2",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 3",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 4",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 5",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 6",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 0.25",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 4",
+                "geometry": []
+              },
+              {
+                "name": "validation depth1 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 6,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 26,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 30,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "patience stop",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              }
+            ],
+            "screenshots": [
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/orientation-1440.png",
+                "sha256": "86b2bebe3019414bff80bc9f4e2954eec9bfaad9baca4168d1e5366e82315490"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/additive-reading-1440.png",
+                "sha256": "2e0d4383634e97dd45f3015bbbf18c23aed7ea7ccb55b14111cd1359c4249685"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-default-1440.png",
+                "sha256": "e7d0a4383b552e4648c443eaf64985dd30604ad93f8bb2bf5a0ad3aa639b3b6a"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-changed-1440.png",
+                "sha256": "3e6bce54478a7138b51144a6d337f2deb4230cda26c19744bcc8b30a875d2564"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-overshoot-1440.png",
+                "sha256": "61c064868c78794835325e94566738cdd2f4e4eb3f0545069b0812e9d8fdda28"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-penalties-1440.png",
+                "sha256": "dfc60e02e3c10b5055c887f695eb81d200982520e5b6273fccee912f9fe43be3"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-fine-1440.png",
+                "sha256": "212fa7a90a4e53d631f3bd7c5cf39087c1105575a225fe8ffa8700cabcbd52fc"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-coarse-1440.png",
+                "sha256": "04e7d031548046ce27a4f1a1fb70583acf9da3a860567b097e387e48fe062945"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/growth-reading-1440.png",
+                "sha256": "839d9050e209f11bd534369af96ea8d7b55bc560a376ec254f7213e67293cdfb"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-expectations-1440.png",
+                "sha256": "948714ea7cda4656bc783517c46d10daf4ad06210141e2376c8290ae811fd0df"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-contributions-1440.png",
+                "sha256": "2e905d37a1c71afaefee44483d2bf9d5ead64950a812c9bf9a2daac12021fd84"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bundling-reading-1440.png",
+                "sha256": "6a7687e84c55198356ef74fdd6fc43e34be0855b1b5b79b11820dadcf6847745"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-reversed-1440.png",
+                "sha256": "0b929aad5a5c42e997abda49b09af332aeffae299698b939904d31c275dbac6f"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-default-1440.png",
+                "sha256": "93681e535a26a00313084b07888b574d3a678ea17a497f0fd915787ea6ff0e43"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-changed-1440.png",
+                "sha256": "7fa0f5cc82a4d775bd464c7aca99f27e14be346a67b08be78a83d899e8f650bc"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-default-1440.png",
+                "sha256": "4901af017c366c66a14b8b12b3912866e120cd136f06a3b395634d40a1295ec5"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-1-1440.png",
+                "sha256": "9f31dbaaaa9257eb8ef55f2de0ebd704868af9f0906f655a7c0df3a9d8c63174"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-3-1440.png",
+                "sha256": "cbea11af03860c259a4b0242c33fde4c7ec315a9ecce04c672ed86c71a4a5728"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-7-1440.png",
+                "sha256": "12ac3f4a237aee0aac8287a0e61b35299b4ddcbc6d6fb2ec8653d594ce285a56"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-8-1440.png",
+                "sha256": "3b94f005fb703eefff8c4c29e9ff2c7057c68be6988bba1bd06ea94569627ab9"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-10-1440.png",
+                "sha256": "9f64aab1be68c6fed0ee2bcc86fed028822f97a29c31d198f0ccbeac8ef6a5af"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-12-1440.png",
+                "sha256": "bcace440cea7f0f67423676cd2dcf609055c5716e851e42bb5a44adec30ad917"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/hessian-reading-1440.png",
+                "sha256": "cee8ae15d5923183450736ef0a70fc242373ea6e5a0cc52815a511ffaa42584b"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/xgboost-program-reading-1440.png",
+                "sha256": "35a704ef331ce6592ef1557562ca084c68f06eaed4a311c188ce2f3ab29fd9cc"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/practice-reading-1440.png",
+                "sha256": "94d7c08275fba97c36ab98d726cfc989a66c772978907dd481690cddbc083b66"
+              }
+            ],
+            "errors": [],
+            "failedRequests": [],
+            "keyboard": [
+              "Correction reset",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual checkbox space",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer"
+            ],
+            "programs": [
+              "Fit three actual correction stumps",
+              "A complete deeper-tree ensemble",
+              "Differentiate the score, not the probability",
+              "Choose the cost of underprediction",
+              "Price the split and threshold the gradient",
+              "Restrict thresholds and learn a missing route",
+              "Enumerate the sampling distribution",
+              "Pack bins only when decoding is possible",
+              "Encode before revealing the row's target",
+              "Train models on earlier prefixes",
+              "Run and preserve XGBoost's selected model",
+              "Run LightGBM with explicit stopping",
+              "Run CatBoost's explicitly Ordered regression",
+              "Use categorical rows and align prediction shapes",
+              "Declare a categorical schema in two more libraries"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "anchors": [
+              {
+                "href": "#1-predict-with-a-sequence-of-corrections",
+                "exists": true
+              },
+              {
+                "href": "#2-fit-the-errors-before-adding-the-tree",
+                "exists": true
+              },
+              {
+                "href": "#3-change-the-loss-without-changing-the-question",
+                "exists": true
+              },
+              {
+                "href": "#4-price-a-leaf-and-a-split",
+                "exists": true
+              },
+              {
+                "href": "#5-search-fewer-boundaries-with-clear-tradeoffs",
+                "exists": true
+              },
+              {
+                "href": "#6-sample-rows-and-bundle-exclusive-features",
+                "exists": true
+              },
+              {
+                "href": "#7-categorical-features-and-whose-target-is-allowed",
+                "exists": true
+              },
+              {
+                "href": "#8-choose-a-model-without-peeking-at-the-test",
+                "exists": true
+              },
+              {
+                "href": "#9-run-the-three-libraries-with-explicit-contracts",
+                "exists": true
+              },
+              {
+                "href": "#10-diagnose-the-model-you-actually-built",
+                "exists": true
+              },
+              {
+                "href": "#11-practise-transfer-and-choose-the-next-question",
+                "exists": true
+              }
+            ],
+            "equations": [
+              {
+                "text": "F0(x)=b,Fm(x)=Fm−1(x)+ηhm(x),FM(x)=b+η∑m=1Mhm(x).\\begin{aligned}F_0(x)&=b,\\\\F_m(x)&=F_{m-1}(x)+\\eta h_m(x),\\\\F_M(x)&=b+\\eta\\sum_{m=1}^{M}h_m(x).\\end{aligned}F0​(x)Fm​(x)FM​(x)​=b,=Fm−1​(x)+ηhm​(x),=b+ηm=1∑M​hm​(x).​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "∑i(ri−c)2=∑i(ri−rˉ)2+n(c−rˉ)2.\\begin{aligned}\\sum_i(r_i-c)^2={}&\\sum_i(r_i-\\bar r)^2\\\\&+n(c-\\bar r)^2.\\end{aligned}i∑​(ri​−c)2=​i∑​(ri​−rˉ)2+n(c−rˉ)2.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "SSEafter=SSEbefore−η(2−η)∑ℓnℓrˉℓ2.\\begin{gathered}\\mathrm{SSE}_{\\mathrm{after}}=\\mathrm{SSE}_{\\mathrm{before}}\\\\-\\eta(2-\\eta)\\sum_{\\ell}n_\\ell\\bar r_\\ell^2.\\end{gathered}SSEafter​=SSEbefore​−η(2−η)ℓ∑​nℓ​rˉℓ2​.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "fi=Fm−1(xi),vi=hm(xi),ri(m)=−∂L(yi,F)∂F∣F=fi,ρm∈arg⁡min⁡ρ∑iL(yi,fi+ρvi).\\begin{gathered}f_i=F_{m-1}(x_i),\\quad v_i=h_m(x_i),\\\\r_i^{(m)}=-\\left.\\frac{\\partial L(y_i,F)}{\\partial F}\\right|_{F=f_i},\\\\\\rho_m\\in\\arg\\min_\\rho\\sum_i L(y_i,f_i+\\rho v_i).\\end{gathered}fi​=Fm−1​(xi​),vi​=hm​(xi​),ri(m)​=−∂F∂L(yi​,F)​​F=fi​​,ρm​∈argρmin​i∑​L(yi​,fi​+ρvi​).​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "ℓτ(r)={τr,r≥0,(τ−1)r,r<0.\\ell_\\tau(r)=\\begin{cases}\\tau r,&r\\ge0,\\\\(\\tau-1)r,&r<0.\\end{cases}ℓτ​(r)={τr,(τ−1)r,​r≥0,r<0.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "L(yi,Fi+w)≈L(yi,Fi)+giw+12hiw2.\\begin{aligned}L(y_i,F_i+w)\\approx{}&L(y_i,F_i)\\\\&+g_iw+\\tfrac12h_iw^2.\\end{aligned}L(yi​,Fi​+w)≈​L(yi​,Fi​)+gi​w+21​hi​w2.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "J~=∑ℓ=1TCℓ+γT,Cℓ=Gℓwℓ+12(Hℓ+λ)wℓ2+α∣wℓ∣.\\begin{gathered}\\widetilde J=\\sum_{\\ell=1}^{T}C_\\ell+\\gamma T,\\\\C_\\ell=G_\\ell w_\\ell+\\tfrac12(H_\\ell+\\lambda)w_\\ell^2\\\\+\\alpha|w_\\ell|.\\end{gathered}J=ℓ=1∑T​Cℓ​+γT,Cℓ​=Gℓ​wℓ​+21​(Hℓ​+λ)wℓ2​+α∣wℓ​∣.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "A=H+λ>0,Gw+12Aw2=12A(w+GA)2−G22A.\\begin{gathered}A=H+\\lambda>0,\\\\Gw+\\tfrac12Aw^2\\\\=\\tfrac12A\\left(w+\\frac{G}{A}\\right)^2-\\frac{G^2}{2A}.\\end{gathered}A=H+λ>0,Gw+21​Aw2=21​A(w+AG​)2−2AG2​.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "w∗=−Sα(G)H+λ,Q(G,H)=Sα(G)22(H+λ).\\begin{gathered}w^*=-\\frac{S_\\alpha(G)}{H+\\lambda},\\\\Q(G,H)=\\frac{S_\\alpha(G)^2}{2(H+\\lambda)}.\\end{gathered}w∗=−H+λSα​(G)​,Q(G,H)=2(H+λ)Sα​(G)2​.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "QL=Q(GL,HL),QR=Q(GR,HR),QP=Q(GL+GR,HL+HR),Gain⁡net=QL+QR−QP−γ.\\begin{gathered}Q_L=Q(G_L,H_L),\\\\Q_R=Q(G_R,H_R),\\\\Q_P=Q(G_L+G_R,H_L+H_R),\\\\\\operatorname{Gain}_{\\mathrm{net}}=Q_L+Q_R-Q_P-\\gamma.\\end{gathered}QL​=Q(GL​,HL​),QR​=Q(GR​,HR​),QP​=Q(GL​+GR​,HL​+HR​),Gainnet​=QL​+QR​−QP​−γ.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "Illustrative dense work:binning setup+∑m=1M∑v visitedO(dnv+dB).\\begin{gathered}\\text{Illustrative dense work:}\\\\\\text{binning setup}\\\\+\\sum_{m=1}^{M}\\sum_{v\\text{ visited}}O(dn_v+dB).\\end{gathered}Illustrative dense work:binning setup+m=1∑M​v visited∑​O(dnv​+dB).​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "G^=∑i∈Agi+rs∑i∈Bgi,E[G^∣g]=G.\\begin{gathered}\\widehat G=\\sum_{i\\in A}g_i+\\frac{r}{s}\\sum_{i\\in B}g_i,\\\\\\mathbb E[\\widehat G\\mid g]=G.\\end{gathered}G=i∈A∑​gi​+sr​i∈B∑​gi​,E[G∣g]=G.​",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "z^j=∑i<j1[ci=cj]yi+ap∑i<j1[ci=cj]+a.\\widehat z_j=\\frac{\\sum_{i<j}\\mathbf1[c_i=c_j]y_i+ap}{\\sum_{i<j}\\mathbf1[c_i=c_j]+a}.zj​=∑i<j​1[ci​=cj​]+a∑i<j​1[ci​=cj​]yi​+ap​.",
+                "width": 760,
+                "scrollWidth": 760
+              },
+              {
+                "text": "q∗=apap+(1−p).q^*=\\frac{ap}{ap+(1-p)}.q∗=ap+(1−p)ap​.",
+                "width": 760,
+                "scrollWidth": 760
+              }
+            ],
+            "overflow": {
+              "viewport": 1440,
+              "document": 1440
+            },
+            "passed": true
+          },
+          {
+            "width": 390,
+            "states": [
+              {
+                "name": "default correction",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 6",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 7",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 8",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 0,0,0,0,0,0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 3,-1,2,5,-2,1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets -30,30,-30,30,-30,30",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "extreme draft + over-one step",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,1e-9999",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,31",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "Newton square, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 4",
+                "geometry": []
+              },
+              {
+                "name": "mixed confident Newton overshoot",
+                "geometry": []
+              },
+              {
+                "name": "gamma rejection",
+                "geometry": []
+              },
+              {
+                "name": "L1 zero leaf",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 0",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 2",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 5",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 8",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 10",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 0",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 2",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 5",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 8",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 10",
+                "geometry": []
+              },
+              {
+                "name": "GOSS sample 0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "own-label invariance row 1",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 2",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 3",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 4",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 5",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 6",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 0.25",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 4",
+                "geometry": []
+              },
+              {
+                "name": "validation depth1 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 6,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 26,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 30,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "patience stop",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              }
+            ],
+            "screenshots": [
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/orientation-390.png",
+                "sha256": "ef57a42cb31a2594a4c50097f20b25bdad8a3df00d4eab5573a53de57d58a46e"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/additive-reading-390.png",
+                "sha256": "616955ab0448f41bd7f8d2f90542d2c75f9d5f0a2ccd8a23e96342d4a3952adf"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-default-390.png",
+                "sha256": "bbe089a5682fec7a4713c24bf586f00bb1e11fdcd69d6dcdab1bdd0d68990bce"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-changed-390.png",
+                "sha256": "7fd1c75ab165e1def0c6efb96095860cf3d1c4b7b08bb8406e2442e4cafd1b90"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-overshoot-390.png",
+                "sha256": "b153d1aeb64ec7124535ac8f8f2ce90bf2648a016de7d0a18b17232da30f948d"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-penalties-390.png",
+                "sha256": "f7e070a7991b5e013f049d06ea0fbe69ab0b3049ba1006d020846cbb2dfcbe24"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-fine-390.png",
+                "sha256": "8319e897eac124ba11eeeb6cbd69c59363f21f3d4321b813942496eb17487a93"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-coarse-390.png",
+                "sha256": "35659bd0308c8f150cdef89107cf1e2b85adc356bc79ea51266394aad0106bfb"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/growth-reading-390.png",
+                "sha256": "85a62c13588e9c5263aa491e126d2061bc8b4ea8a73490af86f2e2c3714b8487"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-expectations-390.png",
+                "sha256": "338666ed0a867af5185d4a3c713f3c57d63febf225891783a37a60610be28bb5"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-contributions-390.png",
+                "sha256": "3c05af118cdcffad73fecee4c8c1214062659573f003ffc7d0a5bc0d29a62101"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bundling-reading-390.png",
+                "sha256": "862a2d02a57593cb78f9e3ec8447e5433ad568df3d71e63d22b227fecf8c86d1"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-reversed-390.png",
+                "sha256": "8098f26fc7f1e3951dd5d60af9e89156438e5a00badac8efc5f183108a1ec502"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-default-390.png",
+                "sha256": "3f1ff9bc178cea7640b0288a644e214867c9ada62d796dd7793a838f2d7d69f6"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-changed-390.png",
+                "sha256": "2fddb713330928f07875b053c7339741b43419630c5d015f2b41ea43e365a9a6"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-default-390.png",
+                "sha256": "f618cdae6b7e0b41080eb930692f1ff40aca6330243329d449bc6af454f007d2"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-1-390.png",
+                "sha256": "1e8485edc783c811185274d459666b6d33fe8e62fd6adbc6a5af030c111779a7"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-3-390.png",
+                "sha256": "d2dd27b156a1ae125b2834fd15e8d95ceb246ccf2e19caed32b7be7ed0804379"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-7-390.png",
+                "sha256": "d16fd67fddae7f259ac65fca51c7be2bf83bda74765c3065663344a62076bdf9"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-8-390.png",
+                "sha256": "0ee2dbc1d6c7c5dd3168e90bca5b07bd2a0ace9357138f9edcac7e8cf0eedfad"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-10-390.png",
+                "sha256": "71f5500cfb4f170f8ae757f3245b07be7f08bc8fea89ec051e4147ff62833b3c"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-12-390.png",
+                "sha256": "b7380926638557f82e0ec019da4ce045f3ff0f1be400075b44ab830930269616"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/hessian-reading-390.png",
+                "sha256": "27a350261b62011083cccaccb2534067d39836e88330d7dde30efdd42a10c288"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/xgboost-program-reading-390.png",
+                "sha256": "b7d84b085c023d26e8f2dfd125f48f869f3cd3f4f9a09938032b34aa332fe847"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/practice-reading-390.png",
+                "sha256": "8d428da63a29942230e15473f928bed688a10b12d035f87efe0b3df5335c343a"
+              }
+            ],
+            "errors": [],
+            "failedRequests": [],
+            "keyboard": [
+              "Correction reset",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual checkbox space",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer"
+            ],
+            "programs": [
+              "Fit three actual correction stumps",
+              "A complete deeper-tree ensemble",
+              "Differentiate the score, not the probability",
+              "Choose the cost of underprediction",
+              "Price the split and threshold the gradient",
+              "Restrict thresholds and learn a missing route",
+              "Enumerate the sampling distribution",
+              "Pack bins only when decoding is possible",
+              "Encode before revealing the row's target",
+              "Train models on earlier prefixes",
+              "Run and preserve XGBoost's selected model",
+              "Run LightGBM with explicit stopping",
+              "Run CatBoost's explicitly Ordered regression",
+              "Use categorical rows and align prediction shapes",
+              "Declare a categorical schema in two more libraries"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "anchors": [
+              {
+                "href": "#1-predict-with-a-sequence-of-corrections",
+                "exists": true
+              },
+              {
+                "href": "#2-fit-the-errors-before-adding-the-tree",
+                "exists": true
+              },
+              {
+                "href": "#3-change-the-loss-without-changing-the-question",
+                "exists": true
+              },
+              {
+                "href": "#4-price-a-leaf-and-a-split",
+                "exists": true
+              },
+              {
+                "href": "#5-search-fewer-boundaries-with-clear-tradeoffs",
+                "exists": true
+              },
+              {
+                "href": "#6-sample-rows-and-bundle-exclusive-features",
+                "exists": true
+              },
+              {
+                "href": "#7-categorical-features-and-whose-target-is-allowed",
+                "exists": true
+              },
+              {
+                "href": "#8-choose-a-model-without-peeking-at-the-test",
+                "exists": true
+              },
+              {
+                "href": "#9-run-the-three-libraries-with-explicit-contracts",
+                "exists": true
+              },
+              {
+                "href": "#10-diagnose-the-model-you-actually-built",
+                "exists": true
+              },
+              {
+                "href": "#11-practise-transfer-and-choose-the-next-question",
+                "exists": true
+              }
+            ],
+            "equations": [
+              {
+                "text": "F0(x)=b,Fm(x)=Fm−1(x)+ηhm(x),FM(x)=b+η∑m=1Mhm(x).\\begin{aligned}F_0(x)&=b,\\\\F_m(x)&=F_{m-1}(x)+\\eta h_m(x),\\\\F_M(x)&=b+\\eta\\sum_{m=1}^{M}h_m(x).\\end{aligned}F0​(x)Fm​(x)FM​(x)​=b,=Fm−1​(x)+ηhm​(x),=b+ηm=1∑M​hm​(x).​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "∑i(ri−c)2=∑i(ri−rˉ)2+n(c−rˉ)2.\\begin{aligned}\\sum_i(r_i-c)^2={}&\\sum_i(r_i-\\bar r)^2\\\\&+n(c-\\bar r)^2.\\end{aligned}i∑​(ri​−c)2=​i∑​(ri​−rˉ)2+n(c−rˉ)2.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "SSEafter=SSEbefore−η(2−η)∑ℓnℓrˉℓ2.\\begin{gathered}\\mathrm{SSE}_{\\mathrm{after}}=\\mathrm{SSE}_{\\mathrm{before}}\\\\-\\eta(2-\\eta)\\sum_{\\ell}n_\\ell\\bar r_\\ell^2.\\end{gathered}SSEafter​=SSEbefore​−η(2−η)ℓ∑​nℓ​rˉℓ2​.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "fi=Fm−1(xi),vi=hm(xi),ri(m)=−∂L(yi,F)∂F∣F=fi,ρm∈arg⁡min⁡ρ∑iL(yi,fi+ρvi).\\begin{gathered}f_i=F_{m-1}(x_i),\\quad v_i=h_m(x_i),\\\\r_i^{(m)}=-\\left.\\frac{\\partial L(y_i,F)}{\\partial F}\\right|_{F=f_i},\\\\\\rho_m\\in\\arg\\min_\\rho\\sum_i L(y_i,f_i+\\rho v_i).\\end{gathered}fi​=Fm−1​(xi​),vi​=hm​(xi​),ri(m)​=−∂F∂L(yi​,F)​​F=fi​​,ρm​∈argρmin​i∑​L(yi​,fi​+ρvi​).​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "ℓτ(r)={τr,r≥0,(τ−1)r,r<0.\\ell_\\tau(r)=\\begin{cases}\\tau r,&r\\ge0,\\\\(\\tau-1)r,&r<0.\\end{cases}ℓτ​(r)={τr,(τ−1)r,​r≥0,r<0.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "L(yi,Fi+w)≈L(yi,Fi)+giw+12hiw2.\\begin{aligned}L(y_i,F_i+w)\\approx{}&L(y_i,F_i)\\\\&+g_iw+\\tfrac12h_iw^2.\\end{aligned}L(yi​,Fi​+w)≈​L(yi​,Fi​)+gi​w+21​hi​w2.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "J~=∑ℓ=1TCℓ+γT,Cℓ=Gℓwℓ+12(Hℓ+λ)wℓ2+α∣wℓ∣.\\begin{gathered}\\widetilde J=\\sum_{\\ell=1}^{T}C_\\ell+\\gamma T,\\\\C_\\ell=G_\\ell w_\\ell+\\tfrac12(H_\\ell+\\lambda)w_\\ell^2\\\\+\\alpha|w_\\ell|.\\end{gathered}J=ℓ=1∑T​Cℓ​+γT,Cℓ​=Gℓ​wℓ​+21​(Hℓ​+λ)wℓ2​+α∣wℓ​∣.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "A=H+λ>0,Gw+12Aw2=12A(w+GA)2−G22A.\\begin{gathered}A=H+\\lambda>0,\\\\Gw+\\tfrac12Aw^2\\\\=\\tfrac12A\\left(w+\\frac{G}{A}\\right)^2-\\frac{G^2}{2A}.\\end{gathered}A=H+λ>0,Gw+21​Aw2=21​A(w+AG​)2−2AG2​.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "w∗=−Sα(G)H+λ,Q(G,H)=Sα(G)22(H+λ).\\begin{gathered}w^*=-\\frac{S_\\alpha(G)}{H+\\lambda},\\\\Q(G,H)=\\frac{S_\\alpha(G)^2}{2(H+\\lambda)}.\\end{gathered}w∗=−H+λSα​(G)​,Q(G,H)=2(H+λ)Sα​(G)2​.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "QL=Q(GL,HL),QR=Q(GR,HR),QP=Q(GL+GR,HL+HR),Gain⁡net=QL+QR−QP−γ.\\begin{gathered}Q_L=Q(G_L,H_L),\\\\Q_R=Q(G_R,H_R),\\\\Q_P=Q(G_L+G_R,H_L+H_R),\\\\\\operatorname{Gain}_{\\mathrm{net}}=Q_L+Q_R-Q_P-\\gamma.\\end{gathered}QL​=Q(GL​,HL​),QR​=Q(GR​,HR​),QP​=Q(GL​+GR​,HL​+HR​),Gainnet​=QL​+QR​−QP​−γ.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "Illustrative dense work:binning setup+∑m=1M∑v visitedO(dnv+dB).\\begin{gathered}\\text{Illustrative dense work:}\\\\\\text{binning setup}\\\\+\\sum_{m=1}^{M}\\sum_{v\\text{ visited}}O(dn_v+dB).\\end{gathered}Illustrative dense work:binning setup+m=1∑M​v visited∑​O(dnv​+dB).​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "G^=∑i∈Agi+rs∑i∈Bgi,E[G^∣g]=G.\\begin{gathered}\\widehat G=\\sum_{i\\in A}g_i+\\frac{r}{s}\\sum_{i\\in B}g_i,\\\\\\mathbb E[\\widehat G\\mid g]=G.\\end{gathered}G=i∈A∑​gi​+sr​i∈B∑​gi​,E[G∣g]=G.​",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "z^j=∑i<j1[ci=cj]yi+ap∑i<j1[ci=cj]+a.\\widehat z_j=\\frac{\\sum_{i<j}\\mathbf1[c_i=c_j]y_i+ap}{\\sum_{i<j}\\mathbf1[c_i=c_j]+a}.zj​=∑i<j​1[ci​=cj​]+a∑i<j​1[ci​=cj​]yi​+ap​.",
+                "width": 350,
+                "scrollWidth": 350
+              },
+              {
+                "text": "q∗=apap+(1−p).q^*=\\frac{ap}{ap+(1-p)}.q∗=ap+(1−p)ap​.",
+                "width": 350,
+                "scrollWidth": 350
+              }
+            ],
+            "overflow": {
+              "viewport": 390,
+              "document": 390
+            },
+            "passed": true
+          },
+          {
+            "width": 320,
+            "states": [
+              {
+                "name": "default correction",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 6",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 7",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "correction round 8",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 0,0,0,0,0,0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets 3,-1,2,5,-2,1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "targets -30,30,-30,30,-30,30",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "extreme draft + over-one step",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,1e-9999",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "invalid preserves 1,2,3,4,5,31",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "Newton square, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton square, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton logistic, left 4",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 1",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 2",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 3",
+                "geometry": []
+              },
+              {
+                "name": "Newton confident, left 4",
+                "geometry": []
+              },
+              {
+                "name": "mixed confident Newton overshoot",
+                "geometry": []
+              },
+              {
+                "name": "gamma rejection",
+                "geometry": []
+              },
+              {
+                "name": "L1 zero leaf",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 0",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 2",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 5",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 8",
+                "geometry": []
+              },
+              {
+                "name": "coarse missing 10",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 0",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 2",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 5",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 8",
+                "geometry": []
+              },
+              {
+                "name": "fine missing 10",
+                "geometry": []
+              },
+              {
+                "name": "GOSS sample 0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 1",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 2",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 3",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 4",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "GOSS sample 5",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 0,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "own-label invariance row 1",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 2",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 3",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 4",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 5",
+                "geometry": []
+              },
+              {
+                "name": "own-label invariance row 6",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 0.25",
+                "geometry": []
+              },
+              {
+                "name": "reversed prior 4",
+                "geometry": []
+              },
+              {
+                "name": "validation depth1 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 6,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 10,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth1 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 16,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth2 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 26,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.05 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 30,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 32,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate0.3 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round0",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 2,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round10",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "validation depth3 rate1 round60",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 36,
+                    "pointsInside": true
+                  }
+                ]
+              },
+              {
+                "name": "patience stop",
+                "geometry": [
+                  {
+                    "labels": [],
+                    "pointCount": 122,
+                    "pointsInside": true
+                  },
+                  {
+                    "labels": [],
+                    "pointCount": 22,
+                    "pointsInside": true
+                  }
+                ]
+              }
+            ],
+            "screenshots": [
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/orientation-320.png",
+                "sha256": "fb6996e23e8d516813f4030677eed458a739b87be584426509f47d0bfa937438"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/additive-reading-320.png",
+                "sha256": "b2715f245029fc387ed619f5721f0229ace275b4e3cd65f02f3b6c9366816d08"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-default-320.png",
+                "sha256": "469e55d7e4d30a9dca99287a5afb6f7af9dc2765a0d1b666acdcd56a59aba884"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/residual-changed-320.png",
+                "sha256": "9781ef8105f0cb74e28f87701eba930902154c830be0bf50b793228adca2d052"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-overshoot-320.png",
+                "sha256": "3bf57b22989b9f50958b5e4f9e22ddd6397f1e949df6a5dc974332092ac7ab99"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/newton-penalties-320.png",
+                "sha256": "0cdfe0821621068590a63622b0f3b92e424288d2ce742353b6d5f5be0fd27835"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-fine-320.png",
+                "sha256": "34368b2e19c6c1175e7ee4da31ce4a5da0eac32d24945bba226c538122c42eff"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bins-coarse-320.png",
+                "sha256": "15681afc3f3eb4014c332ceec59845fb4e0787783ceda79928393f04f2bacdfa"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/growth-reading-320.png",
+                "sha256": "4948b8769ca936f5fa9bdc44b3ee60f1a05830cc97d1213cb924cb70516b3498"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-expectations-320.png",
+                "sha256": "e0f26a872ab8189463eb65f5be1d303d71b24b46c0a3110c6c89ef089eeb5791"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/goss-contributions-320.png",
+                "sha256": "7991b96b58b3044e1d54238b07e1b35de98cea1f241a5da8aa8b9b8a080904ed"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/bundling-reading-320.png",
+                "sha256": "31104c64331a17edbeffe4613e20f803e8236d92b3d70a5ee4ecefb04876d9e0"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-reversed-320.png",
+                "sha256": "6b31875d294aae3853fcda62053b5d4558a8210988594eb47ad13964c05217cd"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/prefix-default-320.png",
+                "sha256": "44fab435baa2c98feb9c4d4663e230e23aef40184c0af431c8a79c0734f9de1f"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-changed-320.png",
+                "sha256": "5eafcdf169fbc929d55cce531aff4198f182f9253779985f894c4ab339aac825"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/validation-default-320.png",
+                "sha256": "b8ee7b9b92a74755b7d36241b3aa0c5f866fa76ee29725a6bce63388ecdc2b08"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-1-320.png",
+                "sha256": "56ee4c2944e49ffb943b9d4b48c09ef4619f50d0bdae1ce0aaaf6bc21ed4e364"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-3-320.png",
+                "sha256": "3f6fdc83dc4b2836e5d0698e95aed59772ef0068a8ae419f9f2287b866e96b10"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-7-320.png",
+                "sha256": "cf001a87a7bae16e7a818a6d8995ec456a6b7559d9ba4bb15a8020b57d2d06d3"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-8-320.png",
+                "sha256": "01b76039894dd35f09c42fcd625819c036c62ded58044742afedb153c2177630"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-10-320.png",
+                "sha256": "9984b5cc5c3b3279674bfa508c24176178fdf4ad21ef96ae973440570bf16a11"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-12-320.png",
+                "sha256": "7c613894e55b9f11d1d2710275292ec5578a0472672421d2dc99353cefb0a207"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/hessian-reading-320.png",
+                "sha256": "dd739671b68e2fc4408c36710b7fd4309542dd050a3c80f0a74396542aafd8c5"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/xgboost-program-reading-320.png",
+                "sha256": "fa459c2c40661c36881b63b898067567f755907900f9ed02bddcd99e758b3071"
+              },
+              {
+                "path": "scratch/gradient-boosted-trees-verification/browser/practice-reading-320.png",
+                "sha256": "df4f5a6104c10a3d871043ab8877ef6e1584588dd4deac1e500df592eba4aa41"
+              }
+            ],
+            "errors": [],
+            "failedRequests": [],
+            "keyboard": [
+              "Correction reset",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual slider arrow",
+              "Actual checkbox space",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Data disclosure and focusable table",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer",
+              "Hint before answer"
+            ],
+            "programs": [
+              "Fit three actual correction stumps",
+              "A complete deeper-tree ensemble",
+              "Differentiate the score, not the probability",
+              "Choose the cost of underprediction",
+              "Price the split and threshold the gradient",
+              "Restrict thresholds and learn a missing route",
+              "Enumerate the sampling distribution",
+              "Pack bins only when decoding is possible",
+              "Encode before revealing the row's target",
+              "Train models on earlier prefixes",
+              "Run and preserve XGBoost's selected model",
+              "Run LightGBM with explicit stopping",
+              "Run CatBoost's explicitly Ordered regression",
+              "Use categorical rows and align prediction shapes",
+              "Declare a categorical schema in two more libraries"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_AMS",
+              "KaTeX_Main",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "anchors": [
+              {
+                "href": "#1-predict-with-a-sequence-of-corrections",
+                "exists": true
+              },
+              {
+                "href": "#2-fit-the-errors-before-adding-the-tree",
+                "exists": true
+              },
+              {
+                "href": "#3-change-the-loss-without-changing-the-question",
+                "exists": true
+              },
+              {
+                "href": "#4-price-a-leaf-and-a-split",
+                "exists": true
+              },
+              {
+                "href": "#5-search-fewer-boundaries-with-clear-tradeoffs",
+                "exists": true
+              },
+              {
+                "href": "#6-sample-rows-and-bundle-exclusive-features",
+                "exists": true
+              },
+              {
+                "href": "#7-categorical-features-and-whose-target-is-allowed",
+                "exists": true
+              },
+              {
+                "href": "#8-choose-a-model-without-peeking-at-the-test",
+                "exists": true
+              },
+              {
+                "href": "#9-run-the-three-libraries-with-explicit-contracts",
+                "exists": true
+              },
+              {
+                "href": "#10-diagnose-the-model-you-actually-built",
+                "exists": true
+              },
+              {
+                "href": "#11-practise-transfer-and-choose-the-next-question",
+                "exists": true
+              }
+            ],
+            "equations": [
+              {
+                "text": "F0(x)=b,Fm(x)=Fm−1(x)+ηhm(x),FM(x)=b+η∑m=1Mhm(x).\\begin{aligned}F_0(x)&=b,\\\\F_m(x)&=F_{m-1}(x)+\\eta h_m(x),\\\\F_M(x)&=b+\\eta\\sum_{m=1}^{M}h_m(x).\\end{aligned}F0​(x)Fm​(x)FM​(x)​=b,=Fm−1​(x)+ηhm​(x),=b+ηm=1∑M​hm​(x).​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "∑i(ri−c)2=∑i(ri−rˉ)2+n(c−rˉ)2.\\begin{aligned}\\sum_i(r_i-c)^2={}&\\sum_i(r_i-\\bar r)^2\\\\&+n(c-\\bar r)^2.\\end{aligned}i∑​(ri​−c)2=​i∑​(ri​−rˉ)2+n(c−rˉ)2.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "SSEafter=SSEbefore−η(2−η)∑ℓnℓrˉℓ2.\\begin{gathered}\\mathrm{SSE}_{\\mathrm{after}}=\\mathrm{SSE}_{\\mathrm{before}}\\\\-\\eta(2-\\eta)\\sum_{\\ell}n_\\ell\\bar r_\\ell^2.\\end{gathered}SSEafter​=SSEbefore​−η(2−η)ℓ∑​nℓ​rˉℓ2​.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "fi=Fm−1(xi),vi=hm(xi),ri(m)=−∂L(yi,F)∂F∣F=fi,ρm∈arg⁡min⁡ρ∑iL(yi,fi+ρvi).\\begin{gathered}f_i=F_{m-1}(x_i),\\quad v_i=h_m(x_i),\\\\r_i^{(m)}=-\\left.\\frac{\\partial L(y_i,F)}{\\partial F}\\right|_{F=f_i},\\\\\\rho_m\\in\\arg\\min_\\rho\\sum_i L(y_i,f_i+\\rho v_i).\\end{gathered}fi​=Fm−1​(xi​),vi​=hm​(xi​),ri(m)​=−∂F∂L(yi​,F)​​F=fi​​,ρm​∈argρmin​i∑​L(yi​,fi​+ρvi​).​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "ℓτ(r)={τr,r≥0,(τ−1)r,r<0.\\ell_\\tau(r)=\\begin{cases}\\tau r,&r\\ge0,\\\\(\\tau-1)r,&r<0.\\end{cases}ℓτ​(r)={τr,(τ−1)r,​r≥0,r<0.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "L(yi,Fi+w)≈L(yi,Fi)+giw+12hiw2.\\begin{aligned}L(y_i,F_i+w)\\approx{}&L(y_i,F_i)\\\\&+g_iw+\\tfrac12h_iw^2.\\end{aligned}L(yi​,Fi​+w)≈​L(yi​,Fi​)+gi​w+21​hi​w2.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "J~=∑ℓ=1TCℓ+γT,Cℓ=Gℓwℓ+12(Hℓ+λ)wℓ2+α∣wℓ∣.\\begin{gathered}\\widetilde J=\\sum_{\\ell=1}^{T}C_\\ell+\\gamma T,\\\\C_\\ell=G_\\ell w_\\ell+\\tfrac12(H_\\ell+\\lambda)w_\\ell^2\\\\+\\alpha|w_\\ell|.\\end{gathered}J=ℓ=1∑T​Cℓ​+γT,Cℓ​=Gℓ​wℓ​+21​(Hℓ​+λ)wℓ2​+α∣wℓ​∣.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "A=H+λ>0,Gw+12Aw2=12A(w+GA)2−G22A.\\begin{gathered}A=H+\\lambda>0,\\\\Gw+\\tfrac12Aw^2\\\\=\\tfrac12A\\left(w+\\frac{G}{A}\\right)^2-\\frac{G^2}{2A}.\\end{gathered}A=H+λ>0,Gw+21​Aw2=21​A(w+AG​)2−2AG2​.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "w∗=−Sα(G)H+λ,Q(G,H)=Sα(G)22(H+λ).\\begin{gathered}w^*=-\\frac{S_\\alpha(G)}{H+\\lambda},\\\\Q(G,H)=\\frac{S_\\alpha(G)^2}{2(H+\\lambda)}.\\end{gathered}w∗=−H+λSα​(G)​,Q(G,H)=2(H+λ)Sα​(G)2​.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "QL=Q(GL,HL),QR=Q(GR,HR),QP=Q(GL+GR,HL+HR),Gain⁡net=QL+QR−QP−γ.\\begin{gathered}Q_L=Q(G_L,H_L),\\\\Q_R=Q(G_R,H_R),\\\\Q_P=Q(G_L+G_R,H_L+H_R),\\\\\\operatorname{Gain}_{\\mathrm{net}}=Q_L+Q_R-Q_P-\\gamma.\\end{gathered}QL​=Q(GL​,HL​),QR​=Q(GR​,HR​),QP​=Q(GL​+GR​,HL​+HR​),Gainnet​=QL​+QR​−QP​−γ.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "Illustrative dense work:binning setup+∑m=1M∑v visitedO(dnv+dB).\\begin{gathered}\\text{Illustrative dense work:}\\\\\\text{binning setup}\\\\+\\sum_{m=1}^{M}\\sum_{v\\text{ visited}}O(dn_v+dB).\\end{gathered}Illustrative dense work:binning setup+m=1∑M​v visited∑​O(dnv​+dB).​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "G^=∑i∈Agi+rs∑i∈Bgi,E[G^∣g]=G.\\begin{gathered}\\widehat G=\\sum_{i\\in A}g_i+\\frac{r}{s}\\sum_{i\\in B}g_i,\\\\\\mathbb E[\\widehat G\\mid g]=G.\\end{gathered}G=i∈A∑​gi​+sr​i∈B∑​gi​,E[G∣g]=G.​",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "z^j=∑i<j1[ci=cj]yi+ap∑i<j1[ci=cj]+a.\\widehat z_j=\\frac{\\sum_{i<j}\\mathbf1[c_i=c_j]y_i+ap}{\\sum_{i<j}\\mathbf1[c_i=c_j]+a}.zj​=∑i<j​1[ci​=cj​]+a∑i<j​1[ci​=cj​]yi​+ap​.",
+                "width": 280,
+                "scrollWidth": 280
+              },
+              {
+                "text": "q∗=apap+(1−p).q^*=\\frac{ap}{ap+(1-p)}.q∗=ap+(1−p)ap​.",
+                "width": 280,
+                "scrollWidth": 280
+              }
+            ],
+            "overflow": {
+              "viewport": 320,
+              "document": 320
+            },
+            "passed": true
+          }
+        ]
+      }
+    },
+    "actuallyOpenedFinalImages": {
+      "recordedAt": "2026-09-11T12:10:24.372Z",
+      "reviewer": "author /root/scientific_visual_improvements",
+      "images": [
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/validation-default-1440.png",
+          "sha256": "4901af017c366c66a14b8b12b3912866e120cd136f06a3b395634d40a1295ec5",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/validation-changed-320.png",
+          "sha256": "5eafcdf169fbc929d55cce531aff4198f182f9253779985f894c4ab339aac825",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/residual-default-390.png",
+          "sha256": "bbe089a5682fec7a4713c24bf586f00bb1e11fdcd69d6dcdab1bdd0d68990bce",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/goss-contributions-1440.png",
+          "sha256": "2e905d37a1c71afaefee44483d2bf9d5ead64950a812c9bf9a2daac12021fd84",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/newton-overshoot-320.png",
+          "sha256": "3bf57b22989b9f50958b5e4f9e22ddd6397f1e949df6a5dc974332092ac7ab99",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/bins-fine-390.png",
+          "sha256": "8319e897eac124ba11eeeb6cbd69c59363f21f3d4321b813942496eb17487a93",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/bins-coarse-320.png",
+          "sha256": "15681afc3f3eb4014c332ceec59845fb4e0787783ceda79928393f04f2bacdfa",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/growth-reading-320.png",
+          "sha256": "4948b8769ca936f5fa9bdc44b3ee60f1a05830cc97d1213cb924cb70516b3498",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/prefix-default-320.png",
+          "sha256": "44fab435baa2c98feb9c4d4663e230e23aef40184c0af431c8a79c0734f9de1f",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/prefix-reversed-1440.png",
+          "sha256": "0b929aad5a5c42e997abda49b09af332aeffae299698b939904d31c275dbac6f",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/additive-reading-320.png",
+          "sha256": "b2715f245029fc387ed619f5721f0229ace275b4e3cd65f02f3b6c9366816d08",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/bundling-reading-320.png",
+          "sha256": "31104c64331a17edbeffe4613e20f803e8236d92b3d70a5ee4ecefb04876d9e0",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-7-320.png",
+          "sha256": "cf001a87a7bae16e7a818a6d8995ec456a6b7559d9ba4bb15a8020b57d2d06d3",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-10-320.png",
+          "sha256": "9984b5cc5c3b3279674bfa508c24176178fdf4ad21ef96ae973440570bf16a11",
+          "actuallyOpened": true
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/xgboost-program-reading-320.png",
+          "sha256": "fa459c2c40661c36881b63b898067567f755907900f9ed02bddcd99e758b3071",
+          "actuallyOpened": true,
+          "actualContent": "Ordered prefix-model program/output; the earlier test filename is retained, not a claim of an XGBoost screenshot."
+        },
+        {
+          "path": "scratch/gradient-boosted-trees-verification/browser/practice-reading-390.png",
+          "sha256": "8d428da63a29942230e15473f928bed688a10b12d035f87efe0b3df5335c343a",
+          "actuallyOpened": true
+        }
+      ]
+    },
+    "sourceFormatting": {
+      "checkedAt": "2026-09-11T12:06:25.644Z",
+      "records": [
+        {
+          "path": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+          "beforeSha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f",
+          "afterSha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f",
+          "normalizedAstUnchanged": true
+        },
+        {
+          "path": "src/learn/data/gradient-boosted-trees-models.js",
+          "beforeSha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33",
+          "afterSha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33",
+          "normalizedAstUnchanged": true
+        },
+        {
+          "path": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+          "beforeSha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446",
+          "afterSha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446",
+          "normalizedAstUnchanged": true
+        }
+      ]
+    }
+  },
+  "commands": [
+    "scratch/lesson-tools/Scripts/python.exe scripts/build-gradient-boosted-trees-examples.py",
+    "node scripts/verify-gradient-boosted-trees-models.mjs",
+    "node scripts/review-gradient-boosted-trees-lesson.cjs"
+  ],
+  "limitations": [
+    "CPU demonstration fixtures, not controlled library speed/quality rankings, real-world deployment evidence or GPU/distributed execution.",
+    "Finite JS teaching domains and explicit curvature arithmetic guards; not a production optimizer for arbitrary numeric input.",
+    "StatQuest video identity, creator description/prerequisites and chapter list verified; transcript remained empty and selected playback attempts failed. No substantive video watch is claimed. CatBoost official video index/identity verified, corresponding paper read.",
+    "Exact stdout is from the pinned workspace versions and one CPU thread; other versions/platforms can differ.",
+    "Independent mathematical review, integrated production checks and user approval are not inferred from this author freeze."
+  ]
+}

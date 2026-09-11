@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-09-11T09:26:05.147Z",
+  "exactPrograms": 16,
+  "modelCases": {
+    "rewards": 364,
+    "grids": 64,
+    "sequences": 961,
+    "capacities": 288,
+    "routes": 120
+  },
+  "native": {
+    "reward_cases": 3280,
+    "weighted_cases": 300,
+    "grid_cases": 250,
+    "sequence_cases": 961,
+    "edit_cases": 225,
+    "capacity_cases": 450,
+    "subset_cases": 4368,
+    "coin_cases": 144,
+    "lis_cases": 1093,
+    "mask_cases": 510,
+    "segment_cases": 508,
+    "model_cases": {
+      "rewards": 364,
+      "grids": 64,
+      "sequences": 961,
+      "capacities": 288,
+      "routes": 120
+    }
+  }
+}

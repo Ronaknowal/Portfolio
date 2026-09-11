@@ -1,0 +1,489 @@
+{
+  "reviewedAt": "2026-09-11T04:49:34.995503+00:00",
+  "topicId": "single-variable-calculus-limits-derivatives-integrals",
+  "reviewer": "/root/scientific_visual_improvements",
+  "status": "independently-reviewed-no-unresolved-material-finding",
+  "authorFrozenAt": "2026-09-11T04:47:32.559Z",
+  "authorRecord": {
+    "path": "docs/teaching/evidence/single-variable-calculus-author-review.json",
+    "sha256": "3b5c3f36e510c40de82a71558cc78fc52b6b5a0367b7da199da28f8f4c273e6d",
+    "bytes": 138627
+  },
+  "finalProductionSources": [
+    {
+      "path": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+      "sha256": "bcabd09809a076699c116449792cba1c060258fb9f280f3842402bba57c04edf",
+      "bytes": 65855
+    },
+    {
+      "path": "src/learn/data/single-variable-calculus-models.js",
+      "sha256": "3d6163cbfc8607fd982eb332bbacad0df873e71099c9c24d659e527fd953918f",
+      "bytes": 13326
+    },
+    {
+      "path": "src/learn/data/single-variable-calculus-examples.js",
+      "sha256": "aa2c46ac6583c007e8a2413eac33a421bf87f0b09f4e39234c3554045b4d90ab",
+      "bytes": 16035
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+      "sha256": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8",
+      "bytes": 34241
+    },
+    {
+      "path": "src/learn/components/lesson-labs/single-variable-calculus-labs.css",
+      "sha256": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033",
+      "bytes": 5451
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js",
+      "sha256": "7449af8c2552218c932c71ba586cac3d4ae92b1fd41f1d271bc654ed511f953f",
+      "bytes": 5209
+    }
+  ],
+  "initialAuthorNativeRecord": {
+    "at": "2026-09-11T01:26:29.611759+00:00",
+    "passed": true,
+    "python": "3.12.14",
+    "mpmathPrecision": 65,
+    "cases": {
+      "rates": 90,
+      "limits": 240,
+      "compositions": 49,
+      "extrema": 408,
+      "accumulations": 480,
+      "growth": 264,
+      "taylors": 247,
+      "improper": 450
+    },
+    "actualPrograms": [
+      "motion-secants",
+      "limit-guarantee",
+      "local-operations",
+      "interval-extrema",
+      "signed-rectangles",
+      "square-riemann-limit",
+      "moving-bounds",
+      "integration-operations",
+      "exponential-rate",
+      "taylor-remainders",
+      "finite-difference-rounding",
+      "improper-cutoffs",
+      "weighted-material",
+      "decay-steps",
+      "changed-motion"
+    ],
+    "changedNativeHelpers": 16,
+    "practiceAndApplicationChecks": 16,
+    "syntax": {
+      "equations": 24,
+      "invalidRejected": 25
+    },
+    "sources": [
+      {
+        "path": "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx",
+        "sha256": "b13c9157791aa1a1bbeeaa81e4e5f098cbd2867c414c81427e78f6b9a8ff2378"
+      },
+      {
+        "path": "src/learn/data/single-variable-calculus-models.js",
+        "sha256": "0941540dafbf551bd20d6d8957f5594ef028f007072508307ec9233af5d0fc50"
+      },
+      {
+        "path": "src/learn/data/single-variable-calculus-examples.js",
+        "sha256": "aa2c46ac6583c007e8a2413eac33a421bf87f0b09f4e39234c3554045b4d90ab"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx",
+        "sha256": "c4e10056e704500d23bdae6bc4d8e8640b91c2dfaa1b71936bd4c33dacc9979c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/single-variable-calculus-labs.css",
+        "sha256": "de8328e101655f90b296af6d657ca509fd9bc72144b71af4150378020faa72e8"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js",
+        "sha256": "7449af8c2552218c932c71ba586cac3d4ae92b1fd41f1d271bc654ed511f953f"
+      }
+    ],
+    "limits": [
+      "Finite and symbolic checks support the implementations; they do not replace the written real-analysis proofs.",
+      "Browser geometry, readable rendering and production loading have separate records."
+    ]
+  },
+  "sourceRead": [
+    "Complete fourteen-section body, thirteen changed practice questions/hints/solutions and all fifteen actual Python programs with expected stdout.",
+    "Complete pure model, eight interactive investigations, four inline figures and topic CSS.",
+    "Individual semantic blueprint, lesson design, incoming compounding note and final author verification."
+  ],
+  "mathematicalReview": [
+    "Strict punctured epsilon/delta quantifiers, equality of the open-neighborhood supremum, and strict rational interior witnesses.",
+    "Derivative local errors, product/chain rules, zero inner derivative, inverse hypotheses, radians and implicit local branches.",
+    "Fermat/Rolle/mean value theorem conditions, complete endpoint/critical candidates and permitted-interval extrema.",
+    "Signed versus absolute accumulation, square Riemann sums, uniform-continuity convergence and both FTC directions with continuity qualifiers.",
+    "Substitution on signed paths, parts, rational poles and trig branches; logarithm defined by area, exponential inversion, growth and finite compounding without circularity.",
+    "Integral Taylor remainder, exponential/logarithm series limits, analytic truncation versus floating evaluation, and endpoint/tail improper integrals versus principal values.",
+    "Finite zero-over-zero L'Hopital hypotheses, distributed mass, work, volume, arc length, integrating-factor uniqueness and every changed practice solution."
+  ],
+  "complementaryExecution": {
+    "checkedAt": "2026-09-11T01:46:49.383241+00:00",
+    "status": "passed",
+    "counts": {
+      "actualDisplayedPrograms": 15,
+      "adjacentThresholdLimitStates": 72,
+      "strictInteriorRationalWitnesses": 34,
+      "adjacentFloatAndChangedExtremaIntervals": 51,
+      "closedPowerSumAndAbsoluteQuadratureCases": 180,
+      "fixedSegmentIntegralRemainderCases": 110,
+      "logCoordinateImproperQuadratures": 42,
+      "integratedGrowthRateChecks": 18,
+      "changedActualNativeHelperChecks": 26
+    },
+    "largestAbsoluteFloatDifference": 0.000457763671875,
+    "largestDifferenceCase": {
+      "actual": 145166995074.89758,
+      "expected": 145166995074.89713,
+      "relativeDifference": 3.1533591477788905e-15
+    },
+    "largestRelativeFloatDifference": 2.0842717065195308e-10,
+    "precision": 90,
+    "roundoffDominatedTaylorCases": [
+      {
+        "kind": "exp",
+        "degree": 3,
+        "input": 0.001,
+        "computedDifference": -4.1744385725905886e-14,
+        "analyticRemainder": "0.0000000000000416750013890873263916448964095339140347935618480077936930815847816317460515593374865942764",
+        "analyticBound": "0.0000000000000417083541736128475695023230830440963151281750241958941761881114358483228438103457671965927"
+      },
+      {
+        "kind": "exp",
+        "degree": 7,
+        "input": -0.05,
+        "computedDifference": -9.992007221626409e-16,
+        "analyticRemainder": "0.000000000000000963456504684859017240022166814419738213895328931146068234533566303051577419008547737568039",
+        "analyticBound": "0.000000000000000968812003968253968253968253968253968253968253968253968253968253968253968253968253968253968"
+      },
+      {
+        "kind": "exp",
+        "degree": 7,
+        "input": 0.05,
+        "computedDifference": -1.1102230246251565e-15,
+        "analyticRemainder": "0.000000000000000974221327160145169029698630819864586338307748002975803679174370792719411191216906991765884",
+        "analyticBound": "0.00000000000000101848405759395930185228875668058386441168047810394047694996519946509939008494666584306736"
+      },
+      {
+        "kind": "exp",
+        "degree": 12,
+        "input": -0.31,
+        "computedDifference": 1.1102230246251565e-16,
+        "analyticRemainder": "-0.0000000000000000383615763388134949526437980638586540670623518305350021172950795319993314960658758656658151",
+        "analyticBound": "0.0000000000000000392122446378291246289076150187261298372409483520594631705742816853927965039076150187261298"
+      },
+      {
+        "kind": "exp",
+        "degree": 12,
+        "input": 0.05,
+        "computedDifference": -2.220446049250313e-16,
+        "analyticRemainder": "0.0000000000000000000000000019673570975464208898768785728222047396547625803554941960650367590646970617781760038405541",
+        "analyticBound": "0.00000000000000000000000000206084089612867315351489404598991490306041277782621988504833025662291867004367931284614445"
+      },
+      {
+        "kind": "exp",
+        "degree": 12,
+        "input": 0.1,
+        "computedDifference": -4.440892098500626e-16,
+        "analyticRemainder": "0.0000000000000000000000161745208169210170222094347556382520049708048715528734626510197135717632236683301540399445",
+        "analyticBound": "0.0000000000000000000000177479882205572145320553261439281954578431341475127033266512180181085627134512591155812956"
+      },
+      {
+        "kind": "exp",
+        "degree": 12,
+        "input": 0.15,
+        "computedDifference": -2.220446049250313e-16,
+        "analyticRemainder": "0.00000000000000000000315922768646442942228262074969689855548349514957757619377267351103522460873177196019035",
+        "analyticBound": "0.00000000000000000000363120045054102542635570169149221102597718149407674949646500043446406809807557062143229112"
+      },
+      {
+        "kind": "exp",
+        "degree": 12,
+        "input": 0.2,
+        "computedDifference": -2.220446049250313e-16,
+        "analyticRemainder": "0.000000000000000000133460429250331003186636042797827140819146866543196399296026250852945576892427575246351337",
+        "analyticBound": "0.000000000000000000160682479089328098590604061898881256397275934471520728328254474559081245744693208518860727"
+      },
+      {
+        "kind": "log",
+        "degree": 7,
+        "input": 0.001,
+        "computedDifference": -2.168404344971009e-19,
+        "analyticRemainder": "-0.000000000000000000000000124888988798063054461416357257526789856980623484566150804255227554761608611658391549463916",
+        "analyticBound": "0.000000000000000000000000125"
+      },
+      {
+        "kind": "log",
+        "degree": 12,
+        "input": 0.001,
+        "computedDifference": -2.168404344971009e-19,
+        "analyticRemainder": "7.68517149558737863414561506896467469805088760855765515227014729215818492149044870722213023e-41",
+        "analyticBound": "7.69230769230769230769230769230769230769230769230769230769230769230769230769230769230769231e-41"
+      }
+    ],
+    "modelSource": {
+      "path": "src/learn/data/single-variable-calculus-models.js",
+      "sha256": "3d6163cbfc8607fd982eb332bbacad0df873e71099c9c24d659e527fd953918f"
+    },
+    "scope": "Complementary finite and exact checks; general proof and visible numeric-label qualifications reviewed separately."
+  },
+  "reviewerBrowserSubset": {
+    "checkedAt": "2026-09-11T01:47:02.402Z",
+    "status": "passed",
+    "records": [
+      {
+        "width": 1440,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "captures": [
+          "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-1440.png",
+          "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-1440.png"
+        ],
+        "signedRectangleGeometry": {
+          "plotWidth": 246,
+          "plotHeight": 188,
+          "rectangles": [
+            {
+              "width": 46.125,
+              "height": 120.85714285714286,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 22.660714285714278,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 30.214285714285722,
+              "className": "negative-panel"
+            }
+          ]
+        },
+        "errors": [],
+        "failedRequests": [],
+        "keyboardActions": 5
+      },
+      {
+        "width": 390,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "captures": [
+          "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-390.png",
+          "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-390.png"
+        ],
+        "signedRectangleGeometry": {
+          "plotWidth": 246,
+          "plotHeight": 188,
+          "rectangles": [
+            {
+              "width": 46.125,
+              "height": 120.85714285714286,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 22.660714285714278,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 30.214285714285722,
+              "className": "negative-panel"
+            }
+          ]
+        },
+        "errors": [],
+        "failedRequests": [],
+        "keyboardActions": 5
+      },
+      {
+        "width": 320,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "captures": [
+          "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-320.png",
+          "scratch/single-variable-calculus-independent-review/changed-signed-geometry-320.png",
+          "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-320.png",
+          "scratch/single-variable-calculus-independent-review/amended-acceleration-checkpoint-320.png"
+        ],
+        "signedRectangleGeometry": {
+          "plotWidth": 246,
+          "plotHeight": 188,
+          "rectangles": [
+            {
+              "width": 46.125,
+              "height": 120.85714285714286,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 22.660714285714278,
+              "className": "positive-panel"
+            },
+            {
+              "width": 46.125,
+              "height": 30.214285714285722,
+              "className": "negative-panel"
+            }
+          ]
+        },
+        "errors": [],
+        "failedRequests": [],
+        "keyboardActions": 5
+      }
+    ],
+    "scope": "Reviewer amendment closures and independent actual signed-rectangle geometry, with keyboard and actual fonts; author comprehensive browser evidence is separate."
+  },
+  "evidenceFiles": [
+    {
+      "path": "scratch/single-variable-calculus-independent-review/fixtures.json",
+      "sha256": "7b4744194e3fdb58afdd77609b7b330da2215241f5b997a4be085a577ef83172",
+      "bytes": 1030248
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/results.json",
+      "sha256": "68665747cfe30bc09876f398abc583239f5756c96b6e781c82614a43a83cf703",
+      "bytes": 5159
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/browser-results.json",
+      "sha256": "8ccce599955e269b214ede111045ff1b676ba642cafbab00f1077f052ff2d121",
+      "bytes": 3943
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/initial-author-native-record.json",
+      "sha256": "fcb73b09ed903b7abd8fe4d0d5409252e8040d03af57b3fb838c60be30e3c0aa",
+      "bytes": 2224
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-1440.png",
+      "sha256": "c2540659b5c1a7f1921748da494d48fd595e525f8604ade1f3e2c79062d30757",
+      "bytes": 192615
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-390.png",
+      "sha256": "b7817f4b36367a1c6aa7dfef16d2f29a5678fe599eabbcfa83eab1b019d13df8",
+      "bytes": 74742
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-cusp-adjacent-320.png",
+      "sha256": "8cbcd8fe4deada9209044e7fb70f8ee81daece4c36abd855de613c3366c4cb0f",
+      "bytes": 63865
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-1440.png",
+      "sha256": "e2e698ad664605e5bdb78892d3ed84ee88e7810db9efc792642017390417ef57",
+      "bytes": 208596
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-390.png",
+      "sha256": "52c704e88c94f7ddd212a75949d02c83ff8cc204f9c1d179627ae58ff47e3f6c",
+      "bytes": 91562
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-taylor-roundoff-320.png",
+      "sha256": "d99e412c9dc004d5007b71efe084fd1812bb187c85cb83cddce476624ff2b6d4",
+      "bytes": 73381
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/changed-signed-geometry-320.png",
+      "sha256": "c3274db308c88747055ab5d8e81c16111599c5d6a56c3562a50913a9b821e8f1",
+      "bytes": 53651
+    },
+    {
+      "path": "scratch/single-variable-calculus-independent-review/amended-acceleration-checkpoint-320.png",
+      "sha256": "679121fdb27c10b45a9223f68308c78cd58265aab6bf0c1bc356c9cd7e8f4495",
+      "bytes": 69088
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/final-inline-0-320.png",
+      "sha256": "1ee49e9a579e2cb296f1342b3ea35d7d21b77ac8580052a97b9e95da905900bb",
+      "bytes": 24520
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/final-inline-1-320.png",
+      "sha256": "3f7fd5c04444e7436ac577ed4a248e4b0df22e6b73c993034146cfb68edef535",
+      "bytes": 29594
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/final-inline-2-320.png",
+      "sha256": "7fd8a692ddf88ef60161b04ee26d3bc9b396d41ab73fa57dd634cdf9f108fd7d",
+      "bytes": 26678
+    },
+    {
+      "path": "scratch/single-variable-calculus-browser/final-inline-3-320.png",
+      "sha256": "465aaef3b6b5388a6b1d44d68dab64665ed293e23f4511e2a18fb4dd05deecd6",
+      "bytes": 29343
+    }
+  ],
+  "visualAssessment": "Twelve files actually opened: eight reviewer captures and four author inline phone captures. Adjacent endpoint labels and exact classification remain readable; Taylor distinguishes roundoff and approximate analytic bounds; the revised velocity checkpoint is visible. Three signed rectangles were checked against independent cubic values and SVG dimensions. Motion legs share one position scale, the product corner has the stated second-order meaning, FTC's triangular residual has area 1/8, and the rod's center 10/9 lies right of its midpoint on the same scale.",
+  "findings": [
+    {
+      "issue": "Rounding of interval midpoints and polynomial heights falsely classified signs or extrema on accepted adjacent endpoints.",
+      "before": "Cusp [2,2+2*Number.EPSILON] could have sign zero; motion [1,1+Number.EPSILON] falsely tied both heights.",
+      "resolution": "Author uses exact decimal rational candidate comparisons and analytical critical-point partitions, supports scientific notation, and distinguishes rounded plot values from exact classification.",
+      "closure": "51 changed/adjacent/subnormal intervals and actual three-width cusp/motion controls passed on the final formatted source."
+    },
+    {
+      "issue": "Increasing negative velocity was taken to imply strictly positive acceleration everywhere.",
+      "resolution": "The checkpoint specifies continuous increasing velocity, claims nonnegative acceleration where differentiable, and supplies a zero-acceleration counterexample.",
+      "closure": "Final prose read and actual keyboard-opened checkpoint checked at 1440/390/320."
+    },
+    {
+      "issue": "The Taylor lab's floating subtraction could exceed its truncation-only analytic bound without a distinction in the labels.",
+      "before": "Degree 12 at x=.05 yields a computed difference around 2.22e-16 while the analytic bound is around 2.06e-27.",
+      "resolution": "The author preserves the theorem and separately labels floating difference, approximate bound evaluation and roundoff, including possible zero difference.",
+      "closure": "110 independent fixed-segment integral remainder cases plus actual roundoff readouts at three widths passed."
+    }
+  ],
+  "limits": [
+    "Finite execution supports implementations; the general real-analysis arguments were read separately and are not proved by these tests.",
+    "The largest absolute floating discrepancy occurs for an approximately 1.45e11 integral and has relative size about 3.15e-15. Small subtraction residuals use an absolute tolerance; no uniform relative-error claim is made.",
+    "The reviewer's browser execution is a bounded changed-input, keyboard and geometry subset. The author's complete eight-lab, equation and reading run remains separately attributed in the linked author packet.",
+    "Only the twelve listed screenshots are claimed as visually opened in this review. Generated captures and truncated tool output do not count as visual inspection.",
+    "The reviewer did not edit production sources, shared registries or integration records, and does not claim to have replayed complete external videos or read every cited textbook."
+  ]
+}

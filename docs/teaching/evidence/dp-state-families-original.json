@@ -1,0 +1,794 @@
+{
+  "archivedAt": "2026-09-11T08:29:30.999Z",
+  "scope": "Pre-extension byte archive; historical author evidence is retained without promoting it to new verification.",
+  "topicId": "dynamic-programming-states-transitions-optimization",
+  "files": [
+    {
+      "source": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx.txt",
+      "sha256": "bcf47ccd3ff828d286f5a8acaeb0780e3b3e9f67c19fea5e9d0757d4720222b7",
+      "bytes": 56052
+    },
+    {
+      "source": "src/learn/data/dynamic-programming-models.js",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/data/dynamic-programming-models.js.txt",
+      "sha256": "affba29a503b11eb4a3dde7fbad71794d3c7964d60d11f2fb63bc7d29864e51e",
+      "bytes": 11499
+    },
+    {
+      "source": "src/learn/data/dynamic-programming-examples.js",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/data/dynamic-programming-examples.js.txt",
+      "sha256": "5262a24e6f55e32c1826cdf51cce18b2b736720c082df9674df68e1c23064f8b",
+      "bytes": 16359
+    },
+    {
+      "source": "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx.txt",
+      "sha256": "3afe2b2bbef2c15aed08fe69c725e376eda1bdd4fb9c5b4e5f8996d1b232820c",
+      "bytes": 23836
+    },
+    {
+      "source": "src/learn/components/lesson-labs/dynamic-programming-labs.css",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/components/lesson-labs/dynamic-programming-labs.css.txt",
+      "sha256": "a7452202039808866b83b4e978f9e773a66b6c8434dd75d363fa75b7b2f766ea",
+      "bytes": 7346
+    },
+    {
+      "source": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/data/practice/dynamic-programming-states-transitions-optimization.js.txt",
+      "sha256": "2f4641d4bc1ec78bc41fa1826fa6f29919cbd7560d95d9a98b561280951e75da",
+      "bytes": 9457
+    },
+    {
+      "source": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js.txt",
+      "sha256": "a457585d63c8b67a23cae5d96f1f5e30f7b114ab58859e6fbc47fc991b6cb992",
+      "bytes": 3466
+    },
+    {
+      "source": "docs/teaching/DYNAMIC-PROGRAMMING-LESSON-DESIGN.md",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/docs/teaching/DYNAMIC-PROGRAMMING-LESSON-DESIGN.md.txt",
+      "sha256": "1debc090f035c2c47f10dd60e1bd9512a5385deb97d64b2df6c0e8e77ab8609e",
+      "bytes": 8697
+    },
+    {
+      "source": "docs/teaching/DYNAMIC-PROGRAMMING-VERIFICATION.md",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/docs/teaching/DYNAMIC-PROGRAMMING-VERIFICATION.md.txt",
+      "sha256": "91729b4378e0afe3b7cfd28ad8b71b9b8f62dfd496c25d562295a6a5d594bb4f",
+      "bytes": 14439
+    },
+    {
+      "source": "docs/teaching/topic-notes/dynamic-programming-states-transitions-optimization.md",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/docs/teaching/topic-notes/dynamic-programming-states-transitions-optimization.md.txt",
+      "sha256": "124ab2881f8b4d12a33d2d126ca338969767ea120fc92576de8742c5b93e26fa",
+      "bytes": 9441
+    },
+    {
+      "source": "scripts/verify-dynamic-programming.mjs",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scripts/verify-dynamic-programming.mjs.txt",
+      "sha256": "cfdcea435961043b46a4128d252022c8d005809aae59e62e21d401efc2a2ee4c",
+      "bytes": 4979
+    },
+    {
+      "source": "scripts/verify-dynamic-programming-native.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scripts/verify-dynamic-programming-native.py.txt",
+      "sha256": "e0d7d24d0478f571d275bfd00bdd622fac3365b0aadfd7275e75d8b250258e26",
+      "bytes": 12138
+    },
+    {
+      "source": "scripts/review-dynamic-programming-lesson.cjs",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scripts/review-dynamic-programming-lesson.cjs.txt",
+      "sha256": "9dfc1cdb921bff42ee3a03f649abc10f32d555629338928d18b0de7db0998b6c",
+      "bytes": 12746
+    },
+    {
+      "source": "scripts/review-dynamic-programming-layout.cjs",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scripts/review-dynamic-programming-layout.cjs.txt",
+      "sha256": "04a3af88785093c6c4e09655d0e2e5b6af1ffedd47399ec3edcaf6e5c62f689d",
+      "bytes": 5477
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/coins.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/coins.py.txt",
+      "sha256": "e9259dafe8d2302c339c94d65bd0992c2f4c2b1393aa243db0bdb20febcf5fb1",
+      "bytes": 1073
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/compression.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/compression.py.txt",
+      "sha256": "0140232214b5d597c1c0ba22f0a73708e630c67e8c44aadf05b86c175da078c0",
+      "bytes": 711
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/edit.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/edit.py.txt",
+      "sha256": "0df65c225d1a220fc41f00d8afa5e85972e24df976f495a416ec8b6a3be66137",
+      "bytes": 657
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/grid.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/grid.py.txt",
+      "sha256": "2a790cb21498e5f830e8e62a1602340e205293fcc2ee4d27c6e59992b9f9cfe6",
+      "bytes": 1590
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/gridCount.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/gridCount.py.txt",
+      "sha256": "bf5cd0f71d438a45a0a1a8e0430c7fb1b104cc8db5f1ba80751adb254b9d7013",
+      "bytes": 684
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/knapsack.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/knapsack.py.txt",
+      "sha256": "b4a49b7e0102d85b6294e1eaca80fa95c35a4a491392f00ea151c6bc281de0c6",
+      "bytes": 1133
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/lcs.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/lcs.py.txt",
+      "sha256": "d9e36e4ea4941c6dfa54c7b2836efcc134ac594160f7b78bc37d6e85de74dd46",
+      "bytes": 1060
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/lis.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/lis.py.txt",
+      "sha256": "3d9a90bd38f284368d61c0ce6e6b86efdf612e0cb77a45bf4808d57fb074b2a2",
+      "bytes": 684
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/masks.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/masks.py.txt",
+      "sha256": "079752137e8fc647f8388a6aa30fdc589f92709236b7a34e7986ea9b2c351850",
+      "bytes": 643
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/memo.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/memo.py.txt",
+      "sha256": "af7b8d6089ad19def719e7acf411f83df815bfeebe85654d81d1e6ba21a91a96",
+      "bytes": 432
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/models.json",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/models.json.txt",
+      "sha256": "aefbf8f6ab8f763748ba16a53ce6d7be62b02407844390dc6449204db53ed746",
+      "bytes": 1164276
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/results.json",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/results.json.txt",
+      "sha256": "5175b34c2f76b0dd59f20c83faf9a9c734c786f86ce02857d36e2ae86d1d1a8e",
+      "bytes": 621
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/rewardWitness.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/rewardWitness.py.txt",
+      "sha256": "db179898508a5bc2cbac206dff76087fe56d5cd90e73b8cc1421770659c3f8bc",
+      "bytes": 602
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/route.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/route.py.txt",
+      "sha256": "631baae57446cf53e240986bf6add29a7885854b029e1fd27101326c685d9108",
+      "bytes": 1651
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/segment.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/segment.py.txt",
+      "sha256": "28e2670ce9139bf3e1588f512a0319235b9059874b071043de0deef554348799",
+      "bytes": 772
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/state.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/state.py.txt",
+      "sha256": "8e15986cc0a04c6aaac38f1e0989a5c9fa6354f019ab463b160515a8abdb46c6",
+      "bytes": 516
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/subsetSum.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/subsetSum.py.txt",
+      "sha256": "255ed2b21f336dcc3ba39cba7ea347d370c949812c7b7986862cae232778101a",
+      "bytes": 490
+    },
+    {
+      "source": "scratch/dynamic-programming-verification/weightedIntervals.py",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-verification/weightedIntervals.py.txt",
+      "sha256": "2d0314ffc16d98388049b9dbd6183db01ba52eee30f7e41d5daa55de525957ab",
+      "bytes": 1200
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-dependencies-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-dependencies-1440.png",
+      "sha256": "87124c65a150bfcf1eb1ce9fb393f3c4745c28d6f2874df414dc28ee361b19d6",
+      "bytes": 38832
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-dependencies-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-dependencies-390.png",
+      "sha256": "88dc2ffce64314f5ebdfddfa71d1e241986bbf27e5cae2195e978eace27a3f08",
+      "bytes": 38409
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-wide-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-wide-1440.png",
+      "sha256": "e136cf7c44d8cc370c10efd01fc0c11ef91c695091563d1621fec9c35e7db458",
+      "bytes": 48749
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-wide-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-wide-390.png",
+      "sha256": "95e916a9eebf84a14b36249c8c2f4aedb16708a239744da923d2321fb1881fb1",
+      "bytes": 46690
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-witness-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-witness-1440.png",
+      "sha256": "7c8333b5aa2a998496eff69437db135a7fe94b4d57d44028d746296bf7fc2da6",
+      "bytes": 47885
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/alignment-witness-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/alignment-witness-390.png",
+      "sha256": "dd56b484585a3775b305095d63b4fa2647398c126fcfac77ea888385c7a8c797",
+      "bytes": 47579
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-ascending-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-ascending-1440.png",
+      "sha256": "b907b01ad1a3863e6d9a295991724b929c9ec53d6382f5f348afd7a8f0dd0817",
+      "bytes": 48080
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-ascending-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-ascending-390.png",
+      "sha256": "ef84c83733e08261479d47cd4ff41ecb1ffe3b6948ec2fc80a55b34c57d08aca",
+      "bytes": 46413
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-descending-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-descending-1440.png",
+      "sha256": "c67034c9f7607234c780b1e1ddb2ff3d09f1f3c4fd9abc08b4e6b6262b5ded51",
+      "bytes": 47077
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-descending-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-descending-390.png",
+      "sha256": "9f93959840670461794afa86ddf195678e159316c489d44ae4261787d73170e6",
+      "bytes": 46408
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-visible-ascending-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-visible-ascending-1440.png",
+      "sha256": "497caa9d3e69509fee257e8d2a141d2c5df861c1b542456c1430f2a02c093071",
+      "bytes": 48088
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-visible-ascending-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-visible-ascending-390.png",
+      "sha256": "ef84c83733e08261479d47cd4ff41ecb1ffe3b6948ec2fc80a55b34c57d08aca",
+      "bytes": 46413
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-visible-descending-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-visible-descending-1440.png",
+      "sha256": "c240efa2c980eee17ec4dc83dcc4ed50c90e019910cc26fdb7df921c4d7ed6e2",
+      "bytes": 47093
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/capacity-visible-descending-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/capacity-visible-descending-390.png",
+      "sha256": "9f93959840670461794afa86ddf195678e159316c489d44ae4261787d73170e6",
+      "bytes": 46408
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/grid-unreachable-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/grid-unreachable-1440.png",
+      "sha256": "7eecd506b8a347d37233a732e04bcd222ebc5a0286babea71fc7a1dbac2d3097",
+      "bytes": 52185
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/grid-unreachable-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/grid-unreachable-390.png",
+      "sha256": "7b974e52b46168034a236779ba7f35abeafb91594c33ae8fcf086a6338b79c96",
+      "bytes": 49354
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/grid-witness-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/grid-witness-1440.png",
+      "sha256": "5b39ad5c6ca22a377555a825832ef6c76af7c9192a8fe134acdddf15c5af34d6",
+      "bytes": 57220
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/grid-witness-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/grid-witness-390.png",
+      "sha256": "cdd4dd9e986ea654a3ca8379d2d20a619fa1823424501a1def3aca3be93ab0b3",
+      "bytes": 53669
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-0-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-0-1440.png",
+      "sha256": "d754ed25685a024ea619db97506bca2093edf608d6a74ccbfd1ae9688e31c1cd",
+      "bytes": 14816
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-0-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-0-390.png",
+      "sha256": "7a8548a82157ecfc536e761e40419127f43d42abd29efa6d750ad40c884938f8",
+      "bytes": 12793
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-1-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-1-1440.png",
+      "sha256": "7021f0c51d6f4733c65787d3756e665d8e6e243cb95ce55c80334bd7d36bea35",
+      "bytes": 11708
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-1-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-1-390.png",
+      "sha256": "00647ef8837325130dc28d421f31ff13a89d1d3f8d019d6650c9e9c6781e89f9",
+      "bytes": 10936
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-2-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-2-1440.png",
+      "sha256": "f68a776360e4afc2e2ce480a1c104d898f26bd30935f2f033f92c195c91e5e51",
+      "bytes": 10266
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-2-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-2-390.png",
+      "sha256": "7c8352029f7c507fe525015060e532af5f042f741e4f87a7b0ddc133a8232faf",
+      "bytes": 9272
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-3-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-3-1440.png",
+      "sha256": "81bf66fa0255628dfa9cc589cbecf44e160483ecef6efe41d1c5628ae34dace8",
+      "bytes": 17201
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/inline-3-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/inline-3-390.png",
+      "sha256": "1ef434abdbd76b1d9a6c1fbc4df2822c7a1b7660b1b264ec4c689ac5f715c958",
+      "bytes": 14496
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/layout-results.json",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/layout-results.json.txt",
+      "sha256": "138db7cacf32b3935dacbf94a4646dca4bf442866d9f8200793b4dd1afb131c5",
+      "bytes": 534
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/practice-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/practice-1440.png",
+      "sha256": "29fc97b2b7fc7cb816ca242742847989c83946733684d60338b5db079d23144c",
+      "bytes": 43888
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/practice-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/practice-390.png",
+      "sha256": "8a9c2f34ae85e884d1fb879c5e1a052400bcecd0ddd20a5117d41329c76cf2c7",
+      "bytes": 41089
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-0-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-0-1440.png",
+      "sha256": "f56f8c1e390dc850a16ed6b9273eea1c660153a406f0a3e2f908cb526be506d5",
+      "bytes": 147063
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-0-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-0-390.png",
+      "sha256": "04c20f25aa319cc8bad353cec4bec1c487eb4965ef93b281bc0f5bb45887539b",
+      "bytes": 60447
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-1-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-1-1440.png",
+      "sha256": "8fc900e3686a0156ccfe309852175170a540d3949fbd4a5f65b7d6cc931a1564",
+      "bytes": 127927
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-1-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-1-390.png",
+      "sha256": "35a4735d4e565c931fd9048452c63bb60f86a843d18079529db2798b4d0e39fd",
+      "bytes": 56766
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-2-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-2-1440.png",
+      "sha256": "55f74b0802f34718717aad5758b0c535201ff452fdecdb36f8284de269dc6f18",
+      "bytes": 135198
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-2-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-2-390.png",
+      "sha256": "31b78b5f604637ba2c42547f29840d1a4eb6a0d70c05b3e3e8a157464e7f5ae7",
+      "bytes": 64379
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-3-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-3-1440.png",
+      "sha256": "346e8421586103b3e4a6a63548d4e51a864ff925c75e17438df370d522248118",
+      "bytes": 137061
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-3-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-3-390.png",
+      "sha256": "f58c9a539979369d5b805d05e6b854d115b76683d0a5bd2f86f1da9fce24edd6",
+      "bytes": 62131
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-4-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-4-1440.png",
+      "sha256": "de4cb1d0d95d4e38a9c82b4d604108ea8a8202a5b833e755097c75958d63bee1",
+      "bytes": 145849
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-4-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-4-390.png",
+      "sha256": "dcfe5b640ed3ded8c34b3b998ac743a588f99c45c9fed8f08b0a176a07d91008",
+      "bytes": 65499
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-5-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-5-1440.png",
+      "sha256": "f228126a5acf19d11939bbfcbbf6e08d7f0fbfa9631cee55989ab7564e5db0bc",
+      "bytes": 124603
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-5-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-5-390.png",
+      "sha256": "fc89f86c90f77c87a365f777482741fec4d1cb4bcfad10a147ace25b1d1424ab",
+      "bytes": 52725
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-6-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-6-1440.png",
+      "sha256": "6868ac35e8555ede8197c5924598135670bffdb76d409045ceea55937754d35a",
+      "bytes": 134720
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-6-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-6-390.png",
+      "sha256": "8c4563de65f4923dd5d7726b460fc829fc4abc391401c9a0e20a08d928a13f1c",
+      "bytes": 54752
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-7-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-7-1440.png",
+      "sha256": "eea324b47204d2881b864a916d15307b70868c00595bd22b3d7148e45d32f50f",
+      "bytes": 135419
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-7-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-7-390.png",
+      "sha256": "8a94e2393709e869556ce583eaf240e98b01fc9768f551b30f47001f78ea167a",
+      "bytes": 56025
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-8-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-8-1440.png",
+      "sha256": "f0f8b61ea0eae3e6a9666a230cce7179486d7e58c5242cfcfd0f0332f5007eb0",
+      "bytes": 139763
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-8-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-8-390.png",
+      "sha256": "36afc4c9453dd6ed80c0d408cf933310148ce9356b4fd1342675c9fb8e53dab4",
+      "bytes": 59529
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-9-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-9-1440.png",
+      "sha256": "3403775eb64066e829fc50cee77b4a8e300ffcde6d3a893e9ef266f9dcddf057",
+      "bytes": 140959
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reading-9-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reading-9-390.png",
+      "sha256": "23c4022cda1b9289c308c2cdbc78b720487bce9eac6b9e68378e0f0896cb582c",
+      "bytes": 60163
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/results.json",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/results.json.txt",
+      "sha256": "283a8ab6e3b36c5b98ef7f341d31001b5eb0b9ce93b9b357b874ce6dd744c026",
+      "bytes": 626
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-compact-final-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-compact-final-1440.png",
+      "sha256": "fa189741dec08545dd1848e772b81b65f60e8361acc1cd3035d2e5cd66fa1789",
+      "bytes": 51305
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-compact-final-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-compact-final-390.png",
+      "sha256": "7e48b63da4150a750eb4f24db5273da0735a93ab2042ee685a52c5d79bfd72e4",
+      "bytes": 48982
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-complete-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-complete-1440.png",
+      "sha256": "fa189741dec08545dd1848e772b81b65f60e8361acc1cd3035d2e5cd66fa1789",
+      "bytes": 51305
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-complete-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-complete-390.png",
+      "sha256": "7e48b63da4150a750eb4f24db5273da0735a93ab2042ee685a52c5d79bfd72e4",
+      "bytes": 48982
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-long-scroll-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-long-scroll-1440.png",
+      "sha256": "9a2969361e37a73a80e3b058b197682dafc3cd758223791ed5fbcac8e1ae9df0",
+      "bytes": 53855
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-long-scroll-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-long-scroll-390.png",
+      "sha256": "8a4a46f78ba801a3fe63b5699091111811e9ca37b3340073d14304f3cd20d481",
+      "bytes": 48627
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-requests-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-requests-1440.png",
+      "sha256": "e16a473adbec0fcac727300e5cf82dd2ba60785ed3807d5ea5d6f2de26355314",
+      "bytes": 51559
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/reward-requests-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/reward-requests-390.png",
+      "sha256": "ee87088280539fc32b55dddec5ee1bb6ed9512de0f66743b2295c3604c162ea8",
+      "bytes": 49239
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/route-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/route-1440.png",
+      "sha256": "d359982025ede586fe5f242ab166a30806c1e59afae96fb145026c3b698c0c5a",
+      "bytes": 46055
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/route-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/route-390.png",
+      "sha256": "a84170df37674a5f1d582e207ebcd302402f4e8e9ce847bf9a626c4f604fd14b",
+      "bytes": 47167
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/subset-endpoint-1440.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/subset-endpoint-1440.png",
+      "sha256": "34e90bf67d7e784968df3cc5ab525866a00432a9685414352b045028be7a58c0",
+      "bytes": 49293
+    },
+    {
+      "source": "scratch/dynamic-programming-lesson-review/subset-endpoint-390.png",
+      "archive": "docs/teaching/archive/dynamic-programming-before-state-families/scratch/dynamic-programming-lesson-review/subset-endpoint-390.png",
+      "sha256": "6658502525ca49a9fdbe226e3c176616e6da8f9cb8e5d1f1b76a9fd5fee11254",
+      "bytes": 48638
+    }
+  ],
+  "programs": [
+    {
+      "id": "memo",
+      "title": "Solve each free suffix once",
+      "codeSha256": "336dd68d2a62d5e73927c12312561c26299dd8aa09e38ebc502dec9368b2f942",
+      "expected": "16\n0\n0"
+    },
+    {
+      "id": "rewardWitness",
+      "title": "Fill suffixes backward, then recover selected sessions",
+      "codeSha256": "73f11a9e7fbe3b5302486403792761dd82cba2cb87d7f2378f548a094cb837f4",
+      "expected": "(16, [1, 3])\n(2, [1])\n(0, [])"
+    },
+    {
+      "id": "state",
+      "title": "Keep the previous-choice constraint in the key",
+      "codeSha256": "0e4f2bbc880723c6c8b1d5950a52dd4a57bcfabd7a7d8161862e607eed762dc3",
+      "expected": "9\n0\n16"
+    },
+    {
+      "id": "weightedIntervals",
+      "title": "Recover the weighted schedule that earliest finish can miss",
+      "codeSha256": "3d9fe4c0b07b3548d944de503d077edc57da2323394a826e1f9b9bec0d26b41c",
+      "expected": "(10, [0])\n(11, [0, 1])\n(0, [])"
+    },
+    {
+      "id": "grid",
+      "title": "Find a cheapest right/down route and a concrete witness",
+      "codeSha256": "ed2868397982d8d42628939ce0ea26909d4c9238c29e8faec14f101c65f340c7",
+      "expected": "(7, [(0, 0), (1, 0), (1, 1), (2, 1), (2, 2), (2, 3)])\n(None, [])\n(-2, [(0, 0), (0, 1), (1, 1)])"
+    },
+    {
+      "id": "gridCount",
+      "title": "Reuse one row while counting blocked-grid paths",
+      "codeSha256": "38f236a1bf781e82c18881f0fc65c260de90cc324d0b540d8beaabcf1ab0a99b",
+      "expected": "2\n0\n1"
+    },
+    {
+      "id": "lcs",
+      "title": "Recover a longest common subsequence from prefix lengths",
+      "codeSha256": "2bfd39a2e98f6dc03e499a5b70a03b9aeeed5ec37fe3bbee6f2cb47826654687",
+      "expected": "(3, 'ABC')\n(1, 'A')\n(0, '')"
+    },
+    {
+      "id": "edit",
+      "title": "Change the sequence objective to unit-cost edits",
+      "codeSha256": "35d6bb39a2800dd41e161c2f49758d1424e5f2fad579e35b0fb1c83e69880aa9",
+      "expected": "1\n3\n3"
+    },
+    {
+      "id": "knapsack",
+      "title": "Allocate a capacity budget and reconstruct the selected items",
+      "codeSha256": "15550a56e06ba6a1243ebfdc2a1e489d7d6fbaef211554e82f978050bf3158ff",
+      "expected": "(7, [0, 1])\n(3, [0])\n(0, [])\n(220, [1, 2])"
+    },
+    {
+      "id": "compression",
+      "title": "The direction chooses whether the current item can be reused",
+      "codeSha256": "bf43020cbca2fcae4cf27352677e5220f31b441a49f52beecb2fd31e80b0691b",
+      "expected": "once: 7\nreusable: 9\none item, once/reusable: 3 6"
+    },
+    {
+      "id": "subsetSum",
+      "title": "Exact reachability needs a different initial state",
+      "codeSha256": "00a78fc41db9be6c882b0333300146bf84ae327beceff28b2ddcccf208da24ed",
+      "expected": "False\nTrue\nTrue"
+    },
+    {
+      "id": "coins",
+      "title": "Fewest coins and two different meanings of counting",
+      "codeSha256": "bb982df0b94997d890c95137f27ac2475c091b3e07544976933cbaef5c75c9ed",
+      "expected": "(2, 3, 2)\n(None, 0, 0)\n(0, 1, 1)"
+    },
+    {
+      "id": "masks",
+      "title": "A finite set represented by membership bits",
+      "codeSha256": "27da9a5c244fc042665dce47ae8898a7e564d28bf58ec51f3f236252929c33dc",
+      "expected": "0101 ['A', 'C']\nB present: False\n0011 1100\nbitwise/logical: 0 2\nunbounded complement: -6\nsubmasks: [5, 4, 1, 0]"
+    },
+    {
+      "id": "route",
+      "title": "Cheapest visit-once path: subset plus endpoint",
+      "codeSha256": "dea4d73241f19bec44b4bea3c7e3fab1cfbe21629abee672f8df1fb97b374770",
+      "expected": "(3, [0, 1, 2, 3])\n(None, [])\n(0, [0])"
+    },
+    {
+      "id": "lis",
+      "title": "A quadratic state definition and a smaller dominance summary",
+      "codeSha256": "613ff52a631814cabe35e42ae6cb8bf84f6b4d4b626832785dc7982cdf508d97",
+      "expected": "3 3\n1 1\n0 0\n3 3"
+    },
+    {
+      "id": "segment",
+      "title": "Independent application: split a stream into approved commands",
+      "codeSha256": "3f23a79e51a0768cec06579b05d742498da0cc426f0d0e2a58eaf18a438345dc",
+      "expected": "['scan', 'reset']\nNone\n[]"
+    }
+  ],
+  "problems": [
+    {
+      "group": "foundation",
+      "number": 198,
+      "title": "House Robber",
+      "slug": "house-robber",
+      "difficulty": "Medium",
+      "focus": "Transfer the nonadjacent-session recurrence to the public statement and distinguish value-only output from a witness.",
+      "hint": "If you select this position, which next position is free? Keep the entry contract identical in both recursive branches.",
+      "transfer": "Allow negative rewards and an empty choice, then require at least one selection. Explain which base or state changes rather than retaining zero everywhere."
+    },
+    {
+      "group": "foundation",
+      "number": 64,
+      "title": "Minimum Path Sum",
+      "slug": "minimum-path-sum",
+      "difficulty": "Medium",
+      "focus": "Define a cell total that includes the destination cell exactly once and derives from legal incoming directions.",
+      "hint": "Every path into an interior cell has a final move from above or left. Separate the start from missing predecessors.",
+      "transfer": "Add obstacles and a requested route; then allow negative cell costs. Explain why right/down acyclicity matters more than nonnegativity here."
+    },
+    {
+      "group": "foundation",
+      "number": 63,
+      "title": "Unique Paths II",
+      "slug": "unique-paths-ii",
+      "difficulty": "Medium",
+      "focus": "Change the objective from minimum cost to the number of paths and make a blocked start meaningful.",
+      "hint": "The zero-move route contributes one way only when the start is open. The two final-move cases are disjoint.",
+      "transfer": "On paper trace the one-row update with a blocked cell in the first row. What stale value must be erased, and why does the left entry already belong to the new row?"
+    },
+    {
+      "group": "core",
+      "number": 1235,
+      "title": "Maximum Profit in Job Scheduling",
+      "slug": "maximum-profit-in-job-scheduling",
+      "difficulty": "Hard",
+      "focus": "Carry the finish-ordered weighted-interval recurrence into separate start/end/profit arrays and preserve touching-interval compatibility.",
+      "hint": "For each finish-ordered job, compare skipping it with taking it plus the best compatible prefix. Binary-search the boundary among earlier finish times.",
+      "transfer": "Use the earlier Greedy counterexample with a value-10 long job versus two value-4 short jobs. Recover original job indices, handle tied finishes, and explain why sorting by value alone has no replacement proof."
+    },
+    {
+      "group": "core",
+      "number": 1143,
+      "title": "Longest Common Subsequence",
+      "slug": "longest-common-subsequence",
+      "difficulty": "Medium",
+      "focus": "Explain why two prefix lengths form the key, and why subsequence matching permits gaps.",
+      "hint": "Partition cases by the last characters of the two prefixes. The empty-prefix row and column are part of the definition.",
+      "transfer": "Recover a witness on AB versus BA and state a tie policy. Then ask for a contiguous common substring and explain why merely returning the same table entry fails."
+    },
+    {
+      "group": "core",
+      "number": 72,
+      "title": "Edit Distance",
+      "slug": "edit-distance",
+      "difficulty": "Medium",
+      "focus": "Assign a precise insertion, deletion or replacement meaning to each grid dependency.",
+      "hint": "Transforming an empty prefix requires as many insertions as the other prefix length. A matching character has cost zero.",
+      "transfer": "Make replacement cost three while insertion/deletion cost one. Decide whether a replacement or a delete-plus-insert wins; adapt the recurrence without changing the legal operation set."
+    },
+    {
+      "group": "core",
+      "number": 416,
+      "title": "Partition Equal Subset Sum",
+      "slug": "partition-equal-subset-sum",
+      "difficulty": "Medium",
+      "focus": "Reduce equal partition to exact target reachability, retaining occurrence identity and 0/1 reuse.",
+      "hint": "An odd total cannot split evenly. For an even total, how much must one subset sum to? Descending totals keep a value from appearing twice.",
+      "transfer": "Explain why [3,5] cannot reach 6 with one-use items while [3,5,3] can. Discuss what signed values change about the table index range."
+    },
+    {
+      "group": "core",
+      "number": 322,
+      "title": "Coin Change",
+      "slug": "coin-change",
+      "difficulty": "Medium",
+      "focus": "Minimize the number of reusable positive denominations, separating impossible from zero coins.",
+      "hint": "Choose a final coin and solve the smaller remaining amount. Positive denominations make that dependency acyclic.",
+      "transfer": "Compare [1,3,4] at amount 6 with largest-coin-first. Then constrain each occurrence to one use and explain why the state/order must change."
+    },
+    {
+      "group": "core",
+      "number": 518,
+      "title": "Coin Change II",
+      "slug": "coin-change-ii",
+      "difficulty": "Medium",
+      "focus": "Count combinations without counting their reorderings as different answers.",
+      "hint": "After processing a denomination, let each total count only combinations using denominations processed so far. Reuse the current denomination through ascending amounts.",
+      "transfer": "List all results for denominations [1,3], amount 4. Swap the loops and explain exactly which two answers were previously merged."
+    },
+    {
+      "group": "core",
+      "number": 300,
+      "title": "Longest Increasing Subsequence",
+      "slug": "longest-increasing-subsequence",
+      "difficulty": "Medium",
+      "focus": "Start with best length ending at each index, then justify a minimum-tail dominance summary.",
+      "hint": "A previous endpoint can precede this value only if it occurs earlier and is strictly smaller. Equal values must not increase a strictly increasing length.",
+      "transfer": "Show that final tails [2,5,6] for input [3,5,6,2] is not an actual subsequence. Add predecessor indices if the output must be a witness; use a different bound for nondecreasing order."
+    },
+    {
+      "group": "stretch",
+      "number": 309,
+      "title": "Best Time to Buy and Sell Stock with Cooldown",
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+      "difficulty": "Medium",
+      "prerequisite": "State sufficiency and simultaneous old/new state updates from this lesson; read the public buy/sell/cooldown contract before modeling it.",
+      "focus": "Distinguish holding, just sold and free-to-buy histories at the same day; this is a toy optimization model, not investment advice.",
+      "hint": "Two histories at one day may have different legal actions. Write the legal transitions before combining their values, and read all previous-day values before overwriting any.",
+      "transfer": "Change the cooldown to two days. Explain what additional memory is needed and which histories still share a future."
+    },
+    {
+      "group": "stretch",
+      "number": 980,
+      "title": "Unique Paths III",
+      "slug": "unique-paths-iii",
+      "difficulty": "Hard",
+      "prerequisite": "Backtracking path-local used sets, grid adjacency and this lesson’s subset+endpoint state. Adapt optimization to counting and enforce the designated end condition.",
+      "focus": "Count visit-every-cell paths; ordinary right/down grid DP and a global visited flag no longer describe the contract.",
+      "hint": "Number only traversable cells. The subset and endpoint describe which cells remain and which moves are legal; accept the end only when every required cell has been visited.",
+      "transfer": "Compare exponential state storage with direct path enumeration on a sparse corridor and on a branching board. Memoization is not automatically the better choice for every reachable-state graph."
+    }
+  ],
+  "inventory": "docs/teaching/archive/dynamic-programming-before-state-families/topic-plan.txt"
+}

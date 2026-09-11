@@ -1,0 +1,699 @@
+{
+  "topicId": "random-matrix-theory",
+  "reviewedAt": "2026-09-10T20:31:29.963641+00:00",
+  "status": "closed bounded independent review; one native numerical finding repaired and rechecked",
+  "reviewedProduction": [
+    {
+      "path": "src/learn/data/topics/random-matrix-theory.jsx",
+      "sha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2"
+    },
+    {
+      "path": "src/learn/data/random-matrix-models.js",
+      "sha256": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f"
+    },
+    {
+      "path": "src/learn/data/random-matrix-examples.js",
+      "sha256": "4386d8e5b5b21886156b81c87fe2f97a844700b3b541a952bbb6ce6f63e59780"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "sha256": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-matrix-labs.css",
+      "sha256": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+      "sha256": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394"
+    }
+  ],
+  "complementaryExecution": {
+    "at": "2026-09-10T20:33:25.509224+00:00",
+    "passedExceptTrackedMassHelper": true,
+    "massHelperPassed": true,
+    "counts": {
+      "displayedPrograms": 11,
+      "changedCovariances": 16,
+      "independentMPIntervals": 99,
+      "gaussianMomentQuadratureStates": 810,
+      "finiteSchurRootsAndOverlaps": 8,
+      "spikeBranches": 12,
+      "outlierIntegralIdentities": 6,
+      "changedBounds": 18,
+      "changedTwoLevelMatrices": 27,
+      "radialGapIntegrals": 5
+    },
+    "maxMPIntervalError": 7.216449660063518e-16,
+    "massHelper": [
+      {
+        "gamma": 0.9999,
+        "atom": 0,
+        "moments": [
+          1.0,
+          4.000000000000001,
+          31.9984
+        ],
+        "expected": [
+          1,
+          4,
+          31.9984
+        ],
+        "errors": [
+          0.0,
+          8.881784197001252e-16,
+          0.0
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 0.99999,
+        "atom": 0,
+        "moments": [
+          0.9999999999998965,
+          4.000000000000001,
+          31.999840000000006
+        ],
+        "expected": [
+          1,
+          4,
+          31.99984
+        ],
+        "errors": [
+          1.0347278589506459e-13,
+          8.881784197001252e-16,
+          7.105427357601002e-15
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 0.999999,
+        "atom": 0,
+        "moments": [
+          1.0000000000050489,
+          4.000000000000001,
+          31.999983999999998
+        ],
+        "expected": [
+          1,
+          4,
+          31.999983999999998
+        ],
+        "errors": [
+          5.048850226785362e-12,
+          8.881784197001252e-16,
+          0.0
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1,
+        "atom": 0,
+        "moments": [
+          1.0,
+          4.0,
+          32.00000000000001
+        ],
+        "expected": [
+          1,
+          4,
+          32
+        ],
+        "errors": [
+          0.0,
+          0.0,
+          7.105427357601002e-15
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.000001,
+        "atom": 9.99998999939855e-07,
+        "moments": [
+          0.9999990000060488,
+          4.0,
+          32.000015999999995
+        ],
+        "expected": [
+          0.9999990000010001,
+          4,
+          32.000016
+        ],
+        "errors": [
+          5.048739204482899e-12,
+          0.0,
+          7.105427357601002e-15
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.00001,
+        "atom": 9.999900001056439e-06,
+        "moments": [
+          0.9999900000998959,
+          4.0,
+          32.00016
+        ],
+        "expected": [
+          0.9999900000999989,
+          4,
+          32.00016
+        ],
+        "errors": [
+          1.0302869668521453e-13,
+          0.0,
+          0.0
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.0001,
+        "atom": 9.999000099991662e-05,
+        "moments": [
+          0.9999000099990003,
+          3.9999999999999996,
+          32.001599999999996
+        ],
+        "expected": [
+          0.9999000099990001,
+          4,
+          32.001599999999996
+        ],
+        "errors": [
+          2.220446049250313e-16,
+          4.440892098500626e-16,
+          0.0
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 2.25,
+        "atom": 0.5555555555555556,
+        "moments": [
+          0.4444444444444445,
+          4.0,
+          52.00000000000001
+        ],
+        "expected": [
+          0.4444444444444444,
+          4,
+          52.0
+        ],
+        "errors": [
+          5.551115123125783e-17,
+          0.0,
+          7.105427357601002e-15
+        ],
+        "warnings": []
+      }
+    ],
+    "gaussianMoments": [
+      {
+        "n": 2,
+        "p": 2,
+        "raw": 2.4999999999999987,
+        "centered": 4.000000000000002,
+        "quadratureStates": 81
+      },
+      {
+        "n": 3,
+        "p": 2,
+        "raw": 1.9999999999999982,
+        "centered": 2.4999999999999973,
+        "quadratureStates": 729
+      }
+    ],
+    "tiedRankEnumeration": {
+      "cases": 351,
+      "levels": [
+        {
+          "nullReplicates": 2,
+          "alpha": "1/3",
+          "exactRejectionProbability": "5/27"
+        },
+        {
+          "nullReplicates": 2,
+          "alpha": "2/3",
+          "exactRejectionProbability": "13/27"
+        },
+        {
+          "nullReplicates": 2,
+          "alpha": "1",
+          "exactRejectionProbability": "1"
+        },
+        {
+          "nullReplicates": 3,
+          "alpha": "1/4",
+          "exactRejectionProbability": "1/9"
+        },
+        {
+          "nullReplicates": 3,
+          "alpha": "1/2",
+          "exactRejectionProbability": "1/3"
+        },
+        {
+          "nullReplicates": 3,
+          "alpha": "3/4",
+          "exactRejectionProbability": "5/9"
+        },
+        {
+          "nullReplicates": 3,
+          "alpha": "1",
+          "exactRejectionProbability": "1"
+        },
+        {
+          "nullReplicates": 4,
+          "alpha": "1/5",
+          "exactRejectionProbability": "17/243"
+        },
+        {
+          "nullReplicates": 4,
+          "alpha": "2/5",
+          "exactRejectionProbability": "19/81"
+        },
+        {
+          "nullReplicates": 4,
+          "alpha": "3/5",
+          "exactRejectionProbability": "35/81"
+        },
+        {
+          "nullReplicates": 4,
+          "alpha": "4/5",
+          "exactRejectionProbability": "145/243"
+        },
+        {
+          "nullReplicates": 4,
+          "alpha": "1",
+          "exactRejectionProbability": "1"
+        }
+      ]
+    },
+    "production": [
+      {
+        "path": "src/learn/data/topics/random-matrix-theory.jsx",
+        "sha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2"
+      },
+      {
+        "path": "src/learn/data/random-matrix-models.js",
+        "sha256": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f"
+      },
+      {
+        "path": "src/learn/data/random-matrix-examples.js",
+        "sha256": "4386d8e5b5b21886156b81c87fe2f97a844700b3b541a952bbb6ce6f63e59780"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+        "sha256": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/random-matrix-labs.css",
+        "sha256": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+        "sha256": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394"
+      }
+    ]
+  },
+  "preFixExecution": {
+    "at": "2026-09-10T20:27:43.031576+00:00",
+    "passedExceptTrackedMassHelper": true,
+    "massHelperPassed": false,
+    "counts": {
+      "displayedPrograms": 11,
+      "changedCovariances": 16,
+      "independentMPIntervals": 99,
+      "gaussianMomentQuadratureStates": 810,
+      "finiteSchurRootsAndOverlaps": 8,
+      "spikeBranches": 12,
+      "outlierIntegralIdentities": 6,
+      "changedBounds": 18,
+      "changedTwoLevelMatrices": 27,
+      "radialGapIntegrals": 5
+    },
+    "maxMPIntervalError": 7.216449660063518e-16,
+    "massHelper": [
+      {
+        "gamma": 0.9999,
+        "atom": 0,
+        "moments": [
+          1.000050005000339,
+          4.000000000000002,
+          31.998399997702915
+        ],
+        "expected": [
+          1,
+          4,
+          31.9984
+        ],
+        "errors": [
+          5.0005000338915195e-05,
+          1.7763568394002505e-15,
+          2.2970851887293975e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 0.99999,
+        "atom": 0,
+        "moments": [
+          1.0000049997901796,
+          3.9999999999999996,
+          31.99983999770278
+        ],
+        "expected": [
+          1,
+          4,
+          31.99984
+        ],
+        "errors": [
+          4.999790179649466e-06,
+          4.440892098500626e-16,
+          2.297220191849192e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 0.999999,
+        "atom": 0,
+        "moments": [
+          1.000000499899707,
+          4.0000000000000036,
+          31.999983997702724
+        ],
+        "expected": [
+          1,
+          4,
+          31.999983999999998
+        ],
+        "errors": [
+          4.998997069627364e-07,
+          3.552713678800501e-15,
+          2.297273482554374e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1,
+        "atom": 0,
+        "moments": [
+          0.9999999999999862,
+          4.000000000000001,
+          31.999999997702666
+        ],
+        "expected": [
+          1,
+          4,
+          32
+        ],
+        "errors": [
+          1.3766765505351941e-14,
+          8.881784197001252e-16,
+          2.2973338786869135e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.000001,
+        "atom": 9.99998999939855e-07,
+        "moments": [
+          0.9999994998997636,
+          4.000000000000007,
+          32.00001599770268
+        ],
+        "expected": [
+          0.9999990000010001,
+          4,
+          32.000016
+        ],
+        "errors": [
+          4.998987634952101e-07,
+          7.105427357601002e-15,
+          2.2973196678321983e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.00001,
+        "atom": 9.999900001056439e-06,
+        "moments": [
+          0.9999949997908936,
+          4.000000000000002,
+          32.000159997702625
+        ],
+        "expected": [
+          0.9999900000999989,
+          4,
+          32.00016
+        ],
+        "errors": [
+          4.99969089462482e-06,
+          1.7763568394002505e-15,
+          2.297376511251059e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 1.0001,
+        "atom": 9.999000099991662e-05,
+        "moments": [
+          0.9999500049949213,
+          3.9999999999999987,
+          32.00159999770251
+        ],
+        "expected": [
+          0.9999000099990001,
+          4,
+          32.001599999999996
+        ],
+        "errors": [
+          4.999499592117651e-05,
+          1.3322676295501878e-15,
+          2.297483092661423e-09
+        ],
+        "warnings": []
+      },
+      {
+        "gamma": 2.25,
+        "atom": 0.5555555555555556,
+        "moments": [
+          0.444444444442626,
+          4.000000000000001,
+          52.00000000000007
+        ],
+        "expected": [
+          0.4444444444444444,
+          4,
+          52.0
+        ],
+        "errors": [
+          1.8184342920335439e-12,
+          8.881784197001252e-16,
+          7.105427357601002e-14
+        ],
+        "warnings": []
+      }
+    ],
+    "gaussianMoments": [
+      {
+        "n": 2,
+        "p": 2,
+        "raw": 2.4999999999999987,
+        "centered": 4.000000000000002,
+        "quadratureStates": 81
+      },
+      {
+        "n": 3,
+        "p": 2,
+        "raw": 1.9999999999999982,
+        "centered": 2.4999999999999973,
+        "quadratureStates": 729
+      }
+    ],
+    "production": [
+      {
+        "path": "src/learn/data/topics/random-matrix-theory.jsx",
+        "sha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2"
+      },
+      {
+        "path": "src/learn/data/random-matrix-models.js",
+        "sha256": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f"
+      },
+      {
+        "path": "src/learn/data/random-matrix-examples.js",
+        "sha256": "162349c0b25cc279178ff8379fdcd906b7fa782f40e4acf9bc1223b42c937e37"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+        "sha256": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/random-matrix-labs.css",
+        "sha256": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+        "sha256": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394"
+      }
+    ]
+  },
+  "tiedRankEnumeration": {
+    "cases": 351,
+    "levels": [
+      {
+        "nullReplicates": 2,
+        "alpha": "1/3",
+        "exactRejectionProbability": "5/27"
+      },
+      {
+        "nullReplicates": 2,
+        "alpha": "2/3",
+        "exactRejectionProbability": "13/27"
+      },
+      {
+        "nullReplicates": 2,
+        "alpha": "1",
+        "exactRejectionProbability": "1"
+      },
+      {
+        "nullReplicates": 3,
+        "alpha": "1/4",
+        "exactRejectionProbability": "1/9"
+      },
+      {
+        "nullReplicates": 3,
+        "alpha": "1/2",
+        "exactRejectionProbability": "1/3"
+      },
+      {
+        "nullReplicates": 3,
+        "alpha": "3/4",
+        "exactRejectionProbability": "5/9"
+      },
+      {
+        "nullReplicates": 3,
+        "alpha": "1",
+        "exactRejectionProbability": "1"
+      },
+      {
+        "nullReplicates": 4,
+        "alpha": "1/5",
+        "exactRejectionProbability": "17/243"
+      },
+      {
+        "nullReplicates": 4,
+        "alpha": "2/5",
+        "exactRejectionProbability": "19/81"
+      },
+      {
+        "nullReplicates": 4,
+        "alpha": "3/5",
+        "exactRejectionProbability": "35/81"
+      },
+      {
+        "nullReplicates": 4,
+        "alpha": "4/5",
+        "exactRejectionProbability": "145/243"
+      },
+      {
+        "nullReplicates": 4,
+        "alpha": "1",
+        "exactRejectionProbability": "1"
+      }
+    ]
+  },
+  "independentlyOpenedAuthorScreenshots": [
+    {
+      "path": "scratch/random-matrix-browser/inline-0-390.png",
+      "sha256": "ed6c23c4ae05eb57f8f9436d53bf46921d51b7d0ca20e031799c81e64ca19dbc"
+    },
+    {
+      "path": "scratch/random-matrix-browser/covariance-wide-centered-390.png",
+      "sha256": "9c6020202a766e79e20f2af0682e99ed8b02ce5273fe90185c288d8cfafb27a4"
+    },
+    {
+      "path": "scratch/random-matrix-browser/random-spike-initial-1440.png",
+      "sha256": "b3d6d257829b9b002445e306791a3405a229284afd9e20044113acaa6b6c9537"
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-finite-bounds-320.png",
+      "sha256": "88cac8caa6a53ee78307fb7f7912d15ffaf230df8b4f8fb529825a3b8940bfcb"
+    },
+    {
+      "path": "scratch/random-matrix-browser/finite-matched-null-390.png",
+      "sha256": "e33ba9c629cc1e23a9a7380cc2f6f0657fcdd2a2c9b9d362a01b8f3987a4e1a6"
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-mass-program-390.png",
+      "sha256": "3f789e8b438ffc6e8851ea925eb1299004ea0c4cb1211fa2e0052f95f44303c3"
+    },
+    {
+      "path": "scratch/random-matrix-browser/final-mass-output-320.png",
+      "sha256": "3d66f2a63b3eede162a77dee06a34f21ab68cbebde659dc8430a1027f2ad76a0"
+    }
+  ],
+  "script": {
+    "path": "scripts/verify-random-matrix-independent.py",
+    "sha256": "d4b6bee185aa0bb377b8968b82cb494675af87cf95e6397e8b74493430680e7a"
+  },
+  "productionEditsByReviewer": false,
+  "limitations": [
+    "Author screenshots were independently opened; the full browser suite was not rerun by this reviewer.",
+    "No exhaustive floating-point-range guarantee, full asymptotic proof audit or full-video playback.",
+    "Integrated production review and user acceptance are separate from this finite review."
+  ],
+  "closedAt": "2026-09-10T20:38:40.485281+00:00",
+  "initialReviewedProduction": [
+    {
+      "path": "src/learn/data/topics/random-matrix-theory.jsx",
+      "sha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2"
+    },
+    {
+      "path": "src/learn/data/random-matrix-models.js",
+      "sha256": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f"
+    },
+    {
+      "path": "src/learn/data/random-matrix-examples.js",
+      "sha256": "162349c0b25cc279178ff8379fdcd906b7fa782f40e4acf9bc1223b42c937e37"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "sha256": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-matrix-labs.css",
+      "sha256": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-matrix-theory.js",
+      "sha256": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394"
+    }
+  ],
+  "authorFreezeIdentity": {
+    "path": "docs/teaching/evidence/random-matrix-author-review.json",
+    "sha256": "a6544df007c48b3dd298c41dee53566652d03af39ce111766c97b330d3678803",
+    "authorFrozenAt": "2026-09-10T20:36:52.161044+00:00",
+    "allSixProductionHashesMatch": true
+  },
+  "resolvedFindings": [
+    {
+      "key": "native-mp-endpoint-layer",
+      "state": "repaired by author; actual displayed helper independently executed and final identity matched",
+      "function": "mass program mp_moments",
+      "inputs": [
+        0.9999,
+        0.99999,
+        0.999999,
+        1.000001,
+        1.00001,
+        1.0001
+      ],
+      "issue": "Unsplit x-domain quadrature loses a narrow contribution near ratio one and can return continuous probability mass greater than one without warnings.",
+      "resolution": "Angular substitution with explicit endpoint-layer interval breaks; outputs conserved; near-one mass and first two moments checked independently.",
+      "independentlyRecheckedAt": "2026-09-10T20:33:25.509224+00:00",
+      "maxAbsoluteMomentErrorInFocusedCases": 5.048850226785362e-12,
+      "quadratureWarnings": 0
+    }
+  ],
+  "openFindings": []
+}

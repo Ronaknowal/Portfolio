@@ -1,0 +1,121 @@
+{
+  "topic": {
+    "title": "Dynamic Programming: States, Transitions & Optimization",
+    "level": "intermediate",
+    "blueprint": {
+      "summary": "Design reusable subproblem states, prove transitions and dependency order, recover witnesses and optimize storage or work without changing the problem.",
+      "outcomes": [
+        "Distinguish repeated calls from complete reusable states",
+        "Derive and justify base cases, transitions, order and final result",
+        "Implement memoization and tabulation with consistent cache scope",
+        "Recover witnesses in weighted schedules, sequence, grid and capacity problems",
+        "Explain when compressed update order changes item reuse or counting semantics",
+        "Encode finite subsets as masks before deriving subset-plus-endpoint DP",
+        "Analyze state and transition costs, pseudo-polynomial bounds and optimization assumptions"
+      ],
+      "prerequisites": [
+        "Complexity Analysis & Recursion",
+        "Arrays, Strings & Hash Maps",
+        "Backtracking & Divide-and-Conquer"
+      ],
+      "sequence": [
+        "Derive a reusable free suffix",
+        "Expose hidden history in the state key",
+        "Keep compatible-prefix alternatives in finish-ordered weighted scheduling",
+        "Grow grid answers and reconstruct routes",
+        "Align sequence prefixes",
+        "Allocate item capacity and inspect logical rows",
+        "Separate optimization, existence and counting",
+        "Represent used subsets and endpoints",
+        "Optimize from a proven invariant",
+        "Design and test a new command-segmentation problem"
+      ],
+      "visual": {
+        "type": "Subproblem dependency graph, spatial grid, sequence-alignment table, capacity-generation strip and membership-bit/endpoint map",
+        "question": "Which information makes two histories equivalent, and which already-solved state does this transition use?",
+        "interaction": "Step requests or tabulation, toggle obstacles, inspect prefix dependencies, change capacity iteration direction and compare endpoint futures for one subset."
+      },
+      "practice": {
+        "task": "Derive new recurrences, diagnose incomplete states and loop-order bugs, recover witnesses and solve command segmentation plus curated official problems.",
+        "success": "Matches independent small exhaustive oracles, explains soundness/completeness/termination and meaningful boundary cases, and adapts safely when constraints change."
+      },
+      "misconceptions": [
+        "A cache repairs an incomplete state definition",
+        "Zero means not computed or impossible",
+        "Bottom-up means increasing every index",
+        "Compression can use either loop direction",
+        "Counting sequences and combinations uses the same partition",
+        "A mask alone always describes a path state",
+        "Every dynamic program is polynomial",
+        "A value-only memory bound automatically includes witness reconstruction",
+        "A minimum-tail LIS summary is itself an input subsequence"
+      ],
+      "sources": [
+        "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/pages/lecture-notes/",
+        "https://docs.python.org/3/library/functools.html#functools.cache",
+        "https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types",
+        "https://www.cs.cmu.edu/~15451-s25/slides/lecture11.pdf",
+        "https://www.cs.princeton.edu/courses/archive/spring13/cos423/lectures/06DynamicProgrammingI.pdf"
+      ],
+      "depth": "core",
+      "reviewFocus": "State sufficiency, dependency direction and termination, unreachable states, tie/reconstruction contracts, generation reads under compression, exact count semantics, mask language limits, independent oracles and topic-specific desktop/mobile visuals."
+    },
+    "prerequisites": [
+      "Complexity Analysis & Recursion",
+      "Algorithm Correctness, Loop Invariants & Termination"
+    ],
+    "id": "dynamic-programming-states-transitions-optimization",
+    "trackId": "data-structures-algorithms",
+    "section": "Algorithmic Patterns",
+    "trackIds": [
+      "data-structures-algorithms"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "complexity-analysis-recursion",
+      "arrays-strings-hash-maps",
+      "backtracking-divide-and-conquer"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "published",
+    "teachingReview": "implementation-reviewed-user-acceptance-pending",
+    "teachingReviewRecord": "docs/teaching/DYNAMIC-PROGRAMMING-VERIFICATION.md",
+    "domainStrategy": "algorithms"
+  },
+  "domainGuidance": {
+    "strategy": "algorithms",
+    "flow": [
+      "Specify inputs, outputs and a small task",
+      "Establish a simple correct method and its cost",
+      "Expose the data structure and trace its changing state",
+      "State and justify an invariant and termination",
+      "Analyze resources under a stated cost model",
+      "Implement, diagnose edge cases and transfer to a new constraint"
+    ],
+    "visuals": [
+      "Execution trace linked to code and state",
+      "Pointer/tree/frontier diagram",
+      "Same-input method comparison"
+    ],
+    "practice": "Predict a next state, implement from an invariant, construct a counterexample and compare time/space tradeoffs.",
+    "verification": "Correctness argument plus independent/oracle outputs for meaningful boundary and adversarial cases; measurements do not prove asymptotics.",
+    "exampleAnchor": "Scheduling jobs, finding routes and maintaining changing collections under explicit constraints.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/dynamic-programming-states-transitions-optimization.md",
+      "exists": true,
+      "markdown": "# Authoring notes: Dynamic Programming: States, Transitions & Optimization\n\nCanonical topic ID: `dynamic-programming-states-transitions-optimization`\n\n## 2026-09-10 — Teach subset masks before mask-based dynamic programming\n\n- Status: implemented for the finite-subset primer and subset-plus-endpoint state; not resolution of all bit-manipulation ownership.\n- Origin: `backtracking-divide-and-conquer`; [individual design](../BACKTRACKING-DIVIDE-LESSON-DESIGN.md) and the [unassigned coverage inbox](UNASSIGNED.md).\n- Destination and rationale: this topic can teach how a set of already-chosen elements becomes part of a reusable subproblem key. That gives bitmask encoding a concrete purpose after the current backtracking lesson has made the same set visible as ordinary positions and Python sets. A generic Python-basics insertion would overload first-time programming; an unexplained N-Queens bit trick would hide rather than clarify its constraint invariant.\n- Existing coverage inspected: Complexity introduces binary input length and exponential output counting; Python Basics introduces ordinary values/conditions but is not a complete bitwise tutorial. Backtracking's new subset and queen mechanisms deliberately use lists/sets. The narrow live-title search found no dedicated ordinary bit-manipulation owner; no full-catalogue audit is claimed.\n- Proposed treatment: before a subset-DP example, teach a finite universe of n indices, bit i as membership, empty/full mask, membership test, add/remove, and subset iteration with a small linked bit-row/set view. Explain bitwise versus Boolean operators, Python integer semantics versus bounded-width representations, and why arbitrary-precision operations have a size cost. Then derive why `(used_subset, endpoint)` or another complete state can merge repeated futures; a mask alone is not always a sufficient key.\n- Example benefit: compare two orderings that reach the same chosen subset but a different final vertex. This exposes both useful memoization and the need for an endpoint dimension before the learner sees a compact subset-DP formula.\n- Prerequisites/boundaries: indices, finite sets, powers of two, Boolean logic and the backtracking state invariant. Verify actual bit/shift behavior against current official Python documentation and executable tests when implementing. The broader XOR tricks, signed/fixed-width conventions and bit-manipulation interview curriculum still need an explicit owner; do not silently mark that gap complete.\n- Evidence: scoped local searches and the inspected source locations above; official Python integer/bitwise documentation is the intended implementation reference, not an assertion that a complete mask unit is already authored.\n- Resolution: included in the DP lesson's section 7 before the visit-once route recurrence. The linked membership switches/bit row/set and endpoint-dependent futures make the key concrete. Complete Python demonstrates membership/add/remove/toggle, bounded complement, Boolean-versus-bitwise behavior and submask enumeration; source and independent checks distinguish Python integer semantics from tiny browser masks. [Design](../DYNAMIC-PROGRAMMING-LESSON-DESIGN.md), [verification](../DYNAMIC-PROGRAMMING-VERIFICATION.md), [lesson](../../../src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx). Broader XOR identities, fixed-width conventions and bit-manipulation interview coverage remain open in the shared inbox; this author did not mark them complete.\n\n## 2026-09-10 — Start from the alternatives greedy cannot discard\n\n- Status: adapted and implemented.\n- Origin: `greedy-algorithms-exchange-arguments`; [Greedy design](../GREEDY-EXCHANGE-LESSON-DESIGN.md).\n- Destination and rationale: DP is the next module topic and owns state/transition reasoning. The new Greedy lesson teaches exactly why two local rules fail, giving concrete motivation for keeping alternatives rather than introducing an unexplained recurrence.\n- Existing local coverage: Greedy implements unweighted interval count and fractional capacity; it explicitly does not claim to solve weighted interval selection or 0/1 knapsack. The counterexamples are computed and independently verified. General DP state construction is not taught by a failed greedy trace alone.\n- Proposed examples: (1) A [0,5) value 10 versus B [0,2) value 4 and C [2,5) value 4. Earliest finish keeps value 8 while A gives 10. Define a finish-ordered weighted-interval state, the last compatible predecessor and choose/skip alternatives before writing a recurrence; preserve half-open touching semantics. (2) Weights 10,20,30; values 60,100,120; capacity 50. Fractional optimum 240, whole-item density result 160, true whole optimum 220. Define item-prefix/capacity state and show why a transition consumes an item only once; an ascending in-place capacity loop would silently change reuse semantics.\n- Learner benefit: compare the exact old proof's failed exchange with the richer state that retains the lost choice. Show reconstruction, empty/zero boundaries, infeasibility conventions where applicable and storage-compression dependencies. Capacity-based O(nW) work is pseudopolynomial when W is binary encoded; do not label it polynomial in input bit length without qualification.\n- Prerequisites: sorted boundaries, include/exclude decisions, complete state keys, induction and the current Greedy counterexamples. The browser's exhaustive small-subset oracle is a check, not the intended scalable DP implementation.\n- Evidence: the new Greedy lesson/examples and independent model/native verification; MIT 6.046 interval-scheduling notes and CMU fractional-relaxation notes inspected 10 September 2026. Recheck any implementation-specific complexity and reconstruction policy when authoring.\n- Resolution: section 2 now derives finish-ordered weighted scheduling, compatible prefix lengths, skip/take proof and reconstruction; its inline duration lanes retain the exact 8-versus-10 example and the changed value-11 case. Section 5 adds the exact capacity-50 whole-item result 220 and explains fractional 240 versus greedy whole-item 160. The prior item-generation lab already demonstrates the required direction distinction, so no redundant capacity lab was added. Sixteen complete Python fixtures now include weighted scheduling; 300 independently enumerated schedules check values, chronological witnesses, ties, negative values and touching intervals. Official LeetCode 1235 and Princeton's primary weighted-interval material are linked and verified. See the same design/verification/lesson links above.\n\n## 2026-09-10 — Preserve ownership of deeper dynamic-programming families\n\n- Status: open for a reasoned advanced extension; not part of the completed representative-state claim.\n- Origin: the current DP scope review. The user seeks broad eventual problem-solving coverage, so named families must not silently become completed coverage.\n- Best current owner: this existing DP topic is a plausible eventual home for advanced interval, tree-boundary and digit-bound states; a scoped search of DSA catalogue/brief titles found no separate explicit owner. Reassess whether coherent deeper sections here or a future explicit advanced topic/path segment better serve learners before adding them. Do not invent a stable ID or reorder the module silently.\n- Current teaching: complete sequence/grid/weighted-schedule/capacity/subset mechanisms, witnesses, safe compression, exact counting and a proved unweighted LIS dominance optimization. Section 8 introduces interval/tree/digit state shapes and names specialized optimizations with explicit limits. It does not claim complete native implementations or interview coverage of those advanced families.\n- Proposed depth: derive an interval-split example with increasing-length evaluation and a reconstruction witness; a subtree example where the parent boundary condition controls child choices; a digit-count example where prefix tightness/leading-zero/property state is explicit. Use counterexamples to insufficient boundary keys and independent brute-force oracles. Prove added hypotheses before any divide-and-conquer optimization, monotone-optimal-split theorem or convex-hull reduction; the names alone do not authorize those transformations.\n- Dependencies and boundaries: tree mechanics, recursion, complete DP state reasoning and integer positional notation. Advanced optimization prerequisites depend on the selected recurrence; introduce inequalities/line envelopes/monotonicity before using them. Numeric bitmask encoding here is a scoped representation primer, not general bit-trick coverage.\n- Routed concrete subset: range-maximum acceleration for a weighted LIS-style predecessor query belongs first with the next [Range Queries note](segment-trees-fenwick-trees-range-queries.md), because that topic teaches coordinate compression, aggregate identities and query/update semantics. Do not count that planned extension as implemented here.\n- Evidence: narrow source search and current lesson/design; future formulas and implementations require primary-source research, exact models/native tests, distinct practice and browser review. No full-catalogue audit is claimed.\n- Resolution: pending scoped authoring/ownership reassessment. Keep this obligation visible rather than treating a finite practice list as complete mastery of all dynamic programming.\n"
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+}

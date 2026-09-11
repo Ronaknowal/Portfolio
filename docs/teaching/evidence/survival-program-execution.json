@@ -1,0 +1,50 @@
+{
+  "executedAt": "2026-09-11T14:53:41.595452+00:00",
+  "runtime": "scratch\\survival-tools\\Scripts\\python.exe",
+  "executedPrograms": [
+    "rossi"
+  ],
+  "programs": 17,
+  "sha256": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+  "outputs": {
+    "observation": "A Y=2 event=1 T = 2\nB Y=3 event=0 T > 3\nC Y=4 event=1 T = 4\nD Y=4 event=0 T > 4\nE Y=6 event=1 T = 6\nF Y=7 event=0 T > 7\nG Y=8 event=1 T = 8\nH Y=9 event=0 T > 9\nobserved-time mean: 5.375\ncompleted-only mean: 5.0\nNeither is an ordinary estimate of unrestricted mean lifetime here.\nadministrative cutoff 5: [2.0, 3.0, 4.0, 4.0, 5.0, 5.0, 5.0, 5.0]\nevents after cutoff are now censored: [1, 0, 1, 0, 0, 0, 0, 0]",
+    "kaplanMeier": "day risk failures censored survival Greenwood\n2 8 1 0 7/8 1/56\n3 7 0 1 7/8 1/56\n4 6 1 1 35/48 43/840\n6 4 1 0 35/64 113/840\n7 3 0 1 35/64 113/840\n8 2 1 0 35/128 533/840\n9 1 0 1 35/128 533/840\napproximate pointwise 95% limits at 4: [0.27639, 0.925353]\nS(5), held constant after 4: 35/48\nmedian: 8\nRMST through day 9: 2525/384",
+    "timeouts": "A success by timeout: 1/2 restricted compute: 13/4\nB success by timeout: 1/2 restricted compute: 17/4\nAn unfinished run may finish at 6 or at 600; these observations cannot decide.\nshape 1 failure in next 3 days given running at 4: 0.221199\nshape 2 failure in next 3 days given running at 4: 0.204804",
+    "exponential": "events / exposure: 4 43.0\nrate per day: 0.09302326\nnumerical likelihood fit: 0.09302326\nrate with four extra censored running days: 0.08510638\nS(10): 0.394462\nrate per hour: 0.00387597\nNo events: likelihood increases as the positive rate tends to zero.",
+    "syntheticComparison": "subjects / events / censored: 200 113 87\ngroup 0 S(5), S(10): [0.607843, 0.365577]\ngroup 1 S(5), S(10): [0.785714, 0.625616]\nlog-rank chi-square / asymptotic p: 19.744046 8.85371e-06\nThese are simulated group associations under the stated generator.",
+    "coxFit": "beta / HR: -0.860871 0.422794\niterations / status: 4 score tolerance reached\nlog likelihood / score / information: [-524.38770086, -0.0, 25.08133407]\nlibrary beta: -0.860871\nconstant-feature information: 0.0\nA finite score tolerance alone does not rule out separation; inspect information and coefficient growth.",
+    "ties": "day 2 risk weights: [1.0, 2.0, 0.5, 1.0, 2.0]\nBreslow / Efron contributions: 0.04733728 0.06153846\ndiscrete unordered subset probability: 0.125\nEfron fitted beta, lifelines / sksurv: -0.39443 -0.39443\ncentered baseline cumulative hazard at 4: 1.169632\npredicted S(4) for x=-1,0,1: [0.176366, 0.310481, 0.454568]",
+    "rossi": "rows / events: 432 114\nKM S(26), median: 0.875 inf\n               coef  exp(coef)  coef lower 95%  coef upper 95%\ncovariate                                                     \nfin       -0.379422   0.684257       -0.754519       -0.004325\nage       -0.057438   0.944181       -0.100556       -0.014320\nrace       0.313900   1.368753       -0.289755        0.917555\nwexp      -0.149796   0.860884       -0.565748        0.266156\nmar       -0.433704   0.648104       -1.182152        0.314744\nparo      -0.084871   0.918631       -0.468547        0.298805\nprio       0.091497   1.095814        0.035347        0.147647\nrank-time PH diagnostic:\n      test_statistic         p\nage        11.453497  0.000714\nfin         0.015056  0.902343\nmar         0.709474  0.399619\nparo        0.134266  0.714049\nprio        0.018834  0.890843\nrace        1.426479  0.232340\nwexp        7.314934  0.006838\nfirst event record's Schoenfeld residual:\n{'fin': -0.414297, 'age': 4.286793, 'race': 0.108004, 'wexp': -0.45595, 'mar': -0.069788, 'paro': 0.399005, 'prio': -0.856093}\ntraining concordance: 0.640329\nHistorical randomized-aid dataset; this fit alone is not a complete causal analysis or held-out prediction assessment.",
+    "aft": "S at scale: 0.367879 failed: 0.632121\nbaseline / doubled median: 9.990655 19.981311\nhazard ratio: 0.25\nRossi shape / fin time ratio: 1.403688 1.312813\ntraining concordance: 0.640141\nfirst profile S(26): 0.880386\nIf shape also depends on features, one common time multiplier no longer describes the change.",
+    "metrics": "(0, 1) credit: 1.0\n(0, 2) credit: 1.0\n(0, 3) credit: 1.0\n(1, 2) credit: 0.5\n(1, 3) credit: None\n(2, 3) credit: 1.0\nlibrary C, concordant, discordant, risk ties, time ties: (np.float64(0.9), np.int64(4), np.int64(0), np.int64(1), np.int64(1))\nfull / known-G IPCW: 0.24 0.24\ncomplete-case / censor-as-failure: 0.274286 0.3",
+    "survivalTree": "threshold / log-rank chi-square: 2.5 2.330127\nthreshold / log-rank chi-square: 3.5 4.212648\nthreshold / log-rank chi-square: 4.5 2.381651\nchosen threshold: 3.5\nprofile 1.0 S(4), S(5): [1.0, 1.0]\nprofile 6.0 S(4), S(5): [0.25, 0.25]\nforest S(4) for both profiles: [np.float64(0.775), np.float64(0.5875)]\nThis tiny training illustration is not a held-out model comparison.",
+    "competing": "day / event-free / cause1 / cause2: 1 5/6 0 1/6\nday / event-free / cause1 / cause2: 2 2/3 1/6 1/6\nday / event-free / cause1 / cause2: 3 2/3 1/6 1/6\nday / event-free / cause1 / cause2: 4 4/9 1/6 7/18\nday / event-free / cause1 / cause2: 5 2/9 7/18 7/18\nday / event-free / cause1 / cause2: 6 2/9 7/18 7/18\nlibrary final CIF: [0.388889, 0.388889]\nnaive one-minus-KM cause1: 0.6\nconstant-hazard actual CIF / net quantity: 0.216166 0.393469",
+    "history": "delayed-entry S(3), S(5): [0.75, 0.375]\nid  start  stop  maintained  event\n A    0.0   3.0           0      0\n A    3.0   5.0           1      1\n B    1.0   6.0           0      0\nrisk set at 3.0 [{'id': 'A', 'maintained': 0, 'event': 0}, {'id': 'B', 'maintained': 0, 'event': 0}]\nrisk set at 5.0 [{'id': 'A', 'maintained': 1, 'event': 1}, {'id': 'B', 'maintained': 0, 'event': 0}]\nAll rows from A stay in one split. A future 'ever maintained' flag is not a baseline feature.",
+    "discrete": "subjects / person-period rows: 500 1267\nfitted interval intercepts and x coefficient: [-2.04201, -1.5721, -0.99493, -0.27399, 0.76369]\nx 0 hazards: [0.11486, 0.17192, 0.26994, 0.43193] survival: [0.88514, 0.73297, 0.53511, 0.30398]\nx 1 hazards: [0.21784, 0.30823, 0.44245, 0.62004] survival: [0.78216, 0.54108, 0.30168, 0.11463]\nevent in interval3 likelihood: 0.224\ncensored after interval2 likelihood: 0.56\nConditional likelihood factorization does not make one subject's rows independent subjects.",
+    "intervalLikelihood": "fitted constant rate: 0.15688122\nP(2<T<=5): 0.274302\nright-censored contribution at6: 0.390125\nInterval inspection is not an exact failure timestamp or delayed study entry.",
+    "reliabilityReport": "validation IBS linear Cox 0.15111\nvalidation IBS quadratic Cox 0.127175\nvalidation IBS forest leaf10 0.141301\nvalidation IBS forest leaf25 0.14484\nselected: quadratic Cox\ntest subjects/events: 150 72\nminimum training censor survival through12: 0.762589\ntest IBS model/KM: 0.140159 0.18573\ntest Harrell C / Uno C truncated at10: 0.757735 0.760532\ndynamic AUC at2,4,6,8,10: [0.770483, 0.772953, 0.792436, 0.803636, 0.835642]\nsynthetic oracle probability MSE: 0.000287\nThis is one generated split, not an industrial or clinical benchmark.",
+    "changedReport": "validation IBS linear Cox 0.162783\nvalidation IBS quadratic Cox 0.163096\nvalidation IBS forest leaf10 0.171112\nvalidation IBS forest leaf25 0.168673\nselected: linear Cox\ntest subjects/events: 150 75\nminimum training censor survival through12: 0.75843\ntest IBS model/KM: 0.134459 0.149032\ntest Harrell C / Uno C truncated at10: 0.647823 0.659939\ndynamic AUC at2,4,6,8,10: [0.658342, 0.72712, 0.663594, 0.704974, 0.711102]\nsynthetic oracle probability MSE: 0.000489\nThis is one generated split, not an industrial or clinical benchmark."
+  },
+  "unchangedProgramExecution": {
+    "executedAt": "2026-09-11T14:49:10.017976+00:00",
+    "sha256": "34ae2bcf4c28280493193f711f5b2cb919207e928c00fa7aa73486b58daf9de0",
+    "reusedPrograms": [
+      "observation",
+      "kaplanMeier",
+      "timeouts",
+      "exponential",
+      "syntheticComparison",
+      "coxFit",
+      "ties",
+      "aft",
+      "metrics",
+      "survivalTree",
+      "competing",
+      "history",
+      "discrete",
+      "intervalLikelihood",
+      "reliabilityReport",
+      "changedReport"
+    ]
+  }
+}

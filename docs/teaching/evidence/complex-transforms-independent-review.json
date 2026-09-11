@@ -1,0 +1,505 @@
+{
+  "topicId": "complex-numbers-fourier-laplace-transforms",
+  "title": "Complex Numbers, Fourier & Laplace Transforms",
+  "reviewer": "independent teaching and numerical reviewer",
+  "closedAt": "2026-09-11T07:09:35.304773+00:00",
+  "status": "independent review closed; no unresolved material finding; parent integration remains separate",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "sha256": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-models.js",
+      "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+    },
+    {
+      "path": "src/learn/data/complex-transforms-examples.js",
+      "sha256": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "sha256": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+      "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+      "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+    }
+  ],
+  "authorFreeze": {
+    "path": "docs/teaching/evidence/complex-transforms-author-review.json",
+    "sha256": "43512a833f42bc171d0ddd21521e3b675b7bdbf74b8f9091b58ebe76f7ee4eb5",
+    "frozenAt": "2026-09-11T07:06:43.823923+00:00"
+  },
+  "originalAuthorFreeze": {
+    "path": "docs/teaching/evidence/complex-transforms-author-review-before-independent-amendment.json",
+    "sha256": "b1f7c44eedc17e7e277e02186ca5913ea99bca39fe17e8223362c937532085bf",
+    "frozenAt": "2026-09-11T06:30:31.509261+00:00",
+    "allSixArchivedSourcesVerified": true,
+    "sourceArchive": "scratch/complex-transforms-before-independent-amendment",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+        "sha256": "57575917e4158cdc96cb01fa2385993f206746b18d65042c1ed14feaa6b6a5ff"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-models.js",
+        "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-examples.js",
+        "sha256": "f57e27d5d0ba8e8b204399198e1adf25ed68b7936711eac840b3da4d559bacb4"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+        "sha256": "2a3a3422c32dea4857ca8861c523c0c047f82c65a1a912207b0e53d2231bc49b"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+        "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+        "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+      }
+    ]
+  },
+  "initialFindings": {
+    "observedAt": "2026-09-11T06:50:49.172929+00:00",
+    "nativeCancellation": [
+      {
+        "q": 1e-18,
+        "actual": "0j",
+        "independent": "0.999999999999999999499999999999999964395454639355704436208446592412351817209304103270152811"
+      },
+      {
+        "q": 1e-15,
+        "actual": "(0.9992007221626408+0j)",
+        "independent": "0.999999999999999500000000000000127813966728336111282646366086428531709526002206579430792476"
+      },
+      {
+        "q": 1e-12,
+        "actual": "(0.9999778782798785+0j)",
+        "independent": "0.999999999999500000000000166676723342810365487865591665966294125725581543977336635069865512"
+      }
+    ],
+    "dftOutOfFixedPlot": 6.82842712474619,
+    "transientOutOfFixedPlot": -5.547747989906022,
+    "leastSquaresHypothesis": "Explicit L2 assumption requested"
+  },
+  "findingClosure": [
+    {
+      "finding": "Native small-argument Laplace cancellation",
+      "resolution": "Author's bounded series verified against 90-digit expm1 oracle; all original stdout retained."
+    },
+    {
+      "finding": "General least-squares proof omitted explicit L2 assumption",
+      "resolution": "Actual preceding paragraph now requires square-integrability; browser and changed projection checks pass."
+    },
+    {
+      "finding": "Reachable filtered DFT exceeded fixed vertical plot bounds",
+      "resolution": "All 16 current plotted points fit the data-derived extent at all three widths."
+    },
+    {
+      "finding": "Reachable filter transient exceeded fixed vertical plot bounds",
+      "resolution": "All 1,539 current curve points fit the data-derived extent at all three widths."
+    }
+  ],
+  "inspectedScope": "Full actual lesson, 17 actual programs, pure models, complete labs/CSS/brief, design, author records, all 14 changed practice solutions and selected primary sources; proofs read independently of test counts.",
+  "native": {
+    "checkedAt": "2026-09-11T07:00:39.854339+00:00",
+    "status": "passed",
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+        "sha256": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-models.js",
+        "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-examples.js",
+        "sha256": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+        "sha256": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+        "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+        "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+      }
+    ],
+    "checks": {
+      "actual_programs_and_stdout": 17,
+      "model_integral_mp90": 18,
+      "actual_native_integral_mp90": 18,
+      "filter_augmented_matrix_exponential": 120,
+      "filter_visible_decomposition": 120,
+      "window_polynomial_evaluation": 90,
+      "window_density_scaling": 90,
+      "no_detrending_weighted_energy": 18,
+      "zero_padding_integrated_density": 18,
+      "square_integrated_dirichlet_peak": 4,
+      "changed_jump_fraction": 4,
+      "changed_periodic_coefficients": 11,
+      "changed_finite_projection_pythagoras": 3,
+      "actual_dft_known_harmonics": 28,
+      "actual_fft_known_harmonics": 28,
+      "changed_extreme_filtered_inverse": 8,
+      "filtered_peak_exact_value": 1,
+      "actual_changed_capstone_matrix_ode": 1
+    },
+    "maxScaledError": 1.1541646687160017e-13,
+    "gibbsFractionOfJump": "0.0894898722360836351160144229124548707319487104821830734172518528841518518525219295388341739",
+    "changedCapstoneStdout": "3 Hz: coefficient=0.552637-0.233651j\n6 Hz: coefficient=0.344179+0.289898j\nreconstruction: True\noutput at .25 s: -0.573022; integral: -0.573022",
+    "limits": "Finite complementary checks of actual programs/models and independently formulated analytic fixtures; final browser, source freeze and general proof review separately recorded."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T07:01:25.943Z",
+    "passed": true,
+    "productionSources": [
+      {
+        "path": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+        "sha256": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-models.js",
+        "sha256": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445"
+      },
+      {
+        "path": "src/learn/data/complex-transforms-examples.js",
+        "sha256": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+        "sha256": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+        "sha256": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+        "sha256": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "publicFont": true,
+        "actualProgramsMatched": 17,
+        "changedDft": {
+          "count": 16,
+          "minY": 33.13043478260869,
+          "maxY": 129.65656576859422,
+          "escaped": []
+        },
+        "changedTransient": {
+          "count": 1539,
+          "minY": 65.883,
+          "maxY": 154.87,
+          "escaped": []
+        },
+        "controls": [
+          "Enter apply",
+          "Space checkbox",
+          "bin selection",
+          "rate20",
+          "initial-3",
+          "phasepi/4",
+          "ROC boundary",
+          "left ROC",
+          "64-term moving peak"
+        ],
+        "equationCount": 13,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "publicFont": true,
+        "actualProgramsMatched": 17,
+        "changedDft": {
+          "count": 16,
+          "minY": 33.13043478260869,
+          "maxY": 129.65656576859422,
+          "escaped": []
+        },
+        "changedTransient": {
+          "count": 1539,
+          "minY": 65.883,
+          "maxY": 154.87,
+          "escaped": []
+        },
+        "controls": [
+          "Enter apply",
+          "Space checkbox",
+          "bin selection",
+          "rate20",
+          "initial-3",
+          "phasepi/4",
+          "ROC boundary",
+          "left ROC",
+          "64-term moving peak"
+        ],
+        "equationCount": 13,
+        "errors": [],
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "publicFont": true,
+        "actualProgramsMatched": 17,
+        "changedDft": {
+          "count": 16,
+          "minY": 33.13043478260869,
+          "maxY": 129.65656576859422,
+          "escaped": []
+        },
+        "changedTransient": {
+          "count": 1539,
+          "minY": 65.883,
+          "maxY": 154.87,
+          "escaped": []
+        },
+        "controls": [
+          "Enter apply",
+          "Space checkbox",
+          "bin selection",
+          "rate20",
+          "initial-3",
+          "phasepi/4",
+          "ROC boundary",
+          "left ROC",
+          "64-term moving peak"
+        ],
+        "equationCount": 13,
+        "errors": [],
+        "overflow": false
+      }
+    ],
+    "images": [
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-filtered-dft-1440.png",
+        "sha256": "d5d4502f74315ce5dac832d56af929752ec73235a405c6584bf46e14f9af32e9",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-transient-1440.png",
+        "sha256": "bc475ee5327a0792a4a93aa32dbfca8c72fd7daa573a29f66b948793ecf003c5",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/left-roc-1440.png",
+        "sha256": "9ecbfc2ef36dfdf2bd021139d2fc0f1e5dbb15e1565c256cc7292f9f53ed156d",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/stable-laplace-program-1440.png",
+        "sha256": "780360b3cd92ab2395af75e287203cd2a61bf209a75178d8597efabd3ba86033",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/projection-hypothesis-1440.png",
+        "sha256": "e26eceb4428e55cb673b6d819e5f8c2fa6a89baf8d7f8c0fbdce9bd482082611",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/gibbs-scaled-neighborhood-1440.png",
+        "sha256": "cf6dff3560aa617f15f58636eb0226d59bb56e9b90adf3178496edb2e838631d",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-filtered-dft-390.png",
+        "sha256": "478886f6b2592503aafc753b9829bfa7a4ed0a8bacfa2380093666a453b2df5f",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-transient-390.png",
+        "sha256": "ed5b55d8d13af00265a3e068bba23ac5469a5823b15d329ffd503b4296e43266",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/left-roc-390.png",
+        "sha256": "2484284ef7ae6df8dae9ec47f5bde0302953b9fba51bc870e6d0a6854722a28a",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/stable-laplace-program-390.png",
+        "sha256": "5700f1478671053d5c03c637787b1898ccea19d427d911c68261f7c9b3b9c672",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/projection-hypothesis-390.png",
+        "sha256": "e20b24420de9ae2fa4090dcda62c972803418774c513ab6fa09c709acec4c845",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/gibbs-scaled-neighborhood-390.png",
+        "sha256": "0c608fac0e8fbf7afcca17758ce999949528f317f6ad0c2125f0a9236becc288",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-filtered-dft-320.png",
+        "sha256": "3bb9d477dc02bc26409ae554bd29da2d39f74d17ce779d5dedfbf342ed3392e3",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-transient-320.png",
+        "sha256": "9aa025e87dabc4bf1f10fa3ea3b1a2ac7d8da329073cb898c93b4d7cad0fb41e",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/left-roc-320.png",
+        "sha256": "f3465137294ca90121d25fa1320264c872c407cf10559f9d0a5ae1158a8f2517",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/stable-laplace-program-320.png",
+        "sha256": "9559316ae2879c007618dcac26a72de8b44b632a051938ae3bd474c5f704a81f",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/projection-hypothesis-320.png",
+        "sha256": "b903c5d1b4ee5b907f942d07df9dfa8776ccfa91f725e7d99c51838141673916",
+        "opened": false
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/gibbs-scaled-neighborhood-320.png",
+        "sha256": "f89c53d8ee1f1f05243dc2ef6ce64049cce2e7a795eaefb199d603b3b03658ba",
+        "opened": false
+      }
+    ]
+  },
+  "actuallyOpenedImages": {
+    "recordedAt": "2026-09-11T07:04:20.784621+00:00",
+    "method": "Every listed image was actually opened with view_image and visually inspected by the independent reviewer; capture and ownership are distinguished.",
+    "images": [
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-filtered-dft-390.png",
+        "sha256": "478886f6b2592503aafc753b9829bfa7a4ed0a8bacfa2380093666a453b2df5f",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-transient-320.png",
+        "sha256": "9aa025e87dabc4bf1f10fa3ea3b1a2ac7d8da329073cb898c93b4d7cad0fb41e",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/projection-hypothesis-390.png",
+        "sha256": "e20b24420de9ae2fa4090dcda62c972803418774c513ab6fa09c709acec4c845",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/stable-laplace-program-320.png",
+        "sha256": "9559316ae2879c007618dcac26a72de8b44b632a051938ae3bd474c5f704a81f",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/left-roc-390.png",
+        "sha256": "2484284ef7ae6df8dae9ec47f5bde0302953b9fba51bc870e6d0a6854722a28a",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/gibbs-scaled-neighborhood-320.png",
+        "sha256": "f89c53d8ee1f1f05243dc2ef6ce64049cce2e7a795eaefb199d603b3b03658ba",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-independent-review/changed-transient-1440.png",
+        "sha256": "bc475ee5327a0792a4a93aa32dbfca8c72fd7daa573a29f66b948793ecf003c5",
+        "capturedBy": "independent reviewer",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-browser/default-1-1440.png",
+        "sha256": "18c9bc97e1292026154456c3bf4da355a13cf3e8ad0f5a436ae9f259809da34e",
+        "capturedBy": "lesson author",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-browser/padded-hann-390.png",
+        "sha256": "9881008e3488d20c0efea06ddfd4de912689e7ee75b491eb4068fdb720dcf87d",
+        "capturedBy": "lesson author",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-browser/inline-3-320.png",
+        "sha256": "ca7118ba9f5b043d0444e6dd16c0c9e241a2dc760fee4c898900466eecb2c8af",
+        "capturedBy": "lesson author",
+        "openedBy": "independent reviewer"
+      },
+      {
+        "path": "scratch/complex-transforms-browser/final-practice-390.png",
+        "sha256": "682c6ce1b7e48f2b9cf4b868fd9756467a0d412e0525b2458d0b2485614e447e",
+        "capturedBy": "lesson author",
+        "openedBy": "independent reviewer"
+      }
+    ]
+  },
+  "revisitedSources": [
+    {
+      "url": "https://www.jirka.org/diffyqs/html/moreonfourier_section.html",
+      "scope": "Piecewise-smooth definitions and midpoint convergence theorem; not a full book audit."
+    },
+    {
+      "url": "https://dlmf.nist.gov/6.16",
+      "scope": "Gibbs formulas, first-peak constant and jump factor."
+    },
+    {
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.periodogram.html",
+      "scope": "Parameters and notes for detrending, one-sided sums and spectrum/density scaling."
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "scripts/verify-complex-transforms-independent.mjs",
+      "sha256": "4c96163d7ff724fa091fa441589b3b5d465682df40ed6af2a741f74fc88a922f"
+    },
+    {
+      "path": "scripts/verify-complex-transforms-independent.py",
+      "sha256": "ab6c12cad2945a84b49a6bd3e2525b5ca373383774956ce0c4eb184e18c3d7a3"
+    },
+    {
+      "path": "scripts/review-complex-transforms-independent.cjs",
+      "sha256": "2169a4b0915b1891d524379594684c41db73b9b94f30751647b64bcbf74a53e7"
+    },
+    {
+      "path": "scratch/complex-transforms-independent-review/initial-native-payload.json",
+      "sha256": "a36abdba009a2731bf63b8f8f130e58718fca03adeea990df85c8723c301b907"
+    },
+    {
+      "path": "scratch/complex-transforms-independent-review/initial-findings.json",
+      "sha256": "25f6236497ce2df6581048ead446a67710e5b60d5e7eb1955286cede95b31f40"
+    },
+    {
+      "path": "scratch/complex-transforms-independent-review/results.json",
+      "sha256": "c08ef9c886be8398a4e0ce0848ce7c8d3690de3d30c5ddac4a6b6f59e821b7bd"
+    },
+    {
+      "path": "scratch/complex-transforms-independent-review/browser-results.json",
+      "sha256": "5171e6d9d81c28c83afbc6f2cd58c2be9cd4807da808791c0b637f70cb388c2e"
+    },
+    {
+      "path": "scratch/complex-transforms-independent-review/opened-images.json",
+      "sha256": "387e2ff3bde0a9ca3aca5570d1021942e0888fb17a3082bca2f66fe0e1647842"
+    }
+  ],
+  "limits": "Finite complementary source/numerical/browser review, not universal binary64 robustness, beginner study, full-video viewing, user approval or production build/loading integration. Author suites are separately attributed; only listed opened images were manually inspected."
+}

@@ -1,0 +1,206 @@
+{
+  "topicId": "stochastic-processes-markov-chains-brownian-motion-poisson",
+  "modulePosition": 33,
+  "authorStatus": "frozen after author verification",
+  "frozenAt": "2026-09-10T20:54:38.276130+00:00",
+  "independentReview": "Reviewer reported and verified two repaired splitting issues; exact final-hash closure is separate.",
+  "productionIntegration": "Parent-owned; not asserted by this author record.",
+  "hashes": [
+    {
+      "file": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "sha256": "7133383f1b1b15adb1b16b029cacbf12966c18b7fde10549832fbca8a2556c06"
+    },
+    {
+      "file": "src/learn/data/stochastic-processes-models.js",
+      "sha256": "909cc8d2678d709558627f777bcf9f64f35c85226d9e1c933227c7fdecebc921"
+    },
+    {
+      "file": "src/learn/data/stochastic-processes-examples.js",
+      "sha256": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "sha256": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b"
+    },
+    {
+      "file": "src/learn/components/lesson-labs/stochastic-processes-labs.css",
+      "sha256": "05d2936b0cbf7ccfe2a15b897c5a8545062970e791265690e784235bc8c1a6fc"
+    },
+    {
+      "file": "src/learn/data/curriculum/blueprints/stochastic-processes-markov-chains-brownian-motion-poisson.js",
+      "sha256": "5fcd97a6314528bc8977b4fe0ce6c82ec7dd586148e60c3d69427d74915af018"
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-10T20:43:23.578458+00:00",
+    "passed": true,
+    "programs": 12,
+    "finitePathLaws": 12,
+    "markovStates": 196,
+    "absorptionStates": 195,
+    "arrivalStates": 170,
+    "splittingLaws": 1080,
+    "continuousClockStates": 97,
+    "brownianStates": 144,
+    "basisCovarianceMaps": 48,
+    "conditionalBridges": 576,
+    "nativeChangedInputs": 26,
+    "invalidBrowserModelInputs": 34,
+    "nativeInvalidInputs": 24,
+    "nativeCapRejections": 2,
+    "originalProgramsPreserved": 3,
+    "strictInteriorRepeatableUniformDraws": 30000,
+    "numericComparisons": 160451,
+    "maximumAbsoluteError": 2.9103830456733704e-11,
+    "method": "Actual Python stdout; Fraction path enumeration/closed forms; NumPy matrix powers/inverses and covariance transforms; SciPy Poisson/binomial, expm, Gaussian quadrature and conditioning/reflected densities. Finite contracts only, no simulation claimed to prove distributional theorems."
+  },
+  "browserMain": {
+    "checkedAt": "2026-09-10T20:42:52.567Z",
+    "widths": [
+      1440,
+      390,
+      320
+    ],
+    "statesPerWidth": 39,
+    "anchors": 10,
+    "programs": 12,
+    "practice": 13,
+    "relationship": "Behavioral pass precedes final reviewer amendment; targeted final run closes it."
+  },
+  "browserFinal": {
+    "checkedAt": "2026-09-10T20:51:45.299Z",
+    "widths": [
+      1440,
+      390,
+      320
+    ],
+    "allFontsLoaded": true,
+    "mathErrors": 0,
+    "svgLabelOverflow": 0,
+    "documentOverflow": 0,
+    "boundaryRegressions": "tiny interval mean, unsupported positive arithmetic, zero-total/zero-intensity and r0/r1 conditional cases"
+  },
+  "keyboardDetails": {
+    "checkedAt": "2026-09-10T20:53:24.667Z",
+    "width": 320,
+    "keyboardContributions": 4,
+    "keyboardScrollOffset": 40,
+    "lastStatesScreenshot": "final-reserve-scrolled-320.png",
+    "documentWidth": 320
+  },
+  "openedScreenshots": [
+    {
+      "file": "scratch/stochastic-processes-browser/inline-1-390.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/markov-periodic-1440.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/markov-periodic-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/reserve-boundary-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-reserve-scrolled-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/holding-time-vs-visits-390.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/holding-time-vs-visits-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-brownian-comparison-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-brownian-summary-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-arrival-conditioning-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-reading-poisson-splitting-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-reading-variation-390.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-reading-bridges-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-inline-1-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-inline-2-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-inline-3-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    },
+    {
+      "file": "scratch/stochastic-processes-browser/final-inline-4-320.png",
+      "reviewedBy": "author; actual image opened",
+      "note": "Main screenshots precede the identified reviewer amendment; final-prefixed images close final reading and targeted amendments."
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "browser": "installed Microsoft Edge via Playwright; actual project Google Fonts loaded, HMR disconnected"
+  },
+  "sourceFormatting": {
+    "checkedAt": "2026-09-10T20:54:37.588Z",
+    "files": [
+      "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "src/learn/data/stochastic-processes-models.js",
+      "src/learn/data/stochastic-processes-examples.js",
+      "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "src/learn/data/curriculum/blueprints/stochastic-processes-markov-chains-brownian-motion-poisson.js",
+      "src/learn/components/lesson-labs/stochastic-processes-labs.css"
+    ],
+    "javascriptAstAndStringsPreserved": true,
+    "cssMeaningPreserved": true
+  },
+  "design": "docs/teaching/STOCHASTIC-PROCESSES-LESSON-DESIGN.md",
+  "verification": "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md",
+  "limits": [
+    "Finite bounded numerical contracts, not arbitrary precision.",
+    "Five investigations choose representations by mechanism; no fixed count policy.",
+    "Seeded/schematic visuals are explicitly not measured observations.",
+    "No screen-reader speech pass or untested-browser certification.",
+    "Infinite-state and general SDE claims remain with their destination owners."
+  ]
+}

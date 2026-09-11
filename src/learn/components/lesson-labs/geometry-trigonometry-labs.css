@@ -1,0 +1,36 @@
+.geometry-lesson { --geo-gold:#f4bd63; --geo-blue:#8db9df; --geo-rose:#e9a8a5; }
+.geometry-lab,.geometry-figure { margin:2rem 0; padding:1.3rem; border:1px solid #444047; border-radius:6px; background:#19191d; }
+.geometry-lab h3 { margin:0 0 .7rem; font-size:1.3rem; color:#f4e8d4; }
+.geometry-lab p,.geometry-figure figcaption { line-height:1.75; color:#d6cdd0; }
+.geometry-lab svg,.geometry-figure svg { display:block; width:min(100%,390px); margin:1.1rem auto; overflow:visible; }
+.geometry-lab svg text,.geometry-figure svg text { fill:#e5dbcd; font:18px 'Space Grotesk',sans-serif; }
+.geometry-lab svg .small,.geometry-figure svg .small { font-size:16px; }
+.geometry-lab .grid,.geometry-figure .grid { stroke:#3d3940; stroke-width:.7; }
+.geometry-lab .axis,.geometry-figure .axis { stroke:#ad9c87; stroke-width:1.4; fill:none; }
+.geometry-lab .gold,.geometry-figure .gold { stroke:var(--geo-gold); stroke-width:2.8; fill:none; }
+.geometry-lab .blue,.geometry-figure .blue { stroke:var(--geo-blue); stroke-width:2.6; fill:none; }
+.geometry-lab .dashed,.geometry-figure .dashed { stroke-dasharray:5 4; }
+.geometry-lab circle.point,.geometry-figure circle.point { fill:var(--geo-gold); stroke:#17171b; stroke-width:2; }
+.geometry-lab .readout { color:#f6dfb7; border-block:1px solid #4d4233; padding:.85rem 0; line-height:1.85; }
+.geometry-controls { display:flex; flex-wrap:wrap; align-items:end; gap:1rem; margin:1.1rem 0; }
+.geometry-controls label { display:flex; flex-direction:column; gap:.4rem; min-width:0; color:#eee0c9; }
+.geometry-controls select,.geometry-controls input:not([type=range]) { padding:.5rem; color:#f5eada; background:#26232a; border:1px solid #857151; border-radius:3px; font:inherit; max-width:100%; }
+.geometry-controls input:not([type=range]) { width:4.5rem; }
+.geometry-controls input[type=range] { min-width:150px; min-height:32px; accent-color:var(--geo-gold); }
+.geometry-buttons { display:flex; flex-wrap:wrap; gap:.6rem; margin:1rem 0; }
+.geometry-lab button { min-height:44px; padding:.5rem .8rem; background:#2d261d; color:#f5d39e; border:1px solid #8a6b42; border-radius:4px; font:inherit; cursor:pointer; }
+.geometry-lab :focus-visible { outline:2px solid #f4bd63; outline-offset:4px; }
+.geometry-lab [role=alert] { color:#f4c3b4; border:1px solid #ca9683; padding:.75rem; }
+.geometry-legend { display:flex; flex-wrap:wrap; gap:1rem; font-size:.96rem; }
+.geometry-legend .gold-key { color:var(--geo-gold); }
+.geometry-legend .blue-key { color:var(--geo-blue); }
+.geometry-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; }
+.geometry-figure .triangle-fill { fill:#bb8d422b; stroke:#f4bd63; stroke-width:2; }
+.geometry-figure .centre-fill { fill:#41688048; stroke:#8db9df; stroke-width:2; }
+@media(max-width:620px) {
+  .geometry-lab,.geometry-figure { padding:.85rem .65rem; margin-inline:0; }
+  .geometry-two { grid-template-columns:1fr; }
+  .geometry-controls { gap:.85rem; }
+  .geometry-lab svg text,.geometry-figure svg text { font-size:19px; }
+  .geometry-lab svg .small,.geometry-figure svg .small { font-size:17px; }
+}

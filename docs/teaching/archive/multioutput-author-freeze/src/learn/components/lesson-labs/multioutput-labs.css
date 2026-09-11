@@ -1,0 +1,481 @@
+.mo-investigation,.mo-inline-figure {
+  margin: 1.8rem 0;
+  padding: 1.2rem 0;
+  border-top: 1px solid #39403e;
+  border-bottom: 1px solid #39403e;
+  min-width: 0;
+  color: var(--text-secondary,#c7c9c4);
+}
+
+.mo-investigation header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mo-investigation h3 {
+  font-size: 1.12rem;
+  margin: 0;
+  color: #e8b44a;
+}
+
+.mo-investigation p,.mo-inline-figure p {
+  line-height: 1.7;
+}
+
+.mo-caption {
+  font-size: .86rem;
+  color: #a6ada8;
+  line-height: 1.65;
+}
+
+.mo-investigation button,.mo-investigation select {
+  font: inherit;
+  color: #e8b44a;
+  background: #121616;
+  border: 1px solid #657061;
+  border-radius: 3px;
+  padding: .5rem .7rem;
+  cursor: pointer;
+}
+
+.mo-investigation button:focus-visible,.mo-investigation input:focus-visible,.mo-investigation select:focus-visible,.multioutput-lesson summary:focus-visible {
+  outline: 2px solid #e8b44a;
+  outline-offset: 4px;
+}
+
+.mo-investigation select {
+  max-width: 100%;
+}
+
+.mo-investigation input {
+  accent-color: #e8b44a;
+}
+
+.mo-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,210px),1fr));
+  gap: 1rem;
+  margin: 1.1rem 0;
+}
+
+.mo-control {
+  display: grid;
+  gap: .6rem;
+  min-width: 0;
+}
+
+.mo-control>span {
+  display: flex;
+  gap: .5rem;
+  justify-content: space-between;
+}
+
+.mo-control output {
+  color: #e8b44a;
+  font-variant-numeric: tabular-nums;
+}
+
+.mo-control input {
+  width: 100%;
+  min-width: 0;
+}
+
+.mo-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.mo-checkbox input {
+  margin-top: .25rem;
+  flex-shrink: 0;
+}
+
+.mo-readouts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(110px,1fr));
+  gap: 1rem;
+  border-top: 1px solid #333e39;
+  padding-top: 1rem;
+}
+
+.mo-readouts dt {
+  font-size: .8rem;
+  color: #a6ada8;
+}
+
+.mo-readouts dd {
+  margin: .3rem 0;
+  color: #e8b44a;
+  font-size: 1.1rem;
+}
+
+.mo-contents {
+  display: contents;
+}
+
+.mo-error-grid {
+  display: grid;
+  grid-template-columns: 36px repeat(3,minmax(0,1fr)) 62px;
+  gap: 5px;
+  align-items: center;
+  text-align: center;
+  font-size: .8rem;
+}
+
+.mo-error-grid .mo-cell {
+  padding: .45rem .12rem;
+  min-height: 83px;
+  display: grid;
+  gap: .3rem;
+  color: #dedfd7;
+}
+
+.mo-cell small {
+  font-size: .75rem;
+}
+
+.mo-cell span {
+  font-size: .72rem;
+}
+
+.mo-cell.mo-tp {
+  background: #173e32;
+  border-color: #78cfab;
+}
+
+.mo-cell.mo-tn {
+  background: #152e42;
+  border-color: #75b7ed;
+}
+
+.mo-cell.mo-fp,.mo-cell.mo-fn {
+  background: #482c35;
+  border-color: #e899a9;
+}
+
+.mo-cell.mo-unknown {
+  background: #272b2b;
+  border-style: dashed;
+  color: #b9bdb9;
+}
+
+.mo-row-result {
+  font-size: .75rem;
+}
+
+.mo-investigation svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.mo-investigation svg text {
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.mo-investigation svg text:not([fill]) {
+  fill: currentColor;
+}
+
+.mo-tree {
+  max-width: 350px;
+  margin: auto;
+}
+
+.mo-joint-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1.1fr);
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.mo-table-scroll {
+  overflow: auto;
+}
+
+.mo-investigation table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .86rem;
+}
+
+.mo-investigation caption {
+  text-align: left;
+  color: #a6ada8;
+  line-height: 1.6;
+  margin-bottom: .6rem;
+}
+
+.mo-investigation td,.mo-investigation th {
+  padding: .55rem .3rem;
+  text-align: left;
+  border-bottom: 1px solid #333e39;
+  overflow-wrap: normal;
+}
+
+.mo-investigation th {
+  color: #e8b44a;
+}
+
+.mo-leaf-table {
+  min-width: 0;
+}
+
+.mo-mosaics {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+}
+
+.mo-investigation figure {
+  margin: 1rem 0;
+  min-width: 0;
+}
+
+.mo-investigation figcaption,.mo-inline-figure figcaption {
+  font-weight: 600;
+  color: #e0dfd4;
+  line-height: 1.6;
+  margin-bottom: .7rem;
+}
+
+.mo-threshold-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.mo-score-rail {
+  display: grid;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.mo-score-rail>div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  gap: .35rem;
+  font-size: .8rem;
+  border-left: 3px solid #4c5550;
+  padding: .5rem .4rem;
+}
+
+.mo-score-rail>.mo-selected-score {
+  border-color: #e8b44a;
+  background: #e8b44a0b;
+}
+
+.mo-output-plots {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1rem;
+}
+
+.mo-shrink-plot {
+  max-width: 350px;
+  margin: 1rem auto;
+}
+
+.mo-schema-input {
+  border-left: 3px solid #e8b44a;
+  padding: .7rem 1rem;
+  background: #e8b44a09;
+  line-height: 1.7;
+}
+
+.mo-schema-branches {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.1rem 1.5rem;
+  margin-top: 1.2rem;
+}
+
+.mo-schema-branches>div {
+  border-left: 1px solid #667768;
+  padding: .2rem .8rem;
+  display: grid;
+  gap: .5rem;
+  line-height: 1.6;
+}
+
+.mo-schema-branches strong,.mo-split-flow strong,.mo-labelset-layout strong {
+  color: #78cfab;
+}
+
+.mo-schema-branches small {
+  color: #a6ada8;
+}
+
+.mo-split-flow {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+}
+
+.mo-split-flow>div {
+  border-top: 3px solid #75b7ed;
+  padding-top: .6rem;
+  font-size: .9rem;
+  line-height: 1.7;
+}
+
+.mo-split-flow>div:nth-child(2) {
+  border-color: #e8b44a;
+}
+
+.mo-split-flow>div:nth-child(3) {
+  border-color: #78cfab;
+}
+
+.mo-split-flow p {
+  margin: .4rem 0;
+}
+
+.mo-row-strip {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-top: 1.2rem;
+  font-size: .85rem;
+}
+
+.mo-row-strip span {
+  padding: .35rem;
+  border: 1px solid #677162;
+}
+
+.mo-row-strip strong {
+  align-self: center;
+  color: #e8b44a;
+}
+
+.mo-labelset-layout {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.5rem;
+}
+
+.mo-labelset-layout dl>div {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid #333e39;
+  padding: .6rem 0;
+}
+
+.mo-labelset-layout dd {
+  margin: 0;
+}
+
+.mo-vote-fractions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+.mo-vote-fractions span {
+  color: #e8b44a;
+  padding: .5rem;
+  border: 1px solid #69715e;
+}
+
+.mo-practice {
+  margin: 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #333e39;
+}
+
+.mo-practice details {
+  margin: .8rem 0;
+}
+
+.mo-practice summary {
+  cursor: pointer;
+  color: #e8b44a;
+  line-height: 1.6;
+}
+
+.mo-optional {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid #6e8377;
+}
+
+.mo-optional>summary {
+  color: #78cfab;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.multioutput-lesson a {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width:620px) {
+  .mo-joint-layout,.mo-threshold-layout {
+    grid-template-columns: 1fr;
+  }
+  .mo-mosaics {
+    grid-template-columns: 1fr;
+  }
+  .mo-mosaics figure {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .5rem;
+    align-items: center;
+  }
+  .mo-mosaics figcaption {
+    grid-column: 1/-1;
+  }
+  .mo-mosaics svg {
+    max-width: 210px;
+    margin: auto;
+  }
+  .mo-output-plots,.mo-schema-branches,.mo-split-flow,.mo-labelset-layout {
+    grid-template-columns: 1fr;
+  }
+  .mo-investigation header {
+    align-items: flex-start;
+  }
+  .mo-investigation header button {
+    flex-shrink: 0;
+  }
+  .mo-output-plots svg {
+    max-width: 360px;
+    margin: auto;
+  }
+  .mo-error-grid {
+    grid-template-columns: 25px repeat(3,minmax(0,1fr)) 45px;
+    gap: 3px;
+    font-size: .68rem;
+  }
+  .mo-error-grid .mo-cell {
+    min-height: 78px;
+  }
+  .mo-cell small,.mo-cell span {
+    font-size: .65rem;
+  }
+  .mo-row-result {
+    font-size: .65rem;
+  }
+  .mo-investigation table {
+    font-size: .76rem;
+  }
+  .mo-investigation td,.mo-investigation th {
+    padding: .45rem .2rem;
+  }
+  .mo-investigation {
+    padding: 1rem 0;
+  }
+  .mo-investigation svg text {
+    font-size: 12px;
+  }
+}

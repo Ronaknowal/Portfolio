@@ -1,0 +1,4 @@
+CatBoost (regression)  best_iter=99  test_RMSE=29.3239
+  feature importances (top 3): [(3, 29.63), (6, 29.06), (9, 22.59)]
+
+CatBoost (classifier, cat_features=[0,1])  best_iter=7  accuracy=1.0000

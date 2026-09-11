@@ -1,0 +1,736 @@
+{
+  "reviewedAt": "2026-09-11T07:36:58.324Z",
+  "topicId": "decision-theory-risk-cost-sensitive-decisions",
+  "status": "independent review closed; no unresolved material findings; production integration and user acceptance separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+      "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de",
+      "bytes": 63443
+    },
+    {
+      "path": "src/learn/data/decision-theory-models.js",
+      "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918",
+      "bytes": 18896
+    },
+    {
+      "path": "src/learn/data/decision-theory-examples.js",
+      "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a",
+      "bytes": 24164
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+      "sha256": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e",
+      "bytes": 23373
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+      "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+      "bytes": 1940
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+      "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728",
+      "bytes": 7447
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+      "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a",
+      "bytes": 6921
+    }
+  ],
+  "authorPacket": {
+    "path": "docs/teaching/evidence/decision-theory-author-review.json",
+    "sha256": "b248e9b8a7b73eae6e1bce460ac604ed1d1a23c67c241251ef184cdf3c8ef4bb",
+    "bytes": 62186
+  },
+  "preservedAuthorPacket": {
+    "path": "scratch/decision-theory-independent/author-baseline.json",
+    "sha256": "b248e9b8a7b73eae6e1bce460ac604ed1d1a23c67c241251ef184cdf3c8ef4bb",
+    "bytes": 62186
+  },
+  "productionAmendmentsAfterAuthorFreeze": [],
+  "native": {
+    "file": {
+      "path": "scratch/decision-theory-independent/native-results.json",
+      "sha256": "6f456f636b03e9d619695c5c70dfe5b37caf116ebf4c7cf02de8add1a4bbb97e",
+      "bytes": 2593
+    },
+    "result": {
+      "checkedAt": "2026-09-11T07:28:59.323530+00:00",
+      "passed": true,
+      "counts": {
+        "actual_program_stdout": 11,
+        "tail_probability_allocation_lp": 42,
+        "tail_mass_conservation": 42,
+        "changed_actual_tail_helper": 42,
+        "tail_affine_transfer": 42,
+        "capacity_integral_lp": 36,
+        "selected_policy_feasibility": 36,
+        "changed_actual_capacity_helper": 36,
+        "signal_policy_lp": 24,
+        "changed_actual_information_helper": 24,
+        "information_price_timing": 24,
+        "minimax_primal_dual_certificate": 1,
+        "minimax_exact_value": 1,
+        "mixture_state_risk": 51,
+        "provisioning_exact_changed": 14,
+        "changed_actual_provisioning_helper": 14,
+        "procedure_conditional_average": 20,
+        "contingent_branch_lp": 40,
+        "changed_actual_contingent_worlds": 40,
+        "binary_exact_changed": 10,
+        "fallback_exact_ties": 5,
+        "utility_exact_square_roots": 4
+      },
+      "sources": [
+        {
+          "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+          "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de",
+          "bytes": 63443
+        },
+        {
+          "path": "src/learn/data/decision-theory-models.js",
+          "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918",
+          "bytes": 18896
+        },
+        {
+          "path": "src/learn/data/decision-theory-examples.js",
+          "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a",
+          "bytes": 24164
+        },
+        {
+          "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+          "sha256": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e",
+          "bytes": 23373
+        },
+        {
+          "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+          "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+          "bytes": 1940
+        },
+        {
+          "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+          "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728",
+          "bytes": 7447
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+          "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a",
+          "bytes": 6921
+        }
+      ],
+      "versions": {
+        "numpy": "2.3.5",
+        "scipy": "1.18.1",
+        "mpmath": "1.3.0"
+      },
+      "scope": "Independent review with LP formulations, exact changed calls and actual standalone program outputs; finite fixtures supplement separately read proofs."
+    }
+  },
+  "browser": {
+    "file": {
+      "path": "scratch/decision-theory-independent/browser-results.json",
+      "sha256": "eb09e4964c08d5b3dd377d9c453b7010a5deef593c097e02e4014980e2c1a9c9",
+      "bytes": 18990
+    },
+    "result": {
+      "checkedAt": "2026-09-11T07:31:30.693Z",
+      "passed": true,
+      "sources": [
+        {
+          "path": "src/learn/data/topics/decision-theory-risk-cost-sensitive-decisions.jsx",
+          "sha256": "4fc3db155c2e1eb243f23351202b3a1eb81aba68fa5df31d7b162bd38c34d7de",
+          "bytes": 63443
+        },
+        {
+          "path": "src/learn/data/decision-theory-models.js",
+          "sha256": "9778efca2609e6dc9605ecce0fc1c929d88c090863f64876976bb6819d572918",
+          "bytes": 18896
+        },
+        {
+          "path": "src/learn/data/decision-theory-examples.js",
+          "sha256": "04b1459c773fb7644ddbf6e5c4f3c3c1767b3ea236f5022079034bc0a603023a",
+          "bytes": 24164
+        },
+        {
+          "path": "src/learn/components/lesson-labs/DecisionTheoryLabs.jsx",
+          "sha256": "af71ac05ca02f2685021705b0bfe7aab9a8d440bf0c32c987933109e810b260e",
+          "bytes": 23373
+        },
+        {
+          "path": "src/learn/components/lesson-labs/DecisionTheoryFigures.jsx",
+          "sha256": "93e7ab812622522f1b562ec7e9b1d20aac4a509293c7994fb1f8e6581d8577bf",
+          "bytes": 1940
+        },
+        {
+          "path": "src/learn/components/lesson-labs/decision-theory-labs.css",
+          "sha256": "db4201fc7920ad5c8473feaee5e44887a871a9220eb42f5fe8cddfe620bc6728",
+          "bytes": 7447
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/decision-theory-risk-cost-sensitive-decisions.js",
+          "sha256": "e2aeba0b608b721cca100342d57b8d406051f425b1c0fcef24b5517a3f8dec5a",
+          "bytes": 6921
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ],
+          "states": [
+            {
+              "name": "Probability faulty",
+              "value": 0.2,
+              "result": "Best actions (tie): Release or Quarantine. The lines meet at p=0.2."
+            },
+            {
+              "name": "Prior probability of high state",
+              "value": 0.8,
+              "result": "Bayes risk of follow signal: 0.2 × 0.2 + 0.8 × 0.2 = 0.2. Best rules: Always high or Follow signal."
+            },
+            {
+              "name": "Underage cost",
+              "value": 1,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Order quantity",
+              "value": 2,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Probability faulty in fallback example",
+              "value": 0.075,
+              "result": "Used 2 of 2 slots. Total expected loss 50.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Quarantine slots for all six items",
+              "value": 3,
+              "result": "Used 3 of 3 slots. Total expected loss 44.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Prior faulty probability",
+              "value": 0.02,
+              "result": "No-test risk 1.6. With the chosen timing and price: 3.46. Gross information value 0.14; perfect-state value 1.4."
+            },
+            {
+              "name": "Probability of choosing rule A",
+              "value": 0.5,
+              "result": "State risks (2, 3); worst 3. At weight .4 the worst risk is 2.4."
+            },
+            {
+              "name": "Tail level alpha",
+              "value": 0.8,
+              "result": "VaR 0; CVaR 32.5; mean 6.5. The selected mass totals 0.2."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 3,
+              "result": "Selected test: 36.4 expected operational loss + 1 price = 37.4. No test: 44.4."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 2,
+              "result": "Selected test: 40 expected operational loss + 1 price = 41. No test: 50.4."
+            },
+            {
+              "name": "Price of the one test",
+              "value": 10.4,
+              "result": "Selected test: 40 expected operational loss + 10.4 price = 50.4. No test: 50.4."
+            }
+          ],
+          "captures": [
+            "changed-loss-envelope-1440.png",
+            "changed-state-weighting-1440.png",
+            "changed-quantity-criterion-1440.png",
+            "fallback-sampling-contract-1440.png",
+            "three-slot-allocation-1440.png",
+            "changed-information-timing-1440.png",
+            "off-optimum-mixture-1440.png",
+            "changed-partial-atom-1440.png",
+            "changed-capacity-three-branches-1440.png",
+            "inline-0-1440.png",
+            "inline-1-1440.png",
+            "changed-practice-1440.png",
+            "actual-output-1440.png",
+            "alternate-resources-1440.png"
+          ],
+          "programs": [
+            "Evaluate the whole loss table",
+            "Average a complete rule in two different orders",
+            "Choose a quantity for the actual shortage and surplus costs",
+            "Integrate the batch consequence before choosing",
+            "Check the capacity allocation against every feasible subset",
+            "Freeze a threshold before opening the test labels",
+            "Fold the test tree using joint masses",
+            "Separate calibrated scores, action losses and intervention benefit",
+            "Compare worst loss, regret and a certified mixture",
+            "Split probability atoms when averaging the worst tail",
+            "Choose which item to test before allocating two slots"
+          ],
+          "anchors": [
+            "1-from-a-forecast-to-something-you-can-do",
+            "2-read-the-whole-table-before-deriving-a-threshold",
+            "3-evaluate-a-whole-rule-not-just-one-observation",
+            "4-which-summary-does-your-loss-actually-ask-for",
+            "5-fallback-actions-and-shared-resources-change-the-problem",
+            "6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+            "7-information-has-value-when-it-can-change-a-useful-action",
+            "8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+            "9-uncertain-models-need-an-explicit-comparison-criterion",
+            "10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+            "11-state-what-you-mean-by-caring-about-consequences",
+            "12-inspect-first-then-allocate-information-and-capacity-together",
+            "13-make-and-defend-a-changed-decision"
+          ],
+          "equations": [
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ]
+        },
+        {
+          "width": 390,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ],
+          "states": [
+            {
+              "name": "Probability faulty",
+              "value": 0.2,
+              "result": "Best actions (tie): Release or Quarantine. The lines meet at p=0.2."
+            },
+            {
+              "name": "Prior probability of high state",
+              "value": 0.8,
+              "result": "Bayes risk of follow signal: 0.2 × 0.2 + 0.8 × 0.2 = 0.2. Best rules: Always high or Follow signal."
+            },
+            {
+              "name": "Underage cost",
+              "value": 1,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Order quantity",
+              "value": 2,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Probability faulty in fallback example",
+              "value": 0.075,
+              "result": "Used 2 of 2 slots. Total expected loss 50.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Quarantine slots for all six items",
+              "value": 3,
+              "result": "Used 3 of 3 slots. Total expected loss 44.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Prior faulty probability",
+              "value": 0.02,
+              "result": "No-test risk 1.6. With the chosen timing and price: 3.46. Gross information value 0.14; perfect-state value 1.4."
+            },
+            {
+              "name": "Probability of choosing rule A",
+              "value": 0.5,
+              "result": "State risks (2, 3); worst 3. At weight .4 the worst risk is 2.4."
+            },
+            {
+              "name": "Tail level alpha",
+              "value": 0.8,
+              "result": "VaR 0; CVaR 32.5; mean 6.5. The selected mass totals 0.2."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 3,
+              "result": "Selected test: 36.4 expected operational loss + 1 price = 37.4. No test: 44.4."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 2,
+              "result": "Selected test: 40 expected operational loss + 1 price = 41. No test: 50.4."
+            },
+            {
+              "name": "Price of the one test",
+              "value": 10.4,
+              "result": "Selected test: 40 expected operational loss + 10.4 price = 50.4. No test: 50.4."
+            }
+          ],
+          "captures": [
+            "changed-loss-envelope-390.png",
+            "changed-state-weighting-390.png",
+            "changed-quantity-criterion-390.png",
+            "fallback-sampling-contract-390.png",
+            "three-slot-allocation-390.png",
+            "changed-information-timing-390.png",
+            "off-optimum-mixture-390.png",
+            "changed-partial-atom-390.png",
+            "changed-capacity-three-branches-390.png",
+            "inline-0-390.png",
+            "inline-1-390.png",
+            "changed-practice-390.png",
+            "actual-output-390.png",
+            "alternate-resources-390.png"
+          ],
+          "programs": [
+            "Evaluate the whole loss table",
+            "Average a complete rule in two different orders",
+            "Choose a quantity for the actual shortage and surplus costs",
+            "Integrate the batch consequence before choosing",
+            "Check the capacity allocation against every feasible subset",
+            "Freeze a threshold before opening the test labels",
+            "Fold the test tree using joint masses",
+            "Separate calibrated scores, action losses and intervention benefit",
+            "Compare worst loss, regret and a certified mixture",
+            "Split probability atoms when averaging the worst tail",
+            "Choose which item to test before allocating two slots"
+          ],
+          "anchors": [
+            "1-from-a-forecast-to-something-you-can-do",
+            "2-read-the-whole-table-before-deriving-a-threshold",
+            "3-evaluate-a-whole-rule-not-just-one-observation",
+            "4-which-summary-does-your-loss-actually-ask-for",
+            "5-fallback-actions-and-shared-resources-change-the-problem",
+            "6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+            "7-information-has-value-when-it-can-change-a-useful-action",
+            "8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+            "9-uncertain-models-need-an-explicit-comparison-criterion",
+            "10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+            "11-state-what-you-mean-by-caring-about-consequences",
+            "12-inspect-first-then-allocate-information-and-capacity-together",
+            "13-make-and-defend-a-changed-decision"
+          ],
+          "equations": [
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ]
+        },
+        {
+          "width": 320,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2"
+          ],
+          "states": [
+            {
+              "name": "Probability faulty",
+              "value": 0.2,
+              "result": "Best actions (tie): Release or Quarantine. The lines meet at p=0.2."
+            },
+            {
+              "name": "Prior probability of high state",
+              "value": 0.8,
+              "result": "Bayes risk of follow signal: 0.2 × 0.2 + 0.8 × 0.2 = 0.2. Best rules: Always high or Follow signal."
+            },
+            {
+              "name": "Underage cost",
+              "value": 1,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Order quantity",
+              "value": 2,
+              "result": "Expected cost 2.8. Target quantile level 0.5. Gold demand bars show required quantity; the vertical marker is your order."
+            },
+            {
+              "name": "Probability faulty in fallback example",
+              "value": 0.075,
+              "result": "Used 2 of 2 slots. Total expected loss 50.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Quarantine slots for all six items",
+              "value": 3,
+              "result": "Used 3 of 3 slots. Total expected loss 44.4. Only positive savings use slots; equal savings favor the earlier item."
+            },
+            {
+              "name": "Prior faulty probability",
+              "value": 0.02,
+              "result": "No-test risk 1.6. With the chosen timing and price: 3.46. Gross information value 0.14; perfect-state value 1.4."
+            },
+            {
+              "name": "Probability of choosing rule A",
+              "value": 0.5,
+              "result": "State risks (2, 3); worst 3. At weight .4 the worst risk is 2.4."
+            },
+            {
+              "name": "Tail level alpha",
+              "value": 0.8,
+              "result": "VaR 0; CVaR 32.5; mean 6.5. The selected mass totals 0.2."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 3,
+              "result": "Selected test: 36.4 expected operational loss + 1 price = 37.4. No test: 44.4."
+            },
+            {
+              "name": "Available quarantine slots",
+              "value": 2,
+              "result": "Selected test: 40 expected operational loss + 1 price = 41. No test: 50.4."
+            },
+            {
+              "name": "Price of the one test",
+              "value": 10.4,
+              "result": "Selected test: 40 expected operational loss + 10.4 price = 50.4. No test: 50.4."
+            }
+          ],
+          "captures": [
+            "changed-loss-envelope-320.png",
+            "changed-state-weighting-320.png",
+            "changed-quantity-criterion-320.png",
+            "fallback-sampling-contract-320.png",
+            "three-slot-allocation-320.png",
+            "changed-information-timing-320.png",
+            "off-optimum-mixture-320.png",
+            "changed-partial-atom-320.png",
+            "changed-capacity-three-branches-320.png",
+            "inline-0-320.png",
+            "inline-1-320.png",
+            "changed-practice-320.png",
+            "actual-output-320.png",
+            "alternate-resources-320.png"
+          ],
+          "programs": [
+            "Evaluate the whole loss table",
+            "Average a complete rule in two different orders",
+            "Choose a quantity for the actual shortage and surplus costs",
+            "Integrate the batch consequence before choosing",
+            "Check the capacity allocation against every feasible subset",
+            "Freeze a threshold before opening the test labels",
+            "Fold the test tree using joint masses",
+            "Separate calibrated scores, action losses and intervention benefit",
+            "Compare worst loss, regret and a certified mixture",
+            "Split probability atoms when averaging the worst tail",
+            "Choose which item to test before allocating two slots"
+          ],
+          "anchors": [
+            "1-from-a-forecast-to-something-you-can-do",
+            "2-read-the-whole-table-before-deriving-a-threshold",
+            "3-evaluate-a-whole-rule-not-just-one-observation",
+            "4-which-summary-does-your-loss-actually-ask-for",
+            "5-fallback-actions-and-shared-resources-change-the-problem",
+            "6-a-usable-probability-and-an-honest-evaluation-are-different-requirements",
+            "7-information-has-value-when-it-can-change-a-useful-action",
+            "8-predicting-a-bad-outcome-is-not-estimating-how-much-an-action-helps",
+            "9-uncertain-models-need-an-explicit-comparison-criterion",
+            "10-randomization-can-help-one-guarantee-while-leaving-another-unchanged",
+            "11-state-what-you-mean-by-caring-about-consequences",
+            "12-inspect-first-then-allocate-information-and-capacity-together",
+            "13-make-and-defend-a-changed-decision"
+          ],
+          "equations": [
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 281
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "errors": [],
+          "deliberatelyDisconnectedHmrMessages": [
+            "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+          ]
+        }
+      ]
+    }
+  },
+  "finalImagesActuallyOpened": [
+    {
+      "path": "scratch/decision-theory-independent/changed-loss-envelope-320.png",
+      "sha256": "f0b6b8a8c989d3b9c4e20ee513031b25ce61b96bd67282618b7a9ce95291c93c",
+      "bytes": 60930
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-state-weighting-320.png",
+      "sha256": "7135b95ce49beb9d69e26ea5cd72660e43823223c8c111006e1ec74a8b45a23b",
+      "bytes": 61859
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-quantity-criterion-320.png",
+      "sha256": "2ca9473a2178f4b6450bb96f0872887d406b5a109f6baae0cfb18ad571521fac",
+      "bytes": 55476
+    },
+    {
+      "path": "scratch/decision-theory-independent/fallback-sampling-contract-320.png",
+      "sha256": "e946aa5b5fca21dc70a59e10443ba9bc47ed0b106f780311daab8ca03e319d4d",
+      "bytes": 59490
+    },
+    {
+      "path": "scratch/decision-theory-independent/three-slot-allocation-320.png",
+      "sha256": "b34f7756afdcbb0add90ec4a5c82395ddb4a2f08fb2822978f686b3633050f5d",
+      "bytes": 55694
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-information-timing-320.png",
+      "sha256": "5feef473286220c9a79fe4a64d9e68053c9ca4f4398b88e5de6632324dbb99d7",
+      "bytes": 66691
+    },
+    {
+      "path": "scratch/decision-theory-independent/off-optimum-mixture-320.png",
+      "sha256": "2f1d4f81cf7c1c636b48f5b8f1ba00f7ba26acff14a22456ce4c669c3e468f30",
+      "bytes": 70129
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-partial-atom-320.png",
+      "sha256": "2ea136d98f12babe597182df28c97292edb868e3b4b3ec4be8d9f239307fe262",
+      "bytes": 71058
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-capacity-three-branches-320.png",
+      "sha256": "856f151715d8ad87d0c75ea1386474994cd22787f9c8016d9c3b6b5787aa40f7",
+      "bytes": 60954
+    },
+    {
+      "path": "scratch/decision-theory-independent/inline-0-320.png",
+      "sha256": "adf657f5f306601d7840ae267d58997c21cf2693c35715f2a9c723d264ec3a11",
+      "bytes": 63625
+    },
+    {
+      "path": "scratch/decision-theory-independent/inline-1-320.png",
+      "sha256": "357ba3848afb2b814ff4865fe3fc3a9b79c367e752aacad480dbf63a1ea2d1a1",
+      "bytes": 72859
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-practice-320.png",
+      "sha256": "d677da08c802edc5f936ed4860b90d34e2c1601973d87e769a0573f323e74716",
+      "bytes": 66359
+    },
+    {
+      "path": "scratch/decision-theory-independent/actual-output-320.png",
+      "sha256": "bbeaac37b1bb9975fda2c02daacb2f36aa069022f21faabc29a0ef73f101e820",
+      "bytes": 72340
+    },
+    {
+      "path": "scratch/decision-theory-independent/alternate-resources-320.png",
+      "sha256": "9d71541a96d9bce5b17f0d91ac13c23d66a7117d6dff36c092588aa22830e8b3",
+      "bytes": 74475
+    },
+    {
+      "path": "scratch/decision-theory-independent/changed-capacity-three-branches-1440.png",
+      "sha256": "99c9f646d2f7135a2f19bae35a4fbc1419c0e4ff44dd91299e06859f5c6337ed",
+      "bytes": 206015
+    }
+  ],
+  "report": {
+    "path": "docs/teaching/DECISION-THEORY-INDEPENDENT-REVIEW.md",
+    "sha256": "0dd4d93ab9edad828edb7b7f0c5b1be6dca2714a3dfaf039ee17a9233d345404",
+    "bytes": 4594
+  },
+  "scripts": [
+    {
+      "path": "scripts/verify-decision-theory-independent.mjs",
+      "sha256": "eaa4384cd3e1a2c80d0e8ff5679c3521ea086afa8e81fad599114f067d0e5281",
+      "bytes": 3971
+    },
+    {
+      "path": "scripts/verify-decision-theory-independent.py",
+      "sha256": "7a376bdaf97d0f5f2dfc590998b20cf52076a75d6beafd7028b0870a9dc2363a",
+      "bytes": 8405
+    },
+    {
+      "path": "scripts/review-decision-theory-independent.cjs",
+      "sha256": "b1bbbaf097c264d7e07bd94608d76aff179108cc1f10e5c6d312abbcacef09a7",
+      "bytes": 10701
+    }
+  ],
+  "limitations": [
+    "Finite independent review; no learner study, universal arithmetic guarantee, user acceptance, production build or deployment."
+  ]
+}

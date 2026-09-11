@@ -1,0 +1,11 @@
+# Support Vector Machines: independent review
+
+11 September 2026. Root independently read the complete rewritten lesson and pure model, checked the author packet, and opened four final images. [The versioned review](evidence/support-vector-machines-independent-review.json) closes the topic with the flat-pair finding resolved. Shared production integration remains separate.
+
+The review checked score versus distance, normalized margins, conditional support movement, sum/average objectives, the dual and KKT certificate, unique weights versus nonunique representations, kernel validity, pair feasibility, stopping status, validation and calibration ownership, multiclass shapes, SVR units, sequence information loss and finite kernel approximations. Necessary definitions precede the formal derivations. Complete examples, explicit counterexamples and twelve changed tasks connect the mechanisms to practical decisions.
+
+One concrete mismatch was found before the author's freeze: for zero curvature and zero gradient, the browser pair helper chose an endpoint while the prose promised no movement. The author repaired the JS helper and displayed Python helper, re-executed that program, and recorded focused native/browser checks. The full solver already stopped before committing a zero-gain move. The final frozen sources contain the correction.
+
+Sixteen complementary cases passed: positive score scaling; RBF rotation and units; pair orientation and feature translation; the flat duplicate-pair policy; target scaling of the SVR objective; and sequence reversal/count conservation. These supplement the author's constrained-optimizer, changed complete-solver, program and browser evidence. Unchanged broader suites were reused, not rerun.
+
+The reviewer independently opened the final 320px margin geometry, zero-curvature pair and dual explanation, plus the desktop measured validation selector. Labels, constraints, signed distances, units, exact versus sampled values and the equation's surrounding explanation were readable. These were existing author captures, not a new independent execution of all controls. The saved validation fits are one specified experiment, not a universal performance guarantee. No learner study or user acceptance is claimed.

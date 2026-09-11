@@ -1,0 +1,41 @@
+# Dynamical Systems Theory & Chaos — implementation and author review
+
+Mathematics position36, stable `dynamical-systems-theory-chaos`. This replaces the earlier short published body within the active DSA/mathematics goal. The title, identity, publication mapping, module order and existing learner progress remain unchanged. Author verification is complete; independent review, production integration and user acceptance are separate states.
+
+## What changed and why
+
+The old lesson introduced most of the right terms but had one program, no diagrams, no interactive investigations and little derivation or explained practice. The current route starts with a cart's missing velocity and an exact cooling law, then distinguishes states, parameters, rates and update intervals. Stability, attraction, exponential decay and marginal linearization are taught separately before phase portraits or chaos terminology.
+
+The original logistic program and its output are preserved exactly in the topic-owned example dataset. The original four growth-parameter exercise is retained with a worked resolution and a periodic-window comparison. Useful original coverage of continuous/discrete rules, equilibria, logistic period doubling, deterministic sensitivity, attractors/basins, phase portraits, ML/control and numerical pitfalls is retained and substantially developed. The full earlier source and original code/output are in [the preservation archive](evidence/dynamical-systems-original-content.json); this is source conservation, not a claim that its previous wording was technically sufficient.
+
+Seven investigations serve distinct questions: phase-line signs and potential wells; linked planar geometry/time and a Hopf return; logistic cobwebs with an optional finite bifurcation atlas; actual versus tangent sensitivity; inverse tent branches and conjugate coordinates; full-state Lorenz projections; and numerical cooling/oscillator energies. The three inline figures expose missing state information, different notions of stability, and parameter-dependent equilibrium branches while reading. Their forms follow the mathematical objects. They are not quotas or a uniform slider template.
+
+There are eleven complete Python programs with recorded outputs, twelve independent practice tasks with separate hints and explained solutions, four nearby checkpoints and eleven linked reading sections. Local derivations include phase-line basins, strict map/flow criteria, cubic equality counterexamples, nonnormal transient amplification, the radial return multiplier, logistic two-cycle stability, a tent-map mixing/dense-periodic mechanism, transformed invariant density, Lorenz equilibria/divergence and numerical energy identities. The ergodic and general planar/linearization theorems are stated with conditions and linked to inspected primary notes; simulations are not offered as their proofs.
+
+## Numerical and native evidence
+
+The exact current records and production hashes are in [the author evidence](evidence/dynamical-systems-author-review.json).
+
+- `node scripts/verify-dynamical-systems-models.mjs` exports actual production model values and verifies23 unsupported inputs.
+- `scratch/lesson-tools/Scripts/python.exe scripts/verify-dynamical-systems-models.py` independently checks56,021 scalar comparisons, including20 cooling,60 scalar,56 planar,66 short logistic,40 finite sensitivity,7 finite exponent,1,022 inverse-cylinder,301 coordinate/probability,16 quantized-grid,28 oscillator and20 Lorenz cases.
+- The independent adaptive-ODE comparison has maximum absolute scalar discrepancy9.82e−9 on its stated windows, and maximum Lorenz discrepancy2.92e−6 over one model-time unit. These are finite tolerances for the tested models, not bounds for all starts or long chaotic runs.
+- `scratch/lesson-tools/Scripts/python.exe scripts/verify-dynamical-systems-native.py` runs the actual exported eleven programs, compares exact stdout, independently preserves the original program/output, and makes3,840 changed-input numerical comparisons. It includes exact rational recurrences and cylinders, alternative DOP853/Radau solves, matrix-power oscillator identities, derivative products, finite atlas grid/burn/tail reproduction and15 rejected unsupported inputs.
+- Native environments: Python3.12.14, NumPy2.3.5, SciPy1.18.1. Generator and verification scripts retain complete executable sources and actual stdout in the scratch evidence; the production dataset contains the exact displayed programs.
+
+During author verification, the Hopf closed form's division by a tiny nonzero parameter was replaced by the continuous `expm1(z)/z` extension. Products that round to zero now retain the correct zero-parameter cubic limit; both native and browser-model tests include subnormal positive/negative parameters. Numerical range guards were made explicit for the displayed cooling, cubic and matrix-exponential helpers, preserving every preset output. The zero-derivative sensitivity case returns an extended-real minus infinity, without invented epsilon replacement.
+
+## Rendered learning and interaction review
+
+`node scripts/review-dynamical-systems-lesson.cjs` passed against the actual-font local Vite application in Edge at1440,390 and320 pixels, with143 exercised model/control states at each width. It verifies all eleven section anchors, full code/questions/outputs, sixteen checkpoint/practice groups, every chosen system and edge preset, zero initial states, finite atlas mark count, updates/resets, focus visibility in keyboard mode, arrow-key slider behavior, keyboard plot scrolling, equation rendering and document bounds. All twelve displayed equations fit the320-pixel page after the rate-integral equation was split into a clear change/accumulation/approximation sequence. No page, console or network errors were observed in the successful run; any Vite diagnostics are separately recorded rather than silently suppressed.
+
+Screenshots were actually opened for normal reading, the cart comparison, phase line, branch diagrams, Hopf geometry, bifurcation atlas, sensitivity exception, exact folding, Lorenz projection and numerical energies. The evidence lists the precise inspected image hashes. This review led to a real cart drawing, discrete iterate marks, a shared sensitivity cursor, the equilibrium-branch figure and visible sideways-scroll guidance for the larger plots on phones. SVG text has an effective size of at least14pixels in the tested widths; scrollable figures keep complete axes and keyboard access instead of shrinking labels into unreadability. Mobile figures may need horizontal scrolling; the surrounding explanations and controls fit the viewport.
+
+The plots state their axes, units, sample windows, numerical methods, cropping or rescaling, and limits. The optional bifurcation atlas computes only when opened and uses one SVG path for7,248 marks. Lorenz has a bounded4,800-step cached model and decimates only the drawn path, retaining the selected endpoint/full state. There is no autoplay, perpetual simulation, new dependency, whole-curriculum data import or unrelated lesson loading introduced by this topic.
+
+## Sources, scope and remaining review
+
+The [individual design](DYNAMICAL-SYSTEMS-LESSON-DESIGN.md) records the exact inspected primary-source sections, source issues resolved by direct derivation, and alternate-resource limits. The Cornell/Strogatz playlist identity was verified through an instructor-linked course page; no full-playlist viewing is claimed. Written resources are annotated by learning purpose and level in the actual lesson.
+
+The current lesson provides scoped nonlinear-dynamics understanding, not full proofs of all bifurcation, ergodic, control or chaotic-flow theorems. Its normal forms are not calibrated biological or engineering systems. General ODE methods, more numerical analysis, controller certificates and neuron-model applications have explicit future-owner notes. Optional advanced theories that do not serve this lesson's outcomes are not appended as unexplained formulas.
+
+Independent review and the shared production loading/navigation build checks must be completed before this lesson is promoted to implementation-reviewed. No deployment, observed beginner study or user acceptance is claimed.

@@ -1,0 +1,24 @@
+# Authoring notes: Partial Differential Equations, Conservation & Boundary Conditions
+
+Canonical topic ID: `partial-differential-equations-conservation-boundary-conditions`
+
+## 2026-09-11 — Carry the ODE boundary-value and eigenfunction bridge into spatial models
+
+- Status: adapted — implemented and author-verified; independent review remains separate.
+- Origin: [Ordinary Differential Equations & Linear Systems design](../ORDINARY-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md), ODE50 sections12/13M in `src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx`.
+- Destination and rationale: this exact later title owns spatial domains, conservation and boundary conditions. Its current expanded plan covers heat/wave/Poisson and Dirichlet/Neumann choices but has no finished body at this scoped check. ODE50 supplies the initial-versus-boundary contrast; spatial eigenfunction and compatibility reasoning fits this destination more naturally than expanding the first ODE course into a full Sturm–Liouville chapter.
+- Already taught locally: y''+y=0,y(0)=0 has family b sin(t). Endpoint y(π)=0 allows every b, y(π)=1 allows none, and y(π/2)=1 selects b=1. Exact symbolic endpoints are distinguished from floating-point residuals. A shooting endpoint map can collapse or become ill-conditioned.
+- Proposed treatment: reassess during the destination design. Derive separation for at least one spatial boundary problem, show how the boundary conditions select or exclude modes, and connect the homogeneous nullspace to compatibility/nonuniqueness of a forced problem. If a Sturm–Liouville operator is introduced, define the coefficient/weight/domain/endpoint hypotheses and inner product locally; do not infer self-adjointness from a familiar differential expression alone. Preserve distinctions between initial conditions, boundary data and numerical boundary enforcement.
+- Learning benefit and practice: ask why a fixed-value versus zero-flux boundary changes the allowed constant mode; show both the spatial eigenfunction and its temporal coefficient. Use a changed boundary or incompatible source to assess reasoning rather than reciting sine series. Verify conservation and compatibility independently.
+- Sources and evidence: ODE50's exact analytical example and browser BVP model are the local bridge, not certification of a general spectral theorem. Lebl's [boundary-value chapter](https://www.jirka.org/diffyqs/html/bvp_section.html) and [Sturm–Liouville chapter map](https://www.jirka.org/diffyqs/html/diffyqs.html) are research leads; the complete specialist theorem sections have not been read in this scoped note. The future author must research and verify any new claims.
+- Resolution: adapted in the completed PDE56 source; the original proposal and design-stage assessment below are retained as history. See the implemented disposition at the end.
+
+### Destination assessment, 11 September 2026 — planned adaptation
+
+The exact inventory and ODE50 boundary example were read for [the PDE56 design](../PARTIAL-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md). The proposal is accepted for a planned adaptation: derive Dirichlet/Neumann and changed mixed-end modes, show the constant mode and actual boundary form, connect it to Neumann source/outflow compatibility and a mean-selected solution. Optional Sturm–Liouville depth will define coefficients, weight, endpoint domain and sign conditions; it will not infer an operator from a differential expression alone. The independent [design fixtures](../../../scratch/pde-design/results.json) check the proposed heat coefficients and Poisson families, but are not production implementation evidence. This entry stays **open** until actual body/model/program and browser evidence can be linked. No ODE source or shared topic order was changed.
+
+### Implemented disposition — 11 September 2026
+
+The complete [PDE56 body](../../../src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx), sections 2/4/7/8, implements the incoming bridge. It derives fixed-value, insulated and changed mixed-end eigenfunctions; retains the Neumann constant mode; states coefficient, weight and separated boundary-domain assumptions in the optional Sturm–Liouville extension; and explicitly qualifies eigenvalue positivity. The source/outward-flux condition selects solvability before a mean fixes the constant. Changed practice 4/5/8 and actual native programs test these concepts independently.
+
+[Author verification](../PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md) and the [exact-source packet](../evidence/pde-author-review.json) bind native and actual-font 1440/390/320 browser checks. This is implemented, not a design-only claim. Independent/integrated review and user acceptance remain separate. No ODE source or shared module order changed.

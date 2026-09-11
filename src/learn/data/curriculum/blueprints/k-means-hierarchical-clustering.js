@@ -1,0 +1,28 @@
+export default {
+  summary: 'Choose a meaningful geometry, learn representative centers or a merge hierarchy, and evaluate what the resulting groups actually support.',
+  outcomes: [
+    'Define observations, features, distance and a useful clustering decision without treating group labels as truth',
+    'Calculate and implement Lloyd assignments, mean updates, initialization and explicit stopping contracts',
+    'Explain how units, weights, outliers and representation change the squared-distance objective',
+    'Compute D-squared seeding probabilities and qualify the vanilla k-means++ expectation guarantee',
+    'Build and interpret single, complete, average and Ward hierarchies, including tied cuts and the Ward height scale',
+    'Compare reproducible current-library fits, distinguish diagnostics from validation and report a held-out result',
+    'Apply weighted clustering to a color palette and connect representatives to streaming summaries and search routing'
+  ],
+  prerequisites: ['K-Nearest Neighbors (KNN)'],
+  sequence: ['Define similarity and the useful grouping question', 'Trace assignment and mean movement', 'Choose units and derive the objective', 'Seed and stop with explicit contracts', 'Construct linkage merges and read a dendrogram', 'Derive Ward merge cost and height', 'Use current APIs and choose k with qualified diagnostics', 'Apply quantization and resource-aware variants', 'Diagnose failure, practise changed cases and report a complete experiment'],
+  visual: {
+    type: 'Point-to-center assignment map, transformed feature geometry, D-squared probability strip, linked dendrogram and membership map, color-palette reconstruction',
+    question: 'What changed the grouping: the geometry, the current representatives, the random seed, the linkage rule or the cut?',
+    interaction: 'Step assignments and means, compare feature weights, inspect probability mass, step or cut a merge tree and change a calculated image palette.'
+  },
+  practice: {
+    task: 'Solve changed centroid, seeding, Ward and cut cases; diagnose units, initialization and metric misuse; produce a frozen held-out clustering report and a weighted palette.',
+    success: 'Calculations match declared ties, units and cut conventions; results distinguish optimization from discovered truth; code is reproducible and explanations include representation and validation limits.'
+  },
+  misconceptions: ['Every unlabeled dataset has a unique natural clustering', 'K in KNN and k-means has the same role', 'Each Lloyd half-step strictly decreases error or convergence establishes the global optimum', 'K-means++ is deterministic farthest-first or always recovers the intended groups', 'Standardization is always the correct geometry', 'Ward merge cost equals SciPy dendrogram height squared', 'Every horizontal tree cut can attain every k despite tied heights', 'Lowest inertia or largest silhouette proves the correct number of groups', 'Cluster IDs are ordered classes or distant observations are automatically rejected', 'A faster approximation, a nonlinear projection or a biologically named cluster is automatically valid'],
+  sources: ['https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html', 'https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html', 'https://theory.stanford.edu/~sergei/papers/kMeansPP-soda.pdf', 'https://scikit-learn.org/stable/modules/clustering.html'],
+  depth: 'core',
+  designRecord: 'docs/teaching/K-MEANS-HIERARCHICAL-LESSON-DESIGN.md',
+  reviewFocus: 'Complete assignment/update and stopping contracts; duplicate and empty clusters; vanilla versus greedy seeding; metric/weight units; Ward Δ and sqrt(2Δ) height; tied cuts; label-invariant comparisons; current native outputs; calculated visual data; meaningful accessible topic-native diagrams; independently changed practice and qualified applications.'
+};

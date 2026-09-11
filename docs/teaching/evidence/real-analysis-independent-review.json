@@ -1,0 +1,744 @@
+{
+  "reviewedAt": "2026-09-11T07:39:52.919806+00:00",
+  "topicId": "real-analysis-sequences-modes-of-convergence",
+  "status": "Independent final review closed; no unresolved material finding; production integration and user acceptance separate",
+  "originalAuthorFrozenAt": "2026-09-11T07:20:48.539Z",
+  "originalAuthorPacket": {
+    "path": "docs\\teaching\\evidence\\real-analysis-author-review.json",
+    "sha256": "a7b02974fca4e44c15e8005a9fd33a5523e2af70e16c674efcf2e8d91431f872",
+    "bytes": 84259
+  },
+  "originalAuthorSources": {
+    "path": "docs\\teaching\\evidence\\real-analysis-original-author-sources.json",
+    "sha256": "b0898af673153dbfdd3fba41e3ab4a7c5964c02b3ed68e568d406e41b3e117d4",
+    "bytes": 284064
+  },
+  "productionSourceCount": 6,
+  "sources": [
+    {
+      "path": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+      "sha256": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3",
+      "bytes": 76010
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js",
+      "sha256": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7",
+      "bytes": 4498
+    },
+    {
+      "path": "src/learn/data/real-analysis-models.js",
+      "sha256": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a",
+      "bytes": 9717
+    },
+    {
+      "path": "src/learn/data/real-analysis-examples.js",
+      "sha256": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850",
+      "bytes": 19737
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+      "sha256": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17",
+      "bytes": 29001
+    },
+    {
+      "path": "src/learn/components/lesson-labs/real-analysis-labs.css",
+      "sha256": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094",
+      "bytes": 5129
+    }
+  ],
+  "changedProductionFiles": [
+    "src/learn/components/lesson-labs/RealAnalysisLabs.jsx"
+  ],
+  "scope": "Full body/proofs/practice and all six production sources read; all thirteen actual native programs executed; complementary mathematical oracles and independent actual-font three-width changed-state/keyboard/program/plot review. Separate from prior design-only review and original author checks.",
+  "native": {
+    "file": {
+      "path": "scratch\\real-analysis-independent\\results.json",
+      "sha256": "37432160c93400f9d5c4a9d6038c290875fbd35c81de3cbe16d2096c692bcaf5",
+      "bytes": 2352
+    },
+    "result": {
+      "completedAt": "2026-09-11T07:32:25.104538+00:00",
+      "passed": true,
+      "checks": {
+        "actual-program-stdout": 13,
+        "strict-tail-minimality": 24,
+        "changed-native-tail": 24,
+        "proposed-tail-inequality": 24,
+        "integer-root-independent-enclosure": 18,
+        "actual-bracket-call": 18,
+        "independent-block-value": 10,
+        "actual-changed-block": 10,
+        "triangle-mass-and-centroid": 48,
+        "triangle-js-area": 24,
+        "triangle-js-l2": 24,
+        "actual-triangle-samples": 384,
+        "actual-series-finite-sums": 35,
+        "polylog-function-tail": 35,
+        "separately-bounded-derivative-tail": 30,
+        "de-casteljau-value": 60,
+        "convex-jensen-and-lipschitz": 60,
+        "changed-native-third-moment": 60,
+        "every-production-weight": 60,
+        "dyadic-binary-prefix": 43,
+        "actual-changed-visit": 43,
+        "closed-progressions-capstone": 20,
+        "changed-native-geometric": 12
+      },
+      "sources": [
+        {
+          "path": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+          "sha256": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js",
+          "sha256": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7"
+        },
+        {
+          "path": "src/learn/data/real-analysis-models.js",
+          "sha256": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a"
+        },
+        {
+          "path": "src/learn/data/real-analysis-examples.js",
+          "sha256": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+          "sha256": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/real-analysis-labs.css",
+          "sha256": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094"
+        }
+      ],
+      "scope": "Independent final source review: actual13 programs, changed helpers, integer-square-root enclosure, digamma blocks, polylog/log derivative tails, de Casteljau polynomial evaluation, exact third moments, dyadic binary prefixes and closed arithmetic-progression integrals. Not the earlier design suite and not a proof by numerical enumeration."
+    }
+  },
+  "browser": {
+    "file": {
+      "path": "scratch\\real-analysis-independent\\browser\\results.json",
+      "sha256": "236f398b97bf11d1be3213479dd6936f82b4de4df9cf5f7e87326ee9cc7d6efd",
+      "bytes": 12117
+    },
+    "result": {
+      "checkedAt": "2026-09-11T07:34:13.924Z",
+      "passed": true,
+      "sources": [
+        {
+          "path": "src/learn/data/topics/real-analysis-sequences-modes-of-convergence.jsx",
+          "sha256": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js",
+          "sha256": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7"
+        },
+        {
+          "path": "src/learn/data/real-analysis-models.js",
+          "sha256": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a"
+        },
+        {
+          "path": "src/learn/data/real-analysis-examples.js",
+          "sha256": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+          "sha256": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/real-analysis-labs.css",
+          "sha256": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094"
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "states": [
+            "strict N=19 fails, keyboard N=20 passes",
+            {
+              "exactBracket16": [
+                "1.4141998291015625",
+                "1.4142150878906250",
+                "1/2^16",
+                "1/2^17"
+              ]
+            },
+            "telescoping N32",
+            "closed endpoint zero error; compact domain excludes moving witness",
+            "unit-area triangle n256 missed by grid",
+            "derivative and function distinct scales n16 power2",
+            "explicit negative endpoint option, negative function sum and conditional derivative",
+            "degree4 corner=.5 exact3/16 selected value and actual plotted marker",
+            "half-open boundary observer1/4 excludes j7, includes j8"
+          ],
+          "keyboard": [
+            "Proposed start N: ArrowRight",
+            "Reset sequence tail",
+            "Reset exact bracket",
+            "Reset Cauchy block",
+            "Reset power convergence",
+            "Reset moving triangle",
+            "Reset derivative comparison",
+            "Series point: ArrowDown/Enter",
+            "Reset series endpoint",
+            "Reset polynomial approximation",
+            "Typewriter j7→8: ArrowRight",
+            "Reset interval sweep",
+            "Changed capstone disclosure",
+            "Changed capstone disclosure"
+          ],
+          "captures": [
+            "ordinary-intro-1440.png",
+            "strict-tail-1440.png",
+            "exact-decimal-bracket-1440.png",
+            "compact-domain-1440.png",
+            "missed-peak-1440.png",
+            "paired-derivative-1440.png",
+            "negative-endpoint-1440.png",
+            "weighted-polynomial-1440.png",
+            "dyadic-observer-1440.png",
+            "proof-figure-0-1440.png",
+            "proof-figure-1-1440.png",
+            "changed-capstone-1440.png",
+            "exact-output-1440.png",
+            "learning-resources-1440.png"
+          ],
+          "errors": [],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_AMS",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "programs": [
+            "tail-certificate",
+            "exact-bracket",
+            "cauchy-blocks",
+            "series-bounds",
+            "power-witness",
+            "triangle-grid",
+            "integral-interchange",
+            "derivative-interchange",
+            "series-endpoint",
+            "bernstein-weights",
+            "typewriter",
+            "tail-mass",
+            "approximation-report"
+          ],
+          "math": [
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "width": 760,
+              "scroll": 760
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "states": [
+            "strict N=19 fails, keyboard N=20 passes",
+            {
+              "exactBracket16": [
+                "1.4141998291015625",
+                "1.4142150878906250",
+                "1/2^16",
+                "1/2^17"
+              ]
+            },
+            "telescoping N32",
+            "closed endpoint zero error; compact domain excludes moving witness",
+            "unit-area triangle n256 missed by grid",
+            "derivative and function distinct scales n16 power2",
+            "explicit negative endpoint option, negative function sum and conditional derivative",
+            "degree4 corner=.5 exact3/16 selected value and actual plotted marker",
+            "half-open boundary observer1/4 excludes j7, includes j8"
+          ],
+          "keyboard": [
+            "Proposed start N: ArrowRight",
+            "Reset sequence tail",
+            "Reset exact bracket",
+            "Reset Cauchy block",
+            "Reset power convergence",
+            "Reset moving triangle",
+            "Reset derivative comparison",
+            "Series point: ArrowDown/Enter",
+            "Reset series endpoint",
+            "Reset polynomial approximation",
+            "Typewriter j7→8: ArrowRight",
+            "Reset interval sweep",
+            "Changed capstone disclosure",
+            "Changed capstone disclosure"
+          ],
+          "captures": [
+            "ordinary-intro-390.png",
+            "strict-tail-390.png",
+            "exact-decimal-bracket-390.png",
+            "compact-domain-390.png",
+            "missed-peak-390.png",
+            "paired-derivative-390.png",
+            "negative-endpoint-390.png",
+            "weighted-polynomial-390.png",
+            "dyadic-observer-390.png",
+            "proof-figure-0-390.png",
+            "proof-figure-1-390.png",
+            "changed-capstone-390.png",
+            "exact-output-390.png",
+            "learning-resources-390.png"
+          ],
+          "errors": [],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_AMS",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "programs": [
+            "tail-certificate",
+            "exact-bracket",
+            "cauchy-blocks",
+            "series-bounds",
+            "power-witness",
+            "triangle-grid",
+            "integral-interchange",
+            "derivative-interchange",
+            "series-endpoint",
+            "bernstein-weights",
+            "typewriter",
+            "tail-mass",
+            "approximation-report"
+          ],
+          "math": [
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "width": 350,
+              "scroll": 350
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "states": [
+            "strict N=19 fails, keyboard N=20 passes",
+            {
+              "exactBracket16": [
+                "1.4141998291015625",
+                "1.4142150878906250",
+                "1/2^16",
+                "1/2^17"
+              ]
+            },
+            "telescoping N32",
+            "closed endpoint zero error; compact domain excludes moving witness",
+            "unit-area triangle n256 missed by grid",
+            "derivative and function distinct scales n16 power2",
+            "explicit negative endpoint option, negative function sum and conditional derivative",
+            "degree4 corner=.5 exact3/16 selected value and actual plotted marker",
+            "half-open boundary observer1/4 excludes j7, includes j8"
+          ],
+          "keyboard": [
+            "Proposed start N: ArrowRight",
+            "Reset sequence tail",
+            "Reset exact bracket",
+            "Reset Cauchy block",
+            "Reset power convergence",
+            "Reset moving triangle",
+            "Reset derivative comparison",
+            "Series point: ArrowDown/Enter",
+            "Reset series endpoint",
+            "Reset polynomial approximation",
+            "Typewriter j7→8: ArrowRight",
+            "Reset interval sweep",
+            "Changed capstone disclosure",
+            "Changed capstone disclosure"
+          ],
+          "captures": [
+            "ordinary-intro-320.png",
+            "strict-tail-320.png",
+            "exact-decimal-bracket-320.png",
+            "compact-domain-320.png",
+            "missed-peak-320.png",
+            "paired-derivative-320.png",
+            "negative-endpoint-320.png",
+            "weighted-polynomial-320.png",
+            "dyadic-observer-320.png",
+            "proof-figure-0-320.png",
+            "proof-figure-1-320.png",
+            "changed-capstone-320.png",
+            "exact-output-320.png",
+            "learning-resources-320.png"
+          ],
+          "errors": [],
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_AMS",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "programs": [
+            "tail-certificate",
+            "exact-bracket",
+            "cauchy-blocks",
+            "series-bounds",
+            "power-witness",
+            "triangle-grid",
+            "integral-interchange",
+            "derivative-interchange",
+            "series-endpoint",
+            "bernstein-weights",
+            "typewriter",
+            "tail-mass",
+            "approximation-report"
+          ],
+          "math": [
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "width": 280,
+              "scroll": 280
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "openedImages": [
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\exact-decimal-bracket-320.png",
+      "sha256": "1b922551bf235e29461aa11820e68fc39234b2a61fb2dd6129b4d579515c03da",
+      "bytes": 51802
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\negative-endpoint-320.png",
+      "sha256": "b9ec103497698c471edd73e9b01951306ac956836c220b3c0a4030048734646c",
+      "bytes": 41132
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\ordinary-intro-1440.png",
+      "sha256": "f21714e1a7487003f5131285da2597ff0d33169c9602a4f902c5482cc8a72c49",
+      "bytes": 231978
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\strict-tail-390.png",
+      "sha256": "915152732f3a49ad8c318bc478d559bca56cb7865239b302c6e6a06348d09a1b",
+      "bytes": 45909
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\compact-domain-390.png",
+      "sha256": "23e1ae88a7d4eec8c65ab12f7cb7c6374570f60c64e6519f3bd5105869008107",
+      "bytes": 42339
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\missed-peak-390.png",
+      "sha256": "80d343317efd73fb9547db0f77b257c5bb923c770687299a893adef98687bbed",
+      "bytes": 30139
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\paired-derivative-1440.png",
+      "sha256": "5e8df97a9b2bc435ece4191c76b272c9b3802c2c5eb96c74685ffca5a3eb9107",
+      "bytes": 148035
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\weighted-polynomial-390.png",
+      "sha256": "2e072949c2a8c1ddedd37f834801f497faea40f2e7e6cde64a9a1b68437978e3",
+      "bytes": 38561
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\dyadic-observer-320.png",
+      "sha256": "4b55235daa77a538ddb7997cc5f4df7a6a577bb4a462723de6b316ee2e067da5",
+      "bytes": 41236
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\proof-figure-0-390.png",
+      "sha256": "64a0ba4faa9af6e020e9d0adc9c141755386267093dd60f79bfbdeca977237dc",
+      "bytes": 81891
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\proof-figure-1-390.png",
+      "sha256": "391a873e7649cbcca6067066f30b674c08bae858e807cbcda45091b8e29b32dd",
+      "bytes": 88280
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\changed-capstone-320.png",
+      "sha256": "1c19caa39ec1a9a43b0c17e5f270c1e7103d4736c532b36b55d7cc58db7e9883",
+      "bytes": 69918
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\exact-output-390.png",
+      "sha256": "501063a2440ee5a17578d0f98240b3b5ec334a7774dbbecf0f2002cd61b97b4c",
+      "bytes": 90591
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\learning-resources-390.png",
+      "sha256": "39c650bcd167337e35ef97b6896b9327d02f8932c50e3bf32defe485051f23f7",
+      "bytes": 106264
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\negative-endpoint-1440.png",
+      "sha256": "c1c7be0b6aca45226cf251d22aeb9b8d2292c89e5cbb9337196bc387e6314125",
+      "bytes": 163176
+    },
+    {
+      "path": "scratch\\real-analysis-independent\\browser\\exact-decimal-bracket-390.png",
+      "sha256": "b8329dca376b3b7ce6b1b1684aae0a00e492500691e0844f7b898084db6e2281",
+      "bytes": 61166
+    }
+  ],
+  "openedImageScope": "All16 listed final reviewer images were actually opened after the final browser run. The original ambiguous author image below was opened separately; it is not a final-source screenshot.",
+  "originalPaintEvidence": {
+    "path": "scratch/real-analysis-browser/changed-series-endpoint-320.png",
+    "sha256": "b0e917acb047f17107c93adf7bb3243969835445d9f8cccc4dbeee3d5679e348",
+    "bytes": 39307
+  },
+  "findings": [
+    {
+      "issue": "Rounded dyadic endpoint displays were called exact at an ordinary step16 state",
+      "reproduction": {
+        "actualDyadicLeft": "1.4141998291015625",
+        "oldPrintedLeft": "1.414199829"
+      },
+      "resolution": "Exact terminating endpoint decimals at the selected binary precision; squared decimals explicitly rounded. Exact model/certificate unchanged.",
+      "status": "resolved"
+    },
+    {
+      "issue": "Author native-select capture had an ambiguous negative glyph",
+      "arithmeticFinding": false,
+      "resolution": "Explicit left/right endpoint and interior labels; closed native control, selected value, signed numerical outputs, keyboard and reset checked.",
+      "status": "resolved"
+    }
+  ],
+  "scriptFiles": [
+    {
+      "path": "scripts/verify-real-analysis-independent.mjs",
+      "sha256": "b58620a8ffe166ccf249900d6c9d2cda560601b878faf6c19d2ff8c628e004a6",
+      "bytes": 3102
+    },
+    {
+      "path": "scripts/verify-real-analysis-independent.py",
+      "sha256": "0209f39273b974504fd166901f1be7f4b3da969bb0327ecd766d7396c763e72d",
+      "bytes": 7532
+    },
+    {
+      "path": "scripts/review-real-analysis-independent.cjs",
+      "sha256": "f1aa336622f5730962aa3442518123e546643ec7781973964351626086b7d7db",
+      "bytes": 12238
+    },
+    {
+      "path": "scripts/finalize-real-analysis-independent.py",
+      "sha256": "9cf456c0b417defc6dd9c2eb527c35e8673e3cf6fedaadcacacaec86055d19ee",
+      "bytes": 6028
+    },
+    {
+      "path": "docs/teaching/REAL-ANALYSIS-INDEPENDENT-REVIEW.md",
+      "sha256": "2a8394181d70a3acf4ac31f2151b42fe55b32935f7e443ef651ade3ec2dfeb83",
+      "bytes": 7996
+    }
+  ],
+  "limits": [
+    "Finite calculations corroborate mathematical arguments and cannot prove infinite convergence claims by themselves.",
+    "Only the Labs display contract changed; source, models, examples and stdout were conserved. The original author packet remains unmodified.",
+    "The native select popup was explicitly closed for final captures; no calculation error was inferred from a native painting artifact.",
+    "Prior author exhaustive field-state/anchor checks remain separately attributed; this is a complementary targeted pass.",
+    "No whole-book/video playback claim, full application build, shared metadata edit, universal-domain audit or observed learner study is implied."
+  ]
+}

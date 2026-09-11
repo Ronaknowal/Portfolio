@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-09-11T17:07:50.389Z",
+  "sourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "42d1c2fd556b19f1be3c444206549c7a0db66698bc2eef55e7d8e904ef4d9800",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "5d45d3ea076cdf00275c3c74ffeb352cb7151ef515ca2638122a5cd6d8a45477"
+  },
+  "verifierHash": "9a2d07e0ccd36a3c42b3eb4efae3fa14c31327ec304405641695558f4c93560f",
+  "previousVerification": {
+    "record": "docs/teaching/archive/k-means-hierarchical-models-before-range-fix/k-means-hierarchical-models.json",
+    "checkedAt": "2026-09-11T16:51:55.264Z",
+    "sourceHashes": {
+      "src/learn/data/k-means-hierarchical-models.js": "50c1deafd66c785b3cf10419e9bc10bf5059deeee364fa79fff62a92d6543c20",
+      "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "73aac20e9777f0cd1934787e28401df38582f7f8c553b2174e85347277fe6fbb",
+      "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "e789c5d4dd5d57ce149119e56f4d2924a0504faff8e11c446e14868d712d9ad3"
+    },
+    "groupedChecks": 126,
+    "rejectedInputs": 13,
+    "reused": "Prior126+13 campaign retained as historical evidence; it was not rerun for this amendment."
+  },
+  "reproducedPreviousFailures": [
+    "Distinct1e-200 assignment SSE was zero.",
+    "Distinct1e-200 Ward hierarchy height was zero."
+  ],
+  "boundary": {
+    "rejected": [
+      "distinct tiny assignment",
+      "distinct tiny hierarchy",
+      "Ward factor erases positive subnormal separation",
+      "positive weighted assignment disappears",
+      "positive weighted moved error disappears",
+      "nonzero weighted coordinate disappears",
+      "positive D squared probability disappears",
+      "one nonzero coordinate square disappears"
+    ],
+    "acceptedPositiveStates": [
+      {
+        "separation": 1e-150,
+        "sse": 1e-300,
+        "height": 1e-150
+      },
+      {
+        "separation": 1e-160,
+        "sse": 1e-320,
+        "height": 9.99994433575849e-161
+      },
+      {
+        "separation": 1e-161,
+        "sse": 1e-322,
+        "height": 9.940479322862118e-162
+      }
+    ],
+    "genuineZeroCases": 3
+  },
+  "unchangedFixtureOutputs": 22,
+  "changes": [
+    "Reject nonzero squared separations and weighted terms or quotients that underflow to zero.",
+    "Reject positive separation lost in Ward size scaling.",
+    "Initial Lloyd caption describes an unassigned state.",
+    "Visible D squared key includes every positive probability, its point ID, color and selected marker.",
+    "Seeding duplicate-only state caption explicitly says no second center is drawn."
+  ],
+  "scope": "Focused stage5 amendment: arithmetic range regressions and exact previous/final output conservation on existing finite fixtures. Root owns final actual-route UI review.",
+  "passed": true,
+  "finalSourceFreezeAt": "2026-09-11T17:08:55.136Z",
+  "uiCopyAmendment": {
+    "checkedAt": "2026-09-11T17:08:55.136Z",
+    "scope": "Source and JSX parse check only; numerical model unchanged since targeted run. Root owns actual final browser."
+  }
+}

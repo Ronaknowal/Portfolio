@@ -1,0 +1,95 @@
+{
+  "verifiedAt": "2026-09-10T21:02:36.982178+00:00",
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1"
+  },
+  "authorFrozenAt": "2026-09-10T20:56:31.905Z",
+  "production": [
+    {
+      "path": "src/learn/data/topics/dynamical-systems-theory-chaos.jsx",
+      "sha256": "26b3c22fb1570d389fd82c6fb8c69882b0840b7ef148c89f4d9155c9c2ea49a4",
+      "bytes": 59149
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "sha256": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
+      "bytes": 35122
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dynamical-systems-labs.css",
+      "sha256": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62",
+      "bytes": 4417
+    },
+    {
+      "path": "src/learn/data/dynamical-systems-models.js",
+      "sha256": "b5bf068e357558100f73f5336b53a43382d0a1decc73a3aaa1467f494732909f",
+      "bytes": 16665
+    },
+    {
+      "path": "src/learn/data/dynamical-systems-examples.js",
+      "sha256": "3af5b2d3e6303ea9193712b9a6786be7361ffa9373b997efc67b28bae39bbbf1",
+      "bytes": 22966
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamical-systems-theory-chaos.js",
+      "sha256": "f742827de99291801cd843f5fc9faf2a0dd9e140b056bbad4b3aa1a4afc7b283",
+      "bytes": 4288
+    }
+  ],
+  "cases": {
+    "actual_programs": 11,
+    "hopf_radial_and_angle": 972,
+    "exact_modified_forms": 170,
+    "native_modified_forms": 12,
+    "ten_branch_cylinders": 5,
+    "invariant_probability_integrals": 6,
+    "lorenz_variational_volume": 9,
+    "native_changed_cubic": 12
+  },
+  "numericAssertions": 3326,
+  "maxAbsoluteDiscrepancy": 7.62939453125e-06,
+  "originalProgramPreserved": true,
+  "limits": "Complementary finite oracles and mathematical source review, not a new long-time chaos proof, exhaustive numerical API certification, or duplicate full browser run.",
+  "reviewClosedAt": "2026-09-10T21:03:56.333945+00:00",
+  "sourceRead": [
+    "complete lesson and twelve practice/hint/solutions",
+    "all bounded model functions",
+    "all eleven exported native programs and interpretations",
+    "seven labs and three inline figures",
+    "scoped CSS and semantic blueprint",
+    "author design and exact freeze/verification records"
+  ],
+  "findings": [],
+  "resolution": "No unresolved material correctness or teaching-contract issue found in this bounded independent review; production files unchanged.",
+  "numericalQualification": "The largest absolute discrepancy, 7.62939453125e-6, occurs when an unstable h>2 trajectory evaluates an indefinite quadratic form by cancellation of large terms. Exact Fraction identity is preserved; comparison uses 16 epsilon times the term-magnitude scale. This is not an error bound for arbitrary inputs. Stable browser presets have no such large-coordinate cancellation.",
+  "browserAttribution": "Reviewer inspected these six actual author-generated images and the complete author browser evidence; reviewer did not repeat the author 143-state-per-width browser run.",
+  "imagesActuallyOpened": [
+    {
+      "path": "scratch/dynamical-systems-browser/hopf-1440.png",
+      "sha256": "406306c8da0a92cd6f92737ac8c19b1d6310b3b4d25b9869601cafc80b6366ef"
+    },
+    {
+      "path": "scratch/dynamical-systems-browser/critical-sensitivity-320.png",
+      "sha256": "d55333b4dbfea5f290da70049194cbee22514a79c434dc24dd5ac37175b92678"
+    },
+    {
+      "path": "scratch/dynamical-systems-browser/reading-8-320.png",
+      "sha256": "14fac1a555e4122c72c61cc339d12541981331ee020bb2c3d7fc9ab691379e10"
+    },
+    {
+      "path": "scratch/dynamical-systems-browser/folding-320.png",
+      "sha256": "762eb217706d83e59d15ce68aa9a13d4e72511837ece10a1c0a982e91beb94cd"
+    },
+    {
+      "path": "scratch/dynamical-systems-browser/numerical-energy-1440.png",
+      "sha256": "edded391263230ef3a7a7bc94b2717a6bc343ca0e30e3acf5cb9ea1621e62ce5"
+    },
+    {
+      "path": "scratch/dynamical-systems-browser/reading-1-390.png",
+      "sha256": "c63c3ac5d25dc03325cdf465fa6e08b8d022478c0e977af6b83fc9bdcc21046a"
+    }
+  ]
+}

@@ -1,0 +1,378 @@
+{
+  "closedAt": "2026-09-11T14:33:25.814933+00:00",
+  "status": "bounded independent review closed; no actionable material finding",
+  "authorPacket": "docs/teaching/evidence/gradient-boosted-trees-author-review.json",
+  "authorFrozenAt": "2026-09-11T12:10:28.707Z",
+  "reviewedSources": [
+    {
+      "path": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+      "sha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f"
+    },
+    {
+      "path": "src/learn/data/gradient-boosted-trees-models.js",
+      "sha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33"
+    },
+    {
+      "path": "src/learn/data/gradient-boosted-trees-examples.js",
+      "sha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+      "sha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css",
+      "sha256": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/gradient-boosted-trees-xgboost-lightgbm-catboost.js",
+      "sha256": "b77d10906ca1873053b92088f08385211b6a50b92d448aaf25b73ddb1a764e54"
+    }
+  ],
+  "scope": "Full current lesson/proofs/practice and all fifteen native program sources; pure models; lab/chart rendering contracts and responsive CSS; original retention/design/author evidence. Fifteen-program exact stdout and full author browser suite reused rather than rerun.",
+  "numerical": {
+    "checkedAt": "2026-09-11T14:30:41.842Z",
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+        "sha256": "59aa6411f61cbc9ef8e9c96480a2111e7d46e518825aa5926aa5223f9507ac3f"
+      },
+      {
+        "path": "src/learn/data/gradient-boosted-trees-models.js",
+        "sha256": "8d707a05dd65d1c2012210ce6864a738f3f92d71b36a6883658aacde78467a33"
+      },
+      {
+        "path": "src/learn/data/gradient-boosted-trees-examples.js",
+        "sha256": "ca2caf17275775bb3713dc0049936c2c442d657f97c16359f7f7f02c201d2eda"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/GradientBoostedTreeLabs.jsx",
+        "sha256": "bdd3bb820ea8c32e25fc53b2d4808dc25a1f324891f9949d7fb97c939c71d446"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/gradient-boosted-trees-labs.css",
+        "sha256": "10826dff530ae39c56feedcc80a15f94b8f4975f3a63c265894d34a54f6b660f"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/gradient-boosted-trees-xgboost-lightgbm-catboost.js",
+        "sha256": "b77d10906ca1873053b92088f08385211b6a50b92d448aaf25b73ddb1a764e54"
+      }
+    ],
+    "authorFrozenAt": "2026-09-11T12:10:28.707Z",
+    "counts": {
+      "finite-population variance law": 6,
+      "changed affine fit and inference": 9
+    },
+    "native": {
+      "counts": {
+        "actual leaf, exact candidate minimization": 4,
+        "actual prefix causal influence boundary": 5,
+        "actual recursive projection and refit": 3,
+        "actual XGBoost multiclass round and slice contract": 3
+      },
+      "xgboost": "3.4.1",
+      "scope": "Actual stored Python definitions; changed data and exact/orthogonal/slice oracles. Author stdout suite reused, not repeated."
+    },
+    "limitations": "Bounded complementary checks, not a rerun of the author suite. No GPU, library performance ranking or arbitrary-range arithmetic claim."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T14:31:52.726Z",
+    "scope": "Seven complementary operated states per width; source reading and original author full-suite evidence remain distinct.",
+    "records": [
+      {
+        "width": 1440,
+        "states": 7,
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 1440,
+          "scroll": 1440,
+          "equations": [
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            },
+            {
+              "client": 760,
+              "scroll": 760
+            }
+          ]
+        },
+        "geometry": [
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": true
+          }
+        ],
+        "image": "scratch/gradient-boosted-trees-independent/changed-1440.png"
+      },
+      {
+        "width": 390,
+        "states": 7,
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 390,
+          "scroll": 390,
+          "equations": [
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            },
+            {
+              "client": 350,
+              "scroll": 350
+            }
+          ]
+        },
+        "geometry": [
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": true
+          }
+        ],
+        "image": "scratch/gradient-boosted-trees-independent/changed-390.png"
+      },
+      {
+        "width": 320,
+        "states": 7,
+        "font": "Space Grotesk loaded",
+        "errors": [],
+        "fit": {
+          "width": 320,
+          "scroll": 320,
+          "equations": [
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            },
+            {
+              "client": 280,
+              "scroll": 280
+            }
+          ]
+        },
+        "geometry": [
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": false
+          },
+          {
+            "within": true,
+            "axisAligned": true
+          }
+        ],
+        "image": "scratch/gradient-boosted-trees-independent/changed-320.png"
+      }
+    ]
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/gradient-boosted-trees-independent/changed-1440.png",
+      "sha256": "254fa61984d141f6fa3d5f607e53556a62e96e408608da7bb458b87251f9dacd",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/gradient-boosted-trees-independent/changed-390.png",
+      "sha256": "e91b63a3e0434f04f2b28a51de74ed186ed531345e3d4dcbfdba6b1ae33fe112",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/gradient-boosted-trees-independent/changed-320.png",
+      "sha256": "cefd89308e4dd6dc04596c8430f466444998e27962184bfc2c0449d51f96ed9e",
+      "attribution": "independent capture"
+    },
+    {
+      "path": "scratch/gradient-boosted-trees-verification/browser/residual-default-390.png",
+      "sha256": "bbe089a5682fec7a4713c24bf586f00bb1e11fdcd69d6dcdab1bdd0d68990bce",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/gradient-boosted-trees-verification/browser/newton-overshoot-320.png",
+      "sha256": "3bf57b22989b9f50958b5e4f9e22ddd6397f1e949df6a5dc974332092ac7ab99",
+      "attribution": "author capture independently opened"
+    },
+    {
+      "path": "scratch/gradient-boosted-trees-verification/browser/equation-reading-7-320.png",
+      "sha256": "cf001a87a7bae16e7a818a6d8995ec456a6b7559d9ba4bb15a8020b57d2d06d3",
+      "attribution": "author capture independently opened"
+    }
+  ],
+  "primarySources": [
+    {
+      "url": "https://xgboost.readthedocs.io/en/stable/prediction.html",
+      "inspected": "Prediction options, groups/rounds and early-stopping contracts in current3.4.1 docs."
+    },
+    {
+      "url": "https://papers.nips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf",
+      "inspected": "Original GOSS paper stated selection mechanism; current review derives finite-population variance independently. No reproduction of benchmark claims."
+    }
+  ],
+  "findings": [],
+  "productionEdits": false,
+  "limits": "Complementary finite review; no GPU/distributed experiment, complete package ranking, arbitrary floating-point domain or learner study. Shared production integration is parent-owned."
+}

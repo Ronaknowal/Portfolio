@@ -1,0 +1,71 @@
+{
+  "snapshotAt": "2026-09-11T08:15:13.778725+00:00",
+  "status": "original files archived and all six actual native outputs passed before mutation",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/data/topics/linked-lists-stacks-queues.jsx",
+      "sha256": "f20a6b2658a7c1029d789d0dbe67b2450161cf39f7537d5f7ce0dda6c6c38fea"
+    },
+    {
+      "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/data/practice/linked-lists-stacks-queues.js",
+      "sha256": "869a086ac19c8930d300284d5fa4ced43275b7a4ab7a81aa79651b4e820330d3"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/data/curriculum/blueprints/linked-lists-stacks-queues.js",
+      "sha256": "19271311fca967155ad75569bc8acafb42c65a8e23d07b91fffde8e7c198bc57"
+    },
+    {
+      "path": "src/learn/data/linked-foundations-examples.js",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/data/linked-foundations-examples.js",
+      "sha256": "7dd8627782a7218a227ad6822e91096bec74ed8e5b5efb439492adcbcb51055b"
+    },
+    {
+      "path": "src/learn/data/linked-foundations-model.js",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/data/linked-foundations-model.js",
+      "sha256": "956a7d18a0a473837c418ed2a8cbf4f7a37e44a8f160240fd27db3bc8ce35c5b"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx",
+      "archive": "scratch/linked-traversal-extension-original/src/learn/components/lesson-labs/LinkedFoundationsLabs.jsx",
+      "sha256": "d82e42e3b1e8ca898061e03e0a3bf972487ed2fc894deddace8f45bed9dbd430"
+    },
+    {
+      "path": "docs/teaching/systems-and-structures-design.md",
+      "archive": "scratch/linked-traversal-extension-original/docs/teaching/systems-and-structures-design.md",
+      "sha256": "336912a5dd3a953e3157ff3a8a3f920763407519b609876f781eecb03378fd50"
+    },
+    {
+      "path": "SYSTEMS-STRUCTURES-IMPLEMENTATION.md",
+      "archive": "scratch/linked-traversal-extension-original/SYSTEMS-STRUCTURES-IMPLEMENTATION.md",
+      "sha256": "2ebcc8e812fbdc57f152865c8291b501fedba311ce3adfa7190c1626de96dad9"
+    },
+    {
+      "path": "docs/teaching/DSA-PRACTICE-OWNERSHIP-REVIEW.md",
+      "archive": "scratch/linked-traversal-extension-original/docs/teaching/DSA-PRACTICE-OWNERSHIP-REVIEW.md",
+      "sha256": "056307ff743ea6ae51e6390582d1504e13b8081345d53813a0bf4cb7c3458e09"
+    }
+  ],
+  "nativePrograms": [
+    "reverse",
+    "remove",
+    "brackets",
+    "ring",
+    "lru",
+    "window"
+  ],
+  "practiceProblems": [
+    206,
+    203,
+    20,
+    21,
+    141,
+    622,
+    232,
+    225,
+    155,
+    146
+  ]
+}

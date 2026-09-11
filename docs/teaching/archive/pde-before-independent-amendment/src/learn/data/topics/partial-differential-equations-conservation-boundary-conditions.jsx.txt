@@ -1,0 +1,338 @@
+import { H2, H3, Prose } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { FieldControlVolumeFigure, RectangularFluxFigure, BoundaryDataFigure, TransportCharacteristicLab, BoundaryModesFigure, HeatBoundaryLab, HeatKernelFigure, WaveConeLab, StandingWaveEnergyFigure, PoissonCompatibilityLab, HarmonicInteriorLab, WeakSourceFigure, BurgersRiemannLab, InverseHeatLab, PeriodicDepthFigure, ForcedRodLab } from '../../components/lesson-labs/PdeLabs.jsx';
+import { pdeExamples } from '../pde-examples.js';
+function Example({
+  name
+}) {
+  const example = pdeExamples[name];
+  return <section><p className="lesson-note">{example.environment}</p><Prose><strong>Before running.</strong> {example.question}</Prose><RunnableExample example={example} /><Prose>{example.interpretation}</Prose></section>;
+}
+function Practice({
+  title,
+  prompt,
+  hint,
+  children
+}) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{prompt}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Reasoned solution</summary>{children}</details></section>;
+}
+export default {
+  title: 'Partial Differential Equations, Conservation & Boundary Conditions',
+  readTime: '~105 min read + 4 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="pde-lesson">
+    <LessonIntro prerequisites="Use derivatives, integrals and ordinary differential equations. We introduce spatial fields and flux operators locally. The Fourier lesson supplies useful background for sine/cosine projection; each series used here is derived with its convergence conditions. No abstract algebra is needed for this lesson." sections={[['1-follow-a-quantity-through-a-small-region', 'Fields and conservation'], ['2-supply-the-data-the-mechanism-needs', 'Initial and boundary data'], ['3-trace-transport-back-to-its-origin', 'Characteristics and inflow'], ['4-let-boundaries-select-the-diffusion-modes', 'Separation and heat modes'], ['5-prove-what-heat-can-and-cannot-do', 'Energy, smoothing and kernels'], ['6-distinguish-propagating-waves-from-diffusion', 'Waves and dependence cones'], ['7-solve-a-steady-field-with-consistent-data', 'Poisson and harmonic fields'], ['8-keep-conservation-when-classical-derivatives-fail', 'Weak solutions and point sources'], ['9-select-the-physically-admissible-shock', 'Nonlinear conservation laws'], ['10-use-smoothing-to-explain-two-applications', 'Inverse heat and periodic depth'], ['11-complete-a-forced-rod-model', 'A verified end-to-end problem'], ['12-transfer-the-method-to-changed-problems', 'Practice and next steps']]}>A thermometer reports one temperature. A thermal camera reports a temperature at every position, and that whole field changes with time. A partial differential equation describes how nearby pieces of such a field interact. We will derive the equations from local balances, determine the data they need, solve representative problems and check whether the resulting prediction is meaningful.</LessonIntro>
+
+    <H2>1. Follow a quantity through a small region</H2>
+    <Prose>Let u(x,t) be the temperature departure from a fixed reference at position x in a thin rod and time t. Holding t fixed gives a spatial profile. Holding x fixed gives one sensor's time trace. The partial derivative uₜ changes time while fixing position; uₓ changes position while fixing time. A <strong>field</strong> is simply a value assigned throughout a region. It may instead describe concentration, electric potential, displacement or a fluid's velocity.</Prose>
+    <Prose>An ordinary differential equation can track a well-mixed container with one temperature. A rod with a hot middle and cold ends needs spatial information. Its rate of change depends on heat moving between neighboring regions. The <strong>partial differential equation</strong>, or PDE, expresses that local relation. It does not supply the initial state, the environment or the boundary behavior by itself.</Prose>
+    <FieldControlVolumeFigure />
+    <H3>First count what enters, leaves and is produced</H3>
+    <Prose>Work per unit cross-sectional area. Let C be constant volumetric heat capacity, j(x,t) the axial heat flux counted positive to the right, and s(x,t) the heat produced per unit volume and time. For a fixed slice [a,b], stored heat changes by incoming flux minus outgoing flux plus its internal source. A negative source represents cooling. With sufficiently smooth fields, differentiating under this finite integral gives:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+& C\frac{d}{dt}\int_a^b u\,dx\\
+&\quad=j(a,t)-j(b,t)+\int_a^b s\,dx,\\
+&\int_a^b(Cu_t+j_x-s)\,dx=0,\\
+&Cu_t+j_x=s.
+\end{aligned}`}</MathBlock>
+    <Prose>The fundamental theorem of calculus replaces j(b)−j(a) by the integral of jₓ. Why can we then remove the integral? This balance holds for <em>every</em> subinterval. If its continuous integrand were positive at some point, it would stay positive on a small neighboring interval, giving a nonzero integral. The negative case is identical. Therefore the integrand is zero at every point. This is the route from an integral conservation law to a local differential equation.</Prose>
+    <Prose>Conservation alone does not say which way heat flows. A <strong>constitutive law</strong> supplies a model for that response. Fourier's conduction law is j=−kuₓ, with positive conductivity k. A rising temperature to the right means heat flows left; that is the minus sign. Combining the two laws gives diffusion:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      Cu_t&=(ku_x)_x+s,\\
+      k\text{ constant}:\quad
+      u_t&=\alpha u_{xx}+s/C,\\
+      \alpha&=k/C>0.
+    \end{aligned}`}</MathBlock>
+    <Prose>At a local temperature peak, uₓₓ is negative and conduction cools it. At a valley it is positive and conduction warms it. This is a local smoothing mechanism, not a rule that temperature must decrease everywhere. Sources, boundaries and the surrounding profile decide the sign of uₜ.</Prose>
+    <LessonTable caption="Units for the physical rod model" headers={['Quantity', 'Meaning', 'Units']} rows={[['u', 'Temperature departure', 'kelvin (K)'], ['C', 'Volumetric heat capacity', 'J/(m³ K)'], ['k', 'Conductivity', 'W/(m K)'], ['j', 'Axial heat flux', 'W/m²'], ['s', 'Volumetric source', 'W/m³'], ['α=k/C', 'Thermal diffusivity', 'm²/s']]} />
+    <Prose>If k varies with x, expanding gives (kuₓ)ₓ=kuₓₓ+kₓuₓ. Omitting the second term changes the model. A time-independent spatial capacity C(x) can stay inside the storage integral and multiply uₜ locally. If the actual stored-energy law is nonlinear or time dependent, derive its time derivative first; do not assume it is always a constant times temperature.</Prose>
+    <Prose><strong>Run the examples.</strong> Save any complete block as <code>pde_example.py</code> and run <code>python pde_example.py</code>. The package-free blocks need Python 3.12 or a compatible Python 3. Blocks marked SymPy or SciPy need <code>python -m pip install sympy scipy</code>. Each block contains its own inputs and imports; the displayed output comes from execution. These are analytical examples and checks, not a general-purpose PDE solver.</Prose>
+    <Example name="balance" />
+    <H3>Build the multidimensional operators from the same balance</H3>
+    <Prose>On a rectangle, the vector flux j=(j₁,j₂) crosses its vertical and horizontal sides. Integrate each side's flux along that side. Applying the one-dimensional FTC first in x and then in y makes the total outward flux equal to the area integral of ∂ₓj₁+∂ᵧj₂. That local outflow rate is the <strong>divergence</strong>, written ∇·j. The vector of spatial slopes (uₓ,uᵧ) is the <strong>gradient</strong> ∇u. Isotropic conduction takes j=−k∇u.</Prose>
+    <RectangularFluxFigure />
+    <MathBlock>{String.raw`\begin{aligned}
+&Cu_t+\nabla\!\cdot j=s,\\
+&Cu_t=\nabla\!\cdot(k\nabla u)+s,\\
+&\Delta u=u_{xx}+u_{yy}.
+\end{aligned}`}</MathBlock>
+    <Prose>For constant k this becomes Cuₜ=kΔu+s. The <strong>Laplacian</strong> Δ adds curvature along the coordinate directions. Smooth-region versions of the divergence theorem extend the rectangle argument to curved boundaries with an outward unit normal n. We will use intervals and a square, so the required integral identities can be checked directly. Anisotropic media instead use a positive-definite conductivity matrix; that is a different constitutive law, not an extra term inferred from a picture.</Prose>
+
+    <H2>2. Supply the data the mechanism needs</H2>
+    <Prose>The statement “solve the heat equation” is incomplete. Specify the spatial domain, the time interval, coefficients, source, initial field and what happens at the boundary. A rod on 0&lt;x&lt;L differs from a whole line, a periodic ring and a plate. An <strong>initial condition</strong> gives the state at the starting time. A <strong>boundary condition</strong> describes the spatial edge throughout the time interval.</Prose>
+    <BoundaryDataFigure />
+    <LessonTable caption="Three distinct ways to interact with a thermal boundary" headers={['Condition', 'Specified information', 'Physical interpretation']} rows={[['Dirichlet: u=b', 'The boundary value', 'An ideal controlled-temperature contact'], ['Neumann: j·n=q', 'The outward flux', 'A specified heat transfer; q=0 means insulation'], ['Robin: j·n=h(u−uenv)', 'Flux proportional to departure', 'Exchange with a bath; h≥0']]} />
+    <Prose><strong>Outward changes direction at opposite ends.</strong> In one dimension n=−1 at x=0 and n=+1 at x=L. Since j=−kuₓ, outward heat flux is +kuₓ(0,t) on the left and −kuₓ(L,t) on the right. Thus insulated ends have zero slope. Neumann data are sometimes written as a normal derivative instead of a flux; specify which convention is being used.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&q_{\rm left}=ku_x(0,t),\\
+&q_{\rm right}=-ku_x(L,t),\\
+&-k\partial_nu=h(u-u_{\rm env}),\\
+&k\partial_nu+h(u-u_{\rm env})=0.
+\end{aligned}`}</MathBlock>
+    <Prose>The Robin signs now have a physical check: if the endpoint is hotter than the bath, h(u−uenv)&gt;0 must represent heat leaving the rod. At the left this is kuₓ=h(u−uenv); at the right it is −kuₓ=h(u−uenv). A periodic ring instead matches both the field and the axial flux at its identified endpoints. It has no external left or right reservoir.</Prose>
+    <Prose>Initial and boundary data must agree where they meet if we demand a continuous solution there. Fixed-zero ends require f(0)=f(L)=0. A solution smooth enough for its time derivative and PDE to extend to a corner may require additional derivative compatibility. We will meet an example whose values agree at t=0 but whose second derivatives do not satisfy the stronger corner requirement. That does not prevent a solution smooth in the interior for positive time.</Prose>
+    <Prose>A <strong>well-posed problem</strong> has a solution, has only one in the specified class, and depends continuously on its data in specified norms. Those three questions are separate. A proof of uniqueness does not prove existence; a small residual at a few points does not prove stability. The relevant data also depend on the mechanism: first-order transport uses inflow data, a wave needs initial displacement and velocity, and a steady Neumann problem can have a constant ambiguity.</Prose>
+    <Checkpoint prompt="Can you independently prescribe both temperature and heat flux at each end of every heat problem?"><Prose>No. Those four boundary constraints generally overdetermine a second-order spatial problem. A Robin law relates the two rather than choosing both independently. A particular solution might happen to satisfy extra data, but consistency must be demonstrated. The equation's order is useful guidance; its type and the chosen solution class still matter.</Prose></Checkpoint>
+
+    <H2>3. Trace transport back to its origin</H2>
+    <Prose>Imagine dye carried at a constant positive speed v without diffusion or production. Its profile moves without changing shape. Conservation is uₜ+(vu)ₓ=0, hence uₜ+vuₓ=0 for constant v. Follow a moving position x(t)=ξ+vt. The chain rule gives d[u(x(t),t)]/dt=uₜ+vuₓ=0. Therefore u stays constant on each line x−vt=ξ, called a <strong>characteristic</strong>.</Prose>
+    <Prose>On the whole line, initial data u(x,0)=f(x) give u(x,t)=f(x−vt). On a finite interval, tracing backward may hit the inflow boundary before reaching t=0. That boundary then supplies the value. For positive v, the left boundary is inflow and the right is outflow. Giving an independent right-boundary value would usually conflict with the value arriving from inside.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      u(x,t)&=\begin{cases}
+        f(x-vt),&x\ge vt,\\
+        g(t-x/v),&x<vt,
+      \end{cases}\\
+      &0\le x\le L,\qquad v>0.
+    \end{aligned}`}</MathBlock>
+    <Prose>Here g is the left inflow history. Compatibility at the starting corner requires g(0)=f(0). Use normalized L=v=1, f(x)=1+x and g(t)=1−t+κt², with κ either 0 or 2. At (x,t)=(0.25,0.5), the backward line reaches x=0 at time 0.25; for κ=2 its value is 0.875. At (0.75,0.5) it reaches the initial position 0.25 and has value 1.25. Changing recent inflow cannot affect an observation whose characteristic has not reached it.</Prose>
+    <TransportCharacteristicLab />
+    <Prose>For 0≤t≤1, integrating the two pieces gives total amount M(t)=1.5−t+κt³/3. Its derivative is −1+κt², exactly g(t)−f(1−t), incoming minus outgoing at speed one. This checks both the traced solution and the boundary interpretation. The profile can be continuous across x=t while a higher derivative changes there; regularity follows from the data, not just the formula's appearance.</Prose>
+    <Example name="transport" />
+    <Prose>A varying velocity needs care. A conserved density obeys uₜ+(vu)ₓ=0, so along x′=v its value satisfies du/dt=−vₓu: compression changes the density. A transported marker obeying uₜ+vuₓ=0 has constant value along the same flow. These equations coincide for constant v but represent different quantities when the flow compresses. With a source, the characteristic becomes an ODE for the accumulated source along that path.</Prose>
+
+    <H2>4. Let boundaries select the diffusion modes</H2>
+    <Prose>Return to homogeneous heat flow uₜ=αuₓₓ on (0,L), with both endpoint values fixed at zero. Search for one separable contribution u(x,t)=X(x)T(t). Substitution and division where the factors are nonzero make T′/(αT)=X″/X a constant. We choose the constant −λ so that the spatial equation is −X″=λX and the time equation is T′=−αλT. The resulting solutions extend through zeros of X without division.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&-X''=\lambda X,\\
+&X(0)=X(L)=0,\\
+&T(t)=T(0)e^{-\alpha\lambda t},\\
+&\lambda_n=(n\pi/L)^2,\\
+&X_n(x)=\sin(n\pi x/L),\quad n\ge1.
+\end{aligned}`}</MathBlock>
+    <Prose>Why those λ values? If λ=0, X is affine and two zero endpoints force X=0. If λ&lt;0, the exponential or hyperbolic-sine solution also cannot vanish at both ends unless it is zero. If λ&gt;0, X=A cos(√λx)+B sin(√λx). The left endpoint sets A=0; a nonzero B then requires sin(√λL)=0. Only the listed positive eigenvalues survive. An <strong>eigenfunction</strong> is a shape returned as a scalar multiple of itself by the spatial operator.</Prose>
+    <BoundaryModesFigure />
+    <Prose>For insulated endpoints, X′(0)=X′(L)=0 instead selects cos(nπx/L), now including n=0. Its eigenvalue is zero, so the constant component does not decay. If X(0)=0 but X′(L)=0, the allowed frequencies are (n+½)π/L for n≥0. The equation inside the interval has not changed; the operator together with its boundary domain has changed. That is why eigenvalues alone cannot be chosen before specifying the ends.</Prose>
+    <Example name="modes" />
+    <H3>Recover the initial profile by projection</H3>
+    <Prose>The product-to-sum identity makes different sine modes orthogonal: the integral of sin(nπx/L) sin(mπx/L) is zero for n≠m and L/2 for n=m. Multiplying an initial sine expansion by one mode and integrating therefore isolates its coefficient. For suitable initial data, the solution is:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&b_n=\frac2L\int_0^L f(x)X_n(x)\,dx,\\
+&u(x,t)=\sum_{n=1}^{\infty}b_n e^{-\alpha\lambda_nt}X_n(x).
+\end{aligned}`}</MathBlock>
+    <Prose>Orthogonality explains the coefficients; it does not by itself prove every function has this expansion. One sufficient elementary Fourier result is that a piecewise continuously differentiable periodic extension converges at each point to the average of its one-sided limits. For a sine series use the odd, 2L-periodic extension. For our continuous endpoint-zero example below, the limits agree everywhere. More general square-integrable data have an L² expansion; pointwise conclusions require additional hypotheses. The Fourier and Real Analysis lessons explain these distinct convergence statements.</Prose>
+    <Prose>Set ξ=x/L and θ=αt/L². Both rods will start at f(ξ)=sin²(πξ). The fixed-value rod uses sine modes. Expand sin² as (1−cos 2πξ)/2 and integrate against sin(nπξ). Even n give zero by symmetry; integrating the odd sine frequencies gives:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&b_n=\begin{cases}
+-\dfrac8{\pi n(n^2-4)},&n\text{ odd},\\
+0,&n\text{ even},
+\end{cases}\\
+&u_D(\xi,\theta)\\
+&\quad=\sum_{n\text{ odd}}b_ne^{-n^2\pi^2\theta}\sin(n\pi\xi),\\
+&u_N(\xi,\theta)\\
+&\quad=\frac12-\frac12e^{-4\pi^2\theta}\cos(2\pi\xi).
+\end{aligned}`}</MathBlock>
+    <Prose>The insulated solution is already a two-term cosine expansion. Its mean is ½ for all time. The fixed-value solution's mean is the sum of 2bₙe⁻ⁿ²π²θ/(nπ) over odd n and tends to zero. Both solutions begin with mean ½ and squared L² norm 3/8, but they have different long-time limits. A coefficient such as b₃ can be negative even when the final temperature field is nonnegative.</Prose>
+    <HeatBoundaryLab />
+    <H3>State exactly what the series calculation guarantees</H3>
+    <Prose>The browser uses the exact initial function at θ=0. For positive θ it permits 0.002≤θ≤0.5 and keeps odd modes through N=63. For n≥3, n²−4≥5n²/9, so |bₙ|≤72/(5πn³). Bound all omitted exponentials by the first omitted integer's exponential, then bound the decreasing sum by an integral:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&\sup_{\xi}|u_D-u_{D,N}|\\
+&\quad\le\frac{36}{5\pi N^2}e^{-(N+1)^2\pi^2\theta},\\
+&N\ge3,\quad N\in\mathbb N,\quad\theta>0.
+\end{aligned}`}</MathBlock>
+    <Prose>This is an <strong>analytical truncation bound</strong> for exact arithmetic. Its logarithm remains readable when its value is tiny. It does not bound floating-point evaluation or cancellation. A computed difference can exceed a tiny truncation bound because of roundoff; rounding a result to zero is not a mathematical proof of zero.</Prose>
+    <Prose>The coefficient bound also makes the initial series absolutely and uniformly convergent. The odd-extension Fourier result identifies its sum with f. On every θ≥ε&gt;0, any fixed number of spatial or time derivatives only adds powers of n; the exponential still makes their absolute sums finite. Uniform convergence of these derivative series justifies termwise differentiation there and verifies the PDE. This argument does not extend every derivative to t=0.</Prose>
+    <Prose>In fact f″(0)=2π² in normalized coordinates, but a fixed-zero endpoint has uθ(0,θ)=0. Requiring the PDE and both derivatives to be continuous all the way to that corner would conflict. The value-compatible solution is nevertheless smooth for positive time and approaches the initial profile continuously. A visually smooth sampled curve should not be used to erase this distinction.</Prose>
+    <Example name="heat" />
+    <H3>Where the same mode method extends</H3>
+    <Prose>For a spatial operator −(pX′)′+qX=λwX on a finite interval, assume p is continuously differentiable, q and w continuous, and p,w positive. Real separated boundary conditions that make the integration-by-parts boundary term vanish yield a regular self-adjoint Sturm–Liouville problem. Subtract the equations for two eigenfunctions after cross-multiplying and integrating: (λ−μ)∫wXY=0. Thus distinct eigenvalues give weighted orthogonality. Positivity of eigenvalues needs extra sign assumptions on q and the boundary contribution; self-adjointness alone does not supply it. General spectral completeness is a theorem with these operator assumptions, not something proved by the four shapes above.</Prose>
+
+    <H2>5. Prove what heat can and cannot do</H2>
+    <Prose>Integrating the heat equation once tracks <strong>total heat</strong>. Multiplying by u before integrating tracks a different quantity: the squared size of the field. For constant positive C and k, no source, and homogeneous zero-value or zero-flux ends, integration by parts gives:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&\frac C2\frac{d}{dt}\int_0^L u^2\,dx\\
+&\quad=k[uu_x]_0^L-k\int_0^L u_x^2\,dx\\
+&\quad=-k\int_0^L u_x^2\,dx\le0.
+\end{aligned}`}</MathBlock>
+    <Prose>For homogeneous Robin exchange with bath departure zero, the boundary term is additionally −h₀u(0)²−hLu(L)². Heat gradients and nonnegative boundary exchange dissipate this quadratic quantity. For insulated ends, the mean remains fixed even while the squared norm decreases toward the squared constant mean. Confusing conserved mean with conserved squared norm hides what diffusion actually does.</Prose>
+    <Example name="energy" />
+    <Prose>The identity is also a uniqueness and stability argument. Subtract two sufficiently regular solutions with the same source and boundary data. Their difference satisfies the homogeneous problem, and its L² norm cannot grow. If their initial difference is zero, it stays zero. If it is small, it remains at most that small in L². This proves uniqueness and initial-data stability in this setting, once existence is established. Changed boundary or source data introduce extra terms and need their own estimates.</Prose>
+    <H3>A maximum cannot appear from nowhere</H3>
+    <Prose>For the homogeneous heat equation on a bounded interval over 0≤t≤T, assume u is continuous on the closed space-time region and has the required two spatial and one time derivatives in its interior for positive time. Its maximum is no larger than the maximum on the initial line and spatial sides. To see the mechanism, consider v=u−εt. It obeys vₜ−αvₓₓ=−ε. At a maximum above all initial and side values, reached at a positive time and interior spatial point, vₓₓ≤0 and vₜ≥0, using a left-time derivative if the maximum occurs at the final time. The PDE would then give a nonnegative left side, a contradiction. Let ε decrease to zero. Apply the same argument to −u for the minimum.</Prose>
+    <Prose>This <strong>maximum principle</strong> explains positivity and boundedness from bounded initial and Dirichlet data. Sources require an adjusted comparison; it does not say a heated rod can never exceed its starting temperature. Nor does the proof establish existence for arbitrary rough domains or data.</Prose>
+    <H3>One concentrated input becomes a spreading kernel</H3>
+    <Prose>On the whole line with constant diffusivity, a unit concentrated input has the Gaussian heat kernel below. Its total integral is one; its variance is 2αt. Direct differentiation checks Kₜ=αKₓₓ for t&gt;0, and a Gaussian change of variables checks the normalization.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&K_t(x)=\frac{e^{-x^2/(4\alpha t)}}{\sqrt{4\pi\alpha t}},\quad t>0,\\
+&u(x,t)=\int_{\mathbb R}K_t(x-y)f(y)\,dy.
+\end{aligned}`}</MathBlock>
+    <Prose>The convolution adds contributions from every initial location. For bounded uniformly continuous f, it approaches f uniformly as t decreases to zero: in the difference integral, use uniform continuity when |x−y|&lt;δ and bound the remaining difference by twice the supremum of |f| times the Gaussian tail outside δ. That tail tends to zero. For t≥ε&gt;0, the kernel derivatives are integrable and justify differentiation under the integral. Thus this formula actually constructs a classical positive-time solution with the required initial limit; the calculation is more than a suggestive bell curve.</Prose>
+    <HeatKernelFigure />
+    <Example name="kernel" />
+    <Prose>If f is nonnegative, nonzero and compactly supported, convolution with the strictly positive kernel is positive everywhere for any t&gt;0. This ideal diffusion equation has instantaneous nonzero influence, possibly extremely small. A wave below has a finite dependence cone. These are properties of the mathematical models; a continuum diffusion approximation is not a claim that microscopic information travels infinitely fast. Whole-line uniqueness also needs a solution class, for example bounded solutions on finite time slabs; without growth restrictions one cannot import the bounded-domain argument unchanged.</Prose>
+
+    <H2>6. Distinguish propagating waves from diffusion</H2>
+    <Prose>For a string with small transverse displacement u(x,t), let ρ be mass per length and τ be constant tension. Small slopes make the vertical tension difference across a slice approximately τ[uₓ(b)−uₓ(a)]. Newton's law then gives ρ∫uₜₜdx=τ[uₓ(b)−uₓ(a)], so uₜₜ=c²uₓₓ with c²=τ/ρ. Unlike heat flow, the evolution is second order in time. We must supply both initial displacement f(x) and initial velocity g(x).</Prose>
+    <H3>Derive the two traveling parts and the velocity contribution</H3>
+    <Prose>On the whole line set ξ=x−ct and η=x+ct. The wave operator becomes −4c²∂ξ∂η, so a twice differentiable solution has the local form F(ξ)+G(η). At t=0, F+G=f and −cF′+cG′=g. Differentiate the first equation, solve these two equations for F′ and G′, then integrate. Constants cancel in the resulting formula:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      u(x,t)&=\frac{f(x-ct)+f(x+ct)}2\\
+       &\quad+\frac1{2c}\int_{x-ct}^{x+ct}g(y)\,dy.
+    \end{aligned}`}</MathBlock>
+    <Prose>For f twice continuously differentiable and g once continuously differentiable, differentiation verifies the wave equation and both initial conditions. The first two terms are half-sized translated displacement profiles. The integral is the part caused by initial velocity. Setting it to zero without checking g removes an independent piece of the initial state.</Prose>
+    <WaveConeLab />
+    <Prose>The example uses f(x)=(1−x²)³ on |x|&lt;1 and zero outside, with c=1 and g either zero or f/2. This f is C² across ±1. An observation at (x,t) depends only on initial data in [x−ct,x+ct]. If this interval misses the support of both f and g, the displacement is zero exactly. The boundary of the triangular backward cone is therefore an information boundary, not the edge of a plotted grid.</Prose>
+    <Example name="wave" />
+    <H3>Fixed ends produce standing modes and energy exchange</H3>
+    <Prose>On (0,L) with zero endpoint displacement, the same sine shapes appear as for fixed-temperature heat flow, but the time equation is T″+c²λT=0. It oscillates instead of decaying. If f and g have sine coefficients aₙ and dₙ, the nth contribution is [aₙcos(ωₙt)+(dₙ/ωₙ)sin(ωₙt)]sin(nπx/L), where ωₙ=cnπ/L. The division by ωₙ is required because differentiating the time sine must recover dₙ.</Prose>
+    <Prose>For a sufficiently regular fixed-end solution, multiply the equation by uₜ and integrate by parts. Endpoint displacement fixed in time gives uₜ=0 at the ends. Hence the boundary power is zero and:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      E(t)&=\frac12\int_0^L
+           (u_t^2+c^2u_x^2)\,dx,\\
+      E'(t)&=c^2[u_tu_x]_0^L=0.
+    \end{aligned}`}</MathBlock>
+    <Prose>The two terms represent kinetic and strain energy, up to the common density factor. For c=L=1, take u=sin(πx)cos(πt)+¼sin(2πx)sin(2πt). Its initial velocity is (π/2)sin(2πx), and its total normalized energy is 5π²/16 at every time. The curve changes because energy moves between the two forms, not because the heat-style damping factor was omitted.</Prose>
+    <StandingWaveEnergyFigure />
+    <Example name="standing" />
+    <Prose>A fixed-end reflection can also be constructed by extending f and g oddly across the endpoint before using the whole-line formula: the reflected displacement changes sign and cancels at the end. A free, zero-slope endpoint uses an even extension. For two fixed ends use an odd 2L-periodic extension, with enough initial compatibility for the desired classical regularity. This gives repeated reflections; it does not require prescribing a new value whenever a pulse hits a wall.</Prose>
+
+    <H2>7. Solve a steady field with consistent data</H2>
+    <Prose>A <strong>steady</strong> solution has no time dependence. Setting uₜ=0 in the thermal balance gives −∇·(k∇u)=s. With k=1 this is <strong>Poisson's equation</strong> −Δu=f. If f=0, the field is <strong>harmonic</strong>. Steady does not mean zero flux: a source can continuously supply exactly the heat that leaves.</Prose>
+    <Prose>On [0,1], solve −u″=2 with zero endpoint values. Integrating twice gives u=−x²+Ax+B; the endpoints give A=1,B=0. Thus u=x(1−x), with outward fluxes u′(0)=1 and −u′(1)=1. Their sum equals the integrated source 2.</Prose>
+    <H3>Neumann data must balance, then still leave an offset</H3>
+    <MathBlock>{String.raw`\begin{aligned}
+&-u''=f,\\
+&u'(0)=q_0,\qquad-u'(1)=q_1,\\
+&q_0+q_1=\int_0^1f(x)\,dx.
+\end{aligned}`}</MathBlock>
+    <Prose>This compatibility condition comes directly from integrating the equation. With f=2 and q₀=q₁=1, every x(1−x)+B is a solution. Flux determines gradients, not an absolute temperature reference. Prescribing mean zero chooses B=−1/6. With both outward fluxes zero and source 2, there is no steady solution; changing the mean cannot fix an accumulating source.</Prose>
+    <PoissonCompatibilityLab />
+    <Example name="poisson" />
+    <Prose>For a connected domain with positive conductivity, two regular solutions with the same Neumann data differ by a constant: their difference solves a homogeneous problem, and integration by parts gives ∫k|∇w|²=0. Thus its gradient vanishes everywhere and connectedness makes one constant. A mean selects it. With matching Dirichlet data that constant must be zero. These are uniqueness arguments conditional on existence and the stated regularity; source compatibility alone does not replace all existence theory on arbitrary domains.</Prose>
+    <H3>See a genuinely two-dimensional interior</H3>
+    <Prose>On the unit square, prescribe zero values on the left, right and bottom and sin(nπx) on the top. Try u=X(x)Y(y) in uₓₓ+uᵧᵧ=0. The side conditions select X=sin(nπx); then Y″−n²π²Y=0. Bottom zero removes the cosh term, and top normalization gives:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&u(x,y)=\sin(n\pi x)\frac{\sinh(n\pi y)}{\sinh(n\pi)},\\
+&n\ge1.
+\end{aligned}`}</MathBlock>
+    <Prose>The two second derivatives cancel exactly. At half height the envelope ratio is sinh(nπ/2)/sinh(nπ)=1/[2cosh(nπ/2)]. Increasing n makes the same-amplitude boundary variation less visible in the interior. This is spatial smoothing in an elliptic boundary problem, not the passage of time or a numerical grid effect.</Prose>
+    <HarmonicInteriorLab />
+    <Example name="harmonic" />
+    <Prose>A harmonic function continuous on a bounded closed domain and C² inside has its maximum and minimum controlled by the boundary. For the maximum, perturb by ε|x|²: its Laplacian is strictly positive, so it cannot have an interior maximum, where the Hessian's trace would be nonpositive. Bound it on the boundary and let ε tend to zero. Apply the argument to the negative for the minimum. It proves uniqueness for the Dirichlet problem by applying it to the difference. In the square example with n=3 or 5, negative interior values are allowed because the top boundary itself has negative portions.</Prose>
+    <H3>Classify the principal part without overpromising</H3>
+    <Prose>For a scalar second-order equation in two independent variables, write the principal part as Auₓₓ+2Buₓᵧ+Cuᵧᵧ. At a point, B²−AC&lt;0 is elliptic, =0 is parabolic, and &gt;0 is hyperbolic, when the principal part has the appropriate nonzero coefficients. The Laplace, heat and wave equations are canonical examples; time is one of the independent variables for the latter two. Some books put B rather than 2B before the mixed derivative and use B²−4AC instead. This local classification guides mechanisms and data; it is not a complete well-posedness theorem for nonlinear equations, changing type, arbitrary domains or arbitrary boundary choices.</Prose>
+
+    <H2>8. Keep conservation when classical derivatives fail</H2>
+    <Prose>A sharply localized source is a useful idealization: a small heater becomes a point input, or a concentrated force bends a string. The resulting field may be continuous with a kink, so an ordinary second derivative fails at the source. We can retain the integral balance without pretending the kink has a finite classical curvature.</Prose>
+    <Prose>On [0,1] with zero endpoint values, a unit point source at a has Green function G(x,a)=x(1−a) for x≤a and a(1−x) for x≥a. A <strong>Green function</strong> is the response to this elementary source under specified boundary conditions. It is continuous, but its slope jumps from 1−a to −a: jump −1. Its negative second derivative represents a unit point evaluation δₐ rather than a finite-height function.</Prose>
+    <WeakSourceFigure />
+    <Prose>A smooth test function v with v(0)=v(1)=0 probes the balance. Integrate separately on either side of the kink. Since G′ is constant on each side:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      \int_0^1G'v'\,dx
+        &=(1-a)[v(a)-v(0)]\\
+        &\quad-a[v(1)-v(a)]\\
+        &=v(a).
+    \end{aligned}`}</MathBlock>
+    <Prose>This is a <strong>weak formulation</strong> of −G″=δₐ. It requires only first derivatives of G. More generally, −u″=f with zero endpoint values becomes ∫u′v′=∫fv for all test functions; variable positive conductivity gives ∫ku′v′=∫fv. Integration by parts moves one derivative onto the test function, and the boundary terms encode the boundary data. For Neumann problems, constants are allowed as tests: v=1 recovers the source/flux compatibility condition.</Prose>
+    <H3>Give the weak solution a precise energy meaning</H3>
+    <Prose>In one dimension, take functions v that are absolutely continuous on [0,1], vanish at the ends and have square-integrable derivative. These form the energy space H₀¹ in this setting. Values at a point are meaningful: |v(a)|=|∫₀ᵃv′|≤√a‖v′‖₂ by Cauchy–Schwarz. The kinked G belongs to this space. Its weak identity extends to these tests by the same interval calculation.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&J[v]=\frac12\int_0^1(v')^2\,dx-v(a),\\
+&J[G+w]-J[G]\\
+&\quad=\frac12\int_0^1(w')^2\,dx\ge0.
+\end{aligned}`}</MathBlock>
+    <Prose>Expand the square; the cross term ∫G′w′ cancels w(a) by the weak identity. Equality forces w′=0, and its zero endpoints force w=0. Thus G is the unique energy minimizer in this stated one-dimensional space. At a=1/3 its peak and squared derivative integral both equal 2/9. This proof constructs a valid weak solution and establishes uniqueness for the actual example. It does not claim that point evaluation has the same regularity in every spatial dimension.</Prose>
+    <Example name="weak" />
+    <Prose>The word “weak” here describes the derivative/test-function formulation. It is not a synonym for an inaccurate numerical answer or the weak convergence of random variables. Finite elements later approximate a weak problem with a finite test and trial space. We have established the continuous target first; choosing basis functions and assembling a matrix belongs to the next lesson.</Prose>
+
+    <H2>9. Select the physically admissible shock</H2>
+    <Prose>Now the transported field affects its own speed. In the inviscid Burgers equation uₜ+(u²/2)ₓ=0, a smooth solution satisfies uₜ+uuₓ=0. A characteristic carries constant u and therefore moves with that value as its speed. From initial position ξ, x=ξ+t u₀(ξ). The derivative of this map is 1+t u₀′(ξ); if it reaches zero, characteristics can collide and the smooth description breaks.</Prose>
+    <Prose>For u₀(ξ)=−sin ξ, the first zero occurs at t=1 where cos ξ=1. Before that, differentiating the characteristic relation gives uₓ=u₀′/(1+t u₀′). The slope becomes unbounded even though u stays bounded. Continuing intersecting characteristics as if they gave a single-valued smooth field is impossible. We need a weak conservation law.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      I&=\int_0^\infty\!\int_{\mathbb R}
+        (u\phi_t+f(u)\phi_x)\,dx\,dt,\\
+      I&+\int_{\mathbb R}u_0(x)\phi(x,0)\,dx=0.
+    \end{aligned}`}</MathBlock>
+    <Prose>Here φ is a smooth compactly supported test function in space and nonnegative time; f(u)=u²/2. Integrating the smooth conservation equation by parts gives this identity, and the identity continues to make sense for locally bounded fields with jumps. It enforces conservation without requiring a classical derivative at a discontinuity.</Prose>
+    <H3>A moving jump must balance the transported amount</H3>
+    <Prose>Suppose the left and right states are uL and uR and a jump moves with speed s. Integrating on a small control interval crossing the moving jump, or collecting its distributional derivative, gives −s[u]+[f]=0. Brackets mean right minus left. If the states differ:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&s[u]=[f],\\
+&s=\frac{f(u_R)-f(u_L)}{u_R-u_L},\\
+&f(u)=u^2/2:\\
+&\quad s=(u_L+u_R)/2.
+\end{aligned}`}</MathBlock>
+    <Prose>This is the <strong>Rankine–Hugoniot</strong> jump condition. Left state 2 and right state 0 give speed 1. Characteristics travel at 2 on the left and 0 on the right, entering the shock from both sides. Reversing the states still gives candidate jump speed 1, but characteristics now separate and leave a gap. Conservation alone accepts both jumps; an admissibility condition distinguishes them.</Prose>
+    <BurgersRiemannLab />
+    <Prose>For the ascending data 0→2, the admissible solution is a <strong>rarefaction</strong>: u=0 for x/t≤0, u=x/t for 0&lt;x/t&lt;2 and u=2 for x/t≥2, at t&gt;0. Each intermediate speed fills one ray through the gap. It satisfies the equation in its smooth regions, joins continuously at the fan edges, and approaches the initial step in local integral norms. It does not have to converge to a uniquely chosen value at the single initial jump point.</Prose>
+    <H3>Check an entropy inequality, with its scope stated</H3>
+    <Prose>For a smooth conservation solution and a convex function η, the chain rule gives ∂ₜη(u)+∂ₓq(u)=0 when q′=η′f′. Entropy-admissible weak solutions require the corresponding inequality ≤0 in distributions, with the initial data included. Equivalently, the weak integral expression using η(u), q(u), η(u₀) is nonnegative for every nonnegative test function. This prevents certain nonphysical reversals after information has been compressed into a shock.</Prose>
+    <Prose>Choose η=u²/2, so q=u³/3 for Burgers. At a candidate jump, the coefficient of the concentrated entropy production is [q]−s[η]. For 2→0 it is −2/3; for 0→2 it is +2/3. The expansion jump violates the required sign. The fan obeys equality away from its edges and has no jump concentration there.</Prose>
+    <Example name="burgers" />
+    <Prose>This one quadratic entropy is a sufficient diagnostic to reject the displayed expansion jump. General uniqueness theory for scalar conservation laws uses an appropriate full family of convex entropy inequalities and hypotheses on the flux and data; the figure does not prove that theory. Nonconvex fluxes and systems require further care. Adding a small positive viscosity selects the familiar admissible Burgers limit under suitable assumptions, but designing an entropy-stable discretization is a numerical problem for the next topic, not a consequence of drawing characteristic lines.</Prose>
+
+    <H2>10. Use smoothing to explain two applications</H2>
+    <H3>Why reconstructing the past is unstable</H3>
+    <Prose>Suppose a thermal camera observes a later temperature and you want the initial field. In a fixed-end rod with α=L=1, mode n is multiplied by e⁻ⁿ²π²T after a positive observation time T. Algebraically undoing that factor multiplies measurement error by eⁿ²π²T. High-frequency detail is precisely what diffusion suppresses most strongly.</Prose>
+    <InverseHeatLab />
+    <Prose>This is not just a large number in a finite experiment. Consider the infinite sequence of initial fields sin(nπx), all with supremum norm 1 and L² norm 1/√2. Their later supremum norms are e⁻ⁿ²π²T→0. Thus data arbitrarily close to zero can correspond to initial fields that remain far from zero. On the forward solution's range, the inverse is not continuous in these same norms. An exact noiseless inverse can exist while being an ill-posed inference from noisy data.</Prose>
+    <Example name="inverse" />
+    <Prose>Regularization uses additional restrictions or a noise-aware tradeoff to avoid amplifying arbitrary detail. It changes what can be reliably inferred; it does not make the original inverse uniformly stable without assumptions. This continuous instability differs from an unstable time-stepping scheme for a well-posed forward heat equation. The distinction matters when diagnosing a solver or an image-reconstruction method.</Prose>
+    <H3>Why seasonal fluctuations fade and lag underground</H3>
+    <Prose>A less obvious use of the same equation is a homogeneous half-line x≥0 whose surface oscillates as A cos(ωt). Seek a bounded periodic regime, with α&gt;0 and ω&gt;0. Write a complex solution Aeⁱωᵗe⁻ʳˣ. Substitution requires αr²=iω. The root with positive real part gives decay with depth; the growing root is excluded by boundedness. Taking the real part yields:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+      \delta&=\sqrt{2\alpha/\omega},\\
+      u(x,t)&=A e^{-x/\delta}
+          \cos(\omega t-x/\delta).
+    \end{aligned}`}</MathBlock>
+    <Prose>The length δ is the penetration depth. At x=δ the oscillation's amplitude has fallen to A/e and its phase lags by one radian; the time delay is 1/ω. Directly differentiating the real formula also verifies the heat equation. Increasing the forcing frequency by four halves δ. At a fixed physical depth, the phase lag doubles while the time delay halves. The boundary oscillates faster, so those two statements are consistent.</Prose>
+    <PeriodicDepthFigure />
+    <Example name="periodic" />
+    <Prose>This formula describes a periodic steady regime, not the startup from an arbitrary initial underground temperature. To impose an initial profile, subtract this periodic solution and solve the remaining homogeneous-boundary transient with the difference as its initial data. Real layered or moisture-dependent ground needs different coefficients and perhaps a different physical model. The example explains a mechanism without treating the illustrative constants as a calibrated material measurement.</Prose>
+
+    <H2>11. Complete a forced rod model</H2>
+    <Prose>Now put the pieces together. A rod has length L meters, constant C=2 J/(m³ K), k=0.5 W/(m K), source s=1 W/m³, and endpoints held at reference temperature. These intentionally simple constants define a teaching scenario. Let ξ=x/L. We ask how long the whole temperature profile takes to stay within a prescribed departure from its steady profile, not merely when a few sampled nodes look close.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&2u_t=0.5u_{xx}+1,\\
+&0<x<L,\qquad t>0,\\
+&u(0,t)=u(L,t)=0,\\
+&u(x,0)=x(L-x)\\
+&\qquad\quad+A\sin(\pi x/L).
+\end{aligned}`}</MathBlock>
+    <Prose>First solve the steady problem: 0.5u*″+1=0 with the two endpoint values gives u*(x)=x(L−x)=L²ξ(1−ξ). Subtract it. The excess w=u−u* has zero source and zero endpoint values, and its initial condition is one sine mode. Since α=k/C=0.25 m²/s, the exact transient is:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+&r=\frac{\pi^2}{4L^2},\\
+&u(x,t)=x(L-x)\\
+&\qquad\quad+Ae^{-rt}\sin(\pi x/L),\\
+&\|u(\cdot,t)-u_*\|_\infty=Ae^{-rt},\\
+&A\ge0.
+\end{aligned}`}</MathBlock>
+    <Prose>Check every item: the sine vanishes at both ends; at t=0 it recovers the complete initial field; differentiating the steady parabola cancels the constant source; differentiating the sine produces exactly −r after multiplying by α. Its maximum magnitude is known continuously because max|sin(πx/L)|=1. The uniform excess is not inferred from a finite graph.</Prose>
+    <ForcedRodLab />
+    <Prose>For tolerance ε&gt;0, the earliest required time is zero if A≤ε and otherwise t*=log(A/ε)/r. At L=1, A=0.2 K and ε=0.05 K, this is 4log4/π²≈0.561844 seconds. The source per cross-sectional area is sL=L. Each outward flux is L/2+(kπ/L)Ae⁻ʳᵗ, so their sum initially exceeds the source while the extra stored heat decays. Integrating C uₜ gives exactly source minus outward flux.</Prose>
+    <Example name="rod" />
+    <Prose>If L doubles while C,k,s,A and ε stay fixed, the slowest decay time multiplies by four, and the steady center temperature also multiplies by four. Keeping the old parabola while changing only a decay factor would violate the fixed-source equation. This is why a complete modeling statement includes which quantities remain fixed when a control changes.</Prose>
+    <Prose>An end-to-end PDE result should now have a domain, units, constitutive law, balance equation, all necessary data, a solution class, a derived candidate, checks of both equation and data, and an estimate answering the actual question. A numerical approximation will add a discretization and error analysis to this target. It cannot repair contradictory continuous data by silently choosing a different problem.</Prose>
+
+    <H2>12. Transfer the method to changed problems</H2>
+    <Prose>Attempt these without copying a lab setting. Write the equation and data before calculating. The hints reveal a next step; the solutions explain the constraint that makes the answer valid. Code is useful for checking arithmetic, but an output alone does not establish the stated continuous claim.</Prose>
+    <Practice title="1. Catch a missing material term" prompt="Let k(x)=2+x and u(x,t)=x²+t, with C=1. Choose a source so this is an exact local solution. What source would the incorrect k uₓₓ substitution give?" hint="Differentiate the entire product k uₓ before subtracting it from uₜ."><Prose>uₜ=1 and (kuₓ)ₓ=[(2+x)2x]ₓ=4+4x. The required source is −3−4x. Using kuₓₓ=4+2x instead gives −3−2x, missing kₓuₓ=2x. Boundary data must separately be chosen from the candidate's values or fluxes; a local residual check does not supply them.</Prose></Practice>
+    <Practice title="2. Get the outward bath sign right" prompt="At the left endpoint, k=2, h=3 and the rod is 4 K hotter than the bath. What are the outward flux, uₓ and axial flux j?" hint="The left outward normal is −1; j is counted positive to the right."><Prose>The outward flux is h(u−uenv)=12 W/m². Since it equals kuₓ on the left, uₓ=6 K/m. The axial flux is j=−kuₓ=−12 W/m², pointing left and therefore outward. On the right the same positive outward transfer would require a negative spatial slope.</Prose></Practice>
+    <Practice title="3. Trace an unseen inflow" prompt="Use speed v=2, initial f(x)=2−x and left inflow g(t)=2+t on 0≤x≤1. Find u(0.3,0.4) and u(0.9,0.4), then explain whether the right boundary is extra input." hint="Compare x with vt before evaluating either function."><Prose>For x=0.3, vt=0.8, so the line hits inflow at t−x/v=0.25 and u=2.25. For x=0.9, it hits initial position x−vt=0.1 and u=1.9. The right trace is an output of this positive-speed problem. f(0)=g(0)=2 supplies value compatibility at the corner.</Prose></Practice>
+    <Practice title="4. Change one endpoint, not just a label" prompt="For −X″=λX on (0,2), require X(0)=0 and X′(2)=0. Find the smallest eigenvalue and a corresponding shape." hint="The derivative of the sine must vanish at the right endpoint."><Prose>X=sin(√λx); the derivative condition gives cos(2√λ)=0. The smallest frequency is √λ=π/4, hence λ=π²/16 and X=sin(πx/4). λ≤0 produces no nonzero solution. For heat flow this mode decays as exp(−απ²t/16), showing that a boundary change changes the relaxation rate.</Prose></Practice>
+    <Practice title="5. Keep a mean while losing variation" prompt="An insulated unit rod with α=1 starts at f(x)=3+2cos(3πx). Give its solution, mean and squared L² norm at time t." hint="The constant mode has eigenvalue zero; orthogonality eliminates the cross term."><Prose>u=3+2e⁻⁹π²ᵗcos(3πx). Its mean stays 3. Its squared norm is 9+2e⁻¹⁸π²ᵗ, decreasing to 9. The total heat and the squared norm answer different questions.</Prose></Practice>
+    <Practice title="6. Separate value compatibility from derivative compatibility" prompt="Fixed-zero ends start at sin²(πx). Can the solution have continuous uₜ and uₓₓ up to the initial corners while satisfying uₜ=uₓₓ there? Does that prohibit its positive-time solution?" hint="Differentiate the boundary value in time and the initial function twice in space."><Prose>The endpoint value fixed at zero gives uₜ=0 along that edge. The initial second derivative at each end is 2π², so those derivatives cannot both extend continuously and satisfy the PDE at the corner. The values themselves agree. The derived positive-time solution exists and approaches the initial profile; it lacks that stronger corner regularity.</Prose></Practice>
+    <Practice title="7. Start a wave from rest in shape, but not in velocity" prompt="On the whole line with c=2, let f=0 and g=6 on [−1,1], zero outside. What is u(0,0.25)? How should this rough initial velocity be interpreted?" hint="Integrate over [x−ct,x+ct], then multiply by 1/(2c)."><Prose>The interval is [−0.5,0.5], its integral of g is 6, and the displacement is 6/4=1.5. Zero initial displacement did not mean zero initial velocity. Because g has jumps, the integral formula gives a continuous piecewise-smooth weak solution, rather than the globally classical solution guaranteed earlier for C¹ velocity. The observation uses a region away from those jump fronts.</Prose></Practice>
+    <Practice title="8. Reject an incompatible steady problem" prompt="For −u″=1+x on [0,1], prescribe outward flux 0.5 at each end. Can fixing the mean at 10 make it solvable? What right flux would restore compatibility?" hint="Integrate the source; an additive constant has zero derivative."><Prose>The source integrates to 1.5 while the outward sum is 1, so no steady solution has the stated data. A mean of 10 only chooses a constant if a compatible solution already exists. With left flux 0.5, the right flux must be 1. After that, the mean can choose the otherwise free constant.</Prose></Practice>
+    <Practice title="9. Move the point source" prompt="Put a unit source at a=1/4. Find the two slopes, peak, and ∫G′v′ for v(x)=x(1−x)." hint="The slope jump must be −1, and the test identity evaluates v at the source."><Prose>The slopes are 3/4 and −1/4. The peak is a(1−a)=3/16. The weak integral is v(1/4)=3/16; integrating the two constant-slope intervals verifies it directly. The squared derivative integral is also 3/16. No finite sampled spike is required.</Prose></Practice>
+    <Practice title="10. Reverse a different nonlinear jump" prompt="For Burgers data 3→−1, find the shock speed and quadratic entropy production. Reverse the states and describe the admissible replacement." hint="Compute [u²/2] and [u³/3] using right minus left."><Prose>The speed is (3−1)/2=1. The entropy jump is [η]=−4 and entropy-flux jump [q]=−28/3, so [q]−s[η]=−16/3. Reversing the states gives +16/3 and rejects the expansion jump. The rarefaction is −1 to the left of x/t=−1, x/t between −1 and 3, and 3 to the right. Both candidate jumps conserve u; only the compressive orientation passes this entropy test.</Prose></Practice>
+    <Practice title="11. Explain instability without a small grid" prompt="At fixed T>0, compare initial fields sin(nπx) with the zero field. Prove the inverse heat map is not continuous in L² using the full sequence." hint="Integrate sin² exactly; do not estimate its size on sampled nodes."><Prose>Each initial difference has L² norm 1/√2. Each later difference has norm e⁻ⁿ²π²T/√2, which tends to zero. If the inverse were continuous at zero on this range in L², the recovered initial differences would tend to zero; they do not. A finite frequency slider illustrates this argument but cannot replace the unbounded sequence.</Prose></Practice>
+    <Practice title="12. Distinguish phase lag from time delay" prompt="Keep α and physical depth x fixed while multiplying the surface angular frequency by four. How do penetration depth, phase lag, time delay and amplitude ratio change?" hint="δ scales as ω⁻¹⁄²; the time delay is (x/δ)/ω."><Prose>δ halves; x/δ doubles; the time delay halves. The amplitude ratio changes from e⁻ˣ⁄δ to e⁻²ˣ⁄δ, the square of its previous value. A larger phase lag need not mean a larger delay in seconds when the oscillation becomes faster.</Prose></Practice>
+    <Practice title="13. Change the settling requirement and the geometry" prompt="In the forced rod, take L=2, A=0.4 K and tolerance 0.025 K, keeping C,k,s fixed. Give the steady center temperature and the exact earliest uniform settling time." hint="Recompute the steady parabola and the decay rate; A/ε=16."><Prose>The steady center is L²/4=1 K. The rate is π²/16, and the earliest time is 16log16/π²≈4.49475 seconds. The mean temperature does not certify this uniform requirement; the single-mode supremum formula does. Substitution checks the changed boundary problem, and the source remains 1 W/m³.</Prose></Practice>
+    <Practice title="14. Hand a valid target to a numerical solver" prompt="A solver reports a small residual for the incompatible flux data in exercise 8. Another solver matches the forced rod at five nodes but differs between them. What must you ask each solver to report?" hint="A continuous compatibility identity and a function-space error are separate from a finite linear-system residual."><Prose>For the first, ask which equation or constraint was changed, projected or dropped, and check that outward flux still equals integrated source. No exact steady solution has the original incompatible data. For the second, specify the reconstruction between nodes and the norm used for error, then compare the reconstructed field with the exact continuous rod profile and refine systematically. A small algebraic residual or agreement at a few nodes is not, by itself, a uniform error guarantee.</Prose></Practice>
+    <Prose><strong>What to learn next.</strong> The next topic in this module is <a href="/learn/path/full-curriculum/numerical-pdes-grids-finite-elements-stability?module=math-foundations">Numerical PDEs, Grids, Finite Elements & Stability</a>. It turns these continuous problems into controlled approximations: preserving flux balances, representing weak solutions, testing time-step stability, reconstructing fields and separating discretization error from solver residuals. Bring the forced rod, Neumann compatibility condition and point-source weak identity as exact targets. Later specialist PDE work extends this foundation to nonlinear systems, complex geometry and deeper existence and regularity theory.</Prose>
+
+    <Sources alternatives={<><Prose><strong>A visual first pass.</strong> The creator's <a href="https://www.3blue1brown.com/lessons/pdes/">3Blue1Brown PDE introduction</a> connects temperature samples, neighboring values and spatial curvature; its <a href="https://www.youtube.com/watch?v=ly4S0oi3Yz8">video</a> offers a moving visual explanation. The article's mechanism sections were reviewed. Use it to build intuition; the derivations and boundary qualifications above provide the exact model. The article's opening derivative notation has an inconsistency, so keep uₜ=αuₓₓ as the checked equation.</Prose><Prose><strong>Hear the mode argument.</strong> MIT's <a href="https://ocw.mit.edu/courses/res-18-009-learn-differential-equations-up-close-with-gilbert-strang-and-cleve-moler-fall-2015/resources/heat-equation/">Heat Equation lecture by Gilbert Strang</a> and <a href="https://www.youtube.com/watch?v=i8rnEl8O-r0">official video</a> explain separation and faster decay of higher modes. The complete published transcript was reviewed, rather than claiming a full video viewing. It leaves the coefficient calculation to the learner; section 4 supplies it. Its constant initial profile with zero-value ends also needs the corner distinction discussed here.</Prose><Prose><strong>A worked application to revisit.</strong> Jiří Lebl's <a href="https://www.jirka.org/diffyqs/html/sps_section.html">Steady Periodic Solutions</a>, especially the semi-infinite heat section, derives bounded depth response through complex exponentials. Read it after the local seasonal derivation, paying attention to periodic regime versus startup.</Prose></>}>
+      <li><a href="https://web.stanford.edu/class/math220a/handouts/intro.pdf">Stanford Math 220A: Introduction</a> — solution classes and the separate existence, uniqueness and stability questions; selected definitions reviewed.</li>
+      <li><a href="https://web.stanford.edu/class/math220a/handouts/firstorder.pdf">Stanford: First-order equations</a> — characteristic ODEs and the geometry of initial data; selected derivations reviewed.</li>
+      <li><a href="https://web.stanford.edu/class/math220b/handouts/heateqn.pdf">Stanford: The heat equation</a> — local conservation, interval modes, kernel, maximum and uniqueness arguments. Relevant sections were reviewed, including the whole-line growth qualification.</li>
+      <li><a href="https://web.stanford.edu/class/math220a/handouts/waveequation1.pdf">Stanford: The wave equation</a> — d'Alembert's formula, finite propagation, energy and boundary extensions; relevant sections reviewed.</li>
+      <li><a href="https://web.stanford.edu/class/math220b/handouts/laplace.pdf">Stanford: Laplace's equation</a> — harmonic maximum principles and boundary uniqueness; selected proof sections reviewed.</li>
+      <li><a href="https://web.stanford.edu/class/math220a/handouts/conservation.pdf">Stanford: Conservation laws</a> — weak balances, jump conditions, Riemann solutions and admissibility. The nonlinear-flux caveats informed the limits of the Burgers example.</li>
+      <li><a href="https://web.stanford.edu/class/math220a/handouts/secondorder.pdf">Stanford: Second-order equations</a> — principal-part classification; its mixed-term coefficient convention differs from our explicit 2B convention.</li>
+      <li><a href="https://www.jirka.org/diffyqs/html/slproblems_section.html">Lebl: Sturm–Liouville problems</a> — weighted orthogonality and operator assumptions. Its terminology includes additional positivity assumptions in its regular class; do not infer nonnegative spectra from self-adjointness alone.</li>
+    </Sources>
+  </div>
+};

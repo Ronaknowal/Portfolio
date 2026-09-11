@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+const path='src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx';
+const original=fs.readFileSync(path,'utf8');
+const before="k={item.split} · total {item.total}{item.split === cell.split ? ' · chosen minimum' : ''}";
+const after="k={item.split} · {item.total}{item.split === cell.split ? ' (chosen)' : ''}";
+assert.equal(original.split(before).length,2);
+const archive='docs/teaching/archive/dynamic-programming-before-state-families/final-full-browser-labs-before-label.txt';
+assert(!fs.existsSync(archive));
+fs.writeFileSync(archive,original);
+const updated=original.replace(before,after);
+assert.equal(updated.replace(after,before),original);
+fs.writeFileSync(path,updated);
+const hash=text=>crypto.createHash('sha256').update(text).digest('hex');
+fs.writeFileSync('docs/teaching/evidence/dp-state-families-select-label-amendment.json',JSON.stringify({amendedAt:new Date().toISOString(),path,archive,before,after,beforeSha256:hash(original),afterSha256:hash(updated),exactReverseReconstructsOriginal:true,reason:'Opened 320px full-browser screenshot showed selected option wording clipped after chosen mini. Shorter labels preserve split, cost and chosen status; calculation and all other source bytes are unchanged.'},null,2)+'\n');

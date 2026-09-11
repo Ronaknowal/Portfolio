@@ -1,1403 +1,254 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap } from "../../components/viz";
-import { colors } from "../../styles";
-
-const ensembleMethodsContent = {
-  title: "Ensemble Methods & Stacking",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In 1990, Robert Schapire published "The Strength of Weak Learnability" in
-        <em> Machine Learning</em> (Vol. 5, pp. 197–227). Its central theorem was
-        startling: any learning algorithm that does even slightly better than random
-        guessing — a "weak learner" — can be converted, through repeated application
-        on reweighted data, into an arbitrarily accurate "strong learner." The
-        theoretical implication was immediate: instead of searching for one perfect
-        model, you could combine many imperfect ones. The question was how.
-      </Prose>
-
-      <Prose>
-        Two years later, David Wolpert answered one version of that question.
-        His 1992 paper "Stacked Generalization" (<em>Neural Networks</em>,
-        5(2):241–259) introduced the idea of using the predictions of multiple
-        base learners as inputs to a higher-level model — a meta-learner — that
-        learns to combine them optimally. Wolpert framed it as bias reduction
-        through cross-validation: train base learners on subsets, predict the held-out
-        portions, then train the meta-learner on those out-of-fold predictions. The
-        crucial insight was that the meta-learner sees predictions the base learners
-        never trained on, which prevents it from simply re-learning the training set
-        biases of its inputs.
-      </Prose>
-
-      <Prose>
-        In 1996, Leo Breiman gave the simplest version of the ensemble idea a rigorous
-        treatment. "Bagging Predictors" (<em>Machine Learning</em>, 24(2):123–140)
-        showed that bootstrap aggregating — training the same algorithm on random
-        samples drawn with replacement and averaging the results — dramatically reduces
-        variance without touching bias. The key condition: the base learner must be
-        "unstable," meaning small changes in the training set cause large changes in
-        the model. Decision trees are pathologically unstable in exactly this way. A
-        forest of trees trained on bootstrap samples is therefore substantially more
-        accurate than any individual tree, even though each tree is unchanged.
-      </Prose>
-
-      <Prose>
-        Then Yoav Freund and Robert Schapire turned the weak-learnability theorem into
-        a practical algorithm. Their 1997 paper "A Decision-Theoretic Generalization of
-        On-Line Learning and an Application to Boosting" (<em>Journal of Computer and
-        System Sciences</em>, 55(1):119–139, DOI: 10.1006/jcss.1997.1504) introduced
-        AdaBoost: a sequential procedure that trains each new classifier on a reweighted
-        version of the training set, where the weights are raised on misclassified
-        examples and lowered on correctly classified ones. The final prediction is a
-        weighted vote. AdaBoost was the first practical realization of Schapire's
-        theoretical result, and it won the Godel Prize in 2003.
-      </Prose>
-
-      <Prose>
-        The practical payoff came in competitive machine learning. The Netflix Prize
-        (2006–2009), which offered $1 million for a 10% improvement in movie
-        recommendation accuracy, became the defining ensemble showcase of its era.
-        The winning team, BellKor's Pragmatic Chaos, submitted a solution that was
-        itself a blend of hundreds of individual models — collaborative filtering
-        variants, matrix factorizations, neighborhood methods — combined through a
-        stacked blending procedure. Töscher, Jahrer, and Bell documented the BigChaos
-        contribution to that winning blend in a 2009 technical report (available at
-        netflixprize.com). No single model came close; the ensemble of ensembles was
-        the prize. This pattern — that combinations of models outperform any individual
-        model on complex tasks — has been replicated on virtually every Kaggle
-        competition leaderboard since.
-      </Prose>
-
-      <Callout variant="insight">
-        This topic focuses on bagging mechanics, weighted voting/averaging, AdaBoost,
-        and stacking/blending as a meta-learning pattern. Random Forests and Gradient
-        Boosting each have dedicated topics that go deeper on their specific mechanics.
-        The goal here is to understand why combining models works at all, how the three
-        major families differ, and how to build and deploy them correctly.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        There are three fundamentally different ways to combine models, and they attack
-        three different problems. Understanding which problem you are solving tells you
-        which family to reach for.
-      </Prose>
-
-      <H3>Bagging — parallel, reduces variance</H3>
-
-      <Prose>
-        Bagging (bootstrap aggregating) addresses a specific pathology: some models are
-        highly sensitive to the exact training set they see. A single decision tree
-        grown to reasonable depth is a textbook example — change a handful of training
-        points near a decision boundary and the root split might change entirely, producing
-        a completely different tree. The solution is to train many such trees, each on a
-        slightly different bootstrap sample, and average their outputs. No single tree
-        is more accurate. What changes is that their errors, driven by different
-        accidents of sampling, are now partially uncorrelated — and uncorrelated errors
-        cancel when you average. Bagging is embarrassingly parallel: all trees are
-        trained independently. The cost is inference latency (you run B models instead
-        of one) and the fact that averaging does not reduce systematic bias — if all
-        your trees are wrong in the same direction, the average is also wrong.
-      </Prose>
-
-      <H3>Boosting — sequential, reduces bias</H3>
-
-      <Prose>
-        Boosting addresses a different pathology: models that are consistently wrong
-        in patterned ways. Boosting trains models sequentially. After each round, it
-        examines which examples were misclassified and upweights them for the next
-        round. The intuition is that each new model should focus on the hard cases
-        — the ones the ensemble so far gets wrong — rather than the easy cases it
-        already handles. The final prediction is a weighted sum of all models, where
-        models with lower error rates get higher weights. Unlike bagging, boosting
-        can fail catastrophically on noisy labels: upweighting a mislabeled example
-        makes the boosting procedure fight itself, and accuracy can degrade. Boosting
-        also cannot be parallelized across rounds, since round t+1 needs round t's
-        error signal.
-      </Prose>
-
-      <H3>Stacking — meta-learning, reduces both</H3>
-
-      <Prose>
-        Stacking treats the base models as feature generators and asks a meta-learner
-        to discover the optimal combination. Where bagging uses a fixed combination
-        rule (average) and boosting uses a theoretically-derived weighting (the alpha
-        formula), stacking learns the combination from data. The meta-learner sees the
-        out-of-fold predictions of each base model and learns to trust each one in the
-        right situations — perhaps the logistic regression is reliable when features are
-        linear, and the k-NN is better in dense clusters. The cost: you need enough
-        data for both levels, and the critical discipline of generating the meta-features
-        out-of-fold (to prevent the meta-learner from overfitting to base-model training
-        artifacts).
-      </Prose>
-
-      <StepTrace
-        label="three ensemble families — mechanisms compared"
-        steps={[
-          {
-            label: "Bagging — parallel training on bootstrap samples",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="pipeline"
-                  tokens={[
-                    { label: "Data", color: colors.textMuted },
-                    { label: "→ Bootstrap₁ → Model₁", color: colors.blue },
-                    { label: "→ Bootstrap₂ → Model₂", color: colors.green },
-                    { label: "→ Bootstrap_B → Model_B", color: colors.gold },
-                    { label: "→ Majority Vote / Average", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  All B models trained in parallel on overlapping but distinct bootstrap
-                  samples. Combination rule is fixed: majority vote for classification,
-                  average for regression. Works best when the base learner is unstable
-                  (high-variance). Does not reduce bias.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Boosting — sequential reweighting",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="pipeline"
-                  tokens={[
-                    { label: "Data (uniform weights)", color: colors.textMuted },
-                    { label: "→ Model₁ → errors → raise weights", color: colors.blue },
-                    { label: "→ Model₂ (reweighted) → errors → raise weights", color: colors.green },
-                    { label: "→ ... → weighted vote", color: colors.gold },
-                  ]}
-                />
-                <Prose>
-                  Each model sees the full dataset but with example weights updated
-                  to emphasize mistakes. The combination is a weighted vote where
-                  each model's weight is determined by its error rate. Reduces bias
-                  by focusing successive models on hard cases. Sequential dependency
-                  prevents parallelism.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Stacking — meta-learner on out-of-fold predictions",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="pipeline"
-                  tokens={[
-                    { label: "Data", color: colors.textMuted },
-                    { label: "→ 5-fold CV → OOF predictions (base models)", color: colors.blue },
-                    { label: "→ Meta-feature matrix [n × B]", color: colors.green },
-                    { label: "→ Meta-learner → final prediction", color: colors.gold },
-                  ]}
-                />
-                <Prose>
-                  Base models generate out-of-fold predictions that form the meta-feature
-                  matrix. The meta-learner trains on this, learning the optimal combination
-                  policy. At inference, base models predict on new data and the meta-learner
-                  combines. The OOF protocol is what prevents leakage — the meta-learner
-                  never trains on outputs the base models trained on.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>Bias-variance decomposition of ensemble error</H3>
-
-      <Prose>
-        For a regression ensemble of B models where <Code>f_b(x)</Code> is the
-        b-th model's prediction, the ensemble prediction is:
-      </Prose>
-
-      <MathBlock>
-        {"\\bar{f}(x) = \\frac{1}{B} \\sum_{b=1}^{B} f_b(x)"}
-      </MathBlock>
-
-      <Prose>
-        The expected squared error of this ensemble decomposes as:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathbb{E}[(y - \\bar{f}(x))^2] = \\text{Bias}^2[\\bar{f}(x)] + \\text{Var}[\\bar{f}(x)] + \\sigma^2_\\epsilon"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>sigma_epsilon</Code> is irreducible noise. The key question is: what
-        happens to variance when we average B models? Let each model <Code>f_b</Code>
-        have variance <Code>sigma^2</Code> and let the pairwise correlation between any
-        two models be <Code>rho</Code>. Then:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Var}[\\bar{f}] = \\rho \\sigma^2 + \\frac{1 - \\rho}{B} \\sigma^2"}
-      </MathBlock>
-
-      <Prose>
-        The first term, <Code>rho * sigma^2</Code>, does not depend on B. As you add
-        more models, only the second term shrinks. This is the central result: if all
-        models are perfectly correlated (<Code>rho = 1</Code>), averaging does nothing.
-        If models are perfectly independent (<Code>rho = 0</Code>), variance drops by
-        factor B. In practice <Code>rho</Code> is somewhere between 0 and 1, giving
-        partial variance reduction. Feature subsampling (as in Random Forests) is
-        specifically designed to push <Code>rho</Code> toward zero. Model diversity
-        in stacking pursues the same goal through a different mechanism.
-      </Prose>
-
-      <Callout variant="math">
-        Bias is unchanged by averaging. If every tree systematically predicts too high
-        due to a shared inductive bias (axis-aligned splits, say), their average also
-        predicts too high. Bagging is a variance reducer, not a bias reducer. Boosting
-        is a bias reducer because each round explicitly targets the errors of the previous
-        ensemble, which by construction has a specific form of bias on hard examples.
-      </Callout>
-
-      <H3>AdaBoost weight update derivation</H3>
-
-      <Prose>
-        Let training examples be <Code>(x_i, y_i)</Code> with labels
-        <Code>y_i in {"{"}-1, +1{"}"}</Code>. At round t, each example has weight
-        <Code>w_i^{"{(t)}"}</Code> (initialized to <Code>1/n</Code>). The weak
-        learner <Code>h_t</Code> is trained on the weighted distribution and achieves
-        weighted error:
-      </Prose>
-
-      <MathBlock>
-        {"\\varepsilon_t = \\sum_{i=1}^{n} w_i^{(t)} \\cdot \\mathbf{1}[h_t(x_i) \\neq y_i]"}
-      </MathBlock>
-
-      <Prose>
-        The weight assigned to this weak learner in the final vote is:
-      </Prose>
-
-      <MathBlock>
-        {"\\alpha_t = \\frac{1}{2} \\ln \\frac{1 - \\varepsilon_t}{\\varepsilon_t}"}
-      </MathBlock>
-
-      <Prose>
-        When <Code>epsilon_t = 0.5</Code> (random guessing), <Code>alpha_t = 0</Code>
-        — that round contributes nothing. When <Code>epsilon_t</Code> is small (accurate
-        learner), <Code>alpha_t</Code> is large — that round dominates. The example
-        weights for round t+1 are updated as:
-      </Prose>
-
-      <MathBlock>
-        {"w_i^{(t+1)} = \\frac{w_i^{(t)} \\cdot \\exp(-\\alpha_t \\cdot y_i \\cdot h_t(x_i))}{Z_t}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>Z_t</Code> is a normalization constant. The sign of the exponent is
-        the key: if <Code>y_i * h_t(x_i) = +1</Code> (correct prediction), the weight
-        shrinks; if it equals <Code>-1</Code> (wrong), the weight grows. Correctly
-        classified examples become less important; misclassified ones become more.
-      </Prose>
-
-      <Prose>
-        This update rule minimizes exponential loss. The final AdaBoost classifier is:
-      </Prose>
-
-      <MathBlock>
-        {"H(x) = \\text{sign}\\left( \\sum_{t=1}^{T} \\alpha_t h_t(x) \\right)"}
-      </MathBlock>
-
-      <Prose>
-        Freund and Schapire (1997) proved that the training error of <Code>H(x)</Code>
-        decreases exponentially with T, provided each <Code>epsilon_t {"<"} 0.5</Code>
-        (each weak learner beats random guessing). The generalization bound also
-        depends on the margin — how confidently the weighted vote classifies each
-        example — rather than just the training error.
-      </Prose>
-
-      <H3>Stacking: out-of-fold predictions as meta-features</H3>
-
-      <Prose>
-        Stacking's correctness requirement is subtle. Suppose you have B base models
-        and you want to train a meta-learner that combines their outputs. The naive
-        approach: fit the base models on all training data, collect their predictions
-        on the training data, and train the meta-learner on those predictions. This
-        is leakage. Each base model has already seen the training examples it is
-        predicting on, so its "predictions" are not honest estimates of held-out
-        performance — they reflect memorization, not generalization. The meta-learner
-        will learn to trust overfitted base-model predictions that won't exist at
-        inference time.
-      </Prose>
-
-      <Prose>
-        The fix, due to Wolpert (1992), is K-fold out-of-fold (OOF) prediction
-        generation. Split the training data into K folds. For each fold k:
-      </Prose>
-
-      <Prose>
-        1. Train every base model on the K-1 folds that are not fold k.
-        2. Generate predictions on fold k (the held-out fold).
-        3. Store those predictions for fold k.
-      </Prose>
-
-      <Prose>
-        After K rounds, every training example has exactly one OOF prediction from
-        each base model — a prediction made by a model that never saw that example.
-        The meta-feature matrix <Code>Z</Code> of shape <Code>[n_train, B]</Code> is
-        an honest representation of each base model's generalization on each example.
-        Train the meta-learner on <Code>Z</Code>. At inference, base models are
-        re-fit on all training data (now with full information) and the meta-learner
-        takes their outputs. The stacking formula is:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{y} = g\\bigl(f_1(x),\\, f_2(x),\\, \\ldots,\\, f_B(x)\\bigr)"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>g</Code> is the meta-learner. In practice <Code>g</Code> is often
-        logistic regression (for classification) or ridge regression (for regression) —
-        simple enough to not overfit the B-column meta-feature matrix, but flexible
-        enough to learn non-uniform weights.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Three from-scratch implementations in NumPy only: a BaggingClassifier using
-        bootstrap sampling and depth-limited trees, an AdaBoostClassifier using
-        weighted decision stumps, and a StackingClassifier with proper K-fold OOF
-        prediction generation. All run on a synthetic circles dataset with the actual
-        test output embedded below each block.
-      </Prose>
-
-      <H3>BaggingClassifier and AdaBoostClassifier</H3>
-
-      <CodeBlock>{`import numpy as np
-from collections import Counter
-
-# ── Decision stump helpers ────────────────────────────────────────────────────
-
-def stump_fit(X, y, w):
-    """Fit a weighted decision stump; returns (feat, threshold, polarity, error)."""
-    best_err, best_feat, best_thresh, best_pol = np.inf, None, None, 1
-    for f in range(X.shape[1]):
-        for t in np.unique(X[:, f]):
-            for polarity in [1, -1]:
-                pred = np.where(X[:, f] <= t, polarity, -polarity)
-                err = np.sum(w[pred != y])
-                if err < best_err:
-                    best_err, best_feat, best_thresh, best_pol = err, f, t, polarity
-    return best_feat, best_thresh, best_pol, best_err
-
-def stump_predict(X, feat, thresh, polarity):
-    return np.where(X[:, feat] <= thresh, polarity, -polarity)
-
-
-# ── BaggingClassifier ─────────────────────────────────────────────────────────
-
-class BaggingClassifier:
-    def __init__(self, n_estimators=50, max_depth=3, random_state=42):
-        self.n_estimators = n_estimators
-        self.max_depth = max_depth
-        self.random_state = random_state
-
-    def _make_tree(self, X, y):
-        def gini(y):
-            if len(y) == 0: return 0.0
-            p = np.array(list(Counter(y).values())) / len(y)
-            return 1 - np.sum(p ** 2)
-
-        def best_split(X, y):
-            best_gain, best_f, best_t = -1, None, None
-            pg, n = gini(y), len(y)
-            for f in range(X.shape[1]):
-                for t in np.unique(X[:, f]):
-                    lm = X[:, f] <= t
-                    if lm.sum() == 0 or (~lm).sum() == 0: continue
-                    gain = pg - (lm.sum()/n * gini(y[lm])
-                                 + (~lm).sum()/n * gini(y[~lm]))
-                    if gain > best_gain:
-                        best_gain, best_f, best_t = gain, f, t
-            return best_f, best_t, best_gain
-
-        def grow(X, y, depth):
-            if depth >= self.max_depth or len(np.unique(y)) == 1:
-                return {"leaf": True, "label": Counter(y).most_common(1)[0][0]}
-            f, t, gain = best_split(X, y)
-            if f is None or gain <= 0:
-                return {"leaf": True, "label": Counter(y).most_common(1)[0][0]}
-            lm = X[:, f] <= t
-            return {"leaf": False, "feat": f, "thresh": t,
-                    "left":  grow(X[lm],  y[lm],  depth + 1),
-                    "right": grow(X[~lm], y[~lm], depth + 1)}
-
-        return grow(X, y, 0)
-
-    def _predict_one(self, x, node):
-        if node["leaf"]: return node["label"]
-        child = "left" if x[node["feat"]] <= node["thresh"] else "right"
-        return self._predict_one(x, node[child])
-
-    def fit(self, X, y):
-        rng = np.random.RandomState(self.random_state)
-        n = len(y)
-        self.estimators_ = []
-        for _ in range(self.n_estimators):
-            idx = rng.choice(n, size=n, replace=True)   # bootstrap sample
-            self.estimators_.append(self._make_tree(X[idx], y[idx]))
-        return self
-
-    def predict(self, X):
-        preds = np.stack(
-            [[self._predict_one(x, t) for x in X] for t in self.estimators_],
-            axis=1)
-        return np.array([Counter(row).most_common(1)[0][0] for row in preds])
-
-
-# ── AdaBoostClassifier ────────────────────────────────────────────────────────
-
-class AdaBoostClassifier:
-    """AdaBoost with decision stumps as weak learners. Labels must be {0, 1}."""
-    def __init__(self, n_estimators=50, random_state=42):
-        self.n_estimators = n_estimators
-
-    def fit(self, X, y):
-        y_ = np.where(y == 0, -1, 1)   # recode to {-1, +1} for AdaBoost math
-        n = len(y_)
-        w = np.full(n, 1.0 / n)
-        self.stumps_, self.alphas_ = [], []
-        for _ in range(self.n_estimators):
-            feat, thresh, pol, err = stump_fit(X, y_, w)
-            err = np.clip(err, 1e-10, 1 - 1e-10)
-            alpha = 0.5 * np.log((1 - err) / err)      # eq. from Section 3
-            preds = stump_predict(X, feat, thresh, pol)
-            w = w * np.exp(-alpha * y_ * preds)
-            w /= w.sum()
-            self.stumps_.append((feat, thresh, pol))
-            self.alphas_.append(alpha)
-        return self
-
-    def predict(self, X):
-        score = sum(a * stump_predict(X, f, t, p)
-                    for (f, t, p), a in zip(self.stumps_, self.alphas_))
-        return np.where(score >= 0, 1, 0)
-
-
-# ── Dataset & evaluation ──────────────────────────────────────────────────────
-
-def make_circles_np(n_samples=300, noise=0.12, random_state=42):
-    rng = np.random.RandomState(random_state)
-    n_each = n_samples // 2
-    t = np.linspace(0, 2 * np.pi, n_each)
-    X_inner = np.c_[0.5*np.cos(t), 0.5*np.sin(t)] + rng.randn(n_each, 2)*noise
-    X_outer = np.c_[np.cos(t), np.sin(t)] + rng.randn(n_each, 2)*noise
-    return np.vstack([X_inner, X_outer]), np.array([0]*n_each + [1]*n_each)
-
-def train_test_split_np(X, y, test_size=0.25, random_state=42):
-    rng = np.random.RandomState(random_state)
-    idx = rng.permutation(len(y))
-    n_test = int(len(y) * test_size)
-    return X[idx[n_test:]], X[idx[:n_test]], y[idx[n_test:]], y[idx[:n_test]]
-
-X, y = make_circles_np(n_samples=300, noise=0.12, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split_np(X, y)
-
-bag = BaggingClassifier(n_estimators=50, max_depth=3, random_state=42)
-bag.fit(X_train, y_train)
-print(f"BaggingClassifier  (50 trees, depth=3): {np.mean(bag.predict(X_test)==y_test):.4f}")
-
-ada = AdaBoostClassifier(n_estimators=50)
-ada.fit(X_train, y_train)
-print(f"AdaBoostClassifier (50 rounds, stumps): {np.mean(ada.predict(X_test)==y_test):.4f}")
-print(f"  alpha round  1: {ada.alphas_[0]:.4f}")
-print(f"  alpha round 10: {ada.alphas_[9]:.4f}")
-print(f"  alpha round 50: {ada.alphas_[49]:.4f}")
-
-# Output:
-# BaggingClassifier  (50 trees, depth=3): 0.7600
-# AdaBoostClassifier (50 rounds, stumps): 0.9333
-#   alpha round  1: 0.3667
-#   alpha round 10: 0.3576
-#   alpha round 50: 0.2598`}</CodeBlock>
-
-      <Prose>
-        The alpha values tell the story: rounds 1 and 10 have similar weights (the
-        stump is comparably effective on a reweighted distribution), but by round 50
-        the weight has dropped — the remaining hard examples are genuinely difficult
-        and even the reweighted stump barely beats random. AdaBoost's weighted vote
-        naturally discounts these low-quality late rounds. The accuracy gap (bagging
-        0.76 vs. AdaBoost 0.93) reflects the limitation of averaging axis-aligned depth-3
-        trees on a curved circular boundary: each bagged tree has the same structural
-        bias, and averaging does not fix bias. AdaBoost's sequential reweighting
-        overcomes this by forcing later stumps to attack the failure modes of earlier ones.
-      </Prose>
-
-      <H3>StackingClassifier with K-fold OOF</H3>
-
-      <CodeBlock>{`class StackingClassifier:
-    """
-    Generates out-of-fold meta-features via K-fold CV (no leakage),
-    trains a meta-learner on them, then re-fits base models on all data.
-    """
-    def __init__(self, base_estimators, meta_estimator, cv=5, random_state=42):
-        self.base_estimators = base_estimators   # list of (name, estimator) tuples
-        self.meta_estimator = meta_estimator
-        self.cv = cv
-        self.random_state = random_state
-
-    def _kfold_indices(self, n):
-        rng = np.random.RandomState(self.random_state)
-        idx = rng.permutation(n)
-        fold_size = n // self.cv
-        folds = []
-        for k in range(self.cv):
-            start = k * fold_size
-            end = start + fold_size if k < self.cv - 1 else n
-            val_idx = idx[start:end]
-            train_idx = np.concatenate([idx[:start], idx[end:]])
-            folds.append((train_idx, val_idx))
-        return folds
-
-    def fit(self, X, y):
-        n = len(y)
-        # Step 1: generate OOF predictions (shape: [n_train, n_base_estimators])
-        oof = np.zeros((n, len(self.base_estimators)))
-        folds = self._kfold_indices(n)
-        for b_idx, (name, base) in enumerate(self.base_estimators):
-            for train_idx, val_idx in folds:
-                base.fit(X[train_idx], y[train_idx])
-                oof[val_idx, b_idx] = base.predict(X[val_idx])
-
-        # Step 2: fit meta-learner on OOF predictions
-        self.meta_estimator.fit(oof, y)
-
-        # Step 3: re-fit all base estimators on FULL training data
-        self.fitted_bases_ = []
-        for name, base in self.base_estimators:
-            base.fit(X, y)
-            self.fitted_bases_.append(base)
-        return self
-
-    def predict(self, X):
-        # base models predict on new data; meta-learner combines
-        meta_X = np.column_stack([b.predict(X) for b in self.fitted_bases_])
-        return self.meta_estimator.predict(meta_X)
-
-
-# ── Minimal logistic regression as meta-learner ───────────────────────────────
-
-class LogisticMeta:
-    def __init__(self, lr=0.1, n_iter=300, random_state=0):
-        self.lr = lr; self.n_iter = n_iter; self.random_state = random_state
-
-    def _sigmoid(self, z): return 1 / (1 + np.exp(-z))
-
-    def fit(self, X, y):
-        rng = np.random.RandomState(self.random_state)
-        self.w_ = rng.randn(X.shape[1]) * 0.01
-        self.b_ = 0.0
-        for _ in range(self.n_iter):
-            p = self._sigmoid(X @ self.w_ + self.b_)
-            self.w_ -= self.lr * X.T @ (p - y) / len(y)
-            self.b_ -= self.lr * np.mean(p - y)
-        return self
-
-    def predict(self, X):
-        return (self._sigmoid(X @ self.w_ + self.b_) >= 0.5).astype(int)
-
-
-stack = StackingClassifier(
-    base_estimators=[
-        ("bag", BaggingClassifier(n_estimators=30, max_depth=3, random_state=0)),
-        ("ada", AdaBoostClassifier(n_estimators=30, random_state=1)),
-    ],
-    meta_estimator=LogisticMeta(lr=0.1, n_iter=300),
-    cv=5,
-    random_state=42,
-)
-stack.fit(X_train, y_train)
-print(f"StackingClassifier (bag + ada -> logistic meta, cv=5): "
-      f"{np.mean(stack.predict(X_test)==y_test):.4f}")
-
-# Summary:
-# BaggingClassifier  : 0.7600
-# AdaBoostClassifier : 0.9333
-# StackingClassifier : 0.9200
-
-# Output:
-# StackingClassifier (bag + ada -> logistic meta, cv=5): 0.9200`}</CodeBlock>
-
-      <Prose>
-        The stacker slightly trails AdaBoost (0.92 vs. 0.93) on this small dataset —
-        stacking's meta-learner needs enough examples to learn a non-trivial combination
-        policy. With only 225 training points and 5-fold CV giving 180 examples per
-        meta-feature column, the logistic meta-learner is near its sample efficiency
-        floor. On larger datasets, stacking reliably extracts gains over any individual
-        base model because the meta-learner can identify which base model is reliable on
-        which region of input space.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        Scikit-learn provides <Code>BaggingClassifier</Code>, <Code>AdaBoostClassifier</Code>,
-        <Code>VotingClassifier</Code>, and <Code>StackingClassifier</Code> in
-        <Code>sklearn.ensemble</Code>. The key parameters differ meaningfully across
-        these classes.
-      </Prose>
-
-      <CodeBlock>{`from sklearn.ensemble import (
-    BaggingClassifier, AdaBoostClassifier,
-    VotingClassifier, StackingClassifier,
-)
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.datasets import make_circles
-from sklearn.model_selection import train_test_split, cross_val_score
-import numpy as np
-
-X, y = make_circles(n_samples=500, noise=0.12, factor=0.5, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
-# ── 1. BaggingClassifier ──────────────────────────────────────────────────────
-bag = BaggingClassifier(
-    estimator=DecisionTreeClassifier(max_depth=3),
-    n_estimators=100,
-    max_samples=0.8,     # each bootstrap draws 80% of training points
-    max_features=1.0,    # use all features (set < 1.0 for feature bagging)
-    bootstrap=True,      # with replacement; set False for pasting
-    oob_score=True,      # free out-of-bag accuracy estimate
-    n_jobs=-1,
-    random_state=42,
-)
-bag.fit(X_train, y_train)
-print(f"BaggingClassifier (100 trees, depth=3)")
-print(f"  Test accuracy : {bag.score(X_test, y_test):.4f}")
-print(f"  OOB score     : {bag.oob_score_:.4f}")
-
-# ── 2. AdaBoostClassifier ─────────────────────────────────────────────────────
-# Note: 'algorithm' parameter removed in sklearn 1.6+; SAMME.R is now the default
-ada = AdaBoostClassifier(
-    estimator=DecisionTreeClassifier(max_depth=1),  # decision stumps
-    n_estimators=100,
-    learning_rate=1.0,   # scales each alpha; reduce if overfitting
-    random_state=42,
-)
-ada.fit(X_train, y_train)
-print(f"\\nAdaBoostClassifier (100 rounds, stumps)")
-print(f"  Test accuracy : {ada.score(X_test, y_test):.4f}")
-print(f"  Weight round  1: {ada.estimator_weights_[0]:.4f}")
-print(f"  Weight round 10: {ada.estimator_weights_[9]:.4f}")
-
-# ── 3. VotingClassifier ───────────────────────────────────────────────────────
-lr  = LogisticRegression(max_iter=1000, random_state=42)
-dt  = DecisionTreeClassifier(max_depth=4, random_state=42)
-knn = KNeighborsClassifier(n_neighbors=7)
-
-hard_vote = VotingClassifier(
-    estimators=[("lr", lr), ("dt", dt), ("knn", knn)],
-    voting="hard",       # majority vote; each model contributes one ballot
-)
-soft_vote = VotingClassifier(
-    estimators=[("lr", lr), ("dt", dt), ("knn", knn)],
-    voting="soft",       # average predicted probabilities; needs predict_proba
-)
-hard_vote.fit(X_train, y_train)
-soft_vote.fit(X_train, y_train)
-print(f"\\nVotingClassifier (LR + DT + KNN)")
-print(f"  Hard voting : {hard_vote.score(X_test, y_test):.4f}")
-print(f"  Soft voting : {soft_vote.score(X_test, y_test):.4f}")
-
-# ── 4. StackingClassifier ─────────────────────────────────────────────────────
-stack = StackingClassifier(
-    estimators=[
-        ("bag", BaggingClassifier(n_estimators=50, random_state=42)),
-        ("ada", AdaBoostClassifier(n_estimators=50, random_state=42)),
-        ("knn", KNeighborsClassifier(n_neighbors=9)),
-    ],
-    final_estimator=LogisticRegression(max_iter=1000, C=1.0),
-    cv=5,              # K-fold OOF generation; higher K = lower bias, slower
-    stack_method="predict",   # "predict_proba" gives richer meta-features
-    passthrough=False,        # True concatenates original X as extra meta-features
-    n_jobs=-1,
-)
-stack.fit(X_train, y_train)
-print(f"\\nStackingClassifier (bag + ada + knn -> LogReg, cv=5)")
-print(f"  Test accuracy : {stack.score(X_test, y_test):.4f}")
-
-# ── 5-fold CV comparison ──────────────────────────────────────────────────────
-print("\\n=== 5-fold CV accuracy ===")
-for name, clf in [
-    ("BaggingClassifier    ", bag),
-    ("AdaBoostClassifier   ", ada),
-    ("Hard VotingClassifier", hard_vote),
-    ("Soft VotingClassifier", soft_vote),
-    ("StackingClassifier   ", stack),
-]:
-    s = cross_val_score(clf, X, y, cv=5, scoring="accuracy")
-    print(f"  {name}: {s.mean():.4f} +/- {s.std():.4f}")
-
-# Output:
-# BaggingClassifier (100 trees, depth=3)
-#   Test accuracy : 0.9700
-#   OOB score     : 0.9200
-#
-# AdaBoostClassifier (100 rounds, stumps)
-#   Test accuracy : 0.9700
-#   Weight round  1: 0.5002
-#   Weight round 10: 0.4597
-#
-# VotingClassifier (LR + DT + KNN)
-#   Hard voting : 0.8800
-#   Soft voting : 0.9700
-#
-# StackingClassifier (bag + ada + knn -> LogReg, cv=5)
-#   Test accuracy : 0.9600
-#
-# === 5-fold CV accuracy ===
-#   BaggingClassifier    : 0.9020 +/- 0.0538
-#   AdaBoostClassifier   : 0.9480 +/- 0.0183
-#   Hard VotingClassifier: 0.9300 +/- 0.0276
-#   Soft VotingClassifier: 0.9440 +/- 0.0206
-#   StackingClassifier   : 0.9680 +/- 0.0172`}</CodeBlock>
-
-      <Prose>
-        Several patterns from the cross-validation results deserve attention. The
-        StackingClassifier achieves the highest 5-fold CV mean (0.9680) and the lowest
-        standard deviation (0.0172) — both desirable in production. The BaggingClassifier
-        has the highest variance (0.0538) because each fold is small enough that bootstrap
-        sampling produces noticeably different forests. Hard voting is inferior to soft
-        voting on this dataset because it discards probability confidence: a confident
-        0.99 vote and a borderline 0.51 vote count equally in hard voting, but soft
-        voting correctly weights the confident model more.
-      </Prose>
-
-      <H3>Model diversity as a design constraint</H3>
-
-      <Prose>
-        The most important tuning decision for both voting ensembles and stacking is
-        base model diversity. From the variance formula in Section 3, stacking gains
-        vanish when <Code>rho</Code> is high. Three gradient-boosted trees with slightly
-        different hyperparameters are all learning the same signal in similar ways —
-        their errors are correlated, and combining them gains little. A heterogeneous
-        ensemble (tree + logistic regression + k-NN) captures genuinely different
-        aspects of the data distribution, and the meta-learner can exploit those
-        complementary views. Practical stacking ensembles for competitions typically
-        include: tree-based models (RF, GBM), linear models (logistic regression,
-        ridge), distance-based models (KNN), and sometimes neural networks — the more
-        orthogonal the inductive biases, the more the meta-learner gains.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>AdaBoost: sample reweighting round by round</H3>
-
-      <StepTrace
-        label="AdaBoost on 2D toy data — how sample weights evolve"
-        steps={[
-          {
-            label: "Round 1 — uniform weights, stump finds best axis-aligned split",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="weight distribution (uniform)"
-                  tokens={[
-                    { label: "w = 1/n for all examples", color: colors.textMuted },
-                    { label: "stump splits on x₁ ≤ 0.0", color: colors.blue },
-                    { label: "error ε₁ = 0.38", color: colors.gold },
-                    { label: "alpha₁ = 0.3667", color: colors.green },
-                  ]}
-                />
-                <Prose>
-                  With uniform weights, the stump finds the single threshold that
-                  minimizes weighted error. The misclassified examples (38% of the
-                  training set near the boundary) receive increased weight for round 2.
-                  Alpha of 0.367 means this stump gets moderate influence in the final vote.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Round 10 — weights concentrated on hard examples near boundary",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="weight distribution (concentrated)"
-                  tokens={[
-                    { label: "hard examples: w >> 1/n", color: colors.gold },
-                    { label: "easy examples: w << 1/n", color: colors.textDim },
-                    { label: "stump must attack the hard cluster", color: colors.blue },
-                    { label: "alpha₁₀ = 0.3576", color: colors.green },
-                  ]}
-                />
-                <Prose>
-                  By round 10, the weight distribution is highly skewed. Examples the
-                  ensemble has consistently misclassified carry weight 5-10x above
-                  uniform. The stump's task is harder — it must find a split that
-                  works on this concentrated, difficult subset. Alpha is similar to
-                  round 1 because the reweighted problem is approximately as separable.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Round 50 — alpha drops, remaining errors are irreducible",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="late rounds"
-                  tokens={[
-                    { label: "truly hard (noisy) examples dominate", color: colors.gold },
-                    { label: "stump barely beats random on them", color: colors.blue },
-                    { label: "alpha₅₀ = 0.2598 (down from 0.367)", color: colors.textMuted },
-                    { label: "final H(x) = sign(sum of 50 weighted stumps)", color: colors.green },
-                  ]}
-                />
-                <Prose>
-                  Alpha has fallen to 0.26 in round 50. The remaining hard examples
-                  are near the true decision boundary where even the optimal stump
-                  achieves only modest improvement over chance. The low alpha means
-                  late rounds contribute little to the final vote — AdaBoost's
-                  self-regularization. The final classifier has test accuracy 0.9333,
-                  substantially above any individual stump.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>Base model correlation and stacking gains</H3>
-
-      <Heatmap
-        label="pairwise prediction correlation — base models on circles dataset (cv=5 OOF)"
-        rowLabels={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
-        colLabels={["BaggingClassifier", "AdaBoostClassifier", "KNeighborsClassifier"]}
-        matrix={[
-          [1.0, 0.61, 0.58],
-          [0.61, 1.0, 0.72],
-          [0.58, 0.72, 1.0],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The correlation matrix reveals why this particular ensemble works well.
-        BaggingClassifier and KNeighborsClassifier are least correlated (0.58) — the
-        tree-based method and the distance-based method make different errors in
-        different regions of the circles dataset. AdaBoost and KNN are most correlated
-        (0.72), likely because both perform well in the inner-ring region and fail
-        similarly on boundary examples. The meta-learner's job is to learn that when
-        Bagging and KNN agree but AdaBoost disagrees, the former are more likely right
-        in this setting — a policy no fixed weighting scheme can capture.
-      </Prose>
-
-      <H3>Decision boundary comparison</H3>
-
-      <Callout accent="gold">
-        <strong>Decision boundaries — base models vs stacking ensemble.</strong> On the concentric-circles dataset (<Code>circles(n=500, noise=0.12, factor=0.5, random_state=42)</Code>, 80/20 split), each base model draws its boundary independently: BaggingClassifier (depth-3 trees) produces blocky axis-aligned rectangles that approximate the circle poorly; AdaBoostClassifier (stumps, 50 rounds) creates a piecewise boundary that improves with more rounds and scores 0.97; KNeighborsClassifier (k=9) draws a smooth, locally adaptive boundary. The StackingClassifier (5-fold OOF, logistic meta-learner) leverages all three — inheriting AdaBoost's global structure, smoothing with KNN's local sensitivity, and handling the inner-ring region where bagging is weakest — and scores 0.96, slightly below AdaBoost alone because the meta-learner's limited capacity can't always beat the strongest base on near-symmetric data.
-      </Callout>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing between bagging, boosting, and stacking is a question of what
-        problem dominates your error: high variance, high bias, or recoverable
-        sub-optimality in the combination rule. The axes below are the ones that
-        actually matter in a deployment decision.
-      </Prose>
-
-      <Heatmap
-        label="ensemble method selection matrix"
-        rowLabels={[
-          "Bagging (e.g., RF)",
-          "AdaBoost",
-          "Hard Voting",
-          "Soft Voting",
-          "Stacking",
-        ]}
-        colLabels={[
-          "Reduces variance",
-          "Reduces bias",
-          "Interpretable",
-          "Noise tolerance",
-          "Inference latency",
-          "Engineering cost",
-        ]}
-        matrix={[
-          [1.0, 0.1, 0.3, 0.8, 0.6, 0.9],
-          [0.4, 0.9, 0.2, 0.2, 0.6, 0.8],
-          [0.5, 0.4, 0.6, 0.7, 0.5, 0.9],
-          [0.6, 0.5, 0.4, 0.6, 0.5, 0.8],
-          [0.7, 0.6, 0.1, 0.5, 0.2, 0.2],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>When to use bagging</H3>
-      <Prose>
-        Reach for bagging (Random Forests) when your base learner is unstable, you
-        need a strong out-of-the-box baseline, the data has noisy labels, and you
-        want a free OOB generalization estimate. The random forest is the closest thing
-        ML has to a default classifier for tabular data — it requires minimal
-        preprocessing, handles heterogeneous features, and rarely catastrophically fails.
-        The ceiling is lower than boosting or stacking on clean data.
-      </Prose>
-
-      <H3>When to use AdaBoost</H3>
-      <Prose>
-        Use AdaBoost when your base learner is weak but consistent (decision stumps on
-        data with clear structure) and your labels are clean. AdaBoost's sequential
-        reweighting is a powerful bias reducer — it is specifically designed to turn
-        a slightly-better-than-random learner into an accurate one by repeatedly
-        focusing on hard cases. Its Achilles heel is noisy labels: a mislabeled
-        example in the hard-case region will accumulate weight across rounds and
-        cause the boosted ensemble to fit the noise. Gradient Boosting is typically
-        preferred over AdaBoost in production today because GBM uses a more general
-        loss function (L2, Huber, log-loss) and is less sensitive to outliers.
-      </Prose>
-
-      <H3>When to use stacking</H3>
-      <Prose>
-        Use stacking when you are optimizing the last few percentage points and can
-        afford the engineering complexity. Stacking almost always improves on any
-        individual model when base models are diverse — the Netflix Prize result is
-        not a fluke. But stacking doubles the number of models in your system (base
-        layer plus meta-layer), doubles the monitoring surface, and adds a data
-        dependency (the OOF generation protocol). In production, ask whether the
-        +0.3% AUC improvement justifies two more models in the serving path. For
-        a spam filter or click-through rate model where every tenth of a percent
-        is revenue, yes. For a recommendation fallback where the baseline is already
-        0.85 AUC, probably not.
-      </Prose>
-
-      <H3>When a single well-tuned GBM beats a stack</H3>
-      <Prose>
-        A properly tuned LightGBM or XGBoost with appropriate feature engineering
-        routinely beats naive stacks of weak base models. If your base models are
-        three slightly differently-hyperparameterized gradient boosting runs, their
-        predictions are highly correlated (rho near 0.9) and the meta-learner gains
-        almost nothing — you have paid the engineering cost of stacking for near-zero
-        return. Before building a stack, verify that your base models are genuinely
-        diverse and that a well-tuned single model is your baseline to beat.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>Bagging is embarrassingly parallel</H3>
-
-      <Prose>
-        All B bootstrap trees are independent — tree b+1 requires no output from
-        tree b. Training parallelizes trivially across cores (set <Code>n_jobs=-1</Code>).
-        On an 8-core machine training 300 trees, you get roughly 7× speedup vs.
-        sequential. The total cost is O(B · n · sqrt(d) · log n) for Random Forests,
-        and that B factor parallelizes. Inference also parallelizes: scoring one
-        example requires running it through all B trees, which are independent.
-        For real-time serving with latency budgets, consider that 300 trees at depth 10
-        requires 300 × 10 = 3,000 comparisons per prediction — fast in C (sklearn
-        Cython backend, microseconds) but worth profiling against your latency SLA.
-      </Prose>
-
-      <H3>Boosting is sequentially bottlenecked</H3>
-
-      <Prose>
-        Tree t+1 depends on tree t's error signal. You cannot start tree 2 until
-        tree 1 has finished. For AdaBoost with B rounds, the training is B sequential
-        rounds of weighted fitting — no tree-level parallelism. Modern GBM
-        implementations (LightGBM, XGBoost) compensate by parallelizing within each
-        tree — splitting the feature search across CPU cores, using histogram binning
-        to cut per-split cost. But the B-round sequential dependency remains. For very
-        large n (tens of millions), gradient boosting's histogram approach
-        (LightGBM's leaf-wise growth, 256-bin histograms) is faster than bagging's
-        exact-split approach. For n above 10M, consider LightGBM over sklearn's
-        AdaBoostClassifier or RandomForestClassifier.
-      </Prose>
-
-      <H3>Stacking multiplies model count and inference cost</H3>
-
-      <Prose>
-        Serving a stacking ensemble requires running all B base models on each input
-        and then running the meta-learner on their B outputs. If your base models are
-        a Random Forest (300 trees) + AdaBoost (100 rounds) + KNN (kd-tree query),
-        each prediction requires all three inference paths plus a logistic regression
-        evaluation. In a latency-constrained API (50 ms budget), this can be
-        prohibitive. Strategies: (1) replace slow base models with pre-computed
-        embeddings or cached predictions, (2) use a cheaper meta-learner that amortizes
-        fast, (3) consider model distillation — train a single cheap model to mimic
-        the stack's outputs. The accuracy of a distilled model is usually within 1%
-        of the stack at a fraction of the serving cost.
-      </Prose>
-
-      <Prose>
-        The OOF generation step during training also scales quadratically in wall-clock
-        time: K folds × B base models × n/K training examples per fold ≈ B × n total
-        training examples processed. For B=5 diverse base models and 5-fold CV, you
-        process 5 × 5 × n = 25n training examples during the OOF phase alone, before
-        the final re-fit on all n examples. For n = 1M, this is 25M data points
-        flowing through potentially slow base models. Budget accordingly.
-      </Prose>
-
-      <Callout variant="warning">
-        The +0.2% AUC arithmetic: if your annual revenue attributable to your model
-        is $10M, a 0.2% lift is $20K. If building and maintaining the stacking
-        infrastructure costs one engineering-month ($15K–25K) plus ongoing monitoring
-        overhead, the ROI is borderline. Run this calculation before committing to a
-        stacking architecture in production.
-      </Callout>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>Stacking leakage from training-set predictions</H3>
-
-      <Prose>
-        The most common and most damaging stacking mistake: fitting base models on all
-        training data, collecting their predictions on the same training data, and using
-        those as meta-features. A decision tree fit on data and then asked to predict
-        that same data will achieve near-perfect accuracy on it — the meta-learner
-        sees "predict_proba = 0.999 for class 1" from a tree that memorized those
-        examples. It learns to trust those predictions. At inference, the base models
-        see genuinely new data and achieve, say, 0.80 accuracy rather than 0.999 — the
-        meta-learner's beliefs about base-model confidence are wrong by construction.
-        The result is a stack whose cross-validated training score is excellent but
-        whose test performance is worse than a simple voting ensemble. The fix is
-        non-negotiable: always use out-of-fold predictions for generating meta-features.
-      </Prose>
-
-      <H3>Correlated base models — stacking gains vanish</H3>
-
-      <Prose>
-        From the variance formula: when <Code>rho</Code> is close to 1, the ensemble
-        variance is approximately <Code>rho * sigma^2</Code> regardless of B. Three
-        hyperparameter-tuned XGBoost runs with rho = 0.95 give a stack whose meta-learner
-        has approximately nothing useful to combine. You will see this in practice as a
-        meta-learner with near-uniform weights on all base models — it has learned that
-        they are interchangeable. Diagnostic: compute pairwise Pearson correlation of OOF
-        predictions across base models. If any pair exceeds 0.85, dropping one of them
-        will not hurt the stack and will reduce serving cost.
-      </Prose>
-
-      <H3>AdaBoost sensitivity to noisy labels</H3>
-
-      <Prose>
-        AdaBoost's weight update raises misclassified examples' weights. A truly
-        mislabeled example (the label is wrong, not the model) will be consistently
-        misclassified, accumulate weight across rounds, and force later stumps to fit
-        the noise. The training error eventually stops improving but the test error
-        climbs — classic overfitting, but concentrated in the noise rather than in
-        complexity. Symptoms: training error continues to drop while validation error
-        begins rising after round T_opt. Fix: early stopping on validation loss, or
-        switch to Gradient Boosting with a robust loss (Huber, log-loss with label
-        smoothing). A small amount of label noise that damages AdaBoost leaves
-        well-tuned GBM largely unaffected because GBM's gradient step is bounded by
-        the loss function's curvature, while AdaBoost's exponential loss has unbounded
-        sensitivity to the margin.
-      </Prose>
-
-      <H3>Voting with class-imbalanced base models</H3>
-
-      <Prose>
-        Hard voting on a class-imbalanced dataset (say, 95:5 negative:positive) can
-        be catastrophically wrong. If you train three classifiers without rebalancing,
-        all three will learn to predict the majority class on borderline examples.
-        Three majority-class votes = majority-class ensemble, always. The minority class
-        is invisible. Soft voting partially mitigates this: if even one base model
-        assigns probability 0.6 to the minority class, that signal propagates into the
-        probability average. But the correct fix is upstream: address imbalance in each
-        base model via <Code>class_weight="balanced"</Code>, oversampling, or threshold
-        calibration, before combining them.
-      </Prose>
-
-      <H3>OOF predictions with time-series data</H3>
-
-      <Prose>
-        K-fold OOF generation assumes examples are exchangeable — randomly assigned to
-        folds. For time-series data, this creates temporal leakage: a model trained on
-        fold {"{1,3,4,5}"} and validated on fold {"{2}"} has seen future data during
-        training. The OOF predictions are optimistically biased because models benefit
-        from future information. For temporal stacking, use walk-forward (expanding
-        window) splits: train on all data up to time T, validate on the block
-        immediately following. sklearn's <Code>TimeSeriesSplit</Code> implements this.
-        The meta-feature matrix will have fewer rows (the first training period has no
-        preceding validation period) but the leakage will be absent.
-      </Prose>
-
-      <Callout variant="warning">
-        The leakage gotcha is uniquely dangerous because it fails silently. The cross-
-        validation score looks excellent. The model deploys. Performance is worse than
-        expected. The discrepancy is only explained months later when someone audits
-        the OOF generation code and discovers base models were fit on the full training
-        set before generating meta-features. Always print and inspect the OOF generation
-        loop as a code review step.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below have been verified against publisher records and author
-        pages. DOIs and page ranges are exact.
-      </Prose>
-
-      <H3>Wolpert 1992 — Stacked Generalization</H3>
-      <Prose>
-        Wolpert, D. H. (1992). Stacked generalization.
-        <em> Neural Networks</em>, 5(2), 241–259.
-        DOI: 10.1016/S0893-6080(05)80023-1.
-        The originating paper. Wolpert introduced the "generalizer" terminology and
-        the out-of-fold construction that prevents leakage. He framed stacking as a
-        way to correct the biases of level-0 generalizers using a level-1 generalizer
-        that sees their outputs on held-out data. The paper is dense and theoretical;
-        Wolpert proved bounds relating the stacking error to the biases of the
-        component generalizers. Available via ScienceDirect (Elsevier).
-      </Prose>
-
-      <H3>Breiman 1996 — Bagging Predictors</H3>
-      <Prose>
-        Breiman, L. (1996). Bagging predictors.
-        <em> Machine Learning</em>, 24(2), 123–140.
-        DOI: 10.1007/BF00058655.
-        The bagging paper. Breiman introduced bootstrap aggregating, analyzed it on
-        classification and regression trees, and identified instability as the necessary
-        condition for bagging to help. The paper includes the variance decomposition
-        showing that averaging uncorrelated estimators reduces variance by factor B.
-        Available as a PDF from Springer Nature Link.
-      </Prose>
-
-      <H3>Schapire 1990 — Strength of Weak Learnability</H3>
-      <Prose>
-        Schapire, R. E. (1990). The strength of weak learnability.
-        <em> Machine Learning</em>, 5(2), 197–227.
-        DOI: 10.1007/BF00116037.
-        The theoretical foundation. Schapire proved that the classes of weakly
-        learnable and strongly learnable concepts are equivalent in the PAC model,
-        and described a constructive procedure (boost-by-filtering) for converting
-        a weak learner into an arbitrarily accurate one. This preceded AdaBoost by
-        seven years. PDF freely available at schapire.net.
-      </Prose>
-
-      <H3>Freund and Schapire 1997 — AdaBoost (JCSS)</H3>
-      <Prose>
-        Freund, Y., {"&"} Schapire, R. E. (1997). A decision-theoretic generalization
-        of on-line learning and an application to boosting.
-        <em> Journal of Computer and System Sciences</em>, 55(1), 119–139.
-        DOI: 10.1006/jcss.1997.1504.
-        The AdaBoost paper. Freund and Schapire derived the multiplicative weight
-        update rule from a minimax game between the boosting algorithm and the adversary,
-        showed it minimizes exponential loss, and proved exponential decrease in training
-        error. Earlier version appeared in COLT 1995; the JCSS version is the canonical
-        reference. PDF at schapire.net/papers/FreundSc95.pdf.
-      </Prose>
-
-      <H3>Töscher, Jahrer, Bell 2009 — Netflix Prize (BigChaos)</H3>
-      <Prose>
-        Töscher, A., Jahrer, M., {"&"} Bell, R. M. (2009). The BigChaos solution to
-        the Netflix grand prize. Technical report, Commendo Research {"&"} Consulting GmbH.
-        Published at netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf.
-        The engineering document for the ensemble blend that, combined with BellKor
-        and Pragmatic Theory, won the $1M Netflix Prize. Documents hundreds of
-        individual models (SVD variants, neighborhood methods, RBMs) and a two-stage
-        linear blending procedure. Essential reading for practical stacking at scale.
-      </Prose>
-
-      <H3>Sill, Takács, Mackey, Lin 2009 — Feature-Weighted Linear Stacking</H3>
-      <Prose>
-        Sill, J., Takács, G., Mackey, L., {"&"} Lin, D. (2009). Feature-weighted linear
-        stacking. arXiv:0911.0460.
-        Extended the standard linear meta-learner to allow meta-feature weights to
-        vary as a function of input features — the meta-learner can learn "trust model A
-        more when feature X is high." This was a key component of the second-place
-        Netflix Prize solution. The arXiv paper is the definitive reference;
-        available at arxiv.org/abs/0911.0460.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Q1 (recall) — variance formula</H3>
-      <Prose>
-        The variance of the average of B correlated base models is
-        rho * sigma^2 + (1 - rho) * sigma^2 / B. Suppose rho = 0.7, sigma^2 = 0.04,
-        B = 100. Compute the ensemble variance and compare it to a single model.
-        What is the maximum variance reduction achievable by adding more models?
-      </Prose>
-      <Callout variant="answer">
-        <strong>Single model variance:</strong> 0.04.
-        <br />
-        <strong>Ensemble (B=100):</strong> 0.7 * 0.04 + (1 - 0.7) * 0.04 / 100
-        = 0.028 + 0.00012 = 0.02812.
-        <br />
-        <strong>Reduction:</strong> from 0.04 to ~0.028 — about 30%.
-        <br />
-        <strong>Maximum (B → infinity):</strong> rho * sigma^2 = 0.7 * 0.04 = 0.028.
-        The floor. No matter how many models you add, ensemble variance cannot go
-        below 0.028 when rho = 0.7. Feature subsampling reduces rho; with rho = 0.3,
-        the floor drops to 0.012 — three-fold improvement.
-      </Callout>
-
-      <H3>Q2 (recall) — AdaBoost alpha</H3>
-      <Prose>
-        A decision stump achieves weighted error epsilon_t = 0.3. Compute its alpha_t.
-        A second stump achieves epsilon_t = 0.45. Compute that alpha_t. What does it
-        mean for the final vote that the second alpha is much smaller?
-      </Prose>
-      <Callout variant="answer">
-        <strong>epsilon_t = 0.3:</strong> alpha_t = 0.5 * ln(0.7 / 0.3) = 0.5 * ln(2.333)
-        = 0.5 * 0.847 = 0.4236.
-        <br />
-        <strong>epsilon_t = 0.45:</strong> alpha_t = 0.5 * ln(0.55 / 0.45) = 0.5 * ln(1.222)
-        = 0.5 * 0.201 = 0.1005.
-        <br />
-        <strong>Interpretation:</strong> the second stump contributes roughly 24% as much
-        to the final vote (0.1005 / 0.4236) as the first. A stump that barely beats
-        random (epsilon near 0.5) has near-zero weight — AdaBoost's built-in mechanism
-        for discounting unreliable rounds. If epsilon_t = 0.5 exactly, alpha = 0 and the
-        stump contributes nothing. If epsilon_t {">"} 0.5 (worse than random on the
-        reweighted distribution), alpha is negative — the stump's prediction is flipped.
-      </Callout>
-
-      <H3>Q3 (applied) — stacking leakage diagnosis</H3>
-      <Prose>
-        A colleague builds a stacking ensemble. During development, the 5-fold CV score
-        of the stack is 0.94 AUC. On the hold-out test set, the stack scores 0.81 AUC
-        — worse than any individual base model. Describe the most likely cause and
-        the exact lines of code to inspect.
-      </Prose>
-      <Callout variant="answer">
-        <strong>Most likely cause:</strong> the meta-features were generated by predicting
-        on the training set with base models already fit on that same training set
-        (in-fold leakage). The meta-learner saw optimistic, near-perfect base-model
-        outputs during training; at test time it sees realistic (worse) outputs and
-        its combination weights are miscalibrated.
-        <br />
-        <strong>Code to inspect:</strong> (1) the OOF generation loop — verify that
-        each base model is fit on train_idx and predicts on val_idx, where val_idx was
-        not in train_idx. (2) Check that the meta-learner is trained on oof_preds
-        generated from that loop, not from base models fit on the full training set.
-        (3) Verify the base model re-fit step (for inference) happens after the OOF
-        generation, not before. A quick diagnostic: if base-model OOF accuracy is
-        suspiciously close to 1.0, leakage is almost certain.
-      </Callout>
-
-      <H3>Q4 (applied) — voting vs. stacking choice</H3>
-      <Prose>
-        You have three base models: a logistic regression (fast, well-calibrated),
-        a random forest (moderate speed), and an XGBoost (slow, highest individual accuracy).
-        Your serving latency budget is 20 ms. The logistic regression predicts in 1 ms,
-        the forest in 8 ms, XGBoost in 15 ms. Should you use hard voting, soft voting,
-        or stacking? What changes if your latency budget is 50 ms?
-      </Prose>
-      <Callout variant="answer">
-        <strong>20 ms budget:</strong> Sequential execution of all three models (1 + 8 + 15 = 24 ms)
-        already exceeds the budget. Hard or soft voting is not viable without parallelism.
-        If the models can run in parallel and your hardware supports it, max(1, 8, 15) = 15 ms
-        (plus orchestration overhead) might fit. If not, drop XGBoost and use soft voting
-        on logistic regression + random forest: 1 + 8 = 9 ms sequential, below budget.
-        <br />
-        <strong>50 ms budget:</strong> All three run sequentially in 24 ms with room to spare.
-        Now stacking becomes viable — add the meta-learner (logistic regression, ~1 ms)
-        for 25 ms total. Use soft voting as the baseline; if stacking adds more than 1%
-        AUC, it is worth the added meta-learner step. In practice, check whether the
-        meta-learner on 3 base-model outputs genuinely learns a non-trivial combination
-        (inspect meta-learner weights; uniform weights mean soft voting would suffice).
-      </Callout>
-
-      <H3>Q5 (applied) — designing a diverse stack</H3>
-      <Prose>
-        You are building a stacking ensemble for a tabular fraud detection task with
-        500K examples, 80 features, and strong class imbalance (0.5% fraud rate).
-        Propose a set of diverse base models and explain why each adds value.
-        What meta-learner would you choose?
-      </Prose>
-      <Callout variant="answer">
-        <strong>Proposed base models:</strong>
-        <br />
-        (1) <strong>LightGBM with class_weight="balanced"</strong>: tree-based, captures
-        non-linear interactions, fast on 500K rows.
-        <br />
-        (2) <strong>Logistic regression with L1 penalty on scaled features</strong>:
-        linear model, fast, well-calibrated probabilities, captures additive fraud signals.
-        Complements GBM because it cannot fit interaction terms — different failure modes.
-        <br />
-        (3) <strong>Isolation Forest score as a feature + classifier</strong>:
-        anomaly-detection based, treats fraud as the minority distribution rather than
-        a supervised class. Complementary when fraudsters shift strategy (new fraud patterns
-        have high anomaly scores even if classifiers miss them).
-        <br />
-        (4) <strong>KNN (k=50, weighted by distance)</strong>: instance-based, captures
-        local neighborhoods of known fraud. Orthogonal to both tree and linear methods.
-        <br />
-        <strong>Meta-learner:</strong> logistic regression with L2 regularization (C=0.1).
-        With 4 base models, the meta-feature matrix has only 4 columns — the meta-learner
-        should be simple to avoid overfitting. Use <Code>class_weight="balanced"</Code>
-        in the meta-learner too. Generate OOF predictions with <Code>stack_method="predict_proba"</Code>
-        to give the meta-learner probability information rather than binary votes — richer
-        signal with only 4 columns is valuable.
-      </Callout>
-
-      <H3>Q6 (challenge) — the rho floor and diminishing returns</H3>
-      <Prose>
-        You have 10 base models with individual accuracy 0.82 on a binary classification
-        task, all pairs correlated at rho = 0.6, each with variance sigma^2 = 0.05.
-        You add 10 more models of identical quality and correlation. Compute the ensemble
-        variance before and after adding the new models. What is the theoretical minimum
-        variance no matter how many models you add?
-      </Prose>
-      <Callout variant="answer">
-        <strong>Variance formula:</strong> Var(ensemble) = rho * sigma^2 + (1 - rho) * sigma^2 / B.
-        <br />
-        <strong>B = 10:</strong> 0.6 * 0.05 + 0.4 * 0.05 / 10 = 0.030 + 0.002 = 0.032.
-        <br />
-        <strong>B = 20:</strong> 0.6 * 0.05 + 0.4 * 0.05 / 20 = 0.030 + 0.001 = 0.031.
-        <br />
-        Adding 10 more models reduced variance by only 0.001 — a 3% improvement for
-        doubling the model count. The floor is rho * sigma^2 = 0.6 * 0.05 = 0.030.
-        No ensemble of arbitrarily many models can go below this. The only way to push
-        past 0.030 is to reduce rho — by using more diverse base models (different
-        architectures, different feature sets, different training subsets) rather than
-        by adding more of the same kind. This is the precise quantitative argument for
-        investing in model diversity over model count.
-      </Callout>
-
-    </div>
-  ),
+import { Code, H2, H3, Prose } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { Checkpoint, LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample';
+import { PredictionCombinationFigure, VotingComparisonLab, ErrorCancellationLab, BootstrapOwnershipLab, AdaBoostWeightsLab, OOFOwnershipLab, TimeOwnershipFigure, CalibratedAverageFigure, ContextInteractionFigure, EnsemblePredictionLab } from '../../components/lesson-labs/EnsembleMethodsLabs.jsx';
+import { ensembleExamples } from '../ensemble-methods-examples.js';
+
+function Example({ id, children }) {
+  const example = ensembleExamples.find(item => item.id === id);
+  return <><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={{ ...example, expected: example.output }}>{children}</RunnableExample></>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{question}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Explained solution</summary>{children}</details></section>;
+}
+
+export default {
+  title: 'Ensemble Methods & Stacking',
+  readTime: '~100 min read + 2–3 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot ensemble-lesson">
+    <LessonIntro prerequisites="Review how a linear/logistic model makes predictions and how a decision tree fits a split. We explain the required error, probability, covariance and held-out-fold reasoning here. Python is optional for the visual investigations; the complete programs use NumPy and scikit-learn." sections={[
+      ['1-several-forecasts-one-outcome', 'Data, predictions and decisions'], ['2-decide-what-to-combine', 'Averages, probabilities and votes'], ['3-find-errors-that-can-cancel', 'What averaging can guarantee'], ['4-follow-the-bootstrap-rows', 'Bagging and OOB eligibility'], ['5-make-the-next-fit-listen-to-different-rows', 'A worked AdaBoost update'], ['6-derive-the-vote-and-its-limits', 'Loss, training bounds and boundaries'], ['7-teach-a-combiner-with-unseen-row-predictions', 'Stacking and OOF ownership'], ['8-use-the-actual-library-contract', 'Shapes, refits and preprocessing'], ['9-preserve-groups-and-time', 'Blending and legal evaluation'], ['10-inspect-probabilities-and-real-fitted-rules', 'Calibration and prediction regions'], ['11-run-a-complete-comparison', 'A reproducible held-out report'], ['12-go-beyond-constant-combination-weights', 'Context, costs and applications'], ['13-practise-with-changed-data', 'Independent practice and next step']
+    ]}>Three forecasting rules disagree about when a shipment will arrive. One captures a broad trend, one remembers nearby cases, and one isolates unusual conditions. Should we average them, vote, or learn whom to trust? We will trace the numbers and the training data behind each choice, including cases where the combination loses.</LessonIntro>
+
+    <H2>1. Several forecasts, one outcome</H2>
+    <Prose>An <strong>ensemble</strong> is a prediction rule assembled from several fitted rules, called base models or members. It can combine different kinds of model or repeated fits of the same kind. The essential object is the final prediction function: give it a new observation, obtain its members' outputs, then combine those outputs using a specified rule.</Prose>
+    <PredictionCombinationFigure />
+    <Prose>For shipment forecasting, one row is one shipment. Its input features might include distance, departure time and conditions known at dispatch. A regression target is actual elapsed hours; a classification target could be whether arrival exceeded a promised deadline. The target becomes known later. Combining three predictions for that shipment does not turn it into three observations, and features recorded only after arrival are not legal dispatch-time inputs.</Prose>
+    <Prose><strong>Training</strong> estimates rules from labeled rows. <strong>Inference</strong> applies the saved rules to a new row without its target. Some ensembles also train a combination rule, so they need an additional data boundary inside training. We will make that boundary explicit. Keep a simple baseline throughout: the training mean for squared-error regression, or the training class frequency for probability forecasts. Also compare with the strongest individual candidate selected without using final test outcomes.</Prose>
+    <LessonTable caption="Three different ways to build the collection" headers={['Method', 'What changes between members?', 'How they combine']} rows={[
+      ['Bagging', 'Resample training rows, then fit members independently', 'Usually average numerical predictions or class probabilities'], ['Boosting', 'Fit the next member using the current ensemble’s loss information', 'Add weighted contributions sequentially'], ['Stacking', 'Fit different base rules and collect predictions on rows they did not train on', 'Train a second model on those predictions']
+    ]} />
+    <Prose>These are mechanisms, not a ranking. A stable, well-specified linear model may gain little from bagging. A weak or noisy base can harm a vote. A flexible stack can overfit its combination data. The practical question is whether a particular combination improves the chosen prediction task enough to justify its training, serving and maintenance costs.</Prose>
+    <LessonTable caption="Reserve each data role before comparing ensembles" headers={['Role', 'What it may teach', 'What it must not be used for']} rows={[
+      ['Training rows', 'Fit base models; create internal honest predictions for a combiner', 'Report their fitted loss as deployment performance'], ['Validation rows or outer folds', 'Choose members, weights, hyperparameters and action thresholds', 'Pretend repeated selection leaves the winning score untouched'], ['Final test rows', 'Evaluate the complete frozen choice once', 'Choose a better-looking combination afterward and reuse the same score as final']
+    ]} />
+
+    <H2>2. Decide what to combine</H2>
+    <Prose>For B numerical forecasts of the same outcome, a <strong>convex average</strong> uses nonnegative weights that sum to one. Each weight says how much of the output comes from that member. Equal weighting uses 1/B. All outputs must describe the same target in the same units.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\bar f(x)=\sum_{b=1}^{B}w_b f_b(x),\\w_b\geq0,\qquad\sum_b w_b=1.\end{gathered}`}</MathBlock>
+    <Prose>With predictions 6, 10 and 14 hours and weights ½, ¼ and ¼, the answer is 3+2.5+3.5=9 hours. It lies between the smallest and largest member predictions. A general linear combiner can have an intercept or negative coefficients and need not stay inside that interval. That extra freedom changes both its interpretation and its overfitting risk.</Prose>
+    <Prose>Classification offers two distinct choices. A <strong>hard vote</strong> combines class labels. A <strong>soft vote</strong> averages class probabilities and chooses the largest resulting probability. Probability columns must refer to the same labels in the same order. Adding one model's “spam” column to another's “ordinary mail” column is not a meaningful blend.</Prose>
+    <VotingComparisonLab />
+    <Prose>In the default example, hard voting yields two delay ballots out of three. Soft voting gives (0.51+0.51+0.01)/3≈0.3433, so the ordinary equal-cost decision is on time. Neither rule is automatically correct: no outcome has been supplied. The third model might carry strong evidence, or it might be confidently wrong. Validation must assess that distinction.</Prose>
+    <Prose>A <strong>margin</strong> is a signed score such as a linear classifier's distance-related decision value. It is not a probability just because a larger number favors class 1. A combiner can learn from margins, but their scales differ across models. Nor is a mean of arbitrary margins generally comparable to a probability mean. A probability forecast, a class label, a sample weight and a model coefficient are four different objects; keep their meanings separate.</Prose>
+    <Prose>A probability average mixes alternative forecasts of the same event. It is not the Naive Bayes operation of multiplying class-conditional likelihoods for measurements under a declared joint model. Several classifiers can reuse the same inputs and training data. Multiplying their posterior probabilities because they agree can count the same evidence or prior repeatedly; a principled probabilistic fusion needs its own joint assumptions and normalization.</Prose>
+    <Checkpoint prompt="Model A reports [on time=.8, delay=.2]. Model B reports [delay=.7, on time=.3]. What is the equal mean delay probability?">
+      <Prose>Align labels first: use A's .2 and B's .7, giving .45. Averaging the first entries gives .75, which mixes different events. With ordered classes [0,1] and an argmax tie convention, an exact .5 mean chooses class 0 in this lesson; cost-sensitive decisions can use a different rule.</Prose>
+    </Checkpoint>
+
+    <H2>3. Find errors that can cancel</H2>
+    <Prose>Suppose two models miss the same arrival by −2 and +2 hours. Their mean misses by zero. If both miss by +2, their mean still misses by +2. The useful diversity is therefore connected to <strong>errors on the target task</strong>, not merely different algorithm names or visibly different outputs.</Prose>
+    <ErrorCancellationLab />
+    <H3>A finite identity, before any probability assumptions</H3>
+    <Prose>Fix one row with observed target y. Write eᵦ=fᵦ−y and ē=Σwᵦeᵦ. Expand eᵦ=(eᵦ−ē)+ē, square it and average over members. The cross term vanishes because Σwᵦ(eᵦ−ē)=0. What remains is an exact accounting identity:</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\sum_b w_b e_b^2\\
+=\bar e^2+\sum_b w_b(e_b-\bar e)^2,\\
+\bar e^2=\text{mean member loss}\\
+-\text{weighted disagreement}.
+\end{gathered}`}</MathBlock>
+    <Prose>The disagreement term is nonnegative, so a convex mean's squared error is no larger than the weighted average of its members' squared errors. It need not beat the <em>best</em> member: if A is exact and B is wrong by 2 hours, their mean is wrong by 1 hour. The identity also holds after averaging over a fixed set of rows. It does not turn a weight chosen on those rows into an independently tested weight.</Prose>
+    <Prose>For two residual columns aᵢ and bᵢ, the mean residual is bᵢ+w(aᵢ−bᵢ). Minimizing its mean square is a one-variable quadratic. Its derivative is proportional to Σ[bᵢ+w(aᵢ−bᵢ)](aᵢ−bᵢ). Set that derivative to zero:</Prose>
+    <MathBlock>{String.raw`w_* = \frac{\sum_i b_i(b_i-a_i)}{\sum_i(a_i-b_i)^2}.`}</MathBlock>
+    <Prose>If the denominator is positive, clamp this answer to [0,1] when requiring a convex blend. A zero denominator means the two columns are identical on these rows and every weight gives the same fit. In the default four-row investigation, w*=4/9 and MSE=1/3 hours², compared with 4.5 and 3 for the members. These are fitted values for these rows, not a guarantee about future shipments.</Prose>
+    <Prose><strong>Optional Python setup.</strong> Save each complete program in its own file and run it with <Code>python filename.py</Code>. The later programs need <Code>python -m pip install numpy scikit-learn</Code> in your virtual environment. Outputs were executed with Python 3.12.14, NumPy 2.3.5 and scikit-learn 1.9.1. The standard-library Fraction example below keeps its rational arithmetic exact.</Prose>
+    <Example id="combination-arithmetic"><Prose>The identity separates cancellation from an improved member. The final two lines change the dependence assumption while holding each member's error probability fixed.</Prose></Example>
+    <H3>What the familiar correlation formula actually means</H3>
+    <Prose>Now hold an input x fixed and imagine repeating the training experiment. The fitted predictions become random variables. If every member has variance σ² and every distinct pair has covariance ρσ², expanding the variance of their average gives B variance terms and B(B−1) covariance terms:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\operatorname{Var}(\bar f)
+&=\frac{B\sigma^2+B(B-1)\rho\sigma^2}{B^2}\\
+&=\sigma^2\left[\rho+\frac{1-\rho}{B}\right].
+\end{aligned}`}</MathBlock>
+    <Prose>With independent members, ρ=0 and variance is σ²/B. With exact copies, ρ=1 and variance is unchanged. For σ²=4, ρ=.25 and B=4, it is 1.75; with B=20 it is 1.15. More members cannot remove the shared component in this equal-covariance model. For a finite B greater than one, a valid common correlation must satisfy ρ≥−1/(B−1); you cannot hold a fixed negative correlation while letting B grow without bound.</Prose>
+    <Prose>The formula's assumptions matter. Bootstrap learners share the observed dataset, so they are not independent unconditional training experiments. A correlation computed across different test rows is also not the same random object as covariance across repeated training sets at a fixed x. Error correlations on held-out rows are useful diagnostics, but an arbitrary threshold such as “drop every model above .85 correlation” has no universal justification.</Prose>
+    <Prose>If all members have the same expected prediction, averaging preserves that expectation and hence that particular bias. But a bagging procedure changes how training data are used; its bias need not equal the bias of fitting the original learner once. For squared loss, also distinguish reducible prediction variation from fresh outcome noise: if a new outcome is m(x)+noise independent of training, with conditional mean-zero noise, expected test squared error is squared bias plus prediction variance plus the noise variance.</Prose>
+    <Prose>For independent binary errors with probability p=.3, a three-member majority is wrong with probability 3p²(1−p)+p³=.216. Three copies of the same classifier are wrong with probability .3. This elementary calculation explains why the dependence assumption cannot be omitted from a “wisdom of crowds” claim. It is not a theorem that any collection of classifiers with accuracy above 50% will improve by voting.</Prose>
+
+    <H2>4. Follow the bootstrap rows</H2>
+    <Prose><strong>Bagging</strong>, short for bootstrap aggregating, fits a base learner repeatedly to samples drawn <em>with replacement</em> from the training rows. A draw can repeat one row and omit another. Repeats act like extra weight when the learner minimizes a sum of row losses. Once fitted, the members predict a new row independently and their outputs are combined.</Prose>
+    <Prose>With n training rows and m independent uniform draws, a designated row is missed on one draw with probability 1−1/n. It is absent from the whole bag with probability q=(1−1/n)ᵐ. Summing the inclusion indicators over all rows gives expected distinct count n(1−q). For m=n and large n, q approaches e⁻¹≈.368; “about 63.2% represented” is an expectation/limit, not an exact rule for each bag.</Prose>
+    <BootstrapOwnershipLab />
+    <Prose>In bag 1 the draws are A,A,C,D,D,F. The best displayed split is x≤2.5. Its left leaf predicts (1+1+2)/3=4/3 hours; its right predicts (6+6+8)/3=20/3. A appears twice in the fit. Bag 2 did not draw A, so that fitted model may give an <strong>out-of-bag</strong>, or OOB, prediction for A. Models that saw A may still predict a genuinely new shipment, but they cannot supply A's OOB prediction.</Prose>
+    <Prose>The split candidates are midpoints between adjacent distinct x values actually present in a bag. This detail affects predictions at omitted inputs. For bag 2, the gap is between represented x=2 and x=4, so its midpoint is 3. An arbitrary threshold elsewhere in that empty gap would fit the same training rows but need not predict an omitted x=3 the same way. The visual and complete native example use the stated midpoint convention.</Prose>
+    <Example id="bootstrap-oob"><Prose>The all-model prediction for A is about 1.6667 hours, while its OOB prediction is 2 hours from bag 2 alone. Neither number is a missing-value substitute for the other. With only a few random bags, a row may have no OOB vote at all; under independent random bags that probability is (1−q)ᴮ. Increasing B reduces that particular missing-vote risk, not every source of prediction error.</Prose></Example>
+    <H3>Why unstable trees are a natural fit</H3>
+    <Prose>A small change in training rows can change a tree's first split and therefore many later predictions. Averaging different fitted trees can reduce this sensitivity. A random forest also restricts candidate features at each split, which can reduce common behavior among trees while potentially weakening an individual tree. More independent behavior is useful only alongside useful individual predictions. The earlier Decision Trees lesson develops forest splits; here the resampling and combination contracts apply more broadly.</Prose>
+    <Prose>OOB estimates reuse the training dataset, with each row scored only by its eligible members. They can be economical, but model selection by repeatedly inspecting OOB results still spends evaluation information. Data preprocessing learned from all rows before bagging can also invalidate a claim that an OOB prediction excludes every influence of that row. Fit learned preprocessing inside the resampled estimator when the desired exclusion includes it. With repeated people or time dependence, a row bootstrap may target the wrong sampling unit altogether.</Prose>
+
+    <H2>5. Make the next fit listen to different rows</H2>
+    <Prose><strong>Boosting</strong> builds a sequence. Each round fits a simple rule using information about what the current collection gets wrong. AdaBoost supplies a particularly inspectable classification mechanism: it changes how much weight each training observation receives, then adds the new classifier with a vote strength determined by its weighted error.</Prose>
+    <Prose>Use labels yᵢ∈{'{−1,+1}'} and a weak classifier hₜ(x)∈{'{−1,+1}'}. A <strong>decision stump</strong> is a tree with one split. In one dimension it predicts one label to the left of a threshold and the other to the right. A learner with no useful edge on the current weighted task is not made useful merely by calling it “weak.”</Prose>
+    <Prose>Let Dₜ(i) be nonnegative row weights summing to one. Initially every row gets 1/n. Fit the stump to minimize the total weight of its mistakes. If it misses one row of weight .5 and correctly predicts five rows of weight .1 each, its error is .5, not 1/6. The probability-like weights describe an artificial distribution over these training rows, not the probability of their labels.</Prose>
+    <AdaBoostWeightsLab />
+    <H3>Work the first update by hand</H3>
+    <Prose>The six distinct cases have inputs 0,1,2,3,4,5 and labels −,−,+,+,−,+. The first selected stump predicts −1 through x=1.5 and +1 after it. Only E is wrong, so ε=1/6. Give the stump signed vote weight α=½ log[(1−ε)/ε]=½ log 5≈.804719. Multiply a correct row's weight by e⁻ᵅ=1/√5; multiply E's by eᵅ=√5.</Prose>
+    <Prose>Call each multiplied but not yet normalized weight uᵢ. Add them to get Zₜ, then divide each by that same total. This restores weights that sum to one:</Prose>
+    <MathBlock>{String.raw`\begin{gathered}u_i=D_t(i)e^{-\alpha_t y_i h_t(x_i)},\\
+Z_t=\sum_i u_i,\\
+D_{t+1}(i)=\frac{u_i}{Z_t}.
+\end{gathered}`}</MathBlock>
+    <Prose>Here Z=(5/6)/√5+(1/6)√5=√5/3. Each correct row becomes [(1/6)/√5]/(√5/3)=1/10. E becomes [(1/6)√5]/(√5/3)=1/2. The next stump therefore has a strong incentive to fix E, even if doing so sacrifices some now-smaller rows. The targets and feature values did not change; the fitting objective did.</Prose>
+    <Prose>Accumulate the votes Fₜ(x)=Fₜ₋₁(x)+αₜhₜ(x), starting with F₀=0. The final label is the sign of F. The lab declares that a zero vote chooses +1. At inference, a new row goes through each saved threshold and contributes its signed vote; no row weights need to be computed for that new row.</Prose>
+    <Example id="signed-adaboost"><Prose>This complete one-dimensional implementation explicitly stops at a perfect learner or when no learner has error below one half. It stores the thresholds and vote weights needed to predict new inputs. It also rejects invalid labels and unsupported input scales rather than silently converting arbitrary targets into signs.</Prose></Example>
+    <Prose>“Hard” cases are not necessarily mislabeled or inherently unpredictable. A high row weight may reflect a limitation of the chosen features, an inadequate stump class, an outlier, an annotation problem or an interaction that more rounds can represent. Inspect such rows with domain knowledge. Reweighting cannot resolve identical inputs with contradictory deterministic labels; adding more influence to noise can harm generalization.</Prose>
+
+    <H2>6. Derive the vote and its limits</H2>
+    <H3>Why this logarithm appears</H3>
+    <Prose>AdaBoost's update can be derived by reducing <strong>exponential loss</strong>, exp[−yF(x)]. A correct confident vote has positive yF and low loss. A wrong confident vote has negative yF and rapidly increasing loss. For a fixed candidate h and row distribution D, separate its correct mass 1−ε from wrong mass ε. Adding αh multiplies those losses by e⁻ᵅ and eᵅ respectively.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}Z(\alpha)&=(1-\epsilon)e^{-\alpha}+\epsilon e^{\alpha},\\
+Z'(\alpha)&=-(1-\epsilon)e^{-\alpha}+\epsilon e^{\alpha},\\
+Z'(\alpha)=0&\ \Longrightarrow\ e^{2\alpha}=\frac{1-\epsilon}{\epsilon}.
+\end{aligned}`}</MathBlock>
+    <Prose>For 0&lt;ε&lt;1, this positive, strictly convex function has the unique minimizer α=½ log[(1−ε)/ε]. A positive vote requires ε&lt;½. If ε=.5, α=0 and the fit does not improve this loss. At ε=0, the infimum is approached as α grows without bound; there is no finite minimizer. Our simple implementation returns the perfect classifier, corresponding to a limiting dominant vote. This boundary policy is explicit and is not the same as every library's finite stored coefficient.</Prose>
+    <Prose>Multiplying the unnormalized row updates from round 1 through T gives Dₜ₊₁(i)=exp[−yᵢFₜ(xᵢ)]/[n∏Zₜ], because the initial weight was 1/n. Sum over i and use ΣDₜ₊₁(i)=1. Therefore the mean exponential training loss equals ∏Zₜ. Every misclassified row has yᵢFₜ≤0, hence loss at least one, so its error indicator is bounded by that loss.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\text{training error}\leq\prod_{t=1}^{T}Z_t,\\
+Z_t=2\sqrt{\epsilon_t(1-\epsilon_t)}\\
+=\sqrt{1-4\gamma_t^2}\leq e^{-2\gamma_t^2},\\
+\gamma_t=\tfrac12-\epsilon_t.
+\end{gathered}`}</MathBlock>
+    <Prose>The last inequality follows from log(1−u)≤−u for 0≤u&lt;1. If every accepted round has a uniform edge γₜ≥γ&gt;0, training error is at most exp(−2Tγ²). Merely saying every εₜ is below .5 does not supply a uniform rate. Edges can shrink so quickly that Σγₜ² stays finite; then this bound need not approach zero. The distinction is a hypothesis in the argument, not pedantry about notation.</Prose>
+    <Prose>These statements concern the training rows and the unshrunk signed update just derived. They do not guarantee test performance, calibration or robustness. With learning-rate shrinkage η&lt;1, use α'=ηα; the actual normalizer is (1−ε)e⁻ᵅ′+εeᵅ′, not automatically 2√[ε(1−ε)]. The product identity still follows from the actual updates. Margin-based generalization analysis needs additional capacity/probability assumptions; a positive or increasing training margin alone is not a test certificate.</Prose>
+    <H3>Binary signed votes versus the current library</H3>
+    <Prose>scikit-learn 1.9.1's <Code>AdaBoostClassifier</Code> implements discrete SAMME. For K classes its stored coefficient is η·(log[(1−ε)/ε]+log(K−1)), with an admissible weak learner better than error 1−1/K. In the nondegenerate binary case at η=1, that coefficient is twice the signed α used above. SAMME multiplies only wrong rows by eᵝ before normalization; this gives the same normalized row weights as multiplying correct/wrong rows by e⁻ᵅ/eᵅ when β=2α. That equivalence does not assert identical probability mappings or identical behavior at ε=0.</Prose>
+    <Example id="api-conventions"><Prose>The first three native errors agree with the worked trace. The program also checks the stacking output-column contract that section 8 explains. Old examples passing <Code>algorithm='SAMME.R'</Code> do not describe this tested version; API names and probability conversions must be checked against the installed implementation.</Prose></Example>
+    <details className="ensemble-deeper"><summary>Run the full NumPy tree-and-stump comparison</summary>
+      <Prose>The following complete program implements bootstrap classification trees and binary AdaBoost, rather than delegating the fits to scikit-learn. It generates 300 noisy circle observations, uses 225 for training and 75 for testing, and applies a fixed 50-member comparison. Its finite error clipping is an implementation convention to avoid log(0); the explicit-boundary program above explains the mathematical endpoints.</Prose>
+      <Example id="full-numpy-comparison"><Prose>The measured accuracies are .7600 and .9333 on this particular generated test split. The first AdaBoost alpha is .3667; that is not the alpha for the separate six-case ε=1/6 lab. The algorithms use different base capacities here—depth-three trees versus stumps—so the comparison cannot isolate one universal causal advantage of boosting or bagging.</Prose></Example>
+    </details>
+    <Prose>Gradient boosting generalizes the “fit a correction” idea to other differentiable losses by fitting negative loss gradients. Under squared loss those corrections are residuals. Its detailed objectives, regularization and tree systems belong with the earlier Gradient Boosting topic; the explicit row-reweighting and loss derivation here provide a bridge without treating every boosting algorithm as AdaBoost.</Prose>
+
+    <H2>7. Teach a combiner with unseen-row predictions</H2>
+    <Prose>A stack treats base predictions as a new feature vector. If base A forecasts 7 hours and base B forecasts 9, the meta row is [7,9], with the original observed arrival time as target. A regression combiner might learn an intercept and slopes, or simply a constrained combination weight. A classification combiner can learn a logistic probability from base scores. The second model is called a <strong>meta-learner</strong>.</Prose>
+    <Prose>The trap is to train both levels on the bases' own fitted predictions. A one-nearest-neighbor regressor returns each training target exactly, giving a seemingly perfect meta column. On genuinely new rows it must use another row's target. The combiner trained on memorized targets therefore learns from a different prediction process than the one it will use at inference.</Prose>
+    <Prose><strong>Out-of-fold</strong> (OOF) predictions repair that specific training ownership problem. Partition training indices into K held-out groups, or folds. For one fold, fit a fresh copy of each entire base pipeline using only the other folds, predict the held-out rows, and place those predictions in their original row positions. Repeat until each eligible row has one held-out prediction per base. Only then fit the combiner to this complete matrix and the targets.</Prose>
+    <OOFOwnershipLab />
+    <Prose>For fold {'{A,D}'}, the permitted training rows are B,C,E,F. A's nearest available neighbor is B, so its prediction is 2 hours, not its own target of 1. A least-squares line fitted to B,C,E,F gives A −.35 hours and D 4.75. The negative value is a valid unconstrained line output; a real duration application may need a target transform or nonnegative model, chosen and fitted within the same protocol.</Prose>
+    <Prose>All six OOF rows produce a convex nearest-neighbor weight about .228273. In the explicitly leaking mode, the nearest column equals every target and the chosen weight becomes 1. This example establishes the mechanism of leakage; it does not imply every low training error or large validation gap proves leakage.</Prose>
+    <H3>The second fit happens before inference</H3>
+    <Prose>After learning the combiner, refit each base pipeline on all training rows. Keep the combiner trained on the OOF matrix. For a new x=2.5, the full-data nearest model gives 2, the full-data line gives 4.333333, and the stored combination gives about 3.800695 hours. Do not retrain the combiner on these bases' now-in-sample training predictions; that would undo the exclusion you just created.</Prose>
+    <Example id="manual-oof"><Prose>The complete loop uses fresh cloned estimators, asserts disjoint fit/prediction indices, and checks that every row is filled exactly once. Its new-row targets are a separate worked check. The reported .055445 versus 1.5 MSE belongs to those three chosen rows; it is not a population performance estimate.</Prose></Example>
+    <Prose>OOF bases use fewer rows than the final full-data refits. Their score distribution may differ from the final score distribution. More folds can reduce that training-size mismatch but increase work, and do not make small meta datasets immune to noise. Similar base columns can make unrestricted coefficients unstable. Regularization, constrained weights, simpler combiners and fewer redundant members are options to evaluate, rather than universal prescriptions.</Prose>
+    <Checkpoint prompt="With 225 training rows, five equally sized folds and three scalar-output bases, what is the OOF matrix shape? How many rows does each fold-specific base fit use?">
+      <Prose>The matrix is 225×3: every row receives one held-out prediction from each base. A fold-specific base fit uses 180 rows and predicts 45. Final bases are then refitted on all 225. Confusing a fold's fit size with the matrix row count would discard 45 valid meta rows or misdescribe their provenance.</Prose>
+    </Checkpoint>
+
+    <H2>8. Use the actual library contract</H2>
+    <Prose>A library can automate the loop without changing its data requirements. In the tested <Code>StackingClassifier</Code>, base estimators are fitted on all supplied training rows for future inference; <Code>cross_val_predict</Code> constructs the predictions used to fit the final estimator. The <Code>cv</Code> argument controls that internal construction. It is not an outer estimate of the whole stack's performance.</Prose>
+    <H3>What reaches the final estimator</H3>
+    <dl className="ensemble-api-contract">{[
+      ['stack_method="auto"', 'Try predict_proba, then decision_function, then predict for each base', 'Different bases can contribute different kinds of score'], ['Binary predict_proba', 'Drop the first probability column from each such base', 'p0=1−p1 is redundant; three binary probability bases give three columns'], ['Multiclass predict_proba', 'Keep the class-probability columns', 'Track their class order and the resulting feature count'], ['passthrough=True', 'Append original features to base-prediction features', 'The meta-model sees more information, with additional scaling and overfitting concerns'], ['cv="prefit"', 'Use already fitted bases; supplied rows train the combiner', 'Honesty requires separate base-fit data; the API does not create that boundary'], ['transform(X)', 'Return predictions from saved full-data base fits', 'On training X, this is not the original OOF matrix']
+    ].map(([setting, meaning, consequence]) => <div key={setting}><dt>{setting}</dt><dd>{meaning}. <strong>{consequence}.</strong></dd></div>)}</dl>
+    <Prose>The API program in section 6 pairs GaussianNB with a scaled LinearSVC. The first contributes its class-1 probability, the second a decision margin, so the transformed binary matrix has two columns. It asserts those columns against the actual saved estimators. A mixed stack does not average those incompatible quantities directly: the trained final estimator interprets them as features. Scaling or regularization at that level must also be fitted in the correct training workflow.</Prose>
+    <H3>Preprocessing is part of a model fit</H3>
+    <Prose>Suppose a scaler is fitted once on all rows before an OOF loop. A held-out row then influenced the feature mean and variance used by its base model, even though its target was excluded. Target encoding, supervised feature selection and imputation can create stronger leakage. Put each learned transformation inside the base pipeline passed into the OOF construction. Clone that whole pipeline for each fold. Deterministic transformations that learn nothing from data, such as converting meters to kilometers by a fixed factor, have a different ownership requirement.</Prose>
+    <Prose>All learned choices in an honest evaluation must fit inside its training boundary. If you use an outer fold to assess the stack, base preprocessing, hyperparameter selection, OOF construction and meta-fitting must use only that outer training part. Choosing a base family using the outer test fold and then calling only the inner OOF loop “leak-free” does not restore the evaluation. The complete comparison below uses fixed candidate specifications, internal OOF construction, a validation choice and a separate test report.</Prose>
+
+    <H2>9. Preserve groups and time</H2>
+    <Prose>A row-wise random fold answers a particular question: how well might the workflow predict another exchangeable row from the same kind of population? For repeated users or machines, adjacent rows can share information unavailable for a new entity. For future forecasting, random folds can let a base use future targets to predict earlier times. Valid training indices depend on the deployment question, not on the number of folds alone.</Prose>
+    <TimeOwnershipFigure />
+    <Prose>In a forward-only construction, each prediction block is later than its fit block. The initial training prefix has no earlier fit that can predict it. Leave those meta cells unavailable and train the combiner only on covered rows. If labels arrive after a delay, the allowed fit set must also respect label availability; a time gap may be required. A group-safe split instead excludes every row of the held-out group. These address different questions and may both be needed.</Prose>
+    <Example id="forward-group-oof"><Prose>The time example fits on rows 0–2 to predict 3–5, then expands its training prefix. Rows 0–2 never receive a forward prediction and are excluded from meta-fitting. The independent group example covers all 12 rows while keeping each two-row group wholly outside its fold's fit. Neither construction claims to solve every dependent-data problem.</Prose></Example>
+    <Prose>The tested stack's internal <Code>cross_val_predict</Code> requires its test folds to form a partition of the supplied samples. A usual expanding-window <Code>TimeSeriesSplit</Code> leaves an initial prefix uncovered, so passing it directly is not a general solution. The explicit loop above keeps the missingness and inference refits visible. Do not fill uncovered cells with predictions from a model that trained on those same rows.</Prose>
+    <H3>Blending is a simpler ownership tradeoff</H3>
+    <Prose>In a holdout <strong>blend</strong>, reserve one training subset for fitting bases and a disjoint subset for fitting the combiner from those bases' predictions. This can be easier to implement than K-fold stacking, but leaves fewer rows for each role. Keep another independent evaluation set. If you subsequently refit bases on all data, their outputs may shift relative to those used to train the combiner; that changed workflow needs evaluation. OOF stacking uses each training row as a meta target while creating its base features from other rows, at additional fitting cost.</Prose>
+    <Prose>A large cross-validation score followed by a poor test score is an alarm, not a diagnosis. Check duplicate/group/time leakage, mismatched preprocessing, distribution change, repeated tuning, small-sample variation and target definitions. Uniform-looking combination weights do not by themselves imply useless stacking either: a logistic final model applies coefficients and a nonlinear link, not necessarily a convex probability average.</Prose>
+
+    <H2>10. Inspect probabilities and real fitted rules</H2>
+    <Prose>A well-calibrated probability forecast p has event rate p among comparable cases assigned that probability. Accuracy asks whether decisions are correct. Brier loss and log loss assess probability forecasts under proper scoring rules. These properties are related, but no one is identical to the others, and averaging probabilities does not automatically preserve calibration.</Prose>
+    <CalibratedAverageFigure />
+    <Prose>Here A and B are independent fair binary signals and the true event probability given both is (A+B)/2. A forecaster knowing only A reports .25 when A=0 and .75 when A=1: averaging over unknown B verifies those rates exactly. The B forecaster is calibrated for the same reason. But their mean reports .25 only at (A,B)=(0,0), where the event chance is zero; it reports .75 only at (1,1), where the chance is one. At mean .5, the chance is .5. Thus both members are calibrated while their mean is not.</Prose>
+    <Example id="calibrated-average"><Prose>Despite that calibration defect, averaging lowers exact Brier risk from 3/16=.1875 for either member to 5/32=.15625. For a fixed binary outcome, (p−y)² is convex in p; a convex probability average cannot have Brier loss above the weighted mean member loss. Convexity of −log also gives the analogous probability-average log-loss inequality where losses are defined. Neither inequality promises calibration or a loss below the best member.</Prose></Example>
+    <Prose>Naive Bayes can be a fast, useful ensemble member, but repeated dependent evidence can make its probabilities overconfident. Another model's less extreme output might improve a mean, or the overconfident member might dominate it harmfully. Obtain calibration data from predictions produced without fitting those outcomes, calibrate the workflow you will actually serve, and evaluate that workflow independently. Do not use the final test labels to choose a probability mapping or action threshold.</Prose>
+    <EnsemblePredictionLab />
+    <Prose>The line's boundary differs from the tree's axis-aligned regions and the neighbor model's local boundary. Their probability mean smooths some extremes, but also injects the line's weak signal into a strong neighbor fit. The stack can learn a different response to those outputs. The displayed field comes from saved native fits; a smooth-looking color surface does not establish calibration, a trustworthy uncertainty interval or superior prediction.</Prose>
+
+    <H2>11. Run a complete comparison</H2>
+    <Prose>Now evaluate the entire workflow on a controlled generated task. Each row has two numeric features and a binary circle label. The split is stratified into 216 training, 72 validation and 72 test rows. Candidate specifications and random seeds are fixed before fitting: a scaled logistic model, depth-four tree, scaled nine-neighbor model, equal soft vote, OOF logistic stack and class-prior baseline. The stack uses three shuffled stratified internal folds, with each learned base transformation inside its own pipeline.</Prose>
+    <Prose>Fit candidates only on training rows, select by validation log loss, then select an action threshold on validation for the selected candidate. Finally report the frozen candidates and the selected action on test rows. The action cost here is hypothetical: each false positive costs 1 unit and each false negative costs 4. This is an explicit decision exercise, not an estimate of a real organization's financial benefit.</Prose>
+    <Example id="held-out-comparison"><Prose>Validation log loss selects the neighbor rule: .133590 versus .143809 for the stack. The test log losses are .181329 and .198805, respectively. The stack nevertheless has slightly lower test Brier loss, .055232 versus .056927, illustrating that different losses need not rank models identically. The prior baseline's log loss is .693147. These are finite measurements with specified code, data and split.</Prose></Example>
+    <H3>Read the decision report without changing the experiment</H3>
+    <Prose>The selected validation threshold is .555556. The program predicts class 1 when p≥threshold, using a declared tie rule. On its test rows, the confusion matrix has 31 true negatives, 5 false positives, no false negatives and 36 true positives. The hypothetical total cost is 5+4·0=5. This action is distinct from <Code>predict</Code>'s ordinary class argmax used for each model's reported accuracy.</Prose>
+    <Prose>If p were the correct conditional event probability and costs were known, acting positive has expected cost C_FP(1−p), while acting negative has cost C_FN p. Choose positive when p≥C_FP/(C_FP+C_FN), here .2. A finite validation-selected threshold can differ because probabilities are imperfect, validation is finite and available probability values are discrete. Selecting .555556 does not prove that .2 is mathematically wrong or that the chosen probabilities are calibrated.</Prose>
+    <Prose>The tree's test accuracy is .875 while its log loss is 2.227753. Leaf probabilities can be zero or one, so confidently wrong cases receive large log-loss penalties. The library clips probabilities for a finite numerical loss; its exact magnitude depends on the numeric contract. Inspect these cases rather than concluding that accuracy or log loss is broken. Report group or temporal slices relevant to the actual data, and use a valid uncertainty assessment if drawing population conclusions. One 72-row test set cannot settle a production decision alone.</Prose>
+
+    <H2>12. Go beyond constant combination weights</H2>
+    <H3>A context column is not automatically a context-dependent slope</H3>
+    <Prose>A linear meta-model of the form β₀+βₐpₐ+βᵦpᵦ+γz gives fixed coefficients to the base predictions. The added context z shifts the output, but does not change the slope on pₐ. To let context alter a base's weight, supply an interaction such as z·pₐ, use a suitable nonlinear combiner, or explicitly build a gating function. Each choice introduces an additional fitting and evaluation problem.</Prose>
+    <ContextInteractionFigure />
+    <Prose>Consider a constructed task with target (1−z)pₐ+zpᵦ. At z=0 it equals A; at z=1 it equals B. A plain linear model with features [1,pₐ,pᵦ,z] cannot match both slopes for all possible pₐ,pᵦ. With product features [(1−z)pₐ,zpᵦ], coefficients [1,1] express it exactly. For pₐ=.2,pᵦ=.8 and z=.25, the result is .75·.2+.25·.8=.35.</Prose>
+    <Example id="context-interactions"><Prose>The eight-row construction fits the product model exactly and leaves MSE .125 for the constant-slope model. This is a representational example, not a measured improvement on real data. Feature-weighted linear stacking develops this idea with multiple meta features and learned coefficients, which need honest base predictions and enough data to estimate interactions reliably.</Prose></Example>
+    <H3>Where this distinction becomes useful</H3>
+    <Prose>For a recommender, a content-based score can be available for a new item while a collaborative score may become informative after enough interactions. Interaction count is a plausible context feature. At recommendation time it must count only already observed interactions, not the item's eventual lifetime activity. A time- and entity-aware evaluation should distinguish new-item from familiar-item recommendations. The next Recommender Systems lesson develops the underlying score models; this lesson explains how their combination could be trained and what would invalidate its evidence.</Prose>
+    <Prose>For sensor forecasting, members can use different measured inputs—one a physical baseline, another recent local measurements. Disagreement can identify cases worth inspecting or requesting another measurement. It is not a calibrated uncertainty interval: correlated model errors can make every member confidently agree on a wrong value, and differences in scale can create disagreement without useful new information. Any abstention or acquisition policy needs its own cost and held-out evaluation.</Prose>
+    <Prose>For annotating a large unlabeled collection, a committee can nominate disputed rows for human labeling. This can spend annotation effort on decision boundaries, but may also repeatedly select noisy or out-of-distribution cases. Labels collected adaptively are not an ordinary random test set. Keep an independently sampled evaluation population and record which selection policy produced the training data.</Prose>
+    <H3>Training and serving work have different counts</H3>
+    <Prose>With B bases and K OOF folds, the usual stack performs BK fold-specific base fits, B full-data base fits and one meta fit. If n rows are equally partitioned, each fold fit uses n(K−1)/K rows. Under an illustrative linear-cost-per-row assumption, total base row processing is BK·n(K−1)/K+Bn=BKn. Real tree, kernel and neighbor costs differ, so this count is not a universal wall-clock complexity formula.</Prose>
+    <Prose>Inference ordinarily evaluates B saved base pipelines and one meta-model, not all K fold copies. Sequential latency is roughly the sum of the base latencies plus combination and overhead; parallel latency is bounded by the slowest branch plus scheduling/communication and may compete for memory or cores. Measure the actual batch size, hardware and tail latency. An extra model is worthwhile only if its marginal held-out benefit justifies the measured cost.</Prose>
+    <Prose>A simpler deployed student can be trained to imitate an ensemble's scores, a process often called distillation. The student's features and capacity may prevent it from reproducing the teacher, so no fixed “within one percent” accuracy promise follows. Compare the student, teacher and baseline under the same honest test protocol, including probability quality, latency and relevant subgroups. Keep model versions, class-column order, transformations and base/meta compatibility together when saving a stack.</Prose>
+
+    <H2>13. Practise with changed data</H2>
+    <Prose>Work from the changed inputs before opening a hint. Each solution explains the inference or data boundary as well as the result. The final exercise is a complete reporting task with an executed reference run; changing the seed alone is not a substitute for understanding why an outcome can reverse.</Prose>
+    <Practice title="A. A weighted vote and its tie" question="Three aligned class-1 probabilities are .8, .4 and .3 with relative model weights 1,1,2. Calculate the hard-vote share, mean probability and decisions. Then change A to .9." hint="Normalize by total weight 4. Member labels use their individual .5 comparison; an exact final tie chooses class 0.">
+      <Prose>Only A votes 1, so hard share is 1/4 and the hard decision is 0. The mean is (.8+.4+2·.3)/4=.45, also class 0. Changing A to .9 gives .475, still class 0; it does not change the hard share. For a final soft tie, A would need 1.0: (1+.4+.6)/4=.5, with declared tie class 0. None of these decisions establishes outcome correctness.</Prose>
+    </Practice>
+    <Practice title="B. Fit a changed cancellation weight" question="On two validation rows, A has residuals [−2,2] hours and B has [1,1]. Find the best convex A weight and combined MSE. Does adding B help an A that instead has residuals [0,0]?" hint="The combined errors are 1−3w and 1+w. Expand their mean square, then differentiate.">
+      <Prose>The objective is [(1−3w)²+(1+w)²]/2=1−2w+5w². Its minimum is w=.2, inside [0,1], with residuals [.4,1.2] and MSE .8 hours². The member MSEs are 4 and 1. If A is exact, weight 1 has loss zero; forcing equal weights with B creates .25 hours² loss. Fit weights on permitted combination data and test them elsewhere.</Prose>
+    </Practice>
+    <Practice title="C. Separate correlation and copying" question="At a fixed query, four random fitted predictions each have variance 9 and every pair has correlation 1/3. Find the average variance. Could the same common correlation be −.5 for these four variables?" hint="Count four variance terms and twelve ordered covariance terms. Variance cannot be negative.">
+      <Prose>The average variance is 9[1/3+(2/3)/4]=4.5. Correlation −.5 would give 9[−.5+1.5/4]=−1.125, impossible. For B=4 the lower common-correlation bound is −1/3. This is a statement about a valid joint law across training experiments, not a correlation heatmap measured across unrelated inputs.</Prose>
+    </Practice>
+    <Practice title="D. A smaller bag and missing votes" question="Five rows are sampled uniformly with replacement using three draws per bag. Find a designated row's absence probability, expected distinct count, and probability that neither of two independent bags is eligible for that row's OOB prediction." hint="First calculate q=(4/5)³. A bag is ineligible if it includes the row.">
+      <Prose>q=64/125=.512. Expected distinct rows are 5(61/125)=61/25=2.44. Neither of two independent random bags is eligible with probability (61/125)²=3721/15625≈.238144. In that event the OOB prediction is unavailable. Substituting the all-model training prediction changes the quantity being evaluated.</Prose>
+    </Practice>
+    <Practice title="E. Update different weak errors" question="For signed AdaBoost, calculate α for ε=.3 and ε=.45. After each optimal normalized update, what total mass sits on the rows this stump got wrong? What happens at ε=.5 and ε=0?" hint="The wrong mass after the update is εeᵅ/Z; substitute Z=2√[ε(1−ε)].">
+      <Prose>The coefficients are ½log(7/3)≈.423649 and ½log(11/9)≈.100335. In either nondegenerate case, the normalized wrong mass is exactly .5. That does not say half the rows are wrong, nor that the accumulated ensemble's error becomes .5. At .5 the coefficient is zero and there is no positive edge. At zero there is no finite minimizing coefficient; use an explicitly specified stopping policy.</Prose>
+    </Practice>
+    <Practice title="F. A bound with shrinking edges" question="Suppose accepted rounds have edge γₜ=1/[4(t+1)] for t≥1. Does the training-error bound derived above guarantee a uniform exponential decrease to zero?" hint="Its exponent is −2Σγₜ². Compare the squared terms with a convergent series.">
+      <Prose>No. Every edge is positive, but there is no positive lower bound shared by all rounds. The sum is (1/16)Σₜ₌₁∞1/(t+1)², which is finite. Thus exp(−2Σγₜ²) approaches a positive number, so this upper bound does not establish convergence to zero. The actual training error might still improve; lack of a guarantee is not proof of failure.</Prose>
+    </Practice>
+    <Practice title="G. Repair an OOF row" question="Eight training rows are divided into folds {A,C}, {B,D}, {E,G}, {F,H}. A base predicts A after training on A,B,D,E,F,G,H. What is wrong, which rows are legal for that fold, and what is the complete matrix shape for three scalar-output bases?" hint="Exclude every destination in the held-out fold, not merely the other member of that fold.">
+      <Prose>The prediction trained on A's own target. The correct fit rows are B,D,E,F,G,H, excluding both A and C; predict both held-out rows with those fitted bases. The completed matrix is 8×3, not 6×3. Fit the combiner on that matrix and targets, then refit the bases on all eight for inference. A later <Code>transform</Code> of the eight rows uses full-data refits and must not be relabeled OOF.</Prose>
+    </Practice>
+    <Practice title="H. Time and entity ownership" question="A machine contributes hourly rows. You want performance on an unseen machine next month. A shuffled row split holds out some hours from every machine, then a scaler is fitted globally before stacking. Identify the problems and propose the evaluation boundary." hint="There are three separate questions: which entities, which times and which rows teach preprocessing.">
+      <Prose>The shuffled split permits information about the same machine across fit/test, future times can influence earlier fits, and the global scaler learns from evaluation rows. Choose an outer test containing later observations from machines absent from training. Within outer training, create meta predictions respecting the corresponding entity/time/label-availability constraints; fit preprocessing inside each permitted fit. Some early rows may have no valid prediction and remain excluded from meta-fitting. The exact split must match how new machines are encountered; a generic GroupKFold alone does not enforce time order.</Prose>
+    </Practice>
+    <Practice title="I. Calibration is not preserved by an average" question="In the fair-signal law, condition on mean forecast .75 and on mean forecast .5. What are the actual event rates? Why can the average nevertheless have lower Brier risk?" hint="List which signal pairs produce each mean. Then use the squared-loss averaging identity for each binary outcome.">
+      <Prose>Mean .75 occurs only at (1,1), with true rate 1. Mean .5 occurs at (0,1) or (1,0), both with rate .5. The mean is therefore not calibrated at .75. Convex averaging reduces loss relative to the average member loss pointwise, and averaging that identity over the exact law yields risk 5/32 instead of 3/16. Calibration and one proper-loss comparison are distinct properties.</Prose>
+    </Practice>
+    <Practice title="J. Make the context affect a slope" question="For base values A=4, B=10 and context z=.3, calculate (1−z)A+zB. Can β₀+βₐ A+βᵦ B+γz express this target for every A,B,z?" hint="Look at the coefficient on A when z changes from 0 to 1, not only the output at one chosen row.">
+      <Prose>The output is .7·4+.3·10=5.8. No fixed βₐ can equal both 1 at z=0 and 0 at z=1 for all A. Product features or a suitable nonlinear representation are required. A model might fit a small correlated sample approximately without representing the all-input relation; demonstrate transfer with changed rows, not only training fit.</Prose>
+    </Practice>
+    <Practice title="K. Account for training and serving" question="Use four bases, five folds and 1000 training rows. Count base fits, rows per fold fit and row processing under the stated linear-cost assumption. Base serving times are 3,8,2,5 ms and meta time is 1 ms; give ideal sequential and ideal parallel totals before overhead." hint="There are fold fits and final full-data fits. Serving ordinarily uses only the full-data models.">
+      <Prose>There are 20 fold-specific plus 4 full-data base fits, each fold fit using 800 rows. Row processing is 20·800+4·1000=20,000, plus meta fitting. Sequential serving totals 19 ms; ideal parallel branches plus meta total 9 ms. Actual overhead, resource contention, batching and tail latency can change both. There are four served base models and one meta-model, not twenty fold models.</Prose>
+    </Practice>
+    <Practice title="L. Complete a changed experimental report" question="Run the complete comparison with seed 83, noise .20 and the tree omitted from both ensemble candidates. Keep all split seeds, validation selection and cost rules fixed. Report baselines, the selected candidate, the test losses and action cost. Decide what this does and does not show." hint="Choose by validation first. A surprising test ranking is not permission to choose a different winner on those same test outcomes.">
+      <Example id="changed-protocol"><Prose>An accepted run selects neighbor by validation log loss .271679 versus stack .301336. On test, neighbor log loss is 1.243178 while stack is .329349 and the equal soft vote .462221; the prior baseline is .693147. Neighbor and stack both have accuracy .888889, yet different confidence errors create very different log loss. The chosen threshold is .333333 and test confusion is [[21,15],[1,35]], giving cost 15+4·1=19.</Prose></Example>
+      <Prose>This shows that a validation winner can lose on a finite test set, and that probability and decision metrics tell different parts of the story. It does not establish that the stack is universally preferable, that the test is invalid or that a particular probability is calibrated. Record the result, investigate the confidently wrong cases, and use a new valid evaluation design for further model choices. If changing the cost assumptions or split policy, state them before looking at the new test outcomes.</Prose>
+    </Practice>
+    <Prose><strong>Ready to continue:</strong> you can name the quantity each member contributes, trace which rows produced each fitted prediction, derive one update or combination by hand, and distinguish a measured gain from a guarantee. Next, <strong>Recommender Systems</strong> develops collaborative and content-based scores. Their different information sources make combination useful to investigate, with cold-start, time and entity boundaries that must remain explicit.</Prose>
+
+    <Sources alternatives={<><Prose>For another explanation, choose the resource that matches your current question. These supplement the complete derivations and runnable examples here.</Prose><ul>
+      <li><a href="https://youtu.be/pvZ3ZhlmDCE" target="_blank" rel="noreferrer">Herman Kamper: Bagging</a> and <a href="https://youtu.be/Vixw2DOUGec" target="_blank" rel="noreferrer">AdaBoost step by step</a>, followed by <a href="https://youtu.be/wbmuqXbUFGM" target="_blank" rel="noreferrer">the update details</a>. Short instructor-led visual alternatives, paired with his <a href="https://www.kamperh.com/data414/notes/17_ensemble_methods_notes.pdf" target="_blank" rel="noreferrer">ensemble notes</a>. The course index and corresponding algorithm/formula notes were reviewed; the full recordings were not watched. His binary signed coefficient matches our worked derivation, while library conventions require the separate API check.</li>
+      <li><a href="https://cs229.stanford.edu/extra-notes/boosting.pdf" target="_blank" rel="noreferrer">John Duchi's CS229 boosting notes</a> give a more mathematical route through exponential loss and weak-edge assumptions. Read after sections 5–6; the local derivative and product argument supply the needed bridge.</li>
+      <li><a href="https://www.stat.cmu.edu/~cshalizi/sml/21/lectures/17/lecture-17.html" target="_blank" rel="noreferrer">Cosma Shalizi's Model Averaging lecture</a> provides a written alternative for combining predictions and understanding model-selection uncertainty. Use it to revisit why choosing one best-looking fit is itself uncertain.</li>
+    </ul></>}>
+      <li><a href="https://www.stat.berkeley.edu/~breiman/bagging.pdf" target="_blank" rel="noreferrer">Breiman, Bagging Predictors</a>: original bootstrap aggregation and learner-stability motivation. Its empirical examples are not benchmarks for the new synthetic data above.</li>
+      <li><a href="https://proceedings.neurips.cc/paper_files/paper/1994/file/b8c37e33defde51cf91e1e03e51657da-Paper.pdf" target="_blank" rel="noreferrer">Krogh and Vedelsby on ensembles and disagreement</a>: context for the squared-error decomposition derived here, with its target and weighting assumptions.</li>
+      <li><a href="https://www.schapire.net/papers/explaining-adaboost.pdf" target="_blank" rel="noreferrer">Schapire, Explaining AdaBoost</a> and <a href="https://www.schapire.net/papers/FreundSc99.pdf" target="_blank" rel="noreferrer">Freund–Schapire's introduction</a>: the signed algorithm, training-error bounds, weak-learning conditions and generalization distinctions.</li>
+      <li><a href="https://doi.org/10.1016/S0893-6080(05)80023-1" target="_blank" rel="noreferrer">Wolpert, Stacked Generalization</a>: original attribution for stacking; the current implementation contracts are checked against the accessible documentation and actual programs below.</li>
+      <li><a href="https://arxiv.org/pdf/0911.0460" target="_blank" rel="noreferrer">Sill and colleagues, Feature-Weighted Linear Stacking</a>: context-prediction products and their fitting protocol. Our eight-row example isolates the representational mechanism rather than reusing a reported competition result.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/ensemble.html" target="_blank" rel="noreferrer">scikit-learn ensemble guide</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.StackingClassifier.html" target="_blank" rel="noreferrer">StackingClassifier</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html" target="_blank" rel="noreferrer">cross_val_predict</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html" target="_blank" rel="noreferrer">AdaBoostClassifier</a>: API signatures, class-column handling, internal folds, full refits and discrete SAMME. Documentation and installed 1.9.1 behavior were checked on 11 September 2026; future versions may change defaults.</li>
+    </Sources>
+  </div>,
 };
-
-export default ensembleMethodsContent;

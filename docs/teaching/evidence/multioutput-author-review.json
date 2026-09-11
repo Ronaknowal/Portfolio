@@ -1,0 +1,1023 @@
+{
+  "timestamp": "2026-09-11T13:59:19.553660+00:00",
+  "topicId": "multi-label-multi-output-learning",
+  "status": "author verified; independent review and parent integration remain separate",
+  "sourceCount": 7,
+  "sourceHashes": {
+    "src/learn/data/topics/multi-label-multi-output-learning.jsx": "abab8f6fc140cb9f88cf5c7a15d33d724f74a32632978a48f959730b581ec456",
+    "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+    "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591",
+    "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+    "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+    "src/learn/components/lesson-labs/multioutput-labs.css": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b",
+    "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js": "b36675c609fba6d4e9b4add1eddbdc0de51c34362252ddd4c5a1a17afd9cbeb2"
+  },
+  "sourceArchive": "docs/teaching/archive/multioutput-author-freeze",
+  "originalArchive": "docs/teaching/evidence/multioutput-original.json",
+  "originalExecution": "docs/teaching/evidence/multioutput-original-execution.json",
+  "design": "docs/teaching/MULTIOUTPUT-LESSON-DESIGN.md",
+  "designFixtures": "docs/teaching/evidence/multioutput-design-fixtures.json",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.1",
+    "black": "26.5.1"
+  },
+  "execution": {
+    "timestamp": "2026-09-11T13:23:56.932910+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "examples": {
+      "schema": {
+        "codeSha256": "2c350154ceeb78d2699745d6caaba29155c1a2fbc17d19ddb43361772ec5bd8a",
+        "stdoutSha256": "16d139a2031a5d2c16145d146ea0287b65868e980489b12b1c20239ae501c3ab",
+        "stdout": "columns: ['code', 'hardware', 'energy']\nmatrix: [[1, 0, 1], [0, 1, 0], [0, 0, 0]]\ndecoded: [('code', 'energy'), ('hardware',), ()]\nUnrecognized labels: ['network']\nUnreviewed energy annotation stays None, not 0: [1, 0, None]"
+      },
+      "metrics": {
+        "codeSha256": "b5f176cdd407aea3fd033408da4234118a5063342d1f87e245f809b58ab888b9",
+        "stdoutSha256": "1ff1095e127bec914271925fdb465a414fdd094e0aa454360c76af649f259829",
+        "stdout": "TP, FP, FN: 5 1 2\nHamming loss / exact-set accuracy: 0.25 0.25\nmicro F1/Jaccard: 0.769231 0.625\nmacro F1/Jaccard: 0.766667 0.666667\nsamples F1/Jaccard: 0.75 0.625\nBoth-empty sample F1: 0.0\nA mean J/F1: 0.5 0.5\nB mean J/F1: 0.4 0.571429"
+      },
+      "numpyHeads": {
+        "codeSha256": "353313f726ad9c9471d5a0091390241024d72d289fd7660ac113c3c0adfbebea",
+        "stdoutSha256": "1cc876eacb5921bd1de8f78130243e125ef42ad1f4aa367748f3ee853c3a3cf0",
+        "stdout": "constant: Hamming=0.3830; subset=0.0600; micro-F1=0.5499\nindependent: Hamming=0.1740; subset=0.3950; micro-F1=0.7986\nchain: Hamming=0.1790; subset=0.3950; micro-F1=0.7954\nStable mean summed cell loss at zero scores: 3.465736"
+      },
+      "joint": {
+        "codeSha256": "0262fcc684af15d792fbb79f29ae895f5980c5526dd216486244780b77360353",
+        "stdoutSha256": "1fcd0f6f583cee84c4f6190433296927b649d09e9cbb33ed2e97422b467002ca",
+        "stdout": "marginals: ['9/20', '13/20']\n(0, 0) Hamming risk 11/20 subset risk 7/10\n(0, 1) Hamming risk 2/5 subset risk 3/4\n(1, 0) Hamming risk 3/5 subset risk 19/20\n(1, 1) Hamming risk 9/20 subset risk 3/5\ngreedy order (0, 1) conditional 5/11 action [0, 0]\ngreedy order (1, 0) conditional 8/13 action [1, 1]"
+      },
+      "chainApi": {
+        "codeSha256": "a3125af552897f5940483f6d89448eaaaf79cefe5a5d71bd89e3d88a850c30bd",
+        "stdoutSha256": "c2e1f8a464bd768203f94f2157fd202ef39c7b62228e3c5d0022b99100dde648",
+        "stdout": "API path probabilities: [0.512477, 0.771639]\nFirst predicted feature: 1\nSecond marginal from all leaves: 0.569133\nFitted joint mass: [((0, 0), 0.313837), ((0, 1), 0.173685), ((1, 0), 0.11703), ((1, 1), 0.395447)]"
+      },
+      "association": {
+        "codeSha256": "d755869759704aa68557bbce1bb41062f1e14fa1c89add5378d6661891010c08",
+        "stdoutSha256": "030303fd231d973c77e54ac1772dd657f904710f190ca983361a759979a0f701",
+        "stdout": "Pooled 00,01,10,11: ['41/100', '9/100', '9/100', '41/100']\nPooled P(B=1): 1/2\nPooled P(B=1|A=1): 41/50\nWithin low/high P(B=1|A=1): 1/10 9/10\nWeighted score for p=.1, positive weight 9: 1/2"
+      },
+      "thresholds": {
+        "codeSha256": "2e8d3df9e882c54428d52be601e0ebac621adf545e75078b1a3cd6d4b32d1f53",
+        "stdoutSha256": "1a2461e8130861e90ef8c43f9dced6272716c4a01754626efae75b00a8f7dd90",
+        "stdout": "per-label F1 threshold [0.0, 0.0] macro 0.47619 micro 0.5\njoint micro threshold [1.01, 0.0] macro 0.333333 micro 0.6\nshared micro threshold 0.0 macro 0.47619 micro 0.5\nAt t=.8 both equal .8 scores stay selected: [1, 1, 1, 0, 0, 0]\nNo-positive choice: [0, 0, 0, 0, 0, 0]"
+      },
+      "powerset": {
+        "codeSha256": "bd8f1b2d85d7f2e9509847b477b9107fb8642838dc6057b320c4e42129662ca9",
+        "stdoutSha256": "c5af8e87083ab0c7e7c3e3c40ece9931a8f7ab64a9702478bcfd72b5e57de2bf",
+        "stdout": "Observed vector classes: [[0, 0], [0, 1], [1, 0]]\nDecoded predictions: [[1, 0], [1, 0]]\n11 is an available class: False\nOverlap vote fractions: [0.5, 0.5, 1.0]\nTie-positive decoded labels: [1, 1, 1]"
+      },
+      "categorical": {
+        "codeSha256": "7cefad04c0c7518e8acc013fd1bf76a74c05c9fcb7f6990455d4a7cd7775f401",
+        "stdoutSha256": "47a839e8158c0378348877bb7be5484dbc6ef61ecaf742da32fcf4c1c8d7310c",
+        "stdout": "Per-output classes: [['high', 'low', 'middle'], ['cool', 'warm']]\nPredictions: [['low', 'warm'], ['middle', 'cool']]\nProbability shapes: [[2, 3], [2, 2]]"
+      },
+      "regression": {
+        "codeSha256": "4ad33c84d762b48801722e271e2c9a1a653dc9dec6f1577ee0ddadc9a3bdfacd",
+        "stdoutSha256": "3ae723b8b79876a1c89450b588203421e554f1147f313f04d0a9913d0c9ee5cb",
+        "stdout": "mean RMSE [C,Wh] [1.591947, 14.119042] scaled MSE 0.587719\nOLS RMSE [C,Wh] [0.180527, 4.620232] scaled MSE 0.038911\nridge RMSE [C,Wh] [0.177978, 4.605764] scaled MSE 0.038596\nlinear chain RMSE [C,Wh] [0.180527, 4.620232] scaled MSE 0.038911\nOLS column solutions agree: True"
+      },
+      "sharedSplit": {
+        "codeSha256": "5113a693c167f2eb6c8f9287223aa8bf316b008a9dc1445c1fcfbe1461a6ade1",
+        "stdoutSha256": "6644ffb8681575ab31af5384cc937affa96042f5c5ae222849a314b0528882dc",
+        "stdout": "Energy scale 1 shared cut 0.5 raw SSE [2.666667, 0.0]\nEnergy scale 100 shared cut 1.5 raw SSE [0.0, 5000.0]\nSeparate cuts: [1.5, 0.5]\nSeparate training SSE: [0.0, 0.0]"
+      },
+      "groupShrinkage": {
+        "codeSha256": "1bb7fd8dc95847460c152a30bb1a15c9212305aef532202828524180fc585cc4",
+        "stdoutSha256": "6f7fbf40e4a1854ab8a6b0ad3aada26e102ebbf01227afeca2ed39e3e17b81a0",
+        "stdout": "Grouped coefficients: [[1.8, 2.4], [0.014929, 0.059715], [0.0, 0.0]]\nSeparate coefficients: [[1.0, 2.0], [0.0, 0.0], [0.0, 0.0]]\nGrouped formula matches actual estimator: True"
+      },
+      "compression": {
+        "codeSha256": "2dfe7222a71c00cc366bc4884ea79ce74d5e0403b08b848bf68d6cfcf24367c3",
+        "stdoutSha256": "73fc2336abc411c673dbfbd98a4807077c839afb8de3126c8870d3e1a4aaa2a5",
+        "stdout": "Retained centered energy: 0.980584\nRare reconstructed range: [0.01, 0.01]\nRare recall: 0.0\nUniform single-positive conditional mean: [0.2, 0.2, 0.2, 0.2, 0.2]"
+      },
+      "textReport": {
+        "codeSha256": "d5c2705245ece60117dca2c16e21d31fbf6cddc9bccb9bccc397a11ad06003ef",
+        "stdoutSha256": "97261c3864e1d6a35ba0bc160b5d74da9201fbd339bef4c7a53259cccc5c480b",
+        "stdout": "Rows train/validation/test: 16 8 8\nSelected: chain 012 threshold 0.6 validation micro-F1 0.909091\nTest positives [code,hardware,energy]: [4, 4, 4]\nbaseline Hamming 0.5 subset 0.25 micro-F1 0.666667 label-F1 [0.666667, 0.666667, 0.666667]\nselected Hamming 0.083333 subset 0.875 micro-F1 0.909091 label-F1 [0.857143, 1.0, 0.857143]\nPredicted test rows: [[1, 0, 1], [1, 0, 1], [0, 1, 0], [0, 1, 0], [0, 1, 0], [1, 1, 1], [0, 0, 0], [0, 0, 0]]"
+      },
+      "changedReport": {
+        "codeSha256": "57169b31631c224d7b032dcaffa5e9413c0939650da39462a041d9b41d5ecd82",
+        "stdoutSha256": "668f3552288a5491aa04e5b09e0174cef3cc213ea8bdd1648a7a8002399c0f4c",
+        "stdout": "Selected by validation FP+3FN: independent 0.5 cost 3\nFrozen test cost: 0 over 24 label decisions\nFrozen test micro-F1: 1.0\nPredicted test rows: [[1, 0, 1], [1, 0, 1], [0, 1, 0], [0, 1, 0], [1, 1, 1], [1, 1, 1], [0, 0, 0], [0, 0, 0]]"
+      }
+    }
+  },
+  "native": {
+    "timestamp": "2026-09-11T13:42:44.974887+00:00",
+    "checks": {
+      "observed_count_and_library_metrics": 83,
+      "exact_joint_risks_chain_leaves": 80,
+      "mixture_conditionals": 6,
+      "threshold_tie_and_none_states": 9,
+      "changed_stumps_exact_and_sklearn": 12,
+      "group_penalty_subgradient_certificates": 24,
+      "changed_hand_calculation_checks": 6
+    },
+    "invalidInputs": 7,
+    "actualPrograms": 15,
+    "sourceHashes": {
+      "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+      "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591"
+    },
+    "limitations": "Finite supported teaching models, no population performance claim. Complete-program execution is separately source-hashed in execution.json; changed cost program is executed there."
+  },
+  "behavior": {
+    "timestamp": "2026-09-11T13:49:38.224Z",
+    "sourceHashes": {
+      "src/learn/data/topics/multi-label-multi-output-learning.jsx": "8f8f1f760f385a22a005ca977afb981e5e000f59430baaa49f266dfa489d70fc",
+      "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+      "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591",
+      "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+      "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+      "src/learn/components/lesson-labs/multioutput-labs.css": "3c6b7acfa2bb793e909bb8f0e856793cc359aed280d2f74396ef6f153f6cac73",
+      "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js": "b36675c609fba6d4e9b4add1eddbdc0de51c34362252ddd4c5a1a17afd9cbeb2"
+    },
+    "records": [
+      {
+        "width": 1440,
+        "states": [
+          "initial cell and row denominators",
+          "corrected false positive",
+          "masked denominators",
+          "known joint marginal and greedy differ",
+          "reverse greedy path",
+          "no probability distribution",
+          "zero support branch",
+          "changed mixture conditional",
+          "tied scores stay together",
+          "no selected positives",
+          "shared target scaling",
+          "separate output splits",
+          "group penalty exact coefficients",
+          "entire feature removed"
+        ],
+        "keyboard": [
+          "Anchor #1-one-input-several-questions",
+          "Anchor #2-freeze-what-the-model-can-know",
+          "Anchor #3-read-errors-by-message-and-by-label",
+          "Anchor #4-fit-one-probability-per-label",
+          "Anchor #5-let-the-loss-choose-the-decision",
+          "Anchor #6-follow-the-whole-probability-tree",
+          "Anchor #7-explain-association-before-exploiting-it",
+          "Anchor #8-choose-thresholds-on-validation",
+          "Anchor #9-represent-label-sets-and-constraints",
+          "Anchor #10-predict-several-numerical-outputs",
+          "Anchor #11-decide-what-to-share",
+          "Anchor #12-compress-labels-without-losing-the-question",
+          "Anchor #13-run-a-complete-held-out-report",
+          "Anchor #14-practise-explain-and-transfer",
+          "Correct prediction cell",
+          "Unknown annotation",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Separate stumps",
+          "Reset A shared split must serve two measurements",
+          "Optional theory",
+          "Optional theory",
+          "Reset Shrink one feature across two outputs",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Reset A shared split must serve two measurements",
+          "Reset Shrink one feature across two outputs",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation"
+        ],
+        "anchors": [
+          "#1-one-input-several-questions",
+          "#2-freeze-what-the-model-can-know",
+          "#3-read-errors-by-message-and-by-label",
+          "#4-fit-one-probability-per-label",
+          "#5-let-the-loss-choose-the-decision",
+          "#6-follow-the-whole-probability-tree",
+          "#7-explain-association-before-exploiting-it",
+          "#8-choose-thresholds-on-validation",
+          "#9-represent-label-sets-and-constraints",
+          "#10-predict-several-numerical-outputs",
+          "#11-decide-what-to-share",
+          "#12-compress-labels-without-losing-the-question",
+          "#13-run-a-complete-held-out-report",
+          "#14-practise-explain-and-transfer"
+        ],
+        "captures": [
+          "target-schema-1440.png",
+          "masked-error-grid-1440.png",
+          "reverse-probability-tree-1440.png",
+          "conditional-mosaics-1440.png",
+          "threshold-ties-1440.png",
+          "shared-split-units-1440.png"
+        ],
+        "programs": [
+          "Keep the label vocabulary attached to the columns",
+          "Calculate errors before choosing an average",
+          "Fit independent heads and a greedy chain from scratch",
+          "Choose a decision under an exact joint distribution",
+          "Inspect what a fitted chain's probability method returns",
+          "Separate pooled association from conditional dependence",
+          "Search validation decisions, with ties and a named objective",
+          "Encode combinations and combine overlapping labelsets",
+          "Give each categorical output its own class vocabulary",
+          "Compare vector and column-wise least squares on held-out numbers",
+          "Watch units change a shared tree's compromise",
+          "Check a shared feature penalty against its closed form",
+          "Retained label variance can miss every rare positive",
+          "Run a complete grouped multi-tag text comparison",
+          "Change the validation objective, then freeze again"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": 12,
+        "equationOverflow": [],
+        "horizontalOverflow": [],
+        "references": 15
+      },
+      {
+        "width": 390,
+        "states": [
+          "initial cell and row denominators",
+          "corrected false positive",
+          "masked denominators",
+          "known joint marginal and greedy differ",
+          "reverse greedy path",
+          "no probability distribution",
+          "zero support branch",
+          "changed mixture conditional",
+          "tied scores stay together",
+          "no selected positives",
+          "shared target scaling",
+          "separate output splits",
+          "group penalty exact coefficients",
+          "entire feature removed"
+        ],
+        "keyboard": [
+          "Anchor #1-one-input-several-questions",
+          "Anchor #2-freeze-what-the-model-can-know",
+          "Anchor #3-read-errors-by-message-and-by-label",
+          "Anchor #4-fit-one-probability-per-label",
+          "Anchor #5-let-the-loss-choose-the-decision",
+          "Anchor #6-follow-the-whole-probability-tree",
+          "Anchor #7-explain-association-before-exploiting-it",
+          "Anchor #8-choose-thresholds-on-validation",
+          "Anchor #9-represent-label-sets-and-constraints",
+          "Anchor #10-predict-several-numerical-outputs",
+          "Anchor #11-decide-what-to-share",
+          "Anchor #12-compress-labels-without-losing-the-question",
+          "Anchor #13-run-a-complete-held-out-report",
+          "Anchor #14-practise-explain-and-transfer",
+          "Correct prediction cell",
+          "Unknown annotation",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Separate stumps",
+          "Reset A shared split must serve two measurements",
+          "Optional theory",
+          "Optional theory",
+          "Reset Shrink one feature across two outputs",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Reset A shared split must serve two measurements",
+          "Reset Shrink one feature across two outputs",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation"
+        ],
+        "anchors": [
+          "#1-one-input-several-questions",
+          "#2-freeze-what-the-model-can-know",
+          "#3-read-errors-by-message-and-by-label",
+          "#4-fit-one-probability-per-label",
+          "#5-let-the-loss-choose-the-decision",
+          "#6-follow-the-whole-probability-tree",
+          "#7-explain-association-before-exploiting-it",
+          "#8-choose-thresholds-on-validation",
+          "#9-represent-label-sets-and-constraints",
+          "#10-predict-several-numerical-outputs",
+          "#11-decide-what-to-share",
+          "#12-compress-labels-without-losing-the-question",
+          "#13-run-a-complete-held-out-report",
+          "#14-practise-explain-and-transfer"
+        ],
+        "captures": [
+          "target-schema-390.png",
+          "split-reading-390.png",
+          "masked-error-grid-390.png",
+          "reverse-probability-tree-390.png",
+          "threshold-ties-390.png",
+          "shared-split-units-390.png",
+          "changed-joint-practice-390.png",
+          "changed-report-output-390.png"
+        ],
+        "programs": [
+          "Keep the label vocabulary attached to the columns",
+          "Calculate errors before choosing an average",
+          "Fit independent heads and a greedy chain from scratch",
+          "Choose a decision under an exact joint distribution",
+          "Inspect what a fitted chain's probability method returns",
+          "Separate pooled association from conditional dependence",
+          "Search validation decisions, with ties and a named objective",
+          "Encode combinations and combine overlapping labelsets",
+          "Give each categorical output its own class vocabulary",
+          "Compare vector and column-wise least squares on held-out numbers",
+          "Watch units change a shared tree's compromise",
+          "Check a shared feature penalty against its closed form",
+          "Retained label variance can miss every rare positive",
+          "Run a complete grouped multi-tag text comparison",
+          "Change the validation objective, then freeze again"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": 12,
+        "equationOverflow": [],
+        "horizontalOverflow": [],
+        "references": 15
+      },
+      {
+        "width": 320,
+        "states": [
+          "initial cell and row denominators",
+          "corrected false positive",
+          "masked denominators",
+          "known joint marginal and greedy differ",
+          "reverse greedy path",
+          "no probability distribution",
+          "zero support branch",
+          "changed mixture conditional",
+          "tied scores stay together",
+          "no selected positives",
+          "shared target scaling",
+          "separate output splits",
+          "group penalty exact coefficients",
+          "entire feature removed"
+        ],
+        "keyboard": [
+          "Anchor #1-one-input-several-questions",
+          "Anchor #2-freeze-what-the-model-can-know",
+          "Anchor #3-read-errors-by-message-and-by-label",
+          "Anchor #4-fit-one-probability-per-label",
+          "Anchor #5-let-the-loss-choose-the-decision",
+          "Anchor #6-follow-the-whole-probability-tree",
+          "Anchor #7-explain-association-before-exploiting-it",
+          "Anchor #8-choose-thresholds-on-validation",
+          "Anchor #9-represent-label-sets-and-constraints",
+          "Anchor #10-predict-several-numerical-outputs",
+          "Anchor #11-decide-what-to-share",
+          "Anchor #12-compress-labels-without-losing-the-question",
+          "Anchor #13-run-a-complete-held-out-report",
+          "Anchor #14-practise-explain-and-transfer",
+          "Correct prediction cell",
+          "Unknown annotation",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Separate stumps",
+          "Reset A shared split must serve two measurements",
+          "Optional theory",
+          "Optional theory",
+          "Reset Shrink one feature across two outputs",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Range Home",
+          "Range increment",
+          "Reset Read errors by message and by label",
+          "Reset One joint table, three different decisions",
+          "Reset Unmix a co-occurrence table",
+          "Reset Move a decision gate across tied scores",
+          "Reset A shared split must serve two measurements",
+          "Reset Shrink one feature across two outputs",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation",
+          "Practice hint or explanation"
+        ],
+        "anchors": [
+          "#1-one-input-several-questions",
+          "#2-freeze-what-the-model-can-know",
+          "#3-read-errors-by-message-and-by-label",
+          "#4-fit-one-probability-per-label",
+          "#5-let-the-loss-choose-the-decision",
+          "#6-follow-the-whole-probability-tree",
+          "#7-explain-association-before-exploiting-it",
+          "#8-choose-thresholds-on-validation",
+          "#9-represent-label-sets-and-constraints",
+          "#10-predict-several-numerical-outputs",
+          "#11-decide-what-to-share",
+          "#12-compress-labels-without-losing-the-question",
+          "#13-run-a-complete-held-out-report",
+          "#14-practise-explain-and-transfer"
+        ],
+        "captures": [
+          "target-schema-320.png",
+          "masked-error-grid-320.png",
+          "reverse-probability-tree-320.png",
+          "threshold-ties-320.png",
+          "shared-split-units-320.png",
+          "grouped-coefficients-320.png",
+          "first-program-320.png"
+        ],
+        "programs": [
+          "Keep the label vocabulary attached to the columns",
+          "Calculate errors before choosing an average",
+          "Fit independent heads and a greedy chain from scratch",
+          "Choose a decision under an exact joint distribution",
+          "Inspect what a fitted chain's probability method returns",
+          "Separate pooled association from conditional dependence",
+          "Search validation decisions, with ties and a named objective",
+          "Encode combinations and combine overlapping labelsets",
+          "Give each categorical output its own class vocabulary",
+          "Compare vector and column-wise least squares on held-out numbers",
+          "Watch units change a shared tree's compromise",
+          "Check a shared feature penalty against its closed form",
+          "Retained label variance can miss every rare positive",
+          "Run a complete grouped multi-tag text comparison",
+          "Change the validation objective, then freeze again"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": 12,
+        "equationOverflow": [
+          {
+            "text": "∥Y−XB∥F2=∑j∥yj−Xbj∥22,(XTX+λI)B=XTY.\\begin{aligned}\\|Y-XB\\|_F^2&=\\sum_j\\|y_j-Xb_j\\|_2^2,\\\\(X^TX+\\lambda I)B&=X^TY.\\end{aligned}∥Y−XB∥F2​(XTX+λI)B​=j∑​∥yj​−Xbj​∥22​,=XTY.​",
+            "scroll": 287,
+            "client": 280
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "failure": "AssertionError [ERR_ASSERTION]: equation overflow\n+ actual - expected\n\n+ [\n+   {\n+     client: 280,\n+     scroll: 287,\n+     text: '∥Y−XB∥F2=∑j∥yj−Xbj∥22,(XTX+λI)B=XTY.\\\\begin{aligned}\\\\|Y-XB\\\\|_F^2&=\\\\sum_j\\\\|y_j-Xb_j\\\\|_2^2,\\\\\\\\(X^TX+\\\\lambda I)B&=X^TY.\\\\end{aligned}∥Y−XB∥F2​(XTX+λI)B​=j∑​∥yj​−Xbj​∥22​,=XTY.​'\n+   }\n+ ]\n- []\n\n    at C:\\Personal Projects and files\\Portfolio\\Portfolio\\scripts\\review-multioutput-lesson.cjs:140:14",
+    "scope": "All interaction, keyboard, anchor, program and disclosure checks completed at all widths. The final equation-width assertion still identified one 320px alignment issue; final reading record supersedes geometry only."
+  },
+  "finalReading": {
+    "timestamp": "2026-09-11T13:55:43.327Z",
+    "sourceHashes": {
+      "src/learn/data/topics/multi-label-multi-output-learning.jsx": "abab8f6fc140cb9f88cf5c7a15d33d724f74a32632978a48f959730b581ec456",
+      "src/learn/data/multioutput-models.js": "0ba78a1478e6de9ae7b5e6bf81304f18c67094d1ceca4bdc398f6ab0d9604077",
+      "src/learn/data/multioutput-examples.js": "d4cab6b48c5c0b4a9375e5a23338727c6b7c5492dcdbc2705546f8e91dd2a591",
+      "src/learn/components/lesson-labs/MultioutputLabs.jsx": "da2a0eb21c143c404358608047ecfb506d946542761c76a8a439a62c0008ade2",
+      "src/learn/components/lesson-labs/MultioutputFigures.jsx": "bd949e0e5a4598f31c66fb8188da30b66b196da109aeee803d84014af70fb316",
+      "src/learn/components/lesson-labs/multioutput-labs.css": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b",
+      "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js": "b36675c609fba6d4e9b4add1eddbdc0de51c34362252ddd4c5a1a17afd9cbeb2"
+    },
+    "records": [
+      {
+        "width": 1440,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": [
+          {
+            "text": "H=∑i=1n∑j=1L1[y^ij≠yij]nL,Aset=1n∑i=1n1[y^i=yi].\\begin{aligned} H&=\\frac{\\sum_{i=1}^{n}\\sum_{j=1}^{L}\\mathbf1[\\hat y_{ij}\\ne y_{ij}]}{nL},\\\\ A_{\\rm set}&=\\frac1n\\sum_{i=1}^{n}\\mathbf1[\\hat{\\mathbf y}_i=\\mathbf y_i]. \\end{aligned}HAset​​=nL∑i=1n​∑j=1L​1[y^​ij​=yij​]​,=n1​i=1∑n​1[y^​i​=yi​].​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "precision=TPTP+FP,recall=TPTP+FN,F1=2TP2TP+FP+FN,J=TPTP+FP+FN.\\begin{aligned} \\text{precision}&=\\frac{TP}{TP+FP},\\\\ \\text{recall}&=\\frac{TP}{TP+FN},\\\\ F_1&=\\frac{2TP}{2TP+FP+FN},\\\\ J&=\\frac{TP}{TP+FP+FN}. \\end{aligned}precisionrecallF1​J​=TP+FPTP​,=TP+FNTP​,=2TP+FP+FN2TP​,=TP+FP+FNTP​.​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "ℓ(z,y)=log⁡(1+ez)−yz,∂ℓ∂z=σ(z)−y.\\begin{aligned}\\ell(z,y)&=\\log(1+e^z)-yz,\\\\\\frac{\\partial\\ell}{\\partial z}&=\\sigma(z)-y.\\end{aligned}ℓ(z,y)∂z∂ℓ​​=log(1+ez)−yz,=σ(z)−y.​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "L(B)=1n∑i∑jℓ(xiTbj,yij),∇BL=1nXT(P−Y).\\begin{aligned} \\mathcal L(B)&=\\frac1n\\sum_i\\sum_j\\ell(x_i^Tb_j,y_{ij}),\\\\ \\nabla_B\\mathcal L&=\\frac1nX^T(P-Y). \\end{aligned}L(B)∇B​L​=n1​i∑​j∑​ℓ(xiT​bj​,yij​),=n1​XT(P−Y).​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "E[ℓH(a,Y)∣x]=1L∑j[pj+aj(1−2pj)].\\begin{aligned}\\mathbb E[\\ell_H(\\mathbf a,Y)\\mid x]\\\\=\\frac1L\\sum_j[p_j+a_j(1-2p_j)].\\end{aligned}E[ℓH​(a,Y)∣x]=L1​j∑​[pj​+aj​(1−2pj​)].​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "P(Y=y∣x)=∏j=1Lqj(yπ(j)∣x,hj).\\begin{aligned}P(Y=\\mathbf y\\mid x)\\\\=\\prod_{j=1}^{L}q_j(y_{\\pi(j)}\\mid x,h_j).\\end{aligned}P(Y=y∣x)=j=1∏L​qj​(yπ(j)​∣x,hj​).​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "q∗=w+pw+p+w−(1−p),p=.1, w+=9, w−=1⇒q∗=.5.\\begin{aligned}q^*&=\\frac{w_+p}{w_+p+w_-(1-p)},\\\\p&=.1,\\ w_+=9,\\ w_-=1\\\\&\\Rightarrow q^*=.5.\\end{aligned}q∗p​=w+​p+w−​(1−p)w+​p​,=.1, w+​=9, w−​=1⇒q∗=.5.​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.\\begin{aligned}\\mathbb E[(Y-a)^2\\mid x]\\\\=\\mathbb E[(Y-\\mu)^2\\mid x]+(\\mu-a)^2.\\end{aligned}E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "∥Y−XB∥F2=∑j∥yj−Xbj∥22,(XTX+λI)B=XTY.\\begin{gathered}\\|Y-XB\\|_F^2=\\sum_j\\|y_j-Xb_j\\|_2^2,\\\\(X^TX+\\lambda I)B=X^TY.\\end{gathered}∥Y−XB∥F2​=j∑​∥yj​−Xbj​∥22​,(XTX+λI)B=XTY.​",
+            "scroll": 760,
+            "client": 760
+          },
+          {
+            "text": "J(B)=12n∥Y−XB∥F2+λ∑r=1d∥Br,:∥2.\\begin{aligned}J(B)&=\\frac{1}{2n}\\|Y-XB\\|_F^2\\\\&\\quad+\\lambda\\sum_{r=1}^{d}\\|B_{r,:}\\|_2.\\end{aligned}J(B)​=2n1​∥Y−XB∥F2​+λr=1∑d​∥Br,:​∥2​.​",
+            "scroll": 742,
+            "client": 742
+          },
+          {
+            "text": "b∗={(1−λ/r)z,r>λ,0,r≤λ.b^*=\\begin{cases}(1-\\lambda/r)z,&r>\\lambda,\\\\0,&r\\le\\lambda.\\end{cases}b∗={(1−λ/r)z,0,​r>λ,r≤λ.​",
+            "scroll": 742,
+            "client": 742
+          },
+          {
+            "text": "Z=(Y−1μT)Vk,Y^score=Z^VkT+1μT.\\begin{aligned}Z&=(Y-\\mathbf1\\mu^T)V_k,\\\\\\widehat Y_{\\text{score}}&=\\widehat ZV_k^T+\\mathbf1\\mu^T.\\end{aligned}ZYscore​​=(Y−1μT)Vk​,=ZVkT​+1μT.​",
+            "scroll": 742,
+            "client": 742
+          }
+        ],
+        "overflow": [],
+        "references": 15,
+        "captures": [
+          "labelset-figure-1440.png",
+          "association-reading-1440.png",
+          "shared-split-units-1440.png"
+        ]
+      },
+      {
+        "width": 390,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": [
+          {
+            "text": "H=∑i=1n∑j=1L1[y^ij≠yij]nL,Aset=1n∑i=1n1[y^i=yi].\\begin{aligned} H&=\\frac{\\sum_{i=1}^{n}\\sum_{j=1}^{L}\\mathbf1[\\hat y_{ij}\\ne y_{ij}]}{nL},\\\\ A_{\\rm set}&=\\frac1n\\sum_{i=1}^{n}\\mathbf1[\\hat{\\mathbf y}_i=\\mathbf y_i]. \\end{aligned}HAset​​=nL∑i=1n​∑j=1L​1[y^​ij​=yij​]​,=n1​i=1∑n​1[y^​i​=yi​].​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "precision=TPTP+FP,recall=TPTP+FN,F1=2TP2TP+FP+FN,J=TPTP+FP+FN.\\begin{aligned} \\text{precision}&=\\frac{TP}{TP+FP},\\\\ \\text{recall}&=\\frac{TP}{TP+FN},\\\\ F_1&=\\frac{2TP}{2TP+FP+FN},\\\\ J&=\\frac{TP}{TP+FP+FN}. \\end{aligned}precisionrecallF1​J​=TP+FPTP​,=TP+FNTP​,=2TP+FP+FN2TP​,=TP+FP+FNTP​.​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "ℓ(z,y)=log⁡(1+ez)−yz,∂ℓ∂z=σ(z)−y.\\begin{aligned}\\ell(z,y)&=\\log(1+e^z)-yz,\\\\\\frac{\\partial\\ell}{\\partial z}&=\\sigma(z)-y.\\end{aligned}ℓ(z,y)∂z∂ℓ​​=log(1+ez)−yz,=σ(z)−y.​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "L(B)=1n∑i∑jℓ(xiTbj,yij),∇BL=1nXT(P−Y).\\begin{aligned} \\mathcal L(B)&=\\frac1n\\sum_i\\sum_j\\ell(x_i^Tb_j,y_{ij}),\\\\ \\nabla_B\\mathcal L&=\\frac1nX^T(P-Y). \\end{aligned}L(B)∇B​L​=n1​i∑​j∑​ℓ(xiT​bj​,yij​),=n1​XT(P−Y).​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "E[ℓH(a,Y)∣x]=1L∑j[pj+aj(1−2pj)].\\begin{aligned}\\mathbb E[\\ell_H(\\mathbf a,Y)\\mid x]\\\\=\\frac1L\\sum_j[p_j+a_j(1-2p_j)].\\end{aligned}E[ℓH​(a,Y)∣x]=L1​j∑​[pj​+aj​(1−2pj​)].​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "P(Y=y∣x)=∏j=1Lqj(yπ(j)∣x,hj).\\begin{aligned}P(Y=\\mathbf y\\mid x)\\\\=\\prod_{j=1}^{L}q_j(y_{\\pi(j)}\\mid x,h_j).\\end{aligned}P(Y=y∣x)=j=1∏L​qj​(yπ(j)​∣x,hj​).​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "q∗=w+pw+p+w−(1−p),p=.1, w+=9, w−=1⇒q∗=.5.\\begin{aligned}q^*&=\\frac{w_+p}{w_+p+w_-(1-p)},\\\\p&=.1,\\ w_+=9,\\ w_-=1\\\\&\\Rightarrow q^*=.5.\\end{aligned}q∗p​=w+​p+w−​(1−p)w+​p​,=.1, w+​=9, w−​=1⇒q∗=.5.​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.\\begin{aligned}\\mathbb E[(Y-a)^2\\mid x]\\\\=\\mathbb E[(Y-\\mu)^2\\mid x]+(\\mu-a)^2.\\end{aligned}E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "∥Y−XB∥F2=∑j∥yj−Xbj∥22,(XTX+λI)B=XTY.\\begin{gathered}\\|Y-XB\\|_F^2=\\sum_j\\|y_j-Xb_j\\|_2^2,\\\\(X^TX+\\lambda I)B=X^TY.\\end{gathered}∥Y−XB∥F2​=j∑​∥yj​−Xbj​∥22​,(XTX+λI)B=XTY.​",
+            "scroll": 350,
+            "client": 350
+          },
+          {
+            "text": "J(B)=12n∥Y−XB∥F2+λ∑r=1d∥Br,:∥2.\\begin{aligned}J(B)&=\\frac{1}{2n}\\|Y-XB\\|_F^2\\\\&\\quad+\\lambda\\sum_{r=1}^{d}\\|B_{r,:}\\|_2.\\end{aligned}J(B)​=2n1​∥Y−XB∥F2​+λr=1∑d​∥Br,:​∥2​.​",
+            "scroll": 332,
+            "client": 332
+          },
+          {
+            "text": "b∗={(1−λ/r)z,r>λ,0,r≤λ.b^*=\\begin{cases}(1-\\lambda/r)z,&r>\\lambda,\\\\0,&r\\le\\lambda.\\end{cases}b∗={(1−λ/r)z,0,​r>λ,r≤λ.​",
+            "scroll": 332,
+            "client": 332
+          },
+          {
+            "text": "Z=(Y−1μT)Vk,Y^score=Z^VkT+1μT.\\begin{aligned}Z&=(Y-\\mathbf1\\mu^T)V_k,\\\\\\widehat Y_{\\text{score}}&=\\widehat ZV_k^T+\\mathbf1\\mu^T.\\end{aligned}ZYscore​​=(Y−1μT)Vk​,=ZVkT​+1μT.​",
+            "scroll": 332,
+            "client": 332
+          }
+        ],
+        "overflow": [],
+        "references": 15,
+        "captures": [
+          "continuous-reading-390.png",
+          "ridge-equation-390.png"
+        ]
+      },
+      {
+        "width": 320,
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_AMS",
+          "KaTeX_Caligraphic",
+          "KaTeX_Main",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2"
+        ],
+        "equations": [
+          {
+            "text": "H=∑i=1n∑j=1L1[y^ij≠yij]nL,Aset=1n∑i=1n1[y^i=yi].\\begin{aligned} H&=\\frac{\\sum_{i=1}^{n}\\sum_{j=1}^{L}\\mathbf1[\\hat y_{ij}\\ne y_{ij}]}{nL},\\\\ A_{\\rm set}&=\\frac1n\\sum_{i=1}^{n}\\mathbf1[\\hat{\\mathbf y}_i=\\mathbf y_i]. \\end{aligned}HAset​​=nL∑i=1n​∑j=1L​1[y^​ij​=yij​]​,=n1​i=1∑n​1[y^​i​=yi​].​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "precision=TPTP+FP,recall=TPTP+FN,F1=2TP2TP+FP+FN,J=TPTP+FP+FN.\\begin{aligned} \\text{precision}&=\\frac{TP}{TP+FP},\\\\ \\text{recall}&=\\frac{TP}{TP+FN},\\\\ F_1&=\\frac{2TP}{2TP+FP+FN},\\\\ J&=\\frac{TP}{TP+FP+FN}. \\end{aligned}precisionrecallF1​J​=TP+FPTP​,=TP+FNTP​,=2TP+FP+FN2TP​,=TP+FP+FNTP​.​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "ℓ(z,y)=log⁡(1+ez)−yz,∂ℓ∂z=σ(z)−y.\\begin{aligned}\\ell(z,y)&=\\log(1+e^z)-yz,\\\\\\frac{\\partial\\ell}{\\partial z}&=\\sigma(z)-y.\\end{aligned}ℓ(z,y)∂z∂ℓ​​=log(1+ez)−yz,=σ(z)−y.​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "L(B)=1n∑i∑jℓ(xiTbj,yij),∇BL=1nXT(P−Y).\\begin{aligned} \\mathcal L(B)&=\\frac1n\\sum_i\\sum_j\\ell(x_i^Tb_j,y_{ij}),\\\\ \\nabla_B\\mathcal L&=\\frac1nX^T(P-Y). \\end{aligned}L(B)∇B​L​=n1​i∑​j∑​ℓ(xiT​bj​,yij​),=n1​XT(P−Y).​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "E[ℓH(a,Y)∣x]=1L∑j[pj+aj(1−2pj)].\\begin{aligned}\\mathbb E[\\ell_H(\\mathbf a,Y)\\mid x]\\\\=\\frac1L\\sum_j[p_j+a_j(1-2p_j)].\\end{aligned}E[ℓH​(a,Y)∣x]=L1​j∑​[pj​+aj​(1−2pj​)].​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "P(Y=y∣x)=∏j=1Lqj(yπ(j)∣x,hj).\\begin{aligned}P(Y=\\mathbf y\\mid x)\\\\=\\prod_{j=1}^{L}q_j(y_{\\pi(j)}\\mid x,h_j).\\end{aligned}P(Y=y∣x)=j=1∏L​qj​(yπ(j)​∣x,hj​).​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "q∗=w+pw+p+w−(1−p),p=.1, w+=9, w−=1⇒q∗=.5.\\begin{aligned}q^*&=\\frac{w_+p}{w_+p+w_-(1-p)},\\\\p&=.1,\\ w_+=9,\\ w_-=1\\\\&\\Rightarrow q^*=.5.\\end{aligned}q∗p​=w+​p+w−​(1−p)w+​p​,=.1, w+​=9, w−​=1⇒q∗=.5.​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.\\begin{aligned}\\mathbb E[(Y-a)^2\\mid x]\\\\=\\mathbb E[(Y-\\mu)^2\\mid x]+(\\mu-a)^2.\\end{aligned}E[(Y−a)2∣x]=E[(Y−μ)2∣x]+(μ−a)2.​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "∥Y−XB∥F2=∑j∥yj−Xbj∥22,(XTX+λI)B=XTY.\\begin{gathered}\\|Y-XB\\|_F^2=\\sum_j\\|y_j-Xb_j\\|_2^2,\\\\(X^TX+\\lambda I)B=X^TY.\\end{gathered}∥Y−XB∥F2​=j∑​∥yj​−Xbj​∥22​,(XTX+λI)B=XTY.​",
+            "scroll": 280,
+            "client": 280
+          },
+          {
+            "text": "J(B)=12n∥Y−XB∥F2+λ∑r=1d∥Br,:∥2.\\begin{aligned}J(B)&=\\frac{1}{2n}\\|Y-XB\\|_F^2\\\\&\\quad+\\lambda\\sum_{r=1}^{d}\\|B_{r,:}\\|_2.\\end{aligned}J(B)​=2n1​∥Y−XB∥F2​+λr=1∑d​∥Br,:​∥2​.​",
+            "scroll": 262,
+            "client": 262
+          },
+          {
+            "text": "b∗={(1−λ/r)z,r>λ,0,r≤λ.b^*=\\begin{cases}(1-\\lambda/r)z,&r>\\lambda,\\\\0,&r\\le\\lambda.\\end{cases}b∗={(1−λ/r)z,0,​r>λ,r≤λ.​",
+            "scroll": 262,
+            "client": 262
+          },
+          {
+            "text": "Z=(Y−1μT)Vk,Y^score=Z^VkT+1μT.\\begin{aligned}Z&=(Y-\\mathbf1\\mu^T)V_k,\\\\\\widehat Y_{\\text{score}}&=\\widehat ZV_k^T+\\mathbf1\\mu^T.\\end{aligned}ZYscore​​=(Y−1μT)Vk​,=ZVkT​+1μT.​",
+            "scroll": 262,
+            "client": 262
+          }
+        ],
+        "overflow": [],
+        "references": 15,
+        "captures": [
+          "ridge-equation-320.png",
+          "shared-penalty-equation-320.png",
+          "changed-joint-reading-320.png"
+        ]
+      }
+    ],
+    "errors": [],
+    "passed": true,
+    "scope": "Final actual-font reading, disclosure, formula and page geometry after one remaining aligned-equation line-layout repair; preceding complete behavior run reused for unchanged interactions."
+  },
+  "formatting": {
+    "timestamp": "2026-09-11T13:52:48.725Z",
+    "files": [
+      "src/learn/data/topics/multi-label-multi-output-learning.jsx",
+      "src/learn/data/multioutput-models.js",
+      "src/learn/components/lesson-labs/MultioutputLabs.jsx",
+      "src/learn/components/lesson-labs/MultioutputFigures.jsx",
+      "src/learn/data/curriculum/blueprints/multi-label-multi-output-learning.js"
+    ],
+    "normalizedAstConserved": true,
+    "cssFile": "src/learn/components/lesson-labs/multioutput-labs.css",
+    "cssAstConserved": true,
+    "originalCssSha256": "3c6b7acfa2bb793e909bb8f0e856793cc359aed280d2f74396ef6f153f6cac73",
+    "finalCssSha256": "43b68b086e332273a0500c5d1214259f58b897b90adc37bf80f0897f445a358b"
+  },
+  "programs": 15,
+  "investigations": 6,
+  "inlineFigures": 3,
+  "changedPractice": 12,
+  "openedImages": [
+    {
+      "path": "scratch/multioutput/browser/target-schema-390.png",
+      "sha256": "a8cf47d857e86926fdfdc7181cb339a0473260e0e83b0c67444f21d75ccb37f7",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/reverse-probability-tree-390.png",
+      "sha256": "8ada5a4d79eeb2fed3d288fd7616396a06ae021a119fdc8d60d5dbb1235afa2d",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/threshold-ties-1440.png",
+      "sha256": "d68acdf1cd435f04d7936ff1df31d30fb8e45836fd40b85b3aeaae9391c4e1c0",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/masked-error-grid-320.png",
+      "sha256": "85b573f36b58264ab8485fcb3a6375392af86717765d4a9f2b210266ce585ec8",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/reverse-probability-tree-320.png",
+      "sha256": "1982b494cfea7a6cd57f51c65d905b6ae27009d0151c81b0f87b11b65abbb5cb",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/shared-split-units-320.png",
+      "sha256": "8101bab63a5fc709991aee29f7bc4a89ec1db6196244c61a0b373593a300ea5b",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/ridge-equation-320.png",
+      "sha256": "e676818ebf870119954f0c3adeb98ba1264469db0a18a2ce617f68676b8cdc61",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/conditional-mosaics-1440.png",
+      "sha256": "a37caabc6d986f598ffc18434a9d9386b88d4e19d5ef16e02970df55aad738a8",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/shared-split-units-1440.png",
+      "sha256": "7c215829e9d8655a33afbb96a75afc19c1806a638ff49b906635ac878d0c3054",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/grouped-coefficients-320.png",
+      "sha256": "8eafd7beac8af54ed3f3fea8c06d05250a93c3687bcd1f429f39d373aefbbad9",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/labelset-figure-1440.png",
+      "sha256": "01ccd237ef035e5980722d611330a647a06251e0a35afaa4bdb3c641f1bed008",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/continuous-reading-390.png",
+      "sha256": "39f89acd3b089fbe3f45951ec8dc37a71e5c78146bff1eb222b30095593339cf",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/shared-penalty-equation-320.png",
+      "sha256": "6bc09a25e804bf967277ba50b64437b8467a897a71f12aa34584ab7d505130b3",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/changed-joint-reading-320.png",
+      "sha256": "fa531528043ec8c8b30881778e1379c95681155b911bdd07942ef1d2f448222b",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/changed-report-output-390.png",
+      "sha256": "197403622522f67ba32867abe7e51362535ab85ad812f8a69f1b5afda6a05b4f",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/first-program-320.png",
+      "sha256": "bfccb153de3d6f69e009833f2d85794d537d485d3543ffe0d95840e6a8390d1a",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/split-reading-390.png",
+      "sha256": "c3a826aa7b473efaa0ddaaca7f6454e4e8d3de0c8a4a041b24f108e506e910d1",
+      "actuallyOpened": true
+    },
+    {
+      "path": "scratch/multioutput/browser/association-reading-1440.png",
+      "sha256": "1bb4ce1a3f95bb4827f483f86de6077f488eaf225f4c2d457b45093cbe6f3cb0",
+      "actuallyOpened": true
+    }
+  ],
+  "retiredUnopenedCaptures": [
+    "scratch/multioutput/browser/changed-joint-practice-390.png",
+    "scratch/multioutput/browser/masked-error-grid-1440.png",
+    "scratch/multioutput/browser/masked-error-grid-390.png",
+    "scratch/multioutput/browser/reverse-probability-tree-1440.png",
+    "scratch/multioutput/browser/ridge-equation-390.png",
+    "scratch/multioutput/browser/shared-split-units-390.png",
+    "scratch/multioutput/browser/target-schema-1440.png",
+    "scratch/multioutput/browser/target-schema-320.png",
+    "scratch/multioutput/browser/threshold-ties-320.png",
+    "scratch/multioutput/browser/threshold-ties-390.png"
+  ],
+  "retention": "Selected actual final images and compact native/browser records remain; generated unused captures are retired after closure. The behavior record’s historical capture names do not imply those images were selected or visually reviewed.",
+  "amendmentScope": "Final reading changes reflow mathematically equivalent formulas, clarify the initial mixture setting, add an optional review link and format CSS with conserved AST. Pure models and all program bytes are unchanged; prior passing interaction checks are retained, while final geometry/source hashes are checked separately.",
+  "limitations": [
+    "The original seventh network-download block has no completed execution; exact code remains archived.",
+    "Tiny controlled/hand-authored cohorts teach mechanisms, not calibrated population performance or deployment readiness.",
+    "Exact small probability trees do not establish a scalable global joint decoder; path scores and marginals remain distinct.",
+    "The optional course video listing was verified but the video itself was not watched.",
+    "Full source/output use intentional horizontal scrolling on phones.",
+    "Parent independent review, production integration and user acceptance are not claimed."
+  ]
+}

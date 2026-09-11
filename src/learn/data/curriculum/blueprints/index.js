@@ -1,4 +1,36 @@
+import linearLogisticBlueprint from './linear-logistic-regression.js';
+import decisionTreesBlueprint from './decision-trees-random-forests.js';
+import gradientBoostedTreesBlueprint from './gradient-boosted-trees-xgboost-lightgbm-catboost.js';
+import naiveBayesBlueprint from './naive-bayes-probabilistic-classifiers.js';
+import recommenderSystemsBlueprint from './recommender-systems-collaborative-filtering-matrix-factorization.js';
+import supportVectorMachinesBlueprint from './support-vector-machines-svm.js';
+import multiOutputBlueprint from './multi-label-multi-output-learning.js';
+import ensembleMethodsBlueprint from './ensemble-methods-stacking.js';
+import survivalAnalysisBlueprint from './survival-analysis-cox-regression-kaplan-meier-hazard-models.js';
+import kMeansHierarchicalBlueprint from './k-means-hierarchical-clustering.js';
+import knnBlueprint from './k-nearest-neighbors-knn.js';
+import numericalPdesBlueprint from './numerical-pdes-grids-finite-elements-stability.js';
+import partialDifferentialEquationsBlueprint from './partial-differential-equations-conservation-boundary-conditions.js';
+import abstractAlgebraBlueprint from './abstract-algebra-groups-symmetry-actions.js';
+import realAnalysisBlueprint from './real-analysis-sequences-modes-of-convergence.js';
+import decisionTheoryBlueprint from './decision-theory-risk-cost-sensitive-decisions.js';
+import conditioningStabilityBlueprint from './conditioning-stability-numerical-analysis.js';
+import complexTransformsBlueprint from './complex-numbers-fourier-laplace-transforms.js';
+import ordinaryDifferentialEquationsBlueprint from './ordinary-differential-equations-linear-systems.js';
+import samplingMeasurementBlueprint from './sampling-measurement-experimental-design.js';
+import singleVariableCalculusBlueprint from './single-variable-calculus-limits-derivatives-integrals.js';
+import countingCombinatoricsBlueprint from './counting-combinatorics-mathematical-induction.js';
+import randomVariablesBlueprint from './random-variables-expectation-covariance.js';
+import geometryTrigonometryBlueprint from './geometry-trigonometry-coordinate-reasoning.js';
+import categoryTheoryBlueprint from './category-theory-emerging-use-in-ml.js';
+import differentialGeometryBlueprint from './differential-geometry-riemannian-manifolds.js';
+import algebraFunctionsBlueprint from './algebra-functions-exponentials-logarithms.js';
+import setsLogicBlueprint from './sets-logic-relations-proof-techniques.js';
+import topologyTdaBlueprint from './topology-topological-data-analysis-tda.js';
 import dynamicalSystemsBlueprint from './dynamical-systems-theory-chaos.js';
+import itoCalculusBlueprint from './it-calculus-stochastic-differential-equations.js';
+import functionalAnalysisBlueprint from './functional-analysis-rkhs.js';
+import numericalMethodsBlueprint from './numerical-methods-finite-differences-quadrature-root-finding.js';
 import stochasticProcessesBlueprint from './stochastic-processes-markov-chains-brownian-motion-poisson.js';
 import queueingTheoryBlueprint from './queueing-theory-m-m-1-m-g-1-little-s-law.js';
 import randomMatrixTheoryBlueprint from './random-matrix-theory.js';
@@ -78,6 +110,17 @@ import convexOptimizationBlueprint from './convex-optimization.js';
 import rangeQueriesBlueprint from './segment-trees-fenwick-trees-range-queries.js';
 
 export const authoredBlueprints = {
+  'Linear & Logistic Regression': linearLogisticBlueprint,
+  'Decision Trees & Random Forests': decisionTreesBlueprint,
+  'Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)': gradientBoostedTreesBlueprint,
+  'Naive Bayes & Probabilistic Classifiers': naiveBayesBlueprint,
+  'Recommender Systems (Collaborative Filtering, Matrix Factorization)': recommenderSystemsBlueprint,
+  'Support Vector Machines (SVM)': supportVectorMachinesBlueprint,
+  'Multi-Label & Multi-Output Learning': multiOutputBlueprint,
+  'Ensemble Methods & Stacking': ensembleMethodsBlueprint,
+  'Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models)': survivalAnalysisBlueprint,
+  'K-Means & Hierarchical Clustering': kMeansHierarchicalBlueprint,
+  'K-Nearest Neighbors (KNN)': knnBlueprint,
   "Arrays, Strings & Hash Maps": arraysStringsHashMapsBlueprint,
   "Bash Scripting & Command-Line Automation": bashScriptingCommandLineAutomationBlueprint,
   "Code Documentation, Type Hints & API Design": codeDocumentationTypeHintsApiDesignBlueprint,
@@ -153,4 +196,25 @@ export const authoredBlueprints = {
   "Queueing Theory (M/M/1, M/G/1, Little's Law)": queueingTheoryBlueprint,
   "Stochastic Processes (Markov Chains, Brownian Motion, Poisson)": stochasticProcessesBlueprint,
   "Dynamical Systems Theory & Chaos": dynamicalSystemsBlueprint,
+  "Numerical Methods (Finite Differences, Quadrature, Root Finding)": numericalMethodsBlueprint,
+  "Itô Calculus & Stochastic Differential Equations": itoCalculusBlueprint,
+  "Functional Analysis & RKHS": functionalAnalysisBlueprint,
+  "Topology & Topological Data Analysis (TDA)": topologyTdaBlueprint,
+  "Category Theory (Emerging Use in ML)": categoryTheoryBlueprint,
+  "Differential Geometry & Riemannian Manifolds": differentialGeometryBlueprint,
+  "Algebra, Functions, Exponentials & Logarithms": algebraFunctionsBlueprint,
+  "Sets, Logic, Relations & Proof Techniques": setsLogicBlueprint,
+  "Geometry, Trigonometry & Coordinate Reasoning": geometryTrigonometryBlueprint,
+  "Counting, Combinatorics & Mathematical Induction": countingCombinatoricsBlueprint,
+  "Random Variables, Expectation & Covariance": randomVariablesBlueprint,
+  "Single-Variable Calculus: Limits, Derivatives & Integrals": singleVariableCalculusBlueprint,
+  "Sampling, Measurement & Experimental Design": samplingMeasurementBlueprint,
+  "Ordinary Differential Equations & Linear Systems": ordinaryDifferentialEquationsBlueprint,
+  "Complex Numbers, Fourier & Laplace Transforms": complexTransformsBlueprint,
+  "Conditioning, Stability & Numerical Analysis": conditioningStabilityBlueprint,
+  "Decision Theory, Risk & Cost-Sensitive Decisions": decisionTheoryBlueprint,
+  "Real Analysis, Sequences & Modes of Convergence": realAnalysisBlueprint,
+  "Abstract Algebra, Groups & Symmetry Actions": abstractAlgebraBlueprint,
+  "Partial Differential Equations, Conservation & Boundary Conditions": partialDifferentialEquationsBlueprint,
+  "Numerical PDEs: Grids, Finite Elements & Stability": numericalPdesBlueprint,
 };

@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-09-11T15:26:18.963Z",
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "0f2f5e6e7c3f077057b6338a23cda6c88cf708186f007326b0d7e432b27ad15c",
+    "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+    "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+    "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+    "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602"
+  },
+  "image": "scratch/survival/browser/cox-gold-bars-verified-320.png",
+  "imageHash": "b8bf5d1a65252ba0c73c7b64573e92836006ab51ec1000fd2c18649f6eee3fc4",
+  "actualBrowserBarMeasurements": [
+    {
+      "label": "B x=0 ● event\n0.1538",
+      "color": "rgb(231, 185, 74)",
+      "width": 30.578125,
+      "height": 18
+    },
+    {
+      "label": "C x=1 ● event\n0.3077",
+      "color": "rgb(231, 185, 74)",
+      "width": 61.171875,
+      "height": 18
+    },
+    {
+      "label": "D x=-1 at risk\n0.0769",
+      "color": "rgb(100, 201, 217)",
+      "width": 15.28125,
+      "height": 18
+    },
+    {
+      "label": "E x=0 at risk\n0.1538",
+      "color": "rgb(100, 201, 217)",
+      "width": 30.578125,
+      "height": 18
+    },
+    {
+      "label": "F x=1 at risk\n0.3077",
+      "color": "rgb(100, 201, 217)",
+      "width": 61.171875,
+      "height": 18
+    }
+  ],
+  "actualPngPixels": {
+    "(40, 125)": [
+      231,
+      185,
+      74
+    ],
+    "(50, 130)": [
+      231,
+      185,
+      74
+    ],
+    "(40, 185)": [
+      231,
+      185,
+      74
+    ],
+    "(85, 190)": [
+      231,
+      185,
+      74
+    ],
+    "(40, 245)": [
+      100,
+      201,
+      217
+    ]
+  },
+  "scope": "Fresh filename avoids stale image caching; file bytes are an exact copy of the final reading capture. Pixel samples inside both event bars are gold RGB(231,185,74); comparison bar is cyan."
+}

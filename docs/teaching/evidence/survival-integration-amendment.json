@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-09-11T15:30:37.559Z",
+  "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+  "source": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+  "beforeSha256": "0f2f5e6e7c3f077057b6338a23cda6c88cf708186f007326b0d7e432b27ad15c",
+  "afterSha256": "c2d614fe087b2268ccdf1a06cb13b40322cab513b0e31395d91c2349c595c59f",
+  "archive": "docs/teaching/archive/survival-final-integration/pre-integration-topic.jsx",
+  "changes": [
+    "Remove unnecessary named export around the const lesson object so static metadata extraction resolves its existing default export.",
+    "Escape literal greater-than characters in 2 JSX text nodes; parsed runtime AST is identical."
+  ],
+  "conservation": "Original bytes exactly reconstruct the final author browser source hash after restoring the original CRLF convention. Lesson initializer and all native/model/lab code are unchanged. JSX entity replacement passed canonical Babel AST equality.",
+  "verification": "Final production build/header/route checks pending; reuse numerical and interactive evidence for unchanged lesson runtime."
+}

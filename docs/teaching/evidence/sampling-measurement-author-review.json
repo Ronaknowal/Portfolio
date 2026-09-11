@@ -1,0 +1,1958 @@
+{
+  "topicId": "sampling-measurement-experimental-design",
+  "frozenAt": "2026-09-11T04:51:45.306991+00:00",
+  "authorStatus": "source-frozen-author-verified",
+  "integrationStatus": "parent-owned; independent review and production integration not self-certified",
+  "baseline": "Planned stable topic without a previous lesson, program or stdout. Exact original inventory archived; identity and order retained.",
+  "production": [
+    {
+      "path": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+      "sha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
+      "bytes": 57347
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-models.js",
+      "sha256": "894a4d835f9e0b5870cf611545c4405fa779c2df79cba536dc509a7f222083d4",
+      "bytes": 10639
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-examples.js",
+      "sha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
+      "bytes": 19086
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "sha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+      "bytes": 23981
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+      "sha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+      "bytes": 7901
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+      "sha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2",
+      "bytes": 5152
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/SAMPLING-MEASUREMENT-LESSON-DESIGN.md",
+      "sha256": "8c0b0369ea6237ae865e8c8dc61f563e74b6d72cc04aad7ee0fde16c9858bc12",
+      "bytes": 38858
+    },
+    {
+      "path": "docs/teaching/topic-notes/sampling-measurement-experimental-design.md",
+      "sha256": "7977ed41a753489fa177ed719edcf6f7de0570b0499eec54ba665f160142e039",
+      "bytes": 5396
+    },
+    {
+      "path": "docs/teaching/evidence/sampling-measurement-original-plan.json",
+      "sha256": "6c083bebe387c1fc565b8c3189df90d996b76564b6fcd414e1204783ddd2316c",
+      "bytes": 11096
+    },
+    {
+      "path": "scripts/generate-sampling-measurement-examples.py",
+      "sha256": "09b7f4b4395871cf074d72282cc12a082b6a1c7226652e00c79eba11541d5c32",
+      "bytes": 15520
+    },
+    {
+      "path": "scripts/verify-sampling-measurement.mjs",
+      "sha256": "6e4723bc525afe981e7fcce6dd2e54bc7342d40c47ff6c57b591a464dac4b8f8",
+      "bytes": 4446
+    },
+    {
+      "path": "scripts/verify-sampling-measurement.py",
+      "sha256": "9e6d6fa3d19842daacec077f1fccd1fd815b5b6431aefe517213d26db2797ec2",
+      "bytes": 7712
+    },
+    {
+      "path": "scripts/verify-sampling-weighted-protocol.py",
+      "sha256": "11f4cfa209b41c4ce4996456db4597833b7e583bc37e429a74528ec475231453",
+      "bytes": 1725
+    },
+    {
+      "path": "scripts/format-sampling-measurement-source.cjs",
+      "sha256": "8b1102227f6c553454c69a3974b861c4417ad5b021536d227421f128c00c6a10",
+      "bytes": 2669
+    },
+    {
+      "path": "scripts/review-sampling-measurement-lesson.cjs",
+      "sha256": "605a9ba6bf70263a599a6291604a75a77503a99c95607e1d8df742197659e525",
+      "bytes": 14156
+    },
+    {
+      "path": "scripts/review-sampling-measurement-final-reading.cjs",
+      "sha256": "0053250a89376c61c1ff3afdc12d3038b1b721ef712f8b7e2a602f1d6b8b4bc0",
+      "bytes": 5543
+    }
+  ],
+  "native": {
+    "passed": true,
+    "modelCases": {
+      "samples": 649,
+      "inclusion": 243,
+      "readings": 1875,
+      "assignments": 1458,
+      "factorial": 65,
+      "missing": 256
+    },
+    "actualPrograms": 12,
+    "changedNativeHelperCases": 206,
+    "oracles": [
+      "Fraction bit-mask subset laws",
+      "Exact weighted design laws",
+      "Full covariance-matrix sum for grouped readings",
+      "Boolean assignment spaces and complete native permutations",
+      "Corner enumeration of missing outcomes"
+    ],
+    "limits": [
+      "Finite bounded fixtures and model contracts; no empirical collection or beginner study",
+      "Browser/visual evidence is separate"
+    ],
+    "rejectedInputs": 25,
+    "timestamp": "2026-09-11T01:43:58.750Z",
+    "hashes": {
+      "src/learn/data/sampling-measurement-models.js": "894a4d835f9e0b5870cf611545c4405fa779c2df79cba536dc509a7f222083d4",
+      "src/learn/data/sampling-measurement-examples.js": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079"
+    }
+  },
+  "fullBrowser": {
+    "at": "2026-09-11T01:43:36.244Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "fonts": true,
+        "states": 149,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "programs": 12,
+        "checkpoints": 2,
+        "practices": 11,
+        "keyboard": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "content": 760
+          }
+        ],
+        "svgText": [
+          {
+            "text": "8",
+            "x": 39.389461517333984,
+            "right": 50.610538482666016,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "9",
+            "x": 87.49311828613281,
+            "right": 98.5068769454956,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "10",
+            "x": 131.4698486328125,
+            "right": 150.53013038635254,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "11",
+            "x": 181.47177124023438,
+            "right": 196.5282278060913,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "12",
+            "x": 227.813232421875,
+            "right": 246.1867733001709,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "13",
+            "x": 275.8002624511719,
+            "right": 294.1997184753418,
+            "bottom": 172.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "offset: +2",
+            "x": 141.1930694580078,
+            "right": 224.80693817138672,
+            "bottom": 33.975626945495605,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Measured quantity (mV)",
+            "x": 72.56591796875,
+            "right": 283.4340515136719,
+            "bottom": 204.9756202697754,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Probability",
+            "x": 48,
+            "right": 142.4483413696289,
+            "bottom": 26.975740432739258,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.11",
+            "x": 15.216529846191406,
+            "right": 41.99999809265137,
+            "bottom": 59.97573661804199,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.737537384033203,
+            "right": 41.999999046325684,
+            "bottom": 174.97574424743652,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 42.22736358642578,
+            "right": 53.77263259887695,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "9",
+            "x": 172.4929962158203,
+            "right": 183.50700092315674,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "18",
+            "x": 298.6316223144531,
+            "right": 317.3683891296387,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 139.0211181640625,
+            "right": 214.9788818359375,
+            "bottom": 226.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Variance contributions",
+            "x": 30,
+            "right": 228.52622985839844,
+            "bottom": 29.975788593292236,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Unit",
+            "x": 30,
+            "right": 65.7185287475586,
+            "bottom": 63.97578811645508,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Reading",
+            "x": 30,
+            "right": 100.69767761230469,
+            "bottom": 107.97577857971191,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "0",
+            "x": 102.22731018066406,
+            "right": 113.77269649505615,
+            "bottom": 156.9757843017578,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "4.5",
+            "x": 194.705322265625,
+            "right": 221.29469680786133,
+            "bottom": 156.9757843017578,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "9",
+            "x": 302.4929504394531,
+            "right": 313.5070676803589,
+            "bottom": 156.9757843017578,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Squared score units",
+            "x": 120.68397521972656,
+            "right": 295.3160400390625,
+            "bottom": 181.97579956054688,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Probability",
+            "x": 48,
+            "right": 142.4483413696289,
+            "bottom": 26.975740432739258,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.15",
+            "x": 12.326972961425781,
+            "right": 41.99999809265137,
+            "bottom": 59.97573661804199,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.737537384033203,
+            "right": 41.999999046325684,
+            "bottom": 174.97574424743652,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "-6",
+            "x": 38.398380279541016,
+            "right": 57.60162162780762,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "2",
+            "x": 172.57073974609375,
+            "right": 183.42925262451172,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "10",
+            "x": 298.4696350097656,
+            "right": 317.5303421020508,
+            "bottom": 204.97574043273926,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 139.0211181640625,
+            "right": 214.9788818359375,
+            "bottom": 226.97574043273926,
+            "width": 340,
+            "height": 235
+          }
+        ],
+        "codeScroll": {
+          "width": 758,
+          "content": 758,
+          "left": 0,
+          "focused": false
+        },
+        "overflow": {
+          "document": 1440,
+          "viewport": 1440
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "fonts": true,
+        "states": 149,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "programs": 12,
+        "checkpoints": 2,
+        "practices": 11,
+        "keyboard": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "content": 350
+          }
+        ],
+        "svgText": [
+          {
+            "text": "8",
+            "x": 38.7652702331543,
+            "right": 51.2347297668457,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "9",
+            "x": 86.87892150878906,
+            "right": 99.12107276916504,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "10",
+            "x": 130.40582275390625,
+            "right": 151.5941619873047,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "11",
+            "x": 180.63832092285156,
+            "right": 197.36168479919434,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "12",
+            "x": 226.78736877441406,
+            "right": 247.21260261535645,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "13",
+            "x": 274.77923583984375,
+            "right": 295.22070693969727,
+            "bottom": 174.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "offset: +2",
+            "x": 136.54798889160156,
+            "right": 229.45195770263672,
+            "bottom": 35.23472785949707,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Measured quantity (mV)",
+            "x": 60.85523986816406,
+            "right": 295.1446990966797,
+            "bottom": 206.2347240447998,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Probability",
+            "x": 47.999996185302734,
+            "right": 152.93332290649414,
+            "bottom": 28.23462677001953,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.11",
+            "x": 13.538270950317383,
+            "right": 41.9999942779541,
+            "bottom": 60.19551658630371,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.089401245117188,
+            "right": 41.999999046325684,
+            "bottom": 175.19550895690918,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 41.58677291870117,
+            "right": 54.41322040557861,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "9",
+            "x": 171.8790283203125,
+            "right": 184.12097930908203,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "18",
+            "x": 297.5926818847656,
+            "right": 318.41875648498535,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 134.8026123046875,
+            "right": 219.1973876953125,
+            "bottom": 228.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Variance contributions",
+            "x": 29.999998092651367,
+            "right": 250.5571575164795,
+            "bottom": 31.234829902648926,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Unit",
+            "x": 29.999998092651367,
+            "right": 69.82158851623535,
+            "bottom": 65.23483085632324,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Reading",
+            "x": 29.999998092651367,
+            "right": 108.55238151550293,
+            "bottom": 109.23482704162598,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "0",
+            "x": 101.58656311035156,
+            "right": 114.4134292602539,
+            "bottom": 158.2348117828369,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "4.5",
+            "x": 193.23284912109375,
+            "right": 222.76711463928223,
+            "bottom": 158.2348117828369,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "9",
+            "x": 301.8788146972656,
+            "right": 314.12116622924805,
+            "bottom": 158.2348117828369,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Squared score units",
+            "x": 110.98667907714844,
+            "right": 305.0133361816406,
+            "bottom": 183.23482704162598,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Probability",
+            "x": 47.999996185302734,
+            "right": 152.93332290649414,
+            "bottom": 28.23462677001953,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.15",
+            "x": 10.453429222106934,
+            "right": 42.1929235458374,
+            "bottom": 60.19551658630371,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.089401245117188,
+            "right": 41.999999046325684,
+            "bottom": 175.19550895690918,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "-6",
+            "x": 37.33293533325195,
+            "right": 58.89871597290039,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "2",
+            "x": 171.96832275390625,
+            "right": 184.03167724609375,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "10",
+            "x": 297.4059753417969,
+            "right": 318.59396743774414,
+            "bottom": 206.234619140625,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 134.8026123046875,
+            "right": 219.1973876953125,
+            "bottom": 228.234619140625,
+            "width": 340,
+            "height": 235
+          }
+        ],
+        "codeScroll": {
+          "width": 348,
+          "content": 635,
+          "left": 40,
+          "focused": true
+        },
+        "overflow": {
+          "document": 390,
+          "viewport": 390
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "fonts": true,
+        "states": 149,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "programs": 12,
+        "checkpoints": 2,
+        "practices": 11,
+        "keyboard": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "content": 280
+          }
+        ],
+        "svgText": [
+          {
+            "text": "8",
+            "x": 38.772499084472656,
+            "right": 51.22749996185303,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "9",
+            "x": 86.87577819824219,
+            "right": 99.12422847747803,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "10",
+            "x": 130.41429138183594,
+            "right": 151.98830032348633,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "11",
+            "x": 180.64503479003906,
+            "right": 197.35497856140137,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "12",
+            "x": 226.7860870361328,
+            "right": 247.21394157409668,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "13",
+            "x": 274.78607177734375,
+            "right": 295.2139263153076,
+            "bottom": 173.2876853942871,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "offset: +2",
+            "x": 136.55709838867188,
+            "right": 229.44290161132812,
+            "bottom": 34.28769397735596,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Measured quantity (mV)",
+            "x": 60.885833740234375,
+            "right": 295.4952697753906,
+            "bottom": 205.28769493103027,
+            "width": 340,
+            "height": 210
+          },
+          {
+            "text": "Probability",
+            "x": 48,
+            "right": 152.96308135986328,
+            "bottom": 27.287397384643555,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.11",
+            "x": 13.538933753967285,
+            "right": 41.99999713897705,
+            "bottom": 60.28739547729492,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.094741821289062,
+            "right": 41.99999713897705,
+            "bottom": 175.28738403320312,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 41.58696365356445,
+            "right": 54.80545425415039,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "9",
+            "x": 171.87612915039062,
+            "right": 184.12388706207275,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "18",
+            "x": 297.5801086425781,
+            "right": 318.419885635376,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 134.783447265625,
+            "right": 219.25528717041016,
+            "bottom": 227.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Variance contributions",
+            "x": 30,
+            "right": 250.5232696533203,
+            "bottom": 30.287530422210693,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Unit",
+            "x": 30,
+            "right": 69.71313858032227,
+            "bottom": 64.28752899169922,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Reading",
+            "x": 30,
+            "right": 108.5280990600586,
+            "bottom": 108.28753280639648,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "0",
+            "x": 101.58679962158203,
+            "right": 114.80562686920166,
+            "bottom": 157.28752517700195,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "4.5",
+            "x": 193.23208618164062,
+            "right": 222.76790237426758,
+            "bottom": 157.28752517700195,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "9",
+            "x": 301.8759460449219,
+            "right": 314.12401580810547,
+            "bottom": 157.28752517700195,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Squared score units",
+            "x": 111.01717376708984,
+            "right": 305.0115280151367,
+            "bottom": 182.28752517700195,
+            "width": 340,
+            "height": 190
+          },
+          {
+            "text": "Probability",
+            "x": 48,
+            "right": 152.96308135986328,
+            "bottom": 27.287397384643555,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0.15",
+            "x": 10.461503982543945,
+            "right": 42.38376808166504,
+            "bottom": 60.28739547729492,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "0",
+            "x": 31.094741821289062,
+            "right": 41.99999713897705,
+            "bottom": 175.28738403320312,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "-6",
+            "x": 37.321937561035156,
+            "right": 58.678062438964844,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "2",
+            "x": 171.9690704345703,
+            "right": 184.03094387054443,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "10",
+            "x": 297.404541015625,
+            "right": 318.9828357696533,
+            "bottom": 205.28738975524902,
+            "width": 340,
+            "height": 235
+          },
+          {
+            "text": "Estimate",
+            "x": 134.783447265625,
+            "right": 219.25528717041016,
+            "bottom": 227.28738975524902,
+            "width": 340,
+            "height": 235
+          }
+        ],
+        "codeScroll": {
+          "width": 278,
+          "content": 635,
+          "left": 40,
+          "focused": true
+        },
+        "overflow": {
+          "document": 320,
+          "viewport": 320
+        },
+        "errors": []
+      }
+    ]
+  },
+  "finalReading": {
+    "checkedAt": "2026-09-11T04:48:22.222Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "fonts": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "content": 760
+          }
+        ],
+        "sources": [
+          {
+            "text": "Esther Duflo's MIT lecture on gathering data",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-4_mp4/"
+          },
+          {
+            "text": "Experimental Design lecture",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-22_mp4/"
+          },
+          {
+            "text": "Statistics Canada: probability sampling",
+            "href": "https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm"
+          },
+          {
+            "text": "Statistics Canada: Survey Methods and Practices",
+            "href": "https://www150.statcan.gc.ca/n1/en/pub/12-587-x/12-587-x2003001-eng.pdf"
+          },
+          {
+            "text": "NIST TN1297: uncertainty components",
+            "href": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-2-classification-components-uncertainty"
+          },
+          {
+            "text": "bias and accuracy",
+            "href": "https://www.itl.nist.gov/div898/handbook/mpc/section1/mpc113.htm"
+          },
+          {
+            "text": "NIST randomized blocks",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+          },
+          {
+            "text": "nested/split-plot designs",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri55.htm"
+          },
+          {
+            "text": "OFAT interactions",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section2/pri212.htm"
+          },
+          {
+            "text": "Peng Ding: A First Course in Causal Inference",
+            "href": "https://arxiv.org/abs/2305.18793"
+          },
+          {
+            "text": "Python 3.12 fractions",
+            "href": "https://docs.python.org/3.12/library/fractions.html"
+          },
+          {
+            "text": "itertools",
+            "href": "https://docs.python.org/3.12/library/itertools.html"
+          },
+          {
+            "text": "random reproducibility notes",
+            "href": "https://docs.python.org/3.12/library/random.html#notes-on-reproducibility"
+          }
+        ],
+        "displayedStudentWeightedProtocol": true,
+        "roundingNote": true,
+        "tableScroll": {
+          "width": 716,
+          "content": 716,
+          "left": 0,
+          "focused": true
+        },
+        "overflow": {
+          "document": 1440,
+          "viewport": 1440
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "fonts": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "content": 350
+          }
+        ],
+        "sources": [
+          {
+            "text": "Esther Duflo's MIT lecture on gathering data",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-4_mp4/"
+          },
+          {
+            "text": "Experimental Design lecture",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-22_mp4/"
+          },
+          {
+            "text": "Statistics Canada: probability sampling",
+            "href": "https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm"
+          },
+          {
+            "text": "Statistics Canada: Survey Methods and Practices",
+            "href": "https://www150.statcan.gc.ca/n1/en/pub/12-587-x/12-587-x2003001-eng.pdf"
+          },
+          {
+            "text": "NIST TN1297: uncertainty components",
+            "href": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-2-classification-components-uncertainty"
+          },
+          {
+            "text": "bias and accuracy",
+            "href": "https://www.itl.nist.gov/div898/handbook/mpc/section1/mpc113.htm"
+          },
+          {
+            "text": "NIST randomized blocks",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+          },
+          {
+            "text": "nested/split-plot designs",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri55.htm"
+          },
+          {
+            "text": "OFAT interactions",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section2/pri212.htm"
+          },
+          {
+            "text": "Peng Ding: A First Course in Causal Inference",
+            "href": "https://arxiv.org/abs/2305.18793"
+          },
+          {
+            "text": "Python 3.12 fractions",
+            "href": "https://docs.python.org/3.12/library/fractions.html"
+          },
+          {
+            "text": "itertools",
+            "href": "https://docs.python.org/3.12/library/itertools.html"
+          },
+          {
+            "text": "random reproducibility notes",
+            "href": "https://docs.python.org/3.12/library/random.html#notes-on-reproducibility"
+          }
+        ],
+        "displayedStudentWeightedProtocol": true,
+        "roundingNote": true,
+        "tableScroll": {
+          "width": 327,
+          "content": 387,
+          "left": 60,
+          "focused": true
+        },
+        "overflow": {
+          "document": 390,
+          "viewport": 390
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "fonts": true,
+        "math": [
+          {
+            "index": 0,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "content": 280
+          }
+        ],
+        "sources": [
+          {
+            "text": "Esther Duflo's MIT lecture on gathering data",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-4_mp4/"
+          },
+          {
+            "text": "Experimental Design lecture",
+            "href": "https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/resources/14310x-lecture-22_mp4/"
+          },
+          {
+            "text": "Statistics Canada: probability sampling",
+            "href": "https://www150.statcan.gc.ca/n1/edu/power-pouvoir/ch13/prob/5214899-eng.htm"
+          },
+          {
+            "text": "Statistics Canada: Survey Methods and Practices",
+            "href": "https://www150.statcan.gc.ca/n1/en/pub/12-587-x/12-587-x2003001-eng.pdf"
+          },
+          {
+            "text": "NIST TN1297: uncertainty components",
+            "href": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-2-classification-components-uncertainty"
+          },
+          {
+            "text": "bias and accuracy",
+            "href": "https://www.itl.nist.gov/div898/handbook/mpc/section1/mpc113.htm"
+          },
+          {
+            "text": "NIST randomized blocks",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+          },
+          {
+            "text": "nested/split-plot designs",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri55.htm"
+          },
+          {
+            "text": "OFAT interactions",
+            "href": "https://www.itl.nist.gov/div898/handbook/pri/section2/pri212.htm"
+          },
+          {
+            "text": "Peng Ding: A First Course in Causal Inference",
+            "href": "https://arxiv.org/abs/2305.18793"
+          },
+          {
+            "text": "Python 3.12 fractions",
+            "href": "https://docs.python.org/3.12/library/fractions.html"
+          },
+          {
+            "text": "itertools",
+            "href": "https://docs.python.org/3.12/library/itertools.html"
+          },
+          {
+            "text": "random reproducibility notes",
+            "href": "https://docs.python.org/3.12/library/random.html#notes-on-reproducibility"
+          }
+        ],
+        "displayedStudentWeightedProtocol": true,
+        "roundingNote": true,
+        "tableScroll": {
+          "width": 257,
+          "content": 387,
+          "left": 130,
+          "focused": true
+        },
+        "overflow": {
+          "document": 320,
+          "viewport": 320
+        },
+        "errors": []
+      }
+    ]
+  },
+  "weightedProtocol": {
+    "checkedAt": "2026-09-11T01:48:21.358631+00:00",
+    "passed": true,
+    "heterogeneousWeightedProtocols": 27,
+    "allocationsPerProtocol": 8,
+    "records": [
+      {
+        "effects": [
+          -2,
+          -1,
+          -2,
+          -1,
+          -2,
+          -1
+        ],
+        "target": "-3/2",
+        "mean": "-3/2"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          -2,
+          -1,
+          0,
+          1
+        ],
+        "target": "-1/2",
+        "mean": "-1/2"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          -2,
+          -1,
+          3,
+          4
+        ],
+        "target": "1",
+        "mean": "1"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          0,
+          1,
+          -2,
+          -1
+        ],
+        "target": "-5/6",
+        "mean": "-5/6"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "target": "1/6",
+        "mean": "1/6"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          0,
+          1,
+          3,
+          4
+        ],
+        "target": "5/3",
+        "mean": "5/3"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          3,
+          4,
+          -2,
+          -1
+        ],
+        "target": "1/6",
+        "mean": "1/6"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          3,
+          4,
+          0,
+          1
+        ],
+        "target": "7/6",
+        "mean": "7/6"
+      },
+      {
+        "effects": [
+          -2,
+          -1,
+          3,
+          4,
+          3,
+          4
+        ],
+        "target": "8/3",
+        "mean": "8/3"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          -2,
+          -1,
+          -2,
+          -1
+        ],
+        "target": "-7/6",
+        "mean": "-7/6"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          -2,
+          -1,
+          0,
+          1
+        ],
+        "target": "-1/6",
+        "mean": "-1/6"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          -2,
+          -1,
+          3,
+          4
+        ],
+        "target": "4/3",
+        "mean": "4/3"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          0,
+          1,
+          -2,
+          -1
+        ],
+        "target": "-1/2",
+        "mean": "-1/2"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "target": "1/2",
+        "mean": "1/2"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          0,
+          1,
+          3,
+          4
+        ],
+        "target": "2",
+        "mean": "2"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          3,
+          4,
+          -2,
+          -1
+        ],
+        "target": "1/2",
+        "mean": "1/2"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          3,
+          4,
+          0,
+          1
+        ],
+        "target": "3/2",
+        "mean": "3/2"
+      },
+      {
+        "effects": [
+          0,
+          1,
+          3,
+          4,
+          3,
+          4
+        ],
+        "target": "3",
+        "mean": "3"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          -2,
+          -1,
+          -2,
+          -1
+        ],
+        "target": "-2/3",
+        "mean": "-2/3"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          -2,
+          -1,
+          0,
+          1
+        ],
+        "target": "1/3",
+        "mean": "1/3"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          -2,
+          -1,
+          3,
+          4
+        ],
+        "target": "11/6",
+        "mean": "11/6"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          0,
+          1,
+          -2,
+          -1
+        ],
+        "target": "0",
+        "mean": "0"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          0,
+          1,
+          0,
+          1
+        ],
+        "target": "1",
+        "mean": "1"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          0,
+          1,
+          3,
+          4
+        ],
+        "target": "5/2",
+        "mean": "5/2"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          3,
+          4,
+          -2,
+          -1
+        ],
+        "target": "1",
+        "mean": "1"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          3,
+          4,
+          0,
+          1
+        ],
+        "target": "2",
+        "mean": "2"
+      },
+      {
+        "effects": [
+          3,
+          4,
+          3,
+          4,
+          3,
+          4
+        ],
+        "target": "7/2",
+        "mean": "7/2"
+      }
+    ],
+    "seed50": {
+      "treated": [
+        "C2",
+        "C4",
+        "C6"
+      ],
+      "contrasts": [
+        5,
+        5,
+        5
+      ],
+      "weights": [
+        "1/6",
+        "1/3",
+        "1/2"
+      ],
+      "estimate": "5",
+      "constructedEffect": "3"
+    },
+    "method": "Separate exact enumeration of weighted potential outcomes, no browser-model recurrence"
+  },
+  "formatConservation": {
+    "checkedAt": "2026-09-11T01:51:00.159Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/sampling-measurement-models.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+        "normalizedAstConserved": true
+      }
+    ]
+  },
+  "openedImages": [
+    {
+      "path": "scratch/sampling-measurement-browser/reading-1-390.png",
+      "sha256": "48274895abfacd4e1f9d2f0906176fda1b8d5d578596245a67a552a6046db39e",
+      "bytes": 97944,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/inline-2-320.png",
+      "sha256": "ac1e8e3bbc90d98012084846edfbc7adbb6237f60dba4ff41d008efc63be3340",
+      "bytes": 71955,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/incomplete-distribution-390.png",
+      "sha256": "67f0f18d943825d3a43040c2ae97f02a91e50dfb95e5289465dd37b6f0be75e1",
+      "bytes": 74393,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/weighted-contributions-1440.png",
+      "sha256": "87fa870f336a0c58c544725d3bf812c7741cea127c490bb4c5b194bc9a444528",
+      "bytes": 159412,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/blocked-table-390.png",
+      "sha256": "aec39ccb6aa496d2605445ebdb93a07d7e004910e28d1661a482222667f2d5af",
+      "bytes": 65481,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/blocked-distribution-320.png",
+      "sha256": "21b9d4429bcc70082b3b45b9a419bdf41b5f119ebcb7c1466be7ec2805b11e30",
+      "bytes": 67621,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/factorial-changed-320.png",
+      "sha256": "82262ceb342402e14904c1bc4f0128c1fba6a3989dd1ef346b2f00df6a0b0c73",
+      "bytes": 51935,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/inline-3-390.png",
+      "sha256": "1adb737044e77293ec2f3da506b3997dbc8019501028baeb044e960eec4a41d9",
+      "bytes": 78593,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/inline-1-1440.png",
+      "sha256": "38640b10d83b78e4a1d1f945cd5a47dec0bfd35f981382b469112cd9fc9522d8",
+      "bytes": 168360,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/inline-4-320.png",
+      "sha256": "c8f6a8c81952c90b3a5388950ed34336e300e72f67226df7fbccbf9367e449d4",
+      "bytes": 70108,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/inline-5-390.png",
+      "sha256": "abde71b64630a4502d6bec34a7f9e878fccd911d848ff02cc57e4e7ccb1e4190",
+      "bytes": 100359,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/unobserved-outcomes-390.png",
+      "sha256": "a57155407e6623d78b4ce5af192ac243e9fbcfb8791c976ed195ee468e2910d6",
+      "bytes": 64388,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/sources-390.png",
+      "sha256": "79820368a3113e7598cc422d0ccd26a0b5e76003fd763bcf8e0f6f84b75a866b",
+      "bytes": 105643,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/reading-8-1440.png",
+      "sha256": "2c3a954ccbaf32c2366f212cbeb5a081b12c7044eaa24bbb91c05a009af197b0",
+      "bytes": 221932,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/reading-9-320.png",
+      "sha256": "b3692589c50e517d8055ed29f8be42d73975d16b93e9d7baa6515bf969809dd7",
+      "bytes": 79596,
+      "actuallyOpened": true,
+      "captureScope": "full-behavior; before final text/label/table-help amendments"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-zero-variance-320.png",
+      "sha256": "a854c24841fd2d21ace08f2acd189a927d9c8991fc019c7f4a6055be446b5845",
+      "bytes": 69374,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-observed-table-scrolled-390.png",
+      "sha256": "ba18e0f633dd55e17c0b8992d0081ddf0e5ac9c9e2d3ba8fbb1d268127aff6d2",
+      "bytes": 56459,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-variance-plot-320.png",
+      "sha256": "3f12d42f087d1cb056cde0daf9870fb1786ad90f266936e9b75773b68c9d40d8",
+      "bytes": 67772,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-student-target-390.png",
+      "sha256": "1a4e1bb2c3c398ee02a3afe41f691f593f37e9b6192462f3897e5e4727c02035",
+      "bytes": 118718,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-equation-4-320.png",
+      "sha256": "7f8b9b2290ec337c9d4891e91461d7bf3f77b87d6c0a62f13d9dc4c5dcdab7e5",
+      "bytes": 75955,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-equation-7-320.png",
+      "sha256": "b62dcf35671cd2edfd28f06b771742f3ba1eac1500c98b22ac49a683d7d746c5",
+      "bytes": 68642,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-protocol-output-320.png",
+      "sha256": "942f607ec46084d99c706f68bbdd6982d8867ac9c336d7efc8d472307f9fbc2a",
+      "bytes": 67069,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    },
+    {
+      "path": "scratch/sampling-measurement-browser/final-protocol-answer-320.png",
+      "sha256": "fd6ae28e34419ec579439b7c321723e17876598fb8eb336d6e83351ef7be6f8d",
+      "bytes": 73784,
+      "actuallyOpened": true,
+      "captureScope": "final-reading"
+    }
+  ],
+  "repairsAndCheckScope": [
+    "Browser caught a literal subset notation interpreted as JSX identifiers and a raw less-than after a copy-format pass. Replaced with explicit text, then required parse, normalized AST conservation and zero transform warnings.",
+    "Actual SVG bounds caught lower axis-label clipping; increased viewBox heights. A later opened phone image showed Reading nearly touching its bar; moved only the label and verified a visible geometric gap.",
+    "Phone measurement caught long equations. Split the mean, covariance, stratified variance and assignment formulas into meaningful lines; all nine fit 760/350/280 pixels.",
+    "Added explicit underflow rejection when a nonconstant finite law would be reported with zero variance, or a positive grouped variance/squared bias would vanish. Four rejection regressions and two small accepted controls pass; no arbitrary-precision guarantee is made.",
+    "Final copy clarifies rounded readouts and gives a concrete equal-within-pair student-weighted capstone protocol, checked by 27 independent heterogeneous eight-allocation enumerations.",
+    "Final phone help explains horizontal outcome-table navigation and actual keyboard scrolling is verified. The initial focused script used the wrong aria-label wording; corrected its locator without changing the lesson label."
+  ],
+  "research": "Design ledger gives primary pages, exact selected sections/transcript pages and failed retrievals. Official MIT player links are verified; no full-video viewing or invented YouTube ID.",
+  "limitations": [
+    "No empirical human/animal/device experiment or beginner usability study. All populations, potential outcomes and readings are declared teaching fixtures.",
+    "Floating-point display models have bounded educational inputs and rounded readouts; mathematical identities are derived separately. Finite checks do not prove every real-valued implementation state.",
+    "The full 149-state/width browser run precedes final copy/label/help additions. The final actual-font three-width reading pass verifies those amendments, equations, references, zero state and table keyboard access.",
+    "No publication build, global route integration, wider-goal completion or user acceptance is claimed by this author packet."
+  ]
+}

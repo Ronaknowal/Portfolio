@@ -1,0 +1,1220 @@
+{
+  "checkedAt": "2026-09-11T08:13:19.280Z",
+  "passed": true,
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "sha256": "3951fa93669bee0a515cc2b897b014f9f27823b0941c546c7e9bedd355e48613"
+    },
+    {
+      "path": "src/learn/data/pde-models.js",
+      "sha256": "b437c76879bf6d9777de1e309aa9de5890910db047d1bedce9d19c2403f45f04"
+    },
+    {
+      "path": "src/learn/data/pde-examples.js",
+      "sha256": "008ed987d8f95444dcf7e527e0233f3465292bba63e52e3e5db3bdb265c2fdd4"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/pde-labs.css",
+      "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+      "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "states": 176,
+      "disclosures": 34,
+      "controls": 68,
+      "programs": 15,
+      "anchors": [
+        {
+          "href": "#1-follow-a-quantity-through-a-small-region",
+          "exists": true
+        },
+        {
+          "href": "#2-supply-the-data-the-mechanism-needs",
+          "exists": true
+        },
+        {
+          "href": "#3-trace-transport-back-to-its-origin",
+          "exists": true
+        },
+        {
+          "href": "#4-let-boundaries-select-the-diffusion-modes",
+          "exists": true
+        },
+        {
+          "href": "#5-prove-what-heat-can-and-cannot-do",
+          "exists": true
+        },
+        {
+          "href": "#6-distinguish-propagating-waves-from-diffusion",
+          "exists": true
+        },
+        {
+          "href": "#7-solve-a-steady-field-with-consistent-data",
+          "exists": true
+        },
+        {
+          "href": "#8-keep-conservation-when-classical-derivatives-fail",
+          "exists": true
+        },
+        {
+          "href": "#9-select-the-physically-admissible-shock",
+          "exists": true
+        },
+        {
+          "href": "#10-use-smoothing-to-explain-two-applications",
+          "exists": true
+        },
+        {
+          "href": "#11-complete-a-forced-rod-model",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-to-changed-problems",
+          "exists": true
+        }
+      ],
+      "equations": 22,
+      "overflowEquations": [],
+      "defaultGeometry": [
+        {
+          "index": 0,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 369.609375,
+          "minimumText": 16.17041015625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 400,
+          "minimumText": 17.5,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 369.609375,
+          "minimumText": 16.17041015625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 23,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "changedGeometry": [
+        {
+          "index": 0,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 369.609375,
+          "minimumText": 16.17041015625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 400,
+          "minimumText": 17.5,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 369.609375,
+          "minimumText": 16.17041015625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 369.59375,
+          "minimumText": 15.01474609375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 369.59375,
+          "minimumText": 16.1697265625,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 369.609375,
+          "minimumText": 15.015380859375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 760,
+          "minimumText": 30.875,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "documentOverflow": false,
+      "errors": [],
+      "warnings": [],
+      "failedRequests": []
+    },
+    {
+      "width": 390,
+      "states": 176,
+      "disclosures": 34,
+      "controls": 68,
+      "programs": 15,
+      "anchors": [
+        {
+          "href": "#1-follow-a-quantity-through-a-small-region",
+          "exists": true
+        },
+        {
+          "href": "#2-supply-the-data-the-mechanism-needs",
+          "exists": true
+        },
+        {
+          "href": "#3-trace-transport-back-to-its-origin",
+          "exists": true
+        },
+        {
+          "href": "#4-let-boundaries-select-the-diffusion-modes",
+          "exists": true
+        },
+        {
+          "href": "#5-prove-what-heat-can-and-cannot-do",
+          "exists": true
+        },
+        {
+          "href": "#6-distinguish-propagating-waves-from-diffusion",
+          "exists": true
+        },
+        {
+          "href": "#7-solve-a-steady-field-with-consistent-data",
+          "exists": true
+        },
+        {
+          "href": "#8-keep-conservation-when-classical-derivatives-fail",
+          "exists": true
+        },
+        {
+          "href": "#9-select-the-physically-admissible-shock",
+          "exists": true
+        },
+        {
+          "href": "#10-use-smoothing-to-explain-two-applications",
+          "exists": true
+        },
+        {
+          "href": "#11-complete-a-forced-rod-model",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-to-changed-problems",
+          "exists": true
+        }
+      ],
+      "equations": 22,
+      "overflowEquations": [],
+      "defaultGeometry": [
+        {
+          "index": 0,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 23,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "changedGeometry": [
+        {
+          "index": 0,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 350,
+          "minimumText": 15.3125,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 350,
+          "minimumText": 14.21875,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "documentOverflow": false,
+      "errors": [],
+      "warnings": [],
+      "failedRequests": []
+    },
+    {
+      "width": 320,
+      "states": 176,
+      "disclosures": 34,
+      "controls": 68,
+      "programs": 15,
+      "anchors": [
+        {
+          "href": "#1-follow-a-quantity-through-a-small-region",
+          "exists": true
+        },
+        {
+          "href": "#2-supply-the-data-the-mechanism-needs",
+          "exists": true
+        },
+        {
+          "href": "#3-trace-transport-back-to-its-origin",
+          "exists": true
+        },
+        {
+          "href": "#4-let-boundaries-select-the-diffusion-modes",
+          "exists": true
+        },
+        {
+          "href": "#5-prove-what-heat-can-and-cannot-do",
+          "exists": true
+        },
+        {
+          "href": "#6-distinguish-propagating-waves-from-diffusion",
+          "exists": true
+        },
+        {
+          "href": "#7-solve-a-steady-field-with-consistent-data",
+          "exists": true
+        },
+        {
+          "href": "#8-keep-conservation-when-classical-derivatives-fail",
+          "exists": true
+        },
+        {
+          "href": "#9-select-the-physically-admissible-shock",
+          "exists": true
+        },
+        {
+          "href": "#10-use-smoothing-to-explain-two-applications",
+          "exists": true
+        },
+        {
+          "href": "#11-complete-a-forced-rod-model",
+          "exists": true
+        },
+        {
+          "href": "#12-transfer-the-method-to-changed-problems",
+          "exists": true
+        }
+      ],
+      "equations": 22,
+      "overflowEquations": [],
+      "defaultGeometry": [
+        {
+          "index": 0,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 23,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "changedGeometry": [
+        {
+          "index": 0,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 1,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 2,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 3,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 4,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 5,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 6,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 7,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 8,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 9,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 10,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 11,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 12,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 13,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 14,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 15,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 16,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 17,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 18,
+          "width": 280,
+          "minimumText": 12.25,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 19,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 20,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 21,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        },
+        {
+          "index": 22,
+          "width": 280,
+          "minimumText": 11.375,
+          "outOfBounds": [],
+          "badCurves": []
+        }
+      ],
+      "documentOverflow": false,
+      "errors": [],
+      "warnings": [],
+      "failedRequests": []
+    }
+  ]
+}

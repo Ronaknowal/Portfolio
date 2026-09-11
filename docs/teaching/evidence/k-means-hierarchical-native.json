@@ -1,0 +1,1519 @@
+{
+  "verifiedAt": "2026-09-11T16:45:46.356564+00:00",
+  "stage": "native author verification; complete lesson/browser/independent review remain separate",
+  "source": "src/learn/data/k-means-hierarchical-examples.js",
+  "sourceHash": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+  "verifier": "scripts/verify-k-means-hierarchical-examples.py",
+  "verifierHash": "a5b3b12c695e9f527d97793526420e559d08c695c58209f3492b19915adf2477",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "lloyd": {
+      "codeHash": "935c3f1bd98798aaf2df5554b5600f18e8654aae221af964ae320bc2527855f5",
+      "stdoutHash": "47f2ea09db74ff36a899cb046611d98b61006f16546e2aa4139e455a48c253f3",
+      "stdout": "original data: (150, 2) seed rows: [127, 39, 8]\nassignment / after means / after reassignment / changed labels\n321.875530 / 181.504432 / 181.504432 / 0\nfixed point / mean updates: True 1\ncenter: [-6.7791, -6.8876] size: 50\ncenter: [-2.663, 8.9252] size: 50\ncenter: [4.5952, 2.1091] size: 50\ninertia: 181.504432\nduplicate data: requested / occupied: 3 1\none-update return: fixed / nearest labels: False [0, 0, 1, 1, 1]\nOne-update centers need not be means of the returned reassigned groups.\nfixed point / inertia: True 21.166667\nfixed point / inertia: True 17.0\nA fixed point and agreement with another run are not a global-optimum proof."
+    },
+    "ward": {
+      "codeHash": "763362ccd01571670ce6dccf3504961b984a6dc8a4e5480eb9fd1c57d8b0c10d",
+      "stdoutHash": "da017bd02dccd9416dfdb902c65e250db4ed5f3567e8ca97c57510e110c3fd12",
+      "stdout": "left right delta_SSE scipy_height size\n2 3 0.125000 0.500000 2\n0 1 0.250000 0.707107 2\n4 5 0.250000 0.707107 2\n6 7 7.062500 3.758324 4\n8 9 56.020833 10.584974 6\nall heights obey h\u00b2=2\u0394: True\nsum of merge costs / one-cluster SSE: 63.708333 63.708333\ncount cut 2 co-membership ARI: 1.0\ncount cut 3 co-membership ARI: 1.0\ncount cut 4 co-membership ARI: 1.0\nheight cut just below / at tied height: 5 3\nmaxclust=4 means at most 4; actual: 3\nAn exact four-cluster cut chooses a position within a tied merge order."
+    },
+    "production": {
+      "codeHash": "95e6acc96610ceb2a3d209af1270ea291cf93d6e4e91216b444b695a87ac7263",
+      "stdoutHash": "b78ed1f9cd30f65f79bdfda324e669b62e4c4231b7b9b7e194d0cf072b585dde",
+      "stdout": "scikit-learn: 1.9.1 data: (150, 2)\nKMeans inertia: 181.504432 silhouette: 0.876025\nMiniBatch inertia: 181.64728 silhouette: 0.876025\nWard silhouette: 0.876025\nKMeans versus Ward ARI: 1.0\nMiniBatch n_init chooses an initialization; it does not run ten complete fits.\nk / inertia range across three single starts / median silhouette\n2 2660.009039..2660.009039 0.719940\n3 181.504432..181.504432 0.876025\n4 156.192219..171.664605 0.695022\n5 136.295134..149.916286 0.519682\nThese are generated-data diagnostics, not a proof of the true k or a timing benchmark."
+    },
+    "scaling": {
+      "codeHash": "eeb242a5d1736b67aeb252d59afee1aee65778ab8ba5605bb2cc77d16bade79f",
+      "stdoutHash": "1d0b2381b55ae7a4d0756e0e6f2cb18aff70aa6f2bdd2c4dc951e9045628dbbc",
+      "stdout": "original coordinate groups: [[0, 2], [1, 3]]\nfirst coordinate converted without metric correction: [[0, 1], [2, 3]]\ncompensated squared-distance weights: [[0, 2], [1, 3]]\ncompensated ARI: 1.0\ntraining-only coordinate means: [5.0, 20.333333]\nheld-out nearest standardized distances: [0.291399, 0.156559, 7.644739]\npredict changed scaler or centers: False\nThe distant final device still gets a label; a label is not proof of a good match.\nStandardization encodes a scale choice; it does not establish equal domain importance."
+    },
+    "quantization": {
+      "codeHash": "d50de315534de0e3c2624e7a47257bfe13865300215d90b09fd0b127f52aa750",
+      "stdoutHash": "4bb87c0f76cbd00a768afdc45c6bb1dff6a61e0cb327a4b9972f4a57b08e1117",
+      "stdout": "pixels / distinct rows: 128 8\nweighted versus repeated SSE: 9804.927631 9804.927631\nsame floating palette: True\ninteger RGB palette: [[240, 21, 20], [21, 230, 21], [24, 22, 234]]\ndecoded matches palette assignment: True\nfloating / decoded squared RGB error per pixel: 76.600997 76.882812\nraw / palette / index / total payload bits: 3072 72 256 328\nCounts describe pixels, not eight equally frequent observations.\nBit counts exclude dimensions, headers and padding; RGB SSE is not a perceptual-color guarantee."
+    },
+    "capstone": {
+      "codeHash": "97674f1a2bf5c55eb8973f99c1f218ff225c5166517ca1211c026f597b2374be",
+      "stdoutHash": "c5d1ff09a656cfae84960c9253dcf0bea760c9cfe2b7bb02afd07d7a1dc6eac8",
+      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.571111 0.670333 1.0 74 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.661785 0.23876 1.0 73 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.560489 0.211009 0.935727 43 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.342295 2.167591\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n20 30.442766 5.441827\n15 42.465744 3.322042\n25 52.716399 5.9017\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+    }
+  },
+  "oracles": [
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 1,
+      "seed": 0,
+      "globalMinimum": "62",
+      "returnedSSE": 62.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 1,
+      "seed": 3,
+      "globalMinimum": "62",
+      "returnedSSE": 62.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 1,
+      "seed": 9,
+      "globalMinimum": "62",
+      "returnedSSE": 62.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 2,
+      "seed": 0,
+      "globalMinimum": "17",
+      "returnedSSE": 21.166666666666664
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 2,
+      "seed": 3,
+      "globalMinimum": "17",
+      "returnedSSE": 21.166666666666664
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 2,
+      "seed": 9,
+      "globalMinimum": "17",
+      "returnedSSE": 21.166666666666664
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 3,
+      "seed": 0,
+      "globalMinimum": "1",
+      "returnedSSE": 1.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 3,
+      "seed": 3,
+      "globalMinimum": "1",
+      "returnedSSE": 1.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        1,
+        4,
+        5,
+        10
+      ],
+      "k": 3,
+      "seed": 9,
+      "globalMinimum": "1",
+      "returnedSSE": 1.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 1,
+      "seed": 0,
+      "globalMinimum": "414/5",
+      "returnedSSE": 82.80000000000001
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 1,
+      "seed": 3,
+      "globalMinimum": "414/5",
+      "returnedSSE": 82.80000000000001
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 1,
+      "seed": 9,
+      "globalMinimum": "414/5",
+      "returnedSSE": 82.80000000000001
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 2,
+      "seed": 0,
+      "globalMinimum": "18",
+      "returnedSSE": 18.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 2,
+      "seed": 3,
+      "globalMinimum": "18",
+      "returnedSSE": 18.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 2,
+      "seed": 9,
+      "globalMinimum": "18",
+      "returnedSSE": 18.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 3,
+      "seed": 0,
+      "globalMinimum": "2",
+      "returnedSSE": 2.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 3,
+      "seed": 3,
+      "globalMinimum": "2",
+      "returnedSSE": 2.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        -3,
+        -3,
+        0,
+        2,
+        8
+      ],
+      "k": 3,
+      "seed": 9,
+      "globalMinimum": "2",
+      "returnedSSE": 2.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 0,
+      "globalMinimum": "6/5",
+      "returnedSSE": 1.2000000000000002
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 3,
+      "globalMinimum": "6/5",
+      "returnedSSE": 1.2000000000000002
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 9,
+      "globalMinimum": "6/5",
+      "returnedSSE": 1.2000000000000002
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 0,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 3,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 9,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 0,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 3,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 9,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 0,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 3,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 1,
+      "seed": 9,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 0,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 3,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 2,
+      "seed": 9,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 0,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 3,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "exact partition lower bound and Lloyd state",
+      "values": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "k": 3,
+      "seed": 9,
+      "globalMinimum": "0",
+      "returnedSSE": 0.0
+    },
+    {
+      "kind": "budget return contract",
+      "initial": [
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "converged": false
+    },
+    {
+      "kind": "budget return contract",
+      "initial": [
+        [
+          0
+        ],
+        [
+          4
+        ]
+      ],
+      "converged": true
+    },
+    {
+      "kind": "budget return contract",
+      "initial": [
+        [
+          0
+        ],
+        [
+          10
+        ]
+      ],
+      "converged": true
+    },
+    {
+      "kind": "Ward exact partition increment and library heights",
+      "values": [
+        0,
+        1,
+        4,
+        10
+      ]
+    },
+    {
+      "kind": "Ward exact partition increment and library heights",
+      "values": [
+        -4,
+        -1,
+        2,
+        7,
+        9
+      ]
+    },
+    {
+      "kind": "Ward exact partition increment and library heights",
+      "values": [
+        0,
+        0,
+        2,
+        2,
+        5
+      ]
+    },
+    {
+      "kind": "changed palette weights exact repeated objective",
+      "counts": [
+        5,
+        2,
+        3
+      ],
+      "SSE": 2078.0
+    },
+    {
+      "kind": "changed palette weights exact repeated objective",
+      "counts": [
+        9,
+        2,
+        3
+      ],
+      "SSE": 2770.0
+    },
+    {
+      "kind": "changed palette weights exact repeated objective",
+      "counts": [
+        17,
+        2,
+        3
+      ],
+      "SSE": 4154.0
+    },
+    {
+      "kind": "D\u00b2 duplicate/all-zero policy",
+      "points": [
+        [
+          1.0
+        ],
+        [
+          1.0
+        ],
+        [
+          1.0
+        ],
+        [
+          1.0
+        ]
+      ],
+      "k": 3,
+      "chosenRows": [
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "kind": "D\u00b2 duplicate/all-zero policy",
+      "points": [
+        [
+          0.0
+        ],
+        [
+          0.0
+        ],
+        [
+          5.0
+        ],
+        [
+          5.0
+        ]
+      ],
+      "k": 4,
+      "chosenRows": [
+        3,
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "kind": "retained empty center can receive reassigned points",
+      "centers": [
+        [
+          0.5
+        ],
+        [
+          0.0
+        ],
+        [
+          9.5
+        ]
+      ],
+      "labels": [
+        1,
+        0,
+        2,
+        2
+      ]
+    },
+    {
+      "kind": "changed complete held-out capstone",
+      "dataSeed": 29,
+      "splitSeed": 31,
+      "selectedK": 3,
+      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.520765 1.186515 1.0 76 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.613739 0.458526 1.0 77 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.531905 0.324979 0.971851 36 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.253428 2.043875\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n18 31.39486 5.487237\n17 41.07825 3.281655\n25 52.206398 5.873835\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+    }
+  ],
+  "explicitRejections": 5,
+  "research": [
+    {
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html",
+      "inspected": "1.9.1 init, greedy versus vanilla seeding, explicit n_init and current fit behavior; actual current library executions"
+    },
+    {
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html",
+      "inspected": "1.9.1 n_init initializations versus one complete run, inertia/compute_labels, sample_weight"
+    },
+    {
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html",
+      "inspected": "Ward update and tied-minimum warning; checked h squared equals twice actual SSE increment"
+    },
+    {
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.cut_tree.html",
+      "inspected": "count and height cut contracts, verified actual tied toy"
+    }
+  ],
+  "limits": [
+    "No timing benchmark, deployment claim or global optimum claim for the 150-point data.",
+    "Displayed scratch implementations use their explicit small numeric-input contracts.",
+    "Original 150-point and six-point datasets are retained where relevant; root owns exact preservation of the four historical programs.",
+    "Palette payload calculation excludes headers/dimensions/padding and does not claim perceptual optimality.",
+    "Capstone uses synthetic devices; validation criteria and bootstrap stability do not identify real-world categories."
+  ],
+  "originalVerification": {
+    "verifiedAt": "2026-09-11T16:45:46.356564+00:00",
+    "stage": "native author verification; complete lesson/browser/independent review remain separate",
+    "source": "src/learn/data/k-means-hierarchical-examples.js",
+    "sourceHash": "a74cd60a330ce9f2e8703887edeb008c48ad5fd7d1538838d85d502852b3675b",
+    "verifier": "scripts/verify-k-means-hierarchical-examples.py",
+    "verifierHash": "8ead75491e3f440a8e6b719dfcfa48d0a2212cf51e0225d692ac6c6cdff9464a",
+    "versions": {
+      "numpy": "2.3.5",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1"
+    },
+    "programs": {
+      "lloyd": {
+        "codeHash": "935c3f1bd98798aaf2df5554b5600f18e8654aae221af964ae320bc2527855f5",
+        "stdoutHash": "47f2ea09db74ff36a899cb046611d98b61006f16546e2aa4139e455a48c253f3",
+        "stdout": "original data: (150, 2) seed rows: [127, 39, 8]\nassignment / after means / after reassignment / changed labels\n321.875530 / 181.504432 / 181.504432 / 0\nfixed point / mean updates: True 1\ncenter: [-6.7791, -6.8876] size: 50\ncenter: [-2.663, 8.9252] size: 50\ncenter: [4.5952, 2.1091] size: 50\ninertia: 181.504432\nduplicate data: requested / occupied: 3 1\none-update return: fixed / nearest labels: False [0, 0, 1, 1, 1]\nOne-update centers need not be means of the returned reassigned groups.\nfixed point / inertia: True 21.166667\nfixed point / inertia: True 17.0\nA fixed point and agreement with another run are not a global-optimum proof."
+      },
+      "ward": {
+        "codeHash": "b01c13aa6f333145a01bcbc8db51448f96c2443d44698ad97a78ea0eec928627",
+        "stdoutHash": "da017bd02dccd9416dfdb902c65e250db4ed5f3567e8ca97c57510e110c3fd12",
+        "stdout": "left right delta_SSE scipy_height size\n2 3 0.125000 0.500000 2\n0 1 0.250000 0.707107 2\n4 5 0.250000 0.707107 2\n6 7 7.062500 3.758324 4\n8 9 56.020833 10.584974 6\nall heights obey h\u00b2=2\u0394: True\nsum of merge costs / one-cluster SSE: 63.708333 63.708333\ncount cut 2 co-membership ARI: 1.0\ncount cut 3 co-membership ARI: 1.0\ncount cut 4 co-membership ARI: 1.0\nheight cut just below / at tied height: 5 3\nmaxclust=4 means at most 4; actual: 3\nAn exact four-cluster cut chooses a position within a tied merge order."
+      },
+      "production": {
+        "codeHash": "95e6acc96610ceb2a3d209af1270ea291cf93d6e4e91216b444b695a87ac7263",
+        "stdoutHash": "b78ed1f9cd30f65f79bdfda324e669b62e4c4231b7b9b7e194d0cf072b585dde",
+        "stdout": "scikit-learn: 1.9.1 data: (150, 2)\nKMeans inertia: 181.504432 silhouette: 0.876025\nMiniBatch inertia: 181.64728 silhouette: 0.876025\nWard silhouette: 0.876025\nKMeans versus Ward ARI: 1.0\nMiniBatch n_init chooses an initialization; it does not run ten complete fits.\nk / inertia range across three single starts / median silhouette\n2 2660.009039..2660.009039 0.719940\n3 181.504432..181.504432 0.876025\n4 156.192219..171.664605 0.695022\n5 136.295134..149.916286 0.519682\nThese are generated-data diagnostics, not a proof of the true k or a timing benchmark."
+      },
+      "scaling": {
+        "codeHash": "eeb242a5d1736b67aeb252d59afee1aee65778ab8ba5605bb2cc77d16bade79f",
+        "stdoutHash": "1d0b2381b55ae7a4d0756e0e6f2cb18aff70aa6f2bdd2c4dc951e9045628dbbc",
+        "stdout": "original coordinate groups: [[0, 2], [1, 3]]\nfirst coordinate converted without metric correction: [[0, 1], [2, 3]]\ncompensated squared-distance weights: [[0, 2], [1, 3]]\ncompensated ARI: 1.0\ntraining-only coordinate means: [5.0, 20.333333]\nheld-out nearest standardized distances: [0.291399, 0.156559, 7.644739]\npredict changed scaler or centers: False\nThe distant final device still gets a label; a label is not proof of a good match.\nStandardization encodes a scale choice; it does not establish equal domain importance."
+      },
+      "quantization": {
+        "codeHash": "d50de315534de0e3c2624e7a47257bfe13865300215d90b09fd0b127f52aa750",
+        "stdoutHash": "4bb87c0f76cbd00a768afdc45c6bb1dff6a61e0cb327a4b9972f4a57b08e1117",
+        "stdout": "pixels / distinct rows: 128 8\nweighted versus repeated SSE: 9804.927631 9804.927631\nsame floating palette: True\ninteger RGB palette: [[240, 21, 20], [21, 230, 21], [24, 22, 234]]\ndecoded matches palette assignment: True\nfloating / decoded squared RGB error per pixel: 76.600997 76.882812\nraw / palette / index / total payload bits: 3072 72 256 328\nCounts describe pixels, not eight equally frequent observations.\nBit counts exclude dimensions, headers and padding; RGB SSE is not a perceptual-color guarantee."
+      },
+      "capstone": {
+        "codeHash": "97674f1a2bf5c55eb8973f99c1f218ff225c5166517ca1211c026f597b2374be",
+        "stdoutHash": "c5d1ff09a656cfae84960c9253dcf0bea760c9cfe2b7bb02afd07d7a1dc6eac8",
+        "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.571111 0.670333 1.0 74 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.661785 0.23876 1.0 73 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.560489 0.211009 0.935727 43 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.342295 2.167591\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n20 30.442766 5.441827\n15 42.465744 3.322042\n25 52.716399 5.9017\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+      }
+    },
+    "oracles": [
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 1,
+        "seed": 0,
+        "globalMinimum": "62",
+        "returnedSSE": 62.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 1,
+        "seed": 3,
+        "globalMinimum": "62",
+        "returnedSSE": 62.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 1,
+        "seed": 9,
+        "globalMinimum": "62",
+        "returnedSSE": 62.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 2,
+        "seed": 0,
+        "globalMinimum": "17",
+        "returnedSSE": 21.166666666666664
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 2,
+        "seed": 3,
+        "globalMinimum": "17",
+        "returnedSSE": 21.166666666666664
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 2,
+        "seed": 9,
+        "globalMinimum": "17",
+        "returnedSSE": 21.166666666666664
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 3,
+        "seed": 0,
+        "globalMinimum": "1",
+        "returnedSSE": 1.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 3,
+        "seed": 3,
+        "globalMinimum": "1",
+        "returnedSSE": 1.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          1,
+          4,
+          5,
+          10
+        ],
+        "k": 3,
+        "seed": 9,
+        "globalMinimum": "1",
+        "returnedSSE": 1.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 1,
+        "seed": 0,
+        "globalMinimum": "414/5",
+        "returnedSSE": 82.80000000000001
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 1,
+        "seed": 3,
+        "globalMinimum": "414/5",
+        "returnedSSE": 82.80000000000001
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 1,
+        "seed": 9,
+        "globalMinimum": "414/5",
+        "returnedSSE": 82.80000000000001
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 2,
+        "seed": 0,
+        "globalMinimum": "18",
+        "returnedSSE": 18.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 2,
+        "seed": 3,
+        "globalMinimum": "18",
+        "returnedSSE": 18.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 2,
+        "seed": 9,
+        "globalMinimum": "18",
+        "returnedSSE": 18.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 3,
+        "seed": 0,
+        "globalMinimum": "2",
+        "returnedSSE": 2.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 3,
+        "seed": 3,
+        "globalMinimum": "2",
+        "returnedSSE": 2.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          -3,
+          -3,
+          0,
+          2,
+          8
+        ],
+        "k": 3,
+        "seed": 9,
+        "globalMinimum": "2",
+        "returnedSSE": 2.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 0,
+        "globalMinimum": "6/5",
+        "returnedSSE": 1.2000000000000002
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 3,
+        "globalMinimum": "6/5",
+        "returnedSSE": 1.2000000000000002
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 9,
+        "globalMinimum": "6/5",
+        "returnedSSE": 1.2000000000000002
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 0,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 3,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 9,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 0,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 3,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 9,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 0,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 3,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 1,
+        "seed": 9,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 0,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 3,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 2,
+        "seed": 9,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 0,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 3,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "exact partition lower bound and Lloyd state",
+        "values": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "k": 3,
+        "seed": 9,
+        "globalMinimum": "0",
+        "returnedSSE": 0.0
+      },
+      {
+        "kind": "budget return contract",
+        "initial": [
+          [
+            0
+          ],
+          [
+            1
+          ]
+        ],
+        "converged": false
+      },
+      {
+        "kind": "budget return contract",
+        "initial": [
+          [
+            0
+          ],
+          [
+            4
+          ]
+        ],
+        "converged": true
+      },
+      {
+        "kind": "budget return contract",
+        "initial": [
+          [
+            0
+          ],
+          [
+            10
+          ]
+        ],
+        "converged": true
+      },
+      {
+        "kind": "Ward exact partition increment and library heights",
+        "values": [
+          0,
+          1,
+          4,
+          10
+        ]
+      },
+      {
+        "kind": "Ward exact partition increment and library heights",
+        "values": [
+          -4,
+          -1,
+          2,
+          7,
+          9
+        ]
+      },
+      {
+        "kind": "Ward exact partition increment and library heights",
+        "values": [
+          0,
+          0,
+          2,
+          2,
+          5
+        ]
+      },
+      {
+        "kind": "changed palette weights exact repeated objective",
+        "counts": [
+          5,
+          2,
+          3
+        ],
+        "SSE": 2078.0
+      },
+      {
+        "kind": "changed palette weights exact repeated objective",
+        "counts": [
+          9,
+          2,
+          3
+        ],
+        "SSE": 2770.0
+      },
+      {
+        "kind": "changed palette weights exact repeated objective",
+        "counts": [
+          17,
+          2,
+          3
+        ],
+        "SSE": 4154.0
+      },
+      {
+        "kind": "D\u00b2 duplicate/all-zero policy",
+        "points": [
+          [
+            1.0
+          ],
+          [
+            1.0
+          ],
+          [
+            1.0
+          ],
+          [
+            1.0
+          ]
+        ],
+        "k": 3,
+        "chosenRows": [
+          3,
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "D\u00b2 duplicate/all-zero policy",
+        "points": [
+          [
+            0.0
+          ],
+          [
+            0.0
+          ],
+          [
+            5.0
+          ],
+          [
+            5.0
+          ]
+        ],
+        "k": 4,
+        "chosenRows": [
+          3,
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "kind": "retained empty center can receive reassigned points",
+        "centers": [
+          [
+            0.5
+          ],
+          [
+            0.0
+          ],
+          [
+            9.5
+          ]
+        ],
+        "labels": [
+          1,
+          0,
+          2,
+          2
+        ]
+      },
+      {
+        "kind": "changed complete held-out capstone",
+        "dataSeed": 29,
+        "splitSeed": 31,
+        "selectedK": 3,
+        "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.520765 1.186515 1.0 76 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.613739 0.458526 1.0 77 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.531905 0.324979 0.971851 36 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.253428 2.043875\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n18 31.39486 5.487237\n17 41.07825 3.281655\n25 52.206398 5.873835\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+      }
+    ],
+    "explicitRejections": 5,
+    "research": [
+      {
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html",
+        "inspected": "1.9.1 init, greedy versus vanilla seeding, explicit n_init and current fit behavior; actual current library executions"
+      },
+      {
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html",
+        "inspected": "1.9.1 n_init initializations versus one complete run, inertia/compute_labels, sample_weight"
+      },
+      {
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html",
+        "inspected": "Ward update and tied-minimum warning; checked h squared equals twice actual SSE increment"
+      },
+      {
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.cut_tree.html",
+        "inspected": "count and height cut contracts, verified actual tied toy"
+      }
+    ],
+    "limits": [
+      "No timing benchmark, deployment claim or global optimum claim for the 150-point data.",
+      "Displayed scratch implementations use their explicit small numeric-input contracts.",
+      "Original 150-point and six-point datasets are retained where relevant; root owns exact preservation of the four historical programs.",
+      "Palette payload calculation excludes headers/dimensions/padding and does not claim perceptual optimality.",
+      "Capstone uses synthetic devices; validation criteria and bootstrap stability do not identify real-world categories."
+    ]
+  },
+  "amendedAt": "2026-09-11T17:05:13.505532+00:00",
+  "amendments": [
+    {
+      "verifiedAt": "2026-09-11T17:05:13.505532+00:00",
+      "reason": "Independent review found a nonzero admitted centroid separation whose squared distance silently became zero.",
+      "sourceHashBefore": "a74cd60a330ce9f2e8703887edeb008c48ad5fd7d1538838d85d502852b3675b",
+      "sourceHashAfter": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+      "originalModuleBase64": "Ly8gQ29tcGxldGUgc3RhbmRhbG9uZSBwcm9ncmFtcywgZXhlY3V0ZWQgYnkgdGhlIHNlbWFudGljIG5hdGl2ZSB2ZXJpZmllci4NCmV4cG9ydCBjb25zdCBjbHVzdGVyaW5nRXhhbXBsZXMgPSB7DQogICJsbG95ZCI6IHsNCiAgICAidGl0bGUiOiAiVHJhY2UgdmFuaWxsYSBEwrIgc2VlZGluZyBhbmQgcmV0dXJuIGFuIGhvbmVzdCBMbG95ZCBzdGF0ZSIsDQogICAgInF1ZXN0aW9uIjogIklmIHRoZSBsYXN0IG1lYW4gdXBkYXRlIGNoYW5nZXMgdGhlIG5lYXJlc3QtY2VudGVyIGFzc2lnbm1lbnRzLCBoYXMgdGhlIGFsZ29yaXRobSByZWFjaGVkIGEgZml4ZWQgcG9pbnQ/IFdoYXQgc2hvdWxkIGl0IHJldHVybiB3aGVuIGl0cyBpdGVyYXRpb24gYnVkZ2V0IGVuZHMgdGhlcmU/IiwNCiAgICAiY29kZSI6ICJpbXBvcnQgbnVtcHkgYXMgbnBcbmZyb20gc2tsZWFybi5kYXRhc2V0cyBpbXBvcnQgbWFrZV9ibG9ic1xuXG5cbmRlZiBjaGVja2VkX3BvaW50cyh2YWx1ZXMpOlxuICAgIHJhdyA9IG5wLmFzYXJyYXkodmFsdWVzKVxuICAgIGlmIHJhdy5kdHlwZS5raW5kIG5vdCBpbiBcImZpdVwiIG9yIHJhdy5uZGltICE9IDI6XG4gICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoXCJVc2UgYSBudW1lcmljIHJvdy1ieS1mZWF0dXJlIG1hdHJpeC5cIilcbiAgICBwb2ludHMgPSByYXcuYXN0eXBlKGZsb2F0KVxuICAgIGlmIG5vdCAoMSA8PSBsZW4ocG9pbnRzKSA8PSAyMDAwIGFuZCAxIDw9IHBvaW50cy5zaGFwZVsxXSA8PSAxNik6XG4gICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoXG4gICAgICAgICAgICBcIlRoaXMgc21hbGwgdGVhY2hpbmcgaW1wbGVtZW50YXRpb24gYWRtaXRzIDHigJMyMDAwIHJvd3MgYW5kIDHigJMxNiBmZWF0dXJlcy5cIlxuICAgICAgICApXG4gICAgaWYgbm90IG5wLmlzZmluaXRlKHBvaW50cykuYWxsKCkgb3IgbnAubWF4KG5wLmFicyhwb2ludHMpKSA+IDFlNjpcbiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcIlVzZSBmaW5pdGUgY29vcmRpbmF0ZXMgd2l0aCBtYWduaXR1ZGUgYXQgbW9zdCAxZTYuXCIpXG4gICAgcmV0dXJuIHBvaW50c1xuXG5cbmRlZiBzcXVhcmVkX2Rpc3RhbmNlcyhwb2ludHMsIGNlbnRlcnMpOlxuICAgIGRpZmZlcmVuY2VzID0gcG9pbnRzWzosIE5vbmUsIDpdIC0gY2VudGVyc1tOb25lLCA6LCA6XVxuICAgIHNxdWFyZXMgPSBkaWZmZXJlbmNlcyAqIGRpZmZlcmVuY2VzXG4gICAgaWYgbnAuYW55KChkaWZmZXJlbmNlcyAhPSAwKSAmIChzcXVhcmVzID09IDApKSBvciBub3QgbnAuaXNmaW5pdGUoc3F1YXJlcykuYWxsKCk6XG4gICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoXG4gICAgICAgICAgICBcIlJlc2NhbGUgY29vcmRpbmF0ZXM6IHNxdWFyZWQgZGlzdGFuY2VzIGV4Y2VlZCB0aGlzIGFyaXRobWV0aWMgcmFuZ2UuXCJcbiAgICAgICAgKVxuICAgIHJldHVybiBzcXVhcmVzLnN1bShheGlzPTIpXG5cblxuZGVmIGQyX3NlZWQocG9pbnRzLCBrLCBzZWVkPTApOlxuICAgIHBvaW50cyA9IGNoZWNrZWRfcG9pbnRzKHBvaW50cylcbiAgICBpZiB0eXBlKGspIGlzIG5vdCBpbnQgb3Igbm90IDEgPD0gayA8PSBtaW4obGVuKHBvaW50cyksIDMyKTpcbiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcIkNob29zZSBhbiBpbnRlZ2VyIGsgYmV0d2VlbiAxIGFuZCBtaW4obiwzMikuXCIpXG4gICAgcm5nID0gbnAucmFuZG9tLmRlZmF1bHRfcm5nKHNlZWQpXG4gICAgY2hvc2VuID0gW2ludChybmcuaW50ZWdlcnMobGVuKHBvaW50cykpKV0gICMgRmlyc3Qgcm93IGlzIHVuaWZvcm0uXG4gICAgd2hpbGUgbGVuKGNob3NlbikgPCBrOlxuICAgICAgICBuZWFyZXN0ID0gc3F1YXJlZF9kaXN0YW5jZXMocG9pbnRzLCBwb2ludHNbY2hvc2VuXSkubWluKGF4aXM9MSlcbiAgICAgICAgaWYgbmVhcmVzdC5tYXgoKSA9PSAwOlxuICAgICAgICAgICAgIyBFdmVyeSBkaXN0aW5jdCBsb2NhdGlvbiBpcyBjb3ZlcmVkLiBLZWVwIGsgc2xvdHMsIHBvc3NpYmx5IGR1cGxpY2F0ZS5cbiAgICAgICAgICAgIHNlbGVjdGVkID0gbmV4dChcbiAgICAgICAgICAgICAgICBpbmRleCBmb3IgaW5kZXggaW4gcmFuZ2UobGVuKHBvaW50cykpIGlmIGluZGV4IG5vdCBpbiBjaG9zZW5cbiAgICAgICAgICAgIClcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIHNjYWxlZCA9IG5lYXJlc3QgLyBuZWFyZXN0Lm1heCgpXG4gICAgICAgICAgICBzZWxlY3RlZCA9IGludChybmcuY2hvaWNlKGxlbihwb2ludHMpLCBwPXNjYWxlZCAvIHNjYWxlZC5zdW0oKSkpXG4gICAgICAgIGNob3Nlbi5hcHBlbmQoc2VsZWN0ZWQpXG4gICAgcmV0dXJuIHBvaW50c1tjaG9zZW5dLmNvcHkoKSwgY2hvc2VuXG5cblxuZGVmIGxsb3lkKHBvaW50cywgaz0zLCBzZWVkPTAsIG1heF9pdGVyPTEwMCwgaW5pdGlhbD1Ob25lKTpcbiAgICBwb2ludHMgPSBjaGVja2VkX3BvaW50cyhwb2ludHMpXG4gICAgaWYgdHlwZShrKSBpcyBub3QgaW50IG9yIG5vdCAxIDw9IGsgPD0gbWluKGxlbihwb2ludHMpLCAzMik6XG4gICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoXCJDaG9vc2UgYW4gaW50ZWdlciBrIGJldHdlZW4gMSBhbmQgbWluKG4sMzIpLlwiKVxuICAgIGlmIHR5cGUobWF4X2l0ZXIpIGlzIG5vdCBpbnQgb3Igbm90IDEgPD0gbWF4X2l0ZXIgPD0gMTAwMDpcbiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcIkNob29zZSBhbiBpbnRlZ2VyIGl0ZXJhdGlvbiBidWRnZXQgZnJvbSAxIHRvIDEwMDAuXCIpXG4gICAgaWYgaW5pdGlhbCBpcyBOb25lOlxuICAgICAgICBjZW50ZXJzLCBzZWVkX3Jvd3MgPSBkMl9zZWVkKHBvaW50cywgaywgc2VlZClcbiAgICBlbHNlOlxuICAgICAgICBjZW50ZXJzID0gY2hlY2tlZF9wb2ludHMoaW5pdGlhbCkuY29weSgpXG4gICAgICAgIGlmIGNlbnRlcnMuc2hhcGUgIT0gKGssIHBvaW50cy5zaGFwZVsxXSk6XG4gICAgICAgICAgICByYWlzZSBWYWx1ZUVycm9yKFwiSW5pdGlhbCBjZW50ZXJzIG11c3QgaGF2ZSBzaGFwZSAoaywgbnVtYmVyIG9mIGZlYXR1cmVzKS5cIilcbiAgICAgICAgc2VlZF9yb3dzID0gTm9uZVxuICAgIGluaXRpYWxfY2VudGVycyA9IGNlbnRlcnMuY29weSgpXG4gICAgaGlzdG9yeSA9IFtdXG4gICAgZm9yIGl0ZXJhdGlvbiBpbiByYW5nZSgxLCBtYXhfaXRlciArIDEpOlxuICAgICAgICBkaXN0YW5jZXMgPSBzcXVhcmVkX2Rpc3RhbmNlcyhwb2ludHMsIGNlbnRlcnMpXG4gICAgICAgIGxhYmVsc19mb3JfbWVhbnMgPSBkaXN0YW5jZXMuYXJnbWluKGF4aXM9MSkgICMgTG93ZXN0IGNlbnRlciBpbmRleCB3aW5zIGEgdGllLlxuICAgICAgICBiZWZvcmUgPSBmbG9hdChkaXN0YW5jZXNbbnAuYXJhbmdlKGxlbihwb2ludHMpKSwgbGFiZWxzX2Zvcl9tZWFuc10uc3VtKCkpXG4gICAgICAgIHVwZGF0ZWQgPSBjZW50ZXJzLmNvcHkoKVxuICAgICAgICBmb3IgY2x1c3RlciBpbiByYW5nZShrKTpcbiAgICAgICAgICAgIG1lbWJlcnMgPSBwb2ludHNbbGFiZWxzX2Zvcl9tZWFucyA9PSBjbHVzdGVyXVxuICAgICAgICAgICAgaWYgbGVuKG1lbWJlcnMpOlxuICAgICAgICAgICAgICAgIHVwZGF0ZWRbY2x1c3Rlcl0gPSBtZW1iZXJzLm1lYW4oYXhpcz0wKVxuICAgICAgICAgICAgIyBBbiBlbXB0eSBzbG90IGtlZXBzIGl0cyBwcmV2aW91cyBjZW50ZXI7IG5vIGZvcmNlZCByZWxvY2F0aW9uLlxuICAgICAgICB1cGRhdGVkX2Rpc3RhbmNlcyA9IHNxdWFyZWRfZGlzdGFuY2VzKHBvaW50cywgdXBkYXRlZClcbiAgICAgICAgYWZ0ZXJfbWVhbnMgPSBmbG9hdChcbiAgICAgICAgICAgIHVwZGF0ZWRfZGlzdGFuY2VzW25wLmFyYW5nZShsZW4ocG9pbnRzKSksIGxhYmVsc19mb3JfbWVhbnNdLnN1bSgpXG4gICAgICAgIClcbiAgICAgICAgbGFiZWxzID0gdXBkYXRlZF9kaXN0YW5jZXMuYXJnbWluKGF4aXM9MSlcbiAgICAgICAgaW5lcnRpYSA9IGZsb2F0KHVwZGF0ZWRfZGlzdGFuY2VzW25wLmFyYW5nZShsZW4ocG9pbnRzKSksIGxhYmVsc10uc3VtKCkpXG4gICAgICAgIGNvbnZlcmdlZCA9IGJvb2wobnAuYXJyYXlfZXF1YWwobGFiZWxzLCBsYWJlbHNfZm9yX21lYW5zKSlcbiAgICAgICAgaGlzdG9yeS5hcHBlbmQoXG4gICAgICAgICAgICAoYmVmb3JlLCBhZnRlcl9tZWFucywgaW5lcnRpYSwgaW50KG5wLnN1bShsYWJlbHMgIT0gbGFiZWxzX2Zvcl9tZWFucykpKVxuICAgICAgICApXG4gICAgICAgIGNlbnRlcnMgPSB1cGRhdGVkXG4gICAgICAgIGlmIGNvbnZlcmdlZDpcbiAgICAgICAgICAgIGJyZWFrXG4gICAgcmV0dXJuIHtcbiAgICAgICAgXCJjZW50ZXJzXCI6IGNlbnRlcnMsXG4gICAgICAgIFwibGFiZWxzXCI6IGxhYmVscyxcbiAgICAgICAgXCJpbmVydGlhXCI6IGluZXJ0aWEsXG4gICAgICAgIFwiY29udmVyZ2VkXCI6IGNvbnZlcmdlZCxcbiAgICAgICAgXCJpdGVyYXRpb25zXCI6IGl0ZXJhdGlvbixcbiAgICAgICAgXCJoaXN0b3J5XCI6IGhpc3RvcnksXG4gICAgICAgIFwiaW5pdGlhbF9jZW50ZXJzXCI6IGluaXRpYWxfY2VudGVycyxcbiAgICAgICAgXCJzZWVkX3Jvd3NcIjogc2VlZF9yb3dzLFxuICAgIH1cblxuXG5wb2ludHMsIF8gPSBtYWtlX2Jsb2JzKG5fc2FtcGxlcz0xNTAsIGNlbnRlcnM9MywgY2x1c3Rlcl9zdGQ9MC44LCByYW5kb21fc3RhdGU9NDIpXG5yZXN1bHQgPSBsbG95ZChwb2ludHMpXG5wcmludChcIm9yaWdpbmFsIGRhdGE6XCIsIHBvaW50cy5zaGFwZSwgXCJzZWVkIHJvd3M6XCIsIHJlc3VsdFtcInNlZWRfcm93c1wiXSlcbnByaW50KFwiYXNzaWdubWVudCAvIGFmdGVyIG1lYW5zIC8gYWZ0ZXIgcmVhc3NpZ25tZW50IC8gY2hhbmdlZCBsYWJlbHNcIilcbmZvciBiZWZvcmUsIGFmdGVyLCByZWFzc2lnbmVkLCBjaGFuZ2VkIGluIHJlc3VsdFtcImhpc3RvcnlcIl06XG4gICAgcHJpbnQoZlwie2JlZm9yZTouNmZ9IC8ge2FmdGVyOi42Zn0gLyB7cmVhc3NpZ25lZDouNmZ9IC8ge2NoYW5nZWR9XCIpXG5wcmludChcImZpeGVkIHBvaW50IC8gbWVhbiB1cGRhdGVzOlwiLCByZXN1bHRbXCJjb252ZXJnZWRcIl0sIHJlc3VsdFtcIml0ZXJhdGlvbnNcIl0pXG5mb3IgY2x1c3RlciBpbiBucC5hcmdzb3J0KHJlc3VsdFtcImNlbnRlcnNcIl1bOiwgMF0pOlxuICAgIHByaW50KFxuICAgICAgICBcImNlbnRlcjpcIixcbiAgICAgICAgbnAucm91bmQocmVzdWx0W1wiY2VudGVyc1wiXVtjbHVzdGVyXSwgNCkudG9saXN0KCksXG4gICAgICAgIFwic2l6ZTpcIixcbiAgICAgICAgaW50KG5wLnN1bShyZXN1bHRbXCJsYWJlbHNcIl0gPT0gY2x1c3RlcikpLFxuICAgIClcbnByaW50KFwiaW5lcnRpYTpcIiwgcm91bmQocmVzdWx0W1wiaW5lcnRpYVwiXSwgNikpXG5cbmR1cGxpY2F0ZXMgPSBsbG95ZChucC5vbmVzKCg0LCAyKSksIGs9MylcbnByaW50KFwiZHVwbGljYXRlIGRhdGE6IHJlcXVlc3RlZCAvIG9jY3VwaWVkOlwiLCAzLCBsZW4obnAudW5pcXVlKGR1cGxpY2F0ZXNbXCJsYWJlbHNcIl0pKSlcbmNoYW5nZWQgPSBucC5hcnJheShbWzAuMF0sIFsxLjBdLCBbNC4wXSwgWzUuMF0sIFsxMC4wXV0pXG5saW1pdGVkID0gbGxveWQoY2hhbmdlZCwgaz0yLCBpbml0aWFsPVtbMC4wXSwgWzEuMF1dLCBtYXhfaXRlcj0xKVxucHJpbnQoXG4gICAgXCJvbmUtdXBkYXRlIHJldHVybjogZml4ZWQgLyBuZWFyZXN0IGxhYmVsczpcIixcbiAgICBsaW1pdGVkW1wiY29udmVyZ2VkXCJdLFxuICAgIGxpbWl0ZWRbXCJsYWJlbHNcIl0udG9saXN0KCksXG4pXG5wcmludChcIk9uZS11cGRhdGUgY2VudGVycyBuZWVkIG5vdCBiZSBtZWFucyBvZiB0aGUgcmV0dXJuZWQgcmVhc3NpZ25lZCBncm91cHMuXCIpXG5mb3IgaW5pdGlhbCBpbiBbW1swLjBdLCBbNC4wXV0sIFtbMC4wXSwgWzEwLjBdXV06XG4gICAgbG9jYWwgPSBsbG95ZChjaGFuZ2VkLCBrPTIsIGluaXRpYWw9aW5pdGlhbClcbiAgICBwcmludChcImZpeGVkIHBvaW50IC8gaW5lcnRpYTpcIiwgbG9jYWxbXCJjb252ZXJnZWRcIl0sIHJvdW5kKGxvY2FsW1wiaW5lcnRpYVwiXSwgNikpXG5wcmludChcIkEgZml4ZWQgcG9pbnQgYW5kIGFncmVlbWVudCB3aXRoIGFub3RoZXIgcnVuIGFyZSBub3QgYSBnbG9iYWwtb3B0aW11bSBwcm9vZi5cIikiLA0KICAgICJleHBlY3RlZCI6ICJvcmlnaW5hbCBkYXRhOiAoMTUwLCAyKSBzZWVkIHJvd3M6IFsxMjcsIDM5LCA4XVxuYXNzaWdubWVudCAvIGFmdGVyIG1lYW5zIC8gYWZ0ZXIgcmVhc3NpZ25tZW50IC8gY2hhbmdlZCBsYWJlbHNcbjMyMS44NzU1MzAgLyAxODEuNTA0NDMyIC8gMTgxLjUwNDQzMiAvIDBcbmZpeGVkIHBvaW50IC8gbWVhbiB1cGRhdGVzOiBUcnVlIDFcbmNlbnRlcjogWy02Ljc3OTEsIC02Ljg4NzZdIHNpemU6IDUwXG5jZW50ZXI6IFstMi42NjMsIDguOTI1Ml0gc2l6ZTogNTBcbmNlbnRlcjogWzQuNTk1MiwgMi4xMDkxXSBzaXplOiA1MFxuaW5lcnRpYTogMTgxLjUwNDQzMlxuZHVwbGljYXRlIGRhdGE6IHJlcXVlc3RlZCAvIG9jY3VwaWVkOiAzIDFcbm9uZS11cGRhdGUgcmV0dXJuOiBmaXhlZCAvIG5lYXJlc3QgbGFiZWxzOiBGYWxzZSBbMCwgMCwgMSwgMSwgMV1cbk9uZS11cGRhdGUgY2VudGVycyBuZWVkIG5vdCBiZSBtZWFucyBvZiB0aGUgcmV0dXJuZWQgcmVhc3NpZ25lZCBncm91cHMuXG5maXhlZCBwb2ludCAvIGluZXJ0aWE6IFRydWUgMjEuMTY2NjY3XG5maXhlZCBwb2ludCAvIGluZXJ0aWE6IFRydWUgMTcuMFxuQSBmaXhlZCBwb2ludCBhbmQgYWdyZWVtZW50IHdpdGggYW5vdGhlciBydW4gYXJlIG5vdCBhIGdsb2JhbC1vcHRpbXVtIHByb29mLiIsDQogICAgImxhbmd1YWdlIjogInB5dGhvbiINCiAgfSwNCiAgIndhcmQiOiB7DQogICAgInRpdGxlIjogIkNhbGN1bGF0ZSBXYXJkJ3MgbWVyZ2UgY29zdCwgdGhlbiBjaGVjayB0aGUgZGVuZHJvZ3JhbSBoZWlnaHQiLA0KICAgICJxdWVzdGlvbiI6ICJUd28gbWVyZ2VzIGhhdmUgdGhlIHNhbWUgaGVpZ2h0LiBDYW4gYSBob3Jpem9udGFsIGhlaWdodCBjdXQgcmVjb3ZlciBldmVyeSBjbHVzdGVyIGNvdW50IHRoYXQgYSBiaW5hcnkgbWVyZ2Utb3JkZXIgY3V0IGNhbj8iLA0KICAgICJjb2RlIjogImltcG9ydCBudW1weSBhcyBucFxuZnJvbSBzY2lweS5jbHVzdGVyLmhpZXJhcmNoeSBpbXBvcnQgbGlua2FnZSwgY3V0X3RyZWUsIGZjbHVzdGVyXG5mcm9tIHNrbGVhcm4ubWV0cmljcyBpbXBvcnQgYWRqdXN0ZWRfcmFuZF9zY29yZVxuXG50b3kgPSBucC5hcnJheShbWzEuMCwgMC4wXSwgWzEuNSwgMC41XSwgWzMuMCwgMi4wXSwgWzMuNSwgMi4wXSwgWzcuMCwgNS4wXSwgWzcuNSwgNS41XV0pXG5cblxuZGVmIHdhcmRfbWVyZ2VzKHBvaW50cyk6XG4gICAgcG9pbnRzID0gbnAuYXNhcnJheShwb2ludHMsIGR0eXBlPWZsb2F0KVxuICAgIGlmIHBvaW50cy5uZGltICE9IDIgb3Igbm90ICgyIDw9IGxlbihwb2ludHMpIDw9IDQwIGFuZCAxIDw9IHBvaW50cy5zaGFwZVsxXSA8PSA4KTpcbiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcIlVzZSBhIHNtYWxsIG1hdHJpeCB3aXRoIDLigJM0MCByb3dzIGFuZCAx4oCTOCBmZWF0dXJlcy5cIilcbiAgICBpZiBub3QgbnAuaXNmaW5pdGUocG9pbnRzKS5hbGwoKSBvciBucC5tYXgobnAuYWJzKHBvaW50cykpID4gMWU2OlxuICAgICAgICByYWlzZSBWYWx1ZUVycm9yKFwiVXNlIGZpbml0ZSBjb29yZGluYXRlcyBvZiBtYWduaXR1ZGUgYXQgbW9zdCAxZTYuXCIpXG4gICAgY2x1c3RlcnMgPSB7aW5kZXg6ICgxLCByb3cuY29weSgpLCBbaW5kZXhdKSBmb3IgaW5kZXgsIHJvdyBpbiBlbnVtZXJhdGUocG9pbnRzKX1cbiAgICByb3dzLCBjb3N0cyA9IFtdLCBbXVxuICAgIGZvciBuZXdfaWQgaW4gcmFuZ2UobGVuKHBvaW50cyksIDIgKiBsZW4ocG9pbnRzKSAtIDEpOlxuICAgICAgICBjYW5kaWRhdGVzID0gW11cbiAgICAgICAgYWN0aXZlID0gc29ydGVkKGNsdXN0ZXJzKVxuICAgICAgICBmb3IgcG9zaXRpb24sIGxlZnQgaW4gZW51bWVyYXRlKGFjdGl2ZSk6XG4gICAgICAgICAgICBmb3IgcmlnaHQgaW4gYWN0aXZlW3Bvc2l0aW9uICsgMSA6XTpcbiAgICAgICAgICAgICAgICBuYSwgbWEsIF8gPSBjbHVzdGVyc1tsZWZ0XVxuICAgICAgICAgICAgICAgIG5iLCBtYiwgXyA9IGNsdXN0ZXJzW3JpZ2h0XVxuICAgICAgICAgICAgICAgIGRlbHRhID0gbmEgKiBuYiAvIChuYSArIG5iKSAqIGZsb2F0KG5wLnN1bSgobWEgLSBtYikgKiogMikpXG4gICAgICAgICAgICAgICAgY2FuZGlkYXRlcy5hcHBlbmQoKGRlbHRhLCBsZWZ0LCByaWdodCkpXG4gICAgICAgICMgTG93ZXN0IGFjdGl2ZSBJRCBwYWlyIGJyZWFrcyBleGFjdCBudW1lcmljYWwgdGllcyBkZXRlcm1pbmlzdGljYWxseS5cbiAgICAgICAgZGVsdGEsIGxlZnQsIHJpZ2h0ID0gbWluKGNhbmRpZGF0ZXMpXG4gICAgICAgIG5hLCBtYSwgbWVtYmVyc19hID0gY2x1c3RlcnMucG9wKGxlZnQpXG4gICAgICAgIG5iLCBtYiwgbWVtYmVyc19iID0gY2x1c3RlcnMucG9wKHJpZ2h0KVxuICAgICAgICBjbHVzdGVyc1tuZXdfaWRdID0gKFxuICAgICAgICAgICAgbmEgKyBuYixcbiAgICAgICAgICAgIChuYSAqIG1hICsgbmIgKiBtYikgLyAobmEgKyBuYiksXG4gICAgICAgICAgICBtZW1iZXJzX2EgKyBtZW1iZXJzX2IsXG4gICAgICAgIClcbiAgICAgICAgcm93cy5hcHBlbmQoW2xlZnQsIHJpZ2h0LCBucC5zcXJ0KDIgKiBkZWx0YSksIG5hICsgbmJdKVxuICAgICAgICBjb3N0cy5hcHBlbmQoZGVsdGEpXG4gICAgcmV0dXJuIG5wLmFycmF5KHJvd3MpLCBucC5hcnJheShjb3N0cylcblxuXG5kZWYgY291bnRfY3V0KHRyZWUsIGspOlxuICAgIG4gPSBsZW4odHJlZSkgKyAxXG4gICAgaWYgdHlwZShrKSBpcyBub3QgaW50IG9yIG5vdCAxIDw9IGsgPD0gbjpcbiAgICAgICAgcmFpc2UgVmFsdWVFcnJvcihcIkNob29zZSBhbiBpbnRlZ2VyIGNsdXN0ZXIgY291bnQgZnJvbSAxIHRvIG4uXCIpXG4gICAgYWN0aXZlID0ge2luZGV4OiBbaW5kZXhdIGZvciBpbmRleCBpbiByYW5nZShuKX1cbiAgICBmb3Igc3RlcCwgcm93IGluIGVudW1lcmF0ZSh0cmVlWzogbiAtIGtdKTpcbiAgICAgICAgbGVmdCwgcmlnaHQgPSBtYXAoaW50LCByb3dbOjJdKVxuICAgICAgICBhY3RpdmVbbiArIHN0ZXBdID0gYWN0aXZlLnBvcChsZWZ0KSArIGFjdGl2ZS5wb3AocmlnaHQpXG4gICAgbGFiZWxzID0gbnAuZW1wdHkobiwgZHR5cGU9aW50KVxuICAgIGZvciBsYWJlbCwgbWVtYmVycyBpbiBlbnVtZXJhdGUoYWN0aXZlLnZhbHVlcygpKTpcbiAgICAgICAgbGFiZWxzW21lbWJlcnNdID0gbGFiZWxcbiAgICByZXR1cm4gbGFiZWxzXG5cblxub3VycywgZGVsdGEgPSB3YXJkX21lcmdlcyh0b3kpXG5yZWZlcmVuY2UgPSBsaW5rYWdlKHRveSwgbWV0aG9kPVwid2FyZFwiLCBtZXRyaWM9XCJldWNsaWRlYW5cIilcbnByaW50KFwibGVmdCByaWdodCBkZWx0YV9TU0Ugc2NpcHlfaGVpZ2h0IHNpemVcIilcbmZvciBvd24sIGNvc3QsIG90aGVyIGluIHppcChvdXJzLCBkZWx0YSwgcmVmZXJlbmNlKTpcbiAgICBwcmludChpbnQob3duWzBdKSwgaW50KG93blsxXSksIGZcIntjb3N0Oi42Zn1cIiwgZlwie290aGVyWzJdOi42Zn1cIiwgaW50KG93blszXSkpXG5wcmludChcImFsbCBoZWlnaHRzIG9iZXkgaMKyPTLOlDpcIiwgYm9vbChucC5hbGxjbG9zZShyZWZlcmVuY2VbOiwgMl0gKiogMiwgMiAqIGRlbHRhKSkpXG5wcmludChcbiAgICBcInN1bSBvZiBtZXJnZSBjb3N0cyAvIG9uZS1jbHVzdGVyIFNTRTpcIixcbiAgICByb3VuZChmbG9hdChkZWx0YS5zdW0oKSksIDYpLFxuICAgIHJvdW5kKGZsb2F0KG5wLnN1bSgodG95IC0gdG95Lm1lYW4oYXhpcz0wKSkgKiogMikpLCA2KSxcbilcbmZvciBrIGluIFsyLCAzLCA0XTpcbiAgICBkaXJlY3QgPSBjb3VudF9jdXQob3VycywgaylcbiAgICBzY2lweV9sYWJlbHMgPSBjdXRfdHJlZShyZWZlcmVuY2UsIG5fY2x1c3RlcnM9W2tdKS5yYXZlbCgpXG4gICAgcHJpbnQoXG4gICAgICAgIFwiY291bnQgY3V0XCIsXG4gICAgICAgIGssXG4gICAgICAgIFwiY28tbWVtYmVyc2hpcCBBUkk6XCIsXG4gICAgICAgIHJvdW5kKGFkanVzdGVkX3JhbmRfc2NvcmUoZGlyZWN0LCBzY2lweV9sYWJlbHMpLCA2KSxcbiAgICApXG5lcXVhbF9oZWlnaHQgPSByZWZlcmVuY2VbMSwgMl1cbmJlbG93ID0gZmNsdXN0ZXIocmVmZXJlbmNlLCBucC5uZXh0YWZ0ZXIoZXF1YWxfaGVpZ2h0LCAtbnAuaW5mKSwgY3JpdGVyaW9uPVwiZGlzdGFuY2VcIilcbnRocm91Z2ggPSBmY2x1c3RlcihyZWZlcmVuY2UsIGVxdWFsX2hlaWdodCwgY3JpdGVyaW9uPVwiZGlzdGFuY2VcIilcbm1heF9mb3VyID0gZmNsdXN0ZXIocmVmZXJlbmNlLCA0LCBjcml0ZXJpb249XCJtYXhjbHVzdFwiKVxucHJpbnQoXG4gICAgXCJoZWlnaHQgY3V0IGp1c3QgYmVsb3cgLyBhdCB0aWVkIGhlaWdodDpcIixcbiAgICBsZW4obnAudW5pcXVlKGJlbG93KSksXG4gICAgbGVuKG5wLnVuaXF1ZSh0aHJvdWdoKSksXG4pXG5wcmludChcIm1heGNsdXN0PTQgbWVhbnMgYXQgbW9zdCA0OyBhY3R1YWw6XCIsIGxlbihucC51bmlxdWUobWF4X2ZvdXIpKSlcbnByaW50KFwiQW4gZXhhY3QgZm91ci1jbHVzdGVyIGN1dCBjaG9vc2VzIGEgcG9zaXRpb24gd2l0aGluIGEgdGllZCBtZXJnZSBvcmRlci5cIikiLA0KICAgICJleHBlY3RlZCI6ICJsZWZ0IHJpZ2h0IGRlbHRhX1NTRSBzY2lweV9oZWlnaHQgc2l6ZVxuMiAzIDAuMTI1MDAwIDAuNTAwMDAwIDJcbjAgMSAwLjI1MDAwMCAwLjcwNzEwNyAyXG40IDUgMC4yNTAwMDAgMC43MDcxMDcgMlxuNiA3IDcuMDYyNTAwIDMuNzU4MzI0IDRcbjggOSA1Ni4wMjA4MzMgMTAuNTg0OTc0IDZcbmFsbCBoZWlnaHRzIG9iZXkgaMKyPTLOlDogVHJ1ZVxuc3VtIG9mIG1lcmdlIGNvc3RzIC8gb25lLWNsdXN0ZXIgU1NFOiA2My43MDgzMzMgNjMuNzA4MzMzXG5jb3VudCBjdXQgMiBjby1tZW1iZXJzaGlwIEFSSTogMS4wXG5jb3VudCBjdXQgMyBjby1tZW1iZXJzaGlwIEFSSTogMS4wXG5jb3VudCBjdXQgNCBjby1tZW1iZXJzaGlwIEFSSTogMS4wXG5oZWlnaHQgY3V0IGp1c3QgYmVsb3cgLyBhdCB0aWVkIGhlaWdodDogNSAzXG5tYXhjbHVzdD00IG1lYW5zIGF0IG1vc3QgNDsgYWN0dWFsOiAzXG5BbiBleGFjdCBmb3VyLWNsdXN0ZXIgY3V0IGNob29zZXMgYSBwb3NpdGlvbiB3aXRoaW4gYSB0aWVkIG1lcmdlIG9yZGVyLiIsDQogICAgImxhbmd1YWdlIjogInB5dGhvbiINCiAgfSwNCiAgInByb2R1Y3Rpb24iOiB7DQogICAgInRpdGxlIjogIkNvbXBhcmUgYWN0dWFsIEtNZWFucywgTWluaUJhdGNoS01lYW5zIGFuZCBhZ2dsb21lcmF0aXZlIHJlc3VsdHMiLA0KICAgICJxdWVzdGlvbiI6ICJEb2VzIGEgbG93ZXIgdHJhaW5pbmcgaW5lcnRpYSBwcm92ZSB0aGF0IGsgaXMgY29ycmVjdD8gRG9lcyBNaW5pQmF0Y2hLTWVhbnMobl9pbml0PTEwKSBtZWFuIHRlbiBjb21wbGV0ZSBtaW5pLWJhdGNoIGZpdHM/IiwNCiAgICAiY29kZSI6ICJpbXBvcnQgbnVtcHkgYXMgbnBcbmltcG9ydCBza2xlYXJuXG5mcm9tIHNrbGVhcm4uZGF0YXNldHMgaW1wb3J0IG1ha2VfYmxvYnNcbmZyb20gc2tsZWFybi5jbHVzdGVyIGltcG9ydCBLTWVhbnMsIE1pbmlCYXRjaEtNZWFucywgQWdnbG9tZXJhdGl2ZUNsdXN0ZXJpbmdcbmZyb20gc2tsZWFybi5tZXRyaWNzIGltcG9ydCBzaWxob3VldHRlX3Njb3JlLCBhZGp1c3RlZF9yYW5kX3Njb3JlXG5cbnBvaW50cywgXyA9IG1ha2VfYmxvYnMobl9zYW1wbGVzPTE1MCwgY2VudGVycz0zLCBjbHVzdGVyX3N0ZD0wLjgsIHJhbmRvbV9zdGF0ZT00MilcbnByaW50KFwic2Npa2l0LWxlYXJuOlwiLCBza2xlYXJuLl9fdmVyc2lvbl9fLCBcImRhdGE6XCIsIHBvaW50cy5zaGFwZSlcbmZ1bGwgPSBLTWVhbnMoXG4gICAgbl9jbHVzdGVycz0zLFxuICAgIGluaXQ9XCJrLW1lYW5zKytcIixcbiAgICBuX2luaXQ9MTAsXG4gICAgbWF4X2l0ZXI9MzAwLFxuICAgIGFsZ29yaXRobT1cImxsb3lkXCIsXG4gICAgcmFuZG9tX3N0YXRlPTQyLFxuKS5maXQocG9pbnRzKVxubWluaSA9IE1pbmlCYXRjaEtNZWFucyhcbiAgICBuX2NsdXN0ZXJzPTMsIGluaXQ9XCJrLW1lYW5zKytcIiwgbl9pbml0PTEwLCBiYXRjaF9zaXplPTY0LCByYW5kb21fc3RhdGU9NDJcbikuZml0KHBvaW50cylcbndhcmQgPSBBZ2dsb21lcmF0aXZlQ2x1c3RlcmluZyhuX2NsdXN0ZXJzPTMsIGxpbmthZ2U9XCJ3YXJkXCIsIG1ldHJpYz1cImV1Y2xpZGVhblwiKS5maXQoXG4gICAgcG9pbnRzXG4pXG5mb3IgbmFtZSwgZml0dGVkIGluIFsoXCJLTWVhbnNcIiwgZnVsbCksIChcIk1pbmlCYXRjaFwiLCBtaW5pKV06XG4gICAgcHJpbnQoXG4gICAgICAgIG5hbWUsXG4gICAgICAgIFwiaW5lcnRpYTpcIixcbiAgICAgICAgcm91bmQoZml0dGVkLmluZXJ0aWFfLCA2KSxcbiAgICAgICAgXCJzaWxob3VldHRlOlwiLFxuICAgICAgICByb3VuZChzaWxob3VldHRlX3Njb3JlKHBvaW50cywgZml0dGVkLmxhYmVsc18pLCA2KSxcbiAgICApXG5wcmludChcIldhcmQgc2lsaG91ZXR0ZTpcIiwgcm91bmQoc2lsaG91ZXR0ZV9zY29yZShwb2ludHMsIHdhcmQubGFiZWxzXyksIDYpKVxucHJpbnQoXG4gICAgXCJLTWVhbnMgdmVyc3VzIFdhcmQgQVJJOlwiLCByb3VuZChhZGp1c3RlZF9yYW5kX3Njb3JlKGZ1bGwubGFiZWxzXywgd2FyZC5sYWJlbHNfKSwgNilcbilcbnByaW50KFwiTWluaUJhdGNoIG5faW5pdCBjaG9vc2VzIGFuIGluaXRpYWxpemF0aW9uOyBpdCBkb2VzIG5vdCBydW4gdGVuIGNvbXBsZXRlIGZpdHMuXCIpXG5wcmludChcImsgLyBpbmVydGlhIHJhbmdlIGFjcm9zcyB0aHJlZSBzaW5nbGUgc3RhcnRzIC8gbWVkaWFuIHNpbGhvdWV0dGVcIilcbmZvciBrIGluIFsyLCAzLCA0LCA1XTpcbiAgICBydW5zID0gW1xuICAgICAgICBLTWVhbnMobl9jbHVzdGVycz1rLCBuX2luaXQ9MSwgcmFuZG9tX3N0YXRlPXNlZWQpLmZpdChwb2ludHMpXG4gICAgICAgIGZvciBzZWVkIGluIFswLCAxLCAyXVxuICAgIF1cbiAgICBpbmVydGlhcyA9IFttb2RlbC5pbmVydGlhXyBmb3IgbW9kZWwgaW4gcnVuc11cbiAgICBzaWxob3VldHRlcyA9IFtzaWxob3VldHRlX3Njb3JlKHBvaW50cywgbW9kZWwubGFiZWxzXykgZm9yIG1vZGVsIGluIHJ1bnNdXG4gICAgcHJpbnQoXG4gICAgICAgIGssIGZcInttaW4oaW5lcnRpYXMpOi42Zn0uLnttYXgoaW5lcnRpYXMpOi42Zn1cIiwgZlwie25wLm1lZGlhbihzaWxob3VldHRlcyk6LjZmfVwiXG4gICAgKVxucHJpbnQoXG4gICAgXCJUaGVzZSBhcmUgZ2VuZXJhdGVkLWRhdGEgZGlhZ25vc3RpY3MsIG5vdCBhIHByb29mIG9mIHRoZSB0cnVlIGsgb3IgYSB0aW1pbmcgYmVuY2htYXJrLlwiXG4pIiwNCiAgICAiZXhwZWN0ZWQiOiAic2Npa2l0LWxlYXJuOiAxLjkuMSBkYXRhOiAoMTUwLCAyKVxuS01lYW5zIGluZXJ0aWE6IDE4MS41MDQ0MzIgc2lsaG91ZXR0ZTogMC44NzYwMjVcbk1pbmlCYXRjaCBpbmVydGlhOiAxODEuNjQ3Mjggc2lsaG91ZXR0ZTogMC44NzYwMjVcbldhcmQgc2lsaG91ZXR0ZTogMC44NzYwMjVcbktNZWFucyB2ZXJzdXMgV2FyZCBBUkk6IDEuMFxuTWluaUJhdGNoIG5faW5pdCBjaG9vc2VzIGFuIGluaXRpYWxpemF0aW9uOyBpdCBkb2VzIG5vdCBydW4gdGVuIGNvbXBsZXRlIGZpdHMuXG5rIC8gaW5lcnRpYSByYW5nZSBhY3Jvc3MgdGhyZWUgc2luZ2xlIHN0YXJ0cyAvIG1lZGlhbiBzaWxob3VldHRlXG4yIDI2NjAuMDA5MDM5Li4yNjYwLjAwOTAzOSAwLjcxOTk0MFxuMyAxODEuNTA0NDMyLi4xODEuNTA0NDMyIDAuODc2MDI1XG40IDE1Ni4xOTIyMTkuLjE3MS42NjQ2MDUgMC42OTUwMjJcbjUgMTM2LjI5NTEzNC4uMTQ5LjkxNjI4NiAwLjUxOTY4MlxuVGhlc2UgYXJlIGdlbmVyYXRlZC1kYXRhIGRpYWdub3N0aWNzLCBub3QgYSBwcm9vZiBvZiB0aGUgdHJ1ZSBrIG9yIGEgdGltaW5nIGJlbmNobWFyay4iLA0KICAgICJsYW5ndWFnZSI6ICJweXRob24iDQogIH0sDQogICJzY2FsaW5nIjogew0KICAgICJ0aXRsZSI6ICJDaGFuZ2UgdW5pdHMgZGVsaWJlcmF0ZWx5LCB0aGVuIGZyZWV6ZSBhIHRyYWluaW5nLW9ubHkgdHJhbnNmb3JtYXRpb24iLA0KICAgICJxdWVzdGlvbiI6ICJNdWx0aXBseWluZyBvbmUgY29vcmRpbmF0ZSBieSAxMDAgY2hhbmdlcyBpdHMgc3F1YXJlZC1kaXN0YW5jZSB3ZWlnaHQgYnkgd2hhdCBmYWN0b3I/IEhvdyBjYW4gYSB1bml0IGNvbnZlcnNpb24gcHJlc2VydmUgdGhlIGludGVuZGVkIGdlb21ldHJ5PyIsDQogICAgImNvZGUiOiAiaW1wb3J0IG51bXB5IGFzIG5wXG5mcm9tIHNrbGVhcm4uY2x1c3RlciBpbXBvcnQgS01lYW5zXG5mcm9tIHNrbGVhcm4ucGlwZWxpbmUgaW1wb3J0IG1ha2VfcGlwZWxpbmVcbmZyb20gc2tsZWFybi5wcmVwcm9jZXNzaW5nIGltcG9ydCBTdGFuZGFyZFNjYWxlclxuZnJvbSBza2xlYXJuLm1ldHJpY3MgaW1wb3J0IGFkanVzdGVkX3JhbmRfc2NvcmVcblxuXG5kZWYgZ3JvdXBzKGxhYmVscyk6XG4gICAgcmV0dXJuIHNvcnRlZChcbiAgICAgICAgW25wLmZsYXRub256ZXJvKGxhYmVscyA9PSBsYWJlbCkudG9saXN0KCkgZm9yIGxhYmVsIGluIG5wLnVuaXF1ZShsYWJlbHMpXVxuICAgIClcblxuXG5yZWN0YW5nbGUgPSBucC5hcnJheShbWzAuMCwgMC4wXSwgWzAuMCwgMTAuMF0sIFsyLjAsIDAuMF0sIFsyLjAsIDEwLjBdXSlcblxuXG5kZWYgZml0X2xhYmVscyhwb2ludHMpOlxuICAgIHJldHVybiBLTWVhbnMobl9jbHVzdGVycz0yLCBuX2luaXQ9MjAsIHJhbmRvbV9zdGF0ZT03KS5maXRfcHJlZGljdChwb2ludHMpXG5cblxub3JpZ2luYWwgPSBmaXRfbGFiZWxzKHJlY3RhbmdsZSlcbmNvbnZlcnRlZCA9IHJlY3RhbmdsZSAqIFsxMDAuMCwgMS4wXVxudW5jb3JyZWN0ZWQgPSBmaXRfbGFiZWxzKGNvbnZlcnRlZClcbmNvcnJlY3RlZCA9IGZpdF9sYWJlbHMoY29udmVydGVkICogbnAuc3FydChbMSAvIDEwMCoqMiwgMS4wXSkpXG5wcmludChcIm9yaWdpbmFsIGNvb3JkaW5hdGUgZ3JvdXBzOlwiLCBncm91cHMob3JpZ2luYWwpKVxucHJpbnQoXCJmaXJzdCBjb29yZGluYXRlIGNvbnZlcnRlZCB3aXRob3V0IG1ldHJpYyBjb3JyZWN0aW9uOlwiLCBncm91cHModW5jb3JyZWN0ZWQpKVxucHJpbnQoXCJjb21wZW5zYXRlZCBzcXVhcmVkLWRpc3RhbmNlIHdlaWdodHM6XCIsIGdyb3Vwcyhjb3JyZWN0ZWQpKVxucHJpbnQoXCJjb21wZW5zYXRlZCBBUkk6XCIsIGFkanVzdGVkX3JhbmRfc2NvcmUob3JpZ2luYWwsIGNvcnJlY3RlZCkpXG5cbiMgUm93cyBhcmUgY29uc3RydWN0ZWQgZGV2aWNlczogdGVtcGVyYXR1cmUgKMKwQyksIHZpYnJhdGlvbiAobW0vcykuXG50cmFpbmluZyA9IG5wLmFycmF5KFxuICAgIFtbMS4wLCAxMC4wXSwgWzIuMCwgMTIuMF0sIFsxLjUsIDkuMF0sIFs4LjAsIDMwLjBdLCBbOS4wLCAyOS4wXSwgWzguNSwgMzIuMF1dXG4pXG5oZWxkX291dCA9IG5wLmFycmF5KFtbMi41LCAxMS4wXSwgWzguMCwgMzEuMF0sIFsyMC4wLCAxMDAuMF1dKVxucGlwZWxpbmUgPSBtYWtlX3BpcGVsaW5lKFxuICAgIFN0YW5kYXJkU2NhbGVyKCksIEtNZWFucyhuX2NsdXN0ZXJzPTIsIG5faW5pdD0xMCwgcmFuZG9tX3N0YXRlPTcpXG4pXG5waXBlbGluZS5maXQodHJhaW5pbmcpXG5tZWFuX2JlZm9yZSA9IHBpcGVsaW5lWzBdLm1lYW5fLmNvcHkoKVxuY2VudGVyc19iZWZvcmUgPSBwaXBlbGluZVsxXS5jbHVzdGVyX2NlbnRlcnNfLmNvcHkoKVxubGFiZWxzID0gcGlwZWxpbmUucHJlZGljdChoZWxkX291dClcbmRpc3RhbmNlcyA9IHBpcGVsaW5lLnRyYW5zZm9ybShoZWxkX291dCkubWluKGF4aXM9MSlcbnByaW50KFwidHJhaW5pbmctb25seSBjb29yZGluYXRlIG1lYW5zOlwiLCBucC5yb3VuZChtZWFuX2JlZm9yZSwgNikudG9saXN0KCkpXG5wcmludChcImhlbGQtb3V0IG5lYXJlc3Qgc3RhbmRhcmRpemVkIGRpc3RhbmNlczpcIiwgbnAucm91bmQoZGlzdGFuY2VzLCA2KS50b2xpc3QoKSlcbnByaW50KFxuICAgIFwicHJlZGljdCBjaGFuZ2VkIHNjYWxlciBvciBjZW50ZXJzOlwiLFxuICAgIG5vdCAoXG4gICAgICAgIG5wLmFycmF5X2VxdWFsKG1lYW5fYmVmb3JlLCBwaXBlbGluZVswXS5tZWFuXylcbiAgICAgICAgYW5kIG5wLmFycmF5X2VxdWFsKGNlbnRlcnNfYmVmb3JlLCBwaXBlbGluZVsxXS5jbHVzdGVyX2NlbnRlcnNfKVxuICAgICksXG4pXG5wcmludChcbiAgICBcIlRoZSBkaXN0YW50IGZpbmFsIGRldmljZSBzdGlsbCBnZXRzIGEgbGFiZWw7IGEgbGFiZWwgaXMgbm90IHByb29mIG9mIGEgZ29vZCBtYXRjaC5cIlxuKVxucHJpbnQoXG4gICAgXCJTdGFuZGFyZGl6YXRpb24gZW5jb2RlcyBhIHNjYWxlIGNob2ljZTsgaXQgZG9lcyBub3QgZXN0YWJsaXNoIGVxdWFsIGRvbWFpbiBpbXBvcnRhbmNlLlwiXG4pIiwNCiAgICAiZXhwZWN0ZWQiOiAib3JpZ2luYWwgY29vcmRpbmF0ZSBncm91cHM6IFtbMCwgMl0sIFsxLCAzXV1cbmZpcnN0IGNvb3JkaW5hdGUgY29udmVydGVkIHdpdGhvdXQgbWV0cmljIGNvcnJlY3Rpb246IFtbMCwgMV0sIFsyLCAzXV1cbmNvbXBlbnNhdGVkIHNxdWFyZWQtZGlzdGFuY2Ugd2VpZ2h0czogW1swLCAyXSwgWzEsIDNdXVxuY29tcGVuc2F0ZWQgQVJJOiAxLjBcbnRyYWluaW5nLW9ubHkgY29vcmRpbmF0ZSBtZWFuczogWzUuMCwgMjAuMzMzMzMzXVxuaGVsZC1vdXQgbmVhcmVzdCBzdGFuZGFyZGl6ZWQgZGlzdGFuY2VzOiBbMC4yOTEzOTksIDAuMTU2NTU5LCA3LjY0NDczOV1cbnByZWRpY3QgY2hhbmdlZCBzY2FsZXIgb3IgY2VudGVyczogRmFsc2VcblRoZSBkaXN0YW50IGZpbmFsIGRldmljZSBzdGlsbCBnZXRzIGEgbGFiZWw7IGEgbGFiZWwgaXMgbm90IHByb29mIG9mIGEgZ29vZCBtYXRjaC5cblN0YW5kYXJkaXphdGlvbiBlbmNvZGVzIGEgc2NhbGUgY2hvaWNlOyBpdCBkb2VzIG5vdCBlc3RhYmxpc2ggZXF1YWwgZG9tYWluIGltcG9ydGFuY2UuIiwNCiAgICAibGFuZ3VhZ2UiOiAicHl0aG9uIg0KICB9LA0KICAicXVhbnRpemF0aW9uIjogew0KICAgICJ0aXRsZSI6ICJGaXQgd2VpZ2h0ZWQgY29sb3JzIGFuZCBkZWNvZGUgYSByZWFsIGZpbml0ZSBwYWxldHRlIiwNCiAgICAicXVlc3Rpb24iOiAiQ2FuIGVpZ2h0IGRpc3RpbmN0IFJHQiByb3dzIHJlcHJlc2VudCAxMjggcGl4ZWxzIGV4YWN0bHkgZHVyaW5nIGZpdHRpbmc/IFdoaWNoIGRpc3RvcnRpb24gY2hhbmdlcyB3aGVuIGZsb2F0aW5nLXBvaW50IGNlbnRlcnMgYmVjb21lIGFuIDgtYml0IHBhbGV0dGU/IiwNCiAgICAiY29kZSI6ICJpbXBvcnQgbWF0aFxuaW1wb3J0IG51bXB5IGFzIG5wXG5mcm9tIHNrbGVhcm4uY2x1c3RlciBpbXBvcnQgS01lYW5zXG5cbmNvbG9ycyA9IG5wLmFycmF5KFxuICAgIFtcbiAgICAgICAgWzI0MCwgMjAsIDIwXSxcbiAgICAgICAgWzI1MCwgMzAsIDE1XSxcbiAgICAgICAgWzIzMCwgMTUsIDI1XSxcbiAgICAgICAgWzIwLCAyMzAsIDIwXSxcbiAgICAgICAgWzMwLCAyNDAsIDE1XSxcbiAgICAgICAgWzE1LCAyMjAsIDMwXSxcbiAgICAgICAgWzIwLCAyMCwgMjMwXSxcbiAgICAgICAgWzMwLCAyNSwgMjQwXSxcbiAgICBdLFxuICAgIGR0eXBlPWZsb2F0LFxuKVxuY291bnRzID0gbnAuYXJyYXkoWzMwLCAxMiwgMTAsIDI1LCA4LCAxMCwgMjAsIDEzXSlcbnBpeGVscyA9IG5wLnJlcGVhdChjb2xvcnMsIGNvdW50cywgYXhpcz0wKVxuaW5pdGlhbCA9IGNvbG9yc1tbMCwgMywgNl1dLmNvcHkoKSAgIyBTYW1lIHN0YXJ0aW5nIGNlbnRlcnMgaW4gYm90aCByZXByZXNlbnRhdGlvbnMuXG53ZWlnaHRlZCA9IEtNZWFucyhcbiAgICBuX2NsdXN0ZXJzPTMsIGluaXQ9aW5pdGlhbCwgbl9pbml0PTEsIHRvbD0wLCBhbGdvcml0aG09XCJsbG95ZFwiLCByYW5kb21fc3RhdGU9MFxuKS5maXQoY29sb3JzLCBzYW1wbGVfd2VpZ2h0PWNvdW50cylcbnJlcGVhdGVkID0gS01lYW5zKFxuICAgIG5fY2x1c3RlcnM9MywgaW5pdD1pbml0aWFsLCBuX2luaXQ9MSwgdG9sPTAsIGFsZ29yaXRobT1cImxsb3lkXCIsIHJhbmRvbV9zdGF0ZT0wXG4pLmZpdChwaXhlbHMpXG5wcmludChcInBpeGVscyAvIGRpc3RpbmN0IHJvd3M6XCIsIGxlbihwaXhlbHMpLCBsZW4oY29sb3JzKSlcbnByaW50KFxuICAgIFwid2VpZ2h0ZWQgdmVyc3VzIHJlcGVhdGVkIFNTRTpcIixcbiAgICByb3VuZCh3ZWlnaHRlZC5pbmVydGlhXywgNiksXG4gICAgcm91bmQocmVwZWF0ZWQuaW5lcnRpYV8sIDYpLFxuKVxucHJpbnQoXG4gICAgXCJzYW1lIGZsb2F0aW5nIHBhbGV0dGU6XCIsXG4gICAgYm9vbChucC5hbGxjbG9zZSh3ZWlnaHRlZC5jbHVzdGVyX2NlbnRlcnNfLCByZXBlYXRlZC5jbHVzdGVyX2NlbnRlcnNfKSksXG4pXG5cbnBhbGV0dGUgPSBucC5jbGlwKG5wLnJpbnQod2VpZ2h0ZWQuY2x1c3Rlcl9jZW50ZXJzXyksIDAsIDI1NSkuYXN0eXBlKG5wLnVpbnQ4KVxuIyBTdWJ0cmFjdCBpbiBmbG9hdGluZyBwb2ludDogdWludDggc3VidHJhY3Rpb24gd291bGQgd3JhcC5cbmRpc3RhbmNlcyA9ICgocGl4ZWxzWzosIE5vbmUsIDpdIC0gcGFsZXR0ZS5hc3R5cGUoZmxvYXQpW05vbmUsIDosIDpdKSAqKiAyKS5zdW0oYXhpcz0yKVxuaW5kaWNlcyA9IGRpc3RhbmNlcy5hcmdtaW4oYXhpcz0xKVxuYml0c19wZXJfaW5kZXggPSBtYXRoLmNlaWwobWF0aC5sb2cyKGxlbihwYWxldHRlKSkpXG5iaXRzdHJlYW0gPSBcIlwiLmpvaW4oZm9ybWF0KGludChpbmRleCksIGZcIjB7Yml0c19wZXJfaW5kZXh9YlwiKSBmb3IgaW5kZXggaW4gaW5kaWNlcylcbmRlY29kZWRfaW5kaWNlcyA9IG5wLmFycmF5KFxuICAgIFtcbiAgICAgICAgaW50KGJpdHN0cmVhbVtzdGFydCA6IHN0YXJ0ICsgYml0c19wZXJfaW5kZXhdLCAyKVxuICAgICAgICBmb3Igc3RhcnQgaW4gcmFuZ2UoMCwgbGVuKGJpdHN0cmVhbSksIGJpdHNfcGVyX2luZGV4KVxuICAgIF1cbilcbmRlY29kZWQgPSBwYWxldHRlW2RlY29kZWRfaW5kaWNlc10uYXN0eXBlKGZsb2F0KVxuZGVwbG95ZWRfc3NlID0gZmxvYXQobnAuc3VtKChwaXhlbHMgLSBkZWNvZGVkKSAqKiAyKSlcbnJhd19iaXRzID0gbGVuKHBpeGVscykgKiAzICogOFxucGFsZXR0ZV9iaXRzID0gcGFsZXR0ZS5zaXplICogOFxucGF5bG9hZF9iaXRzID0gcGFsZXR0ZV9iaXRzICsgbGVuKGJpdHN0cmVhbSlcbnByaW50KFwiaW50ZWdlciBSR0IgcGFsZXR0ZTpcIiwgcGFsZXR0ZS50b2xpc3QoKSlcbnByaW50KFxuICAgIFwiZGVjb2RlZCBtYXRjaGVzIHBhbGV0dGUgYXNzaWdubWVudDpcIixcbiAgICBib29sKG5wLmFycmF5X2VxdWFsKGRlY29kZWRfaW5kaWNlcywgaW5kaWNlcykpLFxuKVxucHJpbnQoXG4gICAgXCJmbG9hdGluZyAvIGRlY29kZWQgc3F1YXJlZCBSR0IgZXJyb3IgcGVyIHBpeGVsOlwiLFxuICAgIHJvdW5kKHdlaWdodGVkLmluZXJ0aWFfIC8gbGVuKHBpeGVscyksIDYpLFxuICAgIHJvdW5kKGRlcGxveWVkX3NzZSAvIGxlbihwaXhlbHMpLCA2KSxcbilcbnByaW50KFxuICAgIFwicmF3IC8gcGFsZXR0ZSAvIGluZGV4IC8gdG90YWwgcGF5bG9hZCBiaXRzOlwiLFxuICAgIHJhd19iaXRzLFxuICAgIHBhbGV0dGVfYml0cyxcbiAgICBsZW4oYml0c3RyZWFtKSxcbiAgICBwYXlsb2FkX2JpdHMsXG4pXG5wcmludChcIkNvdW50cyBkZXNjcmliZSBwaXhlbHMsIG5vdCBlaWdodCBlcXVhbGx5IGZyZXF1ZW50IG9ic2VydmF0aW9ucy5cIilcbnByaW50KFxuICAgIFwiQml0IGNvdW50cyBleGNsdWRlIGRpbWVuc2lvbnMsIGhlYWRlcnMgYW5kIHBhZGRpbmc7IFJHQiBTU0UgaXMgbm90IGEgcGVyY2VwdHVhbC1jb2xvciBndWFyYW50ZWUuXCJcbikiLA0KICAgICJleHBlY3RlZCI6ICJwaXhlbHMgLyBkaXN0aW5jdCByb3dzOiAxMjggOFxud2VpZ2h0ZWQgdmVyc3VzIHJlcGVhdGVkIFNTRTogOTgwNC45Mjc2MzEgOTgwNC45Mjc2MzFcbnNhbWUgZmxvYXRpbmcgcGFsZXR0ZTogVHJ1ZVxuaW50ZWdlciBSR0IgcGFsZXR0ZTogW1syNDAsIDIxLCAyMF0sIFsyMSwgMjMwLCAyMV0sIFsyNCwgMjIsIDIzNF1dXG5kZWNvZGVkIG1hdGNoZXMgcGFsZXR0ZSBhc3NpZ25tZW50OiBUcnVlXG5mbG9hdGluZyAvIGRlY29kZWQgc3F1YXJlZCBSR0IgZXJyb3IgcGVyIHBpeGVsOiA3Ni42MDA5OTcgNzYuODgyODEyXG5yYXcgLyBwYWxldHRlIC8gaW5kZXggLyB0b3RhbCBwYXlsb2FkIGJpdHM6IDMwNzIgNzIgMjU2IDMyOFxuQ291bnRzIGRlc2NyaWJlIHBpeGVscywgbm90IGVpZ2h0IGVxdWFsbHkgZnJlcXVlbnQgb2JzZXJ2YXRpb25zLlxuQml0IGNvdW50cyBleGNsdWRlIGRpbWVuc2lvbnMsIGhlYWRlcnMgYW5kIHBhZGRpbmc7IFJHQiBTU0UgaXMgbm90IGEgcGVyY2VwdHVhbC1jb2xvciBndWFyYW50ZWUuIiwNCiAgICAibGFuZ3VhZ2UiOiAicHl0aG9uIg0KICB9LA0KICAiY2Fwc3RvbmUiOiB7DQogICAgInRpdGxlIjogIkNob29zZSBhIGNsdXN0ZXJpbmcgcHJvdG9jb2wgYmVmb3JlIGluc3BlY3RpbmcgdGhlIGhlbGQtb3V0IHJlcG9ydCIsDQogICAgInF1ZXN0aW9uIjogIldoaWNoIGNob2ljZXMgdXNlIHRyYWluaW5nIHJvd3MsIHdoaWNoIHVzZSB2YWxpZGF0aW9uIHJvd3MsIGFuZCB3aGljaCBhcmUgZnJvemVuIGJlZm9yZSB0aGUgZmluYWwgcHJvZmlsZSByZXBvcnQ/IEhvdyBzaG91bGQgYW4gdW5zdGFibGUgc3BsaXQgY2hhbmdlIHlvdXIgY29uY2x1c2lvbj8iLA0KICAgICJjb2RlIjogImltcG9ydCBpdGVydG9vbHNcbmltcG9ydCBudW1weSBhcyBucFxuZnJvbSBza2xlYXJuLmRhdGFzZXRzIGltcG9ydCBtYWtlX2Jsb2JzXG5mcm9tIHNrbGVhcm4uY2x1c3RlciBpbXBvcnQgS01lYW5zXG5mcm9tIHNrbGVhcm4ucHJlcHJvY2Vzc2luZyBpbXBvcnQgU3RhbmRhcmRTY2FsZXJcbmZyb20gc2tsZWFybi5waXBlbGluZSBpbXBvcnQgbWFrZV9waXBlbGluZVxuZnJvbSBza2xlYXJuLm1ldHJpY3MgaW1wb3J0IHNpbGhvdWV0dGVfc2NvcmUsIGFkanVzdGVkX3JhbmRfc2NvcmVcblxuXG5kZWYgZml0X21vZGVsKHRyYWluaW5nLCBrLCBzZWVkKTpcbiAgICByZXR1cm4gbWFrZV9waXBlbGluZShcbiAgICAgICAgU3RhbmRhcmRTY2FsZXIoKSwgS01lYW5zKG5fY2x1c3RlcnM9aywgbl9pbml0PTEwLCByYW5kb21fc3RhdGU9c2VlZClcbiAgICApLmZpdCh0cmFpbmluZylcblxuXG5kZWYgcmVwb3J0KGRhdGFfc2VlZD0xNywgc3BsaXRfc2VlZD0yMyk6XG4gICAgbGF0ZW50LCBfID0gbWFrZV9ibG9icyhcbiAgICAgICAgbl9zYW1wbGVzPTM2MCxcbiAgICAgICAgY2VudGVycz1bWy0zLCAxXSwgWzAsIC0zXSwgWzQsIDJdXSxcbiAgICAgICAgY2x1c3Rlcl9zdGQ9WzEuMCwgMS41LCAwLjhdLFxuICAgICAgICByYW5kb21fc3RhdGU9ZGF0YV9zZWVkLFxuICAgIClcbiAgICAjIENvbnN0cnVjdGVkIGRldmljZXMsIG5vdCBtZWFzdXJlbWVudHMgZnJvbSBhbiBhY3R1YWwgaW5zdGFsbGF0aW9uLlxuICAgIHBvaW50cyA9IGxhdGVudCAqIFszLjAsIDAuNV0gKyBbNDAuMCwgNS4wXVxuICAgIG9yZGVyID0gbnAucmFuZG9tLmRlZmF1bHRfcm5nKHNwbGl0X3NlZWQpLnBlcm11dGF0aW9uKGxlbihwb2ludHMpKVxuICAgIHRyYWluaW5nLCB2YWxpZGF0aW9uLCB0ZXN0ID0gKFxuICAgICAgICBwb2ludHNbb3JkZXJbOjI0MF1dLFxuICAgICAgICBwb2ludHNbb3JkZXJbMjQwOjMwMF1dLFxuICAgICAgICBwb2ludHNbb3JkZXJbMzAwOl1dLFxuICAgIClcbiAgICAjIERlY2xhcmVkIHJ1bGU6IGVsaWdpYmxlIGlmIGVhY2ggdHJhaW5pbmcgY2x1c3RlciBoYXMgPj0yMCByb3dzIGFuZCB0aGVcbiAgICAjIG1lZGlhbiBib290c3RyYXAgQVJJIG9uIHRoZSBTQU1FIHZhbGlkYXRpb24gcm93cyBpcyA+PTAuOC4gQW1vbmcgZWxpZ2libGVcbiAgICAjIGsgaW4gezIsMyw0fSwgY2hvb3NlIGxhcmdlc3QgdmFsaWRhdGlvbiBzaWxob3VldHRlOyBzbWFsbGVyIGsgYnJlYWtzIGEgdGllLlxuICAgIGJvb3RzdHJhcF9yb3dzID0gW1xuICAgICAgICBucC5yYW5kb20uZGVmYXVsdF9ybmcoc2VlZCkuaW50ZWdlcnMobGVuKHRyYWluaW5nKSwgc2l6ZT1sZW4odHJhaW5pbmcpKVxuICAgICAgICBmb3Igc2VlZCBpbiByYW5nZSgzMCwgMzgpXG4gICAgXVxuICAgIGNhbmRpZGF0ZXMgPSBbXVxuICAgIGZvciBrIGluIFsyLCAzLCA0XTpcbiAgICAgICAgZml0dGVkID0gZml0X21vZGVsKHRyYWluaW5nLCBrLCA3KVxuICAgICAgICB2YWxpZGF0aW9uX2xhYmVscyA9IGZpdHRlZC5wcmVkaWN0KHZhbGlkYXRpb24pXG4gICAgICAgIHRyYW5zZm9ybWVkX3ZhbGlkYXRpb24gPSBmaXR0ZWRbMF0udHJhbnNmb3JtKHZhbGlkYXRpb24pXG4gICAgICAgIGNvdW50ID0gbGVuKG5wLnVuaXF1ZSh2YWxpZGF0aW9uX2xhYmVscykpXG4gICAgICAgIHNpbGhvdWV0dGUgPSAoXG4gICAgICAgICAgICBzaWxob3VldHRlX3Njb3JlKHRyYW5zZm9ybWVkX3ZhbGlkYXRpb24sIHZhbGlkYXRpb25fbGFiZWxzKVxuICAgICAgICAgICAgaWYgMSA8IGNvdW50IDwgbGVuKHZhbGlkYXRpb24pXG4gICAgICAgICAgICBlbHNlIC0xXG4gICAgICAgIClcbiAgICAgICAgc3RhYmlsaXR5ID0gW1xuICAgICAgICAgICAgYWRqdXN0ZWRfcmFuZF9zY29yZShcbiAgICAgICAgICAgICAgICB2YWxpZGF0aW9uX2xhYmVscywgZml0X21vZGVsKHRyYWluaW5nW3Jvd3NdLCBrLCA3KS5wcmVkaWN0KHZhbGlkYXRpb24pXG4gICAgICAgICAgICApXG4gICAgICAgICAgICBmb3Igcm93cyBpbiBib290c3RyYXBfcm93c1xuICAgICAgICBdXG4gICAgICAgIG1pbmltdW1fc2l6ZSA9IGludChucC5iaW5jb3VudChmaXR0ZWRbMV0ubGFiZWxzXywgbWlubGVuZ3RoPWspLm1pbigpKVxuICAgICAgICBtZWRpYW5fc3RhYmlsaXR5ID0gZmxvYXQobnAubWVkaWFuKHN0YWJpbGl0eSkpXG4gICAgICAgIHZhbGlkYXRpb25fZXJyb3IgPSBmbG9hdChucC5tZWFuKGZpdHRlZC50cmFuc2Zvcm0odmFsaWRhdGlvbikubWluKGF4aXM9MSkgKiogMikpXG4gICAgICAgIGVsaWdpYmxlID0gbWluaW11bV9zaXplID49IDIwIGFuZCBtZWRpYW5fc3RhYmlsaXR5ID49IDAuOCBhbmQgY291bnQgPiAxXG4gICAgICAgIHByaW50KFxuICAgICAgICAgICAgXCJjYW5kaWRhdGUgayAvIHZhbGlkYXRpb24gc2lsaG91ZXR0ZSAvIG1lYW4gc3F1YXJlZCBkaXN0YW5jZSAvIG1lZGlhbiBBUkkgLyBtaW4gdHJhaW4gc2l6ZSAvIGVsaWdpYmxlOlwiLFxuICAgICAgICAgICAgayxcbiAgICAgICAgICAgIHJvdW5kKHNpbGhvdWV0dGUsIDYpLFxuICAgICAgICAgICAgcm91bmQodmFsaWRhdGlvbl9lcnJvciwgNiksXG4gICAgICAgICAgICByb3VuZChtZWRpYW5fc3RhYmlsaXR5LCA2KSxcbiAgICAgICAgICAgIG1pbmltdW1fc2l6ZSxcbiAgICAgICAgICAgIGVsaWdpYmxlLFxuICAgICAgICApXG4gICAgICAgIGlmIGVsaWdpYmxlOlxuICAgICAgICAgICAgY2FuZGlkYXRlcy5hcHBlbmQoKHNpbGhvdWV0dGUsIC1rLCBmaXR0ZWQsIGspKVxuICAgIGlmIG5vdCBjYW5kaWRhdGVzOlxuICAgICAgICByYWlzZSBSdW50aW1lRXJyb3IoXG4gICAgICAgICAgICBcIk5vIGNhbmRpZGF0ZSBtZWV0cyB0aGUgcHJlZGVjbGFyZWQgcmVxdWlyZW1lbnRzOyByZXZpc2UgdGhlIHBsYW4gd2l0aG91dCB1c2luZyB0ZXN0IHJlc3VsdHMuXCJcbiAgICAgICAgKVxuICAgIF8sIF8sIGZpdHRlZCwgayA9IG1heChjYW5kaWRhdGVzLCBrZXk9bGFtYmRhIHJvdzogcm93WzoyXSlcbiAgICAjIFRlc3QgZGF0YSBmaXJzdCBlbnRlciBoZXJlLiBObyByZWZpdCBvciBjaGFuZ2VkIGsgYWZ0ZXIgcmVhZGluZyB0aGlzIHJlcG9ydC5cbiAgICBsYWJlbHMgPSBmaXR0ZWQucHJlZGljdCh0ZXN0KVxuICAgIGJhc2VsaW5lID0gZml0X21vZGVsKHRyYWluaW5nLCAxLCA3KVxuICAgIGVycm9yID0gZmxvYXQobnAubWVhbihmaXR0ZWQudHJhbnNmb3JtKHRlc3QpLm1pbihheGlzPTEpICoqIDIpKVxuICAgIGJhc2VsaW5lX2Vycm9yID0gZmxvYXQobnAubWVhbihiYXNlbGluZS50cmFuc2Zvcm0odGVzdCkubWluKGF4aXM9MSkgKiogMikpXG4gICAgY2VudGVycyA9IGZpdHRlZFswXS5pbnZlcnNlX3RyYW5zZm9ybShmaXR0ZWRbMV0uY2x1c3Rlcl9jZW50ZXJzXylcbiAgICBwcmludChcInNlbGVjdGVkIGs6XCIsIGspXG4gICAgcHJpbnQoXG4gICAgICAgIFwidGVzdCAvIHRyYWluaW5nLWNlbnRyb2lkIGJhc2VsaW5lIG1lYW4gc3F1YXJlZCBzdGFuZGFyZGl6ZWQgZGlzdGFuY2U6XCIsXG4gICAgICAgIHJvdW5kKGVycm9yLCA2KSxcbiAgICAgICAgcm91bmQoYmFzZWxpbmVfZXJyb3IsIDYpLFxuICAgIClcbiAgICBwcmludChcbiAgICAgICAgXCJwcm9maWxlcyBvcmRlcmVkIGJ5IGZpdHRlZCBjZW50ZXIgdGVtcGVyYXR1cmU6IGNvdW50IC8gbWVhbiB0ZW1wZXJhdHVyZSAvIG1lYW4gdmlicmF0aW9uXCJcbiAgICApXG4gICAgZm9yIGNsdXN0ZXIgaW4gbnAuYXJnc29ydChjZW50ZXJzWzosIDBdKTpcbiAgICAgICAgbWVtYmVycyA9IHRlc3RbbGFiZWxzID09IGNsdXN0ZXJdXG4gICAgICAgIGlmIGxlbihtZW1iZXJzKTpcbiAgICAgICAgICAgIHByaW50KGxlbihtZW1iZXJzKSwgKm5wLnJvdW5kKG1lbWJlcnMubWVhbihheGlzPTApLCA2KS50b2xpc3QoKSlcbiAgICAgICAgZWxzZTpcbiAgICAgICAgICAgIHByaW50KDAsIFwibm8gaGVsZC1vdXQgbWVtYmVyc1wiKVxuICAgICMgQSB0cmFuc3BhcmVudCByZXNvdXJjZSBjYWxjdWxhdGlvbiwgbm90IGEgbWVhc3VyZWQgcnVudGltZSBwcmVkaWN0aW9uLlxuICAgIGZ1dHVyZV9uID0gMTAwMDAwXG4gICAgY29uZGVuc2VkX2dpYiA9IChmdXR1cmVfbiAqIChmdXR1cmVfbiAtIDEpIC8vIDIpICogOCAvIDIqKjMwXG4gICAgcHJpbnQoXG4gICAgICAgIFwiMTAwMDAwIHJvd3M6IGZsb2F0NjQgY29uZGVuc2VkIGRpc3RhbmNlIGJ1ZmZlciBhbG9uZSAoR2lCKTpcIixcbiAgICAgICAgcm91bmQoY29uZGVuc2VkX2dpYiwgMyksXG4gICAgKVxuICAgIHByaW50KFwiQXQgYSAxNiBHaUIgbWVtb3J5IGJ1ZGdldCwgcmVqZWN0IHRoYXQgZGVuc2UgaGllcmFyY2h5IHBsYW4gYmVmb3JlIGZpdHRpbmcuXCIpXG4gICAgcHJpbnQoXG4gICAgICAgIFwiQ29uc2lkZXIgYSBtZWFzdXJlZCBtaW5pLWJhdGNoIG9yIHdlaWdodGVkLXByb3RvdHlwZSBwaWxvdDsgaXQgY2hhbmdlcyB0aGUgY29tcHV0YXRpb25hbC9hcHByb3hpbWF0aW9uIGNvbnRyYWN0LlwiXG4gICAgKVxuICAgIHByaW50KFxuICAgICAgICBcIk9uZSBzeW50aGV0aWMgc3BsaXQgYW5kIGJvb3RzdHJhcCBzdGFiaWxpdHkgZG8gbm90IGVzdGFibGlzaCBtZWFuaW5nZnVsIHJlYWwtd29ybGQgY2F0ZWdvcmllcy5cIlxuICAgIClcbiAgICByZXR1cm4ge1xuICAgICAgICBcInNlbGVjdGVkX2tcIjogayxcbiAgICAgICAgXCJmaXR0ZWRcIjogZml0dGVkLFxuICAgICAgICBcInRyYWluaW5nXCI6IHRyYWluaW5nLFxuICAgICAgICBcInZhbGlkYXRpb25cIjogdmFsaWRhdGlvbixcbiAgICAgICAgXCJ0ZXN0XCI6IHRlc3QsXG4gICAgICAgIFwibGFiZWxzXCI6IGxhYmVscyxcbiAgICAgICAgXCJlcnJvclwiOiBlcnJvcixcbiAgICAgICAgXCJiYXNlbGluZV9lcnJvclwiOiBiYXNlbGluZV9lcnJvcixcbiAgICB9XG5cblxucmVzdWx0ID0gcmVwb3J0KCkiLA0KICAgICJleHBlY3RlZCI6ICJjYW5kaWRhdGUgayAvIHZhbGlkYXRpb24gc2lsaG91ZXR0ZSAvIG1lYW4gc3F1YXJlZCBkaXN0YW5jZSAvIG1lZGlhbiBBUkkgLyBtaW4gdHJhaW4gc2l6ZSAvIGVsaWdpYmxlOiAyIDAuNTcxMTExIDAuNjcwMzMzIDEuMCA3NCBUcnVlXG5jYW5kaWRhdGUgayAvIHZhbGlkYXRpb24gc2lsaG91ZXR0ZSAvIG1lYW4gc3F1YXJlZCBkaXN0YW5jZSAvIG1lZGlhbiBBUkkgLyBtaW4gdHJhaW4gc2l6ZSAvIGVsaWdpYmxlOiAzIDAuNjYxNzg1IDAuMjM4NzYgMS4wIDczIFRydWVcbmNhbmRpZGF0ZSBrIC8gdmFsaWRhdGlvbiBzaWxob3VldHRlIC8gbWVhbiBzcXVhcmVkIGRpc3RhbmNlIC8gbWVkaWFuIEFSSSAvIG1pbiB0cmFpbiBzaXplIC8gZWxpZ2libGU6IDQgMC41NjA0ODkgMC4yMTEwMDkgMC45MzU3MjcgNDMgVHJ1ZVxuc2VsZWN0ZWQgazogM1xudGVzdCAvIHRyYWluaW5nLWNlbnRyb2lkIGJhc2VsaW5lIG1lYW4gc3F1YXJlZCBzdGFuZGFyZGl6ZWQgZGlzdGFuY2U6IDAuMzQyMjk1IDIuMTY3NTkxXG5wcm9maWxlcyBvcmRlcmVkIGJ5IGZpdHRlZCBjZW50ZXIgdGVtcGVyYXR1cmU6IGNvdW50IC8gbWVhbiB0ZW1wZXJhdHVyZSAvIG1lYW4gdmlicmF0aW9uXG4yMCAzMC40NDI3NjYgNS40NDE4MjdcbjE1IDQyLjQ2NTc0NCAzLjMyMjA0MlxuMjUgNTIuNzE2Mzk5IDUuOTAxN1xuMTAwMDAwIHJvd3M6IGZsb2F0NjQgY29uZGVuc2VkIGRpc3RhbmNlIGJ1ZmZlciBhbG9uZSAoR2lCKTogMzcuMjUzXG5BdCBhIDE2IEdpQiBtZW1vcnkgYnVkZ2V0LCByZWplY3QgdGhhdCBkZW5zZSBoaWVyYXJjaHkgcGxhbiBiZWZvcmUgZml0dGluZy5cbkNvbnNpZGVyIGEgbWVhc3VyZWQgbWluaS1iYXRjaCBvciB3ZWlnaHRlZC1wcm90b3R5cGUgcGlsb3Q7IGl0IGNoYW5nZXMgdGhlIGNvbXB1dGF0aW9uYWwvYXBwcm94aW1hdGlvbiBjb250cmFjdC5cbk9uZSBzeW50aGV0aWMgc3BsaXQgYW5kIGJvb3RzdHJhcCBzdGFiaWxpdHkgZG8gbm90IGVzdGFibGlzaCBtZWFuaW5nZnVsIHJlYWwtd29ybGQgY2F0ZWdvcmllcy4iLA0KICAgICJsYW5ndWFnZSI6ICJweXRob24iDQogIH0NCn07DQo=",
+      "executedPrograms": [
+        "ward"
+      ],
+      "originalWardStdoutUnchanged": true,
+      "unchangedCompletePrograms": [
+        "lloyd",
+        "production",
+        "scaling",
+        "quantization",
+        "capstone"
+      ],
+      "boundaryCases": [
+        {
+          "separation": 1e-200,
+          "result": "explicit rejection",
+          "message": "Rescale coordinates: squared separation is outside this arithmetic range."
+        },
+        {
+          "separation": 2.3e-162,
+          "result": "explicit rejection",
+          "message": "Rescale coordinates: the positive Ward increase underflows."
+        },
+        {
+          "separation": 1e-150,
+          "height": 1e-150,
+          "delta": 5e-301,
+          "result": "positive representable result"
+        },
+        {
+          "separation": 0.001,
+          "height": 0.001,
+          "delta": 5e-07,
+          "result": "positive representable result"
+        },
+        {
+          "separation": 0,
+          "result": "exact zero retained"
+        }
+      ],
+      "changedWardLibraryFixturesRepeated": 3,
+      "scope": "Only the affected Ward program and focused cases reran. Original six-run, 49-oracle, five-rejection evidence retains its original timestamp."
+    }
+  ]
+}

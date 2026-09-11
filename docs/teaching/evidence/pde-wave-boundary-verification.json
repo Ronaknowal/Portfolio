@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-09-11T09:05:13.273421+00:00",
+  "cases": 180,
+  "comparisons": 1176,
+  "maximumRelativeError": 7.169455330553674e-16,
+  "oracle": "180-digit independent clipped antiderivative and exact input-float conversion; original primitive cancellation is intentionally absent at high precision.",
+  "sourceHashes": {
+    "src/learn/data/pde-models.js": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2",
+    "src/learn/data/pde-examples.js": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+  }
+}

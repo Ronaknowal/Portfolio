@@ -1,0 +1,188 @@
+{
+  "checkedAt": "2026-09-11T10:04:25.342Z",
+  "topics": [
+    {
+      "id": "arrays-strings-hash-maps",
+      "title": "Arrays, Strings & Hash Maps",
+      "placements": 15,
+      "optional": 4,
+      "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330",
+      "path": "src/learn/data/practice/arrays-strings-hash-maps.js"
+    },
+    {
+      "id": "linked-lists-stacks-queues",
+      "title": "Linked Lists, Stacks & Queues",
+      "placements": 14,
+      "optional": 3,
+      "sha256": "5ca9a072692d218d53e052a4532feb3312f65e4cca3a353bc2bcc75704aa5a4e",
+      "path": "src/learn/data/practice/linked-lists-stacks-queues.js"
+    },
+    {
+      "id": "trees-binary-search-trees",
+      "title": "Trees & Binary Search Trees",
+      "placements": 10,
+      "optional": 3,
+      "sha256": "2b144bd3d9b98326df5cde92b6649e3e2c4f30baf4b76f43b44122f1d1a7561e",
+      "path": "src/learn/data/practice/trees-binary-search-trees.js"
+    },
+    {
+      "id": "heaps-priority-queues-tries",
+      "title": "Heaps, Priority Queues & Tries",
+      "placements": 10,
+      "optional": 4,
+      "sha256": "d298dd026d7147d4582bf3edf31b6d633b48eb2f68700c7ab2592ceb7148c96b",
+      "path": "src/learn/data/practice/heaps-priority-queues-tries.js"
+    },
+    {
+      "id": "graphs-representations-bfs-dfs",
+      "title": "Graphs: Representations, BFS & DFS",
+      "placements": 10,
+      "optional": 3,
+      "sha256": "ed9c88f8a3f4cd2edd3e8b16f396cf4905697c4961788e80bcf5415881d0e062",
+      "path": "src/learn/data/practice/graphs-representations-bfs-dfs.js"
+    },
+    {
+      "id": "disjoint-sets-union-find",
+      "title": "Disjoint Sets & Union-Find",
+      "placements": 5,
+      "optional": 0,
+      "sha256": "10eeb917016bf6707312e5eb39b6044216b4025826d828443846aa8a96342e18",
+      "path": "src/learn/data/practice/disjoint-sets-union-find.js"
+    },
+    {
+      "id": "complexity-analysis-recursion",
+      "title": "Complexity Analysis & Recursion",
+      "placements": 7,
+      "optional": 1,
+      "sha256": "47a7932dae718d4608024d9ee861782ece855f3ee6e74b54e2574be0ffa99dc7",
+      "path": "src/learn/data/practice/complexity-analysis-recursion.js"
+    },
+    {
+      "id": "binary-search-sorting-two-pointer-patterns",
+      "title": "Binary Search, Sorting & Two-Pointer Patterns",
+      "placements": 14,
+      "optional": 0,
+      "sha256": "e0fbae49f9095d1673fcbd7837bcc3caa362c69541731f13710aa581c3dd199a",
+      "path": "src/learn/data/practice/binary-search-sorting-two-pointer-patterns.js"
+    },
+    {
+      "id": "backtracking-divide-and-conquer",
+      "title": "Backtracking & Divide-and-Conquer",
+      "placements": 6,
+      "optional": 1,
+      "sha256": "5bc54f654f222ad751aa0a77504c092a0df686a6a5292bc9dfdf8c6d78758f69",
+      "path": "src/learn/data/practice/backtracking-divide-and-conquer.js"
+    },
+    {
+      "id": "greedy-algorithms-exchange-arguments",
+      "title": "Greedy Algorithms & Exchange Arguments",
+      "placements": 4,
+      "optional": 0,
+      "sha256": "08f14e38a0cf8e6a8e0fefeed81f5336801c479aecf4fac9c461fdda439a3d79",
+      "path": "src/learn/data/practice/greedy-algorithms-exchange-arguments.js"
+    },
+    {
+      "id": "dynamic-programming-states-transitions-optimization",
+      "title": "Dynamic Programming: States, Transitions & Optimization",
+      "placements": 15,
+      "optional": 2,
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7",
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js"
+    },
+    {
+      "id": "segment-trees-fenwick-trees-range-queries",
+      "title": "Segment Trees, Fenwick Trees & Range Queries",
+      "placements": 5,
+      "optional": 1,
+      "sha256": "bdf62a7e31ecec6f1fe9c06ec6088b2985cd1ad944533744de665c2d31292d61",
+      "path": "src/learn/data/practice/segment-trees-fenwick-trees-range-queries.js"
+    },
+    {
+      "id": "algorithm-correctness-loop-invariants-termination",
+      "title": "Algorithm Correctness, Loop Invariants & Termination",
+      "placements": 8,
+      "optional": 1,
+      "sha256": "0451767caa693d864f39469aa679f1b829cccf3253ad2a163f2a1f70de326dcc",
+      "path": "src/learn/data/practice/algorithm-correctness-loop-invariants-termination.js"
+    },
+    {
+      "id": "hashing-collision-resolution-amortized-analysis",
+      "title": "Hashing, Collision Resolution & Amortized Analysis",
+      "placements": 5,
+      "optional": 0,
+      "sha256": "d719b273557fc2fcf3d3d68a7dbc0cb8aee364978dc3143a0ee022434c78af9e",
+      "path": "src/learn/data/practice/hashing-collision-resolution-amortized-analysis.js"
+    },
+    {
+      "id": "shortest-paths-spanning-trees-topological-ordering",
+      "title": "Shortest Paths, Spanning Trees & Topological Ordering",
+      "placements": 7,
+      "optional": 2,
+      "sha256": "ff767a22f1db14652f32475d10defc8a42a0bb44f02351f35d8bd20ec86b7bb6",
+      "path": "src/learn/data/practice/shortest-paths-spanning-trees-topological-ordering.js"
+    },
+    {
+      "id": "string-matching-prefix-functions-rolling-hashes",
+      "title": "String Matching, Prefix Functions & Rolling Hashes",
+      "placements": 6,
+      "optional": 1,
+      "sha256": "5aaedcbc43ce4ff1e2db9c03d38a36596b7d315d1abc439e49a155e9522d63ce",
+      "path": "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js"
+    },
+    {
+      "id": "reductions-p-np-computational-intractability",
+      "title": "Reductions, P, NP & Computational Intractability",
+      "placements": 3,
+      "optional": 0,
+      "sha256": "a46d15d2a9fb6008bd4320ed5a4e9c9bca812eec391a94f2199143917be5403e",
+      "path": "src/learn/data/practice/reductions-p-np-computational-intractability.js"
+    },
+    {
+      "id": "randomized-algorithms-sampling-error-guarantees",
+      "title": "Randomized Algorithms, Sampling & Error Guarantees",
+      "placements": 6,
+      "optional": 0,
+      "sha256": "67b00ac1a2c5532617866462e36c096f62289ed1e344b5b0bf7cd17349d13996",
+      "path": "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js"
+    },
+    {
+      "id": "network-flow-minimum-cuts-bipartite-matching",
+      "title": "Network Flow, Minimum Cuts & Bipartite Matching",
+      "placements": 2,
+      "optional": 0,
+      "sha256": "b194bbee11e0bb27ff6f0b0de0fdfd288a141a6430c45c4d3eba246ec4f34aae",
+      "path": "src/learn/data/practice/network-flow-minimum-cuts-bipartite-matching.js"
+    },
+    {
+      "id": "computational-geometry-robust-predicates-convex-hulls",
+      "title": "Computational Geometry, Robust Predicates & Convex Hulls",
+      "placements": 6,
+      "optional": 1,
+      "sha256": "f7928a09ffc52455ff9824848c80e36b466bf9d5eaab9acbf5c2bcf3f2db0626",
+      "path": "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js"
+    },
+    {
+      "id": "persistent-data-structures-structural-sharing-versioned-queries",
+      "title": "Persistent Data Structures, Structural Sharing & Versioned Queries",
+      "placements": 2,
+      "optional": 0,
+      "sha256": "ae9d6faec5674e3897046e2c36a33e08175cb1f27622712a4f027b319841849c",
+      "path": "src/learn/data/practice/persistent-data-structures-structural-sharing-versioned-queries.js"
+    },
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "title": "External-Memory Algorithms, B-Trees & I/O Complexity",
+      "placements": 4,
+      "optional": 2,
+      "sha256": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd",
+      "path": "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js"
+    }
+  ],
+  "totals": {
+    "topics": 22,
+    "placements": 164,
+    "distinct": 151,
+    "optionalPlacements": 29
+  },
+  "scope": "Live source accounting across the existing 22 DSA datasets; no new practice or fresh review of every external statement. Bitwise and Linked independent reviews closed; DP author freeze/hint amendment under independent review; production integration separate."
+}

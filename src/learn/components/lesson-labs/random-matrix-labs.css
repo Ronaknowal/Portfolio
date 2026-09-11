@@ -71,8 +71,12 @@
   fill: #cbd2d4;
 }
 
-.rm-plot text[fill] {
-  fill: inherit;
+.rm-plot text[fill="var(--rm-gold)"] {
+  fill: var(--rm-gold);
+}
+
+.rm-plot text[fill="var(--rm-blue)"] {
+  fill: var(--rm-blue);
 }
 
 .rm-controls {

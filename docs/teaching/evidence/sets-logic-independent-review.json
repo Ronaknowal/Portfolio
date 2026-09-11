@@ -1,0 +1,295 @@
+{
+  "topicId": "sets-logic-relations-proof-techniques",
+  "reviewedAt": "2026-09-11T00:04:07.783Z",
+  "reviewer": "root; independent of the topic author",
+  "status": "closed; no remaining material finding within review scope",
+  "authorFrozenAt": "2026-09-10T23:59:10.811208+00:00",
+  "production": [
+    {
+      "path": "src/learn/data/topics/sets-logic-relations-proof-techniques.jsx",
+      "sha256": "3684b0b92bd6ae38b75491d5a600c3d0439494e23b44366d13cde9002bd78f81",
+      "bytes": 54691
+    },
+    {
+      "path": "src/learn/data/sets-logic-models.js",
+      "sha256": "f9cc72366c61771631c29009fe36e395d1393296306747f2e82c310acbcbb240",
+      "bytes": 10851
+    },
+    {
+      "path": "src/learn/data/sets-logic-examples.js",
+      "sha256": "d5e359467a17a44359ff7b1d998097e637d063abb361d9287c7df9361dce016a",
+      "bytes": 14002
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SetsLogicLabs.jsx",
+      "sha256": "f9914cfefdfb8515610599ad02932905396e3fcea4bd5893ca4ca2967ed666b2",
+      "bytes": 30361
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sets-logic-labs.css",
+      "sha256": "b4ba373295096954d74de7309c354336db6c26008458682c874df5538c07e6ef",
+      "bytes": 7172
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/sets-logic-relations-proof-techniques.js",
+      "sha256": "0bd2936a2c10b1abc6b20b805a6fbacb8e249c0d84dc3b06c1fe44e9670cae5c",
+      "bytes": 4381
+    }
+  ],
+  "sourceRead": "Complete body/design/brief/models/eleven actual code strings/labs/CSS/eleven practice groups; final changed validator also inspected.",
+  "finding": {
+    "type": "malformed sparse-array validation",
+    "resolved": true,
+    "priorModelSha256": "d20028bb2576028eb9fbfd1d9df57611ae7cf7daab9112169a7358db9013de32",
+    "finalModelSha256": "f9cc72366c61771631c29009fe36e395d1393296306747f2e82c310acbcbb240",
+    "originalEvidence": "docs/teaching/evidence/sets-logic-author-review-before-sparse-validation.json"
+  },
+  "native": {
+    "reviewedAt": "2026-09-10T23:58:53.188171+00:00",
+    "passed": true,
+    "counts": {
+      "largerRelations": 132,
+      "largerDiagonalBoards": 64,
+      "programs": 11,
+      "truthFunctionArguments": 1280,
+      "changedDiagonals": 108,
+      "changedOrders": 5
+    },
+    "malformedRegressions": [
+      {
+        "index": 0,
+        "rejected": true,
+        "type": "TypeError"
+      },
+      {
+        "index": 1,
+        "rejected": true,
+        "type": "TypeError"
+      },
+      {
+        "index": 2,
+        "rejected": true,
+        "type": "TypeError"
+      },
+      {
+        "index": 3,
+        "rejected": true,
+        "type": "TypeError"
+      },
+      {
+        "index": 4,
+        "rejected": true,
+        "type": "TypeError"
+      },
+      {
+        "index": 5,
+        "rejected": true,
+        "type": "TypeError"
+      }
+    ],
+    "limits": "Complementary finite checks, not a substitute for the separately completed full proof/source review."
+  },
+  "browser": {
+    "reviewedAt": "2026-09-11T00:00:58.798Z",
+    "passed": true,
+    "modelSha256": "f9cc72366c61771631c29009fe36e395d1393296306747f2e82c310acbcbb240",
+    "records": [
+      {
+        "width": 1440,
+        "captures": [
+          "scratch/sets-logic-independent/all-four-in-overlap-1440.png",
+          "scratch/sets-logic-independent/changed-conjunction-argument-1440.png",
+          "scratch/sets-logic-independent/separate-witnesses-no-common-1440.png",
+          "scratch/sets-logic-independent/missing-loop-1440.png",
+          "scratch/sets-logic-independent/changed-transitivity-obligation-1440.png",
+          "scratch/sets-logic-independent/incomparable-minimal-elements-1440.png",
+          "scratch/sets-logic-independent/changed-square-border-1440.png",
+          "scratch/sets-logic-independent/changed-diagonal-escape-1440.png",
+          "scratch/sets-logic-independent/inline-0-1440.png",
+          "scratch/sets-logic-independent/inline-1-1440.png",
+          "scratch/sets-logic-independent/inline-2-1440.png",
+          "scratch/sets-logic-independent/inline-3-1440.png",
+          "scratch/sets-logic-independent/inline-4-1440.png",
+          "scratch/sets-logic-independent/representative-independence-practice-1440.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2"
+        ],
+        "errors": [],
+        "keyboard": "All changed buttons activated with Enter; matrix pan tested at320."
+      },
+      {
+        "width": 390,
+        "captures": [
+          "scratch/sets-logic-independent/all-four-in-overlap-390.png",
+          "scratch/sets-logic-independent/changed-conjunction-argument-390.png",
+          "scratch/sets-logic-independent/separate-witnesses-no-common-390.png",
+          "scratch/sets-logic-independent/missing-loop-390.png",
+          "scratch/sets-logic-independent/changed-transitivity-obligation-390.png",
+          "scratch/sets-logic-independent/incomparable-minimal-elements-390.png",
+          "scratch/sets-logic-independent/changed-square-border-390.png",
+          "scratch/sets-logic-independent/changed-diagonal-escape-390.png",
+          "scratch/sets-logic-independent/inline-0-390.png",
+          "scratch/sets-logic-independent/inline-1-390.png",
+          "scratch/sets-logic-independent/inline-2-390.png",
+          "scratch/sets-logic-independent/inline-3-390.png",
+          "scratch/sets-logic-independent/inline-4-390.png",
+          "scratch/sets-logic-independent/representative-independence-practice-390.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2"
+        ],
+        "errors": [],
+        "keyboard": "All changed buttons activated with Enter; matrix pan tested at320."
+      },
+      {
+        "width": 320,
+        "captures": [
+          "scratch/sets-logic-independent/all-four-in-overlap-320.png",
+          "scratch/sets-logic-independent/changed-conjunction-argument-320.png",
+          "scratch/sets-logic-independent/separate-witnesses-no-common-320.png",
+          "scratch/sets-logic-independent/missing-loop-320.png",
+          "scratch/sets-logic-independent/changed-transitivity-obligation-320.png",
+          "scratch/sets-logic-independent/incomparable-minimal-elements-320.png",
+          "scratch/sets-logic-independent/changed-square-border-320.png",
+          "scratch/sets-logic-independent/changed-diagonal-escape-320.png",
+          "scratch/sets-logic-independent/inline-0-320.png",
+          "scratch/sets-logic-independent/inline-1-320.png",
+          "scratch/sets-logic-independent/inline-2-320.png",
+          "scratch/sets-logic-independent/inline-3-320.png",
+          "scratch/sets-logic-independent/inline-4-320.png",
+          "scratch/sets-logic-independent/representative-independence-practice-320.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size2"
+        ],
+        "errors": [],
+        "keyboard": "All changed buttons activated with Enter; matrix pan tested at320."
+      }
+    ]
+  },
+  "actualImagesOpened": [
+    {
+      "path": "scratch/sets-logic-independent/all-four-in-overlap-320.png",
+      "sha256": "8292d70934514f45314e00542986fbacffde6173847336cbf317e3a8e35ecca1",
+      "bytes": 13206
+    },
+    {
+      "path": "scratch/sets-logic-independent/separate-witnesses-no-common-390.png",
+      "sha256": "6c750f592f33e6618335733d1df997a9454e6524759013e6aa5140ebbb6b5900",
+      "bytes": 87153
+    },
+    {
+      "path": "scratch/sets-logic-independent/changed-transitivity-obligation-320.png",
+      "sha256": "afdbfa5cc76d526e6b45131efbbe3569295f8c9834129aff9ef945ae43126b46",
+      "bytes": 7971
+    },
+    {
+      "path": "scratch/sets-logic-independent/missing-loop-390.png",
+      "sha256": "3409e71528cfb137dbf13cc31ef4f12eab76c63ccd4fe4f35b1045a480502a17",
+      "bytes": 7126
+    },
+    {
+      "path": "scratch/sets-logic-independent/incomparable-minimal-elements-320.png",
+      "sha256": "3b8a2a7441f7d82d3d72425ec4cb7c9533fc6d6178efdf57d7194ee96984bdf9",
+      "bytes": 7933
+    },
+    {
+      "path": "scratch/sets-logic-independent/changed-conjunction-argument-1440.png",
+      "sha256": "08e53fe49e0ac6c2f13061b88ae3420355179b4437782db694f7a7f8d6450654",
+      "bytes": 25188
+    },
+    {
+      "path": "scratch/sets-logic-independent/changed-square-border-320.png",
+      "sha256": "ecf3f2135a3b8fa3924a5067486795bb4f3324045906e5ccd63fe841484ccfee",
+      "bytes": 40699
+    },
+    {
+      "path": "scratch/sets-logic-independent/changed-diagonal-escape-390.png",
+      "sha256": "110eaed93103ca2d0df8967572b43f5816b343b6a1ca9c1f7dad5e1fc4c9e721",
+      "bytes": 68718
+    },
+    {
+      "path": "scratch/sets-logic-independent/inline-0-320.png",
+      "sha256": "cc8595bed275a23d332940e8898138fd603a901f76e0bc1eebe5f1318ed9f038",
+      "bytes": 24878
+    },
+    {
+      "path": "scratch/sets-logic-independent/inline-1-390.png",
+      "sha256": "b3c15f9c69ebc728dc36bff7b3a80f3bb8eab56516156be73368af587352d758",
+      "bytes": 32351
+    },
+    {
+      "path": "scratch/sets-logic-independent/inline-2-390.png",
+      "sha256": "45f8258849eb2be4bc9fe77b032ba9914610bdb443c479338d70856e545438be",
+      "bytes": 38077
+    },
+    {
+      "path": "scratch/sets-logic-independent/inline-3-320.png",
+      "sha256": "e992d9a7348d0d8ea306346d8cb4f40beca760cfe3354dd58840e63608b1550a",
+      "bytes": 23669
+    },
+    {
+      "path": "scratch/sets-logic-independent/inline-4-1440.png",
+      "sha256": "b36f5d76bf4af60b205c20cc589dd786e58c41e07fcd3e5840e3bd609750e5a1",
+      "bytes": 31817
+    },
+    {
+      "path": "scratch/sets-logic-independent/representative-independence-practice-390.png",
+      "sha256": "23ff90217e096829e2e91b2984d7cfb6e78ab224f5e503f7c72b6100c5307394",
+      "bytes": 50786
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/SETS-LOGIC-INDEPENDENT-REVIEW.md",
+      "sha256": "355b42611485ee18bdfc82abdaefb04b6948a48a2a02c3a305aa80379f9de49a",
+      "bytes": 5907
+    },
+    {
+      "path": "scripts/verify-sets-logic-independent.mjs",
+      "sha256": "330b8e28c80174a74acbb608970692aebfc9dd44b50a7f2766ba64f1d8994a25",
+      "bytes": 2835
+    },
+    {
+      "path": "scripts/verify-sets-logic-independent.py",
+      "sha256": "39b7b0a27155deeebedcb2014bfe07ab59ecfe63ec2af9cfc2ce7ea8ed632066",
+      "bytes": 4816
+    },
+    {
+      "path": "scripts/review-sets-logic-independent.cjs",
+      "sha256": "2d1bef87da591980529256cb0b2b33e8af602ac508bde4add5b538d0012f1d57",
+      "bytes": 8648
+    }
+  ],
+  "limits": [
+    "Selected primary-source passages only; no full book/video viewing.",
+    "Finite complementary cases do not replace the mathematical proof review.",
+    "Author full browser checks are attributed, not claimed as independently repeated.",
+    "Production integration and user acceptance are separate."
+  ]
+}

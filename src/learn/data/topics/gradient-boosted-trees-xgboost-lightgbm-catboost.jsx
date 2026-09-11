@@ -1,957 +1,235 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const gradientBoostedTreesContent = {
-  title: "Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)",
-  readTime: "~55 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Boosting was invented as a theoretical answer to a combinatorial question: can a learning algorithm with only slight-better-than-random accuracy be "boosted" to arbitrary accuracy? Robert Schapire answered yes in 1990, and the practical consequence — AdaBoost, due to Freund and Schapire in 1997 — dominated ensemble learning for several years. But AdaBoost had a known brittleness: it was sensitive to outliers, it required re-weighting training examples in a way that could explode when the base learner was nearly perfect, and its loss function (exponential loss) was not easily swapped for something more robust. The field needed a unifying theory.
-      </Prose>
-
-      <Prose>
-        Jerome H. Friedman provided it in 2001. His paper "Greedy Function Approximation: A Gradient Boosting Machine," published in the <em>Annals of Statistics</em> 29(5):1189–1232 (DOI: 10.1214/aos/1013203451), reframed boosting not as a re-weighting scheme but as gradient descent in function space. The insight: instead of optimizing a loss function over parameters, treat the prediction function itself as the thing being optimized. The "gradient" is the vector of pseudo-residuals — the negative gradient of the loss evaluated at each training point. Each new weak learner fits these pseudo-residuals, reducing the loss in the direction of steepest descent. Swap the loss function and the pseudo-residuals change; the machinery stays the same. This unified exponential loss (AdaBoost), squared error, absolute deviation, Huber loss, and any other differentiable objective under a single algorithmic frame. Decision trees were the obvious weak learner: shallow trees with a fixed number of leaves are expressive enough to capture interactions but simple enough to be fit rapidly by exhaustive search.
-      </Prose>
-
-      <Prose>
-        Friedman's algorithm was powerful but slow. For a dataset with <em>n</em> samples and <em>d</em> features, finding the best split at each node required sorting each feature — O(n log n) per feature per node, repeated across all nodes and all trees. The theoretical soundness was not in question; the wall-clock reality was. The decade between Friedman 2001 and the first Kaggle competitions revealed the gap between a correct algorithm and a practical one.
-      </Prose>
-
-      <Prose>
-        Three libraries closed that gap, each attacking a different bottleneck.
-      </Prose>
-
-      <Prose>
-        <strong>XGBoost</strong> (eXtreme Gradient Boosting) was introduced by Tianqi Chen and Carlos Guestrin in "XGBoost: A Scalable Tree Boosting System," presented at KDD 2016 (arXiv:1603.02754). Its central contribution was a second-order Taylor expansion of the loss, which led to a closed-form expression for the optimal leaf weight and a quantifiable gain for each candidate split — no inner loop needed. This "split gain" formula, with an explicit L1 penalty <Code>γ</Code> on the number of leaves and an L2 penalty <Code>λ</Code> on leaf weights, let XGBoost prune trees objectively rather than heuristically. A second contribution was sparsity-aware split finding: a default direction for missing values learned from data, not imputed, so sparse one-hot encoded features worked natively. XGBoost also introduced a weighted quantile sketch for approximate split finding on large datasets, making it the first practical gradient boosting library for billion-row data.
-      </Prose>
-
-      <Prose>
-        <strong>LightGBM</strong> came from Microsoft Research in 2017. Guolin Ke, Qi Meng, Thomas Finley, and collaborators published "LightGBM: A Highly Efficient Gradient Boosting Decision Tree" at NeurIPS 2017. Two algorithmic ideas distinguish it. Gradient-based One-Side Sampling (GOSS) observes that data instances with small gradient magnitude are already well-fitted — they contribute less information to the next split. GOSS keeps all large-gradient instances and randomly samples a fraction of small-gradient ones, weighting the latter to correct for the bias. The result: many fewer instances per tree without meaningful accuracy loss. Exclusive Feature Bundling (EFB) addresses wide, sparse feature matrices: features that are mutually exclusive (they are never both nonzero) can be packed into a single "bundle" without losing information, reducing the effective feature count. On top of these two ideas, LightGBM switched from level-wise (breadth-first) tree growth to leaf-wise (best-first) growth — always split the leaf with the highest gain, regardless of depth — and built its entire split search on a histogram of discretized feature values rather than exact sorted values. The combination yielded 20x speedups over XGBoost on the benchmarks in the paper.
-      </Prose>
-
-      <Prose>
-        <strong>CatBoost</strong> (Categorical Boosting) came from Yandex in 2018. Liudmila Prokhorenkova, Gleb Gusev, Aleksandr Vorobev, Anna Veronika Dorogush, and Andrey Gulin published "CatBoost: unbiased boosting with categorical features" at NeurIPS 2018 (arXiv:1706.09516). The key diagnosis: every existing implementation of gradient boosting used the same examples to both estimate the gradient and to fit the tree, creating a subtle but real bias in gradient estimates — what the paper calls prediction shift. This bias grows with the number of boosting rounds and with the number of categorical features processed via target encoding. The remedy is ordered boosting: permute the dataset, then compute the gradient for each example using a model fitted on only the examples that precede it in the permutation. This is analogous to online learning within each boosting round and eliminates the target leakage. For categorical features, CatBoost computes ordered target statistics — mean target values calculated only from preceding examples in the permutation — rather than global means, which prevents the leakage that makes naive target encoding overfit badly.
-      </Prose>
-
-      <Callout type="insight">
-        All three libraries implement the same underlying algorithm — gradient boosting of decision trees — but optimize for different bottlenecks. XGBoost: regularization quality and sparsity. LightGBM: training speed on large dense datasets. CatBoost: unbiased estimates and native categorical support. In practice, their accuracy on a given tabular dataset is often within a few percent of each other; the right choice depends on data characteristics and latency constraints.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The mental model for gradient boosting is sequential error correction. Start with a naïve prediction — the mean of the target for regression, or the log-odds for classification. Compute how wrong that prediction is at each point. Fit a shallow tree to those errors (the "pseudo-residuals"). Add the tree's prediction, scaled by a small learning rate, to the running total. Recompute the errors. Repeat. Each tree does not try to solve the whole problem; it tries to correct the specific errors that the current ensemble is making.
-      </Prose>
-
-      <Prose>
-        This is gradient descent, but the "parameter" being updated is the prediction function, not a weight vector. The pseudo-residuals are the negative gradient of the loss with respect to the current function value: for squared-error loss, that gradient is literally <Code>y - F(x)</Code>, i.e., the residual. For other losses — absolute error, logistic, quantile — the pseudo-residuals are different, but the structure is the same: compute the gradient, fit a tree to it, take a step.
-      </Prose>
-
-      <Prose>
-        Compare this to a Random Forest. A Random Forest trains many trees in <em>parallel</em>, each on a bootstrap sample of the data, and averages their predictions. Each tree is deep — high variance, low bias — and averaging reduces the variance. Gradient boosting trains trees <em>sequentially</em>, each tree fitting the mistakes of all previous trees. Individual trees are kept shallow — low variance, high bias — and the sequential correction reduces the bias. The two approaches exploit the bias-variance tradeoff from opposite directions.
-      </Prose>
-
-      <StepTrace
-        label="gradient boosting: 5 rounds of sequential correction"
-        steps={[
-          {
-            label: "Round 0 — initial prediction (mean)",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="prediction = mean(y)"
-                  tokens={[
-                    { label: "F₀ = 2.5", color: colors.textMuted },
-                    { label: "residuals: [−1.5, −0.5, +0.5, +1.5, +2.5]", color: "#f87171" },
-                    { label: "MSE = 2.75", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  F₀ is just the mean of y. Every training point has a nonzero residual. The first tree will fit these residuals.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Round 1 — tree fits residuals, MSE drops sharply",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="tree₁ fits [−1.5, −0.5, +0.5, +1.5, +2.5]"
-                  tokens={[
-                    { label: "F₁ = F₀ + 0.3·h₁(x)", color: colors.gold },
-                    { label: "new residuals smaller", color: "#86efac" },
-                    { label: "MSE ≈ 1.93", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  The learning rate 0.3 scales the tree's contribution. A rate of 1.0 would fully correct each error in one step but overfit; shrinkage forces more trees and better generalization.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Round 2 — second tree corrects remaining errors",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="tree₂ fits residuals of F₁"
-                  tokens={[
-                    { label: "F₂ = F₁ + 0.3·h₂(x)", color: colors.gold },
-                    { label: "MSE ≈ 1.35", color: colors.textMuted },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Round 3 — continued correction",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="tree₃ fits residuals of F₂"
-                  tokens={[
-                    { label: "F₃ = F₂ + 0.3·h₃(x)", color: colors.gold },
-                    { label: "MSE ≈ 0.94", color: colors.textMuted },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Round 4 — diminishing returns, regularization matters",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="tree₄ fits residuals of F₃"
-                  tokens={[
-                    { label: "F₄ = F₃ + 0.3·h₄(x)", color: colors.gold },
-                    { label: "MSE ≈ 0.66", color: colors.textMuted },
-                    { label: "early stopping monitors val loss here", color: "#60a5fa" },
-                  ]}
-                />
-                <Prose>
-                  Each successive tree contributes less marginal improvement. Without early stopping or a large learning rate penalty, the model will eventually memorize the training set. Validation-based early stopping is the primary regularization mechanism in practice.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        The shrinkage parameter (learning rate, typically 0.01–0.3) is arguably the most important hyperparameter. A small learning rate requires more trees but generally achieves lower generalization error; a large one converges faster but risks overshooting. The canonical recommendation — use the smallest learning rate your compute budget allows, then tune the number of trees with early stopping — holds across all three libraries.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Gradient boosting as functional gradient descent</H3>
-
-      <Prose>
-        Let <Code>L(y, F(x))</Code> be a differentiable loss function. At iteration <Code>m</Code>, the current model is <Code>F_{"m-1"}(x)</Code>. Define the pseudo-residuals as the negative gradient of the loss with respect to the current prediction:
-      </Prose>
-
-      <MathBlock>
-        {"r_i^{(m)} = -\\left[\\frac{\\partial L(y_i,\\, F(x_i))}{\\partial F(x_i)}\\right]_{F = F_{m-1}}"}
-      </MathBlock>
-
-      <Prose>
-        Fit a regression tree <Code>h_m</Code> to the pseudo-residuals <Code>{"(x_i, r_i^{(m)})"}</Code>. Find the optimal step size <Code>ρ_m</Code> by line search:
-      </Prose>
-
-      <MathBlock>
-        {"\\rho_m = \\underset{\\rho}{\\operatorname{argmin}} \\sum_{i=1}^n L\\!\\left(y_i,\\, F_{m-1}(x_i) + \\rho\\, h_m(x_i)\\right)"}
-      </MathBlock>
-
-      <Prose>
-        Update: <Code>F_m(x) = F_{"m-1"}(x) + η · ρ_m · h_m(x)</Code>, where <Code>η</Code> is the shrinkage (learning rate). For squared error loss, <Code>r_i = y_i - F_{"m-1"}(x_i)</Code> — the ordinary residual — and the line search collapses to fitting the mean of the residuals in each leaf. For logistic loss, the pseudo-residuals are <Code>y_i - σ(F_{"m-1"}(x_i))</Code> and the per-leaf line search has a closed form involving the Newton-Raphson step.
-      </Prose>
-
-      <H3>3.2 XGBoost: second-order split gain</H3>
-
-      <Prose>
-        XGBoost replaces the first-order steepest-descent step with a second-order (Newton) step by expanding the loss around <Code>F_{"m-1"}</Code> to second order. Let <Code>g_i = ∂L/∂F(x_i)</Code> (gradient) and <Code>h_i = ∂²L/∂F(x_i)²</Code> (Hessian) evaluated at <Code>F_{"m-1"}</Code>. The regularized objective for a single tree with leaf weights <Code>w_j</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\tilde{\\mathcal{L}}(\\{w_j\\}) = \\sum_{j=1}^T \\left[ G_j w_j + \\frac{1}{2}(H_j + \\lambda)w_j^2 \\right] + \\gamma T"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>G_j = Σ_{"i∈leaf_j"} g_i</Code>, <Code>H_j = Σ_{"i∈leaf_j"} h_i</Code>, <Code>T</Code> is the number of leaves, <Code>λ</Code> is L2 regularization on leaf weights, and <Code>γ</Code> is a minimum gain threshold (L0 penalty on leaves). Setting the derivative to zero yields the optimal leaf weight:
-      </Prose>
-
-      <MathBlock>
-        {"w_j^* = -\\frac{G_j}{H_j + \\lambda}"}
-      </MathBlock>
-
-      <Prose>
-        Substituting back gives the optimal objective value for a fixed tree structure. The gain from splitting a leaf into left (L) and right (R) subsets is then:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Gain} = \\frac{1}{2}\\left[\\frac{G_L^2}{H_L + \\lambda} + \\frac{G_R^2}{H_R + \\lambda} - \\frac{(G_L+G_R)^2}{H_L+H_R+\\lambda}\\right] - \\gamma"}
-      </MathBlock>
-
-      <Prose>
-        This formula is the workhorse of XGBoost's tree learner. For every candidate split, compute <Code>G_L, H_L, G_R, H_R</Code> from the data in each side, plug in, and take the split that maximizes gain. If no split achieves <Code>Gain {">"} 0</Code>, the leaf is not split (the <Code>γ</Code> term enforces this automatically). For MSE loss, <Code>g_i = F(x_i) - y_i</Code> and <Code>h_i = 1</Code>, recovering a form equivalent to variance reduction weighted by sample count.
-      </Prose>
-
-      <H3>3.3 LightGBM: GOSS and EFB</H3>
-
-      <Prose>
-        <strong>Gradient-based One-Side Sampling (GOSS).</strong> Let instances be sorted by <Code>|g_i|</Code> in descending order. Keep the top-<Code>a·n</Code> instances (large-gradient set <Code>A</Code>) always. From the remaining, sample a fraction <Code>b</Code> uniformly to get small-gradient set <Code>B</Code>. Upweight each instance in <Code>B</Code> by <Code>(1-a)/b</Code> when computing split gain, correcting for the sampling bias. The estimated gain from any split becomes:
-      </Prose>
-
-      <MathBlock>
-        {"\\tilde{V}(d) = \\frac{1}{n}\\left(\\frac{\\left(\\sum_{x_i \\in A_L} g_i + \\frac{1-a}{b}\\sum_{x_i \\in B_L} g_i\\right)^2}{n_l^j} + \\frac{\\left(\\sum_{x_i \\in A_R} g_i + \\frac{1-a}{b}\\sum_{x_i \\in B_R} g_i\\right)^2}{n_r^j}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        <strong>Exclusive Feature Bundling (EFB).</strong> In sparse datasets, many features are mutually exclusive — they are never simultaneously nonzero. EFB identifies such groups using a graph-coloring heuristic (feature conflict graph where edges connect features that co-occur) and packs exclusive features into a single bundle by offsetting their value ranges. A bundle of <Code>k</Code> features with value ranges <Code>[0, max_k]</Code> is stored in a single histogram by adding the cumulative offset of each feature's range. This reduces effective feature count from <Code>d</Code> to <Code>d' ≪ d</Code> for sparse inputs.
-      </Prose>
-
-      <Prose>
-        <strong>Leaf-wise tree growth.</strong> Standard GBDT grows trees level by level (all nodes at depth <Code>k</Code> before any at depth <Code>k+1</Code>). LightGBM grows leaf-wise: at each step, pick the globally best leaf to split regardless of depth. With the same number of leaves, leaf-wise trees are typically deeper and achieve lower training loss; the downside is higher variance, mitigated by <Code>max_depth</Code> as a hard cap.
-      </Prose>
-
-      <H3>3.4 CatBoost: ordered boosting and ordered target statistics</H3>
-
-      <Prose>
-        <strong>Prediction shift.</strong> In standard GBDT, the gradient for example <Code>i</Code> at round <Code>m</Code> is computed using a model <Code>{"F_{m-1}"}</Code> that was fitted on all <Code>n</Code> examples including <Code>i</Code> itself. This causes a conditional bias: <Code>{"E[g_i | x_i] ≠ 0"}</Code>, because the model has partially memorized <Code>{"x_i"}</Code>. Prokhorenkova et al. show this bias causes the boosted model to underfit, especially with many trees.
-      </Prose>
-
-      <Prose>
-        <strong>Ordered boosting.</strong> Draw a random permutation <Code>σ</Code> of the training set. For each example <Code>x_i</Code>, compute its gradient using a model <Code>M_i</Code> fitted only on examples <Code>{"{x_j : σ(j) < σ(i)}"}</Code>. This is maintained efficiently by keeping <Code>2^s</Code> models of exponentially increasing size, with gradients assigned from whichever model's training set excludes <Code>x_i</Code>. The resulting gradient estimates are unbiased: <Code>E[g_i | x_i] = 0</Code> by construction.
-      </Prose>
-
-      <Prose>
-        <strong>Ordered target statistics for categoricals.</strong> Naïve target encoding — replacing a categorical value <Code>c</Code> with the mean target among all training examples with that category — leaks label information. CatBoost uses the ordered permutation to compute:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{x}_i^k = \\frac{\\sum_{j=1}^{i-1} \\mathbf{1}[x_{\\sigma(j)}^k = x_{\\sigma(i)}^k] \\cdot y_{\\sigma(j)} + a \\cdot p}{\\sum_{j=1}^{i-1} \\mathbf{1}[x_{\\sigma(j)}^k = x_{\\sigma(i)}^k] + a}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>p</Code> is the prior (global mean of <Code>y</Code>) and <Code>a</Code> is a smoothing parameter. Example <Code>i</Code> contributes only examples that precede it in the permutation — zero leakage from its own label.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Every code block below was executed and the output is the literal stdout. No pseudo-code, no ellipsis. We build a gradient boosting regressor using NumPy only, then demonstrate the XGBoost-style second-order update formula.
-      </Prose>
-
-      <H3>4a. Gradient boosting regressor with MSE loss</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class DecisionStump:
-    """Shallow regression tree for use as a weak learner."""
-    def __init__(self, max_depth=2):
-        self.max_depth = max_depth
-        self.tree = None
-
-    def _best_split(self, X, r):
-        m, n = X.shape
-        best_mse, best_feat, best_thr = float('inf'), 0, 0
-        best_left, best_right = None, None
-        for feat in range(n):
-            for thr in np.unique(X[:, feat]):
-                left  = r[X[:, feat] <= thr]
-                right = r[X[:, feat] >  thr]
-                if len(left) == 0 or len(right) == 0:
-                    continue
-                mse = (np.var(left)*len(left) + np.var(right)*len(right)) / m
-                if mse < best_mse:
-                    best_mse = mse
-                    best_feat, best_thr = feat, thr
-                    best_left  = X[:, feat] <= thr
-                    best_right = X[:, feat] >  thr
-        return best_feat, best_thr, best_left, best_right
-
-    def _build(self, X, r, depth):
-        if depth == 0 or len(r) <= 1 or np.var(r) < 1e-8:
-            return {'leaf': True, 'value': np.mean(r)}
-        feat, thr, lm, rm = self._best_split(X, r)
-        return {'leaf': False, 'feat': feat, 'thr': thr,
-                'left':  self._build(X[lm], r[lm], depth-1),
-                'right': self._build(X[rm], r[rm], depth-1)}
-
-    def fit(self, X, r):
-        self.tree = self._build(X, r, self.max_depth); return self
-
-    def _pred1(self, node, x):
-        if node['leaf']: return node['value']
-        return self._pred1(node['left']  if x[node['feat']] <= node['thr']
-                           else node['right'], x)
-
-    def predict(self, X):
-        return np.array([self._pred1(self.tree, x) for x in X])
-
-
-class GradientBoostingScratch:
-    def __init__(self, n_estimators=5, learning_rate=0.3, max_depth=2):
-        self.n, self.lr, self.md = n_estimators, learning_rate, max_depth
-        self.F0, self.trees = None, []
-
-    def fit(self, X, y):
-        self.F0 = np.mean(y)
-        F = np.full(len(y), self.F0)
-        print(f"{'Round':>5}  {'MSE':>9}  {'Mean pseudo-residual':>22}")
-        print("-" * 44)
-        for m in range(self.n):
-            pseudo_resid = y - F          # gradient of MSE = -(y - F)
-            mse = np.mean((y - F) ** 2)
-            print(f"{m:>5}  {mse:>9.4f}  {np.mean(pseudo_resid):>22.6f}")
-            tree = DecisionStump(max_depth=self.md).fit(X, pseudo_resid)
-            F += self.lr * tree.predict(X)
-            self.trees.append(tree)
-        print(f"{'done':>5}  {np.mean((y - F)**2):>9.4f}")
-        return self
-
-    def predict(self, X):
-        F = np.full(X.shape[0], self.F0)
-        for tree in self.trees:
-            F += self.lr * tree.predict(X)
-        return F
-
-
-np.random.seed(42)
-X = np.random.randn(100, 2)
-y = 3*X[:, 0] - 2*X[:, 1] + np.random.randn(100)*0.5
-
-print("=== Gradient Boosting from Scratch (MSE loss) ===")
-gb = GradientBoostingScratch(n_estimators=5, learning_rate=0.3, max_depth=2)
-gb.fit(X, y)
-# Predictions on 3 test points
-X_test = np.array([[1.0, -1.0], [0.0, 0.0], [-1.0, 1.0]])
-print("\\nPredictions:", np.round(gb.predict(X_test), 3))
-print("True values: ", np.round(3*X_test[:, 0] - 2*X_test[:, 1], 3))`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Gradient Boosting from Scratch (MSE loss) ===
-Round        MSE  Mean pseudo-residual
---------------------------------------------
-    0     11.1778              0.000000
-    1      7.0542              0.000000
-    2      4.8519              0.000000
-    3      3.4488              0.000000
-    4      2.4556              0.000000
- done      1.7821
-
-Predictions: [4.629 0.279 -4.36 ]
-True values:  [ 5.  0. -5.]`}
-      </Callout>
-
-      <H3>4b. XGBoost-style second-order update</H3>
-
-      <Prose>
-        The from-scratch gradient boosted tree above uses only first-order gradients (the residuals). XGBoost uses a second-order Newton step: divide the gradient sum by the Hessian sum plus regularization, giving a closed-form optimal leaf weight that is both faster to compute and implicitly regularized.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-def xgb_leaf_value(g, h, lam=1.0):
-    """Optimal leaf weight w* = -sum(g) / (sum(h) + lambda)."""
-    return -np.sum(g) / (np.sum(h) + lam)
-
-def xgb_split_gain(G_L, H_L, G_R, H_R, lam=1.0, gamma=0.0):
-    """Split gain (Chen & Guestrin 2016, Eq. 7)."""
-    return 0.5 * (
-        G_L**2 / (H_L + lam) +
-        G_R**2 / (H_R + lam) -
-        (G_L + G_R)**2 / (H_L + H_R + lam)
-    ) - gamma
-
-# --- MSE example ---
-y = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
-F = np.full(5, 2.5)     # initial prediction = mean(y)
-g = F - y               # gradient of MSE = F - y
-h = np.ones_like(y)     # hessian of MSE = 1 everywhere
-
-print("=== XGBoost second-order update ===")
-print(f"Gradients g : {g}")
-print(f"Hessians  h : {h}")
-
-# Evaluate one candidate split: left = first 2, right = last 3
-G_L, H_L = np.sum(g[:2]), np.sum(h[:2])
-G_R, H_R = np.sum(g[2:]), np.sum(h[2:])
-gain = xgb_split_gain(G_L, H_L, G_R, H_R, lam=1.0, gamma=0.0)
-w_L = xgb_leaf_value(g[:2], h[:2], lam=1.0)
-w_R = xgb_leaf_value(g[2:], h[2:], lam=1.0)
-
-print(f"\\nSplit: left=[y1,y2]  right=[y3,y4,y5]")
-print(f"  G_L={G_L:.2f}  H_L={H_L:.2f}  G_R={G_R:.2f}  H_R={H_R:.2f}")
-print(f"  Split Gain = {gain:.4f}")
-print(f"  Optimal w_L = {w_L:.4f}  w_R = {w_R:.4f}")
-
-# Apply update (learning_rate = 0.3)
-lr = 0.3
-F_new = F.copy()
-F_new[:2] += lr * w_L
-F_new[2:] += lr * w_R
-print(f"\\nF before: {F}")
-print(f"F after : {np.round(F_new, 4)}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== XGBoost second-order update ===
-Gradients g : [ 1.5  0.5 -0.5 -1.5 -2.5]
-Hessians  h : [1. 1. 1. 1. 1.]
-
-Split: left=[y1,y2]  right=[y3,y4,y5]
-  G_L=2.00  H_L=2.00  G_R=-4.50  H_R=3.00
-  Split Gain = 2.6771
-  Optimal w_L = -0.6667  w_R = 1.1250
-
-F before: [2.5 2.5 2.5 2.5 2.5]
-F after : [2.3    2.3    2.8375 2.8375 2.8375]`}
-      </Callout>
-
-      <Prose>
-        The leaf values <Code>w_L = -0.667</Code> and <Code>w_R = 1.125</Code> move the left cluster (overpredicted, positive gradient) downward and the right cluster (underpredicted, negative gradient) upward. The L2 penalty <Code>λ=1</Code> shrinks the leaf values toward zero — more regularization means leaves stay closer to zero, regardless of the gradient signal.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        All three code blocks below use the same synthetic regression dataset: 1,000 samples, 10 features, generated with <Code>sklearn.datasets.make_regression</Code> (noise=20, random_state=42). The train/test split is 80/20. This makes the results directly comparable. All code was executed; stdout is embedded verbatim.
-      </Prose>
-
-      <H3>5a. XGBoost — DMatrix API and sklearn wrapper</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import xgboost as xgb
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-
-np.random.seed(42)
-X, y = make_regression(n_samples=1000, n_features=10, noise=20, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# --- Native DMatrix API ---
-dtrain = xgb.DMatrix(X_train, label=y_train)
-dtest  = xgb.DMatrix(X_test,  label=y_test)
-
-params = {
-    "objective":        "reg:squarederror",
-    "max_depth":        4,
-    "learning_rate":    0.1,
-    "subsample":        0.8,
-    "colsample_bytree": 0.8,
-    "lambda":           1.0,   # L2 on leaf weights
-    "alpha":            0.0,   # L1 on leaf weights
-    "tree_method":      "hist",
-    # "device": "cuda",        # uncomment for GPU
-    "seed":             42,
+import { Code, CodeBlock, H2, H3, Prose } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample';
+import { AdditivePredictionFigure, BoostingCorrectionLab, NewtonSplitLab, HistogramMissingLab, GrowthPolicyFigure, GossSamplingLab, ExclusiveBundleFigure, OrderedCategoricalLab, BoostingValidationLab } from '../../components/lesson-labs/GradientBoostedTreeLabs.jsx';
+import { gradientBoostedTreeExamples as examples } from '../gradient-boosted-trees-examples.js';
+function Program({
+  name,
+  children
+}) {
+  const example = examples[name];
+  return <><Prose><strong>Question for this program.</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></>;
 }
-evals_result = {}
-model_xgb = xgb.train(
-    params, dtrain, num_boost_round=100,
-    evals=[(dtrain, "train"), (dtest, "test")],
-    early_stopping_rounds=10,
-    evals_result=evals_result,
-    verbose_eval=False,
-)
-preds = model_xgb.predict(dtest)
-rmse  = np.sqrt(mean_squared_error(y_test, preds))
-print(f"XGBoost (DMatrix)  best_iter={model_xgb.best_iteration}  test_RMSE={rmse:.4f}")
-print(f"  train RMSE: {evals_result['train']['rmse'][model_xgb.best_iteration]:.4f}")
-print(f"  test  RMSE: {evals_result['test']['rmse'][model_xgb.best_iteration]:.4f}")
-
-# --- sklearn wrapper ---
-from xgboost import XGBRegressor
-xgb_sk = XGBRegressor(
-    n_estimators=100, max_depth=4, learning_rate=0.1,
-    subsample=0.8, colsample_bytree=0.8, reg_lambda=1.0,
-    tree_method="hist", early_stopping_rounds=10,
-    random_state=42, eval_metric="rmse",
-)
-xgb_sk.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
-sk_rmse = np.sqrt(mean_squared_error(y_test, xgb_sk.predict(X_test)))
-print(f"\\nXGBRegressor (sklearn)  best_iter={xgb_sk.best_iteration}  test_RMSE={sk_rmse:.4f}")
-
-# --- Monotone constraints ---
-xgb_mono = XGBRegressor(
-    n_estimators=100, max_depth=4, learning_rate=0.1,
-    tree_method="hist", random_state=42,
-    monotone_constraints=(1,0,0,0,0,0,0,0,0,0),  # feature 0 forced increasing
-    eval_metric="rmse", early_stopping_rounds=10,
-)
-xgb_mono.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
-mono_rmse = np.sqrt(mean_squared_error(y_test, xgb_mono.predict(X_test)))
-print(f"XGBRegressor (monotone)  best_iter={xgb_mono.best_iteration}  test_RMSE={mono_rmse:.4f}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`XGBoost (DMatrix)  best_iter=99  test_RMSE=36.0815
-  train RMSE: 14.0989
-  test  RMSE: 36.0815
-
-XGBRegressor (sklearn)  best_iter=99  test_RMSE=36.0815
-XGBRegressor (monotone)  best_iter=99  test_RMSE=39.9394`}
-      </Callout>
-
-      <H3>5b. LightGBM — Dataset API</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import lightgbm as lgb
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-
-np.random.seed(42)
-X, y = make_regression(n_samples=1000, n_features=10, noise=20, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-train_data = lgb.Dataset(X_train, label=y_train)
-test_data  = lgb.Dataset(X_test,  label=y_test, reference=train_data)
-
-params = {
-    "objective":        "regression",
-    "metric":           "rmse",
-    "num_leaves":       31,         # controls leaf-wise max leaves per tree
-    "learning_rate":    0.1,
-    "feature_fraction": 0.8,        # colsample equivalent
-    "bagging_fraction": 0.8,        # subsample equivalent
-    "bagging_freq":     5,
-    "lambda_l2":        1.0,
-    # "device": "gpu",             # uncomment for GPU
-    "verbose":          -1,
-    "seed":             42,
+function Practice({
+  prompt,
+  hint,
+  children
+}) {
+  return <div className="gbt-practice"><p><strong>Try it independently.</strong> {prompt}</p><details><summary>Optional hint</summary><Prose>{hint}</Prose></details><details><summary>Show explained solution</summary>{children}</details></div>;
 }
-
-callbacks = [
-    lgb.early_stopping(stopping_rounds=10, verbose=False),
-    lgb.log_evaluation(period=-1),   # suppress per-round output
-]
-
-model_lgb = lgb.train(
-    params, train_data, num_boost_round=100,
-    valid_sets=[train_data, test_data],
-    valid_names=["train", "test"],
-    callbacks=callbacks,
-)
-preds = model_lgb.predict(X_test, num_iteration=model_lgb.best_iteration)
-rmse  = np.sqrt(mean_squared_error(y_test, preds))
-print(f"LightGBM  best_iter={model_lgb.best_iteration}  test_RMSE={rmse:.4f}")
-print(f"  num_trees={model_lgb.num_trees()}")
-print(f"  top-3 features by split: {sorted(enumerate(model_lgb.feature_importance()), key=lambda x: -x[1])[:3]}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`LightGBM  best_iter=100  test_RMSE=35.2717
-  num_trees=100
-  top-3 features by split: [(6, 341), (3, 304), (1, 277)]`}
-      </Callout>
-
-      <H3>5c. CatBoost — regression and classification with cat_features</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from catboost import CatBoostRegressor, CatBoostClassifier, Pool
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-
-np.random.seed(42)
-X, y = make_regression(n_samples=1000, n_features=10, noise=20, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-# --- Regression ---
-model_cat = CatBoostRegressor(
-    iterations=100, depth=4, learning_rate=0.1,
-    l2_leaf_reg=1.0, loss_function="RMSE", eval_metric="RMSE",
-    early_stopping_rounds=10, random_seed=42, verbose=False,
-)
-model_cat.fit(X_train, y_train, eval_set=(X_test, y_test), use_best_model=True)
-preds = model_cat.predict(X_test)
-rmse  = np.sqrt(mean_squared_error(y_test, preds))
-print(f"CatBoost (regression)  best_iter={model_cat.best_iteration_}  test_RMSE={rmse:.4f}")
-print(f"  feature importances (top 3): {sorted(enumerate(model_cat.get_feature_importance()), key=lambda x: -x[1])[:3]}")
-
-# --- Classification with categorical features (ordered target statistics) ---
-n = 500
-cat1 = np.random.choice(['A', 'B', 'C'], n)
-cat2 = np.random.choice(['X', 'Y'], n)
-num  = np.random.randn(n, 3)
-X_mixed = np.column_stack([cat1, cat2, num.astype(str)])
-y_mixed = ((num[:, 0] + (cat1 == 'A').astype(float)) > 0).astype(int)
-
-train_pool = Pool(data=X_mixed[:400], label=y_mixed[:400], cat_features=[0, 1])
-test_pool  = Pool(data=X_mixed[400:], label=y_mixed[400:], cat_features=[0, 1])
-
-clf = CatBoostClassifier(
-    iterations=50, depth=4, learning_rate=0.1,
-    loss_function='Logloss', eval_metric='Accuracy',
-    random_seed=42, verbose=False,
-)
-clf.fit(train_pool, eval_set=test_pool, use_best_model=True)
-acc = np.mean(clf.predict(test_pool) == y_mixed[400:])
-print(f"\\nCatBoost (classifier, cat_features=[0,1])  best_iter={clf.best_iteration_}  accuracy={acc:.4f}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`CatBoost (regression)  best_iter=99  test_RMSE=29.3239
-  feature importances (top 3): [(3, 29.63), (6, 29.06), (9, 22.59)]
-
-CatBoost (classifier, cat_features=[0,1])  best_iter=7  accuracy=1.0000`}
-      </Callout>
-
-      <Callout type="insight">
-        CatBoost achieves lower RMSE on this dataset (29.3 vs 35.3 for LightGBM vs 36.1 for XGBoost). This is not a general result — on different datasets the ranking changes — but it illustrates that CatBoost's ordered boosting can materially reduce overfitting on small-to-medium datasets. The classifier test achieves perfect accuracy because the signal (num feature 0 + categorical indicator) is strong and the ordered target statistics capture the categorical relationship without leakage.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <Prose>
-        The following visualizations trace the dynamics of gradient boosting across rounds, compare the three libraries on a common loss curve, show feature importance, and contrast leaf-wise versus level-wise tree growth.
-      </Prose>
-
-      <H3>6a. Loss vs iteration across all three libraries</H3>
-
-      <Plot
-        label="Test RMSE vs boosting round — XGBoost, LightGBM, CatBoost (synthetic regression, n=1000)"
-        xLabel="Boosting round"
-        yLabel="Test RMSE"
-        series={[
-          {
-            name: "XGBoost (hist)",
-            color: colors.gold,
-            points: [
-              [1, 87.2], [10, 62.4], [20, 51.3], [30, 45.1], [40, 41.6],
-              [50, 39.1], [60, 37.8], [70, 37.0], [80, 36.6], [90, 36.3], [100, 36.1],
-            ],
-          },
-          {
-            name: "LightGBM",
-            color: "#86efac",
-            points: [
-              [1, 85.8], [10, 60.1], [20, 49.7], [30, 44.0], [40, 40.8],
-              [50, 38.5], [60, 37.0], [70, 36.1], [80, 35.5], [90, 35.3], [100, 35.3],
-            ],
-          },
-          {
-            name: "CatBoost",
-            color: "#c084fc",
-            points: [
-              [1, 88.5], [10, 64.2], [20, 52.1], [30, 44.3], [40, 38.9],
-              [50, 35.4], [60, 32.8], [70, 31.0], [80, 29.9], [90, 29.4], [100, 29.3],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6b. Feature importance heatmap across libraries</H3>
-
-      <Prose>
-        Feature importances are normalized to [0, 1] within each library for visual comparison. The underlying dataset has features 3, 6, and 9 as the true signal; all three libraries identify them, but the relative weighting differs because of their different split-finding and sampling strategies.
-      </Prose>
-
-      <Heatmap
-        label="Normalized feature importance — XGBoost vs LightGBM vs CatBoost"
-        rowLabels={["XGBoost", "LightGBM", "CatBoost"]}
-        colLabels={["f0","f1","f2","f3","f4","f5","f6","f7","f8","f9"]}
-        matrix={[
-          [0.05, 0.08, 0.06, 0.28, 0.02, 0.03, 0.30, 0.03, 0.02, 0.13],
-          [0.07, 0.10, 0.08, 0.22, 0.04, 0.04, 0.24, 0.04, 0.04, 0.13],
-          [0.06, 0.05, 0.05, 0.30, 0.02, 0.01, 0.29, 0.01, 0.01, 0.23],
-        ]}
-      />
-
-      <H3>6c. Level-wise vs leaf-wise growth</H3>
-
-      <StepTrace
-        label="tree growth strategy: level-wise (XGBoost default) vs leaf-wise (LightGBM)"
-        steps={[
-          {
-            label: "Level-wise — depth 1 (XGBoost default)",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="splits nodes at current depth before going deeper"
-                  tokens={[
-                    { label: "root", color: colors.gold },
-                    { label: "→ split A (gain=3.1)", color: "#86efac" },
-                    { label: "→ split B (gain=1.4)", color: "#86efac" },
-                    { label: "both at depth 1 before depth 2", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  Level-wise growth ensures the tree is balanced. Every node at depth <em>k</em> is created before any node at depth <em>k+1</em>. This limits the maximum depth impact and typically produces more symmetric trees. XGBoost uses this by default.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Leaf-wise — best leaf (LightGBM)",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="always splits the leaf with highest gain globally"
-                  tokens={[
-                    { label: "root", color: colors.gold },
-                    { label: "→ split A (gain=3.1)", color: "#86efac" },
-                    { label: "→ split A.left (gain=2.8)", color: "#c084fc" },
-                    { label: "→ skip B (gain=1.4 < 2.8)", color: "#f87171" },
-                  ]}
-                />
-                <Prose>
-                  Leaf-wise growth can create deep, asymmetric trees — essentially a chain of splits down the most informative path. This achieves lower training loss with the same number of leaves as level-wise but carries higher overfitting risk. The <Code>max_depth</Code> parameter caps the chain.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        The table below summarizes the three libraries across axes that matter in practice. Ratings are relative ("fastest" means fastest among the three, not in absolute terms).
-      </Prose>
-
-      <Callout type="table">
-{`Dimension              XGBoost (hist)   LightGBM            CatBoost
-──────────────────────────────────────────────────────────────────────
-Training speed         Fast             Fastest             Moderate
-Memory usage           Moderate         Low (histogram)     Moderate-High
-Categorical handling   Manual encoding  Manual encoding     Native (ordered TS)
-Sparsity / missing     Native default   Partial             Partial
-GPU support            Yes (CUDA)       Yes (CUDA/OpenCL)   Yes (CUDA)
-Parallel / distributed Dask, Ray        Dask, Ray, Spark    No native distributed
-Tree growth            Level-wise       Leaf-wise           Symmetric (oblivious)
-Regularization         L1 + L2 + gamma  L1 + L2             L2 + ordered boosting
-Default quality        Good             Good                Often best on clean data
-Typical Kaggle use     General tabular  Large datasets      Small-medium + cats
-Main failure mode      Overfit, no cats Speed on huge data  Slow on large data`}
-      </Callout>
-
-      <H3>Recommendation guide</H3>
-
-      <Prose>
-        <strong>Pick XGBoost when:</strong> you want a mature, well-documented library with the largest ecosystem of integrations (Dask, Ray, Spark, sklearn, SHAP); when the dataset is sparse (NLP feature matrices, click logs); when you need fine-grained control over the regularization objective; or when your team already knows it.
-      </Prose>
-
-      <Prose>
-        <strong>Pick LightGBM when:</strong> training speed is the bottleneck — datasets above 500K rows, wide feature matrices, or any setting requiring many hyperparameter search iterations. LightGBM's histogram approach and GOSS make it the fastest of the three in almost every training-speed benchmark. Leaf-wise growth also tends to produce lower training loss per tree, which matters when you have aggressive early stopping.
-      </Prose>
-
-      <Prose>
-        <strong>Pick CatBoost when:</strong> your dataset contains many high-cardinality categorical features and you do not want to hand-engineer target encodings. CatBoost's ordered target statistics eliminate target leakage automatically, which is particularly valuable when you have short deadlines and cannot spend time on careful encoding pipelines. On small-to-medium tabular datasets ({"<"} 100K rows), CatBoost's ordered boosting often achieves the best generalization out of the box. It also tends to shine on datasets with a small number of highly predictive features, where the symmetric (oblivious) trees it uses by default are not a disadvantage.
-      </Prose>
-
-      <Callout type="insight">
-        In Kaggle tabular competitions, the dominant pattern is: LightGBM for speed during feature engineering and iteration, XGBoost or CatBoost in the final ensemble. All three are nearly always represented in the top solutions on large tabular benchmarks. On AutoML benchmarks (e.g., TabZilla), LightGBM and CatBoost appear in the top two most often; XGBoost is third. No single library dominates across all data regimes.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8a. Split-finding complexity</H3>
-
-      <Prose>
-        The original exact greedy algorithm sorts each feature to find optimal splits: <strong>O(n log n · d)</strong> per tree, where <em>n</em> is samples and <em>d</em> is features. At 10M rows and 1,000 features, this is prohibitive. Histogram-based methods (XGBoost's <Code>tree_method="hist"</Code>, LightGBM's default) discretize each feature into at most <Code>max_bin</Code> bins (typically 256). Building the histogram is O(n · d) per tree — linear in both. Finding the best split from the histogram is O(max_bin · d) per tree — independent of n. The total complexity is <strong>O(n · d + max_bin · d · T)</strong> where <em>T</em> is the number of trees, versus <strong>O(n · log n · d · T)</strong> for exact. For large n, the histogram approach is orders of magnitude faster with negligible accuracy loss because most splits that look different at the raw feature value level are indistinguishable after discretization.
-      </Prose>
-
-      <H3>8b. Distributed training</H3>
-
-      <Prose>
-        XGBoost supports distributed training via Dask (<Code>xgb.dask.DaskDMatrix</Code>), Ray (<Code>xgboost_ray</Code>), and has native Spark bindings (<Code>XGBoost4J-Spark</Code>). The parallelism model is data-parallel: the dataset is partitioned across workers, each worker builds local histograms, and histograms are all-reduced before the split is chosen. This requires communication proportional to the number of bins times features per round — manageable even at millions of rows.
-      </Prose>
-
-      <Prose>
-        LightGBM has analogous Dask integration (<Code>lightgbm.dask</Code>) and a separate MPI-based distributed mode. CatBoost does not have a first-class distributed implementation at production scale; it is designed for single-machine training, and the ordered boosting algorithm does not trivially extend to the data-parallel setting because the permutation-based gradient estimates require ordered access across the full dataset.
-      </Prose>
-
-      <H3>8c. GPU acceleration</H3>
-
-      <Prose>
-        All three libraries support CUDA GPU training. XGBoost: pass <Code>device="cuda"</Code> in params. LightGBM: <Code>device="gpu"</Code>. CatBoost: <Code>task_type="GPU"</Code>. GPU speedups are most pronounced for wide feature matrices and exact split-finding; histogram methods already reduce the per-split work, so GPU is less transformative for LightGBM than for XGBoost in exact mode. Typical speedups on a single GPU: 3–5x for XGBoost hist, 2–4x for LightGBM, 5–10x for CatBoost (whose symmetric tree structure maps well to GPU parallelism).
-      </Prose>
-
-      <H3>8d. What does not scale</H3>
-
-      <Prose>
-        <strong>Very high-cardinality categoricals.</strong> Even with CatBoost's ordered target statistics, encoding a feature with 1M unique categories builds a hash table per round — memory grows with cardinality. Above ~100K unique categories per feature, consider hashing or embedding approaches instead.
-      </Prose>
-
-      <Prose>
-        <strong>Deep sequential dependencies.</strong> GBT is a tabular method. It has no notion of sequence, geometry, or topology. Audio, video, text, and graphs are not good fits unless you first extract tabular features (embeddings, aggregates) by other means.
-      </Prose>
-
-      <Prose>
-        <strong>Extremely wide feature spaces (d {">"} 1M).</strong> Even with EFB, storing per-feature histograms at 1M features is impractical. Sparse linear models or neural networks with embedding layers are better choices here.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9a. Overfitting without early stopping</H3>
-
-      <Prose>
-        Gradient boosting will memorize the training set given enough trees and a high enough learning rate. The canonical fix is validation-based early stopping with a held-out set that was never used for feature engineering. A common mistake is splitting the data into train/validation after target encoding, leaking label statistics into the validation set and giving a misleadingly good early-stopping signal. Always engineer features before splitting, or use a proper pipeline.
-      </Prose>
-
-      <H3>9b. max_depth vs num_leaves semantics</H3>
-
-      <Prose>
-        In XGBoost, <Code>max_depth=6</Code> means the tree can have at most 2⁶ = 64 leaves. In LightGBM, <Code>max_depth=6</Code> is a depth cap, but the effective complexity is controlled primarily by <Code>num_leaves</Code>. Setting <Code>num_leaves=31</Code> (LightGBM default) with <Code>max_depth=-1</Code> (unconstrained) produces trees that are shallower than XGBoost's <Code>max_depth=6</Code> on average because leaf-wise growth rarely builds full binary trees. When cross-tuning hyperparameters, translate <Code>max_depth → num_leaves</Code> as approximately <Code>num_leaves ≈ 2^{"{max_depth}"} / 2</Code>.
-      </Prose>
-
-      <H3>9c. Target leakage from naive categorical encoding</H3>
-
-      <Prose>
-        If you compute target-encoded means for categorical features on the full training set and then train, the model sees the target in its own features. This inflates training accuracy sharply, and the encoding collapses on the test set to global means for unseen categories. CatBoost's ordered target statistics avoid this by construction. For XGBoost and LightGBM, use k-fold out-of-fold target encoding (or simply ordinal encoding for low-cardinality categoricals) to prevent leakage.
-      </Prose>
-
-      <H3>9d. Imbalanced classification: wrong loss and forgotten scale_pos_weight</H3>
-
-      <Prose>
-        For binary classification with class imbalance (1% positive rate), using the default <Code>binary:logistic</Code> loss without adjusting <Code>scale_pos_weight</Code> (XGBoost) or <Code>is_unbalance=True</Code> (LightGBM) leads to a model that predicts the majority class for almost all examples and achieves high accuracy but near-zero recall. Set <Code>scale_pos_weight = n_negatives / n_positives</Code> in XGBoost. For CatBoost, set <Code>auto_class_weights='Balanced'</Code>. Also consider using AUC or F1 as your eval metric rather than accuracy, and monitor the confusion matrix.
-      </Prose>
-
-      <H3>9e. GPU NaN surprises</H3>
-
-      <Prose>
-        GPU training occasionally produces NaN predictions that CPU training does not, due to floating-point ordering differences and reduced-precision arithmetic. The most common triggers: very small <Code>min_child_weight</Code> (XGBoost) or <Code>min_data_in_leaf</Code> (LightGBM) combined with high learning rates, or datasets with extreme feature scales (1e10 alongside 1e-4). Fix: normalize features to [0, 1] or standard scale before training, or increase the min-samples-in-leaf parameter to at least 20.
-      </Prose>
-
-      <H3>9f. small min_child_weight → deep overfitting</H3>
-
-      <Prose>
-        XGBoost's <Code>min_child_weight</Code> is the minimum sum of Hessians required in a leaf. For MSE loss where all Hessians are 1, this equals the minimum number of samples per leaf. Setting it to 1 (the default when you want fast training) allows leaves with a single training example, which memorize noise. Rule of thumb: set <Code>min_child_weight</Code> to at least <Code>sqrt(n_train / 100)</Code> and monitor validation loss per tree.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were verified via WebSearch against their primary publication venues and arXiv pages.
-      </Prose>
-
-      <Prose>
-        <strong>Friedman, J.H. (2001).</strong> "Greedy Function Approximation: A Gradient Boosting Machine." <em>The Annals of Statistics</em>, 29(5):1189–1232. DOI: 10.1214/aos/1013203451. Available via Project Euclid (open access). This is the foundational paper that frames boosting as functional gradient descent, derives the pseudo-residual update, and introduces gradient boosted regression trees with shrinkage and stochastic subsampling.
-      </Prose>
-
-      <Prose>
-        <strong>Chen, T. and Guestrin, C. (2016).</strong> "XGBoost: A Scalable Tree Boosting System." <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '16)</em>, pp. 785–794. arXiv:1603.02754. This paper introduces the second-order Taylor expansion of the objective, the closed-form split gain formula with L1/L2 regularization, the sparsity-aware split-finding algorithm, and the approximate quantile sketch for large-scale training.
-      </Prose>
-
-      <Prose>
-        <strong>Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., and Liu, T.-Y. (2017).</strong> "LightGBM: A Highly Efficient Gradient Boosting Decision Tree." <em>Advances in Neural Information Processing Systems 30 (NeurIPS 2017)</em>, pp. 3149–3157. Available via NeurIPS Proceedings. Introduces GOSS and EFB, proposes leaf-wise tree growth, and demonstrates 20x+ speedup over XGBoost on multiple public datasets.
-      </Prose>
-
-      <Prose>
-        <strong>Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A.V., and Gulin, A. (2018).</strong> "CatBoost: unbiased boosting with categorical features." <em>Advances in Neural Information Processing Systems 31 (NeurIPS 2018)</em>, pp. 6638–6648. arXiv:1706.09516. Proves the prediction shift problem in standard gradient boosting, introduces ordered boosting to eliminate the bias, and derives ordered target statistics for categorical feature encoding without label leakage.
-      </Prose>
-
-      <Prose>
-        <strong>Supplementary reading:</strong> Friedman, J.H. (2002). "Stochastic gradient boosting." <em>Computational Statistics and Data Analysis</em>, 38(4):367–378. Introduces the subsampling trick (using a fraction of the data per tree) that is now standard in all three libraries. Mason, L., Baxter, J., Bartlett, P., and Frean, M. (1999). "Boosting algorithms as gradient descent." <em>NeurIPS 1999</em>. The earlier paper that articulated the functional gradient descent framing Friedman 2001 operationalized.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1 (Recall)</H3>
-      <Prose>
-        What are the pseudo-residuals in gradient boosting, and how do they differ for squared-error loss versus log-loss (binary cross-entropy)?
-      </Prose>
-      <Callout type="answer">
-        Pseudo-residuals are the negative gradient of the loss with respect to the current prediction function, evaluated per training example. For squared-error loss, the gradient is <Code>F(x_i) - y_i</Code>, so the pseudo-residuals are <Code>y_i - F(x_i)</Code> — the ordinary residuals. For log-loss (binary cross-entropy), the gradient is <Code>σ(F(x_i)) - y_i</Code>, so pseudo-residuals are <Code>y_i - σ(F(x_i))</Code> — the difference between the label and the predicted probability. The key distinction: squared-error pseudo-residuals are unbounded and symmetric; log-loss pseudo-residuals are bounded to [-1, 1] and are proportional to the prediction error in probability space, giving the model implicit robustness to outliers compared to squared error.
-      </Callout>
-
-      <H3>Exercise 2 (Conceptual)</H3>
-      <Prose>
-        Explain the XGBoost split gain formula. What does each of the three terms inside the brackets represent, and what role does <Code>γ</Code> play?
-      </Prose>
-      <Callout type="answer">
-        The split gain is: <Code>Gain = 0.5·(G_L²/(H_L+λ) + G_R²/(H_R+λ) − (G_L+G_R)²/(H_L+H_R+λ)) − γ</Code>. The first term inside brackets is the reduction in objective achievable from the left child leaf in isolation. The second term is the same for the right child. The third term is the reduction achievable from the parent leaf (no split). The gain is therefore: (quality of left leaf) + (quality of right leaf) − (quality of parent). A positive gain means the split reduces the objective. The L2 regularization λ shrinks each leaf's contribution — large λ makes all three terms small, discouraging any split. γ is a threshold: the split only happens if the gain exceeds γ, which is equivalent to an L0 penalty on the number of leaves. γ=0 allows any split with positive gain; increasing γ enforces minimum gain requirements, pruning weak splits.
-      </Callout>
-
-      <H3>Exercise 3 (Applied)</H3>
-      <Prose>
-        You are training on a dataset with 2 million rows, 500 features, and moderate class imbalance (5% positive). Training XGBoost with <Code>tree_method="exact"</Code> takes 4 hours. What three changes would you make to cut training time by at least 5x without substantially sacrificing model quality?
-      </Prose>
-      <Callout type="answer">
-        (1) Switch to <Code>tree_method="hist"</Code> — this alone typically yields a 3–10x speedup on large datasets by replacing the O(n log n) sort per feature with an O(n) histogram construction. (2) Switch to LightGBM, which adds GOSS on top of histograms — training on a subset of large-gradient instances further reduces compute per round by up to 50% with negligible accuracy loss. (3) Enable GPU training (<Code>device="cuda"</Code> in XGBoost or <Code>device="gpu"</Code> in LightGBM) — on modern GPUs this adds another 3–5x over CPU histogram training. Together these changes typically achieve 10–30x total speedup. Also set <Code>scale_pos_weight = 19</Code> (95/5) to handle the class imbalance.
-      </Callout>
-
-      <H3>Exercise 4 (Applied)</H3>
-      <Prose>
-        When would you pick CatBoost over LightGBM on a Kaggle tabular competition?
-      </Prose>
-      <Callout type="answer">
-        CatBoost is the better default choice when: (1) the dataset has many high-cardinality categorical columns (e.g., user ID, product category, city) — CatBoost's ordered target statistics handle them natively without requiring a separate preprocessing pipeline; (2) the dataset is small-to-medium ({"<"} 200K rows) where the bias reduction from ordered boosting is most impactful; (3) you are under time pressure and cannot do careful k-fold target encoding, because CatBoost's built-in encoding is robust to leakage; (4) you want to avoid manual feature engineering of categorical interactions. LightGBM is preferable when training speed is critical (large datasets, many hyperparameter trials), or when the categoricals are already encoded or not present at all.
-      </Callout>
-
-      <H3>Exercise 5 (Debugging)</H3>
-      <Prose>
-        Your XGBoost model achieves 98% training accuracy and 62% validation accuracy on a binary classification task. List three likely causes and a concrete fix for each.
-      </Prose>
-      <Callout type="answer">
-        (1) <strong>Learning rate too high / trees too deep:</strong> each tree overcorrects on training examples. Fix: reduce <Code>learning_rate</Code> to 0.05 or lower, add <Code>early_stopping_rounds=20</Code> with a proper validation set. (2) <strong>min_child_weight too low:</strong> leaves with very few examples memorize noise. Fix: increase <Code>min_child_weight</Code> to at least 20–50, or increase <Code>reg_lambda</Code> from 1 to 5–10. (3) <strong>Target leakage in features:</strong> if any feature directly or indirectly encodes the label (e.g., a column computed from future data, or a target-encoded categorical computed on the full training set), the model will overfit perfectly on training but fail on validation. Fix: review each feature's provenance, apply target encoding with k-fold out-of-fold estimates, and verify that time-based data splits respect temporal ordering.
-      </Callout>
-
-      <H3>Exercise 6 (Math)</H3>
-      <Prose>
-        For a leaf with 5 training examples, gradients <Code>g = [1.5, 0.5, −0.5, −1.5, −2.5]</Code> and hessians <Code>h = [1, 1, 1, 1, 1]</Code>, compute the optimal leaf weight under XGBoost's regularized objective with <Code>λ = 1</Code>. Then compute the gain from splitting this leaf into left = first 2 examples and right = last 3 examples, with <Code>γ = 0</Code>.
-      </Prose>
-      <Callout type="answer">
-        G = 1.5+0.5−0.5−1.5−2.5 = −2.5, H = 5. Optimal leaf weight: w* = −G/(H+λ) = 2.5/6 ≈ 0.4167. For the split: G_L = 1.5+0.5 = 2.0, H_L = 2; G_R = −0.5−1.5−2.5 = −4.5, H_R = 3. Gain = 0.5·(2²/3 + 4.5²/4 − (2−4.5)²/6) − 0 = 0.5·(4/3 + 20.25/4 − 6.25/6) = 0.5·(1.333 + 5.0625 − 1.0417) = 0.5·5.354 ≈ 2.677. Since Gain = 2.677 {">"} γ = 0, the split is accepted. The optimal left leaf weight is w_L = −2.0/3 ≈ −0.667 and right leaf weight w_R = 4.5/4 = 1.125. (These match the from-scratch code output in section 4b.)
-      </Callout>
-
-    </div>
-  ),
+export default {
+  title: 'Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)',
+  readTime: '~85 min read + 1–2 hours investigation and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot gradient-boosted-trees-lesson">
+    <LessonIntro prerequisites="Decision Trees & Random Forests supplies split rules and regression leaves; Linear & Logistic Regression supplies prediction losses and probabilities. We refresh the needed averages, tree rules, derivatives and logits locally. The first calculation needs only arithmetic. Python programs begin with the standard library; the deeper learner uses NumPy and the library workflows have their own setup." sections={[['1-predict-with-a-sequence-of-corrections', 'A baseline, one correction and a new row'], ['2-fit-the-errors-before-adding-the-tree', 'Residuals, shrinkage and a complete learner'], ['3-change-the-loss-without-changing-the-question', 'Gradients, logits and asymmetric errors'], ['4-price-a-leaf-and-a-split', 'Newton updates, L1/L2 and the split calculation'], ['5-search-fewer-boundaries-with-clear-tradeoffs', 'Histograms, missing data and tree growth'], ['6-sample-rows-and-bundle-exclusive-features', 'GOSS weights and reversible feature bins'], ['7-categorical-features-and-whose-target-is-allowed', 'Ordered statistics versus ordered boosting'], ['8-choose-a-model-without-peeking-at-the-test', 'Validation, stopping and the learning curve'], ['9-run-the-three-libraries-with-explicit-contracts', 'Complete CPU programs and inference rules'], ['10-diagnose-the-model-you-actually-built', 'Importance, constraints, scaling and failures'], ['11-practise-transfer-and-choose-the-next-question', 'Changed conditions, a report and references']]}>
+      A predictor is wrong by a little in one operating range and by a lot in another. Instead of replacing it, build a small tree that learns a useful correction. Add that correction, examine the errors that remain, and repeat. Gradient boosting turns this idea into a general training method; XGBoost, LightGBM and CatBoost make different choices about how to carry it out.
+    </LessonIntro>
+    <Prose>Imagine predicting a machine's energy use from its load, temperature and operating mode. A straight-line model is a useful baseline, but perhaps cooling demand changes sharply above a temperature threshold and only in one mode. Trees express such conditions. Boosting combines many modest conditional corrections into a predictor. This is a motivating scenario; the small datasets below are deliberately constructed so their calculations can be checked, not measurements from a real machine.</Prose>
+    <Prose>Save any complete program as <Code>example.py</Code> and run <Code>python example.py</Code>. The browser labs run the stated bounded calculations, independently of Python. The first programs use the standard library; for the original deeper regression example install NumPy with <Code>python -m pip install numpy==2.3.5</Code>. The three production libraries have a separate pinned setup in section 9. Exact displayed stdout was executed with Python 3.12.14; numerical results can vary with a different version, platform or parallel execution.</Prose>
+
+    <H2>1. Predict with a sequence of corrections</H2>
+    <Prose>A <strong>row</strong> is one prediction case. Its features x must be available when the prediction is made. Its target y is the outcome we later observe. A regression tree asks questions such as “is load at most 3.5?” and returns one number from the reached leaf. In boosting, that number will usually be a <em>correction to a current score</em>. It need not look like a plausible target by itself: a negative correction is entirely useful.</Prose>
+    <LessonTable caption="A six-row teaching fixture: one dimension makes every split visible" headers={['Row', 'Feature x', 'Observed y']} rows={[[1, 1, 2], [2, 2, 2], [3, 3, 3], [4, 4, 7], [5, 5, 8], [6, 6, 8]]} />
+    <Prose>First ignore x and predict the same number for everyone. For squared error, the best constant is the mean target, 5. Its errors y−5 are −3,−3,−2,2,3,3. Their squares sum to 44, so the <strong>mean squared error</strong>, MSE, is 44/6=7⅓. The errors are structured: the first three predictions are too high and the last three too low. A tree with a split at x=3.5 can exploit that pattern.</Prose>
+    <Prose>The left leaf's average error is −8/3; the right leaf's is +8/3. If we add half of each correction, the predictions become 11/3 on the left and 19/3 on the right. The new MSE is 2. No target has changed. We changed the prediction function. A second tree learns the errors of this <em>updated</em> function, not the original errors again.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}F_0(x)&=b,\\F_m(x)&=F_{m-1}(x)+\eta h_m(x),\\F_M(x)&=b+\eta\sum_{m=1}^{M}h_m(x).\end{aligned}`}</MathBlock>
+    <Prose>F is the current prediction score; b is the starting constant; h is a correction tree; m counts rounds; M is the number of saved trees. The <strong>learning rate</strong> η, pronounced “eta,” scales each new tree. Here η=0.5. A library may instead store already-scaled leaf values; do not multiply them a second time when reproducing its predictions.</Prose>
+    <AdditivePredictionFigure />
+    <Prose>For a new row x=4.5, inference visits the learned rules and adds their leaf values. It does not know the new target and does not calculate a new residual. Training is sequential because the next correction depends on earlier predictions. Within a round, candidate splits and data work can still be parallelized. At inference, the saved trees no longer need to learn from one another.</Prose>
+    <Prose>A random forest also combines trees, but its trees are typically fitted on resampled data with randomized feature choices and aggregated. Boosting fits the next tree in response to the current loss. “Forests are deep and boosting is shallow” is not the defining distinction: either method can constrain depth, and tree size remains a modeling choice.</Prose>
+    <Practice prompt="After the first half-strength tree, what does x=2.5 receive? If its eventual target is 4, is 4 needed to make that prediction?" hint="Follow the left leaf. Add half of −8/3 to the baseline 5; only then compare with the later observation.">
+      <Prose>The prediction is 5−4/3=11/3≈3.6667. The later residual is 4−11/3=1/3. The target is needed to evaluate an error, not to apply the already-trained predictor.</Prose>
+    </Practice>
+
+    <H2>2. Fit the errors before adding the tree</H2>
+    <Prose>Why average the residuals in a leaf? Suppose the current residuals in a fixed leaf are r₁,…,rₙ and its correction is c. The tree wants one c that minimizes Σ(rᵢ−c)². Write each residual as its mean r̄ plus its deviation. The cross term sums to zero because Σ(rᵢ−r̄)=0:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}\sum_i(r_i-c)^2={}&\sum_i(r_i-\bar r)^2\\&+n(c-\bar r)^2.\end{aligned}`}</MathBlock>
+    <Prose>The first term is unavoidable variation inside that leaf. The second is nonnegative and becomes zero at c=r̄. This explains both the correction and its limitation: one shared number fixes a leaf's average error, not every row's error. Even η=1 leaves within-leaf differences unless the rows' residuals already agree.</Prose>
+    <Prose>For an unregularized tree with exact residual means in its leaves, we can also calculate the effect of shrinkage. Within a leaf, expand Σ(rᵢ−ηr̄)² and use Σrᵢ=nr̄. Sum the result over leaves:</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\mathrm{SSE}_{\mathrm{after}}=\mathrm{SSE}_{\mathrm{before}}\\-\eta(2-\eta)\sum_{\ell}n_\ell\bar r_\ell^2.\end{gathered}`}</MathBlock>
+    <Prose>For 0≤η≤2 this training SSE cannot increase in exact arithmetic. The decrease is strict when 0&lt;η&lt;2 and at least one leaf mean is nonzero. At η=1 this particular fixed-tree step is optimal. A smaller rate deliberately leaves some correction for future rounds, whose partitions may differ. This identity does not cover an arbitrary loss, regularized leaf estimates, subsampled residuals or held-out data; it is a precise local fact, not a proof that more trees generalize better.</Prose>
+    <BoostingCorrectionLab />
+    <Prose>To learn the split itself, sort distinct feature values and consider boundaries between them. For each boundary, compute both leaf means and their total remaining SSE. Choose the smallest. Equal feature values must stay together: there is no threshold that sends one x=2 left and another identical x=2 right. A one-split tree is called a <strong>stump</strong>. Deeper trees repeat the same calculation within their children.</Prose>
+    <Program name="residual-corrections"><Prose>The first two rounds choose 3.5. By round three, a different remaining-error pattern makes 2.5 preferable. The result is the sum of all three trees, not just the final tree. The new-row prediction 7.25 is calculated from saved rules.</Prose></Program>
+    <Prose>Choosing each split greedily is computationally manageable, but it is not a global search over every tree and every ensemble. A split can be unhelpful alone yet useful as part of a later interaction. A stump uses one feature per tree and produces an additive collection of one-dimensional effects; a tree that tests temperature and then mode can represent an interaction within that tree. Adding arbitrarily many stumps does not magically turn their additive function into every interaction.</Prose>
+    <Program name="recursive-regression"><Prose>This preserves the original 100-row, two-feature experiment with a complete depth-2 learner. The corrected output is the actual result of that algorithm. If all available features are constant, the builder returns a leaf even when targets differ. Calling <Code>fit</Code> again clears the old trees; otherwise repeated fitting would silently append corrections to a new baseline. The learner is deliberately transparent: scanning thresholds and slicing rows is much slower than production histogram implementations.</Prose></Program>
+    <Practice prompt="Keep x=[1,2,3,4], change y to [0,0,4,4], and use one stump with η=.25. Calculate the baseline, leaf corrections and new MSE. What happens if all four x values are instead identical?" hint="The mean is 2. Price the split between rows 2 and 3. With identical features there is no legal two-child partition.">
+      <Prose>The baseline is 2, residuals are −2,−2,2,2, and leaf means are −2 and 2. Predictions become 1.5,1.5,2.5,2.5; MSE is 2.25, down from 4. If all x values are identical, the only leaf's mean residual is zero, so the prediction remains 2 and MSE remains 4. Distinct targets do not create a feature that separates their rows.</Prose>
+    </Practice>
+
+    <H2>3. Change the loss without changing the question</H2>
+    <Prose>A residual tells us how to improve squared error. A different loss may care differently about mistakes. Gradient boosting replaces the ordinary residual with the <strong>negative derivative of loss with respect to the current score</strong>. The derivative says how the loss changes for a small increase in that score; its negative points toward a local decrease. Fit a regression tree to these per-row numbers, then choose a step or leaf update suited to the loss.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}f_i=F_{m-1}(x_i),\quad v_i=h_m(x_i),\\r_i^{(m)}=-\left.\frac{\partial L(y_i,F)}{\partial F}\right|_{F=f_i},\\\rho_m\in\arg\min_\rho\sum_i L(y_i,f_i+\rho v_i).\end{gathered}`}</MathBlock>
+    <Prose>This is <strong>functional gradient descent</strong>: we adjust a prediction function by adding another function. On the finite training rows, you can picture a vector of scores and a vector of desired changes. A small tree can only express some change vectors, so fitting it approximates a useful direction within that restricted class. A line search or leaf-specific minimization then chooses how far to move; shrinkage can reduce that step. A fitted tree is not automatically the exact steepest direction among all functions.</Prose>
+    <LessonTable caption="Differentiate with respect to the raw prediction score F" headers={['Task and loss', 'Gradient g', 'Curvature h']} rows={[['Numeric target: L=(F−y)²/2', 'F−y', '1'], ['Binary y∈{0,1}: L=log(1+exp(F))−yF', 'p−y, where p=sigmoid(F)', 'p(1−p)'], ['Quantile τ: pinball loss of y−F', '−τ if y>F; 1−τ if y<F', 'Nondifferentiable at a match; no positive ordinary second derivative elsewhere']]} />
+    <Prose>The factor 1/2 in squared loss matters when comparing gradient/Hessian and regularization formulas. It removes an otherwise common factor of 2; it does not change the unregularized minimizer. MSE still denotes the usual average of squared errors in our plots. Multiplying a loss without also adjusting its penalties changes their relative strength.</Prose>
+    <H3>Binary classification adds scores, then converts once</H3>
+    <Prose>A binary score F is a <strong>logit</strong>, or log-odds. Convert it to a probability p=1/(1+exp(−F)). Differentiating p gives p(1−p). Differentiating log(1+exp(F))−yF therefore gives g=p−y and h=p(1−p). For a positive label at p=.2, the negative gradient is .8: raising the score would help. For a negative label at the same p, it is −.2: lower the score.</Prose>
+    <Prose>Because p is a nonlinear transformation, <Code>sigmoid(F+correction)</Code> is not <Code>sigmoid(F)+sigmoid(correction)</Code>. A regression leaf remains a real-valued score correction even when the eventual output is a class probability. For a dataset with prevalence π strictly between 0 and 1, the best constant logit is log(π/(1−π)): set the sum of gradients to zero to obtain p=π. At all-zero or all-one labels, the unconstrained optimum is at an infinite logit. A finite clipped or smoothed start is an explicit numerical/modeling convention.</Prose>
+    <Program name="loss-derivatives"><Prose>The stable loss evaluates the same mathematical expression without forming exp(1000). The printed zero for a highly confident correct prediction is floating-point rounding/underflow of a tiny positive loss, not a claim that its exact mathematical value vanishes. Bounded binary gradients do not guarantee immunity to mislabeled or influential examples: curvature, tree structure and the rest of training still matter.</Prose></Program>
+    <Prose>A Newton step divides a gradient by curvature and is generally an approximation to the logistic optimum, not a closed-form exact logistic line search. For multiple classes, softmax produces coupled scores and a Hessian matrix; libraries choose their own multiclass tree/leaf approximations. Do not copy the scalar binary h into a multiclass custom objective. Likewise, a nonconvex custom loss with negative curvature needs a supported method or justified approximation, not blind use of the positive-curvature leaf formula.</Prose>
+    <H3>An application where the average is the wrong question</H3>
+    <Prose>Suppose underestimating spare-part demand is four times as costly per unit as overestimating it. The 80th-percentile <strong>pinball loss</strong> charges .8r for positive residual r=y−F and .2|r| for negative residual. Minimizing expected loss selects a conditional quantile rather than generally selecting the mean. Different operating conditions can be handled by different tree regions, so the loss connects the model to an actual decision.</Prose>
+    <MathBlock>{String.raw`\ell_\tau(r)=\begin{cases}\tau r,&r\ge0,\\(\tau-1)r,&r<0.\end{cases}`}</MathBlock>
+    <Prose>For a fixed leaf with empirical distribution function C, the minimizers satisfy C(F−)≤τ≤C(F). To see why, moving F upward reduces each above-target residual's cost at rate τ and increases each below-target residual's cost at rate 1−τ. The one-sided slopes surround zero exactly at that quantile condition. With ties or finite data, the optimum may be an interval. Specialized quantile tree methods handle this nonsmooth loss; its second derivative is not a usable positive Newton curvature.</Prose>
+    <Program name="quantile-planning"><Prose>At τ=.8, any real prediction from 2 through 8 minimizes this fixture's loss, so even its mean 2.4 happens to be a minimizer. This coincidence is not a mean–quantile identity. Change τ to .6 and the minimizing interval becomes [1,2], excluding 2.4. One quantile is not a calibrated uncertainty interval; estimation, coverage and changing demand require separate validation.</Prose></Program>
+
+    <H2>4. Price a leaf and a split</H2>
+    <Prose>Fitting a loss direction is only part of the decision. How large should a correction be? Is another leaf worth its complexity? XGBoost's familiar calculation uses a second-order Taylor approximation around the current score. Hold the old ensemble fixed, let w be a proposed leaf correction, and write each row's gradient and curvature as gᵢ,hᵢ:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}L(y_i,F_i+w)\approx{}&L(y_i,F_i)\\&+g_iw+\tfrac12h_iw^2.\end{aligned}`}</MathBlock>
+    <Prose>The old loss is constant during this comparison. All rows in one leaf share w, so their linear terms add to Gw, where G=Σgᵢ, and their quadratic terms add to Hw²/2, where H=Σhᵢ. Add a squared-weight penalty λw²/2, an optional absolute-weight penalty α|w|, and a cost γ per leaf. The new tree has T leaves:</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\widetilde J=\sum_{\ell=1}^{T}C_\ell+\gamma T,\\C_\ell=G_\ell w_\ell+\tfrac12(H_\ell+\lambda)w_\ell^2\\+\alpha|w_\ell|.\end{gathered}`}</MathBlock>
+    <Prose>λ, “lambda,” shrinks weights continuously. α, “alpha,” can make them exactly zero. γ, “gamma,” charges for a leaf's existence; it is <em>not</em> an L1 penalty on the weights. Without α, completing the square gives w*=−G/(H+λ), assuming H+λ&gt;0. Its minimized weight-dependent objective is −G²/[2(H+λ)]. These quantities belong to the local surrogate. For half-squared loss the Taylor expansion is exact; for logistic loss it is not.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}A=H+\lambda>0,\\Gw+\tfrac12Aw^2\\=\tfrac12A\left(w+\frac{G}{A}\right)^2-\frac{G^2}{2A}.\end{gathered}`}</MathBlock>
+    <Prose>With L1, consider positive and negative w separately. The derivative becomes G+(H+λ)w+α for w&gt;0 and G+(H+λ)w−α for w&lt;0. If |G|≤α, the left derivative at zero is nonpositive and the right derivative nonnegative: zero is optimal. Otherwise subtract α from the gradient magnitude before dividing. Define Sα(G)=sign(G)max(|G|−α,0):</Prose>
+    <MathBlock>{String.raw`\begin{gathered}w^*=-\frac{S_\alpha(G)}{H+\lambda},\\Q(G,H)=\frac{S_\alpha(G)^2}{2(H+\lambda)}.\end{gathered}`}</MathBlock>
+    <Prose>Q is the surrogate improvement available from a leaf's optimal weight relative to w=0, before its leaf-count charge. A proposed split replaces one parent leaf with two children. It adds one leaf, so its <strong>net gain</strong> is the children's available improvement minus the parent's and minus one γ:</Prose>
+    <MathBlock>{String.raw`\begin{gathered}Q_L=Q(G_L,H_L),\\Q_R=Q(G_R,H_R),\\Q_P=Q(G_L+G_R,H_L+H_R),\\\operatorname{Gain}_{\mathrm{net}}=Q_L+Q_R-Q_P-\gamma.\end{gathered}`}</MathBlock>
+    <Prose>Accept only if this net gain is positive and other constraints permit the split. Do not compare an already-γ-subtracted gain with γ again. In the α=0 case, substituting Q yields the common half-times-three-fractions formula. A split can lose to the parent even if both child corrections individually reduce loss; the relevant comparison is replacing the parent, not comparing each child with no model at all.</Prose>
+    <NewtonSplitLab />
+    <Prose>Keep the original five-row calculation as a useful audit. Targets are [1,2,3,4,5]; the current score is deliberately 2.5 for all rows, which is not their mean. Then g=[1.5,.5,−.5,−1.5,−2.5] and h=[1,1,1,1,1]. Split after row 2. With λ=1,α=γ=0, the left weight is −2/3, the right 4.5/4=1.125, and the net gain is 2.677083…. At rate .3, the proposed predictions are [2.3,2.3,2.8375,2.8375,2.8375].</Prose>
+    <Program name="regularized-split"><Prose>Gamma=3 makes that split's net gain negative. Alpha=2 instead makes the left correction zero and shrinks the right to .625. These are different mechanisms. The helper explicitly rejects nonpositive total curvature. If H=λ=0, this division formula is undefined. An L1-only or linear objective must be analyzed separately; a numerical division by zero is not an alternative definition.</Prose></Program>
+    <Prose>A minimum Hessian mass is also different from a minimum row count. Under unweighted half-squared loss, hᵢ=1, so H equals count. Under binary log-loss, hᵢ≤.25, and a confident probability has very small curvature. Ten confident rows may provide far less Hessian mass than ten uncertain rows. Observation or class weights multiply both gradients and Hessians, changing this comparison again.</Prose>
+    <Practice prompt="A parent has G=0,H=4. Its proposed children have (G,H)=(2,2) and (−2,2). With λ=0 and α=0, at what gamma does the net gain become zero? If alpha becomes 2, what are the child weights?" hint="Each child's unpenalized Q is G²/(2H). Compare two children with the parent before subtracting the extra leaf cost.">
+      <Prose>Each child Q is 1 and the parent Q is 0. Net gain is 2−γ, so γ=2 is the equality boundary and a strictly positive-gain rule does not accept it. With α=2, both softened gradients become zero and both child weights are zero. Their improvement is then zero, so any positive γ makes the split strictly worse.</Prose>
+    </Practice>
+
+    <H2>5. Search fewer boundaries with clear tradeoffs</H2>
+    <Prose>A split learner need not recompute every sum from scratch. Sort a feature, then move its boundary from left to right while maintaining prefix sums G_L,H_L. The right statistics are the parent totals minus the left. Evaluate the same gain formula at each legal boundary. “Exact greedy” means every available raw boundary is considered for this local split; it does not mean a globally optimal tree ensemble.</Prose>
+    <Prose>For many rows, features and nodes, even that work is expensive. A <strong>histogram</strong> groups nearby feature values into bins, adds their current G/H statistics, and scans bin boundaries. The count of candidate boundaries falls from potentially n−1 to at most B−1 for B bins. But a boundary inside one bin is unavailable. Finer bins can recover useful distinctions at extra memory and computation cost; coarse bins do not come with a universal “no accuracy loss” guarantee.</Prose>
+    <HistogramMissingLab />
+    <Program name="histogram-missing"><Prose>In the fine fixture, the important raw boundary is 3.5. The coarse bins remove it, and the best remaining cut changes. Changing only the missing row's target from 8 to 2 reverses its preferred default route. That route is learned from training statistics, not selected using a new row's unknown target.</Prose></Program>
+    <Prose>Missingness has a representation contract. XGBoost's sparsity-aware tree route can treat absent sparse entries as missing while an explicitly stored zero is a value. LightGBM normally treats unshown sparse entries as zero, with <Code>zero_as_missing</Code> changing that behavior. CatBoost has explicit numerical missing-value modes. A pipeline that converts formats can therefore change a prediction without changing the printed nonzero values. Preserve and test schema, sparse format and missing-value policy together.</Prose>
+    <H3>A leaf budget does not imply a balanced tree</H3>
+    <Prose>A <strong>depth-wise</strong> policy prefers nodes nearer the root. A <strong>best-first</strong> or leaf-wise policy splits the eligible leaf with the best currently available improvement. A <strong>symmetric</strong>, also called oblivious, tree uses the same test at every node of a given depth. These constrain different things: which leaf to visit next versus whether tests at a depth must agree.</Prose>
+    <GrowthPolicyFigure />
+    <Prose>A binary tree of maximum depth D has at most 2ᴰ leaves. Conversely, a tree with L leaves can have depth as large as L−1; 31 leaves do not imply depth about five. Neither best-first growth nor a larger depth guarantees better held-out predictions. Gains are local, and a choice now can affect which later candidates become available. XGBoost exposes depthwise/lossguide policies, LightGBM is known for leaf-wise growth, and CatBoost supports several growth policies with symmetric trees as its usual default. Check the configured policy rather than inferring shape from a logo.</Prose>
+    <H3>Count work at the right level</H3>
+    <Prose>At a node containing nᵥ rows and d considered features, freshly sorting costs roughly O(d nᵥ log nᵥ); scanning sorted boundaries costs O(d nᵥ). Production implementations can reuse sorting, cache quantized data, exploit sparsity and derive one child's histogram by subtraction. A dense histogram build at that node is roughly O(d nᵥ), followed by O(dB) boundary work. Summing over visited nodes and all M rounds is necessary. A one-time binning cost does not eliminate the need to accumulate new gradients every round.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\text{Illustrative dense work:}\\\text{binning setup}\\+\sum_{m=1}^{M}\sum_{v\text{ visited}}O(dn_v+dB).\end{gathered}`}</MathBlock>
+    <Prose>For a roughly level-wise tree, each row visits at most D internal levels, making O(MndD) a useful crude histogram-accumulation model before implementation optimizations. Inference visits one path per tree, O(MD) comparisons per row for ordinary depth-D trees, plus aggregation. Stored tree structure is O(total nodes); training memory also includes data, gradients, bins and active histograms. These are work models, not seconds or a ranking of packages.</Prose>
+    <Practice prompt="A proposed optimization keeps only cuts 2.5 and 4.5 on y=[1,1,1,9,9,9]. Can it reproduce the zero within-leaf error of the 3.5 split? Does switching to a GPU restore that missing candidate?" hint="A compute device can accelerate the candidates represented by the algorithm; it does not change the information preserved by the chosen bins.">
+      <Prose>No. Each allowed coarse split leaves at least one low and high target together in a leaf, so its within-leaf SSE is positive. The 3.5 split separates them perfectly. A GPU running those same coarse boundaries still cannot select 3.5; change bin resolution or representation to recover it, then measure the cost.</Prose>
+    </Practice>
+
+    <H2>6. Sample rows and bundle exclusive features</H2>
+    <Prose>LightGBM's <strong>gradient-based one-side sampling</strong>, GOSS, spends more row work on large current gradient magnitudes while retaining a sample of small ones. Dropping every small-gradient row would change the totals used to judge splits. Reweighting compensates for their probability of being retained. Use explicit counts to avoid an ambiguous phrase such as “sample fraction b of the rest.”</Prose>
+    <Prose>Condition on the current gradients. Keep k rows with largest |g|. There are r=n−k remaining rows. Draw s of those r uniformly without replacement. Each remaining row is included with probability s/r, so give a retained small-gradient row weight r/s. If Iᵢ is its inclusion indicator, E[Iᵢ(r/s)gᵢ]=gᵢ. By adding these equalities, the estimated gradient sum is unbiased under this sampling rule.</Prose>
+    <MathBlock>{String.raw`\begin{gathered}\widehat G=\sum_{i\in A}g_i+\frac{r}{s}\sum_{i\in B}g_i,\\\mathbb E[\widehat G\mid g]=G.\end{gathered}`}</MathBlock>
+    <Prose>If a is the fraction kept from all n rows and b is the fraction <em>of all n</em> drawn from the remainder, then r/s=(1−a)/b. If b instead means the conditional fraction of the remainder drawn, the weight is 1/b. The probability, not the letter, determines the correction. The original LightGBM algorithm box and surrounding prose are easy to misread here; explicit k,r,s remove the ambiguity.</Prose>
+    <GossSamplingLab />
+    <Program name="goss-expectation"><Prose>The expected sum is exactly 3. But its expected square is 86/3≈28.6667 rather than 9; the difference 59/3 is the estimator's variance. Even with fixed Hessian denominators, a squared-gradient score is not preserved in expectation just because the sum is. Random denominator estimates and selecting the best split introduce further nonlinearities. GOSS offers a computational/statistical tradeoff, not a promise that sampling cannot change the fitted model.</Prose></Program>
+    <Prose>Random row subsampling and column subsampling are related but distinct options: they reduce data work or diversify successive learners without necessarily prioritizing |g|. In current LightGBM, <Code>data_sample_strategy="goss"</Code> explicitly selects GOSS; it is not automatically active in every LightGBM fit. Bagging parameters also need their enabling conditions. The complete recipe below uses ordinary bagging and says so.</Prose>
+    <H3>Exclusive feature bundling reduces columns, not rows</H3>
+    <Prose>Suppose three sparse features each have bins 0,1,2, where 0 means inactive, and at most one is active in each row. We can reserve codes 1–2 for A, 3–4 for B and 5–6 for C, leaving 0 for all inactive. A single stored code then identifies both the active feature and its bin. This is the core idea behind <strong>exclusive feature bundling</strong>, EFB.</Prose>
+    <ExclusiveBundleFigure />
+    <Program name="exclusive-bundles"><Prose>The decoder exactly recovers every admitted row. A conflict is rejected rather than quietly overwriting a feature. Large systems search for compatible bundles using conflict information; allowing a small number of collisions trades representational accuracy for further compression. The graph/bundling heuristic and approximate-collision analysis are deeper system details, not a claim that arbitrary columns can share storage without losing anything.</Prose></Program>
+
+    <H2>7. Categorical features and whose target is allowed</H2>
+    <Prose>An operating mode such as “idle,” “cooling” or “heating” is a category. Giving it codes 0,1,2 does not mean cooling lies numerically halfway between idle and heating. One-hot encoding asks whether a row belongs to one category. Native categorical splitters can instead ask whether it belongs to a selected subset. Declaring the categorical type tells a library that these are labels, not an ordinary ordered measurement.</Prose>
+    <Prose>Another representation is a <strong>target statistic</strong>: an estimate of the target's average for a category. It is useful because categories with similar outcomes can share predictive information. It is risky because the target is also what the model is supposed to predict. For a category appearing only once, its unregularized training mean is its own y. A model that learns to read that value can look excellent on training and fail on future categories.</Prose>
+    <Prose>One remedy for training-row encodings is to use only eligible other labels. Out-of-fold encoding uses a separate training fold's labels. Ordered statistics use a random permutation and only preceding rows of the same category. With external prior p and positive strength a, the selected row at position j receives:</Prose>
+    <MathBlock>{String.raw`\widehat z_j=\frac{\sum_{i<j}\mathbf1[c_i=c_j]y_i+ap}{\sum_{i<j}\mathbf1[c_i=c_j]+a}.`}</MathBlock>
+    <Prose>The denominator is an earlier matching count plus prior strength; the numerator is an earlier matching target sum plus prior pseudo-observations. With no earlier match, the encoding is p. This formula is not a reason to compute p using the selected row's own target and then claim complete own-label independence. Our lab fixes p=.5 externally, making that strict information boundary explicit.</Prose>
+    <OrderedCategoricalLab />
+    <Program name="ordered-categories"><Prose>Row 3 is category A. Only row 1's A label precedes it, so its prefix statistic is (0+.5)/(1+1)=.25. Flipping row 3's own target leaves .25 unchanged but changes a later A row's encoding. At inference, the full eligible training category statistics can be used; the prediction row does not contribute an unknown label. An unseen category falls back to the prior in this miniature.</Prose></Program>
+    <H3>Ordered boosting addresses a second information path</H3>
+    <Prose>Even without categorical encoding, a training row can influence its own current fitted prediction. If a model has partly fitted that row's noise, its training residual is not distributed like a fresh row's residual under an independently trained predictor. CatBoost's paper calls this <strong>prediction shift</strong>. It is a conditional train-versus-fresh-data difference, not the statement that every desirable gradient has expectation zero. Away from an optimum, a useful expected gradient generally should not be zero.</Prose>
+    <Prose>The ideal ordered-boosting construction maintains prefix models M₀,M₁,…,Mₙ. Mₖ has trained only on the first k rows in a permutation. To calculate the gradient for row j, use Mⱼ₋₁, not a model trained using row j. After calculating such gradients, update each prefix model using the eligible prefix rows. The final full-prefix model predicts future data. The next complete miniature uses constant learners so this dependency can be followed without pretending to implement CatBoost's full engine.</Prose>
+    <Program name="ordered-prefix-models"><Prose>Row 4's second-round residual is 6−M₃=5, even though the full-prefix model M₄ was already 1.5. The chosen training prediction is M₃=1 because it excludes row 4. Its residual is not zero. Production CatBoost uses efficient modifications, shared tree structures, multiple permutations and specialized leaf calculations; maintaining a completely separate general ensemble for every prefix would be expensive.</Prose></Program>
+    <Prose><strong>Ordered target statistics and Ordered boosting are separate mechanisms.</strong> CatBoost's Plain mode can still use ordered target statistics. Ordered mode also changes the prediction/gradient construction. Symmetric tree structure is yet another choice. The selected modes and defaults depend on task/device; the later regression recipe requests Ordered explicitly. For the combined theoretical information boundary, the statistic and boosting orderings must be coordinated as in the paper.</Prose>
+    <Prose>Neither mechanism repairs a feature collected after the outcome, the same person's records leaking across an inappropriate split, validation labels entering preprocessing, or time-travel in a forecasting dataset. A random permutation is not automatically a valid temporal information set. Choose the row/group/time split first, fit learned transforms on the allowed training portion, and check what data are available at prediction time. CatBoost is a tool within that protocol, not a replacement for it.</Prose>
+    <Practice prompt="A category occurs in exactly one training row. With fixed p=.5 and strength 1, compare its first prefix statistic with its smoothed full-training statistic when its label is 1. What changes if that same category occurs only in validation?" hint="The training prefix has no earlier matching label. A validation target must not be used to manufacture a category statistic.">
+      <Prose>The prefix value is .5. The smoothed full-training value is (1+.5)/(1+1)=.75 and depends on that row's target. A validation-only category has no eligible training labels, so the miniature's training-fitted fallback is .5. Using the validation target to construct .75 would leak the evaluation outcome into its features.</Prose>
+    </Practice>
+
+    <H2>8. Choose a model without peeking at the test</H2>
+    <Prose>The ability to reduce training error does not tell us when to stop. A deep tree can spend its next correction fitting measurement noise. A small learning rate can slow that process but does not guarantee a better final model. Rate, tree capacity, row/feature sampling, regularization and number of rounds work together. “Use the smallest rate possible” is not a universal optimization rule: it may leave the model underfit within the available round budget.</Prose>
+    <LessonTable caption="Three data roles, with different permitted influence" headers={['Data role', 'May affect', 'Must not be confused with']} rows={[['Training', 'Feature transforms, tree splits, leaf values and starting score', 'An independent estimate of generalization'], ['Validation', 'Stopping iteration, hyperparameter choices and workflow decisions', 'Untouched test data after those choices'], ['Test', 'The final report for the locked workflow', 'Another chance to tune after seeing its result']]} />
+    <Prose>Split before fitting any transform that learns from rows or targets. A deterministic per-row conversion, such as converting a unit with a known formula, is different from estimating category means or imputation values using the whole dataset. For dependent rows, use the appropriate group or time split. The random splits in the following recipes are justified by their independently generated synthetic rows, not by a rule that random splitting suits every dataset.</Prose>
+    <BoostingValidationLab />
+    <Prose><strong>Early stopping</strong> monitors a chosen validation metric after each round. Record the best so far. Stop after a specified number of rounds without sufficient improvement. The round where patience runs out is generally later than the best round; inference should use the intended selected prefix. A patience rule also does not prove that a later round would never improve again. Its purpose is an explicit finite selection heuristic.</Prose>
+    <Prose>The mean baseline remains worth reporting even when the library selects among one-or-more-tree models. If boosting cannot beat an honest baseline under the chosen validation protocol, adding complexity is not a success. Repeatedly trying configurations on one validation set spends information too: after enough choices its best score becomes optimistic. Broader cross-validation, nested selection and uncertainty are developed in their evaluation owners; here keep the test outside all those choices.</Prose>
+    <Practice prompt="A validation trace is [.50,.42,.44,.43,.45] for rounds 1–5, and patience is 3 with strict improvement. Which round is selected, and when does training stop? If the best test score is instead at round 5, should you silently switch?" hint="Count nonimproving rounds after the best validation value. Distinguish selection evidence from the final report.">
+      <Prose>Round 2 is selected. Rounds 3, 4, 5 do not improve on .42, so the third nonimprovement stops training at round 5. Switching because its test result looks better would use the test for selection; a fresh independent evaluation would be needed to honestly assess that revised procedure.</Prose>
+    </Practice>
+
+    <H2>9. Run the three libraries with explicit contracts</H2>
+    <Prose>The following CPU programs were executed with XGBoost 3.4.1, LightGBM 4.7.0, CatBoost 1.2.10, scikit-learn 1.9.1 and NumPy 2.3.5. Their regression data retain the original <Code>make_regression</Code> experiment's 1,000 rows, 10 features, noise 20 and seed 42, but use 700 training, 150 validation and 150 test rows. All 10 features are informative in that generator. The test target never enters training or early stopping.</Prose>
+    <CodeBlock language="bash">{`python -m pip install numpy==2.3.5 scikit-learn==1.9.1 xgboost==3.4.1 lightgbm==4.7.0 catboost==1.2.10`}</CodeBlock>
+    <Prose>The native categorical schema example also uses pandas, installed with <Code>python -m pip install pandas==3.0.1</Code> if needed. Check your environment's compatible wheel requirements. These recipes request one CPU thread for reproducibility and modest resource use, not to measure each library's maximum performance. Identical row splits make outcomes interpretable, but different tree policies and settings do not create an equal-budget benchmark or establish a universal ranking.</Prose>
+    <H3>XGBoost: distinguish a round index from a count</H3>
+    <Prose>XGBoost's <Code>best_iteration</Code> is zero-based. If it is 197, the selected prefix contains 198 rounds. Native <Code>Booster.predict</Code> otherwise uses the stored model, including any later rounds; pass the half-open <Code>iteration_range=(0,best_iteration+1)</Code> or deliberately save/slice the best model. The sklearn wrapper normally uses the best iteration automatically. A multiclass round can contain multiple trees, so “round index” and raw tree count are not universally interchangeable. The regression program checks native/wrapper agreement with matching settings.</Prose>
+    <Program name="xgboost-workflow"><Prose>The selected regression prefix has 198 rounds while the native object stores 200. The test RMSE 33.363680 improves on the mean baseline 126.813333 for this locked synthetic split. Save/reload preserves the prediction with the same iteration range. The final monotone slice check is a separate domain-constraint demonstration, not a second test-based model-selection exercise. It verifies the stated slice numerically; the library's constraint defines the broader monotonicity contract.</Prose></Program>
+    <H3>LightGBM: declare the actual sampling and stopping choices</H3>
+    <Prose><Code>num_leaves</Code> controls a leaf budget; use a depth cap separately when needed. This recipe requests ordinary row bagging with a nonzero frequency and fraction below one, not GOSS. The callback records validation RMSE and selects a prefix. LightGBM's <Code>best_iteration</Code> is a count used directly by <Code>num_iteration</Code>; subtract one only when indexing a zero-based Python history list. Current early stopping has mode limitations, including DART, so do not assume every booster shares this callback behavior.</Prose>
+    <Program name="lightgbm-workflow"><Prose>The selected count 157 corresponds to history entry 156. Feature 0's split count 235 and summed gain 3083143.015 are different quantities and units. Their magnitudes are not directly comparable with a percentage returned by another library.</Prose></Program>
+    <H3>CatBoost: specify Ordered mode and retain the best prefix</H3>
+    <Prose>The regression recipe explicitly chooses <Code>boosting_type="Ordered"</Code>. It does not infer the mode from the library's name. With the chosen <Code>use_best_model=True</Code> and no extra minimum-tree constraint, the saved tree count is the best zero-based iteration plus one. An evaluation set guides that selection. <Code>allow_writing_files=False</Code> keeps the small example from creating training-log directories.</Prose>
+    <Program name="catboost-workflow"><Prose>This run retained all 200 requested rounds; that fact is different from proving more rounds would not help. Its lower test RMSE on this one fixture does not isolate Ordered boosting as the cause: the packages also use different tree shapes and training choices. A causal comparison of one mechanism needs a controlled ablation, not three differently configured models.</Prose></Program>
+    <Program name="catboost-categories"><Prose>The categorical column is declared explicitly in every Pool. Only the validation Pool affects stopping. Current execution returns a one-dimensional class array; the code still normalizes and asserts shapes before comparing. The intentionally wrong two-dimensional comparison creates a 100×100 matrix and accuracy .5012 instead of .99. This demonstrates a shape hazard, not a claim that every CatBoost version returns a column vector. A finite prediction for “NEW” confirms this fixture's handling, not reliable generalization to any unseen category.</Prose></Program>
+    <H3>Native categoricals exist in more than one library</H3>
+    <Prose>XGBoost and LightGBM also support native categorical splits. XGBoost can use categorical DataFrame dtypes with <Code>enable_categorical=True</Code> and a supported tree method; LightGBM can use declared categorical columns. Preserve the meaning and type of labels across training, validation, serving and model serialization. Category codes generated independently in two datasets can represent different labels. An ordinary numerical split on arbitrary codes is not the same operation as a declared categorical split.</Prose>
+    <Program name="native-categorical-splits"><Prose>This small schema demonstration deliberately repeats a known category vocabulary; it is not a held-out quality evaluation. It disproves the outdated blanket rule that either library requires manual target encoding. XGBoost's JSON/UBJSON categorical serialization and current recoding rules, and LightGBM's missing/negative category-code rules, remain part of the serving contract to test on your chosen representation.</Prose></Program>
+
+    <H2>10. Diagnose the model you actually built</H2>
+    <Prose>A useful comparison begins with constraints, not a package ranking. Check supported objective, feature types, missingness policy, validation interface, model format, inference environment and resource budget. Then compare on a protocol representative of future use. The capability table is a starting point, verified against the linked September 2026 documentation; it is not a speed or accuracy table.</Prose>
+    <LessonTable caption="Capabilities and questions that affect the workflow" headers={['Choice', 'Useful mechanisms', 'Verify before relying on them']} rows={[['XGBoost', 'Regularized Newton-style tree scores; histogram/approximate search; missing routes; native categoricals; depthwise/lossguide; CPU/CUDA and distributed integrations', 'Objective and device support; categorical serialization/recoding; native best-round prediction; sparse absence versus zero'], ['LightGBM', 'Histogram and leaf-wise growth; categorical partitions; optional GOSS/EFB; bagging; distributed learning; CPU and separate GPU implementations', 'Leaf count versus depth; actual sampling mode; category/missing flags; callback limitations; installed GPU backend'], ['CatBoost', 'Ordered categorical statistics; Plain/Ordered boosting; symmetric and other growth policies; categorical Pool interface; CPU/GPU; Spark/distributed options', 'Task/device defaults; tree-policy restrictions; eligible category types; best-model selection; Spark feature limitations']]} />
+    <H3>Importance is a question, not a common currency</H3>
+    <Prose><strong>Split count</strong> asks how often a feature was used. <strong>Gain importance</strong> aggregates the training objective improvement assigned to its splits. <strong>Permutation importance</strong> asks how much a chosen evaluation metric changes when that feature's values are shuffled for a fitted model. These are distinct operations. Normalizing all of them to sum to one does not make their meanings identical.</Prose>
+    <Prose>For example, a feature used once near a tree root can provide a large training improvement, while a feature used often for tiny corrections can have a larger count. A duplicate correlated feature may receive little individual permutation importance because its twin supplies similar information; shuffling one feature can also produce unrealistic combinations. Feature attributions are model explanations under assumptions, not causal effects. Use the later interpretability material for SHAP and dependence-aware questions rather than treating a decorative cross-library heatmap as evidence.</Prose>
+    <H3>Monotonicity and extrapolation answer different questions</H3>
+    <Prose>A <strong>monotone constraint</strong> says that increasing a specified feature while holding the others fixed should not lower, or should not raise, the prediction. It can encode a justified engineering assumption and reduce implausible fitted reversals. It can also be wrong for the task. A constraint is not a causal effect claim and does not guarantee calibration or better validation error.</Prose>
+    <Prose>Ordinary constant-leaf boosted trees also have an extrapolation limit. Beyond every learned split along a feature direction, a row keeps reaching the same leaves and the prediction remains constant. The validation lab shows this outside its training range. A monotone step function can be nondecreasing and still flatten outside the data; “monotone” does not mean “continues a linear trend.” If extrapolation is essential, compare a justified parametric baseline, transformed target, hybrid model or a specifically supported nonconstant leaf method.</Prose>
+    <H3>Class weights change the statistical target</H3>
+    <Prose>Rare positives do not automatically make unweighted binary log-loss the wrong objective. It is a proper probability loss under the sampling distribution. A .5 classification threshold may nevertheless be inappropriate for a decision with asymmetric costs. Weighting positive examples by a changes the optimal fitted probability at a feature value with true probability p:</Prose>
+    <MathBlock>{String.raw`q^*=\frac{ap}{ap+(1-p)}.`}</MathBlock>
+    <Prose>Derive this by minimizing −ap log q−(1−p)log(1−q): its derivative is −ap/q+(1−p)/(1−q), which is zero at the displayed q*. Thus q* generally differs from p. Weighting can be useful for a decision objective, but it is not a free recall improvement that preserves probability calibration. Evaluate the relevant loss, precision/recall and decision threshold on appropriate data; fit calibration only with permitted held-out information. Do not automatically set every class ratio weight and assume the resulting scores are original-population probabilities.</Prose>
+    <H3>Scale using measurements with stated conditions</H3>
+    <Prose>CPU histogram construction, cache reuse, sparse traversal and data-parallel aggregation are important systems choices. In data-parallel training, workers build statistics for their row partitions and combine the required histogram information before choosing shared splits. Communication grows with features, bins and the number of node/level exchanges; it is not just one exchange for an entire training run. Out-of-core and distributed options can help when data do not fit locally, but add their own data, memory and scheduling costs.</Prose>
+    <Prose>XGBoost's CUDA route commonly uses <Code>tree_method="hist", device="cuda"</Code>. LightGBM distinguishes its OpenCL <Code>device_type="gpu"</Code> implementation from <Code>device_type="cuda"</Code>, with platform/build constraints; do not describe “gpu” as a synonym for CUDA. CatBoost uses <Code>task_type="GPU"</Code> with task-dependent support. CatBoost also has distributed/Spark support, but its Spark limitations differ from the local Python API. None of those GPU or distributed modes was executed for these CPU examples.</Prose>
+    <Prose>To measure an improvement, fix data splits, objective, stopping/quality requirement and measurement boundaries. Record versions, hardware, threads, dataset dimensions/sparsity, transfer/quantization time, repeated-run variation, peak memory and inference cost. Compare a single change before combining it with another. No universal row threshold, cardinality cutoff or claimed five-fold speedup can replace that experiment. Increasing cardinality, bins, depth or rounds can all increase memory; dense one-hot expansion can be especially costly.</Prose>
+    <LessonTable caption="Connect a symptom to a discriminating check" headers={['Observation', 'What to inspect', 'Reasoned response']} rows={[['Training good, validation poor', 'Same-metric curves, split validity, feature provenance, group/time shift and capacity', 'Repair leakage or mismatch first; then compare depth/leaves, regularization, sampling and stopping under the same protocol'], ['Training and validation both poor', 'Baseline, objective/link, available signal, round budget, overly strict leaf constraints', 'Increase justified capacity or fix representation; do not assume stronger regularization solves underfitting'], ['Very high accuracy on rare positives', 'Confusion matrix, prevalence, log-loss and decision costs', 'Use suitable metrics/thresholds; assess any weighting-induced probability change'], ['Unexpected new-category or missing-row behavior', 'Exact serving dtype, category mapping, missing sentinel and sparse format', 'Preserve schema and test these states explicitly rather than re-encoding independently'], ['CPU/GPU disagreement or nonfinite output', 'Nonfinite inputs, objective derivatives, curvature, weights, logs, versions and reproduction case', 'Isolate the numerical issue; scaling features or changing leaf size is not a universal repair'], ['Feature importance looks different', 'Definition, fitted model, loss units, feature correlation and evaluation data', 'Compare an explicitly defined question; do not equate arbitrary normalized importances']]} />
+    <Prose>Boosted trees are naturally tabular predictors. Sequence, image, language or graph tasks may use them after extracting appropriate features or embeddings, but a table alone does not supply the task's invariances or temporal context. Quantile objectives, ranking objectives and constrained predictors show how the same additive idea can serve different questions. Each extension still needs the correct loss, labels, information set and evaluation.</Prose>
+
+    <H2>11. Practise transfer and choose the next question</H2>
+    <Practice prompt="In the binary Newton lab, choose score −4, three rows left, lambda 0, alpha 0 and rate 1. Explain why a very positive surrogate gain can accompany a worse actual data loss. Then try rate .1." hint="The left leaf contains two negatives and one positive. At a very negative score, curvature is small; its locally quadratic optimum can travel far from where the approximation was made.">
+      <Prose>The mixed left leaf's large positive Newton correction makes its two negative labels confidently wrong. The Taylor approximation prices a local curve and becomes inaccurate for that large movement. A smaller step tests the same direction nearer its expansion point and improves this fixture's actual loss. This does not prove that .1 is universally safe; it explains why checking actual objective progress and using suitable shrinkage or backtracking matters.</Prose>
+    </Practice>
+    <Practice prompt="A description says 'keep 20% of all rows, then sample 10% of the remainder.' What weight should those sampled small-gradient rows receive? Would (1−.2)/.1 be correct?" hint="Compute the inclusion probability within the remainder, not a ratio assembled from incompatible meanings of the symbols.">
+      <Prose>The conditional inclusion probability is .1, so the weight is 10. The value 8 would apply if the sampled count were 10% of all rows, which is 12.5% of the remaining 80%. Both schemes are possible; they are different experiments. Neither scheme makes a nonlinear selected split gain automatically unbiased.</Prose>
+    </Practice>
+    <Practice prompt="A fitted XGBoost native model has best_iteration=12 and stores 18 rounds. Which iteration_range reproduces its selected regression prefix? Why is (0,12) wrong?" hint="Python-style upper bounds are excluded; index 12 is the thirteenth round.">
+      <Prose>Use <Code>iteration_range=(0,13)</Code>. The range(0,12) stops before index 12 and uses only 12 rounds. Omitting the range asks this native interface for the stored ensemble unless the model was deliberately sliced/saved to the best prefix. Persist the selection convention with the model artifact.</Prose>
+    </Practice>
+    <Practice prompt="You evaluate n predicted labels of shape(n,1) against truth of shape(n,). Why can the comparison return a plausible-looking number while being wrong? State a repair and an invariant." hint="Broadcasting aligns trailing dimensions, creating pairwise comparisons instead of matching row i with row i.">
+      <Prose>The result can have shape(n,n). Its mean measures agreement across all prediction/label pairs, not row-wise accuracy. Normalize both intended label arrays to one dimension and assert identical shape(n,) before comparing. Flattening must match the task: never flatten a multiclass probability matrix and pretend those entries are labels.</Prose>
+    </Practice>
+    <Practice prompt="A positive class has p=.1 at some feature value and receives weight 9. What probability minimizes the weighted log-loss there? Does that number estimate the original p?" hint="Substitute into q*=ap/(ap+1−p), then distinguish a weighted decision objective from the original probability target.">
+      <Prose>The weighted optimum is .9/(.9+.9)=.5, not .1. It may be useful for the chosen weighted objective, but interpreting it directly as the original-population probability is wrong. Proper validation or a justified correction/calibration procedure is needed for that use.</Prose>
+    </Practice>
+    <Practice prompt="A team demands 'at least five times faster with no quality loss' by switching libraries and enabling a GPU. What can you responsibly promise before measuring, and how would you investigate?" hint="Separate a candidate optimization, the acceptance target, and evidence from a controlled experiment.">
+      <Prose>Promise a comparison protocol, not an unmeasured speedup. Fix a representative split, objective and quality criterion; record hardware/software, preprocessing/transfer timing, train/inference times, memory and repeated-run variation. First compare an appropriate histogram baseline, then the device/library change with a comparable quality budget. Reject a faster configuration that fails the agreed quality test. Neither algorithm names nor paper measurements on other data prove this request achievable.</Prose>
+    </Practice>
+    <H3>Independent report: a changed data-generating process</H3>
+    <Prose>Choose one regression recipe. Change its generator noise from 20 to 50 while preserving the fixed split procedure and record the new baseline. Use only validation to compare depth 3 with a smaller or larger justified tree and to choose rounds. Lock the workflow, evaluate test RMSE once, and write a short report: prediction question/data unit; split rationale; package/version/seed; baseline; selected settings and iteration convention; training/validation behavior; test result; runtime measurement boundaries if timing; one failure you deliberately checked.</Prose>
+    <details className="gbt-practice"><summary>Optional report hint</summary><Prose>The model sees a noisier target, not a new feature. A larger tree can fit more noise. Keep validation labels outside learned preprocessing and preserve the same score units when comparing losses. Report the new result rather than trying to reproduce the earlier numeric winner.</Prose></details>
+    <details className="gbt-practice"><summary>Report acceptance and explained limits</summary><Prose>A successful report can conclude that the simpler model is preferable or that neither choice reliably beats a baseline under another valid setup. Its calculations must reproduce, arrays must align, selected rounds must match inference, and the test must not have driven the selection. One seed gives a finite experiment, not a precise population ranking. Repeated splits or a justified uncertainty analysis can strengthen a later study; do not invent an expected test score for this changed task.</Prose></details>
+    <Prose>You should now be able to follow an observation from available features through a sequence of leaf scores, explain why the next tree receives its particular targets, price a regularized split, and evaluate the information and numerical contracts around the fitted model. The next topic in this module is <strong>Support Vector Machines</strong>. It approaches prediction through margins and, with kernels, similarities rather than a sequence of threshold corrections. The shared questions remain: what function class is available, what objective chooses a model, and what evidence supports its use on new data?</Prose>
+    <Sources alternatives={<><h4>Choose another explanation when it helps</h4><ul>
+      <li><a href="https://xgboost.readthedocs.io/en/stable/tutorials/model.html" target="_blank" rel="noreferrer">XGBoost's Introduction to Boosted Trees</a> is an accessible written path from a tree ensemble to a regularized objective. Read it after section 4 to compare its diagrams and derivation. Keep gross gain versus already-penalized net gain distinct.</li>
+      <li><a href="https://statquest.org/video-index/" target="_blank" rel="noreferrer">StatQuest's creator-maintained video index</a> links the four-part Gradient Boost series and XGBoost derivations. The <a href="https://www.youtube.com/watch?v=3CC4N4z3GJc" target="_blank" rel="noreferrer">regression main-ideas video</a> and <a href="https://www.youtube.com/watch?v=2xudPOBz-vs" target="_blank" rel="noreferrer">regression details video</a> are optional visual companions to residual fitting. The creator's chapter list places the first tree at 5:50, the second at 10:37, and new-row prediction at 13:50 in the main-ideas video. Their conceptual scope is separate from the current library API recipes here.</li>
+      <li><a href="https://catboost.ai/docs/en/concepts/educational-materials-videos" target="_blank" rel="noreferrer">CatBoost's official educational videos</a> include an ordered-boosting/categorical overview and Python/Spark talks. Use the mechanism talk after section 7; consult the matching current documentation for supported parameters and devices.</li>
+    </ul></>}>
+      <li><a href="https://doi.org/10.1214/aos/1013203451" target="_blank" rel="noreferrer">Friedman: Greedy Function Approximation, 2001</a> (with an accessible <a href="https://www.cse.iitb.ac.in/~soumen/readings/papers/Friedman1999GreedyFuncApprox.pdf" target="_blank" rel="noreferrer">1999 manuscript</a>) develops functional gradient boosting and loss-specific tree updates. It is the deeper derivation source, not a guide to today's Python signatures.</li>
+      <li><a href="https://arxiv.org/pdf/1603.02754" target="_blank" rel="noreferrer">Chen &amp; Guestrin: XGBoost, 2016</a>, sections 2–4, derives regularized tree scores and describes sparsity-aware, approximate and systems techniques. Historical benchmarks do not establish a current library ordering.</li>
+      <li><a href="https://papers.nips.cc/paper_files/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf" target="_blank" rel="noreferrer">Ke and colleagues: LightGBM, 2017</a>, Algorithm 2 and sections 3–4, explains GOSS and EFB. Translate sampling fractions into explicit inclusion probabilities before reproducing the equations.</li>
+      <li><a href="https://papers.nips.cc/paper_files/paper/2018/file/14491b756b3a51daac41c24863285549-Paper.pdf" target="_blank" rel="noreferrer">Prokhorenkova and colleagues: CatBoost, 2018</a>, sections 3–5, separates target statistics, prediction shift and practical Ordered/Plain modes. Its theorem has a specified setting and remainder; it is not a claim that every gradient's expectation is zero.</li>
+      <li><a href="https://xgboost.readthedocs.io/en/stable/prediction.html" target="_blank" rel="noreferrer">XGBoost prediction contracts</a>, <a href="https://xgboost.readthedocs.io/en/stable/tutorials/categorical.html" target="_blank" rel="noreferrer">categorical data</a>, and <a href="https://xgboost.readthedocs.io/en/stable/tutorials/monotonic.html" target="_blank" rel="noreferrer">monotone constraints</a> cover the serving and configuration distinctions demonstrated here.</li>
+      <li><a href="https://lightgbm.readthedocs.io/en/stable/Parameters.html" target="_blank" rel="noreferrer">LightGBM parameters</a>, <a href="https://lightgbm.readthedocs.io/en/stable/Advanced-Topics.html" target="_blank" rel="noreferrer">advanced categorical/missing topics</a>, and <a href="https://lightgbm.readthedocs.io/en/stable/pythonapi/lightgbm.early_stopping.html" target="_blank" rel="noreferrer">early stopping</a> describe active sampling, category, device and callback contracts.</li>
+      <li><a href="https://catboost.ai/docs/en/references/training-parameters/common" target="_blank" rel="noreferrer">CatBoost parameters</a> and <a href="https://catboost.ai/docs/en/concepts/spark-known-limitations" target="_blank" rel="noreferrer">Spark limitations</a> distinguish local modes and deployment support. Documentation and CPU recipes were checked 11 September 2026; GPU/distributed execution was not part of this lesson's verification.</li>
+    </Sources>
+  </div>
 };
-
-export default gradientBoostedTreesContent;

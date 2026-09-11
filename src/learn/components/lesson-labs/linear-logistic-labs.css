@@ -1,0 +1,89 @@
+.regression-figure, .regression-feature-map, .regression-protocol {
+  margin: 1.5rem 0;
+}
+.regression-chart-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  background: #0b1014;
+  border: 1px solid #32383e;
+}
+.regression-chart-scroll svg {
+  display: block;
+  width: 100%;
+  min-width: 480px;
+  height: auto;
+}
+.regression-chart-scroll svg text {
+  fill: #d2d7dc;
+  font: 12px 'JetBrains Mono', monospace;
+}
+.regression-chart-scroll svg .regression-optimum {
+  fill: #8adea1;
+  font-size: 23px;
+}
+.regression-grid { stroke: #252e37; stroke-width: 1; }
+.regression-scroll-hint { display: none; }
+.regression-axis { stroke: #8b969f; stroke-width: 1; }
+.regression-line { stroke: #eec26c; stroke-width: 2.5; }
+.regression-contour { stroke: #687681; stroke-width: 1; }
+.regression-residual { stroke: #89c9e5; stroke-width: 2; stroke-dasharray: 5 4; }
+.regression-point { fill: #eec26c; stroke: #101519; stroke-width: 1.5; }
+.regression-negative { fill: #101519; stroke: #cdd7dd; stroke-width: 2; }
+.regression-figure figcaption, .regression-feature-map figcaption, .regression-protocol figcaption {
+  color: #bdc4ca;
+  font-size: .9rem;
+  line-height: 1.65;
+  margin-top: .65rem;
+}
+.regression-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.regression-controls label, .regression-control {
+  display: grid;
+  gap: .45rem;
+  min-width: 0;
+  flex: 1 1 180px;
+}
+.regression-controls select, .regression-controls input, .regression-actions button, .regression-controls button {
+  min-height: 44px;
+  max-width: 100%;
+}
+.regression-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+.regression-calculation, .regression-readout {
+  padding: 1rem 0;
+  border-block: 1px solid #394047;
+  overflow-wrap: anywhere;
+}
+.regression-protocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.regression-protocol > div {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  border-left: 2px solid #d9b065;
+  padding: .5rem 1rem;
+}
+.regression-protocol figcaption { grid-column: 1 / -1; }
+.regression-arrow { color: #8adea1; }
+.linear-logistic-lesson .lesson-check > details > summary { min-height: 44px; padding-block: .5rem; }
+.linear-logistic-lesson :is(button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid #eec26c;
+  outline-offset: 4px;
+}
+@media (max-width: 540px) {
+  .regression-scroll-hint { display: block; color: #bdc4ca; font-size: .8rem; line-height: 1.6; margin: .5rem 0; }
+  .regression-protocol { grid-template-columns: 1fr; }
+  .regression-controls { align-items: stretch; }
+  .regression-controls label { flex-basis: 100%; }
+}

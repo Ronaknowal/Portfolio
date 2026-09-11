@@ -1,0 +1,605 @@
+{
+  "reviewedAt": "2026-09-11T05:13:02.186Z",
+  "topicId": "sampling-measurement-experimental-design",
+  "reviewer": "/root",
+  "status": "independent-review-closed; final model amendment verified; production integration and user acceptance separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+      "sha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
+      "bytes": 57347,
+      "authorSha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
+      "amended": false
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-models.js",
+      "sha256": "052f97ae06616127acaad4e16282c4c40273f87ab7d58bc53878991f7c972d5c",
+      "bytes": 11634,
+      "authorSha256": "894a4d835f9e0b5870cf611545c4405fa779c2df79cba536dc509a7f222083d4",
+      "amended": true
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-examples.js",
+      "sha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
+      "bytes": 19086,
+      "authorSha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
+      "amended": false
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "sha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+      "bytes": 23981,
+      "authorSha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+      "amended": false
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+      "sha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+      "bytes": 7901,
+      "authorSha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+      "amended": false
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+      "sha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2",
+      "bytes": 5152,
+      "authorSha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2",
+      "amended": false
+    }
+  ],
+  "authorRecord": {
+    "path": "docs/teaching/evidence/sampling-measurement-author-review.json",
+    "sha256": "78aa62b1cdc6047503c388923d91b64c97c707218288cbcf9168873624edbf7e",
+    "bytes": 56675
+  },
+  "originalAuthorSources": [
+    {
+      "path": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+      "sha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
+      "bytes": 57347,
+      "archive": "scratch/sampling-measurement-independent/author-sources/sampling-measurement-experimental-design.jsx"
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-models.js",
+      "sha256": "894a4d835f9e0b5870cf611545c4405fa779c2df79cba536dc509a7f222083d4",
+      "bytes": 10639,
+      "archive": "scratch/sampling-measurement-independent/author-sources/sampling-measurement-models.js"
+    },
+    {
+      "path": "src/learn/data/sampling-measurement-examples.js",
+      "sha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
+      "bytes": 19086,
+      "archive": "scratch/sampling-measurement-independent/author-sources/sampling-measurement-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "sha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
+      "bytes": 23981,
+      "archive": "scratch/sampling-measurement-independent/author-sources/SamplingMeasurementLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+      "sha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+      "bytes": 7901,
+      "archive": "scratch/sampling-measurement-independent/author-sources/sampling-measurement-labs.css"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+      "sha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2",
+      "bytes": 5152,
+      "archive": "scratch/sampling-measurement-independent/author-sources/sampling-measurement-experimental-design.js"
+    }
+  ],
+  "sourceReview": [
+    "Full ten-section body, eleven changed practice answers and twelve actual Python programs",
+    "All pure models, five investigations, five inline figures, scoped CSS, individual blueprint, design and incoming note",
+    "SRS indicator variance, HT/HH counting conventions, weighted targets, shared-error covariance, complete/blocked randomization, factorial and missing-outcome proofs and limits"
+  ],
+  "findingsResolved": [
+    "Dense own-index validation rejects sparse/inherited missing values instead of silently omitting their mass. Missing outcomes require explicit null.",
+    "Accepted near-normalized mass sums are normalized; anchored offsets retain zero constant-law variance and the correct variance for adjacent values on a large baseline.",
+    "Explicit underflow rejection prevents a nonzero contribution or squared coverage bias from being reported as exact zero.",
+    "Inherited preset names reject through the stated contract."
+  ],
+  "native": {
+    "file": {
+      "path": "scratch/sampling-measurement-independent/results.json",
+      "sha256": "f7b085e2984b6078e71a896d7ed8abdb9273d2d5196ac55851b35373347d7826",
+      "bytes": 1678
+    },
+    "result": {
+      "at": "2026-09-11T05:12:40.425434+00:00",
+      "passed": true,
+      "replayedAuthorStates": 4546,
+      "conservedNumericFields": 305048,
+      "largestConservationDifference": 7.105427357601002e-15,
+      "invalidInputsRejected": 230,
+      "complementaryCases": {
+        "moments": 68,
+        "samples": 69,
+        "inclusion": 75,
+        "assignments": 102,
+        "readings": 9,
+        "missing": 4
+      },
+      "actualPrograms": 12,
+      "changedActualNativeHelpers": 41,
+      "sources": [
+        {
+          "path": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+          "sha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8"
+        },
+        {
+          "path": "src/learn/data/sampling-measurement-models.js",
+          "sha256": "052f97ae06616127acaad4e16282c4c40273f87ab7d58bc53878991f7c972d5c"
+        },
+        {
+          "path": "src/learn/data/sampling-measurement-examples.js",
+          "sha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+          "sha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+          "sha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+          "sha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2"
+        }
+      ],
+      "scope": "Exact complementary laws plus bounded regression replay; not a claim that finite execution proves general design theorems."
+    }
+  },
+  "browser": {
+    "file": {
+      "path": "scratch/sampling-measurement-independent/browser-results.json",
+      "sha256": "f9677356acc73bebb3911a8521904bbbe07b28695d2a40629ab54da3b4ae40be",
+      "bytes": 11398
+    },
+    "result": {
+      "at": "2026-09-11T05:08:26.047Z",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/sampling-measurement-experimental-design.jsx",
+          "sha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8"
+        },
+        {
+          "path": "src/learn/data/sampling-measurement-models.js",
+          "sha256": "052f97ae06616127acaad4e16282c4c40273f87ab7d58bc53878991f7c972d5c"
+        },
+        {
+          "path": "src/learn/data/sampling-measurement-examples.js",
+          "sha256": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+          "sha256": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/sampling-measurement-labs.css",
+          "sha256": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js",
+          "sha256": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2"
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "programs": 12,
+          "equations": 9,
+          "investigations": 5,
+          "inlineFigures": 5,
+          "keyboardActions": 9,
+          "modelAmendments": {
+            "invalid": [
+              true,
+              true,
+              true
+            ],
+            "constant": {
+              "mean": 1000000000,
+              "variance": 0
+            },
+            "closeValues": {
+              "mean": 1000000000,
+              "variance": 3.552713678800501e-15
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 390,
+          "programs": 12,
+          "equations": 9,
+          "investigations": 5,
+          "inlineFigures": 5,
+          "keyboardActions": 9,
+          "modelAmendments": {
+            "invalid": [
+              true,
+              true,
+              true
+            ],
+            "constant": {
+              "mean": 1000000000,
+              "variance": 0
+            },
+            "closeValues": {
+              "mean": 1000000000,
+              "variance": 3.552713678800501e-15
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 320,
+          "programs": 12,
+          "equations": 9,
+          "investigations": 5,
+          "inlineFigures": 5,
+          "keyboardActions": 9,
+          "modelAmendments": {
+            "invalid": [
+              true,
+              true,
+              true
+            ],
+            "constant": {
+              "mean": 1000000000,
+              "variance": 0
+            },
+            "closeValues": {
+              "mean": 1000000000,
+              "variance": 3.552713678800501e-15
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        }
+      ],
+      "images": [
+        {
+          "path": "scratch/sampling-measurement-independent/incomplete-frame-three-1440.png",
+          "sha256": "d08110ccde659651feff13e6f9f3585daa54dcd98010a3540da8c226614b2ffb",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1440
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-inclusion-contributions-1440.png",
+          "sha256": "7ef3bfc0bf7faa8e4fec7f77e5813a303d186d224f0e31dbd4baf6a3bcc3708a",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1437
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-units-and-readings-1440.png",
+          "sha256": "740a2ec034e440c7ae0a4ccaf8eb211ad1055faf38c6365519eae4d13da9eb9f",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1309
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/unlike-pairs-observation-1440.png",
+          "sha256": "54bdee0e73e99afc6c82061eeb3ea620c6694f4bf001bfb74a02f6566dc12d12",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1589
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-negative-interaction-1440.png",
+          "sha256": "bdb8a555a638e80d1d5ce6318fada9874d8d50e18a15b106b093b09a70b3674b",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-0-1440.png",
+          "sha256": "53e1ac3211b9ff2cc96e0e8179c11c4e472985945ff891df8aec9c71aed6ef18",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-1-1440.png",
+          "sha256": "6df48d4574474a12a779fef5790d68d734e5234862d3f2471b637e1a2deb0196",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-2-1440.png",
+          "sha256": "0ad0ceaf0fcfb0bec93a8c9d8e6898f91a7d632c8e586b80f5ba008e0e713b16",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-3-1440.png",
+          "sha256": "38fcddab21690dbe096419b0af00e8c29ca0a253d39bd7fb7ffa95a5023953cc",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-4-1440.png",
+          "sha256": "9c325c41c66f9d400c114701f48ebbb18f2ea659851b4926725f6ddee94ccda3",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/student-weighted-protocol-1440.png",
+          "sha256": "ed41695f7ab975ff914af45fd823c3b505c3da4a8f0fa71cf65563635af9bec9",
+          "captureViewport": {
+            "width": 1440,
+            "height": 1121
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/incomplete-frame-three-390.png",
+          "sha256": "d125d05cfe261c11c0dec4e09ba4af4ffe140d37689a0cd277f74e9363ecdd39",
+          "captureViewport": {
+            "width": 390,
+            "height": 1918
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-inclusion-contributions-390.png",
+          "sha256": "48883d79e952f1678199b94db57b9ffa24f6ee9b4a2bfe26cf15c05ee18b8746",
+          "captureViewport": {
+            "width": 390,
+            "height": 1754
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-units-and-readings-390.png",
+          "sha256": "2870b67556cc418dfafafce367bbbb0b51720a6899731187dbb886d44429fcb0",
+          "captureViewport": {
+            "width": 390,
+            "height": 1875
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/unlike-pairs-observation-390.png",
+          "sha256": "3b8955655ca8ae69c66c8b5e31ebb93dbbefd1665fb35e5052050823f2e12354",
+          "captureViewport": {
+            "width": 390,
+            "height": 2098
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-negative-interaction-390.png",
+          "sha256": "0bfdd2e522541520722a8203e641ca34bde48083b629504aed1a100d5b2f34a5",
+          "captureViewport": {
+            "width": 390,
+            "height": 1294
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-0-390.png",
+          "sha256": "2b1e4b9219e617878512ce4b88b5a606553075b5e1d3ec4d74d4f8dbe516a470",
+          "captureViewport": {
+            "width": 390,
+            "height": 1084
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-1-390.png",
+          "sha256": "502243bf2a5bf472f0204f358e30fdb2eaf320cdb41873c6a9c44a659bcf8fad",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-2-390.png",
+          "sha256": "814f59e30cd0b60514bc6dd814de1b90e7befedb45feca6503a27819af5005b1",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-3-390.png",
+          "sha256": "39ad7fc0a72ddbd4cdd80d6c72cd3d9202097e4ac7c1e5080162f11d0c9018cf",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-4-390.png",
+          "sha256": "cf0e44f6cb38eaf26b9821a5b1e3b674849122a5b127326b3bafd8620989db00",
+          "captureViewport": {
+            "width": 390,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/student-weighted-protocol-390.png",
+          "sha256": "d8ce74488826ff8ba979eff4511bedfc8e1c86043f8f4817558553d12db05ad9",
+          "captureViewport": {
+            "width": 390,
+            "height": 1773
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/incomplete-frame-three-320.png",
+          "sha256": "50725aa5e10aa61705304d72b2525a6cfcc9487559300a6d6eafeabd237d21c0",
+          "captureViewport": {
+            "width": 320,
+            "height": 2073
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-inclusion-contributions-320.png",
+          "sha256": "2f54c2193e62d41aa7787ed8722aa49133962236b0d90c38910131cfd87ff3e0",
+          "captureViewport": {
+            "width": 320,
+            "height": 2011
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-units-and-readings-320.png",
+          "sha256": "154d14e117690fe7b4d7c7f95d3b275980eb2caad3dbbed51370009dbdfa1700",
+          "captureViewport": {
+            "width": 320,
+            "height": 2329
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/unlike-pairs-observation-320.png",
+          "sha256": "53a6643a59564648f7fc54c3ebe2ef21530853f590513c8ab9b76ece45eccc46",
+          "captureViewport": {
+            "width": 320,
+            "height": 2410
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/changed-negative-interaction-320.png",
+          "sha256": "7cb8045a856bb82780900e944e7b81270dd7987ce09dbef3bc5b856a5cb3b80e",
+          "captureViewport": {
+            "width": 320,
+            "height": 1408
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-0-320.png",
+          "sha256": "9c8af43101cf9d5cca44474221d22f7b3cdffe6f08bb68437a2669f10841138e",
+          "captureViewport": {
+            "width": 320,
+            "height": 1297
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-1-320.png",
+          "sha256": "3728e6fb8f5b45308e58049669b572471574193228acc7047422a74ae187ee57",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-2-320.png",
+          "sha256": "7d4e741c50e7e8c8c5d81e3327dd7c51ca0a3522162bf1cdc953cc05f564794b",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-3-320.png",
+          "sha256": "0fb81a53e1af2642d4cd15798d9d24ed6bd19c3ad7f3f43a59bf7c4a8ad47617",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/inline-4-320.png",
+          "sha256": "7ffb6f8dcb5bde109ca3282d1c57b5c8e13509f704951a551ea354045860dfa0",
+          "captureViewport": {
+            "width": 320,
+            "height": 1050
+          }
+        },
+        {
+          "path": "scratch/sampling-measurement-independent/student-weighted-protocol-320.png",
+          "sha256": "7b91647aeafe3780ffc3ef7421ae986c3a0278368e7d19b81af21ff64cdc1d8a",
+          "captureViewport": {
+            "width": 320,
+            "height": 2210
+          }
+        }
+      ],
+      "browser": "152.0.4191.66",
+      "passed": true
+    }
+  },
+  "visuallyOpened": [
+    {
+      "path": "scratch/sampling-measurement-independent/incomplete-frame-three-390.png",
+      "sha256": "d125d05cfe261c11c0dec4e09ba4af4ffe140d37689a0cd277f74e9363ecdd39",
+      "bytes": 93913
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/changed-inclusion-contributions-1440.png",
+      "sha256": "7ef3bfc0bf7faa8e4fec7f77e5813a303d186d224f0e31dbd4baf6a3bcc3708a",
+      "bytes": 103461
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/changed-units-and-readings-320.png",
+      "sha256": "154d14e117690fe7b4d7c7f95d3b275980eb2caad3dbbed51370009dbdfa1700",
+      "bytes": 112300
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/unlike-pairs-observation-390.png",
+      "sha256": "3b8955655ca8ae69c66c8b5e31ebb93dbbefd1665fb35e5052050823f2e12354",
+      "bytes": 120575
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/changed-negative-interaction-320.png",
+      "sha256": "7cb8045a856bb82780900e944e7b81270dd7987ce09dbef3bc5b856a5cb3b80e",
+      "bytes": 62969
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/inline-0-320.png",
+      "sha256": "9c8af43101cf9d5cca44474221d22f7b3cdffe6f08bb68437a2669f10841138e",
+      "bytes": 57058
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/inline-1-390.png",
+      "sha256": "502243bf2a5bf472f0204f358e30fdb2eaf320cdb41873c6a9c44a659bcf8fad",
+      "bytes": 30627
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/inline-2-320.png",
+      "sha256": "7d4e741c50e7e8c8c5d81e3327dd7c51ca0a3522162bf1cdc953cc05f564794b",
+      "bytes": 33107
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/inline-3-390.png",
+      "sha256": "39ad7fc0a72ddbd4cdd80d6c72cd3d9202097e4ac7c1e5080162f11d0c9018cf",
+      "bytes": 28457
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/inline-4-320.png",
+      "sha256": "7ffb6f8dcb5bde109ca3282d1c57b5c8e13509f704951a551ea354045860dfa0",
+      "bytes": 40986
+    },
+    {
+      "path": "scratch/sampling-measurement-independent/student-weighted-protocol-1440.png",
+      "sha256": "ed41695f7ab975ff914af45fd823c3b505c3da4a8f0fa71cf65563635af9bec9",
+      "bytes": 152014
+    }
+  ],
+  "sourceRecheck": {
+    "date": "2026-09-11",
+    "url": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-2-classification-components-uncertainty",
+    "scope": "Sections2.1–2.7: TypeA/B evaluation is distinct from random/systematic effects and error is distinct from uncertainty. Statistics Canada repeat fetch timed out; the author has a separate prior source record."
+  },
+  "limitations": [
+    "Finite exact checks and regression comparisons supplement separately read proofs; they are not a study of learning effectiveness.",
+    "One browser harness assertion initially assumed every revealed table must overflow on a narrow viewport. It was corrected to test actual overflow on the longer observed table and wait for the real keyboard scroll.",
+    "Eleven of 33 final reviewer images were actually opened. Original author images and timestamps remain separately attributed.",
+    "No actual people were assigned, data collected, external messages sent or site deployed. User acceptance remains separate."
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "topicId": "functional-analysis-rkhs",
+  "reviewedAt": "2026-09-10T22:19:56.320733+00:00",
+  "status": "independent review complete; two accuracy findings and one practice-answer improvement repaired and verified; no unresolved material finding",
+  "authorFreeze": "2026-09-10T22:18:16.641918+00:00",
+  "authorRecord": {
+    "path": "docs/teaching/evidence/functional-analysis-author-review.json",
+    "sha256": "bb1995b63db6e9ecbbc958b861b490a3c9a5d661804a64260684ee7aa3b1ccec",
+    "bytes": 32857
+  },
+  "production": [
+    {
+      "path": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+      "sha256": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01",
+      "bytes": 49868
+    },
+    {
+      "path": "src/learn/data/functional-analysis-models.js",
+      "sha256": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c",
+      "bytes": 9717
+    },
+    {
+      "path": "src/learn/data/functional-analysis-examples.js",
+      "sha256": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998",
+      "bytes": 19329
+    },
+    {
+      "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+      "sha256": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6",
+      "bytes": 21935
+    },
+    {
+      "path": "src/learn/components/lesson-labs/functional-analysis-labs.css",
+      "sha256": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+      "bytes": 5014
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js",
+      "sha256": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587",
+      "bytes": 4702
+    }
+  ],
+  "allAuthorCurrentIndependentSourceHashesMatch": true,
+  "narrativeRecord": {
+    "path": "docs/teaching/FUNCTIONAL-ANALYSIS-INDEPENDENT-REVIEW.md",
+    "sha256": "e7e79150d5b0801ce620e66f0e22855ec11b495abae6ac5adef22b38c736883c",
+    "bytes": 9071
+  },
+  "script": {
+    "path": "scripts/verify-functional-analysis-independent.py",
+    "sha256": "4d65394ea7bc946da607ebb485606285ea3241d0c8d80b382b108b93c2d5e134",
+    "bytes": 12282
+  },
+  "native": {
+    "checkedAt": "2026-09-10T22:18:52.465324+00:00",
+    "status": "passed",
+    "counts": {
+      "actualDisplayedPrograms": 11,
+      "seventyDigitRidgeAndObjectiveIdentities": 12,
+      "IndependentGaussianFourierDiscrepancies": 6,
+      "ExactMultipleNodeProjectionAndAttainment": 7,
+      "ExactSingleNodeResidualPolynomials": 24,
+      "ExactChangedOrthogonalWiggles": 27,
+      "ChangedRedundantFeatureQuotients": 8,
+      "ActualChangedCapstoneProtocols": 2
+    },
+    "originalConserved": true,
+    "maximumSeventyDigitRidgeNormDifference": 2.638671503518708e-10,
+    "maximumFourierDiscrepancyDifference": 4.440892098500626e-16,
+    "nativeArithmeticRegression": {
+      "rejected": true,
+      "exception": "ValueError",
+      "message": "Coefficients exceed the supported floating-point range"
+    },
+    "thresholdedInverseCounterexample": {
+      "smallPositiveEigenvalue": 1e-14,
+      "exactPseudoinverseRecoveredEntry": 1e-14,
+      "thresholdedRecoveredEntry": 0.0
+    },
+    "changedCapstones": [
+      {
+        "case": "noise035",
+        "codeSha256": "87eabb0663f5df1176938c24dba585e286ff09415b5ce76fb284ecfa46e0f4cc",
+        "actualStdout": "RBF gamma/lambda: 10.0 0.01\nRBF training MSE / squared RKHS norm: 0.056774 3.379214\nRBF validation/test MSE: 0.155172 0.177157\nlinear lambda: 0.1\nlinear validation/test MSE: 0.567841 0.633646\n"
+      },
+      {
+        "case": "linear035",
+        "codeSha256": "988d54bd295721d0ebdc2d6079ac91c88a933e890aec92a21b3e98160fb42f11",
+        "actualStdout": "RBF gamma/lambda: 0.1 0.001\nRBF training MSE / squared RKHS norm: 0.090188 16.774883\nRBF validation/test MSE: 0.127857 0.143528\nlinear lambda: 0.001\nlinear validation/test MSE: 0.09588 0.091864\n"
+      }
+    ],
+    "production": [
+      {
+        "path": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+        "sha256": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01"
+      },
+      {
+        "path": "src/learn/data/functional-analysis-models.js",
+        "sha256": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c"
+      },
+      {
+        "path": "src/learn/data/functional-analysis-examples.js",
+        "sha256": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+        "sha256": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/functional-analysis-labs.css",
+        "sha256": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js",
+        "sha256": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587"
+      }
+    ],
+    "limits": "Finite changed-input independent checks and source proof read; no browser or infinite-theorem proof from simulations."
+  },
+  "initialObservedFindings": {
+    "recordedAt": "2026-09-10T22:09:57.298066+00:00",
+    "evidenceScope": "Observed before the author repair; this records actual source reads and a direct displayed-helper call, not a hash-identical replay of the obsolete whole source. The final complementary run reads current actual source.",
+    "findings": [
+      {
+        "id": "native-interpolation-range",
+        "location": "functional-analysis-examples.js, interpolation.code, anchored_interpolate",
+        "input": {
+          "nodes": [
+            1e-310
+          ],
+          "values": [
+            1.0
+          ]
+        },
+        "actualResult": "(array([inf]), np.float64(inf), inf)",
+        "actualWarning": "overflow encountered in divide",
+        "pairedAcceptedInput": {
+          "nodes": [
+            1e-308
+          ],
+          "values": [
+            1.0
+          ]
+        },
+        "pairedFiniteResult": "(array([1.e+308]), np.float64(1e+308), 9.999999999999998e+307)",
+        "consequence": "Declared finite/increasing domain admitted values for which coefficients and energy overflowed instead of returning an explicit arithmetic-range error.",
+        "finalDisposition": "Author added actual finite/energy range guards. Independent current-source run verifies 1e-310 rejection and 1e-308 acceptance."
+      },
+      {
+        "id": "nystrom-threshold",
+        "location": "functional-analysis-rkhs.jsx, section7 approximation disclosure",
+        "originalClaim": "After retaining positive eigenvalues above a numerical threshold, FFᵀ=CW†Cᵀ without distinguishing thresholded and exact inverse.",
+        "counterexample": "For W=C=diag(1,1e-14), dropping the small positive direction makes reconstructed bottom-right0; the exact mathematical pseudoinverse reconstructs1e-14.",
+        "finalDisposition": "Author explicitly defines inverse on the retained eigenspace and distinguishes the exact pseudoinverse when all positive directions remain."
+      }
+    ]
+  },
+  "practiceAnswerAmendment": {
+    "requestedChange": "Provide checkable actual results for the specifically requested noise-change exercise and an explicitly chosen mostly linear target.",
+    "actualExecutedVariants": [
+      {
+        "case": "noise035",
+        "codeSha256": "87eabb0663f5df1176938c24dba585e286ff09415b5ce76fb284ecfa46e0f4cc",
+        "actualStdout": "RBF gamma/lambda: 10.0 0.01\nRBF training MSE / squared RKHS norm: 0.056774 3.379214\nRBF validation/test MSE: 0.155172 0.177157\nlinear lambda: 0.1\nlinear validation/test MSE: 0.567841 0.633646\n"
+      },
+      {
+        "case": "linear035",
+        "codeSha256": "988d54bd295721d0ebdc2d6079ac91c88a933e890aec92a21b3e98160fb42f11",
+        "actualStdout": "RBF gamma/lambda: 0.1 0.001\nRBF training MSE / squared RKHS norm: 0.090188 16.774883\nRBF validation/test MSE: 0.127857 0.143528\nlinear lambda: 0.001\nlinear validation/test MSE: 0.09588 0.091864\n"
+      }
+    ],
+    "resolution": "Final author body includes the actual selected settings and errors with six-decimal rounding and finite-experiment caveats; actual final390/320 images opened."
+  },
+  "openedAuthorImages": {
+    "openedAt": "2026-09-10T22:19:56.296837+00:00",
+    "attribution": "Author generated these images; the independent reviewer actually opened and visually inspected these specific files. This does not claim a second interactive browser run.",
+    "images": [
+      {
+        "path": "scratch/functional-analysis-browser/reading-2-320.png",
+        "sha256": "3c20eefba009952f73c7890b314b73cbc337e4922bd19aea172330a4a87aedb2"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/evaluation-attainment-390.png",
+        "sha256": "2f56a9e6cb343a5b00b4770b381e75b483b4de58822afca2d9e8106bba3ca570"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/duplicate-ridge-plot-390.png",
+        "sha256": "de4af0036fb030a8cc91bf3811599853a0e228ef8a0c682f6fe85807d50379cf"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/approximation-rank-320.png",
+        "sha256": "c96da3dc3b7278e448c093370b3edbd03da259f209bbf11892420724fe8d4224"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/quadrature-optimum-320.png",
+        "sha256": "def00146f85e68b9e4baea7242dfb4ddae3c7faa6e435348f2131aac82935ddd"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/native-range-explanation-390.png",
+        "sha256": "24ca5a20faa98679655aea5b41f649605de135b4faf6b1bc7ae99edf8f95c6c2"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/invalid-gram-1440.png",
+        "sha256": "382473346ba0fe4bf1db0ed7a147fa763ebdda25dca6f85128668ecdde670bf7"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/equation-13-320.png",
+        "sha256": "8945da15f131f9b76163e641cb20d5b01a0eab7bf80aaba059a049ee3eaf4c63"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/practice-quadrature-390.png",
+        "sha256": "3238ce446e876d9cadbb1ae75dedf30a6fc3f266f42bb79bb33de21276b0995e"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/completion-390.png",
+        "sha256": "df8c863b33b1f177ce2721043a296fe6823ff507c48f919cb8d636933d1d9efd"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/spike-320.png",
+        "sha256": "aef24e9937cc6c9801ed6ec2357c7905ceef59ae1eac157e43e7895a1acd0ea1"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/changed-wiggle-390.png",
+        "sha256": "251635854981f9dcc87de079592b114ac3702a3a94ce82e4775b4d99b5e06856"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/changed-capstone-solution-390.png",
+        "sha256": "d49985f173e36b618e072dc6f37d59589caa8e78b4a3fe7b9ae398a0545a4405"
+      },
+      {
+        "path": "scratch/functional-analysis-browser/changed-capstone-solution-320.png",
+        "sha256": "46a26d85fc4bc31d77b7e9ecfede9191150ca585b784c1871cdd65bfeda975c5"
+      }
+    ]
+  },
+  "authorBrowserAttribution": {
+    "fullInteraction": "2026-09-10T22:09:47.576Z",
+    "finalFocusedReading": "2026-09-10T22:16:30.945Z",
+    "widths": [
+      1440,
+      390,
+      320
+    ],
+    "scope": "Author-generated actual-font interaction and reading evidence inspected, with fourteen final files actually opened by this reviewer. No claim of a second exhaustive browser run."
+  },
+  "sourceResearch": [
+    {
+      "url": "https://arxiv.org/pdf/1807.02582",
+      "scope": "Selected section4.1 Mercer theorem4.1 and RKHS representation4.2, including full-support/measure qualifications."
+    },
+    {
+      "url": "https://alex.smola.org/papers/2001/SchHerSmo01.pdf",
+      "scope": "Selected representer penalty theorem and projection discussion; no full-paper or video-playback claim."
+    }
+  ],
+  "limits": [
+    "A bounded independent full-source/proof read and finite complementary calculations, not a proof of infinite-dimensional theorems by simulation.",
+    "Prior failed whole-source fingerprint was not captured and is not invented; the actual initial helper response and exact paired inputs are retained.",
+    "The final body-only practice amendment has targeted reading evidence; the full control suite precedes it and unchanged numerical source is separately matched.",
+    "Parent integrated build/loading/route review and user acceptance are separate."
+  ]
+}

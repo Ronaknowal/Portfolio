@@ -1,0 +1,160 @@
+{
+  "verifiedAt": "2026-09-11T15:13:07.067198+00:00",
+  "scope": "Bounded numerical author verification; complementary to root's 23 invariants. No browser or independent final-review claim.",
+  "sourceHashes": {
+    "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474"
+  },
+  "scriptHashes": {
+    "scripts/verify-survival-models.mjs": "bb3cebc5421b531967aea4e998dd10ffbeadfc3180316c630157d12871a41af0",
+    "scripts/verify-survival-models.py": "33a7df7a3bdc2c159c07b82902b7cf40bc53ed4cf2a9670ba1f86e1c476f6b7e"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "pandas": "2.3.3",
+    "lifelines": "0.30.3",
+    "scikit-survival": "0.28.0"
+  },
+  "counts": {
+    "KM/Greenwood/RMST exact+library+actual-native fixtures": 20,
+    "Cox objective/score/information derivative fixtures": 18,
+    "Cox actual fit versus separate likelihood optimizer/library": 2,
+    "Logrank exact conditional-label distributions": 15,
+    "Concordance observed/time/risk-tied fixtures": 6,
+    "CIF changed tied/single/no-cause fixtures": 6,
+    "Competing constant-hazard integrated densities": 5,
+    "Weibull clock/time-hazard distribution fixtures": 5,
+    "PH piecewise-integral/surviving-mixture fixtures": 10,
+    "Known-G exact expectation and alternative estimands": 16,
+    "Observation cutoff/event-status fixtures": 13,
+    "Actual displayed interval helper changed observations": 4,
+    "Actual exponential helper changed exposure and no-event boundary": 1
+  },
+  "totalFiniteFixtures": 121,
+  "invalidContracts": [
+    "empty records",
+    "sparse records",
+    "non-Boolean indicators",
+    "mismatched records",
+    "negative time",
+    "unsupported area horizon",
+    "unsupported curve horizon",
+    "illegal tied-likelihood mode",
+    "missing feature",
+    "zero censor support",
+    "illegal cause",
+    "illegal group",
+    "unavailable clock mode"
+  ],
+  "largestAbsoluteErrorsByCheck": {
+    "KM": 1.1102230246251565e-16,
+    "Greenwood": 3.3306690738754696e-16,
+    "RMST": 8.881784197001252e-16,
+    "Cox": 1.7653613904045073e-08,
+    "Practice D": 1.1102230246251565e-16,
+    "Logrank": 5.551115123125783e-16,
+    "Practice E": 0,
+    "Concordance": 0,
+    "CIF": 1.1102230246251565e-16,
+    "Practice I": 0,
+    "Clock": 1.1102230246251565e-16,
+    "PH": 2.7755575615628914e-17,
+    "IPCW": 5.551115123125783e-17,
+    "Native interval": 8.881784197001252e-16,
+    "Practice C": 3.739898377097539e-09,
+    "Practice F": 2.220446049250313e-16
+  },
+  "changedPractice": {
+    "B": {
+      "survival": [
+        "4/5",
+        "3/5",
+        "3/10"
+      ],
+      "median": 4,
+      "RMST": "33/10"
+    },
+    "D": {
+      "contribution": "4/7",
+      "score": "4/7",
+      "information": "26/49"
+    },
+    "E": {
+      "expected": "3/4",
+      "U": "1/4",
+      "variance": "45/112",
+      "failureProbability": 0.4,
+      "riskRatio": 0.625
+    },
+    "G": {
+      "comparablePairs": 1,
+      "C": 0
+    },
+    "I": {
+      "F1": "3/4",
+      "F2": "1/4",
+      "survival": 0,
+      "oneMinusKM": 1
+    },
+    "H": {
+      "full": "1/4",
+      "weighted": "1/4",
+      "survivorWeight": 4
+    },
+    "C": {
+      "intervalProbability": 0.4511883639059735,
+      "hourlyRate": 0.008333333333333333,
+      "exposureMLE": "3/25",
+      "noEvents": "boundary zero or positive-domain supremum"
+    },
+    "F": {
+      "hazardChange": 3,
+      "positiveSurvivalCrossing": 6
+    },
+    "J": {
+      "hazardRatio": 0.3535533905932738,
+      "histories": [
+        [
+          2,
+          4,
+          0,
+          0
+        ],
+        [
+          4,
+          7,
+          1,
+          1
+        ]
+      ]
+    },
+    "L": {
+      "threshold": 0.3,
+      "tie": "declare an action rule",
+      "causalBenefit": "stipulated, not identified by prognostic fit"
+    },
+    "K": {
+      "status": "reused exact actual author execution, not rerun",
+      "record": "scratch/survival/program-execution.json",
+      "protocolASTMatches": true,
+      "stdout": "validation IBS linear Cox 0.162783\nvalidation IBS quadratic Cox 0.163096\nvalidation IBS forest leaf10 0.171112\nvalidation IBS forest leaf25 0.168673\nselected: linear Cox\ntest subjects/events: 150 75\nminimum training censor survival through12: 0.75843\ntest IBS model/KM: 0.134459 0.149032\ntest Harrell C / Uno C truncated at10: 0.647823 0.659939\ndynamic AUC at2,4,6,8,10: [0.658342, 0.72712, 0.663594, 0.704974, 0.711102]\nsynthetic oracle probability MSE: 0.000489\nThis is one generated split, not an industrial or clinical benchmark."
+    }
+  },
+  "programExecutionReuse": {
+    "record": "scratch/survival/program-execution.json",
+    "recordHash": "f23cd37d98bcadc03619f2dfe439adf5e7f21e6b06df4b995a022099fd1927c1",
+    "executedAt": "2026-09-11T14:53:41.595452+00:00",
+    "programs": 17,
+    "executedPrograms": [
+      "rossi"
+    ],
+    "sha256": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474"
+  },
+  "limits": [
+    "Finite stated teaching contracts only, not a production survival API campaign.",
+    "17 program stdout executions reused by exact module hash; only named native helper definitions executed on changed inputs here.",
+    "Exact arithmetic and library agreement do not establish censoring assumptions in real data or causal identification.",
+    "Browser evidence and final author source freeze belong to the lesson author."
+  ]
+}

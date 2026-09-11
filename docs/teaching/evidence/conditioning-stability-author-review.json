@@ -1,0 +1,971 @@
+{
+  "topicId": "conditioning-stability-numerical-analysis",
+  "frozenAt": "2026-09-11T06:19:37.973122+00:00",
+  "status": "author-verified; independent review and production integration pending",
+  "productionSources": [
+    {
+      "path": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+      "sha256": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
+      "bytes": 53707
+    },
+    {
+      "path": "src/learn/data/conditioning-stability-models.js",
+      "sha256": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+      "bytes": 9790
+    },
+    {
+      "path": "src/learn/data/conditioning-stability-examples.js",
+      "sha256": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+      "bytes": 21360
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "sha256": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
+      "bytes": 22406
+    },
+    {
+      "path": "src/learn/components/lesson-labs/conditioning-stability-labs.css",
+      "sha256": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+      "bytes": 8130
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js",
+      "sha256": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00",
+      "bytes": 5386
+    }
+  ],
+  "supportingSources": [
+    {
+      "path": "docs/teaching/CONDITIONING-STABILITY-LESSON-DESIGN.md",
+      "sha256": "24ea39c5626266836d30fe1fecbe47d6150dd0df31efee92ba8be6ac488d9b53",
+      "bytes": 44422
+    },
+    {
+      "path": "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md",
+      "sha256": "99a71f0370ada79e1d4c5dc1cbd55afbd3a99b1f97b2360ed243e493929b0ac5",
+      "bytes": 10645
+    },
+    {
+      "path": "docs/teaching/evidence/conditioning-stability-original-plan.json",
+      "sha256": "6574c21ecb0e51794eb18d4a4d6669d6eecadc2c5fa8f0caddcbeabf92ae9e5c",
+      "bytes": 7345
+    },
+    {
+      "path": "docs/teaching/topic-notes/floating-point-representation-numerical-error.md",
+      "sha256": "7f1c0b46948b0aae47f5dad43431a1d3d06c3f0bf9c39af8b1775830dd0a79ad",
+      "bytes": 3565
+    },
+    {
+      "path": "docs/teaching/topic-notes/numerical-pdes-grids-finite-elements-stability.md",
+      "sha256": "8f676b567c6daa04f51b48e2176e767a19dd9634b9f81a692d03da05487e4b67",
+      "bytes": 3822
+    },
+    {
+      "path": "scripts/generate-conditioning-stability-examples.py",
+      "sha256": "8f796dd0f812b95790ea9c3d7800787803141e181043ff329e926418686391ac",
+      "bytes": 15106
+    },
+    {
+      "path": "scripts/verify-conditioning-stability.mjs",
+      "sha256": "c759d99ac26b1a5ab9faf2cf08f3823ee72f872473976c0b78f49c0d8420539c",
+      "bytes": 3700
+    },
+    {
+      "path": "scripts/verify-conditioning-stability-native.py",
+      "sha256": "f2c8dc6dfb29310db39b63710d8fd6b2c4a7c057fde8429590623df5f848a38b",
+      "bytes": 9238
+    },
+    {
+      "path": "scripts/verify-conditioning-changed-report.py",
+      "sha256": "ad7bc2a32d956b0cd012a2d43482cb99cc8bcdeb7307e320721978a3c58391d2",
+      "bytes": 2037
+    },
+    {
+      "path": "scripts/review-conditioning-stability-lesson.cjs",
+      "sha256": "d921f08527020a012d63501ed6160919c2a9cc3413d7d568e4af5be891a6801f",
+      "bytes": 13699
+    },
+    {
+      "path": "scripts/review-conditioning-final-reading.cjs",
+      "sha256": "7b3d478b6fa4f3d541957e301471cdf9d5100b30c690b9bf4d78feec6d623b67",
+      "bytes": 5167
+    },
+    {
+      "path": "scripts/format-conditioning-source.mjs",
+      "sha256": "1b861ff6467cef3939696a6b3de5ce3af5da8ee86276a6c8e43945a1dc8de9bc",
+      "bytes": 1589
+    }
+  ],
+  "native": {
+    "scope": "Actual current exported model states and actual displayed native programs; no browser/build claim",
+    "completedAt": "2026-09-11T05:58:42.373413+00:00",
+    "checks": 13067,
+    "nativePrograms": 11,
+    "javascriptRejections": 19,
+    "nativeRejections": 9,
+    "runtime": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "sourceHashes": {
+      "src/learn/data/conditioning-stability-models.js": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+      "src/learn/data/conditioning-stability-examples.js": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9"
+    }
+  },
+  "changedReport": {
+    "completedAt": "2026-09-11T06:01:13.721603+00:00",
+    "exampleSourceSha256": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
+    "changedCode": "from fractions import Fraction as F\nimport numpy as np\nfrom scipy.linalg import lu_factor, lu_solve\n\nepsilon = 2.0**-18\na = np.array([[1.0, 1.0], [1.0, 1.0 + epsilon]], dtype=np.float64)\nb = a @ np.array([1 / 3, 2 / 3])\nsecond = (F(b[1]) - F(b[0])) / F(epsilon)\ncenter = [F(b[0]) - second, second]\nfactor = lu_factor(a.astype(np.float32))\nx = lu_solve(factor, b.astype(np.float32)).astype(np.float64)\nprint(\"stored central RHS:\", b.tolist())\nprint(\"initial float32 solve:\", x.tolist())\nfor _ in range(2):\n    residual = b - a @ x\n    x += lu_solve(factor, residual.astype(np.float32))\narithmetic_error = max(abs(F(value) - target) for value, target in zip(x, center))\nprint(\"exact central solution:\", str(center[0]), str(center[1]))\nprint(\"repaired exact forward infinity error:\", arithmetic_error)\nbudget = F(1, 10000)\nfor uncertainty in [F(1, 2**24), F(1, 2**34)]:\n    radius = uncertainty / F(epsilon)\n    combined = radius + arithmetic_error\n    print(\n        f\"reading bound={uncertainty}; amount radius={radius}; total bound={combined}\"\n    )\n    print(\"certifies absolute amount budget 1/10000:\", combined <= budget)\nprint(\n    \"This is a worst-case guarantee over the declared reading interval, not the unknown actual error.\"\n)\n",
+    "stdout": "stored central RHS: [1.0, 1.0000025431315103]\ninitial float32 solve: [0.34375, 0.65625]\nexact central solution: 2863311531/8589934592 5726623061/8589934592\nrepaired exact forward infinity error: 0\nreading bound=1/16777216; amount radius=1/64; total bound=1/64\ncertifies absolute amount budget 1/10000: False\nreading bound=1/17179869184; amount radius=1/65536; total bound=1/65536\ncertifies absolute amount budget 1/10000: True\nThis is a worst-case guarantee over the declared reading interval, not the unknown actual error.\n",
+    "independentStoredInputCenter": [
+      "2863311531/8589934592",
+      "5726623061/8589934592"
+    ],
+    "checks": [
+      "Cramer rule on exact stored RHS",
+      "exact final central forward error",
+      "two independent uncertainty-radius decisions"
+    ]
+  },
+  "browser": {
+    "completedAt": "2026-09-11T06:07:25.932Z",
+    "records": [
+      {
+        "width": 1440,
+        "states": 82,
+        "fonts": {
+          "sans": true,
+          "mono": true
+        },
+        "errors": [],
+        "overflow": {
+          "page": 1440,
+          "viewport": 1440
+        },
+        "equations": [
+          {
+            "index": 0,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "∥v∥∞=max⁡i∣vi∣,∥A∥∞=max⁡i∑j∣aij∣,∣(Av)i∣≤∑j∣aij∣ ∣vj∣≤(∑j∣aij∣)∥v∥∞.\\begin{aligned}\\|v\\|_\\infty&=\\max_i|v_i|,\\\\\\|A\\|_\\infty&=\\max_i\\sum_j|a_{ij}|,\\\\|(Av)_i|&\\leq\\sum_j|a_{ij}|\\,|v_j|\\\\&\\leq\\left(\\sum_j|a_{ij}|\\right)\\|v\\|_\\infty.\\end{aligned}∥v∥∞​∥A∥∞​∣(Av)i​∣​=imax​∣vi​∣,=imax​j∑​∣aij​∣,≤j∑​∣aij​∣∣vj​∣≤(j∑​∣aij​∣)∥v∥∞​.​"
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "fl⁡(a∘b)=(a∘b)(1+δ),∣δ∣≤u.\\begin{gathered}\\operatorname{fl}(a\\mathbin{\\circ}b)=(a\\mathbin{\\circ}b)(1+\\delta),\\\\|\\delta|\\leq u.\\end{gathered}fl(a∘b)=(a∘b)(1+δ),∣δ∣≤u.​"
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "1+x−1=(1+x−1)(1+x+1)1+x+1=x1+x+1.\\begin{gathered}\\sqrt{1+x}-1\\\\=\\frac{(\\sqrt{1+x}-1)(\\sqrt{1+x}+1)}{\\sqrt{1+x}+1}\\\\=\\frac{x}{\\sqrt{1+x}+1}.\\end{gathered}1+x​−1=1+x​+1(1+x​−1)(1+x​+1)​=1+x​+1x​.​"
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "f′(x)=121+x,κf(x)=∣xf′(x)f(x)∣=1+x+121+x,x>−1, x≠0.\\begin{aligned}f'(x)&=\\frac{1}{2\\sqrt{1+x}},\\\\\\kappa_f(x)&=\\left|\\frac{xf'(x)}{f(x)}\\right|\\\\&=\\frac{\\sqrt{1+x}+1}{2\\sqrt{1+x}},\\\\&\\quad x>-1,\\ x\\ne0.\\end{aligned}f′(x)κf​(x)​=21+x​1​,=​f(x)xf′(x)​​=21+x​1+x​+1​,x>−1, x=0.​"
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "Aε=[1111+ε],b=[22+ε],Δb=[0δ],Δx=[−δ/εδ/ε].\\begin{gathered}A_\\varepsilon=\\begin{bmatrix}1&1\\\\1&1+\\varepsilon\\end{bmatrix},\\quad b=\\begin{bmatrix}2\\\\2+\\varepsilon\\end{bmatrix},\\\\\\Delta b=\\begin{bmatrix}0\\\\\\delta\\end{bmatrix},\\qquad\\Delta x=\\begin{bmatrix}-\\delta/\\varepsilon\\\\\\delta/\\varepsilon\\end{bmatrix}.\\end{gathered}Aε​=[11​11+ε​],b=[22+ε​],Δb=[0δ​],Δx=[−δ/εδ/ε​].​"
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "∥Δx∥∥x∥≤κ(A)∥Δb∥∥b∥,κ(A)=∥A∥ ∥A−1∥.\\begin{gathered}\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\kappa(A)\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|.\\end{gathered}∥x∥∥Δx∥​≤κ(A)∥b∥∥Δb∥​,κ(A)=∥A∥∥A−1∥.​"
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "εA=∥ΔA∥∥A∥,εb=∥Δb∥∥b∥,∥Δx∥∥x∥≤κ(A)(εA+εb)1−κ(A)εA,provided κ(A)εA<1.\\begin{gathered}\\varepsilon_A=\\frac{\\|\\Delta A\\|}{\\|A\\|},\\quad\\varepsilon_b=\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\frac{\\kappa(A)(\\varepsilon_A+\\varepsilon_b)}{1-\\kappa(A)\\varepsilon_A},\\\\\\text{provided }\\kappa(A)\\varepsilon_A<1.\\end{gathered}εA​=∥A∥∥ΔA∥​,εb​=∥b∥∥Δb∥​,∥x∥∥Δx∥​≤1−κ(A)εA​κ(A)(εA​+εb​)​,provided κ(A)εA​<1.​"
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "A(x^−x)=−r,∥x^−x∥≤∥A−1∥ ∥r∥.\\begin{gathered}A(\\hat x-x)=-r,\\\\\\|\\hat x-x\\|\\leq\\|A^{-1}\\|\\,\\|r\\|.\\end{gathered}A(x^−x)=−r,∥x^−x∥≤∥A−1∥∥r∥.​"
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "η∞=∥r∥∞∥A∥∞∥x^∥∞+∥b∥∞.\\eta_\\infty=\\frac{\\|r\\|_\\infty}{\\|A\\|_\\infty\\|\\hat x\\|_\\infty+\\|b\\|_\\infty}.η∞​=∥A∥∞​∥x^∥∞​+∥b∥∞​∥r∥∞​​."
+          },
+          {
+            "index": 9,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "ηc=max⁡i∣ri∣di,di=(∣A∣∣x^∣+∣b∣)i.\\begin{gathered}\\eta_c=\\max_i\\frac{|r_i|}{d_i},\\\\d_i=(|A||\\hat x|+|b|)_i.\\end{gathered}ηc​=imax​di​∣ri​∣​,di​=(∣A∣∣x^∣+∣b∣)i​.​"
+          },
+          {
+            "index": 10,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "γm=mu1−mu,mu<1,∣s^−s∣≤γn−1∑i∣xi∣,∣s^−s∣∣s∣≤γn−1κsum(s≠0).\\begin{gathered}\\gamma_m=\\frac{mu}{1-mu},\\qquad mu<1,\\\\|\\hat s-s|\\leq\\gamma_{n-1}\\sum_i|x_i|,\\\\\\frac{|\\hat s-s|}{|s|}\\leq\\gamma_{n-1}\\kappa_{\\rm sum}\\quad(s\\ne0).\\end{gathered}γm​=1−mumu​,mu<1,∣s^−s∣≤γn−1​i∑​∣xi​∣,∣s∣∣s^−s∣​≤γn−1​κsum​(s=0).​"
+          },
+          {
+            "index": 11,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "∣δk∣≤ρ⟹∣en∣≤∣q∣n∣e0∣+ρ∑j=0n−1∣q∣j.\\begin{gathered}|\\delta_k|\\leq\\rho\\quad\\Longrightarrow\\\\|e_n|\\leq |q|^n|e_0|+\\rho\\sum_{j=0}^{n-1}|q|^j.\\end{gathered}∣δk​∣≤ρ⟹∣en​∣≤∣q∣n∣e0​∣+ρj=0∑n−1​∣q∣j.​"
+          },
+          {
+            "index": 12,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "L>0:∥eN∥≤eLT∥e0∥+ChpeLT−1L,L=0:∥eN∥≤∥e0∥+CThp.\\begin{gathered}L>0:\\quad\\|e_N\\|\\\\\\leq e^{LT}\\|e_0\\|+C h^p\\frac{e^{LT}-1}{L},\\\\L=0:\\quad\\|e_N\\|\\\\\\leq\\|e_0\\|+CTh^p.\\end{gathered}L>0:∥eN​∥≤eLT∥e0​∥+ChpLeLT−1​,L=0:∥eN​∥≤∥e0​∥+CThp.​"
+          },
+          {
+            "index": 13,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "3u(t+h)−2u(t)−u(t+2h)h=u′(t)−h2u′′(t)+O(h2).\\begin{gathered}\\frac{3u(t+h)-2u(t)-u(t+2h)}{h}\\\\=u'(t)-\\frac h2u''(t)+O(h^2).\\end{gathered}h3u(t+h)−2u(t)−u(t+2h)​=u′(t)−2h​u′′(t)+O(h2).​"
+          },
+          {
+            "index": 14,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "T=1,h=1/N,eN=2N−1N2.\\begin{gathered}T=1,\\quad h=1/N,\\\\e_N=\\frac{2^N-1}{N^2}.\\end{gathered}T=1,h=1/N,eN​=N22N−1​.​"
+          },
+          {
+            "index": 15,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "∥x^h−uh∥≤∥Ah−1∥(∥τh∥+∥rh∥).\\begin{gathered}\\|\\hat x_h-u_h\\|\\\\\\leq\\|A_h^{-1}\\|\\bigl(\\|\\tau_h\\|+\\|r_h\\|\\bigr).\\end{gathered}∥x^h​−uh​∥≤∥Ah−1​∥(∥τh​∥+∥rh​∥).​"
+          },
+          {
+            "index": 16,
+            "width": 760,
+            "contentWidth": 760,
+            "text": "math.isclose:∣a−b∣≤max⁡{rmax⁡(∣a∣,∣b∣),a0},numpy.isclose:∣a−b∣≤a0+r∣b∣.\\begin{gathered}\\texttt{math.isclose}:\\\\|a-b|\\leq\\max\\{r\\max(|a|,|b|),a_0\\},\\\\\\texttt{numpy.isclose}:\\\\|a-b|\\leq a_0+r|b|.\\end{gathered}math.isclose:∣a−b∣≤max{rmax(∣a∣,∣b∣),a0​},numpy.isclose:∣a−b∣≤a0​+r∣b∣.​"
+          }
+        ],
+        "chartLabels": [
+          {
+            "text": "1e0",
+            "left": 71.58150482177734,
+            "right": 98
+          },
+          {
+            "text": "1e-18",
+            "left": 57.91223907470703,
+            "right": 98
+          },
+          {
+            "text": "1e-35",
+            "left": 55.313865661621094,
+            "right": 98
+          },
+          {
+            "text": "1",
+            "left": 106.00000762939453,
+            "right": 112.69309663772583
+          },
+          {
+            "text": "60",
+            "left": 373.9510803222656,
+            "right": 394.00001525878906
+          },
+          {
+            "text": "Exponent k",
+            "left": 106.00000762939453,
+            "right": 194.06051635742188
+          }
+        ],
+        "treeGeometry": {
+          "offset": 146,
+          "width": 702,
+          "content": 913
+        },
+        "programs": 11,
+        "practices": 10
+      },
+      {
+        "width": 390,
+        "states": 82,
+        "fonts": {
+          "sans": true,
+          "mono": true
+        },
+        "errors": [],
+        "overflow": {
+          "page": 390,
+          "viewport": 390
+        },
+        "equations": [
+          {
+            "index": 0,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "∥v∥∞=max⁡i∣vi∣,∥A∥∞=max⁡i∑j∣aij∣,∣(Av)i∣≤∑j∣aij∣ ∣vj∣≤(∑j∣aij∣)∥v∥∞.\\begin{aligned}\\|v\\|_\\infty&=\\max_i|v_i|,\\\\\\|A\\|_\\infty&=\\max_i\\sum_j|a_{ij}|,\\\\|(Av)_i|&\\leq\\sum_j|a_{ij}|\\,|v_j|\\\\&\\leq\\left(\\sum_j|a_{ij}|\\right)\\|v\\|_\\infty.\\end{aligned}∥v∥∞​∥A∥∞​∣(Av)i​∣​=imax​∣vi​∣,=imax​j∑​∣aij​∣,≤j∑​∣aij​∣∣vj​∣≤(j∑​∣aij​∣)∥v∥∞​.​"
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "fl⁡(a∘b)=(a∘b)(1+δ),∣δ∣≤u.\\begin{gathered}\\operatorname{fl}(a\\mathbin{\\circ}b)=(a\\mathbin{\\circ}b)(1+\\delta),\\\\|\\delta|\\leq u.\\end{gathered}fl(a∘b)=(a∘b)(1+δ),∣δ∣≤u.​"
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "1+x−1=(1+x−1)(1+x+1)1+x+1=x1+x+1.\\begin{gathered}\\sqrt{1+x}-1\\\\=\\frac{(\\sqrt{1+x}-1)(\\sqrt{1+x}+1)}{\\sqrt{1+x}+1}\\\\=\\frac{x}{\\sqrt{1+x}+1}.\\end{gathered}1+x​−1=1+x​+1(1+x​−1)(1+x​+1)​=1+x​+1x​.​"
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "f′(x)=121+x,κf(x)=∣xf′(x)f(x)∣=1+x+121+x,x>−1, x≠0.\\begin{aligned}f'(x)&=\\frac{1}{2\\sqrt{1+x}},\\\\\\kappa_f(x)&=\\left|\\frac{xf'(x)}{f(x)}\\right|\\\\&=\\frac{\\sqrt{1+x}+1}{2\\sqrt{1+x}},\\\\&\\quad x>-1,\\ x\\ne0.\\end{aligned}f′(x)κf​(x)​=21+x​1​,=​f(x)xf′(x)​​=21+x​1+x​+1​,x>−1, x=0.​"
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "Aε=[1111+ε],b=[22+ε],Δb=[0δ],Δx=[−δ/εδ/ε].\\begin{gathered}A_\\varepsilon=\\begin{bmatrix}1&1\\\\1&1+\\varepsilon\\end{bmatrix},\\quad b=\\begin{bmatrix}2\\\\2+\\varepsilon\\end{bmatrix},\\\\\\Delta b=\\begin{bmatrix}0\\\\\\delta\\end{bmatrix},\\qquad\\Delta x=\\begin{bmatrix}-\\delta/\\varepsilon\\\\\\delta/\\varepsilon\\end{bmatrix}.\\end{gathered}Aε​=[11​11+ε​],b=[22+ε​],Δb=[0δ​],Δx=[−δ/εδ/ε​].​"
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "∥Δx∥∥x∥≤κ(A)∥Δb∥∥b∥,κ(A)=∥A∥ ∥A−1∥.\\begin{gathered}\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\kappa(A)\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|.\\end{gathered}∥x∥∥Δx∥​≤κ(A)∥b∥∥Δb∥​,κ(A)=∥A∥∥A−1∥.​"
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "εA=∥ΔA∥∥A∥,εb=∥Δb∥∥b∥,∥Δx∥∥x∥≤κ(A)(εA+εb)1−κ(A)εA,provided κ(A)εA<1.\\begin{gathered}\\varepsilon_A=\\frac{\\|\\Delta A\\|}{\\|A\\|},\\quad\\varepsilon_b=\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\frac{\\kappa(A)(\\varepsilon_A+\\varepsilon_b)}{1-\\kappa(A)\\varepsilon_A},\\\\\\text{provided }\\kappa(A)\\varepsilon_A<1.\\end{gathered}εA​=∥A∥∥ΔA∥​,εb​=∥b∥∥Δb∥​,∥x∥∥Δx∥​≤1−κ(A)εA​κ(A)(εA​+εb​)​,provided κ(A)εA​<1.​"
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "A(x^−x)=−r,∥x^−x∥≤∥A−1∥ ∥r∥.\\begin{gathered}A(\\hat x-x)=-r,\\\\\\|\\hat x-x\\|\\leq\\|A^{-1}\\|\\,\\|r\\|.\\end{gathered}A(x^−x)=−r,∥x^−x∥≤∥A−1∥∥r∥.​"
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "η∞=∥r∥∞∥A∥∞∥x^∥∞+∥b∥∞.\\eta_\\infty=\\frac{\\|r\\|_\\infty}{\\|A\\|_\\infty\\|\\hat x\\|_\\infty+\\|b\\|_\\infty}.η∞​=∥A∥∞​∥x^∥∞​+∥b∥∞​∥r∥∞​​."
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "ηc=max⁡i∣ri∣di,di=(∣A∣∣x^∣+∣b∣)i.\\begin{gathered}\\eta_c=\\max_i\\frac{|r_i|}{d_i},\\\\d_i=(|A||\\hat x|+|b|)_i.\\end{gathered}ηc​=imax​di​∣ri​∣​,di​=(∣A∣∣x^∣+∣b∣)i​.​"
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "γm=mu1−mu,mu<1,∣s^−s∣≤γn−1∑i∣xi∣,∣s^−s∣∣s∣≤γn−1κsum(s≠0).\\begin{gathered}\\gamma_m=\\frac{mu}{1-mu},\\qquad mu<1,\\\\|\\hat s-s|\\leq\\gamma_{n-1}\\sum_i|x_i|,\\\\\\frac{|\\hat s-s|}{|s|}\\leq\\gamma_{n-1}\\kappa_{\\rm sum}\\quad(s\\ne0).\\end{gathered}γm​=1−mumu​,mu<1,∣s^−s∣≤γn−1​i∑​∣xi​∣,∣s∣∣s^−s∣​≤γn−1​κsum​(s=0).​"
+          },
+          {
+            "index": 11,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "∣δk∣≤ρ⟹∣en∣≤∣q∣n∣e0∣+ρ∑j=0n−1∣q∣j.\\begin{gathered}|\\delta_k|\\leq\\rho\\quad\\Longrightarrow\\\\|e_n|\\leq |q|^n|e_0|+\\rho\\sum_{j=0}^{n-1}|q|^j.\\end{gathered}∣δk​∣≤ρ⟹∣en​∣≤∣q∣n∣e0​∣+ρj=0∑n−1​∣q∣j.​"
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "L>0:∥eN∥≤eLT∥e0∥+ChpeLT−1L,L=0:∥eN∥≤∥e0∥+CThp.\\begin{gathered}L>0:\\quad\\|e_N\\|\\\\\\leq e^{LT}\\|e_0\\|+C h^p\\frac{e^{LT}-1}{L},\\\\L=0:\\quad\\|e_N\\|\\\\\\leq\\|e_0\\|+CTh^p.\\end{gathered}L>0:∥eN​∥≤eLT∥e0​∥+ChpLeLT−1​,L=0:∥eN​∥≤∥e0​∥+CThp.​"
+          },
+          {
+            "index": 13,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "3u(t+h)−2u(t)−u(t+2h)h=u′(t)−h2u′′(t)+O(h2).\\begin{gathered}\\frac{3u(t+h)-2u(t)-u(t+2h)}{h}\\\\=u'(t)-\\frac h2u''(t)+O(h^2).\\end{gathered}h3u(t+h)−2u(t)−u(t+2h)​=u′(t)−2h​u′′(t)+O(h2).​"
+          },
+          {
+            "index": 14,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "T=1,h=1/N,eN=2N−1N2.\\begin{gathered}T=1,\\quad h=1/N,\\\\e_N=\\frac{2^N-1}{N^2}.\\end{gathered}T=1,h=1/N,eN​=N22N−1​.​"
+          },
+          {
+            "index": 15,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "∥x^h−uh∥≤∥Ah−1∥(∥τh∥+∥rh∥).\\begin{gathered}\\|\\hat x_h-u_h\\|\\\\\\leq\\|A_h^{-1}\\|\\bigl(\\|\\tau_h\\|+\\|r_h\\|\\bigr).\\end{gathered}∥x^h​−uh​∥≤∥Ah−1​∥(∥τh​∥+∥rh​∥).​"
+          },
+          {
+            "index": 16,
+            "width": 350,
+            "contentWidth": 350,
+            "text": "math.isclose:∣a−b∣≤max⁡{rmax⁡(∣a∣,∣b∣),a0},numpy.isclose:∣a−b∣≤a0+r∣b∣.\\begin{gathered}\\texttt{math.isclose}:\\\\|a-b|\\leq\\max\\{r\\max(|a|,|b|),a_0\\},\\\\\\texttt{numpy.isclose}:\\\\|a-b|\\leq a_0+r|b|.\\end{gathered}math.isclose:∣a−b∣≤max{rmax(∣a∣,∣b∣),a0​},numpy.isclose:∣a−b∣≤a0​+r∣b∣.​"
+          }
+        ],
+        "chartLabels": [
+          {
+            "text": "1e0",
+            "left": 58.355712890625,
+            "right": 98
+          },
+          {
+            "text": "1e-18",
+            "left": 37.840484619140625,
+            "right": 98.04753112792969
+          },
+          {
+            "text": "1e-35",
+            "left": 33.959224700927734,
+            "right": 97.99999618530273
+          },
+          {
+            "text": "1",
+            "left": 105.99999237060547,
+            "right": 116.04434967041016
+          },
+          {
+            "text": "60",
+            "left": 363.9308776855469,
+            "right": 393.99997329711914
+          },
+          {
+            "text": "Exponent k",
+            "left": 105.99999237060547,
+            "right": 238.15393829345703
+          }
+        ],
+        "treeGeometry": {
+          "offset": 336,
+          "width": 322,
+          "content": 913
+        },
+        "programs": 11,
+        "practices": 10
+      },
+      {
+        "width": 320,
+        "states": 82,
+        "fonts": {
+          "sans": true,
+          "mono": true
+        },
+        "errors": [],
+        "overflow": {
+          "page": 320,
+          "viewport": 320
+        },
+        "equations": [
+          {
+            "index": 0,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "∥v∥∞=max⁡i∣vi∣,∥A∥∞=max⁡i∑j∣aij∣,∣(Av)i∣≤∑j∣aij∣ ∣vj∣≤(∑j∣aij∣)∥v∥∞.\\begin{aligned}\\|v\\|_\\infty&=\\max_i|v_i|,\\\\\\|A\\|_\\infty&=\\max_i\\sum_j|a_{ij}|,\\\\|(Av)_i|&\\leq\\sum_j|a_{ij}|\\,|v_j|\\\\&\\leq\\left(\\sum_j|a_{ij}|\\right)\\|v\\|_\\infty.\\end{aligned}∥v∥∞​∥A∥∞​∣(Av)i​∣​=imax​∣vi​∣,=imax​j∑​∣aij​∣,≤j∑​∣aij​∣∣vj​∣≤(j∑​∣aij​∣)∥v∥∞​.​"
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "fl⁡(a∘b)=(a∘b)(1+δ),∣δ∣≤u.\\begin{gathered}\\operatorname{fl}(a\\mathbin{\\circ}b)=(a\\mathbin{\\circ}b)(1+\\delta),\\\\|\\delta|\\leq u.\\end{gathered}fl(a∘b)=(a∘b)(1+δ),∣δ∣≤u.​"
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "1+x−1=(1+x−1)(1+x+1)1+x+1=x1+x+1.\\begin{gathered}\\sqrt{1+x}-1\\\\=\\frac{(\\sqrt{1+x}-1)(\\sqrt{1+x}+1)}{\\sqrt{1+x}+1}\\\\=\\frac{x}{\\sqrt{1+x}+1}.\\end{gathered}1+x​−1=1+x​+1(1+x​−1)(1+x​+1)​=1+x​+1x​.​"
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "f′(x)=121+x,κf(x)=∣xf′(x)f(x)∣=1+x+121+x,x>−1, x≠0.\\begin{aligned}f'(x)&=\\frac{1}{2\\sqrt{1+x}},\\\\\\kappa_f(x)&=\\left|\\frac{xf'(x)}{f(x)}\\right|\\\\&=\\frac{\\sqrt{1+x}+1}{2\\sqrt{1+x}},\\\\&\\quad x>-1,\\ x\\ne0.\\end{aligned}f′(x)κf​(x)​=21+x​1​,=​f(x)xf′(x)​​=21+x​1+x​+1​,x>−1, x=0.​"
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "Aε=[1111+ε],b=[22+ε],Δb=[0δ],Δx=[−δ/εδ/ε].\\begin{gathered}A_\\varepsilon=\\begin{bmatrix}1&1\\\\1&1+\\varepsilon\\end{bmatrix},\\quad b=\\begin{bmatrix}2\\\\2+\\varepsilon\\end{bmatrix},\\\\\\Delta b=\\begin{bmatrix}0\\\\\\delta\\end{bmatrix},\\qquad\\Delta x=\\begin{bmatrix}-\\delta/\\varepsilon\\\\\\delta/\\varepsilon\\end{bmatrix}.\\end{gathered}Aε​=[11​11+ε​],b=[22+ε​],Δb=[0δ​],Δx=[−δ/εδ/ε​].​"
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "∥Δx∥∥x∥≤κ(A)∥Δb∥∥b∥,κ(A)=∥A∥ ∥A−1∥.\\begin{gathered}\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\kappa(A)\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|.\\end{gathered}∥x∥∥Δx∥​≤κ(A)∥b∥∥Δb∥​,κ(A)=∥A∥∥A−1∥.​"
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "εA=∥ΔA∥∥A∥,εb=∥Δb∥∥b∥,∥Δx∥∥x∥≤κ(A)(εA+εb)1−κ(A)εA,provided κ(A)εA<1.\\begin{gathered}\\varepsilon_A=\\frac{\\|\\Delta A\\|}{\\|A\\|},\\quad\\varepsilon_b=\\frac{\\|\\Delta b\\|}{\\|b\\|},\\\\\\frac{\\|\\Delta x\\|}{\\|x\\|}\\leq\\frac{\\kappa(A)(\\varepsilon_A+\\varepsilon_b)}{1-\\kappa(A)\\varepsilon_A},\\\\\\text{provided }\\kappa(A)\\varepsilon_A<1.\\end{gathered}εA​=∥A∥∥ΔA∥​,εb​=∥b∥∥Δb∥​,∥x∥∥Δx∥​≤1−κ(A)εA​κ(A)(εA​+εb​)​,provided κ(A)εA​<1.​"
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "A(x^−x)=−r,∥x^−x∥≤∥A−1∥ ∥r∥.\\begin{gathered}A(\\hat x-x)=-r,\\\\\\|\\hat x-x\\|\\leq\\|A^{-1}\\|\\,\\|r\\|.\\end{gathered}A(x^−x)=−r,∥x^−x∥≤∥A−1∥∥r∥.​"
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "η∞=∥r∥∞∥A∥∞∥x^∥∞+∥b∥∞.\\eta_\\infty=\\frac{\\|r\\|_\\infty}{\\|A\\|_\\infty\\|\\hat x\\|_\\infty+\\|b\\|_\\infty}.η∞​=∥A∥∞​∥x^∥∞​+∥b∥∞​∥r∥∞​​."
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "ηc=max⁡i∣ri∣di,di=(∣A∣∣x^∣+∣b∣)i.\\begin{gathered}\\eta_c=\\max_i\\frac{|r_i|}{d_i},\\\\d_i=(|A||\\hat x|+|b|)_i.\\end{gathered}ηc​=imax​di​∣ri​∣​,di​=(∣A∣∣x^∣+∣b∣)i​.​"
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "γm=mu1−mu,mu<1,∣s^−s∣≤γn−1∑i∣xi∣,∣s^−s∣∣s∣≤γn−1κsum(s≠0).\\begin{gathered}\\gamma_m=\\frac{mu}{1-mu},\\qquad mu<1,\\\\|\\hat s-s|\\leq\\gamma_{n-1}\\sum_i|x_i|,\\\\\\frac{|\\hat s-s|}{|s|}\\leq\\gamma_{n-1}\\kappa_{\\rm sum}\\quad(s\\ne0).\\end{gathered}γm​=1−mumu​,mu<1,∣s^−s∣≤γn−1​i∑​∣xi​∣,∣s∣∣s^−s∣​≤γn−1​κsum​(s=0).​"
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "∣δk∣≤ρ⟹∣en∣≤∣q∣n∣e0∣+ρ∑j=0n−1∣q∣j.\\begin{gathered}|\\delta_k|\\leq\\rho\\quad\\Longrightarrow\\\\|e_n|\\leq |q|^n|e_0|+\\rho\\sum_{j=0}^{n-1}|q|^j.\\end{gathered}∣δk​∣≤ρ⟹∣en​∣≤∣q∣n∣e0​∣+ρj=0∑n−1​∣q∣j.​"
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "L>0:∥eN∥≤eLT∥e0∥+ChpeLT−1L,L=0:∥eN∥≤∥e0∥+CThp.\\begin{gathered}L>0:\\quad\\|e_N\\|\\\\\\leq e^{LT}\\|e_0\\|+C h^p\\frac{e^{LT}-1}{L},\\\\L=0:\\quad\\|e_N\\|\\\\\\leq\\|e_0\\|+CTh^p.\\end{gathered}L>0:∥eN​∥≤eLT∥e0​∥+ChpLeLT−1​,L=0:∥eN​∥≤∥e0​∥+CThp.​"
+          },
+          {
+            "index": 13,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "3u(t+h)−2u(t)−u(t+2h)h=u′(t)−h2u′′(t)+O(h2).\\begin{gathered}\\frac{3u(t+h)-2u(t)-u(t+2h)}{h}\\\\=u'(t)-\\frac h2u''(t)+O(h^2).\\end{gathered}h3u(t+h)−2u(t)−u(t+2h)​=u′(t)−2h​u′′(t)+O(h2).​"
+          },
+          {
+            "index": 14,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "T=1,h=1/N,eN=2N−1N2.\\begin{gathered}T=1,\\quad h=1/N,\\\\e_N=\\frac{2^N-1}{N^2}.\\end{gathered}T=1,h=1/N,eN​=N22N−1​.​"
+          },
+          {
+            "index": 15,
+            "width": 280,
+            "contentWidth": 280,
+            "text": "∥x^h−uh∥≤∥Ah−1∥(∥τh∥+∥rh∥).\\begin{gathered}\\|\\hat x_h-u_h\\|\\\\\\leq\\|A_h^{-1}\\|\\bigl(\\|\\tau_h\\|+\\|r_h\\|\\bigr).\\end{gathered}∥x^h​−uh​∥≤∥Ah−1​∥(∥τh​∥+∥rh​∥).​"
+          },
+          {
+            "index": 16,
+            "width": 280,
+            "contentWidth": 281,
+            "text": "math.isclose:∣a−b∣≤max⁡{rmax⁡(∣a∣,∣b∣),a0},numpy.isclose:∣a−b∣≤a0+r∣b∣.\\begin{gathered}\\texttt{math.isclose}:\\\\|a-b|\\leq\\max\\{r\\max(|a|,|b|),a_0\\},\\\\\\texttt{numpy.isclose}:\\\\|a-b|\\leq a_0+r|b|.\\end{gathered}math.isclose:∣a−b∣≤max{rmax(∣a∣,∣b∣),a0​},numpy.isclose:∣a−b∣≤a0​+r∣b∣.​"
+          }
+        ],
+        "chartLabels": [
+          {
+            "text": "1e0",
+            "left": 56.623878479003906,
+            "right": 98.29962921142578
+          },
+          {
+            "text": "1e-18",
+            "left": 36.11287307739258,
+            "right": 98.72994995117188
+          },
+          {
+            "text": "1e-35",
+            "left": 32.217689514160156,
+            "right": 98
+          },
+          {
+            "text": "1",
+            "left": 104.25669860839844,
+            "right": 116.05120658874512
+          },
+          {
+            "text": "60",
+            "left": 363.9280700683594,
+            "right": 394.29827880859375
+          },
+          {
+            "text": "Exponent k",
+            "left": 106,
+            "right": 238.42201232910156
+          }
+        ],
+        "treeGeometry": {
+          "offset": 371,
+          "width": 252,
+          "content": 913
+        },
+        "programs": 11,
+        "practices": 10
+      }
+    ]
+  },
+  "finalReading": {
+    "completedAt": "2026-09-11T06:15:34.104Z",
+    "records": [
+      {
+        "width": 1440,
+        "setupBeforeProgram": true,
+        "scrolling": {
+          "left": 0,
+          "width": 702,
+          "content": 702
+        },
+        "referenceLinks": [
+          {
+            "title": "Driscoll & Braun — Problems and conditioning",
+            "href": "https://fncbook.com/conditioning/"
+          },
+          {
+            "title": "stability chapter",
+            "href": "https://fncbook.com/stability/"
+          },
+          {
+            "title": "MIT / Gilbert Strang — Difference Methods for Ordinary Differential Equations",
+            "href": "https://www.youtube.com/watch?v=gv-AB35V2k8"
+          },
+          {
+            "title": "official page and transcript",
+            "href": "https://ocw.mit.edu/courses/18-086-mathematical-methods-for-engineers-ii-spring-2006/resources/lecture-1-difference-methods-for-ordinary-differential-equations/"
+          },
+          {
+            "title": "MIT 18.335 — Week 2 notes",
+            "href": "https://ocw.mit.edu/courses/18-335j-introduction-to-numerical-methods-spring-2019/pages/week-2/"
+          },
+          {
+            "title": "Goldberg — Floating-point arithmetic",
+            "href": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html"
+          },
+          {
+            "title": "Higham — What Is Backward Error?",
+            "href": "https://nhigham.com/2020/03/25/what-is-backward-error/"
+          },
+          {
+            "title": "LAPACK — Componentwise backward error",
+            "href": "https://www.netlib.org/lapack/explore-html/d0/df7/dla__lin__berr_8f_source.html"
+          },
+          {
+            "title": "the users' guide",
+            "href": "https://www.netlib.org/lapack/lug/node79.html"
+          },
+          {
+            "title": "Carson & Higham — Iterative refinement in three precisions",
+            "href": "https://nhigham.com/2017/07/"
+          },
+          {
+            "title": "Python 3.12 math reference",
+            "href": "https://docs.python.org/3.12/library/math.html"
+          },
+          {
+            "title": "sum version note",
+            "href": "https://docs.python.org/3.12/library/functions.html#sum"
+          },
+          {
+            "title": "SciPy LU factorization",
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_factor.html"
+          },
+          {
+            "title": "NumPy isclose",
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.isclose.html"
+          },
+          {
+            "title": "Driscoll & Braun — Zero-stability",
+            "href": "https://fncbook.com/zerostability/"
+          }
+        ],
+        "errors": [],
+        "overflow": {
+          "width": 1440,
+          "page": 1440
+        }
+      },
+      {
+        "width": 390,
+        "setupBeforeProgram": true,
+        "scrolling": {
+          "left": 40,
+          "width": 322,
+          "content": 440
+        },
+        "referenceLinks": [
+          {
+            "title": "Driscoll & Braun — Problems and conditioning",
+            "href": "https://fncbook.com/conditioning/"
+          },
+          {
+            "title": "stability chapter",
+            "href": "https://fncbook.com/stability/"
+          },
+          {
+            "title": "MIT / Gilbert Strang — Difference Methods for Ordinary Differential Equations",
+            "href": "https://www.youtube.com/watch?v=gv-AB35V2k8"
+          },
+          {
+            "title": "official page and transcript",
+            "href": "https://ocw.mit.edu/courses/18-086-mathematical-methods-for-engineers-ii-spring-2006/resources/lecture-1-difference-methods-for-ordinary-differential-equations/"
+          },
+          {
+            "title": "MIT 18.335 — Week 2 notes",
+            "href": "https://ocw.mit.edu/courses/18-335j-introduction-to-numerical-methods-spring-2019/pages/week-2/"
+          },
+          {
+            "title": "Goldberg — Floating-point arithmetic",
+            "href": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html"
+          },
+          {
+            "title": "Higham — What Is Backward Error?",
+            "href": "https://nhigham.com/2020/03/25/what-is-backward-error/"
+          },
+          {
+            "title": "LAPACK — Componentwise backward error",
+            "href": "https://www.netlib.org/lapack/explore-html/d0/df7/dla__lin__berr_8f_source.html"
+          },
+          {
+            "title": "the users' guide",
+            "href": "https://www.netlib.org/lapack/lug/node79.html"
+          },
+          {
+            "title": "Carson & Higham — Iterative refinement in three precisions",
+            "href": "https://nhigham.com/2017/07/"
+          },
+          {
+            "title": "Python 3.12 math reference",
+            "href": "https://docs.python.org/3.12/library/math.html"
+          },
+          {
+            "title": "sum version note",
+            "href": "https://docs.python.org/3.12/library/functions.html#sum"
+          },
+          {
+            "title": "SciPy LU factorization",
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_factor.html"
+          },
+          {
+            "title": "NumPy isclose",
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.isclose.html"
+          },
+          {
+            "title": "Driscoll & Braun — Zero-stability",
+            "href": "https://fncbook.com/zerostability/"
+          }
+        ],
+        "errors": [],
+        "overflow": {
+          "width": 390,
+          "page": 390
+        }
+      },
+      {
+        "width": 320,
+        "setupBeforeProgram": true,
+        "scrolling": {
+          "left": 40,
+          "width": 252,
+          "content": 440
+        },
+        "referenceLinks": [
+          {
+            "title": "Driscoll & Braun — Problems and conditioning",
+            "href": "https://fncbook.com/conditioning/"
+          },
+          {
+            "title": "stability chapter",
+            "href": "https://fncbook.com/stability/"
+          },
+          {
+            "title": "MIT / Gilbert Strang — Difference Methods for Ordinary Differential Equations",
+            "href": "https://www.youtube.com/watch?v=gv-AB35V2k8"
+          },
+          {
+            "title": "official page and transcript",
+            "href": "https://ocw.mit.edu/courses/18-086-mathematical-methods-for-engineers-ii-spring-2006/resources/lecture-1-difference-methods-for-ordinary-differential-equations/"
+          },
+          {
+            "title": "MIT 18.335 — Week 2 notes",
+            "href": "https://ocw.mit.edu/courses/18-335j-introduction-to-numerical-methods-spring-2019/pages/week-2/"
+          },
+          {
+            "title": "Goldberg — Floating-point arithmetic",
+            "href": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html"
+          },
+          {
+            "title": "Higham — What Is Backward Error?",
+            "href": "https://nhigham.com/2020/03/25/what-is-backward-error/"
+          },
+          {
+            "title": "LAPACK — Componentwise backward error",
+            "href": "https://www.netlib.org/lapack/explore-html/d0/df7/dla__lin__berr_8f_source.html"
+          },
+          {
+            "title": "the users' guide",
+            "href": "https://www.netlib.org/lapack/lug/node79.html"
+          },
+          {
+            "title": "Carson & Higham — Iterative refinement in three precisions",
+            "href": "https://nhigham.com/2017/07/"
+          },
+          {
+            "title": "Python 3.12 math reference",
+            "href": "https://docs.python.org/3.12/library/math.html"
+          },
+          {
+            "title": "sum version note",
+            "href": "https://docs.python.org/3.12/library/functions.html#sum"
+          },
+          {
+            "title": "SciPy LU factorization",
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu_factor.html"
+          },
+          {
+            "title": "NumPy isclose",
+            "href": "https://numpy.org/doc/stable/reference/generated/numpy.isclose.html"
+          },
+          {
+            "title": "Driscoll & Braun — Zero-stability",
+            "href": "https://fncbook.com/zerostability/"
+          }
+        ],
+        "errors": [],
+        "overflow": {
+          "width": 320,
+          "page": 320
+        }
+      }
+    ]
+  },
+  "formatting": {
+    "completedAt": "2026-09-11T05:58:40.392Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx",
+        "before": "c8ff04235d89e2044c50d4aefd2011be2a675e163e95201193bc0f25f4eb0161",
+        "after": "6500b1ee88edd83220fafd352eaf34a9d1ff9ca4b2e46c93e4b150a935e1ca38",
+        "normalizedAstEqual": true
+      },
+      {
+        "file": "src/learn/data/conditioning-stability-models.js",
+        "before": "789dc0a724ac3d72fca8678b34313d6b4aaab460d5a3f32c23cf29f20f898a41",
+        "after": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
+        "normalizedAstEqual": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+        "before": "e7e03443e76b4d7bbd56eda3d5d4e0e2abd00adc64e7aec74bab27b600d8d833",
+        "after": "56094fbe70f98609ae5fb4434d0ce956b536bdc6f7a6d0f83f6268e399f09813",
+        "normalizedAstEqual": true
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js",
+        "before": "2a2152dc2f9bef8d6f88959022eefe4c2db80cb1ccc19ba21e186e6e538b9081",
+        "after": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00",
+        "normalizedAstEqual": true
+      }
+    ]
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/conditioning-stability-browser/reading-2-320.png",
+      "sha256": "a0529f4e64ec5c273454d4ec86fac3e8c20d28319095e1def7f3c48484d8393c",
+      "bytes": 76988
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/reading-5-390.png",
+      "sha256": "77d5e40b856e9e7cb5e97676188ee7ecb573b73fd953512b615f8e621d1c98d8",
+      "bytes": 98264
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/reading-7-320.png",
+      "sha256": "3f0da7a49b7fe504eecd58e4509036e34484b068b88bf6a2423edcfcb7ce9808",
+      "bytes": 79349
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/reading-8-1440.png",
+      "sha256": "385897e9c6be4f58518e3028918ba1cf7a0e00d41cd343c23f5dc5020872a9f5",
+      "bytes": 185563
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/unstable-refinement-320.png",
+      "sha256": "a0b9737284afa2b42b1c875bae83f3a3e171aa047e3533ef554dc6a1c8279a0c",
+      "bytes": 63874
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/inline-2-390.png",
+      "sha256": "fe829fa7dd8d476843ef8443c21e696f0350fe9bb73a4b88e9cc0a252d34b6d4",
+      "bytes": 82660
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/reading-9-320.png",
+      "sha256": "a93cdf6606b4b2d016fc2c2db67209b6c4eba12c8f712b0f71f6eb16bbeea4ec",
+      "bytes": 78469
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/sources-390.png",
+      "sha256": "31215a5b5345fdf3f55ec5566a184ba5452b052b59250231db1a7952fac217d1",
+      "bytes": 111276
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/propagation-pulse-390.png",
+      "sha256": "b55bfdea2a4646cd5a35a1327bab7ffcdb1c42b480bdcbf1843872e9db51298b",
+      "bytes": 65643
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/sum-tree-scrolled-320.png",
+      "sha256": "5faa1da4ee871c550d0ec9cdcda8d0b72fcdcf77a283fb23fd7931ed5e08215f",
+      "bytes": 59072
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/cancellation-chart-320.png",
+      "sha256": "0432f5168326d7bb7203f895534de330e675dfcb2b2b92f29f6c080bac334463",
+      "bytes": 66778
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/measurement-sensitive-320.png",
+      "sha256": "e3ab4425d5f1a8cd8caa5a0044ab54d4190012f051814c321b5bec6a497f9e1e",
+      "bytes": 58635
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/sum-positive-320.png",
+      "sha256": "ba1533dda1ea91fef8bec1a3994ca12c04b07aea42fff707b3838363bf830bcc",
+      "bytes": 63612
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/backward-zero-entry-320.png",
+      "sha256": "18424eced8746ea3a5d755244e4ff89f043e5bf6ef56e4d71819db4ffe617c7b",
+      "bytes": 60687
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/rounding-tie-320.png",
+      "sha256": "78dfd44c7f2bd1ce404434db64d689c04c519c9ca44b0061e220c66790d3cce8",
+      "bytes": 49409
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/final-reference-branches-1440.png",
+      "sha256": "9d48f7f910b1282f3a99100ab820d737ee367f3570c31739f96c0d75362ca6c0",
+      "bytes": 189055
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/final-reference-branches-320.png",
+      "sha256": "319c5362773a15d8c6ca7a8b4c9d90c7b409b4d4416e0cd30b7d270cff31c220",
+      "bytes": 57828
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/final-changed-report-solution-320.png",
+      "sha256": "6cb3fe0ea9629bdf8f99de8497e74918ac2f3fb991dc1b33395d1bd678513488",
+      "bytes": 79232
+    },
+    {
+      "path": "scratch/conditioning-stability-browser/final-report-output-390.png",
+      "sha256": "b5b321e190391afc0821b2448633e1cef702c2bab9814deefb8c0d2f06d0941a",
+      "bytes": 102053
+    }
+  ],
+  "openedScreenshotAttribution": "Author actually opened these 19 files using view_image. The final reference-branch images supersede the earlier inline flow; the unchanged-control full-browser images predate only that isolated figure amendment.",
+  "reviewBounds": [
+    "Finite bounded exact/Decimal/native-library oracles are not arbitrary-float certification.",
+    "Full 82-state per-width browser run precedes the isolated reference-branch figure clarification; final three-width reading checks close that change.",
+    "Actual reference/program/ordinary reading and keyboard review; no novice study, screen-reader audit, GPU performance benchmark or deployment.",
+    "Official alternate-video page and relevant transcript inspected; no full-video playback claim.",
+    "Parent owns independent review, shared production build/loading and rollout status."
+  ]
+}

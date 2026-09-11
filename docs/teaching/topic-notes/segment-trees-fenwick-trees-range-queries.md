@@ -1,5 +1,7 @@
 # Static and moving range summaries: assess monotone-deque coverage
 
+Current disposition, checked 11 September 2026: both proposals below are implemented. Their original owner search and suggested treatment remain as routing history, not instructions to implement the same deque or weighted-LIS branch again. Counting-LIS and other changed-objective extensions remain outside the implemented weighted-score contract. The selected Linked monotonic-stack extension has its own [closed owner note](linked-lists-stacks-queues.md); it does not replace either deque proof here.
+
 ## 2026-09-10 — Match a range structure to the operation and dominance relation
 
 - Status: implemented in the destination lesson, section 7, after scoped assessment on 10 September 2026.

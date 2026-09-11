@@ -72,7 +72,7 @@ export function QueueAreaLab() {
   </section>;
 }
 export function QueueBirthDeathFigure() {
-  return <figure className="queueing-figure"><div className="queueing-birth-flow"><span>0 jobs</span><span>⇄<small>λ →<br />← μ</small></span><span>1 job</span><span>⇄<small>λ →<br />← μ</small></span><span>2 jobs</span><span>⇄<small>same rates</small></span><span>…</span></div><figcaption>Arrows are transition rates, not transition probabilities. There is no service completion from state 0. With one busy worker, the completion rate is μ whether 1 or 20 jobs are present.</figcaption></figure>;
+  return <figure className="queueing-figure"><p>Number of jobs in the system</p><div className="queueing-birth-flow"><span>0</span><span><small>λ →<br />← μ</small></span><span>1</span><span><small>λ →<br />← μ</small></span><span>2</span><span><small>λ →<br />← μ</small></span><span>…</span></div><figcaption>Arrows are transition rates, not transition probabilities. There is no service completion from state 0. With one busy worker, the completion rate is μ whether 1 or 20 jobs are present.</figcaption></figure>;
 }
 export function MM1LoadLab() {
   const [arrival, setArrival] = useState(8);
@@ -141,7 +141,7 @@ export function FiniteBufferLab() {
   return <section className="queueing-lab" aria-label="Finite capacity and admission investigation"><h3>A finite queue can hide overload by rejecting work</h3><p>μ=10 jobs/s. Capacity K counts the worker’s slot as well as waiting places. Predict the queue wait at K=1, then distinguish that from the time spent receiving service.</p><Slider label="Offered arrival rate" value={arrival} onChange={setArrival} min={1} max={20} step={1} unit="jobs/s" /><Slider label="Total system capacity" value={capacity} onChange={setCapacity} min={1} max={6} /><button onClick={() => {
       setArrival(12);
       setCapacity(3);
-    }}>Reset admission</button><div className="queueing-state-list">{state.probabilities.map((probability, n) => <div key={n}><strong>{n} jobs</strong><span>{fmt(100 * probability, 2)}%</span><small>{n === capacity ? 'Full: arrivals rejected' : n === 0 ? 'Empty: no departure' : 'Arrival admitted'}</small></div>)}</div><p>Offered arrivals split by admission:</p><div className="queueing-strip"><div className="queueing-tone-0" style={{
+    }}>Reset admission</button><div className="queueing-state-list">{state.probabilities.map((probability, n) => <div key={n}><strong>{n} {n === 1 ? 'job' : 'jobs'}</strong><span>{fmt(100 * probability, 2)}%</span><small>{n === capacity ? 'Full: arrivals rejected' : n === 0 ? 'Empty: no departure' : 'Arrival admitted'}</small></div>)}</div><p>Offered arrivals split by admission:</p><div className="queueing-strip"><div className="queueing-tone-0" style={{
         flex: state.admittedProbability
       }} /><div className="queueing-tone-1" style={{
         flex: state.dropProbability

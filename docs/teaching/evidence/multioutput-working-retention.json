@@ -1,0 +1,11 @@
+{
+  "retiredCache": "scratch/multioutput-original-data",
+  "timestamp": "2026-09-11T14:00:27.9773710Z",
+  "removedUnusedCaptures": 10,
+  "reason": "Interrupted legacy public dataset download is not used by the self-contained replacement or final evidence; exact original code and execution status are preserved. A future explicit legacy replay may download it again.",
+  "retiredCacheBytes": 35855003.0,
+  "retiredCacheFiles": 18846,
+  "protected": "All18 opened images, seven frozen sources, current native/browser evidence, original code archive and shared runtimes remain.",
+  "authorPacket": "docs/teaching/evidence/multioutput-author-review.json",
+  "processEvidence": "Parent had already confirmed the old session75768 no longer existed; author did not restart the legacy downloader. Win32 process-query permission was unavailable during cleanup, so no new OS process-list verification is claimed."
+}

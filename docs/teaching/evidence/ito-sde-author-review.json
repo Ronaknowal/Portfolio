@@ -1,0 +1,1784 @@
+{
+  "topicId": "it-calculus-stochastic-differential-equations",
+  "modulePosition": 37,
+  "authorFrozenAt": "2026-09-10T22:31:02.154959+00:00",
+  "status": "author-verified; independent review and shared production integration pending",
+  "production": [
+    {
+      "path": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+      "sha256": "1888babc2459b65818d9aa7c1301e32d22a0f3188773b4e15ff513ceef3dc670",
+      "bytes": 48142
+    },
+    {
+      "path": "src/learn/data/ito-sde-models.js",
+      "sha256": "ebe3d90c5c0d16910cdb2a0eb7ec0bf1a06a72913a895139cb8dfbacb7704b06",
+      "bytes": 14402
+    },
+    {
+      "path": "src/learn/data/ito-sde-examples.js",
+      "sha256": "17eaeecd7a1835a2f69145995f2d93befc6e8263e9af398f79d783c90d2de477",
+      "bytes": 21519
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "sha256": "84f631995d336c1a5e91ff01b7434d73d6c01f5dd881f15d9b4d5f971d96dfdb",
+      "bytes": 33222
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ito-sde-labs.css",
+      "sha256": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5",
+      "bytes": 6337
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/it-calculus-stochastic-differential-equations.js",
+      "sha256": "9b829735b869871787c71d8e0ba71b19c0812466073eb4b8e2f0e073394febf6",
+      "bytes": 5262
+    }
+  ],
+  "native": {
+    "verifiedAt": "2026-09-10T22:08:31.996226+00:00",
+    "passed": true,
+    "python": "3.12.14",
+    "programs": 13,
+    "originalCodeAndOutputPreserved": true,
+    "integralCases": 363,
+    "isometryCases": 36,
+    "growthCases": 54,
+    "ouCases": 88,
+    "covarianceCases": 16,
+    "couplingCases": 81,
+    "errorCases": 384,
+    "generatorCases": 72,
+    "tiltCases": 12,
+    "timeTransformCases": 36,
+    "rejectedInputs": 7,
+    "numericComparisons": 1960,
+    "maximumAbsoluteDiscrepancy": 3.929478964437294e-11,
+    "sourceSha256": "17eaeecd7a1835a2f69145995f2d93befc6e8263e9af398f79d783c90d2de477",
+    "scope": "Actual exported programs run unchanged; changed helper inputs use rational, distribution, kernel-quadrature and Gaussian-moment references. Constant-tilt identities are complementary mathematics checks, not calls to a nonexistent reusable helper."
+  },
+  "model": {
+    "verifiedAt": "2026-09-10T22:05:16.239766+00:00",
+    "passed": true,
+    "environment": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "cases": {
+      "errors": 900,
+      "ou": 25,
+      "growth": 64,
+      "integrals": 60,
+      "grouped": 6,
+      "paths": 18,
+      "ouPaths": 4,
+      "ouLaws": 225,
+      "sampled": 2
+    },
+    "finiteAdaptedIsometries": 3,
+    "rejected": 22,
+    "comparisons": 11757,
+    "maximumRelativeDiscrepancy": 2.4458869211089166e-06,
+    "maximumAbsoluteDiscrepancy": 5.820766091346741e-11,
+    "maximumRelativeForReferencesAbove1eMinus9": 1.5579062613430094e-12,
+    "sourceSha256": "ebe3d90c5c0d16910cdb2a0eb7ec0bf1a06a72913a895139cb8dfbacb7704b06",
+    "limits": "Independent finite identities, positive variance decomposition, unrolled OU paths and 100-digit moments. Sample coverage is a bounded smoke test, not a guarantee."
+  },
+  "browser": {
+    "checkedAt": "2026-09-10T22:25:09.986Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 318,
+        "anchors": [
+          {
+            "href": "#1-read-the-noise-model",
+            "exists": true
+          },
+          {
+            "href": "#2-see-why-squares-survive",
+            "exists": true
+          },
+          {
+            "href": "#3-transform-a-random-state",
+            "exists": true
+          },
+          {
+            "href": "#4-solve-multiplicative-growth",
+            "exists": true
+          },
+          {
+            "href": "#5-balance-restoring-drift-and-noise",
+            "exists": true
+          },
+          {
+            "href": "#6-choose-the-convention-and-solution",
+            "exists": true
+          },
+          {
+            "href": "#7-build-and-couple-numerical-solvers",
+            "exists": true
+          },
+          {
+            "href": "#8-measure-the-right-error",
+            "exists": true
+          },
+          {
+            "href": "#9-move-between-paths-and-probability",
+            "exists": true
+          },
+          {
+            "href": "#10-apply-test-and-practise",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "Scale one noisy update and then change the clock",
+            "question": "A state has drift 0.3 units/second and diffusion 0.8 units/sqrt(second). How does the uncertainty change when the step is quartered?"
+          },
+          {
+            "title": "Calculate three sums on exactly the same observations",
+            "question": "For increments 1/2, −1/4, 3/4 and −1/2, is the sum of left-point contributions half the squared endpoint?"
+          },
+          {
+            "title": "Check a genuinely adapted random coefficient",
+            "question": "Let the coefficient on the second interval be 0.7 plus the first Brownian increment. Does the integral still have mean zero, and what is its second moment?"
+          },
+          {
+            "title": "Cancel a drift with a time-dependent transformation",
+            "question": "For f(t,x)=x³−3tx, does averaging the transformed future Brownian state recover the transformed present state?"
+          },
+          {
+            "title": "Keep the mixed derivative when noises are correlated",
+            "question": "Let X=W1 and Y=0.6W1+0.8W2, with independent Brownian drivers. What happens to E[XY] and Var(Y−X)?"
+          },
+          {
+            "title": "Solve the model before summarizing samples",
+            "question": "For X0=1, μ=0.2, σ=1 and T=2, do the mean and median tell the same growth story?"
+          },
+          {
+            "title": "Compute OU uncertainty and its Brownian coupling",
+            "question": "What is the law after 0.75 time units, and why does the exact one-step OU noise need more than a reused normalized Brownian draw?"
+          },
+          {
+            "title": "Convert the drift and preserve the model",
+            "question": "Compare dX=0.1X dt+0.8X dW with the same written equation interpreted as Stratonovich. Which Itô drift reproduces the second model?"
+          },
+          {
+            "title": "Run the original Euler-Maruyama experiment",
+            "question": "Why can this one path end below one even though the exact model mean at time one is above one?"
+          },
+          {
+            "title": "Use one Brownian grid for every solver resolution",
+            "question": "Will the exact terminal GBM value change when the same 64 fine increments are grouped into four coarse steps?"
+          },
+          {
+            "title": "Calculate strong error without Monte Carlo noise",
+            "question": "For the declared GBM and shared noise, what are the terminal RMS error and the bias of the first moment at each resolution?"
+          },
+          {
+            "title": "Recover a moment equation from the generator",
+            "question": "For an OU state with current mean 0.4 and variance 0.3, θ=1.2, target zero and η=0.8, what is the rate of change of its second moment?"
+          },
+          {
+            "title": "Change probabilities through a normalized weight",
+            "question": "With T=0.7 and c=0.4, what terminal Brownian mean results from weighting paths by exp(c W_T−c²T/2)?"
+          }
+        ],
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 1440,
+          "fonts": true,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "text": "Increment source",
+              "height": 44
+            },
+            {
+              "text": "Coefficient choice",
+              "height": 44
+            },
+            {
+              "text": "Previous interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Next interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset integral",
+              "height": 46.796875
+            },
+            {
+              "text": "Growth drift mu",
+              "height": 44
+            },
+            {
+              "text": "Growth noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Growth time index (64 per unit time)",
+              "height": 44
+            },
+            {
+              "text": "Growth seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset growth law",
+              "height": 46.796875
+            },
+            {
+              "text": "OU reversion theta",
+              "height": 44
+            },
+            {
+              "text": "OU noise eta",
+              "height": 44
+            },
+            {
+              "text": "OU initial law",
+              "height": 44
+            },
+            {
+              "text": "OU elapsed time",
+              "height": 44
+            },
+            {
+              "text": "Reset OU",
+              "height": 46.796875
+            },
+            {
+              "text": "Solver fixture",
+              "height": 44
+            },
+            {
+              "text": "Solver coarse steps",
+              "height": 44
+            },
+            {
+              "text": "Solver noise scale",
+              "height": 44
+            },
+            {
+              "text": "Solver seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Previous solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Next solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset coupled solvers",
+              "height": 46.796875
+            },
+            {
+              "text": "Error drift mu",
+              "height": 44
+            },
+            {
+              "text": "Error noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Error method",
+              "height": 44
+            },
+            {
+              "text": "Error step count",
+              "height": 44
+            },
+            {
+              "text": "Monte Carlo path count",
+              "height": 44
+            },
+            {
+              "text": "Run paired Monte Carlo",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset error experiment",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 319,
+        "anchors": [
+          {
+            "href": "#1-read-the-noise-model",
+            "exists": true
+          },
+          {
+            "href": "#2-see-why-squares-survive",
+            "exists": true
+          },
+          {
+            "href": "#3-transform-a-random-state",
+            "exists": true
+          },
+          {
+            "href": "#4-solve-multiplicative-growth",
+            "exists": true
+          },
+          {
+            "href": "#5-balance-restoring-drift-and-noise",
+            "exists": true
+          },
+          {
+            "href": "#6-choose-the-convention-and-solution",
+            "exists": true
+          },
+          {
+            "href": "#7-build-and-couple-numerical-solvers",
+            "exists": true
+          },
+          {
+            "href": "#8-measure-the-right-error",
+            "exists": true
+          },
+          {
+            "href": "#9-move-between-paths-and-probability",
+            "exists": true
+          },
+          {
+            "href": "#10-apply-test-and-practise",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "Scale one noisy update and then change the clock",
+            "question": "A state has drift 0.3 units/second and diffusion 0.8 units/sqrt(second). How does the uncertainty change when the step is quartered?"
+          },
+          {
+            "title": "Calculate three sums on exactly the same observations",
+            "question": "For increments 1/2, −1/4, 3/4 and −1/2, is the sum of left-point contributions half the squared endpoint?"
+          },
+          {
+            "title": "Check a genuinely adapted random coefficient",
+            "question": "Let the coefficient on the second interval be 0.7 plus the first Brownian increment. Does the integral still have mean zero, and what is its second moment?"
+          },
+          {
+            "title": "Cancel a drift with a time-dependent transformation",
+            "question": "For f(t,x)=x³−3tx, does averaging the transformed future Brownian state recover the transformed present state?"
+          },
+          {
+            "title": "Keep the mixed derivative when noises are correlated",
+            "question": "Let X=W1 and Y=0.6W1+0.8W2, with independent Brownian drivers. What happens to E[XY] and Var(Y−X)?"
+          },
+          {
+            "title": "Solve the model before summarizing samples",
+            "question": "For X0=1, μ=0.2, σ=1 and T=2, do the mean and median tell the same growth story?"
+          },
+          {
+            "title": "Compute OU uncertainty and its Brownian coupling",
+            "question": "What is the law after 0.75 time units, and why does the exact one-step OU noise need more than a reused normalized Brownian draw?"
+          },
+          {
+            "title": "Convert the drift and preserve the model",
+            "question": "Compare dX=0.1X dt+0.8X dW with the same written equation interpreted as Stratonovich. Which Itô drift reproduces the second model?"
+          },
+          {
+            "title": "Run the original Euler-Maruyama experiment",
+            "question": "Why can this one path end below one even though the exact model mean at time one is above one?"
+          },
+          {
+            "title": "Use one Brownian grid for every solver resolution",
+            "question": "Will the exact terminal GBM value change when the same 64 fine increments are grouped into four coarse steps?"
+          },
+          {
+            "title": "Calculate strong error without Monte Carlo noise",
+            "question": "For the declared GBM and shared noise, what are the terminal RMS error and the bias of the first moment at each resolution?"
+          },
+          {
+            "title": "Recover a moment equation from the generator",
+            "question": "For an OU state with current mean 0.4 and variance 0.3, θ=1.2, target zero and η=0.8, what is the rate of change of its second moment?"
+          },
+          {
+            "title": "Change probabilities through a normalized weight",
+            "question": "With T=0.7 and c=0.4, what terminal Brownian mean results from weighting paths by exp(c W_T−c²T/2)?"
+          }
+        ],
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 390,
+          "fonts": true,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "text": "Increment source",
+              "height": 44
+            },
+            {
+              "text": "Coefficient choice",
+              "height": 44
+            },
+            {
+              "text": "Previous interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Next interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset integral",
+              "height": 46.796875
+            },
+            {
+              "text": "Growth drift mu",
+              "height": 44
+            },
+            {
+              "text": "Growth noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Growth time index (64 per unit time)",
+              "height": 44
+            },
+            {
+              "text": "Growth seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset growth law",
+              "height": 46.796875
+            },
+            {
+              "text": "OU reversion theta",
+              "height": 44
+            },
+            {
+              "text": "OU noise eta",
+              "height": 44
+            },
+            {
+              "text": "OU initial law",
+              "height": 44
+            },
+            {
+              "text": "OU elapsed time",
+              "height": 44
+            },
+            {
+              "text": "Reset OU",
+              "height": 46.796875
+            },
+            {
+              "text": "Solver fixture",
+              "height": 44
+            },
+            {
+              "text": "Solver coarse steps",
+              "height": 44
+            },
+            {
+              "text": "Solver noise scale",
+              "height": 44
+            },
+            {
+              "text": "Solver seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Previous solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Next solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset coupled solvers",
+              "height": 46.796875
+            },
+            {
+              "text": "Error drift mu",
+              "height": 44
+            },
+            {
+              "text": "Error noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Error method",
+              "height": 44
+            },
+            {
+              "text": "Error step count",
+              "height": 44
+            },
+            {
+              "text": "Monte Carlo path count",
+              "height": 44
+            },
+            {
+              "text": "Run paired Monte Carlo",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset error experiment",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 319,
+        "anchors": [
+          {
+            "href": "#1-read-the-noise-model",
+            "exists": true
+          },
+          {
+            "href": "#2-see-why-squares-survive",
+            "exists": true
+          },
+          {
+            "href": "#3-transform-a-random-state",
+            "exists": true
+          },
+          {
+            "href": "#4-solve-multiplicative-growth",
+            "exists": true
+          },
+          {
+            "href": "#5-balance-restoring-drift-and-noise",
+            "exists": true
+          },
+          {
+            "href": "#6-choose-the-convention-and-solution",
+            "exists": true
+          },
+          {
+            "href": "#7-build-and-couple-numerical-solvers",
+            "exists": true
+          },
+          {
+            "href": "#8-measure-the-right-error",
+            "exists": true
+          },
+          {
+            "href": "#9-move-between-paths-and-probability",
+            "exists": true
+          },
+          {
+            "href": "#10-apply-test-and-practise",
+            "exists": true
+          }
+        ],
+        "programs": [
+          {
+            "title": "Scale one noisy update and then change the clock",
+            "question": "A state has drift 0.3 units/second and diffusion 0.8 units/sqrt(second). How does the uncertainty change when the step is quartered?"
+          },
+          {
+            "title": "Calculate three sums on exactly the same observations",
+            "question": "For increments 1/2, −1/4, 3/4 and −1/2, is the sum of left-point contributions half the squared endpoint?"
+          },
+          {
+            "title": "Check a genuinely adapted random coefficient",
+            "question": "Let the coefficient on the second interval be 0.7 plus the first Brownian increment. Does the integral still have mean zero, and what is its second moment?"
+          },
+          {
+            "title": "Cancel a drift with a time-dependent transformation",
+            "question": "For f(t,x)=x³−3tx, does averaging the transformed future Brownian state recover the transformed present state?"
+          },
+          {
+            "title": "Keep the mixed derivative when noises are correlated",
+            "question": "Let X=W1 and Y=0.6W1+0.8W2, with independent Brownian drivers. What happens to E[XY] and Var(Y−X)?"
+          },
+          {
+            "title": "Solve the model before summarizing samples",
+            "question": "For X0=1, μ=0.2, σ=1 and T=2, do the mean and median tell the same growth story?"
+          },
+          {
+            "title": "Compute OU uncertainty and its Brownian coupling",
+            "question": "What is the law after 0.75 time units, and why does the exact one-step OU noise need more than a reused normalized Brownian draw?"
+          },
+          {
+            "title": "Convert the drift and preserve the model",
+            "question": "Compare dX=0.1X dt+0.8X dW with the same written equation interpreted as Stratonovich. Which Itô drift reproduces the second model?"
+          },
+          {
+            "title": "Run the original Euler-Maruyama experiment",
+            "question": "Why can this one path end below one even though the exact model mean at time one is above one?"
+          },
+          {
+            "title": "Use one Brownian grid for every solver resolution",
+            "question": "Will the exact terminal GBM value change when the same 64 fine increments are grouped into four coarse steps?"
+          },
+          {
+            "title": "Calculate strong error without Monte Carlo noise",
+            "question": "For the declared GBM and shared noise, what are the terminal RMS error and the bias of the first moment at each resolution?"
+          },
+          {
+            "title": "Recover a moment equation from the generator",
+            "question": "For an OU state with current mean 0.4 and variance 0.3, θ=1.2, target zero and η=0.8, what is the rate of change of its second moment?"
+          },
+          {
+            "title": "Change probabilities through a normalized weight",
+            "question": "With T=0.7 and c=0.4, what terminal Brownian mean results from weighting paths by exp(c W_T−c²T/2)?"
+          }
+        ],
+        "independentPractice": 11,
+        "geometry": {
+          "documentWidth": 320,
+          "fonts": true,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 281,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "text": "Increment source",
+              "height": 44
+            },
+            {
+              "text": "Coefficient choice",
+              "height": 44
+            },
+            {
+              "text": "Previous interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Next interval",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset integral",
+              "height": 46.796875
+            },
+            {
+              "text": "Growth drift mu",
+              "height": 44
+            },
+            {
+              "text": "Growth noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Growth time index (64 per unit time)",
+              "height": 44
+            },
+            {
+              "text": "Growth seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset growth law",
+              "height": 46.796875
+            },
+            {
+              "text": "OU reversion theta",
+              "height": 44
+            },
+            {
+              "text": "OU noise eta",
+              "height": 44
+            },
+            {
+              "text": "OU initial law",
+              "height": 44
+            },
+            {
+              "text": "OU elapsed time",
+              "height": 44
+            },
+            {
+              "text": "Reset OU",
+              "height": 46.796875
+            },
+            {
+              "text": "Solver fixture",
+              "height": 44
+            },
+            {
+              "text": "Solver coarse steps",
+              "height": 44
+            },
+            {
+              "text": "Solver noise scale",
+              "height": 44
+            },
+            {
+              "text": "Solver seed",
+              "height": 45.171875
+            },
+            {
+              "text": "Apply seed",
+              "height": 46.796875
+            },
+            {
+              "text": "Previous solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Next solver step",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset coupled solvers",
+              "height": 46.796875
+            },
+            {
+              "text": "Error drift mu",
+              "height": 44
+            },
+            {
+              "text": "Error noise sigma",
+              "height": 44
+            },
+            {
+              "text": "Error method",
+              "height": 44
+            },
+            {
+              "text": "Error step count",
+              "height": 44
+            },
+            {
+              "text": "Monte Carlo path count",
+              "height": 44
+            },
+            {
+              "text": "Run paired Monte Carlo",
+              "height": 46.796875
+            },
+            {
+              "text": "Reset error experiment",
+              "height": 46.796875
+            }
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "finalReading": {
+    "checkedAt": "2026-09-10T22:26:14.819Z",
+    "results": [
+      {
+        "width": 1440,
+        "geometry": {
+          "fonts": true,
+          "documentWidth": 1440,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "compact": [
+            {
+              "width": 550,
+              "container": 720,
+              "labelSize": 31.319444444444443
+            },
+            {
+              "width": 550,
+              "container": 718,
+              "labelSize": 31.319444444444443
+            },
+            {
+              "width": 550,
+              "container": 718,
+              "labelSize": 31.319444444444443
+            },
+            {
+              "width": 550,
+              "container": 718,
+              "labelSize": 31.319444444444443
+            }
+          ]
+        },
+        "errors": [],
+        "failed": []
+      },
+      {
+        "width": 390,
+        "geometry": {
+          "fonts": true,
+          "documentWidth": 390,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "compact": [
+            {
+              "width": 322.40625,
+              "container": 322,
+              "labelSize": 18.359244791666665
+            },
+            {
+              "width": 320.40625,
+              "container": 320,
+              "labelSize": 18.245355902777778
+            },
+            {
+              "width": 320.40625,
+              "container": 320,
+              "labelSize": 18.245355902777778
+            },
+            {
+              "width": 320.40625,
+              "container": 320,
+              "labelSize": 18.245355902777778
+            }
+          ]
+        },
+        "errors": [],
+        "failed": []
+      },
+      {
+        "width": 320,
+        "geometry": {
+          "fonts": true,
+          "documentWidth": 320,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "dX_t=a(t,X_t)\\,dt+b(t,X_t)\\,dW_t"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}X_t&=X_0+\\int_0^t a(s,X_s)\\,ds\\\\&\\quad+\\int_0^t b(s,X_s)\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E Q&=T,\\\\\\operatorname{Var}(Q)&=2\\sum_i h_i^2\\\\&\\le 2T\\max_i h_i.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 281,
+              "tex": "\\begin{aligned}L&=\\sum_i W_{t_i}\\Delta W_i=\\tfrac12(W_T^2-Q),\\\\R&=\\sum_i W_{t_{i+1}}\\Delta W_i=\\tfrac12(W_T^2+Q),\\\\S&=\\sum_i \\tfrac{W_{t_i}+W_{t_{i+1}}}{2}\\Delta W_i=\\tfrac12W_T^2.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\mathbb E I=0,\\qquad \\mathbb E I^2=\\mathbb E\\sum_i H_i^2h_i."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}df(t,X_t)&=(f_t+a f_x)dt\\\\&\\quad+\\tfrac12 b^2 f_{xx}\\,dt\\\\&\\quad+b f_x\\,dW_t.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "d(W_t^3-3tW_t)=3(W_t^2-t)\\,dW_t."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}df&=(f_t+\\nabla f^{\\mathsf T}a)\\,dt\\\\&\\quad+\\tfrac12\\operatorname{tr}(BB^{\\mathsf T}\\nabla^2 f)\\,dt\\\\&\\quad+\\nabla f^{\\mathsf T}B\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "X_t=X_0\\exp\\!\\left((\\mu-\\tfrac12\\sigma^2)t+\\sigma W_t\\right)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=X_0e^{\\mu t},\\\\\\operatorname{median}(X_t)&=X_0e^{(\\mu-\\sigma^2/2)t},\\\\\\operatorname{Var}(X_t)&=X_0^2e^{2\\mu t}(e^{\\sigma^2t}-1),\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "q_p(t)=X_0e^{(\\mu-\\sigma^2/2)t+\\sigma\\sqrt t\\,\\Phi^{-1}(p)}."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}X_t&=m+(X_0-m)e^{-\\theta t}\\\\&\\quad+\\eta\\int_0^t e^{-\\theta(t-s)}\\,dW_s.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E X_t&=m+(m_0-m)e^{-\\theta t},\\\\v(t)&=v_0e^{-2\\theta t}+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta t}),\\\\v'(t)&=\\eta^2-2\\theta v(t).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}c&=\\operatorname{Cov}(\\Delta W,J)=\\frac{1-e^{-\\theta h}}{\\theta},\\\\v_J&=\\frac{1-e^{-2\\theta h}}{2\\theta},\\\\J&=\\frac c h\\Delta W+\\sqrt{v_J-c^2/h}\\,Z_2,\\\\&\\hspace{2em}Z_2\\perp\\Delta W.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}dX&=a_S(t,X)\\,dt+b(t,X)\\circ dW\\\\&\\Updownarrow\\\\dX&=\\left(a_S+\\tfrac12 b\\,\\partial_xb\\right)dt+b\\,dW.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+a(t_n,Y_n)h\\\\&\\quad+b(t_n,Y_n)\\Delta W_n,\\\\\\Delta W_n&=\\sqrt h\\,Z_n.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}Y_{n+1}&=Y_n+ah+b\\Delta W\\\\&\\quad+\\tfrac12bb_x\\big((\\Delta W)^2-h\\big).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathbb E Y_n&=(1+d)^n,\\\\\\mathbb E X_T&=e^{\\mu T},\\\\\\mathbb E Y_n^2&=((1+d)^2+r)^n,\\\\\\mathbb E X_T^2&=e^{(2\\mu+\\sigma^2)T},\\\\\\mathbb E[X_TY_n]&=e^{\\mu T}(1+d+r)^n.\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\\mathcal L_t f(x)&=a(t,x)f'(x)\\\\&\\quad+\\tfrac12 b(t,x)^2f''(x).\\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\partial_t p=-\\partial_x(a p)+\\tfrac12\\partial_{xx}(b^2p)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}u(t,x)&=\\left[m+(x-m)e^{-\\theta\\tau}\\right]^2\\\\&\\quad+\\frac{\\eta^2}{2\\theta}(1-e^{-2\\theta\\tau}).\\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "compact": [
+            {
+              "width": 252.40625,
+              "container": 252,
+              "labelSize": 14.373133680555556
+            },
+            {
+              "width": 250.40625,
+              "container": 250,
+              "labelSize": 14.259244791666667
+            },
+            {
+              "width": 250.40625,
+              "container": 250,
+              "labelSize": 14.259244791666667
+            },
+            {
+              "width": 250.40625,
+              "container": 250,
+              "labelSize": 14.259244791666667
+            }
+          ]
+        },
+        "errors": [],
+        "failed": []
+      }
+    ]
+  },
+  "openedImages": [
+    {
+      "path": "scratch/ito-sde-browser/compact-curvature-320.png",
+      "sha256": "c5083f67cd0d6eb8f4f2fab0ed70c11f674f33c00eaed188fe81197910ae0404",
+      "bytes": 59608
+    },
+    {
+      "path": "scratch/ito-sde-browser/growth-mean-median-390.png",
+      "sha256": "a5334720896f1642e90d34f2518dd0fdc28ab2f2eea003a70fc820bdfa88c5da",
+      "bytes": 138706
+    },
+    {
+      "path": "scratch/ito-sde-browser/ou-stationary-320.png",
+      "sha256": "cda659fb3d0b9d2fdd8327835b2b6cebcd8b52dae27170102611508e08561483",
+      "bytes": 107940
+    },
+    {
+      "path": "scratch/ito-sde-browser/equation-3-320.png",
+      "sha256": "f2b55298e7447e40e4e07de3750cc7742ed344c0c19f615ff7646c972cac8f43",
+      "bytes": 71195
+    },
+    {
+      "path": "scratch/ito-sde-browser/equation-14-320.png",
+      "sha256": "c19d176b8e63e9fd5c0d52b4714a5c610b3fa7c2b07b6f7de422c695347ebbe1",
+      "bytes": 70643
+    },
+    {
+      "path": "scratch/ito-sde-browser/equation-21-390.png",
+      "sha256": "4ac11369baf8ffa75e54145809e640273dfa7df48b8c82e11f34abead2f306df",
+      "bytes": 97893
+    },
+    {
+      "path": "scratch/ito-sde-browser/error-sampling-1440.png",
+      "sha256": "f9c6aadda6b3f052e9146e0b9b797a173886a44ef5b205f5afae11ec5ffd216c",
+      "bytes": 166593
+    },
+    {
+      "path": "scratch/ito-sde-browser/integral-invalid-390.png",
+      "sha256": "912e8ce0b7a402d78c66ceec93364ab388458b75823c35e85aac2d9bdc22c418",
+      "bytes": 130308
+    },
+    {
+      "path": "scratch/ito-sde-browser/reading-4-1440.png",
+      "sha256": "a590d977b7fe2df811697ccf1cf874b29123d255f74a29790b51a9cedf06068b",
+      "bytes": 216435
+    },
+    {
+      "path": "scratch/ito-sde-browser/stress-active-controls-reading-1440.png",
+      "sha256": "878237c0cb49941aae6b94d85969e017ab30ae4eb6e5fb9aec5d069eca1d0f08",
+      "bytes": 164749
+    },
+    {
+      "path": "scratch/ito-sde-browser/stress-active-controls-reading-390.png",
+      "sha256": "a437246b13107b2a87d48c9a51cc03c167c5556cc83ff99559d1af172afc6554",
+      "bytes": 59985
+    },
+    {
+      "path": "scratch/ito-sde-browser/stress-active-controls-reading-320.png",
+      "sha256": "d1f53a371aa9c8a503c666ed099f236ee4273096a97a80cb8ba7eedf758d424c",
+      "bytes": 50249
+    }
+  ],
+  "openedImagesNote": "Actual image-tool inspection by the author; images are finite visual evidence, not mathematical proofs.",
+  "design": "docs/teaching/ITO-CALCULUS-SDE-LESSON-DESIGN.md",
+  "verification": "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md",
+  "original": "docs/teaching/evidence/ito-calculus-original-content.json",
+  "independentFindingsBeforeFreeze": [
+    {
+      "finding": "The QV paragraph and changed-increment answer called the refinement random.",
+      "resolution": "Both now explicitly say random Brownian increments observed along deterministic partition refinements; the existing mesh/dyadic proof is retained."
+    },
+    {
+      "finding": "The GBM quantile uses sigma rather than its absolute value.",
+      "resolution": "The body now declares nonnegative volatility before the formulas and explains the absolute-value scale for a negative written scalar diffusion coefficient."
+    }
+  ],
+  "readingRefinements": [
+    "Long equations broken into readable aligned steps without shrinking type.",
+    "Simple analytic distributions/error curves, one-step stress plot and curvature figure fit mobile; dense paths retain announced keyboard scrolling.",
+    "Long native-select captions shortened without removing the nearby Gaussian/atom explanations.",
+    "Compact labels use20.5 source pixels and a larger left axis margin; the final interaction and fresh reading checks verify all three widths and every compact label at the frozen size."
+  ],
+  "limits": [
+    "Finite bounded teaching models, not arbitrary-range arithmetic.",
+    "Selector values and representative boundary/interior time cursors checked; no claim to exhaust every seed or continuous input.",
+    "Seeded paths, analytic laws and schematic geometry are explicitly distinguished.",
+    "No screen-reader speech pass or untested-browser certification.",
+    "The official video page/identity and companion notes were checked; no full-video watch claim.",
+    "No author-owned shared registry, catalogue, global stylesheet, build or ledger mutation."
+  ],
+  "previousAuthorFreeze": {
+    "authorFrozenAt": "2026-09-10T22:27:25.595310+00:00",
+    "production": [
+      {
+        "path": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+        "sha256": "1888babc2459b65818d9aa7c1301e32d22a0f3188773b4e15ff513ceef3dc670",
+        "bytes": 48142
+      },
+      {
+        "path": "src/learn/data/ito-sde-models.js",
+        "sha256": "ebe3d90c5c0d16910cdb2a0eb7ec0bf1a06a72913a895139cb8dfbacb7704b06",
+        "bytes": 14402
+      },
+      {
+        "path": "src/learn/data/ito-sde-examples.js",
+        "sha256": "17eaeecd7a1835a2f69145995f2d93befc6e8263e9af398f79d783c90d2de477",
+        "bytes": 21519
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+        "sha256": "2277adf1010190cdb3cac3fdc18d9a0395af1d2c70cc871de1322c9b12c26e14",
+        "bytes": 33175
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ito-sde-labs.css",
+        "sha256": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5",
+        "bytes": 6337
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/it-calculus-stochastic-differential-equations.js",
+        "sha256": "9b829735b869871787c71d8e0ba71b19c0812466073eb4b8e2f0e073394febf6",
+        "bytes": 5262
+      }
+    ],
+    "openedImages": [
+      {
+        "path": "scratch/ito-sde-browser/compact-curvature-320.png",
+        "sha256": "c5083f67cd0d6eb8f4f2fab0ed70c11f674f33c00eaed188fe81197910ae0404",
+        "bytes": 59608
+      },
+      {
+        "path": "scratch/ito-sde-browser/growth-mean-median-390.png",
+        "sha256": "a5334720896f1642e90d34f2518dd0fdc28ab2f2eea003a70fc820bdfa88c5da",
+        "bytes": 138706
+      },
+      {
+        "path": "scratch/ito-sde-browser/ou-stationary-320.png",
+        "sha256": "cda659fb3d0b9d2fdd8327835b2b6cebcd8b52dae27170102611508e08561483",
+        "bytes": 107940
+      },
+      {
+        "path": "scratch/ito-sde-browser/solver-negative-390.png",
+        "sha256": "3d3843f129b0ac389f270bdf682fb5a7480e1f9d1a9a623b563c9c19bb7f492c",
+        "bytes": 120402
+      },
+      {
+        "path": "scratch/ito-sde-browser/equation-3-320.png",
+        "sha256": "f2b55298e7447e40e4e07de3750cc7742ed344c0c19f615ff7646c972cac8f43",
+        "bytes": 71195
+      },
+      {
+        "path": "scratch/ito-sde-browser/equation-14-320.png",
+        "sha256": "c19d176b8e63e9fd5c0d52b4714a5c610b3fa7c2b07b6f7de422c695347ebbe1",
+        "bytes": 70643
+      },
+      {
+        "path": "scratch/ito-sde-browser/equation-21-390.png",
+        "sha256": "4ac11369baf8ffa75e54145809e640273dfa7df48b8c82e11f34abead2f306df",
+        "bytes": 97893
+      },
+      {
+        "path": "scratch/ito-sde-browser/error-sampling-1440.png",
+        "sha256": "f9c6aadda6b3f052e9146e0b9b797a173886a44ef5b205f5afae11ec5ffd216c",
+        "bytes": 166593
+      },
+      {
+        "path": "scratch/ito-sde-browser/integral-invalid-390.png",
+        "sha256": "912e8ce0b7a402d78c66ceec93364ab388458b75823c35e85aac2d9bdc22c418",
+        "bytes": 130308
+      },
+      {
+        "path": "scratch/ito-sde-browser/reading-4-1440.png",
+        "sha256": "a590d977b7fe2df811697ccf1cf874b29123d255f74a29790b51a9cedf06068b",
+        "bytes": 216435
+      }
+    ]
+  },
+  "stressControlAmendment": {
+    "finding": "Disabled seeded controls could display stale resolution/noise while the stress fixture used one step and sigma1.",
+    "resolution": "Rendered disabled values are forced to the actual one-step and sigma1 settings; returning to seeded mode restores its remembered controls.",
+    "changed": [
+      "src/learn/components/lesson-labs/ItoSdeLabs.jsx"
+    ],
+    "verification": {
+      "checkedAt": "2026-09-10T22:29:35.665Z",
+      "results": [
+        {
+          "width": 1440,
+          "fonts": true,
+          "checkedSeededNoiseValues": 4,
+          "stressStepDisplay": "1",
+          "stressSigmaDisplay": "1",
+          "seededValuesRestored": true,
+          "keyboardReset": true,
+          "errors": [],
+          "warnings": [],
+          "failed": []
+        },
+        {
+          "width": 390,
+          "fonts": true,
+          "checkedSeededNoiseValues": 4,
+          "stressStepDisplay": "1",
+          "stressSigmaDisplay": "1",
+          "seededValuesRestored": true,
+          "keyboardReset": true,
+          "errors": [],
+          "warnings": [],
+          "failed": []
+        },
+        {
+          "width": 320,
+          "fonts": true,
+          "checkedSeededNoiseValues": 4,
+          "stressStepDisplay": "1",
+          "stressSigmaDisplay": "1",
+          "seededValuesRestored": true,
+          "keyboardReset": true,
+          "errors": [],
+          "warnings": [],
+          "failed": []
+        }
+      ]
+    },
+    "openedImages": [
+      {
+        "path": "scratch/ito-sde-browser/stress-active-controls-reading-1440.png",
+        "sha256": "878237c0cb49941aae6b94d85969e017ab30ae4eb6e5fb9aec5d069eca1d0f08",
+        "bytes": 164749
+      },
+      {
+        "path": "scratch/ito-sde-browser/stress-active-controls-reading-390.png",
+        "sha256": "a437246b13107b2a87d48c9a51cc03c167c5556cc83ff99559d1af172afc6554",
+        "bytes": 59985
+      },
+      {
+        "path": "scratch/ito-sde-browser/stress-active-controls-reading-320.png",
+        "sha256": "d1f53a371aa9c8a503c666ed099f236ee4273096a97a80cb8ba7eedf758d424c",
+        "bytes": 50249
+      }
+    ],
+    "scope": "Two rendered-value expressions and one option list; algorithm/model/body/example/CSS/brief bytes unchanged. Full interaction matrix is prior evidence; this focused actual-browser check covers the final state-control amendment."
+  }
+}

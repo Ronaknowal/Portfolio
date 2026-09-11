@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-09-11T14:38:43.802956+00:00",
+  "cases": [
+    {
+      "expected": 2.4,
+      "actual": 2.4
+    },
+    {
+      "expected": 3.0,
+      "actual": 3.0
+    },
+    {
+      "expected": 0.0,
+      "actual": 0.0
+    }
+  ],
+  "unchangedExampleRecords": 13,
+  "all14StdoutConserved": true,
+  "originalArchive": "docs\\teaching\\archive\\recommender-fallback-before",
+  "examplesSHA256": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556",
+  "scope": "Only the actual neighbors code and matching generator change; no model/body/style changes."
+}

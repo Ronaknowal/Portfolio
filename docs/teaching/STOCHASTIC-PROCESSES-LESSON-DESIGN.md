@@ -1,6 +1,6 @@
 # Stochastic Processes — individual lesson design
 
-Prepared 10 September 2026 UTC for mathematics position 33. **Design only: the existing published body is preserved.** Root reviews/registers this brief before the scoped replacement. A design, a source reference or publication does not establish teaching verification.
+Prepared 10 September 2026 UTC for mathematics position 33. **Accepted design, now implemented.** The original published body is archived; author verification and exact source freeze are recorded in [STOCHASTIC-PROCESSES-VERIFICATION.md](STOCHASTIC-PROCESSES-VERIFICATION.md). A design or publication alone does not establish teaching verification.
 
 ## Identity, source preservation and starting diagnosis
 
@@ -49,7 +49,7 @@ Beginner finish line: distinguish a path from a law, calculate one transition/co
 | Hidden observations and model fitting | Original names HMM; HMM's actual body teaches emissions/forward/backward/Viterbi/EM | Use a small state-aggregation counterexample and transition-count estimate here. Full latent-state inference stays in HMM. |
 | Scientific validation and uncertainty | Original gives a list of checks | Turn it into a worked trace/held-out diagnostic and independent project. A good marginal histogram alone cannot validate a process. |
 
-Destination discoveries are saved in [Queueing notes](topic-notes/queueing-theory-m-m-1-m-g-1-little-s-law.md) and [Itô notes](topic-notes/ito-calculus-stochastic-differential-equations.md). They remain open proposals until their actual authors implement and verify them. This is a scoped comparison with plausible owners, not a claim of auditing the whole catalogue.
+Destination discoveries are saved in [Queueing notes](topic-notes/queueing-theory-m-m-1-m-g-1-little-s-law.md) and [Itô notes](topic-notes/it-calculus-stochastic-differential-equations.md). They remain open proposals until their actual authors implement and verify them. This is a scoped comparison with plausible owners, not a claim of auditing the whole catalogue. The Itô note was moved to its actual accent-derived stable ID during mathematics37 design; the legacy lesson source filename is unchanged.
 
 ## Proposed reading route and hurdle map
 
@@ -203,7 +203,7 @@ Resources supplement self-contained teaching. Do not reproduce their prose or ar
 
 ## Implementation, verification and handoff contract
 
-Owned production source will be the existing topic body, new stochastic-processes-models.js / stochastic-processes-examples.js, StochasticProcessesLabs.jsx and its scoped CSS, and this stable-ID blueprint. No shared batch file, global style or eager registry import. Math imports go directly to components/content/Math.jsx. Root owns registry/index/generation and integration. No runtime/body changes have been made during this design.
+Owned production source will be the existing topic body, new stochastic-processes-models.js / stochastic-processes-examples.js, StochasticProcessesLabs.jsx and its scoped CSS, and this stable-ID blueprint. No shared batch file, global style or eager registry import. Math imports go directly to components/content/Math.jsx. Root owns registry/index/generation and integration. The design preceded runtime/body changes. The subsequent implementation follows this ownership boundary; see the linked verification record for actual evidence.
 
 Before author freeze:
 
@@ -215,4 +215,4 @@ Before author freeze:
 6. Verify the first-pass page without touching controls: all important relationships must already be explained and visible. Color, hover or a hidden alternate lab mode must not be the only explanation.
 7. Record actual semantic hashes, environment, tests, counts and limitations in a topic verification record; clearly separate author verification, independent review, production integration and user acceptance. Parent performs build/loading/module-order checks. No fixed quantity of labs/programs/tests is the completion criterion.
 
-Current evidence is **original preservation and three original-program executions only**, plus scoped source/research/design review. New model/native/browser checks remain planned. This document does not mark mathematics33 complete.
+The original design-stage evidence was limited to preservation, three original-program executions and source/research review. The subsequent [author verification](STOCHASTIC-PROCESSES-VERIFICATION.md) records completed model/native/browser checks, actual limitations and six final hashes. Independent review, parent integration and user acceptance remain separately identified.

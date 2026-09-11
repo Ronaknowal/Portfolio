@@ -1,0 +1,303 @@
+{
+  "timestamp": "2026-09-11T21:02:55.087716+05:30",
+  "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+  "status": "author verified and source frozen; root independent closure and production integration remain separately attributed",
+  "sourceCount": 8,
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "c2d614fe087b2268ccdf1a06cb13b40322cab513b0e31395d91c2349c595c59f",
+    "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+    "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+    "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+    "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602"
+  },
+  "sourceArchive": "docs/teaching/archive/survival-author-freeze",
+  "sourceAmendments": [
+    {
+      "file": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+      "before": "0f2f5e6e7c3f077057b6338a23cda6c88cf708186f007326b0d7e432b27ad15c",
+      "after": "c2d614fe087b2268ccdf1a06cb13b40322cab513b0e31395d91c2349c595c59f",
+      "owner": "root",
+      "record": "docs/teaching/evidence/survival-integration-amendment.json",
+      "changes": [
+        "Remove unnecessary named export around the const lesson object so static metadata extraction resolves its existing default export.",
+        "Escape literal greater-than characters in 2 JSX text nodes; parsed runtime AST is identical."
+      ],
+      "verification": "Original bytes exactly reconstruct the final author browser source hash after restoring the original CRLF convention. Lesson initializer and all native/model/lab code are unchanged. JSX entity replacement passed canonical Babel AST equality.",
+      "previousSource": "docs/teaching/archive/survival-final-integration/pre-integration-topic.jsx"
+    }
+  ],
+  "design": "docs/teaching/SURVIVAL-ANALYSIS-LESSON-DESIGN.md",
+  "originalArchive": "docs/teaching/evidence/survival-original.json",
+  "originalExecution": "docs/teaching/evidence/survival-original-execution.json",
+  "records": {
+    "programExecution": "docs/teaching/evidence/survival-program-execution.json",
+    "nativeVerification": "docs/teaching/evidence/survival-native-verification.json",
+    "browserBehavior": "docs/teaching/evidence/survival-browser-behavior.json",
+    "browserFinalReading": "docs/teaching/evidence/survival-browser-final-reading.json",
+    "figurePreflight": "docs/teaching/evidence/survival-figures-preflight.json",
+    "paintProof": "docs/teaching/evidence/survival-cox-paint-proof.json"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "pandas": "2.3.3",
+    "lifelines": "0.30.3",
+    "scikit-survival": "0.28.0",
+    "scikit-learn": "1.9.1",
+    "Python": "3.12.14"
+  },
+  "programs": {
+    "count": 17,
+    "wholeRunAt": "2026-09-11T20:19:10.017976+05:30",
+    "changedRossiSentenceRunAt": "2026-09-11T20:23:41.595452+05:30",
+    "reuse": "Sixteen unchanged actual program executions retained; only corrected Rossi sentence rerun. Numerical verifier reused exact current module output evidence."
+  },
+  "nativeSummary": {
+    "finiteFixtures": 121,
+    "rejectionContracts": 13,
+    "changedPractice": "B–L",
+    "checkedAt": "2026-09-11T20:43:07.067198+05:30",
+    "owner": "testing_documentation_completion, scoped author-verification contribution"
+  },
+  "browserSummary": {
+    "widths": [
+      1440,
+      390,
+      320
+    ],
+    "statesPerWidth": 26,
+    "keyboardActionsPerWidth": 69,
+    "anchorsPerWidth": 16,
+    "programPairsPerWidth": 17,
+    "displayEquationsPerWidth": 16,
+    "behaviorAt": "2026-09-11T15:09:02.418Z",
+    "finalReadingAt": "2026-09-11T15:26:18.963Z",
+    "originalFonts": true,
+    "route": "http://127.0.0.1:5173/learn/path/full-curriculum/survival-analysis-cox-regression-kaplan-meier-hazard-models?module=classical-ml",
+    "attribution": "Behavior pass retains its actual source hashes and initial mobile-formula failures. Final source-matched focused reading closes formula wrapping, prose spacing and prerequisite links. Pure models, examples, CSS and figures unchanged between these passes; root's metadata/export and AST-conserved JSX entity amendment is separately bound above."
+  },
+  "resolvedFindings": [
+    "Rossi financial-aid assignment was randomized; fitted example and printed output now distinguish that fact from a complete causal analysis or held-out assessment.",
+    "Cox range step=any preserves the exact log(2) preset in actual DOM and calculations.",
+    "RMST identifies censor-only risk-table rows correctly; competing-risk control uses observed days rather than array indices.",
+    "Prerequisite link uses actual classical-ml module; absolute numerical risk-tie tolerance and positive-lifetime left-censor lower bound are explicit.",
+    "Local intermediate symbols and equivalent multi-line equations close narrow display overflow, without changing the numerical models.",
+    "A misleading old 320px image preview suggested absent event fills; final PNG pixel evidence and actual 18px DOM bars establish correct gold fills. No production painting fix was needed."
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/survival/browser/cox-gold-bars-verified-320.png",
+      "sha256": "b8bf5d1a65252ba0c73c7b64573e92836006ab51ec1000fd2c18649f6eee3fc4",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-cox-weight-paint-390.png",
+      "sha256": "aa3fe43bfebb37877129cf54d00a5d51df43dbcf12c0d5b1ad2c7de80b25a329",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-logrank-equation-320.png",
+      "sha256": "c28eeba98a235ca1b1cdab8af2ec9d14ca82e1ae5973e8b436a1c4c8553abd95",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-score-equation-320.png",
+      "sha256": "e878982851dce76efbe0b4d8f2bba9a1447dc0eb922eb66fa34d205732cfe73c",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-discrete-equation-320.png",
+      "sha256": "7587828a98a080ca9a1cdde7116182f01042f1d4c7382e469a0cfd991c2d6705",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-hazard-equation-390.png",
+      "sha256": "2211d3fd1cb1dfe475ec3e7a65908093d9fd01249d39a4070d66b241abf898c0",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-censor-equation-390.png",
+      "sha256": "0c33145ed93762d086ca409709b08eb822d8f44880f21ca55de05538d550e68c",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-cox-reading-1440.png",
+      "sha256": "8cf2f0d07ad3823c606293a5897b05a9f70015c705e118223d147db1c273ac31",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/final-competing-reading-1440.png",
+      "sha256": "95f9b54fbe179f78712ed5088bd607c3a10025da854b62e447c7d05170bd6c7d",
+      "stage": "final reading",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/risk-lanes-default-390.png",
+      "sha256": "386fa2d6a8416783aa6866551fc50ab0f4ea131d9615a20de3c92b02e39050c1",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/hazard-clock-390.png",
+      "sha256": "58f93b354406aa74855cfb6f9a5fdac0dd57664882056207c77f2f8fa0a3704d",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/restricted-area-320.png",
+      "sha256": "7edfff8e280604786bda65dec7ae8b137cfa0204faf4347515c12b7901f041eb",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/pair-board-320.png",
+      "sha256": "b17471fc5322b2869f4e86568503e6af18b973146252ed553d4274b5f1d26bd0",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival/browser/changed-report-output-320.png",
+      "sha256": "377212aacd95bd9c782ed8924b58ac364fb644da11acbb790db69cbed9c0c88f",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "workflow_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/likelihood-1440.png",
+      "sha256": "3641b18272499db64ed2e0938c2c89bea2321151c36b120d1b79c7473ebb0b03",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/tree-1440.png",
+      "sha256": "ea87d3f20b2fcfdf7fcf6c9833e4cb73127fc62c9e63ac7e02ad48f1547a310e",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/observation-390.png",
+      "sha256": "18559562b2a14c261326dc068a3a08927d8bb742d5113c11693a8d60d0e5304b",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/history-390.png",
+      "sha256": "44b7b8cd87c0b6070135ad68dace5b0ec37c0cf8c7bb1a6d6f5d4643af784478",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/observation-320.png",
+      "sha256": "c17fa25d2d9d08df10c0324eb62cde4c2f2687b61bf0fa4af5cd5905102a7512",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/likelihood-320.png",
+      "sha256": "dbf2b05b5eeca7a146d646127ebed88b80c61e72263325abc956fa1162ec01ae",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/tree-320.png",
+      "sha256": "da54ef00d3fcb1f28ac3ae06197eb55d42be98621b815394f92171b614804031",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    },
+    {
+      "path": "scratch/survival-figures/history-320.png",
+      "sha256": "041a19a999f8b729ee25b01cec8c3de022086ef95d7db5e1d8cfa854347f542f",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "scientific_visual_improvements"
+    }
+  ],
+  "limits": [
+    "Source/native/browser checks establish the stated finite fixtures and implementations, not a universal statistical or causal guarantee.",
+    "Reliability comparisons are two generated splits under declared laws, not industrial or clinical benchmarks.",
+    "Censor independence/support, first-event definition, prediction timing and asymptotic uncertainty are assumptions, not certified by these demonstrations.",
+    "Optional Fine–Gray/deep/discrete/interval branches are scoped mechanisms; no unavailable library implementation or unexecuted neural benchmark is claimed.",
+    "Video titles/chapter descriptions were inspected; full playback is not claimed. Primary written-source inspected scope is in the design.",
+    "Root's independent 23 invariance checks and final independent image/source review are not recounted as author tests; their record remains root-owned."
+  ],
+  "retention": {
+    "selectedMainImages": 14,
+    "figureImages": 8,
+    "supersededImageMapping": {
+      "scratch/survival/browser/final-cox-weight-paint-320.png": "scratch/survival/browser/cox-gold-bars-verified-320.png"
+    },
+    "note": "Only the exact author-owned installed duplicate draft and unselected/superseded captures listed here were removed. Historical full browser results retain their original capture names; they are test logs, not a claim every intermediate image remains. The fresh immutable Cox image replaces its byte-identical original name. All selected attachments, numerical records, source archives, runtimes and native programs remain.",
+    "removed": [
+      {
+        "path": "scratch/survival/browser/cox-risk-weights-1440.png",
+        "sha256": "c707ab7fbf29c9e7b7a3ccb807b1987314a0c6c7648d49c03469d31340803a57",
+        "bytes": 150979,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/censor-probability-tree-1440.png",
+        "sha256": "a0c85a9ffb6cb7c546c8212ec8f6589860035c0b3eda0f5e5660794cb856e412",
+        "bytes": 189477,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/ties-reading-1440.png",
+        "sha256": "9fbd4b0d8a0a79aa36c41eef74aa180743b3ecf979e037b52af587097a5ee1e9",
+        "bytes": 228907,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/pooled-hazards-390.png",
+        "sha256": "8b42f6a9976cd54af6d6babe786dbf9b2d245f72b4dbe061df69ab2398827e32",
+        "bytes": 56591,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/competing-mass-390.png",
+        "sha256": "803420681c0fbfaf49f6e74d780f05d1115d87746b5937810c44bc32d216f918",
+        "bytes": 61351,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/evaluation-reading-390.png",
+        "sha256": "3228065f9ac71eaf0bc651888836f2880659ae0c3784bf65076dcdd3747f19ea",
+        "bytes": 97844,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/cox-risk-weights-320.png",
+        "sha256": "aed8e22deb203c2dc3d2350f20662498c2cfe08749f86cf685c96d284ff07194",
+        "bytes": 38052,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/changed-cox-practice-320.png",
+        "sha256": "906518d2106bc0a6473262acb9f6482844a6c45f3fe7a72a68f84b4db834e7d4",
+        "bytes": 70865,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/browser/final-cox-weight-paint-320.png",
+        "sha256": "b8bf5d1a65252ba0c73c7b64573e92836006ab51ec1000fd2c18649f6eee3fc4",
+        "bytes": 38073,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      },
+      {
+        "path": "scratch/survival/lesson-draft.jsx",
+        "sha256": "9dbc8029c14f00b8d85273b0a8dfd35fcd200ad3a2df065af20c0b931376d85a",
+        "bytes": 82398,
+        "reason": "Author-owned unselected/superseded capture or installed duplicate draft; original source and selected final evidence are retained."
+      }
+    ],
+    "checkedAt": "2026-09-11T15:33:46.1407334Z"
+  }
+}

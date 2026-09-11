@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-09-11T14:40:04.619Z",
+  "rows": [
+    {
+      "width": 1440,
+      "actualCodeAndOutput": true,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2"
+      ]
+    },
+    {
+      "width": 390,
+      "actualCodeAndOutput": true,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2"
+      ]
+    },
+    {
+      "width": 320,
+      "actualCodeAndOutput": true,
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2"
+      ]
+    }
+  ],
+  "errors": [],
+  "sourceHash": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556"
+}

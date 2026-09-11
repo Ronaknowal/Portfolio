@@ -1,0 +1,345 @@
+{
+  "checkedAt": "2026-09-11T14:53:54.308Z",
+  "scope": "Actual-font isolated figure mount on the live Vite site; author retains responsibility for complete Survival route reading and integration.",
+  "harnessCorrection": "Before the passing run, corrected a wrong SVM host selector and aligned React/ReactDOM default imports with this app. These were isolated-harness failures, not figure defects. No failed screenshot was retained.",
+  "sources": [
+    {
+      "path": "src/learn/components/lesson-labs/SurvivalFigures.jsx",
+      "sha256": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/survival-figures.css",
+      "sha256": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498"
+    },
+    {
+      "path": "src/learn/data/survival-models.js",
+      "sha256": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "label": "Failure time and last observation are different facts",
+            "right": 1080,
+            "axisFonts": [
+              13
+            ]
+          },
+          {
+            "label": "Event density versus a censored survival tail",
+            "right": 1080,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "A chosen survival-tree split routes rows into two leaf estimators",
+            "right": 1080,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "Predictable feature histories and delayed entry on a shared clock",
+            "right": 1080,
+            "axisFonts": [
+              13
+            ]
+          }
+        ],
+        "paths": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 66.66666412353516
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 55.55555725097656,
+            "height": 75
+          }
+        ]
+      },
+      "keyboardDisclosure": true,
+      "errors": [],
+      "failures": [],
+      "images": [
+        "scratch/survival-figures/likelihood-1440.png",
+        "scratch/survival-figures/tree-1440.png"
+      ]
+    },
+    {
+      "width": 390,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "label": "Failure time and last observation are different facts",
+            "right": 370,
+            "axisFonts": [
+              13
+            ]
+          },
+          {
+            "label": "Event density versus a censored survival tail",
+            "right": 370,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "A chosen survival-tree split routes rows into two leaf estimators",
+            "right": 370,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "Predictable feature histories and delayed entry on a shared clock",
+            "right": 370,
+            "axisFonts": [
+              13
+            ]
+          }
+        ],
+        "paths": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 66.66666412353516
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 55.55555725097656,
+            "height": 75
+          }
+        ]
+      },
+      "keyboardDisclosure": true,
+      "errors": [],
+      "failures": [],
+      "images": [
+        "scratch/survival-figures/observation-390.png",
+        "scratch/survival-figures/history-390.png"
+      ]
+    },
+    {
+      "width": 320,
+      "geometry": {
+        "overflow": false,
+        "figures": [
+          {
+            "label": "Failure time and last observation are different facts",
+            "right": 300,
+            "axisFonts": [
+              13
+            ]
+          },
+          {
+            "label": "Event density versus a censored survival tail",
+            "right": 300,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "A chosen survival-tree split routes rows into two leaf estimators",
+            "right": 300,
+            "axisFonts": [
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13,
+              13
+            ]
+          },
+          {
+            "label": "Predictable feature histories and delayed entry on a shared clock",
+            "right": 300,
+            "axisFonts": [
+              13
+            ]
+          }
+        ],
+        "paths": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 90.92820739746094
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 100,
+            "height": 66.66666412353516
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 55.55555725097656,
+            "height": 75
+          }
+        ]
+      },
+      "keyboardDisclosure": true,
+      "errors": [],
+      "failures": [],
+      "images": [
+        "scratch/survival-figures/observation-320.png",
+        "scratch/survival-figures/likelihood-320.png",
+        "scratch/survival-figures/tree-320.png",
+        "scratch/survival-figures/history-320.png"
+      ]
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/survival-figures/likelihood-1440.png",
+      "sha256": "3641b18272499db64ed2e0938c2c89bea2321151c36b120d1b79c7473ebb0b03"
+    },
+    {
+      "path": "scratch/survival-figures/tree-1440.png",
+      "sha256": "ea87d3f20b2fcfdf7fcf6c9833e4cb73127fc62c9e63ac7e02ad48f1547a310e"
+    },
+    {
+      "path": "scratch/survival-figures/observation-390.png",
+      "sha256": "18559562b2a14c261326dc068a3a08927d8bb742d5113c11693a8d60d0e5304b"
+    },
+    {
+      "path": "scratch/survival-figures/history-390.png",
+      "sha256": "44b7b8cd87c0b6070135ad68dace5b0ec37c0cf8c7bb1a6d6f5d4643af784478"
+    },
+    {
+      "path": "scratch/survival-figures/observation-320.png",
+      "sha256": "c17fa25d2d9d08df10c0324eb62cde4c2f2687b61bf0fa4af5cd5905102a7512"
+    },
+    {
+      "path": "scratch/survival-figures/likelihood-320.png",
+      "sha256": "dbf2b05b5eeca7a146d646127ebed88b80c61e72263325abc956fa1162ec01ae"
+    },
+    {
+      "path": "scratch/survival-figures/tree-320.png",
+      "sha256": "da54ef00d3fcb1f28ac3ae06197eb55d42be98621b815394f92171b614804031"
+    },
+    {
+      "path": "scratch/survival-figures/history-320.png",
+      "sha256": "041a19a999f8b729ee25b01cec8c3de022086ef95d7db5e1d8cfa854347f542f"
+    }
+  ],
+  "fixtureCheck": {
+    "checkedAt": "2026-09-11T14:48:19.066Z",
+    "method": "Actual exported kaplanMeier/logrankTable compared with independent fixed rational row values and hand-summed criterion.",
+    "kmRows": 8,
+    "leftSurvival": [
+      1,
+      0.6666666666666666,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "rightSurvival": [
+      0.75,
+      0.5,
+      0.25,
+      0.25
+    ],
+    "nelsonAalen": [
+      0.8333333333333334,
+      1.0833333333333333
+    ],
+    "logrank": {
+      "U": "73/42",
+      "V": "1265/1764",
+      "score": "5329/1265"
+    },
+    "exponential": {
+      "ratePerDay": 0.2,
+      "eventDay": 4,
+      "densityPerDay": 0.08986579282344431,
+      "band4To4Point5": 0.042759304376622474,
+      "tailAfter4": 0.44932896411722156,
+      "tailAfter12": 0.09071795328941251
+    }
+  },
+  "visualAssessment": "All eight listed captures actually opened. Finite clock bounds, event/censor/interval symbols, fixed13px HTML axis labels, density versus tail areas, exact leaf staircases with unsupported-tail hatching, and nonoverlapping subject histories are readable. Panels stack at narrow widths; no page overflow or runtime/network error. Main lesson placement remains the author's separate actual-route check.",
+  "temporaryHarness": {
+    "sha256": "d188ab545f84dc8357e9cb2beb9535fe2378f597961e65b889be09e7bce39972",
+    "retirement": "Completed isolated preflight harness removed after saving the result; the author's complete route verifier owns subsequent placement checks."
+  }
+}

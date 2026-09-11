@@ -1,0 +1,15 @@
+# Authoring notes: Spectral and Time-Frequency Analysis of Neural Signals
+
+Canonical topic ID: `spectral-and-time-frequency-analysis-of-neural-signals`
+
+## 2026-09-11 — Separate tone amplitude, power density and information added by observation
+
+- Status: open.
+- Origin: design sections 7–8 of `complex-numbers-fourier-laplace-transforms`, [design record](../COMPLEX-FOURIER-LAPLACE-LESSON-DESIGN.md). The origin is now implemented, with actual numerical and browser evidence recorded in [Complex/Fourier/Laplace verification](../COMPLEX-FOURIER-LAPLACE-VERIFICATION.md). The destination remains open for its own author assessment; this origin evidence does not certify a population spectral estimator.
+- Destination rationale: the actual neural spectral brief already owns windowed/multitaper estimates, PSD units, time-frequency tradeoffs and aperiodic components. This is the coherent home for estimation and uncertainty. The origin supplies finite transform math rather than a statistical spectral-estimation chapter.
+- Existing coverage: planned in `src/learn/data/curriculum/neural-expansion.js`; no destination body was inspected as a verified implementation. The audio framing and GPU FFT briefs were also inspected and have different operational priorities.
+- Proposed treatment: explicitly distinguish normalization for an isolated coherent sinusoid (sum of window weights) from a noise power-density estimate (sample rate and sum of squared weights, with the selected one/two-sided convention). Derive the units, rather than treating raw squared FFT magnitude as physical PSD. Explain DC/Nyquist exceptions, overlap dependence and why changing window length changes the inferential question.
+- Concrete example: compare a bin-centered tone, an off-bin tone and synthetic noise with the same window. Then compare 64 actual observations with 256-point zero padding against 256 newly acquired observations at the same sample rate. A denser display grid is not four times the independent information. In the origin's proposed 64 Hz fixture, 5.5 Hz is off-bin for 64 observations and bin-centered for 128; those are changed data durations, not equivalent padding operations.
+- Learning benefit: a learner can choose a normalization and acquisition duration appropriate to amplitude, power or transient timing, and avoid interpreting every plotted peak as a physiological oscillator. A changed practice task should require units and an uncertainty/estimator limitation.
+- Sources assessed: [NumPy FFT definitions and normalization](https://numpy.org/doc/stable/reference/routines.fft.html) and [Julius O. Smith's windowing/zero-padding worked example](https://www.dsprelated.com/freebooks/mdft/Spectrum_Analysis_Sinusoid_Windowing.html), selected sections read on 11 September 2026. The full PSD estimator, variance and physiological interpretation need the receiving author's primary-source and actual-runtime review; this note does not certify those details.
+- Resolution: receiving author must include, adapt, reroute or defer with a concrete reason and record actual evidence. No neural lesson or shared curriculum file was changed by this note.

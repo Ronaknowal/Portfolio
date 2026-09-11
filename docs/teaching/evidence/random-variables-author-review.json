@@ -1,0 +1,2129 @@
+{
+  "topicId": "random-variables-expectation-covariance",
+  "modulePosition": 48,
+  "status": "author-verified; independent and integrated production review remain parent-owned",
+  "frozenAt": "2026-09-11T01:22:00.566794+00:00",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/random-variables-expectation-covariance.jsx",
+      "sha256": "e6e9ca9028b91d63b9f2da4c9a8764c7a02e2f508183f2ce8a51d702ca491b95"
+    },
+    {
+      "path": "src/learn/data/random-variables-models.js",
+      "sha256": "92df0406d812b8869552ee86f4d9585c6e4b28c0b511d0caf32c2ec57380c247"
+    },
+    {
+      "path": "src/learn/data/random-variables-examples.js",
+      "sha256": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/RandomVariableLabs.jsx",
+      "sha256": "5cea17825066806dea9164ceaf44749521256b5aac2b76b3ea708396b670763c"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/random-variable-labs.css",
+      "sha256": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/random-variables-expectation-covariance.js",
+      "sha256": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698"
+    }
+  ],
+  "preservation": {
+    "priorStatus": "planned",
+    "originalSource": null,
+    "originalProgram": null,
+    "titleAndOrderRetained": true,
+    "inheritedDicePracticeRetained": true,
+    "initialPlan": {
+      "path": "scratch/random-variables-initial-plan.json",
+      "sha256": "7c6e4532ee9094678fbadc7f8c056f63600d8f63d3f1383914db8f13ce5b9fb3"
+    }
+  },
+  "design": "docs/teaching/RANDOM-VARIABLES-LESSON-DESIGN.md",
+  "verification": "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md",
+  "destinationNote": "docs/teaching/topic-notes/sampling-measurement-experimental-design.md",
+  "native": {
+    "checkedAt": "2026-09-11T01:07:27.157312+00:00",
+    "counts": {
+      "scalar": 8664,
+      "pushforward": 336,
+      "cdf": 336,
+      "squaredLoss": 87,
+      "paired": 961,
+      "correlation": 897,
+      "jointCell": 2016,
+      "degenerate": 64,
+      "noiseDecomposition": 720,
+      "conditional": 404,
+      "preimage": 10302,
+      "binomialCell": 15352,
+      "sampleVariance": 3232,
+      "tinyRelativeVariance": 2,
+      "actualPrograms": 14,
+      "nativeBinomial": 40,
+      "nativeConditioning": 14,
+      "nativePushforwardMoment": 20,
+      "nativeSampleSequences": 180,
+      "nativeNoise": 12,
+      "nativeIntegral": 13,
+      "nativeInterval": 5,
+      "nativeWelford": 24,
+      "nativeMatrix": 9,
+      "nativeMomentBoundary": 25,
+      "changedPractice": 7,
+      "equalMomentsDifferentTails": 2
+    },
+    "maximumAbsoluteError": 5.820766091346741e-11,
+    "sources": "Actual exported programs plus independent exact finite laws, binomial coefficient formula, high-precision interval mass and quadrature, NumPy covariance propagation."
+  },
+  "modelContract": {
+    "checkedAt": "2026-09-11T01:07:27.215Z",
+    "counts": {
+      "outcome": 144,
+      "loss": 87,
+      "joint": 140,
+      "noise": 720,
+      "conditional": 101,
+      "squared": 5151,
+      "sample": 1616,
+      "finite": 15
+    },
+    "rejected": 26,
+    "readonly": true,
+    "tinyCorrelation": 1
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T01:08:49.360Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 234,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "geometry": {
+          "documentWidth": 1440,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 234,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "geometry": {
+          "documentWidth": 390,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 234,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "geometry": {
+          "documentWidth": 320,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 47.1875
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 47.1875
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 47.1875
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "ordinaryReading": {
+    "checkedAt": "2026-09-11T01:12:40.838Z",
+    "results": [
+      {
+        "width": 1440,
+        "states": 0,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "boundaryCheck": {
+          "rejected": 2,
+          "constantVariance": 0,
+          "tinyCorrelation": 1
+        },
+        "geometry": {
+          "documentWidth": 1440,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 760,
+              "content": 760,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 0,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "boundaryCheck": {
+          "rejected": 2,
+          "constantVariance": 0,
+          "tinyCorrelation": 1
+        },
+        "geometry": {
+          "documentWidth": 390,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 350,
+              "content": 350,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 0,
+        "anchors": [
+          {
+            "href": "#1-give-an-outcome-a-number",
+            "exists": true
+          },
+          {
+            "href": "#2-follow-probability-into-a-distribution",
+            "exists": true
+          },
+          {
+            "href": "#3-average-the-right-quantity",
+            "exists": true
+          },
+          {
+            "href": "#4-measure-spread-and-choose-a-prediction",
+            "exists": true
+          },
+          {
+            "href": "#5-keep-the-pairings",
+            "exists": true
+          },
+          {
+            "href": "#6-interpret-centered-products",
+            "exists": true
+          },
+          {
+            "href": "#7-combine-quantities-with-shared-noise",
+            "exists": true
+          },
+          {
+            "href": "#8-predict-with-available-information",
+            "exists": true
+          },
+          {
+            "href": "#9-transform-continuous-values",
+            "exists": true
+          },
+          {
+            "href": "#10-check-whether-a-moment-exists",
+            "exists": true
+          },
+          {
+            "href": "#11-distinguish-a-population-from-a-sample",
+            "exists": true
+          },
+          {
+            "href": "#12-practise-on-changed-models",
+            "exists": true
+          }
+        ],
+        "programs": 14,
+        "boundaryCheck": {
+          "rejected": 2,
+          "constantVariance": 0,
+          "tinyCorrelation": 1
+        },
+        "geometry": {
+          "documentWidth": 320,
+          "fontReady": true,
+          "equations": [
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      p_X(x)&=P(X=x)\\\\\n      &=\\sum_{\\omega:\\,X(\\omega)=x}P(\\{\\omega\\}).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      P(a<X\\le b)&=F(b)-F(a),\\\\\n      P(a\\le X\\le b)&=F(b)-F(a^-).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      E[X]&=\\sum_\\omega X(\\omega)P(\\{\\omega\\})\\\\\n      &=\\sum_x x\\,p_X(x).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "E[g(X)]=\\sum_x g(x)p_X(x)."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(X)&=E[(X-\\mu)^2]\\\\\n      &=E[X^2]-2\\mu E[X]+\\mu^2\\\\\n      &=E[X^2]-\\mu^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &E[(X-c)^2]\\\\\n      &=\\operatorname{Var}(X)+(\\mu-c)^2.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      p_X(x)&=\\sum_y p(x,y),\\\\\n      p_{Y|X}(y|x)&=\\frac{p(x,y)}{p_X(x)}\n      \\quad\\text{for}\\\\\n      &p_X(x)>0.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[(X-\\mu_X)(Y-\\mu_Y)]\\\\\n      &=E[XY]-\\mu_X\\mu_Y.\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\rho=\\frac{\\operatorname{Cov}(X,Y)}{\\sigma_X\\sigma_Y},\n      \\qquad \\sigma_X,\\sigma_Y>0."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(aX+bY)\\\\\n      &=a^2\\operatorname{Var}(X)\\\\\n      &\\quad+b^2\\operatorname{Var}(Y)\\\\\n      &\\quad+2ab\\operatorname{Cov}(X,Y).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\n      \\Sigma=E[(Z-\\mu)(Z-\\mu)^T],\\\\\n      \\Sigma_{ij}=\\operatorname{Cov}(Z_i,Z_j),\\\\\n      \\operatorname{Var}(w^TZ)=w^T\\Sigma w.\n    \\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      m(g)&=E[Y\\mid G=g],\\\\\n      m(G)(\\omega)&=m(G(\\omega)),\\\\\n      E[m(G)]&=E[Y].\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      \\operatorname{Var}(Y)\n      &=E[\\operatorname{Var}(Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Var}(E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Cov}(X,Y)\\\\\n      &=E[\\operatorname{Cov}(X,Y\\mid G)]\\\\\n      &\\quad+\\operatorname{Cov}(E[X\\mid G],E[Y\\mid G]).\n    \\end{aligned}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{gathered}\n      P(a<X\\le b)=\\int_a^b f_X(x)\\,dx,\\\\\n      E[g(X)]=\\int g(x)f_X(x)\\,dx.\n    \\end{gathered}"
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "f_Y(y)=\\frac{1}{2\\sqrt y},\\qquad 0<y<1."
+            },
+            {
+              "width": 280,
+              "content": 280,
+              "tex": "\\begin{aligned}\n      &\\operatorname{Var}(\\bar X)\\\\\n      &=\\frac{1}{n^2}\\sum_{i=1}^{n}\\sum_{j=1}^{n}\\operatorname{Cov}(X_i,X_j).\n    \\end{aligned}"
+            }
+          ],
+          "svgOverflow": [],
+          "controls": [
+            {
+              "name": "First coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Second coin head chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Numerical rule",
+              "height": 44
+            },
+            {
+              "name": "CDF threshold t",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Constant prediction c",
+              "height": 44
+            },
+            {
+              "name": "Population law",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Joint law",
+              "height": 44
+            },
+            {
+              "name": "Scale Y",
+              "height": 44
+            },
+            {
+              "name": "Shift Y",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y -1",
+              "height": 47.1875
+            },
+            {
+              "name": "Inspect X -1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X -1 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 0 Y 0",
+              "height": 47.1875
+            },
+            {
+              "name": "Inspect X 0 Y 1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y -1",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 0",
+              "height": 44
+            },
+            {
+              "name": "Inspect X 1 Y 1",
+              "height": 47.1875
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Common amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Local amplitude (mV)",
+              "height": 44
+            },
+            {
+              "name": "Coefficient a",
+              "height": 44
+            },
+            {
+              "name": "Coefficient b",
+              "height": 44
+            },
+            {
+              "name": "Average (A+B)/2",
+              "height": 44
+            },
+            {
+              "name": "Difference B−A",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "P(G=2), percent",
+              "height": 44
+            },
+            {
+              "name": "Inspect group",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Lower Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Upper Y endpoint (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            },
+            {
+              "name": "Readings per dataset n",
+              "height": 44
+            },
+            {
+              "name": "Population success chance (%)",
+              "height": 44
+            },
+            {
+              "name": "Reset investigation",
+              "height": 44
+            }
+          ],
+          "internalLinks": [
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations",
+            "/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations",
+            "/learn/path/full-curriculum/measure-theory-probability-spaces?module=math-foundations#8-use-information-to-form-a-conditional-expectation",
+            "/learn/path/full-curriculum/linear-logistic-regression?module=classical-ml",
+            "/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations#6-read-area-and-cumulative-probability",
+            "/learn/path/full-curriculum/real-analysis-sequences-modes-of-convergence?module=math-foundations",
+            "/learn/path/full-curriculum/concentration-inequalities-hoeffding-bernstein-chernoff?module=math-foundations",
+            "/learn/path/full-curriculum/sampling-measurement-experimental-design?module=math-foundations"
+          ]
+        },
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "finalFocusedText": {
+    "checkedAt": "2026-09-11T01:17:54.820Z",
+    "results": [
+      {
+        "width": 1440,
+        "objects": 4,
+        "bernoulliBridge": true,
+        "sourceAnnotation": true,
+        "errors": [],
+        "failed": []
+      },
+      {
+        "width": 390,
+        "objects": 4,
+        "bernoulliBridge": true,
+        "sourceAnnotation": true,
+        "errors": [],
+        "failed": []
+      },
+      {
+        "width": 320,
+        "objects": 4,
+        "bernoulliBridge": true,
+        "sourceAnnotation": true,
+        "errors": [],
+        "failed": []
+      }
+    ]
+  },
+  "amendmentAttribution": [
+    "The complete behavioral pass exercises 234 states at each width. The local Bernoulli/binomial bridge and extreme-helper variance floor are separately confirmed in the final ordinary-reading pass, including actual loaded-module accepted/rejected calls.",
+    "The final focused pass confirms the object-table caption, Bernoulli bridge, specialist source annotation, signed noise-only labels and the shortened continuous branch Mass heading at all three widths. Noise buttons were keyboard activated; numerical models and native program bytes are unchanged by these final labels.",
+    "Images of unchanged numerical plots/equations are retained from the successful complete/ordinary pass; the last caption and noise/table-label amendments have their own final captures. All twenty listed images were actually opened by the author."
+  ],
+  "imagesOpened": [
+    {
+      "path": "scratch/random-variables-browser/default-1-320.png",
+      "sha256": "af7d77192aa2427089cbe2ab849e6380b81833759907f262ece5fde36b417b94"
+    },
+    {
+      "path": "scratch/random-variables-browser/default-2-320.png",
+      "sha256": "eefb7fa4df06e4a663571e7a629b5fda51d575821566f382a3b8724ed31c13dd"
+    },
+    {
+      "path": "scratch/random-variables-browser/joint-nonlinear-witness-320.png",
+      "sha256": "9e4c903dd040cb298ef8525ffc59309a90f477d715bef02f4a4144842e20685e"
+    },
+    {
+      "path": "scratch/random-variables-browser/default-5-320.png",
+      "sha256": "e9e587544b0b38a8931ffafa72f924fba1bf296e006492976e523ea4957a3344"
+    },
+    {
+      "path": "scratch/random-variables-browser/conditional-null-group-320.png",
+      "sha256": "bf9a2c6a11501ca089ea8bce5f922150fa5f18ec51a9f0d34ac076e69f696466"
+    },
+    {
+      "path": "scratch/random-variables-browser/sample-independent-copies-320.png",
+      "sha256": "0f081084ea503ba39a5da0d5e257ab838ee4decb99864dedc028aaaffefd833c"
+    },
+    {
+      "path": "scratch/random-variables-browser/equation-6-320.png",
+      "sha256": "4798414ead4330a2a8d0d911c7c3e66992035c2bc5b72c9e444328e53afb2378"
+    },
+    {
+      "path": "scratch/random-variables-browser/equation-13-320.png",
+      "sha256": "6e5195010c10af43dd0f3fdef3c88af5b6c76f97a4065cd0140aa76415261a50"
+    },
+    {
+      "path": "scratch/random-variables-browser/changed-practice-noise-320.png",
+      "sha256": "c6a55f4c7a6144f0460511d68565ecf3f2b577c9492558da9ae7ce76fa39e3fb"
+    },
+    {
+      "path": "scratch/random-variables-browser/reading-10-390.png",
+      "sha256": "f49eb9adf259fcb85a0663294cfd6bbcc98cdc24ecad16a8f4ec0112cd704cb7"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-object-legend-320.png",
+      "sha256": "1316081d8db5a317af78146e060e3410e250dc9da349d6fcd5b9470e8a250b07"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-object-legend-1440.png",
+      "sha256": "f13df2a94563dbeaf1d3390a60eec0a698c61913b7f536eafd7f86261ced7f81"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-bernoulli-bridge-320.png",
+      "sha256": "8d18cf44b73c2e9f60da8214de1b40a4c9dc7fe0ee27d0ed224a59a6e44e9309"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-bernoulli-bridge-1440.png",
+      "sha256": "7a781c8dfff90096077a8842f894a5c06fa219f9da9eeb63778646ca683ef4d7"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-noise-labels-320.png",
+      "sha256": "ffe25a137f76a77b791c081b5eca6d1b19cd5ac5d00aac9014bba16478a9762c"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-noise-labels-390.png",
+      "sha256": "c2052809e18cd29818118e308fdb85eab8847ad71931492109fcb1492e9baed0"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-noise-labels-1440.png",
+      "sha256": "55128594ee4e103fe8348cbd412f1357c6e00e14697b0d5ae68e2cb82ec8d809"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-preimage-table-320.png",
+      "sha256": "f3551e1a81db4ccd494426e7b907af8ad9d97992a8f760dc4b925a056815bb38"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-preimage-table-390.png",
+      "sha256": "dc7b47a44d41dfcbf9821a583e395dcdf5716de1900c4f8d5b6e3fb09a94dc8d"
+    },
+    {
+      "path": "scratch/random-variables-browser/final-preimage-table-1440.png",
+      "sha256": "d363e82c84286d7031604d03c508baa1a8f17c41d3b54def8a89f3996add8018"
+    }
+  ],
+  "checks": [
+    {
+      "path": "scripts/build-random-variables-examples.py",
+      "sha256": "5b39da0adb153934cce8f68d805d190eb7d4e07ae76b0df6f7f5862a42d21c08"
+    },
+    {
+      "path": "scripts/verify-random-variables-models.mjs",
+      "sha256": "29f33d436872e06442e976d8fc959c53fe15e491677614cf7fbcfa1f44b9ce2d"
+    },
+    {
+      "path": "scripts/verify-random-variables-native.py",
+      "sha256": "abc2f790422c0024794d9605414c02eae8f49203b8c6514b0c9241932796d3be"
+    },
+    {
+      "path": "scripts/review-random-variables-lesson.cjs",
+      "sha256": "08daf26177236b4379aa420266d4e512c4f23c56942af30336e5e2db699031a0"
+    },
+    {
+      "path": "scripts/review-random-variables-final-text.cjs",
+      "sha256": "f39fa303ced320de21dc3d28779845e2cc74a202d0a75c90c79ca9010f5452ff"
+    },
+    {
+      "path": "scripts/format-random-variables-source.mjs",
+      "sha256": "c321bf094c2cab795cb0e57a64a67a24d64aa20c5b23da4e682f3d1e8a547ba9"
+    }
+  ],
+  "limitations": [
+    "No real-device data or empirical benchmark is claimed.",
+    "Browser models deliberately support declared finite teaching ranges; they are not arbitrary-range statistical software.",
+    "Video resource identities were checked; full recordings were not claimed as watched.",
+    "This packet does not claim independent review, production integration, or user acceptance."
+  ]
+}

@@ -1,0 +1,613 @@
+{
+  "topicId": "geometry-trigonometry-coordinate-reasoning",
+  "frozenAt": "2026-09-11T00:13:34.836637+00:00",
+  "authorStatus": "source-frozen-author-verified",
+  "integrationStatus": "parent-owned; no self-certification",
+  "baseline": "Planned stable topic without a legacy body/program/output. Exact inventory and prerequisite skill evidence recorded in design. No existing content removed.",
+  "production": [
+    {
+      "path": "src/learn/data/topics/geometry-trigonometry-coordinate-reasoning.jsx",
+      "sha256": "a5e56a5d41a745a49b9c1de180ea53e32eb6ba8c08f05b5e3da66be75bac86d3",
+      "bytes": 41806
+    },
+    {
+      "path": "src/learn/data/geometry-trigonometry-models.js",
+      "sha256": "aca9db37bfcbfaa47324194f28695892439d20dc83f301b38714c6b9367e6369",
+      "bytes": 4533
+    },
+    {
+      "path": "src/learn/data/geometry-trigonometry-examples.js",
+      "sha256": "9648121d8334d420c126c7978c68389707ee7e8420df2a467739f438303d8853",
+      "bytes": 13314
+    },
+    {
+      "path": "src/learn/components/lesson-labs/GeometryTrigonometryLabs.jsx",
+      "sha256": "102525bf24cf2cd9c227965ec4c296b05d507d68ced8028c33e4ee9b872a937c",
+      "bytes": 21962
+    },
+    {
+      "path": "src/learn/components/lesson-labs/geometry-trigonometry-labs.css",
+      "sha256": "7e1913ddf83bd625ada20c22a04746d8c9492ba4db87f1fd5e11fe9d4925bf8a",
+      "bytes": 3096
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/geometry-trigonometry-coordinate-reasoning.js",
+      "sha256": "5f7ad2eafa9419d5aa3d1bc859d48e3e173172d2f29fea406e0f3abcb2859677",
+      "bytes": 4637
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/GEOMETRY-TRIGONOMETRY-LESSON-DESIGN.md",
+      "sha256": "14e4e9bd1f4f23b336ecc2b9a0bf2ef90f9b40130dd41b67282014c0a3065c35",
+      "bytes": 16962
+    },
+    {
+      "path": "scripts/verify-geometry-trigonometry.mjs",
+      "sha256": "fc54eade30f27c0d134c288bf6edd57433acb34c9ae0c352cfab93a014aa9a05",
+      "bytes": 3031
+    },
+    {
+      "path": "scripts/verify-geometry-trigonometry.py",
+      "sha256": "aa0dffb813b419fbf40fcb590e7a0519e894fb8658ecbc73552cb505578abca6",
+      "bytes": 8892
+    },
+    {
+      "path": "scripts/review-geometry-trigonometry-lesson.cjs",
+      "sha256": "3590efbdb703ac57796359ba07ade606445000ed2c874d2004c40ea6320c7b0a",
+      "bytes": 13829
+    },
+    {
+      "path": "scripts/review-geometry-trigonometry-final-reading.cjs",
+      "sha256": "be4b54d4aa8fc42c35cb9e78a1f1a7884a0d619cbef8803bed33ebc9eb438ba6",
+      "bytes": 2694
+    },
+    {
+      "path": "scratch/generate-geometry-trigonometry-examples.py",
+      "sha256": "88352047a2ced99524d6fdc6ccc65c38a6d3510bb065541e90eee138d4784302",
+      "bytes": 10527
+    },
+    {
+      "path": "scratch/format-geometry-trigonometry.mjs",
+      "sha256": "b8be1f6e33261bf512fe99fada1b0d24fcb3ad53d6078219fa081d54a6d55f19",
+      "bytes": 1039
+    },
+    {
+      "path": "docs/teaching/topic-notes/coordinate-frames-transformations-robot-state.md",
+      "sha256": "6477dd2e850cf412ec1f32f47e7fd4b4ca715345ba9aa9137320e9dcc3988d2f",
+      "bytes": 1342
+    },
+    {
+      "path": "docs/teaching/topic-notes/forward-inverse-kinematics.md",
+      "sha256": "e2f807075ba6c70dc6edec7ad0dd64eaa5e413a9229c2f9d01471115b1acfbf9",
+      "bytes": 1196
+    }
+  ],
+  "native": {
+    "at": "2026-09-11T00:02:49.366297+00:00",
+    "passed": true,
+    "counts": {
+      "exactPolygonDissections": 400,
+      "arcFractionAndQuadratureCases": 110,
+      "similarityCases": 33,
+      "circleAndPeriodCases": 49,
+      "allIntegerBearingStates": 169,
+      "complexAndLinearSolveFrameCases": 5000,
+      "staticSSAReconstructions": 2,
+      "actualDisplayedPrograms": 9,
+      "changedActualSSACases": 900,
+      "changedActualSASCases": 72,
+      "changedActualFrameCases": 84,
+      "changedActualScreenCases": 16,
+      "actualNativeBoundaryRejections": 12,
+      "changedActualLinkCases": 96,
+      "independentPracticeGroups": 12
+    },
+    "modelRejectedCases": 20,
+    "limits": "Finite implementation checks use exact polygon/ratio arithmetic, independent complex geometry, NumPy solves and quadrature; they do not replace proofs for all real inputs. Actual complete learner programs are executed without hidden helpers."
+  },
+  "browserFull": {
+    "at": "2026-09-11T00:06:23.674Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "fonts": true,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "controlStates": 102,
+        "actualKeyboard": true,
+        "invalidRetention": true,
+        "examples": 9,
+        "checkpoints": 2,
+        "independentPractice": 12,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "content": 760
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "content": 760
+          }
+        ],
+        "codeGeometry": {
+          "width": 758,
+          "content": 758,
+          "left": 0,
+          "focused": false
+        },
+        "labelBounds": [
+          {
+            "text": "x",
+            "x": 306,
+            "y": 167.2301788330078,
+            "right": 316.683048248291,
+            "bottom": 190.07709503173828
+          },
+          {
+            "text": "y",
+            "x": 175,
+            "y": 7.23017692565918,
+            "right": 186.0268096923828,
+            "bottom": 30.07709312438965
+          },
+          {
+            "text": "P",
+            "x": 122,
+            "y": 184.2301788330078,
+            "right": 133.0003662109375,
+            "bottom": 207.07709503173828
+          },
+          {
+            "text": "P\u00e2\u20ac\u00b2",
+            "x": 276.84423828125,
+            "y": 104.23017883300781,
+            "right": 291.3086624145508,
+            "bottom": 127.07709503173828
+          },
+          {
+            "text": "O",
+            "x": 172,
+            "y": 139.2301788330078,
+            "right": 184.04487228393555,
+            "bottom": 162.07709503173828
+          }
+        ],
+        "directRejections": [
+          true,
+          true
+        ],
+        "errors": []
+      },
+      {
+        "width": 390,
+        "fonts": true,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "controlStates": 102,
+        "actualKeyboard": true,
+        "invalidRetention": true,
+        "examples": 9,
+        "checkpoints": 2,
+        "independentPractice": 12,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "content": 350
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "content": 350
+          }
+        ],
+        "codeGeometry": {
+          "width": 348,
+          "content": 563,
+          "left": 38,
+          "focused": true
+        },
+        "labelBounds": [
+          {
+            "text": "x",
+            "x": 306,
+            "y": 165.83786010742188,
+            "right": 317.2672128677368,
+            "bottom": 190.04266929626465
+          },
+          {
+            "text": "y",
+            "x": 174.99998474121094,
+            "y": 5.8378586769104,
+            "right": 186.62963962554932,
+            "bottom": 30.042667865753174
+          },
+          {
+            "text": "P",
+            "x": 121.99999237060547,
+            "y": 182.83786010742188,
+            "right": 133.4247808456421,
+            "bottom": 207.04266929626465
+          },
+          {
+            "text": "P\u00e2\u20ac\u00b2",
+            "x": 276.0545959472656,
+            "y": 102.83785247802734,
+            "right": 291.5021390914917,
+            "bottom": 127.04266166687012
+          },
+          {
+            "text": "O",
+            "x": 172,
+            "y": 137.83786010742188,
+            "right": 184.71697998046875,
+            "bottom": 162.04266929626465
+          }
+        ],
+        "directRejections": [
+          true,
+          true
+        ],
+        "errors": []
+      },
+      {
+        "width": 320,
+        "fonts": true,
+        "sections": 10,
+        "labs": 5,
+        "figures": 5,
+        "controlStates": 102,
+        "actualKeyboard": true,
+        "invalidRetention": true,
+        "examples": 9,
+        "checkpoints": 2,
+        "independentPractice": 12,
+        "mathWidths": [
+          {
+            "index": 0,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "content": 280
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "content": 280
+          }
+        ],
+        "codeGeometry": {
+          "width": 278,
+          "content": 563,
+          "left": 38,
+          "focused": true
+        },
+        "labelBounds": [
+          {
+            "text": "x",
+            "x": 305.9999694824219,
+            "y": 165.75498962402344,
+            "right": 317.54697132110596,
+            "bottom": 190.13199424743652
+          },
+          {
+            "text": "y",
+            "x": 174.99998474121094,
+            "y": 5.754995822906494,
+            "right": 186.6271743774414,
+            "bottom": 30.13200044631958
+          },
+          {
+            "text": "P",
+            "x": 122,
+            "y": 182.75497436523438,
+            "right": 133.54700183868408,
+            "bottom": 207.13197898864746
+          },
+          {
+            "text": "P\u00e2\u20ac\u00b2",
+            "x": 276.052978515625,
+            "y": 102.75499725341797,
+            "right": 291.31399726867676,
+            "bottom": 127.13200187683105
+          },
+          {
+            "text": "O",
+            "x": 171.99998474121094,
+            "y": 137.75498962402344,
+            "right": 184.82998657226562,
+            "bottom": 162.13199424743652
+          }
+        ],
+        "directRejections": [
+          true,
+          true
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "browserFinalReading": {
+    "at": "2026-09-11T00:08:05.120Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "actualCSSRadii": [
+          46.090911865234375,
+          92.18182373046875
+        ],
+        "radiusRatio": 2,
+        "finalCaptionVerified": true,
+        "formulas": 8,
+        "errors": []
+      },
+      {
+        "width": 390,
+        "actualCSSRadii": [
+          38.671302795410156,
+          77.34262084960938
+        ],
+        "radiusRatio": 2.000000394576545,
+        "finalCaptionVerified": true,
+        "formulas": 8,
+        "errors": []
+      },
+      {
+        "width": 320,
+        "actualCSSRadii": [
+          30.398578643798828,
+          60.797157287597656
+        ],
+        "radiusRatio": 2,
+        "finalCaptionVerified": true,
+        "formulas": 8,
+        "errors": []
+      }
+    ]
+  },
+  "openedScreenshots": [
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-1-1440.png",
+      "sha256": "0f4b1fabf419552e8cdf32ad252700dd33c22b346cc146d83069260e414da3d4",
+      "bytes": 180835
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-2-320.png",
+      "sha256": "381046ef246890099ec6f133068e400d8bb321a22c5eaea6d9c5bbcd604bc196",
+      "bytes": 60514
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-3-390.png",
+      "sha256": "afbc6fcd748c8398197b8cd30947e28eb3485a370f74be89bda6f6b68017c971",
+      "bytes": 108062
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-4-1440.png",
+      "sha256": "2f62d8122db1128c6b484800d958a14cab653f31ef27c299820b15fcb16050f8",
+      "bytes": 203431
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-5-390.png",
+      "sha256": "b81be92df365b42df8fabd6fb4b9daaa5c104cf82c841e8b357d0d81bc470824",
+      "bytes": 99444
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-6-320.png",
+      "sha256": "0c6957ddc39f86e47a0ebd851e1c0a1d609c7dce0389ed210fa811079b6f8f99",
+      "bytes": 75017
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-7-1440.png",
+      "sha256": "94d53cac968cabcacf6cbe195406210746dc60205ea2ccc97b47b24132510004",
+      "bytes": 239179
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-8-390.png",
+      "sha256": "22b62f5b756eb77ec5e45ed20329b5d2576a7f7e127df8cf57b502e71690969f",
+      "bytes": 105917
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/reading-9-320.png",
+      "sha256": "98a6f33215b118edc65aa658d5f2fc0baf09fc93e521a87250380b4966acae43",
+      "bytes": 68639
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/inline-3-320.png",
+      "sha256": "f4b513c89085045241b1592baa47396fe3bb0c8d5cf6cd1abfd3688aa2038b4f",
+      "bytes": 72937
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/inline-4-320.png",
+      "sha256": "12527e4fe138d947cd68ec008c9eff885cc575fc732cec7d71a7d4e38afda5cd",
+      "bytes": 70681
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/inline-5-390.png",
+      "sha256": "df82f7f2a151f33b69b34db6ae8d6fed01c6f665ea69e81cbcebf54db0ef9e14",
+      "bytes": 82360
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/initial-figure-3-320.png",
+      "sha256": "88bfdc35b4ebb3a417b37024edfedb0c1a757425fc6be38666a7e3803563bbae",
+      "bytes": 52056
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/circle-linked-traces-320.png",
+      "sha256": "a7d4543941cc6ca5ba7cd7c214a7bf12128617435dc0fe4a25c90df8b22ba52c",
+      "bytes": 63401
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/frame-active-changed-390.png",
+      "sha256": "704787d2cabda3cd5477deedd5afebc0a78bd3a6b88a586b4a5bb3294d09fe56",
+      "bytes": 85312
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/frame-passive-changed-320.png",
+      "sha256": "e66d5122cec28b46385e6fa0034c22d2e311b7af25d9a7c7d7617191d8908340",
+      "bytes": 68566
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/frame-extreme-label-320.png",
+      "sha256": "f09ee9c5e411aebcf63c41fedbe870b63f344729b69809137a1b2bdd28be414d",
+      "bytes": 67547
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/final-arc-copy-1440.png",
+      "sha256": "964839be1894338c3808e66ddb06c49d713305b9336e21a6b270efad5d9ea3d3",
+      "bytes": 148701
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/final-arc-copy-390.png",
+      "sha256": "00882713714a16c87545c73efcb9d785d81388626e0aca279d6bdb44bbc5991e",
+      "bytes": 68181
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/final-arc-copy-320.png",
+      "sha256": "cc2aca4040aec888429bfb663097a19e8d21945a3f04cc8861395f03606081d0",
+      "bytes": 56731
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/practice-ssa-320.png",
+      "sha256": "7d7681039a132cc20c1ef9d31b1d705c1b655ace16363a560812ac8cad12841d",
+      "bytes": 66125
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/practice-frame-390.png",
+      "sha256": "376e6f7d0db72fac18049392f3688ee8db7a9b58a3ca05bb4feb8c06f0ba6414",
+      "bytes": 79650
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/practice-measurement-320.png",
+      "sha256": "abb4207d65c1384b3634c2bbde9eb1ae9bc8815369ca693abd5148d4c0b2402c",
+      "bytes": 67695
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/native-ssa-320.png",
+      "sha256": "5d097f2e5cbb76414b639d3a2fc22bccdd423810e60a77c0c29203f6594ba584",
+      "bytes": 70442
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/sources-390.png",
+      "sha256": "87cc43a9dc108cf2b2cfa33e9912e2a4570fdd7a7d6a0f1422ba69a7dab2cb17",
+      "bytes": 117327
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/equation-1-320.png",
+      "sha256": "7ed2d2c60d83e39f056aeefb8125c945894e0be5c7eaa0961f1bda3b4b73bf72",
+      "bytes": 76302
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/equation-6-320.png",
+      "sha256": "1a88e8417b2ab9f74e0bd0e38a269ac593622270e114162b76ca7d784ff3b194",
+      "bytes": 63704
+    },
+    {
+      "path": "scratch/geometry-trigonometry-browser/initial-figure-2-390.png",
+      "sha256": "3b817e3127de17e8c50668a7bf58afbed75420cab5e84837de21fcb1a00ab08b",
+      "bytes": 75455
+    }
+  ],
+  "reviewBounds": "Actual-font Edge1440/390/320. Full behavior pass precedes only the fixed-responsive-scale caption; final focused pass verifies that copy and measured radius doubling, all eight formulas, errors and overflow. All listed 28 final screenshots were actually opened by author. Independent review and production integration are parent-owned; no learner study or universal floating-point library claim.",
+  "sourceReviewRepairs": [
+    "Phone reading: multiline three wide equations; inward axis/trace titles and adaptive/coincident active-point labels.",
+    "Explicit SSA circle arc connects the two valid positive-ray intersections.",
+    "Root review: remove temporal later-Vectors wording, because module position1 differs from conceptual prerequisite ordering.",
+    "Root review: replace 39-pixels-per-unit claim with fixed scale within the responsive view; actual radius ratio checked at all widths.",
+    "Native validation: reject subnormal grid inputs whose division would underflow onto zero; validate native frame origins and screen scales."
+  ]
+}

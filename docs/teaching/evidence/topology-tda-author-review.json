@@ -1,0 +1,824 @@
+{
+  "topicId": "topology-topological-data-analysis-tda",
+  "modulePosition": 40,
+  "authorFreezeAt": "2026-09-10T22:39:38.023Z",
+  "status": "author-frozen; independent review, production integration and user acceptance are separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "sha256": "b5b08bf419a5892ea94421538cb222d7fe4294b5a6c2d12c279bff339bfa0eb1",
+      "bytes": 67144
+    },
+    {
+      "path": "src/learn/data/topology-tda-models.js",
+      "sha256": "f7e6e6363dea8f1a041986b4bb8a807119adf4f3333e91c7d47c781ad059c9fb",
+      "bytes": 23720
+    },
+    {
+      "path": "src/learn/data/topology-tda-examples.js",
+      "sha256": "8f75c644186f6ef088b1812f41310c688afbc30bc2d62a195003d1d362d266e1",
+      "bytes": 32559
+    },
+    {
+      "path": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+      "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25",
+      "bytes": 44962
+    },
+    {
+      "path": "src/learn/components/lesson-labs/topology-tda-labs.css",
+      "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a",
+      "bytes": 7235
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/topology-topological-data-analysis-tda.js",
+      "sha256": "a7da5821d65d5395d7269e277f9caaad9ccfbd16101a36b35de62f157c72d5dd",
+      "bytes": 4351
+    }
+  ],
+  "support": [
+    {
+      "path": "docs/teaching/TOPOLOGY-TDA-LESSON-DESIGN.md",
+      "sha256": "92fb2c429e4848b8a635166b6aa7e31516b9796c1a8320e1225a90c162b0327a",
+      "bytes": 38821
+    },
+    {
+      "path": "docs/teaching/TOPOLOGY-TDA-VERIFICATION.md",
+      "sha256": "52984c126465bb12f9fe4947caa468197e90d9cbc2692f7cb279a187da30ce78",
+      "bytes": 8006
+    },
+    {
+      "path": "docs/teaching/evidence/topology-tda-original-content.json",
+      "sha256": "c393dec677acf264b61f1688cf84ed28fde6bda2c628d5a46b2f79953aabbba1",
+      "bytes": 8675
+    },
+    {
+      "path": "scripts/export-topology-tda-model-fixtures.mjs",
+      "sha256": "b999fda327b7498d0f7874c90d34bbbce0b98652208a5013e03f7369aa4fa8fb",
+      "bytes": 5460
+    },
+    {
+      "path": "scripts/verify-topology-tda-models.py",
+      "sha256": "594fb4676828a41e1d7aaec541846bc75f5889a2d55949c7045aa9c73329f778",
+      "bytes": 12807
+    },
+    {
+      "path": "scripts/verify-topology-tda-native.py",
+      "sha256": "338fd6a1c85ae91da7c7958d02134ed0170cc7c9d4f8ee539df7727c8178025c",
+      "bytes": 5610
+    },
+    {
+      "path": "scripts/review-topology-tda-lesson.cjs",
+      "sha256": "08abedd8edc5b3c52b14db0a861413ff2d59b84a723bfbcd54eedd2b84b21916",
+      "bytes": 18924
+    },
+    {
+      "path": "scripts/format-topology-tda-source.cjs",
+      "sha256": "2bbae15afd32563e1f8518a1f22ddf748d9245aa43b33d14d747699b03dcbd1c",
+      "bytes": 2584
+    },
+    {
+      "path": "docs/teaching/topic-notes/category-theory-emerging-use-in-ml.md",
+      "sha256": "50146a038214e9d9cb0488281bd2b8a60af326529df52a5814b3c8bc0d60290a",
+      "bytes": 3186
+    },
+    {
+      "path": "docs/teaching/topic-notes/t-sne-umap-manifold-learning.md",
+      "sha256": "abc006bd982e64f45ff17c65343998dfbaafa732ff51ce5a011b957d92727b58",
+      "bytes": 3010
+    },
+    {
+      "path": "docs/teaching/topic-notes/geometric-topological-deep-learning.md",
+      "sha256": "068c0f5d65af9973ac125a65cc146c2a850bd30d4febf60d12e191a622f2d384",
+      "bytes": 2730
+    }
+  ],
+  "original": {
+    "sourceSha256": "0e944c5c549399e52954b5a490530c2ee3a068b0342f87095ae785a004292d71",
+    "codeAndOutputPreservedExactly": true
+  },
+  "modelVerification": {
+    "passed": true,
+    "checkedAt": "2026-09-10T22:38:40.297227+00:00",
+    "assertions": 3892,
+    "persistentImageRankComparisons": 348,
+    "graphCases": 1024,
+    "pixelTriangulations": 512,
+    "worstNormalIntervalRelativeError": 1,
+    "worstNormalRangeRelativeError": 7.308430678412916e-13,
+    "subnormalIntervals": 11,
+    "underflowedIntervals": 2,
+    "fixtureCreatedAt": "2026-09-10T22:38:34.685Z",
+    "limits": "Finite bounded cases; no general theorem, empirical topology inference or browser review is established by this check."
+  },
+  "nativeVerification": {
+    "passed": true,
+    "verifiedAt": "2026-09-10T22:34:50.630497+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "programs": [
+      {
+        "name": "original",
+        "codeSha256": "18f6ddd3337790dee9134ea40a0bdb43373755bdedd21c181f43344bee5d173e",
+        "stdout": "0.5 4\n0.7 2\n1.5 1\n"
+      },
+      {
+        "name": "boundaries",
+        "codeSha256": "f84863b324ad6914040817c94e0193f4d5ef70ea9dab5752e160e9dbe21c4ee7",
+        "stdout": "boundary of two adjacent edges: [(0,), (2,)]\nboundary of all three edges: []\nboundary twice: []\ntriangle edges (1, 1, 0)\nfilled triangle (1, 0, 0)\ntetrahedron shell (1, 0, 1)\nfilled tetrahedron (1, 0, 0)\nthis matrix has F2 rank 2 and real determinant -2\n"
+      },
+      {
+        "name": "persistence",
+        "codeSha256": "3dc93f97ee82e4df3904774d346c4ad28db658474b465b7ad04fd59884536e8e",
+        "stdout": "square\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, infinity)\n  H1: [2.000000, 2.828427)\nrectangle\n  H0: [0.000000, 1.000000)\n  H0: [0.000000, 1.000000)\n  H0: [0.000000, 3.000000)\n  H0: [0.000000, infinity)\n  H1: [3.000000, 3.162278)\nSquare graph alone has 3 unfilled H1 classes at the end.\nAdding all faces leaves 0 unfilled H1 classes.\nTwo identical observations: [(0, 0, inf)]\n"
+      },
+      {
+        "name": "matching",
+        "codeSha256": "6ebc88242db97cc9c77b2c54bafa9a2e99be8727896482eada1ed5bf7a8b6573",
+        "stdout": "Greedy first-to-first matching costs 4\np=inf: distance=2.000000; assignments=[1, 0]\np=1: distance=3.000000; assignments=[1, 0]\np=2: distance=2.236068; assignments=[1, 0]\nOne [1,4) bar versus empty: 1.5\nTwo copies versus one copy: 1.5\nEmpty versus empty: 0\n"
+      },
+      {
+        "name": "pixels",
+        "codeSha256": "93b0ffdd785aa2224f47d7d724de108a7f788cc67f92a02b4e652ede35e72524",
+        "stdout": "ring 0 ((0, 0, 0), (0, 0))\nring 1 ((16, 24, 8), (1, 1))\nring 3 ((16, 24, 9), (1, 0))\nring with top gap ((16, 22, 7), (1, 0))\ntwo diagonal pixels ((7, 8, 2), (1, 0))\nThese are closed cells, not a four-neighbor foreground labeling.\n"
+      },
+      {
+        "name": "delay",
+        "codeSha256": "bcafa65b14743b321a75493cf326367e4fd4d0c1f547c8cff42cb65f4172f4f1",
+        "stdout": "delay=0.000000: determinant=0.000000; pairs=[(1.0, 1.0), (0.0, 0.0), (-1.0, -1.0), (-0.0, -0.0)]\ndelay=0.523599: determinant=0.500000; pairs=[(1.0, 0.866025), (0.0, 0.5), (-1.0, -0.866025), (-0.0, -0.5)]\ndelay=1.570796: determinant=1.000000; pairs=[(1.0, 0.0), (0.0, 1.0), (-1.0, 0.0), (-0.0, -1.0)]\ndelay=3.141593: determinant=0.000000; pairs=[(1.0, -1.0), (0.0, 0.0), (-1.0, 1.0), (-0.0, 0.0)]\nReverse the order of these points: a point-cloud distance matrix only reorders its rows/columns.\nThe delay construction used time; ordinary point-cloud persistence discards traversal direction.\n"
+      },
+      {
+        "name": "features",
+        "codeSha256": "900faa561197afb1a3575aaa5896cb911c29d9fb2b39758c83e7c0d676fd5015",
+        "stdout": "t=0.5: landscape levels 0.5, 0.0\nt=1.5: landscape levels 1.5, 0.5\nt=2: landscape levels 1.0, 1.0\nt=2.5: landscape levels 1.5, 0.5\nt=3.5: landscape levels 0.5, 0.0\nsigma=0.25: pixel [0,1]x[2,3] contributions=[0.249968, 0.249968]; captured=1.499921; omitted=0.500079\nsigma=0.5: pixel [0,1]x[2,3] contributions=[0.227767, 0.227767]; captured=1.443642; omitted=0.556358\nsigma=1: pixel [0,1]x[2,3] contributions=[0.116516, 0.116516]; captured=1.125562; omitted=0.874438\nThe total surface weight is 2. The finite image window does not capture all Gaussian tails.\n"
+      },
+      {
+        "name": "validation",
+        "codeSha256": "7b4f20e2bd85f71f987d7836b35293a21d38d6515b90ef85ff5e241a8402d156",
+        "stdout": "longest/diameter: training threshold=0.363138; validation=24/24\nsum/diameter: training threshold=0.382158; validation=24/24\nradial baseline: training threshold=0.848431; validation=24/24\nChosen topological feature on validation: longest/diameter\nFrozen longest/diameter: untouched test=24/24\nFrozen radial baseline: untouched test=24/24\nnew irregular circle sampling [('longest/diameter', 15), ('radial baseline', 17)] out of 24; no retuning\nnew anisotropically scaled shapes [('longest/diameter', 12), ('radial baseline', 12)] out of 24; no retuning\nnew noisy measurements [('longest/diameter', 13), ('radial baseline', 21)] out of 24; no retuning\nSynthetic independent clouds, 14 points each. This is a workflow demonstration, not a general benchmark.\n"
+      },
+      {
+        "name": "mapper",
+        "codeSha256": "556466742c1b4a6f193338bf00c52a1587d49a36cf40021e5128f57630d2c4c5",
+        "stdout": "cluster threshold=0.6: 6 nodes, 6 edges\n  node 0, cover 0, members (4, 5, 6, 7, 8)\n  node 1, cover 1, members (3, 4)\n  node 2, cover 1, members (8, 9)\n  node 3, cover 2, members (2, 3)\n  node 4, cover 2, members (9, 10)\n  node 5, cover 3, members (0, 1, 2, 10, 11)\n  overlap edges [(0, 1, [4]), (0, 2, [8]), (1, 3, [3]), (2, 4, [9]), (3, 5, [2]), (4, 5, [10])]\ncluster threshold=1.8: 4 nodes, 3 edges\n  node 0, cover 0, members (4, 5, 6, 7, 8)\n  node 1, cover 1, members (3, 4, 8, 9)\n  node 2, cover 2, members (2, 3, 9, 10)\n  node 3, cover 3, members (0, 1, 2, 10, 11)\n  overlap edges [(0, 1, [4, 8]), (1, 2, [3, 9]), (2, 3, [2, 10])]\nRepeated point IDs create overlap edges. Node positions in a drawing are not input distances.\n"
+      }
+    ],
+    "originalPreservedExactly": true,
+    "changedInputAssertions": 2504,
+    "finiteRipsComparisonRounding": 11,
+    "limits": "Actual published stdlib programs; finite case checks. The model fixtures have a separately executed RREF/triangulation/assignment/high-precision oracle. This does not certify arbitrary complexes or statistical inference."
+  },
+  "browserVerification": {
+    "passed": true,
+    "verifiedAt": "2026-09-10T22:35:40.358Z",
+    "browser": "152.0.4191.66",
+    "sources": [
+      {
+        "file": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "sha256": "b5b08bf419a5892ea94421538cb222d7fe4294b5a6c2d12c279bff339bfa0eb1"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+        "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/topology-tda-labs.css",
+        "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a"
+      },
+      {
+        "file": "src/learn/data/topology-tda-models.js",
+        "sha256": "f7e6e6363dea8f1a041986b4bb8a807119adf4f3333e91c7d47c781ad059c9fb"
+      },
+      {
+        "file": "src/learn/data/topology-tda-examples.js",
+        "sha256": "8f75c644186f6ef088b1812f41310c688afbc30bc2d62a195003d1d362d266e1"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "width": 1440,
+          "documentWidth": 1440,
+          "equations": [
+            {
+              "index": 0,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 1,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 2,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 3,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 4,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 5,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 6,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 7,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 8,
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 14.855588942307692,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "width": 390,
+          "documentWidth": 390,
+          "equations": [
+            {
+              "index": 0,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 1,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 2,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 3,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 4,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 5,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 6,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 7,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 8,
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 19.343649193548387,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 1,
+        "geometry": {
+          "width": 320,
+          "documentWidth": 320,
+          "equations": [
+            {
+              "index": 0,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 1,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 2,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 3,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 4,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 5,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 6,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 7,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 8,
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 15.143749999999999,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      }
+    ]
+  },
+  "visualReview": {
+    "openedAt": "2026-09-10T22:39:38.033Z",
+    "scope": "Author actually opened these sixteen final images through view_image; other captured images are not counted as opened.",
+    "images": [
+      {
+        "path": "scratch/topology-tda-browser/chain-boundary-1440.png",
+        "sha256": "877a5d28dceba951897be4f807cf1c11b50854c5870f27a723fe3677978d92e4",
+        "bytes": 86861
+      },
+      {
+        "path": "scratch/topology-tda-browser/square-persistence-1440.png",
+        "sha256": "ea0915260d0cfea687b7838e4aba9fa6d04943f48f01981026e8483b0e0706fa",
+        "bytes": 127935
+      },
+      {
+        "path": "scratch/topology-tda-browser/boundary-xor-1440.png",
+        "sha256": "1b610c2fc12f70fcc50a495bd3b682096739e37249a7cad9e20f2639e34f3ac3",
+        "bytes": 120785
+      },
+      {
+        "path": "scratch/topology-tda-browser/matching-optimum-1440.png",
+        "sha256": "df70cf9d5142b31f2b177381a1aa3e2212f4dd883d63fece842105862bacc00e",
+        "bytes": 78059
+      },
+      {
+        "path": "scratch/topology-tda-browser/pixel-ring-1440.png",
+        "sha256": "f52cd956a1e5729de61bdfcf527cf6154f6e800cffa02b78dee6c6782175fd7c",
+        "bytes": 69627
+      },
+      {
+        "path": "scratch/topology-tda-browser/landscape-image-1440.png",
+        "sha256": "d662eb034d47a11e52222f97be5fdbd186633457b8e682dd01aa157147bf6a57",
+        "bytes": 127560
+      },
+      {
+        "path": "scratch/topology-tda-browser/mapper-loop-1440.png",
+        "sha256": "fa7e068cadc859d5fc8d9cb5095b07694b3ea31a3c484542bba84d5b9e56f4f2",
+        "bytes": 136828
+      },
+      {
+        "path": "scratch/topology-tda-browser/inline-0-1440.png",
+        "sha256": "aae16047345619640363ce6821bac1ddb98225941bf35bee445095321f9cdfcb",
+        "bytes": 64409
+      },
+      {
+        "path": "scratch/topology-tda-browser/inline-1-1440.png",
+        "sha256": "1b738d06d5bd9887d2d66e09ceae8b6c65c9b049bcbced77fd32757ab0d555b6",
+        "bytes": 70388
+      },
+      {
+        "path": "scratch/topology-tda-browser/inline-2-1440.png",
+        "sha256": "cc31cf8a1c9f4e9a879b8a219f6d90803356d2c99d45495678f051b22cf83a72",
+        "bytes": 38441
+      },
+      {
+        "path": "scratch/topology-tda-browser/landscape-image-320.png",
+        "sha256": "a136ac8161b6ade147fd8379b15d7a47fc50541d466dc7550432ec5370ab9c18",
+        "bytes": 128107
+      },
+      {
+        "path": "scratch/topology-tda-browser/reduction-matrix-320.png",
+        "sha256": "0afa2aecc326e5e5a268da0c44e8d42e1b9e45e9161a725d422dbe42df345689",
+        "bytes": 114112
+      },
+      {
+        "path": "scratch/topology-tda-browser/mapper-higher-nerve-390.png",
+        "sha256": "c10ec8ea6568356eb5b62628067f90248a99a0f52a7e994b25b7a3beb988f448",
+        "bytes": 142229
+      },
+      {
+        "path": "scratch/topology-tda-browser/reading-3-320.png",
+        "sha256": "a441bac30767560c9e184a3e9b459d0fee11901c44da47f39d522f6a9f082782",
+        "bytes": 75462
+      },
+      {
+        "path": "scratch/topology-tda-browser/reading-9-390.png",
+        "sha256": "3e168a7d56b704772aefb9bb87c0183736182ee5864e2a642305efb2f86fc67a",
+        "bytes": 107000
+      },
+      {
+        "path": "scratch/topology-tda-browser/reading-13-390.png",
+        "sha256": "682a6885453309e5dee21955d63c3824b1f3f3c666f115e8924b74a6b2da3bd4",
+        "bytes": 87410
+      }
+    ]
+  },
+  "formatting": {
+    "checkedAt": "2026-09-10T22:32:29.150Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/topology-tda-models.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/topology-topological-data-analysis-tda.js",
+        "normalizedAstConserved": true,
+        "transformWarnings": 0
+      },
+      {
+        "file": "src/learn/components/lesson-labs/topology-tda-labs.css",
+        "normalizedAstConserved": true
+      }
+    ]
+  },
+  "limits": [
+    "Finite bounded mathematical and numerical checks are not general topology-inference proofs.",
+    "Subnormal binary64 probabilities have separately reported rounding/underflow, without a relative-accuracy guarantee.",
+    "Official video identities and links were checked; full playback was not reviewed.",
+    "GUDHI3.13.0 is a documentation version; all displayed programs use the actual Python standard library.",
+    "Root production integration and user acceptance are separate."
+  ]
+}

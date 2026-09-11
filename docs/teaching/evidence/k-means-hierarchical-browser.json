@@ -1,0 +1,488 @@
+{
+  "checkedAt": "2026-09-11T17:34:20.199Z",
+  "topicId": "k-means-hierarchical-clustering",
+  "status": "passed",
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "bf89d7ba6add457467b803aaf5458936de661ee3227e857dd697483661f7596f",
+    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+    "src/learn/data/k-means-hierarchical-examples.js": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "6c5ea036d7751e02a0b3925cbd372a0a449f6ba5624aa6525f3ac1ddd1a47273",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "421f42263440d73139f2437a402de95c7ae7a28105cdb9c8b41ae4a2b4e857c4",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "25f9e3311801550d271c8b45b589fc80eb520ef00dd20d23419ec8b8ec83b07b",
+    "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "6f74f6a098dc78efbd85b99cdf6672dd8594925d5267594a73cf09a66441d86a"
+  },
+  "buildManifestHash": "3a09efbaa582e953f99efcc245129de96e127c72bf2b1fe1b053a307597f8d31",
+  "previousVerification": {
+    "path": "docs/teaching/archive/k-means-hierarchical-before-label-layout/k-means-hierarchical-browser.json",
+    "sha256": "fae38d14272665d5f1b175984e0263f82c08afd9dcad0a658584474c6b42fad8",
+    "cases": 12,
+    "scope": "All 12 complete production cases passed; unchanged numerical/code/sequence/progress/recovery checks retained. This amendment targets only revised scatter annotation placement and the resulting production chunk."
+  },
+  "labelLayout": {
+    "cases": [
+      {
+        "state": "six points: initial",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: assigned",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: moved means",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: initial",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: assigned",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: moved",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: initial",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: assigned",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: moved",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: initial",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: assigned",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: moved",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: initial",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: assigned",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: moved",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "tall transformed rectangle",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "second seed selected",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "identical rows: stopped seeding",
+        "viewport": {
+          "width": 1366,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: initial",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: assigned",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: moved means",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: initial",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: assigned",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: moved",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: initial",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: assigned",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: moved",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: initial",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: assigned",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: moved",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: initial",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: assigned",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: moved",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "tall transformed rectangle",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "second seed selected",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "identical rows: stopped seeding",
+        "viewport": {
+          "width": 390,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: initial",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: assigned",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "six points: moved means",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: initial",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: assigned",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "duplicate centers: moved",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: initial",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: assigned",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "nearby centers: moved",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: initial",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: assigned",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle separated: moved",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: initial",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: assigned",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "rectangle nearby: moved",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "tall transformed rectangle",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "second seed selected",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      },
+      {
+        "state": "identical rows: stopped seeding",
+        "viewport": {
+          "width": 320,
+          "height": 1000
+        },
+        "labelOverlap": false
+      }
+    ],
+    "screenshots": [
+      "docs/teaching/evidence/k-means-lloyd-desktop.png",
+      "docs/teaching/evidence/k-means-seeding-desktop.png",
+      "docs/teaching/evidence/k-means-lloyd-mobile.png"
+    ],
+    "interpretation": "Actual intended fonts; DOM checks detect label-to-label overlap. Selected images must additionally be opened to assess point/center-marker clearance and legibility."
+  },
+  "network": {
+    "requestedScripts": [
+      "assets/index-A-4Nds4M.js",
+      "assets/Reader-BBjRCij1.js",
+      "assets/LevelBadge-FZav8D0b.js",
+      "assets/k-means-hierarchical-clustering-q5YpW6B1.js",
+      "assets/Code-Bnx7iqo3.js",
+      "assets/Callout-7Sjm-IWJ.js",
+      "assets/Math-BduoRiHS.js",
+      "assets/LessonElements-T-WoBUnj.js",
+      "assets/RunnableExample-DoRP5vG6.js"
+    ],
+    "rawScriptBytes": 1448219,
+    "gzipEstimateBytes": 325636
+  },
+  "retainedScreenshots": [
+    "docs/teaching/evidence/k-means-tree-mobile.png",
+    "docs/teaching/evidence/k-means-mean-mobile.png",
+    "docs/teaching/evidence/k-means-diagnostics-mobile.png",
+    "docs/teaching/evidence/k-means-palette-mobile.png"
+  ],
+  "catalogueIds": 1218,
+  "publicationMappings": 228,
+  "moduleTopicCount": 39
+}

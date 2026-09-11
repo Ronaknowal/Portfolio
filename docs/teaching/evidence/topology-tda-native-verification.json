@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "verifiedAt": "2026-09-10T22:34:50.630497+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "programs": [
+    {
+      "name": "original",
+      "codeSha256": "18f6ddd3337790dee9134ea40a0bdb43373755bdedd21c181f43344bee5d173e",
+      "stdout": "0.5 4\n0.7 2\n1.5 1\n"
+    },
+    {
+      "name": "boundaries",
+      "codeSha256": "f84863b324ad6914040817c94e0193f4d5ef70ea9dab5752e160e9dbe21c4ee7",
+      "stdout": "boundary of two adjacent edges: [(0,), (2,)]\nboundary of all three edges: []\nboundary twice: []\ntriangle edges (1, 1, 0)\nfilled triangle (1, 0, 0)\ntetrahedron shell (1, 0, 1)\nfilled tetrahedron (1, 0, 0)\nthis matrix has F2 rank 2 and real determinant -2\n"
+    },
+    {
+      "name": "persistence",
+      "codeSha256": "3dc93f97ee82e4df3904774d346c4ad28db658474b465b7ad04fd59884536e8e",
+      "stdout": "square\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, 2.000000)\n  H0: [0.000000, infinity)\n  H1: [2.000000, 2.828427)\nrectangle\n  H0: [0.000000, 1.000000)\n  H0: [0.000000, 1.000000)\n  H0: [0.000000, 3.000000)\n  H0: [0.000000, infinity)\n  H1: [3.000000, 3.162278)\nSquare graph alone has 3 unfilled H1 classes at the end.\nAdding all faces leaves 0 unfilled H1 classes.\nTwo identical observations: [(0, 0, inf)]\n"
+    },
+    {
+      "name": "matching",
+      "codeSha256": "6ebc88242db97cc9c77b2c54bafa9a2e99be8727896482eada1ed5bf7a8b6573",
+      "stdout": "Greedy first-to-first matching costs 4\np=inf: distance=2.000000; assignments=[1, 0]\np=1: distance=3.000000; assignments=[1, 0]\np=2: distance=2.236068; assignments=[1, 0]\nOne [1,4) bar versus empty: 1.5\nTwo copies versus one copy: 1.5\nEmpty versus empty: 0\n"
+    },
+    {
+      "name": "pixels",
+      "codeSha256": "93b0ffdd785aa2224f47d7d724de108a7f788cc67f92a02b4e652ede35e72524",
+      "stdout": "ring 0 ((0, 0, 0), (0, 0))\nring 1 ((16, 24, 8), (1, 1))\nring 3 ((16, 24, 9), (1, 0))\nring with top gap ((16, 22, 7), (1, 0))\ntwo diagonal pixels ((7, 8, 2), (1, 0))\nThese are closed cells, not a four-neighbor foreground labeling.\n"
+    },
+    {
+      "name": "delay",
+      "codeSha256": "bcafa65b14743b321a75493cf326367e4fd4d0c1f547c8cff42cb65f4172f4f1",
+      "stdout": "delay=0.000000: determinant=0.000000; pairs=[(1.0, 1.0), (0.0, 0.0), (-1.0, -1.0), (-0.0, -0.0)]\ndelay=0.523599: determinant=0.500000; pairs=[(1.0, 0.866025), (0.0, 0.5), (-1.0, -0.866025), (-0.0, -0.5)]\ndelay=1.570796: determinant=1.000000; pairs=[(1.0, 0.0), (0.0, 1.0), (-1.0, 0.0), (-0.0, -1.0)]\ndelay=3.141593: determinant=0.000000; pairs=[(1.0, -1.0), (0.0, 0.0), (-1.0, 1.0), (-0.0, 0.0)]\nReverse the order of these points: a point-cloud distance matrix only reorders its rows/columns.\nThe delay construction used time; ordinary point-cloud persistence discards traversal direction.\n"
+    },
+    {
+      "name": "features",
+      "codeSha256": "900faa561197afb1a3575aaa5896cb911c29d9fb2b39758c83e7c0d676fd5015",
+      "stdout": "t=0.5: landscape levels 0.5, 0.0\nt=1.5: landscape levels 1.5, 0.5\nt=2: landscape levels 1.0, 1.0\nt=2.5: landscape levels 1.5, 0.5\nt=3.5: landscape levels 0.5, 0.0\nsigma=0.25: pixel [0,1]x[2,3] contributions=[0.249968, 0.249968]; captured=1.499921; omitted=0.500079\nsigma=0.5: pixel [0,1]x[2,3] contributions=[0.227767, 0.227767]; captured=1.443642; omitted=0.556358\nsigma=1: pixel [0,1]x[2,3] contributions=[0.116516, 0.116516]; captured=1.125562; omitted=0.874438\nThe total surface weight is 2. The finite image window does not capture all Gaussian tails.\n"
+    },
+    {
+      "name": "validation",
+      "codeSha256": "7b4f20e2bd85f71f987d7836b35293a21d38d6515b90ef85ff5e241a8402d156",
+      "stdout": "longest/diameter: training threshold=0.363138; validation=24/24\nsum/diameter: training threshold=0.382158; validation=24/24\nradial baseline: training threshold=0.848431; validation=24/24\nChosen topological feature on validation: longest/diameter\nFrozen longest/diameter: untouched test=24/24\nFrozen radial baseline: untouched test=24/24\nnew irregular circle sampling [('longest/diameter', 15), ('radial baseline', 17)] out of 24; no retuning\nnew anisotropically scaled shapes [('longest/diameter', 12), ('radial baseline', 12)] out of 24; no retuning\nnew noisy measurements [('longest/diameter', 13), ('radial baseline', 21)] out of 24; no retuning\nSynthetic independent clouds, 14 points each. This is a workflow demonstration, not a general benchmark.\n"
+    },
+    {
+      "name": "mapper",
+      "codeSha256": "556466742c1b4a6f193338bf00c52a1587d49a36cf40021e5128f57630d2c4c5",
+      "stdout": "cluster threshold=0.6: 6 nodes, 6 edges\n  node 0, cover 0, members (4, 5, 6, 7, 8)\n  node 1, cover 1, members (3, 4)\n  node 2, cover 1, members (8, 9)\n  node 3, cover 2, members (2, 3)\n  node 4, cover 2, members (9, 10)\n  node 5, cover 3, members (0, 1, 2, 10, 11)\n  overlap edges [(0, 1, [4]), (0, 2, [8]), (1, 3, [3]), (2, 4, [9]), (3, 5, [2]), (4, 5, [10])]\ncluster threshold=1.8: 4 nodes, 3 edges\n  node 0, cover 0, members (4, 5, 6, 7, 8)\n  node 1, cover 1, members (3, 4, 8, 9)\n  node 2, cover 2, members (2, 3, 9, 10)\n  node 3, cover 3, members (0, 1, 2, 10, 11)\n  overlap edges [(0, 1, [4, 8]), (1, 2, [3, 9]), (2, 3, [2, 10])]\nRepeated point IDs create overlap edges. Node positions in a drawing are not input distances.\n"
+    }
+  ],
+  "originalPreservedExactly": true,
+  "changedInputAssertions": 2504,
+  "finiteRipsComparisonRounding": 11,
+  "limits": "Actual published stdlib programs; finite case checks. The model fixtures have a separately executed RREF/triangulation/assignment/high-precision oracle. This does not certify arbitrary complexes or statistical inference."
+}

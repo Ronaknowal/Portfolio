@@ -1,0 +1,476 @@
+{
+  "checkedAt": "2026-09-11T15:34:40.421Z",
+  "topicId": "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+  "status": "closed; no open material findings",
+  "reviewer": "/root (independent of topic author)",
+  "production": [
+    {
+      "path": "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx",
+      "sha256": "c2d614fe087b2268ccdf1a06cb13b40322cab513b0e31395d91c2349c595c59f",
+      "bytes": 84225
+    },
+    {
+      "path": "src/learn/data/survival-models.js",
+      "sha256": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+      "bytes": 15608
+    },
+    {
+      "path": "src/learn/data/survival-examples.js",
+      "sha256": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+      "bytes": 45538
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SurvivalLabs.jsx",
+      "sha256": "f52c0d019bd55946b197d836d1517cfe40979f9030d36c3691618a4c2edd7165",
+      "bytes": 27691
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SurvivalFigures.jsx",
+      "sha256": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+      "bytes": 12776
+    },
+    {
+      "path": "src/learn/components/lesson-labs/survival-labs.css",
+      "sha256": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+      "bytes": 7991
+    },
+    {
+      "path": "src/learn/components/lesson-labs/survival-figures.css",
+      "sha256": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+      "bytes": 4960
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js",
+      "sha256": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602",
+      "bytes": 5380
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/survival-author-review.json",
+      "sha256": "240f0ba93bf68d76fe83112e1988a309ff3290d47cbf71e2b6d78c65750e8d4c"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-program-execution.json",
+      "sha256": "f23cd37d98bcadc03619f2dfe439adf5e7f21e6b06df4b995a022099fd1927c1"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-native-verification.json",
+      "sha256": "bea5e83fc4c3521f5d30df598c376d0b5b8652b28966ed6983d66a3a76cbf9fc"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-browser-behavior.json",
+      "sha256": "fc06c9da81f5139c797f89cd6505a9a636a0e0b1f6325fe4cfffede7f84a63fb"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-browser-final-reading.json",
+      "sha256": "2dc32a28e5d8fbbfad30dcb2e36343aa76561de194b7e4e771aeec4dbc045d7f"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-figures-preflight.json",
+      "sha256": "eeaf74459916b16e2f6b6587921385179300194afa6affd32b3606eca19485f6"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-cox-paint-proof.json",
+      "sha256": "5a0ac624681166d8d46552adb00504e4cd0f600b91a4c6e70adad76c57bd0d35"
+    },
+    {
+      "path": "docs/teaching/evidence/survival-integration-amendment.json",
+      "sha256": "49e72f64cb88fa571022131d427424a0f6abb6e6a3dc04867a52fbad308dba14"
+    }
+  ],
+  "independentScope": [
+    "Complete sixteen-section narrative, all twelve changed practice solutions and annotated sources read for progression, retained depth and assumptions.",
+    "Complete pure model, generator for all seventeen displayed programs, eight labs and both stylesheets independently read.",
+    "All four figure implementations and exact stated quantities reviewed; four isolated narrow images and seven selected actual-route images opened.",
+    "Both actual held-out report outputs and corrected Rossi stdout checked against displayed numerical prose.",
+    "Twenty-three complementary time-unit, affine-Cox, label/risk reversal, probability-risk and cause-mass invariants passed against the final unchanged pure model."
+  ],
+  "complementaryChecks": {
+    "checkedAt": "2026-09-11T14:46:31.365Z",
+    "source": "src/learn/data/survival-models.js",
+    "sha256": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "scope": "Complementary algebraic/interpretation invariants; author library and program executions are separate.",
+    "cases": [
+      {
+        "kind": "time-unit conversion preserves risk/probabilities and scales medians/areas",
+        "scale": 0.25
+      },
+      {
+        "kind": "time-unit conversion preserves risk/probabilities and scales medians/areas",
+        "scale": 24
+      },
+      {
+        "kind": "time-unit conversion preserves risk/probabilities and scales medians/areas",
+        "scale": 100
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "efron",
+        "scale": 1.5,
+        "offset": 0.7
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "efron",
+        "scale": -1,
+        "offset": 2
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "efron",
+        "scale": 0.5,
+        "offset": -1
+      },
+      {
+        "kind": "constant feature has no identifiable relative effect",
+        "ties": "efron"
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "breslow",
+        "scale": 1.5,
+        "offset": 0.7
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "breslow",
+        "scale": -1,
+        "offset": 2
+      },
+      {
+        "kind": "affine feature coordinates preserve the fitted relative-hazard law",
+        "ties": "breslow",
+        "scale": 0.5,
+        "offset": -1
+      },
+      {
+        "kind": "constant feature has no identifiable relative effect",
+        "ties": "breslow"
+      },
+      {
+        "kind": "group-label exchange preserves comparison evidence",
+        "groups": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "kind": "group-label exchange preserves comparison evidence",
+        "groups": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "group-label exchange preserves comparison evidence",
+        "groups": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "kind": "risk reversal complements concordance including score/time ties",
+        "scores": [
+          3,
+          2,
+          2,
+          0
+        ]
+      },
+      {
+        "kind": "risk reversal complements concordance including score/time ties",
+        "scores": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "kind": "risk reversal complements concordance including score/time ties",
+        "scores": [
+          -2,
+          3,
+          -1,
+          0
+        ]
+      },
+      {
+        "kind": "Brier excess risk equals squared forecast error under changed follow-up",
+        "prediction": 0.1
+      },
+      {
+        "kind": "Brier excess risk equals squared forecast error under changed follow-up",
+        "prediction": 0.6
+      },
+      {
+        "kind": "Brier excess risk equals squared forecast error under changed follow-up",
+        "prediction": 0.9
+      },
+      {
+        "kind": "cause-name exchange preserves probability flow",
+        "statuses": [
+          2,
+          1,
+          0,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "kind": "cause-name exchange preserves probability flow",
+        "statuses": [
+          1,
+          2,
+          2,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "kind": "cause-name exchange preserves probability flow",
+        "statuses": [
+          0,
+          1,
+          0,
+          0,
+          2,
+          0
+        ]
+      }
+    ]
+  },
+  "sourceReading": {
+    "readAt": "2026-09-11T14:55:40.944Z",
+    "scope": "Complete current pure model, full program generator, interactive lab source and stylesheet read independently before author freeze. Subsequent known amendments are checked separately; final body/figures/browser evidence remain pending.",
+    "currentFiles": [
+      {
+        "path": "src/learn/data/survival-models.js",
+        "sha256": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723"
+      },
+      {
+        "path": "scripts/generate-survival-examples.py",
+        "sha256": "73bbdf91b6138c9abca729c1e00371441e5a73c23442035f4a6d658b11c123c8"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/SurvivalLabs.jsx",
+        "sha256": "43ec7afeba4ba76601b968a15672a03f4ecfb66890811a04c260d816fb1f633a"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/survival-labs.css",
+        "sha256": "3441509a94aadb9eda5829546353f7de878fa6f0ce43d11212354f7439432dec"
+      }
+    ],
+    "figureReview": {
+      "reviewedAt": "2026-09-11T14:57:24.917Z",
+      "scope": "Complete figure source/styles independently read and all four narrow isolated-mount captures opened; complete lesson placement remains a separate author check.",
+      "sources": [
+        {
+          "path": "src/learn/components/lesson-labs/SurvivalFigures.jsx",
+          "sha256": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/survival-figures.css",
+          "sha256": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498"
+        }
+      ],
+      "openedImages": [
+        {
+          "path": "scratch/survival-figures/observation-320.png",
+          "sha256": "c17fa25d2d9d08df10c0324eb62cde4c2f2687b61bf0fa4af5cd5905102a7512"
+        },
+        {
+          "path": "scratch/survival-figures/likelihood-320.png",
+          "sha256": "dbf2b05b5eeca7a146d646127ebed88b80c61e72263325abc956fa1162ec01ae"
+        },
+        {
+          "path": "scratch/survival-figures/tree-320.png",
+          "sha256": "da54ef00d3fcb1f28ac3ae06197eb55d42be98621b815394f92171b614804031"
+        },
+        {
+          "path": "scratch/survival-figures/history-320.png",
+          "sha256": "041a19a999f8b729ee25b01cec8c3de022086ef95d7db5e1d8cfa854347f542f"
+        }
+      ],
+      "findings": []
+    },
+    "narrativeReview": {
+      "readAt": "2026-09-11T15:08:30.035Z",
+      "scope": "Complete16-section installed narrative, all12 changed practice solutions and annotated references read. Both complete held-out reports and corrected Rossi output checked against generated actual expected stdout.",
+      "finishingRequests": [
+        "Direct prerequisite links",
+        "Numerical tie tolerance qualification after ranking invariance",
+        "Explicit positive-lifetime lower bound for the left-censoring formula"
+      ],
+      "pending": "Author actual-route evidence, final code/wording amendment identity and source freeze"
+    }
+  },
+  "initialFindings": {
+    "checkedAt": "2026-09-11T14:51:35.728Z",
+    "source": "scripts/generate-survival-examples.py",
+    "sha256": "fc6e27a9c7a8189536008277ba395700c54da4c0440712d209f806993286c4f2",
+    "findings": [
+      {
+        "kind": "historical dataset interpretation",
+        "original": "Descriptive historical data; neither an intervention study nor held-out performance.",
+        "issue": "The Rossi financial-aid assignment was randomized. A descriptive example must not deny the experimental origin of its dataset.",
+        "evidence": "https://lifelines.readthedocs.io/en/latest/lifelines.datasets.html#lifelines.datasets.load_rossi",
+        "reviewedScope": "Official load_rossi dataset description explicitly documents randomized aid assignment among the 432 subjects.",
+        "requested": "Preserve the design fact; qualify the scope of this fitted example and its causal estimand/held-out assessment instead.",
+        "status": "Sent to topic author for focused correction before freeze"
+      },
+      {
+        "kind": "native range/preset agreement",
+        "issue": "Cox beta=log(2) is off the min=-2 step=.05 lattice, so the range element can sanitize its value while the model retains the exact preset.",
+        "requested": "Use a coherent exact-value range contract such as step=any and check actual DOM/state agreement.",
+        "status": "Sent to author before browser QA"
+      },
+      {
+        "kind": "censoring terminology",
+        "issue": "The selected KM risk-table row can be censor-only; calling it the last step incorrectly implies a survival jump.",
+        "requested": "Name the observed-time risk-table row or the actual last event time.",
+        "status": "Sent to author"
+      },
+      {
+        "kind": "learner-facing control meaning",
+        "issue": "The competing-incidence control exposes an internal zero-based row index instead of the observed day.",
+        "requested": "Show observed days1–6 and map to the internal index.",
+        "status": "Sent to author"
+      }
+    ],
+    "visualSource": {
+      "path": "src/learn/components/lesson-labs/SurvivalLabs.jsx",
+      "sha256": "fc79f2b3be8089185753d03858fc83402c7697b0810a986f25995ee78441343d"
+    }
+  },
+  "resolvedFindings": [
+    "Rossi financial-aid assignment was randomized; fitted example and printed output now distinguish that fact from a complete causal analysis or held-out assessment.",
+    "Cox range step=any preserves the exact log(2) preset in actual DOM and calculations.",
+    "RMST identifies censor-only risk-table rows correctly; competing-risk control uses observed days rather than array indices.",
+    "Prerequisite link uses actual classical-ml module; absolute numerical risk-tie tolerance and positive-lifetime left-censor lower bound are explicit.",
+    "Local intermediate symbols and equivalent multi-line equations close narrow display overflow, without changing the numerical models.",
+    "A misleading old 320px image preview suggested absent event fills; final PNG pixel evidence and actual 18px DOM bars establish correct gold fills. No production painting fix was needed."
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/survival/browser/cox-gold-bars-verified-320.png",
+      "sha256": "b8bf5d1a65252ba0c73c7b64573e92836006ab51ec1000fd2c18649f6eee3fc4",
+      "stage": "final reading",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/final-cox-weight-paint-390.png",
+      "sha256": "aa3fe43bfebb37877129cf54d00a5d51df43dbcf12c0d5b1ad2c7de80b25a329",
+      "stage": "final reading",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/final-logrank-equation-320.png",
+      "sha256": "c28eeba98a235ca1b1cdab8af2ec9d14ca82e1ae5973e8b436a1c4c8553abd95",
+      "stage": "final reading",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/final-hazard-equation-390.png",
+      "sha256": "2211d3fd1cb1dfe475ec3e7a65908093d9fd01249d39a4070d66b241abf898c0",
+      "stage": "final reading",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/final-competing-reading-1440.png",
+      "sha256": "95f9b54fbe179f78712ed5088bd607c3a10025da854b62e447c7d05170bd6c7d",
+      "stage": "final reading",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/restricted-area-320.png",
+      "sha256": "7edfff8e280604786bda65dec7ae8b137cfa0204faf4347515c12b7901f041eb",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival/browser/changed-report-output-320.png",
+      "sha256": "377212aacd95bd9c782ed8924b58ac364fb644da11acbb790db69cbed9c0c88f",
+      "stage": "earlier behavior, unchanged numerical geometry/output; surrounding prose subsequently spaced",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival-figures/observation-320.png",
+      "sha256": "c17fa25d2d9d08df10c0324eb62cde4c2f2687b61bf0fa4af5cd5905102a7512",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival-figures/likelihood-320.png",
+      "sha256": "dbf2b05b5eeca7a146d646127ebed88b80c61e72263325abc956fa1162ec01ae",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival-figures/tree-320.png",
+      "sha256": "da54ef00d3fcb1f28ac3ae06197eb55d42be98621b815394f92171b614804031",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "/root",
+      "independentReview": true
+    },
+    {
+      "path": "scratch/survival-figures/history-320.png",
+      "sha256": "041a19a999f8b729ee25b01cec8c3de022086ef95d7db5e1d8cfa854347f542f",
+      "stage": "isolated figure preflight; actual lesson placement also included in full route geometry checks",
+      "openedBy": "/root",
+      "independentReview": true
+    }
+  ],
+  "reusedAuthorEvidence": {
+    "nativeFiniteFixtures": 121,
+    "invalidContracts": 13,
+    "actualPrograms": 17,
+    "browserWidths": [
+      1440,
+      390,
+      320
+    ],
+    "statesPerWidth": 26,
+    "keyboardActionsPerWidth": 69,
+    "anchorsPerWidth": 16,
+    "programPairsPerWidth": 17,
+    "finalDisplayEquationsPerWidth": 16,
+    "attribution": "These native/operated browser checks belong to the author team and are reused by source identity; root did not rerun them."
+  },
+  "integrationAmendment": "docs/teaching/evidence/survival-integration-amendment.json",
+  "limits": [
+    "Finite numerical/source/browser review, not a learner study or empirical guarantee of censor independence, causal identification or generalization.",
+    "Seven actual-route images include two earlier retained geometry/output captures, attributed to their actual source version; four other images are isolated figure mounts.",
+    "The redundant-export/entity correction conserves the lesson runtime; final production integration remains separately recorded."
+  ]
+}
