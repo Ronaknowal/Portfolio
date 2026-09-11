@@ -13,6 +13,13 @@ const {execFileSync}=require('node:child_process');
  const published=new Set(inventory.topics.filter(t=>t.publicationStatus==='published').map(t=>t.id));
  const program=tracks.find(t=>t.id==='programming-scientific-computing');
  const dsa=tracks.find(t=>t.id==='data-structures-algorithms');
+ const mathematics=tracks.find(t=>t.id==='math-foundations');
+ const reviewedMathematicsStart=54, reviewedMathematicsEnd=57;
+ const newMathematicsIds=mathematics.topicIds.slice(reviewedMathematicsStart,reviewedMathematicsEnd);
+ assert.equal(newMathematicsIds.length,3);
+ assert.equal(reviewedMathematicsEnd,mathematics.topicIds.length);
+ assert.ok(mathematics.topicIds.every(id=>published.has(id)));
+ assert.ok(newMathematicsIds.every(id=>published.has(id)));
  const firstPlannedIndex=dsa.topicIds.findIndex(id=>!published.has(id));
  const leadingPublishedIds=dsa.topicIds.slice(0,firstPlannedIndex<0?dsa.topicIds.length:firstPlannedIndex);
  assert.ok(leadingPublishedIds.length>0,'DSA navigation fixture needs published lessons');
@@ -89,6 +96,30 @@ const {execFileSync}=require('node:child_process');
    await page.waitForURL(url=>url.pathname.endsWith('/'+plannedResume));await ready(plannedResume);
    assert.ok(await page.locator('.reader-complete').isDisabled());
    assert.equal(await page.locator(`[data-module-id="${plannedFixture.track.id}"] .reader-group__completed`).innerText(),`${plannedPrefix.length} completed`);
+   // Complete the final mathematics segment and follow the real next module.
+   // Publication status must never replace the syllabus successor.
+   await page.goto(`${base}/learn/path/full-curriculum/${newMathematicsIds[0]}?module=${mathematics.id}`);
+   for(let index=0;index<newMathematicsIds.length;index++) {
+    const id=newMathematicsIds[index];
+    await ready(id);
+    assert.ok((await page.locator('.reader-header__meta').innerText()).includes(`${index+reviewedMathematicsStart+1} of ${mathematics.topicIds.length} topics on this route`));
+    assert.ok((await page.locator('.reader-footer__previous').innerText()).includes(topicCatalogue[mathematics.topicIds[index+reviewedMathematicsStart-1]].title));
+    const step=full.steps.findIndex(item=>item.topicId===id&&item.moduleId===mathematics.id);
+    const destinationStep=full.steps[step+1],destination=destinationStep.topicId;
+    assert.ok((await page.locator('.reader-footer__next').innerText()).includes(topicCatalogue[destination].title));
+    await page.waitForFunction(()=>{const button=document.querySelector('.reader-complete');return button&&!button.disabled;});
+    await page.locator('.reader-complete').click();
+    assert.ok(new URL(page.url()).pathname.endsWith('/'+id));
+    await navigate('.reader-footer__next',destination);
+    assert.equal(new URL(page.url()).searchParams.get('module'),destinationStep.moduleId);
+   }
+   assert.equal(await page.locator(`[data-module-id="${mathematics.id}"] .reader-group__completed`).innerText(),'3 completed');
+   const lastMathStep=full.steps.findIndex(item=>item.topicId===mathematics.topicIds.at(-1)&&item.moduleId===mathematics.id);
+   const mathematicsSuccessor=full.steps[lastMathStep+1];
+   await ready(mathematicsSuccessor.topicId);
+   assert.notEqual(mathematicsSuccessor.moduleId,mathematics.id);
+   assert.equal(await page.locator('.reader-complete').isDisabled(),!published.has(mathematicsSuccessor.topicId));
+   assert.equal(await page.getByText(/next published lesson|skipping ahead/i).count(),0);
    // A shared lesson follows the module it was selected from, even on reload.
    const module=tracks.find(t=>t.id==='robotics-embodied-ai'),shared='sim-to-real-transfer-domain-randomization';
    await page.goto(`${base}/learn/path/full-curriculum/${program.topicIds[0]}`);await ready(program.topicIds[0]);
@@ -106,7 +137,7 @@ const {execFileSync}=require('node:child_process');
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
    await page.locator('.reader-header').screenshot({path:`${root}/header-${width}.png`});
    await page.locator('.reader-sidebar').screenshot({path:`${root}/sidebar-${width}.png`});
-   results.push({width,programmingSteps:program.topicIds.length,paths:learningPaths.length,sharedModuleContext:true,plannedResume:true,plannedFixture:plannedFixture.track.id,seededPlannedPrefix:plannedPrefix,plannedResumeId:plannedResume,dsaCompletedIds:leadingPublishedIds,nextPlannedId,expectedDsaResume,counts:true,prerequisiteLinks:true});
+   results.push({width,programmingSteps:program.topicIds.length,paths:learningPaths.length,sharedModuleContext:true,plannedResume:true,plannedFixture:plannedFixture.track.id,seededPlannedPrefix:plannedPrefix,plannedResumeId:plannedResume,dsaCompletedIds:leadingPublishedIds,newMathematicsIds,mathematicsSuccessor,mathematicsModuleBoundary:true,nextPlannedId,expectedDsaResume,counts:true,prerequisiteLinks:true});
    await context.close();
   }
   assert.deepEqual(errors,[]);fs.writeFileSync(`${root}/results.json`,JSON.stringify({results,errors},null,2));

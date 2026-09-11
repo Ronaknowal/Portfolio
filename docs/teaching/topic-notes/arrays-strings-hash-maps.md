@@ -1,0 +1,14 @@
+# Authoring notes: Arrays, Strings & Hash Maps
+
+Canonical topic ID: `arrays-strings-hash-maps`.
+
+## 2026-09-11 — A connected bitwise representation branch
+
+- Status: implemented, author-verified and independently reviewed 11 September 2026; production integration is complete; user acceptance remains separate.
+- Origin: [bounded DSA practice ownership review](../DSA-PRACTICE-OWNERSHIP-REVIEW.md) and the earlier [unassigned note](UNASSIGNED.md).
+- Destination rationale: this lesson already compares positions, presence, frequency and keys, and implements posting sets. Finite bitsets and parity summaries expose another storage choice with explicit information loss. They fit a signposted deeper branch without moving the module or overloading Python Basics.
+- Existing coverage: DP section7 already teaches finite masks and subset/endpoint states; Fenwick derives the lowest set bit. Preserve those local explanations as later applications. The original unassigned title search was incomplete evidence of absence.
+- Implemented treatment: [full extension design](../BITWISE-FOUNDATIONS-EXTENSION-DESIGN.md) derives finite-universe set operations, signed/unsigned word interpretation, arithmetic/logical shifts, XOR parity with its input promises, sparse popcount, two-singleton partition and bitmap posting queries. It includes distinct visual contracts, complete programs, changed practice and researched official136/191/231/461/260links.
+- Dependencies and boundaries: local binary place-value refresher; Python arbitrary integers versus explicitly bounded words; storage count versus bit complexity; promise checking uses separate extra state. No new prerequisite or stable-ID change.
+- Evidence: actual current topic/brief/practice and incoming notes were read; original files are archived in [the baseline](../evidence/bitwise-foundations-original.json). Current Python docs and selected Handbook passages were inspected, with outdated/nonportable C++ claims explicitly rejected. The [author verification](../BITWISE-FOUNDATIONS-EXTENSION-VERIFICATION.md) binds eleven sources, eleven actual programs, native/model/conservation checks and a final three-width browser pass; fifteen screenshots were actually opened.
+- Resolution: canonical foundation owner assigned here. Author implementation is frozen at [the current packet](../evidence/bitwise-foundations-author-review.json). The [independent review](../BITWISE-FOUNDATIONS-INDEPENDENT-REVIEW.md) closed against all eleven frozen sources at 09:34:01 UTC, with no production correction; [exact independent evidence](../evidence/bitwise-foundations-independent-review.json) includes changed signed/large-integer and actual three-width checks. The [final production integration](../evidence/dsa-math-foundations-complete-integration.json) is complete. Full XOR tries, advanced coding theory and every bit technique are not implied by this bounded scope.

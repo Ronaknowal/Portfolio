@@ -1,0 +1,449 @@
+{
+  "reviewedAt": "2026-09-11T09:18:52.364745+00:00",
+  "topicId": "partial-differential-equations-conservation-boundary-conditions",
+  "status": "bounded independent review passed; production integration remains separate",
+  "reviewer": "/root/testing_documentation_completion",
+  "authorFreeze": "2026-09-11T09:11:31.157Z",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/pde-author-review.json",
+    "sha256": "3232e1c9dc7d21b7f7875a6a00307def04f1aebffcbb5b47da9aad6732fdecf3"
+  },
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "sha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99"
+    },
+    {
+      "path": "src/learn/data/pde-models.js",
+      "sha256": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2"
+    },
+    {
+      "path": "src/learn/data/pde-examples.js",
+      "sha256": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/pde-labs.css",
+      "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+      "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+    }
+  ],
+  "preservedOriginalAuthorPacket": {
+    "path": "docs/teaching/evidence/pde-author-review-before-independent-amendment.json",
+    "sha256": "f73d0989c1dd2ab09042cae4303f1fb8590befa0763e077d667f81c998e0d711"
+  },
+  "preservedArchiveManifest": {
+    "path": "docs/teaching/evidence/pde-independent-amendment-originals.json",
+    "sha256": "9a84ed66adbe44dd0f28addc0122fdafa285942b78cff3a8cc52a1cf2a99e9ff"
+  },
+  "preservedArchiveEntriesVerified": 11,
+  "initialFindingEvidence": {
+    "path": "scratch/pde-independent-review/initial-findings.json",
+    "sha256": "386a37fc3a0e18f014975e89bdbc1b6d2feff9a160a5e5d2671c3c4e4089e6e1"
+  },
+  "native": {
+    "record": {
+      "path": "scratch/pde-independent-review/results.json",
+      "sha256": "ccf692ce3f2eb1eba8c4bfaf355722eb49a63c6a70278bb957ce894834338661"
+    },
+    "result": {
+      "checkedAt": "2026-09-11T09:12:33.742748+00:00",
+      "status": "passed",
+      "sourceHashes": [
+        {
+          "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+          "sha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99"
+        },
+        {
+          "path": "src/learn/data/pde-models.js",
+          "sha256": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2"
+        },
+        {
+          "path": "src/learn/data/pde-examples.js",
+          "sha256": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+          "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/pde-labs.css",
+          "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+          "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+        }
+      ],
+      "counts": {
+        "actualCompletePrograms": 15,
+        "originalStdoutConserved": 15,
+        "unchangedOtherCompletePrograms": 14,
+        "exactInputFractionWaveStates": 55,
+        "changedNativeWaveStates": 36,
+        "nativeWaveEdges": 8,
+        "heatWeakAndFluxStates": 4,
+        "kernelConvolutionValues": 12,
+        "changedExactWeakProbes": 12,
+        "changedHingeEntropyChecks": 100,
+        "changedPhysicalRodStates": 27
+      },
+      "maxStrictRelativeDiscrepancy": 6.018567187695717e-16,
+      "maximumToleranceFraction": 0.006657785579370805,
+      "failures": [],
+      "limits": "Complementary changed-source and exact-polynomial checks; author broader suite separately attributed, no numerical proof of general PDE theorems."
+    }
+  },
+  "browser": {
+    "record": {
+      "path": "scratch/pde-independent-review/browser/results.json",
+      "sha256": "901bcd162d135d65bf9539e56c029db5c57bdb6b0ba99c6996b0c4486bfd30b4"
+    },
+    "result": {
+      "checkedAt": "2026-09-11T09:09:12.329Z",
+      "status": "passed",
+      "sourceHashes": [
+        {
+          "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+          "sha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99"
+        },
+        {
+          "path": "src/learn/data/pde-models.js",
+          "sha256": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2"
+        },
+        {
+          "path": "src/learn/data/pde-examples.js",
+          "sha256": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+          "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/pde-labs.css",
+          "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+          "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+        }
+      ],
+      "results": [
+        {
+          "width": 1440,
+          "actualFont": true,
+          "changedStates": 24,
+          "labs": 8,
+          "actualPrograms": 15,
+          "equations": 22,
+          "anchors": 12,
+          "errors": [],
+          "documentOverflow": false
+        },
+        {
+          "width": 390,
+          "actualFont": true,
+          "changedStates": 24,
+          "labs": 8,
+          "actualPrograms": 15,
+          "equations": 22,
+          "anchors": 12,
+          "errors": [],
+          "documentOverflow": false
+        },
+        {
+          "width": 320,
+          "actualFont": true,
+          "changedStates": 24,
+          "labs": 8,
+          "actualPrograms": 15,
+          "equations": 22,
+          "anchors": 12,
+          "errors": [],
+          "documentOverflow": false
+        }
+      ],
+      "images": [
+        {
+          "path": "scratch/pde-independent-review/browser/reading-1-1440.png",
+          "sha256": "b45bad980e8f7eeea817e76aabdc09e397a2fe5ebd05e6de54ce20c4151e96bb"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-5-1440.png",
+          "sha256": "9634be5ac196e14393a0c96e57e4bb765d9214760acb38e3196cfc342b9483f5"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-8-1440.png",
+          "sha256": "4bd7413ca94b553cfc4376b67d6daa117296bde62bc2a4600a17fdacc7bfdfe8"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-9-1440.png",
+          "sha256": "6bb724e1efa13c8ffbfd05d4246ba3f2cfe6a4ccc9b0d304e6bab1fd2283c1d7"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-11-1440.png",
+          "sha256": "dc777cffe6a76c0e004b412977a36e4bb24610f0d61200a8ae0cdcbd6e46e488"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-12-1440.png",
+          "sha256": "7cceb8b98220b261a522e6efc6a8b2f3c2512d4b5371fe5694b1637797c48786"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/transport-inflow-1440.png",
+          "sha256": "23dbd125864d8e67ca5cf2c3f7f98db9ce1641499d2471c08f57cf425d4ca3eb"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/heat-boundary-meaning-1440.png",
+          "sha256": "2d09ab9e57c3743697cc0844f985f0651356e2332ec79d48449975ae97651adb"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/wave-dependence-1440.png",
+          "sha256": "e1679e50360401132da5e6969ef034627b64e950ac3a830eae4999708a9a01dc"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-impossible-1440.png",
+          "sha256": "c505df7baaff3e14ba29e21add6d905db18c815dccc0129e2cfe4ca02e2e53c6"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-offset-family-1440.png",
+          "sha256": "effaeeadb6b8960308b3ab63bde773234635c6489385a596c76a493d40e82e8a"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/harmonic-top-negative-1440.png",
+          "sha256": "141d03099bd39a643e7f0d8a74e31c9da10503d0088f9bc9bc7d8f38837fff8e"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rarefaction-1440.png",
+          "sha256": "e7b2c8f5a85e9e36b6ed14cb67001693c163df68f830d940b2f7538d14c8c38f"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/expansion-gap-1440.png",
+          "sha256": "34a3a06227578e5185b80f5937ab2bff0437009e7bce72ed98901799853a477d"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/inverse-small-observation-1440.png",
+          "sha256": "da290b7395f7e3d1ad34d5d4114252ff638d0792ad1df1e76d76c81bdaadc315"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rod-changed-length-1440.png",
+          "sha256": "ec59e4e84f73142ab283d1238020491bd4736faf384551d74b98e927322e43b5"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/changed-entropy-practice-1440.png",
+          "sha256": "29571c06c2acf4f27ee1956f9c478f3aabd888838c7ff91363c8f2a0831189bd"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-1-390.png",
+          "sha256": "cbf060694915a29b529bd5510b34bf4c4049c2cf1e6c7c512236e50efaf9051a"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-5-390.png",
+          "sha256": "3dab6ff790d89523c4867bf9a0949bdf8287eb5ae2b0ca4119a84b83de0163d5"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-8-390.png",
+          "sha256": "cce487e5fb39007835b3f9ac878ef3416061070fb5dc7b636c9e1979170f51ce"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-9-390.png",
+          "sha256": "06b6cf3542da52d6c0fba36ddd84b8f5a82a1f171d39f38b77569cd27a16927e"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-11-390.png",
+          "sha256": "5d1354c00ab8f9d0dc9aecc110a97d963e584f75063b16ee1c67286c55893459"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-12-390.png",
+          "sha256": "6733aad6cc50776c0cb0016c017db71ba18bc2738d02c975e78f2922fc433094"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/transport-inflow-390.png",
+          "sha256": "aed54555e52c10f670e57a381d1e17029ed5a5307d0d1736669bacdfd0681344"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/heat-boundary-meaning-390.png",
+          "sha256": "8790746aae9ae0758fc8ee1c427fd75a2130ca35a7b2811ea3a7e1bdf9996567"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/wave-dependence-390.png",
+          "sha256": "c4b02e145773b25c5f27b776c390f7ad3934e304a398d38565a9e67c14b56a75"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-impossible-390.png",
+          "sha256": "9b602250a09d75bc3dd468b9ad10fef48da9220011587da15b5435a54092ac7d"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-offset-family-390.png",
+          "sha256": "1f0af384fd673955be05c8e4ff33f1de11bb203e7fa8f84a3c153a5d6fa8439b"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/harmonic-top-negative-390.png",
+          "sha256": "e6a0ee51764d356d6c9d9ce79372f23be05b9a1ebb7f1e0db6a2c97c6aac1fe9"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rarefaction-390.png",
+          "sha256": "551db7ad266a7135661e3034a4d506522c3ac6d98708ff00250e5e88c084a504"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/expansion-gap-390.png",
+          "sha256": "1119b2f38d6f7bb120a85fc3c044354ade1952d47a5082cd03df14c675ba9590"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/inverse-small-observation-390.png",
+          "sha256": "7258c3a7fbc9dae325619585a5ab7523c1916fec4d3bc2724d92768eae859977"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rod-changed-length-390.png",
+          "sha256": "354e731b0f6e2c4f918b15f717893ca2c43d3d7046df7ef6b377ed11ee0fa2d4"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/changed-entropy-practice-390.png",
+          "sha256": "9a559b841df275e3ca09c2dba9dc15ea5d82ad540cc42aff70adcda76d8e45bc"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-1-320.png",
+          "sha256": "fc0e6025f9cca219936475a912d1d1121d9dbe1d1b4846610c10f899579dfa08"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-5-320.png",
+          "sha256": "3cbda939ec5710ee0c7b0f9d8f42b0934c599d98cfe39ec95f156ff008f32974"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-8-320.png",
+          "sha256": "42e91cb3a987e8d078d002b49281e10da20ed6818afe319056fa91fef0c4f163"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-9-320.png",
+          "sha256": "30d689deed7a5a50057de3fd26870321af502dbe53c1564e72f07b33b5c36c00"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-11-320.png",
+          "sha256": "a28d184ad4b2d7a9749cf68b1427dc4ef7c04a867767778170758db65e9cf594"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/reading-12-320.png",
+          "sha256": "fb7d298cba2dad291afa895c5ca7128d783ac48358d8b470108a037caab5d40d"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/transport-inflow-320.png",
+          "sha256": "224ca9c5b027e857c1d928923a086a0d51dcced69787d73fbcadd6861fcd1402"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/heat-boundary-meaning-320.png",
+          "sha256": "232289227eb2b3e43bd2c51ad2ff82f24f0fb086a4903248ea9d44c95ead06e8"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/wave-dependence-320.png",
+          "sha256": "1ee898889fd4e1a0fac3821bd512ddf4aee8c3f781b85ddd66a3fa930be0f292"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-impossible-320.png",
+          "sha256": "e92c7843e2b78cc1a20cd48e7c0404192c7afdb564121fc3d9a5bdc4d99a4a12"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/poisson-offset-family-320.png",
+          "sha256": "9e118d6a586ed218869e09a8d3a3b2fa5a2576b3efd1108181d03a8ad818c9f0"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/harmonic-top-negative-320.png",
+          "sha256": "a74e4f6ca9ef59e4e41d2ae17986534a7faef4e4d8aa46967b2089b872557dbc"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rarefaction-320.png",
+          "sha256": "15c345f8bbbd54b6edc60c08b0f970b893734693ace42a30a8d3a34b9e92b0ff"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/expansion-gap-320.png",
+          "sha256": "38e613987e51e415e034e9c4360ff6daea62a71ddef0276b85297e3d248412c3"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/inverse-small-observation-320.png",
+          "sha256": "8f2bc1fa9e89b3c84674200a03d460357197cbe03d223d37c0d6fa77d2b2bb25"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/rod-changed-length-320.png",
+          "sha256": "220b01e0a807a1ea83a566ed451e48210828b5fdd766707195fbb02768c2cf20"
+        },
+        {
+          "path": "scratch/pde-independent-review/browser/changed-entropy-practice-320.png",
+          "sha256": "f5f48c9a0d860b97fb75ba1142dfe4582b38a2dd88bfda3ec6810aa50628b671"
+        }
+      ],
+      "limits": "Reviewer-owned changed-state and ordinary-reading checks, separate from the author full behavioral suite; no full screen-reader session or general beginner study."
+    }
+  },
+  "reviewScripts": [
+    {
+      "path": "scripts/verify-pde-independent.mjs",
+      "sha256": "029c58d264bf63439b26a184f37cabf5d4c4391fefc187931b999f115bfdbbcf"
+    },
+    {
+      "path": "scripts/verify-pde-independent.py",
+      "sha256": "2047ca9b4ea5862b0d9cdbb541f611a658b22678e7d024c5bc57ae02debfc7d6"
+    },
+    {
+      "path": "scripts/review-pde-independent.cjs",
+      "sha256": "cac44141a5a271cbb398cf2e1227d6ec3cfd126a2871801f460ff121c6c815be"
+    },
+    {
+      "path": "scripts/close-pde-independent-review.py",
+      "sha256": "1fd7d6335f7bd6bdfd481857e7a61a8bc3cdddd9fc1bdf58989a13d22a8412a3"
+    }
+  ],
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/pde-independent-review/browser/transport-inflow-390.png",
+      "sha256": "aed54555e52c10f670e57a381d1e17029ed5a5307d0d1736669bacdfd0681344"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/wave-dependence-320.png",
+      "sha256": "1ee898889fd4e1a0fac3821bd512ddf4aee8c3f781b85ddd66a3fa930be0f292"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/poisson-offset-family-1440.png",
+      "sha256": "effaeeadb6b8960308b3ab63bde773234635c6489385a596c76a493d40e82e8a"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/harmonic-top-negative-390.png",
+      "sha256": "e6a0ee51764d356d6c9d9ce79372f23be05b9a1ebb7f1e0db6a2c97c6aac1fe9"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/expansion-gap-320.png",
+      "sha256": "38e613987e51e415e034e9c4360ff6daea62a71ddef0276b85297e3d248412c3"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/reading-11-320.png",
+      "sha256": "a28d184ad4b2d7a9749cf68b1427dc4ef7c04a867767778170758db65e9cf594"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/changed-entropy-practice-390.png",
+      "sha256": "9a559b841df275e3ca09c2dba9dc15ea5d82ad540cc42aff70adcda76d8e45bc"
+    },
+    {
+      "path": "scratch/pde-independent-review/browser/reading-8-1440.png",
+      "sha256": "4bd7413ca94b553cfc4376b67d6daa117296bde62bc2a4600a17fdacc7bfdfe8"
+    },
+    {
+      "path": "scratch/pde-wave-boundary/maximum-final-320.png",
+      "sha256": "d6c4a454eb20596523a00e0dc0e48763543cf6f3789a469ec5e6ab249f45da89"
+    },
+    {
+      "path": "scratch/pde-wave-boundary/arithmetic-final-320.png",
+      "sha256": "c09b2d7f0c269b9fff93f45ec45a3c3806154c0cb2a90ad6af715c724d951d41"
+    }
+  ],
+  "imageAttribution": "First eight captured by this reviewer; last two captured by author and opened by this reviewer after repair.",
+  "resolvedFindings": [
+    "Negative wave integral from cancellation at accepted tiny positive time; paired JS/Python positive Bernstein evaluation passes exact stored-input Fraction comparisons.",
+    "Heat maximum principle now first works on T'<T, then extends by continuity, respecting the stated interior derivative assumptions.",
+    "Forced-rod capstone explicitly restores s/(2k)=1 K/m^2 and SI-coordinate/rate units."
+  ],
+  "scope": "Complete actual body, all 15 programs, pure models, labs/CSS, 14 changed practice solutions, design/brief/incoming note; bounded complementary math/native/browser checks.",
+  "limits": "No numerical test proves a general PDE theorem. No judge, screen-reader, physical phone or observed learner session; author broader suite separately attributed. No production files or shared ledger edited by reviewer."
+}

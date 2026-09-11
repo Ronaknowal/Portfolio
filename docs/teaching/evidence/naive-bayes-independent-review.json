@@ -1,0 +1,151 @@
+{
+  "checkedAt": "2026-09-11T13:59:23.273Z",
+  "topicId": "naive-bayes-probabilistic-classifiers",
+  "status": "closed; no open material findings",
+  "reviewer": "/root (independent of topic author)",
+  "production": [
+    {
+      "path": "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx",
+      "sha256": "6a73f01a50c186b519e678b15a11b5ac80d663c45f9fb986162785ffe7cf4a95",
+      "bytes": 73606
+    },
+    {
+      "path": "src/learn/data/naive-bayes-models.js",
+      "sha256": "48d7ff7c4035bc469e45d0f030455992a007927edc3af4b36bf4b1d8130f4dba",
+      "bytes": 13575
+    },
+    {
+      "path": "src/learn/data/naive-bayes-examples.js",
+      "sha256": "c4b49e0871564320a19cb8adde2d50037c0f656ebb71ad10397422644624d8a3",
+      "bytes": 30471
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NaiveBayesLabs.jsx",
+      "sha256": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
+      "bytes": 25115
+    },
+    {
+      "path": "src/learn/components/lesson-labs/naive-bayes-labs.css",
+      "sha256": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76",
+      "bytes": 5908
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/naive-bayes-probabilistic-classifiers.js",
+      "sha256": "f20e99c6de994a410b3c1977e203ec4712c486d884a4f18f606ab9bdf5fd9506",
+      "bytes": 4737
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/naive-bayes-author-review.json",
+      "sha256": "36741af1f06c50b0a8a7cee983b54ff4bde8e69958accb09924066798a6b1996"
+    },
+    {
+      "path": "scratch/naive-bayes-independent/complementary-checks.json",
+      "sha256": "d0b8ef46d16ccd7003ceb42a61e6b7962cfa00339c240084625f059dbcac6927"
+    }
+  ],
+  "complementaryCases": [
+    {
+      "kind": "common score-shift invariance",
+      "shift": -800
+    },
+    {
+      "kind": "common score-shift invariance",
+      "shift": -20
+    },
+    {
+      "kind": "common score-shift invariance",
+      "shift": 0
+    },
+    {
+      "kind": "common score-shift invariance",
+      "shift": 20
+    },
+    {
+      "kind": "common score-shift invariance",
+      "shift": 800
+    },
+    {
+      "kind": "bag-of-words permutation invariance",
+      "alpha": 0.25
+    },
+    {
+      "kind": "bag-of-words permutation invariance",
+      "alpha": 1
+    },
+    {
+      "kind": "bag-of-words permutation invariance",
+      "alpha": 7
+    },
+    {
+      "kind": "density unit Jacobian",
+      "value": -2
+    },
+    {
+      "kind": "density unit Jacobian",
+      "value": 0
+    },
+    {
+      "kind": "density unit Jacobian",
+      "value": 1.5
+    },
+    {
+      "kind": "equal-variance boundary symmetry",
+      "point": [
+        -4,
+        4
+      ]
+    },
+    {
+      "kind": "equal-variance boundary symmetry",
+      "point": [
+        -1,
+        1
+      ]
+    },
+    {
+      "kind": "equal-variance boundary symmetry",
+      "point": [
+        0,
+        0
+      ]
+    },
+    {
+      "kind": "equal-variance boundary symmetry",
+      "point": [
+        3,
+        -3
+      ]
+    },
+    {
+      "kind": "binning cannot change proper scores",
+      "compression": false
+    },
+    {
+      "kind": "binning cannot change proper scores",
+      "compression": true
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/naive-bayes-browser/reading-1-320.png",
+      "sha256": "55b5cd7cea56559eb2b46ace9ec0f61cb37e6327bd21be07f8c3434ae26e332d"
+    },
+    {
+      "path": "scratch/naive-bayes-browser/geometry-unequal-390.png",
+      "sha256": "369012a9221aa7ace9633919230a86caceec640a1dccf181d4d208d2daddc98b"
+    },
+    {
+      "path": "scratch/naive-bayes-browser/density-crossing-390.png",
+      "sha256": "dddaa69e23b7e5ed763432aefeafd41ed6961a590a5326e539fdc2981e8ba6dc"
+    },
+    {
+      "path": "scratch/naive-bayes-browser/reliability-true-390.png",
+      "sha256": "e90ce7dbe76b563b1509619ab8b2405b2d1a5e4cb45a7cc045e90abe0ba68c6b"
+    }
+  ],
+  "assessment": "Read the complete current lesson and model contracts. Checked feature-unit and target definitions, posterior derivations, smoothing and integrated prediction, Gaussian boundaries, copied evidence, ComplementNB scoring, data ownership, calibration, changed practice and annotations. Four existing author screenshots were independently opened; their browser interactions are reused author evidence, not newly executed independent browser evidence.",
+  "limitations": "No learner study or user acceptance. Complete unchanged author program/browser suites are reused; final increment integration remains.",
+  "findings": []
+}

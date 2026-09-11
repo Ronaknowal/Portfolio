@@ -1,0 +1,951 @@
+{
+  "topicId": "topology-topological-data-analysis-tda",
+  "reviewer": "workflow_visual_improvements",
+  "reviewedAt": "2026-09-10T22:41:22.314881+00:00",
+  "status": "closed; no unresolved material finding in bounded independent review",
+  "initialFinding": {
+    "checkedAt": "2026-09-10T22:25:36.327741+00:00",
+    "status": "normal interval arithmetic finding remains",
+    "counts": {
+      "actualPrograms": 9,
+      "changedFiltrations": 18,
+      "actualTraceStages": 1386,
+      "birthDeathRepresentativeCertificates": 330,
+      "PairedCloudStabilityBipartiteChecks": 36,
+      "ChangedMapperNerves": 27,
+      "HigherNerveFillingCases": 6
+    },
+    "normalIntegrals": [
+      {
+        "a": 0,
+        "b": 1e-20,
+        "value": 0,
+        "expected": "0.000000000000000000003989422804014326560592671013183948646582510028561561522350687735815351073634966403521",
+        "relativeError": 1.0,
+        "passed": false
+      },
+      {
+        "a": -1e-20,
+        "b": 1e-20,
+        "value": 0,
+        "expected": "0.000000000000000000007978845608028653121185342026367897293165020057123123044701375471630702147269932807043",
+        "relativeError": 1.0,
+        "passed": false
+      },
+      {
+        "a": 1,
+        "b": 1.000000000001,
+        "value": 2.4202861936828413e-13,
+        "expected": "0.0000000000002419922358573415712644285998091478352318508991950227633076874142700749462489984479827",
+        "relativeError": 0.00015034991025085297,
+        "passed": false
+      },
+      {
+        "a": 8,
+        "b": 8.00000001,
+        "value": 5.0522714708192645e-23,
+        "expected": "0.00000000000000000000005052271299472804649035034683546907841325670450300221960386868717175750257196155635992",
+        "relativeError": 3.391473847534538e-08,
+        "passed": false
+      },
+      {
+        "a": -3,
+        "b": -2.9999999999,
+        "value": 4.431845515573407e-13,
+        "expected": "0.0000000000004431848779295566362940200216775613776531950410574416670665706737829942321097923420646",
+        "relativeError": 7.364245311115974e-07,
+        "passed": false
+      },
+      {
+        "a": 0,
+        "b": 0.1,
+        "value": 0.03982783727702899,
+        "expected": "0.03982783727702898366893390770212735281123659742986085652203855090946972295513146153073",
+        "relativeError": 1.0637651466467765e-16,
+        "passed": true
+      },
+      {
+        "a": 1.7,
+        "b": 1.8,
+        "value": 0.008635143645617273,
+        "expected": "0.00863514364561724320981653094680578505481224909614723348013158790241736485792424463094",
+        "relativeError": 3.429365312583111e-15,
+        "passed": true
+      },
+      {
+        "a": 20,
+        "b": 20.001,
+        "value": 5.466104202323334e-91,
+        "expected": "5.466104202324419691956567452606395871233648428208887921430906992014011432649138795309e-91",
+        "relativeError": 1.9865145115481527e-13,
+        "passed": true
+      },
+      {
+        "a": -35,
+        "b": -34.999,
+        "value": 4.0101641242492796e-270,
+        "expected": "4.010164124252317016272627218145930723902426313581726662878792422980154146988096148882e-270",
+        "relativeError": 7.574410924975805e-13,
+        "passed": true
+      }
+    ],
+    "tinyPixel": {
+      "actual": 0,
+      "expected": "0.0000000000000000000038079030136375245473380802171600894215521071608089070156252117902107562445109186981",
+      "relativeError": 1.0
+    },
+    "actualNativeTinyInterval": 0.0,
+    "production": [
+      {
+        "path": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "sha256": "21c97671699369107b5eb9c7923d022554aa23caf4f9e5e0c76652eec43d84f1"
+      },
+      {
+        "path": "src/learn/data/topology-tda-models.js",
+        "sha256": "654839df04a3a95e8b414ff917d37ae597b03c435d6083e7bef8b95106a9bad7"
+      },
+      {
+        "path": "src/learn/data/topology-tda-examples.js",
+        "sha256": "7c0ae76a441a786375a8c954bd7a5fbc365f3f2fbda13549c216c25b2130574a"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+        "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/topology-tda-labs.css",
+        "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/topology-topological-data-analysis-tda.js",
+        "sha256": "a7da5821d65d5395d7269e277f9caaad9ccfbd16101a36b35de62f157c72d5dd"
+      }
+    ],
+    "limits": "Complementary finite-F2, quotient-representative, bipartite matching, finite-nerve and high-precision integration checks; not a second exhaustive browser run or a proof of general persistence theorems by simulation."
+  },
+  "complementaryVerification": {
+    "checkedAt": "2026-09-10T22:40:00.387341+00:00",
+    "status": "passed",
+    "counts": {
+      "actualPrograms": 9,
+      "preservedOriginalCodeAndOutput": true,
+      "changedFiltrations": 18,
+      "actualTraceStages": 1386,
+      "birthDeathRepresentativeCertificates": 330,
+      "PairedCloudStabilityBipartiteChecks": 36,
+      "ChangedMapperNerves": 27,
+      "HigherNerveFillingCases": 6
+    },
+    "normalIntegrals": [
+      {
+        "a": 0,
+        "b": 1e-20,
+        "value": 3.989422804014319e-21,
+        "expected": "0.000000000000000000003989422804014326560592671013183948646582510028561561522350687735815351073634966403521",
+        "relativeError": 1.9853479130853156e-15,
+        "passed": true
+      },
+      {
+        "a": -1e-20,
+        "b": 1e-20,
+        "value": 7.978845608028652e-21,
+        "expected": "0.000000000000000000007978845608028653121185342026367897293165020057123123044701375471630702147269932807043",
+        "relativeError": 9.95703921636139e-17,
+        "passed": true
+      },
+      {
+        "a": 1,
+        "b": 1.000000000001,
+        "value": 2.419922358573409e-13,
+        "expected": "0.0000000000002419922358573415712644285998091478352318508991950227633076874142700749462489984479827",
+        "relativeError": 2.700386415981235e-15,
+        "passed": true
+      },
+      {
+        "a": 8,
+        "b": 8.00000001,
+        "value": 5.052271299472807e-23,
+        "expected": "0.00000000000000000000005052271299472804649035034683546907841325670450300221960386868717175750257196155635992",
+        "relativeError": 4.1521315169210055e-16,
+        "passed": true
+      },
+      {
+        "a": -3,
+        "b": -2.9999999999,
+        "value": 4.4318487792955543e-13,
+        "expected": "0.0000000000004431848779295566362940200216775613776531950410574416670665706737829942321097923420646",
+        "relativeError": 2.718342161327777e-15,
+        "passed": true
+      },
+      {
+        "a": 0,
+        "b": 0.1,
+        "value": 0.03982783727702899,
+        "expected": "0.03982783727702898366893390770212735281123659742986085652203855090946972295513146153073",
+        "relativeError": 1.0637651466467765e-16,
+        "passed": true
+      },
+      {
+        "a": 1.7,
+        "b": 1.8,
+        "value": 0.008635143645617273,
+        "expected": "0.00863514364561724320981653094680578505481224909614723348013158790241736485792424463094",
+        "relativeError": 3.429365312583111e-15,
+        "passed": true
+      },
+      {
+        "a": 20,
+        "b": 20.001,
+        "value": 5.466104202323334e-91,
+        "expected": "5.466104202324419691956567452606395871233648428208887921430906992014011432649138795309e-91",
+        "relativeError": 1.9865145115481527e-13,
+        "passed": true
+      },
+      {
+        "a": -35,
+        "b": -34.999,
+        "value": 4.0101641242492796e-270,
+        "expected": "4.010164124252317016272627218145930723902426313581726662878792422980154146988096148882e-270",
+        "relativeError": 7.574410924975805e-13,
+        "passed": true
+      }
+    ],
+    "nativeNormalIntegrals": [
+      {
+        "a": 0,
+        "b": 1e-20,
+        "actual": 3.989422804014319e-21,
+        "expected": "0.000000000000000000003989422804014326560592671013183948646582510028561561522350687735815351073634966403521",
+        "relativeError": 1.9853479130853156e-15,
+        "passed": true
+      },
+      {
+        "a": -1e-20,
+        "b": 1e-20,
+        "actual": 7.978845608028652e-21,
+        "expected": "0.000000000000000000007978845608028653121185342026367897293165020057123123044701375471630702147269932807043",
+        "relativeError": 9.95703921636139e-17,
+        "passed": true
+      },
+      {
+        "a": 1,
+        "b": 1.000000000001,
+        "actual": 2.419922358573409e-13,
+        "expected": "0.0000000000002419922358573415712644285998091478352318508991950227633076874142700749462489984479827",
+        "relativeError": 2.700386415981235e-15,
+        "passed": true
+      },
+      {
+        "a": 8,
+        "b": 8.00000001,
+        "actual": 5.052271299472807e-23,
+        "expected": "0.00000000000000000000005052271299472804649035034683546907841325670450300221960386868717175750257196155635992",
+        "relativeError": 4.1521315169210055e-16,
+        "passed": true
+      },
+      {
+        "a": -3,
+        "b": -2.9999999999,
+        "actual": 4.4318487792955543e-13,
+        "expected": "0.0000000000004431848779295566362940200216775613776531950410574416670665706737829942321097923420646",
+        "relativeError": 2.718342161327777e-15,
+        "passed": true
+      },
+      {
+        "a": 0,
+        "b": 0.1,
+        "actual": 0.03982783727702899,
+        "expected": "0.03982783727702898366893390770212735281123659742986085652203855090946972295513146153073",
+        "relativeError": 1.0637651466467765e-16,
+        "passed": true
+      },
+      {
+        "a": 1.7,
+        "b": 1.8,
+        "actual": 0.008635143645617252,
+        "expected": "0.00863514364561724320981653094680578505481224909614723348013158790241736485792424463094",
+        "relativeError": 1.0186721537857851e-15,
+        "passed": true
+      },
+      {
+        "a": 20,
+        "b": 20.001,
+        "actual": 5.466104202333345e-91,
+        "expected": "5.466104202324419691956567452606395871233648428208887921430906992014011432649138795309e-91",
+        "relativeError": 1.6328003545801468e-12,
+        "passed": true
+      },
+      {
+        "a": -35,
+        "b": -34.999,
+        "actual": 4.010164124253395e-270,
+        "expected": "4.010164124252317016272627218145930723902426313581726662878792422980154146988096148882e-270",
+        "relativeError": 2.6885663666547917e-13,
+        "passed": true
+      }
+    ],
+    "tinyPixel": {
+      "actual": 3.8079030136375246e-21,
+      "expected": "0.0000000000000000000038079030136375245473380802171600894215521071608089070156252117902107562445109186981",
+      "relativeError": 1.4085781241990285e-17
+    },
+    "actualNativeTinyInterval": 3.989422804014319e-21,
+    "production": [
+      {
+        "path": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "sha256": "b5b08bf419a5892ea94421538cb222d7fe4294b5a6c2d12c279bff339bfa0eb1"
+      },
+      {
+        "path": "src/learn/data/topology-tda-models.js",
+        "sha256": "f7e6e6363dea8f1a041986b4bb8a807119adf4f3333e91c7d47c781ad059c9fb"
+      },
+      {
+        "path": "src/learn/data/topology-tda-examples.js",
+        "sha256": "8f75c644186f6ef088b1812f41310c688afbc30bc2d62a195003d1d362d266e1"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+        "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/topology-tda-labs.css",
+        "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/topology-topological-data-analysis-tda.js",
+        "sha256": "a7da5821d65d5395d7269e277f9caaad9ccfbd16101a36b35de62f157c72d5dd"
+      }
+    ],
+    "limits": "Complementary finite-F2, quotient-representative, bipartite matching, finite-nerve and high-precision integration checks; not a second exhaustive browser run or a proof of general persistence theorems by simulation."
+  },
+  "script": {
+    "path": "scripts/verify-topology-tda-independent.py",
+    "sha256": "2826e3b75dae6a05e57f00b85a5b66fbae924f5036bb52852b3d609b8cb50897"
+  },
+  "openedFinalImages": {
+    "openedBy": "workflow_visual_improvements",
+    "openedAt": "2026-09-10T22:38:30.912870+00:00",
+    "images": [
+      {
+        "path": "scratch/topology-tda-browser/matching-optimum-390.png",
+        "sha256": "1b129cb9b08777516eeb84f69e6182cbd2bffb1e4d71ab28eedea3c84105356d",
+        "bytes": 77766
+      },
+      {
+        "path": "scratch/topology-tda-browser/pixel-ring-320.png",
+        "sha256": "bc41a2d4e9dda8ec632ae5407919d633ea5be921ed2c2b45b58ddc51f19598eb",
+        "bytes": 71119
+      },
+      {
+        "path": "scratch/topology-tda-browser/landscape-image-1440.png",
+        "sha256": "d662eb034d47a11e52222f97be5fdbd186633457b8e682dd01aa157147bf6a57",
+        "bytes": 127560
+      },
+      {
+        "path": "scratch/topology-tda-browser/square-persistence-390.png",
+        "sha256": "1871cc067681c664a0e40de4a4567d338d301bc0486685c72b500b2cc34d0350",
+        "bytes": 124238
+      },
+      {
+        "path": "scratch/topology-tda-browser/reduction-matrix-320.png",
+        "sha256": "0afa2aecc326e5e5a268da0c44e8d42e1b9e45e9161a725d422dbe42df345689",
+        "bytes": 114112
+      },
+      {
+        "path": "scratch/topology-tda-browser/mapper-chain-1440.png",
+        "sha256": "9f4ef05b3f76025001acbeff49e8e3134f5631b782fe192dfa311cd647e73599",
+        "bytes": 126528
+      },
+      {
+        "path": "scratch/topology-tda-browser/reading-3-390.png",
+        "sha256": "d52b6c839e333888aa27ef67b44a8f2cd6f041ce0d8690913e6921a756d6089d",
+        "bytes": 100691
+      },
+      {
+        "path": "scratch/topology-tda-browser/reading-9-320.png",
+        "sha256": "1a8106ef28550ab8c333ad8f432dc3e4a4b7b4c2e1bf7199a375519c1b1cf17f",
+        "bytes": 75314
+      },
+      {
+        "path": "scratch/topology-tda-browser/inline-1-390.png",
+        "sha256": "e1d8d2b1d7415d0b4108120ff3b074574414dd0fb7b1e3408b3dc86271f920be",
+        "bytes": 70155
+      }
+    ]
+  },
+  "limits": "Finite independent mathematical/source/oracle review and nine author-created screenshots actually opened by the reviewer. The complete browser interaction suite is attributed to its author. General theorems, statistical usefulness, learner studies, integrated production verification and user acceptance are not proved by this finite review.",
+  "authorFreezeAt": "2026-09-10T22:39:38.023Z",
+  "authorPacket": {
+    "path": "docs/teaching/evidence/topology-tda-author-review.json",
+    "sha256": "fadc1f5c7aa9251494a3c24da19d83eeda4519de720c447655fa2188fb77b4c2"
+  },
+  "production": [
+    {
+      "path": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+      "sha256": "b5b08bf419a5892ea94421538cb222d7fe4294b5a6c2d12c279bff339bfa0eb1",
+      "bytes": 67144
+    },
+    {
+      "path": "src/learn/data/topology-tda-models.js",
+      "sha256": "f7e6e6363dea8f1a041986b4bb8a807119adf4f3333e91c7d47c781ad059c9fb",
+      "bytes": 23720
+    },
+    {
+      "path": "src/learn/data/topology-tda-examples.js",
+      "sha256": "8f75c644186f6ef088b1812f41310c688afbc30bc2d62a195003d1d362d266e1",
+      "bytes": 32559
+    },
+    {
+      "path": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+      "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25",
+      "bytes": 44962
+    },
+    {
+      "path": "src/learn/components/lesson-labs/topology-tda-labs.css",
+      "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a",
+      "bytes": 7235
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/topology-topological-data-analysis-tda.js",
+      "sha256": "a7da5821d65d5395d7269e277f9caaad9ccfbd16101a36b35de62f157c72d5dd",
+      "bytes": 4351
+    }
+  ],
+  "authorBrowserEvidence": {
+    "passed": true,
+    "verifiedAt": "2026-09-10T22:35:40.358Z",
+    "browser": "152.0.4191.66",
+    "sources": [
+      {
+        "file": "src/learn/data/topics/topology-topological-data-analysis-tda.jsx",
+        "sha256": "b5b08bf419a5892ea94421538cb222d7fe4294b5a6c2d12c279bff339bfa0eb1"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+        "sha256": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25"
+      },
+      {
+        "file": "src/learn/components/lesson-labs/topology-tda-labs.css",
+        "sha256": "1827c77251efae7736b711845ea528272e5cdbb2bb07baa1540b294d6faa5c1a"
+      },
+      {
+        "file": "src/learn/data/topology-tda-models.js",
+        "sha256": "f7e6e6363dea8f1a041986b4bb8a807119adf4f3333e91c7d47c781ad059c9fb"
+      },
+      {
+        "file": "src/learn/data/topology-tda-examples.js",
+        "sha256": "8f75c644186f6ef088b1812f41310c688afbc30bc2d62a195003d1d362d266e1"
+      }
+    ],
+    "records": [
+      {
+        "width": 1440,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "width": 1440,
+          "documentWidth": 1440,
+          "equations": [
+            {
+              "index": 0,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 1,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 2,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 3,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 4,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 5,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 6,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 7,
+              "width": 760,
+              "scroll": 760
+            },
+            {
+              "index": 8,
+              "width": 760,
+              "scroll": 760
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 14.855588942307692,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 0,
+        "geometry": {
+          "width": 390,
+          "documentWidth": 390,
+          "equations": [
+            {
+              "index": 0,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 1,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 2,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 3,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 4,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 5,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 6,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 7,
+              "width": 350,
+              "scroll": 350
+            },
+            {
+              "index": 8,
+              "width": 350,
+              "scroll": 350
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 19.343649193548387,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "states": 458,
+        "programs": 9,
+        "checkpointsAndPractice": 15,
+        "anchors": [
+          {
+            "hash": "#1-decide-what-counts-as-the-same-shape",
+            "exists": true
+          },
+          {
+            "hash": "#2-build-a-space-from-observations",
+            "exists": true
+          },
+          {
+            "hash": "#3-distinguish-a-cycle-from-a-hole",
+            "exists": true
+          },
+          {
+            "hash": "#4-follow-a-feature-through-scale",
+            "exists": true
+          },
+          {
+            "hash": "#5-compute-the-pairing",
+            "exists": true
+          },
+          {
+            "hash": "#6-compare-diagrams-and-bound-change",
+            "exists": true
+          },
+          {
+            "hash": "#7-let-pixels-build-their-own-space",
+            "exists": true
+          },
+          {
+            "hash": "#8-turn-time-into-coordinates",
+            "exists": true
+          },
+          {
+            "hash": "#9-build-usable-topological-features",
+            "exists": true
+          },
+          {
+            "hash": "#10-test-the-claim-against-data",
+            "exists": true
+          },
+          {
+            "hash": "#11-summarize-overlap-with-mapper",
+            "exists": true
+          },
+          {
+            "hash": "#12-know-what-the-summary-leaves-out",
+            "exists": true
+          },
+          {
+            "hash": "#13-practise-calculation-and-judgment",
+            "exists": true
+          }
+        ],
+        "keyboardControls": 73,
+        "keyboardScrolls": 1,
+        "geometry": {
+          "width": 320,
+          "documentWidth": 320,
+          "equations": [
+            {
+              "index": 0,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 1,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 2,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 3,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 4,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 5,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 6,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 7,
+              "width": 280,
+              "scroll": 280
+            },
+            {
+              "index": 8,
+              "width": 280,
+              "scroll": 280
+            }
+          ],
+          "mathErrors": 0,
+          "minimumSvgFont": 15.143749999999999,
+          "nonfinitePaths": 0,
+          "font": "\"Space Grotesk\", sans-serif",
+          "loadedFonts": [
+            {
+              "family": "JetBrains Mono",
+              "weight": "400"
+            },
+            {
+              "family": "JetBrains Mono",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "400"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "600"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "Space Grotesk",
+              "weight": "700"
+            },
+            {
+              "family": "KaTeX_AMS",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Main",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Math",
+              "weight": "400"
+            },
+            {
+              "family": "KaTeX_Size3",
+              "weight": "400"
+            }
+          ]
+        },
+        "errors": []
+      }
+    ]
+  },
+  "reviewRecord": {
+    "path": "docs/teaching/TOPOLOGY-TDA-INDEPENDENT-REVIEW.md",
+    "sha256": "a6a1f129186f438c192917cd91ff611958c70fd9f7af89e6f9b84d4833a75051"
+  }
+}

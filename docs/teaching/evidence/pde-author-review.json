@@ -1,0 +1,375 @@
+{
+  "topicId": "partial-differential-equations-conservation-boundary-conditions",
+  "title": "Partial Differential Equations, Conservation & Boundary Conditions",
+  "modulePosition": 56,
+  "frozenAt": "2026-09-11T09:11:31.157Z",
+  "status": "author-verified; independent and production integration reviews remain separate",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "sha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99"
+    },
+    {
+      "path": "src/learn/data/pde-models.js",
+      "sha256": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2"
+    },
+    {
+      "path": "src/learn/data/pde-examples.js",
+      "sha256": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/pde-labs.css",
+      "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+      "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+    }
+  ],
+  "baseline": {
+    "path": "docs/teaching/evidence/pde-original-plan.json",
+    "sha256": "73af6e85377ffc8c7f3642adacfc41fc8f6b122cd58cfe06b2c9e20811036fd2",
+    "disposition": "Previously planned; no old authored body or program existed for this stable identity. All starting commitments, identity and module position retained."
+  },
+  "native": {
+    "path": "docs/teaching/evidence/pde-native-verification.json",
+    "sha256": "6a8db1f2f2c93b37922fcd91c0f3a2797fc9b01eb024e44fe85bbd29b73dba3c",
+    "checkedAt": "2026-09-11T09:05:31.046105+00:00",
+    "checks": {
+      "actual_complete_programs": 15,
+      "control_volume_integral": 15,
+      "control_volume_source": 15,
+      "control_volume_total": 15,
+      "control_volume_relative_thin_slice": 15,
+      "control_volume_relative_balance": 15,
+      "transport_trace": 40,
+      "transport_integrated_mass": 40,
+      "transport_boundary_balance": 40,
+      "mode_native_correspondence": 26,
+      "mode_energy_identity": 26,
+      "heat_images_oracle": 60,
+      "heat_mean_quadrature": 12,
+      "heat_norm_quadrature": 12,
+      "heat_tail_log_high_precision": 5,
+      "heat_arithmetic_vs_long_sum": 25,
+      "kernel_high_precision": 75,
+      "kernel_relative_arithmetic": 60,
+      "periodic_complex_solution": 20,
+      "periodic_envelope": 20,
+      "wave_velocity_quadrature": 50,
+      "wave_formula_changed": 50,
+      "actual_native_wave_changed": 50,
+      "wave_kinetic_integral": 7,
+      "wave_strain_integral": 7,
+      "wave_energy_conservation": 7,
+      "poisson_compatibility": 450,
+      "poisson_independent_constraints": 258,
+      "actual_native_neumann_changed": 33,
+      "harmonic_exponential_representation": 3,
+      "weak_source_probe": 25,
+      "weak_source_energy": 5,
+      "burgers_jump_speed": 128,
+      "burgers_entropy_fraction": 128,
+      "burgers_rarefaction": 72,
+      "inverse_heat_relative_amplitude": 16,
+      "inverse_heat_gain": 16,
+      "actual_native_rod_profile_changed": 88,
+      "rod_mean_integral": 88,
+      "rod_physical_balance": 88,
+      "actual_native_settling_changed": 88,
+      "changed_practice_settling": 1,
+      "changed_written_practice_identities": 12,
+      "rejected_model_inputs": 22
+    },
+    "maxScaledError": 2.7644553313166398e-14
+  },
+  "browser": {
+    "path": "docs/teaching/evidence/pde-independent-amendment-browser.json",
+    "sha256": "41015576f57634817ee539d6c9b8ab4f487696adc79d829237ff822d8e9f9004",
+    "checkedAt": "2026-09-11T09:07:32.083Z",
+    "scope": "Focused final-source amendment review:24 wave states,15 current program/code/output checks, exact loaded-module boundary, keyboard reset, three repaired/new paragraphs, all22 existing formula widths and document/error checks per1440/390/320. The earlier complete176-state review is retained separately, not rerun or relabeled as final-source.",
+    "summaries": [
+      {
+        "width": 1440,
+        "states": 24,
+        "programs": 15,
+        "equations": 22,
+        "errors": [],
+        "failedRequests": [],
+        "intentionalHmrDiagnostics": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "overflow": 0,
+        "loadedModuleBoundary": {
+          "x": 1,
+          "time": 0.000001,
+          "leftFoot": 0.999999,
+          "rightFoot": 1.000001,
+          "rightMoving": 3.999994000003001e-18,
+          "leftMoving": 0,
+          "velocityContribution": 4.999994000002499e-25,
+          "total": 3.9999945000024e-18
+        }
+      },
+      {
+        "width": 390,
+        "states": 24,
+        "programs": 15,
+        "equations": 22,
+        "errors": [],
+        "failedRequests": [],
+        "intentionalHmrDiagnostics": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "overflow": 0,
+        "loadedModuleBoundary": {
+          "x": 1,
+          "time": 0.000001,
+          "leftFoot": 0.999999,
+          "rightFoot": 1.000001,
+          "rightMoving": 3.999994000003001e-18,
+          "leftMoving": 0,
+          "velocityContribution": 4.999994000002499e-25,
+          "total": 3.9999945000024e-18
+        }
+      },
+      {
+        "width": 320,
+        "states": 24,
+        "programs": 15,
+        "equations": 22,
+        "errors": [],
+        "failedRequests": [],
+        "intentionalHmrDiagnostics": [
+          "[vite] failed to connect to websocket.\nyour current setup:\n  (browser) 127.0.0.1:5173/ <--[HTTP]--> 127.0.0.1:5173/ (server)\n  (browser) 127.0.0.1:5173/ <--[WebSocket (failing)]--> 127.0.0.1:5173/ (server)\nCheck out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr ."
+        ],
+        "overflow": 0,
+        "loadedModuleBoundary": {
+          "x": 1,
+          "time": 0.000001,
+          "leftFoot": 0.999999,
+          "rightFoot": 1.000001,
+          "rightMoving": 3.999994000003001e-18,
+          "leftMoving": 0,
+          "velocityContribution": 4.999994000002499e-25,
+          "total": 3.9999945000024e-18
+        }
+      }
+    ]
+  },
+  "openedImages": [
+    {
+      "path": "scratch/pde-wave-boundary/arithmetic-final-320.png",
+      "sha256": "c09b2d7f0c269b9fff93f45ec45a3c3806154c0cb2a90ad6af715c724d951d41",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/maximum-final-320.png",
+      "sha256": "d6c4a454eb20596523a00e0dc0e48763543cf6f3789a469ec5e6ab249f45da89",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/units-final-320.png",
+      "sha256": "5a5db6175e892af954f82fd59da1f531961c5c9fd9c52208e3bb4c61292134c0",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/wave-final-390.png",
+      "sha256": "f931e41ed8a6c85318697ae31521720e9fc8beb1ed07e1ad97dfe76770f9362d",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/wave-final-1440.png",
+      "sha256": "f93e8984ac19dee5e21762a38f8556c0889c180f408e3ca21ce750ad68b81912",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/arithmetic-final-1440.png",
+      "sha256": "4ad1d0def7218014cd52fcdd4958679ab061c450aaf85f90517ad646da6f2781",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    },
+    {
+      "path": "scratch/pde-wave-boundary/units-final-390.png",
+      "sha256": "75997d4471854aa4d0d4dfb4acbb33e1728029374581b9c5e12e462ea147fcd7",
+      "reviewed": "Actually opened by the author after final amendment; no claim to have opened all captured images."
+    }
+  ],
+  "sourceRead": [
+    "Complete body and every displayed derivation",
+    "All 15 complete programs, questions, captured stdout and interpretations",
+    "Pure models and all visual/lab/CSS source",
+    "14 changed exercises with hints and explained solutions",
+    "Approved design, individual brief and incoming/destination notes"
+  ],
+  "resolvedAuthorFindings": [
+    "Kept the exact initial heat state separate and hid the positive-time control while initial data are active.",
+    "Reversed Burgers data now draw diverging characteristics for an expansion jump; they do not reuse the compressive shock geometry.",
+    "Factored thin-slice integral/flux differences before evaluation; neighboring floating-point endpoint regressions pass against high-precision identities.",
+    "Actual screenshots exposed missing arrowheads on compound paths; each directed flux now has its own path and marker.",
+    "Reflowed 15 formula blocks, including a second narrow pass for the Burgers specialization, without shrinking type. All 22 final blocks fit 320px."
+  ],
+  "checksDoNotEstablish": [
+    "General PDE existence or convergence theorems beyond the locally stated proofs and hypotheses",
+    "Arbitrary floating-point accuracy outside the documented bounded model contracts",
+    "Numerical PDE discretization quality, solver convergence or production integration",
+    "A beginner user study, complete video viewing or user acceptance"
+  ],
+  "design": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md",
+  "verification": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+  "previousAuthorFreeze": {
+    "path": "docs/teaching/evidence/pde-author-review-before-independent-amendment.json",
+    "sha256": "f73d0989c1dd2ab09042cae4303f1fb8590befa0763e077d667f81c998e0d711",
+    "frozenAt": "2026-09-11T08:18:02.248Z"
+  },
+  "originalFullBrowser": {
+    "path": "docs/teaching/evidence/pde-browser-review.json",
+    "sha256": "46843e27f2c94242021e2f7798396ed3e7a9a0d942ccde6b2886f13e937ff8a1",
+    "checkedAt": "2026-09-11T08:13:19.280Z",
+    "summaries": [
+      {
+        "width": 1440,
+        "states": 176,
+        "disclosures": 34,
+        "controls": 68,
+        "programs": 15,
+        "equations": 22,
+        "documentOverflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 390,
+        "states": 176,
+        "disclosures": 34,
+        "controls": 68,
+        "programs": 15,
+        "equations": 22,
+        "documentOverflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      },
+      {
+        "width": 320,
+        "states": 176,
+        "disclosures": 34,
+        "controls": 68,
+        "programs": 15,
+        "equations": 22,
+        "documentOverflow": false,
+        "errors": [],
+        "warnings": [],
+        "failedRequests": []
+      }
+    ]
+  },
+  "originalOpenedImages": [
+    {
+      "path": "scratch/pde-browser/inline-1-1440.png",
+      "sha256": "c635531ca97427036ec7ab83c02500d662432415dd9bc12f3dd9882c5b07eff0",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/inline-2-1440.png",
+      "sha256": "54dae43fd7f7112f6a71c28d1ec30fa297731d62b31c19b36baa5c2ced72c996",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/reading-5-1440.png",
+      "sha256": "67b31604092bc32fcbde37d32ba1173435fb1daa00bb0c9619083769dcabd508",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/default-5-1440.png",
+      "sha256": "2cf0ce3c5a5423e53b0df1acadb6cfc63057805148a00bae2ed9f80c0ab972ea",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/reading-5-320.png",
+      "sha256": "032a36b2bb1166a4302298f1af8ca1d3fbaa00225737043ac6565db937c82e0b",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/inline-2-320.png",
+      "sha256": "b91344eee37d8be1817e7f5636c3acb93383a16883cda6301d94e5fcb91a3860",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/default-3-390.png",
+      "sha256": "5bb3a06e4377b572399e29d17c11e9e9896a11ffb496e6c4ac8a640e713274db",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/inline-7-320.png",
+      "sha256": "1d803b2240859e2fae511220e8cfb40013cfc4e2ad0744c2f53a78fa447d8230",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/burgers-fan-320.png",
+      "sha256": "f583e8ded7eeb20b116edc4f751c7877169e4786a7e411f6ccd5298c0f6440ad",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/poisson-incompatible-390.png",
+      "sha256": "e3644cf5867356d466bfd3539e65567ef325d4b119e135ba6fa6b298af1df4bb",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/heat-exact-initial-320.png",
+      "sha256": "ed3936c9419d6d07a07e6379072d7af7fd0a5f5875be122642468e7cbfbe8ee1",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/default-8-390.png",
+      "sha256": "21ece38f52491ec42452d0c7154f6887502886edf8ab3b02f0faf4a305aed994",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/reading-11-320.png",
+      "sha256": "7b97373e2e2e9bcffa7fb077184c1fd42a3065929765e57f6995c3a70bed3b4a",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/reading-9-390.png",
+      "sha256": "06c3db3d0850bfafd103e8722eb9889e8ed0d6bed73336da86e24694cc942461",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/inline-8-390.png",
+      "sha256": "5c433b4d564e9185f8770bc4c781af1e6a9cc8b220cc170a59d3e5f40aaccf23",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    },
+    {
+      "path": "scratch/pde-browser/practice-open-320.png",
+      "sha256": "d6a16bd3d9abe7931c8fcb126a888a0901034c59473712dc293256bc2cffa9b6",
+      "reviewed": "Actually opened with view_image by the author after the final source changes; capture is not being counted as visual inspection by itself."
+    }
+  ],
+  "independentReviewAmendment": {
+    "originals": "docs/teaching/evidence/pde-independent-amendment-originals.json",
+    "findings": [
+      "Primitive subtraction could make a nonnegative wave velocity integral negative at a tiny support-edge time. Replaced with16 positive polynomial terms on a clipped offset interval; shifted bump factors preserve small endpoint distances in JS and displayed Python.",
+      "Maximum-principle derivatives were only assumed in the interior. The proof now works on every T′<T and extends to T by continuity.",
+      "Restored the physical coefficient s/(2k)=1 K/m² and declared SI coordinate values in the simplified rod formulas; decay-rate units are explicit."
+    ],
+    "conservation": "Fourteen complete program objects and all15 expected stdout strings remain exact. Lab/CSS/brief hashes are unchanged. Body changes:two qualifications and one arithmetic explanation, plus LF line-ending normalization.",
+    "boundary": {
+      "path": "docs/teaching/evidence/pde-wave-boundary-verification.json",
+      "sha256": "7ea5058f54fb5b66b28be651d32d7c78d406b10b74bf37424acfeb9a161e31d2",
+      "checkedAt": "2026-09-11T09:05:13.273421+00:00",
+      "cases": 180,
+      "comparisons": 1176,
+      "maximumRelativeError": 7.169455330553674e-16,
+      "oracle": "180-digit independent clipped antiderivative and exact input-float conversion; original primitive cancellation is intentionally absent at high precision.",
+      "sourceHashes": {
+        "src/learn/data/pde-models.js": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2",
+        "src/learn/data/pde-examples.js": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1"
+      }
+    }
+  }
+}

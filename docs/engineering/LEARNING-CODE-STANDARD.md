@@ -1,6 +1,6 @@
 # Learning code: ownership and browser loading
 
-Updated 10 September 2026. This is the current engineering policy for educational code. Read it with the teaching standard: efficient delivery must preserve complete explanations, topic-specific visuals, accurate models and practice. The user's current request controls scope.
+Updated 11 September 2026. This is the current engineering policy for educational code. Read it with the teaching standard: efficient delivery must preserve complete explanations, topic-specific visuals, accurate models and practice. The user's current request controls scope.
 
 ## File and identifier names
 
@@ -40,7 +40,18 @@ The former `topics/index.js` eager registry is removed. Do not recreate a barrel
 
 Generated files are deterministic outputs; never edit them manually. The generator parses static `title`, `readTime` and optional boolean `hasIntegratedGuide` from the lesson's default-exported object, without evaluating its component or imports. Keep these fields static; introduce a deliberate schema change if richer metadata is necessary. It validates publication paths, catalogue membership, distinct ownership and required content. New lesson registration requires a manifest entry and real complete content; a blueprint alone remains planned.
 
+The reader renders `readTime` as supplied. Use an explicit learner-facing estimate with units, such as `~60 min read + 90 min practice`, rather than a bare number. Check the generated header as well as the lesson body. Before producing data for a shared component, read its actual field contract: for example, `RunnableExample` renders its recorded output from `example.expected`. If a topic-owned execution record calls that field `output`, map it explicitly at the boundary and verify the actual displayed code/output text. An existing component on screen does not prove that all its data was rendered.
+
 Vite regenerates artifacts at build/dev startup and when relevant source metadata changes during development. It writes only changed files. Run `node scripts/generate-learning-artifacts.mjs` after source changes outside Vite, and `node scripts/generate-learning-artifacts.mjs --check` to detect stale outputs. Authoring CLI tools read full sources through the authoring adapter, so topic notes and curriculum verification do not silently depend on stale browser snapshots.
+
+### Early compatibility checks
+
+At the first runnable draft, check the actual consumers before producing more content around an incompatible shape. This supports stage 2 of the [authoring workflow](../../LESSON-TEACHING-STANDARD.md#six-stage-authoring-workflow); it is not another full review campaign.
+
+- Use the metadata extractor's supported lesson form: a default-exported object literal, or a plain top-level `const lessonDefinition = { ... }` followed by `export default lessonDefinition`. The current extractor does not resolve a variable declaration wrapped in a named export. Keep header fields static strings, with explicit reading/practice units.
+- Match the current blueprint schema: URL strings in `sources`, an allowed `depth`, a specific `reviewFocus`, exact prerequisite titles and the required outcome/sequence/visual/practice fields. The detailed source annotations belong in the design record and lesson references.
+- Verify that the real reader displays the intended example code and output, and that prerequisite links use actual module IDs. Check a representative narrow layout early when the lesson introduces a new visual form.
+- For changed lesson metadata/publication or blueprint structure, run the relevant artifact-generation/check and curriculum checks at this point. A build/dev generator failure must be resolved before claiming a working draft. Reuse passing results for unchanged contracts; do not run the production build after every edit. The increment owner performs the final shared build/integration when the increment is ready and reruns it only after changes or failures that affect it.
 
 ## Runtime behavior to preserve
 
@@ -62,6 +73,8 @@ Load large specialist dependencies with their consuming lesson/investigation. Ma
 
 ## Verification when changing this structure
 
+Apply the teaching standard's bounded verification policy: reuse passed evidence for unchanged source, rerun affected checks after a relevant change, and keep completed historical rollouts closed. The checks below apply when the associated structure changes; they are not a mandatory full-suite loop for each prose edit or resumed session.
+
 - Run `node scripts/verify-learning-artifacts.mjs`, `node scripts/verify-curriculum.mjs`, the inventory generator and the application build. The artifact check compares every browser route against fresh authoring sources, including planned topics, shared memberships and prerequisite inclusion.
 - Run the relevant model/native-example checks after source moves. Preserve exact code/output fixtures and exported behavior; a passing JSX parser is insufficient.
 - Run `node scripts/verify-content-import-boundary.mjs` when changing shared content imports. Import `Math`/`MathBlock` directly from `components/content/Math.jsx`; the generic content barrel must remain free of the math engine and its styles.
@@ -72,3 +85,28 @@ Load large specialist dependencies with their consuming lesson/investigation. Ma
 Do not raise a warning threshold just to hide a large chunk. The catalogue remains shared because search and path navigation need it; if its measured cost becomes material, evaluate compact encoding or route/search partitioning with the same behavior and accessibility checks. Do not promise a universally optimal bundle or universal page-speed improvement from local measurements.
 
 Implementation references: [Vite glob and lazy imports](https://vite.dev/guide/features.html#glob-import), [React render error boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary), and [MDN lazy loading](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading). These explain mechanisms; repository builds and browser checks establish behavior with the installed versions.
+
+## Efficient context, tools and coordination
+
+Reduce coordination and diagnostic overhead while preserving full lesson quality. Follow the standard's [source-bound review handoff](../../LESSON-TEACHING-STANDARD.md#source-bound-evidence-and-review-handoff); this section adds engineering practices, not more review stages.
+
+The [quality-first principle](../../LESSON-TEACHING-STANDARD.md#quality-takes-priority-over-efficiency) governs every efficiency suggestion below. These are defaults that the agent may override for better output quality within the authorized scope. Read more context, make a broader coherent edit, run further relevant checks or use additional authorized review when that better protects correctness, completeness or comprehension. Do not force a smaller patch, shorter response, reused result or smaller team when it would make the result weaker.
+
+- **Retrieve only what answers the current question.** Load the required current policies once while they remain available in context, then use the scoped design, source and checkpoint. Read a complete lesson in sensible sections when reviewing its teaching; do not repeatedly reload unchanged policies or whole historical reports. After a context reset, recover the current instructions and missing evidence rather than guessing them from memory.
+- **Keep tool output useful.** Search exact directories/symbols and request bounded ranges. For large JSON or generated one-line navigation files, parse and print the selected fields; do not dump the entire catalogue. Return a check's exit status, scope, counts and failures, with a path to necessary detailed evidence. Inspect truncated or failing results through focused follow-ups; a short success summary cannot hide unread errors. Batch independent reads/checks, but serialize dependent edits, generation and builds.
+- **Edit the affected source.** Patch the smallest coherent section and preserve formatting/line endings and useful content. Avoid regenerating a complete long lesson or every native example for a metadata/label fix. Reuse existing semantic generators, checks and recorded runtimes where they fit. Diagnose a harness, selector, environment or capture problem before treating it as a lesson defect; rerun the affected check after the actual cause is repaired.
+- **Coordinate parallel work deliberately.** When delegation is authorized and useful, assign a bounded outcome, necessary context paths, exact file ownership, existing evidence to reuse and completion criteria. Use the smallest useful team; extra agents are not automatically a token saving. Give different writers disjoint files, or serialize work that shares them. One named owner changes shared registries, generated metadata and the increment ledger. Return findings and evidence references instead of copying full lessons or raw logs into coordination messages. Preserve enough context for the task's reasoning, and avoid repeated unchanged status polling.
+- **Keep one current next action.** Update the existing ledger at a substantive stage transition or interruption with the owner, unresolved finding and evidence location. Do not create a new plan, checklist, report or script for each correction. Shared integration starts after authors finish the versions being integrated; subsequent changes require an explicit affected-check decision, not an automatic return to stage 1.
+
+These practices reflect this repository's observed late metadata fixes, source-handoff changes and oversized diagnostic output. Official OpenAI guidance also recommends focused task context and concise durable instructions, and describes the benefits and coordination costs of bounded subagent work: [best practices](https://learn.chatgpt.com/guides/best-practices), [subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) (relevant context/coordination sections read 11 September 2026). They do not establish a measured token reduction for this project. Keep current model/reasoning settings unless a change is requested or otherwise explicitly authorized.
+
+## Temporary work and evidence retention
+
+Follow [the working-artifact retention workflow](WORKING-ARTIFACT-RETENTION.md) at topic completion. It covers screenshots, datasets, scripts and temporary outputs inside and outside `scratch/`, including reference checks and removal of superseded captures.
+
+- Production lesson source is authoritative. After a draft is installed, edit that source; remove superseded scratch drafts and one-off installers that could overwrite newer work. Put reusable generators and checks in semantic files under `scripts/`, with their input/output contracts documented.
+- Use a topic-named scratch directory for active working files. Do not create a new folder or script for every tiny correction. Remove disposable patch scripts, failed downloads, unused captures and generated caches after the relevant result is recorded.
+- Preserve original-source archives, source-versioned evidence, referenced final screenshots and native outputs, required script inputs, active datasets and shared tools. A path is not disposable merely because it is ignored by Git or contains `scratch` in its name. Check references and active ownership before removal; keep uncertainty visible rather than deleting unknown work.
+- Keep durable evidence summaries and the current progress ledger under `docs/teaching/`. Existing historical evidence may retain scratch attachments at their recorded paths; do not relocate or delete those attachments without preserving access and updating the relevant consumers. Retention does not mean rerunning the historical checks.
+- `scratch/` is excluded from normal Git/ripgrep searches. Search current source, the scoped design and the current ledger first. Open an exact retained artifact only to answer a concrete outstanding question; do not recursively inventory the shared runtime, datasets or old review directories on every session.
+- Cleanup and documentation changes need reference/path/source-preservation checks, not a fresh application build or every lesson test. Record the cleanup once and return to the authorized teaching task.

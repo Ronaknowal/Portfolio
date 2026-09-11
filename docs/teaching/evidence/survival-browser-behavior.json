@@ -1,0 +1,903 @@
+{
+  "checkedAt": "2026-09-11T15:09:02.418Z",
+  "sourceHashes": {
+    "src/learn/data/topics/survival-analysis-cox-regression-kaplan-meier-hazard-models.jsx": "2f8399299bdf678f59902d90ca68995a8dc00eba7fdf9a845368faa83c57e24b",
+    "src/learn/data/survival-models.js": "289d42f9e9e93f42757f1689f0f997ccb01e147c0b21cd16555be5ec0ea5a723",
+    "src/learn/data/survival-examples.js": "634b786d5de3005a397b7b52274b44398d8bff6f92ae79e45951a5701b969474",
+    "src/learn/components/lesson-labs/SurvivalLabs.jsx": "0628346cb7460952ae60ba247681bc235db47722d4b54fe87176103c3a321e52",
+    "src/learn/components/lesson-labs/SurvivalFigures.jsx": "2cea66096650a5b8f7cf0009ef9d59f22d4dc720918f473ddcebed7c0d3cab43",
+    "src/learn/components/lesson-labs/survival-labs.css": "299508e13f2930460d4a0456fe2c4c66cc95760da6c887bc2b618df9ec9e2b45",
+    "src/learn/components/lesson-labs/survival-figures.css": "df118d4b57bc34041b1470a6b7d9407316d4f89de1793e89f93de5c63d8f0498",
+    "src/learn/data/curriculum/blueprints/survival-analysis-cox-regression-kaplan-meier-hazard-models.js": "fc14e0d6ab39b48106e59305e0027d28cfa06f9b05074912786515e326e73602"
+  },
+  "records": [
+    {
+      "width": 1440,
+      "states": [
+        "KM tied event and censor",
+        "Administrative cap updates indicators",
+        "No observed events",
+        "Changed first endpoint",
+        "Original area and interval",
+        "Censor-row interval wording",
+        "Median not reached",
+        "Exhausted final risk set",
+        "Time ratio2 with shape2",
+        "Hazard ratio2",
+        "Unbounded zero-age rate",
+        "Exact log2 preset and Efron tie",
+        "Breslow tie",
+        "Uniform local competition",
+        "Survival crossing occurs at6",
+        "Conditional versus pooled PH",
+        "Five comparable pairs",
+        "Reversed risk",
+        "All tied scores",
+        "Strict score transform",
+        "Known observation-law expectation",
+        "Rare observation increases weight",
+        "Changed proper probability loss",
+        "Final first-event mass",
+        "Earlier mass transition",
+        "Remove analytic competing rate"
+      ],
+      "keyboard": [
+        "all-censored toggle",
+        "reset Count the pumps still at risk",
+        "reset Count the pumps still at risk",
+        "reset Read area, uncertainty and the end of follow-up",
+        "reset Separate a hazard multiplier from a slower clock",
+        "exact logarithm preset",
+        "reset Let the event compete inside its risk set",
+        "reset A hazard change and a survival crossing happen at different times",
+        "reset Rank only the pairs whose ordering can be compared",
+        "reset Recover a horizon loss from observable outcomes",
+        "reset Send first-event mass out of one common surviving pool",
+        "range _r_0_",
+        "range _r_1_",
+        "select Reverse one record's event status",
+        "reset Count the pumps still at risk",
+        "range _r_2_",
+        "select Observation scenario",
+        "reset Read area, uncertainty and the end of follow-up",
+        "range _r_3_",
+        "range _r_4_",
+        "range _r_5_",
+        "range _r_6_",
+        "select What the multiplier changes",
+        "reset Separate a hazard multiplier from a slower clock",
+        "range _r_9_",
+        "select Event-time risk set",
+        "select Tie denominator",
+        "reset Let the event compete inside its risk set",
+        "range _r_a_",
+        "select Constructed population",
+        "reset A hazard change and a survival crossing happen at different times",
+        "select Risk-score ordering",
+        "reset Rank only the pairs whose ordering can be compared",
+        "range _r_b_",
+        "range _r_c_",
+        "reset Recover a horizon loss from observable outcomes",
+        "range _r_f_",
+        "range _r_g_",
+        "reset Send first-event mass out of one common surviving pool",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure"
+      ],
+      "anchors": [
+        "#1-define-the-event-and-start-the-clock",
+        "#2-decide-what-incomplete-observation-permits",
+        "#3-count-your-way-to-a-survival-curve",
+        "#4-read-uncertainty-and-the-supported-area",
+        "#5-turn-a-changing-rate-into-a-probability",
+        "#6-fit-the-likelihood-of-what-was-observed",
+        "#7-compare-groups-with-the-right-denominator",
+        "#8-learn-a-cox-model-from-risk-set-competition",
+        "#9-handle-ties-and-recover-absolute-survival",
+        "#10-check-proportionality-and-changing-populations",
+        "#11-evaluate-observable-predictions",
+        "#12-choose-a-time-model-tree-or-discrete-hazard",
+        "#13-keep-competing-event-probabilities-coherent",
+        "#14-respect-entry-and-changing-information",
+        "#15-complete-a-held-out-reliability-report",
+        "#16-practise-explain-and-transfer"
+      ],
+      "programs": [
+        "Encode what was observed, without inventing a failure",
+        "Build exact steps and calculate the supported area",
+        "A timeout changes the question to a restricted mean",
+        "Every observed running day contributes exposure",
+        "Reproduce the original experiment with true KM steps",
+        "Fit the original binary-feature Cox model from risk sets",
+        "Separate tie approximations from baseline estimation",
+        "Run the retained historical example with actual diagnostic output",
+        "Translate an accelerated time scale into a survival prediction",
+        "Inspect comparable pairs and inverse observation weights",
+        "See what a survival tree stores in each leaf",
+        "Allocate first-event probability from one common pool",
+        "Keep a subject on one clock and use only known history",
+        "Turn a first-event sequence into observed conditional trials",
+        "Keep an interval-censored event as an interval",
+        "Produce one frozen, supported held-out reliability report",
+        "Repeat the declared protocol on a different mechanism"
+      ],
+      "captures": [
+        "cox-risk-weights-1440.png",
+        "censor-probability-tree-1440.png",
+        "ties-reading-1440.png"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C)Y=\\min(T,C),\\qquad \\delta=I(T\\le C)Y=min(T,C),δ=I(T≤C)",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t)\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\qquad S(t)=P(T>t)S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t)",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)]=∫0τS(t) dt\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)]=\\int_0^\\tau S(t)\\,dtRMST(τ)=E[min(T,τ)]=∫0τ​S(t)dt",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0P(t<T≤t+Δ∣T>t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{P(t<T\\le t+\\Delta\\mid T>t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\quad H(t)=\\int_0^t h(u)\\,du,\\quad S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔP(t<T≤t+Δ∣T>t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 5,
+          "text": "L(θ)∝∏ifθ(yi)δiSθ(yi)1−δi,ℓ(θ)=∑i[δilog⁡hθ(yi)−Hθ(yi)].\\begin{gathered}L(\\theta)\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell(\\theta)=\\sum_i\\left[\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i)\\right].\\end{gathered}L(θ)∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓ(θ)=i∑​[δi​loghθ​(yi​)−Hθ​(yi​)].​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 6,
+          "text": "e1j=djn1jnj,U=∑j(d1j−e1j),V=∑j:nj>1djn1j(nj−n1j)(nj−dj)nj2(nj−1),Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_j\\frac{n_{1j}}{n_j},\\qquad U=\\sum_j(d_{1j}-e_{1j}),\\\\ V=\\sum_{j:n_j>1}\\frac{d_j n_{1j}(n_j-n_{1j})(n_j-d_j)}{n_j^2(n_j-1)},\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​nj​n1j​​,U=j∑​(d1j​−e1j​),V=j:nj​>1∑​nj2​(nj​−1)dj​n1j​(nj​−n1j​)(nj​−dj​)​,Z2=U2/V(V>0).​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 8,
+          "text": "P(i supplies the local event∣R)≈exiTβ∑k∈RexkTβP(i\\text{ supplies the local event}\\mid R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}P(i supplies the local event∣R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈Riwk(xk−xˉw,i)(xk−xˉw,i)T.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\quad \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_k(x_k-\\bar x_{w,i})(x_k-\\bar x_{w,i})^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​(xk​−xˉw,i​)(xk​−xˉw,i​)T.​",
+          "scroll": 743,
+          "client": 743
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 743,
+          "client": 743
+        },
+        {
+          "index": 13,
+          "text": "δI(Y≤τ)GC(Y)s2+I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑ithat contribution for subject i.\\begin{gathered}\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2+\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i\\text{that contribution for subject }i.\\end{gathered}GC​(Y)δI(Y≤τ)​s2+GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​that contribution for subject i.​",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x))q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\qquad S_j(x)=\\prod_{l=1}^{j}(1-q_l(x))qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x))",
+          "scroll": 760,
+          "client": 760
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) dufor continuous hazards.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du\\quad\\text{for continuous hazards}.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)dufor continuous hazards.​",
+          "scroll": 760,
+          "client": 760
+        }
+      ],
+      "equationOverflow": [],
+      "geometryOverflow": []
+    },
+    {
+      "width": 390,
+      "states": [
+        "KM tied event and censor",
+        "Administrative cap updates indicators",
+        "No observed events",
+        "Changed first endpoint",
+        "Original area and interval",
+        "Censor-row interval wording",
+        "Median not reached",
+        "Exhausted final risk set",
+        "Time ratio2 with shape2",
+        "Hazard ratio2",
+        "Unbounded zero-age rate",
+        "Exact log2 preset and Efron tie",
+        "Breslow tie",
+        "Uniform local competition",
+        "Survival crossing occurs at6",
+        "Conditional versus pooled PH",
+        "Five comparable pairs",
+        "Reversed risk",
+        "All tied scores",
+        "Strict score transform",
+        "Known observation-law expectation",
+        "Rare observation increases weight",
+        "Changed proper probability loss",
+        "Final first-event mass",
+        "Earlier mass transition",
+        "Remove analytic competing rate"
+      ],
+      "keyboard": [
+        "all-censored toggle",
+        "reset Count the pumps still at risk",
+        "reset Count the pumps still at risk",
+        "reset Read area, uncertainty and the end of follow-up",
+        "reset Separate a hazard multiplier from a slower clock",
+        "exact logarithm preset",
+        "reset Let the event compete inside its risk set",
+        "reset A hazard change and a survival crossing happen at different times",
+        "reset Rank only the pairs whose ordering can be compared",
+        "reset Recover a horizon loss from observable outcomes",
+        "reset Send first-event mass out of one common surviving pool",
+        "range _r_0_",
+        "range _r_1_",
+        "select Reverse one record's event status",
+        "reset Count the pumps still at risk",
+        "range _r_2_",
+        "select Observation scenario",
+        "reset Read area, uncertainty and the end of follow-up",
+        "range _r_3_",
+        "range _r_4_",
+        "range _r_5_",
+        "range _r_6_",
+        "select What the multiplier changes",
+        "reset Separate a hazard multiplier from a slower clock",
+        "range _r_9_",
+        "select Event-time risk set",
+        "select Tie denominator",
+        "reset Let the event compete inside its risk set",
+        "range _r_a_",
+        "select Constructed population",
+        "reset A hazard change and a survival crossing happen at different times",
+        "select Risk-score ordering",
+        "reset Rank only the pairs whose ordering can be compared",
+        "range _r_b_",
+        "range _r_c_",
+        "reset Recover a horizon loss from observable outcomes",
+        "range _r_f_",
+        "range _r_g_",
+        "reset Send first-event mass out of one common surviving pool",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure"
+      ],
+      "anchors": [
+        "#1-define-the-event-and-start-the-clock",
+        "#2-decide-what-incomplete-observation-permits",
+        "#3-count-your-way-to-a-survival-curve",
+        "#4-read-uncertainty-and-the-supported-area",
+        "#5-turn-a-changing-rate-into-a-probability",
+        "#6-fit-the-likelihood-of-what-was-observed",
+        "#7-compare-groups-with-the-right-denominator",
+        "#8-learn-a-cox-model-from-risk-set-competition",
+        "#9-handle-ties-and-recover-absolute-survival",
+        "#10-check-proportionality-and-changing-populations",
+        "#11-evaluate-observable-predictions",
+        "#12-choose-a-time-model-tree-or-discrete-hazard",
+        "#13-keep-competing-event-probabilities-coherent",
+        "#14-respect-entry-and-changing-information",
+        "#15-complete-a-held-out-reliability-report",
+        "#16-practise-explain-and-transfer"
+      ],
+      "programs": [
+        "Encode what was observed, without inventing a failure",
+        "Build exact steps and calculate the supported area",
+        "A timeout changes the question to a restricted mean",
+        "Every observed running day contributes exposure",
+        "Reproduce the original experiment with true KM steps",
+        "Fit the original binary-feature Cox model from risk sets",
+        "Separate tie approximations from baseline estimation",
+        "Run the retained historical example with actual diagnostic output",
+        "Translate an accelerated time scale into a survival prediction",
+        "Inspect comparable pairs and inverse observation weights",
+        "See what a survival tree stores in each leaf",
+        "Allocate first-event probability from one common pool",
+        "Keep a subject on one clock and use only known history",
+        "Turn a first-event sequence into observed conditional trials",
+        "Keep an interval-censored event as an interval",
+        "Produce one frozen, supported held-out reliability report",
+        "Repeat the declared protocol on a different mechanism"
+      ],
+      "captures": [
+        "risk-lanes-default-390.png",
+        "hazard-clock-390.png",
+        "pooled-hazards-390.png",
+        "competing-mass-390.png",
+        "evaluation-reading-390.png"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C)Y=\\min(T,C),\\qquad \\delta=I(T\\le C)Y=min(T,C),δ=I(T≤C)",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t)\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\qquad S(t)=P(T>t)S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t)",
+          "scroll": 364,
+          "client": 350
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)]=∫0τS(t) dt\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)]=\\int_0^\\tau S(t)\\,dtRMST(τ)=E[min(T,τ)]=∫0τ​S(t)dt",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0P(t<T≤t+Δ∣T>t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{P(t<T\\le t+\\Delta\\mid T>t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\quad H(t)=\\int_0^t h(u)\\,du,\\quad S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔP(t<T≤t+Δ∣T>t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 427,
+          "client": 350
+        },
+        {
+          "index": 5,
+          "text": "L(θ)∝∏ifθ(yi)δiSθ(yi)1−δi,ℓ(θ)=∑i[δilog⁡hθ(yi)−Hθ(yi)].\\begin{gathered}L(\\theta)\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell(\\theta)=\\sum_i\\left[\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i)\\right].\\end{gathered}L(θ)∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓ(θ)=i∑​[δi​loghθ​(yi​)−Hθ​(yi​)].​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 6,
+          "text": "e1j=djn1jnj,U=∑j(d1j−e1j),V=∑j:nj>1djn1j(nj−n1j)(nj−dj)nj2(nj−1),Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_j\\frac{n_{1j}}{n_j},\\qquad U=\\sum_j(d_{1j}-e_{1j}),\\\\ V=\\sum_{j:n_j>1}\\frac{d_j n_{1j}(n_j-n_{1j})(n_j-d_j)}{n_j^2(n_j-1)},\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​nj​n1j​​,U=j∑​(d1j​−e1j​),V=j:nj​>1∑​nj2​(nj​−1)dj​n1j​(nj​−n1j​)(nj​−dj​)​,Z2=U2/V(V>0).​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 8,
+          "text": "P(i supplies the local event∣R)≈exiTβ∑k∈RexkTβP(i\\text{ supplies the local event}\\mid R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}P(i supplies the local event∣R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 382,
+          "client": 350
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈Riwk(xk−xˉw,i)(xk−xˉw,i)T.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\quad \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_k(x_k-\\bar x_{w,i})(x_k-\\bar x_{w,i})^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​(xk​−xˉw,i​)(xk​−xˉw,i​)T.​",
+          "scroll": 337,
+          "client": 333
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 350,
+          "client": 350
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 333,
+          "client": 333
+        },
+        {
+          "index": 13,
+          "text": "δI(Y≤τ)GC(Y)s2+I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑ithat contribution for subject i.\\begin{gathered}\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2+\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i\\text{that contribution for subject }i.\\end{gathered}GC​(Y)δI(Y≤τ)​s2+GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​that contribution for subject i.​",
+          "scroll": 383,
+          "client": 350
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x))q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\qquad S_j(x)=\\prod_{l=1}^{j}(1-q_l(x))qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x))",
+          "scroll": 453,
+          "client": 350
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) dufor continuous hazards.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du\\quad\\text{for continuous hazards}.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)dufor continuous hazards.​",
+          "scroll": 422,
+          "client": 350
+        }
+      ],
+      "equationOverflow": [
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t)\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\qquad S(t)=P(T>t)S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t)",
+          "scroll": 364,
+          "client": 350
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0P(t<T≤t+Δ∣T>t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{P(t<T\\le t+\\Delta\\mid T>t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\quad H(t)=\\int_0^t h(u)\\,du,\\quad S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔP(t<T≤t+Δ∣T>t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 427,
+          "client": 350
+        },
+        {
+          "index": 8,
+          "text": "P(i supplies the local event∣R)≈exiTβ∑k∈RexkTβP(i\\text{ supplies the local event}\\mid R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}P(i supplies the local event∣R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 382,
+          "client": 350
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈Riwk(xk−xˉw,i)(xk−xˉw,i)T.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\quad \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_k(x_k-\\bar x_{w,i})(x_k-\\bar x_{w,i})^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​(xk​−xˉw,i​)(xk​−xˉw,i​)T.​",
+          "scroll": 337,
+          "client": 333
+        },
+        {
+          "index": 13,
+          "text": "δI(Y≤τ)GC(Y)s2+I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑ithat contribution for subject i.\\begin{gathered}\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2+\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i\\text{that contribution for subject }i.\\end{gathered}GC​(Y)δI(Y≤τ)​s2+GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​that contribution for subject i.​",
+          "scroll": 383,
+          "client": 350
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x))q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\qquad S_j(x)=\\prod_{l=1}^{j}(1-q_l(x))qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x))",
+          "scroll": 453,
+          "client": 350
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) dufor continuous hazards.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du\\quad\\text{for continuous hazards}.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)dufor continuous hazards.​",
+          "scroll": 422,
+          "client": 350
+        }
+      ],
+      "geometryOverflow": []
+    },
+    {
+      "width": 320,
+      "states": [
+        "KM tied event and censor",
+        "Administrative cap updates indicators",
+        "No observed events",
+        "Changed first endpoint",
+        "Original area and interval",
+        "Censor-row interval wording",
+        "Median not reached",
+        "Exhausted final risk set",
+        "Time ratio2 with shape2",
+        "Hazard ratio2",
+        "Unbounded zero-age rate",
+        "Exact log2 preset and Efron tie",
+        "Breslow tie",
+        "Uniform local competition",
+        "Survival crossing occurs at6",
+        "Conditional versus pooled PH",
+        "Five comparable pairs",
+        "Reversed risk",
+        "All tied scores",
+        "Strict score transform",
+        "Known observation-law expectation",
+        "Rare observation increases weight",
+        "Changed proper probability loss",
+        "Final first-event mass",
+        "Earlier mass transition",
+        "Remove analytic competing rate"
+      ],
+      "keyboard": [
+        "all-censored toggle",
+        "reset Count the pumps still at risk",
+        "reset Count the pumps still at risk",
+        "reset Read area, uncertainty and the end of follow-up",
+        "reset Separate a hazard multiplier from a slower clock",
+        "exact logarithm preset",
+        "reset Let the event compete inside its risk set",
+        "reset A hazard change and a survival crossing happen at different times",
+        "reset Rank only the pairs whose ordering can be compared",
+        "reset Recover a horizon loss from observable outcomes",
+        "reset Send first-event mass out of one common surviving pool",
+        "range _r_0_",
+        "range _r_1_",
+        "select Reverse one record's event status",
+        "reset Count the pumps still at risk",
+        "range _r_2_",
+        "select Observation scenario",
+        "reset Read area, uncertainty and the end of follow-up",
+        "range _r_3_",
+        "range _r_4_",
+        "range _r_5_",
+        "range _r_6_",
+        "select What the multiplier changes",
+        "reset Separate a hazard multiplier from a slower clock",
+        "range _r_9_",
+        "select Event-time risk set",
+        "select Tie denominator",
+        "reset Let the event compete inside its risk set",
+        "range _r_a_",
+        "select Constructed population",
+        "reset A hazard change and a survival crossing happen at different times",
+        "select Risk-score ordering",
+        "reset Rank only the pairs whose ordering can be compared",
+        "range _r_b_",
+        "range _r_c_",
+        "reset Recover a horizon loss from observable outcomes",
+        "range _r_f_",
+        "range _r_g_",
+        "reset Send first-event mass out of one common surviving pool",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure",
+        "open teaching disclosure"
+      ],
+      "anchors": [
+        "#1-define-the-event-and-start-the-clock",
+        "#2-decide-what-incomplete-observation-permits",
+        "#3-count-your-way-to-a-survival-curve",
+        "#4-read-uncertainty-and-the-supported-area",
+        "#5-turn-a-changing-rate-into-a-probability",
+        "#6-fit-the-likelihood-of-what-was-observed",
+        "#7-compare-groups-with-the-right-denominator",
+        "#8-learn-a-cox-model-from-risk-set-competition",
+        "#9-handle-ties-and-recover-absolute-survival",
+        "#10-check-proportionality-and-changing-populations",
+        "#11-evaluate-observable-predictions",
+        "#12-choose-a-time-model-tree-or-discrete-hazard",
+        "#13-keep-competing-event-probabilities-coherent",
+        "#14-respect-entry-and-changing-information",
+        "#15-complete-a-held-out-reliability-report",
+        "#16-practise-explain-and-transfer"
+      ],
+      "programs": [
+        "Encode what was observed, without inventing a failure",
+        "Build exact steps and calculate the supported area",
+        "A timeout changes the question to a restricted mean",
+        "Every observed running day contributes exposure",
+        "Reproduce the original experiment with true KM steps",
+        "Fit the original binary-feature Cox model from risk sets",
+        "Separate tie approximations from baseline estimation",
+        "Run the retained historical example with actual diagnostic output",
+        "Translate an accelerated time scale into a survival prediction",
+        "Inspect comparable pairs and inverse observation weights",
+        "See what a survival tree stores in each leaf",
+        "Allocate first-event probability from one common pool",
+        "Keep a subject on one clock and use only known history",
+        "Turn a first-event sequence into observed conditional trials",
+        "Keep an interval-censored event as an interval",
+        "Produce one frozen, supported held-out reliability report",
+        "Repeat the declared protocol on a different mechanism"
+      ],
+      "captures": [
+        "restricted-area-320.png",
+        "cox-risk-weights-320.png",
+        "pair-board-320.png",
+        "changed-cox-practice-320.png",
+        "changed-report-output-320.png"
+      ],
+      "fonts": [
+        "JetBrains Mono",
+        "JetBrains Mono",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2",
+        "KaTeX_Size3"
+      ],
+      "equations": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C)Y=\\min(T,C),\\qquad \\delta=I(T\\le C)Y=min(T,C),δ=I(T≤C)",
+          "scroll": 289,
+          "client": 280
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t)\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\qquad S(t)=P(T>t)S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t)",
+          "scroll": 364,
+          "client": 280
+        },
+        {
+          "index": 2,
+          "text": "Vlog⁡S(t)=∑tj≤tdjnj(nj−dj),Var⁡^[S^(t)]≈S^(t)2Vlog⁡S(t).\\begin{gathered}V_{\\log S}(t)=\\sum_{t_j\\le t}\\frac{d_j}{n_j(n_j-d_j)},\\\\ \\widehat{\\operatorname{Var}}[\\widehat S(t)]\\approx\\widehat S(t)^2V_{\\log S}(t).\\end{gathered}VlogS​(t)=tj​≤t∑​nj​(nj​−dj​)dj​​,Var[S(t)]≈S(t)2VlogS​(t).​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)]=∫0τS(t) dt\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)]=\\int_0^\\tau S(t)\\,dtRMST(τ)=E[min(T,τ)]=∫0τ​S(t)dt",
+          "scroll": 327,
+          "client": 280
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0P(t<T≤t+Δ∣T>t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{P(t<T\\le t+\\Delta\\mid T>t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\quad H(t)=\\int_0^t h(u)\\,du,\\quad S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔP(t<T≤t+Δ∣T>t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 427,
+          "client": 280
+        },
+        {
+          "index": 5,
+          "text": "L(θ)∝∏ifθ(yi)δiSθ(yi)1−δi,ℓ(θ)=∑i[δilog⁡hθ(yi)−Hθ(yi)].\\begin{gathered}L(\\theta)\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell(\\theta)=\\sum_i\\left[\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i)\\right].\\end{gathered}L(θ)∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓ(θ)=i∑​[δi​loghθ​(yi​)−Hθ​(yi​)].​",
+          "scroll": 284,
+          "client": 280
+        },
+        {
+          "index": 6,
+          "text": "e1j=djn1jnj,U=∑j(d1j−e1j),V=∑j:nj>1djn1j(nj−n1j)(nj−dj)nj2(nj−1),Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_j\\frac{n_{1j}}{n_j},\\qquad U=\\sum_j(d_{1j}-e_{1j}),\\\\ V=\\sum_{j:n_j>1}\\frac{d_j n_{1j}(n_j-n_{1j})(n_j-d_j)}{n_j^2(n_j-1)},\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​nj​n1j​​,U=j∑​(d1j​−e1j​),V=j:nj​>1∑​nj2​(nj​−1)dj​n1j​(nj​−n1j​)(nj​−dj​)​,Z2=U2/V(V>0).​",
+          "scroll": 307,
+          "client": 280
+        },
+        {
+          "index": 7,
+          "text": "h(t∣x)=h0(t)exTβ,h(t∣xa)h(t∣xb)=e(xa−xb)Tβ.\\begin{gathered}h(t\\mid x)=h_0(t)e^{x^T\\beta},\\\\ \\frac{h(t\\mid x_a)}{h(t\\mid x_b)}=e^{(x_a-x_b)^T\\beta}.\\end{gathered}h(t∣x)=h0​(t)exTβ,h(t∣xb​)h(t∣xa​)​=e(xa​−xb​)Tβ.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 8,
+          "text": "P(i supplies the local event∣R)≈exiTβ∑k∈RexkTβP(i\\text{ supplies the local event}\\mid R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}P(i supplies the local event∣R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 382,
+          "client": 280
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈Riwk(xk−xˉw,i)(xk−xˉw,i)T.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\quad \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_k(x_k-\\bar x_{w,i})(x_k-\\bar x_{w,i})^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​(xk​−xˉw,i​)(xk​−xˉw,i​)T.​",
+          "scroll": 337,
+          "client": 263
+        },
+        {
+          "index": 10,
+          "text": "LjBreslow=∏i∈DjexiTβWjdj,LjEfron=∏i∈DjexiTβ∏l=0dj−1(Wj−lEj/dj).\\begin{gathered}L_j^{\\mathrm{Breslow}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{W_j^{d_j}},\\\\ L_j^{\\mathrm{Efron}}=\\frac{\\prod_{i\\in D_j}e^{x_i^T\\beta}}{\\prod_{l=0}^{d_j-1}(W_j-lE_j/d_j)}.\\end{gathered}LjBreslow​=Wjdj​​∏i∈Dj​​exiT​β​,LjEfron​=∏l=0dj​−1​(Wj​−lEj​/dj​)∏i∈Dj​​exiT​β​.​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 11,
+          "text": "H^0(t)=∑tj≤tdj∑k∈RjexkTβ^,S^(t∣x)=exp⁡[−H^0(t)exTβ^].\\begin{gathered}\\widehat H_0(t)=\\sum_{t_j\\le t}\\frac{d_j}{\\sum_{k\\in R_j}e^{x_k^T\\widehat\\beta}},\\\\ \\widehat S(t\\mid x)=\\exp[-\\widehat H_0(t)e^{x^T\\widehat\\beta}].\\end{gathered}H0​(t)=tj​≤t∑​∑k∈Rj​​exkT​β​dj​​,S(t∣x)=exp[−H0​(t)exTβ​].​",
+          "scroll": 280,
+          "client": 280
+        },
+        {
+          "index": 12,
+          "text": "hmix(t)=0.1e−0.1t+0.4e−0.4te−0.1t+e−0.4th_{\\mathrm{mix}}(t)=\\frac{0.1e^{-0.1t}+0.4e^{-0.4t}}{e^{-0.1t}+e^{-0.4t}}hmix​(t)=e−0.1t+e−0.4t0.1e−0.1t+0.4e−0.4t​",
+          "scroll": 263,
+          "client": 263
+        },
+        {
+          "index": 13,
+          "text": "δI(Y≤τ)GC(Y)s2+I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑ithat contribution for subject i.\\begin{gathered}\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2+\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i\\text{that contribution for subject }i.\\end{gathered}GC​(Y)δI(Y≤τ)​s2+GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​that contribution for subject i.​",
+          "scroll": 383,
+          "client": 280
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x))q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\qquad S_j(x)=\\prod_{l=1}^{j}(1-q_l(x))qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x))",
+          "scroll": 453,
+          "client": 280
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) dufor continuous hazards.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du\\quad\\text{for continuous hazards}.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)dufor continuous hazards.​",
+          "scroll": 422,
+          "client": 280
+        }
+      ],
+      "equationOverflow": [
+        {
+          "index": 0,
+          "text": "Y=min⁡(T,C),δ=I(T≤C)Y=\\min(T,C),\\qquad \\delta=I(T\\le C)Y=min(T,C),δ=I(T≤C)",
+          "scroll": 289,
+          "client": 280
+        },
+        {
+          "index": 1,
+          "text": "S^(t)=∏tj≤t(1−djnj),S(t)=P(T>t)\\widehat S(t)=\\prod_{t_j\\le t}\\left(1-\\frac{d_j}{n_j}\\right),\\qquad S(t)=P(T>t)S(t)=tj​≤t∏​(1−nj​dj​​),S(t)=P(T>t)",
+          "scroll": 364,
+          "client": 280
+        },
+        {
+          "index": 3,
+          "text": "RMST⁡(τ)=E[min⁡(T,τ)]=∫0τS(t) dt\\operatorname{RMST}(\\tau)=E[\\min(T,\\tau)]=\\int_0^\\tau S(t)\\,dtRMST(τ)=E[min(T,τ)]=∫0τ​S(t)dt",
+          "scroll": 327,
+          "client": 280
+        },
+        {
+          "index": 4,
+          "text": "h(t)=lim⁡Δ↓0P(t<T≤t+Δ∣T>t)Δ,h(t)=f(t)S(t),H(t)=∫0th(u) du,S(t)=e−H(t).\\begin{gathered}h(t)=\\lim_{\\Delta\\downarrow0}\\frac{P(t<T\\le t+\\Delta\\mid T>t)}{\\Delta},\\\\ h(t)=\\frac{f(t)}{S(t)},\\quad H(t)=\\int_0^t h(u)\\,du,\\quad S(t)=e^{-H(t)}.\\end{gathered}h(t)=Δ↓0lim​ΔP(t<T≤t+Δ∣T>t)​,h(t)=S(t)f(t)​,H(t)=∫0t​h(u)du,S(t)=e−H(t).​",
+          "scroll": 427,
+          "client": 280
+        },
+        {
+          "index": 5,
+          "text": "L(θ)∝∏ifθ(yi)δiSθ(yi)1−δi,ℓ(θ)=∑i[δilog⁡hθ(yi)−Hθ(yi)].\\begin{gathered}L(\\theta)\\propto\\prod_i f_\\theta(y_i)^{\\delta_i}S_\\theta(y_i)^{1-\\delta_i},\\\\ \\ell(\\theta)=\\sum_i\\left[\\delta_i\\log h_\\theta(y_i)-H_\\theta(y_i)\\right].\\end{gathered}L(θ)∝i∏​fθ​(yi​)δi​Sθ​(yi​)1−δi​,ℓ(θ)=i∑​[δi​loghθ​(yi​)−Hθ​(yi​)].​",
+          "scroll": 284,
+          "client": 280
+        },
+        {
+          "index": 6,
+          "text": "e1j=djn1jnj,U=∑j(d1j−e1j),V=∑j:nj>1djn1j(nj−n1j)(nj−dj)nj2(nj−1),Z2=U2/V(V>0).\\begin{gathered}e_{1j}=d_j\\frac{n_{1j}}{n_j},\\qquad U=\\sum_j(d_{1j}-e_{1j}),\\\\ V=\\sum_{j:n_j>1}\\frac{d_j n_{1j}(n_j-n_{1j})(n_j-d_j)}{n_j^2(n_j-1)},\\\\ Z^2=U^2/V\\quad(V>0).\\end{gathered}e1j​=dj​nj​n1j​​,U=j∑​(d1j​−e1j​),V=j:nj​>1∑​nj2​(nj​−1)dj​n1j​(nj​−n1j​)(nj​−dj​)​,Z2=U2/V(V>0).​",
+          "scroll": 307,
+          "client": 280
+        },
+        {
+          "index": 8,
+          "text": "P(i supplies the local event∣R)≈exiTβ∑k∈RexkTβP(i\\text{ supplies the local event}\\mid R)\\approx\\frac{e^{x_i^T\\beta}}{\\sum_{k\\in R}e^{x_k^T\\beta}}P(i supplies the local event∣R)≈∑k∈R​exkT​βexiT​β​",
+          "scroll": 382,
+          "client": 280
+        },
+        {
+          "index": 9,
+          "text": "wk=exkTβ∑l∈RexlTβ,xˉw=∑k∈Rwkxk,U=∑events i(xi−xˉw,i),I=∑events i∑k∈Riwk(xk−xˉw,i)(xk−xˉw,i)T.\\begin{gathered}w_k=\\frac{e^{x_k^T\\beta}}{\\sum_{l\\in R}e^{x_l^T\\beta}},\\quad \\bar x_w=\\sum_{k\\in R}w_kx_k,\\\\ U=\\sum_{\\text{events }i}(x_i-\\bar x_{w,i}),\\\\ I=\\sum_{\\text{events }i}\\sum_{k\\in R_i}w_k(x_k-\\bar x_{w,i})(x_k-\\bar x_{w,i})^T.\\end{gathered}wk​=∑l∈R​exlT​βexkT​β​,xˉw​=k∈R∑​wk​xk​,U=events i∑​(xi​−xˉw,i​),I=events i∑​k∈Ri​∑​wk​(xk​−xˉw,i​)(xk​−xˉw,i​)T.​",
+          "scroll": 337,
+          "client": 263
+        },
+        {
+          "index": 13,
+          "text": "δI(Y≤τ)GC(Y)s2+I(Y>τ)GC(τ)(1−s)2,BS^(τ)=1n∑ithat contribution for subject i.\\begin{gathered}\\frac{\\delta I(Y\\le\\tau)}{G_C(Y)}s^2+\\frac{I(Y>\\tau)}{G_C(\\tau)}(1-s)^2,\\\\ \\widehat{\\mathrm{BS}}(\\tau)=\\frac1n\\sum_i\\text{that contribution for subject }i.\\end{gathered}GC​(Y)δI(Y≤τ)​s2+GC​(τ)I(Y>τ)​(1−s)2,BS(τ)=n1​i∑​that contribution for subject i.​",
+          "scroll": 383,
+          "client": 280
+        },
+        {
+          "index": 14,
+          "text": "qj(x)=sigmoid⁡(αj+xTb),Sj(x)=∏l=1j(1−ql(x))q_j(x)=\\operatorname{sigmoid}(\\alpha_j+x^Tb),\\qquad S_j(x)=\\prod_{l=1}^{j}(1-q_l(x))qj​(x)=sigmoid(αj​+xTb),Sj​(x)=l=1∏j​(1−ql​(x))",
+          "scroll": 453,
+          "client": 280
+        },
+        {
+          "index": 15,
+          "text": "S(t)+∑kFk(t)=1,Fk(t)=∫0tS(u)hk(u) dufor continuous hazards.\\begin{gathered}S(t)+\\sum_k F_k(t)=1,\\\\ F_k(t)=\\int_0^t S(u)h_k(u)\\,du\\quad\\text{for continuous hazards}.\\end{gathered}S(t)+k∑​Fk​(t)=1,Fk​(t)=∫0t​S(u)hk​(u)dufor continuous hazards.​",
+          "scroll": 422,
+          "client": 280
+        }
+      ],
+      "geometryOverflow": []
+    }
+  ],
+  "errors": [],
+  "failedRequests": [],
+  "passed": false
+}

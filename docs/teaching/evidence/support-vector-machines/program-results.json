@@ -1,0 +1,106 @@
+{
+  "executedAt": "2026-09-11T13:15:09.145572+00:00",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1"
+  },
+  "programCount": 14,
+  "programs": [
+    {
+      "key": "projection",
+      "path": "scripts/support-vector-machines-programs/margin-projection.py",
+      "sha256": "543bcd1d74b7e9772b52cc7428d384a6213504b164217db3c6e7c1abcb3f5312",
+      "stdout": "scale=1 score=3.0 distance=1.341641\nprojection: [1.4, -0.2]\nboundary residual=0.000000\nscale=3 score=9.0 distance=1.341641\nprojection: [1.4, -0.2]\nboundary residual=-0.000000"
+    },
+    {
+      "key": "support",
+      "path": "scripts/support-vector-machines-programs/support-certificates.py",
+      "sha256": "d9e090cc3bce508579ad92bb0a8f655d61d3fcdd831b40f17e4ddc9acb7111a1",
+      "stdout": "moved=3.0 old feasible=True\nw=1.000000 b=0.000000 boundary=-0.000000 gap=0.000000\nmoved=0.5 old feasible=False\nw=1.333333 b=0.333333 boundary=-0.250000 gap=0.000000\nalpha: [0.5, 0.0, 0.5] w=1.0 dual=0.5\nalpha: [0.5, 0.2, 0.3] w=1.0 dual=0.5\nalpha: [0.5, 0.5, 0.0] w=1.0 dual=0.5"
+    },
+    {
+      "key": "soft",
+      "path": "scripts/support-vector-machines-programs/soft-margin-bias.py",
+      "sha256": "1b019dfd8d1abdf0e61c75151901c46fc09b30a8a05f139ac06a66c338306d01",
+      "stdout": "conflicting=False C=0.25 w=0.50 b interval=[-0.50,0.50]\nhinge: [0.75, 0.25] primal=0.375 dual=0.375\nconflicting=False C=1.00 w=1.00 b interval=[-0.00,0.00]\nhinge: [0.0, 0.0] primal=0.500 dual=0.500\nconflicting=True C=1.00 w=0.00 b interval=[-1.00,1.00]\nhinge: [1.5, 0.5] primal=2.000 dual=2.000\nlambda=0.0625; duplicated-data C=0.666667"
+    },
+    {
+      "key": "kernels",
+      "path": "scripts/support-vector-machines-programs/kernel-xor.py",
+      "sha256": "dfe9ab96200188c85a62ce640ffb70da241de6a2e4d49f0c2827a5a4d5aa2130",
+      "stdout": "linear train accuracy: 0.50 query scores: [-0.0, -0.0]\npoly train accuracy: 1.00 query scores: [0.25, -0.25]\nrbf train accuracy: 1.00 query scores: [0.31119, -0.31119]\ninvalid Gram witness: -2.0\nduplicate Gram eigenvalues: [0.0, 2.0]"
+    },
+    {
+      "key": "pair",
+      "path": "scripts/support-vector-machines-programs/pair-move.py",
+      "sha256": "2799303d30e21eb4ada9d8c030516c002e2789a94fff64be69c2d9e247b8a2ee",
+      "stdout": "pair=(0,1) delta interval=[-0.100,1.000] q=3.250\nafter: [0.638462, 0.538462, 0.1] balance=0.000000 gain=0.312404\npair=(1,2) delta interval=[-0.100,0.100] q=2.500\nafter: [0.2, 0.14, 0.06] balance=0.000000 gain=0.002000\nzero-curvature after: [1.2, 1.2] gain=2.4",
+      "executedAt": "2026-09-11T14:10:00.425Z"
+    },
+    {
+      "key": "solver",
+      "path": "scripts/support-vector-machines-programs/pair-coordinate-solver.py",
+      "sha256": "74c691c957583597ff2c4b037c53c98832d4cf8bac5b966ae2cf66ad9f3c8491",
+      "stdout": "blobs: gap passed; train accuracy=1.000\nprimal=4.017906 dual=4.017906 gap=0.000000\npositive coefficients: 20\nXOR: gap passed; train accuracy=0.925\nprimal=16.684101 dual=16.684099 gap=0.000001\npositive coefficients: 32\nopposite duplicate: gap passed alpha= [1.0, 1.0]"
+    },
+    {
+      "key": "selection",
+      "path": "scripts/support-vector-machines-programs/moons-validation.py",
+      "sha256": "1a1fe3975173c963b2a59005cbdf8cc3b60270afe7264139a214d8355a0f58d4",
+      "stdout": "rows: train=120, validation=40, test=40\nC= 0.1 gamma= 0.1 train=0.833 valid=0.900 SV=93\nC= 0.1 gamma= 1.0 train=0.925 valid=0.950 SV=93\nC= 0.1 gamma=10.0 train=0.975 valid=0.950 SV=120\nC= 1.0 gamma= 0.1 train=0.825 valid=0.900 SV=53\nC= 1.0 gamma= 1.0 train=0.975 valid=0.975 SV=40\nC= 1.0 gamma=10.0 train=0.975 valid=0.950 SV=80\nC=10.0 gamma= 0.1 train=0.900 valid=0.925 SV=45\nC=10.0 gamma= 1.0 train=0.983 valid=0.950 SV=21\nC=10.0 gamma=10.0 train=0.992 valid=0.925 SV=76\nselected C=1, gamma=1; one test score=1.000"
+    },
+    {
+      "key": "classification",
+      "path": "scripts/support-vector-machines-programs/heldout-classification.py",
+      "sha256": "e684b65fa192b3559ba0fedf98f139362c70b68df1e6c715119ddb4f75038ab4",
+      "stdout": "train=350, test=150; majority test accuracy=0.507\nRBF {'svc__C': 10.0, 'svc__gamma': 0.1}\nCV=0.926 held-out accuracy=0.920\nlinear squared hinge {'linearsvc__C': 1.0}\nCV=0.843 held-out accuracy=0.807\nRBF support counts by class: [117, 123]\nRBF decision shape: (3,)\nSelection/CV and these held-out comparisons do not establish a universal winner."
+    },
+    {
+      "key": "calibration",
+      "path": "scripts/support-vector-machines-programs/calibrated-pipeline.py",
+      "sha256": "cf81facd388294a68e5cd9265139504b9ded4e02a31c5f419bd065162edb9c5f",
+      "stdout": "classes: [0, 1] probability shape: (150, 2)\nfirst three positive probabilities: [0.0944, 0.0914, 0.1411]\nprior Brier=0.2500; calibrated Brier=0.0742\nheld-out log loss=0.2328\nrows sum to one: True\nA finite held-out proper score is an assessment, not proof of perfect calibration."
+    },
+    {
+      "key": "multiclass",
+      "path": "scripts/support-vector-machines-programs/multiclass-and-gram.py",
+      "sha256": "8d8a122d2731f94ac9c35f86ed5a0e55cae07b6ca53428a1c737317faeeebc5e",
+      "stdout": "classes: [0, 1, 2, 3] binary pairs: 6\nOVO score shape: (3, 6)\nOVR score shape: (3, 4)\nlabels unchanged: True\ntrain/query Gram shapes: (120, 120) (40, 120)\nprecomputed labels agree: True"
+    },
+    {
+      "key": "tube",
+      "path": "scripts/support-vector-machines-programs/regression-tube-units.py",
+      "sha256": "909785d270e1c882197bc7eb76a438060b2fd665e81f4d074a5cc3b005d45bc9",
+      "stdout": "slope=1.0; excess=[0.5, 0.0, 0.5]; objective=1.00\noriginal predictions: [-1.0, 0.0, 1.0]\nconverted back: [-1.0, 0.0, 1.0]\nsigned dual coefficients: [[-0.5, 0.5]]"
+    },
+    {
+      "key": "regression",
+      "path": "scripts/support-vector-machines-programs/heldout-regression.py",
+      "sha256": "d118f60386481b2f5b45318a37c2d69d3625a4e091031c9fa1aea3302551216b",
+      "stdout": "mean baseline: MAE=68.852 RMSE=96.146\nSVR: MAE=18.859 RMSE=33.531\ntraining target SD=95.917; epsilon in original units=9.592\nsupport rows: 59"
+    },
+    {
+      "key": "sequence",
+      "path": "scripts/support-vector-machines-programs/sequence-kernel.py",
+      "sha256": "03cea3ce13ac453f5a34bb943760f813fefbd37254a05634ac7748715c3f0fd3",
+      "stdout": "coordinates: ['AA', 'AC', 'CA', 'CC']\nfeatures: [[0, 2, 2, 0], [0, 2, 2, 0], [1, 1, 1, 1]]\nGram: [[8, 8, 4], [8, 8, 4], [4, 4, 4]]\ndot products agree: True\nDifferent positions can have the same two-mer counts: True"
+    },
+    {
+      "key": "approximation",
+      "path": "scripts/support-vector-machines-programs/kernel-approximations.py",
+      "sha256": "8d6d21fa520febc0c34c246ffe22d1e69f85ca4985223ebe96702ec31106ec32",
+      "stdout": "exact RBF held-out accuracy=0.967\nrandom features: shape=(210, 60), Gram RMSE=0.1271, held-out accuracy=0.889\nNystrom: shape=(210, 60), Gram RMSE=0.0235, held-out accuracy=0.956\nThis is a finite approximation comparison, not a training-speed benchmark."
+    }
+  ],
+  "fixturePath": "src/learn/data/svm-validation-fixtures.js",
+  "amendments": [
+    {
+      "key": "pair",
+      "executedAt": "2026-09-11T14:10:00.425Z",
+      "beforeHash": "6b886a78f07d67e364db3c63904c632e7a56d363704cd1969eecf6be5a27d0ee",
+      "reason": "Flat q=g=0 tie now leaves both coefficients unchanged; actual stdout unchanged."
+    }
+  ]
+}

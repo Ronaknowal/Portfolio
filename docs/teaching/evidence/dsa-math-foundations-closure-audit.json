@@ -1,0 +1,118 @@
+{
+  "checkedAt": "2026-09-11T10:39:39.460Z",
+  "status": "passed",
+  "completionSnapshot": {
+    "path": "docs/teaching/evidence/dsa-math-foundations-complete-integration.json",
+    "sha256": "6b9bb628e4f8cfbc6722d49d312acdf830e7e93a598ad15142eb1ce15e1398d9"
+  },
+  "ledger": {
+    "path": "docs/teaching/dsa-math-foundations-progress.json",
+    "sha256": "0195f4018ba38c93c518dfdd80a7d8acca3483fa20e541030fd92bda415ad243",
+    "reviewed": 74,
+    "remaining": 0
+  },
+  "inventory": {
+    "path": "docs/curriculum/curriculum-inventory.json",
+    "sha256": "2c51de88bad3932f2b24b5674a3bbc64b408c5ae9aa201fc1ce2004d14134392",
+    "modules": [
+      {
+        "id": "data-structures-algorithms",
+        "publishedAndReviewed": 22
+      },
+      {
+        "id": "math-foundations",
+        "publishedAndReviewed": 57
+      }
+    ]
+  },
+  "reviewedSourceHashes": 472,
+  "extensionReviews": [
+    {
+      "topicId": "dynamic-programming-states-transitions-optimization",
+      "checkedSources": 11
+    },
+    {
+      "topicId": "arrays-strings-hash-maps",
+      "checkedSources": 11
+    },
+    {
+      "topicId": "linked-lists-stacks-queues",
+      "checkedSources": 11
+    }
+  ],
+  "finalArtifactLogImageAndBuildBindingsChecked": true,
+  "localDocumentLinks": {
+    "documents": 16,
+    "checked": 160,
+    "missing": []
+  },
+  "currentDocuments": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "9e79086d412e7c29ac424455d52639ac8ead434cf0015dc775bb708a28849806"
+    },
+    {
+      "path": "LESSON-AUTHORING-HANDOFF.md",
+      "sha256": "7f3f1060afd3b488132393cabb25a4b4ef483893ae5134864197afafc1b6e089"
+    },
+    {
+      "path": "DSA-MATH-FOUNDATIONS-IMPLEMENTATION.md",
+      "sha256": "3f2f344c77e1bb68979a32d63f81d98ad6640208b10baf49418adc776175d948"
+    },
+    {
+      "path": "docs/teaching/DSA-PRACTICE-STANDARD.md",
+      "sha256": "065fc494d54c05f11aa75063742ebae9e7b18c8dc830fdec2af3f63a30706d4f"
+    },
+    {
+      "path": "docs/teaching/topic-notes/arrays-strings-hash-maps.md",
+      "sha256": "2e76dc0e666c397e30fb82124c963a5d3297a4bbd5eca082d08687a56e9dc534"
+    },
+    {
+      "path": "docs/teaching/topic-notes/linked-lists-stacks-queues.md",
+      "sha256": "6a6f9e505cbfedcc60e54b78c13e24b2362937cb074bf72d604cebc5287da929"
+    },
+    {
+      "path": "docs/teaching/topic-notes/dynamic-programming-states-transitions-optimization.md",
+      "sha256": "1b194c75b1257079a91761f7df7dba4d9dcd2f26618cef88a62435ff4050a726"
+    },
+    {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "sha256": "c8ef3f771e2f22dfa0529ddfc51e12f64fe4d76b152cb73a89efdaba65c55fcb"
+    },
+    {
+      "path": "docs/teaching/topic-notes/segment-trees-fenwick-trees-range-queries.md",
+      "sha256": "e8fc67af5b07bcebb6257561f21a987e47af57386cf08d119bfcfe9751cb76f4"
+    },
+    {
+      "path": "docs/teaching/topic-notes/combinatorial-optimization-approximation-algorithms.md",
+      "sha256": "f45db4bfa05e9ac75b39b7867150fd38f87b7e54b45f9793b93492368d0b844f"
+    },
+    {
+      "path": "docs/teaching/ABSTRACT-ALGEBRA-INDEPENDENT-REVIEW.md",
+      "sha256": "e5c71ddda7ff52825c53dd95cdcd41ca233e8d3811759b03f66598c94cf3693c"
+    },
+    {
+      "path": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-INDEPENDENT-REVIEW.md",
+      "sha256": "a9144c2134bbf6a6c01313424870c25623d5d58469bced19c156760770d9c9bd"
+    },
+    {
+      "path": "docs/teaching/NUMERICAL-PDES-INDEPENDENT-REVIEW.md",
+      "sha256": "1548d4e467bb8d8920b8141e45b53d41da104e89df5780020ef27b3dbc3cb6c1"
+    },
+    {
+      "path": "docs/teaching/DP-STATE-FAMILIES-INDEPENDENT-REVIEW.md",
+      "sha256": "ff8ae98839f223f6ceda4bf75eddd98b2b804746e776a0effc3bfd19015985be"
+    },
+    {
+      "path": "docs/teaching/BITWISE-FOUNDATIONS-INDEPENDENT-REVIEW.md",
+      "sha256": "9464a369be825dd9eef972de475c4f82919881c25f1294e3857d977a04ce3bca"
+    },
+    {
+      "path": "docs/teaching/LINKED-TRAVERSAL-MONOTONIC-INDEPENDENT-REVIEW.md",
+      "sha256": "5bb3a6e5af7efff582d52ba29e296ebd0a1ccc7a39d8e00ac254a98839c6d989"
+    }
+  ],
+  "limits": [
+    "This closure checks evidence freshness and local document destinations; it does not rerun every per-topic suite or re-verify external resources. User acceptance remains separate."
+  ]
+}

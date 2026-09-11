@@ -1,0 +1,482 @@
+{
+  "topicId": "queueing-theory-m-m-1-m-g-1-little-s-law",
+  "reviewedAt": "2026-09-10T20:54:06.049010+00:00",
+  "status": "independent review complete; one material numerical defect repaired and verified; no unresolved material finding",
+  "authorFreeze": "2026-09-10T20:53:15.304113+00:00",
+  "production": [
+    {
+      "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "sha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
+      "authorFrozenSha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101"
+    },
+    {
+      "path": "src/learn/data/queueing-models.js",
+      "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+      "authorFrozenSha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b"
+    },
+    {
+      "path": "src/learn/data/queueing-examples.js",
+      "sha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
+      "authorFrozenSha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+      "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+      "authorFrozenSha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+      "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+      "authorFrozenSha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+      "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+      "authorFrozenSha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8"
+    }
+  ],
+  "initialFailure": {
+    "at": "2026-09-10T20:45:52.999642+00:00",
+    "counts": {
+      "actual_complete_programs": 10,
+      "byte_conserved_original_blocks": 4,
+      "admitted_customer_stage_cases": 20,
+      "tail_inverse_and_atom_cases": 20,
+      "pooled_normalization_cases": 12,
+      "rational_censored_windows": 16,
+      "residual_survival_and_vacation_cases": 9,
+      "changed_pareto_survival_cases": 12,
+      "same_draw_relative_workload_cases": 4
+    },
+    "failures": [
+      "simulation relative total: actual=1.52587890625e-07; expected=1.217625453856014e-06",
+      "simulation relative total: actual=8.35418701171875e-07; expected=9.516569796149173e-07"
+    ],
+    "simulationCases": [
+      {
+        "arrival": 1e-06,
+        "service": 1000000.0,
+        "warmup": 100000,
+        "measured": 100,
+        "seed": 17,
+        "actual": [
+          0.0,
+          1.52587890625e-07
+        ],
+        "expected": [
+          0.0,
+          1.217625453856014e-06
+        ],
+        "sampledService": 1.217625453856014e-06,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 1e-06,
+        "service": 1000000.0,
+        "warmup": 10000,
+        "measured": 1000,
+        "seed": 19,
+        "actual": [
+          0.0,
+          8.35418701171875e-07
+        ],
+        "expected": [
+          0.0,
+          9.516569796149173e-07
+        ],
+        "sampledService": 9.516569796149173e-07,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 3,
+        "service": 7,
+        "warmup": 333,
+        "measured": 777,
+        "seed": 23,
+        "actual": [
+          0.12305240919245877,
+          0.2626150654510715
+        ],
+        "expected": [
+          0.12305240919245675,
+          0.26261506545106944
+        ],
+        "sampledService": 0.1395626562586127,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 97,
+        "service": 100,
+        "warmup": 333,
+        "measured": 777,
+        "seed": 31,
+        "actual": [
+          0.33470518874004074,
+          0.3450400365973871
+        ],
+        "expected": [
+          0.3347051887400414,
+          0.34504003659738774
+        ],
+        "sampledService": 0.010334847857346343,
+        "disposition": "returned"
+      }
+    ],
+    "production": [
+      {
+        "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+        "sha256": "d9717e3c065863d4381c0780fe62f04adb259722e5a0fce6c29014abe376a8d5",
+        "authorFrozenSha256": "d9717e3c065863d4381c0780fe62f04adb259722e5a0fce6c29014abe376a8d5"
+      },
+      {
+        "path": "src/learn/data/queueing-models.js",
+        "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+        "authorFrozenSha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b"
+      },
+      {
+        "path": "src/learn/data/queueing-examples.js",
+        "sha256": "36dd6d554893b9aaffba100854483add1bd2f9b1cbb95f4228f08e9e619c9d3e",
+        "authorFrozenSha256": "36dd6d554893b9aaffba100854483add1bd2f9b1cbb95f4228f08e9e619c9d3e"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+        "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+        "authorFrozenSha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+        "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+        "authorFrozenSha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+        "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+        "authorFrozenSha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8"
+      }
+    ],
+    "authorFreeze": "2026-09-10T19:55:04.419830+00:00",
+    "scriptSha256": "55940024035546156b27f975632af7c6e7fb149e0a7034f35978a1420693ca2a"
+  },
+  "finalComplementaryChecks": {
+    "at": "2026-09-10T20:54:02.745384+00:00",
+    "counts": {
+      "actual_complete_programs": 10,
+      "byte_conserved_original_blocks": 4,
+      "admitted_customer_stage_cases": 20,
+      "tail_inverse_and_atom_cases": 20,
+      "pooled_normalization_cases": 12,
+      "rational_censored_windows": 16,
+      "residual_survival_and_vacation_cases": 9,
+      "changed_pareto_survival_cases": 12,
+      "same_draw_relative_workload_cases": 4
+    },
+    "failures": [],
+    "simulationCases": [
+      {
+        "arrival": 1e-06,
+        "service": 1000000.0,
+        "warmup": 100000,
+        "measured": 100,
+        "seed": 17,
+        "actual": [
+          0.0,
+          1.217625453856014e-06
+        ],
+        "expected": [
+          0.0,
+          1.217625453856014e-06
+        ],
+        "sampledService": 1.217625453856014e-06,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 1e-06,
+        "service": 1000000.0,
+        "warmup": 10000,
+        "measured": 1000,
+        "seed": 19,
+        "actual": [
+          0.0,
+          9.516569796149173e-07
+        ],
+        "expected": [
+          0.0,
+          9.516569796149173e-07
+        ],
+        "sampledService": 9.516569796149173e-07,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 3,
+        "service": 7,
+        "warmup": 333,
+        "measured": 777,
+        "seed": 23,
+        "actual": [
+          0.12305240919245675,
+          0.26261506545106944
+        ],
+        "expected": [
+          0.12305240919245675,
+          0.26261506545106944
+        ],
+        "sampledService": 0.1395626562586127,
+        "disposition": "returned"
+      },
+      {
+        "arrival": 97,
+        "service": 100,
+        "warmup": 333,
+        "measured": 777,
+        "seed": 31,
+        "actual": [
+          0.3347051887400414,
+          0.34504003659738774
+        ],
+        "expected": [
+          0.3347051887400414,
+          0.34504003659738774
+        ],
+        "sampledService": 0.010334847857346343,
+        "disposition": "returned"
+      }
+    ],
+    "production": [
+      {
+        "path": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+        "sha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
+        "authorFrozenSha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101"
+      },
+      {
+        "path": "src/learn/data/queueing-models.js",
+        "sha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
+        "authorFrozenSha256": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b"
+      },
+      {
+        "path": "src/learn/data/queueing-examples.js",
+        "sha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
+        "authorFrozenSha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+        "sha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+        "authorFrozenSha256": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/QueueingLabs.css",
+        "sha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
+        "authorFrozenSha256": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js",
+        "sha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8",
+        "authorFrozenSha256": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8"
+      }
+    ],
+    "authorFreeze": "2026-09-10T20:53:15.304113+00:00",
+    "scriptSha256": "55940024035546156b27f975632af7c6e7fb149e0a7034f35978a1420693ca2a"
+  },
+  "openedAuthorScreenshots": [
+    {
+      "path": "scratch/queueing-reading-final/timeline-320.png",
+      "sha256": "8a8f4d073e139783e07b06e0b4357deee1d1feae912ae05f5aff5547a91db0c9",
+      "bytes": 21311,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/censored-area-390.png",
+      "sha256": "7948423e811015c277514300243949458d3db51351e385a4299606c09d02476a",
+      "bytes": 92779,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/rare-long-320.png",
+      "sha256": "b31e3f7dedf9c9ba1938131a0580eaa6c6eaca80ecdf6a84673aa40beb8a7c2d",
+      "bytes": 96221,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/tail-derivation-320.png",
+      "sha256": "a4daa9bf8c117ba68f603c1426d02eeb9813dd9bde5f570062059c660b9fbfd4",
+      "bytes": 12125,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/finite-buffer-320.png",
+      "sha256": "4710f9f485705762c6bf0ee17827024ca43c98ba6142aabf15b8f9a1496bcdfd",
+      "bytes": 84255,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/reading-8-320.png",
+      "sha256": "fc41da88a08ae8b00546eb629f1a0cc22fc1245e380bc64560fa680a3a52e66c",
+      "bytes": 69019,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-reading-final/sources-390.png",
+      "sha256": "48c6cedcd4b1c851c3aa1e39cbff0e164616ff2640097d3f9ab07bf222dcd4ba",
+      "bytes": 101190,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-simulation-precision/program-390.png",
+      "sha256": "09157dc5c9f7b4f186a1f1330a22fab019fab644c064e2c4f41e2f6c3e049bf6",
+      "bytes": 79691,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    },
+    {
+      "path": "scratch/queueing-simulation-precision/explanation-320.png",
+      "sha256": "f1dfd37ebc55bd0a9559b41cbf1c351e42a02ed22ca23d633450bf9c7a4911d6",
+      "bytes": 72115,
+      "attribution": "Author captured; independently opened and visually inspected by this reviewer."
+    }
+  ],
+  "authorTargetedSimulationNative": {
+    "at": "2026-09-10T20:47:23.213174+00:00",
+    "passed": true,
+    "allTenPrintedOutputsUnchanged": true,
+    "otherNineExamplesUnchanged": true,
+    "oracle": "Exact Fraction calendar arrival/start/finish arithmetic using identical sampled floats; production uses relative workload recurrence.",
+    "cases": [
+      {
+        "arrivalRate": 1e-06,
+        "serviceRate": 1000000.0,
+        "seed": 17,
+        "warmup": 100000,
+        "measured": 100,
+        "actual": [
+          0.0,
+          1.217625453856014e-06
+        ],
+        "exactCalendarArithmeticMeans": [
+          0.0,
+          1.217625453856014e-06
+        ],
+        "meanSampledService": 1.217625453856014e-06
+      },
+      {
+        "arrivalRate": 1e-06,
+        "serviceRate": 1000000.0,
+        "seed": 19,
+        "warmup": 10000,
+        "measured": 1000,
+        "actual": [
+          0.0,
+          9.516569796149173e-07
+        ],
+        "exactCalendarArithmeticMeans": [
+          0.0,
+          9.516569796149173e-07
+        ],
+        "meanSampledService": 9.516569796149173e-07
+      },
+      {
+        "arrivalRate": 4,
+        "serviceRate": 7,
+        "seed": 223,
+        "warmup": 100,
+        "measured": 750,
+        "actual": [
+          0.19455721041486226,
+          0.3321395196302272
+        ],
+        "exactCalendarArithmeticMeans": [
+          0.19455721041486226,
+          0.3321395196302272
+        ],
+        "meanSampledService": 0.13758230921536496
+      },
+      {
+        "arrivalRate": 9.9,
+        "serviceRate": 10,
+        "seed": 251,
+        "warmup": 100,
+        "measured": 750,
+        "actual": [
+          1.1775700065983428,
+          1.2766740943831663
+        ],
+        "exactCalendarArithmeticMeans": [
+          1.177570006598343,
+          1.2766740943831665
+        ],
+        "meanSampledService": 0.09910408778482345
+      },
+      {
+        "arrivalRate": 100000.0,
+        "serviceRate": 1000000.0,
+        "seed": 271,
+        "warmup": 200,
+        "measured": 500,
+        "actual": [
+          1.0480398592909901e-07,
+          1.078624903852437e-06
+        ],
+        "exactCalendarArithmeticMeans": [
+          1.04803985929099e-07,
+          1.078624903852437e-06
+        ],
+        "meanSampledService": 9.73820917923338e-07
+      },
+      {
+        "arrivalRate": 1e-06,
+        "serviceRate": 2e-06,
+        "seed": 293,
+        "warmup": 200,
+        "measured": 500,
+        "actual": [
+          401500.04455777665,
+          880325.8987258322
+        ],
+        "exactCalendarArithmeticMeans": [
+          401500.0445577767,
+          880325.8987258322
+        ],
+        "meanSampledService": 478825.8541680556
+      }
+    ],
+    "exampleSha256": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196"
+  },
+  "authorTargetedSimulationBrowser": {
+    "at": "2026-09-10T20:51:16.083Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "actualCodeQuestionOutputNoteMatch": true,
+        "geometry": {
+          "viewport": 1440,
+          "documentWidth": 1440,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": []
+      },
+      {
+        "width": 390,
+        "actualCodeQuestionOutputNoteMatch": true,
+        "geometry": {
+          "viewport": 390,
+          "documentWidth": 390,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": []
+      },
+      {
+        "width": 320,
+        "actualCodeQuestionOutputNoteMatch": true,
+        "geometry": {
+          "viewport": 320,
+          "documentWidth": 320,
+          "font": "\"Space Grotesk\", sans-serif"
+        },
+        "errors": []
+      }
+    ]
+  },
+  "limits": [
+    "Finite source and complementary checks are not proof for arbitrary arithmetic ranges or production queues.",
+    "Broader author native/browser suites were inspected, not independently rerun.",
+    "No full-video viewing, production integration or user acceptance is claimed."
+  ]
+}

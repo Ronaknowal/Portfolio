@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { waveValue } from '../src/learn/data/pde-models.js';
+import { pdeExamples } from '../src/learn/data/pde-examples.js';
+const positions = [-1 - Number.EPSILON, -1, -1 + Number.EPSILON / 2, -.4, 0, .4, 1 - Number.EPSILON / 2, 1, 1 + Number.EPSILON];
+const times = [0, 1e-20, 1e-16, Number.EPSILON, Number.EPSILON * (1 + Number.EPSILON), 1e-12, 1e-10, 1e-6, .001, .6];
+const cases = [];
+for (const x of positions) for (const time of times) for (const velocity of [0, .5]) cases.push({ x, time, velocity, actual: waveValue(x, time, velocity) });
+const directory = 'scratch/pde-wave-boundary';
+fs.mkdirSync(directory, { recursive: true });
+fs.writeFileSync(`${directory}/fixtures.json`, JSON.stringify({ cases, example: pdeExamples.wave }));
+const result = spawnSync('scratch/lesson-tools/Scripts/python.exe', ['scripts/verify-pde-wave-boundary.py'], { encoding: 'utf8' });
+process.stdout.write(result.stdout);
+process.stderr.write(result.stderr);
+if (result.status !== 0) process.exit(result.status ?? 1);

@@ -1,0 +1,653 @@
+{
+  "checkedAt": "2026-09-11T09:49:35.963Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "sha256": "4775925f5bd7e5c953d32777cb5500e6c4e4a081f74d4c1f342c9ec99d67fbd9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+    },
+    {
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-examples.js",
+      "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "sha256": "80c7fa10c448521d6c7a727b13ab043074115668e604bf5780dc232edba0676d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        }
+      ],
+      "disclosures": 50,
+      "overflow": [],
+      "errors": [],
+      "failedRequests": [],
+      "bodyReading": [
+        {
+          "text": "C(i,j) = min_k (C(i,k) + C(k,j) + d[i]·d[k]·d[j]).",
+          "width": 760,
+          "scroll": 760
+        },
+        {
+          "text": "B(l,r) = max_k (B(l,k) + B(k,r) + a[l]·a[k]·a[r]), for l<k<r.",
+          "width": 760,
+          "scroll": 760
+        },
+        {
+          "text": "Define state (position,tight,started,used). Position names the next slot; tight records prefix equality; started says whether a non-padding digit has occurred; used is the set of actual digits already seen. The earlier mask primer gives a compact representation: bit d represents decimal digit d. Prefix order need not otherwise be remembered for the all-distinct property.",
+          "width": 760,
+          "scroll": 760
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        }
+      ],
+      "disclosures": 50,
+      "overflow": [],
+      "errors": [],
+      "failedRequests": [],
+      "bodyReading": [
+        {
+          "text": "C(i,j) = min_k (C(i,k) + C(k,j) + d[i]·d[k]·d[j]).",
+          "width": 350,
+          "scroll": 350
+        },
+        {
+          "text": "B(l,r) = max_k (B(l,k) + B(k,r) + a[l]·a[k]·a[r]), for l<k<r.",
+          "width": 350,
+          "scroll": 350
+        },
+        {
+          "text": "Define state (position,tight,started,used). Position names the next slot; tight records prefix equality; started says whether a non-padding digit has occurred; used is the set of actual digits already seen. The earlier mask primer gives a compact representation: bit d represents decimal digit d. Prefix order need not otherwise be remembered for the all-distinct property.",
+          "width": 350,
+          "scroll": 350
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "fonts": [
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "unloaded"
+        },
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        }
+      ],
+      "disclosures": 50,
+      "overflow": [],
+      "errors": [],
+      "failedRequests": [],
+      "bodyReading": [
+        {
+          "text": "C(i,j) = min_k (C(i,k) + C(k,j) + d[i]·d[k]·d[j]).",
+          "width": 280,
+          "scroll": 280
+        },
+        {
+          "text": "B(l,r) = max_k (B(l,k) + B(k,r) + a[l]·a[k]·a[r]), for l<k<r.",
+          "width": 280,
+          "scroll": 280
+        },
+        {
+          "text": "Define state (position,tight,started,used). Position names the next slot; tight records prefix equality; started says whether a non-padding digit has occurred; used is the set of actual digits already seen. The earlier mask primer gives a compact representation: bit d represents decimal digit d. Prefix order need not otherwise be remembered for the all-distinct property.",
+          "width": 280,
+          "scroll": 280
+        }
+      ]
+    }
+  ]
+}

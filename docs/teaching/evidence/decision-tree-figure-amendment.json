@@ -1,0 +1,548 @@
+{
+  "checkedAt": "2026-09-11T13:15:46.898Z",
+  "records": [
+    {
+      "width": 1440,
+      "id": "tree-partitions",
+      "labels": [
+        {
+          "text": "L1: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L2: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L3: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L4: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L5: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "A",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "B",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "C",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "D",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "E",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "F",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "G",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "H",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "3.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "2.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "6.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "4.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₁",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₂",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-partitions-final-figure-1440.png"
+    },
+    {
+      "width": 390,
+      "id": "tree-partitions",
+      "labels": [
+        {
+          "text": "L1: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L2: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L3: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L4: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L5: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "A",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "B",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "C",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "D",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "E",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "F",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "G",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "H",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "3.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "2.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "6.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "4.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₁",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₂",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-partitions-final-figure-390.png"
+    },
+    {
+      "width": 390,
+      "id": "tree-xor",
+      "labels": [
+        {
+          "text": "L1: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L2: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L3: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L4: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "A",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "B",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "C",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "D",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "-0.3",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "-0.3",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.5",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.5",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "1.3",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "1.3",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₁",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₂",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-xor-final-figure-390.png"
+    },
+    {
+      "width": 320,
+      "id": "tree-partitions",
+      "labels": [
+        {
+          "text": "L1: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L2: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L3: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L4: 0.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "L5: 1.00",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "A",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "B",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "C",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "D",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "E",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "F",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "G",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "H",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "3.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "2.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "6.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "4.0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₁",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Measurement x₂",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-partitions-final-figure-320.png"
+    },
+    {
+      "width": 320,
+      "id": "tree-pruning",
+      "labels": [
+        {
+          "text": "0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.1",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.2",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.3",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.8",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "1.6",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Complexity cost α",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Weighted impurity + αL",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-pruning-final-figure-320.png"
+    },
+    {
+      "width": 320,
+      "id": "tree-variance",
+      "labels": [
+        {
+          "text": "0",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "0.5",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "1",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "1",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "50",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "100",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "150",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "200",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Number of predictors B",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        },
+        {
+          "text": "Variance of their mean",
+          "font": "13px \"JetBrains Mono\", monospace",
+          "inside": true
+        }
+      ],
+      "screenshot": "scratch/decision-tree-browser/tree-variance-final-figure-320.png"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "sha256": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+      "sha256": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3"
+    }
+  ],
+  "change": "Scoped chart typography overrides an older global mobile rule; y-axis clearance restored. Reuses unchanged interaction/native evidence."
+}

@@ -1,0 +1,34 @@
+# Arrays bitwise extension — bounded independent review
+
+Completed 11 September 2026 by `/root/testing_documentation_completion` against all eleven sources in the author's **09:14:38.596 UTC** freeze. No material correctness, teaching-contract or visual defect was found within this scope. No production source, original author packet, shared catalogue or ledger was changed by this reviewer. Production integration remains a separate gate.
+
+The [independent packet](evidence/bitwise-foundations-independent-review.json) binds the exact author packet, eleven hashes, independent scripts/results and ten screenshots actually opened. The complete actual lesson, scoped design, brief, incoming note, all five new programs, pure models, four labs, computed partition figure, CSS and all new practice were read. Existing content was read for its connection to the branch, without presenting this review as a new full audit of every earlier array/hash/text implementation.
+
+## Teaching and proof assessment
+
+The branch starts from binary place values and finite membership, with truth-table definitions before expressions. It explicitly distinguishes idempotent insertion from arithmetic addition and toggling; complement from a universe-free negative integer; signed interpretation from sign/magnitude; and bounded word shifts from Python's unbounded-integer rules. The highest-bit weight argument derives two's-complement decoding locally. The source-position rows make sign fill and discarded positions inspectable.
+
+The prefix-XOR proof separates computation from the paired-plus-one promise. The triple-occurrence and absent-result counterexamples correctly show why parity cannot replace exact counting or original-order selection. Diagnostic frequency storage is explicitly excluded from the constant-word algorithm. Lowest-bit clearing has a borrow argument, an invariant and a termination count; zero and negative input boundaries remain adjacent to the claim. The two-singleton branch proves both separation and paired cancellation, including negative totals under Python sign extension; a nonzero total is not misrepresented as full validation. Working words are distinguished from growing bit length. The bitmap application reconnects these ideas to the earlier posting sets, and the four changed tasks provide usable reasoning and concrete answers.
+
+The five new official public statements and Python integer documentation were directly inspected during this review. [Python's contract](https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types) supports the stated floor shifts, sign extension and absolute-magnitude `bit_count`; the page currently identifies Python 3.14.7 while actual programs were executed in the repository's Python 3.12 environment. [136](https://leetcode.com/problems/single-number/) and [260](https://leetcode.com/problems/single-number-iii/) match the distinct multiplicity promises and resource goals. [191](https://leetcode.com/problems/number-of-1-bits/), [231](https://leetcode.com/problems/power-of-two/) and [461](https://leetcode.com/problems/hamming-distance/) match the recorded bounded-integer, positivity and per-position contracts. No judge submission, editorial access or new video viewing is claimed. Earlier video/Handbook annotations retain the author's research attribution.
+
+## Independent execution and preservation
+
+`node scripts/verify-bitwise-independent.mjs` runs the actual current model and complete Python programs through complementary checks. The exact final timestamp and source identities are embedded in the packet. All eleven displayed programs produce their expected stdout. Independent checks passed:
+
+- 656 shifted-word states across widths 1, 3, 7, 9 and 16, using binary strings and reconstructing each displayed source/fill map.
+- 600 changed finite-set queries and their equivariance under relabelled membership positions, using ordinary sets.
+- 1,828 prefix parity states, 120 partition witnesses and 1,385 bit-removal witnesses, using digit columns, frequencies and explicit remaining-position lists.
+- 91 signed encoding/decoding cases against Python's independent byte-conversion API, through 1024-bit words.
+- 160 signed parity cases through 2050-bit inputs and 120 signed/zero two-singleton cases through 2048-bit inputs, without using XOR as the independent parity oracle.
+- 24 large count/power/Hamming cases through 4096-bit inputs, 60 changed larger-universe set queries, four invalid-promise counterexamples and ten rejected calls in each runtime.
+
+Every original base64 archive entry was hash-checked. Original sections 1–8 compare as one unchanged source block after CRLF/LF normalization; the old closing bridge is retained. The six original program objects and ten original problem objects match exactly, and the original model/lab/shared-style dependencies remain byte-identical. The author's separate 62-subtree check is not recast as an independently rerun result. Initial reviewer harness stops concerned line-ending comparison, explicit UTF-8 decoding and old examples lacking a filename field; they were resolved in the harness without production edits.
+
+## Actual browser and opened visual evidence
+
+`node scripts/review-bitwise-independent.cjs` passed with actual Edge and loaded Space Grotesk at **1440, 390 and 320 px**. Each width exercised **52 control/keyboard transitions** across all four new investigations. Changed inputs include high-bit set membership, complement after narrowing and re-expansion, pattern 129 shifted seven and eight positions, signed versus unsigned results, a zero singleton among several pairs, invalid input preserving a finished trace, an invalid zero triple, and a three-one byte with a five-position borrow. Tests compare actual visible digits and decimal values, not only source model return values.
+
+All five new complete code/output blocks render, all fifteen practice placements are present, four changed-task hints and answers open by keyboard, and lesson anchors resolve. No lesson console/page error, overflowing bit text or document overflow occurred. This reviewer did not replace those targeted changed-state checks with the author's broader browser suite.
+
+Ten actual captured images were opened: phone source/fill rows; a changed borrow; desktop zero survivor and negative-weight interpretations; narrow changed sets; ordinary place-value and partition-proof reading; the two-bucket figure; changed bitmap feedback; and the invalid-input state. Their exact paths and hashes are in the packet. No additional visual blocker was found. No physical-device, full screen-reader, observed learner or timing study was performed. Finite checks complement the inspected proofs; they do not establish a universal interview-preparation guarantee.

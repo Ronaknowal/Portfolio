@@ -68,13 +68,38 @@ import math
 from scipy.integrate import quad
 
 def mp_moments(gamma, variance=1):
-    lower = variance * (1 - math.sqrt(gamma))**2
-    upper = variance * (1 + math.sqrt(gamma))**2
-    def density(value):
-        return math.sqrt((upper - value) * (value - lower)) / (
-            2 * math.pi * gamma * variance * value)
-    continuous = [quad(lambda x: x**k * density(x), lower, upper)[0]
-                  for k in range(3)]
+    if not (math.isfinite(gamma) and 0.02 <= gamma <= 20
+            and math.isfinite(variance) and 0.01 <= variance <= 100):
+        raise ValueError("Use gamma in [0.02,20] and variance in [0.01,100]")
+    root = math.sqrt(gamma)
+    lower = (1 - root)**2
+    width = 4 * root
+    # Substitute lambda = variance * (lower + width * sin(theta)**2).
+    # Near gamma=1, resolve the narrow layer beside theta=0 explicitly.
+    layer = abs(1 - root) / (2 * math.sqrt(root))
+    breaks = sorted({0.0, math.pi / 2, *(
+        scale * layer for scale in [1, 10, 100, 10000]
+        if 0 < scale * layer < math.pi / 2
+    )})
+
+    def integrand(theta, order):
+        sine, cosine = math.sin(theta), math.cos(theta)
+        normalized_value = lower + width * sine**2
+        if gamma == 1:
+            mass_density = 4 / math.pi * cosine**2
+        else:
+            mass_density = 16 / math.pi * (
+                sine * cosine)**2 / normalized_value
+        return (variance * normalized_value)**order * mass_density
+
+    continuous = []
+    for order in range(3):
+        pieces = [
+            quad(lambda theta: integrand(theta, order), left, right,
+                 epsabs=2e-11 * variance**order, epsrel=2e-11)[0]
+            for left, right in zip(breaks, breaks[1:])
+        ]
+        continuous.append(math.fsum(pieces))
     return max(0, 1 - 1 / gamma), continuous
 
 for gamma in [0.25, 1, 4]:
@@ -82,7 +107,7 @@ for gamma in [0.25, 1, 4]:
     print("gamma:", gamma, "zero atom:", atom,
           "continuous mass, mean, second moment:",
           [round(value, 6) for value in moments])
-''', 'Quadrature integrates the improper but finite integral at gamma=1; it does not evaluate an infinite endpoint height as a probability. The zero atom contributes to total mass but not positive moments.')
+''', 'The angular substitution removes the infinite density height at gamma=1. Explicit interval breaks also resolve the narrow endpoint layer when gamma is close to, but different from, one; unsplit quadrature can silently miss it. The zero atom contributes to total mass but not positive moments.')
 
 add('bound', 'Calculate a finite Gaussian bound',
     'How wide is a valid 95% bound compared with the asymptotic MP support?', r'''
@@ -130,6 +155,9 @@ add('spike', 'Compare population value, sample value and direction',
 import numpy as np
 
 def limits(gamma, population):
+    if not (np.isfinite(gamma) and 0 < gamma < 1
+            and np.isfinite(population) and 1 <= population <= 8):
+        raise ValueError("Use 0 < gamma < 1 and 1 <= population <= 8")
     if population <= 1 + np.sqrt(gamma):
         return (1 + np.sqrt(gamma))**2, 0.0
     strength = population - 1
@@ -192,6 +220,9 @@ import math
 import numpy as np
 
 def two_levels(offset, difference, coupling):
+    if not all(math.isfinite(x) and abs(x) <= 100
+               for x in [offset, difference, coupling]):
+        raise ValueError("Use finite parameters bounded by 100")
     radius = math.hypot(difference, coupling)
     return np.array([offset - radius, offset + radius])
 

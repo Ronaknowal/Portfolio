@@ -1,0 +1,1668 @@
+{
+  "checkedAt": "2026-09-11T07:53:22.930Z",
+  "scope": "Read-only source and practice coverage review; no fresh platform submission or complete re-verification of every statement.",
+  "topics": [
+    {
+      "id": "arrays-strings-hash-maps",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 217,
+          "title": "Contains Duplicate",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/contains-duplicate/"
+        },
+        {
+          "number": 242,
+          "title": "Valid Anagram",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/valid-anagram/"
+        },
+        {
+          "number": 387,
+          "title": "First Unique Character in a String",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/first-unique-character-in-a-string/"
+        },
+        {
+          "number": 283,
+          "title": "Move Zeroes",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/move-zeroes/"
+        },
+        {
+          "number": 349,
+          "title": "Intersection of Two Arrays",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/intersection-of-two-arrays/"
+        },
+        {
+          "number": 1,
+          "title": "Two Sum",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/two-sum/"
+        },
+        {
+          "number": 49,
+          "title": "Group Anagrams",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Be comfortable with frequency counts and hashable tuples from Python; the restricted alphabet makes a count-based key possible without a sorting lesson.",
+          "url": "https://leetcode.com/problems/group-anagrams/"
+        },
+        {
+          "number": 238,
+          "title": "Product of Array Except Self",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Prefix/suffix accumulation and loop-invariant reasoning; these are an extension beyond this storage lesson.",
+          "url": "https://leetcode.com/problems/product-of-array-except-self/"
+        },
+        {
+          "number": 3,
+          "title": "Longest Substring Without Repeating Characters",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Two-pointer/sliding-window invariants. Learn that pattern before using this as a timed exercise.",
+          "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+        },
+        {
+          "number": 560,
+          "title": "Subarray Sum Equals K",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Prefix sums and the difference-of-prefixes identity. Negative values rule out a simple monotone shrinking-window assumption.",
+          "url": "https://leetcode.com/problems/subarray-sum-equals-k/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+          "sha256": "a21debc888af9d068e8e36050b079241f5d4babc16fff2e23d591415ef274e5d"
+        },
+        {
+          "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+          "sha256": "1d2c25f3b21b3e06801b5041d42a63a5d9bb4b25b4c8ca8a089d1ed057621b65"
+        }
+      ]
+    },
+    {
+      "id": "linked-lists-stacks-queues",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 206,
+          "title": "Reverse Linked List",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/reverse-linked-list/"
+        },
+        {
+          "number": 203,
+          "title": "Remove Linked List Elements",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/remove-linked-list-elements/"
+        },
+        {
+          "number": 20,
+          "title": "Valid Parentheses",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/valid-parentheses/"
+        },
+        {
+          "number": 21,
+          "title": "Merge Two Sorted Lists",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/merge-two-sorted-lists/"
+        },
+        {
+          "number": 141,
+          "title": "Linked List Cycle",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/linked-list-cycle/"
+        },
+        {
+          "number": 622,
+          "title": "Design Circular Queue",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/design-circular-queue/"
+        },
+        {
+          "number": 232,
+          "title": "Implement Queue using Stacks",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/implement-queue-using-stacks/"
+        },
+        {
+          "number": 225,
+          "title": "Implement Stack using Queues",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/implement-stack-using-queues/"
+        },
+        {
+          "number": 155,
+          "title": "Min Stack",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Stack invariants, duplicate handling and per-operation cost accounting.",
+          "url": "https://leetcode.com/problems/min-stack/"
+        },
+        {
+          "number": 146,
+          "title": "LRU Cache",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Hash maps, doubly linked updates and the lesson’s LRU trace. The OrderedDict version is a useful baseline; hand-built node coordination is the extension.",
+          "url": "https://leetcode.com/problems/lru-cache/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/linked-lists-stacks-queues.js",
+          "sha256": "869a086ac19c8930d300284d5fa4ced43275b7a4ab7a81aa79651b4e820330d3"
+        },
+        {
+          "path": "src/learn/data/topics/linked-lists-stacks-queues.jsx",
+          "sha256": "f20a6b2658a7c1029d789d0dbe67b2450161cf39f7537d5f7ce0dda6c6c38fea"
+        }
+      ]
+    },
+    {
+      "id": "trees-binary-search-trees",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 104,
+          "title": "Maximum Depth of Binary Tree",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+        },
+        {
+          "number": 94,
+          "title": "Binary Tree Inorder Traversal",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/binary-tree-inorder-traversal/"
+        },
+        {
+          "number": 700,
+          "title": "Search in a Binary Search Tree",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/search-in-a-binary-search-tree/"
+        },
+        {
+          "number": 102,
+          "title": "Binary Tree Level Order Traversal",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/binary-tree-level-order-traversal/"
+        },
+        {
+          "number": 98,
+          "title": "Validate Binary Search Tree",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/validate-binary-search-tree/"
+        },
+        {
+          "number": 701,
+          "title": "Insert into a Binary Search Tree",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/insert-into-a-binary-search-tree/"
+        },
+        {
+          "number": 450,
+          "title": "Delete Node in a BST",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/delete-node-in-a-bst/"
+        },
+        {
+          "number": 235,
+          "title": "Lowest Common Ancestor of a Binary Search Tree",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "BST search and the meaning of ancestor/descendant. The statement guarantees both target nodes exist and allows a target itself to be the ancestor.",
+          "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+        },
+        {
+          "number": 110,
+          "title": "Balanced Binary Tree",
+          "difficulty": "Easy",
+          "optional": true,
+          "prerequisite": "Subtree height/depth and postorder reasoning. This checks height balance; it does not implement rotations or make a tree balanced.",
+          "url": "https://leetcode.com/problems/balanced-binary-tree/"
+        },
+        {
+          "number": 105,
+          "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Preorder/inorder, recursive divide-and-conquer and array ranges. Revisit Complexity Analysis & Recursion and Backtracking & Divide-and-Conquer as needed.",
+          "url": "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/trees-binary-search-trees.js",
+          "sha256": "2b144bd3d9b98326df5cde92b6649e3e2c4f30baf4b76f43b44122f1d1a7561e"
+        },
+        {
+          "path": "src/learn/data/topics/trees-binary-search-trees.jsx",
+          "sha256": "cfbb155df7e508335bcb97a97b97e81f93b8aea7863c07b9ba849b13d2bba296"
+        }
+      ]
+    },
+    {
+      "id": "heaps-priority-queues-tries",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 1046,
+          "title": "Last Stone Weight",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/last-stone-weight/"
+        },
+        {
+          "number": 703,
+          "title": "Kth Largest Element in a Stream",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+        },
+        {
+          "number": 208,
+          "title": "Implement Trie (Prefix Tree)",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/implement-trie-prefix-tree/"
+        },
+        {
+          "number": 215,
+          "title": "Kth Largest Element in an Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/"
+        },
+        {
+          "number": 347,
+          "title": "Top K Frequent Elements",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/top-k-frequent-elements/"
+        },
+        {
+          "number": 648,
+          "title": "Replace Words",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/replace-words/"
+        },
+        {
+          "number": 1268,
+          "title": "Search Suggestions System",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Trie prefix traversal and lexicographic ordering. A sorted/filtering baseline is useful before implementing stored top suggestions or ordered subtree enumeration.",
+          "url": "https://leetcode.com/problems/search-suggestions-system/"
+        },
+        {
+          "number": 23,
+          "title": "Merge k Sorted Lists",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Merge Two Sorted Lists, heap push/pop and a tie policy for equal priorities whose node objects are not orderable.",
+          "url": "https://leetcode.com/problems/merge-k-sorted-lists/"
+        },
+        {
+          "number": 211,
+          "title": "Design Add and Search Words Data Structure",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Trie terminal markers plus DFS/backtracking. Return after Graphs: Representations, BFS & DFS or Backtracking & Divide-and-Conquer if branching search is unfamiliar.",
+          "url": "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+        },
+        {
+          "number": 295,
+          "title": "Find Median from Data Stream",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Min/max heap interfaces, median for odd/even counts, and reasoning about two simultaneous invariants.",
+          "url": "https://leetcode.com/problems/find-median-from-data-stream/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/heaps-priority-queues-tries.js",
+          "sha256": "d298dd026d7147d4582bf3edf31b6d633b48eb2f68700c7ab2592ceb7148c96b"
+        },
+        {
+          "path": "src/learn/data/topics/heaps-priority-queues-tries.jsx",
+          "sha256": "eadfbc37580497a2ad6d16b1e349d02a6fe63d60bce80c615c558de9e0692cbf"
+        }
+      ]
+    },
+    {
+      "id": "graphs-representations-bfs-dfs",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 1971,
+          "title": "Find if Path Exists in Graph",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/find-if-path-exists-in-graph/"
+        },
+        {
+          "number": 733,
+          "title": "Flood Fill",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/flood-fill/"
+        },
+        {
+          "number": 547,
+          "title": "Number of Provinces",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/number-of-provinces/"
+        },
+        {
+          "number": 200,
+          "title": "Number of Islands",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/number-of-islands/"
+        },
+        {
+          "number": 133,
+          "title": "Clone Graph",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "OOP node construction, dictionary lookup and the distinction between aliasing and copying from earlier lessons.",
+          "url": "https://leetcode.com/problems/clone-graph/"
+        },
+        {
+          "number": 1091,
+          "title": "Shortest Path in Binary Matrix",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/shortest-path-in-binary-matrix/"
+        },
+        {
+          "number": 994,
+          "title": "Rotting Oranges",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Single-source BFS layers. Extend the initial frontier to every starting source; no weighted-shortest-path algorithm is required.",
+          "url": "https://leetcode.com/problems/rotting-oranges/"
+        },
+        {
+          "number": 785,
+          "title": "Is Graph Bipartite?",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "BFS/DFS over disconnected graphs plus the definition of a bipartition: every edge must cross between the two groups.",
+          "url": "https://leetcode.com/problems/is-graph-bipartite/"
+        },
+        {
+          "number": 207,
+          "title": "Course Schedule",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Directed-cycle detection with active/finished DFS states, or indegrees and topological processing. These extend basic BFS/DFS and need a separate correctness argument.",
+          "url": "https://leetcode.com/problems/course-schedule/"
+        },
+        {
+          "number": 797,
+          "title": "All Paths From Source to Target",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "DFS/backtracking, path-local state and output-sensitive analysis. Backtracking & Divide-and-Conquer is the natural follow-up if restoring a partial path is new.",
+          "url": "https://leetcode.com/problems/all-paths-from-source-to-target/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/graphs-representations-bfs-dfs.js",
+          "sha256": "ed9c88f8a3f4cd2edd3e8b16f396cf4905697c4961788e80bcf5415881d0e062"
+        },
+        {
+          "path": "src/learn/data/topics/graphs-representations-bfs-dfs.jsx",
+          "sha256": "9679160959ccc3fc7bcdcc7d13783ca6b3d54624bcae7255bbe63947a3f65d00"
+        }
+      ]
+    },
+    {
+      "id": "disjoint-sets-union-find",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 547,
+          "title": "Number of Provinces",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/number-of-provinces/"
+        },
+        {
+          "number": 684,
+          "title": "Redundant Connection",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/redundant-connection/"
+        },
+        {
+          "number": 990,
+          "title": "Satisfiability of Equality Equations",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/satisfiability-of-equality-equations/"
+        },
+        {
+          "number": 1319,
+          "title": "Number of Operations to Make Network Connected",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/number-of-operations-to-make-network-connected/"
+        },
+        {
+          "number": 721,
+          "title": "Accounts Merge",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Dictionaries and sets from earlier programming/DSA topics; Python sorted for the required email order. The lesson’s record-grouping example returns indices, so this problem adds collecting and ordering identifiers.",
+          "url": "https://leetcode.com/problems/accounts-merge/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/disjoint-sets-union-find.js",
+          "sha256": "10eeb917016bf6707312e5eb39b6044216b4025826d828443846aa8a96342e18"
+        },
+        {
+          "path": "src/learn/data/topics/disjoint-sets-union-find.jsx",
+          "sha256": "6b21464bc42aa47b4f8283734cfb0a3bd77cecd7a04f86365bee170e67c10db7"
+        }
+      ]
+    },
+    {
+      "id": "complexity-analysis-recursion",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 896,
+          "title": "Monotonic Array",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/monotonic-array/"
+        },
+        {
+          "number": 1342,
+          "title": "Number of Steps to Reduce a Number to Zero",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/"
+        },
+        {
+          "number": 344,
+          "title": "Reverse String",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/reverse-string/"
+        },
+        {
+          "number": 509,
+          "title": "Fibonacci Number",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/fibonacci-number/"
+        },
+        {
+          "number": 50,
+          "title": "Pow(x, n)",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The exponentiation example, reciprocal arithmetic and floating-point rounding. The problem constrains zero-base cases differently from the lesson’s integer example.",
+          "url": "https://leetcode.com/problems/powx-n/"
+        },
+        {
+          "number": 104,
+          "title": "Maximum Depth of Binary Tree",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Binary-tree children and the earlier Trees lesson. The statement counts nodes along a longest root-to-leaf route.",
+          "url": "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+        },
+        {
+          "number": 70,
+          "title": "Climbing Stairs",
+          "difficulty": "Easy",
+          "optional": true,
+          "prerequisite": "Counting disjoint possibilities and the memoization/iteration bridge in this lesson.",
+          "url": "https://leetcode.com/problems/climbing-stairs/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/complexity-analysis-recursion.js",
+          "sha256": "47a7932dae718d4608024d9ee861782ece855f3ee6e74b54e2574be0ffa99dc7"
+        },
+        {
+          "path": "src/learn/data/topics/complexity-analysis-recursion.jsx",
+          "sha256": "8d4c074c80f995d4450f5efc8a4210e8462a4b6972b97286ee2e85a6a39d95aa"
+        }
+      ]
+    },
+    {
+      "id": "binary-search-sorting-two-pointer-patterns",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 704,
+          "title": "Binary Search",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "The statement uses a nonempty array with unique values; the local boundary function also handles empty and duplicate inputs.",
+          "url": "https://leetcode.com/problems/binary-search/"
+        },
+        {
+          "number": 35,
+          "title": "Search Insert Position",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/search-insert-position/"
+        },
+        {
+          "number": 34,
+          "title": "Find First and Last Position of Element in Sorted Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+        },
+        {
+          "number": 912,
+          "title": "Sort an Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Read the optional iterative heapsort implementation for the statement’s smallest-space objective. The lesson’s buffer-based mergesort uses linear auxiliary space; built-in sorting is disallowed here.",
+          "url": "https://leetcode.com/problems/sort-an-array/"
+        },
+        {
+          "number": 88,
+          "title": "Merge Sorted Array",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "The first m entries are real input; reserved trailing zeroes are capacity, while zero can also be a legitimate input value.",
+          "url": "https://leetcode.com/problems/merge-sorted-array/"
+        },
+        {
+          "number": 26,
+          "title": "Remove Duplicates from Sorted Array",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/"
+        },
+        {
+          "number": 56,
+          "title": "Merge Intervals",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The official contract merges touching endpoints. Treat these as closed intervals; do not import a different meeting-room endpoint policy.",
+          "url": "https://leetcode.com/problems/merge-intervals/"
+        },
+        {
+          "number": 167,
+          "title": "Two Sum II - Input Array Is Sorted",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Return 1-based indices, never reuse one position, and account for the statement’s exactly-one-solution promise.",
+          "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/"
+        },
+        {
+          "number": 15,
+          "title": "3Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/3sum/"
+        },
+        {
+          "number": 643,
+          "title": "Maximum Average Subarray I",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/maximum-average-subarray-i/"
+        },
+        {
+          "number": 209,
+          "title": "Minimum Size Subarray Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The statement uses positive values and returns zero when no interval qualifies; the local implementation returns an optional half-open interval.",
+          "url": "https://leetcode.com/problems/minimum-size-subarray-sum/"
+        },
+        {
+          "number": 3,
+          "title": "Longest Substring Without Repeating Characters",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Previously an Arrays preview; the uniqueness-window mechanism is taught here. The statement distinguishes substring from subsequence.",
+          "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+        },
+        {
+          "number": 560,
+          "title": "Subarray Sum Equals K",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Previously an Arrays preview; use this lesson’s prefix-frequency derivation rather than applying the positive-window rule.",
+          "url": "https://leetcode.com/problems/subarray-sum-equals-k/"
+        },
+        {
+          "number": 875,
+          "title": "Koko Eating Bananas",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The official constraints guarantee at least one hour per pile. Contrast this with the local impossible-budget state.",
+          "url": "https://leetcode.com/problems/koko-eating-bananas/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/binary-search-sorting-two-pointer-patterns.js",
+          "sha256": "e0fbae49f9095d1673fcbd7837bcc3caa362c69541731f13710aa581c3dd199a"
+        },
+        {
+          "path": "src/learn/data/topics/binary-search-sorting-two-pointer-patterns.jsx",
+          "sha256": "f92191b5613b42143dcab350480685c13659d1250214c38c979ee583b96ee0d9"
+        }
+      ]
+    },
+    {
+      "id": "backtracking-divide-and-conquer",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 78,
+          "title": "Subsets",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/subsets/"
+        },
+        {
+          "number": 47,
+          "title": "Permutations II",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/permutations-ii/"
+        },
+        {
+          "number": 39,
+          "title": "Combination Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/combination-sum/"
+        },
+        {
+          "number": 79,
+          "title": "Word Search",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/word-search/"
+        },
+        {
+          "number": 53,
+          "title": "Maximum Subarray",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/maximum-subarray/"
+        },
+        {
+          "number": 51,
+          "title": "N-Queens",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "The queen investigation, r−c/r+c diagonal keys, choose/undo restoration and generating the required string rows from column positions.",
+          "url": "https://leetcode.com/problems/n-queens/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/backtracking-divide-and-conquer.js",
+          "sha256": "5bc54f654f222ad751aa0a77504c092a0df686a6a5292bc9dfdf8c6d78758f69"
+        },
+        {
+          "path": "src/learn/data/topics/backtracking-divide-and-conquer.jsx",
+          "sha256": "58df12c81aaf774c9d5cc86be95ffb3d731e6d1b983fe44bbc081e108d50d9c4"
+        }
+      ]
+    },
+    {
+      "id": "greedy-algorithms-exchange-arguments",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 455,
+          "title": "Assign Cookies",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Use the local threshold-matching exercise and proof. The statement uses positive sizes and returns only a count; the local program also returns original assignment identities.",
+          "url": "https://leetcode.com/problems/assign-cookies/"
+        },
+        {
+          "number": 435,
+          "title": "Non-overlapping Intervals",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The official statement permits touching endpoints and requires start < end. Equal intervals are separate occurrences; do not deduplicate them before counting removals.",
+          "url": "https://leetcode.com/problems/non-overlapping-intervals/"
+        },
+        {
+          "number": 452,
+          "title": "Minimum Number of Arrows to Burst Balloons",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Read the independent covering-points exercise. Both interval endpoints are included here, so an arrow at a shared endpoint can cover both intervals.",
+          "url": "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/"
+        },
+        {
+          "number": 55,
+          "title": "Jump Game",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "The input is nonempty and each number is a maximum permitted forward jump, so shorter jumps are legal. The local empty-input return is an additional API convention.",
+          "url": "https://leetcode.com/problems/jump-game/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/greedy-algorithms-exchange-arguments.js",
+          "sha256": "08f14e38a0cf8e6a8e0fefeed81f5336801c479aecf4fac9c461fdda439a3d79"
+        },
+        {
+          "path": "src/learn/data/topics/greedy-algorithms-exchange-arguments.jsx",
+          "sha256": "6c9dd04e742d5317cc06802862d425cea6f806eff7c2d6f80a77d4d4c6b3b316"
+        }
+      ]
+    },
+    {
+      "id": "dynamic-programming-states-transitions-optimization",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 198,
+          "title": "House Robber",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/house-robber/"
+        },
+        {
+          "number": 64,
+          "title": "Minimum Path Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/minimum-path-sum/"
+        },
+        {
+          "number": 63,
+          "title": "Unique Paths II",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/unique-paths-ii/"
+        },
+        {
+          "number": 1235,
+          "title": "Maximum Profit in Job Scheduling",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/maximum-profit-in-job-scheduling/"
+        },
+        {
+          "number": 1143,
+          "title": "Longest Common Subsequence",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/longest-common-subsequence/"
+        },
+        {
+          "number": 72,
+          "title": "Edit Distance",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/edit-distance/"
+        },
+        {
+          "number": 416,
+          "title": "Partition Equal Subset Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/partition-equal-subset-sum/"
+        },
+        {
+          "number": 322,
+          "title": "Coin Change",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/coin-change/"
+        },
+        {
+          "number": 518,
+          "title": "Coin Change II",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/coin-change-ii/"
+        },
+        {
+          "number": 300,
+          "title": "Longest Increasing Subsequence",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/longest-increasing-subsequence/"
+        },
+        {
+          "number": 309,
+          "title": "Best Time to Buy and Sell Stock with Cooldown",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "State sufficiency and simultaneous old/new state updates from this lesson; read the public buy/sell/cooldown contract before modeling it.",
+          "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/"
+        },
+        {
+          "number": 980,
+          "title": "Unique Paths III",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Backtracking path-local used sets, grid adjacency and this lesson’s subset+endpoint state. Adapt optimization to counting and enforce the designated end condition.",
+          "url": "https://leetcode.com/problems/unique-paths-iii/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+          "sha256": "2f4641d4bc1ec78bc41fa1826fa6f29919cbd7560d95d9a98b561280951e75da"
+        },
+        {
+          "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+          "sha256": "bcf47ccd3ff828d286f5a8acaeb0780e3b3e9f67c19fea5e9d0757d4720222b7"
+        }
+      ]
+    },
+    {
+      "id": "segment-trees-fenwick-trees-range-queries",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 303,
+          "title": "Range Sum Query - Immutable",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Official endpoints are both included and the input is nonempty. Translate [left,right] to the lesson’s [left,right+1).",
+          "url": "https://leetcode.com/problems/range-sum-query-immutable/"
+        },
+        {
+          "number": 307,
+          "title": "Range Sum Query - Mutable",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "update(index,val) assigns a new value; it does not add val. Query endpoints are inclusive. Values may be negative.",
+          "url": "https://leetcode.com/problems/range-sum-query-mutable/"
+        },
+        {
+          "number": 239,
+          "title": "Sliding Window Maximum",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": "The official width satisfies 1 ≤ k ≤ n and returns maximum values only. The local example also returns the newest tied original index and handles a width larger than n.",
+          "url": "https://leetcode.com/problems/sliding-window-maximum/"
+        },
+        {
+          "number": 862,
+          "title": "Shortest Subarray with Sum at Least K",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": "The subarray must be nonempty, the target is positive, and negative input values are legal. Return -1 when absent; the local program returns None or a length/range witness.",
+          "url": "https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/"
+        },
+        {
+          "number": 315,
+          "title": "Count of Smaller Numbers After Self",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Strictly smaller excludes equal values. Process original positions right to left, query ranks below the current rank, then add this occurrence; do not sort away original position identity.",
+          "url": "https://leetcode.com/problems/count-of-smaller-numbers-after-self/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/segment-trees-fenwick-trees-range-queries.js",
+          "sha256": "bdf62a7e31ecec6f1fe9c06ec6088b2985cd1ad944533744de665c2d31292d61"
+        },
+        {
+          "path": "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx",
+          "sha256": "ca95db9999f077481ac6d544f7785f254700e844fc69d0ffce4fb834ea7272bd"
+        }
+      ]
+    },
+    {
+      "id": "algorithm-correctness-loop-invariants-termination",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 27,
+          "title": "Remove Element",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/remove-element/"
+        },
+        {
+          "number": 283,
+          "title": "Move Zeroes",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/move-zeroes/"
+        },
+        {
+          "number": 75,
+          "title": "Sort Colors",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/sort-colors/"
+        },
+        {
+          "number": 88,
+          "title": "Merge Sorted Array",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Use the sorted merge reasoning from Binary Search/Sorting and the frame-condition argument in section 4.",
+          "url": "https://leetcode.com/problems/merge-sorted-array/"
+        },
+        {
+          "number": 69,
+          "title": "Sqrt(x)",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/sqrtx/"
+        },
+        {
+          "number": 206,
+          "title": "Reverse Linked List",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Singly linked nodes and reversal from Linked Lists, Stacks & Queues; this is a proof-oriented revisit, not a new node tutorial.",
+          "url": "https://leetcode.com/problems/reverse-linked-list/"
+        },
+        {
+          "number": 100,
+          "title": "Same Tree",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": "Finite binary-tree structure and recursion from Trees and Complexity; sharing/cycles require a different contract.",
+          "url": "https://leetcode.com/problems/same-tree/"
+        },
+        {
+          "number": 50,
+          "title": "Pow(x, n)",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Reciprocals, the integer exponent proof here, and floating-point accuracy. The official statement excludes zero with a nonpositive exponent.",
+          "url": "https://leetcode.com/problems/powx-n/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/algorithm-correctness-loop-invariants-termination.js",
+          "sha256": "0451767caa693d864f39469aa679f1b829cccf3253ad2a163f2a1f70de326dcc"
+        },
+        {
+          "path": "src/learn/data/topics/algorithm-correctness-loop-invariants-termination.jsx",
+          "sha256": "e7052f4ed8a3c126423afa37be405f4ebb9f319005a3b6db884b96016c350f3d"
+        }
+      ]
+    },
+    {
+      "id": "hashing-collision-resolution-amortized-analysis",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 705,
+          "title": "Design HashSet",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/design-hashset/"
+        },
+        {
+          "number": 706,
+          "title": "Design HashMap",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/design-hashmap/"
+        },
+        {
+          "number": 380,
+          "title": "Insert Delete GetRandom O(1)",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/insert-delete-getrandom-o1/"
+        },
+        {
+          "number": 128,
+          "title": "Longest Consecutive Sequence",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/longest-consecutive-sequence/"
+        },
+        {
+          "number": 454,
+          "title": "4Sum II",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/4sum-ii/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/hashing-collision-resolution-amortized-analysis.js",
+          "sha256": "d719b273557fc2fcf3d3d68a7dbc0cb8aee364978dc3143a0ee022434c78af9e"
+        },
+        {
+          "path": "src/learn/data/topics/hashing-collision-resolution-amortized-analysis.jsx",
+          "sha256": "c6b8352dd1abc38211a7ed83239e456f3f0d751194170b4641d630f1e0d9d4c4"
+        }
+      ]
+    },
+    {
+      "id": "shortest-paths-spanning-trees-topological-ordering",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 743,
+          "title": "Network Delay Time",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Nodes are labeled 1…n; edge delays may be zero. An unreachable node changes the final result to −1.",
+          "url": "https://leetcode.com/problems/network-delay-time/"
+        },
+        {
+          "number": 1584,
+          "title": "Min Cost to Connect All Points",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Use the local dense Prim branch to avoid storing every pair; the official input has up to 1,000 distinct points.",
+          "url": "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+        },
+        {
+          "number": 210,
+          "title": "Course Schedule II",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "An input pair [a,b] means b→a, and impossibility returns an empty array. A valid order need not be unique.",
+          "url": "https://leetcode.com/problems/course-schedule-ii/"
+        },
+        {
+          "number": 787,
+          "title": "Cheapest Flights Within K Stops",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "k stops means at most k+1 flight edges. Prices are positive; absence of a feasible route returns −1.",
+          "url": "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
+        },
+        {
+          "number": 2050,
+          "title": "Parallel Courses III",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": "The task guarantees a DAG and allows any number of concurrent courses. Vertex labels are 1-based but duration positions are 0-based.",
+          "url": "https://leetcode.com/problems/parallel-courses-iii/"
+        },
+        {
+          "number": 1334,
+          "title": "Find the City With the Smallest Number of Neighbors at a Threshold Distance",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Edges are bidirectional with positive weights. Count other cities; ties favor the greatest city index. Review Floyd–Warshall or repeated Dijkstra first.",
+          "url": "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/"
+        },
+        {
+          "number": 1368,
+          "title": "Minimum Cost to Make at Least One Valid Path in a Grid",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Review Graphs’ grid neighbor bounds and the local 0/1-deque branch. The objective counts sign changes, not moves; a sign may point outside the grid.",
+          "url": "https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/shortest-paths-spanning-trees-topological-ordering.js",
+          "sha256": "ff767a22f1db14652f32475d10defc8a42a0bb44f02351f35d8bd20ec86b7bb6"
+        },
+        {
+          "path": "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx",
+          "sha256": "07dcee3a85272c4f6bf8dd65f76159faf33326fcc9f2f93ab8db4b995baa99b8"
+        }
+      ]
+    },
+    {
+      "id": "string-matching-prefix-functions-rolling-hashes",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 28,
+          "title": "Find the Index of the First Occurrence in a String",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/"
+        },
+        {
+          "number": 1392,
+          "title": "Longest Happy Prefix",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/longest-happy-prefix/"
+        },
+        {
+          "number": 459,
+          "title": "Repeated Substring Pattern",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/repeated-substring-pattern/"
+        },
+        {
+          "number": 686,
+          "title": "Repeated String Match",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/repeated-string-match/"
+        },
+        {
+          "number": 187,
+          "title": "Repeated DNA Sequences",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/repeated-dna-sequences/"
+        },
+        {
+          "number": 214,
+          "title": "Shortest Palindrome",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Longest proper borders, a unique sentinel and the proof that the retained prefix must be palindromic.",
+          "url": "https://leetcode.com/problems/shortest-palindrome/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/string-matching-prefix-functions-rolling-hashes.js",
+          "sha256": "5aaedcbc43ce4ff1e2db9c03d38a36596b7d315d1abc439e49a155e9522d63ce"
+        },
+        {
+          "path": "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx",
+          "sha256": "2c7760c953a78e01c9dde655e4fe036d9552a8b8ca5cb4dee7f7683aa1b7403f"
+        }
+      ]
+    },
+    {
+      "id": "reductions-p-np-computational-intractability",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 416,
+          "title": "Partition Equal Subset Sum",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Positive values, at most 200 items and values at most 100; review once-only subset DP.",
+          "url": "https://leetcode.com/problems/partition-equal-subset-sum/"
+        },
+        {
+          "number": 198,
+          "title": "House Robber",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Nonnegative rewards; only neighboring positions conflict. The local path-independent-set example permits empty input and negative weights as additional cases.",
+          "url": "https://leetcode.com/problems/house-robber/"
+        },
+        {
+          "number": 698,
+          "title": "Partition to K Equal Sum Subsets",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "At most 16 positive items; k nonempty parts, each with equal sum. Review backtracking ownership or DP subset state before attempting.",
+          "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/reductions-p-np-computational-intractability.js",
+          "sha256": "a46d15d2a9fb6008bd4320ed5a4e9c9bca812eec391a94f2199143917be5403e"
+        },
+        {
+          "path": "src/learn/data/topics/reductions-p-np-computational-intractability.jsx",
+          "sha256": "fdc5875df4716b099c7744fb0508eda600b14450da65c489d88ed71313f0379e"
+        }
+      ]
+    },
+    {
+      "id": "randomized-algorithms-sampling-error-guarantees",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 384,
+          "title": "Shuffle an Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/shuffle-an-array/"
+        },
+        {
+          "number": 528,
+          "title": "Random Pick with Weight",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/random-pick-with-weight/"
+        },
+        {
+          "number": 470,
+          "title": "Implement Rand10() Using Rand7()",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/implement-rand10-using-rand7/"
+        },
+        {
+          "number": 382,
+          "title": "Linked List Random Node",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/linked-list-random-node/"
+        },
+        {
+          "number": 398,
+          "title": "Random Pick Index",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/random-pick-index/"
+        },
+        {
+          "number": 215,
+          "title": "Kth Largest Element in an Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/randomized-algorithms-sampling-error-guarantees.js",
+          "sha256": "67b00ac1a2c5532617866462e36c096f62289ed1e344b5b0bf7cd17349d13996"
+        },
+        {
+          "path": "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx",
+          "sha256": "410c36f6376fa5b24b70e46429139863c0b4b09938b723d98f3b29d229a61137"
+        }
+      ]
+    },
+    {
+      "id": "network-flow-minimum-cuts-bipartite-matching",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 886,
+          "title": "Possible Bipartition",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "BFS or DFS two-coloring; up to 2,000 people and 10,000 distinct conflicts. Every conflict must connect different parts.",
+          "url": "https://leetcode.com/problems/possible-bipartition/"
+        },
+        {
+          "number": 1349,
+          "title": "Maximum Students Taking Exam",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": "Grid coordinates, bipartite matching/cover and the complement identity: vertices outside a cover form an independent set. The official grid is at most 8×8; conflicts are horizontal or diagonal to the preceding row, not directly vertical.",
+          "url": "https://leetcode.com/problems/maximum-students-taking-exam/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/network-flow-minimum-cuts-bipartite-matching.js",
+          "sha256": "b194bbee11e0bb27ff6f0b0de0fdfd288a141a6430c45c4d3eba246ec4f34aae"
+        },
+        {
+          "path": "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx",
+          "sha256": "bcf01af1dca1a5cfd3c6eadcb8ad548ad522c86d1e2fa807f573aceb8a8dfdcc"
+        }
+      ]
+    },
+    {
+      "id": "computational-geometry-robust-predicates-convex-hulls",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 1037,
+          "title": "Valid Boomerang",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/valid-boomerang/"
+        },
+        {
+          "number": 1232,
+          "title": "Check If It Is a Straight Line",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/check-if-it-is-a-straight-line/"
+        },
+        {
+          "number": 812,
+          "title": "Largest Triangle Area",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/largest-triangle-area/"
+        },
+        {
+          "number": 836,
+          "title": "Rectangle Overlap",
+          "difficulty": "Easy",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/rectangle-overlap/"
+        },
+        {
+          "number": 587,
+          "title": "Erect the Fence",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": null,
+          "url": "https://leetcode.com/problems/erect-the-fence/"
+        },
+        {
+          "number": 149,
+          "title": "Max Points on a Line",
+          "difficulty": "Hard",
+          "optional": true,
+          "prerequisite": "Canonical integer direction pairs using gcd and a sign convention; hash-map grouping. These are developed in this lesson’s optional section.",
+          "url": "https://leetcode.com/problems/max-points-on-a-line/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/computational-geometry-robust-predicates-convex-hulls.js",
+          "sha256": "f7928a09ffc52455ff9824848c80e36b466bf9d5eaab9acbf5c2bcf3f2db0626"
+        },
+        {
+          "path": "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx",
+          "sha256": "86cd3e801ab261c58bacad0e09a223ce300723f117ba6eaa532368fed258dd38"
+        }
+      ]
+    },
+    {
+      "id": "persistent-data-structures-structural-sharing-versioned-queries",
+      "verifiedOn": "2026-09-10",
+      "entries": [
+        {
+          "number": 1146,
+          "title": "Snapshot Array",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Binary search for an upper bound; section 5 explains its history invariant.",
+          "url": "https://leetcode.com/problems/snapshot-array/"
+        },
+        {
+          "number": 981,
+          "title": "Time Based Key-Value Store",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Dictionary lookup, sorted histories and predecessor search; string values need no interval aggregate.",
+          "url": "https://leetcode.com/problems/time-based-key-value-store/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/persistent-data-structures-structural-sharing-versioned-queries.js",
+          "sha256": "ae9d6faec5674e3897046e2c36a33e08175cb1f27622712a4f027b319841849c"
+        },
+        {
+          "path": "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx",
+          "sha256": "c17eadb43bb9d4aff6a363e45100b2d298b4077a6953df072215ecc9a9340ce8"
+        }
+      ]
+    },
+    {
+      "id": "external-memory-algorithms-b-trees-i-o-complexity",
+      "verifiedOn": "10 September 2026",
+      "entries": [
+        {
+          "number": 146,
+          "title": "LRU Cache",
+          "difficulty": "Medium",
+          "optional": false,
+          "prerequisite": "Hash maps and a doubly linked recency list; the earlier linked-list and hashing lessons supply these mechanisms.",
+          "url": "https://leetcode.com/problems/lru-cache/"
+        },
+        {
+          "number": 23,
+          "title": "Merge k Sorted Lists",
+          "difficulty": "Hard",
+          "optional": false,
+          "prerequisite": "Heap-based k-way merging from Heaps, Priority Queues & Tries.",
+          "url": "https://leetcode.com/problems/merge-k-sorted-lists/"
+        },
+        {
+          "number": 148,
+          "title": "Sort List",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Linked-list splitting/merging and iterative versus recursive auxiliary-space accounting.",
+          "url": "https://leetcode.com/problems/sort-list/"
+        },
+        {
+          "number": 378,
+          "title": "Kth Smallest Element in a Sorted Matrix",
+          "difficulty": "Medium",
+          "optional": true,
+          "prerequisite": "Sorted row streams and a min-heap; binary-search alternatives require a separately justified counting predicate.",
+          "url": "https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/"
+        }
+      ],
+      "issues": [],
+      "files": [
+        {
+          "path": "src/learn/data/practice/external-memory-algorithms-b-trees-i-o-complexity.js",
+          "sha256": "cc61cade0a230cfdb77d80fb6c16f18c7a6d349de9f545b2c4e3fdaa919956cd"
+        },
+        {
+          "path": "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx",
+          "sha256": "60c6b3a2ec9f590aa4dc67ef3c95b97d49dfee5602d8328b70a2f93ac9f3384f"
+        }
+      ]
+    }
+  ],
+  "patternLocations": [
+    {
+      "topicId": "linked-lists-stacks-queues",
+      "line": 32,
+      "text": "      ['Read element at position i','O(i + 1)','Start at head and follow links; there is no slot-address formula.'],"
+    },
+    {
+      "topicId": "graphs-representations-bfs-dfs",
+      "line": 81,
+      "text": "    <Prose>For directed graphs, ordinary reachability is not symmetric. If A→B exists without B→A, B is reachable from A but A is not reachable from B. Running this undirected component-labeling routine on outgoing directed edges does not compute strongly connected components. A <strong>strongly connected component</strong> requires mutual reachability; a weak component ignores direction. State which question is intended before applying a component algorithm.</Prose>"
+    },
+    {
+      "topicId": "graphs-representations-bfs-dfs",
+      "line": 145,
+      "text": "      <li><a href=\"https://algs4.cs.princeton.edu/42digraph/\" target=\"_blank\" rel=\"noreferrer\">Princeton: Directed Graphs</a> — directed reachability, cycle detection, topological and strongly connected structure.</li>"
+    },
+    {
+      "topicId": "backtracking-divide-and-conquer",
+      "line": 95,
+      "text": "    <Prose>Bitmasks can compactly encode a finite used-set, but that changes representation rather than proving the search correct. This lesson uses explicit sets first. Before adopting mask-based search or DP, learn membership bits, bitwise versus Boolean operations, width/sign/shift semantics and the state key's meaning. An unexplained XOR or shift trick should not replace the constraint invariant.</Prose>"
+    },
+    {
+      "topicId": "dynamic-programming-states-transitions-optimization",
+      "line": 155,
+      "text": "      ['Remove a member', 'mask & ~(1 << i)', 'Clear that bit; unlike XOR, this also works when absent'],"
+    },
+    {
+      "topicId": "dynamic-programming-states-transitions-optimization",
+      "line": 157,
+      "text": "      ['Toggle membership', 'mask ^ (1 << i)', 'XOR flips the bit; it is not unconditional removal'],"
+    },
+    {
+      "topicId": "dynamic-programming-states-transitions-optimization",
+      "line": 161,
+      "text": "    <RunnableExample example={dynamicProgrammingExamples.masks}><Prose>Python integers do not overflow at a fixed 32- or 64-bit width. Bitwise operations behave as if there were infinitely many sign bits, so ~5 is −6, not the four-bit complement 1010. Masking with full restricts a complement to the chosen finite universe. A negative shift count is an error; for nonnegative i, left shift multiplies by 2ⁱ and right shift uses floor division by 2ⁱ. The browser model uses only tiny masks that fit JavaScript's 32-bit bitwise range.</Prose></RunnableExample>"
+    },
+    {
+      "topicId": "dynamic-programming-states-transitions-optimization",
+      "line": 227,
+      "text": "      <li><a href=\"https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types\" target=\"_blank\" rel=\"noopener noreferrer\">Python · integer bitwise operations</a> — exact shift, complement and sign semantics; distinguish these from bounded-width browser masks.</li>"
+    },
+    {
+      "topicId": "segment-trees-fenwick-trees-range-queries",
+      "line": 73,
+      "text": "    <Prose>If a positive integer ends with a 1 followed by k zeros in binary, lowbit is 2ᵏ. In a sufficient two's-complement width, negating flips the bits and adds one: the trailing zeros stay zero, that lowest 1 stays one, and every higher bit becomes the opposite. Bitwise AND therefore retains only that 1. Thus <Code>i &amp; -i</Code> isolates the low bit. For 6: 0110 AND 1010 = 0010, giving 2. Python defines these integer bitwise operations as though negative integers had indefinitely many leading sign bits, so the same identity holds for positive i without choosing a fixed width.</Prose>"
+    },
+    {
+      "topicId": "segment-trees-fenwick-trees-range-queries",
+      "line": 206,
+      "text": "      <li><a href=\"https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types\" target=\"_blank\" rel=\"noopener noreferrer\">Python · integer bitwise semantics</a> — unlimited-precision integers, sign extension and bit_length; the low-bit derivation does not assume an arbitrary fixed Python integer width.</li>"
+    }
+  ],
+  "topicCount": 22,
+  "entryCount": 152,
+  "uniqueLeetCodeCount": 139,
+  "optionalEntryCount": 27,
+  "issues": [],
+  "reviewRecord": "docs/teaching/DSA-PRACTICE-OWNERSHIP-REVIEW.md",
+  "reportSha256": "056307ff743ea6ae51e6390582d1504e13b8081345d53813a0bf4cb7c3458e09",
+  "currentSourcesStillMatch": true,
+  "freshPrimaryInspection": [
+    "https://docs.python.org/3/library/stdtypes.html#bitwise-operations-on-integer-types",
+    "https://leetcode.com/problems/single-number/",
+    "https://leetcode.com/problems/daily-temperatures/",
+    "https://leetcode.com/problems/linked-list-cycle-ii/",
+    "https://leetcode.com/problems/burst-balloons/"
+  ],
+  "limitations": [
+    "Source fit review; not fresh verification of all 139 statements",
+    "No judge submission, new browser suite, or whole-site audit",
+    "No frozen production or shared metadata changes"
+  ]
+}

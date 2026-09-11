@@ -1,0 +1,353 @@
+{
+  "checkedAt": "2026-09-11T17:06:56.334Z",
+  "sourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "42d1c2fd556b19f1be3c444206549c7a0db66698bc2eef55e7d8e904ef4d9800",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "5d45d3ea076cdf00275c3c74ffeb352cb7151ef515ca2638122a5cd6d8a45477",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "d591dae1795fec22b6d2440de21e3968e9c8be17ae1ce3c73ec6b43b0d9a028e"
+  },
+  "numerical": {
+    "passed": true,
+    "checks": [
+      {
+        "kind": "changed five-point hierarchy versus SciPy",
+        "linkage": "single",
+        "heights": [
+          2.23606797749979,
+          3.1622776601683795,
+          4.123105625617661,
+          5.0990195135927845
+        ]
+      },
+      {
+        "kind": "changed five-point hierarchy versus SciPy",
+        "linkage": "complete",
+        "heights": [
+          2.23606797749979,
+          3.605551275463989,
+          5.385164807134504,
+          8.54400374531753
+        ]
+      },
+      {
+        "kind": "changed five-point hierarchy versus SciPy",
+        "linkage": "average",
+        "heights": [
+          2.23606797749979,
+          3.3839144678161843,
+          5.14922031531814,
+          6.5598226542432
+        ]
+      },
+      {
+        "kind": "changed five-point hierarchy versus SciPy",
+        "linkage": "ward",
+        "heights": [
+          2.23606797749979,
+          3.696845502136472,
+          5.385164807134504,
+          8.266397845091495
+        ]
+      },
+      {
+        "kind": "changed exact nonuniform-weight means/SSE and empty retention",
+        "SSE": "52/5"
+      },
+      {
+        "kind": "changed exact nonuniform-weight means/SSE and empty retention",
+        "SSE": "30"
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 1,
+        "SSE": 692609.1666666666,
+        "displayedIntegerSSE": 692628
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 2,
+        "SSE": 256384.26666666666,
+        "displayedIntegerSSE": 256398
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 3,
+        "SSE": 44882.45,
+        "displayedIntegerSSE": 44910
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 4,
+        "SSE": 29287.25,
+        "displayedIntegerSSE": 29310
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 5,
+        "SSE": 7437.5,
+        "displayedIntegerSSE": 7446
+      },
+      {
+        "kind": "actual UI palette versus separately fitted weighted sklearn centers",
+        "k": 6,
+        "SSE": 1.9689968194316455e-27,
+        "displayedIntegerSSE": 0
+      },
+      {
+        "kind": "six-point assignment/movement bridge",
+        "before": 19.25,
+        "after": 7.6875
+      },
+      {
+        "kind": "mean and linkage inline figure exact arithmetic",
+        "meanSSE": [
+          50,
+          38
+        ],
+        "wardDelta": 36
+      }
+    ],
+    "count": 14
+  },
+  "diagnosticReuse": {
+    "source": "docs/teaching/evidence/k-means-hierarchical-native.json",
+    "newRuns": false,
+    "rows": [
+      {
+        "k": 2,
+        "minimumInertia": 2660.009039,
+        "maximumInertia": 2660.009039,
+        "medianSilhouette": 0.71994
+      },
+      {
+        "k": 3,
+        "minimumInertia": 181.504432,
+        "maximumInertia": 181.504432,
+        "medianSilhouette": 0.876025
+      },
+      {
+        "k": 4,
+        "minimumInertia": 156.192219,
+        "maximumInertia": 171.664605,
+        "medianSilhouette": 0.695022
+      },
+      {
+        "k": 5,
+        "minimumInertia": 136.295134,
+        "maximumInertia": 149.916286,
+        "medianSilhouette": 0.519682
+      }
+    ]
+  },
+  "scope": "Independent review of models/labs/figures by native-example author; weighted/library/model/inline arithmetic checks only. Root owns full browser and lesson source review.",
+  "limits": [
+    "No arbitrary extreme-input campaign.",
+    "No new execution of the already-frozen six displayed native programs.",
+    "No browser or user acceptance asserted by these numerical checks."
+  ],
+  "verificationSource": "\nimport json, sys, numpy as np\nfrom fractions import Fraction as F\nfrom scipy.cluster.hierarchy import linkage\nfrom scipy.optimize import linear_sum_assignment\nfrom sklearn.cluster import KMeans\nfrom threadpoolctl import threadpool_limits\np=json.load(sys.stdin)\nchecks=[]\nfor case in p['hierarchy']:\n    x=np.array(case['tree']['points'])\n    own=case['tree']['merges']\n    reference=linkage(x,method=case['linkage'])\n    np.testing.assert_allclose([r['height'] for r in own], reference[:,2], rtol=1e-12,atol=1e-12)\n    checks.append({'kind':'changed five-point hierarchy versus SciPy','linkage':case['linkage'],'heights':reference[:,2].tolist()})\nfor case in p['weighted']:\n    x,w,l=case['points'],case['weights'],case['labels']\n    total=F(0)\n    for group in range(3):\n        members=[i for i,v in enumerate(l) if v==group]\n        if not members:\n            assert case['result']['centers'][group]==case['previous'][group]\n            continue\n        mass=sum(w[i] for i in members)\n        expected=[sum(F(x[i][j])*w[i] for i in members)/mass for j in range(2)]\n        np.testing.assert_allclose(case['result']['centers'][group],[float(v) for v in expected],rtol=1e-13,atol=1e-13)\n        # Independently use weighted pair differences, not residual-to-mean sums.\n        for at,i in enumerate(members):\n            for j in members[at+1:]:\n                total += F(w[i]*w[j],mass)*sum((F(x[i][a])-F(x[j][a]))**2 for a in range(2))\n    np.testing.assert_allclose(case['result']['sse'],float(total),rtol=1e-13,atol=1e-13)\n    checks.append({'kind':'changed exact nonuniform-weight means/SSE and empty retention','SSE':str(total)})\nwith threadpool_limits(limits=1):\n    for case in p['palettes']:\n        s=case['state']; x=np.array(s['colors'],dtype=float); counts=np.array(s['counts'])\n        fit=KMeans(n_clusters=case['k'],init=x[s['initialIndices']],n_init=1,tol=0,algorithm='lloyd',random_state=0).fit(x,sample_weight=counts)\n        # Match centers, rather than pretending integer cluster IDs are identities.\n        costs=((np.array(s['centers'])[:,None]-fit.cluster_centers_[None])**2).sum(axis=2)\n        rows,columns=linear_sum_assignment(costs)\n        np.testing.assert_allclose(costs[rows,columns],0,rtol=0,atol=1e-20)\n        np.testing.assert_allclose(s['sse'],fit.inertia_,rtol=1e-12,atol=1e-10)\n        actual=sum(sum((a-b)**2 for a,b in zip(original,reconstructed)) for original,reconstructed in zip(p['pixels'],s['reconstructed']))\n        assert actual==s['displayedSse']\n        checks.append({'kind':'actual UI palette versus separately fitted weighted sklearn centers','k':case['k'],'SSE':fit.inertia_,'displayedIntegerSSE':actual})\nassert p['initialSix'][1]['sse']==19.25\nassert p['initialSix'][2]['sse']==7.6875\nchecks.append({'kind':'six-point assignment/movement bridge','before':19.25,'after':7.6875})\nassert sum((F(v)-2)**2 for v in [1,2,9])==50\nassert sum((F(v)-4)**2 for v in [1,2,9])==38\nassert F(2*2,4)*(7-1)**2==36\nchecks.append({'kind':'mean and linkage inline figure exact arithmetic','meanSSE':[50,38],'wardDelta':36})\njson.dump({'passed':True,'checks':checks,'count':len(checks)},sys.stdout)\n",
+  "arithmeticAmendmentRecheck": {
+    "checkedAt": "2026-09-11T17:08:59.927Z",
+    "cases": [
+      {
+        "name": "nonzero coordinate square",
+        "result": "explicit RangeError"
+      },
+      {
+        "name": "positive Ward scale",
+        "result": "explicit RangeError"
+      },
+      {
+        "name": "positive weighted error",
+        "result": "explicit RangeError"
+      },
+      {
+        "name": "D squared probability",
+        "result": "explicit RangeError"
+      },
+      {
+        "name": "representable tiny separation",
+        "height": 1e-150,
+        "delta": 5e-301
+      },
+      {
+        "name": "exact duplicate",
+        "height": 0
+      }
+    ],
+    "scope": "Paired narrow arithmetic guards after the native reviewer finding; no broad extreme campaign."
+  },
+  "findings": [
+    {
+      "kind": "arithmetic-range contract",
+      "origin": "Independent native reviewer finding, paired JS defect confirmed by this reviewer",
+      "resolution": "Author added explicit underflow guards; this reviewer rechecked four rejection and two valid states."
+    },
+    {
+      "kind": "duplicate-seeding caption",
+      "location": "SeedingLab Scatter title",
+      "status": "resolved by author; final conditional source inspected",
+      "detail": "When selected=null, only C0 is drawn but the caption still names a selected C1.",
+      "resolvedAt": "2026-09-11T17:09:49.890Z"
+    },
+    {
+      "kind": "Lloyd label placement",
+      "status": "resolved by author; focused source diff and three final production captures independently inspected",
+      "detail": "P0·0 and P1·0 face into the close diagonal pair and overlap; C0 text touches P1, while P4 text lies over the upper center marker. Keep coordinates fixed and place labels outward/in clear quadrants.",
+      "evidence": "docs/teaching/archive/k-means-hierarchical-before-label-layout/k-means-lloyd-desktop.png",
+      "resolvedAt": "2026-09-11T17:37:15.067605+00:00",
+      "resolution": "Only labels move; marker/tick/label-aware placement and short leaders clear the observed point and center collisions. Actual final desktop/phone captures confirm readability.",
+      "finalImages": [
+        "docs/teaching/evidence/k-means-lloyd-desktop.png",
+        "docs/teaching/evidence/k-means-lloyd-mobile.png",
+        "docs/teaching/evidence/k-means-seeding-desktop.png"
+      ]
+    }
+  ],
+  "numericalSourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "9f6a992e209ae4f8062198e727b057dcc98da12762cb1be176b481b22c336da8",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "5d45d3ea076cdf00275c3c74ffeb352cb7151ef515ca2638122a5cd6d8a45477",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "d591dae1795fec22b6d2440de21e3968e9c8be17ae1ce3c73ec6b43b0d9a028e"
+  },
+  "sourceReviewClosedAt": "2026-09-11T17:09:49.891Z",
+  "sourceReadScope": [
+    "Complete pure model",
+    "Complete labs and lab CSS",
+    "All four inline figure components and figure CSS",
+    "Author model-verifier scope, not rerun",
+    "Four diagnostic rows matched already-executed native stdout"
+  ],
+  "geometryAssessment": [
+    "Scatter uses one scale and a square SVG/container, so equal coordinate differences have equal screen lengths on both axes.",
+    "Lloyd residual links connect exactly the centers and labels belonging to the current phase.",
+    "D² spans, marker, selected center and table use the same probability/quantile state; the visible key identifies the selected row.",
+    "Dendrogram branches use each actual child/parent height; count and all-equal-height cuts remain distinct.",
+    "RGB reconstructed pixels and their integer-channel SSE use the same rounded palette assignments.",
+    "Diagnostic y axes are linear; whiskers encode observed restart ranges, not uncertainty intervals.",
+    "Mean-figure sloping ownership links are explicitly distinguished from its horizontal scalar metric."
+  ],
+  "browserStatus": "Root's final 54-state intended-font production amendment and 12 retained full cases were read and identity-checked. Reviewer opened three corrected final images plus the earlier tree/diagnostic captures; the Lloyd label finding is closed. No independent full browser suite.",
+  "openedImages": [
+    {
+      "path": "docs/teaching/archive/k-means-hierarchical-before-label-layout/k-means-lloyd-desktop.png",
+      "sha256": "55ab1292b747b689a6ff76d7173f0243493120e417b9312255324744780a4396",
+      "openedAt": "2026-09-11T17:21:29.248Z",
+      "source": "root final production capture; actually opened by this independent reviewer",
+      "assessment": "Point labels collide within close diagonal pairs and center text touches a point marker; focused label-placement repair requested.",
+      "originalPath": "docs/teaching/evidence/k-means-lloyd-desktop.png",
+      "preservation": "Original crowded production capture; root archived these exact bytes before correcting annotation layout."
+    },
+    {
+      "path": "docs/teaching/evidence/k-means-tree-mobile.png",
+      "sha256": "d3530fbb94324926d1c862f47c4ddcc86c4f32763e6d872fe4b8e8ee262c072f",
+      "openedAt": "2026-09-11T17:21:29.249Z",
+      "source": "root final production capture; actually opened by this independent reviewer",
+      "assessment": "Readable plotted geometry, labels and explanation; no visible issue found."
+    },
+    {
+      "path": "docs/teaching/evidence/k-means-diagnostics-mobile.png",
+      "sha256": "96293073cafc6b959acf9d76a550875fa485f562a8f8673f1ef01c247a8649cb",
+      "openedAt": "2026-09-11T17:21:29.250Z",
+      "source": "root final production capture; actually opened by this independent reviewer",
+      "assessment": "Readable plotted geometry, labels and explanation; no visible issue found."
+    },
+    {
+      "path": "docs/teaching/evidence/k-means-lloyd-desktop.png",
+      "sha256": "a2ee9051e4710ba17582da65781a09ee9f1625e689ad9e42765a7b6440e91a47",
+      "openedAt": "2026-09-11T17:37:15.067605+00:00",
+      "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+      "assessment": "P0/P1, P4/P5 and both center labels have clear positions; thin leaders are distinct from dashed residuals."
+    },
+    {
+      "path": "docs/teaching/evidence/k-means-lloyd-mobile.png",
+      "sha256": "27cebdc80baf7fba76a0613f2d3f270503bdd7d3ea32da5ae70431c40d6a033d",
+      "openedAt": "2026-09-11T17:37:15.067605+00:00",
+      "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+      "assessment": "Phone label positions clear the nearby point/center markers; fixed-size text, short leaders and their explanation remain readable."
+    },
+    {
+      "path": "docs/teaching/evidence/k-means-seeding-desktop.png",
+      "sha256": "a73462deebce3f1bcb50e90c6082d394d295b06bb0609ac97fa11db0502b5bfe",
+      "openedAt": "2026-09-11T17:37:15.067605+00:00",
+      "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+      "assessment": "Selected-center and coincident point labels are separately identifiable while marker geometry remains fixed; probability strip, selected key and table remain readable."
+    }
+  ],
+  "labelLayoutAmendment": {
+    "reviewClosedAt": "2026-09-11T17:37:15.067605+00:00",
+    "status": "closed; no remaining material finding within inspected scope",
+    "focusedSourceHashes": {
+      "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "6c5ea036d7751e02a0b3925cbd372a0a449f6ba5624aa6525f3ac1ddd1a47273",
+      "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "421f42263440d73139f2437a402de95c7ae7a28105cdb9c8b41ae4a2b4e857c4"
+    },
+    "sourceScope": [
+      "Complete diff against root's pre-layout archived labs/CSS.",
+      "Unchanged numeric point/center projection and residual endpoints.",
+      "Bounded candidate search and marker/tick/earlier-label obstacles.",
+      "Fixed CSS text size, thin leader rendering and explicit residual distinction.",
+      "Stable ResizeObserver target and disconnect cleanup; no timer/event listener introduced."
+    ],
+    "sourceAssessment": "No source blocker identified. Text-only displacement preserves equal-coordinate geometry; resize cleanup is explicit. No performance benchmark was run.",
+    "productionEvidence": {
+      "path": "docs/teaching/evidence/k-means-hierarchical-browser.json",
+      "sha256": "2e6cba1f8739f6629683b5f7a004b2ad39e7f53e8c3de9339d304fa26ec0e26b",
+      "checkedAt": "2026-09-11T17:34:20.199Z",
+      "status": "passed",
+      "labelStates": 54,
+      "widths": [
+        1366,
+        390,
+        320
+      ],
+      "reusedFullCases": 12,
+      "previousPacket": "docs/teaching/archive/k-means-hierarchical-before-label-layout/k-means-hierarchical-browser.json",
+      "previousPacketHash": "fae38d14272665d5f1b175984e0263f82c08afd9dcad0a658584474c6b42fad8",
+      "attribution": "Root executed production checks; reviewer read packet and compared identities, without rerunning the suite.",
+      "finalSourceHashes": {
+        "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "bf89d7ba6add457467b803aaf5458936de661ee3227e857dd697483661f7596f",
+        "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+        "src/learn/data/k-means-hierarchical-examples.js": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+        "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "6c5ea036d7751e02a0b3925cbd372a0a449f6ba5624aa6525f3ac1ddd1a47273",
+        "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "421f42263440d73139f2437a402de95c7ae7a28105cdb9c8b41ae4a2b4e857c4",
+        "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+        "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "25f9e3311801550d271c8b45b589fc80eb520ef00dd20d23419ec8b8ec83b07b",
+        "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "6f74f6a098dc78efbd85b99cdf6672dd8594925d5267594a73cf09a66441d86a"
+      },
+      "allEightCurrentFilesMatch": true,
+      "sixOtherFilesMatchArchivedFullPass": true
+    },
+    "openedImages": [
+      {
+        "path": "docs/teaching/evidence/k-means-lloyd-desktop.png",
+        "sha256": "a2ee9051e4710ba17582da65781a09ee9f1625e689ad9e42765a7b6440e91a47",
+        "openedAt": "2026-09-11T17:37:15.067605+00:00",
+        "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+        "assessment": "P0/P1, P4/P5 and both center labels have clear positions; thin leaders are distinct from dashed residuals."
+      },
+      {
+        "path": "docs/teaching/evidence/k-means-lloyd-mobile.png",
+        "sha256": "27cebdc80baf7fba76a0613f2d3f270503bdd7d3ea32da5ae70431c40d6a033d",
+        "openedAt": "2026-09-11T17:37:15.067605+00:00",
+        "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+        "assessment": "Phone label positions clear the nearby point/center markers; fixed-size text, short leaders and their explanation remain readable."
+      },
+      {
+        "path": "docs/teaching/evidence/k-means-seeding-desktop.png",
+        "sha256": "a73462deebce3f1bcb50e90c6082d394d295b06bb0609ac97fa11db0502b5bfe",
+        "openedAt": "2026-09-11T17:37:15.067605+00:00",
+        "source": "Root final intended-font production capture; actually opened by this independent reviewer.",
+        "assessment": "Selected-center and coincident point labels are separately identifiable while marker geometry remains fixed; probability strip, selected key and table remain readable."
+      }
+    ],
+    "limits": [
+      "Three final images actually opened; no new browser campaign or numeric/native execution.",
+      "No exhaustive arbitrary-point-cloud clearance or measured performance claim.",
+      "Earlier source/numerical evidence and original crowded capture remain separately attributed.",
+      "Failed temporary author browser harness is not used as successful verification.",
+      "No independent production-integration or user-acceptance claim."
+    ]
+  }
+}

@@ -207,7 +207,7 @@ fs.mkdirSync(output, {
       }).focus();
       await page.keyboard.press('Enter');
       assert.equal(await horizon.inputValue(), '7');
-      for (const scroller of await lesson.locator('.queueing-scroll').all()) {
+      for (const scroller of await lesson.locator('.queueing-scroll,.queueing-table-wrap').all()) {
         if (await scroller.evaluate(n => n.scrollWidth > n.clientWidth + 2)) {
           await scroller.focus();
           await scroller.press('ArrowRight');

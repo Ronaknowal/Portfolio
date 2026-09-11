@@ -1,6 +1,6 @@
 export default {
   topicId: 'linked-lists-stacks-queues',
-  verifiedOn: '10 September 2026',
+  verifiedOn: '10 September 2026 for the retained set; 11 September 2026 for 142, 876, 739 and 84',
   introduction:'Move from preserving node identities to choosing LIFO or FIFO behavior, then combine structures under a stricter interface. Follow the problem’s exact Node and return-value contract rather than pasting the lesson’s helper unchanged.',
   groups: [
     {
@@ -32,7 +32,7 @@ export default {
         {number:141,title:'Linked List Cycle',slug:'linked-list-cycle',difficulty:'Easy',
           focus:'Turn the lesson’s identity-based traversal diagnostic into a result. Repeated values and repeated node identities are different evidence.',
           hint:'While following next, remember which node objects have already been reached. Reaching None and revisiting an object mean different things.',
-          transfer:'Compare two distinct nodes with equal values against a self-loop. A visited-identity set is the core method here; the constant-space fast/slow-pointer follow-up needs its own proof and can wait.'},
+          transfer:'Compare two distinct nodes with equal values against a self-loop. A visited-identity set remains a correct baseline. Then rebuild the newly taught fast/slow follow-up from its positive-meeting proof, and separate algorithm working memory from any trace or test-audit storage.'},
         {number:622,title:'Design Circular Queue',slug:'design-circular-queue',difficulty:'Medium',
           focus:'Implement wraparound with explicit full/empty states. Adapt the lesson’s exception-based queue to the platform’s boolean and sentinel-return interface.',
           hint:'State how head and size locate the live sequence and next free slot. Check full/empty before mutating either value.',
@@ -45,6 +45,41 @@ export default {
           focus:'Reverse the adaptation: expose the newest item while only using FIFO queue operations.',
           hint:'Choose whether insertion or removal will rearrange older items. Describe the queue order immediately before the next top/pop request.',
           transfer:'Compare the work assigned to push versus pop. Explain why accessing an arbitrary deque end would violate the restricted operations even if it returns correct answers.'},
+      ],
+    },
+    {
+      id:'traversal-contracts',title:'Stronger traversal contracts · middle versus cycle entry',
+      introduction:'Attempt after the middle and two-phase cycle investigations. These newly inspected statements exercise resource and return-object requirements, not equality of stored values.',
+      problems:[
+        {number:876,title:'Middle of the Linked List',slug:'middle-of-the-linked-list',difficulty:'Easy',
+          focus:'Derive the required middle from the fast-reference guard. The statement chooses the second middle when the length is even.',
+          hint:'Write the positions reached after k rounds and determine when the two-hop guard first fails.',
+          transfer:'Compare four and five nodes. Then change the task to a left-heavy split: explain why cutting after the returned second middle can violate that new contract. The lesson also defines an empty-input case outside this statement’s nonempty constraint.'},
+        {number:142,title:'Linked List Cycle II',slug:'linked-list-cycle-ii',difficulty:'Medium',
+          focus:'Return the actual cycle-entry node without modifying links, then satisfy the constant-memory follow-up. The fixture’s pos field is not an input to your algorithm.',
+          hint:'A positive detection meeting only gives a relation between traveled distances and cycle length. What does that relation imply after resetting one reference to head?',
+          transfer:'Use a prefix longer than the cycle, a head entry, a self-loop and repeated values. Audit every next identity before and after; explain both termination phases and why speeds one and three do not justify the same reset rule.'},
+      ],
+    },
+    {
+      id:'ordered-stack',title:'Ordered stack · resolve a future question',
+      introduction:'Attempt after the unresolved-index invariant and strict/equal comparison. Original time order and the distance to the first qualifying future index are part of the answer.',
+      problems:[
+        {number:739,title:'Daily Temperatures',slug:'daily-temperatures',difficulty:'Medium',
+          focus:'Translate the lesson’s general integer readings to days waiting for a strictly warmer temperature. Equal temperatures are still unresolved.',
+          hint:'Which earlier indices can the new day settle? What remains true for every index that stays below the top?',
+          transfer:'Contrast a flat stretch, a decreasing stretch and one final high reading. Count pushes/pops for the whole run and explain why a large burst of pops does not imply quadratic total work. The platform uses nonempty bounded temperatures; our native helper also accepts empty and signed readings.'},
+      ],
+    },
+    {
+      id:'boundary-geometry',title:'Optional transfer · smaller boundaries and area',optional:true,
+      introduction:'Use the histogram branch only after you can prove the directional candidate-dominance rule. Its two-pass implementation is a complete approach; a shorter one-pass variant is not required.',
+      problems:[
+        {number:84,title:'Largest Rectangle in Histogram',slug:'largest-rectangle-in-histogram',difficulty:'Hard',
+          prerequisite:'Nearest strictly smaller boundaries in both directions, equal-height handling, excluded endpoints and the local minimum-bar completeness proof.',
+          focus:'Turn unit-width nonnegative bars into valid maximum-span rectangles. The statement asks for area, while our extra witness explains why the number is attainable.',
+          hint:'Fix a bar as a minimum height. Which smaller bars prevent extending left or right, and how many indices lie strictly between them?',
+          transfer:'Check equal plateaus, zeros and multiple tied optima. Produce a rectangle witness and compare with exhaustive small intervals. If widths become unequal, derive a coordinate-width formula before reusing the index calculation.'},
       ],
     },
     {
@@ -68,6 +103,8 @@ export default {
     'Draw changed links without losing nodes; distinguish preserved identity from merely equal output values.',
     'Choose LIFO, FIFO or recency from the task and explain the cost of adapting a different storage interface.',
     'Generate an operation sequence exposing an empty/full, head/tail, duplicate or wraparound bug.',
+    'Prove why a positive fast/slow meeting and its reset locate the cycle entry without changing links; state the even-middle and split policies.',
+    'Distinguish unresolved-index pops from dominated-candidate pops, choose equality deliberately and justify total stack work.',
   ],
   localBridge:'Keep the native ring-queue checks and recent-window mean task as complementary practice. The platform’s queue values and return conventions differ from the lesson’s legitimate-None and exception cases; a successful submission does not replace checking those contracts.',
 };

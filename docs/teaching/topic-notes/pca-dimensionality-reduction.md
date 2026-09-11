@@ -2,6 +2,17 @@
 
 Canonical topic ID: `pca-dimensionality-reduction`
 
+## 2026-09-11 — Bridge from clustering: which distances does a projection preserve?
+
+- Status: open
+- Origin: [K-Means & Hierarchical Clustering](../K-MEANS-HIERARCHICAL-LESSON-DESIGN.md), geometry, diagnostics and high-dimensional branches.
+- Destination and rationale: PCA is the next actual module topic and owns the derivation of projection/reconstruction. The prior lesson already teaches that units and representation define the clustering question; build on that instead of assuming a 2D picture validates clusters.
+- Existing coverage: the current PCA introduction discusses variance, visualization, compression and denoising, but has broad assertions about real data's intrinsic dimension and principal components identifying latent meanings. The RMT note below independently records related concerns. Assess the whole current page and both notes together rather than duplicating caveats.
+- Proposed teaching benefit/example: show an orthogonal full-coordinate rotation preserving Euclidean pair distances, then truncation losing the squared distance in discarded directions. Make visible a constructed low-variance direction that separates a relevant group even while a large irrelevant direction dominates variance. Compare retained variance, reconstruction error and the grouping or downstream task; none is a substitute for the others. Fit learned preprocessing/projections only on permitted development data for a future-row evaluation.
+- Boundaries: PCA does not reduce the number of observation pairs in a dense n×n distance matrix; it can reduce the per-pair feature computation. PCA/UMAP/t-SNE have different objectives. Route nonlinear-embedding specifics to their owner, while explaining why a attractive projection alone is not independent validation.
+- Evidence: the orthogonal/Pythagorean identities are directly derivable; verify the final numerical fixture and any new empirical claim. Origin's clustering source review links current metric/PCA guidance. This note does not prescribe clinical or biological preprocessing.
+- Resolution: not yet assessed by the receiving author. Adapt existing related coverage and the RMT note rather than automatically adding duplicate sections. No unrequested PCA rewrite has occurred.
+
 ## 2026-09-11 — Separate retained sample variance from evidence of latent structure
 
 - Status: open

@@ -1,0 +1,661 @@
+{
+  "topicId": "stochastic-processes-markov-chains-brownian-motion-poisson",
+  "reviewer": "testing_documentation_completion",
+  "closedAt": "2026-09-10T20:56:38.980510+00:00",
+  "status": "closed bounded independent review; both identified issues repaired; no unresolved material finding",
+  "reviewedProduction": [
+    {
+      "path": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "sha256": "7133383f1b1b15adb1b16b029cacbf12966c18b7fde10549832fbca8a2556c06"
+    },
+    {
+      "path": "src/learn/data/stochastic-processes-models.js",
+      "sha256": "909cc8d2678d709558627f777bcf9f64f35c85226d9e1c933227c7fdecebc921"
+    },
+    {
+      "path": "src/learn/data/stochastic-processes-examples.js",
+      "sha256": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "sha256": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/stochastic-processes-labs.css",
+      "sha256": "05d2936b0cbf7ccfe2a15b897c5a8545062970e791265690e784235bc8c1a6fc"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/stochastic-processes-markov-chains-brownian-motion-poisson.js",
+      "sha256": "5fcd97a6314528bc8977b4fe0ce6c82ec7dd586148e60c3d69427d74915af018"
+    }
+  ],
+  "authorFreezeIdentity": {
+    "path": "docs/teaching/evidence/stochastic-processes-author-review.json",
+    "sha256": "d011df5089c24f554a5434921368cccf17ad5e14c3acaec70e8f81091c72898f",
+    "frozenAt": "2026-09-10T20:54:38.276130+00:00",
+    "allSixHashesMatched": true
+  },
+  "complementaryExecution": {
+    "at": "2026-09-10T20:55:27.469011+00:00",
+    "passed": true,
+    "counts": {
+      "actualPrograms": 12,
+      "originalProgramsAndOutputs": 3,
+      "changedTwoStatePathLaws": 40,
+      "nativeThreeStatePathLaws": 6,
+      "changedReserveStates": 90,
+      "exactStoppedCoinHistories": 23040,
+      "uniformizedCTMCAndExposure": 12,
+      "bridgeConditioningAndKilledKernelIntegrals": 9,
+      "exactGaussianDegreeFourQuadratureStates": 162,
+      "coupledNestedPaths": 12,
+      "changedSplittingProbabilities": 80,
+      "changedArrivalClocksAndCensoring": 27
+    },
+    "maximumNumericalDiscrepancy": 7.993605777301127e-15,
+    "conditionalSplittingBoundaries": [
+      {
+        "total": 0,
+        "routing": "0",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 0,
+        "routing": "1/5",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 0,
+        "routing": "13/20",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 0,
+        "routing": "1",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 2,
+        "routing": "0",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 2,
+        "routing": "1/5",
+        "covariance": "-8/25",
+        "dependent": true
+      },
+      {
+        "total": 2,
+        "routing": "13/20",
+        "covariance": "-91/200",
+        "dependent": true
+      },
+      {
+        "total": 2,
+        "routing": "1",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 5,
+        "routing": "0",
+        "covariance": "0",
+        "dependent": false
+      },
+      {
+        "total": 5,
+        "routing": "1/5",
+        "covariance": "-4/5",
+        "dependent": true
+      },
+      {
+        "total": 5,
+        "routing": "13/20",
+        "covariance": "-91/80",
+        "dependent": true
+      },
+      {
+        "total": 5,
+        "routing": "1",
+        "covariance": "0",
+        "dependent": false
+      }
+    ],
+    "production": [
+      {
+        "path": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+        "sha256": "7133383f1b1b15adb1b16b029cacbf12966c18b7fde10549832fbca8a2556c06"
+      },
+      {
+        "path": "src/learn/data/stochastic-processes-models.js",
+        "sha256": "909cc8d2678d709558627f777bcf9f64f35c85226d9e1c933227c7fdecebc921"
+      },
+      {
+        "path": "src/learn/data/stochastic-processes-examples.js",
+        "sha256": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+        "sha256": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/stochastic-processes-labs.css",
+        "sha256": "05d2936b0cbf7ccfe2a15b897c5a8545062970e791265690e784235bc8c1a6fc"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/stochastic-processes-markov-chains-brownian-motion-poisson.js",
+        "sha256": "5fcd97a6314528bc8977b4fe0ce6c82ec7dd586148e60c3d69427d74915af018"
+      }
+    ]
+  },
+  "script": {
+    "path": "scripts/verify-stochastic-processes-independent.py",
+    "sha256": "ea3fbc73323e7a13761cc0239a7811cd0499d72fb6f105951570bbd4c7ee3994"
+  },
+  "resolvedFindings": [
+    {
+      "issue": "Unqualified conditional dependence at deterministic routing/count boundaries, and impossible positive total at zero intensity.",
+      "initialReason": "Given N=n, Cov(A,B)=-n*r*(1-r), zero for n=0 or r in {0,1}; P(N>0)=0 when mean=0.",
+      "resolution": "Body/UI qualify n>0 and 0<r<1; exported helper distinguishes markKernel from conditional:null at impossible event.",
+      "verification": "Actual final source read, 80 changed helper cases and twelve exact covariance states; actual320px repaired prose screenshot opened."
+    },
+    {
+      "issue": "Worked paragraph used mean2.5 while its program and joint probability used mean3.",
+      "initialReason": "For r=.4,m=1,n=2 the joint is .092345623 at mean2.5, but .096786061 at mean3.",
+      "resolution": "Prose mean changed to3; displayed complete program and stdout retained.",
+      "verification": "Actual source and program independently read/executed; final author browser checks attributed."
+    }
+  ],
+  "openFindings": [],
+  "independentlyOpenedAuthorScreenshots": [
+    {
+      "path": "scratch/stochastic-processes-browser/final-inline-0-390.png",
+      "sha256": "65a976e84694f1feaeee8fa1ba91fd7a631efafec9759a65321d140ce650f3c8"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-inline-1-320.png",
+      "sha256": "ce726f7000c734d1b452919645ae19968eb19068c3a2cd4b8aa3c734aeccbc4e"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/reading-section-8-390.png",
+      "sha256": "ff9ae375303e53b91efafb86042e095f2f44c771baed70ee3dd3058242d12c4b"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/reading-section-7-320.png",
+      "sha256": "0d3794b1a36d2c835eb70cdf79bbf62cc771d46c8b456a71c84aadd834c4e555"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-inline-4-390.png",
+      "sha256": "84a0563ed001cac8865e4269119e09cf678b65bc939d293d26626a00ce1dba48"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-reading-poisson-splitting-320.png",
+      "sha256": "d827e438ccea7f6e838fa531a2ca5c8b8c98d3649df8f0461407f94cb2040eb1"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-reading-markov-definition-1440.png",
+      "sha256": "ce3fafa670bc4ada00635e331dddec48473aa69c1e255ee7a47bff04d6122786"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-reading-variation-390.png",
+      "sha256": "4ffb13c1b0b4c4d6f24f0c205cf117701e061b35fbe3e0dbc3f953daf0b4f8c4"
+    },
+    {
+      "path": "scratch/stochastic-processes-browser/final-brownian-comparison-320.png",
+      "sha256": "9b49c3f780b5af67597a0b19599ed89417f8342360acfd1e57adb7f2ad3d3b69"
+    }
+  ],
+  "authorBrowserAttribution": {
+    "mainBehaviorAt": "2026-09-10T20:42:52.567Z",
+    "mainBehaviorPrecedesSplittingAmendment": true,
+    "finalTargetedReadingAt": "2026-09-10T20:51:45.299Z",
+    "finalReading": {
+      "checkedAt": "2026-09-10T20:51:45.299Z",
+      "results": [
+        {
+          "width": 1440,
+          "geometry": {
+            "documentWidth": 1440,
+            "fonts": true,
+            "equations": [
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+              },
+              {
+                "width": 760,
+                "content": 760,
+                "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+              }
+            ],
+            "unclippedOutside": [],
+            "svgOverflow": [],
+            "mathErrors": [],
+            "wordCount": 12009
+          },
+          "boundary": {
+            "tinyIntervalMean": 4.440892098500626e-18,
+            "expected": 4.440892098500626e-18,
+            "rejected": [
+              true,
+              true,
+              true
+            ],
+            "impossible": {
+              "conditional": null,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": false,
+              "joint": 0,
+              "product": 0
+            },
+            "possibleZero": {
+              "conditional": 1,
+              "markKernel": 1,
+              "conditioningEventPossible": true,
+              "joint": 1,
+              "product": 1
+            },
+            "meanThree": {
+              "conditional": 0.43200000000000005,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": true,
+              "joint": 0.0967860609071275,
+              "product": 0.0967860609071275
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 390,
+          "geometry": {
+            "documentWidth": 390,
+            "fonts": true,
+            "equations": [
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+              },
+              {
+                "width": 350,
+                "content": 350,
+                "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+              }
+            ],
+            "unclippedOutside": [],
+            "svgOverflow": [],
+            "mathErrors": [],
+            "wordCount": 12009
+          },
+          "boundary": {
+            "tinyIntervalMean": 4.440892098500626e-18,
+            "expected": 4.440892098500626e-18,
+            "rejected": [
+              true,
+              true,
+              true
+            ],
+            "impossible": {
+              "conditional": null,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": false,
+              "joint": 0,
+              "product": 0
+            },
+            "possibleZero": {
+              "conditional": 1,
+              "markKernel": 1,
+              "conditioningEventPossible": true,
+              "joint": 1,
+              "product": 1
+            },
+            "meanThree": {
+              "conditional": 0.43200000000000005,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": true,
+              "joint": 0.0967860609071275,
+              "product": 0.0967860609071275
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 320,
+          "geometry": {
+            "documentWidth": 320,
+            "fonts": true,
+            "equations": [
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P(X_{n+1}=j\\mid X_n=i,\\text{past})\\\\=P(X_{n+1}=j\\mid X_n=i).\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "P=\\begin{pmatrix}.8&.2\\\\.3&.7\\end{pmatrix},\\qquad p_{n+1}=p_nP."
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P(X_0=i_0,\\ldots,X_n=i_n)\\\\=p_0(i_0)\\prod_{k=0}^{n-1}P_{i_k i_{k+1}}.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}s_{n+1}=b+(1-a-b)s_n,\\\\s_n-\\pi_S=(1-a-b)^n(s_0-\\pi_S).\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}h_i=(1-p)h_{i-1}+ph_{i+1},\\\\h_0=0,\\quad h_B=1,\\\\t_i=1+(1-p)t_{i-1}+pt_{i+1},\\\\t_0=t_B=0.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}F=I+Q+Q^2+\\cdots,\\\\F=(I-Q)^{-1},\\\\H=FR,\\qquad t=F\\mathbf1.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P\\{N(t)-N(s)=k\\}\\\\=e^{-\\lambda(t-s)}\\frac{[\\lambda(t-s)]^k}{k!}.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P(W>s+t\\mid W>s)\\\\=\\frac{e^{-\\lambda(s+t)}}{e^{-\\lambda s}}=e^{-\\lambda t}.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P(S_k\\le t)=1-e^{-\\lambda t}\\sum_{j=0}^{k-1}\\frac{(\\lambda t)^j}{j!},\\\\E[S_k]=k/\\lambda,\\quad\\operatorname{Var}(S_k)=k/\\lambda^2.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P(N_A=m,N_B=n)\\\\=e^{-\\mu}\\frac{\\mu^{m+n}}{(m+n)!}\\\\\\quad\\times\\binom{m+n}{m}r^m(1-r)^n\\\\=\\left[e^{-r\\mu}\\frac{(r\\mu)^m}{m!}\\right]\\\\\\quad\\times\\left[e^{-(1-r)\\mu}\\frac{((1-r)\\mu)^n}{n!}\\right].\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}\\mu_{s,t}=\\Lambda(t)-\\Lambda(s),\\\\N(t)-N(s)\\sim\\operatorname{Poisson}(\\mu_{s,t}),\\\\N(t)=\\widetilde N(\\Lambda(t)).\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "G=\\begin{pmatrix}-\\alpha&\\alpha\\\\\\beta&-\\beta\\end{pmatrix}."
+              },
+              {
+                "width": 280,
+                "content": 281,
+                "tex": "\\begin{gathered}s(t)=\\pi_{\\rm On}+[s(0)-\\pi_{\\rm On}]e^{-(\\alpha+\\beta)t},\\\\\\pi_{\\rm On}=\\frac{\\beta}{\\alpha+\\beta}=.8.\n\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}X_t=x_0+\\mu t+\\sigma W_t,\\\\\\Delta X=\\mu\\Delta t+\\sigma\\sqrt{\\Delta t}\\,Z,\\\\Z\\sim N(0,1),\\\\E[X_t]=x_0+\\mu t,\\\\\\operatorname{Var}(X_t)=\\sigma^2t.\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\operatorname{Cov}(X_s,X_t)=\\sigma^2\\min(s,t)."
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}X_{u\\Delta}\\mid(X_0=x,X_\\Delta=y)\\\\\\sim N(m_u,v_u),\\\\m_u=(1-u)x+uy,\\\\v_u=\\sigma^2\\Delta u(1-u).\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}P\\!\\left(\\max_{0\\le t\\le\\Delta}X_t\\ge b\\mid x,y\\right)\\\\=\\exp\\!\\left[-\\frac{2(b-x)(b-y)}{\\sigma^2\\Delta}\\right].\\end{gathered}"
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "E[Q_n]=T,\\qquad\\operatorname{Var}(Q_n)=\\frac{2T^2}{n}."
+              },
+              {
+                "width": 280,
+                "content": 280,
+                "tex": "\\begin{gathered}E\\sum(\\Delta X)^2=\\sigma^2T+\\mu^2T^2/n,\\\\\\operatorname{Var}\\sum(\\Delta X)^2\\\\=2\\sigma^4T^2/n+4\\mu^2\\sigma^2T^3/n^2,\\\\E\\sum(\\Delta X-\\mu\\Delta t)^2=\\sigma^2T.\\end{gathered}"
+              }
+            ],
+            "unclippedOutside": [],
+            "svgOverflow": [],
+            "mathErrors": [],
+            "wordCount": 12009
+          },
+          "boundary": {
+            "tinyIntervalMean": 4.440892098500626e-18,
+            "expected": 4.440892098500626e-18,
+            "rejected": [
+              true,
+              true,
+              true
+            ],
+            "impossible": {
+              "conditional": null,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": false,
+              "joint": 0,
+              "product": 0
+            },
+            "possibleZero": {
+              "conditional": 1,
+              "markKernel": 1,
+              "conditioningEventPossible": true,
+              "joint": 1,
+              "product": 1
+            },
+            "meanThree": {
+              "conditional": 0.43200000000000005,
+              "markKernel": 0.43200000000000005,
+              "conditioningEventPossible": true,
+              "joint": 0.0967860609071275,
+              "product": 0.0967860609071275
+            }
+          },
+          "errors": [],
+          "failedRequests": []
+        }
+      ]
+    },
+    "reviewerDidNotRerunFullBrowserSuite": true
+  },
+  "sourceReads": [
+    {
+      "url": "https://www.statslab.cam.ac.uk/~rrw1/markov/M.pdf",
+      "scope": "Sections9.3 and10.1; distinct convergence and occupation hypotheses."
+    },
+    {
+      "url": "https://ocw.mit.edu/courses/15-070j-advanced-stochastic-processes-fall-2013/aca1518a09539a09ddd37428ab0d0268_MIT15_070JF13_Lec7.pdf",
+      "scope": "Reflection principle and joint maximum/endpoint argument."
+    }
+  ],
+  "productionEditsByReviewer": false,
+  "limits": [
+    "Bounded mathematical/source review and finite changed-input checks; no universal floating-point or stochastic-theorem audit.",
+    "Author screenshots were actually opened; author broad browser execution remains attributed to its owner.",
+    "No full-video playback, production integration or user acceptance claimed."
+  ]
+}

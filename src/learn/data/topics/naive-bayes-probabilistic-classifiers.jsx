@@ -1,905 +1,260 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const naiveBayesContent = {
-  title: "Naive Bayes & Probabilistic Classifiers",
-  readTime: "~35 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In 1763, two years after Thomas Bayes died, his friend Richard Price sent an unpublished manuscript to the Royal Society in London. The paper — "An Essay towards solving a Problem in the Doctrine of Chances" — was read aloud on 23 December 1763 and published in <em>Philosophical Transactions</em>, volume 53, pages 370–418. Bayes had been working on a question about inverse probability: given that an event has been observed to happen a certain number of times, what can we say about the probability that governs it? His answer was the theorem that now carries his name. The problem he solved was narrow — a billiards-table thought experiment about uniform priors — but the machinery he built, Bayes' rule, is general.
-      </Prose>
-
-      <Prose>
-        Fifty years later, working entirely independently, Pierre-Simon Laplace formulated the same rule in full generality in his 1814 <em>Essai philosophique sur les probabilités</em>. Laplace used it to estimate the probability that the sun would rise tomorrow (given it had risen every day for thousands of years), to study population statistics, and to correct measurement errors in astronomy. What we call Bayesian reasoning is, historically, Laplace's mature framework built on Bayes' foundational insight.
-      </Prose>
-
-      <Prose>
-        The jump from probability theory to machine learning came in 1961. M. E. Maron, working at RAND Corporation, published "Automatic Indexing: An Experimental Inquiry" in the <em>Journal of the ACM</em> (volume 8, issue 3, pages 404–417). Maron's problem was document classification: given a collection of technical documents, assign each to a subject category automatically based on word occurrences. His method — computing the probability of each category given the words present, using Bayes' rule and the assumption that words occur independently — is exactly what we now call Multinomial Naive Bayes for text. The paper predates scikit-learn by half a century and precedes the term "Naive Bayes" itself.
-      </Prose>
-
-      <Prose>
-        The practical importance of that independence assumption — naive because it is almost certainly wrong — became clear in the spam-filtering era. Sahami, Dumais, Heckerman, and Horvitz published "A Bayesian Approach to Filtering Junk E-Mail" at the AAAI Workshop on Learning for Text Categorization in 1998. They showed that a Naive Bayes classifier trained on a few hundred labeled emails substantially outperformed hand-crafted rule-based filters. The independence assumption was wrong — words in emails are correlated — but the argmax class prediction was consistently right. This empirical regularity became one of the most cited facts in applied ML: Naive Bayes works far better than its assumptions deserve.
-      </Prose>
-
-      <Prose>
-        The reasons are concrete: Naive Bayes trains in a single pass through the data at <Code>O(n·d)</Code> cost, where <Code>n</Code> is the number of samples and <Code>d</Code> is the number of features. It updates incrementally — a new email arrives, you update word counts. It handles extremely high-dimensional sparse data (a vocabulary of 100,000 words is routine) without the numerical issues that plague discriminative classifiers. And it has no iterative optimization, so it never fails to converge. These properties made it the workhorse of early NLP and it remains competitive today for text, spam filtering, document routing, and any setting where labeled data is scarce and fast iteration matters.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The core question Naive Bayes answers: given this input <Code>x</Code>, which class <Code>c</Code> was most likely to have generated it? This is a generative framing. Instead of learning a direct mapping from inputs to labels (as logistic regression does), Naive Bayes builds a model of how each class produces data, and then inverts that model using Bayes' rule to classify new inputs.
-      </Prose>
-
-      <Prose>
-        Bayes' rule is the inversion formula. The probability of class <Code>c</Code> given observation <Code>x</Code> — the posterior — equals the likelihood of seeing <Code>x</Code> under class <Code>c</Code>, times the prior probability of that class, divided by the probability of seeing <Code>x</Code> at all:
-      </Prose>
-
-      <MathBlock>
-        {"P(c \\mid x) = \\frac{P(x \\mid c) \\cdot P(c)}{P(x)}"}
-      </MathBlock>
-
-      <Prose>
-        The denominator <Code>P(x)</Code> is the same for all classes, so for classification (comparing posteriors across classes) we can drop it and just maximize the numerator:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{c} = \\arg\\max_c \\; P(c) \\cdot P(x \\mid c)"}
-      </MathBlock>
-
-      <Prose>
-        This is the MAP (Maximum A Posteriori) classifier. The prior <Code>P(c)</Code> encodes our baseline belief about class frequency before seeing any data. The likelihood <Code>P(x | c)</Code> is the hard part: <Code>x</Code> is a vector of <Code>d</Code> features, so <Code>P(x | c)</Code> is a joint distribution over <Code>d</Code> variables. Estimating an arbitrary joint distribution requires exponentially many parameters in <Code>d</Code>.
-      </Prose>
-
-      <Prose>
-        The naive assumption breaks the joint down: assume all features are conditionally independent given the class. Then the joint factorizes into a product of per-feature terms:
-      </Prose>
-
-      <MathBlock>
-        {"P(x \\mid c) = \\prod_{j=1}^{d} P(x_j \\mid c)"}
-      </MathBlock>
-
-      <Prose>
-        Each <Code>P(x_j | c)</Code> is now a simple univariate distribution — a Gaussian, a multinomial over counts, or a Bernoulli over presence/absence. The number of parameters to estimate is linear in <Code>d</Code>, not exponential. This is why Naive Bayes can handle vocabulary sizes in the hundreds of thousands without breaking.
-      </Prose>
-
-      <Prose>
-        The intuition for why this wrong assumption still works: for classification we only need to get the argmax right, not the posterior probabilities themselves. Even if the factorized <Code>P(x | c)</Code> assigns wildly incorrect absolute probabilities (because features are correlated and we double-count evidence), the class with the higher true posterior usually still has the higher factorized posterior. The ranking is preserved even when the values are wrong. This fails when posteriors are very close together, when class imbalance is severe, or when you need calibrated probabilities rather than just a decision — all covered in Section 9.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Bayes' rule and the MAP classifier</H3>
-
-      <Prose>
-        Let <Code>y ∈ {"{1, …, K}"}</Code> be the class label and <Code>x ∈ ℝᵈ</Code> be the feature vector. The MAP classifier selects the class with the highest posterior:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{y} = \\arg\\max_{k} \\; P(y=k) \\cdot P(x \\mid y=k)"}
-      </MathBlock>
-
-      <Prose>
-        Applying the naive independence assumption, <Code>P(x | y=k)</Code> factorizes as <Code>∏ⱼ P(xⱼ | y=k)</Code>. Working in log-space (to avoid numerical underflow from multiplying many small probabilities):
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{y} = \\arg\\max_{k} \\left[ \\log P(y=k) + \\sum_{j=1}^{d} \\log P(x_j \\mid y=k) \\right]"}
-      </MathBlock>
-
-      <Prose>
-        This is the complete classification rule. The three standard Naive Bayes variants differ only in the distribution assumed for <Code>P(xⱼ | y=k)</Code>.
-      </Prose>
-
-      <H3>3.2 Gaussian Naive Bayes</H3>
-
-      <Prose>
-        For continuous features, assume each feature is normally distributed within each class. For class <Code>k</Code> and feature <Code>j</Code>, estimate the class-conditional mean <Code>μₖⱼ</Code> and variance <Code>σ²ₖⱼ</Code> from training data:
-      </Prose>
-
-      <MathBlock>
-        {"P(x_j \\mid y=k) = \\frac{1}{\\sqrt{2\\pi\\sigma_{kj}^2}} \\exp\\!\\left(-\\frac{(x_j - \\mu_{kj})^2}{2\\sigma_{kj}^2}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        Training: one pass through the data to compute per-class per-feature sample means and variances. No iterative optimization. The decision boundary between two classes is not always a hyperplane — because each class has its own variance estimate, the boundary can be quadratic (an ellipse or parabola in 2D). This is visible in the Section 6 plot.
-      </Prose>
-
-      <H3>3.3 Multinomial Naive Bayes</H3>
-
-      <Prose>
-        For discrete count features — word counts in a document — assume each feature follows a multinomial distribution within each class. Let <Code>θₖⱼ = P(word j | class k)</Code> be the probability of word <Code>j</Code> given class <Code>k</Code>. The log-likelihood of document <Code>x</Code> (a word-count vector) under class <Code>k</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\log P(x \\mid y=k) = \\sum_{j=1}^{d} x_j \\cdot \\log \\theta_{kj}"}
-      </MathBlock>
-
-      <Prose>
-        Training: estimate <Code>θₖⱼ</Code> as the relative frequency of word <Code>j</Code> among all words in class-<Code>k</Code> documents. Raw counts collapse to an MLE:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{\\theta}_{kj} = \\frac{\\sum_{i: y_i=k} x_{ij}}{\\sum_{j'} \\sum_{i: y_i=k} x_{ij'}}"}
-      </MathBlock>
-
-      <H3>3.4 Bernoulli Naive Bayes</H3>
-
-      <Prose>
-        For binary presence/absence features (did word <Code>j</Code> appear in the document at all?), assume each feature is Bernoulli. Let <Code>pₖⱼ = P(xⱼ=1 | y=k)</Code>. The log-likelihood is:
-      </Prose>
-
-      <MathBlock>
-        {"\\log P(x \\mid y=k) = \\sum_{j=1}^{d} \\left[ x_j \\log p_{kj} + (1-x_j) \\log (1 - p_{kj}) \\right]"}
-      </MathBlock>
-
-      <Prose>
-        Unlike Multinomial NB, Bernoulli NB explicitly penalizes the absence of words: if a word that typically appears in spam is absent, that is evidence against spam. Multinomial NB simply ignores absent words (zero counts contribute zero to the sum).
-      </Prose>
-
-      <H3>3.5 Laplace / Lidstone smoothing</H3>
-
-      <Prose>
-        If a word never appears in any training spam document, the MLE gives <Code>θ₁ⱼ = 0</Code>, and a single occurrence of that word in a test document drives <Code>log P(x | spam)</Code> to <Code>-∞</Code> — the model becomes completely certain the document is not spam, regardless of all other words. This is the zero-frequency problem. Laplace smoothing (add-1 smoothing) is the standard fix: add a pseudocount <Code>α</Code> to every feature count before normalizing:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{\\theta}_{kj} = \\frac{\\left(\\sum_{i: y_i=k} x_{ij}\\right) + \\alpha}{\\left(\\sum_{j'} \\sum_{i: y_i=k} x_{ij'}\\right) + \\alpha d}"}
-      </MathBlock>
-
-      <Prose>
-        With <Code>α = 1</Code> (Laplace smoothing) every word has at least one pseudocount. With <Code>α {"<"} 1</Code> (Lidstone smoothing) the prior is lighter. As <Code>α → 0</Code> the smoothed estimate approaches the MLE; as <Code>α → ∞</Code> it approaches the uniform distribution over words. In sklearn, this is the <Code>alpha</Code> hyperparameter.
-      </Prose>
-
-      <H3>3.6 Log-sum-exp for numerical stability</H3>
-
-      <Prose>
-        Multiplying many small probabilities underflows to zero in floating point. Working in log-space turns products into sums (Section 3.1 above). When you need to convert log-posteriors back to probabilities — for example, to compute <Code>predict_proba</Code> — use the log-sum-exp trick:
-      </Prose>
-
-      <MathBlock>
-        {"\\log \\sum_k e^{a_k} = a^* + \\log \\sum_k e^{a_k - a^*}, \\quad a^* = \\max_k a_k"}
-      </MathBlock>
-
-      <Prose>
-        Subtracting <Code>a*</Code> before exponentiating ensures at least one term equals 1 and none overflow. NumPy exposes this as <Code>scipy.special.logsumexp</Code>; sklearn uses it internally in all its Naive Bayes implementations.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was run with NumPy only. Outputs are verbatim terminal results.
-      </Prose>
-
-      <H3>4a. Gaussian Naive Bayes from scratch</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class GaussianNB:
-    def fit(self, X, y):
-        self.classes_ = np.unique(y)
-        self.priors_, self.means_, self.vars_ = {}, {}, {}
-        for c in self.classes_:
-            Xc = X[y == c]
-            self.priors_[c] = len(Xc) / len(y)
-            self.means_[c]  = Xc.mean(axis=0)
-            self.vars_[c]   = Xc.var(axis=0) + 1e-9   # epsilon: numerical stability
-        return self
-
-    def _log_likelihood(self, x, c):
-        mu, var = self.means_[c], self.vars_[c]
-        # log of Gaussian PDF per feature, summed (independence assumption)
-        return -0.5 * np.sum(np.log(2 * np.pi * var) + (x - mu)**2 / var)
-
-    def predict_log_proba(self, X):
-        log_posts = []
-        for c in self.classes_:
-            log_prior = np.log(self.priors_[c])
-            ll = np.array([self._log_likelihood(x, c) for x in X])
-            log_posts.append(log_prior + ll)
-        return np.column_stack(log_posts)
-
-    def predict(self, X):
-        return self.classes_[np.argmax(self.predict_log_proba(X), axis=1)]
-
-np.random.seed(42)
-n = 200
-X0 = np.random.randn(n // 2, 2) + np.array([-2, -2])
-X1 = np.random.randn(n // 2, 2) + np.array([ 2,  2])
-X  = np.vstack([X0, X1])
-y  = np.hstack([np.zeros(n // 2, dtype=int), np.ones(n // 2, dtype=int)])
-
-gnb = GaussianNB()
-gnb.fit(X, y)
-preds = gnb.predict(X)
-acc   = np.mean(preds == y)
-
-print(f"class 0 prior: {gnb.priors_[0]:.4f}")
-# Output: class 0 prior: 0.5000
-
-print(f"class 1 prior: {gnb.priors_[1]:.4f}")
-# Output: class 1 prior: 0.5000
-
-print(f"class 0 mean:  {gnb.means_[0].round(4)}")
-# Output: class 0 mean:  [-2.1156 -1.966 ]
-
-print(f"class 1 mean:  {gnb.means_[1].round(4)}")
-# Output: class 1 mean:  [2.1282 2.0435]
-
-print(f"class 0 var:   {gnb.vars_[0].round(4)}")
-# Output: class 0 var:   [0.7259 0.9877]
-
-print(f"class 1 var:   {gnb.vars_[1].round(4)}")
-# Output: class 1 var:   [1.0699 0.8651]
-
-print(f"train accuracy: {acc:.4f}")
-# Output: train accuracy: 0.9950`}
-      </CodeBlock>
-
-      <Prose>
-        The model estimates separate means and variances for each class-feature pair. Class 0 clusters around <Code>(-2.1, -2.0)</Code>, class 1 around <Code>(2.1, 2.0)</Code>, consistent with the data generation process. The variances differ between classes (the Gaussian assumption allows distinct covariance per class, unlike LDA which forces a shared covariance). Training accuracy of 99.5% reflects that the two Gaussians barely overlap.
-      </Prose>
-
-      <H3>4b. Multinomial Naive Bayes with Laplace smoothing — spam toy example</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class MultinomialNB:
-    def __init__(self, alpha=1.0):
-        self.alpha = alpha     # Laplace / Lidstone smoothing
-
-    def fit(self, X, y):
-        """
-        X : (n_samples, n_features) integer word counts
-        y : (n_samples,) integer class labels
-        """
-        self.classes_            = np.unique(y)
-        self.log_priors_         = {}
-        self.log_likelihoods_    = {}   # log P(feature j | class c)
-
-        for c in self.classes_:
-            Xc                        = X[y == c]
-            self.log_priors_[c]       = np.log(len(Xc) / len(y))
-            counts                    = Xc.sum(axis=0) + self.alpha
-            self.log_likelihoods_[c]  = np.log(counts / counts.sum())
-        return self
-
-    def predict_log_proba(self, X):
-        log_posts = []
-        for c in self.classes_:
-            lp = self.log_priors_[c] + X @ self.log_likelihoods_[c]
-            log_posts.append(lp)
-        return np.column_stack(log_posts)
-
-    def predict(self, X):
-        return self.classes_[np.argmax(self.predict_log_proba(X), axis=1)]
-
-# ---- Tiny spam corpus ----
-# vocabulary: ['free', 'money', 'win', 'prize', 'meeting', 'agenda', 'report', 'quarter']
-vocab = ['free', 'money', 'win', 'prize', 'meeting', 'agenda', 'report', 'quarter']
-
-spam_docs = np.array([
-    [3, 2, 1, 1, 0, 0, 0, 0],   # "free free free money money win prize"
-    [2, 3, 2, 0, 0, 0, 0, 0],   # "free free money money money win win"
-    [1, 1, 3, 2, 0, 0, 0, 0],   # "free money win win win prize prize"
-    [4, 2, 0, 1, 0, 0, 0, 0],   # "free free free free money money prize"
-])
-ham_docs = np.array([
-    [0, 0, 0, 0, 2, 3, 1, 1],   # "meeting meeting agenda agenda agenda report quarter"
-    [0, 0, 0, 0, 1, 1, 3, 2],   # "meeting agenda report report report quarter quarter"
-    [0, 1, 0, 0, 3, 2, 1, 0],   # "money meeting meeting meeting agenda agenda report"
-    [0, 0, 0, 0, 2, 1, 2, 3],   # "meeting meeting agenda report report quarter quarter quarter"
-])
-
-X_corpus = np.vstack([spam_docs, ham_docs])
-y_corpus  = np.array([1, 1, 1, 1, 0, 0, 0, 0])   # 1=spam, 0=ham
-
-mnb = MultinomialNB(alpha=1.0)
-mnb.fit(X_corpus, y_corpus)
-
-print("log P(class=0 ham):  ", round(mnb.log_priors_[0], 4))
-# Output: log P(class=0 ham):   -0.6931
-
-print("log P(class=1 spam): ", round(mnb.log_priors_[1], 4))
-# Output: log P(class=1 spam):  -0.6931
-
-print("\nlog P(word | spam):")
-for w, lp in zip(vocab, mnb.log_likelihoods_[1]):
-    print(f"  {w:10s}: {lp:.4f}")
-# Output:
-#   free      : -1.1856
-#   money     : -1.3863
-#   win       : -1.6376
-#   prize     : -1.9741
-#   meeting   : -3.5835
-#   agenda    : -3.5835
-#   report    : -3.5835
-#   quarter   : -3.5835
-
-# Classify new document: "free free money" -> likely spam
-test_doc = np.array([[2, 1, 0, 0, 0, 0, 0, 0]])
-log_posts = mnb.predict_log_proba(test_doc)
-pred      = mnb.predict(test_doc)
-
-print(f"\nTest: 'free free money'")
-print(f"log-posterior [ham, spam]: {log_posts[0].round(4)}")
-# Output: log-posterior [ham, spam]: [-10.8328  -4.4507]
-
-print(f"Predicted: {'spam' if pred[0] == 1 else 'ham'}")
-# Output: Predicted: spam
-
-preds_all = mnb.predict(X_corpus)
-print(f"\nTraining accuracy: {np.mean(preds_all == y_corpus):.4f}")
-# Output: Training accuracy: 1.0000`}
-      </CodeBlock>
-
-      <Prose>
-        The log-posterior for "free free money" is <Code>-4.45</Code> for spam vs. <Code>-10.83</Code> for ham — a difference of 6.38 log-units, corresponding to a posterior spam probability of about 99.8%. The model has learned that "free" has log-probability <Code>-1.19</Code> under spam (appears frequently) vs. <Code>-3.61</Code> under ham (appears rarely). Each occurrence of "free" contributes a log-likelihood ratio of <Code>(-1.19) - (-3.61) = +2.42</Code> in favor of spam — a multiplicative factor of about 11.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        Scikit-learn provides four Naive Bayes variants. The API follows the standard sklearn estimator interface: <Code>fit</Code>, <Code>predict</Code>, <Code>predict_proba</Code>, <Code>partial_fit</Code> (for out-of-core / streaming). All outputs below are verbatim terminal results.
-      </Prose>
-
-      <H3>5a. GaussianNB on continuous data</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.naive_bayes import GaussianNB
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-X, y = make_classification(
-    n_samples=500, n_features=10, n_informative=5,
-    n_redundant=2, random_state=42
-)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-gnb = GaussianNB()    # no hyperparameters — estimates mean/var from data
-gnb.fit(X_train, y_train)
-
-print(f"test accuracy:  {accuracy_score(y_test, gnb.predict(X_test)):.4f}")
-# Output: test accuracy:  0.8500
-
-print(f"class means (class 0, first 5 features): {gnb.theta_[0, :5].round(4)}")
-# Output: class means (class 0, first 5 features): [ 1.4285 -0.9464 -0.0593  0.999  -0.0476]
-
-print(f"class means (class 1, first 5 features): {gnb.theta_[1, :5].round(4)}")
-# Output: class means (class 1, first 5 features): [-0.5509  0.116  -0.5267 -0.1276 -0.0307]
-
-# var_smoothing: adds epsilon * max(var) to all variances — prevents zero-variance features
-gnb_smoothed = GaussianNB(var_smoothing=1e-8)
-gnb_smoothed.fit(X_train, y_train)
-print(f"with var_smoothing=1e-8: {accuracy_score(y_test, gnb_smoothed.predict(X_test)):.4f}")
-# Output: with var_smoothing=1e-8: 0.8500`}
-      </CodeBlock>
-
-      <H3>5b. MultinomialNB and ComplementNB on text data</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.naive_bayes import MultinomialNB, ComplementNB, BernoulliNB
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
-# Hand-built spam/ham corpus (20 docs)
-spam_msgs = [
-    "free money win prize cash", "win cash prize free money",
-    "claim your free prize now", "money back guarantee free offer",
-    "free credit score win now", "earn money fast free win",
-    "click here free offer cash", "big cash prize free today",
-    "free gift claim now win",   "lottery winner claim free prize",
-]
-ham_msgs = [
-    "team meeting agenda tomorrow", "quarterly report please review",
-    "project update attached report", "schedule review meeting please",
-    "budget review report quarterly", "agenda for team standup",
-    "report due next quarter",       "project deadline meeting review",
-    "please review attached agenda", "team offsite agenda tomorrow",
-]
-
-corpus = spam_msgs + ham_msgs
-labels = np.array([1] * 10 + [0] * 10)
-
-cv = CountVectorizer()
-X_counts = cv.fit_transform(corpus).toarray()
-print(f"vocab size: {len(cv.vocabulary_)}")
-# Output: vocab size: 42
-
-X_tr, X_te, y_tr, y_te = train_test_split(
-    X_counts, labels, test_size=0.3, random_state=7
-)
-
-# --- MultinomialNB ---
-mnb = MultinomialNB(alpha=1.0)   # alpha: Laplace smoothing strength
-mnb.fit(X_tr, y_tr)
-print(f"\nMultinomialNB (alpha=1.0) test accuracy: {accuracy_score(y_te, mnb.predict(X_te)):.4f}")
-# Output: MultinomialNB (alpha=1.0) test accuracy: 1.0000
-
-feature_names = cv.get_feature_names_out()
-print("Top 5 words for ham  (class 0):",
-      [feature_names[i] for i in np.argsort(mnb.feature_log_prob_[0])[-5:][::-1]])
-# Output: Top 5 words for ham  (class 0): ['agenda', 'team', 'review', 'report', 'attached']
-
-print("Top 5 words for spam (class 1):",
-      [feature_names[i] for i in np.argsort(mnb.feature_log_prob_[1])[-5:][::-1]])
-# Output: Top 5 words for spam (class 1): ['free', 'win', 'now', 'offer', 'cash']
-
-# predict_proba on unseen message
-test_msg = cv.transform(["free money win prize"]).toarray()
-print(f"\npredict_proba('free money win prize'): {mnb.predict_proba(test_msg).round(4)}")
-# Output: predict_proba('free money win prize'): [[0.0094 0.9906]]
-
-# --- ComplementNB: better for imbalanced text ---
-# Trains on the complement of each class — corrects for NB's tendency to
-# overfit the majority class in imbalanced corpora.
-cnb = ComplementNB(alpha=1.0)
-cnb.fit(X_tr, y_tr)
-print(f"\nComplementNB (alpha=1.0) test accuracy: {accuracy_score(y_te, cnb.predict(X_te)):.4f}")
-# Output: ComplementNB (alpha=1.0) test accuracy: 1.0000
-
-# --- BernoulliNB: word presence/absence ---
-X_tr_bin = (X_tr > 0).astype(float)
-X_te_bin = (X_te > 0).astype(float)
-bnb = BernoulliNB(alpha=0.5)
-bnb.fit(X_tr_bin, y_tr)
-print(f"\nBernoulliNB (alpha=0.5, binarized) test accuracy: {accuracy_score(y_te, bnb.predict(X_te_bin)):.4f}")
-# Output: BernoulliNB (alpha=0.5, binarized) test accuracy: 1.0000`}
-      </CodeBlock>
-
-      <Callout type="info" title="Which NB variant to use">
-        MultinomialNB: word counts or TF-IDF features — the standard for text classification. ComplementNB (Rennie et al. 2003): use instead of Multinomial when classes are imbalanced; it trains each class's model on the complement set, correcting for NB's optimistic class-conditional assumptions. BernoulliNB: binary feature vectors (word present or absent) — better than Multinomial when document length varies enormously or when you care about the signal from absent words. GaussianNB: continuous features — sensor readings, embeddings, tabular data where features are plausibly Gaussian within each class.
-      </Callout>
-
-      <H3>5c. Online / streaming learning with partial_fit</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.naive_bayes import MultinomialNB
-import numpy as np
-
-# MultinomialNB supports partial_fit for out-of-core / streaming updates.
-# You must pass all possible classes in the first call.
-mnb_stream = MultinomialNB(alpha=1.0)
-
-# Simulate a stream: feed 5 mini-batches of 4 docs each
-X_batches = [X_tr[i*4:(i+1)*4] for i in range(len(X_tr) // 4)]
-y_batches  = [y_tr[i*4:(i+1)*4] for i in range(len(y_tr)  // 4)]
-
-for batch_idx, (Xb, yb) in enumerate(zip(X_batches, y_batches)):
-    if batch_idx == 0:
-        mnb_stream.partial_fit(Xb, yb, classes=np.array([0, 1]))
-    else:
-        mnb_stream.partial_fit(Xb, yb)
-
-acc_stream = accuracy_score(y_te, mnb_stream.predict(X_te))
-print(f"streaming partial_fit accuracy: {acc_stream:.4f}")
-# Output: streaming partial_fit accuracy: 1.0000`}
-      </CodeBlock>
-
-      <Prose>
-        <Code>partial_fit</Code> is unique to Naive Bayes (and a handful of other sklearn classifiers). Because training reduces to accumulating sufficient statistics — word counts, class-conditional means and variances — each mini-batch's contribution is just an additive update to those statistics. There is no loss surface, no gradient, no learning rate. The model after 100 mini-batches is identical to the model trained on all 100 mini-batches at once.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Decision boundary: Gaussian NB vs. logistic regression</H3>
-
-      <Prose>
-        Gaussian Naive Bayes allows each class to have its own covariance (encoded via per-class per-feature variances). When the two classes have different variances, the decision boundary becomes quadratic — an ellipse or parabola in 2D. Logistic regression is always linear. The plot below shows two clusters with deliberately unequal spreads: class 0 is tight (variance ≈ 0.5), class 1 is spread out (variance ≈ 2.0). GNB traces the quadratic boundary; logistic regression forces a straight line.
-      </Prose>
-
-      <Plot
-        title="Gaussian NB (quadratic boundary) vs. logistic regression (linear boundary)"
-        description="Class 0 centered at (-2,-2) with σ²≈0.5; class 1 centered at (2,2) with σ²≈2.0. GNB traces the quadratic boundary between unequal-variance Gaussians. Logistic regression is constrained to a hyperplane."
-        xLabel="feature 1"
-        yLabel="feature 2"
-        series={[
-          {
-            label: "class 0 (tight spread)",
-            type: "scatter",
-            color: colors.gold,
-            points: (() => {
-              const pts = [];
-              let s = 42;
-              const rand = () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
-              const randn = () => { const u = 1 - rand(), v = rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
-              for (let i = 0; i < 60; i++) pts.push([-2 + randn() * 0.7, -2 + randn() * 0.7]);
-              return pts;
-            })(),
-          },
-          {
-            label: "class 1 (wide spread)",
-            type: "scatter",
-            color: colors.green,
-            points: (() => {
-              const pts = [];
-              let s = 99;
-              const rand = () => { s = (s * 1664525 + 1013904223) & 0xffffffff; return (s >>> 0) / 0xffffffff; };
-              const randn = () => { const u = 1 - rand(), v = rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); };
-              for (let i = 0; i < 60; i++) pts.push([2 + randn() * 1.4, 2 + randn() * 1.4]);
-              return pts;
-            })(),
-          },
-          {
-            label: "logistic regression boundary (linear)",
-            type: "line",
-            color: colors.textMuted,
-            points: [[-4, -4], [5, 5]],
-          },
-          {
-            label: "Gaussian NB boundary (quadratic — approximated)",
-            type: "line",
-            color: "#e06c75",
-            points: [[-4, -1.8], [-1.8, 0], [0, 1.0], [1.0, 2.2], [2.2, 5]],
-          },
-        ]}
-      />
-
-      <H3>6b. MultinomialNB step trace — 3-document toy corpus</H3>
-
-      <Prose>
-        The following trace walks through MultinomialNB fitting and prediction on a minimal 5-word vocabulary. It shows exactly what numbers are being computed at each step.
-      </Prose>
-
-      <StepTrace
-        label="MultinomialNB step-by-step — vocab: ['free', 'money', 'win', 'meeting', 'agenda']"
-        steps={[
-          {
-            label: "Step 1 — Training corpus",
-            render: () => (
-              <Prose>
-                3 documents, 2 classes. spam1: "free free money" → [2,1,0,0,0]. spam2: "free money win" → [1,1,1,0,0]. ham1: "meeting agenda" → [0,0,0,1,1]. Class priors: P(spam)=2/3=0.6667, P(ham)=1/3=0.3333.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Estimate log P(word | spam) with α=1 smoothing",
-            render: () => (
-              <Prose>
-                Spam word counts: free=3, money=2, win=1, meeting=0, agenda=0. Total raw = 6. With Laplace (α=1): counts = [4,3,2,1,1], total = 11. log θ: free=-1.0116, money=-1.2993, win=-1.7047, meeting=-2.3979, agenda=-2.3979.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Estimate log P(word | ham) with α=1 smoothing",
-            render: () => (
-              <Prose>
-                Ham word counts: free=0, money=0, win=0, meeting=1, agenda=1. Total raw = 2. With Laplace (α=1): counts = [1,1,1,2,2], total = 7. log θ: free=-1.9459, money=-1.9459, win=-1.9459, meeting=-1.2528, agenda=-1.2528. Note that unseen words (free, money, win) still get smoothed counts — zero-frequency problem solved.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — Classify test doc: 'free' → [1,0,0,0,0]",
-            render: () => (
-              <Prose>
-                log P(spam | 'free') = log(0.6667) + 1×(-1.0116) = -0.4055 + (-1.0116) = -1.4171. log P(ham | 'free') = log(0.3333) + 1×(-1.9459) = -1.0986 + (-1.9459) = -3.0445. log-posterior ratio: -1.4171 - (-3.0445) = +1.6274. Predicted class: spam (higher log-posterior).
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — Intuition: why 'free' strongly implies spam",
-            render: () => (
-              <Prose>
-                The log-likelihood ratio for 'free' is (-1.0116) - (-1.9459) = +0.9343 per occurrence. Each time 'free' appears in a document, the model gets 0.9343 log-units of evidence for spam — a multiplicative factor of e^0.9343 ≈ 2.5. Two occurrences of 'free' gives a factor of 6.3 in favor of spam. This is exactly the Bayesian update: the posterior shifts proportionally to how much more likely the observation is under spam vs. ham.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6c. Per-class word log-probability heatmap</H3>
-
-      <Prose>
-        The heatmap shows log P(word | class) for the 8-word toy corpus from Section 4b. Darker cells indicate higher log-probability (more characteristic of that class). "Free," "money," "win," and "prize" score high for spam; "meeting," "agenda," "report," and "quarter" score high for ham. The contrast is clean because the toy corpus has no word overlap — real corpora are noisier.
-      </Prose>
-
-      <Heatmap
-        label="log P(word | class) — Multinomial NB, 8-word toy corpus"
-        colLabels={["free", "money", "win", "prize", "meeting", "agenda", "report", "quarter"]}
-        rowLabels={["ham", "spam"]}
-        matrix={[
-          [-3.61, -2.92, -3.61, -3.61, -1.41, -1.53, -1.53, -1.67],
-          [-1.19, -1.39, -1.64, -1.97, -3.58, -3.58, -3.58, -3.58],
-        ]}
-        colorScale="gold"
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <StepTrace
-        label="when to use Naive Bayes — and when not to"
-        steps={[
-          {
-            label: "NB wins: text classification",
-            render: () => (
-              <Prose>
-                Multinomial and Complement NB are competitive with SVMs and logistic regression on bag-of-words text at a fraction of the training cost. Vocabulary sizes of 100k+ are handled trivially — the model is just a matrix of word log-probabilities. For document routing, spam filtering, language detection, and short-text categorization, NB is often the correct first choice. Start here before reaching for fine-tuned transformers.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB wins: small labeled datasets",
-            render: () => (
-              <Prose>
-                Naive Bayes has few parameters to estimate: one mean and one variance per class-feature pair for Gaussian NB, or one probability per class-word pair for Multinomial NB. With 50 training samples, logistic regression and neural networks overfit; GaussianNB fits stably because its generative structure imposes strong inductive bias. If your labeled set has fewer than ~500 samples, NB is worth serious consideration.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB wins: speed and streaming",
-            render: () => (
-              <Prose>
-                Training is a single pass, O(n·d). No gradient descent, no convergence monitoring, no hyperparameter search for the optimizer. For streaming data where the model must update continuously (email arriving in real time, log-line classification), partial_fit is uniquely suited — each batch update is an additive count increment, not a full retrain. Latency-sensitive production systems benefit from NB's microsecond prediction time.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB wins: high-dimensional sparse features",
-            render: () => (
-              <Prose>
-                Logistic regression with L2 regularization and gradient descent slows dramatically as feature dimensionality grows. NB parameter count scales linearly with d, estimation is closed-form, and the sparse structure of bag-of-words features is exploited naturally — only non-zero word counts contribute to the log-posterior sum.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB loses: strongly correlated features",
-            render: () => (
-              <Prose>
-                When features are highly correlated — e.g., "excellent" and "great" both appear in positive reviews — Multinomial NB double-counts their evidence. The model becomes overconfident: the posterior is pushed further toward one class than the true posterior warrants. This shows up as extreme probabilities near 0 or 1 even when the true probability is 0.6. Use logistic regression or gradient boosting instead; they learn inter-feature relationships via shared weights or splits.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB loses: calibrated probability outputs required",
-            render: () => (
-              <Prose>
-                If downstream decisions depend on accurate probability values (e.g., a medical triage system where P(disease)=0.3 vs. P(disease)=0.7 has different clinical implications), NB's probabilities are unreliable. The independence assumption systematically pushes posteriors toward 0 and 1. Use CalibratedClassifierCV from sklearn with method='isotonic' or method='sigmoid' to post-process NB outputs, or switch to logistic regression which is better calibrated by construction.
-              </Prose>
-            ),
-          },
-          {
-            label: "NB loses: continuous features with non-Gaussian distributions",
-            render: () => (
-              <Prose>
-                GaussianNB assumes unimodal Gaussian distributions per class per feature. Bimodal distributions, heavy tails, or skewed features will fool it. A feature with a bimodal within-class distribution will have its variance overestimated, reducing discriminative power. If your continuous features look non-Gaussian, consider transforming them (log transform for right-skewed features), or use a discriminative classifier that makes no distributional assumption.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Training complexity: O(n·d) — genuinely fast</H3>
-
-      <Prose>
-        Training Multinomial NB on a corpus of <Code>n</Code> documents each with <Code>d</Code> distinct word types requires a single pass to accumulate word counts per class. This is <Code>O(n·d)</Code> time and <Code>O(K·d)</Code> memory, where <Code>K</Code> is the number of classes. Compare with logistic regression (gradient descent: <Code>O(n·d)</Code> per epoch, many epochs needed) or an SVM (kernel methods: <Code>O(n²)</Code> to <Code>O(n³)</Code> for training). Gaussian NB is similarly a single pass to compute per-class means and variances. There is no iterative loop to converge, no learning rate to tune, no loss function to monitor.
-      </Prose>
-
-      <Prose>
-        For <Code>n = 1,000,000</Code> documents and <Code>d = 100,000</Code> word types, NB training completes in seconds. Logistic regression on the same corpus with a sparse solver (saga) takes minutes to hours depending on convergence. This is not a marginal difference — in production systems where models need to retrain frequently (daily or hourly), NB's training speed is a decisive operational advantage.
-      </Prose>
-
-      <H3>8.2 Streaming / online updates: O(1) per sample</H3>
-
-      <Prose>
-        NB's sufficient statistics are counts and counts of counts. When a new labeled document arrives, updating the model requires only incrementing the appropriate word counts and class count — constant time per document, regardless of the existing training set size. No other standard classifier supports this. Logistic regression requires re-running gradient descent; SVMs require re-solving the dual quadratic program; random forests require rebuilding trees.
-      </Prose>
-
-      <Prose>
-        Sklearn's <Code>partial_fit</Code> implements this exactly. The internal state is just two arrays: <Code>feature_count_</Code> (K × d, class-conditional word counts) and <Code>class_count_</Code> (K, total documents per class). Each <Code>partial_fit</Code> call adds the new batch's counts to these arrays and recomputes log-probabilities. The model after seeing 1,000,000 emails via <Code>partial_fit</Code> in 1,000-email batches is identical to the model trained on all 1,000,000 emails at once.
-      </Prose>
-
-      <H3>8.3 What doesn't scale: the independence assumption</H3>
-
-      <Prose>
-        The computational bottleneck is not compute — it is model quality. As datasets grow larger, patterns of feature correlation become statistically detectable, and classifiers that model those correlations (logistic regression, gradient boosting) exploit them while NB ignores them. Empirically, on text classification benchmarks, NB's accuracy advantage over logistic regression diminishes as training set size increases beyond ~10,000 documents. On very large datasets, discriminative classifiers learn to use the full feature correlation structure and typically win.
-      </Prose>
-
-      <Prose>
-        The practical implication: use NB for fast prototyping and as a baseline regardless of dataset size. If NB already achieves acceptable performance, ship it. If performance is insufficient and the dataset is large, switch to logistic regression or gradient boosting. NB's quality ceiling is set by the independence assumption; its compute ceiling is essentially unlimited.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Zero-frequency problem</H3>
-
-      <Prose>
-        Any word that appears in test documents but never in training documents gets probability zero under MLE. One zero probability drives the entire log-posterior to <Code>-∞</Code>, making the model completely certain about the wrong class. This is not an edge case — it happens routinely with any test vocabulary that exceeds the training vocabulary. <strong>Always use Laplace or Lidstone smoothing</strong> (<Code>alpha {">"} 0</Code> in sklearn). The <Code>alpha=0</Code> default in some textbook implementations is dangerous in production.
-      </Prose>
-
-      <H3>9.2 Correlated features inflate confidence</H3>
-
-      <Prose>
-        When features are correlated, the independence assumption double-counts evidence. In a spam filter, "free offer" and "free gift" might appear together in 90% of spam emails. A document containing both "offer" and "gift" gets treated as if both provided independent evidence — the posterior gets pushed further toward spam than the true posterior. The predicted class is usually still correct, but the associated probability is miscalibrated toward extremes. This is the primary reason NB probabilities cannot be used for anything requiring accurate confidence scores without post-processing.
-      </Prose>
-
-      <H3>9.3 Poor probability calibration</H3>
-
-      <Prose>
-        Naive Bayes systematically produces overconfident posterior probabilities — values near 0 and 1 appear far more often than they should. A well-calibrated model that predicts P=0.8 for 100 events should see that event occur about 80 times. NB calibration curves typically bow toward the corners. The fix in sklearn is <Code>CalibratedClassifierCV</Code>:
-      </Prose>
-
-      <CodeBlock language="python">
-{`from sklearn.calibration import CalibratedClassifierCV
-from sklearn.naive_bayes import MultinomialNB
-
-# 'isotonic' calibration: nonparametric, good for many samples
-# 'sigmoid' calibration: Platt scaling, good for small calibration sets
-cal_mnb = CalibratedClassifierCV(MultinomialNB(alpha=1.0), method='isotonic', cv=5)
-cal_mnb.fit(X_tr, y_tr)
-# cal_mnb.predict_proba() now returns calibrated probabilities`}
-      </CodeBlock>
-
-      <Prose>
-        Calibration is a post-processing step that maps the raw predicted probabilities to more accurate ones. It does not change the predicted class — just the associated confidence. Use it whenever downstream decisions depend on probability values rather than just the argmax.
-      </Prose>
-
-      <H3>9.4 Log-sum-exp and numerical stability</H3>
-
-      <Prose>
-        If you implement <Code>predict_proba</Code> by exponentiating log-posteriors and then normalizing, the exponentiation step can overflow (if log-posteriors are large and positive) or underflow to zero (if they are large and negative). Always use the log-sum-exp trick: subtract the maximum log-posterior before exponentiating. Sklearn handles this internally. In custom implementations, use <Code>scipy.special.logsumexp</Code> or implement it manually as shown in Section 3.6.
-      </Prose>
-
-      <H3>9.5 Class imbalance — use ComplementNB for text</H3>
-
-      <Prose>
-        Standard Multinomial NB is sensitive to class imbalance. The majority class has more training documents, so its word counts are larger, and the model tends to assign higher log-likelihoods to test documents regardless of their actual content. ComplementNB (Rennie et al., ICML 2003) directly addresses this: instead of estimating P(word | class), it estimates P(word | complement of class) and uses the complement parameters for classification. This corrects for the majority-class bias and consistently outperforms standard Multinomial NB on imbalanced corpora. Use <Code>sklearn.naive_bayes.ComplementNB</Code> as a drop-in replacement whenever class frequencies are unequal.
-      </Prose>
-
-      <H3>9.6 Gaussian NB on non-Gaussian features</H3>
-
-      <Prose>
-        GaussianNB's Gaussian assumption is violated by count data (always non-negative, often zero-inflated), binary data (Bernoulli, not Gaussian), and any heavy-tailed or multimodal distribution. Applying GaussianNB to raw word counts instead of continuous embeddings is a common mistake. Check feature distributions first: <Code>plt.hist(X[:, j])</Code> for a few features. If they look nothing like Gaussians, either transform them (log1p for counts) or switch to MultinomialNB / BernoulliNB as appropriate.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, and main contribution. Read them in this order to follow the intellectual lineage from probability theory to production NLP.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Bayes 1763 — The foundational theorem",
-            render: () => (
-              <Prose>
-                Bayes, T. (1763). "An Essay towards solving a Problem in the Doctrine of Chances." Communicated by Richard Price. <em>Philosophical Transactions of the Royal Society of London</em>, 53, 370–418. Published posthumously two years after Bayes' death. Price edited the manuscript and added his own appendix. The paper introduced the concept of inverse probability and the formula for updating beliefs given evidence — the theorem that now bears Bayes' name. The original is available via the Royal Society Publishing archive (DOI: 10.1098/rstl.1763.0053). Laplace's 1812 <em>Théorie analytique des probabilités</em> and his 1814 philosophical essay independently derived the same rule and extended it to continuous priors, giving the theorem its modern generality.
-              </Prose>
-            ),
-          },
-          {
-            label: "Maron 1961 — Naive Bayes applied to text classification",
-            render: () => (
-              <Prose>
-                Maron, M.E. (1961). "Automatic Indexing: An Experimental Inquiry." <em>Journal of the ACM</em>, 8(3), 404–417. DOI: 10.1145/321075.321084. Available via ACM Digital Library. Maron, working at RAND Corporation, applied Bayes' rule with a conditional independence assumption to automatically classify technical documents into subject categories based on word occurrences. This is the earliest published application of what we now call Naive Bayes to text. The paper is empirical: Maron built a working system on 968 scientific abstracts and reported classification accuracy, demonstrating that the naive independence assumption worked surprisingly well in practice. This practical finding — that the naive model performs well despite its wrong assumption — remained largely untheorized for decades.
-              </Prose>
-            ),
-          },
-          {
-            label: "Sahami, Dumais, Heckerman, Horvitz 1998 — Bayesian spam filtering",
-            render: () => (
-              <Prose>
-                Sahami, M., Dumais, S., Heckerman, D., and Horvitz, E. (1998). "A Bayesian Approach to Filtering Junk E-Mail." <em>AAAI Technical Report WS-98-05</em>, AAAI Workshop on Learning for Text Categorization, Madison, Wisconsin, July 27, 1998. Available at cdn.aaai.org/Workshops/1998/WS-98-05/WS98-05-009.pdf. This paper brought Naive Bayes to widespread attention in the ML community by applying it to the practical, high-stakes problem of email spam. The key contributions: framing spam detection as a decision-theoretic problem with asymmetric misclassification costs (false negatives — missing spam — are worse than false positives — blocking legitimate mail); showing that domain-specific features (message headers, specific phrases) combined with raw text produced substantially better filters than rule-based systems; and reporting that a Naive Bayes classifier trained on a few hundred labeled emails generalized well. The paper became one of the most cited works in applied ML from the 1990s.
-              </Prose>
-            ),
-          },
-          {
-            label: "Rennie, Shih, Teevan, Karger 2003 — Complement NB and fixing NB's assumptions",
-            render: () => (
-              <Prose>
-                Rennie, J.D.M., Shih, L., Teevan, J., and Karger, D.R. (2003). "Tackling the Poor Assumptions of Naive Bayes Text Classifiers." <em>Proceedings of the 20th International Conference on Machine Learning (ICML)</em>, Washington DC, August 21–24, 2003, 616–623. Available via ACM DL (10.5555/3041838.3041916) and Microsoft Research. This paper is the definitive analysis of <em>why</em> standard Multinomial NB underperforms on text and what to do about it. The authors identify three systematic problems: (1) the multinomial model treats document length as informative, biasing long-document classes; (2) training imbalance causes majority-class overconfidence; (3) correlated features cause probability overestimation. Their fix — Complement NB, which estimates each class's model from the complement set — addresses problems (2) and (3) and produces a fast algorithm competitive with SVMs on 20 Newsgroups. ComplementNB is now in sklearn and is the recommended NB variant for imbalanced text classification.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving on. The answer key is below each exercise — resist the urge to read ahead.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Write the MAP classification rule for Naive Bayes. What is the "naive" assumption, and why is it called naive? What does working in log-space accomplish numerically?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        MAP rule: ŷ = argmax_k [log P(y=k) + Σⱼ log P(xⱼ | y=k)]. The naive assumption is conditional independence of features given the class: P(x | y=k) = ∏ⱼ P(xⱼ | y=k). It is called naive because features in real data are almost never independent — "free" and "money" in emails are correlated — but the assumption is made anyway for tractability. Log-space serves two purposes: (1) it turns a product of many small probabilities into a sum, preventing numerical underflow to 0.0 in floating point; (2) it is computationally equivalent (argmax of log = argmax of original) so classification is unchanged.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Derive the Laplace-smoothed estimate of <Code>θₖⱼ</Code> (word probability) for Multinomial NB. What happens as <Code>α → 0</Code>? What happens as <Code>α → ∞</Code>? Why is <Code>α = 0</Code> dangerous in production?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        The Laplace-smoothed estimate is θ̂ₖⱼ = (Nₖⱼ + α) / (Nₖ + α·d), where Nₖⱼ = total count of word j in class k documents, Nₖ = total word count in class k documents, d = vocabulary size. As α → 0: the estimate approaches the MLE Nₖⱼ/Nₖ — no smoothing. As α → ∞: the estimate approaches 1/d — uniform distribution over words, ignoring data entirely. α = 0 is dangerous because any word absent from class k training documents gets θ̂ₖⱼ = 0, so log θ̂ₖⱼ = -∞. A single occurrence of that word in a test document makes log P(x | y=k) = -∞, and the model assigns posterior 0 to class k — garbage output due to one unseen word.
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        Explain why Naive Bayes decision boundaries can be quadratic while logistic regression boundaries are always linear. Give the specific condition under which Gaussian NB and logistic regression produce the same linear boundary.
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        Logistic regression models P(y=1 | x) as σ(wᵀx + b) — a linear function of x passed through a sigmoid. The decision boundary (where P=0.5) is always a hyperplane: wᵀx + b = 0. Gaussian NB computes log P(y=k) + Σⱼ log N(xⱼ; μₖⱼ, σ²ₖⱼ) for each class. When the log-Gaussian terms are expanded, they include quadratic terms -(xⱼ - μₖⱼ)²/(2σ²ₖⱼ). When two classes have different variances, the quadratic terms from the two classes don't cancel when taking the difference, leaving a quadratic boundary. The boundary becomes linear exactly when all classes share the same per-feature variance (σ²₀ⱼ = σ²₁ⱼ for all j) — identical to the assumption made by Linear Discriminant Analysis (LDA). In that case, GaussianNB and LDA produce the same boundary, and with the further assumption of Gaussian features, the boundary is the same hyperplane as logistic regression (though the weight estimates differ).
-      </Callout>
-
-      <H3>Exercise 4 (debugging)</H3>
-      <Prose>
-        You train MultinomialNB on an email spam dataset and evaluate it. On the training set, accuracy is 99%. On a held-out test set from a different time period (6 months later), accuracy drops to 61% — barely above a majority-class baseline. List three possible causes and one fix for each.
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        Cause 1: Vocabulary drift. New spam uses words absent from training data. NB assigns those words near-zero probability (or exactly zero without smoothing), making predictions unreliable. Fix: retrain the model periodically on recent data, and ensure alpha {">"} 0 for smoothing. Cause 2: Concept drift. The statistical relationship between words and spam has changed (spammers adapted). Fix: use a sliding window of recent labeled data rather than the full historical corpus, or use partial_fit to incrementally update the model as new labeled data arrives. Cause 3: Different preprocessing between train and test. If the tokenizer or vocabulary cutoff differs between the two time periods (e.g., max_features in CountVectorizer is applied separately), the feature spaces are misaligned. Fix: fit the vectorizer on training data only (cv.fit on train, cv.transform on both), never refit on test.
-      </Callout>
-
-      <H3>Exercise 5 (applied)</H3>
-      <Prose>
-        You have a 10-class document classification problem with severely imbalanced classes (class 0: 60% of data, class 9: 0.5% of data). You try MultinomialNB and find it never predicts class 9. What sklearn class addresses this directly, and what is the conceptual reason it helps?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Use ComplementNB (sklearn.naive_bayes.ComplementNB). Conceptually: standard Multinomial NB estimates P(word | class k) from the word counts within class k. For the rare class (class 9), there are few training documents, so the word probability estimates are high-variance and the prior log P(class 9) is very negative (log(0.005) = -5.3). The model almost never overcomes this prior penalty. ComplementNB instead estimates P(word | NOT class k) for each class k — training the model on the complement set. For the rare class, the complement set is large (99.5% of data), giving stable estimates. Classification is then "which class's complement model least explains this document," which naturally gives the rare class more consideration. In practice, ComplementNB consistently outperforms standard MultinomialNB on imbalanced text corpora by 2–10 percentage points of accuracy.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        A colleague says: "I need calibrated probabilities for my medical classification system, so Naive Bayes is ruled out." Is this correct? If not, describe a complete pipeline that uses Naive Bayes but produces well-calibrated outputs.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        Incorrect — or rather, premature. Naive Bayes <em>raw</em> probabilities are poorly calibrated, but this is fixable. A complete pipeline: (1) Train MultinomialNB (or GaussianNB) as normal. (2) Wrap it in CalibratedClassifierCV(MultinomialNB(alpha=1.0), method='isotonic', cv=5). The isotonic regression calibrator learns a monotone mapping from NB's raw scores to calibrated probabilities using cross-validated held-out predictions. (3) Evaluate calibration with a reliability diagram (sklearn.calibration.CalibrationDisplay) and Expected Calibration Error (ECE). After calibration, predicted probabilities of 0.8 should be correct about 80% of the time. The tradeoff: calibration requires a validation set (auto-handled by cv=5), and isotonic calibration needs at least a few hundred samples per class to fit stably. If the dataset is very small (under 200 samples total), Platt scaling (method='sigmoid') is more appropriate as it has fewer parameters.
-      </Callout>
-
-    </div>
-  ),
+import { Callout, Code, H2, H3, Prose } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { Checkpoint, LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample';
+import { NaiveBayesModelFigure, NaiveBayesCorpusFigure, TokenEvidenceLab, PresenceEvidenceLab, GaussianObservationLab, GaussianGeometryLab, CopiedAlarmLab, ComplementPoolingFigure, CalibrationOwnershipFigure, ReliabilityLab } from '../../components/lesson-labs/NaiveBayesLabs.jsx';
+import { naiveBayesExamples } from '../naive-bayes-examples.js';
+function Example({
+  id,
+  children
+}) {
+  const example = naiveBayesExamples.find(item => item.id === id);
+  return <><Prose><strong>Before running:</strong> {example.question}</Prose>
+    <RunnableExample example={example}>{children}</RunnableExample></>;
+}
+function Practice({
+  title,
+  question,
+  hint,
+  children
+}) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{question}</Prose>
+    <details><summary>Hint</summary><Prose>{hint}</Prose></details>
+    <details><summary>Explained solution</summary>{children}</details></section>;
+}
+export default {
+  title: 'Naive Bayes & Probabilistic Classifiers',
+  readTime: '~90 min read + 2–3 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot naive-bayes-lesson">
+    <LessonIntro prerequisites="Review conditional probability, means/variances and probability versus density in Probability Distributions & Bayes' Theorem. We refresh the required Bayes and logarithm steps here. Python and NumPy are optional for running the complete programs; you can use every investigation without writing code." sections={[['1-one-message-one-prediction', 'The data and the decision'], ['2-turn-likelihoods-into-class-evidence', 'Scores, odds and probabilities'], ['3-learn-a-token-model', 'Counts and smoothing'], ['4-decide-what-an-observation-means', 'Counts, absence and categories'], ['5-measure-continuous-evidence', 'Gaussian likelihoods and boundaries'], ['6-test-the-independence-assumption', 'Copies and interactions'], ['7-understand-what-complement-nb-changes', 'Complement evidence and model choices'], ['8-fit-and-update-the-whole-workflow', 'Splits, sparse pipelines and streaming'], ['9-check-probabilities-before-choosing-actions', 'Calibration, reliability and costs'], ['10-connect-the-model-to-deeper-ideas', 'Linear scores and integrated prediction'], ['11-practise-with-new-observations', 'Independent practice and report']]}>An incoming message says “free meeting.” Does “free” make it junk, or does “meeting” make it ordinary work? A Naive Bayes classifier answers by learning what observations are typical of each class, then combining that evidence with how common the classes are. We will build that calculation, make its assumptions visible and check when its reported confidence becomes misleading.</LessonIntro>
+
+    <H2>1. One message, one prediction</H2>
+    <Prose>Our first task has two labels: <strong>ham</strong> means ordinary mail and <strong>spam</strong> means junk. One row is one completely observed message. Its features are measurable properties available when it arrives, such as word counts. Its label comes from an annotation or later feedback. A training set contains labeled examples from which we estimate model parameters; a new message supplies features but not a known label.</Prose>
+    <Prose>The representation is a choice. “Free free money” could become three ordered tokens, a vector of word counts, or a set of yes/no word occurrences. These representations keep different information. A model cannot learn word order from counts that have already discarded it. A feature based on whether a user later deletes the message would also be unavailable at arrival time, even if it makes a historical dataset easy to classify.</Prose>
+    <Prose>Before fitting a sophisticated rule, establish a <strong>baseline</strong>. Under equal costs for the two mistakes, always predicting the most common training label is a useful first comparison. A probability baseline can always output the training class frequencies. It uses no word evidence. A classifier should be evaluated against that baseline on observations kept separate from the fitting decisions.</Prose>
+    <LessonTable caption="Which data are allowed to teach which part?" headers={['Data role', 'Allowed use', 'Common mistake']} rows={[['Training', 'Learn vocabulary, parameters and any fitted preprocessing', 'Learning features from future test messages'], ['Validation or internal held-out folds', 'Choose smoothing, representation or another model', 'Calling the best repeatedly inspected validation score a final test'], ['Calibration, when used', 'Learn a probability mapping from predictions made without fitting that row’s target', 'Calibrating on the base model’s own training predictions'], ['Final test', 'Evaluate the complete chosen workflow', 'Changing the model after seeing the result and still calling it untouched']]} />
+    <Prose>A random split is appropriate only when its unit matches the intended prediction problem. Copies of one message, messages from the same campaign, or repeated measurements from one machine may need to stay in the same group. Predicting a later time period may need a chronological split. The small synthetic examples below teach mechanics; they do not establish performance on real incoming mail.</Prose>
+    <H3>A different route from features to a label</H3>
+    <Prose>A <strong>generative classifier</strong> models how features would look within each class. It estimates both class frequencies and class-conditional feature distributions. It then reverses the question: given the observed features, which class is more plausible? A discriminative classifier such as logistic regression directly models a class probability from the features. Both must still be trained and evaluated under a valid data protocol.</Prose>
+    <NaiveBayesModelFigure />
+    <Prose>The “naive” assumption is that, once a class is fixed, the chosen features have a joint likelihood that factors into separate likelihoods. For binary word occurrences, this means the model treats deciding whether “free” appears as independent of deciding whether “money” appears <em>within each class</em>. The features need not be independent after mixing the classes together. Also, pairwise independence alone would not justify a product over an arbitrary number of features.</Prose>
+    <Prose>The computational saving is substantial. An unrestricted distribution over d binary features has 2ᵈ possible patterns and 2ᵈ−1 free probabilities per class. A factored Bernoulli model needs only d occurrence probabilities per class. That reduction can make estimation practical with sparse data, but it is a restriction on the model, not evidence that the real features satisfy it.</Prose>
+
+    <H2>2. Turn likelihoods into class evidence</H2>
+    <Prose>Let Y be a class label and x the observed feature vector. Write π꜀ for the prior probability of class c, and L꜀(x) for the likelihood of these features under that class. “Prior” means before inspecting this new case's features; π꜀ may itself have been estimated from many labeled training cases. For discrete observations L is a probability mass. For continuous measurements it is a density evaluated at the observation.</Prose>
+    <MathBlock>{"\\begin{aligned}w_c(x)&=\\pi_c L_c(x),\\\\P(Y=c\\mid x)&=\\frac{w_c(x)}{\\sum_r w_r(x)},\\\\\\widehat y&=\\arg\\max_c w_c(x).\\end{aligned}"}</MathBlock>
+    <Prose>The weights w are nonnegative, but they do not generally sum to one. The denominator normalizes across the mutually exclusive classes. It must be positive. You may omit it when comparing classes because it is the same positive number for every class. You may not omit it and then label the remaining weights “posterior probabilities.” The argmax rule minimizes conditional classification error under equal error costs; a different action cost can require a different threshold.</Prose>
+    <Prose>For an inspectable example, suppose two of three training messages are spam. A fitted token model gives “free” probability 4/11 in spam and 1/7 in ham. For the one-token message “free,” the spam weight is (2/3)(4/11)=8/33 and the ham weight is (1/3)(1/7)=1/21. Dividing each by their sum gives:</Prose>
+    <MathBlock>{"\\begin{gathered}P(\\text{spam}\\mid\\text{free})\\\\=\\frac{8/33}{8/33+1/21}=\\frac{56}{67},\\\\P(\\text{ham}\\mid\\text{free})=\\frac{11}{67}.\\end{gathered}"}</MathBlock>
+    <Prose>The fitted model reports about 83.58% spam. This is a consequence of the declared class and token estimates. It is not yet evidence that messages receiving that number are spam 83.58% of the time in the real population. We will learn the estimates in the next section and assess probability reliability later.</Prose>
+    <H3>Products become sums; probabilities still need normalization</H3>
+    <Prose>Multiplying many small likelihoods can underflow to zero in a computer. Natural logarithms convert a product into a sum: log(ab)=log a+log b. Because log is increasing, it preserves comparisons between positive weights. Under a factored feature model, the unnormalized class log score is:</Prose>
+    <MathBlock>{"\\begin{gathered}s_c(x)=\\log\\pi_c+\\sum_j\\log P(x_j\\mid c),\\\\m=\\max_r s_r,\\\\\\ell=m+\\log\\sum_r\\exp(s_r-m),\\\\\\log P(c\\mid x)=s_c-\\ell.\\end{gathered}"}</MathBlock>
+    <Prose>Subtracting the largest score before exponentiation makes every exponential at most one and leaves at least one equal to one. This <strong>log-sum-exp</strong> calculation avoids the common failure of first exponentiating large negative scores. Retaining log probabilities can also preserve meaningful very small values when their final probabilities round to zero. Log arithmetic cannot rescue a model that assigns zero likelihood to every class: all scores are then −∞ and no posterior is defined.</Prose>
+    <Prose>In the two-class case, subtract the ham score from the spam score. The result is the <strong>log odds</strong>: log[P(spam|x)/P(ham|x)]. Zero means a tie; positive values favor spam. A token's contribution is a log likelihood ratio, so the signed contribution tells us which class it supports and by how much.</Prose>
+    <Prose><strong>Optional Python setup.</strong> Save each complete program in its own file, for example <Code>nb_experiment.py</Code>, and run <Code>python nb_experiment.py</Code>. Later examples use NumPy, SciPy and scikit-learn; install them in a virtual environment with <Code>python -m pip install numpy scipy scikit-learn</Code>. Displayed outputs were executed with Python 3.12.14, NumPy 2.3.5, SciPy 1.18.1 and scikit-learn 1.9.1. These are tested versions, not a promise that future defaults remain identical.</Prose>
+    <Example id="normalized-scores"><Prose>The scores −1001 and −1000 both exponentiate to zero directly, yet their difference is only one natural-log unit. Stable normalization gives about 26.89% and 73.11%, rather than a division by zero. The last example deliberately reports undefined conditioning instead of silently inventing a uniform posterior.</Prose></Example>
+    <Checkpoint prompt="A method returns the values log(8/33) and log(1/21). Is predict_log_proba an accurate name for it?"><Prose>No. These are unnormalized log weights. A name such as log_joint or class_log_scores states what they are. A method named predict_log_proba should subtract the shared log normalizer so that exponentiating its outputs gives probabilities summing to one.</Prose></Checkpoint>
+
+    <H2>3. Learn a token model</H2>
+    <Prose>We now derive the numbers used above. The vocabulary is the ordered list <Code>[free, money, win, meeting, agenda]</Code>. Every message maps to five counts in this same order. For this miniature training set, class labels and tokenization are fixed:</Prose>
+    <NaiveBayesCorpusFigure />
+    <Prose>Pool tokens within each class. Spam has counts (3,2,1,0,0), totaling 6. Ham has counts (0,0,0,1,1), totaling 2. Let C꜀ⱼ be the pooled count of vocabulary word j in class c and T꜀ their sum. A maximum-likelihood estimate would be θ꜀ⱼ=C꜀ⱼ/T꜀. Thus the prior counts <em>documents</em>, whereas θ estimates the fraction of <em>tokens</em> of that word within a class. Confusing these denominators produces a different model.</Prose>
+    <H3>What Multinomial NB actually assumes</H3>
+    <Prose>Condition on the message's in-vocabulary length N. The model treats its token positions as independent draws from the same class-specific vocabulary probabilities θ꜀. The probability of one ordered token sequence is the product of those probabilities. If we retain only its count vector x, several ordered sequences can produce those same counts. Their number is N! divided by the product of the count factorials.</Prose>
+    <MathBlock>{"\\begin{gathered}N=\\sum_{j=1}^{V}x_j,\\qquad \\sum_{j=1}^{V}\\theta_{cj}=1,\\\\P(x\\mid c,N)=\\frac{N!}{\\prod_jx_j!}\\prod_j\\theta_{cj}^{x_j},\\\\s_c(x)=\\log\\pi_c+\\sum_{j:x_j>0}x_j\\log\\theta_{cj}.\\end{gathered}"}</MathBlock>
+    <Prose>The multinomial coefficient is the same for every class when the observed count vector is fixed, so it cancels during class normalization as well as argmax. Omitting it from a classifier score is legitimate; omitting it while claiming the actual count probability is not. With probabilities θ(A)=4/5 and θ(B)=1/5, the ordered sequence AB has probability 4/25. The count event “one A and one B” includes AB and BA, so its probability is 8/25.</Prose>
+    <Prose>The count columns are <strong>not independent</strong> when their total N is fixed. If all N tokens are A, the B count must be zero. The independence assumption concerns token draws before they are aggregated into dependent counts. This is why Multinomial NB cannot be described simply as an independent multinomial random variable in every count column.</Prose>
+    <Prose>These scores also leave out a separate class-dependent length model. If length itself is informative and you intend to model it, the full generative comparison includes P(N|c). The usual token classifier effectively uses a class-independent length factor and compares class evidence at the observed N. Longer messages still accumulate more token evidence; that is different from learning a separate distribution of message lengths.</Prose>
+    <H3>Reserve probability for unobserved declared words</H3>
+    <Prose>A word may exist in the vocabulary but have no observed occurrences in one class. Pure relative-frequency estimation gives it probability zero there. One occurrence then makes that class's entire likelihood zero. With tiny training sets this can confuse “not observed yet” with “impossible.” Additive smoothing places positive mass on every declared vocabulary entry:</Prose>
+    <MathBlock>{"\\widehat\\theta_{cj}=\\frac{C_{cj}+\\alpha}{T_c+\\alpha V},\\qquad \\alpha>0."}</MathBlock>
+    <Prose>With α=1, add one to each of five counts. Spam becomes (4,3,2,1,1)/11; ham becomes (1,1,1,2,2)/7. The probabilities still sum to one because the denominator includes all V additions. Increasing α pulls estimates toward 1/V. As α approaches zero, estimates approach the unsmoothed frequencies when T꜀ is positive. If T꜀=0, unsmoothed token probabilities cannot be estimated at all.</Prose>
+    <LessonTable caption="The fitted five-word model at alpha = 1" headers={['Word', 'Spam θ', 'Ham θ', 'Evidence direction for one token']} rows={[['free', '4/11', '1/7', 'Spam: likelihood ratio 28/11'], ['money', '3/11', '1/7', 'Spam: ratio 21/11'], ['win', '2/11', '1/7', 'Spam: ratio 14/11'], ['meeting', '1/11', '2/7', 'Ham: ratio 7/22'], ['agenda', '1/11', '2/7', 'Ham: ratio 7/22']]} />
+    <Prose>For “free,” prior odds are (2/3)/(1/3)=2 and the likelihood ratio is (4/11)/(1/7)=28/11. Posterior odds are 56/11, so the spam probability is (56/11)/(1+56/11)=56/67. In log space the two contributions are log 2≈0.693147 and log(28/11)≈0.934309, totaling 1.627456.</Prose>
+    <TokenEvidenceLab />
+    <H3>Why these parameter estimates arise</H3>
+    <Prose>Ignoring constants that do not depend on θ, the training log likelihood for one class is Σⱼ Cⱼ log θⱼ, with nonnegative θⱼ summing to one. For positive counts, a Lagrange multiplier λ gives Cⱼ/θⱼ=λ. Summing Cⱼ=λθⱼ over j yields λ=T, and hence θⱼ=Cⱼ/T. Zero-count entries attain their MLE at the boundary θⱼ=0 when other counts have positive total. The limit convention 0 log 0=0 describes an unobserved category's contribution to this likelihood, not a positive observation of an impossible word.</Prose>
+    <Prose>Additive smoothing can be interpreted through a Dirichlet prior with positive shape α in each category. Multiplying its density, proportional to ∏θⱼ^(α−1), by the likelihood adds the counts to those shapes. The posterior shapes are Cⱼ+α and their mean is (Cⱼ+α)/(T+Vα). This is the posterior mean, also the predictive probability for one new token. It is <em>not</em> the posterior mode formula, which subtracts one from each interior shape. Using the posterior mean in a product for a whole document is a plug-in approximation; section 10 shows how integrating the shared uncertainty differs.</Prose>
+    <Prose>Positive smoothing resolves zero likelihoods <em>inside the declared vocabulary</em>. A completely new word has no column in a fitted CountVectorizer. By default it is ignored, not assigned a tiny smoothed likelihood. An explicit unknown-token feature is another possible design, but it must be included and mapped consistently during fitting and inference. Do not silently grow a vocabulary at prediction time.</Prose>
+    <Example id="count-classifier"><Prose>This larger eight-message corpus includes the word “money” once in ham, so the classes do overlap. Its raw token totals are 29 and 28. After adding one across eight columns, ham divides by 37 and spam by 36. The program prints actual class counts, word estimates, scores and normalized probabilities. Its 100% training accuracy merely confirms separation of these eight invented training rows.</Prose></Example>
+    <Prose>The implementation multiplies log probabilities only for positive query counts. That avoids the floating-point NaN from 0×(−∞) when α=0. It then refuses a row whose likelihood is zero under every class. The complete class is deliberately limited to nonnegative integer counts; a practical scoring extension to fractional TF–IDF features has a different probabilistic interpretation.</Prose>
+
+    <H2>4. Decide what an observation means</H2>
+    <H3>Bernoulli NB includes the words that did not appear</H3>
+    <Prose>A binary occurrence feature bⱼ records whether word j appeared at least once. Repeating “free” ten times leaves b_free=1. Each feature now has its own probability φ꜀ⱼ of being present in class c. Its absence probability is 1−φ꜀ⱼ, so every completely observed feature contributes a factor:</Prose>
+    <MathBlock>{"\\begin{gathered}P(b\\mid c)=\\prod_j\\phi_{cj}^{b_j}(1-\\phi_{cj})^{1-b_j},\\\\t_{cj}=\\begin{cases}\\log\\phi_{cj}&b_j=1,\\\\\\log(1-\\phi_{cj})&b_j=0,\\end{cases}\\\\s_c(b)=\\log\\pi_c+\\sum_jt_{cj}.\\end{gathered}"}</MathBlock>
+    <Prose>To fit φ, count how many class-c <em>documents</em> contain the word, not how often the word repeats. With a symmetric Beta(α,α) smoothing prior, add α to presence and α to absence. If D꜀ is the number of class-c documents and D꜀ⱼ⁺ the number containing word j, the smoothed probability is (D꜀ⱼ⁺+α)/(D꜀+2α). There are two possible outcomes for each feature, so this denominator differs from the V-category token denominator.</Prose>
+    <Prose>In the three-message corpus with α=1, “free” appears in both spam documents: φ_spam,free=(2+1)/(2+2)=3/4. It appears in no ham document: φ_ham,free=(0+1)/(1+2)=1/3. For the message “free,” the model also observes that money, win, meeting and agenda are absent. Under spam their absence factors are 1/4,1/2,3/4,3/4. Multiplying all five factors and the prior, then normalizing against the ham weight, gives about 86.50% spam. This differs from 83.58% because it models a different observation event.</Prose>
+    <PresenceEvidenceLab />
+    <Prose>Do not treat an unmeasured feature as an observed zero. If a sensor failed, we do not know whether an alarm was absent. Under a factored class model, marginalizing a genuinely unobserved feature sums its likelihood over possible values and contributes a factor of one. This can justify omitting that factor when the missingness mechanism supplies no additional class evidence under the stated conditioning. If failures themselves are informative, the model needs to account for that observation process. Encoding missing as absent silently changes the evidence.</Prose>
+    <H3>Categorical NB gives each column its own set of labels</H3>
+    <Prose>Suppose a device record has status in the set <Code>{"{idle, busy, offline}"}</Code> and link in <Code>{"{wired, radio}"}</Code>. These are two categorical features, not five token counts. Integer codes such as offline=2 are labels; twice the number does not mean twice as much offline. Each feature j has Mⱼ declared categories and a separate probability table for each class.</Prose>
+    <MathBlock>{"P(X_j=t\\mid c)=\\frac{D_{cjt}+\\alpha}{D_c+\\alpha M_j}."}</MathBlock>
+    <Prose>D_cjt counts class-c records with category t in column j. Their product is justified by the same conditional-factorization assumption. A fixed “other” category can handle inputs outside the named taxonomy if the preprocessing maps them there consistently. In scikit-learn's CategoricalNB, <Code>min_categories</Code> can reserve the declared support. A category code beyond the fitted support is not made valid merely by setting α positive.</Prose>
+    <Example id="event-models"><Prose>The first part compares the same three query messages. Bernoulli's two “free” queries agree; Multinomial's confidence changes with repetition. An empty count vector returns its prior; an all-absent Bernoulli vector gives about 51.64% spam. The categorical example reserves status code 3 before fitting; code 4 remains outside that declared model.</Prose></Example>
+    <Checkpoint prompt="A feature stores a browser family as 0, 1 or 2. Should it automatically be passed to MultinomialNB because its values are nonnegative integers?"><Prose>No. The numbers encode one categorical choice, not counts of repeated events. CategoricalNB with a declared category mapping is a relevant candidate. A different representation/model is also possible, but it must match what the values mean. Numeric dtype alone does not determine an appropriate likelihood.</Prose></Checkpoint>
+
+    <H2>5. Measure continuous evidence</H2>
+    <Prose>For a continuous reading, such as a voltage, Gaussian NB models each feature within each class using a normal distribution. It learns a mean μ꜀ⱼ and a positive variance σ²꜀ⱼ. The standard deviation σ has the feature's unit; the variance has its squared unit. The density is:</Prose>
+    <MathBlock>{"\\begin{gathered}z_{cj}=\\frac{x_j-\\mu_{cj}}{\\sigma_{cj}},\\\\f(x_j\\mid c)=\\frac{\\exp(-z_{cj}^{2}/2)}{\\sqrt{2\\pi}\\,\\sigma_{cj}}.\\end{gathered}"}</MathBlock>
+    <Prose>A density height is not a point probability. For a continuous distribution the probability of one exact value is zero; probabilities come from integrating over intervals. If two classes use the same measurement coordinates, their densities can still be compared at the observed value. A common coordinate-conversion factor cancels when normalizing class weights.</Prose>
+    <GaussianObservationLab />
+    <Prose>At the common mean, the narrower Normal(0,1) density is twice the wider Normal(0,4) density, so equal priors give the narrow class posterior 2/3. Far into either tail, the wider density decays more slowly. Equating their log densities gives x²=8 log 2/3 and crossings at approximately ±1.359556 mV. Changing the width of an interval around x changes its probability but does not change the point-density posterior being displayed.</Prose>
+    <H3>Fit means and variances from each class</H3>
+    <Prose>For one class-feature pair containing D observations, the Gaussian maximum-likelihood mean is their average. After centering by that mean, its maximum-likelihood variance is the average squared deviation, with denominator D. The familiar unbiased sample variance uses D−1 and answers a different estimation question. GaussianNB uses the maximum-likelihood convention.</Prose>
+    <MathBlock>{"\\begin{gathered}\\widehat\\mu=\\frac1D\\sum_i x_i,\\\\\\widehat\\sigma^2=\\frac1D\\sum_i(x_i-\\widehat\\mu)^2.\\end{gathered}"}</MathBlock>
+    <Prose>For readings 1,2,3 mV, the mean is 2 mV and the variance is (1+0+1)/3=2/3 mV². A single observation or a constant class-feature column gives zero fitted variance. The ordinary Gaussian density formula then fails. A positive variance floor can regularize this degeneracy, but it changes the model and requires a meaningful scale.</Prose>
+    <details><summary>Derive the Gaussian estimates and identify the degenerate case</summary>
+      <Prose>The log likelihood is −(D/2)log(2πv)−Σ(xᵢ−μ)²/(2v) for variance v&gt;0. For fixed v, maximizing it minimizes the sum of squared deviations. Writing Σ(xᵢ−μ)²=Σ(xᵢ−x̄)²+D(μ−x̄)² proves μ=x̄. Substitution leaves derivative −D/(2v)+Σ(xᵢ−x̄)²/(2v²), which vanishes at the displayed variance if the squared-deviation sum is positive. When that sum is zero, the likelihood grows without bound as v approaches zero; a nondegenerate Gaussian MLE does not exist in the positive-variance domain. A floor is an explicit regularization choice.</Prose>
+    </details>
+    <Prose>The complete educational implementation below adds an absolute variance floor of 10⁻⁹ in the declared squared units. scikit-learn's <Code>var_smoothing</Code> instead multiplies the largest feature variance by its setting and adds the resulting epsilon to class-feature variances. Inspect <Code>epsilon_</Code> and feature scaling when that distinction matters. A global variance scale can mix incompatible physical units if raw features are not sensibly represented. Constant data can also leave the library's relative epsilon at zero; a parameter name is not a guarantee against every degenerate dataset.</Prose>
+    <Example id="gaussian-fit"><Prose>This fixed Gaussian random draw produces the printed means and variances. The probability method normalizes its scores, including at the origin where the model reports roughly 59.42% for class 1. Its training accuracy remains 99.50%. A held-out experiment is still necessary before assessing predictive usefulness.</Prose></Example>
+    <H3>Read the decision boundary from the likelihood</H3>
+    <Prose>For d features, Gaussian NB has a diagonal class covariance: it sums separate squared deviations rather than including cross terms such as x₁x₂. Subtracting two class log scores gives a sum of quadratic terms. If the corresponding feature variances are equal across classes, each xⱼ² term cancels, leaving a linear function of the features. Otherwise the comparison is generally quadratic; it may have more than one boundary or even no crossing in a given region.</Prose>
+    <Prose>In the next formula, Q꜀ⱼ is the squared deviation measured relative to that class variance. Dⱼ compares this distance penalty and the spread-normalization penalty between the classes. Summing those per-feature comparisons gives the complete score difference:</Prose>
+    <MathBlock>{"\\begin{gathered}Q_{cj}=\\frac{(x_j-\\mu_{cj})^2}{\\sigma_{cj}^2},\\\\D_j=\\log\\frac{\\sigma_{1j}^2}{\\sigma_{0j}^2}+Q_{1j}-Q_{0j},\\\\s_1(x)-s_0(x)\\\\=\\log\\frac{\\pi_1}{\\pi_0}-\\frac12\\sum_jD_j.\\end{gathered}"}</MathBlock>
+    <Prose>With the known two-dimensional means (−2,−2) and (2,2), equal priors, and within-class variances 0.5 and 2 on both axes, expanding this expression gives 0.75(x₁²+x₂²)+5(x₁+x₂)+6−log 4. Setting it to zero and completing the squares produces the circle in the next investigation. This is a calculated boundary of the stated probability model.</Prose>
+    <GaussianGeometryLab />
+    <Prose>Binary logistic regression with features x and no nonlinear expansion uses log odds wᵀx+b, so its probability-one-half boundary is linear in that representation. A shared-covariance Gaussian generative model also induces a linear-logit form, but fitting the two methods uses different objectives. Their estimated coefficients need not agree on a finite dataset. General LDA permits a shared <em>full</em> covariance, while shared-variance Gaussian NB restricts that covariance to be diagonal. Equal variances alone do not establish identical separately fitted classifiers.</Prose>
+    <Example id="gaussian-boundaries"><Prose>The first calculation checks sampled points on the analytic circle using an independent multivariate Gaussian density. The second is a separate fitted comparison on the 500-row synthetic dataset. Here GaussianNB has higher accuracy while logistic regression has lower log loss. This particular split illustrates that class accuracy and quality of probability predictions are different criteria; it supplies no universal model ranking.</Prose></Example>
+    <Prose>Assess normality within each class, not just in the pooled histogram. A mixture of two class-conditional normals can look bimodal overall while fitting the class model perfectly. Conversely, each class may itself be multimodal, skewed or heavy-tailed. A training-fitted transformation, a richer class likelihood or a different classifier may help; none is justified solely because it produced a familiar-looking plot.</Prose>
+
+    <H2>6. Test the independence assumption</H2>
+    <Prose>The “naive” restriction buys simple estimates by ignoring conditional feature relationships. That can leave useful classification intact, distort probabilities, or change the class itself. There is no general promise that only confidence changes. We can demonstrate the distinction without finite-sample noise by specifying an exact population.</Prose>
+    <Prose>Suppose 20% of machines have a fault. A single alarm is positive with probability 0.8 in a fault and 0.4 in a normal machine. Then positive observations have total population mass (0.2)(0.8)+(0.8)(0.4)=0.48, of which 0.16 are faults. The correct positive posterior is 0.16/0.48=1/3. Now copy that same alarm into three feature columns. The new columns contain no new information.</Prose>
+    <MathBlock>{"\\begin{gathered}P(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8}{0.2\\cdot0.8+0.8\\cdot0.4}=\\frac13,\\\\\\widehat P_{\\mathrm{ind}}(\\text{fault}\\mid +,+,+)\\\\=\\frac{0.2\\cdot0.8^3}{0.2\\cdot0.8^3+0.8\\cdot0.4^3}=\\frac23.\\end{gathered}"}</MathBlock>
+    <Prose>The first expression uses the actual joint likelihood: all copies are positive exactly when the original alarm is positive. The second replaces that joint event with three independent draws. Under equal error costs it now chooses fault, while the actual posterior still favors normal. More data estimating the same incorrect factorization would not remove that structural error.</Prose>
+    <CopiedAlarmLab />
+    <Prose>The true classifier using this alarm and equal error costs always chooses normal: even a positive alarm has fault probability only 1/3. Its accuracy is 0.8. The three-copy model chooses fault on positives and normal on negatives, so its actual accuracy is (0.2)(0.8)+(0.8)(0.6)=0.64. This is not a measurement of every correlated dataset. It is a counterexample that rules out the claim that the ranking must survive a wrong independence assumption.</Prose>
+    <H3>Sometimes the relationship is the signal</H3>
+    <Prose>Take two fair binary switches A and B, and define a label that is one exactly when they differ. The four equally likely records are (0,0)→0, (0,1)→1, (1,0)→1 and (1,1)→0. Within either class, each switch separately is one half likely to be on. A Bernoulli NB fit to those exact marginal probabilities gives identical class likelihoods, even though the pair determines the label perfectly.</Prose>
+    <Prose>This XOR example requires a representation or model that can use the interaction. A feature indicating A≠B makes the relationship explicit; a suitably expressive tree can branch on both switches. Ordinary linear logistic regression on A and B alone also cannot separate the XOR pattern, so “use a discriminative classifier” is not a complete diagnosis. State which relationship the replacement can express and evaluate it without leaking the answer into a feature unavailable at prediction time.</Prose>
+    <Example id="dependence"><Prose>Fraction arithmetic evaluates the actual law and the mistaken product separately. It reports expected Brier loss as well as accuracy: squaring the difference between a probability and the binary outcome penalizes unjustified confidence. The XOR enumeration verifies the equality of the class marginals rather than inferring it from a drawing.</Prose></Example>
+
+    <H2>7. Understand what Complement NB changes</H2>
+    <Prose>Rare classes present several distinct problems. Their priors may be small, they may have few examples from which to estimate token frequencies, the training sample may not match deployment prevalence, and the chosen evaluation metric may hide their errors. Those are different causes. Multiplying every count in one class by a constant does not automatically increase its unsmoothed token probabilities: both numerator and denominator scale together.</Prose>
+    <Prose><strong>Complement NB</strong> changes which training rows determine a class's weights. For class c, pool the documents from every <em>other</em> class. Smooth and normalize those pooled token counts. A new document is favored for c when it fits this complement poorly. This is a useful alternative to assess for text; it is not a guarantee that an imbalanced dataset's rare class will be recovered.</Prose>
+    <ComplementPoolingFigure />
+    <MathBlock>{"\\begin{aligned}\\bar C_{cj}&=\\sum_{r\\ne c}C_{rj},\\\\\\bar\\theta_{cj}&=\\frac{\\bar C_{cj}+\\alpha}{\\sum_k\\bar C_{ck}+\\alpha V},\\\\a_{cj}&=-\\log\\bar\\theta_{cj},\\\\s_c(x)&=\\sum_jx_j a_{cj}.\\end{aligned}"}</MathBlock>
+    <Prose>The minus sign matters. A tiny complement probability gives a large negative log probability, so a word that the complement poorly explains raises the class score. In the figure, query counts (2,0,1) produce class-0 score −2 log(2/23)−log(11/23)≈5.622293. The other scores are about 2.814809 and 3.702700, so class 0 wins.</Prose>
+    <Prose>An optional second normalization divides each weight row by Σⱼ|a꜀ⱼ|. It adjusts the overall magnitude of different classes' weight vectors and can change comparisons. For positive smoothed probabilities below one, these a values are nonnegative, so the denominator is their sum. Degenerate one-word support gives all zero weights and needs a specific implementation convention rather than division by zero.</Prose>
+    <Prose>The installed scikit-learn 1.9.1 implementation defaults to <Code>norm=False</Code>; this omits the paper's second weight normalization. For its ordinary multi-class use, the score does not add a class log prior, and its <Code>class_prior</Code> parameter is not used. Its stored <Code>feature_log_prob_</Code> contains complement-derived weights despite the familiar attribute name. Check the actual contract rather than assuming every member of the family has the same probabilistic meaning.</Prose>
+    <Example id="complement"><Prose>The program computes both normalization variants explicitly and compares their weights and normalized output scores with the library. Softmax-normalizing these complement scores makes them sum to one; it does not turn them into the posterior of the original fitted class-generative multinomial model. Assess their probability behavior empirically if a downstream decision needs probabilities.</Prose></Example>
+    <Prose>Rennie and colleagues proposed complement estimation, weight normalization and text transformations as practical changes to the basic model. Those changes have empirical motivation and distinct effects. They do not learn every word relationship, remove every imbalance issue or establish a universal ranking against ordinary MNB, logistic regression or SVMs. Use a split, metric and baseline suited to the task.</Prose>
+    <H3>Choose a model from the observation, not its name</H3>
+    <LessonTable caption="Likelihood and representation must match" headers={['Model', 'Observation it describes', 'Important check']} rows={[['Multinomial NB', 'Token counts with a declared vocabulary and conditional-length event model', 'Nonnegative counts; class token denominator; OOV policy'], ['Bernoulli NB', 'A completely observed vector of binary events', 'Absence carries information; repetition is discarded'], ['Categorical NB', 'One declared category per feature', 'Category codes are labels; support is feature-specific'], ['Gaussian NB', 'Continuous class-conditional independent normal features', 'Units, within-class distribution, variance and dependence'], ['Complement NB', 'Complement-derived linear text scores', 'Pool other classes; check sign, norm and probability semantics']]} />
+    <Prose>A small labeled set can make a restrictive model attractive because it has relatively few parameters to estimate. That does not mean a dataset below some universal sample count favors NB, or that a regularized discriminative model must overfit. If informative structure violates the assumptions, a simple misspecified model can still fail with either few or many observations.</Prose>
+
+    <H2>8. Fit and update the whole workflow</H2>
+    <H3>A sparse text pipeline with a real held-out boundary</H3>
+    <Prose>The next program uses a twenty-message teaching corpus and defines the complete data protocol. Split the raw text first. Within the fourteen training messages, three internal stratified folds compare α values. The vectorizer is inside the pipeline that each fold fits, so that fold's held-out text cannot expand the vocabulary or influence fitted feature selection. The final selected pipeline is then refitted on all fourteen training rows and evaluated on the six untouched test rows.</Prose>
+    <Prose>A sparse count matrix stores only nonzero entries and their indices. A vocabulary with 100,000 words does not mean a ten-word message must allocate 100,000 explicit count values. Keep the matrix sparse for Multinomial, Bernoulli and Complement NB; converting it to a dense array can exhaust memory long before the arithmetic itself becomes difficult. GaussianNB's usual dense input route is a different choice.</Prose>
+    <Example id="text-pipeline"><Prose>The internal training comparison selects α=0.5, and the final training-only vocabulary has 32 words in this tested run. All three specified text candidates classify the six test messages correctly, while their log losses differ. MNB was selected using its internal training folds; choosing a new winner because its test loss looks better would turn this test into further validation. Six hand-built messages cannot support a reliable model ranking.</Prose><Prose>The invented probe “zephyronic qxz” and the empty string both become zero-feature rows. The fitted MNB returns its class prior for both. This tells us that the chosen representation supplied no evidence; it does not mean the original unknown message is intrinsically uninformative.</Prose></Example>
+    <Prose>For a genuine task, report the unit of splitting, label quality, class support, preprocessing, baseline and chosen metric along with the result. Precision asks what fraction of predicted positives are positive; recall asks what fraction of actual positives were found. A confusion matrix exposes which class is missed. Macro-averaged metrics give each class equal weight, while overall accuracy can hide a rare class. Model choice should follow the operational question, not an unqualified “accuracy” number.</Prose>
+    <H3>Which work scales with the number of observations?</H3>
+    <Prose>Let n be the number of training rows, V the vocabulary size, K the number of classes and nnz the number of nonzero entries in the sparse count matrix. A simple class-grouped implementation visits rows and their nonzero counts to collect statistics, then calculates the K×V parameter table. Prediction for a message with q nonzero word counts compares those q contributions across K classes.</Prose>
+    <LessonTable caption="A useful algorithmic cost model, excluding tokenization" headers={['Operation', 'Work', 'Stored model state']} rows={[['Count-model fitting from sparse rows', 'O(n + nnz + KV) for grouped accumulation and full parameter calculation', 'O(KV + K)'], ['Count prediction for one sparse message', 'O(Kq + K)', 'Model plus query; no need to store prior training rows'], ['Gaussian fitting on n rows and d dense features', 'O(nd + Kd) with grouped statistics', 'O(Kd + K)'], ['Gaussian prediction for one row', 'O(Kd)', 'Means, variances and priors'], ['Count partial-fit batch', 'Visit its rows/nonzeros, then refresh relevant parameter arrays; library implementation includes overhead', 'Counts grow; model dimensions stay tied to the schema']]} />
+    <Prose>These describe operations, not measured seconds or universal solver rankings. Tokenization also costs work proportional to the input text, and actual libraries have allocation, sparse multiplication and parameter-refresh overhead. A claim of O(1) per document would incorrectly ignore document length, feature work and possible parameter refresh. “Does not revisit all previous rows” is the useful property.</Prose>
+    <details><summary>How can Bernoulli prediction use sparsity while accounting for absence?</summary>
+      <Prose>With all smoothed probabilities strictly between zero and one, collect the all-absent contribution into a class bias: b꜀=log π꜀+Σⱼ log(1−φ꜀ⱼ). Each present word then replaces its absent term with its present term by adding log[φ꜀ⱼ/(1−φ꜀ⱼ)]. Thus s꜀=b꜀+Σⱼ:bⱼ=1 log[φ꜀ⱼ/(1−φ꜀ⱼ)]. Precomputing the bias and these weights lets prediction visit present features while still accounting for all absent ones. Sparse computation does not imply that absence was ignored.</Prose>
+    </details>
+    <H3>Streaming preserves sufficient statistics, not the world</H3>
+    <Prose>For a count model, raw class counts and class-word counts are enough to recompute the fitted parameters. A new labeled batch adds to those arrays. Apply smoothing to the accumulated counts; do not add a fresh prior to the accumulated state on every batch. The first <Code>partial_fit</Code> call needs the complete intended class list, because an early batch may omit a class that appears later. Every batch must keep the same feature meanings and column order.</Prose>
+    <Example id="streaming"><Prose>The correct loop processes batch sizes 4,4,4,2. Its final class counts are six ham and eight spam, and the small integer sufficient statistics match a single batch fit exactly. The discarded-remainder loop would process only twelve rows. Floating-point weights or larger accumulations can introduce roundoff differences; the algebraic count identity is not a promise of bitwise equality for every runtime and input.</Prose></Example>
+    <Prose>Gaussian streaming also combines class-feature counts, means and centered squared deviations. Mean/variance merging and the library's scale-based smoothing can behave differently across chunking than simple integer-count addition. Check the actual numeric behavior if matching a batch Gaussian fit is a requirement. Other online classifiers also exist; incremental NB is not the only method that can update without rebuilding a full dataset.</Prose>
+    <Prose>A cumulative model remembers old observations. It does not automatically adapt to a changing distribution by forgetting them. A recent-data retraining window, explicitly weighted statistics or a validated forgetting scheme changes that policy. Hashed features can offer a fixed-dimensional representation for changing text, but collisions mix meanings, and signed hashing is incompatible with a nonnegative count model unless the hashing configuration is changed. These are design tradeoffs to evaluate, not free cures for drift.</Prose>
+    <H3>Separate a changed prior from a changed likelihood</H3>
+    <Prose>If deployment class frequencies change while P(x|c) truly stays the same in the same feature representation, replace or adjust the prior contribution. For two classes with nonzero priors, the deployment log odds equal training log odds plus the change in prior log odds:</Prose>
+    <MathBlock>{"\\begin{aligned}\\log O_{\\mathrm{new}}(x)&=\\log O_{\\mathrm{old}}(x)\\\\&\\quad+\\log\\frac{\\pi_{\\mathrm{new},1}/\\pi_{\\mathrm{new},0}}{\\pi_{\\mathrm{old},1}/\\pi_{\\mathrm{old},0}}.\\end{aligned}"}</MathBlock>
+    <Prose>For example, oversampling a rare class can deliberately alter training frequencies; blindly treating those frequencies as deployment priors changes probability estimates. Prior adjustment is justified only with suitable prior information and stable class-conditional likelihoods. If new spam uses different language, P(x|spam) also changes and a prior-only correction is insufficient. If the vectorizer changes columns, even the representation contract has changed. Diagnose which boundary failed before selecting a repair.</Prose>
+
+    <H2>9. Check probabilities before choosing actions</H2>
+    <Prose>A model probability is computed under fitted assumptions. <strong>Calibration</strong> asks a different question: among cases assigned a score p, is the long-run fraction with label one also p? A system can rank cases usefully while reporting probabilities that are too extreme or too moderate. The copied-alarm example has a known population, so we can prove its discrepancy exactly. With real held-out data, we only estimate reliability from a finite sample.</Prose>
+    <Prose>A reliability diagram groups predictions into bins. Each nonempty bin supplies two averages: the mean predicted probability and the observed positive fraction. Display the number of cases too. A bin with one case must have observed fraction zero or one; that is noisy information about its long-run rate, not proof that its probability was absurd. Changing the binning can change the curve without changing any prediction.</Prose>
+    <ReliabilityLab />
+    <H3>Score every probability, not only a thresholded class</H3>
+    <Prose>For binary label y and predicted positive probability p, Brier loss is (p−y)². Log loss is −y log p−(1−y)log(1−p), using the limiting zero-term convention. Predicting probability zero for an event that occurs gives infinite mathematical log loss. Implementations may clip probabilities for finite reporting; that is an explicit numerical convention, not removal of the underlying error.</Prose>
+    <MathBlock>{"\\begin{gathered}\\mathbb E[(p-Y)^2\\mid x]\\\\=(p-q)^2+q(1-q),\\\\q=P(Y=1\\mid x).\\end{gathered}"}</MathBlock>
+    <Prose>To derive this identity, expand p²−2pY+Y², use Y²=Y for a binary outcome, and substitute E[Y|x]=q. The expected score is smallest at p=q. That makes Brier loss a proper probability score. Log loss has the same truthful optimum: its conditional expectation is the Bernoulli entropy at q plus the KL divergence from Bernoulli(q) to Bernoulli(p). These scores measure more than calibration alone, including the information that predictions distinguish between cases.</Prose>
+    <Prose>A prior-only constant score can be calibrated for the overall population while failing to distinguish easy from difficult cases. A more informative system can have a lower proper loss even if its probabilities are imperfectly calibrated. Conversely, aggregate calibration does not imply calibration in every subgroup or equality with the full posterior given all available information. The later Calibration & Conformal Prediction lesson develops those distinctions; they should already limit the claims we make here.</Prose>
+    <H3>Fit the probability mapping on unseen predictions</H3>
+    <Prose>A calibrator learns a mapping from the base model's output score to the observed label frequency. If it sees the base model's in-sample predictions, it may learn an unrealistically confident relationship. A simple safe-to-interpret protocol uses three disjoint data roles: fit the base, fit a calibrator using new base predictions, and evaluate both on an untouched final test set.</Prose>
+    <CalibrationOwnershipFigure />
+    <Prose><strong>Sigmoid calibration</strong> fits a two-parameter sigmoid of the supplied score. It is a compact shape assumption, not an arbitrary correction curve. <strong>Isotonic calibration</strong> fits a nondecreasing stepwise relationship: sort by score, estimate local positive rates and pool neighboring groups whenever their fitted rates violate monotonicity. For two equally sized neighboring groups with observed rates 0.4 then 0.2, the pooled rate is 0.3. This flexibility can fit small calibration samples too closely.</Prose>
+    <Prose>Check which score the API actually receives. In the tested scikit-learn version, CalibratedClassifierCV uses a decision function when available, otherwise predicted probabilities. GaussianNB has no decision function, so its sigmoid is fitted to probability outputs, not automatically to the original class log-odds difference. A sigmoid of an already saturated probability is a restricted family; it may not reproduce the correction achievable from an informative unsaturated score.</Prose>
+    <Prose>The next complete example freezes a fitted GaussianNB with <Code>FrozenEstimator</Code>, then uses different rows to fit the calibrator. Its data are synthetic: one normal reading shifted by 1.5 for class 1 is copied into two identical columns. All rows are independently drawn under a fixed declared law; the columns within each row are not independent measurements. No text preprocessing is fitted here. For text, freeze the whole fitted pipeline or put preprocessing inside each calibration fold's estimator.</Prose>
+    <Example id="calibrated-report"><Prose>On this fixed seed, calibration changes 63 decisions at threshold 0.5, raises accuracy from 0.8000 to 0.8158 and lowers Brier loss from 0.147984 to 0.131472. Those are executed outcomes of this synthetic experiment. Calibration is not guaranteed to improve every sample, group, metric or future distribution.</Prose><Prose>The probability-bin output is also diagnostic: this fitted sigmoid puts no test predictions in [0.8,1]. Under the separately declared cost threshold 0.8, it therefore takes no positive actions and incurs the observed positive fraction as its per-case cost. A model can improve a global probability score while still requiring scrutiny for a particular operating threshold. Do not conceal that consequence behind “calibrated” in its name.</Prose></Example>
+    <Prose>With cross-validation calibration, each fold fits a fresh complete base estimator and maps its held-out predictions. An ensemble configuration averages calibrated predictions from those fitted pairs; another configuration can use out-of-fold predictions to fit a mapping and then refit a base on all development data. Both require careful class coverage and consistent preprocessing. Their fitted outputs need not equal the simple three-way split above. Choosing a calibration method and its settings using the final test would invalidate that test's untouched role.</Prose>
+    <H3>A probability and an action are different outputs</H3>
+    <Prose>Suppose incorrectly flagging ordinary mail costs C_FP and allowing junk through costs C_FN, with zero cost for correct decisions. For positive probability p, flagging has conditional expected cost C_FP(1−p); allowing through has cost C_FN p. Choose the smaller:</Prose>
+    <MathBlock>{"\\begin{aligned}C_{\\mathrm{FP}}(1-p)&<C_{\\mathrm{FN}}p\\\\\\Longleftrightarrow\\quad p&>\\frac{C_{\\mathrm{FP}}}{C_{\\mathrm{FP}}+C_{\\mathrm{FN}}}.\\end{aligned}"}</MathBlock>
+    <Prose>With costs 4 and 1, the threshold is 0.8, not 0.5. A message at p=0.75 favors spam as a class but is allowed through under this particular loss table. The derivation is optimal relative to the probability and cost information actually used; inaccurate probabilities or changed costs can invalidate the action's intended justification. A monotone calibration map can also move the score that crosses a fixed threshold, so it need not preserve predicted classes.</Prose>
+    <Prose>This distinction appeared in Sahami and colleagues' documented 1998 spam-filtering work: they treated blocking legitimate mail as the more costly error. It remains an instructive connection between probabilistic classification and decisions. Their dataset and historical threshold are not evidence for using the same threshold in a new system.</Prose>
+
+    <H2>10. Connect the model to deeper ideas</H2>
+    <H3>A count model can induce linear log odds</H3>
+    <Prose>For two classes, Multinomial NB log odds are a prior bias plus a weighted sum of counts. Each weight is log(θ₁ⱼ/θ₀ⱼ). This has the same linear-logit shape that binary logistic regression can represent, while parameter fitting differs: NB fits class-conditional token statistics and priors; logistic regression fits the conditional class objective. A linear decision form therefore does not identify how a model was trained.</Prose>
+    <MathBlock>{"\\begin{aligned}\\log O(x)&=\\log\\frac{\\pi_1}{\\pi_0}\\\\&\\quad+\\sum_jx_j\\log\\frac{\\theta_{1j}}{\\theta_{0j}}.\\end{aligned}"}</MathBlock>
+    <Prose>Nonnegative fractional features, such as TF–IDF weights, can still be inserted into this linear score and are accepted by practical MNB implementations. But a fractional “count” does not describe the literal integer-valued multinomial event derived earlier. This is a useful scoring extension to compare on training-only features and held-out data, not a reason to relabel the original generative law. Likewise, n-gram features can add local order information while introducing overlapping dependencies that must be assessed.</Prose>
+    <H3>Using a posterior mean is not integrating a whole document</H3>
+    <Prose>A fitted probability table treats θ as fixed during prediction. A fully integrated Bayesian prediction instead averages the entire document likelihood over uncertainty about θ. Because all future tokens share θ, integrating it induces dependence between them. In general the expectation of a product is not the product of the expectations.</Prose>
+    <Prose>For posterior shapes A=(4,1), the mean token probabilities are (4/5,1/5). A plug-in model assigns probability (4/5)²=16/25 to two A tokens. The integrated prediction assigns (4/5)(5/6)=2/3: after considering one future A, a shared uncertain composition makes another A more plausible. This is a statement about joint prediction, not retraining on an observed test label.</Prose>
+    <MathBlock>{"\\begin{gathered}P(x\\mid\\text{training})=\\frac{N!}{\\prod_jx_j!}\\frac{\\prod_j A_j^{\\overline{x_j}}}{A_0^{\\overline N}},\\\\A_0=\\sum_j A_j,\\\\a^{\\overline m}=a(a+1)\\cdots(a+m-1),\\\\a^{\\overline0}=1.\\end{gathered}"}</MathBlock>
+    <Prose>The rising products arise by integrating the multinomial power product against the Dirichlet posterior: increasing each exponent by xⱼ gives a ratio of Dirichlet normalizers. The coefficient counts token orderings as before. For one new token the ratio reduces to Aⱼ/A₀, agreeing with the smoothed mean. For a whole count vector it gives the Dirichlet-multinomial law. The Bayesian Inference & Conjugate Priors lesson develops the posterior and normalizer framework further.</Prose>
+    <Example id="count-law"><Prose>The program distinguishes ordered AB from the count event “one A and one B,” verifies that all three-token count masses sum to one and compares fixed-table versus integrated prediction. For equal-prior classes with shapes (4,1) and (1,4), observing two A tokens gives class-0 posterior 16/17 under the plug-in tables and 10/11 under the integrated model. “Naive Bayes” in a library name does not automatically mean a full posterior integration over its parameters.</Prose></Example>
+    <Prose>These connections also explain what combining classifiers should preserve. A word likelihood, a model probability, a decision margin and a class label are different quantities. The next topic, Ensemble Methods & Stacking, will combine model outputs and teach how to fit that combination from predictions that respect each row's training boundary. Agreement among several models is not proof of independent evidence.</Prose>
+
+    <H2>11. Practise with new observations</H2>
+    <Prose>Try each task before opening its hint. The calculations use the model stated in the question; do not silently substitute a different event model or a more convenient prior. The final report changes an executed protocol and requires an interpretation as well as numbers.</Prose>
+    <Practice title="New priors and opposing words" question="Keep the five-word alpha=1 model, but set the spam prior to 1/3. Find the spam posterior for free meeting. Which term changes relative to the original prior?" hint="Multiply the new prior odds by 28/11 for free and 7/22 for meeting, then convert odds to probability.">
+      <Prose>The likelihood ratio is (28/11)(7/22)=98/121. New prior odds are (1/3)/(2/3)=1/2, so posterior odds are 49/121 and P(spam)=49/170≈0.288235. Only the prior log-odds term changes; the fixed class token tables do not. With the original prior 2/3, the probability would be 196/317≈0.618297. Changing prevalence can change the decision without changing token likelihoods, under the stated stable-likelihood assumption.</Prose>
+    </Practice>
+    <Practice title="Unseen in a class is not unknown to the vocabulary" question="With alpha=0, submit free meeting to the three-document model. Then submit only zephyronic. Explain the different failures or fallbacks, and what positive alpha changes." hint="One known word is impossible under each class; an unknown word contributes no column in this particular fitted representation.">
+      <Prose>Ham assigns zero probability to free, and spam assigns zero probability to meeting. Both complete-message weights are zero, so Bayes normalization is undefined. Positive smoothing gives both classes support on the known words and repairs that specific issue. Zephyronic is absent from the entire vocabulary and is ignored by this stated tokenizer/vectorizer policy; its zero-feature row returns the class prior. Raising alpha does not create a zephyronic feature. Handling unknown words requires a representation policy, not just a probability-floor setting.</Prose>
+    </Practice>
+    <Practice title="Use the absent feature" question="Two classes have equal priors. In class 1, two binary features have presence probabilities (.8,.2); in class 0 they are (.4,.6). For the complete observation (1, 0), calculate P(class 1). What if the second feature was genuinely unobserved rather than zero?" hint="The observed zero contributes 1 minus its presence probability. An omitted factor requires an appropriate missingness assumption.">
+      <Prose>Class 1 weight is .5×.8×.8=.32; class 0 weight is .5×.4×.4=.08. The posterior is .32/.40=.8. If feature 2 is unobserved and the observation process adds no class evidence, marginalizing it contributes one; the posterior becomes .8/(.8+.4)=2/3. Treating a missing measurement as an absent event would report a different answer without the corresponding observation.</Prose>
+    </Practice>
+    <Practice title="Find both Gaussian crossings" question="Two equally common classes have mean 0 and standard deviations 1 and 3 in the same unit. Find their density crossings and the posterior of the wider class at x=0." hint="The wide-to-narrow log-density ratio is −log 3 + (4/9)x².">
+      <Prose>The crossings satisfy x²=(9/4)log 3, so x=±(3/2)√log 3≈±1.572221. Both signs matter: the wide class wins in both far tails. At the common mean its density is one third of the narrow density, so equal priors give the wide class posterior 1/4. This is a model calculation, not a statement that the point itself has probability 1/4 under a continuous distribution.</Prose>
+    </Practice>
+    <Practice title="Convert coordinates without changing the observation" question="Convert every input, mean and standard deviation in a Gaussian classifier from millivolts to volts. What happens to each one-dimensional density and to the normalized class probabilities? What must happen to an absolute variance floor?" hint="One volt is 1000 millivolts. Density has reciprocal measurement units; variance has squared units.">
+      <Prose>The numeric coordinate and standard deviation divide by 1000, while variance divides by 10⁶. Each one-dimensional density expressed per volt is 1000 times its value expressed per millivolt. The same factor applies to every class and cancels from the posterior. For d consistently converted dimensions the common factor is 1000ᵈ. An absolute variance floor must also divide by 10⁶; keeping its numeric value would change the model. A relative library smoothing rule based on a global largest variance should be reassessed when features have different scales or only some coordinates are converted.</Prose>
+    </Practice>
+    <Practice title="A changed copied-alarm population" question="Fault prevalence is now .1, and a positive alarm has probabilities .9 in fault and .3 in normal. Find the true positive posterior, the posterior reported from three independent copies, and their actual equal-cost accuracies." hint="One likelihood ratio is 3. The true positive mass is .09 + .27. For the copied decision, add actual correct joint masses.">
+      <Prose>The true positive posterior is .09/.36=1/4. The mistaken three-copy odds are (1/9)×3³=3, giving posterior 3/4. The true equal-cost rule chooses normal for either alarm state, with accuracy .9. The copied rule chooses fault on positive and normal on negative, so its actual accuracy is .1×.9+.9×.7=.72. Those calculations use the actual joint law to evaluate the decision, not the fictional independent-copy law.</Prose>
+    </Practice>
+    <Practice title="Read a complement score in the correct direction" question="Use the three-class complement example with query counts (0, 2, 1) and norm=False. Which class wins, and would adding a large class prior reproduce sklearn's ordinary multiclass ComplementNB behavior?" hint="Negate two copies of the second column's log complement probability and one of the third.">
+      <Prose>The score expressions are −2log(10/23)−log(11/23) for class 0, −2log(5/23)−log(9/23) for class 1, and −2log(10/23)−log(3/23) for class 2. Class 1 wins. A high score means poor fit to that class's complement. Adding class priors would be a different scoring rule from the tested ordinary multiclass sklearn implementation. This single query is not evidence that either normalization variant will outperform another model.</Prose>
+    </Practice>
+    <Practice title="Repair a streaming and drift claim" question="A loop runs range(len(rows)//4) and takes four rows per iteration from fourteen rows. Its author says partial_fit both uses all observations and automatically adapts to new language. Diagnose both claims and propose distinct repairs." hint="Check the final index, then ask whether any accumulated count was removed or downweighted.">
+      <Prose>The loop consumes three full batches, twelve rows. Iterate start indices from 0 to len(rows) in steps of 4, letting the final slice contain two rows; verify final class and feature counts. Cumulative partial_fit keeps all old evidence, so it has no automatic forgetting policy. If language changes, validate a recent-data retraining window or explicit weighting/forgetting strategy. Keep the feature schema consistent and monitor OOV and class-conditional changes. Fixing the loop repairs data loss; it does not solve distribution drift.</Prose>
+    </Practice>
+    <Practice title="Distinguish calibration from an action threshold" question="A probability mapping changes a message from .6 to .45 while preserving the ordering of all scores. Can its predicted class change? If false-positive cost is 9 and false-negative cost is 1, which threshold follows from the stated loss model?" hint="Monotonicity preserves order, not where a fixed threshold is crossed. Compare the two conditional expected costs.">
+      <Prose>At threshold .5, the class changes from positive to negative even though the ranking is preserved. The declared cost threshold is 9/(9+1)=.9, so neither .6 nor .45 triggers a positive action under that rule. Calibration quality, ranking, class accuracy and performance under this cost are different questions. Evaluate the complete chosen probability/action pipeline on independent data; no one metric establishes all four.</Prose>
+    </Practice>
+    <Practice title="Predict a whole future count, not one token at a time" question="A Dirichlet posterior has shapes(2, 2). Compare the plug-in and integrated probabilities of two A tokens. Why does integrating not mean that two fixed-parameter token draws stopped being conditionally independent?" hint="The posterior mean is 1/2; the integrated rising-product probability is(2×3)/(4×5).">
+      <Prose>The plug-in probability is 1/4; the integrated probability is 3/10. At any fixed θ, the token draws remain independent. Their joint prediction averages over the same uncertain θ, creating dependence after θ is integrated out. A single-token prediction agrees with the mean table, but a whole-document likelihood need not. The result also distinguishes a model posterior from a claim about repeated real language use.</Prose>
+    </Practice>
+    <Practice title="Diagnose a rare-class remedy" question="A training sample has 4 fault cases and 196 normal cases. Suppose the deployment fault prior is also .02 and the correct positive likelihood ratio for a new observation is 9. A team balances the training labels and uses .5 as its model prior. Compare the resulting posterior with the deployment posterior. Does balancing establish better fault likelihoods?" hint="Use prior odds 1/49 for deployment and 1 for the balanced sample. Separate frequency correction from the amount of independent fault information.">
+      <Prose>Deployment posterior odds are 9/49, so the probability is 9/58≈0.155172. The balanced prior gives odds 9 and probability .9. If the class-conditional likelihoods truly stay fixed, restoring the deployment prior corrects this difference. Duplicating four fault examples does not create new independent observations of fault behavior. Smoothing, more representative labels, a different likelihood or Complement NB are separate candidates to validate; none follows automatically from balancing. Report class-specific recall and precision alongside a suitable baseline. If missing a fault costs 20 and a false alarm costs 1, the separately derived action threshold is 1/21, so even .155172 justifies a positive action under those probabilities and costs. A rare class, a probability and an action cannot be diagnosed from accuracy alone.</Prose>
+    </Practice>
+    <Practice title="Complete a changed probability report" question="In the calibrated-report program, change the random seed to 2027, the class 1 reading shift from 1.5 to 1.0 and the calibration sample size from 800 to 400. Keep 800 base-fit rows, 1200 test rows and costs 4:1. Run it and report the data unit, split ownership, baseline, raw/calibrated losses, changed decisions, reliability evidence and action limitation." hint="Change only the seed, the coefficient in draw_cases and the calibration draw count. Keep the final test outside all fitting. Report the actual output even if an expected improvement fails.">
+      <Prose>An acceptable report begins: “One row is one synthetic machine case; its two columns are exact copies of one reading. I fit the Gaussian base on 800 cases, the sigmoid on 400 separate cases and evaluated 1200 untouched cases under the same declared law. I compared both probability models with the prior-only baseline, retained bin counts and did not use test results to retune the mapping.” The fixed changed run gives baseline accuracy 0.7225, Brier 0.201183 and log loss 0.592234; raw GNB gives 0.7258, 0.181789 and 0.552812; sigmoid calibration gives 0.7492, 0.167991 and 0.510724. It changes 134 decisions at 0.5. These are measured finite-sample results under the stated seed, not promised improvements.</Prose><Prose>The four nonempty bins have sizes 506, 364, 231 and 99, mean predictions 0.1538, 0.2859, 0.5042 and 0.6420, and observed positive fractions 0.1166, 0.2830, 0.4502 and 0.6768. The highest bin [0.8, 1] is empty. The declared threshold 0.8 again takes no positive actions, giving realized cost 0.277500 per test case. Report that operating limitation alongside the improved global losses. A different seed, distribution or sample size needs its own report; changing the mapping after reading this test requires another untouched evaluation.</Prose>
+    </Practice>
+    <Prose><strong>Ready to continue?</strong> You should be able to identify the observation event, fit its likelihood table, calculate and normalize a class score, diagnose a dependence/support failure and justify a probability-based decision with a separate evaluation protocol. The next topic is <a href="/learn/path/full-curriculum/ensemble-methods-stacking">Ensemble Methods & Stacking</a>: combining models introduces a new training boundary as well as a new scoring rule.</Prose>
+
+    <Sources alternatives={<ul>
+      <li><a href="https://nlp.stanford.edu/IR-book/html/htmledition/naive-bayes-text-classification-1.html" target="_blank" rel="noreferrer">Manning, Raghavan & Schütze — Naive Bayes text classification</a>: a freely readable chapter with a separate worked token-count example. Useful after section 3 for another route through smoothing, evidence and sparse costs.</li>
+      <li><a href="https://www.youtube.com/watch?v=nt63k3bfXS0" target="_blank" rel="noreferrer">Stanford Online / Andrew Ng — CS229 Lecture 5: GDA & Naive Bayes</a>: an oral derivation alternative after the basic Bayes calculation. Probability and some linear algebra help with its GDA portion. The official recording/syllabus and substantive <a href="https://cs229.stanford.edu/summer2023/cs229-notes2.pdf" target="_blank" rel="noreferrer">generative-learning notes</a> were checked; no full-video viewing is claimed. Its older programming context is not the current API reference.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/naive_bayes.html" target="_blank" rel="noreferrer">scikit-learn — Naive Bayes user guide</a>: a concise family comparison and library orientation after sections 4–7. The lesson's explicit event and probability conventions clarify the compact formulas.</li>
+    </ul>}>
+      <li><a href="https://people.csail.mit.edu/jrennie/papers/icml03-nb.pdf" target="_blank" rel="noreferrer">Rennie, Shih, Teevan & Karger — Tackling the Poor Assumptions of Naive Bayes Text Classifiers</a>: original complement and normalization reasoning; a deeper research reference for section 7. Its experiments are not measurements of this lesson's examples.</li>
+      <li><a href="https://cdn.aaai.org/Workshops/1998/WS-98-05/WS98-05-009.pdf" target="_blank" rel="noreferrer">Sahami and colleagues — A Bayesian Approach to Filtering Junk E-Mail</a>: a documented historical application connecting feature design, asymmetric mistakes and probability-based decisions.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.ComplementNB.html" target="_blank" rel="noreferrer">ComplementNB API</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html" target="_blank" rel="noreferrer">GaussianNB API</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.CategoricalNB.html" target="_blank" rel="noreferrer">CategoricalNB API</a>: normalization/prior exceptions, variance smoothing and category support. Examples here were executed against version 1.9.1.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noreferrer">scikit-learn — Probability calibration</a>: held-out fitting, reliability diagrams and the distinction between proper loss and calibration alone; useful alongside section 9's complete protocol.</li>
+    </Sources>
+  </div>
 };
-
-export default naiveBayesContent;

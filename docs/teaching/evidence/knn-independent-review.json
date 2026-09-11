@@ -1,0 +1,124 @@
+{
+  "reviewedAt": "2026-09-11T14:32:00.575Z",
+  "reviewer": "/root/scientific_visual_improvements",
+  "status": "independent review closed; no unresolved material finding in the stated scope",
+  "stem": "knn",
+  "topicId": "k-nearest-neighbors-knn",
+  "initialFreeze": "2026-09-11T13:59:23.262Z",
+  "initialModelHash": "b9eb84f09a36ed8cdad9b392de8c1d4e074fc33353e065f646e188a7ef9bb48b",
+  "initialExamplesHash": "b07eacd797f1e489ee16b9a27d2a74e16a782e08620c101c51246335aa3d0264",
+  "reviewedScope": "Complete thirteen-section body, all twelve changed practice tasks, full pure model and labs/CSS, individual brief/design/verification, actual validation fixture, and exact displayed LocalNeighbors and KD build/search definitions. Reused the author's eleven complete program executions and three-width behavioral evidence except its focused amendments.",
+  "sourceFindings": [
+    {
+      "issue": "Sparse query/candidate arrays bypassed Array.some validation.",
+      "originalReproductions": [
+        "neighborReport({query:Array(2)}) produced NaN distances and a plausible label",
+        "neighborReport({candidates:Array(2),k:1}) failed later on undefined.distance"
+      ],
+      "repair": "Author validates explicit own indices and distinct declared candidate identities before arithmetic."
+    },
+    {
+      "issue": "The displayed Python Euclidean norm squared tiny differences to zero.",
+      "originalReproductions": [
+        "LocalNeighbors(k=1).fit([[0.],[1e-200]],['A','B']).predict([[1e-200]]) returned A instead of B",
+        "The displayed KD helper chose index 0 instead of the exact-match index 1 on the same coordinates"
+      ],
+      "repair": "Author uses stable hypot reduction in both actual displayed helpers; independently changed exact-match queries at ordinary, tiny and large scales preserve the correct neighbor identity."
+    },
+    {
+      "issue": "The browser helper multiplied two tiny nonzero norms before cosine division.",
+      "originalReproductions": [
+        "metricDistance([1e-200,0],[1e-200,0],'cosine') rejected two nonzero vectors"
+      ],
+      "repair": "Author normalizes each vector by its separate nonzero hypot before forming the dot product; six complementary tiny-scale angle cases pass."
+    }
+  ],
+  "assessment": "The equal-scale neighbor contour, within-row unit contributions, visited-node/split-plane trace, candidate-ID comparison and explicit volume model serve distinct learning jobs. The validation figure uses the actual recorded losses and does not invent a U-shape. Some author element screenshots contain the fixed page header across the capture; that is retained as an evidence limitation rather than claimed unobscured reading. Narrow spatial plots explicitly scroll. No additional mathematical or teaching defect found within this bounded review.",
+  "primarySourcesRead": [
+    "https://scikit-learn.org/stable/modules/neighbors.html",
+    "https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote02_kNN.html"
+  ],
+  "authorPacket": {
+    "path": "docs/teaching/evidence/knn-author-review.json",
+    "sha256": "caa513f33cd9cad065ed4d491eff4188b13cd7f244862cdf0aa63f66d737ad3c",
+    "frozenAt": "2026-09-11T13:59:23.262Z"
+  },
+  "amendmentPacket": {
+    "path": "docs/teaching/evidence/knn-input-amendment.json",
+    "sha256": "16c7ff4b76ba662401176c3da67fd34a5313cfa65f9b5c3bae6c927831773266",
+    "amendedAt": "2026-09-11T14:30:38.794Z"
+  },
+  "originalSourceArchive": "docs/teaching/archive/tree-knn-input-amendment/manifest.json",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+      "sha256": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516"
+    },
+    {
+      "path": "src/learn/data/knn-models.js",
+      "sha256": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74"
+    },
+    {
+      "path": "src/learn/data/knn-examples.js",
+      "sha256": "f98fa95e5bd98573280e10c3b63d7556ca7a19b875757c013f5a0c5b2863537a"
+    },
+    {
+      "path": "src/learn/data/knn-validation-data.js",
+      "sha256": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "sha256": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/knn-labs.css",
+      "sha256": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/k-nearest-neighbors-knn.js",
+      "sha256": "43e77af81755130051ec81693e767ac5001d15322b0d2a745f28c89a82cf4929"
+    }
+  ],
+  "complementaryEvidence": {
+    "path": "docs/teaching/evidence/classical-tree-knn-independent-numerical.json",
+    "sha256": "6066538e18ebd1a497d1ee9d6534e2225da8abf614527c342b87cfb43d3dc6dc",
+    "checkedAt": "2026-09-11T14:31:21.373Z"
+  },
+  "scripts": [
+    {
+      "path": "scripts/verify-classical-tree-knn-independent.mjs",
+      "sha256": "148c014a32ad67c735a3e6ddbb4be4ed128a8094954a2004eee15d78c54b1781"
+    },
+    {
+      "path": "scripts/verify-classical-tree-knn-independent.py",
+      "sha256": "b3b1ed2f7d5bf34e259a603fd1e92b3a611c8ed9938fbc39f102fa8f8fd693be"
+    }
+  ],
+  "openedAuthorImages": [
+    {
+      "path": "scratch/knn-browser/learning-state-1440-0.png",
+      "sha256": "8c059905a91d10c210d8ff39a8e3601a2558b6057c43a722ee7e0fea9e35defc"
+    },
+    {
+      "path": "scratch/knn-browser/learning-state-1440-1.png",
+      "sha256": "f2ba7571782ec5476fb2fb3a80d7b5be6baab59c02ec828fb4696cb059ef9fb2"
+    },
+    {
+      "path": "scratch/knn-browser/learning-state-390-1.png",
+      "sha256": "8926d0b04eda551faf03a644effe0bdbd72b8e788355a8d261e82263e7c6f121"
+    },
+    {
+      "path": "scratch/knn-browser/learning-state-390-2.png",
+      "sha256": "454187c04fb39e23025a5f4a503cb1c6f5dd4bcead6054fe2c03b22d3bd957da"
+    },
+    {
+      "path": "scratch/knn-browser/learning-state-320-1.png",
+      "sha256": "2085de480b9aeeb1e1dd49b5bbc45e0ac868a1cfb324c1ca39fcaa216e095b06"
+    },
+    {
+      "path": "scratch/knn-browser/learning-state-320-2.png",
+      "sha256": "dabf6792f2fb0d56d2bb9bbc69fdff1dc530f5aae1a5b7dc3b1e2e3eac8cdb02"
+    }
+  ],
+  "limits": "A complementary review, not a fresh full browser/author-suite run, arbitrary-float proof, learner study or user acceptance. Author-operated controls, complete outputs and baseline conservation are separately attributed to the exact author packet. The listed images were actually opened by this reviewer; no other image inspection is claimed."
+}

@@ -2,6 +2,8 @@
 
 Use with the [standard](../../LESSON-TEACHING-STANDARD.md) and [domain playbook](DOMAIN-PLAYBOOK.md). Complete the design for the requested topic before implementation; this is ordinary authorized authoring work, not a separate approval gate. Improve an existing brief instead of starting over. Keep the completed design with the topic or its increment record.
 
+The standard's [six-stage workflow](../../LESSON-TEACHING-STANDARD.md#six-stage-authoring-workflow) owns the end-to-end process. Sections 1–5 below prepare the design and research; section 6 supports implementation, author review, independent review and focused correction; section 7 supports integrated delivery. These brief sections are not additional rewrite rounds. In the existing record, identify the author, independent reviewer and increment owner, the intended checks for this lesson, and the current stage/next action. Roles may overlap except that an author's own review must not be described as independent.
+
 ## 1. Establish the learning contract
 
 Record topic title and stable ID, domain/module, intended learner, prior skills, scope and excluded follow-on topics. State observable outcomes: explain a mechanism, interpret a representation, predict a change, carry out a task and recognize a limit. Do not use “understand X” as the only success criterion.
@@ -82,6 +84,10 @@ Curate the learner-facing “References & another way to learn it” section alo
 ## 6. Implement and verify
 
 Use the established content/lab components where appropriate. Separate a nontrivial interaction model from rendering so its behavior can be independently checked. Preserve stable IDs, progress and existing useful content. Follow [the learning code standard](../engineering/LEARNING-CODE-STANDARD.md) for semantic names, ownership and on-demand loading. Show planned entries as planned until complete content is registered in `src/learn/data/lesson-manifest.json`; regenerate and verify the browser artifacts. The old eager `topics/index.js` registry is removed.
+
+Apply the code standard's [early compatibility checks](../engineering/LEARNING-CODE-STANDARD.md#early-compatibility-checks) at the first runnable draft. Before independent review, record what the author actually checked and any open findings. Give the reviewer the design, current source and existing evidence; ask for complementary teaching/correctness review. Resolve the resulting findings with targeted checks, then identify the final reviewed version. Reuse unchanged native and browser evidence; final shared integration belongs to the increment owner. Do not add repeated full rewrites or test campaigns solely to complete these stages.
+
+Use the standard's [source-bound evidence handoff](../../LESSON-TEACHING-STANDARD.md#source-bound-evidence-and-review-handoff) in this existing record. Select verification cases for the lesson's actual failure risks and name what each establishes; do not equate more fixtures with more confidence automatically. Record changes that invalidate earlier evidence and finalize the source and selected attachments before integration. Keep the design, evidence and next action linked rather than duplicating them into a second workflow document.
 
 Verify the final scope/title and disposition of relevant saved notes; scoped outcomes and prerequisite continuity; factual/application claims and numeric/code behavior against appropriate sources or an independent reference/runtime; controls/feedback/reset/edge cases; desktop and narrow-screen rendering; keyboard/focus/text equivalents; project build. Test what can fail meaningfully, not only the implementation's own duplicated fixtures. A source comment, a saved script or a build pass is not a fresh accuracy check.
 

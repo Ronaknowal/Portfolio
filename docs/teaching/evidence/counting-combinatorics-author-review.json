@@ -1,0 +1,2352 @@
+{
+  "authorFrozenAt": "2026-09-11T01:00:34.927093+00:00",
+  "topicId": "counting-combinatorics-mathematical-induction",
+  "status": "author-verified; independent review, production integration and user acceptance separate",
+  "productionSourceCount": 7,
+  "sources": [
+    {
+      "path": "src/learn/data/topics/counting-combinatorics-mathematical-induction.jsx",
+      "sha256": "8b6e559be232e417bf859a54872997673e0412895f28f8f4f2c02ae9f07511af",
+      "bytes": 49674
+    },
+    {
+      "path": "src/learn/data/counting-combinatorics-models.js",
+      "sha256": "cc65c47e01d9474ad8e75f6c15350e4a4d3025fac945edf54075d7563bceecc0",
+      "bytes": 10722
+    },
+    {
+      "path": "src/learn/data/counting-combinatorics-examples.js",
+      "sha256": "dfd0ec1b4cb59a4c27a92d0cf7199b3e3df0d13662962b7a599db51851ec8c28",
+      "bytes": 20472
+    },
+    {
+      "path": "src/learn/components/lesson-labs/CountingCombinatoricsLabs.jsx",
+      "sha256": "1afc676f4db1ea859e98912e45c3dff0f0bc2ebec25555edf2a55ea481b4a585",
+      "bytes": 28312
+    },
+    {
+      "path": "src/learn/components/lesson-labs/CountingRecurrenceFigures.jsx",
+      "sha256": "6ab904204fa0b34e8e40891f02cbb22a392d6de3aa584356d773812789ed1e30",
+      "bytes": 2891
+    },
+    {
+      "path": "src/learn/components/lesson-labs/counting-combinatorics-labs.css",
+      "sha256": "3e4fb3e7013bf4e526c08c111681fbb31ded6386a6d76a88a3b2914ed0ff33de",
+      "bytes": 9444
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/counting-combinatorics-mathematical-induction.js",
+      "sha256": "3339c886c9cd49d838664f7213252acc403efcd33e270595486adbf4a7e56f75",
+      "bytes": 5686
+    }
+  ],
+  "records": {
+    "models": {
+      "file": {
+        "path": "scratch/counting-combinatorics-verification/model-results.json",
+        "sha256": "ab33ed249c6660972450b0482d8abc00c445b035b9176fa3a61a6d13d0b22836",
+        "bytes": 442
+      },
+      "result": {
+        "checkedAt": "2026-09-11T00:48:56.752Z",
+        "passed": true,
+        "mathTemplates": 14,
+        "invalidInputs": 23,
+        "counts": {
+          "choices": 60,
+          "allocations": 1282,
+          "overlaps": 4096,
+          "induction": 1352,
+          "catalan": 7,
+          "coefficients": 125,
+          "rotations": 8,
+          "binomials": 609
+        },
+        "scope": "Actual JS states exported for a separate Python oracle; invalid input contract and actual formula parsing assertions run here."
+      }
+    },
+    "native": {
+      "file": {
+        "path": "scratch/counting-combinatorics-verification/native-results.json",
+        "sha256": "6217e1769c8dc652ad9fe6ff436cbd7749425f3748560b59ef33f8d855fc2404",
+        "bytes": 604
+      },
+      "result": {
+        "checkedAt": "2026-09-11T00:48:57.180888+00:00",
+        "passed": true,
+        "counts": {
+          "actualPrograms": 13,
+          "choiceStates": 60,
+          "allocationStates": 1282,
+          "overlapBoards": 4096,
+          "inductionStates": 1352,
+          "pathWords": 1275,
+          "coefficientRows": 500,
+          "rotationLengths": 8,
+          "binomialCases": 609,
+          "changedPracticeTasks": 12,
+          "nativePartitions": 35,
+          "nativeDerangements": 8
+        },
+        "scope": "Exact independent finite constructions plus all actual displayed programs and changed tasks; general mathematical proofs require separate source review."
+      }
+    },
+    "browser": {
+      "file": {
+        "path": "scratch/counting-combinatorics-browser/results.json",
+        "sha256": "42aaceb68b1af98eb63adc7ffafacbbb900896420a929a1d997e2d115ea06b47",
+        "bytes": 43307
+      },
+      "result": {
+        "checkedAt": "2026-09-11T00:49:02.171Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "anchors": [
+              "#1-decide-what-one-outcome-is",
+              "#2-count-descriptions-then-group-them",
+              "#3-derive-selection-and-arrangement-formulas",
+              "#4-allocate-identical-resources",
+              "#5-count-one-object-in-two-ways",
+              "#6-repair-overlapping-counts",
+              "#7-prove-that-a-collision-must-exist",
+              "#8-build-counts-from-smaller-structures",
+              "#9-make-the-induction-reach-every-case",
+              "#10-count-balanced-syntax",
+              "#11-encode-a-count-as-a-coefficient",
+              "#12-count-patterns-without-a-starting-phase",
+              "#13-practise-with-changed-objects-and-rules",
+              "#14-use-the-method-again"
+            ],
+            "states": [
+              [
+                "choices",
+                0,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "true"
+              ],
+              [
+                "allocations",
+                "free",
+                21
+              ],
+              [
+                "allocations",
+                "positive",
+                6
+              ],
+              [
+                "allocations",
+                "cap",
+                12
+              ],
+              [
+                "overlap",
+                "1 · Add singles",
+                3,
+                13
+              ],
+              [
+                "overlap",
+                "2 · Subtract pairs",
+                0,
+                7
+              ],
+              [
+                "overlap",
+                "3 · Add triple",
+                1,
+                8
+              ],
+              [
+                "induction",
+                "supported/unsupported, both presets"
+              ],
+              [
+                "paths",
+                1
+              ],
+              [
+                "paths",
+                2
+              ],
+              [
+                "paths",
+                3
+              ],
+              [
+                "paths",
+                4
+              ],
+              [
+                "paths",
+                5
+              ],
+              [
+                "coefficients",
+                "changed/empty/outside"
+              ],
+              [
+                "rotations",
+                3,
+                4
+              ],
+              [
+                "rotations",
+                4,
+                6
+              ],
+              [
+                "rotations",
+                5,
+                8
+              ],
+              [
+                "rotations",
+                6,
+                14
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-1440.png",
+              "ordinary-section-1-1440.png",
+              "ordinary-section-2-1440.png",
+              "ordinary-section-3-1440.png",
+              "ordinary-section-4-1440.png",
+              "ordinary-section-5-1440.png",
+              "ordinary-section-6-1440.png",
+              "ordinary-section-7-1440.png",
+              "ordinary-section-8-1440.png",
+              "ordinary-section-9-1440.png",
+              "ordinary-section-10-1440.png",
+              "ordinary-section-11-1440.png",
+              "ordinary-section-12-1440.png",
+              "ordinary-section-13-1440.png",
+              "ordinary-section-14-1440.png",
+              "inline-0-1440.png",
+              "inline-1-1440.png",
+              "inline-2-1440.png",
+              "inline-3-1440.png",
+              "initial-lab-0-1440.png",
+              "initial-lab-1-1440.png",
+              "initial-lab-2-1440.png",
+              "initial-lab-3-1440.png",
+              "initial-lab-4-1440.png",
+              "initial-lab-5-1440.png",
+              "initial-lab-6-1440.png",
+              "unequal-fiber-1440.png",
+              "empty-choice-1440.png",
+              "moved-allocation-1440.png",
+              "infeasible-allocation-1440.png",
+              "triple-restored-1440.png",
+              "unsupported-proof-chain-1440.png",
+              "reflected-path-1440.png",
+              "empty-balanced-path-1440.png",
+              "changed-coefficient-1440.png",
+              "alternating-orbit-1440.png",
+              "reflection-program-1440.png",
+              "capstone-output-1440.png",
+              "practice-0-1440.png",
+              "practice-2-1440.png",
+              "practice-6-1440.png",
+              "practice-7-1440.png",
+              "practice-10-1440.png",
+              "practice-11-1440.png",
+              "equation-0-1440.png",
+              "equation-1-1440.png",
+              "equation-2-1440.png",
+              "equation-3-1440.png",
+              "equation-4-1440.png",
+              "equation-5-1440.png",
+              "equation-6-1440.png",
+              "equation-7-1440.png",
+              "equation-8-1440.png",
+              "equation-9-1440.png",
+              "equation-10-1440.png",
+              "equation-11-1440.png",
+              "equation-12-1440.png",
+              "equation-13-1440.png",
+              "learning-resources-1440.png"
+            ],
+            "programs": [
+              "Count legal branches",
+              "Inspect what forgetting order merges",
+              "Temporarily label the repeated symbols",
+              "Count a chaired committee in two orders",
+              "Count bounded allocations two different ways",
+              "Correct overlap and forbidden fixed points",
+              "Count the available codewords",
+              "Split structures by what happens to the last object",
+              "Construct the witness promised by the proof",
+              "Reflect bad paths and verify the inverse",
+              "Build the count one factor at a time",
+              "Group patterns and count fixed rotations",
+              "Select a team and allocate its resources"
+            ],
+            "keyboard": [
+              "Show unequal repeat groups",
+              "Next",
+              "Reset",
+              "Next",
+              "Previous",
+              "Move C → B",
+              "Reset",
+              "1 · Add singles",
+              "2 · Subtract pairs",
+              "3 · Add triple",
+              "Object 12 in set C",
+              "Empty all sets",
+              "Reset",
+              "Base 18 certificate",
+              "Base 8 certificate",
+              "Reset",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reset",
+              "Remove last factor",
+              "Include next factor",
+              "Reset",
+              "Inspect alternating 0101",
+              "Rotate one site",
+              "Reset",
+              "Ring sites ArrowDown/Enter",
+              "Reset"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "math": [
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "P(n,k)=n!(n−k)!,0≤k≤n.\\begin{gathered}P(n,k)=\\frac{n!}{(n-k)!},\\\\0\\le k\\le n.\\end{gathered}P(n,k)=(n−k)!n!​,0≤k≤n.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "(nk)=P(n,k)k!=n!k!(n−k)!.\\binom nk=\\frac{P(n,k)}{k!}=\\frac{n!}{k!(n-k)!}.(kn​)=k!P(n,k)​=k!(n−k)!n!​."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "count=n!c1! c2!⋯cr!,∑ici=n.\\begin{gathered}\\text{count}=\\frac{n!}{c_1!\\,c_2!\\cdots c_r!},\\\\\\sum_i c_i=n.\\end{gathered}count=c1​!c2​!⋯cr​!n!​,i∑​ci​=n.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "RJ=N−∑i∈J(ci+1),count=∑J⊆{1,…,k}(−1)∣J∣B(RJ),B(r)={(r+k−1k−1),r≥0,0,r<0.\\begin{gathered}R_J=N-\\sum_{i\\in J}(c_i+1),\\\\\\text{count}=\\sum_{J\\subseteq\\{1,\\ldots,k\\}}(-1)^{|J|}B(R_J),\\\\B(r)=\\begin{cases}\\binom{r+k-1}{k-1},&r\\ge0,\\\\0,&r<0.\\end{cases}\\end{gathered}RJ​=N−i∈J∑​(ci​+1),count=J⊆{1,…,k}∑​(−1)∣J∣B(RJ​),B(r)={(k−1r+k−1​),0,​r≥0,r<0.​​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "(nk)=(n−1k)+(n−1k−1).\\binom nk=\\binom{n-1}k+\\binom{n-1}{k-1}.(kn​)=(kn−1​)+(k−1n−1​)."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∑j=2n(j2)=(n+13),n≥2.\\begin{gathered}\\sum_{j=2}^{n}\\binom j2=\\binom{n+1}3,\\\\n\\ge2.\\end{gathered}j=2∑n​(2j​)=(3n+1​),n≥2.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.\\begin{gathered}|A\\cup B\\cup C|=\\\\|A|+|B|+|C|\\\\-|A\\cap B|-|A\\cap C|-|B\\cap C|\\\\+|A\\cap B\\cap C|.\\end{gathered}∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Dn=∑j=0n(−1)j(nj)(n−j)!.D_n=\\sum_{j=0}^{n}(-1)^j\\binom nj(n-j)!.Dn​=j=0∑n​(−1)j(jn​)(n−j)!."
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "T0=1,T1=1,Tn=Tn−1+Tn−2(n≥2).\\begin{gathered}T_0=1,\\quad T_1=1,\\\\T_n=T_{n-1}+T_{n-2}\\quad(n\\ge2).\\end{gathered}T0​=1,T1​=1,Tn​=Tn−1​+Tn−2​(n≥2).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).\\begin{gathered}S(n,k)=kS(n-1,k)\\\\{}+S(n-1,k-1),\\\\S(0,0)=1,\\\\S(n,0)=0\\quad(n>0),\\\\S(n,k)=0\\quad(k>n).\\end{gathered}S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "C0=1,Cn=∑k=0n−1CkCn−1−k(n≥1).\\begin{gathered}C_0=1,\\\\C_n=\\sum_{k=0}^{n-1}C_k C_{n-1-k}\\quad(n\\ge1).\\end{gathered}C0​=1,Cn​=k=0∑n−1​Ck​Cn−1−k​(n≥1).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Cn=(2nn)−(2nn−1)=1n+1(2nn)(n≥1).\\begin{aligned}C_n&=\\binom{2n}{n}-\\binom{2n}{n-1}\\\\&=\\frac{1}{n+1}\\binom{2n}{n}\\quad(n\\ge1).\\end{aligned}Cn​​=(n2n​)−(n−12n​)=n+11​(n2n​)(n≥1).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "F(x)=(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).\\begin{aligned}F(x)={}&(1+x+x^2)\\\\&\\cdot(1+x+x^2+x^3)\\\\&\\cdot(1+x).\\end{aligned}F(x)=​(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).​"
+              },
+              {
+                "width": 760,
+                "scroll": 760,
+                "text": "Norbits=1n∑r=0n−1∣Fix⁡(r)∣,n≥1.\\begin{gathered}N_{\\mathrm{orbits}}=\\frac1n\\sum_{r=0}^{n-1}|\\operatorname{Fix}(r)|,\\\\n\\ge1.\\end{gathered}Norbits​=n1​r=0∑n−1​∣Fix(r)∣,n≥1.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_counting-addmult.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_stars-and-bars.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/more/mdm/sec_adv-stirling.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture16-2024apr11_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture17-2024apr16_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture03-2024feb20_v4_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec16.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec17.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_textbook.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://users.math.msu.edu/users/bsagan/Books/Aoc/GSM210.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/itertools.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/math.html#math.comb",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 390,
+            "anchors": [
+              "#1-decide-what-one-outcome-is",
+              "#2-count-descriptions-then-group-them",
+              "#3-derive-selection-and-arrangement-formulas",
+              "#4-allocate-identical-resources",
+              "#5-count-one-object-in-two-ways",
+              "#6-repair-overlapping-counts",
+              "#7-prove-that-a-collision-must-exist",
+              "#8-build-counts-from-smaller-structures",
+              "#9-make-the-induction-reach-every-case",
+              "#10-count-balanced-syntax",
+              "#11-encode-a-count-as-a-coefficient",
+              "#12-count-patterns-without-a-starting-phase",
+              "#13-practise-with-changed-objects-and-rules",
+              "#14-use-the-method-again"
+            ],
+            "states": [
+              [
+                "choices",
+                0,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "true"
+              ],
+              [
+                "allocations",
+                "free",
+                21
+              ],
+              [
+                "allocations",
+                "positive",
+                6
+              ],
+              [
+                "allocations",
+                "cap",
+                12
+              ],
+              [
+                "overlap",
+                "1 · Add singles",
+                3,
+                13
+              ],
+              [
+                "overlap",
+                "2 · Subtract pairs",
+                0,
+                7
+              ],
+              [
+                "overlap",
+                "3 · Add triple",
+                1,
+                8
+              ],
+              [
+                "induction",
+                "supported/unsupported, both presets"
+              ],
+              [
+                "paths",
+                1
+              ],
+              [
+                "paths",
+                2
+              ],
+              [
+                "paths",
+                3
+              ],
+              [
+                "paths",
+                4
+              ],
+              [
+                "paths",
+                5
+              ],
+              [
+                "coefficients",
+                "changed/empty/outside"
+              ],
+              [
+                "rotations",
+                3,
+                4
+              ],
+              [
+                "rotations",
+                4,
+                6
+              ],
+              [
+                "rotations",
+                5,
+                8
+              ],
+              [
+                "rotations",
+                6,
+                14
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-390.png",
+              "ordinary-section-1-390.png",
+              "ordinary-section-2-390.png",
+              "ordinary-section-3-390.png",
+              "ordinary-section-4-390.png",
+              "ordinary-section-5-390.png",
+              "ordinary-section-6-390.png",
+              "ordinary-section-7-390.png",
+              "ordinary-section-8-390.png",
+              "ordinary-section-9-390.png",
+              "ordinary-section-10-390.png",
+              "ordinary-section-11-390.png",
+              "ordinary-section-12-390.png",
+              "ordinary-section-13-390.png",
+              "ordinary-section-14-390.png",
+              "inline-0-390.png",
+              "inline-1-390.png",
+              "inline-2-390.png",
+              "inline-3-390.png",
+              "initial-lab-0-390.png",
+              "initial-lab-1-390.png",
+              "initial-lab-2-390.png",
+              "initial-lab-3-390.png",
+              "initial-lab-4-390.png",
+              "initial-lab-5-390.png",
+              "initial-lab-6-390.png",
+              "unequal-fiber-390.png",
+              "empty-choice-390.png",
+              "moved-allocation-390.png",
+              "infeasible-allocation-390.png",
+              "triple-restored-390.png",
+              "unsupported-proof-chain-390.png",
+              "reflected-path-390.png",
+              "empty-balanced-path-390.png",
+              "changed-coefficient-390.png",
+              "alternating-orbit-390.png",
+              "reflection-program-390.png",
+              "capstone-output-390.png",
+              "practice-0-390.png",
+              "practice-2-390.png",
+              "practice-6-390.png",
+              "practice-7-390.png",
+              "practice-10-390.png",
+              "practice-11-390.png",
+              "equation-0-390.png",
+              "equation-1-390.png",
+              "equation-2-390.png",
+              "equation-3-390.png",
+              "equation-4-390.png",
+              "equation-5-390.png",
+              "equation-6-390.png",
+              "equation-7-390.png",
+              "equation-8-390.png",
+              "equation-9-390.png",
+              "equation-10-390.png",
+              "equation-11-390.png",
+              "equation-12-390.png",
+              "equation-13-390.png",
+              "learning-resources-390.png"
+            ],
+            "programs": [
+              "Count legal branches",
+              "Inspect what forgetting order merges",
+              "Temporarily label the repeated symbols",
+              "Count a chaired committee in two orders",
+              "Count bounded allocations two different ways",
+              "Correct overlap and forbidden fixed points",
+              "Count the available codewords",
+              "Split structures by what happens to the last object",
+              "Construct the witness promised by the proof",
+              "Reflect bad paths and verify the inverse",
+              "Build the count one factor at a time",
+              "Group patterns and count fixed rotations",
+              "Select a team and allocate its resources"
+            ],
+            "keyboard": [
+              "Show unequal repeat groups",
+              "Next",
+              "Reset",
+              "Next",
+              "Previous",
+              "Move C → B",
+              "Reset",
+              "1 · Add singles",
+              "2 · Subtract pairs",
+              "3 · Add triple",
+              "Object 12 in set C",
+              "Empty all sets",
+              "Reset",
+              "Base 18 certificate",
+              "Base 8 certificate",
+              "Reset",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reset",
+              "Remove last factor",
+              "Include next factor",
+              "Reset",
+              "Inspect alternating 0101",
+              "Rotate one site",
+              "Reset",
+              "Ring sites ArrowDown/Enter",
+              "Reset"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "math": [
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "P(n,k)=n!(n−k)!,0≤k≤n.\\begin{gathered}P(n,k)=\\frac{n!}{(n-k)!},\\\\0\\le k\\le n.\\end{gathered}P(n,k)=(n−k)!n!​,0≤k≤n.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "(nk)=P(n,k)k!=n!k!(n−k)!.\\binom nk=\\frac{P(n,k)}{k!}=\\frac{n!}{k!(n-k)!}.(kn​)=k!P(n,k)​=k!(n−k)!n!​."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "count=n!c1! c2!⋯cr!,∑ici=n.\\begin{gathered}\\text{count}=\\frac{n!}{c_1!\\,c_2!\\cdots c_r!},\\\\\\sum_i c_i=n.\\end{gathered}count=c1​!c2​!⋯cr​!n!​,i∑​ci​=n.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "RJ=N−∑i∈J(ci+1),count=∑J⊆{1,…,k}(−1)∣J∣B(RJ),B(r)={(r+k−1k−1),r≥0,0,r<0.\\begin{gathered}R_J=N-\\sum_{i\\in J}(c_i+1),\\\\\\text{count}=\\sum_{J\\subseteq\\{1,\\ldots,k\\}}(-1)^{|J|}B(R_J),\\\\B(r)=\\begin{cases}\\binom{r+k-1}{k-1},&r\\ge0,\\\\0,&r<0.\\end{cases}\\end{gathered}RJ​=N−i∈J∑​(ci​+1),count=J⊆{1,…,k}∑​(−1)∣J∣B(RJ​),B(r)={(k−1r+k−1​),0,​r≥0,r<0.​​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "(nk)=(n−1k)+(n−1k−1).\\binom nk=\\binom{n-1}k+\\binom{n-1}{k-1}.(kn​)=(kn−1​)+(k−1n−1​)."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∑j=2n(j2)=(n+13),n≥2.\\begin{gathered}\\sum_{j=2}^{n}\\binom j2=\\binom{n+1}3,\\\\n\\ge2.\\end{gathered}j=2∑n​(2j​)=(3n+1​),n≥2.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.\\begin{gathered}|A\\cup B\\cup C|=\\\\|A|+|B|+|C|\\\\-|A\\cap B|-|A\\cap C|-|B\\cap C|\\\\+|A\\cap B\\cap C|.\\end{gathered}∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Dn=∑j=0n(−1)j(nj)(n−j)!.D_n=\\sum_{j=0}^{n}(-1)^j\\binom nj(n-j)!.Dn​=j=0∑n​(−1)j(jn​)(n−j)!."
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "T0=1,T1=1,Tn=Tn−1+Tn−2(n≥2).\\begin{gathered}T_0=1,\\quad T_1=1,\\\\T_n=T_{n-1}+T_{n-2}\\quad(n\\ge2).\\end{gathered}T0​=1,T1​=1,Tn​=Tn−1​+Tn−2​(n≥2).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).\\begin{gathered}S(n,k)=kS(n-1,k)\\\\{}+S(n-1,k-1),\\\\S(0,0)=1,\\\\S(n,0)=0\\quad(n>0),\\\\S(n,k)=0\\quad(k>n).\\end{gathered}S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "C0=1,Cn=∑k=0n−1CkCn−1−k(n≥1).\\begin{gathered}C_0=1,\\\\C_n=\\sum_{k=0}^{n-1}C_k C_{n-1-k}\\quad(n\\ge1).\\end{gathered}C0​=1,Cn​=k=0∑n−1​Ck​Cn−1−k​(n≥1).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Cn=(2nn)−(2nn−1)=1n+1(2nn)(n≥1).\\begin{aligned}C_n&=\\binom{2n}{n}-\\binom{2n}{n-1}\\\\&=\\frac{1}{n+1}\\binom{2n}{n}\\quad(n\\ge1).\\end{aligned}Cn​​=(n2n​)−(n−12n​)=n+11​(n2n​)(n≥1).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "F(x)=(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).\\begin{aligned}F(x)={}&(1+x+x^2)\\\\&\\cdot(1+x+x^2+x^3)\\\\&\\cdot(1+x).\\end{aligned}F(x)=​(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).​"
+              },
+              {
+                "width": 350,
+                "scroll": 350,
+                "text": "Norbits=1n∑r=0n−1∣Fix⁡(r)∣,n≥1.\\begin{gathered}N_{\\mathrm{orbits}}=\\frac1n\\sum_{r=0}^{n-1}|\\operatorname{Fix}(r)|,\\\\n\\ge1.\\end{gathered}Norbits​=n1​r=0∑n−1​∣Fix(r)∣,n≥1.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_counting-addmult.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_stars-and-bars.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/more/mdm/sec_adv-stirling.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture16-2024apr11_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture17-2024apr16_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture03-2024feb20_v4_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec16.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec17.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_textbook.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://users.math.msu.edu/users/bsagan/Books/Aoc/GSM210.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/itertools.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/math.html#math.comb",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          },
+          {
+            "width": 320,
+            "anchors": [
+              "#1-decide-what-one-outcome-is",
+              "#2-count-descriptions-then-group-them",
+              "#3-derive-selection-and-arrangement-formulas",
+              "#4-allocate-identical-resources",
+              "#5-count-one-object-in-two-ways",
+              "#6-repair-overlapping-counts",
+              "#7-prove-that-a-collision-must-exist",
+              "#8-build-counts-from-smaller-structures",
+              "#9-make-the-induction-reach-every-case",
+              "#10-count-balanced-syntax",
+              "#11-encode-a-count-as-a-coefficient",
+              "#12-count-patterns-without-a-starting-phase",
+              "#13-practise-with-changed-objects-and-rules",
+              "#14-use-the-method-again"
+            ],
+            "states": [
+              [
+                "choices",
+                0,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                0,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                1,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                2,
+                3,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                0,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                1,
+                "true"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "false"
+              ],
+              [
+                "choices",
+                4,
+                3,
+                "true"
+              ],
+              [
+                "allocations",
+                "free",
+                21
+              ],
+              [
+                "allocations",
+                "positive",
+                6
+              ],
+              [
+                "allocations",
+                "cap",
+                12
+              ],
+              [
+                "overlap",
+                "1 · Add singles",
+                3,
+                13
+              ],
+              [
+                "overlap",
+                "2 · Subtract pairs",
+                0,
+                7
+              ],
+              [
+                "overlap",
+                "3 · Add triple",
+                1,
+                8
+              ],
+              [
+                "induction",
+                "supported/unsupported, both presets"
+              ],
+              [
+                "paths",
+                1
+              ],
+              [
+                "paths",
+                2
+              ],
+              [
+                "paths",
+                3
+              ],
+              [
+                "paths",
+                4
+              ],
+              [
+                "paths",
+                5
+              ],
+              [
+                "coefficients",
+                "changed/empty/outside"
+              ],
+              [
+                "rotations",
+                3,
+                4
+              ],
+              [
+                "rotations",
+                4,
+                6
+              ],
+              [
+                "rotations",
+                5,
+                8
+              ],
+              [
+                "rotations",
+                6,
+                14
+              ]
+            ],
+            "captures": [
+              "ordinary-intro-320.png",
+              "ordinary-section-1-320.png",
+              "ordinary-section-2-320.png",
+              "ordinary-section-3-320.png",
+              "ordinary-section-4-320.png",
+              "ordinary-section-5-320.png",
+              "ordinary-section-6-320.png",
+              "ordinary-section-7-320.png",
+              "ordinary-section-8-320.png",
+              "ordinary-section-9-320.png",
+              "ordinary-section-10-320.png",
+              "ordinary-section-11-320.png",
+              "ordinary-section-12-320.png",
+              "ordinary-section-13-320.png",
+              "ordinary-section-14-320.png",
+              "inline-0-320.png",
+              "inline-1-320.png",
+              "inline-2-320.png",
+              "inline-3-320.png",
+              "initial-lab-0-320.png",
+              "initial-lab-1-320.png",
+              "initial-lab-2-320.png",
+              "initial-lab-3-320.png",
+              "initial-lab-4-320.png",
+              "initial-lab-5-320.png",
+              "initial-lab-6-320.png",
+              "unequal-fiber-320.png",
+              "empty-choice-320.png",
+              "moved-allocation-320.png",
+              "infeasible-allocation-320.png",
+              "triple-restored-320.png",
+              "unsupported-proof-chain-320.png",
+              "reflected-path-320.png",
+              "empty-balanced-path-320.png",
+              "changed-coefficient-320.png",
+              "alternating-orbit-320.png",
+              "reflection-program-320.png",
+              "capstone-output-320.png",
+              "practice-0-320.png",
+              "practice-2-320.png",
+              "practice-6-320.png",
+              "practice-7-320.png",
+              "practice-10-320.png",
+              "practice-11-320.png",
+              "equation-0-320.png",
+              "equation-1-320.png",
+              "equation-2-320.png",
+              "equation-3-320.png",
+              "equation-4-320.png",
+              "equation-5-320.png",
+              "equation-6-320.png",
+              "equation-7-320.png",
+              "equation-8-320.png",
+              "equation-9-320.png",
+              "equation-10-320.png",
+              "equation-11-320.png",
+              "equation-12-320.png",
+              "equation-13-320.png",
+              "learning-resources-320.png"
+            ],
+            "programs": [
+              "Count legal branches",
+              "Inspect what forgetting order merges",
+              "Temporarily label the repeated symbols",
+              "Count a chaired committee in two orders",
+              "Count bounded allocations two different ways",
+              "Correct overlap and forbidden fixed points",
+              "Count the available codewords",
+              "Split structures by what happens to the last object",
+              "Construct the witness promised by the proof",
+              "Reflect bad paths and verify the inverse",
+              "Build the count one factor at a time",
+              "Group patterns and count fixed rotations",
+              "Select a team and allocate its resources"
+            ],
+            "keyboard": [
+              "Show unequal repeat groups",
+              "Next",
+              "Reset",
+              "Next",
+              "Previous",
+              "Move C → B",
+              "Reset",
+              "1 · Add singles",
+              "2 · Subtract pairs",
+              "3 · Add triple",
+              "Object 12 in set C",
+              "Empty all sets",
+              "Reset",
+              "Base 18 certificate",
+              "Base 8 certificate",
+              "Reset",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reflect at first −1",
+              "Undo at first +1",
+              "Reset",
+              "Remove last factor",
+              "Include next factor",
+              "Reset",
+              "Inspect alternating 0101",
+              "Rotate one site",
+              "Reset",
+              "Ring sites ArrowDown/Enter",
+              "Reset"
+            ],
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "math": [
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "P(n,k)=n!(n−k)!,0≤k≤n.\\begin{gathered}P(n,k)=\\frac{n!}{(n-k)!},\\\\0\\le k\\le n.\\end{gathered}P(n,k)=(n−k)!n!​,0≤k≤n.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "(nk)=P(n,k)k!=n!k!(n−k)!.\\binom nk=\\frac{P(n,k)}{k!}=\\frac{n!}{k!(n-k)!}.(kn​)=k!P(n,k)​=k!(n−k)!n!​."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "count=n!c1! c2!⋯cr!,∑ici=n.\\begin{gathered}\\text{count}=\\frac{n!}{c_1!\\,c_2!\\cdots c_r!},\\\\\\sum_i c_i=n.\\end{gathered}count=c1​!c2​!⋯cr​!n!​,i∑​ci​=n.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "RJ=N−∑i∈J(ci+1),count=∑J⊆{1,…,k}(−1)∣J∣B(RJ),B(r)={(r+k−1k−1),r≥0,0,r<0.\\begin{gathered}R_J=N-\\sum_{i\\in J}(c_i+1),\\\\\\text{count}=\\sum_{J\\subseteq\\{1,\\ldots,k\\}}(-1)^{|J|}B(R_J),\\\\B(r)=\\begin{cases}\\binom{r+k-1}{k-1},&r\\ge0,\\\\0,&r<0.\\end{cases}\\end{gathered}RJ​=N−i∈J∑​(ci​+1),count=J⊆{1,…,k}∑​(−1)∣J∣B(RJ​),B(r)={(k−1r+k−1​),0,​r≥0,r<0.​​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "(nk)=(n−1k)+(n−1k−1).\\binom nk=\\binom{n-1}k+\\binom{n-1}{k-1}.(kn​)=(kn−1​)+(k−1n−1​)."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∑j=2n(j2)=(n+13),n≥2.\\begin{gathered}\\sum_{j=2}^{n}\\binom j2=\\binom{n+1}3,\\\\n\\ge2.\\end{gathered}j=2∑n​(2j​)=(3n+1​),n≥2.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.\\begin{gathered}|A\\cup B\\cup C|=\\\\|A|+|B|+|C|\\\\-|A\\cap B|-|A\\cap C|-|B\\cap C|\\\\+|A\\cap B\\cap C|.\\end{gathered}∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣.​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Dn=∑j=0n(−1)j(nj)(n−j)!.D_n=\\sum_{j=0}^{n}(-1)^j\\binom nj(n-j)!.Dn​=j=0∑n​(−1)j(jn​)(n−j)!."
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "T0=1,T1=1,Tn=Tn−1+Tn−2(n≥2).\\begin{gathered}T_0=1,\\quad T_1=1,\\\\T_n=T_{n-1}+T_{n-2}\\quad(n\\ge2).\\end{gathered}T0​=1,T1​=1,Tn​=Tn−1​+Tn−2​(n≥2).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).\\begin{gathered}S(n,k)=kS(n-1,k)\\\\{}+S(n-1,k-1),\\\\S(0,0)=1,\\\\S(n,0)=0\\quad(n>0),\\\\S(n,k)=0\\quad(k>n).\\end{gathered}S(n,k)=kS(n−1,k)+S(n−1,k−1),S(0,0)=1,S(n,0)=0(n>0),S(n,k)=0(k>n).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "C0=1,Cn=∑k=0n−1CkCn−1−k(n≥1).\\begin{gathered}C_0=1,\\\\C_n=\\sum_{k=0}^{n-1}C_k C_{n-1-k}\\quad(n\\ge1).\\end{gathered}C0​=1,Cn​=k=0∑n−1​Ck​Cn−1−k​(n≥1).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Cn=(2nn)−(2nn−1)=1n+1(2nn)(n≥1).\\begin{aligned}C_n&=\\binom{2n}{n}-\\binom{2n}{n-1}\\\\&=\\frac{1}{n+1}\\binom{2n}{n}\\quad(n\\ge1).\\end{aligned}Cn​​=(n2n​)−(n−12n​)=n+11​(n2n​)(n≥1).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "F(x)=(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).\\begin{aligned}F(x)={}&(1+x+x^2)\\\\&\\cdot(1+x+x^2+x^3)\\\\&\\cdot(1+x).\\end{aligned}F(x)=​(1+x+x2)⋅(1+x+x2+x3)⋅(1+x).​"
+              },
+              {
+                "width": 280,
+                "scroll": 280,
+                "text": "Norbits=1n∑r=0n−1∣Fix⁡(r)∣,n≥1.\\begin{gathered}N_{\\mathrm{orbits}}=\\frac1n\\sum_{r=0}^{n-1}|\\operatorname{Fix}(r)|,\\\\n\\ge1.\\end{gathered}Norbits​=n1​r=0∑n−1​∣Fix(r)∣,n≥1.​"
+              }
+            ],
+            "sources": [
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_counting-addmult.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/dmoi2/sec_stars-and-bars.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://discrete.openmathbooks.org/more/mdm/sec_adv-stirling.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture16-2024apr11_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture17-2024apr16_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/resources/61200-sp24-lecture03-2024feb20_v4_mp4/",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec16.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec17.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/mit6_042js15_textbook.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://users.math.msu.edu/users/bsagan/Books/Aoc/GSM210.pdf",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/itertools.html",
+                "target": "_blank",
+                "rel": "noreferrer"
+              },
+              {
+                "href": "https://docs.python.org/3.12/library/math.html#math.comb",
+                "target": "_blank",
+                "rel": "noreferrer"
+              }
+            ]
+          }
+        ],
+        "errors": []
+      }
+    },
+    "finalRecurrenceFigures": {
+      "file": {
+        "path": "scratch/counting-combinatorics-browser/final-recurrence-results.json",
+        "sha256": "4f6b8bfe2928d5c7f6a2d05d5e1ffb82cc176b9ff58cf748b82f52deaa0da559",
+        "bytes": 8882
+      },
+      "result": {
+        "checkedAt": "2026-09-11T00:55:50.676Z",
+        "passed": true,
+        "records": [
+          {
+            "width": 1440,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "rows": [
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                }
+              ]
+            ],
+            "partitions": [
+              [
+                "ABC"
+              ],
+              [
+                "ABC",
+                "D"
+              ],
+              [
+                "AB",
+                "C"
+              ],
+              [
+                "ABD",
+                "C"
+              ],
+              [
+                "AB",
+                "CD"
+              ]
+            ],
+            "captures": [
+              "final-tiling-decomposition-1440.png",
+              "final-partition-decomposition-1440.png",
+              "final-partition-reading-1440.png"
+            ]
+          },
+          {
+            "width": 390,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "rows": [
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 72,
+                  "unit": 72
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 148,
+                  "unit": 72
+                }
+              ]
+            ],
+            "partitions": [
+              [
+                "ABC"
+              ],
+              [
+                "ABC",
+                "D"
+              ],
+              [
+                "AB",
+                "C"
+              ],
+              [
+                "ABD",
+                "C"
+              ],
+              [
+                "AB",
+                "CD"
+              ]
+            ],
+            "captures": [
+              "final-tiling-decomposition-390.png",
+              "final-partition-decomposition-390.png",
+              "final-partition-reading-390.png"
+            ]
+          },
+          {
+            "width": 320,
+            "fonts": [
+              "JetBrains Mono",
+              "JetBrains Mono",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "Space Grotesk",
+              "KaTeX_Main",
+              "KaTeX_Math",
+              "KaTeX_Size1",
+              "KaTeX_Size2",
+              "KaTeX_Size3",
+              "KaTeX_Size4"
+            ],
+            "rows": [
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.796875,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.8125,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.796875,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.8125,
+                  "unit": 59.8046875
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.796875,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.8125,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 123.609375,
+                  "unit": 59.8046875
+                }
+              ],
+              [
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.796875,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 123.609375,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.8125,
+                  "unit": 59.8046875
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 123.609375,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.796875,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 1,
+                  "span": "span 1",
+                  "width": 59.8125,
+                  "unit": 59.8046875
+                }
+              ],
+              [
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 123.609375,
+                  "unit": 59.8046875
+                },
+                {
+                  "value": 2,
+                  "span": "span 2",
+                  "width": 123.609375,
+                  "unit": 59.8046875
+                }
+              ]
+            ],
+            "partitions": [
+              [
+                "ABC"
+              ],
+              [
+                "ABC",
+                "D"
+              ],
+              [
+                "AB",
+                "C"
+              ],
+              [
+                "ABD",
+                "C"
+              ],
+              [
+                "AB",
+                "CD"
+              ]
+            ],
+            "captures": [
+              "final-tiling-decomposition-320.png",
+              "final-partition-decomposition-320.png",
+              "final-partition-reading-320.png"
+            ]
+          }
+        ],
+        "errors": [],
+        "scope": "Final two inline recurrence representations; comprehensive earlier controls remain unchanged."
+      }
+    },
+    "formatConservation": {
+      "file": {
+        "path": "scratch/counting-combinatorics-verification/format-conservation.json",
+        "sha256": "692b6aca1661e1e3ec7c152f96e9fb5853d49d41411393e9a78c6c08a75c52da",
+        "bytes": 733
+      },
+      "result": {
+        "checkedAt": "2026-09-11T00:47:53.006Z",
+        "records": [
+          {
+            "file": "src/learn/data/topics/counting-combinatorics-mathematical-induction.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/CountingCombinatoricsLabs.jsx",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/counting-combinatorics-models.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/data/curriculum/blueprints/counting-combinatorics-mathematical-induction.js",
+            "normalizedASTConserved": true
+          },
+          {
+            "file": "src/learn/components/lesson-labs/counting-combinatorics-labs.css",
+            "normalizedASTConserved": true
+          }
+        ]
+      }
+    }
+  },
+  "originalPlan": {
+    "path": "docs/teaching/evidence/counting-original-plan.json",
+    "sha256": "71e08cccc4db186c41d344d6721ee3bc159c89787f09355991099d4418cf0e56",
+    "bytes": 2726
+  },
+  "openedImages": [
+    {
+      "path": "scratch/counting-combinatorics-browser/inline-0-390.png",
+      "sha256": "4105bb407a923d8ecf66ac11c650375a90e65cdc245b5083c11096baa35f25b3",
+      "bytes": 54377
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/inline-1-390.png",
+      "sha256": "8cd6bb427dd6135a5e586f7aece339010a1cc6a353e09f427227bfe090cd4d83",
+      "bytes": 81481
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/inline-2-390.png",
+      "sha256": "f27b840f6e3ed2d728a3686bcc62f3bf81d09abaad53978a4fab1f6d4dee8761",
+      "bytes": 70079
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/inline-3-390.png",
+      "sha256": "73a8c94b9944e4130d4cbdd8d5b6cf098e4d705ee8a5bc5425fe03b2238f1a80",
+      "bytes": 76508
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/unequal-fiber-390.png",
+      "sha256": "a4bef15c1cca3a043dedb767c85b08b0919d5f8ba27b747f2bf0475fb261e06b",
+      "bytes": 62654
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/moved-allocation-390.png",
+      "sha256": "d6a1aea1ab3f05a3c73a1fe3864d416ff6dbd20be14a69013c4cec5ccfb876f4",
+      "bytes": 57655
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/triple-restored-390.png",
+      "sha256": "8778ca098a31f007fecc47ea9ebaf41e7926f862e65ba47df090500fd760e6aa",
+      "bytes": 62650
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/unsupported-proof-chain-390.png",
+      "sha256": "cd1e5a6354c0ad2500f1970d140ea2440d5a4329673bf99ee289a74cb16716b5",
+      "bytes": 86445
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/reflected-path-320.png",
+      "sha256": "48ae8c604be3592eda4069feccaa4909a5feff9936a31dfc881dfea253f87723",
+      "bytes": 54472
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/empty-balanced-path-320.png",
+      "sha256": "c88dd16bf5255d8d64c314bbf864005e896df8be1969229a6b791bfe78860b78",
+      "bytes": 50643
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/changed-coefficient-320.png",
+      "sha256": "65c02a7ac21cebe8da5c48efad1db9df7bf346150c267da2e7f428fc46cb910f",
+      "bytes": 41903
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/alternating-orbit-320.png",
+      "sha256": "6aac7d479449faa13bffe27bf449e6c3d3caa8808f8562a0c4bfd3a2059ac95d",
+      "bytes": 47090
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-0-320.png",
+      "sha256": "956bfeaaf1a8c6156300921995941337696b01db982913c0ab1e141bbafbaae3",
+      "bytes": 71082
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-1-320.png",
+      "sha256": "14bdcaf3b3156d4a018eeebecccc36edf2a4db933bf71b358e64bc772579c9a5",
+      "bytes": 76176
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-2-320.png",
+      "sha256": "ff2790b2255e060ff941e120e883ce114ca37c5e8a46a41bbfa3f0b73f1b652a",
+      "bytes": 65096
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-3-320.png",
+      "sha256": "39630d9d928a6abec85bab5869e76d80a36e7a57898aaa35db80c0a3d8366a12",
+      "bytes": 62939
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-4-320.png",
+      "sha256": "f40828418b64bae14129003624e3b9ab1101bbebae6dc7dbf166e9e87a095537",
+      "bytes": 71936
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-5-320.png",
+      "sha256": "31561922fb47ecfa43b4d7a4a1c52faa19588ed0a9d729cefeb10f1050299435",
+      "bytes": 63658
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-6-320.png",
+      "sha256": "3c02c72c25c474019e8e7c51d50306df81937cbdc6b4046ad233b3a517f986e2",
+      "bytes": 46272
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-7-320.png",
+      "sha256": "1316d5cc0b0ddd9be350576b18225ffab90e68568fa2da661f46cb007f76469c",
+      "bytes": 65452
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-8-320.png",
+      "sha256": "faaebd15ac1f8207e2cb2497bb57866662792b33a477dd8c2d9908a2aeae1bc4",
+      "bytes": 73684
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-9-320.png",
+      "sha256": "2620f1e02b49f67cc843c597d37cb33435cd5f73f1a9c3f9b2822d8b2f3c70a4",
+      "bytes": 71968
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-10-320.png",
+      "sha256": "1c129ab26b574a1ae941180d9ac3d69e2ab313316094f63291dbc1561e9d7320",
+      "bytes": 67119
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-11-320.png",
+      "sha256": "39c672dbcf0a4a19032df9327b5aee5ae7c404c6c31a973eeca620733a9a4326",
+      "bytes": 62328
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-12-320.png",
+      "sha256": "12aa7aa90051708720998dff061deedcad9c70d58cf86482b24956913a74dbd4",
+      "bytes": 57607
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/equation-13-320.png",
+      "sha256": "0a67eefc83ce99913092d309e9fbba91edbf9f3854eba10dcd680626d58febfd",
+      "bytes": 68144
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-tiling-decomposition-1440.png",
+      "sha256": "a4d4d1fd7e1ab8511a1c725bccf814d60c5aecf9a341a32f5e5fbc19b6caf5d5",
+      "bytes": 180492
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-tiling-decomposition-320.png",
+      "sha256": "141122656ee8a5586a6ce747e1ee41943e678717c8a42b1c333a42864a08f803",
+      "bytes": 48056
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-partition-decomposition-1440.png",
+      "sha256": "a2a3b2768cf0b05b5883f013bb010ed497d56e279fcaaa9d6342236eeb414618",
+      "bytes": 182710
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-partition-decomposition-390.png",
+      "sha256": "6066a818f5e6be5f79cb45cdb3e794bd3c4e4eb3ffc32cdac76411ff2cfc49fb",
+      "bytes": 61386
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-partition-decomposition-320.png",
+      "sha256": "b9ee00783471c35ceefb134225c436b4b197d25bf878c04fa5793bb49c8b28de",
+      "bytes": 53571
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/final-partition-reading-320.png",
+      "sha256": "6031f9f205e7165fb766121b224ddc87e08bd2dd3aa834b64fedf0030e88d06f",
+      "bytes": 73938
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/ordinary-section-1-1440.png",
+      "sha256": "dea7cdaabec544e4f9957f45bc45a98ef844d4f76dfa672ef80af60cf0e78661",
+      "bytes": 212196
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/ordinary-section-9-390.png",
+      "sha256": "aff662074f6ec37574572c20659f2cd4c632d59ac993e95d21fa1dfe456ac78c",
+      "bytes": 98527
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/practice-2-390.png",
+      "sha256": "b912b6739bcc46913089e4dbec7250b8f72e386c9571497ddef54f8ff27a3b31",
+      "bytes": 82354
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/practice-7-320.png",
+      "sha256": "8d2ac377633d56e4abf18b16b5f889d9aca10a51990321629152275f51e4fbc6",
+      "bytes": 62830
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/practice-11-390.png",
+      "sha256": "18df9126310fd4ae3a14ad0d159c1fda63b464f434efc291c9cfff749f24c207",
+      "bytes": 92312
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/reflection-program-390.png",
+      "sha256": "a5667a63679adf17df65c72d5ec7116a1683a48f468d1c1ba5ddd60a1f36d36b",
+      "bytes": 58277
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/capstone-output-320.png",
+      "sha256": "c36fc02dec262e148c2867ed2d4ad9c675b52cf776f8b0bcc17d8f05996c0fb3",
+      "bytes": 69848
+    },
+    {
+      "path": "scratch/counting-combinatorics-browser/learning-resources-390.png",
+      "sha256": "e9522175ca733a43fe2554b07e72e383a40ff0056879aa918b2f4ebc60067c8f",
+      "bytes": 107458
+    }
+  ],
+  "imageReview": "All forty listed images were actually opened and read with view_image. The comprehensive run precedes the final two recurrence figures; their separate three-width final record and six opened captures verify those later scoped additions. Earlier provisional images are not substituted.",
+  "resolvedFailures": [
+    {
+      "kind": "author formula-string escape defect",
+      "file": {
+        "path": "scratch/counting-combinatorics-browser/initial-math-rendering-failure.json",
+        "sha256": "0e2560fb1f33f8b2fcf52e61cee0adec6ca18dc7e234ba72b8e3b656452a1314",
+        "bytes": 7712
+      },
+      "resolution": "All14 actual templates rewritten with literal backslashes, KaTeX parsing regression and final pixel review."
+    },
+    {
+      "kind": "seven-pixel320 Stirling equation overflow",
+      "file": {
+        "path": "scratch/counting-combinatorics-browser/initial-stirling-fit-failure.json",
+        "sha256": "ad494079a2e0209c5de99ac3a031f099c6643e9d7c95ee1b997a97cc23389594",
+        "bytes": 11225
+      },
+      "resolution": "Separated base-condition lines, verified at all three widths and opened at320."
+    },
+    {
+      "kind": "focused harness CSS grid assertion",
+      "resolution": "Read gridColumnStart for the span shorthand and independently verify actual unit widths; production spans were already correct."
+    }
+  ],
+  "knownLimits": [
+    "Finite constructions and enumerations illustrate and independently check instances; the general proofs remain mathematical source arguments requiring separate review.",
+    "The lesson has bounded exact investigations and no empirical performance graph. Large admitted formulas useBigInt/Python integers; this does not imply constant bit cost.",
+    "Code/output blocks retain local horizontal scrolling on narrow screens; diagrams and all14 equations fit within the reading column.",
+    "Official videos were verified through titles/pages and matching notes; full playback is not claimed.",
+    "No prior authored body or program existed. Core scope and selected optional branches do not exhaust specialist combinatorics or the interview bit-manipulation ownership gap.",
+    "No shared catalogue/manifest/order edits or integrated production build were performed by this author."
+  ]
+}

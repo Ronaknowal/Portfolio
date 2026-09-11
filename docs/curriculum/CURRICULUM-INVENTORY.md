@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1218 unique topics · 28 modules · 213 registered published lessons · 335 topic-specific briefs · 7 guided paths.**
+**1218 unique topics · 28 modules · 228 registered published lessons · 352 topic-specific briefs · 7 guided paths.**
 
-**883 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 365 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**866 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 380 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -12,8 +12,8 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 
 | Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |
 | --- | ---: | ---: | ---: | ---: |
-| Mathematical & Statistical Foundations | 57 | 42 | 51 | 52 |
-| Classical Machine Learning | 39 | 36 | 3 | 6 |
+| Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
+| Classical Machine Learning | 39 | 36 | 14 | 16 |
 | Deep Learning Fundamentals & Architectures | 42 | 39 | 2 | 7 |
 | Large Language Models — Architecture, Training & Inference | 61 | 57 | 4 | 6 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
@@ -95,27 +95,27 @@ Counts within modules may include shared topics. The headline counts each stable
 | Random Matrix Theory | intermediate | published | brief |
 | Queueing Theory (M/M/1, M/G/1, Little's Law) | intermediate | published | brief |
 | Dynamical Systems Theory & Chaos | advanced | published | brief |
-| Itô Calculus & Stochastic Differential Equations | advanced | published | design needed |
-| Numerical Methods (Finite Differences, Quadrature, Root Finding) | foundation | published | design needed |
-| Functional Analysis & RKHS | advanced | published | design needed |
-| Topology & Topological Data Analysis (TDA) | advanced | published | design needed |
-| Category Theory (Emerging Use in ML) | advanced | published | design needed |
-| Differential Geometry & Riemannian Manifolds | advanced | published | design needed |
-| Algebra, Functions, Exponentials & Logarithms | foundation | planned | brief |
-| Sets, Logic, Relations & Proof Techniques | foundation | planned | brief |
-| Geometry, Trigonometry & Coordinate Reasoning | foundation | planned | brief |
-| Counting, Combinatorics & Mathematical Induction | foundation | planned | brief |
-| Single-Variable Calculus: Limits, Derivatives & Integrals | foundation | planned | brief |
-| Random Variables, Expectation & Covariance | foundation | planned | brief |
-| Sampling, Measurement & Experimental Design | foundation | planned | brief |
-| Ordinary Differential Equations & Linear Systems | intermediate | planned | brief |
-| Complex Numbers, Fourier & Laplace Transforms | intermediate | planned | brief |
-| Conditioning, Stability & Numerical Analysis | intermediate | planned | brief |
-| Decision Theory, Risk & Cost-Sensitive Decisions | intermediate | planned | brief |
-| Real Analysis, Sequences & Modes of Convergence | intermediate | planned | brief |
-| Abstract Algebra, Groups & Symmetry Actions | intermediate | planned | brief |
-| Partial Differential Equations, Conservation & Boundary Conditions | intermediate | planned | brief |
-| Numerical PDEs: Grids, Finite Elements & Stability | advanced | planned | brief |
+| Itô Calculus & Stochastic Differential Equations | advanced | published | brief |
+| Numerical Methods (Finite Differences, Quadrature, Root Finding) | foundation | published | brief |
+| Functional Analysis & RKHS | advanced | published | brief |
+| Topology & Topological Data Analysis (TDA) | advanced | published | brief |
+| Category Theory (Emerging Use in ML) | advanced | published | brief |
+| Differential Geometry & Riemannian Manifolds | advanced | published | brief |
+| Algebra, Functions, Exponentials & Logarithms | foundation | published | brief |
+| Sets, Logic, Relations & Proof Techniques | foundation | published | brief |
+| Geometry, Trigonometry & Coordinate Reasoning | foundation | published | brief |
+| Counting, Combinatorics & Mathematical Induction | foundation | published | brief |
+| Single-Variable Calculus: Limits, Derivatives & Integrals | foundation | published | brief |
+| Random Variables, Expectation & Covariance | foundation | published | brief |
+| Sampling, Measurement & Experimental Design | foundation | published | brief |
+| Ordinary Differential Equations & Linear Systems | intermediate | published | brief |
+| Complex Numbers, Fourier & Laplace Transforms | intermediate | published | brief |
+| Conditioning, Stability & Numerical Analysis | intermediate | published | brief |
+| Decision Theory, Risk & Cost-Sensitive Decisions | intermediate | published | brief |
+| Real Analysis, Sequences & Modes of Convergence | intermediate | published | brief |
+| Abstract Algebra, Groups & Symmetry Actions | intermediate | published | brief |
+| Partial Differential Equations, Conservation & Boundary Conditions | intermediate | published | brief |
+| Numerical PDEs: Grids, Finite Elements & Stability | advanced | published | brief |
 
 ### Classical Machine Learning
 
@@ -129,17 +129,17 @@ Counts within modules may include shared topics. The headline counts each stable
 
 | Topic | Level | Content | Design |
 | --- | --- | --- | --- |
-| Linear & Logistic Regression | foundation | published | design needed |
-| Decision Trees & Random Forests | foundation | published | design needed |
-| K-Nearest Neighbors (KNN) | foundation | published | design needed |
-| Gradient Boosted Trees (XGBoost, LightGBM, CatBoost) | intermediate | published | design needed |
-| Support Vector Machines (SVM) | intermediate | published | design needed |
-| Naive Bayes & Probabilistic Classifiers | intermediate | published | design needed |
-| Ensemble Methods & Stacking | intermediate | published | design needed |
-| Recommender Systems (Collaborative Filtering, Matrix Factorization) | intermediate | published | design needed |
-| Multi-Label & Multi-Output Learning | intermediate | published | design needed |
-| Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models) | advanced | published | design needed |
-| K-Means & Hierarchical Clustering | foundation | published | design needed |
+| Linear & Logistic Regression | foundation | published | brief |
+| Decision Trees & Random Forests | foundation | published | brief |
+| K-Nearest Neighbors (KNN) | foundation | published | brief |
+| Gradient Boosted Trees (XGBoost, LightGBM, CatBoost) | intermediate | published | brief |
+| Support Vector Machines (SVM) | intermediate | published | brief |
+| Naive Bayes & Probabilistic Classifiers | intermediate | published | brief |
+| Ensemble Methods & Stacking | intermediate | published | brief |
+| Recommender Systems (Collaborative Filtering, Matrix Factorization) | intermediate | published | brief |
+| Multi-Label & Multi-Output Learning | intermediate | published | brief |
+| Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models) | advanced | published | brief |
+| K-Means & Hierarchical Clustering | foundation | published | brief |
 | PCA & Dimensionality Reduction | foundation | published | design needed |
 | Clustering Evaluation & Validation (Silhouette, ARI, NMI) | foundation | published | design needed |
 | DBSCAN & Density-Based Clustering | intermediate | published | design needed |

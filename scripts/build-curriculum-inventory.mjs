@@ -28,18 +28,44 @@ const dsaCoreStructuresReviewed = new Set(['trees-binary-search-trees','heaps-pr
 // Current rollout evidence is per topic and source-versioned. A publication or
 // an old review record cannot make an edited lesson automatically reviewed.
 const foundationsProgress = JSON.parse(fs.readFileSync(path.join(root, 'docs/teaching/dsa-math-foundations-progress.json'), 'utf8'));
-const currentFoundationsReviews = new Map(foundationsProgress.topics.filter(topic => {
+const currentSourceReviews = new Map(foundationsProgress.topics.filter(topic => {
   if (topic.status !== 'implementation-reviewed' || !topic.reviewedFiles) return false;
   return Object.entries(topic.reviewedFiles).every(([filename, expectedHash]) => {
     const absolute = path.join(root, filename);
     return fs.existsSync(absolute) && createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') === expectedHash;
   });
 }).map(topic => [topic.id, topic.verificationRecord]));
+// The active ML increment uses the same final, exact-source review contract.
+// Author checks or independent review alone do not stand in for integration.
+for (const progressPath of ['docs/teaching/classical-ml-supervised-progress.json', 'docs/teaching/classical-ml-unsupervised-progress.json']) {
+  const classicalMlProgress = JSON.parse(fs.readFileSync(path.join(root, progressPath), 'utf8'));
+  for (const topic of classicalMlProgress.topics) {
+    if (topic.status !== 'implementation-reviewed' || !topic.reviewedFiles) continue;
+    const current = Object.entries(topic.reviewedFiles).every(([filename, expectedHash]) => {
+      const absolute = path.join(root, filename);
+      return fs.existsSync(absolute) && createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') === expectedHash;
+    });
+    if (current) currentSourceReviews.set(topic.id, topic.verificationRecord);
+  }
+}
+// Targeted follow-ups in the previously reviewed first five DSA topics have
+// their own exact-source integration evidence. An edited source invalidates it.
+const extensionsPath = path.join(root, 'docs/teaching/evidence/dsa-math-foundations-complete-integration.json');
+const extensionReviews = fs.existsSync(extensionsPath)
+  ? JSON.parse(fs.readFileSync(extensionsPath, 'utf8')).extensionReviews : [];
+for (const review of extensionReviews) {
+  systemsStructuresReviewed.delete(review.topicId);
+  dsaCoreStructuresReviewed.delete(review.topicId);
+  if (Object.entries(review.reviewedFiles).every(([filename, expectedHash]) => {
+    const absolute = path.join(root, filename);
+    return fs.existsSync(absolute) && createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') === expectedHash;
+  })) currentSourceReviews.set(review.topicId, review.verificationRecord);
+}
 const topics = Object.values(topicCatalogue).map((topic) => ({
   ...topic,
   publicationStatus: published.has(topic.id) ? "published" : "planned",
-  teachingReview: topic.id === "linux-basics-filesystems-processes" ? "user-approved-reference" : currentFoundationsReviews.has(topic.id) || pythonDataFoundationsReviewed.has(topic.id) || analysisWorkflowReviewed.has(topic.id) || systemsStructuresReviewed.has(topic.id) || programmingReliabilityReviewed.has(topic.id) || dsaCoreStructuresReviewed.has(topic.id) ? "implementation-reviewed-user-acceptance-pending" : "individual-review-required",
-  teachingReviewRecord: topic.id === "linux-basics-filesystems-processes" ? "PROGRAMMING-REWRITE-LINUX.md" : currentFoundationsReviews.get(topic.id) || (dsaCoreStructuresReviewed.has(topic.id) ? "DSA-CORE-STRUCTURES-IMPLEMENTATION.md" : programmingReliabilityReviewed.has(topic.id) ? "PROGRAMMING-MODULE-COMPLETION.md" : pythonDataFoundationsReviewed.has(topic.id) ? "FIRST-FIVE-REIMPLEMENTATION.md" : analysisWorkflowReviewed.has(topic.id) ? "NEXT-THREE-REIMPLEMENTATION.md" : systemsStructuresReviewed.has(topic.id) ? "SYSTEMS-STRUCTURES-IMPLEMENTATION.md" : undefined),
+  teachingReview: topic.id === "linux-basics-filesystems-processes" ? "user-approved-reference" : currentSourceReviews.has(topic.id) || pythonDataFoundationsReviewed.has(topic.id) || analysisWorkflowReviewed.has(topic.id) || systemsStructuresReviewed.has(topic.id) || programmingReliabilityReviewed.has(topic.id) || dsaCoreStructuresReviewed.has(topic.id) ? "implementation-reviewed-user-acceptance-pending" : "individual-review-required",
+  teachingReviewRecord: topic.id === "linux-basics-filesystems-processes" ? "PROGRAMMING-REWRITE-LINUX.md" : currentSourceReviews.get(topic.id) || (dsaCoreStructuresReviewed.has(topic.id) ? "DSA-CORE-STRUCTURES-IMPLEMENTATION.md" : programmingReliabilityReviewed.has(topic.id) ? "PROGRAMMING-MODULE-COMPLETION.md" : pythonDataFoundationsReviewed.has(topic.id) ? "FIRST-FIVE-REIMPLEMENTATION.md" : analysisWorkflowReviewed.has(topic.id) ? "NEXT-THREE-REIMPLEMENTATION.md" : systemsStructuresReviewed.has(topic.id) ? "SYSTEMS-STRUCTURES-IMPLEMENTATION.md" : undefined),
   domainStrategy: getDomainGuidance(topic.trackId).strategy,
 }));
 

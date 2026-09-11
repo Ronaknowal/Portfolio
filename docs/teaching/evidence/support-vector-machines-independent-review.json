@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-09-11T14:18:41.883Z",
+  "topicId": "support-vector-machines-svm",
+  "status": "closed; flat-pair finding resolved",
+  "reviewer": "/root (independent of topic author)",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "sha256": "6be84f25e70585a9337e5ad9f583c5bce6d2101d139b2e39370f459d2d6ca3e9"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "25c2e4161425e654eaef9f04a4f1486d60d5b5554170b81249407353d5d87d79"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-examples.js",
+      "sha256": "296eceb16d17bb45d113b8db9239bf277e90ba47454834c3d741ff5262bbb084"
+    },
+    {
+      "path": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "sha256": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/support-vector-machines-labs.css",
+      "sha256": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/support-vector-machines-svm.js",
+      "sha256": "b708e36317e8fd4a152230cf4ab6694ea400dec3a144a71b0a3f31760561540c"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/support-vector-machines-author-review.json",
+      "sha256": "b6cd82e6f10651f3074192b4b3b8c3f8151c601d64875f589c40b64a4c32519e"
+    },
+    {
+      "path": "scratch/svm-independent/complementary-checks.json",
+      "sha256": "819a891ddd95af200dfc716d9e4d052ce31ae252f0bb4f8bb37475dd286a75c8"
+    }
+  ],
+  "cases": [
+    {
+      "kind": "positive score scaling preserves distances and projections",
+      "angle": -31,
+      "offset": -0.4
+    },
+    {
+      "kind": "positive score scaling preserves distances and projections",
+      "angle": 17,
+      "offset": 0.25
+    },
+    {
+      "kind": "positive score scaling preserves distances and projections",
+      "angle": 43,
+      "offset": 0.7
+    },
+    {
+      "kind": "RBF rotation and isotropic units transformation",
+      "left": [
+        1,
+        -2
+      ],
+      "right": [
+        -1,
+        1
+      ]
+    },
+    {
+      "kind": "RBF rotation and isotropic units transformation",
+      "left": [
+        0,
+        0.3
+      ],
+      "right": [
+        0.4,
+        -0.8
+      ]
+    },
+    {
+      "kind": "RBF rotation and isotropic units transformation",
+      "left": [
+        2,
+        2
+      ],
+      "right": [
+        -2,
+        -1
+      ]
+    },
+    {
+      "kind": "pair reparameterization and feature translation preserve the feasible update",
+      "i": 0,
+      "j": 1
+    },
+    {
+      "kind": "pair reparameterization and feature translation preserve the feasible update",
+      "i": 0,
+      "j": 2
+    },
+    {
+      "kind": "pair reparameterization and feature translation preserve the feasible update",
+      "i": 1,
+      "j": 2
+    },
+    {
+      "kind": "flat zero-gain duplicate pair follows the stated leave-unchanged policy"
+    },
+    {
+      "kind": "SVR target-unit change preserves the objective up to scale",
+      "amplitude": 3,
+      "epsilon": 0.8,
+      "c": 0.7
+    },
+    {
+      "kind": "SVR target-unit change preserves the objective up to scale",
+      "amplitude": 2,
+      "epsilon": 1.2,
+      "c": 1
+    },
+    {
+      "kind": "SVR target-unit change preserves the objective up to scale",
+      "amplitude": 3,
+      "epsilon": 0.2,
+      "c": 2
+    },
+    {
+      "kind": "reversing sequence reindexes spectrum counts without inventing windows",
+      "sequence": "ACACCA"
+    },
+    {
+      "kind": "reversing sequence reindexes spectrum counts without inventing windows",
+      "sequence": "AAAA"
+    },
+    {
+      "kind": "reversing sequence reindexes spectrum counts without inventing windows",
+      "sequence": ""
+    }
+  ],
+  "findings": [
+    {
+      "issue": "Flat pair with q=g=0 moved although prose promised no movement.",
+      "status": "resolved before author freeze",
+      "evidence": {
+        "checkedAt": "2026-09-11T14:10:00.425Z",
+        "cases": 7,
+        "actualStdoutUnchanged": true,
+        "unaffectedProgramsRetained": 13
+      }
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/margin-geometry-320.png",
+      "sha256": "4824bf57a56a27ee011cfd9c326a39b6610c42cfdf982ce1521e3c5cabe342ed"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/zero-curvature-pair-320.png",
+      "sha256": "f32bc7f246f96845613718121d399337dfdfdcf1b6ea645a1a72582b856b3f86"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/measured-selection-1440.png",
+      "sha256": "49cb85ea4ca486006d0eea8a7fd8d16710f2ce2bee63fd2c2dadf304267ea0e0"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/dual-reading-320.png",
+      "sha256": "cae325b51056abfe10e617b9ace358d93a271b81f3b2b8fbe3019a3bc3153f23"
+    }
+  ],
+  "assessment": "Complete body/model read, final equation clarification inspected, source identities and complementary checks passed, selected existing captures independently opened. Unchanged author full native/browser evidence reused.",
+  "limitations": "Shared integration pending. No full independent browser interaction rerun, learner study or user acceptance."
+}

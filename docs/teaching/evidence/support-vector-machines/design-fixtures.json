@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-11T12:59:44.131016+00:00",
+  "counts": {
+    "support_motion": 7,
+    "soft_pairs": 30,
+    "xor_kernels": 36,
+    "svr_tubes": 48
+  },
+  "maximumAbsoluteError": 2.0845541959246816e-08,
+  "originalRuns": [
+    {
+      "name": "original_smo_demos",
+      "snippetIndices": [
+        1,
+        2
+      ],
+      "sha256": "eecc0b73d1586c84ee3222681863d1ab3b2694187c0956fd983992a39430dc30",
+      "exitCode": 0,
+      "stdout": "[Linearly separable]  n_support=20  accuracy=1.000\n[XOR / non-separable] n_support=32  accuracy=0.925\n",
+      "stderr": ""
+    },
+    {
+      "name": "original_library_fragments",
+      "snippetIndices": [
+        3,
+        4,
+        5
+      ],
+      "sha256": "4800717121ecbfed7b0dc4a54950fc38b2a8b55a19df86a22898f7b68f9272b6",
+      "exitCode": 0,
+      "stdout": "SVC(kernel=rbf) train accuracy : 0.980\nn_support_vectors              : 253\npredict_proba (first 3)        : [[0.023, 0.977], [0.998, 0.002], [0.023, 0.977]]\ndecision_function (first 3)    : [1.0, -1.374, 1.0]\nLinearSVC train accuracy: 0.842\nSVR R^2 on train: 0.775\nSVR n_support_vectors: 199\n",
+      "stderr": "C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Lib\\site-packages\\sklearn\\svm\\_base.py:236: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`\n  warnings.warn(\n"
+    }
+  ],
+  "scope": "Design fixtures and original fragment executions only; no claim about future implementation or browser."
+}

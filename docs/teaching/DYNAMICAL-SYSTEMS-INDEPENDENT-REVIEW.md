@@ -1,0 +1,29 @@
+# Dynamical Systems Theory & Chaos — independent review
+
+The bounded independent review is closed against the six author-frozen production files at 2026-09-10T20:56:31.905Z. Their complete paths and SHA256 values, complementary execution results and the six actual images opened by this reviewer are preserved in [the independent evidence](evidence/dynamical-systems-independent-review.json). No production file was edited by the reviewer, and no unresolved material mathematical or teaching-contract defect was found. This status is separate from root-owned production integration and user acceptance.
+
+## Source and mathematical review
+
+The reviewer read the complete lesson, all twelve independent practice tasks with hints and solutions, all eleven executable programs, the complete bounded model module, seven interactive investigations, three inline figures, their scoped CSS, semantic blueprint, original preservation record, individual design and final author verification. The original nearby-logistic-start program and its output were independently compared byte-for-byte with the preservation archive.
+
+The substantive review checked sufficient state versus observation, rate versus update, local existence versus finite-time escape, stability versus attraction, strict map/flow linear criteria and marginal nonlinear counterexamples. It checked the tilted cubic fold signs, phase-line basins, Lyapunov and compact-invariant-set qualifications, nonnormal transient amplification, Hopf radial dynamics, the neutral phase direction, orbital attraction and the stated planar-limit-set conditions.
+
+For the discrete examples, the review checked the logistic two-cycle formula and multiplier, equality cases, periodic windows, vanishing tangent derivatives, the fixed orbit with positive exponent, finite-time evidence boundaries, inverse tent branch order, endpoint ambiguity, the mixing/dense-periodic mechanism and the distinction between typical invariant-law statements and exceptional finite orbits. The conjugacy and transformed invariant density have the correct orientation and normalization. The Lorenz equilibria and infinitesimal volume divergence are separated from a proof of chaos or global boundedness. Numerical energy, positive-definiteness of the modified form, the step-two boundary and ordered noncommuting derivative products were checked against their actual claimed conditions. Practice changes and explained answers remained consistent with these mechanisms.
+
+## Complementary execution
+
+Run the reviewer-owned script with the project Python runtime: scratch/lesson-tools/Scripts/python.exe scripts/verify-dynamical-systems-independent.py. The successful run at 2026-09-10T21:02:36.982178Z used Python3.12.14, NumPy2.3.5 and SciPy1.18.1. It passed 3,326 numerical assertions, independently executed all eleven displayed programs with exact stdout, and retained the original program/output check.
+
+- Twelve changed Hopf cases provide 972 selected radius/angle states. A 90-digit solution in the inverse-squared-radius coordinate independently checks the native and browser expressions, including positive and negative parameters near zero.
+- Ten changed oscillator cases provide 170 states checked with exact Fraction matrix evolution and the modified quadratic identity, including the degenerate step-two boundary and an unstable step above two. Twelve additional changed native cases verify actual returned ordinary and modified energies.
+- Five ten-branch words use exact reverse endpoint pullbacks and forward itinerary/period checks. Six independent improper-density integrals check the logistic invariant CDF.
+- Nine changed Lorenz cases integrate the variational matrix alongside the actual native velocity. Positive determinant and log determinant agree with minus41t/3; an independent native trajectory comparison uses the same changed states and short horizons.
+- Twelve changed signed cubic cases compare the actual native helper against adaptive integration.
+
+The largest absolute discrepancy, 7.63e−6, occurs when an unstable trajectory evaluates the indefinite modified form by cancellation of large terms. The initial fixed absolute allowance was therefore replaced by a term-magnitude binary64 evaluation allowance, while preserving the exact rational identity and state comparisons. The record makes this arithmetic limitation explicit; it is not a claim of inaccurate stable browser presets or a tolerance-free invariant in floating-point arithmetic. These complementary cases supplement the author's separate 56,021 model comparisons and 3,840 changed native comparisons; those larger suites are not claimed as independent reviewer work.
+
+## Visual evidence and limits
+
+The reviewer actually opened six final author-generated images: desktop Hopf geometry and numerical energies; narrow critical sensitivity, folding and ordinary tent-map reading; and the390-pixel initial state/cart explanation. The same state is meaningfully linked across geometry and time. The critical derivative remains minus infinity, rather than a made-up small number. Exact versus numerical energy and physical time are visibly distinguished. Narrow plots intentionally retain readable labels with local horizontal scrolling; their complete numerical values and surrounding prose remain available.
+
+The final author browser record covers143 states at each of1440,390 and320 pixels, actual fonts, all controls, visible questions/code/output, keyboard operation, anchors, equations and ordinary reading. This reviewer inspected that record and the named images without claiming a duplicate full browser run. The review is finite and scoped: it does not certify arbitrary numerical inputs, prove a chaotic claim for an observed system, establish learner outcomes, or replace production integration checks.

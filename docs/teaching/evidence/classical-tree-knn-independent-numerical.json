@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-09-11T14:31:21.373Z",
+  "counts": {
+    "affineTreeQueries": 24,
+    "pruningCrossovers": 3,
+    "bootstrapPrefixes": 6,
+    "geometricIdentities": 4,
+    "tinyCosineCases": 6,
+    "rejectedSparse": 7
+  },
+  "native": {
+    "checkedAt": "2026-09-11T14:31:21.338396+00:00",
+    "actualTreeCases": 8,
+    "actualNeighborKdQueries": 12,
+    "duplicateAndRegressionCases": 2,
+    "scope": "Exact displayed imports/definitions with changed inputs; full example demos not repeated."
+  },
+  "sourceHashes": {
+    "decision-tree": [
+      {
+        "path": "src/learn/data/topics/decision-trees-random-forests.jsx",
+        "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+      },
+      {
+        "path": "src/learn/data/decision-tree-models.js",
+        "sha256": "620aa4a621a7c3a0a381f1e4f61ddf79cc3a94ac118b65c44021c8e147aaded6"
+      },
+      {
+        "path": "src/learn/data/decision-tree-examples.js",
+        "sha256": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+        "sha256": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+        "sha256": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/decision-trees-random-forests.js",
+        "sha256": "574b3155f5a414e97188510ddfd431343924270e4df75f771a1c517580444864"
+      }
+    ],
+    "knn": [
+      {
+        "path": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+        "sha256": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516"
+      },
+      {
+        "path": "src/learn/data/knn-models.js",
+        "sha256": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74"
+      },
+      {
+        "path": "src/learn/data/knn-examples.js",
+        "sha256": "f98fa95e5bd98573280e10c3b63d7556ca7a19b875757c013f5a0c5b2863537a"
+      },
+      {
+        "path": "src/learn/data/knn-validation-data.js",
+        "sha256": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/KnnLabs.jsx",
+        "sha256": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/knn-labs.css",
+        "sha256": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/k-nearest-neighbors-knn.js",
+        "sha256": "43e77af81755130051ec81693e767ac5001d15322b0d2a745f28c89a82cf4929"
+      }
+    ]
+  },
+  "scope": "Complementary structural/geometry and changed actual helper checks. Author complete program/browser evidence is reused, not rerun."
+}

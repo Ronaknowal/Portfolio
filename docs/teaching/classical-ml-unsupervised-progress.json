@@ -1,0 +1,34 @@
+{
+  "updatedAt": "2026-09-11",
+  "scope": "Only the next topic, K-Means & Hierarchical Clustering, is currently authorized. This ledger can retain later separately authorized unsupervised work without treating the remaining module as an active queue.",
+  "baseline": "docs/teaching/evidence/k-means-hierarchical-baseline.json",
+  "stage": "complete",
+  "nextAction": "User review of the completed K-Means & Hierarchical Clustering lesson. PCA & Dimensionality Reduction is the actual next topic (position 12), awaiting the next requested scope; no additional implementation is active.",
+  "topics": [
+    {
+      "id": "k-means-hierarchical-clustering",
+      "modulePosition": 11,
+      "status": "implementation-reviewed",
+      "verificationRecord": "docs/teaching/K-MEANS-HIERARCHICAL-LESSON-DESIGN.md",
+      "reviewedFiles": {
+        "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "bf89d7ba6add457467b803aaf5458936de661ee3227e857dd697483661f7596f",
+        "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
+        "src/learn/data/k-means-hierarchical-examples.js": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+        "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "6c5ea036d7751e02a0b3925cbd372a0a449f6ba5624aa6525f3ac1ddd1a47273",
+        "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "421f42263440d73139f2437a402de95c7ae7a28105cdb9c8b41ae4a2b4e857c4",
+        "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "a92ed0e2afb46582521543d2cdbb68daad7e2039f2da648e28aaae9336192d5e",
+        "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "25f9e3311801550d271c8b45b589fc80eb520ef00dd20d23419ec8b8ec83b07b",
+        "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "6f74f6a098dc78efbd85b99cdf6672dd8594925d5267594a73cf09a66441d86a"
+      },
+      "completedAt": "2026-09-11T17:39:25.276Z",
+      "userAcceptance": "pending",
+      "evidence": {
+        "native": "docs/teaching/evidence/k-means-hierarchical-native.json",
+        "model": "docs/teaching/evidence/k-means-hierarchical-models.json",
+        "independentContent": "docs/teaching/K-MEANS-HIERARCHICAL-INDEPENDENT-REVIEW.md",
+        "independentVisual": "docs/teaching/K-MEANS-HIERARCHICAL-VISUAL-MODEL-REVIEW.md",
+        "production": "docs/teaching/evidence/k-means-hierarchical-browser.json"
+      }
+    }
+  ]
+}

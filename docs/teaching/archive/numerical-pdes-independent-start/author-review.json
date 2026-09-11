@@ -1,0 +1,1336 @@
+{
+  "topicId": "numerical-pdes-grids-finite-elements-stability",
+  "title": "Numerical PDEs: Grids, Finite Elements & Stability",
+  "mathematicsPosition": 57,
+  "status": "author-frozen; independent review and integrated production checks are separate",
+  "authorFrozenAt": "2026-09-11T09:36:25.855111+00:00",
+  "productionSourceCount": 6,
+  "sourceHashes": {
+    "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+    "src/learn/data/numerical-pde-models.js": "ebbb437c85f2800119f4d73bb8545a359ea82dfaa7abfbf9621668203e7309c1",
+    "src/learn/data/numerical-pde-examples.js": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3",
+    "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+    "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+    "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+  },
+  "originalBaseline": {
+    "publishedBodyExisted": false,
+    "completeProgramExisted": false,
+    "plannedInventory": "docs/teaching/evidence/numerical-pdes-original-plan.json",
+    "assessedParentDesign": "docs/teaching/evidence/numerical-pdes-assessed-design.md",
+    "designIndependentReview": "docs/teaching/NUMERICAL-PDES-DESIGN-INDEPENDENT-REVIEW.md",
+    "attribution": "Parent design calculations and receiving-author design checks preceded production; neither substitutes for these actual-source checks."
+  },
+  "scope": {
+    "sections": 15,
+    "completeExecutedPrograms": 16,
+    "changedPracticeWithSeparateHintsAndSolutions": 15,
+    "investigations": 11,
+    "inlineFigures": 1,
+    "requiredPrerequisites": [
+      "Partial Differential Equations, Conservation & Boundary Conditions",
+      "Conditioning, Stability & Numerical Analysis",
+      "Matrix Decompositions (SVD, QR, Cholesky, LU)"
+    ],
+    "interpretation": "Counts describe the authored scope, not a future template or mastery guarantee."
+  },
+  "native": {
+    "checkedAt": "2026-09-11T09:26:20.809339+00:00",
+    "passed": true,
+    "counts": {
+      "SPD solve": 20,
+      "Poisson independent solve": 108,
+      "Poisson chosen direct": 54,
+      "exact rational certificate": 108,
+      "stable diffusion matrix power": 2034,
+      "spatial ODE exponential": 720,
+      "finite-grid threshold": 48,
+      "unstable one-step operator": 112,
+      "interface independent balance": 27,
+      "Neumann augmented mean solve": 27,
+      "all Neumann balances": 27,
+      "periodic matrix update": 960,
+      "conservative mass": 960,
+      "exact one-cell translation": 120,
+      "constant-k nodal identity": 72,
+      "piecewise field quadrature": 72,
+      "piecewise gradient quadrature": 72,
+      "assembled interior load": 72,
+      "Kronecker stencil row": 130,
+      "affine interpolation gradients": 4,
+      "triangle energy": 4,
+      "coarse energy projection": 7,
+      "projected residual": 7,
+      "convex Godunov extremum": 25,
+      "complete actual stdout": 16,
+      "changed displayed Poisson": 6,
+      "changed native diffusion": 12,
+      "changed native point load": 4,
+      "changed native rectangular eigenmode": 6,
+      "changed native exact flux balance": 3,
+      "changed finite-budget native certificate": 3,
+      "changed positivity counterexample": 1,
+      "changed exact hand-task groups": 9
+    },
+    "versions": {
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "numpy": "2.3.5",
+      "scipy": "1.18.1"
+    },
+    "sourceHashes": {
+      "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+      "src/learn/data/numerical-pde-models.js": "ebbb437c85f2800119f4d73bb8545a359ea82dfaa7abfbf9621668203e7309c1",
+      "src/learn/data/numerical-pde-examples.js": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3",
+      "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+      "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+      "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    }
+  },
+  "modelExport": {
+    "checkedAt": "2026-09-11T09:26:06.088Z",
+    "invalidCases": 12,
+    "equations": 16,
+    "fixtureCounts": {
+      "poisson": 108,
+      "diffusion": 48,
+      "interfaces": 27,
+      "neumann": 51,
+      "advection": 96,
+      "fem": 72,
+      "rectangles": 130,
+      "triangles": 4,
+      "coarse": 7,
+      "godunov": 25,
+      "tridiagonal": 20
+    }
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T09:23:11.801Z",
+    "passed": true,
+    "records": [
+      {
+        "width": 1440,
+        "states": [
+          "N32 direct certified",
+          "zero updates not certified",
+          "1500 updates certified",
+          "linear exact mesh and nonzero boundary",
+          "quadratic order undefined",
+          "large-step high-mode oscillation",
+          "stable refined high-mode",
+          "large amplified field retains axis scale",
+          "identical materials",
+          "interface immaterial when k equal",
+          "incompatible flux rejected",
+          "left exact translation",
+          "centered overshoot with conserved mass",
+          "changed smooth cell averages",
+          "upwind outside convex range is visibly unstable",
+          "stationary shock unique flux",
+          "point between nodes",
+          "aligned source exact discretization",
+          "right edge has boundary rather than wrap",
+          "scaled translated triangle",
+          "high-mode two-grid norms"
+        ],
+        "anchors": [
+          "#npde-field",
+          "#npde-stencil",
+          "#npde-solve",
+          "#npde-certificate",
+          "#npde-reconstruct",
+          "#npde-refine",
+          "#npde-diffusion",
+          "#npde-implicit",
+          "#npde-flux",
+          "#npde-transport",
+          "#npde-elements",
+          "#npde-energy",
+          "#npde-geometry",
+          "#npde-solvers",
+          "#npde-practice"
+        ],
+        "keyboard": [
+          "Optional section Enter",
+          "Optional section Enter",
+          "Optional section Enter",
+          "Reset: From a stencil row to a field certificate",
+          "Reset: A refinement test can tell the wrong story",
+          "Reset: Watch a mode, not just a stability badge",
+          "Reset: Two materials share one steady flux",
+          "Reset: A boundary gauge cannot repair missing heat",
+          "Reset: Move cell averages through shared faces",
+          "Reset: Choose a Burgers face flux from the wave",
+          "Reset: Assemble overlapping hats; resolve a point source",
+          "Reset: A two-dimensional neighbor is not always a vector neighbor",
+          "Reset: Map a triangle, then map its gradients",
+          "Reset: Remove error on two resolutions",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown"
+        ],
+        "captures": [
+          "reading-intro-1440.png",
+          "reading-section-1-1440.png",
+          "reading-section-2-1440.png",
+          "reading-section-3-1440.png",
+          "reading-section-4-1440.png",
+          "reading-section-5-1440.png",
+          "reading-section-6-1440.png",
+          "reading-section-7-1440.png",
+          "reading-section-8-1440.png",
+          "reading-section-9-1440.png",
+          "reading-section-10-1440.png",
+          "reading-section-11-1440.png",
+          "reading-section-12-1440.png",
+          "reading-section-13-1440.png",
+          "reading-section-14-1440.png",
+          "reading-section-15-1440.png",
+          "exact-field-budget-1440.png",
+          "right-boundary-stencil-1440.png",
+          "nonzero-boundary-field-1440.png",
+          "exactness-trap-1440.png",
+          "high-mode-first-step-1440.png",
+          "high-mode-second-step-1440.png",
+          "stable-high-mode-1440.png",
+          "large-amplification-scale-1440.png",
+          "series-resistance-field-1440.png",
+          "incompatible-outflow-1440.png",
+          "left-shift-cell-averages-1440.png",
+          "centered-oscillations-1440.png",
+          "upwind-outside-cfl-1440.png",
+          "stationary-shock-flux-1440.png",
+          "point-between-nodes-1440.png",
+          "source-aligned-node-1440.png",
+          "nonuniform-matrix-1440.png",
+          "rectangle-index-map-1440.png",
+          "mapped-triangle-1440.png",
+          "coarse-high-mode-1440.png",
+          "coarse-norm-comparison-1440.png",
+          "explained-practice-0-1440.png",
+          "explained-practice-4-1440.png",
+          "explained-practice-9-1440.png",
+          "explained-practice-14-1440.png",
+          "changed-complete-program-1440.png",
+          "changed-accepted-output-1440.png",
+          "equation-0-1440.png",
+          "equation-1-1440.png",
+          "equation-2-1440.png",
+          "equation-3-1440.png",
+          "equation-4-1440.png",
+          "equation-5-1440.png",
+          "equation-6-1440.png",
+          "equation-7-1440.png",
+          "equation-8-1440.png",
+          "equation-9-1440.png",
+          "equation-10-1440.png",
+          "equation-11-1440.png",
+          "equation-12-1440.png",
+          "equation-13-1440.png",
+          "equation-14-1440.png",
+          "equation-15-1440.png",
+          "restriction-reconstruction-1440.png",
+          "ordinary-figure-0-0-1440.png",
+          "ordinary-figure-1-0-1440.png",
+          "ordinary-figure-2-0-1440.png",
+          "ordinary-figure-3-0-1440.png",
+          "ordinary-figure-5-0-1440.png",
+          "ordinary-figure-7-0-1440.png",
+          "ordinary-figure-7-1-1440.png",
+          "ordinary-figure-9-0-1440.png",
+          "ordinary-figure-10-0-1440.png",
+          "annotated-resources-1440.png"
+        ],
+        "programs": [
+          "Derive a row with exact fractions",
+          "Solve the tridiagonal problem",
+          "Stop only when the requested field is certified",
+          "Separate a useful refinement test from an exactness trap",
+          "Execute three different time updates",
+          "Refine time while keeping space fixed",
+          "Combine resistances, not conductivities",
+          "Reject incompatible fluxes before choosing a mean",
+          "Check mass and shape separately",
+          "Read the entropy solution at one cell face",
+          "Assemble overlapping hats on an actual mesh",
+          "Integrate field and slope errors",
+          "Solve a sparse rectangular problem",
+          "Calculate a triangle's basis gradients",
+          "Compute one explicitly defined coarse correction",
+          "Deliver a changed field-tolerance report"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "math": [
+          {
+            "index": 0,
+            "width": 760,
+            "scroll": 760,
+            "text": "(AhU)j=2Uj−Uj−1−Uj+1h2.(A_hU)_j=\\frac{2U_j-U_{j-1}-U_{j+1}}{h^2}.(Ah​U)j​=h22Uj​−Uj−1​−Uj+1​​."
+          },
+          {
+            "index": 1,
+            "width": 760,
+            "scroll": 760,
+            "text": "u(x±h)=u(x)±hu′(x)+h22u′′(x)±h36u′′′(x)+h424u(4)(ξ±).\\begin{gathered}u(x\\pm h)=u(x)\\pm h u'(x)\\\\{}+\\frac{h^2}{2}u''(x)\\pm\\frac{h^3}{6}u'''(x)\\\\{}+\\frac{h^4}{24}u^{(4)}(\\xi_\\pm).\\end{gathered}u(x±h)=u(x)±hu′(x)+2h2​u′′(x)±6h3​u′′′(x)+24h4​u(4)(ξ±​).​"
+          },
+          {
+            "index": 2,
+            "width": 760,
+            "scroll": 760,
+            "text": "h V⊤AV=∑j=0N−1(Vj+1−Vj)2h,h V⊤AV>0if V≠0.\\begin{gathered}h\\,V^\\top A V=\\sum_{j=0}^{N-1}\\frac{(V_{j+1}-V_j)^2}{h},\\\\h\\,V^\\top A V>0\\quad\\text{if }V\\ne0.\\end{gathered}hV⊤AV=j=0∑N−1​h(Vj+1​−Vj​)2​,hV⊤AV>0if V=0.​"
+          },
+          {
+            "index": 3,
+            "width": 760,
+            "scroll": 760,
+            "text": "A(U^−Rhu)=τ−r.A(\\widehat U-R_hu)=\\tau-r.A(U−Rh​u)=τ−r."
+          },
+          {
+            "index": 4,
+            "width": 760,
+            "scroll": 760,
+            "text": "∥U^−Rhu∥∞≤L28(∥τ∥∞+∥r∥∞).\\begin{gathered}\\|\\widehat U-R_hu\\|_\\infty\\\\\\le\\frac{L^2}{8}\\bigl(\\|\\tau\\|_\\infty+\\|r\\|_\\infty\\bigr).\\end{gathered}∥U−Rh​u∥∞​≤8L2​(∥τ∥∞​+∥r∥∞​).​"
+          },
+          {
+            "index": 5,
+            "width": 760,
+            "scroll": 760,
+            "text": "∥IhU^−u∥∞≤∥U^−Rhu∥∞+h2M28.\\begin{gathered}\\|I_h\\widehat U-u\\|_\\infty\\\\\\le\\|\\widehat U-R_hu\\|_\\infty+\\frac{h^2M_2}{8}.\\end{gathered}∥Ih​U−u∥∞​≤∥U−Rh​u∥∞​+8h2M2​​.​"
+          },
+          {
+            "index": 6,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ujn+1=(1−2r)Ujn+r(Uj−1n+Uj+1n).\\begin{gathered}U_j^{n+1}=(1-2r)U_j^n\\\\{}+r(U_{j-1}^n+U_{j+1}^n).\\end{gathered}Ujn+1​=(1−2r)Ujn​+r(Uj−1n​+Uj+1n​).​"
+          },
+          {
+            "index": 7,
+            "width": 760,
+            "scroll": 760,
+            "text": "∥en∥∞≤∥e0∥∞+TΔt Mtt2+Tαh2M412.\\begin{aligned}\\|e^n\\|_\\infty&\\le\\|e^0\\|_\\infty+\\frac{T\\Delta t\\,M_{tt}}2\\\\&\\quad+\\frac{T\\alpha h^2M_4}{12}.\\end{aligned}∥en∥∞​​≤∥e0∥∞​+2TΔtMtt​​+12Tαh2M4​​.​"
+          },
+          {
+            "index": 8,
+            "width": 760,
+            "scroll": 760,
+            "text": "(I+αΔt2A)Un+1=(I−αΔt2A)Un.\\begin{gathered}\\left(I+\\frac{\\alpha\\Delta t}{2}A\\right)U^{n+1}\\\\=\\left(I-\\frac{\\alpha\\Delta t}{2}A\\right)U^n.\\end{gathered}(I+2αΔt​A)Un+1=(I−2αΔt​A)Un.​"
+          },
+          {
+            "index": 9,
+            "width": 760,
+            "scroll": 760,
+            "text": "∥Un+1∥2,h2−∥Un∥2,h2=−2αΔt h W⊤AW≤0.\\begin{gathered}\\|U^{n+1}\\|_{2,h}^2-\\|U^n\\|_{2,h}^2\\\\=-2\\alpha\\Delta t\\,h\\,W^\\top A W\\le0.\\end{gathered}∥Un+1∥2,h2​−∥Un∥2,h2​=−2αΔthW⊤AW≤0.​"
+          },
+          {
+            "index": 10,
+            "width": 760,
+            "scroll": 760,
+            "text": "q=uL−uRdL/kL+dR/kR.q=\\frac{u_L-u_R}{d_L/k_L+d_R/k_R}.q=dL​/kL​+dR​/kR​uL​−uR​​."
+          },
+          {
+            "index": 11,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ujn+1=(1−c)Ujn+c Uj−sign⁡(v)n.U_j^{n+1}=(1-c)U_j^n+c\\,U_{j-\\operatorname{sign}(v)}^n.Ujn+1​=(1−c)Ujn​+cUj−sign(v)n​."
+          },
+          {
+            "index": 12,
+            "width": 760,
+            "scroll": 760,
+            "text": "Ke=khe[1−1−11],be=fhe2[11].\\begin{aligned}K_e&=\\frac{k}{h_e}\\begin{bmatrix}1&-1\\\\-1&1\\end{bmatrix},\\\\b_e&=\\frac{f h_e}{2}\\begin{bmatrix}1\\\\1\\end{bmatrix}.\\end{aligned}Ke​be​​=he​k​[1−1​−11​],=2fhe​​[11​].​"
+          },
+          {
+            "index": 13,
+            "width": 760,
+            "scroll": 760,
+            "text": "∥u−vh∥a2=∥u−Uh∥a2+∥Uh−vh∥a2≥∥u−Uh∥a2.\\begin{aligned}\\|u-v_h\\|_a^2&=\\|u-U_h\\|_a^2\\\\&\\quad+\\|U_h-v_h\\|_a^2\\\\&\\ge\\|u-U_h\\|_a^2.\\end{aligned}∥u−vh​∥a2​​=∥u−Uh​∥a2​+∥Uh​−vh​∥a2​≥∥u−Uh​∥a2​.​"
+          },
+          {
+            "index": 14,
+            "width": 760,
+            "scroll": 760,
+            "text": "nodal error=0,∥u−Uh∥∞=h24,∥u−Uh∥L2=h230,∥u−Uh∥a=h3.\\begin{aligned}\\text{nodal error}&=0,\\\\\\|u-U_h\\|_\\infty&=\\frac{h^2}{4},\\\\\\|u-U_h\\|_{L^2}&=\\frac{h^2}{\\sqrt{30}},\\\\\\|u-U_h\\|_a&=\\frac{h}{\\sqrt3}.\\end{aligned}nodal error∥u−Uh​∥∞​∥u−Uh​∥L2​∥u−Uh​∥a​​=0,=4h2​,=30​h2​,=3​h​.​"
+          },
+          {
+            "index": 15,
+            "width": 760,
+            "scroll": 760,
+            "text": "2Ui,j−Ui−1,j−Ui+1,jhx2+2Ui,j−Ui,j−1−Ui,j+1hy2=fi,j.\\begin{gathered}\\frac{2U_{i,j}-U_{i-1,j}-U_{i+1,j}}{h_x^2}\\\\{}+\\frac{2U_{i,j}-U_{i,j-1}-U_{i,j+1}}{h_y^2}\\\\{}=f_{i,j}.\\end{gathered}hx2​2Ui,j​−Ui−1,j​−Ui+1,j​​+hy2​2Ui,j​−Ui,j−1​−Ui,j+1​​=fi,j​.​"
+          }
+        ],
+        "sources": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/resources/lecture-17-finite-elements-in-1d-part-1/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/676ba0a00eef45a6cb3823c4da61ee11_18-085F08-L18.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/fd-converge/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/absstab-diffusion/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/upwind/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/laplace/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://jschoeberl.github.io/iFEM/FEM/erroranalysis.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://github.com/clawpack/riemann_book/blob/master/Burgers.ipynb",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "states": [
+          "N32 direct certified",
+          "zero updates not certified",
+          "1500 updates certified",
+          "linear exact mesh and nonzero boundary",
+          "quadratic order undefined",
+          "large-step high-mode oscillation",
+          "stable refined high-mode",
+          "large amplified field retains axis scale",
+          "identical materials",
+          "interface immaterial when k equal",
+          "incompatible flux rejected",
+          "left exact translation",
+          "centered overshoot with conserved mass",
+          "changed smooth cell averages",
+          "upwind outside convex range is visibly unstable",
+          "stationary shock unique flux",
+          "point between nodes",
+          "aligned source exact discretization",
+          "right edge has boundary rather than wrap",
+          "scaled translated triangle",
+          "high-mode two-grid norms"
+        ],
+        "anchors": [
+          "#npde-field",
+          "#npde-stencil",
+          "#npde-solve",
+          "#npde-certificate",
+          "#npde-reconstruct",
+          "#npde-refine",
+          "#npde-diffusion",
+          "#npde-implicit",
+          "#npde-flux",
+          "#npde-transport",
+          "#npde-elements",
+          "#npde-energy",
+          "#npde-geometry",
+          "#npde-solvers",
+          "#npde-practice"
+        ],
+        "keyboard": [
+          "Optional section Enter",
+          "Optional section Enter",
+          "Optional section Enter",
+          "Reset: From a stencil row to a field certificate",
+          "Reset: A refinement test can tell the wrong story",
+          "Reset: Watch a mode, not just a stability badge",
+          "Reset: Two materials share one steady flux",
+          "Reset: A boundary gauge cannot repair missing heat",
+          "Reset: Move cell averages through shared faces",
+          "Reset: Choose a Burgers face flux from the wave",
+          "Reset: Assemble overlapping hats; resolve a point source",
+          "Reset: A two-dimensional neighbor is not always a vector neighbor",
+          "Reset: Map a triangle, then map its gradients",
+          "Reset: Remove error on two resolutions",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown"
+        ],
+        "captures": [
+          "reading-intro-390.png",
+          "reading-section-1-390.png",
+          "reading-section-2-390.png",
+          "reading-section-3-390.png",
+          "reading-section-4-390.png",
+          "reading-section-5-390.png",
+          "reading-section-6-390.png",
+          "reading-section-7-390.png",
+          "reading-section-8-390.png",
+          "reading-section-9-390.png",
+          "reading-section-10-390.png",
+          "reading-section-11-390.png",
+          "reading-section-12-390.png",
+          "reading-section-13-390.png",
+          "reading-section-14-390.png",
+          "reading-section-15-390.png",
+          "exact-field-budget-390.png",
+          "right-boundary-stencil-390.png",
+          "nonzero-boundary-field-390.png",
+          "exactness-trap-390.png",
+          "high-mode-first-step-390.png",
+          "high-mode-second-step-390.png",
+          "stable-high-mode-390.png",
+          "large-amplification-scale-390.png",
+          "series-resistance-field-390.png",
+          "incompatible-outflow-390.png",
+          "left-shift-cell-averages-390.png",
+          "centered-oscillations-390.png",
+          "upwind-outside-cfl-390.png",
+          "stationary-shock-flux-390.png",
+          "point-between-nodes-390.png",
+          "source-aligned-node-390.png",
+          "nonuniform-matrix-390.png",
+          "rectangle-index-map-390.png",
+          "mapped-triangle-390.png",
+          "coarse-high-mode-390.png",
+          "coarse-norm-comparison-390.png",
+          "explained-practice-0-390.png",
+          "explained-practice-4-390.png",
+          "explained-practice-9-390.png",
+          "explained-practice-14-390.png",
+          "changed-complete-program-390.png",
+          "changed-accepted-output-390.png",
+          "equation-0-390.png",
+          "equation-1-390.png",
+          "equation-2-390.png",
+          "equation-3-390.png",
+          "equation-4-390.png",
+          "equation-5-390.png",
+          "equation-6-390.png",
+          "equation-7-390.png",
+          "equation-8-390.png",
+          "equation-9-390.png",
+          "equation-10-390.png",
+          "equation-11-390.png",
+          "equation-12-390.png",
+          "equation-13-390.png",
+          "equation-14-390.png",
+          "equation-15-390.png",
+          "restriction-reconstruction-390.png",
+          "ordinary-figure-0-0-390.png",
+          "ordinary-figure-1-0-390.png",
+          "ordinary-figure-2-0-390.png",
+          "ordinary-figure-3-0-390.png",
+          "ordinary-figure-5-0-390.png",
+          "ordinary-figure-7-0-390.png",
+          "ordinary-figure-7-1-390.png",
+          "ordinary-figure-9-0-390.png",
+          "ordinary-figure-10-0-390.png",
+          "annotated-resources-390.png"
+        ],
+        "programs": [
+          "Derive a row with exact fractions",
+          "Solve the tridiagonal problem",
+          "Stop only when the requested field is certified",
+          "Separate a useful refinement test from an exactness trap",
+          "Execute three different time updates",
+          "Refine time while keeping space fixed",
+          "Combine resistances, not conductivities",
+          "Reject incompatible fluxes before choosing a mean",
+          "Check mass and shape separately",
+          "Read the entropy solution at one cell face",
+          "Assemble overlapping hats on an actual mesh",
+          "Integrate field and slope errors",
+          "Solve a sparse rectangular problem",
+          "Calculate a triangle's basis gradients",
+          "Compute one explicitly defined coarse correction",
+          "Deliver a changed field-tolerance report"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "math": [
+          {
+            "index": 0,
+            "width": 350,
+            "scroll": 350,
+            "text": "(AhU)j=2Uj−Uj−1−Uj+1h2.(A_hU)_j=\\frac{2U_j-U_{j-1}-U_{j+1}}{h^2}.(Ah​U)j​=h22Uj​−Uj−1​−Uj+1​​."
+          },
+          {
+            "index": 1,
+            "width": 350,
+            "scroll": 350,
+            "text": "u(x±h)=u(x)±hu′(x)+h22u′′(x)±h36u′′′(x)+h424u(4)(ξ±).\\begin{gathered}u(x\\pm h)=u(x)\\pm h u'(x)\\\\{}+\\frac{h^2}{2}u''(x)\\pm\\frac{h^3}{6}u'''(x)\\\\{}+\\frac{h^4}{24}u^{(4)}(\\xi_\\pm).\\end{gathered}u(x±h)=u(x)±hu′(x)+2h2​u′′(x)±6h3​u′′′(x)+24h4​u(4)(ξ±​).​"
+          },
+          {
+            "index": 2,
+            "width": 350,
+            "scroll": 350,
+            "text": "h V⊤AV=∑j=0N−1(Vj+1−Vj)2h,h V⊤AV>0if V≠0.\\begin{gathered}h\\,V^\\top A V=\\sum_{j=0}^{N-1}\\frac{(V_{j+1}-V_j)^2}{h},\\\\h\\,V^\\top A V>0\\quad\\text{if }V\\ne0.\\end{gathered}hV⊤AV=j=0∑N−1​h(Vj+1​−Vj​)2​,hV⊤AV>0if V=0.​"
+          },
+          {
+            "index": 3,
+            "width": 350,
+            "scroll": 350,
+            "text": "A(U^−Rhu)=τ−r.A(\\widehat U-R_hu)=\\tau-r.A(U−Rh​u)=τ−r."
+          },
+          {
+            "index": 4,
+            "width": 350,
+            "scroll": 350,
+            "text": "∥U^−Rhu∥∞≤L28(∥τ∥∞+∥r∥∞).\\begin{gathered}\\|\\widehat U-R_hu\\|_\\infty\\\\\\le\\frac{L^2}{8}\\bigl(\\|\\tau\\|_\\infty+\\|r\\|_\\infty\\bigr).\\end{gathered}∥U−Rh​u∥∞​≤8L2​(∥τ∥∞​+∥r∥∞​).​"
+          },
+          {
+            "index": 5,
+            "width": 350,
+            "scroll": 350,
+            "text": "∥IhU^−u∥∞≤∥U^−Rhu∥∞+h2M28.\\begin{gathered}\\|I_h\\widehat U-u\\|_\\infty\\\\\\le\\|\\widehat U-R_hu\\|_\\infty+\\frac{h^2M_2}{8}.\\end{gathered}∥Ih​U−u∥∞​≤∥U−Rh​u∥∞​+8h2M2​​.​"
+          },
+          {
+            "index": 6,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ujn+1=(1−2r)Ujn+r(Uj−1n+Uj+1n).\\begin{gathered}U_j^{n+1}=(1-2r)U_j^n\\\\{}+r(U_{j-1}^n+U_{j+1}^n).\\end{gathered}Ujn+1​=(1−2r)Ujn​+r(Uj−1n​+Uj+1n​).​"
+          },
+          {
+            "index": 7,
+            "width": 350,
+            "scroll": 350,
+            "text": "∥en∥∞≤∥e0∥∞+TΔt Mtt2+Tαh2M412.\\begin{aligned}\\|e^n\\|_\\infty&\\le\\|e^0\\|_\\infty+\\frac{T\\Delta t\\,M_{tt}}2\\\\&\\quad+\\frac{T\\alpha h^2M_4}{12}.\\end{aligned}∥en∥∞​​≤∥e0∥∞​+2TΔtMtt​​+12Tαh2M4​​.​"
+          },
+          {
+            "index": 8,
+            "width": 350,
+            "scroll": 350,
+            "text": "(I+αΔt2A)Un+1=(I−αΔt2A)Un.\\begin{gathered}\\left(I+\\frac{\\alpha\\Delta t}{2}A\\right)U^{n+1}\\\\=\\left(I-\\frac{\\alpha\\Delta t}{2}A\\right)U^n.\\end{gathered}(I+2αΔt​A)Un+1=(I−2αΔt​A)Un.​"
+          },
+          {
+            "index": 9,
+            "width": 350,
+            "scroll": 350,
+            "text": "∥Un+1∥2,h2−∥Un∥2,h2=−2αΔt h W⊤AW≤0.\\begin{gathered}\\|U^{n+1}\\|_{2,h}^2-\\|U^n\\|_{2,h}^2\\\\=-2\\alpha\\Delta t\\,h\\,W^\\top A W\\le0.\\end{gathered}∥Un+1∥2,h2​−∥Un∥2,h2​=−2αΔthW⊤AW≤0.​"
+          },
+          {
+            "index": 10,
+            "width": 350,
+            "scroll": 350,
+            "text": "q=uL−uRdL/kL+dR/kR.q=\\frac{u_L-u_R}{d_L/k_L+d_R/k_R}.q=dL​/kL​+dR​/kR​uL​−uR​​."
+          },
+          {
+            "index": 11,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ujn+1=(1−c)Ujn+c Uj−sign⁡(v)n.U_j^{n+1}=(1-c)U_j^n+c\\,U_{j-\\operatorname{sign}(v)}^n.Ujn+1​=(1−c)Ujn​+cUj−sign(v)n​."
+          },
+          {
+            "index": 12,
+            "width": 350,
+            "scroll": 350,
+            "text": "Ke=khe[1−1−11],be=fhe2[11].\\begin{aligned}K_e&=\\frac{k}{h_e}\\begin{bmatrix}1&-1\\\\-1&1\\end{bmatrix},\\\\b_e&=\\frac{f h_e}{2}\\begin{bmatrix}1\\\\1\\end{bmatrix}.\\end{aligned}Ke​be​​=he​k​[1−1​−11​],=2fhe​​[11​].​"
+          },
+          {
+            "index": 13,
+            "width": 350,
+            "scroll": 350,
+            "text": "∥u−vh∥a2=∥u−Uh∥a2+∥Uh−vh∥a2≥∥u−Uh∥a2.\\begin{aligned}\\|u-v_h\\|_a^2&=\\|u-U_h\\|_a^2\\\\&\\quad+\\|U_h-v_h\\|_a^2\\\\&\\ge\\|u-U_h\\|_a^2.\\end{aligned}∥u−vh​∥a2​​=∥u−Uh​∥a2​+∥Uh​−vh​∥a2​≥∥u−Uh​∥a2​.​"
+          },
+          {
+            "index": 14,
+            "width": 350,
+            "scroll": 350,
+            "text": "nodal error=0,∥u−Uh∥∞=h24,∥u−Uh∥L2=h230,∥u−Uh∥a=h3.\\begin{aligned}\\text{nodal error}&=0,\\\\\\|u-U_h\\|_\\infty&=\\frac{h^2}{4},\\\\\\|u-U_h\\|_{L^2}&=\\frac{h^2}{\\sqrt{30}},\\\\\\|u-U_h\\|_a&=\\frac{h}{\\sqrt3}.\\end{aligned}nodal error∥u−Uh​∥∞​∥u−Uh​∥L2​∥u−Uh​∥a​​=0,=4h2​,=30​h2​,=3​h​.​"
+          },
+          {
+            "index": 15,
+            "width": 350,
+            "scroll": 350,
+            "text": "2Ui,j−Ui−1,j−Ui+1,jhx2+2Ui,j−Ui,j−1−Ui,j+1hy2=fi,j.\\begin{gathered}\\frac{2U_{i,j}-U_{i-1,j}-U_{i+1,j}}{h_x^2}\\\\{}+\\frac{2U_{i,j}-U_{i,j-1}-U_{i,j+1}}{h_y^2}\\\\{}=f_{i,j}.\\end{gathered}hx2​2Ui,j​−Ui−1,j​−Ui+1,j​​+hy2​2Ui,j​−Ui,j−1​−Ui,j+1​​=fi,j​.​"
+          }
+        ],
+        "sources": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/resources/lecture-17-finite-elements-in-1d-part-1/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/676ba0a00eef45a6cb3823c4da61ee11_18-085F08-L18.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/fd-converge/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/absstab-diffusion/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/upwind/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/laplace/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://jschoeberl.github.io/iFEM/FEM/erroranalysis.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://github.com/clawpack/riemann_book/blob/master/Burgers.ipynb",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ]
+      },
+      {
+        "width": 320,
+        "states": [
+          "N32 direct certified",
+          "zero updates not certified",
+          "1500 updates certified",
+          "linear exact mesh and nonzero boundary",
+          "quadratic order undefined",
+          "large-step high-mode oscillation",
+          "stable refined high-mode",
+          "large amplified field retains axis scale",
+          "identical materials",
+          "interface immaterial when k equal",
+          "incompatible flux rejected",
+          "left exact translation",
+          "centered overshoot with conserved mass",
+          "changed smooth cell averages",
+          "upwind outside convex range is visibly unstable",
+          "stationary shock unique flux",
+          "point between nodes",
+          "aligned source exact discretization",
+          "right edge has boundary rather than wrap",
+          "scaled translated triangle",
+          "high-mode two-grid norms"
+        ],
+        "anchors": [
+          "#npde-field",
+          "#npde-stencil",
+          "#npde-solve",
+          "#npde-certificate",
+          "#npde-reconstruct",
+          "#npde-refine",
+          "#npde-diffusion",
+          "#npde-implicit",
+          "#npde-flux",
+          "#npde-transport",
+          "#npde-elements",
+          "#npde-energy",
+          "#npde-geometry",
+          "#npde-solvers",
+          "#npde-practice"
+        ],
+        "keyboard": [
+          "Optional section Enter",
+          "Optional section Enter",
+          "Optional section Enter",
+          "Reset: From a stencil row to a field certificate",
+          "Reset: A refinement test can tell the wrong story",
+          "Reset: Watch a mode, not just a stability badge",
+          "Reset: Two materials share one steady flux",
+          "Reset: A boundary gauge cannot repair missing heat",
+          "Reset: Move cell averages through shared faces",
+          "Reset: Choose a Burgers face flux from the wave",
+          "Reset: Assemble overlapping hats; resolve a point source",
+          "Reset: A two-dimensional neighbor is not always a vector neighbor",
+          "Reset: Map a triangle, then map its gradients",
+          "Reset: Remove error on two resolutions",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Slider arrow",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown",
+          "Select ArrowDown"
+        ],
+        "captures": [
+          "reading-intro-320.png",
+          "reading-section-1-320.png",
+          "reading-section-2-320.png",
+          "reading-section-3-320.png",
+          "reading-section-4-320.png",
+          "reading-section-5-320.png",
+          "reading-section-6-320.png",
+          "reading-section-7-320.png",
+          "reading-section-8-320.png",
+          "reading-section-9-320.png",
+          "reading-section-10-320.png",
+          "reading-section-11-320.png",
+          "reading-section-12-320.png",
+          "reading-section-13-320.png",
+          "reading-section-14-320.png",
+          "reading-section-15-320.png",
+          "exact-field-budget-320.png",
+          "right-boundary-stencil-320.png",
+          "nonzero-boundary-field-320.png",
+          "exactness-trap-320.png",
+          "high-mode-first-step-320.png",
+          "high-mode-second-step-320.png",
+          "stable-high-mode-320.png",
+          "large-amplification-scale-320.png",
+          "series-resistance-field-320.png",
+          "incompatible-outflow-320.png",
+          "left-shift-cell-averages-320.png",
+          "centered-oscillations-320.png",
+          "upwind-outside-cfl-320.png",
+          "stationary-shock-flux-320.png",
+          "point-between-nodes-320.png",
+          "source-aligned-node-320.png",
+          "nonuniform-matrix-320.png",
+          "rectangle-index-map-320.png",
+          "mapped-triangle-320.png",
+          "coarse-high-mode-320.png",
+          "coarse-norm-comparison-320.png",
+          "explained-practice-0-320.png",
+          "explained-practice-4-320.png",
+          "explained-practice-9-320.png",
+          "explained-practice-14-320.png",
+          "changed-complete-program-320.png",
+          "changed-accepted-output-320.png",
+          "equation-0-320.png",
+          "equation-1-320.png",
+          "equation-2-320.png",
+          "equation-3-320.png",
+          "equation-4-320.png",
+          "equation-5-320.png",
+          "equation-6-320.png",
+          "equation-7-320.png",
+          "equation-8-320.png",
+          "equation-9-320.png",
+          "equation-10-320.png",
+          "equation-11-320.png",
+          "equation-12-320.png",
+          "equation-13-320.png",
+          "equation-14-320.png",
+          "equation-15-320.png",
+          "restriction-reconstruction-320.png",
+          "ordinary-figure-0-0-320.png",
+          "ordinary-figure-1-0-320.png",
+          "ordinary-figure-2-0-320.png",
+          "ordinary-figure-3-0-320.png",
+          "ordinary-figure-5-0-320.png",
+          "ordinary-figure-7-0-320.png",
+          "ordinary-figure-7-1-320.png",
+          "ordinary-figure-9-0-320.png",
+          "ordinary-figure-10-0-320.png",
+          "annotated-resources-320.png"
+        ],
+        "programs": [
+          "Derive a row with exact fractions",
+          "Solve the tridiagonal problem",
+          "Stop only when the requested field is certified",
+          "Separate a useful refinement test from an exactness trap",
+          "Execute three different time updates",
+          "Refine time while keeping space fixed",
+          "Combine resistances, not conductivities",
+          "Reject incompatible fluxes before choosing a mean",
+          "Check mass and shape separately",
+          "Read the entropy solution at one cell face",
+          "Assemble overlapping hats on an actual mesh",
+          "Integrate field and slope errors",
+          "Solve a sparse rectangular problem",
+          "Calculate a triangle's basis gradients",
+          "Compute one explicitly defined coarse correction",
+          "Deliver a changed field-tolerance report"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "math": [
+          {
+            "index": 0,
+            "width": 280,
+            "scroll": 280,
+            "text": "(AhU)j=2Uj−Uj−1−Uj+1h2.(A_hU)_j=\\frac{2U_j-U_{j-1}-U_{j+1}}{h^2}.(Ah​U)j​=h22Uj​−Uj−1​−Uj+1​​."
+          },
+          {
+            "index": 1,
+            "width": 280,
+            "scroll": 280,
+            "text": "u(x±h)=u(x)±hu′(x)+h22u′′(x)±h36u′′′(x)+h424u(4)(ξ±).\\begin{gathered}u(x\\pm h)=u(x)\\pm h u'(x)\\\\{}+\\frac{h^2}{2}u''(x)\\pm\\frac{h^3}{6}u'''(x)\\\\{}+\\frac{h^4}{24}u^{(4)}(\\xi_\\pm).\\end{gathered}u(x±h)=u(x)±hu′(x)+2h2​u′′(x)±6h3​u′′′(x)+24h4​u(4)(ξ±​).​"
+          },
+          {
+            "index": 2,
+            "width": 280,
+            "scroll": 280,
+            "text": "h V⊤AV=∑j=0N−1(Vj+1−Vj)2h,h V⊤AV>0if V≠0.\\begin{gathered}h\\,V^\\top A V=\\sum_{j=0}^{N-1}\\frac{(V_{j+1}-V_j)^2}{h},\\\\h\\,V^\\top A V>0\\quad\\text{if }V\\ne0.\\end{gathered}hV⊤AV=j=0∑N−1​h(Vj+1​−Vj​)2​,hV⊤AV>0if V=0.​"
+          },
+          {
+            "index": 3,
+            "width": 280,
+            "scroll": 280,
+            "text": "A(U^−Rhu)=τ−r.A(\\widehat U-R_hu)=\\tau-r.A(U−Rh​u)=τ−r."
+          },
+          {
+            "index": 4,
+            "width": 280,
+            "scroll": 280,
+            "text": "∥U^−Rhu∥∞≤L28(∥τ∥∞+∥r∥∞).\\begin{gathered}\\|\\widehat U-R_hu\\|_\\infty\\\\\\le\\frac{L^2}{8}\\bigl(\\|\\tau\\|_\\infty+\\|r\\|_\\infty\\bigr).\\end{gathered}∥U−Rh​u∥∞​≤8L2​(∥τ∥∞​+∥r∥∞​).​"
+          },
+          {
+            "index": 5,
+            "width": 280,
+            "scroll": 280,
+            "text": "∥IhU^−u∥∞≤∥U^−Rhu∥∞+h2M28.\\begin{gathered}\\|I_h\\widehat U-u\\|_\\infty\\\\\\le\\|\\widehat U-R_hu\\|_\\infty+\\frac{h^2M_2}{8}.\\end{gathered}∥Ih​U−u∥∞​≤∥U−Rh​u∥∞​+8h2M2​​.​"
+          },
+          {
+            "index": 6,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ujn+1=(1−2r)Ujn+r(Uj−1n+Uj+1n).\\begin{gathered}U_j^{n+1}=(1-2r)U_j^n\\\\{}+r(U_{j-1}^n+U_{j+1}^n).\\end{gathered}Ujn+1​=(1−2r)Ujn​+r(Uj−1n​+Uj+1n​).​"
+          },
+          {
+            "index": 7,
+            "width": 280,
+            "scroll": 280,
+            "text": "∥en∥∞≤∥e0∥∞+TΔt Mtt2+Tαh2M412.\\begin{aligned}\\|e^n\\|_\\infty&\\le\\|e^0\\|_\\infty+\\frac{T\\Delta t\\,M_{tt}}2\\\\&\\quad+\\frac{T\\alpha h^2M_4}{12}.\\end{aligned}∥en∥∞​​≤∥e0∥∞​+2TΔtMtt​​+12Tαh2M4​​.​"
+          },
+          {
+            "index": 8,
+            "width": 280,
+            "scroll": 280,
+            "text": "(I+αΔt2A)Un+1=(I−αΔt2A)Un.\\begin{gathered}\\left(I+\\frac{\\alpha\\Delta t}{2}A\\right)U^{n+1}\\\\=\\left(I-\\frac{\\alpha\\Delta t}{2}A\\right)U^n.\\end{gathered}(I+2αΔt​A)Un+1=(I−2αΔt​A)Un.​"
+          },
+          {
+            "index": 9,
+            "width": 280,
+            "scroll": 280,
+            "text": "∥Un+1∥2,h2−∥Un∥2,h2=−2αΔt h W⊤AW≤0.\\begin{gathered}\\|U^{n+1}\\|_{2,h}^2-\\|U^n\\|_{2,h}^2\\\\=-2\\alpha\\Delta t\\,h\\,W^\\top A W\\le0.\\end{gathered}∥Un+1∥2,h2​−∥Un∥2,h2​=−2αΔthW⊤AW≤0.​"
+          },
+          {
+            "index": 10,
+            "width": 280,
+            "scroll": 280,
+            "text": "q=uL−uRdL/kL+dR/kR.q=\\frac{u_L-u_R}{d_L/k_L+d_R/k_R}.q=dL​/kL​+dR​/kR​uL​−uR​​."
+          },
+          {
+            "index": 11,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ujn+1=(1−c)Ujn+c Uj−sign⁡(v)n.U_j^{n+1}=(1-c)U_j^n+c\\,U_{j-\\operatorname{sign}(v)}^n.Ujn+1​=(1−c)Ujn​+cUj−sign(v)n​."
+          },
+          {
+            "index": 12,
+            "width": 280,
+            "scroll": 280,
+            "text": "Ke=khe[1−1−11],be=fhe2[11].\\begin{aligned}K_e&=\\frac{k}{h_e}\\begin{bmatrix}1&-1\\\\-1&1\\end{bmatrix},\\\\b_e&=\\frac{f h_e}{2}\\begin{bmatrix}1\\\\1\\end{bmatrix}.\\end{aligned}Ke​be​​=he​k​[1−1​−11​],=2fhe​​[11​].​"
+          },
+          {
+            "index": 13,
+            "width": 280,
+            "scroll": 280,
+            "text": "∥u−vh∥a2=∥u−Uh∥a2+∥Uh−vh∥a2≥∥u−Uh∥a2.\\begin{aligned}\\|u-v_h\\|_a^2&=\\|u-U_h\\|_a^2\\\\&\\quad+\\|U_h-v_h\\|_a^2\\\\&\\ge\\|u-U_h\\|_a^2.\\end{aligned}∥u−vh​∥a2​​=∥u−Uh​∥a2​+∥Uh​−vh​∥a2​≥∥u−Uh​∥a2​.​"
+          },
+          {
+            "index": 14,
+            "width": 280,
+            "scroll": 280,
+            "text": "nodal error=0,∥u−Uh∥∞=h24,∥u−Uh∥L2=h230,∥u−Uh∥a=h3.\\begin{aligned}\\text{nodal error}&=0,\\\\\\|u-U_h\\|_\\infty&=\\frac{h^2}{4},\\\\\\|u-U_h\\|_{L^2}&=\\frac{h^2}{\\sqrt{30}},\\\\\\|u-U_h\\|_a&=\\frac{h}{\\sqrt3}.\\end{aligned}nodal error∥u−Uh​∥∞​∥u−Uh​∥L2​∥u−Uh​∥a​​=0,=4h2​,=30​h2​,=3​h​.​"
+          },
+          {
+            "index": 15,
+            "width": 280,
+            "scroll": 280,
+            "text": "2Ui,j−Ui−1,j−Ui+1,jhx2+2Ui,j−Ui,j−1−Ui,j+1hy2=fi,j.\\begin{gathered}\\frac{2U_{i,j}-U_{i-1,j}-U_{i+1,j}}{h_x^2}\\\\{}+\\frac{2U_{i,j}-U_{i,j-1}-U_{i,j+1}}{h_y^2}\\\\{}=f_{i,j}.\\end{gathered}hx2​2Ui,j​−Ui−1,j​−Ui+1,j​​+hy2​2Ui,j​−Ui,j−1​−Ui,j+1​​=fi,j​.​"
+          }
+        ],
+        "sources": [
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/resources/lecture-17-finite-elements-in-1d-part-1/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/676ba0a00eef45a6cb3823c4da61ee11_18-085F08-L18.pdf",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/fd-converge/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/python/absstab-diffusion/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/upwind/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://fncbook.com/laplace/",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://jschoeberl.github.io/iFEM/FEM/erroranalysis.html",
+            "target": "_blank",
+            "rel": "noreferrer"
+          },
+          {
+            "href": "https://github.com/clawpack/riemann_book/blob/master/Burgers.ipynb",
+            "target": "_blank",
+            "rel": "noreferrer"
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "sourceHashes": {
+      "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+      "src/learn/data/numerical-pde-models.js": "ebbb437c85f2800119f4d73bb8545a359ea82dfaa7abfbf9621668203e7309c1",
+      "src/learn/data/numerical-pde-examples.js": "5fe77ae7e4378df69a1c2763579be68dd6eaac70e85132ea6623bed1f00051c3",
+      "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+      "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+      "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    }
+  },
+  "formatConservation": {
+    "timestamp": "2026-09-11T09:21:34.151Z",
+    "records": [
+      {
+        "file": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/NumericalPdeLabs.jsx",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/data/numerical-pde-models.js",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js",
+        "normalizedASTConserved": true
+      },
+      {
+        "file": "src/learn/components/lesson-labs/numerical-pde-labs.css",
+        "normalizedASTConserved": true
+      }
+    ]
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/numerical-pde-browser/mapped-triangle-320.png",
+      "sha256": "4fa0689722a69c44d444ba0d2f73d18f01f06d63593f725c4db34f8f531b1d57",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/restriction-reconstruction-390.png",
+      "sha256": "c3b3097c58a2a9f1b7ea29ab5d21bacd9741f9ab7ab85c7c24905fae91d2f049",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/exact-field-budget-1440.png",
+      "sha256": "914d26d5124045731697aaf6c526fb66a205ad9fdcb33d52e3b0cd99c86d89c1",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-1-390.png",
+      "sha256": "8bf85da62be1661c6ea23a790878379d675f9b95e35d9399b03d86cfe2802595",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/exactness-trap-390.png",
+      "sha256": "f3db7a349644043c32c1c345fc418db8d8400b950e4c3e2862a32f8d1cc5c9bd",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/high-mode-first-step-320.png",
+      "sha256": "5e069ac6d03aa6043e5a94f00e7a67c63f84dbb5a5c740993abacbdf5a7a6b64",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/series-resistance-field-390.png",
+      "sha256": "96494002c44c53f560116bdff2d080f767941c3bbe1e88aa83663b76682b5985",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/stationary-shock-flux-390.png",
+      "sha256": "61dee1f30370bca0320a7875557c8eb0eae06f3c058e6db1f9590703178d575f",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/point-between-nodes-390.png",
+      "sha256": "2ba5176a215480e28c7aaff31eb0b99d83d6bd75a63d568a98c2ba0c4dc1dc4b",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/rectangle-index-map-320.png",
+      "sha256": "a40349cb34cae2ed6664b74eeccfc997518c5159665f685f9d3305cdca7a218e",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/coarse-high-mode-1440.png",
+      "sha256": "0b1a87714e160d7d8ea61460a7bc12d0d6fce405aae1545f9ca8bbcf25adb5f5",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/incompatible-outflow-390.png",
+      "sha256": "39ff3106029899ef9d287a3d6d66811be24345bb1bad314bf651dccb04dee0ba",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/upwind-outside-cfl-320.png",
+      "sha256": "92f80a4b64899e2badceb7fd743ac1196df63bf08ed2affc0f9d7e61fab9fb48",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/large-amplification-scale-390.png",
+      "sha256": "230b3541ff981526d88999567e52f1b106added15b4567878e974b1fbeb4debe",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/equation-13-320.png",
+      "sha256": "fdbcbfffac5520697b3b26f427339bda5304c6aa38ef71ebe926e196f196c69d",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-7-1440.png",
+      "sha256": "16f80f3adc54b3170bdac53961b06a2519a8c098dc3bf4e2e03495b418f4eabf",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-11-390.png",
+      "sha256": "181539201518666e867c6f6911f4f97717445f2518949d9b7400c6c67e893ba0",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-12-390.png",
+      "sha256": "308e733c082190dcd2a9cdc395b3b30aacd36ce4565010149ad2f3363dfd5a3b",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-14-320.png",
+      "sha256": "24b4ee7c2a1f252142a3149977b19c11b3161608c4a12a627cae23e4d5ea4d60",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/explained-practice-4-390.png",
+      "sha256": "6fca4f343c708b8fe8548e19a6401bdcbd57496a10ea2adf54834de603ffa6c5",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/explained-practice-14-320.png",
+      "sha256": "90ac748e0036fa38af53629abb62bc34f0116949eb9fa3e186276fbe3bcd21ca",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/changed-accepted-output-320.png",
+      "sha256": "6abf9a04629c8b8685f18bb32030af80ad47d10cecb387d732c3b664037026be",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/annotated-resources-390.png",
+      "sha256": "8b9b97800f5643cac34e8fb925c04d9c30d239ec1eec513d354f5463abd42295",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/ordinary-figure-7-0-390.png",
+      "sha256": "f3c19fe0f054d6e130004aa004c6ea82ee802197d31d60283d42731c1239e796",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/right-boundary-stencil-390.png",
+      "sha256": "7fd5e551b3085547cdf063b60ebe817f681c2e212be7617b345d7fd1c0db7f2a",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/equation-9-320.png",
+      "sha256": "2c6aa27edf53d81ac8de4093159de3adeeaff69c833c961be9133195604c68c5",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-section-3-1440.png",
+      "sha256": "e20bfe578372b69e61a8655030e87b64f65403de0635fd34cc62972c108517c7",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/changed-complete-program-390.png",
+      "sha256": "24085710678bb5c33d9b1303ee0dcabdd5941cf7ee4d40dfbe3f5ccf7198ca9a",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/reading-intro-1440.png",
+      "sha256": "c018b30335e74e8235188af3a4ba476af1b5342be8a4794f1b37640b6cf6c495",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    },
+    {
+      "path": "scratch/numerical-pde-browser/equation-2-320.png",
+      "sha256": "7ff330de68f6cfc57d9ad849688dec7bd73c3fe44e93e91960dd5ec626a1efd9",
+      "inspection": "Opened after final run using view_image; ordinary viewport, original fonts."
+    }
+  ],
+  "evidenceHashes": {
+    "scratch/numerical-pde-native/native-results.json": "01517f1a785c191ac8f5adf4ca83f8adb5a674ad89514b4a7da16f1a4c85173a",
+    "scratch/numerical-pde-browser/results.json": "84e9bfe0b21dd9b69da800b5ad3dce999ad31e99c827962cacb22496e3d9461b",
+    "scratch/numerical-pde-native/model-fixtures.json": "3fbe83a09b376096f0a04c2c6f496ef689340e2f0d3815e5011c548866adea19",
+    "scratch/numerical-pde-review/format-conservation.json": "a509f869a12c2a857aaa3b722d9699825615997038ae8b9cadd6c3e354235fbf",
+    "scratch/numerical-pde-native/example-runs.json": "1417b77ce0ad31e52ef7c0c598a6eef717d93a8432ae5a6b885603978f83285c",
+    "docs/teaching/evidence/numerical-pdes-original-plan.json": "46f06bc091d9a456515c562dd252ae0c2afb4bdf053cc6bac9550e6654fd2048",
+    "docs/teaching/evidence/numerical-pdes-assessed-design.md": "3cbea09bce7c146d7ee3b019e02b180339c4bd5fa5a08e48fbc1cfbd614f6bc4",
+    "docs/teaching/evidence/numerical-pdes-design-independent-review.json": "5af1f7d59b032d66444a7a09cdde544bc24c37a0e6abf5d6e97307b387a0e748"
+  },
+  "verificationScriptHashes": {
+    "scripts/generate-numerical-pde-examples.py": "6b4188ebe28f24e3a8c855c3271fbef339ff243661937d6b7f8ff56acf6c0999",
+    "scripts/verify-numerical-pde-models.mjs": "11d5527df2233dbb823b849b8023e5178109bd2d4e3eae1f0772826ba09a97a2",
+    "scripts/verify-numerical-pde-native.py": "5064295736b3e999ee6584585c3e75209564e8c6ab5a62196d2648bbc264db24",
+    "scripts/review-numerical-pde-lesson.cjs": "ebc194a9bfb2abddb718699538dae142567b6ba4206765d7acfe5bf6ea0f074e",
+    "scripts/format-numerical-pde-source.cjs": "8bf0508e6000d7ec92b3b902dbe634100b13e8517866a427dbfeeb2739843f11",
+    "scripts/finalize-numerical-pde-author.py": "4447195a16d6cacdb20ad54fd5a1c90c35eb93b2f51eeba731e89232c4f75c14"
+  },
+  "closedAuthorFindings": [
+    "Corrected the proposed Robin constant to 20/3 before complete-body readiness.",
+    "Bounded triangle input now includes the declared translated vertex; the visible polygon uses actual equal-scale coordinates, with a verified 2:3 changed aspect ratio.",
+    "Labels explicitly associate each select with its own text; keyboard controls, reset and initially hidden practice work at all widths.",
+    "Narrow equations and prose equality chains wrap readably; no overflow clipping is used to hide notation.",
+    "The multi-method diffusion investigation follows the implicit formulas; the point-load investigation follows its local load weights.",
+    "Unstable heat comparisons use an independently evaluated operator on each actual previous vector; stable global matrix-power and exact spatial-ODE oracles remain separate."
+  ],
+  "limits": [
+    "Author checks are not the separate independent agent source review or integrated production build/loading review.",
+    "A finite scoped lesson does not teach every numerical PDE method or establish physical-model validity.",
+    "Bounds certify the declared manufactured mathematical field; sampled curves are diagnostics, not supremum proofs.",
+    "The optional Godunov branch is an exact scalar face calculation, not a full nonlinear PDE solver; two-grid claims are for the explicitly defined operation.",
+    "Graphs state actual axes and provenance; code/matrix panes retain intentional local horizontal scrolling on small screens.",
+    "Verified official resource pages and selected written/transcript passages do not imply full video playback.",
+    "User acceptance remains separate."
+  ]
+}

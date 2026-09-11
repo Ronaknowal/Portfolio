@@ -232,16 +232,18 @@ def simulate_fcfs(arrival_rate, service_rate, seed, warmup=5000, measured=50000)
         or not 2 <= measured <= 1000000):
         raise ValueError("Use stable positive rates and a nonempty measured cohort")
     rng = random.Random(seed)
-    arrival = available = 0.0
+    previous_total = 0.0
     waits, totals = [], []
     for index in range(warmup + measured):
-        arrival += rng.expovariate(arrival_rate)
+        gap = rng.expovariate(arrival_rate)
         service = rng.expovariate(service_rate)
-        start = max(arrival, available)
-        available = start + service
+        # Lindley's workload recursion avoids subtracting large calendar times.
+        wait = max(0.0, previous_total - gap)
+        total = wait + service
+        previous_total = total
         if index >= warmup:
-            waits.append(start - arrival)
-            totals.append(available - arrival)
+            waits.append(wait)
+            totals.append(total)
     return statistics.mean(waits), statistics.mean(totals)
 
 
@@ -252,7 +254,7 @@ print("mean across runs:", round(statistics.mean(means), 6))
 print("estimated Monte Carlo standard error:", round(statistics.stdev(means) / len(means)**0.5, 6))
 print("stationary theoretical total mean:", 0.5)
 print("theory minus finite estimate:", round(0.5 - statistics.mean(means), 6))
-''', "This executes a seeded model, not a load test. Burn-in reduces an initially empty transient but does not certify its removal. A measured arrival's eventual completion is retained; jobs within a run are correlated, so the standard error uses independent run means.")
+''', "This executes a seeded model, not a load test. Lindley's workload recursion tracks remaining durations instead of subtracting large calendar times, which can erase a short service duration after a very long idle period. Burn-in reduces an initially empty transient but does not certify its removal. A measured arrival's eventual completion is retained; jobs within a run are correlated, so the standard error uses independent run means.")
 
 add("heavy-tail", "A stable queue with no finite mean wait",
     "When a Pareto service time has finite mean but infinite second moment, what do increasing truncations reveal?", r'''

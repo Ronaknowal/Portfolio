@@ -1,0 +1,22 @@
+.cluster-figure { margin: 1.75rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.cluster-figure figcaption { font-size: .94rem; line-height: 1.7; margin-bottom: 1rem; }
+.cluster-figure p { font-size: .92rem; line-height: 1.7; }
+.cluster-figure svg { display: block; width: 100%; height: auto; overflow: visible; }
+.cluster-figure svg text { fill: #d8d8d8; font-size: 13px; font-family: 'Space Grotesk', sans-serif; }
+.cluster-figure-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem; }
+.cluster-axis { stroke: #666; }
+.cluster-connector { stroke: #e2b55a; stroke-width: 1.5; }
+.cluster-calculation { font-family: 'JetBrains Mono', monospace; overflow-wrap: anywhere; }
+.cluster-linkage-ruler { max-width: 480px; margin-inline: auto; }
+.cluster-practice, .cluster-deeper { margin-block: 1.5rem; }
+.cluster-practice details, .cluster-deeper { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.cluster-practice summary, .cluster-deeper > summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.cluster-practice summary:focus-visible, .cluster-deeper > summary:focus-visible { outline: 2px solid #e2b55a; outline-offset: 5px; }
+.cluster-practice details + details { margin-top: .65rem; }
+@media (max-width: 600px) {
+  .cluster-figure-pair { grid-template-columns: minmax(0, 1fr); gap: .5rem; }
+  .cluster-figure { padding-block: 1rem; }
+}
+@media (max-width: 360px) {
+  .cluster-deeper { padding-inline: .65rem; }
+}

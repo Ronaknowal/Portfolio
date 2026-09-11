@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-09-11T09:30:03.784927+00:00",
+  "checks": {
+    "complete_new_program_stdout": 4,
+    "all_parenthesizations_and_actual_witness": 1089,
+    "all_live_removal_orders_and_actual_witness": 1093,
+    "actual_native_tree_roots_and_boundaries": 1300,
+    "exhaustive_subtree_boundary_witness": 5850,
+    "all_small_bounds_actual_native_and_model": 2501,
+    "exact_prefix_sets_and_each_digit_partition": 2273,
+    "large_all_nines_combinatorial_length_counts": 18,
+    "actual_changed_inclusive_ranges": 141,
+    "large_integer_matrix_arithmetic": 1,
+    "actual_10000_node_chain_no_recursion": 1,
+    "changed_adjacent_property_and_zero": 2,
+    "changed_cross_child_conflict": 1,
+    "native_rejected_inputs": 13,
+    "model_rejected_inputs": 30
+  },
+  "sourceHashes": {
+    "src/learn/data/dp-state-families-models.js": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d",
+    "src/learn/data/dp-state-families-examples.js": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+  },
+  "scope": "Exact finite oracles, actual displayed-program execution and changed-input checks; not a proof of all algorithms or browser verification."
+}

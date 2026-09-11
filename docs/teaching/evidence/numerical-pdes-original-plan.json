@@ -1,0 +1,105 @@
+{
+  "capturedAt": "2026-09-11T07:30:19.023Z",
+  "topicId": "numerical-pdes-grids-finite-elements-stability",
+  "inventory": {
+    "topic": {
+      "title": "Numerical PDEs: Grids, Finite Elements & Stability",
+      "level": "advanced",
+      "blueprint": {
+        "summary": "Turn a spatial differential model into a discrete computation and test whether its answer approaches the intended problem.",
+        "outcomes": [
+          "Construct a small finite-difference discretization and explain the finite-element alternative",
+          "Separate consistency, stability and convergence through refinement tests"
+        ],
+        "prerequisites": [
+          "Partial Differential Equations, Conservation & Boundary Conditions",
+          "Conditioning, Stability & Numerical Analysis",
+          "Matrix Decompositions (SVD, QR, Cholesky, LU)"
+        ],
+        "sequence": [
+          "Discretize a one-dimensional heat or Poisson equation",
+          "Encode boundary conditions in the discrete system",
+          "Derive a simple time-step restriction where applicable",
+          "Introduce weak form and local basis functions on one element",
+          "Compare mesh refinement against an analytic solution"
+        ],
+        "visual": {
+          "type": "mesh and error-refinement lab",
+          "question": "Does a finer grid help if the time step violates the method's stability condition?",
+          "interaction": "Vary spatial and temporal steps independently and compare solution and error"
+        },
+        "practice": {
+          "task": "Implement and verify a small PDE solver",
+          "success": "Boundary treatment, refinement order, residual and stability evidence match a known solution"
+        },
+        "misconceptions": [
+          "A finer mesh does not cure an unstable discretization",
+          "Low linear-solver residual does not establish low discretization error"
+        ],
+        "sources": [
+          "https://ocw.mit.edu/courses/16-920j-numerical-methods-for-partial-differential-equations-sma-5212-spring-2003/"
+        ],
+        "depth": "specialist",
+        "reviewFocus": "Keep PDE mathematics separate from the existing GPU stencil implementation; do not generalize a CFL bound beyond its scheme."
+      },
+      "id": "numerical-pdes-grids-finite-elements-stability",
+      "trackId": "math-foundations",
+      "section": "Analysis, Symmetry & Spatial Differential Models",
+      "trackIds": [
+        "math-foundations"
+      ],
+      "prerequisiteStatus": "recorded",
+      "prerequisiteIds": [
+        "partial-differential-equations-conservation-boundary-conditions",
+        "conditioning-stability-numerical-analysis",
+        "matrix-decompositions-svd-qr-cholesky-lu"
+      ],
+      "designStatus": "topic-brief-ready",
+      "publicationStatus": "planned",
+      "teachingReview": "individual-review-required",
+      "domainStrategy": "mathematics"
+    },
+    "domainGuidance": {
+      "strategy": "mathematics",
+      "flow": [
+        "Pose a concrete question and identify known/unknown quantities",
+        "Link a small numerical case, a representation and defined notation",
+        "Derive the mechanism with justified intermediate steps",
+        "Interpret a complete worked result",
+        "Test a changed case, assumption and counterexample",
+        "Connect to a formal or applied deeper branch"
+      ],
+      "visuals": [
+        "Linked geometric and symbolic views",
+        "Labeled distributions and repeated samples",
+        "Stepwise derivation with exact-value inspection"
+      ],
+      "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+      "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+      "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+      "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+      "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+    },
+    "authoringNotes": {
+      "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+      "workflow": "docs/teaching/topic-notes/README.md",
+      "destination": {
+        "path": "docs/teaching/topic-notes/numerical-pdes-grids-finite-elements-stability.md",
+        "exists": true,
+        "markdown": "# Authoring notes: Numerical PDEs: Grids, Finite Elements & Stability\r\n\r\nCanonical topic ID: `numerical-pdes-grids-finite-elements-stability`\r\n\r\n## 2026-09-11 — Preserve the continuous boundary and weak-form target before choosing a mesh\r\n\r\n- Status: open\r\n- Origin: the [PDE56 teaching design](../PARTIAL-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md), currently design-only. Its [proposed fixture calculations](../../../scratch/pde-design/results.json) are actual independent calculations, not verified production lesson code.\r\n- Destination and rationale: the actual Numerical PDE57 brief already owns grids, heat/Poisson, finite-element bases and stability. This entry joins the two existing reconstruction and equation-normalization notes without replacing them. PDE56 will derive the continuous balance, boundary compatibility, energy and a one-dimensional weak identity; this destination should connect those exact objects to the chosen discretization.\r\n- Planned continuous bridge: for `−u''=f` with zero Dirichlet endpoints, derive `∫u'v'=∫fv`; for a unit source at a, `G(x,a)=min(x,a)(1−max(x,a))` satisfies `∫G'v'=v(a)`. The proposed a=1/3 slopes are2/3 and−1/3. The design proves the energy functional and its exact difference in the locally defined one-dimensional zero-boundary energy space. Actual body/program implementation is pending, so reassess the final source before relying on it.\r\n- Proposed treatment: choose piecewise-linear trial/test functions, show a single element's gradient, derive local stiffness/load entries and their assembly, and distinguish enforcing endpoint values from incorporating natural flux terms. State exactly which norm/quantity is approximated. Revisit a point source between nodes, or a changed source/mesh, so the learner can see the continuous load functional rather than silently sampling a delta as a finite-height function. Do not imply every weak solution has an ordinary second derivative at element/source kinks.\r\n- Compatibility transfer: the design uses outward flux `qL=u'(0), qR=−u'(1)` on[0,1] for `−u''=f`. The identity is `qL+qR=∫f`; a pure Neumann steady problem has a constant nullspace and needs compatible load plus a normalization. A discrete constraint must respect this target instead of fabricating a solution to incompatible source/flux data. Note any scaled k and sign convention explicitly.\r\n- Known smooth target: the proposed forced rod has L1, C2, k.5, source1, homogeneous Dirichlet endpoints and `u=x(1−x)+.2exp(−π²t/4)sin(πx)` in the declared normalized spatial coordinates. Its PDE, initial data and integral balance are checked in the design calculations. A manufactured-solution/refinement exercise can use or adapt it after checking origin implementation; it must add restriction/reconstruction and solver-error evidence from the previous two notes, not cite this formula as a convergence theorem.\r\n- Resolution: receiving author should assess after PDE56 author/independent evidence is available. No Numerical PDE source, catalogue metadata or curriculum order was changed by this note.\r\n\r\n## 2026-09-11 — State what converges between grid points and under differentiation\r\n\r\n- Status: open\r\n- Origin: `real-analysis-sequences-modes-of-convergence`, sections 6–11 and 14; [assessed design](../REAL-ANALYSIS-LESSON-DESIGN.md). The complete draft is published and its [actual numerical checks](../../../scratch/real-analysis-verification/results.json) pass; author browser review and independent review are still pending at this handoff.\r\n- Destination and ownership rationale: the exact Numerical PDE57 inventory was read. Its planned grids, finite elements, boundary conditions and refinement workflow own the conversion from discrete values to a spatial function and a reported physical quantity. Conditioning52's existing note handles discrete residual/defect normalization; this entry adds the approximation-space side rather than duplicating that identity.\r\n- Learning benefit: a learner should know whether the promised error concerns node values, a reconstructed field, an integral, a derivative/flux, or a time-dependent norm. These quantities can behave differently even when a plot looks smooth.\r\n- Existing coverage: the Real Analysis draft proves uniform/integral and derivative-interchange sufficient conditions; its continuous moving triangles have exactly calculated supremum, integral and squared-L2 errors. A coarse grid misses a unit-area triangle when its support falls between sample points. Its Bernstein capstone explicitly distinguishes exact integral success from a sufficient uniform certificate. The planned PDE destination has no implemented reconstruction/norm argument yet.\r\n- Proposed treatment: define a restriction and a reconstruction for the chosen discretization, name the domain and norm, and combine node/discrete error with interpolation or approximation error. For finite elements, distinguish a continuous piecewise-linear function from its elementwise derivative; do not claim uniform classical derivative convergence through mesh corners. If reporting a flux or energy norm, derive the appropriate estimate rather than inheriting a function-value tolerance. Include a changed spatial profile or mesh in independent practice.\r\n- Boundaries: finite sampled maxima are lower bounds on a supremum unless a valid between-sample estimate is added. Weak convergence and weak derivatives need their own definitions and hypotheses; Real Analysis54 does not teach full Sobolev theory. PDE56/57 should introduce exactly what their weak-form calculation requires. Do not infer every continuous solution is smooth or every stable scheme converges in every norm.\r\n- Evidence: local exact triangle and Bernstein derivations, checked with rational piecewise integration and separately expanded polynomial integration; Lebl [interchange of limits](https://www.jirka.org/ra/html/sec_liminter.html), selected uniform integration/derivative hypotheses read 11 September 2026. No claim that these elementary results prove a general FEM error theorem.\r\n- Resolution: receiving author should combine this with the equation-normalization entry below when choosing the actual scheme, reconstruction and assessed output. Destination implementation and verification remain pending.\r\n\r\n## 2026-09-11 — Carry equation normalization and solver error into the mesh-convergence argument\r\n\r\n- Status: open\r\n- Origin: `conditioning-stability-numerical-analysis`, [design](../CONDITIONING-STABILITY-LESSON-DESIGN.md), now authored with final native/browser evidence in [the verification record](../CONDITIONING-STABILITY-VERIFICATION.md); independent review/integration are separate.\r\n- Destination and ownership rationale: the existing Numerical PDE57 brief owns grid/boundary, heat/Poisson, finite-element and refinement mechanisms and already requires Conditioning52. It should make those specific error conversions concrete; a general numerical-analysis lesson cannot establish the stability of every PDE scheme.\r\n- Idea and learning benefit: distinguish discretization defect from the residual of an incompletely solved discrete system, and show how both enter the final error under an actual mesh-dependent norm and inverse bound. A solver's smaller raw residual is not by itself evidence of better approximation to the continuous problem.\r\n- Existing coverage: destination's exact planned brief covers grid resolution, boundary conditions, stable time step, heat/Poisson, finite elements and known-solution refinement, but has no current body or note explicitly defining the residual/defect normalization. Numerical Methods38 already teaches a nested quadrature/root budget and warns that residual is not solution error. Conditioning52 now teaches the intervening norm/condition/backward-error synthesis.\r\n- Proposed treatment: introduce the discrete operator and physical/grid norm, then derive the chosen scheme's defect, stability and algebraic-solver contribution. Include a manufactured/known solution and a comparison where solver tolerance is tightened relative to a mesh target. Retain separate boundary/truncation/solver units; decide how the requested tolerance scales as h changes. Derive a specific CFL or coercivity condition rather than generalizing it to every method.\r\n- Explanation/example: with `u_h` the restriction of the exact solution, `τ_h=b_h-A_h u_h`, and computed residual `r_h=b_h-A_h xhat_h`, the exact finite identity is `A_h(xhat_h-u_h)=τ_h-r_h`. Hence `||xhat_h-u_h||≤||A_h^-1|| (||τ_h||+||r_h||)` in the declared compatible norms, when invertible. Multiplying all equations by a small factor reduces both raw defects and residuals while increasing the inverse norm, so the resulting error bound must not become artificially stronger. A PDE author must additionally address approximation/restriction error in the quantity actually reported.\r\n- Prerequisites and boundaries: Conditioning52 now teaches a complete exact constant-ODE counterexample to consistency without uniform stability, with error `(2^N-1)/N²` at fixed time. That is not a proof of a PDE equivalence theorem. Numerical PDE57 owns well-posedness and assumptions needed for its own linear or nonlinear convergence claims, plus boundary compatibility and time/space coupling.\r\n- Evidence: independently derived finite algebraic identity and [FNC zero-stability discussion](https://fncbook.com/zerostability/) for the distinction between consistency and amplification, read 11 September 2026. The destination's actual PDE matrices/norms have not yet been implemented or verified; its formulas must be investigated locally.\r\n- Resolution: not yet reviewed by destination author. Evaluate and adapt once the actual scheme/representation is chosen.\r\n- Implementation/verification links: none for destination. Origin's [final verification](../CONDITIONING-STABILITY-VERIFICATION.md) distinguishes actual production checks from the preserved design-only fixtures.\r\n"
+      },
+      "unassigned": {
+        "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+        "exists": true,
+        "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+      }
+    },
+    "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+  },
+  "originalEntry": "  plan(\"Numerical PDEs: Grids, Finite Elements & Stability\", \"advanced\",\n    \"Turn a spatial differential model into a discrete computation and test whether its answer approaches the intended problem.\", [\"Partial Differential Equations, Conservation & Boundary Conditions\", \"Conditioning, Stability & Numerical Analysis\", \"Matrix Decompositions (SVD, QR, Cholesky, LU)\"],\n    [\"Construct a small finite-difference discretization and explain the finite-element alternative\", \"Separate consistency, stability and convergence through refinement tests\"],\n    [\"Discretize a one-dimensional heat or Poisson equation\", \"Encode boundary conditions in the discrete system\", \"Derive a simple time-step restriction where applicable\", \"Introduce weak form and local basis functions on one element\", \"Compare mesh refinement against an analytic solution\"],\n    [\"mesh and error-refinement lab\", \"Does a finer grid help if the time step violates the method's stability condition?\", \"Vary spatial and temporal steps independently and compare solution and error\"],\n    [\"Implement and verify a small PDE solver\", \"Boundary treatment, refinement order, residual and stability evidence match a known solution\"],\n    [\"A finer mesh does not cure an unstable discretization\", \"Low linear-solver residual does not establish low discretization error\"], [S.numericalPde], \"specialist\", \"Keep PDE mathematics separate from the existing GPU stencil implementation; do not generalize a CFL bound beyond its scheme.\"),",
+  "source": {
+    "path": "src/learn/data/curriculum/cross-domain-expansion.js",
+    "sha256": "abfed2a24ba0adb1f6ce5aa9f4c0d5ff699102ca56d3deca807c8ef14100f95c"
+  },
+  "originalBodyFound": false
+}

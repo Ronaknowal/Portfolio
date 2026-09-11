@@ -1,0 +1,493 @@
+{
+  "checkedAt": "2026-09-11T05:43:47.320817+00:00",
+  "stage": "design arithmetic only; no production lesson/models/browser implemented",
+  "status": "passed",
+  "counts": {
+    "voi_joint_cases": 60,
+    "procedure_rules": 4,
+    "cvar_atom_levels": 6,
+    "capstone_signal_policies": 12,
+    "capstone_exact_world_checks": 384
+  },
+  "checks": {
+    "inspection_anchor": {
+      "joint": [
+        [
+          "207/250",
+          "2/125"
+        ],
+        [
+          "23/250",
+          "8/125"
+        ]
+      ],
+      "posterior": [
+        "4/211",
+        "16/39"
+      ],
+      "before": "32/5",
+      "after": "71/25",
+      "evsi": "89/25",
+      "evpi": "28/5"
+    },
+    "changed_prevalence": {
+      "joint": [
+        [
+          "441/500",
+          "1/250"
+        ],
+        [
+          "49/500",
+          "2/125"
+        ]
+      ],
+      "posterior": [
+        "2/443",
+        "8/57"
+      ],
+      "before": "8/5",
+      "after": "73/50",
+      "evsi": "7/50",
+      "evpi": "7/5"
+    },
+    "informative_but_no_action_change": {
+      "joint": [
+        [
+          "891/1000",
+          "1/500"
+        ],
+        [
+          "99/1000",
+          "1/125"
+        ]
+      ],
+      "posterior": [
+        "2/893",
+        "8/107"
+      ],
+      "before": "4/5",
+      "after": "4/5",
+      "evsi": "0",
+      "evpi": "7/10"
+    },
+    "procedure_risk": {
+      "(0, 0)": {
+        "risk_by_state": [
+          "0",
+          "1"
+        ],
+        "bayes_risk": "3/10"
+      },
+      "(0, 1)": {
+        "risk_by_state": [
+          "1/5",
+          "1/5"
+        ],
+        "bayes_risk": "1/5"
+      },
+      "(1, 0)": {
+        "risk_by_state": [
+          "4/5",
+          "4/5"
+        ],
+        "bayes_risk": "4/5"
+      },
+      "(1, 1)": {
+        "risk_by_state": [
+          "1",
+          "0"
+        ],
+        "bayes_risk": "7/10"
+      }
+    },
+    "score_vs_action": {
+      "true_probability": "1/10",
+      "misreported": "1/5",
+      "honest_brier": "9/100",
+      "distorted_brier": "1/10",
+      "best_operational_loss": "8",
+      "distorted_operational_loss": "10",
+      "prior_shift_new_probability": "1/5"
+    },
+    "loss_selects_summary": {
+      "mean": "4",
+      "absolute_losses": {
+        "0": "4",
+        "2": "14/5",
+        "10": "6"
+      },
+      "asymmetric_losses": {
+        "0": "16",
+        "2": "10",
+        "10": "6"
+      }
+    },
+    "randomized_minimax": {
+      "losses": [
+        [
+          "0",
+          "6"
+        ],
+        [
+          "4",
+          "0"
+        ],
+        [
+          "5/2",
+          "5/2"
+        ]
+      ],
+      "mix": [
+        "2/5",
+        "3/5",
+        "0"
+      ],
+      "risks": [
+        "12/5",
+        "12/5"
+      ],
+      "deterministic_worst": [
+        "6",
+        "4",
+        "5/2"
+      ]
+    },
+    "regret_changes_criterion": {
+      "losses": [
+        [
+          0,
+          10
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "worst_losses": [
+        10,
+        7
+      ],
+      "worst_regrets": [
+        3,
+        6
+      ]
+    },
+    "ambiguity_interval": {
+      "interval": [
+        "2/25",
+        "9/50"
+      ],
+      "ship_worst": "72/5",
+      "hold_worst": "10",
+      "ship_worst_regret": "22/5",
+      "hold_worst_regret": "18/5"
+    },
+    "tail_atoms": {
+      "losses": [
+        0,
+        10,
+        100
+      ],
+      "masses": [
+        "4/5",
+        "3/20",
+        "1/20"
+      ],
+      "alpha": "9/10",
+      "var": 10,
+      "cvar": "55",
+      "conditional_at_or_above_var": "65/2",
+      "conditional_above_var": 100
+    },
+    "utility": {
+      "outcomes": [
+        50,
+        150
+      ],
+      "probabilities": [
+        "1/2",
+        "1/2"
+      ],
+      "expected_resource": 100,
+      "sqrt_expected_utility": 9.659258262890683,
+      "certainty_equivalent": 93.30127018922194,
+      "sure_alternative": 95
+    },
+    "capacity_capstone": {
+      "probabilities": [
+        "1/50",
+        "3/50",
+        "1/10",
+        "1/5",
+        "7/20",
+        "3/5"
+      ],
+      "baseline": "252/5",
+      "held_without_test": [
+        5,
+        6
+      ],
+      "tests": [
+        {
+          "test_item": 1,
+          "conditional_losses": [
+            "244/5",
+            "384/5"
+          ],
+          "held_after_signal": [
+            [
+              5,
+              6
+            ],
+            [
+              1,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "1234/25",
+          "gross_value": "26/25",
+          "with_cost_one": "1259/25"
+        },
+        {
+          "test_item": 2,
+          "conditional_losses": [
+            "228/5",
+            "368/5"
+          ],
+          "held_after_signal": [
+            [
+              5,
+              6
+            ],
+            [
+              2,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "1182/25",
+          "gross_value": "78/25",
+          "with_cost_one": "1207/25"
+        },
+        {
+          "test_item": 3,
+          "conditional_losses": [
+            "212/5",
+            "352/5"
+          ],
+          "held_after_signal": [
+            [
+              5,
+              6
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "226/5",
+          "gross_value": "26/5",
+          "with_cost_one": "231/5"
+        },
+        {
+          "test_item": 4,
+          "conditional_losses": [
+            "172/5",
+            "312/5"
+          ],
+          "held_after_signal": [
+            [
+              5,
+              6
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "40",
+          "gross_value": "52/5",
+          "with_cost_one": "41"
+        },
+        {
+          "test_item": 5,
+          "conditional_losses": [
+            "172/5",
+            "252/5"
+          ],
+          "held_after_signal": [
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "40",
+          "gross_value": "52/5",
+          "with_cost_one": "41"
+        },
+        {
+          "test_item": 6,
+          "conditional_losses": [
+            "172/5",
+            "252/5"
+          ],
+          "held_after_signal": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ]
+          ],
+          "expected_before_test_cost": "44",
+          "gross_value": "32/5",
+          "with_cost_one": "45"
+        }
+      ],
+      "best_test": {
+        "test_item": 4,
+        "conditional_losses": [
+          "172/5",
+          "312/5"
+        ],
+        "held_after_signal": [
+          [
+            5,
+            6
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "expected_before_test_cost": "40",
+        "gross_value": "52/5",
+        "with_cost_one": "41"
+      }
+    },
+    "batch_posterior_decision": {
+      "beta_uniform_both_fail": "1/3",
+      "plugin_both_fail": "1/4",
+      "integrated_launch_loss": 10,
+      "plugin_launch_loss": "15/2",
+      "mitigation_loss": 9
+    },
+    "causal_benefit": {
+      "untreated_failure": [
+        "4/5",
+        "3/10"
+      ],
+      "treated_failure": [
+        "3/4",
+        "1/20"
+      ],
+      "avoided_loss": [
+        "5/2",
+        "25/2"
+      ],
+      "action_cost": 6,
+      "net_benefit": [
+        "-7/2",
+        "13/2"
+      ]
+    },
+    "calibrated_coarsening": {
+      "group_probabilities": [
+        "1/10",
+        "3/10"
+      ],
+      "reported_constant": "1/5",
+      "fixed_ship_loss": 16,
+      "group_informed_loss": 14
+    },
+    "unequal_resource_counterexample": {
+      "resources": [
+        3,
+        2,
+        2
+      ],
+      "benefits": [
+        5,
+        "7/2",
+        "7/2"
+      ],
+      "capacity": 4,
+      "best_items": [
+        2,
+        3
+      ],
+      "best_benefit": 7
+    },
+    "validation_then_test": {
+      "validation_scores": [
+        "1/20",
+        "1/10",
+        "1/5",
+        "1/5",
+        "2/5",
+        "4/5"
+      ],
+      "validation_labels": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "threshold": "1/10",
+      "validation_total_cost": 50,
+      "test_scores": [
+        "3/100",
+        "2/25",
+        "3/25",
+        "3/10",
+        "3/5",
+        "9/10"
+      ],
+      "test_labels": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "test_total_cost": 40,
+      "default_half_test_total_cost": 100,
+      "endpoint_sentinel": 2
+    },
+    "changed_capstone_test_price_twelve": {
+      "best_action": "do not test",
+      "loss": "252/5",
+      "best_tested_loss": 52
+    },
+    "changed_quantile_ties": {
+      "1": "9",
+      "2": "7",
+      "3": "5",
+      "4": "5",
+      "5": "5",
+      "6": "5",
+      "7": "5",
+      "8": "5",
+      "9": "5",
+      "10": "6"
+    },
+    "changed_scalar_practice": {
+      "threshold": "1/5",
+      "release_at_point_fifteen": "9",
+      "release_at_point_twenty_five": "15",
+      "new_fallback_boundaries": [
+        "1/10",
+        "3/5"
+      ]
+    }
+  },
+  "scriptSha256": "e71d61909fb696b76b5c0179039e1662a2dcbc98797127dfd6816dcad0384187"
+}

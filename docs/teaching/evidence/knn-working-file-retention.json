@@ -1,0 +1,73 @@
+{
+  "removed": [
+    {
+      "path": "scratch/knn-native/neighbor-ledger.py",
+      "sha256": "93bbc122c52c57115f116a6d82050af07ae551a3f86ea7e56b2bb7f9ebe4848e",
+      "bytes": 830,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/units-cosine.py",
+      "sha256": "0a76e1026f3f24209e0b15ce730f344465a473f0274e0931e786a2613b776169",
+      "bytes": 935,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/scratch-estimator.py",
+      "sha256": "b4956b8e1885de642af9bda95f837c2382286838b209aa6f56dd74cdf71d2cd7",
+      "bytes": 4130,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/held-out-workflow.py",
+      "sha256": "4d5bd80abd6d41915031aee4d128a12b3e62584eefa9f5059a409b4415161b76",
+      "bytes": 1923,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/kd-tree.py",
+      "sha256": "d777f68a537b702c2740e8676a2691c45dd6580a1221c796a977f52c583bf494",
+      "bytes": 2392,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/library-search.py",
+      "sha256": "0919c0247ab765ee0465015c6ae975b4015e4ee87c7c1792271c5255eb5cb664",
+      "bytes": 691,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/candidate-recall.py",
+      "sha256": "2b03a8c4d0dbbe1201eac06b4f37c4e9a5ea2b6aa94fc5da3b963df5937d9fd6",
+      "bytes": 759,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/dimension.py",
+      "sha256": "99c9c881d54f3d123a045b8499e8bde6fdab2c71f144f4f80ddb014bb080c763",
+      "bytes": 993,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/posterior-risk.py",
+      "sha256": "fac8dbc350a065261d0d73e8e0493e09a4a5be1ec37e859f33139a0d05cf6d61",
+      "bytes": 560,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/haversine-outputs.py",
+      "sha256": "3bf8383560f58b5ba775475c25b9ee578f82fef244a6a7aa42319f7cab9b21d0",
+      "bytes": 785,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    },
+    {
+      "path": "scratch/knn-native/changed-capstone.py",
+      "sha256": "cedd9059f08fdec7d2748ee130f41bc2d32a4e220e1d2c53865805836a532f89",
+      "bytes": 1922,
+      "reason": "Same complete current lesson program after Windows newline normalization; generator recreates the extraction for changed code"
+    }
+  ],
+  "retained": "Current knn-examples.js, generator, execution cache, numerical/model and selected browser evidence",
+  "owner": "/root",
+  "cleanedAt": "2026-09-11T14:37:08.6256406Z"
+}

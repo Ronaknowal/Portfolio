@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const paths = ['src/learn/data/topics/linear-logistic-regression.jsx','src/learn/data/linear-logistic-models.js','src/learn/data/linear-logistic-examples.js','src/learn/components/lesson-labs/LinearLogisticLabs.jsx','src/learn/components/lesson-labs/linear-logistic-labs.css','src/learn/data/curriculum/blueprints/linear-logistic-regression.js','scripts/generate-linear-logistic-examples.py','scripts/verify-linear-logistic-models.mjs','scripts/verify-linear-logistic-native.py','scripts/review-linear-logistic-lesson.cjs','docs/teaching/LINEAR-LOGISTIC-REGRESSION-DESIGN.md'];
+const browser = JSON.parse(fs.readFileSync('docs/teaching/evidence/linear-logistic-browser-review.json'));
+for (const source of browser.sourceHashes) if (sha(source.path) !== source.sha256) throw new Error('Browser review stale: ' + source.path);
+const record = { frozenAt: new Date().toISOString(), status: 'author-reviewed; independent review pending', topicId: 'linear-logistic-regression', sourceHashes: paths.map(file => ({ path: file, sha256: sha(file) })), evidence: ['docs/teaching/evidence/linear-logistic-native-review.json','docs/teaching/evidence/linear-logistic-browser-review.json'].map(file => ({ path: file, sha256: sha(file) })) };
+fs.writeFileSync('docs/teaching/evidence/linear-logistic-author-freeze.json', JSON.stringify(record, null, 2) + '\n');
+const file = 'docs/teaching/classical-ml-supervised-progress.json';
+const progress = JSON.parse(fs.readFileSync(file));
+Object.assign(progress.topics.find(topic => topic.id === record.topicId), { status: 'author-reviewed', authorEvidence: 'docs/teaching/evidence/linear-logistic-author-freeze.json' });
+progress.topics.find(topic => topic.id === 'decision-trees-random-forests').status = 'in-progress';
+fs.writeFileSync(file, JSON.stringify(progress, null, 2) + '\n');
+console.log('Regression author freeze recorded; independent review remains pending.');

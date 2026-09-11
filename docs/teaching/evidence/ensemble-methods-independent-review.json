@@ -1,0 +1,203 @@
+{
+  "checkedAt": "2026-09-11T14:32:08.290Z",
+  "topicId": "ensemble-methods-stacking",
+  "status": "closed; no open material findings",
+  "reviewer": "/root (independent of topic author)",
+  "production": [
+    {
+      "path": "src/learn/data/topics/ensemble-methods-stacking.jsx",
+      "sha256": "53980d005996d206a0cd58d43dc0110bb222409bd52ac3b27a8db064e03dc911",
+      "bytes": 61952
+    },
+    {
+      "path": "src/learn/data/ensemble-methods-models.js",
+      "sha256": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4",
+      "bytes": 13446
+    },
+    {
+      "path": "src/learn/data/ensemble-methods-examples.js",
+      "sha256": "11005149bc1daa90075a97e62de6c1c0fd09a111633cb0e6cb88dfb565a78a56",
+      "bytes": 36978
+    },
+    {
+      "path": "src/learn/data/ensemble-prediction-map.json",
+      "sha256": "7e06407ee3c81498e1b3c134935994e8bf114509c36f79e02565695f4e79d5a6",
+      "bytes": 50834
+    },
+    {
+      "path": "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx",
+      "sha256": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d",
+      "bytes": 27894
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ensemble-methods-labs.css",
+      "sha256": "6afecccd96546833c7896891bb52dc3d5731105134463ecd3cf41d1f225e395e",
+      "bytes": 6161
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/ensemble-methods-stacking.js",
+      "sha256": "926a7b4d9d873c6ee7ec86ceef5f960cd82776eda6ebd59c9a537847c3b1d62d",
+      "bytes": 4429
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/ensemble-methods-author-review.json",
+      "sha256": "0764da6b3e9a3d837fb20bd4d6b918ba7d9e2886622b44dc70a0580eec2156bf"
+    },
+    {
+      "path": "scratch/ensemble-independent/complementary-checks.json",
+      "sha256": "970beb73ec7dce1bdc9c745adb2959011c35b905570aa254234bba11513e951b"
+    }
+  ],
+  "complementaryCases": [
+    {
+      "kind": "member permutation and common weight scale preserve both votes",
+      "probabilities": [
+        0.8,
+        0.4,
+        0.3
+      ]
+    },
+    {
+      "kind": "member permutation and common weight scale preserve both votes",
+      "probabilities": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "kind": "member permutation and common weight scale preserve both votes",
+      "probabilities": [
+        0,
+        1,
+        0.75
+      ]
+    },
+    {
+      "kind": "member permutation and common weight scale preserve both votes",
+      "probabilities": [
+        0.1,
+        0.9,
+        0.2
+      ]
+    },
+    {
+      "kind": "draw order and uniform multiplicity preserve a fitted stump",
+      "draws": [
+        0,
+        0,
+        2,
+        3,
+        3,
+        5
+      ]
+    },
+    {
+      "kind": "draw order and uniform multiplicity preserve a fitted stump",
+      "draws": [
+        1,
+        2,
+        2,
+        4,
+        4,
+        5
+      ]
+    },
+    {
+      "kind": "draw order and uniform multiplicity preserve a fitted stump",
+      "draws": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "kind": "draw order and uniform multiplicity preserve a fitted stump",
+      "draws": [
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "kind": "new query cannot refit the OOF combination",
+      "query": 0
+    },
+    {
+      "kind": "new query cannot refit the OOF combination",
+      "query": 0.25
+    },
+    {
+      "kind": "new query cannot refit the OOF combination",
+      "query": 1.5
+    },
+    {
+      "kind": "new query cannot refit the OOF combination",
+      "query": 4.75
+    },
+    {
+      "kind": "new query cannot refit the OOF combination",
+      "query": 5
+    },
+    {
+      "kind": "incomplete OOF features cannot produce a trained combiner",
+      "completed": 0
+    },
+    {
+      "kind": "incomplete OOF features cannot produce a trained combiner",
+      "completed": 1
+    },
+    {
+      "kind": "incomplete OOF features cannot produce a trained combiner",
+      "completed": 2
+    },
+    {
+      "kind": "exact law verifies individual calibration by conditioning",
+      "key": "forecastA"
+    },
+    {
+      "kind": "exact law verifies individual calibration by conditioning",
+      "key": "forecastB"
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/ensemble-methods/browser/boosting-second-fit-390.png",
+      "sha256": "a424bf4a27919d8b39d402f498f0251ab1735ffb1606860c39e62a22afe32f0e",
+      "bytes": 63288
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/oof-completed-320.png",
+      "sha256": "70ee68178be1f6e0af5623530107070b450fa6106f363c476df0dce5011a1005",
+      "bytes": 56840
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/native-prediction-map-320.png",
+      "sha256": "cf213b4c1d3586715b44332dec52bf8034faefddb50012b958d9ea4a075f65fc",
+      "bytes": 71433
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/changed-residuals-390.png",
+      "sha256": "a7c47f21745d373a21ad4198e7924748279e74dd9ad118d8c7510a6ab5fdc3cb",
+      "bytes": 33658
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-4-320.png",
+      "sha256": "b58dd019c8b84877b7b2ec6e57433bf1cb92f5971fd9313a30d37bae3cd129aa",
+      "bytes": 69669
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/api-reading-320.png",
+      "sha256": "a02f2acbd4c47b990df78feb70a0b4a938c70baa39ceec8746a26b5c0779ec65",
+      "bytes": 69376
+    }
+  ],
+  "scope": "Full lesson prose, mathematical reasoning, examples, pure model and retained source depth reviewed; final mobile API definition list read after its responsive amendment. Selected author captures opened independently. Author full native/program/operated-browser evidence reused.",
+  "findings": [],
+  "limitations": "Independent review is not learner testing, production integration or user acceptance. No full native/browser suite repeated for unchanged source."
+}

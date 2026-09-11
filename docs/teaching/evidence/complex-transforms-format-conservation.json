@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-11T06:56:27.416Z",
+  "records": [
+    {
+      "file": "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx",
+      "normalizedAstConserved": true,
+      "transformWarnings": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "normalizedAstConserved": true,
+      "transformWarnings": 0
+    },
+    {
+      "file": "src/learn/data/complex-transforms-models.js",
+      "normalizedAstConserved": true,
+      "transformWarnings": 0
+    },
+    {
+      "file": "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js",
+      "normalizedAstConserved": true,
+      "transformWarnings": 0
+    },
+    {
+      "file": "src/learn/components/lesson-labs/complex-transforms-labs.css",
+      "normalizedAstConserved": true
+    }
+  ]
+}

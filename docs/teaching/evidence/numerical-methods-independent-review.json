@@ -1,0 +1,197 @@
+{
+  "topicId": "numerical-methods-finite-differences-quadrature-root-finding",
+  "modulePosition": 38,
+  "reviewedAt": "2026-09-10T22:42:19.427722+00:00",
+  "status": "bounded independent review complete; no unresolved material finding",
+  "authorEvidence": "docs/teaching/evidence/numerical-methods-author-review.json",
+  "production": [
+    {
+      "path": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+      "sha256": "c0d48598bbe6ff2b0f5485ff0f62223008523aaebacca29822ef905c84b6827f",
+      "bytes": 41853,
+      "modifiedAt": "2026-09-10T21:54:03.255144+00:00"
+    },
+    {
+      "path": "src/learn/data/numerical-methods-models.js",
+      "sha256": "dca00e3fa7ef697977bc019123ff2d901f3a7a765bc6ef52b0bbb3a5014dad99",
+      "bytes": 13071,
+      "modifiedAt": "2026-09-10T21:54:03.370328+00:00"
+    },
+    {
+      "path": "src/learn/data/numerical-methods-examples.js",
+      "sha256": "55e0867bf1992e91025d31fdac5af09fdbc5b59ed7fc58aefd3aaf353fdf7d17",
+      "bytes": 24210,
+      "modifiedAt": "2026-09-10T21:54:02.907343+00:00"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+      "sha256": "149b4c48ddadac9d04c2db6db2f4a57a19bc15ce44903a7ffcc4b8914fce44a9",
+      "bytes": 23724,
+      "modifiedAt": "2026-09-10T21:54:03.318280+00:00"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/numerical-methods-labs.css",
+      "sha256": "79f6ed9d0e81fc9b5350a1b77d54fa6358a223a67c0efc4fd1d81a5af83c3e0f",
+      "bytes": 3785,
+      "modifiedAt": "2026-09-10T21:54:03.395505+00:00"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/numerical-methods-finite-differences-quadrature-root-finding.js",
+      "sha256": "797ddfbe1cf8b0c857a59043b4de480e688551531ef8ac7cfa8c459063942ae9",
+      "bytes": 4597,
+      "modifiedAt": "2026-09-10T21:54:03.383461+00:00"
+    }
+  ],
+  "reads": [
+    "entire current body and all ten changed practice groups",
+    "all thirteen actual complete Python programs, prompts and interpretations",
+    "entire pure model, lab and scoped CSS source",
+    "archived original body/code/output, individual blueprint, design and verification",
+    "resolved incoming Numerical Methods note and outgoing Backpropagation ownership"
+  ],
+  "complementaryChecks": {
+    "checkedAt": "2026-09-10T22:40:08.289099+00:00",
+    "passed": true,
+    "actualPrograms": 13,
+    "originalCodeOutputPreserved": true,
+    "adaptivePolynomialCases": 18,
+    "independentlyIntegratedLeaves": 219,
+    "blindScaleCases": 3,
+    "workBudgetFailures": 4,
+    "changedBrackets": 16,
+    "changedSafeguards": 16,
+    "trigonometricStencilCases": 48,
+    "candidateCalibrationCases": 80,
+    "nestedSearchCases": 126,
+    "nestedSuccesses": 28,
+    "nestedUnresolved": 98,
+    "mappedGaussianCases": 18,
+    "numericalComparisons": 996,
+    "maximumAbsoluteDiscrepancy": 4.1900150016260795e-11,
+    "scipy": "1.18.1",
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/topics/numerical-methods-finite-differences-quadrature-root-finding.jsx",
+        "sha256": "c0d48598bbe6ff2b0f5485ff0f62223008523aaebacca29822ef905c84b6827f",
+        "bytes": 41853,
+        "modifiedAt": "2026-09-10T21:54:03.255144+00:00"
+      },
+      {
+        "path": "src/learn/data/numerical-methods-models.js",
+        "sha256": "dca00e3fa7ef697977bc019123ff2d901f3a7a765bc6ef52b0bbb3a5014dad99",
+        "bytes": 13071,
+        "modifiedAt": "2026-09-10T21:54:03.370328+00:00"
+      },
+      {
+        "path": "src/learn/data/numerical-methods-examples.js",
+        "sha256": "55e0867bf1992e91025d31fdac5af09fdbc5b59ed7fc58aefd3aaf353fdf7d17",
+        "bytes": 24210,
+        "modifiedAt": "2026-09-10T21:54:02.907343+00:00"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+        "sha256": "149b4c48ddadac9d04c2db6db2f4a57a19bc15ce44903a7ffcc4b8914fce44a9",
+        "bytes": 23724,
+        "modifiedAt": "2026-09-10T21:54:03.318280+00:00"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/numerical-methods-labs.css",
+        "sha256": "79f6ed9d0e81fc9b5350a1b77d54fa6358a223a67c0efc4fd1d81a5af83c3e0f",
+        "bytes": 3785,
+        "modifiedAt": "2026-09-10T21:54:03.395505+00:00"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/numerical-methods-finite-differences-quadrature-root-finding.js",
+        "sha256": "797ddfbe1cf8b0c857a59043b4de480e688551531ef8ac7cfa8c459063942ae9",
+        "bytes": 4597,
+        "modifiedAt": "2026-09-10T21:54:03.383461+00:00"
+      }
+    ],
+    "limitations": [
+      "Finite complementary evidence, not a universal error certificate.",
+      "Underflow/extreme-range interval arithmetic is not asserted by the lesson or this review."
+    ]
+  },
+  "reviewScripts": [
+    {
+      "path": "scripts/verify-numerical-methods-independent.mjs",
+      "sha256": "75c1fcc3141c18ce9dab3933bddf6a706065c72b6b3f40f9daea6b7e03a7e3bb",
+      "bytes": 2523
+    },
+    {
+      "path": "scripts/verify-numerical-methods-independent.py",
+      "sha256": "9243db953ce2b860a60a8fdd048dfc4773d65af8facd6a9c8022995dc2ddd26f",
+      "bytes": 8883
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "scratch/numerical-methods-browser/final-plot-0-320.png",
+      "sha256": "82574120ad21f70c81ef4c2ef7c50a640be9a76e25ef343f841e0e17e63a069c",
+      "bytes": 48010
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-plot-3-390.png",
+      "sha256": "ea7e067d0b90b162516840d0c9c6574521ba7f701fae0edc88b275b6a1b223b2",
+      "bytes": 63989
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-blind-scale-320.png",
+      "sha256": "1d00954dd268008b44851c4f90089e80efd96306fbfd97dc7bef3570527d2f5e",
+      "bytes": 51928
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-nested-program-390.png",
+      "sha256": "0ab62833d7387f0ab8834c5eb088e83eeae550139f5c57e2fd6e867b8c9611a4",
+      "bytes": 65237
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-lost-derivative-geometry-390.png",
+      "sha256": "8758b32f5bd6e9cab8835adce74cfea36ddd2d420e2ac8f7923228f7bd3a108e",
+      "bytes": 48257
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-actual-error-plot-390.png",
+      "sha256": "75f735e6562333be039f7ed93582ce254965aab27dc70fb843748dadf2e41885",
+      "bytes": 61283
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-equation-6-320.png",
+      "sha256": "216cad3a3dc43e13674aca316da98330ab6f2b30d8bfae5330ae4fa9075b0082",
+      "bytes": 63095
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-plot-6-1440.png",
+      "sha256": "0db569214aef6b4711761d7bd94310f91c71ea71dede349fb91ed4abdd24504f",
+      "bytes": 129127
+    },
+    {
+      "path": "scratch/numerical-methods-browser/final-plot-8-390.png",
+      "sha256": "621c20cb443cdd227f057f01804bedff2af8fa63d240a713923950317094bf4a",
+      "bytes": 66206
+    }
+  ],
+  "imageAttribution": "These nine author-generated final screenshots were actually opened and inspected by this independent reviewer. This reviewer did not rerun or claim the author's full browser interaction matrix.",
+  "primaryReferencesInspected": [
+    {
+      "url": "https://dlmf.nist.gov/3.5",
+      "scope": "Trapezoid/Simpson assumptions and error constants, Richardson and Gaussian quadrature definitions."
+    },
+    {
+      "url": "https://fncbook.com/python/adaptive/",
+      "scope": "Adaptive refinement and the estimated-error distinction."
+    },
+    {
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+      "scope": "Output-time, error-control and event-detection API qualifications; fetched documentation1.18.0, execution1.18.1."
+    }
+  ],
+  "findings": [],
+  "productionEdits": false,
+  "limits": [
+    "Finite mathematical/runtime review cannot certify arbitrary functions or arithmetic ranges.",
+    "The lesson explicitly excludes complete outward-rounded evaluation enclosures.",
+    "Original content preservation is exact for the executed program and output; surrounding useful concepts were also read for coverage.",
+    "No production build, bundle/loading audit, deployment or user acceptance is claimed."
+  ]
+}

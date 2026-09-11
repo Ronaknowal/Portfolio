@@ -1,0 +1,61 @@
+{
+  "archivedAt": "2026-09-11T09:00:55.826Z",
+  "previousPacket": "docs/teaching/evidence/pde-author-review-before-independent-amendment.json",
+  "archived": [
+    {
+      "source": "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx.txt",
+      "sha256": "3951fa93669bee0a515cc2b897b014f9f27823b0941c546c7e9bedd355e48613"
+    },
+    {
+      "source": "src/learn/data/pde-models.js",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/data/pde-models.js.txt",
+      "sha256": "b437c76879bf6d9777de1e309aa9de5890910db047d1bedce9d19c2403f45f04"
+    },
+    {
+      "source": "src/learn/data/pde-examples.js",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/data/pde-examples.js.txt",
+      "sha256": "008ed987d8f95444dcf7e527e0233f3465292bba63e52e3e5db3bdb265c2fdd4"
+    },
+    {
+      "source": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/components/lesson-labs/PdeLabs.jsx.txt",
+      "sha256": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d"
+    },
+    {
+      "source": "src/learn/components/lesson-labs/pde-labs.css",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/components/lesson-labs/pde-labs.css.txt",
+      "sha256": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170"
+    },
+    {
+      "source": "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js.txt",
+      "sha256": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
+    },
+    {
+      "source": "docs/teaching/evidence/pde-author-review.json",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/docs/teaching/evidence/pde-author-review.json.txt",
+      "sha256": "f73d0989c1dd2ab09042cae4303f1fb8590befa0763e077d667f81c998e0d711"
+    },
+    {
+      "source": "docs/teaching/evidence/pde-native-verification.json",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/docs/teaching/evidence/pde-native-verification.json.txt",
+      "sha256": "b17135cc3fca86d794eaa5c7710e357c23942bce4fbf95dbde0e12081c13f9b0"
+    },
+    {
+      "source": "docs/teaching/evidence/pde-browser-review.json",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/docs/teaching/evidence/pde-browser-review.json.txt",
+      "sha256": "46843e27f2c94242021e2f7798396ed3e7a9a0d942ccde6b2886f13e937ff8a1"
+    },
+    {
+      "source": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md.txt",
+      "sha256": "a1de31a159b27132cecd78809b31089697984a2efb9bd83eb4d10eac8625c0b4"
+    },
+    {
+      "source": "scripts/generate-pde-examples.py",
+      "archive": "docs/teaching/archive/pde-before-independent-amendment/scripts/generate-pde-examples.py.txt",
+      "sha256": "105e037fc9aacc805ef7edb1b2ee95899265cf62d218a2a1b86e8b3536647e60"
+    }
+  ]
+}

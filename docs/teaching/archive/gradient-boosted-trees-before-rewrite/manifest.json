@@ -1,0 +1,16 @@
+{
+  "capturedAt": "2026-09-11T10:49:27.601Z",
+  "topic": "gradient-boosted-trees-xgboost-lightgbm-catboost",
+  "sourcePath": "src/learn/data/topics/gradient-boosted-trees-xgboost-lightgbm-catboost.jsx",
+  "sha256": "b53b13e7f10493318875e8fa02f0f654a9e6ea98e7bbcf1a7ec0bdd37eb80bc0",
+  "bytes": 61818,
+  "originalProgramCount": 5,
+  "originalOutputCount": 5,
+  "parentBaseline": {
+    "path": "docs/teaching/evidence/classical-ml-supervised-baseline.json",
+    "sha256": "a8bf4a11a8b0430cc938135de6d817a834746842fe134083109ba1300d128fad",
+    "capturedAt": "2026-09-11T10:41:51.872Z"
+  },
+  "ownership": "The old topic has no dedicated support imports; shared visual/content implementations are not mutated.",
+  "note": "Preservation evidence only. Historical claims of executed stdout are not accepted without rerunning these extracted programs."
+}

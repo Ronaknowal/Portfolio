@@ -1,0 +1,122 @@
+.traversal-lab {
+  margin: 2rem 0;
+  padding: 1.3rem 0;
+  border-block: 1px solid #424737;
+  min-width: 0;
+  color: #e5e6d7;
+  line-height: 1.7;
+}
+.traversal-lab h3 {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+.traversal-lab p {
+  margin: .9rem 0;
+}
+.traversal-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+.traversal-lab label {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-width: 0;
+}
+.traversal-lab select,.traversal-lab input:not([type=checkbox]) {
+  font: inherit;
+  width: 100%;
+  min-height: 44px;
+  min-width: 0;
+  box-sizing: border-box;
+  color: #eee9d9;
+  background: #171b14;
+  border: 1px solid #74765a;
+  padding: .5rem;
+}
+.traversal-lab input[type=range] {
+  padding: 0;
+  accent-color: #e9b84d;
+}
+.traversal-lab .traversal-checkbox {
+  flex-direction: row;
+  align-items: center;
+  min-height: 44px;
+}
+.traversal-checkbox input {
+  width: 20px;
+  height: 20px;
+  accent-color: #e9b84d;
+  flex-shrink: 0;
+}
+.traversal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1rem 0;
+}
+.traversal-lab button {
+  font: inherit;
+  color: #eed18c;
+  background: #1b2115;
+  border: 1px solid #6f7652;
+  border-radius: 2px;
+  min-height: 44px;
+  padding: .5rem .8rem;
+  cursor: pointer;
+}
+.traversal-lab button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.traversal-lab :is(input,select,button):focus-visible,.traversal-scroll:focus-visible {
+  outline: 2px solid #edbd52;
+  outline-offset: 3px;
+}
+.traversal-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-color: #968153 #171b14;
+  margin: 1rem 0;
+}
+.traversal-scroll svg {
+  display: block;
+}
+.traversal-scroll text {
+  fill: #e5e5d5;
+  font: 18px 'Space Grotesk',sans-serif;
+}
+.traversal-scroll .traversal-small {
+  font-size: 14px;
+  fill: #bdc7b0;
+}
+.traversal-scroll .traversal-slow {
+  fill: #e9bd5d;
+}
+.traversal-scroll .traversal-fast {
+  fill: #87caa6;
+}
+.traversal-link {
+  fill: none;
+  stroke: #d6b65e;
+  stroke-width: 2;
+}
+.traversal-cut {
+  fill: none;
+  stroke: #db987f;
+  stroke-width: 2;
+  stroke-dasharray: 3 6;
+}
+.traversal-lab [role=status],.traversal-state,.traversal-empty {
+  padding: .8rem 1rem;
+  background: #181e15;
+  border-left: 2px solid #92994e;
+}
+@media(max-width:620px) {
+  .traversal-controls {
+    grid-template-columns: 1fr;
+  }
+}

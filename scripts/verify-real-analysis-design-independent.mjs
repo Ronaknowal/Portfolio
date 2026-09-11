@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import * as model from '../src/learn/data/real-analysis-models.js';
+import { realAnalysisExamples as examples } from '../src/learn/data/real-analysis-examples.js';
+const directory = 'scratch/real-analysis-design-independent';
+fs.mkdirSync(directory, { recursive: true });
+const data = { examples, brackets: [], bernstein: [], triangles: [], tails: [] };
+for (const target of [2, 3, 5]) for (const steps of [0, 1, 7, 19, 24]) data.brackets.push(model.dyadicBracket(target, steps));
+for (const n of [1, 3, 7, 13, 64, 256]) for (const x of [0, 1 / 16, 3 / 8, 13 / 16, 1]) data.bernstein.push(model.bernsteinApproximation(n, x, 7 / 16, 3));
+for (const n of [3, 7, 19, 127]) for (const scaling of ['unit-height', 'unit-area', 'shrinking-height']) data.triangles.push(model.triangleFamily(n, scaling, 12, 5 / 16));
+for (const p of [1, 7, 127]) for (const q of [3, 13, 999]) for (const index of [1, 7, 999]) data.tails.push({ p, q, index, state: model.sequenceTail(p, q, index) });
+data.tinyBound = model.bernsteinApproximation(256, Number.MIN_VALUE, 0.3, 1);
+fs.writeFileSync(`${directory}/payload.json`, JSON.stringify(data));
+const result = spawnSync(path.resolve('scratch/lesson-tools/Scripts/python.exe'), ['scripts/verify-real-analysis-design-independent.py'], { encoding: 'utf8' });
+process.stdout.write(result.stdout || '');
+process.stderr.write(result.stderr || '');
+if (result.status !== 0) throw new Error('Independent design checker failed');

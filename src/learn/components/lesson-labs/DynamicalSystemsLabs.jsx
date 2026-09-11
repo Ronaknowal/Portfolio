@@ -3,6 +3,7 @@ import { CUBIC_FOLD, scalarFlowState, planarField, planarTrace, logisticTrace, l
 import './dynamical-systems-labs.css';
 
 const format = value => value === null ? '−∞' : Math.abs(value) < 1e-4 && value !== 0 ? value.toExponential(2) : Number(value.toFixed(4)).toString();
+const tickFormat = value => Number(value.toPrecision(3)).toString();
 const pointsPath = (points, x, y) => {
   let connected = false;
   return points.map(point => {
@@ -31,27 +32,47 @@ function Plot({ label, horizontal, vertical, xDomain, yDomain, series = [], squa
   const bottom = height - 60;
   const x = value => 65 + (value - xDomain[0]) / (xDomain[1] - xDomain[0]) * 450;
   const y = value => bottom - (value - yDomain[0]) / (yDomain[1] - yDomain[0]) * (bottom - 30);
-  return <div className="dynamics-plot" tabIndex={0} role="region" aria-label={label + '; scroll horizontally on a narrow screen'}>
+  return <><p className="dynamics-scroll-hint">Scroll this plot sideways to inspect the full axes.</p><div className="dynamics-plot" tabIndex={0} role="region" aria-label={label + '; scroll horizontally on a narrow screen'}>
     <svg viewBox={'0 0 540 ' + height} role="img" aria-label={label}>
       <defs><clipPath id={clipId}><rect x={65} y={30} width={450} height={bottom - 30} /></clipPath></defs>
       {Array.from({ length: 5 }, (_, index) => {
         const horizontalValue = xDomain[0] + index / 4 * (xDomain[1] - xDomain[0]);
         const verticalValue = yDomain[0] + index / 4 * (yDomain[1] - yDomain[0]);
-        return <g key={index}><line className="dynamics-grid" x1={x(horizontalValue)} x2={x(horizontalValue)} y1={30} y2={bottom} /><line className="dynamics-grid" x1={65} x2={515} y1={y(verticalValue)} y2={y(verticalValue)} /><text x={x(horizontalValue)} y={bottom + 22} textAnchor="middle">{format(horizontalValue)}</text><text x={57} y={y(verticalValue) + 4} textAnchor="end">{format(verticalValue)}</text></g>;
+        return <g key={index}><line className="dynamics-grid" x1={x(horizontalValue)} x2={x(horizontalValue)} y1={30} y2={bottom} /><line className="dynamics-grid" x1={65} x2={515} y1={y(verticalValue)} y2={y(verticalValue)} /><text x={x(horizontalValue)} y={bottom + 22} textAnchor="middle">{tickFormat(horizontalValue)}</text><text x={57} y={y(verticalValue) + 4} textAnchor="end">{tickFormat(verticalValue)}</text></g>;
       })}
       <text x={65} y={18}>{vertical}</text><text x={290} y={height - 10} textAnchor="middle">{horizontal}</text>
       <g clipPath={'url(#' + clipId + ')'}>{series.map(({ points, tone = 'amber', dashed = false }, index) => <path key={index} className={'dynamics-line dynamics-' + tone + (dashed ? ' dynamics-dashed' : '')} d={pointsPath(points, x, y)} />)}{children?.({ x, y })}</g>
     </svg>
-  </div>;
+  </div></>;
+}
+
+function CartState({ direction }) {
+  const leftward = direction < 0;
+  const tip = leftward ? 55 : 245;
+  return <svg className="dynamics-cart-drawing" viewBox="0 0 300 115" role="img" aria-label={'Cart at the center, moving ' + (leftward ? 'left' : 'right')}><line x1={20} x2={280} y1={98} y2={98} stroke="#8392a7" strokeWidth={2} /><line x1={150} x2={150} y1={83} y2={108} stroke="#d5deeb" strokeWidth={2} /><rect x={120} y={63} width={60} height={23} rx={3} fill="#213950" stroke="#b9d4eb" strokeWidth={2} /><circle cx={132} cy={91} r={6} fill="#d5deeb" /><circle cx={168} cy={91} r={6} fill="#d5deeb" /><path d={'M150,38H' + tip + 'M' + (tip - direction * 12) + ',28L' + tip + ',38L' + (tip - direction * 12) + ',48'} fill="none" stroke="#f4bf58" strokeWidth={3} /><line x1={150} x2={150} y1={52} y2={62} stroke="#b9d4eb" strokeDasharray="3 3" /></svg>;
 }
 
 export function StateMeaningFigure() {
-  return <figure className="dynamics-figure"><div className="dynamics-state-pair"><div><span className="dynamics-cart">← [cart]</span><strong>Same position q=0</strong><span>Velocity p=−1: moving left</span></div><div><span className="dynamics-cart">[cart] →</span><strong>Same position q=0</strong><span>Velocity p=+1: moving right</span></div></div><div className="dynamics-state-flow"><span>Complete state (q,p)</span><span aria-hidden="true">→</span><span>Rule + elapsed time</span><span aria-hidden="true">→</span><span>Next complete state</span></div><figcaption>Position alone cannot choose the next position. The state must retain the information the rule needs. The drawing is a state comparison, not a scaled physical simulation.</figcaption></figure>;
+  return <figure className="dynamics-figure"><div className="dynamics-state-pair"><div><CartState direction={-1} /><strong>Same position q=0</strong><span>Velocity p=−1: moving left</span></div><div><CartState direction={1} /><strong>Same position q=0</strong><span>Velocity p=+1: moving right</span></div></div><div className="dynamics-state-flow"><span>Complete state (q,p)</span><span aria-hidden="true">→</span><span>Rule + elapsed time</span><span aria-hidden="true">→</span><span>Next complete state</span></div><figcaption>Position alone cannot choose the next position. The state must retain the information the rule needs. Both carts are at the track's center tick; their velocity arrows differ. This is a state comparison, not a scaled physical simulation.</figcaption></figure>;
 }
 
 export function StabilityMeaningFigure() {
   const modes = [['−x', time => Math.exp(-time), 'Returns exponentially'], ['−x³', time => 1 / Math.sqrt(1 + 2 * time), 'Returns algebraically'], ['0', () => 1, 'Stays near; does not return']];
   return <figure className="dynamics-figure"><Plot label="Three perturbations starting at one under three scalar rules" horizontal="time t (model units)" vertical="perturbation x(t)" xDomain={[0, 6]} yDomain={[0, 1.1]} series={modes.map(([, value], index) => ({ points: Array.from({ length: 101 }, (_, step) => [step * 0.06, value(step * 0.06)]), tone: ['amber', 'green', 'blue'][index], dashed: index === 2 }))} /><figcaption>Amber: x′=−x. Green: x′=−x³. Blue dashed: x′=0. All start at 1 and use their exact solutions. Staying near, returning, and returning at an exponential rate are distinct properties.</figcaption></figure>;
+}
+
+export function EquilibriumBranchFigure() {
+  const positiveParameters = Array.from({ length: 101 }, (_, index) => index / 100);
+  const turningState = 1 / Math.sqrt(3);
+  const tiltedBranch = (minimum, maximum) => Array.from({ length: 121 }, (_, index) => {
+    const state = minimum + (maximum - minimum) * index / 120;
+    return [state ** 3 - state, state];
+  });
+  return <figure className="dynamics-figure">
+    <Plot label="Pitchfork equilibrium branches as parameter a changes" horizontal="parameter a" vertical="equilibrium state x*" xDomain={[-1, 1]} yDomain={[-1.5, 1.5]} series={[{ points: [[-1, 0], [0, 0]], tone: 'green' }, { points: [[0, 0], [1, 0]], dashed: true }, ...[-1, 1].map(sign => ({ points: positiveParameters.map(parameter => [parameter, sign * Math.sqrt(parameter)]), tone: 'green' }))]} />
+    <Plot label="Tilted cubic equilibrium branches and the two fold thresholds" horizontal="tilt parameter b" vertical="equilibrium state x*" xDomain={[-0.6, 0.6]} yDomain={[-1.5, 1.5]} series={[{ points: tiltedBranch(-1.4, -turningState), tone: 'green' }, { points: tiltedBranch(-turningState, turningState), dashed: true }, { points: tiltedBranch(turningState, 1.4), tone: 'green' }]}>{({ x, y }) => [-1, 1].map(sign => <circle key={sign} className="dynamics-open" cx={x(-sign * CUBIC_FOLD)} cy={y(sign * turningState)} r={6} />)}</Plot>
+    <figcaption>These curves plot equilibria against a changing parameter, not trajectories against time. Green solid branches attract; amber dashed branches repel away from the critical junctions. The top plot branches at a=0. The lower plot turns at b=±2/(3√3), where the open fold points attract from only one side. At a=0 the pitchfork's nonlinear cubic still attracts. The exact curves come from x*=0 or ±√a, and b=(x*)³−x*. A slow branch-following experiment can switch at different folds on its outward and return sweeps; finite sweep speed is not modeled here.</figcaption>
+  </figure>;
 }
 
 export function ScalarFlowLab() {
@@ -119,7 +140,7 @@ export function LogisticIterationLab() {
     <Plot square label="Logistic parabola, copying diagonal and stepped cobweb" horizontal="input xₙ" vertical="output xₙ₊₁" xDomain={[0, 1]} yDomain={[0, 1]} series={[{ points: curve, tone: 'green' }, { points: [[0, 0], [1, 1]], tone: 'blue', dashed: true }, { points: cobweb }]} />
     <div className="dynamics-actions"><button disabled={steps === 0} onClick={() => setSteps(value => value - 1)}>Previous update</button><button disabled={steps === 40} onClick={() => setSteps(value => value + 1)}>Advance one update</button><button onClick={() => { setGrowth(3.2); setInitial(0.2); setSteps(1); setAtlasVisible(false); }}>Reset logistic</button></div>
     <div aria-live="polite"><Metrics rows={[[ 'Iteration n', steps], ['Current xₙ', format(trace.values[steps])], ['Fixed points and multipliers', trace.fixedPoints.map(point => format(point.value) + ' (m=' + format(point.multiplier) + ')').join('; ')]]} /></div>
-    <Plot label="The same logistic iterates on a time axis" horizontal="iteration n" vertical="state xₙ" xDomain={[0, 40]} yDomain={[0, 1]} series={[{ points: trace.values.slice(0, steps + 1).map((value, index) => [index, value]) }]} />
+    <Plot label="The same logistic iterates on a time axis" horizontal="iteration n" vertical="state xₙ" xDomain={[0, 40]} yDomain={[0, 1]} series={[{ points: trace.values.slice(0, steps + 1).map((value, index) => [index, value]) }]}>{({ x, y }) => trace.values.slice(0, steps + 1).map((value, index) => <circle key={index} cx={x(index)} cy={y(value)} r={3} className="dynamics-filled" />)}</Plot>
     <p>Green: update curve. Blue dashed: copy diagonal. Amber: the selected finite trace. At r=1 or r=3, a multiplier on the unit-circle boundary makes the strict linear test inconclusive; the displayed short trace does not settle that boundary theorem.</p>
     <button aria-expanded={atlasVisible} onClick={() => setAtlasVisible(value => !value)}>{atlasVisible ? 'Hide finite bifurcation atlas' : 'Compute finite bifurcation atlas'}</button>
     {atlas && <><Plot label="Finite sampled bifurcation atlas" horizontal="growth parameter r" vertical="retained state x" xDomain={[2.5, 4]} yDomain={[0, 1]}>{({ x, y }) => <path className="dynamics-atlas" d={atlas.rows.flatMap(row => row.values.map(value => 'M' + x(row.growth).toFixed(2) + ',' + y(value).toFixed(2) + 'h0.7')).join(' ')} />}</Plot><p>151 equally spaced r values from 2.5 to 4, all starting at 0.217; discard 1,000 updates and draw the next 48. Each mark is a computed iterate. Thin windows may fall between sampled columns; repeated values may overplot. This is a finite binary64 sampling, not a complete bifurcation diagram or a chaos certificate. It computes only when opened and uses one SVG path for the marks.</p></>}
@@ -135,8 +156,8 @@ export function SensitivityLab() {
   const finite = useMemo(() => logisticLyapunovEstimate({ growth, initial, burn: preset === 'fixed' || preset === 'critical' ? 0 : 1000, samples: 2000 }), [growth, initial, preset]);
   const current = state.rows[iteration];
   return <section className="dynamics-lab" aria-label="Finite sensitivity investigation"><h3>Compare an actual pair with its tangent approximation</h3><p>Predict where a straight local-growth picture stops describing the actual pair. Choose the exactly fixed reference to test whether a positive exponent alone means that reference orbit is aperiodic.</p><Choice label="Sensitivity case" value={preset} onChange={setPreset} choices={[['irregular', 'r=3.9, x₀=0.2, δ=10⁻⁶'], ['stable', 'r=2.5, x₀=0.2, δ=10⁻⁶'], ['critical', 'r=3.9, x₀=0.5 (zero derivative)'], ['fixed', 'r=4, x₀=0.75 (exact fixed point)'], ['equal', 'r=3.9, identical initial states']]} /><Range label="Sensitivity iteration" value={iteration} min={0} max={70} onChange={setIteration} />
-    <Plot label="Nearby logistic states" horizontal="iteration n" vertical="state" xDomain={[0, 70]} yDomain={[0, 1]} series={[{ points: state.rows.map(row => [row.iteration, row.reference]) }, { points: state.rows.map(row => [row.iteration, row.other]), tone: 'blue', dashed: true }]} />
-    <Plot label="Log separation: actual pair and linear tangent prediction" horizontal="iteration n" vertical="log₁₀ absolute separation" xDomain={[0, 70]} yDomain={[-18, 1]} series={[{ points: state.rows.map(row => row.logSeparation === null ? null : [row.iteration, row.logSeparation / Math.LN10]) }, { points: state.rows.map(row => row.logTangentSeparation === null ? null : [row.iteration, row.logTangentSeparation / Math.LN10]), tone: 'green', dashed: true }]} />
+    <Plot label="Nearby logistic states" horizontal="iteration n" vertical="state" xDomain={[0, 70]} yDomain={[0, 1]} series={[{ points: state.rows.map(row => [row.iteration, row.reference]) }, { points: state.rows.map(row => [row.iteration, row.other]), tone: 'blue', dashed: true }]}>{({ x, y }) => <><line className="dynamics-cursor" x1={x(iteration)} x2={x(iteration)} y1={y(0)} y2={y(1)} /><circle className="dynamics-filled" cx={x(iteration)} cy={y(current.reference)} r={5} /><circle className="dynamics-open" cx={x(iteration)} cy={y(current.other)} r={5} /></>}</Plot>
+    <Plot label="Log separation: actual pair and linear tangent prediction" horizontal="iteration n" vertical="log₁₀ absolute separation" xDomain={[0, 70]} yDomain={[-18, 1]} series={[{ points: state.rows.map(row => row.logSeparation === null ? null : [row.iteration, row.logSeparation / Math.LN10]) }, { points: state.rows.map(row => row.logTangentSeparation === null ? null : [row.iteration, row.logTangentSeparation / Math.LN10]), tone: 'green', dashed: true }]}>{({ x, y }) => <><line className="dynamics-cursor" x1={x(iteration)} x2={x(iteration)} y1={y(-18)} y2={y(1)} />{current.logSeparation !== null && <circle className="dynamics-filled" cx={x(iteration)} cy={y(current.logSeparation / Math.LN10)} r={5} />}</>}</Plot>
     <div aria-live="polite"><Metrics rows={[[ 'Selected reference / nearby', format(current.reference) + ' / ' + format(current.other)], ['Actual separation', format(current.separation)], ['Tangent log gain (natural log)', format(current.logGain)], ['Finite mean log derivative', format(finite.estimate)], ['Averaging window', 'discard ' + finite.burn + ', average ' + finite.samples]]} /></div>
     <p>Amber: actual pair; blue dashed: nearby state; green dashed in the lower view: the linear tangent prediction. The log view is explicitly cropped to [−18,1]. Zero separations and vanished derivatives have no finite log point; they are omitted, never replaced by a small invented value. Binary64 rounding can make contracting trajectories coincide exactly. A nonzero difference can survive a zero first derivative through higher-order terms.</p>
     <p>The finite exponent uses the reference alone and the stated averaging window. It is not the slope of the saturated two-trajectory separation. At x=0.75,r=4 the reference stays fixed, its derivative magnitude is 2 and its exponent is ln(2): this is an unstable periodic orbit, not an aperiodic one.</p><button onClick={() => { setPreset('irregular'); setIteration(20); }}>Reset sensitivity</button>

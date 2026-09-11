@@ -1,0 +1,310 @@
+{
+  "topicId": "ensemble-methods-stacking",
+  "authorFrozenAt": "2026-09-11T14:21:35.387327+00:00",
+  "status": "author-reviewed; independent review and production integration separate",
+  "production": [
+    {
+      "path": "src/learn/data/topics/ensemble-methods-stacking.jsx",
+      "sha256": "53980d005996d206a0cd58d43dc0110bb222409bd52ac3b27a8db064e03dc911",
+      "bytes": 61952
+    },
+    {
+      "path": "src/learn/data/ensemble-methods-models.js",
+      "sha256": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4",
+      "bytes": 13446
+    },
+    {
+      "path": "src/learn/data/ensemble-methods-examples.js",
+      "sha256": "11005149bc1daa90075a97e62de6c1c0fd09a111633cb0e6cb88dfb565a78a56",
+      "bytes": 36978
+    },
+    {
+      "path": "src/learn/data/ensemble-prediction-map.json",
+      "sha256": "7e06407ee3c81498e1b3c134935994e8bf114509c36f79e02565695f4e79d5a6",
+      "bytes": 50834
+    },
+    {
+      "path": "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx",
+      "sha256": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d",
+      "bytes": 27894
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ensemble-methods-labs.css",
+      "sha256": "6afecccd96546833c7896891bb52dc3d5731105134463ecd3cf41d1f225e395e",
+      "bytes": 6161
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/ensemble-methods-stacking.js",
+      "sha256": "926a7b4d9d873c6ee7ec86ceef5f960cd82776eda6ebd59c9a537847c3b1d62d",
+      "bytes": 4429
+    }
+  ],
+  "sourceArchive": "docs/teaching/evidence/ensemble-methods-author-sources.json",
+  "originalEvidence": "docs/teaching/evidence/ensemble-original-review.json",
+  "support": [
+    {
+      "path": "docs/teaching/ENSEMBLE-METHODS-LESSON-DESIGN.md",
+      "sha256": "17a8ad84767067b4139ac5af519799860afe754d58939157ec91de37528e437d",
+      "bytes": 27654
+    },
+    {
+      "path": "scripts/generate-ensemble-examples.py",
+      "sha256": "61d610a0f15f63b4be6800fa494afbd4993db3c07b5fdc89593c84982b7fb6d1",
+      "bytes": 22340
+    },
+    {
+      "path": "scripts/verify-ensemble-methods.mjs",
+      "sha256": "673b2dfce55f23efb833b05c77dc47a86c2460701dae0b915cb5547cedbfcbf5",
+      "bytes": 3411
+    },
+    {
+      "path": "scripts/verify-ensemble-methods.py",
+      "sha256": "00e5f590618c63d613856b2c9e367c69748b1791b563b9f65a8d10fd9a2c9624",
+      "bytes": 10130
+    },
+    {
+      "path": "scripts/review-ensemble-methods.cjs",
+      "sha256": "607a69e759d535e0c52c23c6fdf676c1893af2accfa724b7dfad07724884f6fd",
+      "bytes": 13117
+    },
+    {
+      "path": "scripts/freeze-ensemble-methods.py",
+      "sha256": "bba75a3e0941cbef112d46ce8eacf1e1b475e139c6f084e067b84129ce39f4d2",
+      "bytes": 12375
+    },
+    {
+      "path": "docs/teaching/topic-notes/ensemble-methods-stacking.md",
+      "sha256": "ba46475078d7ee30be9cce50aff40e699fc6cb4db7a52742ba38470d44d93479",
+      "bytes": 2656
+    },
+    {
+      "path": "docs/teaching/topic-notes/cross-validation-hyperparameter-tuning.md",
+      "sha256": "ef746ae55c68b14bcc84668e1516da507555b29db17bc9c439dae5388d076763",
+      "bytes": 2190
+    },
+    {
+      "path": "docs/teaching/topic-notes/recommender-systems-collaborative-filtering-matrix-factorization.md",
+      "sha256": "cfa835e7ae8e649d3d7db59df1522f3836f0ab7fc7b4730e8db531749aed317b",
+      "bytes": 2085
+    }
+  ],
+  "checks": {
+    "native": {
+      "checkedAt": "2026-09-11T14:21:25.342105+00:00",
+      "counts": {
+        "actualPrograms": 11,
+        "originalProgramAndOutputConserved": 1,
+        "exactVotingCases": 625,
+        "exactResidualStates": 303,
+        "exactBootstrapMultisets": 461,
+        "nativePresetFits": 3,
+        "changedNativeBoostingLaws": 254,
+        "visualBoostingTraces": 3,
+        "oofOwnershipStates": 48,
+        "nativeGridProbabilities": 3125,
+        "completeProtocolAudits": 2,
+        "invalidModelCases": 15
+      },
+      "status": "passed",
+      "limits": "Bounded exact fixtures and actual sklearn 1.9.1 fits; no population performance, learner-study or arbitrary-range guarantee."
+    },
+    "modelFormatRecheck": {
+      "checkedAt": "2026-09-11T14:14:20.632Z",
+      "status": "passed",
+      "scope": "Current model states and example records exactly equal the independently checked native input; source formatting preserved normalized AST.",
+      "modelSha256": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4"
+    },
+    "recorded320Controls": {
+      "checkedAt": "2026-09-11T14:08:49.097Z",
+      "records": [
+        {
+          "width": 320,
+          "states": 92,
+          "opened": 33,
+          "mathCount": 7,
+          "wideMath": [
+            {
+              "text": "\u2211bwbeb2=e\u02c92+\u2211bwb(eb\u2212e\u02c9)2,e\u02c92=mean\u00a0member\u00a0loss\u2212weighted\u00a0disagreement.\\begin{aligned}\\sum_b w_b e_b^2\n&=\\bar e^2+\\sum_b w_b(e_b-\\bar e)^2,\\\\\n\\bar e^2&=\\text{mean member loss}\\\\\n&\\quad-\\text{weighted disagreement}.\n\\end{aligned}b\u2211\u200bwb\u200beb2\u200be\u02c92\u200b=e\u02c92+b\u2211\u200bwb\u200b(eb\u200b\u2212e\u02c9)2,=mean\u00a0member\u00a0loss\u2212weighted\u00a0disagreement.\u200b",
+              "width": 280,
+              "scroll": 310
+            },
+            {
+              "text": "Dt+1(i)=Dt(i)exp\u2061[\u2212\u03b1tyiht(xi)]Zt,Zt=\u2211iDt(i)exp\u2061[\u2212\u03b1tyiht(xi)].\\begin{aligned}D_{t+1}(i)&=\\frac{D_t(i)\\exp[-\\alpha_t y_i h_t(x_i)]}{Z_t},\\\\\nZ_t&=\\sum_i D_t(i)\\exp[-\\alpha_t y_i h_t(x_i)].\n\\end{aligned}Dt+1\u200b(i)Zt\u200b\u200b=Zt\u200bDt\u200b(i)exp[\u2212\u03b1t\u200byi\u200bht\u200b(xi\u200b)]\u200b,=i\u2211\u200bDt\u200b(i)exp[\u2212\u03b1t\u200byi\u200bht\u200b(xi\u200b)].\u200b",
+              "width": 280,
+              "scroll": 310
+            }
+          ],
+          "overflow": {
+            "window": 320,
+            "document": 320
+          },
+          "errors": [],
+          "fonts": true
+        }
+      ]
+    },
+    "finalThreeWidthReading": {
+      "checkedAt": "2026-09-11T14:13:44.125Z",
+      "records": [
+        {
+          "width": 1440,
+          "states": 0,
+          "opened": 33,
+          "mathCount": 7,
+          "wideMath": [],
+          "overflow": {
+            "window": 1440,
+            "document": 1440
+          },
+          "errors": [],
+          "fonts": true
+        },
+        {
+          "width": 390,
+          "states": 0,
+          "opened": 33,
+          "mathCount": 7,
+          "wideMath": [],
+          "overflow": {
+            "window": 390,
+            "document": 390
+          },
+          "errors": [],
+          "fonts": true
+        },
+        {
+          "width": 320,
+          "states": 0,
+          "opened": 33,
+          "mathCount": 7,
+          "wideMath": [],
+          "overflow": {
+            "window": 320,
+            "document": 320
+          },
+          "errors": [],
+          "fonts": true
+        }
+      ]
+    },
+    "finalAttachments": {
+      "checkedAt": "2026-09-11T14:16:14.210Z",
+      "records": [
+        {
+          "width": 390,
+          "states": 0,
+          "opened": 33,
+          "mathCount": 7,
+          "wideMath": [],
+          "overflow": {
+            "window": 390,
+            "document": 390
+          },
+          "errors": [],
+          "fonts": true
+        }
+      ]
+    },
+    "earlierBrowserScope": "The author operated all control stages at 1440 and 390 before an unrelated Vite overlay interrupted the late 320 stage. That aborted run did not persist its completed-width JSON. Do not count it as a saved three-width full-suite result. The outstanding 320 pass and final three-width reading/output checks are separately recorded here.",
+    "repairedFindings": [
+      "Shared RunnableExample expected/output property mapping repaired; all 11 actual outputs and questions subsequently visible and checked.",
+      "Bootstrap midpoint candidates now use represented input values; actual native and exact-multiset oracles agree.",
+      "Native signed labels are validated before integer truncation could change them.",
+      "Two narrow equations reflowed, preserving their calculations; final seven equations fit 1440/390/320.",
+      "Mobile API contract table replaced by a responsive definition list after actual screenshot inspection."
+    ]
+  },
+  "openedImages": [
+    {
+      "path": "scratch/ensemble-methods/browser/reading-start-1440.png",
+      "sha256": "29fd1f5965470d1c16f3d44b1bedab197e9bf2a0b5e73bbdfb8b1dea08f9cda2",
+      "bytes": 203115
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bootstrap-gap-390.png",
+      "sha256": "ea9b851d104b3dd0c55ca2d15cea71053535870e3801dc6bcfe20a00c36143a2",
+      "bytes": 70128
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/boosting-second-fit-1440.png",
+      "sha256": "723b8bf09af2519b7985f12aa13ad429c23f5cdbf3cd5c83b586c560ec6b3c09",
+      "bytes": 155244
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/boosting-second-fit-390.png",
+      "sha256": "a424bf4a27919d8b39d402f498f0251ab1735ffb1606860c39e62a22afe32f0e",
+      "bytes": 63288
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/oof-completed-390.png",
+      "sha256": "5dc805641045613889d87f0efcec8f81dffed51864938cdb1e2ab67ceb0b6edd",
+      "bytes": 68244
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/oof-completed-320.png",
+      "sha256": "70ee68178be1f6e0af5623530107070b450fa6106f363c476df0dce5011a1005",
+      "bytes": 56840
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/native-prediction-map-390.png",
+      "sha256": "a94cbb4bbc4fef341ee87e5a8ce703bc68c79ad3a39eff408d927eb8619deaab",
+      "bytes": 82582
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/native-prediction-map-320.png",
+      "sha256": "cf213b4c1d3586715b44332dec52bf8034faefddb50012b958d9ea4a075f65fc",
+      "bytes": 71433
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/changed-residuals-390.png",
+      "sha256": "a7c47f21745d373a21ad4198e7924748279e74dd9ad118d8c7510a6ab5fdc3cb",
+      "bytes": 33658
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bound-derivation-390.png",
+      "sha256": "e75c5fbbb3aea7a5ef4c233568db169fd1261da31664d785d936e2a25a73f355",
+      "bytes": 101485
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-1-320.png",
+      "sha256": "b5cf752bf404803f51273167aef27fec7c070a78044d36ec68b41ca566cc2d38",
+      "bytes": 71292
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-4-320.png",
+      "sha256": "b58dd019c8b84877b7b2ec6e57433bf1cb92f5971fd9313a30d37bae3cd129aa",
+      "bytes": 69669
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/api-reading-320.png",
+      "sha256": "a02f2acbd4c47b990df78feb70a0b4a938c70baa39ceec8746a26b5c0779ec65",
+      "bytes": 69376
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/context-reading-320.png",
+      "sha256": "f5f97c0c7cfe6f73e64c1955944358392c0e6d0633314aa06312b38346e26548",
+      "bytes": 64016
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/calibration-law-390.png",
+      "sha256": "1892006f9f2408629fed6cf7398f3a1be96cea3a8d30b4612debfacfbbc7a411",
+      "bytes": 94070
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/changed-report-output-390.png",
+      "sha256": "b39a5c6cedcac7612d33fb191739ac48de0bcc429240a241743bcfc0693af13d",
+      "bytes": 103217
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/resources-320.png",
+      "sha256": "46ed0a6f9ee9c37f0d996472bb0684de0e6c5e9e68a678db4c3bb2ce7219bce7",
+      "bytes": 83108
+    }
+  ],
+  "reviewScope": {
+    "read": "Full original and rewritten lesson; all three original programs and all 11 final programs; models, labs, blueprint, current API and cited primary-source portions. All 12 changed practice solutions and two checkpoints reviewed.",
+    "retained": "Exact original body/program/output archive; the useful full NumPy bagging/AdaBoost program is byte-preserved and its normalized stdout conserved in the actual lesson.",
+    "resources": "Instructor index and matching Kamper algorithm notes substantively reviewed; full recordings not watched. Detailed source scopes and rejected candidate recorded in design.",
+    "limits": "No production build or broader integration performed by this author. No user acceptance, learner study, population accuracy/calibration guarantee or arbitrary-range numeric guarantee. Detailed plot/code/table local scrolling remains where appropriate."
+  }
+}

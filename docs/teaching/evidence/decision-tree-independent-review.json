@@ -1,0 +1,99 @@
+{
+  "reviewedAt": "2026-09-11T14:32:00.566Z",
+  "reviewer": "/root/scientific_visual_improvements",
+  "status": "independent review closed; no unresolved material finding in the stated scope",
+  "stem": "decision-tree",
+  "topicId": "decision-trees-random-forests",
+  "initialFreeze": "2026-09-11T13:17:59.284Z",
+  "initialModelHash": "c518194566df93953774c47fa76e373d078b280d73310d2f6e9cf3b8b25bea1c",
+  "reviewedScope": "Complete fourteen-section body, all thirteen changed practice tasks, full pure model and labs/CSS, individual brief/design, and exact displayed BinaryTree/BinaryForest definitions. Reused the author's ten complete program executions and three-width behavioral evidence.",
+  "sourceFindings": [
+    {
+      "issue": "Sparse arrays were skipped by Array.some validation.",
+      "originalReproductions": [
+        "impurity(Array(2)) returned 0",
+        "treePrediction(growTree(), Array(2)) followed a plausible leaf using undefined coordinates"
+      ],
+      "repair": "Author replaced hole-skipping checks with explicit own-index validation. Complementary dense/sparse and changed tree checks close this finding."
+    }
+  ],
+  "assessment": "Actual leaf partitions and equality paths, subtree costs, bootstrap multiplicities/OOB exclusion and relationship-breaking permutations make different mechanisms visible. Narrow plots deliberately scroll with visible instructions and numerical/text equivalents; the opened bootstrap and permutation captures show readable controls and state. No additional teaching or mathematical defect found within this bounded review.",
+  "primarySourcesRead": [
+    "https://scikit-learn.org/stable/modules/ensemble.html#forest"
+  ],
+  "authorPacket": {
+    "path": "docs/teaching/evidence/decision-tree-author-review.json",
+    "sha256": "b2fd919ead9c5fbb078d31b1ed41fbf6bb94f73b7da08934cb9bcdef9a2fbd21",
+    "frozenAt": "2026-09-11T13:17:59.284Z"
+  },
+  "amendmentPacket": {
+    "path": "docs/teaching/evidence/decision-tree-input-amendment.json",
+    "sha256": "b910e15130ffb128234170b1ca6f509c26e865d027fbe5b9a58466cc0a40ecf7",
+    "amendedAt": "2026-09-11T14:30:38.785Z"
+  },
+  "originalSourceArchive": "docs/teaching/archive/tree-knn-input-amendment/manifest.json",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    },
+    {
+      "path": "src/learn/data/decision-tree-models.js",
+      "sha256": "620aa4a621a7c3a0a381f1e4f61ddf79cc3a94ac118b65c44021c8e147aaded6"
+    },
+    {
+      "path": "src/learn/data/decision-tree-examples.js",
+      "sha256": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "sha256": "5afdc9586c078acb18488d43b78bb3bfdcf6e7d7b0d336362ac7f610ae10d989"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+      "sha256": "71d8f34b8df64d06c3869cfa9550dec3e3d00575c6ec712b62c907acac9925d3"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/decision-trees-random-forests.js",
+      "sha256": "574b3155f5a414e97188510ddfd431343924270e4df75f771a1c517580444864"
+    }
+  ],
+  "complementaryEvidence": {
+    "path": "docs/teaching/evidence/classical-tree-knn-independent-numerical.json",
+    "sha256": "6066538e18ebd1a497d1ee9d6534e2225da8abf614527c342b87cfb43d3dc6dc",
+    "checkedAt": "2026-09-11T14:31:21.373Z"
+  },
+  "scripts": [
+    {
+      "path": "scripts/verify-classical-tree-knn-independent.mjs",
+      "sha256": "148c014a32ad67c735a3e6ddbb4be4ed128a8094954a2004eee15d78c54b1781"
+    },
+    {
+      "path": "scripts/verify-classical-tree-knn-independent.py",
+      "sha256": "b3b1ed2f7d5bf34e259a603fd1e92b3a611c8ed9938fbc39f102fa8f8fd693be"
+    }
+  ],
+  "openedAuthorImages": [
+    {
+      "path": "scratch/decision-tree-browser/tree-partitions-final-figure-1440.png",
+      "sha256": "3add12b0891412303e01690bcef98fe39448dc143344097aec2c7394bb08024b"
+    },
+    {
+      "path": "scratch/decision-tree-browser/tree-pruning-final-figure-320.png",
+      "sha256": "b127e94a5150376679e78eea15100f8e4cccf7f6b26ba6b8442fedcbc87294be"
+    },
+    {
+      "path": "scratch/decision-tree-browser/tree-xor-final-figure-390.png",
+      "sha256": "4e755b91b8f800cddccdcab9ab6de770e1f35c5c164029a66f48154cb3aaee3a"
+    },
+    {
+      "path": "scratch/decision-tree-browser/tree-bootstrap-changed-320.png",
+      "sha256": "621db6168ddb8cd7ebccfe7ec2b4fd5c27601c6768b4571c8dc28036ae919a65"
+    },
+    {
+      "path": "scratch/decision-tree-browser/tree-permutation-changed-320.png",
+      "sha256": "36616f1a6be198fc167f38c77a6107de746df45497dccf653559eb018eb840b8"
+    }
+  ],
+  "limits": "A complementary review, not a fresh full browser/author-suite run, arbitrary-float proof, learner study or user acceptance. Author-operated controls, complete outputs and baseline conservation are separately attributed to the exact author packet. The listed images were actually opened by this reviewer; no other image inspection is claimed."
+}

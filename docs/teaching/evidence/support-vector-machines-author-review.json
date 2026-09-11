@@ -1,0 +1,241 @@
+{
+  "topicId": "support-vector-machines-svm",
+  "title": "Support Vector Machines (SVM)",
+  "moduleId": "classical-ml",
+  "modulePosition": 5,
+  "status": "author-reviewed; independent review, production integration and learner acceptance remain separate",
+  "frozenAt": "2026-09-11T14:16:34.617Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/support-vector-machines-svm.jsx",
+      "sha256": "6be84f25e70585a9337e5ad9f583c5bce6d2101d139b2e39370f459d2d6ca3e9"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-models.js",
+      "sha256": "25c2e4161425e654eaef9f04a4f1486d60d5b5554170b81249407353d5d87d79"
+    },
+    {
+      "path": "src/learn/data/support-vector-machines-examples.js",
+      "sha256": "296eceb16d17bb45d113b8db9239bf277e90ba47454834c3d741ff5262bbb084"
+    },
+    {
+      "path": "src/learn/data/svm-validation-fixtures.js",
+      "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/SupportVectorMachineLabs.jsx",
+      "sha256": "579865b7fff0466d92e76468980680747ae6f16a091db34433df247999dae2ea"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/support-vector-machines-labs.css",
+      "sha256": "2269fea89d378c58848c7e85d78b7a6b14f9a24c36b12711dd9d64a4f9099e2a"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/support-vector-machines-svm.js",
+      "sha256": "b708e36317e8fd4a152230cf4ab6694ea400dec3a144a71b0a3f31760561540c"
+    }
+  ],
+  "design": "docs/teaching/SUPPORT-VECTOR-MACHINES-LESSON-DESIGN.md",
+  "verification": "docs/teaching/SUPPORT-VECTOR-MACHINES-VERIFICATION.md",
+  "originalArchive": "docs/teaching/archive/support-vector-machines-before-rewrite/manifest.json",
+  "evidence": [
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/design-fixtures.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/design-fixtures.json",
+      "sha256": "89fd224f34d8911ce224c7c382592cb652890a6c114be16b011fec8865421940"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/program-results.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/program-results.json",
+      "sha256": "5d0025cf78a25a935d2ba89af31c855869c5e41870e8b3cd93a92b13130f060c"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/model-results.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/model-results.json",
+      "sha256": "42dc7bb23885093771f03e7e4719987352c21460857c54b8350eab8309d25790"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/pair-update-results.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/pair-update-results.json",
+      "sha256": "fe6597af78af4961a306c80c5b570fba61a022c068fe23774c7d35060a843065"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/behavior-before-equation-fit.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/browser/behavior-before-equation-fit.json",
+      "sha256": "4040eeaa5a2b61c6df393252f0d41f9b472b42e1ff56b7238c8b0f58e4cd97d4"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/behavior-320-before-equation-fit.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/browser/behavior-320-before-equation-fit.json",
+      "sha256": "92b543c2d1c1ba1c886992c506ef7978ca47e0fef3202097ac752830b6b49817"
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/final-reading-results.json",
+      "originalWorkingPath": "scratch/support-vector-machines-verification/browser/results.json",
+      "sha256": "fe223d4de0a3fd900a5a8d0aa75b46f35965176d60d09fd8a99876f115c3e65f"
+    }
+  ],
+  "openedImages": [
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/margin-geometry-1440.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/margin-geometry-1440.png",
+      "sha256": "babcf6bc570352691fc954d90891cf5d3869d5b0673c0ac50cdcac4bb2d75377",
+      "purpose": "Equal-scale normal, projection and score corridor at desktop size",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/margin-geometry-320.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/margin-geometry-320.png",
+      "sha256": "4824bf57a56a27ee011cfd9c326a39b6610c42cfdf982ce1521e3c5cabe342ed",
+      "purpose": "Same mechanism and labels readable at 320 pixels",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/support-motion-390.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/support-motion-390.png",
+      "sha256": "73cc05556d42f91cad7abbee84112a6b2e6258c9d3ab16c9fdfea4481ae75dcd",
+      "purpose": "Moved point, old certificate failure and refitted support identities",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/conflicting-bias-320.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/conflicting-bias-320.png",
+      "sha256": "e513493c2205c5e7e65b6666b1758a8071094d367ab416e2c3c6e52c6ed9688b",
+      "purpose": "Hinge states and explicit undefined distance when w=0",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/kernel-lift-1440.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/kernel-lift-1440.png",
+      "sha256": "859cd09535b628858e2f842c99e7acbefe4411e2f2d45614a5f32f99513e5c70",
+      "purpose": "Input score field versus actual polynomial feature view",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/kernel-contributions-390.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/kernel-contributions-390.png",
+      "sha256": "c3f3c85d5cc893fefa2437e80963653b9b3bd62c82574c96be1f93158b3df731",
+      "purpose": "Unclipped signed contribution scale and program transition",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/zero-curvature-pair-320.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/zero-curvature-pair-320.png",
+      "sha256": "f32bc7f246f96845613718121d399337dfdfdcf1b6ea645a1a72582b856b3f86",
+      "purpose": "Feasible pair geometry and linear objective gain",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/measured-selection-1440.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/measured-selection-1440.png",
+      "sha256": "49cb85ea4ca486006d0eea8a7fd8d16710f2ce2bee63fd2c2dadf304267ea0e0",
+      "purpose": "Actual selected model, measured grid and data-role control",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/target-units-tube-390.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/target-units-tube-390.png",
+      "sha256": "2cfdd3f8890c30445b63d0a0902f0d2afe01551e3a7c8e0f41a4208c4e41f486",
+      "purpose": "Vertical target tolerance, dynamic plot and costs",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/dual-reading-320.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/dual-reading-320.png",
+      "sha256": "cae325b51056abfe10e617b9ace358d93a271b81f3b2b8fbe3019a3bc3153f23",
+      "purpose": "Final narrow dual derivation and proof prose",
+      "actuallyOpened": true
+    },
+    {
+      "path": "docs/teaching/evidence/support-vector-machines/regression-reading-390.png",
+      "originalCapturePath": "scratch/support-vector-machines-verification/browser/regression-reading-390.png",
+      "sha256": "b76fed9d1a295f7c99ca63cbb95c79188f5bc25c773a6d201d3876ece22daea4",
+      "purpose": "Unit conversion explanation and visible runnable question",
+      "actuallyOpened": true
+    }
+  ],
+  "numerical": {
+    "executedAt": "2026-09-11T13:59:30.903674+00:00",
+    "counts": {
+      "geometry": 45,
+      "support": 7,
+      "soft": 40,
+      "kernels": 144,
+      "pairs": 113,
+      "tubes": 48,
+      "sequences": 18,
+      "changedNativeSolvers": 36,
+      "refitAndCap": 2,
+      "savedFittedModels": 9,
+      "invalidBrowserInputs": 12
+    },
+    "maximumScaledDifference": 1.3167100752875408e-8,
+    "scope": "Finite independently optimized teaching states and changed actual native helpers; no general solver runtime or statistical accuracy guarantee.",
+    "sourceHashes": [
+      {
+        "path": "src/learn/data/support-vector-machines-models.js",
+        "sha256": "873741e3c48087dd6980bfde9fef523b939bd7521fe6930ffe8aaef5995e2daa"
+      },
+      {
+        "path": "src/learn/data/support-vector-machines-examples.js",
+        "sha256": "61a0c2b9fb0c1b93ec6d37811a2b9cb10eafc6743e116301fcb683fb7a7c99b1"
+      },
+      {
+        "path": "src/learn/data/svm-validation-fixtures.js",
+        "sha256": "1652a24b8af8293e58c0466928be3f833b80dba563863513d8fa2d91cd51e0c0"
+      }
+    ],
+    "executedPrograms": {
+      "count": 14,
+      "executedAt": "2026-09-11T13:15:09.145572+00:00",
+      "unchangedSourcesAndDisplayedOutputs": true
+    }
+  },
+  "pairAmendment": {
+    "checkedAt": "2026-09-11T14:10:00.425Z",
+    "cases": 7,
+    "actualStdoutUnchanged": true,
+    "unaffectedProgramsRetained": 13
+  },
+  "browser": {
+    "behavioral": [
+      "behavior-before-equation-fit.json",
+      "behavior-320-before-equation-fit.json"
+    ],
+    "coverage": "50 states, 35 focusable controls, 33 keyboard disclosures and 14 actual programs per width; 390/320 runs then exposed formula overflow, retained honestly in their records.",
+    "final": "docs/teaching/evidence/support-vector-machines/final-reading-results.json",
+    "correctionApplicability": "Final equations and all rendered program text checked at every width. Flat same-label tie corrected in JS and standalone Python; focused loaded-module and visible pair checks passed. Other lab logic and native program bytes unchanged from the cited passing behavior/numerical evidence."
+  },
+  "commands": [
+    "scratch/lesson-tools/Scripts/python.exe scripts/build-support-vector-machines-examples.py",
+    "node scripts/verify-support-vector-machines-models.mjs",
+    "node scripts/verify-support-vector-machines-pair-update.mjs",
+    "node scripts/review-support-vector-machines-lesson.cjs",
+    "node scripts/review-support-vector-machines-lesson.cjs all reading"
+  ],
+  "limits": [
+    "Finite numeric domains and CPU demonstration data, not production optimizer or universal generalization guarantees.",
+    "The MIT official transcript segment was read; no complete video viewing claim.",
+    "Final source review uses bounded relevant correction checks, not repeated unrelated historical suites."
+  ],
+  "retirement": {
+    "exactDisposablePaths": [
+      "scratch/support-vector-machines-verification/model-cases.json",
+      "scratch/support-vector-machines-verification/browser/failure-1440.png",
+      "scratch/support-vector-machines-verification/browser/failure-390.png",
+      "scratch/support-vector-machines-verification/browser/failure-320.png",
+      "scratch/support-vector-machines-verification/browser/margin-geometry-1440.png",
+      "scratch/support-vector-machines-verification/browser/margin-geometry-320.png",
+      "scratch/support-vector-machines-verification/browser/support-motion-390.png",
+      "scratch/support-vector-machines-verification/browser/conflicting-bias-320.png",
+      "scratch/support-vector-machines-verification/browser/kernel-lift-1440.png",
+      "scratch/support-vector-machines-verification/browser/kernel-contributions-390.png",
+      "scratch/support-vector-machines-verification/browser/zero-curvature-pair-320.png",
+      "scratch/support-vector-machines-verification/browser/measured-selection-1440.png",
+      "scratch/support-vector-machines-verification/browser/target-units-tube-390.png",
+      "scratch/support-vector-machines-verification/browser/dual-reading-320.png",
+      "scratch/support-vector-machines-verification/browser/regression-reading-390.png"
+    ],
+    "reason": "Regenerable working cases and superseded failed screenshots retired; final meaningful captures relocated byte-for-byte to the recorded durable paths. Failure/repair JSON history is retained."
+  }
+}

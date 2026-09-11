@@ -1,0 +1,540 @@
+{
+  "frozenAt": "2026-09-11T09:14:38.596Z",
+  "topicId": "arrays-strings-hash-maps",
+  "status": "author-verified extension; independent review and production integration pending",
+  "designRecord": "docs/teaching/BITWISE-FOUNDATIONS-EXTENSION-DESIGN.md",
+  "verificationRecord": "docs/teaching/BITWISE-FOUNDATIONS-EXTENSION-VERIFICATION.md",
+  "originalManifest": "docs/teaching/evidence/bitwise-foundations-original.json",
+  "originalSourcesArchive": "docs/teaching/evidence/bitwise-foundations-original-sources.json",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+      "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a",
+      "bytes": 45980,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/topics/arrays-strings-hash-maps.jsx"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+      "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582",
+      "bytes": 8528,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js"
+    },
+    {
+      "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+      "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330",
+      "bytes": 14152,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/practice/arrays-strings-hash-maps.js"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-examples.js",
+      "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2",
+      "bytes": 3842,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/array-map-foundations-examples.js"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-model.js",
+      "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c",
+      "bytes": 3627,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/array-map-foundations-model.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+      "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc",
+      "bytes": 8947,
+      "archive": "scratch/bitwise-author-freeze/src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/systems-structures.css",
+      "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97",
+      "bytes": 2897,
+      "archive": "scratch/bitwise-author-freeze/src/learn/components/lesson-labs/systems-structures.css"
+    },
+    {
+      "path": "src/learn/data/bitwise-foundations-models.js",
+      "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3",
+      "bytes": 5954,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/bitwise-foundations-models.js"
+    },
+    {
+      "path": "src/learn/data/bitwise-foundations-examples.js",
+      "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a",
+      "bytes": 9806,
+      "archive": "scratch/bitwise-author-freeze/src/learn/data/bitwise-foundations-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+      "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e",
+      "bytes": 17150,
+      "archive": "scratch/bitwise-author-freeze/src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+      "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4",
+      "bytes": 5083,
+      "archive": "scratch/bitwise-author-freeze/src/learn/components/lesson-labs/bitwise-foundations-labs.css"
+    }
+  ],
+  "native": {
+    "checkedAt": "2026-09-11T09:11:08.312168+00:00",
+    "passed": true,
+    "sources": [
+      {
+        "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+        "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a",
+        "bytes": 45980
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+        "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582",
+        "bytes": 8528
+      },
+      {
+        "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+        "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330",
+        "bytes": 14152
+      },
+      {
+        "path": "src/learn/data/array-map-foundations-examples.js",
+        "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2",
+        "bytes": 3842
+      },
+      {
+        "path": "src/learn/data/array-map-foundations-model.js",
+        "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c",
+        "bytes": 3627
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+        "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc",
+        "bytes": 8947
+      },
+      {
+        "path": "src/learn/components/lesson-labs/systems-structures.css",
+        "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97",
+        "bytes": 2897
+      },
+      {
+        "path": "src/learn/data/bitwise-foundations-models.js",
+        "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3",
+        "bytes": 5954
+      },
+      {
+        "path": "src/learn/data/bitwise-foundations-examples.js",
+        "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a",
+        "bytes": 9806
+      },
+      {
+        "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+        "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e",
+        "bytes": 17150
+      },
+      {
+        "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+        "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4",
+        "bytes": 5083
+      }
+    ],
+    "modelChecks": {
+      "setChecks": 436900,
+      "wordChecks": 4096,
+      "sparseChecks": 65536,
+      "parityChecks": 5460,
+      "partitionChecks": 1236,
+      "rejectedInputs": 19
+    },
+    "originalTeachingSubtrees": 62,
+    "programs": [
+      {
+        "group": "originalExamples",
+        "name": "sequence",
+        "stdout": "index 1: B\ninsert: ['A', 'X', 'B', 'C']\nremoved: B\nfinal: ['A', 'X', 'C', 'D']\nslice: ['X', 'C']",
+        "codeSha256": "19af0b50abd44cb44e95a4ba9e1eec7d9285973d1e7b7d8e2054ca42cc079fe4",
+        "passed": true
+      },
+      {
+        "group": "originalExamples",
+        "name": "unicode",
+        "stdout": "exact equality: False\ncode points: 4 5\nUTF-8 bytes: 5 6\nafter NFC: True\naccent retained: café\ncounts: [('café', 2), ('temp', 3)]",
+        "codeSha256": "6ea4c63bc0d71b0f105379c58a3d58739787ecef5d23b448bf7f6ad3674e8318",
+        "passed": true
+      },
+      {
+        "group": "originalExamples",
+        "name": "keys",
+        "stdout": "counts: [(10, 3), (14, 2), (18, 1)]\nmissing lookup: 0\n22 inserted by get: False\nreplacement: 99 keys: 3\nequal numeric keys: 1 float\na mutable list is not a dictionary key",
+        "codeSha256": "868a28c8b6f6c86f1c241c260eccdb9b9ce8ca46314754cf08c3ad5c542306a0",
+        "passed": true
+      },
+      {
+        "group": "originalExamples",
+        "name": "collisions",
+        "stdout": "distinct colliding keys: 3\nlookup 18: 1\nafter equal-key update: 3 99\nabsent key: True",
+        "codeSha256": "f23b31167fc40377379f7bdc77bfc58b2be6138158632efdaf5a80e422fa62a6",
+        "passed": true
+      },
+      {
+        "group": "originalExamples",
+        "name": "index",
+        "stdout": "blue -> [1, 2]\nfox -> [0, 1]\nred -> [0, 2]\nred AND fox: [0]",
+        "codeSha256": "53e70a323f3c4da2492b7974f5f0dbc7549315f616b5b928cecffe98b97cb9b5",
+        "passed": true
+      },
+      {
+        "group": "originalExamples",
+        "name": "unique",
+        "stdout": "[7, 2, 7, 9, 2, 4] -> 9\n[] -> None\n[0, 1, 1] -> 0\n[3, 3] -> None",
+        "codeSha256": "6e1ddc9de6360a92b3aa3ef7c5800d0daa8b4424b359c32e5f31ce3cae1d4ec1",
+        "passed": true
+      },
+      {
+        "group": "bitwiseExamples",
+        "name": "bitsets",
+        "stdout": "A 100101 37 [0, 2, 5]\nB 010110 22 [1, 2, 4]\nintersection 000100 4 [2]\nunion 110111 55 [0, 1, 2, 4, 5]\nA minus B 100001 33 [0, 5]\nsymmetric difference 110011 51 [0, 1, 4, 5]\ncomplement A 011010 26 [1, 3, 4]\nadd bit 2 again: 37 arithmetic addition: 41\nclear absent bit 1: 37 arithmetic subtraction: 35\nred AND owl -> [2, 3] count 2\nfox AND owl -> [3] count 1\nred AND missing -> [] count 0",
+        "codeSha256": "9f99e72fb82ee63ef8a8cfcacb96426544cdaee332757494dfa2bac79cb1443c",
+        "passed": true
+      },
+      {
+        "group": "bitwiseExamples",
+        "name": "words",
+        "stdout": "pattern 11110110 unsigned 246 signed -10\nright 2 logical 61 arithmetic -3\nleft 2 bounded 216 unbounded 984\npattern 1101 unsigned 13 signed -3\nright 1 logical 6 arithmetic -2\nleft 1 bounded 10 unbounded 26\npattern 0101 unsigned 5 signed 5\nright 2 logical 1 arithmetic 1\nleft 2 bounded 4 unbounded 20\nPython complement: -6 8-bit complement: 250\nnegative magnitude popcount: 1 8-bit word popcount: 8\nrejected: signed value does not fit\nrejected: negative shift",
+        "codeSha256": "1b78cacbc4413bdcf52fb267966f0d65411c65187b5a8b37b97219b7a3745cbe",
+        "passed": true
+      },
+      {
+        "group": "bitwiseExamples",
+        "name": "parity",
+        "stdout": "[12, 5, 12, 9, 5] -> XOR 9 paired-plus-one? True\n[8, 0, 8] -> XOR 0 paired-plus-one? True\n[-7, 4, 4] -> XOR -7 paired-plus-one? True\n[6, 6, 6, 2, 2] -> XOR 6 paired-plus-one? False\n[1, 2, 3] -> XOR 0 paired-plus-one? False\n0000 XOR 1100 = 1100\n1100 XOR 0101 = 1001\n1001 XOR 1100 = 0101\n0101 XOR 1001 = 1100\n1100 XOR 0101 = 1001",
+        "codeSha256": "00f2355de27236cdc9fe85ca746bf32a7b55a3be25e477973b7d0e1a7642522b",
+        "passed": true
+      },
+      {
+        "group": "bitwiseExamples",
+        "name": "population",
+        "stdout": "10110100 AND 10110011 = 10110000\n10110000 AND 10101111 = 10100000\n10100000 AND 10011111 = 10000000\n10000000 AND 01111111 = 00000000\n0 ones 0 power of two? False\n1 ones 1 power of two? True\n128 ones 1 power of two? True\n180 ones 4 power of two? False\n255 ones 8 power of two? False\n1267650600228229401496703205376 ones 1 power of two? True\n45 vs 39 differing positions: 2\nzero and negative powers: False False\nrejected: use a nonnegative integer or explicitly mask a word first",
+        "codeSha256": "01e2e922cc970551798bdd6bc870ec79afe0f9fa266e03c77e2051c5017bbc75",
+        "passed": true
+      },
+      {
+        "group": "bitwiseExamples",
+        "name": "twoSingletons",
+        "stdout": "[4, 9, 4, 12, 9, 7] -> [7, 12]\n[-4, 0, 9, 9] -> [-4, 0]\n[0, 1] -> [0, 1]\n[-7, 2, -7, 5, 2, -3] -> [-3, 5]\ntotal XOR 11 separating weight 1\nbit absent: [4, 4, 12]\nbit present: [9, 9, 7]\nrejected: zero XOR contradicts two distinct singletons\ninvalid [1, 2, 3, 4] still computes: (0, 4)",
+        "codeSha256": "214fc8a6fb8ebebdad8b40ba7fc9eed268c0e78c84b84d61f9eecf1941e9aaee",
+        "passed": true
+      }
+    ],
+    "nativeAdditionalChecks": {
+      "populationValues": 65536,
+      "signedSingletonPairs": 800,
+      "postingComparisons": 2400,
+      "invalidInputs": 16
+    },
+    "changedPractice": {
+      "setMasks": {
+        "A": 26,
+        "B": 41,
+        "intersection": 8,
+        "union": 59,
+        "xor": 51,
+        "complementA": 37
+      },
+      "signedWord": {
+        "unsigned": 11,
+        "signed": -5,
+        "logical": 5,
+        "arithmetic": -3,
+        "boundedLeft": 6
+      },
+      "invalidParity": 5,
+      "report": {
+        "intersection": [
+          0,
+          3
+        ],
+        "xor": [
+          1,
+          2
+        ]
+      }
+    },
+    "limits": "Finite exhaustive checks and changed native cases support the general proofs; no judge submissions, performance benchmark or user study is claimed."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T09:07:09.694Z",
+    "passed": true,
+    "sources": [
+      {
+        "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+        "sha256": "8e6ab3e6fc03b5563bb1b8123aeecef17b8bfb9e8a88df4122a592e9c65bba7a"
+      },
+      {
+        "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+        "sha256": "813f12b6105312874dc528ba3c2b9a0ed838c63ac11c88a83eb33c6226904582"
+      },
+      {
+        "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+        "sha256": "7f74c4ec69e181d495bf3dc771282e2ed526be530eb966c01adffd41eb4e3330"
+      },
+      {
+        "path": "src/learn/data/array-map-foundations-examples.js",
+        "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2"
+      },
+      {
+        "path": "src/learn/data/array-map-foundations-model.js",
+        "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+        "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/systems-structures.css",
+        "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97"
+      },
+      {
+        "path": "src/learn/data/bitwise-foundations-models.js",
+        "sha256": "0c95980acc1152a9b3259aee0f957365df95149f1309d88a700f1ffb2dceafc3"
+      },
+      {
+        "path": "src/learn/data/bitwise-foundations-examples.js",
+        "sha256": "1b07dd88e48dc3ac79eb80fd53c0bebfd3a87cd4d2a5c66f26ee9403eec3489a"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+        "sha256": "5b7ca2246f65af8fdabf7bdb2af1f448e0d78cc531ddb4c7964e180c56263c6e"
+      },
+      {
+        "path": "src/learn/components/lesson-labs/bitwise-foundations-labs.css",
+        "sha256": "6d9be37c1b48dedeb22a6b426e5acfa29f10c501f8637fd4ec5b6972a3e109d4"
+      }
+    ],
+    "results": [
+      {
+        "width": 1440,
+        "actualFonts": true,
+        "operatedStates": 76,
+        "openedDisclosures": 53,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "completePrograms": 11,
+        "practicePlacements": 15,
+        "optionWidths": [
+          {
+            "available": 325.79999999999995,
+            "maximum": 80.92671203613281
+          },
+          {
+            "available": 325.79999999999995,
+            "maximum": 126.03718566894531
+          },
+          {
+            "available": 325.79999999999995,
+            "maximum": 41.92155456542969
+          },
+          {
+            "available": 325.79999999999995,
+            "maximum": 9.743194580078125
+          },
+          {
+            "available": 713.8,
+            "maximum": 174.54823303222656
+          },
+          {
+            "available": 713.8,
+            "maximum": 180.39918518066406
+          }
+        ],
+        "errors": [],
+        "failures": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 390,
+        "actualFonts": true,
+        "operatedStates": 76,
+        "openedDisclosures": 53,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "completePrograms": 11,
+        "practicePlacements": 15,
+        "optionWidths": [
+          {
+            "available": 303.79999999999995,
+            "maximum": 80.92671203613281
+          },
+          {
+            "available": 303.79999999999995,
+            "maximum": 126.03718566894531
+          },
+          {
+            "available": 303.79999999999995,
+            "maximum": 41.92155456542969
+          },
+          {
+            "available": 303.79999999999995,
+            "maximum": 9.743194580078125
+          },
+          {
+            "available": 303.79999999999995,
+            "maximum": 174.54823303222656
+          },
+          {
+            "available": 303.79999999999995,
+            "maximum": 180.39918518066406
+          }
+        ],
+        "errors": [],
+        "failures": [],
+        "documentOverflow": false
+      },
+      {
+        "width": 320,
+        "actualFonts": true,
+        "operatedStates": 76,
+        "openedDisclosures": 53,
+        "originalLabs": 3,
+        "newLabs": 4,
+        "completePrograms": 11,
+        "practicePlacements": 15,
+        "optionWidths": [
+          {
+            "available": 233.79999999999995,
+            "maximum": 80.92671203613281
+          },
+          {
+            "available": 233.79999999999995,
+            "maximum": 126.03718566894531
+          },
+          {
+            "available": 233.79999999999995,
+            "maximum": 41.92155456542969
+          },
+          {
+            "available": 233.79999999999995,
+            "maximum": 9.743194580078125
+          },
+          {
+            "available": 233.79999999999995,
+            "maximum": 174.54823303222656
+          },
+          {
+            "available": 233.79999999999995,
+            "maximum": 180.39918518066406
+          }
+        ],
+        "errors": [],
+        "failures": [],
+        "documentOverflow": false
+      }
+    ]
+  },
+  "imagesOpened": [
+    {
+      "path": "scratch/bitwise-author/browser/changed-sets-320.png",
+      "sha256": "4d7e3666340e233a1fdd3bea4f39c9c75f84d5f10ba801d8f7912ebe57ca6543",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/changed-word-320.png",
+      "sha256": "92e853385618e3b2d31bd7aafeb56f6f10d6bfc629bec935e33df3e735ecb8b9",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/shift-origins-320.png",
+      "sha256": "4195238bb3774844b8ab1cb3ef0c505584e1d97ed73fa138d1cfff5844a430c0",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/sparse-borrow-320.png",
+      "sha256": "bde072ca25bbd558a00e93866a603a67bebca7def8d2964d5c92a38067065e7f",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/changed-parity-320.png",
+      "sha256": "af5a86878058c888961f3d9574a28eb535b4bad35851901443be317c14baedc7",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/invalid-parity-promise-320.png",
+      "sha256": "45ac8b3b7f85476debeec5c1d61c2fdf2803de0d637d864b912033508ebc08c8",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/two-partitions-320.png",
+      "sha256": "8fcb2644f601d8c36919cfec6f676965dbcae10c14aec847bca2a11510bd2a98",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/changed-bitmap-answer-320.png",
+      "sha256": "55d6c3cc1effaea8e616b1023cf3c49105596cdbc1091270f9e7166af546f911",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/word-default-1440.png",
+      "sha256": "6dcaf02f10fadbfbebe271461740f6fa3498d1d3ce739d2633b0912c26617b76",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/reading-9-1440.png",
+      "sha256": "92c32cdd9cb612c2c195dc5022c8a46cc0cce8396287716eabf291c5745beb09",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/reading-10-320.png",
+      "sha256": "f5ccc3023748aeeffda16eb9dcfc5bcc9908c24b1cca72bb1a22a40e9c037d9b",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/bitwise-practice-320.png",
+      "sha256": "7a13a7e7bf96f7285d3cda907fdfeb6e01454d08b3ace86be2b63c72eab82f59",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/references-320.png",
+      "sha256": "88ab515c17b45fe8dc2c09451d570e9a740db31105e2f1ef0e9a370c1932051f",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/invalid-events-320.png",
+      "sha256": "68eb3511cfcd4c85b901c14ccf99c1f59f5893bf61a4b7dc24b434369e8c47c8",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    },
+    {
+      "path": "scratch/bitwise-author/browser/zero-count-320.png",
+      "sha256": "2503c0ff71e0f3c9e194b244f244b8c57c49d9687d27bd8e63efc2758b92e74e",
+      "opened": true,
+      "inspectedBy": "root author, actual view_image calls after final browser capture"
+    }
+  ],
+  "preserved": {
+    "originalTeachingSubtrees": 62,
+    "originalPrograms": 6,
+    "originalProblems": 10,
+    "originalSupportFilesByteIdentical": 4
+  },
+  "added": {
+    "fullPrograms": 5,
+    "investigations": 4,
+    "computedPartitionFigure": 1,
+    "visibleChangedTasks": 4,
+    "officialProblems": 5
+  },
+  "resolvedBeforeFreeze": [
+    "Explicit accessible names for seven controls; select labels shortened to retain full meaning at narrow widths.",
+    "Screenshot harness accepts the natural bottom-of-page clamp; a complete final browser pass followed."
+  ],
+  "limits": "No judge submissions, newly watched video, benchmark, screen-reader session or user study. Source inspection and actual checks are stated in the verification record. General correctness is argued in the authored proofs."
+}

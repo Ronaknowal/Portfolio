@@ -1,1113 +1,201 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap } from "../../components/viz";
-import { colors } from "../../styles";
-
-const decisionTreesRandomForestsContent = {
-  title: "Decision Trees & Random Forests",
-  readTime: "~45 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Every supervised learning algorithm makes a structural bet about the world it is trying to model.
-        Linear models bet that classes are separable by a hyperplane. Kernel SVMs bet that a kernel
-        embedding can make them so. Neural networks bet that deep composition of simple nonlinearities
-        can approximate any function given enough capacity. Decision trees make a different and
-        considerably more transparent bet: that the world is best described by a hierarchy of yes/no
-        questions about individual feature values. Is sepal length greater than 5.5? If yes, is petal
-        width greater than 1.7? The model is literally a flowchart. Every prediction traces a path from
-        the root of the flowchart to a leaf, and at each node the path branches on a single threshold
-        applied to a single feature.
-      </Prose>
-
-      <Prose>
-        This is the axis-aligned splits assumption, and it carries three concrete practical advantages
-        that explain why trees have never fallen out of use despite the rise of much more powerful
-        methods. First, they require no feature scaling. A linear model treated with features on
-        wildly different scales will weight them wildly differently unless you standardize; a tree is
-        blind to monotone transformations of any feature because it only cares about rank order within
-        that feature. Second, they handle heterogeneous feature types naturally: a single tree can
-        split on a binary flag in one branch and a continuous measurement in another, with no
-        encoding gymnastics. Third, and most importantly for deployed systems, a sufficiently shallow
-        tree is human-readable. You can print it, hand it to a domain expert, and ask whether the
-        splits make sense. No other method of comparable accuracy offers this.
-      </Prose>
-
-      <Prose>
-        The formal history begins in 1984, when Leo Breiman, Jerome Friedman, Richard Olshen, and
-        Charles Stone published <em>Classification and Regression Trees</em> (Chapman and Hall/CRC).
-        That monograph introduced the CART algorithm: binary splits chosen to minimize a criterion
-        (Gini impurity for classification, variance reduction for regression), cost-complexity pruning
-        to control overfitting, and cross-validation to select the pruning level. CART is the
-        algorithm inside <Code>sklearn.tree.DecisionTreeClassifier</Code> today. Two years later,
-        J. Ross Quinlan published "Induction of Decision Trees" in <em>Machine Learning</em> (1986),
-        introducing ID3, which used information gain as the splitting criterion and handled
-        multi-way splits. Quinlan then extended ID3 into C4.5 — described in his 1993 book
-        <em> C4.5: Programs for Machine Learning</em> (Morgan Kaufmann) — adding support for
-        continuous features, missing values, and pruning. ID3/C4.5 and CART developed in parallel
-        and cross-pollinated; modern implementations draw from both.
-      </Prose>
-
-      <Prose>
-        Trees alone, however, have a structural weakness. A single tree grown deep enough to be
-        accurate is high-variance: small changes in the training set can flip early splits and produce
-        a completely different tree downstream. Breiman attacked this directly. His 1996 paper
-        "Bagging Predictors" (<em>Machine Learning</em>) showed that averaging many trees trained on
-        bootstrap samples (bagging) dramatically reduces variance without increasing bias much. Then,
-        in 2001, Breiman published "Random Forests" in <em>Machine Learning</em> 45(1):5–32,
-        adding a crucial second source of decorrelation: at each split, each tree may only consider
-        a random subset of features rather than all features. This feature subsampling means no
-        single strong predictor can dominate every tree, so the trees make different errors,
-        and their average is substantially better than any individual. The paper proved convergence
-        of the generalization error and gave the now-standard analysis of why correlation between
-        trees is the limiting factor on forest quality. Random forests became, and remain, one of
-        the strongest general-purpose classifiers in the practitioner's toolkit.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        A decision tree partitions feature space into axis-aligned rectangles. Each internal node
-        asks one question of the form "is feature <em>j</em> {`≤`} threshold <em>t</em>?", routing
-        examples left or right. By the time an example reaches a leaf, it has been placed inside
-        a hyper-rectangular region of feature space, and the tree assigns every example in that
-        region the same class label — the majority class among training examples that fell there.
-        The decision boundary of a single tree is therefore a set of axis-aligned line segments (in
-        2D) that carve the input space into non-overlapping rectangles.
-      </Prose>
-
-      <StepTrace
-        label="a tree partitioning 2D space — three splits"
-        steps={[
-          {
-            label: "Split 1 — root: x₁ ≤ 0.29",
-            render: () => (
-              <Prose>
-                The root node splits the entire training set on feature x₁ at threshold 0.29.
-                Every example with x₁ {"<"}= 0.29 goes left; the rest go right. Gini impurity
-                drops from 0.499 (nearly pure random) to a weighted average of 0.275 on each
-                side — an information gain of 0.226.
-              </Prose>
-            ),
-          },
-          {
-            label: "Split 2 — left child: x₂ ≤ −0.17",
-            render: () => (
-              <Prose>
-                Inside the left region (x₁ {"<"}= 0.29), the tree asks about x₂.
-                Examples with low x₂ values are strongly class 0; those with high x₂ are
-                mostly class 1. The region is cut horizontally.
-              </Prose>
-            ),
-          },
-          {
-            label: "Split 3 — right child: x₁ ≤ 1.18",
-            render: () => (
-              <Prose>
-                Inside the right region (x₁ {">"} 0.29), another vertical cut separates
-                a band of class 1 examples from a majority class 0 pocket on the far right.
-                Each leaf is now a rectangle labeled by the majority class of training examples
-                it contains.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        The key weakness this reveals: trees can only draw horizontal and vertical lines.
-        A dataset whose true decision boundary is diagonal or curved requires many
-        axis-aligned rectangles to approximate it closely — which means a deep tree, which
-        means high variance. A linear model would handle the diagonal case with one split;
-        a tree needs many. The axis-aligned assumption is a strong inductive bias that is
-        right when features are naturally threshold-able (income above $50k, temperature
-        below 37°C) and wrong when classes are separated by interactions among features.
-      </Prose>
-
-      <Prose>
-        A random forest takes this picture and runs it two hundred times. Each run uses a
-        bootstrap sample (sample with replacement) from the training data, so different
-        examples are over- and under-represented in each tree. At each node in each tree,
-        only a random subset of features (typically sqrt(d) for classification) is
-        considered as split candidates. The result is two hundred trees that are somewhat
-        wrong in different ways. Their majority vote cancels out many of those errors.
-        The decision boundary of the forest looks like a smoothed, more confident version
-        of any individual tree — it still consists of rectangles, but the ensemble of
-        votes produces a soft probability estimate that is much better calibrated.
-      </Prose>
-
-      <Callout variant="insight">
-        The forest does not change the inductive bias of individual trees — it still builds
-        axis-aligned partitions. What it changes is the variance. Averaging many noisy
-        unbiased estimators is a better estimator; averaging many noisy biased estimators
-        gives you a better estimate of a biased thing. The axis-aligned bias remains.
-        Random forests shine on datasets where that bias is approximately correct.
-      </Callout>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>Splitting criteria</H3>
-
-      <Prose>
-        At each node in a classification tree the algorithm must choose: which feature and
-        which threshold produce the best split? "Best" is defined by a chosen impurity
-        measure. Let <Code>p_i</Code> be the fraction of training examples at the current
-        node belonging to class <em>i</em>. The two standard impurity measures are:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Gini}(\\mathcal{D}) = 1 - \\sum_{i=1}^{K} p_i^2"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{Entropy}(\\mathcal{D}) = -\\sum_{i=1}^{K} p_i \\log_2 p_i"}
-      </MathBlock>
-
-      <Prose>
-        Gini impurity measures the probability that two randomly chosen examples from the
-        node have different labels. It equals zero when the node is pure (one class only)
-        and is maximized at 1 − 1/K for K balanced classes. Entropy is the Shannon
-        information content of the label distribution at the node. Both reach their
-        maximum when classes are equally represented and both are zero at purity.
-        In practice, they produce nearly identical trees; Gini is slightly cheaper to
-        compute (no logarithm) and is the CART default.
-      </Prose>
-
-      <Prose>
-        Given an impurity measure H, the information gain of splitting node <Code>t</Code>
-        at feature <em>j</em> with threshold <em>s</em> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{IG}(t, j, s) = H(\\mathcal{D}_t) - \\frac{|\\mathcal{D}_L|}{|\\mathcal{D}_t|} H(\\mathcal{D}_L) - \\frac{|\\mathcal{D}_R|}{|\\mathcal{D}_t|} H(\\mathcal{D}_R)"}
-      </MathBlock>
-
-      <Prose>
-        The algorithm searches over all features <em>j</em> and all possible thresholds
-        <em>s</em> (the midpoints between adjacent unique values in the training data)
-        to find the split that maximizes information gain. For a node with <em>n</em>
-        examples and <em>d</em> features, this takes O(n·d·log n) time — sorting each
-        feature once to enumerate thresholds efficiently.
-      </Prose>
-
-      <H3>Regression trees</H3>
-
-      <Prose>
-        For regression, the splitting criterion switches to variance reduction. Let
-        <Code>y_t</Code> be the vector of target values at node <em>t</em>:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{VR}(t, j, s) = \\text{Var}(y_t) - \\frac{|\\mathcal{D}_L|}{|\\mathcal{D}_t|} \\text{Var}(y_L) - \\frac{|\\mathcal{D}_R|}{|\\mathcal{D}_t|} \\text{Var}(y_R)"}
-      </MathBlock>
-
-      <Prose>
-        The predicted value at each leaf is the mean of training targets that fell there.
-        This minimizes the mean squared error within each leaf region.
-      </Prose>
-
-      <H3>Why bagging reduces variance</H3>
-
-      <Prose>
-        Suppose we have <em>B</em> trees, each trained on an independent bootstrap sample.
-        Each tree is a random variable with some bias <em>b</em> and variance <em>σ²</em>.
-        If the trees were truly independent, averaging them would give:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Var}\\left(\\frac{1}{B}\\sum_{b=1}^{B} T_b\\right) = \\frac{\\sigma^2}{B}"}
-      </MathBlock>
-
-      <Prose>
-        As B grows, variance vanishes. But trees trained on overlapping bootstrap samples
-        from the same dataset are correlated. Let <em>ρ</em> be the average pairwise
-        correlation between any two trees. Then the variance of their average is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Var}\\left(\\bar{T}\\right) = \\rho \\sigma^2 + \\frac{1 - \\rho}{B} \\sigma^2"}
-      </MathBlock>
-
-      <Prose>
-        The first term, <Code>ρσ²</Code>, does not go to zero as B increases. No matter
-        how many trees you add, this irreducible variance floor remains. This is the
-        critical insight behind random feature subsampling. If every tree uses the same
-        strong predictor at its root split, all trees are highly correlated (large ρ), and
-        the forest gains little over a single tree as B grows. By restricting each split
-        to a random subset of sqrt(d) features, we prevent any single feature from
-        dominating every tree, which reduces ρ substantially. The cost is a modest
-        increase in the variance of each individual tree — it no longer always picks the
-        globally best split — but the reduction in ρ more than compensates. This
-        bias-variance-correlation tradeoff is the theoretical core of Breiman (2001).
-      </Prose>
-
-      <Callout variant="math">
-        The "strength" of individual trees (how accurate each tree is) and the
-        "correlation" between trees jointly determine forest error. Breiman (2001)
-        showed that the generalization error of a forest is bounded by ρ(1 − s²)/s²,
-        where s is the mean margin (a measure of tree strength). Good forests maximize
-        strength while minimizing correlation — exactly the tradeoff that sqrt(d)
-        feature subsampling navigates.
-      </Callout>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Below is a complete NumPy-only implementation of both a decision tree classifier
-        and a random forest classifier. The tree uses Gini impurity, max_depth, and
-        min_samples_leaf. The forest wraps the tree with bootstrap sampling and random
-        feature subsampling. Both produce actual predictions — no sklearn allowed here.
-      </Prose>
-
-      <CodeBlock>{`import numpy as np
-from collections import Counter
-
-
-# ── Gini impurity ────────────────────────────────────────────────────────────
-
-def gini(y):
-    """Gini impurity of label vector y."""
-    if len(y) == 0:
-        return 0.0
-    counts = Counter(y)
-    probs = np.array([c / len(y) for c in counts.values()])
-    return 1.0 - np.sum(probs ** 2)
-
-
-# ── Best split search ─────────────────────────────────────────────────────────
-
-def best_split(X, y, feature_indices):
-    """
-    Search over feature_indices for the (feature, threshold) pair that
-    maximises information gain using Gini impurity.
-    """
-    best_gain, best_feat, best_thresh = -1, None, None
-    parent_impurity = gini(y)
-    n = len(y)
-    for f in feature_indices:
-        thresholds = np.unique(X[:, f])
-        for t in thresholds:
-            left_mask = X[:, f] <= t
-            right_mask = ~left_mask
-            if left_mask.sum() == 0 or right_mask.sum() == 0:
-                continue
-            y_left, y_right = y[left_mask], y[right_mask]
-            gain = parent_impurity - (
-                len(y_left) / n * gini(y_left) +
-                len(y_right) / n * gini(y_right)
-            )
-            if gain > best_gain:
-                best_gain = gain
-                best_feat = f
-                best_thresh = t
-    return best_feat, best_thresh, best_gain
-
-
-# ── Decision tree ─────────────────────────────────────────────────────────────
-
-class DecisionTreeClassifier:
-    def __init__(self, max_depth=5, min_samples_leaf=1, n_features=None):
-        """
-        max_depth       : maximum tree depth (None = unlimited)
-        min_samples_leaf: minimum samples required at each leaf
-        n_features      : features to consider per split (None = all);
-                          set to int(sqrt(d)) when used inside RandomForest
-        """
-        self.max_depth = max_depth
-        self.min_samples_leaf = min_samples_leaf
-        self.n_features = n_features
-        self.tree_ = None
-
-    def fit(self, X, y):
-        self.n_features_in_ = X.shape[1]
-        self.tree_ = self._grow(X, y, depth=0)
-        return self
-
-    def _grow(self, X, y, depth):
-        # ── Leaf conditions ───────────────────────────────────────────────────
-        if (depth >= self.max_depth or
-                len(y) < 2 * self.min_samples_leaf or
-                len(np.unique(y)) == 1):
-            return {"leaf": True, "label": Counter(y).most_common(1)[0][0]}
-
-        # ── Feature subsampling (identity if n_features is None) ──────────────
-        n_feat = self.n_features or self.n_features_in_
-        feat_indices = np.random.choice(
-            self.n_features_in_, size=n_feat, replace=False)
-
-        feat, thresh, gain = best_split(X, y, feat_indices)
-        if feat is None or gain <= 0:
-            return {"leaf": True, "label": Counter(y).most_common(1)[0][0]}
-
-        left_mask = X[:, feat] <= thresh
-        return {
-            "leaf": False,
-            "feat": feat,
-            "thresh": thresh,
-            "left":  self._grow(X[left_mask],  y[left_mask],  depth + 1),
-            "right": self._grow(X[~left_mask], y[~left_mask], depth + 1),
-        }
-
-    def _predict_one(self, x, node):
-        if node["leaf"]:
-            return node["label"]
-        if x[node["feat"]] <= node["thresh"]:
-            return self._predict_one(x, node["left"])
-        return self._predict_one(x, node["right"])
-
-    def predict(self, X):
-        return np.array([self._predict_one(row, self.tree_) for row in X])
-
-
-# ── Random forest ─────────────────────────────────────────────────────────────
-
-class RandomForestClassifier:
-    def __init__(self, n_estimators=200, max_depth=5, min_samples_leaf=1,
-                 max_features="sqrt", random_state=42):
-        self.n_estimators    = n_estimators
-        self.max_depth       = max_depth
-        self.min_samples_leaf = min_samples_leaf
-        self.max_features    = max_features
-        self.random_state    = random_state
-        self.trees_          = []
-
-    def fit(self, X, y):
-        rng = np.random.RandomState(self.random_state)
-        n, d = X.shape
-        n_feat = max(1, int(np.sqrt(d))) if self.max_features == "sqrt" \
-                 else self.max_features
-        self.trees_ = []
-        for _ in range(self.n_estimators):
-            seed = rng.randint(0, 2 ** 31)
-            np.random.seed(seed)
-            # Bootstrap sample
-            idx   = rng.choice(n, size=n, replace=True)
-            X_b, y_b = X[idx], y[idx]
-            tree = DecisionTreeClassifier(
-                max_depth=self.max_depth,
-                min_samples_leaf=self.min_samples_leaf,
-                n_features=n_feat,
-            )
-            tree.fit(X_b, y_b)
-            self.trees_.append(tree)
-        return self
-
-    def predict(self, X):
-        # Stack predictions from all trees, majority vote per example
-        all_preds = np.stack([t.predict(X) for t in self.trees_], axis=1)
-        return np.array(
-            [Counter(row).most_common(1)[0][0] for row in all_preds])
-
-
-# ── Evaluation on synthetic two-moon dataset ──────────────────────────────────
-
-def make_moons_np(n_samples=400, noise=0.25, random_state=0):
-    rng = np.random.RandomState(random_state)
-    n_each = n_samples // 2
-    t = np.linspace(0, np.pi, n_each)
-    X1 = np.c_[np.cos(t), np.sin(t)]
-    X2 = np.c_[1 - np.cos(t), 1 - np.sin(t) - 0.5]
-    X  = np.vstack([X1, X2]) + rng.randn(n_samples, 2) * noise
-    y  = np.array([0] * n_each + [1] * n_each)
-    return X, y
-
-def train_test_split_np(X, y, test_size=0.25, random_state=0):
-    rng = np.random.RandomState(random_state)
-    idx = rng.permutation(len(y))
-    n_test = int(len(y) * test_size)
-    return (X[idx[n_test:]], X[idx[:n_test]],
-            y[idx[n_test:]], y[idx[:n_test]])
-
-np.random.seed(0)
-X, y = make_moons_np(n_samples=400, noise=0.25, random_state=0)
-X_train, X_test, y_train, y_test = train_test_split_np(
-    X, y, test_size=0.25, random_state=0)
-
-dt = DecisionTreeClassifier(max_depth=4, min_samples_leaf=2)
-dt.fit(X_train, y_train)
-dt_acc = np.mean(dt.predict(X_test) == y_test)
-print(f"DecisionTree (max_depth=4)  accuracy: {dt_acc:.4f}")
-
-rf = RandomForestClassifier(n_estimators=200, max_depth=4,
-                             min_samples_leaf=2, random_state=42)
-rf.fit(X_train, y_train)
-rf_acc = np.mean(rf.predict(X_test) == y_test)
-print(f"RandomForest (200 trees)    accuracy: {rf_acc:.4f}")
-
-# Root split trace
-root = dt.tree_
-left_mask = X_train[:, root["feat"]] <= root["thresh"]
-g_p = gini(y_train)
-g_l = gini(y_train[left_mask])
-g_r = gini(y_train[~left_mask])
-n_t = len(y_train);  n_l = left_mask.sum();  n_r = (~left_mask).sum()
-ig  = g_p - (n_l / n_t * g_l + n_r / n_t * g_r)
-print(f"\\nRoot split: feature {root['feat']}, threshold {root['thresh']:.4f}")
-print(f"  Parent Gini:      {g_p:.4f}")
-print(f"  Left  Gini ({n_l:3d}): {g_l:.4f}")
-print(f"  Right Gini ({n_r:3d}): {g_r:.4f}")
-print(f"  Information gain: {ig:.4f}")
-
-# Output:
-# DecisionTree (max_depth=4)  accuracy: 0.8800
-# RandomForest (200 trees)    accuracy: 0.8800
-#
-# Root split: feature 1, threshold 0.2861
-#   Parent Gini:      0.4994
-#   Left  Gini (158): 0.2750
-#   Right Gini (142): 0.2715
-#   Information gain: 0.2261`}</CodeBlock>
-
-      <Prose>
-        A few implementation notes worth keeping. The <Code>best_split</Code> function
-        iterates over all unique threshold values per feature; a production implementation
-        would use argsort to scan thresholds in one pass per feature, cutting the constant
-        factor. The forest's feature subsampling happens inside the tree via the
-        <Code>n_features</Code> argument — the tree randomly draws that many features at
-        each node, not just at the root. This is what produces per-node feature diversity,
-        not just per-tree diversity.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        Scikit-learn's <Code>sklearn.tree.DecisionTreeClassifier</Code> and
-        <Code>sklearn.ensemble.RandomForestClassifier</Code> are the standard production
-        implementations. They are written in Cython, parallelize across cores, and handle
-        edge cases (sample weights, multi-output, missing value imputation) that the
-        from-scratch version above ignores. The API is clean and the parameter surface
-        is stable across major versions.
-      </Prose>
-
-      <CodeBlock>{`from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_moons
-from sklearn.model_selection import train_test_split
-from sklearn.inspection import permutation_importance
-import numpy as np
-
-X, y = make_moons(n_samples=500, noise=0.25, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
-# ── Single decision tree ──────────────────────────────────────────────────────
-dt = DecisionTreeClassifier(
-    criterion="gini",       # "gini" (CART default) or "entropy"
-    max_depth=4,            # None = grow until pure leaves (overfits)
-    min_samples_leaf=5,     # prune leaves with fewer samples
-    class_weight=None,      # set "balanced" for imbalanced labels
-    random_state=42,
-)
-dt.fit(X_train, y_train)
-print(f"DecisionTree test accuracy:   {dt.score(X_test, y_test):.4f}")
-print(f"Feature importances (MDI):    {np.round(dt.feature_importances_, 4)}")
-
-# ── Random forest ─────────────────────────────────────────────────────────────
-rf = RandomForestClassifier(
-    n_estimators=300,       # more trees = lower variance, diminishing returns
-    max_depth=None,         # individual trees can overfit; forest averages it out
-    min_samples_leaf=1,
-    max_features="sqrt",    # sqrt(d) features per split — classification default
-    oob_score=True,         # free held-out estimate using out-of-bag samples
-    n_jobs=-1,              # trivially parallel across all CPU cores
-    class_weight=None,
-    random_state=42,
-)
-rf.fit(X_train, y_train)
-print(f"\\nRandomForest test accuracy:   {rf.score(X_test, y_test):.4f}")
-print(f"OOB score:                    {rf.oob_score_:.4f}")
-print(f"Feature importances (MDI):    {np.round(rf.feature_importances_, 4)}")
-
-# ── Permutation importance (less biased than MDI) ─────────────────────────────
-result = permutation_importance(
-    rf, X_test, y_test, n_repeats=30, random_state=42)
-print(f"Permutation importance mean:  {np.round(result.importances_mean, 4)}")
-
-# Output:
-# DecisionTree test accuracy:   0.8800
-# Feature importances (MDI):    [0.3829 0.6171]
-#
-# RandomForest test accuracy:   0.9500
-# OOB score:                    0.9425
-# Feature importances (MDI):    [0.4443 0.5557]
-# Permutation importance mean:  [0.2287 0.2903]`}</CodeBlock>
-
-      <H3>Key parameter guide</H3>
-
-      <Prose>
-        <strong>max_depth</strong>: The single most important regularization knob for a
-        single tree. Default None (unlimited) will overfit on any dataset large enough
-        to have signal. Start with 3–6 for interpretable trees; for random forests,
-        deep or unlimited trees are fine because the ensemble averages variance away.
-      </Prose>
-
-      <Prose>
-        <strong>min_samples_leaf</strong>: Sets a floor on leaf population. Larger values
-        produce smoother decision boundaries and reduce overfitting. More reliable than
-        max_depth for regression trees, where a few extreme values in a tiny leaf can
-        drive prediction far from reality.
-      </Prose>
-
-      <Prose>
-        <strong>max_features</strong>: For classification, <Code>"sqrt"</Code> (sqrt of
-        the total feature count) is the canonical default established by Breiman (2001).
-        For regression, <Code>"1.0"</Code> (all features) or <Code>1/3</Code> of features
-        are common. Reducing max_features decorrelates trees but increases each tree's
-        bias; usually sqrt is a good default that you tune only when you have a reason.
-      </Prose>
-
-      <Prose>
-        <strong>oob_score</strong>: On average, each bootstrap sample leaves out about
-        36.8% of training examples (probability a given sample is not drawn in n draws
-        with replacement: (1 − 1/n)^n → e^{"{−1}"} ≈ 0.368). Each tree can be evaluated
-        on its out-of-bag examples for free, giving an unbiased generalization estimate
-        without a dedicated validation set. OOB score is particularly valuable during
-        hyperparameter search when data is scarce.
-      </Prose>
-
-      <Prose>
-        <strong>n_jobs=-1</strong>: Trees in a forest are fully independent and can be
-        trained in parallel. Setting n_jobs=-1 uses all available cores with near-linear
-        speedup. For 300 trees on an 8-core machine, expect roughly 7× speedup.
-      </Prose>
-
-      <Prose>
-        <strong>class_weight="balanced"</strong>: When class frequencies are unequal,
-        sklearn weights each sample by the inverse of its class frequency. This is
-        equivalent to oversampling the minority class during the Gini calculation at
-        each split. Prefer this over manual oversampling for trees and forests.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>Impurity trace: first three splits</H3>
-
-      <StepTrace
-        label="gini impurity at each split — two-moon dataset (n=300 train)"
-        steps={[
-          {
-            label: "Depth 0 (root): feature 1, threshold 0.2861",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="impurity trace"
-                  tokens={[
-                    { label: "Parent Gini: 0.4994", color: colors.textMuted },
-                    { label: "→", color: colors.textDim },
-                    { label: "Left (n=158): 0.2750", color: colors.green },
-                    { label: "Right (n=142): 0.2715", color: colors.green },
-                    { label: "IG: 0.2261", color: colors.gold },
-                  ]}
-                />
-                <Prose>
-                  The root split nearly halves Gini impurity in one step. Feature 1
-                  (the y-coordinate in the moons dataset) cleanly separates the lower
-                  arc (class 0) from the upper arc (class 1) at this latitude threshold.
-                  Information gain of 0.226 is the largest single-split gain available
-                  anywhere in the feature space — this is what the exhaustive search
-                  over all features and thresholds finds.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Depth 1 (left child): further splitting the lower arc",
-            render: () => (
-              <Prose>
-                With the node largely class 0 (low Gini), the next split in the left
-                branch captures the minority class 1 examples that slipped in — those
-                at the top of the lower arc where the two moons overlap. Gini drops
-                further. Each additional split buys smaller gains as purity increases.
-              </Prose>
-            ),
-          },
-          {
-            label: "Depth 2–3: rectangles tighten around the overlap region",
-            render: () => (
-              <Prose>
-                By depth 3, the tree has drawn four rectangles that jointly approximate
-                the crescent boundary. Beyond depth 4, additional splits begin to
-                memorize noise — individual training examples in the overlap zone get
-                their own tiny leaf. This is overfitting: the splits model the noise,
-                not the boundary. The random forest avoids this by averaging 200
-                independently noisy trees rather than growing one perfect one.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>Feature importance heatmap</H3>
-
-      <Prose>
-        Feature importances from mean decrease in impurity (MDI) accumulate the
-        information gain from every split that used a given feature, weighted by the
-        number of training examples passing through that node, normalized to sum to 1.
-        On the two-feature moons dataset, both features are genuinely informative and
-        the importance values reflect which one tends to be used earlier and higher in
-        the tree (higher nodes process more examples, so their gains are weighted more).
-      </Prose>
-
-      <Heatmap
-        label="MDI feature importance — RandomForest (300 trees, moons dataset)"
-        rowLabels={["feature 0 (x-coord)", "feature 1 (y-coord)"]}
-        colLabels={["importance"]}
-        matrix={[[0.4443], [0.5557]]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Feature 1 (the y-coordinate) carries more importance — consistent with the root
-        split always landing on feature 1 in this dataset. But the margin is narrow:
-        in the moons geometry, both axes contribute meaningfully. Compare this to a
-        dataset with one dominant predictor (say, credit score in a loan default model):
-        MDI would show 0.8+ on that feature and near-zero on others.
-      </Prose>
-
-      <Callout variant="warning">
-        MDI importance is biased toward high-cardinality continuous features, which
-        offer more threshold candidates and are therefore more likely to be selected
-        by chance. For categorical features with many values (zip code, user ID), MDI
-        will artificially inflate their importance. Always cross-check with permutation
-        importance (section 9) when feature cardinality varies widely.
-      </Callout>
-
-      <H3>Single tree vs. forest decision boundary</H3>
-
-      <Callout accent="gold">
-        <strong>Decision boundary comparison — two-moon dataset.</strong> A single depth-4 tree draws blocky axis-aligned rectangles with hard transitions at each threshold and scores 0.88 on the holdout. A 300-tree random forest produces a smoother probability surface — still composed of rectangles at the individual tree level, but the majority-vote probability blends them into curved-looking contours, scoring 0.95. The forest boundary better tracks the crescent shape because different trees split at different thresholds and different features, and their vote average is a soft ensemble. (Both trained on <Code>moons(n=500, noise=0.25, random_state=42)</Code>.)
-      </Callout>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing between a single decision tree, a random forest, a linear model, or
-        a gradient-boosted tree is a recurring practical question. The axes below are
-        the ones that matter most in practice:
-      </Prose>
-
-      <H3>Decision tree</H3>
-      <Prose>
-        Use when interpretability is a hard constraint — when a compliance officer or
-        domain expert must be able to trace every prediction through the model by hand.
-        A depth-3 or depth-4 tree can be printed on one page and read like a decision
-        table. Accuracy will be lower than any ensemble method on any reasonably complex
-        dataset. Single trees overfit at depth and underfit when shallow. They are often
-        used as base learners for comparison, or in settings where a rule system is
-        legally required.
-      </Prose>
-
-      <H3>Random forest</H3>
-      <Prose>
-        The go-to when you want a strong out-of-the-box baseline that requires minimal
-        tuning. Key advantages: handles mixed feature types without preprocessing, built-in
-        OOB evaluation, parallelizes trivially, robust to outliers and missing values (with
-        appropriate imputation). Key limitations: axis-aligned bias means forests struggle
-        when the true boundary is linear in a diagonal direction (a regularized logistic
-        regression would outperform); does not extrapolate beyond the training range; slower
-        inference than a single tree (you run 300 trees instead of one).
-      </Prose>
-
-      <H3>Linear model (logistic/ridge regression)</H3>
-      <Prose>
-        Use when you have strong reason to believe the decision boundary is approximately
-        linear, when you need probability calibration out of the box (trees require
-        Platt scaling or isotonic regression), when you have extremely high-dimensional
-        sparse features (text), or when inference speed and model size are critical.
-        Linear models are also easier to regularize in high dimensions and their
-        coefficients are interpretable in a different sense — they express direction and
-        magnitude in feature space.
-      </Prose>
-
-      <H3>Gradient-boosted trees (XGBoost, LightGBM, CatBoost)</H3>
-      <Prose>
-        Use when you need the highest accuracy on tabular data and can afford the
-        longer training time and hyperparameter tuning. Gradient boosting trains trees
-        sequentially, each correcting residuals from the previous, so it can model
-        complex interactions that random forests approximate only via averaging many
-        independent trees. On structured/tabular data, gradient boosting consistently
-        outperforms random forests with appropriate tuning — it dominates Kaggle
-        tabular competitions for this reason. The cost: more hyperparameters (learning
-        rate, subsample, colsample, max_delta_step, early stopping), much longer training,
-        and sequential training means no trivial parallelism across trees.
-      </Prose>
-
-      <Heatmap
-        label="algorithm selection matrix"
-        rowLabels={[
-          "Single Decision Tree",
-          "Random Forest",
-          "Logistic Regression",
-          "Gradient Boosting",
-        ]}
-        colLabels={[
-          "Interpretability",
-          "Accuracy (tabular)",
-          "Inference speed",
-          "Tuning effort",
-          "Extrapolation",
-        ]}
-        matrix={[
-          [1.0, 0.3, 1.0, 0.9, 0.1],
-          [0.4, 0.7, 0.5, 0.8, 0.1],
-          [0.5, 0.5, 1.0, 0.9, 0.8],
-          [0.2, 1.0, 0.4, 0.3, 0.1],
-        ]}
-        colorScale="gold"
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>Training complexity</H3>
-
-      <Prose>
-        Building a single decision tree with <em>n</em> training examples and <em>d</em>
-        features costs O(n·d·log n) time: for each of O(log n) levels (assuming a
-        balanced tree), you sort or scan each feature in O(n) time to find the best
-        threshold. For a random forest of B trees, each tree sees a bootstrap sample
-        of size n and considers only m = sqrt(d) features per split, so each tree costs
-        O(n·m·log n) = O(n·sqrt(d)·log n). The total forest cost is O(B·n·sqrt(d)·log n).
-        Because trees are independent, the B factor is parallelized trivially.
-      </Prose>
-
-      <Prose>
-        In practice: on a 1M-row dataset with 100 features, a 300-tree forest on 16
-        cores trains in minutes. At 100M rows, memory becomes the bottleneck before
-        compute — you need to hold the bootstrap sample and all intermediate node
-        statistics in RAM simultaneously. Histogram-based implementations (the default
-        in LightGBM, and available in sklearn via <Code>HistGradientBoosting*</Code>)
-        bin continuous features into 256 buckets, reducing per-split cost dramatically
-        and making 100M-row training tractable.
-      </Prose>
-
-      <H3>Inference complexity</H3>
-
-      <Prose>
-        Predicting with a single tree costs O(log n) per example — one comparison per
-        level, and a balanced tree has O(log n) levels. A forest of B trees costs O(B·log n)
-        per example. For B=300 and depth 20, that is 6,000 comparisons per example —
-        fast on modern hardware (microseconds per prediction) but 300× slower than a
-        single tree. If inference latency is the bottleneck (real-time scoring systems),
-        shallower forests or a single tree may be required. Libraries like
-        <Code>treelite</Code> compile sklearn forests into optimized C code and recover
-        most of the latency gap.
-      </Prose>
-
-      <H3>Memory</H3>
-
-      <Prose>
-        A decision tree stores its split parameters — a feature index and threshold per
-        node, a class distribution per leaf. For a depth-k binary tree, there are at
-        most 2^k − 1 internal nodes and 2^k leaves. A deep forest of 300 trees with
-        depth 20 can easily require hundreds of megabytes of model storage. In practice,
-        sklearn's forest serialized with joblib or pickle is often 50–500 MB, which
-        matters for deployment to memory-constrained environments. Gradient boosting
-        implementations use shallower trees (depth 3–8) and far fewer of them, resulting
-        in a 10–100× smaller model footprint.
-      </Prose>
-
-      <H3>Comparison with gradient boosting</H3>
-
-      <Prose>
-        The core scale difference between random forests and gradient boosting is this:
-        forests are embarrassingly parallel across trees, while boosting is inherently
-        sequential. You cannot start tree <em>k+1</em> in a boosted ensemble until
-        tree <em>k</em> has finished and computed residuals. This means boosting cannot
-        use tree-level parallelism; it compensates by using column (feature) parallelism
-        and histogram tricks within each tree. For very large n, LightGBM's histogram
-        approach is faster than sklearn's forest; for very large d, forests with sqrt(d)
-        feature subsampling per split are memory-efficient. The two methods occupy
-        different parts of the compute-accuracy frontier: forests for fast, low-tuning
-        baselines; boosting for maximum accuracy with more engineering effort.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>Single tree high variance</H3>
-
-      <Prose>
-        A decision tree grown to full depth is a high-variance estimator. On two
-        different train/test splits of the same dataset, the tree might look completely
-        different — a different feature at the root, a different partition structure —
-        if there is overlap between classes near the boundary. This is not a bug; it
-        reflects the fact that small changes in training data can change which split wins
-        the argmax comparison at each node. The forest exists precisely because of this.
-        If you are using a single tree for production, cap its depth and cross-validate
-        aggressively.
-      </Prose>
-
-      <H3>No extrapolation</H3>
-
-      <Prose>
-        Decision trees (and therefore random forests) cannot predict values outside the
-        range seen during training. A regression tree's prediction for any input is the
-        mean of some subset of training targets. If your test distribution has feature
-        values outside the training range — you trained on 2010–2020 prices and deploy
-        into a 2024 market — the tree will clip to the nearest leaf, which is the extreme
-        training value. Linear models and neural networks extrapolate (sometimes badly,
-        but at least they try). For forecasting tasks with temporal extrapolation, this
-        is a critical failure mode. Trees should not be used for pure extrapolation unless
-        the features are engineered to represent "distance from training distribution"
-        in a way trees can threshold on.
-      </Prose>
-
-      <H3>MDI feature importance bias</H3>
-
-      <Prose>
-        Mean decrease in impurity (MDI, the default <Code>feature_importances_</Code> in
-        sklearn) is biased toward features with high cardinality — those with many unique
-        values. A random uniform feature with 1000 unique values will appear more
-        "important" than a truly informative binary feature, because there are 1000
-        thresholds to try and at least one will reduce impurity by chance. Strobl et al.
-        (2007, "Bias in random forest variable importance measures") documented this
-        thoroughly. The fix is permutation importance: shuffle feature <em>j</em> in the
-        validation set and measure the drop in accuracy. Shuffling destroys any real signal,
-        so the drop measures true importance. Permutation importance is available in sklearn
-        via <Code>sklearn.inspection.permutation_importance</Code> and is less biased,
-        though slower.
-      </Prose>
-
-      <H3>Categorical encoding pitfalls</H3>
-
-      <Prose>
-        Sklearn's trees require numeric features. If you one-hot encode a categorical
-        feature with 100 levels, you get 100 binary features, and each tree will pick
-        up at most a few of them due to feature subsampling. The algorithm never sees
-        the full categorical structure. A better approach is ordinal encoding (assign
-        integers) and let the tree find meaningful thresholds, or use libraries that
-        support native categoricals (LightGBM, CatBoost). For random forests
-        specifically, one-hot encoding high-cardinality categoricals often works
-        adequately in practice because the forest integrates over many splits, but the
-        bias toward those many columns can crowd out genuinely informative numeric
-        features in the importance ranking.
-      </Prose>
-
-      <H3>Class imbalance</H3>
-
-      <Prose>
-        A tree's Gini impurity calculation is dominated by the majority class. On a
-        99:1 imbalance, a leaf that predicts the majority class everywhere achieves
-        Gini = 2 · 0.99 · 0.01 = 0.02, which is nearly pure — the tree sees no signal.
-        The standard fix is <Code>class_weight="balanced"</Code>, which weights each
-        sample by the inverse of its class frequency during the Gini calculation.
-        Alternatively, <Code>sklearn.utils.class_weight.compute_sample_weight</Code>
-        lets you set custom per-sample weights and pass them to <Code>fit</Code>. SMOTE
-        oversampling before fitting is another option but introduces its own biases
-        for tree-based methods (synthetic points in high-dimensional space may cross
-        true decision boundaries).
-      </Prose>
-
-      <Callout variant="warning">
-        The no-extrapolation failure is the most dangerous in practice because it fails
-        silently. Predictions will not throw errors and will not produce NaNs — they will
-        simply produce the extreme training-range leaf value, which may look plausible.
-        Always plot the distribution of predictions vs. training targets when deploying
-        on new data.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        The following four works are the canonical references for decision trees and
-        random forests. All citations have been verified against publisher records.
-      </Prose>
-
-      <H3>CART — the origin of modern decision trees</H3>
-      <Prose>
-        Breiman, L., Friedman, J. H., Olshen, R. A., & Stone, C. J. (1984).
-        <em> Classification and Regression Trees</em>. Chapman and Hall/CRC, Wadsworth.
-        This is the book that introduced binary recursive partitioning, Gini impurity,
-        cost-complexity pruning, and the CART algorithm as it is implemented in sklearn
-        today. Freely available as a monograph; Taylor & Francis has the current edition
-        under ISBN 978-0-412-04841-8. If you read one source on decision trees, it is this.
-      </Prose>
-
-      <H3>ID3 — information gain for tree induction</H3>
-      <Prose>
-        Quinlan, J. R. (1986). Induction of decision trees.
-        <em> Machine Learning</em>, 1(1), 81–106.
-        <br />
-        Quinlan, J. R. (1993). <em>C4.5: Programs for Machine Learning</em>.
-        Morgan Kaufmann Publishers, San Mateo, CA.
-        The 1986 paper introduced the ID3 algorithm using information gain (entropy-based)
-        as the splitting criterion. The 1993 book extended ID3 into C4.5, adding support
-        for continuous features, pruning via minimum description length, and missing value
-        handling. C4.5 remains the basis for the WEKA J48 implementation.
-      </Prose>
-
-      <H3>Random forests — the foundational paper</H3>
-      <Prose>
-        Breiman, L. (2001). Random forests.
-        <em> Machine Learning</em>, 45(1), 5–32. DOI: 10.1023/A:1010933404324.
-        This is the paper. It introduced bootstrap aggregating plus random feature
-        subsampling as a unified algorithm, proved that the generalization error
-        converges as B → ∞, and gave the strength-correlation bound. The PDF is freely
-        available from UC Berkeley Statistics Department at stat.berkeley.edu.
-        Every claim about random forest theoretical properties should trace back here.
-      </Prose>
-
-      <H3>Extremely Randomized Trees</H3>
-      <Prose>
-        Geurts, P., Ernst, D., & Wehenkel, L. (2006). Extremely randomized trees.
-        <em> Machine Learning</em>, 63(1), 3–42. DOI: 10.1007/s10994-006-6226-1.
-        Extra-Trees pushes randomization further: instead of finding the best threshold
-        for a randomly chosen feature, it draws the threshold uniformly at random from
-        the feature's range. This eliminates the inner threshold-search loop entirely,
-        making training much faster, and further reduces variance at the cost of slightly
-        higher bias. Available in sklearn as <Code>ExtraTreesClassifier</Code>. The paper
-        gives a thorough bias-variance analysis of the randomization spectrum from
-        CART (no randomization) to Extra-Trees (maximum randomization).
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Q1 (recall) — Gini vs. entropy</H3>
-      <Prose>
-        A node contains 80 class-0 and 20 class-1 examples. Compute its Gini impurity
-        and Shannon entropy. Which is larger? Why do practitioners typically prefer Gini?
-      </Prose>
-      <Callout variant="answer">
-        <strong>Gini:</strong> 1 − (0.8² + 0.2²) = 1 − (0.64 + 0.04) = 0.32.
-        <br />
-        <strong>Entropy:</strong> −(0.8 · log₂(0.8) + 0.2 · log₂(0.2))
-        = −(0.8 · (−0.322) + 0.2 · (−2.322)) = 0.258 + 0.464 = 0.722 bits.
-        <br />
-        Entropy is larger in absolute terms (different scale). Both reach their maximum
-        at equal class proportions and zero at purity. Gini is preferred because it
-        involves no logarithm computation — for a tree scanning millions of threshold
-        candidates, this constant-factor savings accumulates. The trees produced by the
-        two criteria are nearly identical in practice.
-      </Callout>
-
-      <H3>Q2 (recall) — the ρσ² term</H3>
-      <Prose>
-        The variance of the average of B correlated trees is ρσ² + (1−ρ)σ²/B.
-        Explain in one sentence why the ρσ² term makes feature subsampling necessary,
-        not just a nice-to-have.
-      </Prose>
-      <Callout variant="answer">
-        Because ρσ² does not decrease as B increases, no amount of additional trees
-        can drive ensemble variance below this floor — only reducing inter-tree
-        correlation ρ (via feature subsampling) can lower the irreducible term.
-      </Callout>
-
-      <H3>Q3 (applied) — OOB score interpretation</H3>
-      <Prose>
-        You train a <Code>RandomForestClassifier(n_estimators=500, oob_score=True)</Code>
-        and get <Code>oob_score_ = 0.94</Code> and a test accuracy of <Code>0.89</Code>.
-        What are two plausible explanations for the 5-point gap between OOB and test score?
-      </Prose>
-      <Callout variant="answer">
-        (1) Distribution shift: the test set comes from a different distribution than the
-        training data (different time period, different user segment), so the OOB estimate
-        on training examples does not reflect test performance.
-        (2) Class imbalance interaction: if the test set has a different class ratio than
-        the training set, accuracy computed on each may differ without either estimate
-        being "wrong" — OOB accuracy is evaluated on the same class mix as training,
-        not the test mix. A third possibility is simple train/test split variance if the
-        test set is small.
-      </Callout>
-
-      <H3>Q4 (applied) — MDI vs. permutation importance</H3>
-      <Prose>
-        You build a RandomForest on a dataset with 50 numeric features and 5 high-cardinality
-        categorical features one-hot encoded into 500 columns. Your MDI importances show
-        the one-hot columns dominating. Describe the exact steps to obtain a less biased
-        importance ranking.
-      </Prose>
-      <Callout variant="answer">
-        Use <Code>sklearn.inspection.permutation_importance</Code> on a held-out validation
-        set. For each feature (or group of one-hot columns representing a single original
-        categorical), shuffle that feature's values in the validation set, run predictions,
-        and record the drop in accuracy. Average over multiple shuffles (n_repeats=20+).
-        Critically, group the 500 one-hot columns back into their 5 original categorical
-        variables and shuffle them as a unit — shuffling individual one-hot bits while
-        holding others fixed can produce impossible combinations that mislead the model.
-        After grouping, permutation importance correctly attributes importance to the
-        original categorical feature rather than its encoding columns.
-      </Callout>
-
-      <H3>Q5 (applied) — extrapolation failure</H3>
-      <Prose>
-        You train a regression RandomForest on housing prices from 2010–2020.
-        Prices in your test set (2021–2023) are 25% higher than any training example.
-        Describe what the forest predicts and why.
-      </Prose>
-      <Callout variant="answer">
-        The forest predicts values at most equal to the highest price in the training
-        set, regardless of input feature values. Each tree's leaf predictions are means
-        of training targets; no leaf mean can exceed the maximum training target. For
-        2021–2023 examples, the features will route to the deepest leaves trained on the
-        most expensive 2020 properties, and the predicted price will be capped at that
-        level. The forest cannot extrapolate upward because prediction is literally an
-        average of a fixed pool of training values. Fixes include log-transforming the
-        target (so the model predicts log-price, which may extrapolate better), including
-        a time feature so the forest can interpolate across time, or switching to a model
-        that can extrapolate (linear regression on the time trend, gradient boosting with
-        a monotone constraint on time).
-      </Callout>
-
-      <H3>Q6 (challenge) — from scratch tree vs. sklearn discrepancy</H3>
-      <Prose>
-        Your from-scratch DecisionTreeClassifier and sklearn's DecisionTreeClassifier are
-        both given the same dataset and the same max_depth=4. They produce different
-        predictions. Identify three implementation differences that could cause this,
-        without looking at the code.
-      </Prose>
-      <Callout variant="answer">
-        (1) <strong>Tie-breaking at equal gain:</strong> when two thresholds produce equal
-        information gain, sklearn uses a deterministic tie-break; the from-scratch version
-        may use the last winner found in iteration order.
-        (2) <strong>Threshold enumeration:</strong> sklearn evaluates midpoints between
-        adjacent sorted unique values; the from-scratch version evaluates the unique values
-        directly — a threshold of exactly a training value can assign that example to either
-        side depending on {"<"} vs. {"<"}= convention.
-        (3) <strong>min_impurity_decrease:</strong> sklearn has a default minimum
-        improvement threshold below which it will not split; the from-scratch version splits
-        any time gain {">"} 0. Setting sklearn's min_impurity_decrease=0.0 eliminates this
-        difference. (4) Bonus: sklearn handles floating-point thresholds differently —
-        it selects (left_value + right_value) / 2, ensuring the threshold never equals a
-        training point exactly, which avoids train-vs-test boundary ambiguity.
-      </Callout>
-
-    </div>
-  ),
+import { Prose, H2, H3, Code, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { TreeTrainingFigure, TreePartitionLab, SplitLedgerLab, XorTreeLab, TreePruningLab, BootstrapForestLab, ForestAveragingFigure, ForestVarianceLab, PermutationRelianceLab } from '../../components/lesson-labs/DecisionTreeLabs.jsx';
+import { decisionTreeExamples } from '../decision-tree-examples.js';
+
+function Example({ id, children }) {
+  const example=decisionTreeExamples.find(item=>item.id===id);
+  return <><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{question}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Explained solution</summary>{children}</details></section>;
+}
+
+export default {
+  title: 'Decision Trees & Random Forests',
+  readTime: '~105 min read + 2–3 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot tree-lesson">
+    <LessonIntro prerequisites="Linear & Logistic Regression supplies features, targets, splits, baselines and probability-versus-decision vocabulary. We refresh those ideas locally. Fractions and averages suffice for the first route; probability, variance and basic linear algebra support the deeper theory. Python/NumPy are needed only for the executable route." sections={[
+      ['1-learn-questions-from-observations','Task and fitted questions'],
+      ['2-connect-the-rule-to-its-regions','Route a query'],
+      ['3-choose-a-split-by-accounting-for-both-children','Impurity and split search'],
+      ['4-separate-expressive-capacity-from-greedy-search','Interactions and search'],
+      ['5-predict-numbers-with-regression-leaves','Leaf means and extrapolation'],
+      ['6-control-the-tree-and-prune-for-a-reason','Constraints and pruning'],
+      ['7-build-the-mechanism-in-complete-code','From-scratch tree and forest'],
+      ['8-track-bootstrap-membership-and-out-of-bag-evidence','Bootstrap and OOB'],
+      ['9-understand-what-averaging-changes','Probability aggregation and variance'],
+      ['10-run-and-evaluate-a-complete-experiment','Held-out workflow and schema'],
+      ['11-ask-what-feature-importance-actually-measures','Importance and reliance'],
+      ['12-match-computation-and-model-to-the-task','Scale, alternatives and connections'],
+      ['13-practise-with-changed-questions','Independent practice'],
+      ['14-continue-from-regions-to-neighbors','Next lesson and resources'],
+    ]}>An inspection has two measurements. Instead of combining them into one weighted score, could a model learn a useful sequence of questions—“Is the first measurement above this threshold? If not, what does the second measurement show?” A decision tree learns those questions and the predictions at their endpoints. A random forest combines many differently learned trees. We will make the questions, partitions, training choices and evaluation evidence visible.</LessonIntro>
+
+    <H2>1. Learn questions from observations</H2>
+    <Prose>One row is one completed inspection. Its <strong>features</strong>, x₁ and x₂, are measurements available before the result is known. Its <strong>label</strong> is the later outcome: 1 for an item needing further attention, 0 otherwise. The small coordinates here are invented and dimensionless. They are not thresholds for a physical safety system.</Prose>
+    <Prose>A tree has a <strong>root</strong>, where prediction starts; internal <strong>nodes</strong>, which ask questions; <strong>branches</strong>, which carry the two answers; and <strong>leaves</strong>, where questions stop and a prediction is stored. A one-question tree is often called a stump. Depth counts edges from the root: a depth-zero tree has one leaf and no question.</Prose>
+    <TreeTrainingFigure />
+    <Prose>The questions are learned from labelled training examples. A classifier leaf can store the fraction of each class among its training rows. If a leaf contains three positive and one negative row, its empirical p(1) is 3/4. Choosing the largest class probability produces a label. That probability can be unreliable in a tiny or unrepresentative leaf; a fraction of one is not proof that a future outcome is certain.</Prose>
+    <Prose>Training, validation and test data have different jobs. Training fits questions and any learned preprocessing. Validation chooses settings such as depth or a decision threshold. Final test data assess the frozen workflow. Repeatedly adjusting the tree after seeing test errors uses that set for development. Random rows suit some independently sampled tasks; time-ordered or grouped deployments need an appropriate split. A repeated inspection of the same item may share information across rows.</Prose>
+    <Prose>The eight-row fixture has five positives, so a no-question probability baseline is 5/8=0.625. We first examine training mechanics on those rows. A later complete experiment uses disjoint sets and a prior baseline. Good training partitions and good future predictions are different claims.</Prose>
+    <details><summary>Set up the optional Python route</summary><Prose>Save each program separately as <Code>example.py</Code>. Create an environment with <Code>python -m venv .venv</Code>; activate it with <Code>.venv\Scripts\Activate.ps1</Code> in PowerShell or <Code>source .venv/bin/activate</Code> in a POSIX shell. These programs ran with Python 3.12.14, NumPy 2.3.5 and scikit-learn 1.9.1. Each includes its own data/imports; the browser investigations need no installation.</Prose><CodeBlock language="bash">{`python -m pip install numpy==2.3.5 scikit-learn==1.9.1
+python example.py`}</CodeBlock></details>
+
+    <H2>2. Connect the rule to its regions</H2>
+    <Prose>A numeric node asks xⱼ≤t. The feature index j and threshold t are learned parameters. Equality goes left in this lesson. A root question on x₁ cuts the entire two-dimensional plane vertically; a later question on x₂ cuts only the rectangle that reached that node. Following a path therefore describes a region using several inequalities.</Prose>
+    <Prose>The fixture's learned root is x₁≤4.5. Its right child contains F and H, both positive, so that child predicts p(1)=1. Its left child contains six rows, half positive. At depth two the left child asks x₂≤2. A query (4,3) goes left then right and reaches C,D,G: two positives and one negative. Its probability is 2/3 and its hard label is 1, even though G's observed label is 0.</Prose>
+    <TreePartitionLab />
+    <Prose>At depth three another question can distinguish G from C,D. That improves training fit. It may also isolate an unusual or noisy case. More detail is useful when it captures a repeatable relationship; memorizing a row's label does not establish that relationship. Move the query while keeping the fitted tree fixed to distinguish <em>inference</em> from rebuilding the model.</Prose>
+    <Prose>A conventional axis-aligned tree has piecewise-constant outputs. Within one leaf every query receives the same distribution or number. Its boundaries can form a staircase that approximates a diagonal. A weighted linear score can express a diagonal directly; that does not make either family universally better. Oblique trees use combinations of features in a question, but the CART-style numeric splits taught here use one feature at a time.</Prose>
+
+    <H2>3. Choose a split by accounting for both children</H2>
+    <H3>Impurity measures label mixture, not prediction accuracy</H3>
+    <Prose>A node is pure when all its training labels agree. For class proportions p₁,…,pK, <strong>Gini impurity</strong> is 1−Σpₖ². Draw two labels independently from the node's empirical class distribution, with replacement. The chance they match is Σpₖ²; the chance they differ is the Gini impurity. Without-replacement sampling of a finite node gives a different expression.</Prose>
+    <MathBlock>{String.raw`G=1-\sum_{k=1}^{K}p_k^2,\qquad G_{\mathrm{binary}}=2p(1-p).`}</MathBlock>
+    <Prose>For a half-positive binary node, G=0.5; at p=0 or p=1 it is zero. With K equally frequent classes the maximum is 1−1/K. A leaf's majority-class error is a different quantity, 1−max pₖ. At p=0.8 that error is 0.2 but Gini is 0.32. A split can improve mixture while leaving the predicted label unchanged.</Prose>
+    <Prose><strong>Entropy</strong> is −Σpₖlog₂pₖ, using 0log0=0. It measures uncertainty about an empirical label in bits. At an 80/20 split it is about 0.721928 bits, whereas Gini is 0.32. Comparing their numeric sizes does not tell which criterion is better; they use different scales. They often agree on useful splits but can rank candidates differently.</Prose>
+    <MathBlock>{String.raw`H=-\sum_k p_k\log_2p_k,\qquad 0\log_2 0:=0.`}</MathBlock>
+    <H3>Weight the child contributions</H3>
+    <Prose>For a proposed split, calculate each child's impurity and weight it by its share of the parent rows. The reduction is parent impurity minus this weighted average. Calling it “information gain” is precise for entropy; for Gini we use impurity reduction. Without the weights, a tiny pure child can receive misleading importance.</Prose>
+    <MathBlock>{String.raw`\Delta=I_{\mathrm{parent}}-\left(\frac{n_L}{n}I_L+\frac{n_R}{n}I_R\right).`}</MathBlock>
+    <Prose>The root has G=15/32=0.46875. At x₁≤4.5, the six-row left child has G=0.5 and the two-row right child has G=0. The weighted impurity is (6/8)×0.5+(2/8)×0=0.375, so the gain is 3/32=0.09375. A larger child count is not inherently worse: what matters is the weighted mixture remaining.</Prose>
+    <SplitLedgerLab />
+    <Prose>For numeric values, sort each candidate feature and consider cuts between adjacent distinct values. Every threshold within one such gap makes the same training partition. We store a midpoint when representable; a threshold equal to the lower value can also express that partition under ≤. Skip equal-value boundaries and check <em>both</em> child sizes before choosing a winner. A parent with enough total rows can still have an illegal one-row child.</Prose>
+    <Prose>Sorting and prefix class counts avoid recounting every candidate from scratch. As the boundary moves one row, update the left counts and subtract them from the parent to obtain the right counts. Our browser fixture is deliberately bounded and uses direct masks for inspectability; the complete Python tree uses a sorted prefix scan.</Prose>
+    <Example id="split-ledger"><Prose>The Fraction calculation makes the four root gains exact. At minimum child size three, the winning 6/2 partition is ineligible; the best legal gain is 1/32. Equal gains are resolved by feature then threshold order in this teaching model. A real library's randomized feature order, tolerances or constraints can produce a different equally good split.</Prose></Example>
+
+    <H2>4. Separate expressive capacity from greedy search</H2>
+    <Prose>Greedy tree building chooses the best <em>current</em> split and repeats inside its children. It does not enumerate every possible future tree. An early choice changes which later questions become available. A deep tree may represent a relationship even when a particular greedy stopping rule cannot find it.</Prose>
+    <XorTreeLab />
+    <Prose>XOR labels differ when exactly one of two binary inputs is 1. At the root, either input leaves one positive and one negative in each child: immediate gain zero. Once one input is known, the other perfectly determines the label. This is a feature interaction. A depth-two tree can represent it; stopping whenever gain is zero prevents that route. Allowing a zero-gain split permits this case but is not a guarantee of globally optimal search or generalization.</Prose>
+    <H3>What scaling invariance really means</H3>
+    <Prose>Numeric threshold search depends on order rather than Euclidean distance. Replacing metres with centimetres preserves feature ordering and, in exact arithmetic, preserves corresponding threshold predictions under a positive affine change. A tree usually needs no standardization merely because columns have different units. This is different from saying preprocessing is never necessary.</Prose>
+    <Prose>A strictly increasing <em>nonlinear</em> transform preserves the possible training partitions, but recomputing arithmetic midpoints can change predictions between training points. Train on x=0,label0 and x=2,label1: the midpoint is 1. Square the nonnegative feature: the new midpoint is 2 in squared units, corresponding to √2 in original units. A query x=1.2 goes right originally and left after squaring. The two training assignments are unchanged.</Prose>
+    <Example id="xor-and-thresholds"><Prose>The same complete tree implementation exposes the search-policy and midpoint differences. Floating-point casts, nearly equal values, ties and implementation tolerances can add further differences. Do not use “order-based” as a claim of bitwise invariance under every transformation.</Prose></Example>
+    <Prose>CART, ID3 and C4.5 are related tree-building traditions with different split, category and pruning choices. Scikit-learn's standard tree uses a CART-style binary construction; selecting entropy does not make it a complete ID3/C4.5 implementation. The useful lesson is to identify the actual split and stopping contracts, rather than infer behavior from a family name.</Prose>
+
+    <H2>5. Predict numbers with regression leaves</H2>
+    <Prose>For a numerical target, a squared-error regression leaf predicts its training mean. For any constant a, its SSE is Σ(yᵢ−a)². Writing yᵢ−a=(yᵢ−ȳ)+(ȳ−a) leaves SSE(a)=SSE(ȳ)+n(a−ȳ)², because centered targets sum to zero. The mean minimizes the leaf's squared error. This is the same mean identity from Linear & Logistic Regression, now applied separately inside each learned region.</Prose>
+    <Prose>A candidate regression split compares parent SSE with the sum of child SSEs. Dividing by parent count yields the equivalent population-variance reduction formula. This uses denominators n, nL and nR, not the unbiased sample-variance denominators n−1. Nonnegative sample weights replace counts with total weights and means with weighted means.</Prose>
+    <MathBlock>{String.raw`\Delta_{\mathrm{MSE}}=\frac{\operatorname{SSE}_P-\operatorname{SSE}_L-\operatorname{SSE}_R}{n_P}.`}</MathBlock>
+    <Prose>For targets [1,1.5,2,4,4.5,5] at inputs 0,…,5, a one-split tree cuts at 2.5 and predicts 1.5 on the left, 4.5 on the right. The query x=20 still reaches the right leaf. It predicts 4.5, not the largest training target 5 and not a continuing linear trend.</Prose>
+    <Example id="regression-leaves"><Prose>Each unweighted mean lies between the minimum and maximum of its contributing training targets. An average of such tree predictions stays within the forest's training-target range. Log-transforming positive targets and exponentiating constant leaf predictions does not remove this bound; neither does adding a time feature beyond observed times. The shown log-target prediction at x=20 is about 4.481405, still within the observed range.</Prose></Example>
+    <Prose>The bound is for constant mean leaves and nonnegative averaging. Model trees with fitted linear leaves and hybrid trend-plus-residual models have different contracts. A monotonic constraint can order predictions without forcing an increasing tail beyond the last threshold. Any extrapolation claim needs a mechanism that actually extrapolates and a justified deployment test.</Prose>
+    <Prose>Other regression criteria ask different questions. Absolute-error leaves use medians; squared-error leaves use means. Poisson-deviance criteria apply to nonnegative count-like targets with appropriate positive totals and use their own feasibility rules. A tree does not make target outliers harmless: a tiny squared-error leaf can be dominated by an extreme target. Choose the loss to match the quantity and cost you care about.</Prose>
+
+    <H2>6. Control the tree and prune for a reason</H2>
+    <Prose>Stopping growth early and pruning a grown tree are different procedures. <Code>max_depth</Code> limits the number of questions on a path. <Code>min_samples_leaf</Code> excludes candidate splits whose children are too small. <Code>min_samples_split</Code> controls whether a parent may attempt splitting, but does not itself protect both children. Constraints can prevent a useful intermediate step; a tree grown under one constraint need not be a pruned version of a differently grown tree.</Prose>
+    <Prose>A deeper tree can respond strongly to small training changes because nearly tied early candidates may exchange order. This instability is a reason to inspect repeated fits or bootstrap behavior. It is not a theorem that every unlimited tree overfits every dataset, or that every shallow tree is accurate and interpretable. Five levels can already permit 32 leaves.</Prose>
+    <H3>Cost-complexity pruning makes the tradeoff explicit</H3>
+    <Prose>Start from one fitted tree and consider subtrees made by replacing whole branches with leaves. Let R(T) be the root-normalized sum of leaf impurities, and L(T) the number of leaves. A complexity cost α per leaf gives Rα(T)=R(T)+αL(T). Here R is weighted Gini, matching the style of scikit-learn's impurity-based pruning objective, rather than raw misclassification error.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}R(T)&=\sum_{\ell\in\mathrm{leaves}}\frac{n_\ell}{n_{\mathrm{root}}}I_\ell,\\R_\alpha(T)&=R(T)+\alpha L(T).\end{aligned}`}</MathBlock>
+    <TreePruningLab />
+    <Prose>The full fixture tree has five pure leaves, so its cost is 5α. The root-only tree costs 0.46875+α. They meet at α=0.46875/4=0.1171875. Inspecting the other subtree lines shows they never beat both. Pruning can therefore skip intermediate sizes. The graph finds the best subtree of this fitted tree under this training objective, not the globally best possible tree on all data.</Prose>
+    <Prose>For a branch rooted at t, its effective pruning cost is [R(t)−R(Tt)]/[L(Tt)−1]: the additional training risk divided by leaves removed. Weakest-link pruning repeatedly removes branches with the smallest effective value and updates the path. Library <Code>cost_complexity_pruning_path</Code> supplies candidate α values; validation still decides which one to use. In cross-validation, derive training-dependent candidates and fit transformations within the appropriate development folds.</Prose>
+    <Example id="pruning-path"><Prose>The actual library path for this fixture contains the full tree and root-only tree. The exact tie policy in our enumerator prefers fewer leaves; tiny numeric differences at a library's computed α should be assessed with its tolerance and fitted path. Do not infer a new population-optimal complexity from the training path alone.</Prose></Example>
+
+    <H2>7. Build the mechanism in complete code</H2>
+    <Prose>The program below implements a binary numeric tree and a forest that averages its leaf probabilities. It checks the data schema, keeps randomness local, samples candidate features anew at each node, scans sorted thresholds with prefix class counts and enforces each child's minimum size. Its zero-gain policy is explicit; <Code>max_depth=None</Code> works. Leaf distributions use the fixed class order [0,1], including bootstrap samples containing only one class.</Prose>
+    <Prose>The forest draws n row indices with replacement for each tree. Repeated indices count repeatedly during fitting. A fresh tree seed controls its feature choices. Fitting resets the list of members rather than accidentally appending an old forest. Prediction averages class probabilities, then uses the lower class index at an exact tie. These are intentional contracts, not a claim of feature-for-feature compatibility with scikit-learn.</Prose>
+    <Example id="scratch-tree-forest"><Prose>The retained 400-row two-moons construction provides 300 training and 100 held-out observations. In this executed setting the single tree scores 0.89 and the forty-tree forest 0.88. The forest does not win this particular comparison. Its changed midpoint policy and seeded implementation explain why old manually copied outputs should not be reused. This code demonstrates the mechanism; the later selection workflow supports a more responsible comparison.</Prose></Example>
+    <Prose>Our implementation intentionally handles finite numeric features, unweighted binary Gini and small educational runs. It does not support missing-value routes, categorical subset tests, sample weights, multiclass output, sparse matrices or parallel fitting. Production libraries have additional numerical, storage and stopping behavior. Scikit-learn may inspect additional features when needed to find a valid partition; our sampled-feature teaching policy simply stops when its sampled candidates cannot split.</Prose>
+    <Prose>When two implementations disagree, compare their training indices, thresholds and equality convention, child-size checks, gain normalization, tie order, random feature choices, dtype/tolerances and probabilities before labels. Midpoints and lower-observation thresholds give the same training partition for distinct values under ≤, but can disagree on new values in a gap. A midpoint can also round to an endpoint; a safe implementation verifies that the stored threshold still represents its intended partition.</Prose>
+
+    <H2>8. Track bootstrap membership and out-of-bag evidence</H2>
+    <Prose>A bootstrap sample draws n row indices with replacement from n training rows. It has n draws, but some rows repeat and some are absent. Each tree gets its own sample. A second source of variation is choosing a subset of candidate features at each node. This gives trees opportunities to use different questions instead of repeatedly making the same strong early split.</Prose>
+    <Prose>The probability that one specific training row is omitted is q=(1−1/n)ⁿ. Each draw misses it with probability 1−1/n, and the draws are independent conditional on the training dataset. For n=8, q is about 0.3436; as n grows it approaches e⁻¹≈0.3679. Consequently the expected number of distinct rows in a bootstrap sample is n(1−q), about 5.25 here. “Two thirds” is a large-n approximation, not an exact count for every tree.</Prose>
+    <BootstrapForestLab />
+    <Prose>A row's <strong>out-of-bag (OOB)</strong> prediction averages only the trees whose bootstrap samples omitted that row. Different rows have different eligible trees. With B independent bootstrap samples, the probability of no eligible tree for one row is (1−q)ᴮ. Such a row has no OOB prediction; treating an unavailable value as zero would invent evidence. The lab shows all draw memberships so you can check this accounting directly.</Prose>
+    <Prose>At the default six trees, row A is omitted from five members. Their predicted positive probabilities average 4/5, even though A's observed label is zero. This small forest makes an error; its OOB status does not certify correctness. Switching from one candidate feature to both changes which questions members can ask. The lab uses a fixed local random generator and a bounded teaching tree, so it need not reproduce a library forest's seeds or split choices.</Prose>
+    <Example id="oob-accounting"><Prose>This program reconstructs each row's OOB prediction from the library's actual bootstrap indices and verifies it against <Code>oob_decision_function_</Code>. The eligible counts range from 8 to 21 for these 80 rows and forty trees. Averages over all forty members are in-sample predictions for many rows and answer a different question.</Prose></Example>
+    <H3>OOB is useful internal validation, with a defined boundary</H3>
+    <Prose>OOB reduces the need for a separate internal holdout for some independently sampled tasks. It is not universally unbiased, and repeatedly choosing features, settings or models by their best OOB result introduces selection optimism. The final external test still has its own job. Grouped subjects, repeated measurements and time-dependent deployment need a split that reflects those dependencies; omitting one row can leave a related row in the tree's training sample.</Prose>
+    <Prose>Preprocessing also belongs to the validation boundary. A target encoder fit on all labels before fitting the forest has already used an OOB row's label. Even a feature-only transform fit on all rows makes the OOB experiment different from refitting the entire workflow without those rows. OOB is directly an omission mechanism inside the forest, not automatic cross-fitting of everything placed before it. Use development folds around the complete pipeline when that is the evaluation question.</Prose>
+
+    <H2>9. Understand what averaging changes</H2>
+    <Prose>For a regression forest, average the trees' numerical predictions. For a scikit-learn classification forest, average their class-probability vectors and then choose the largest component. This differs from taking a majority vote over each tree's hard class. The original random-forest classification formulation used votes; know which contract your implementation uses.</Prose>
+    <ForestAveragingFigure />
+    <Prose>Three trees with p(1) values 0.49, 0.49 and 0.99 average to about 0.6567, so probability averaging predicts class 1. Their hard labels are 0,0,1, whose majority is class 0. Leaf proportions, averaged scores, a decision policy and calibrated probabilities are four distinct ideas. Averaging alone does not guarantee calibration. A finite forest of constant leaves still has piecewise-constant predictions, though the shared partition can be much finer than one tree's.</Prose>
+    <H3>A variance calculation with explicit assumptions</H3>
+    <Prose>Fix a query and regard each tree's numerical output Tᵦ as a random variable. In general, the variance of their average is the sum of all pairwise covariances divided by B². If each has variance σ² and every distinct pair has correlation ρ, this becomes σ²[ρ+(1−ρ)/B]. Count B diagonal terms σ² and B(B−1) off-diagonal terms ρσ² to obtain the formula.</Prose>
+    <ForestVarianceLab />
+    <Prose>With σ²=1 and ρ=0.3, twenty members give variance 0.335 and two hundred give 0.3035. More members reduce the independent component but not the 0.3 floor of this model. The curves are calculated from those stated assumptions, not measured benchmark results. Changing depth or feature sampling can change both the individual variance and dependence; reducing one parameter in this formula while holding everything else fixed is a thought experiment.</Prose>
+    <Prose>Be precise about what is random. Conditional on a fixed training dataset and query, independently generated tree seeds can yield independent tree outputs. Across repeated training datasets, all members share the same sampled observations, which can induce correlated errors. This distinction explains why independent bootstrap draws do not remove uncertainty caused by a limited shared dataset. Averaging can reduce variance while leaving a systematic bias.</Prose>
+    <details><summary>Deeper: what the original margin bound does and does not establish</summary><Prose>For the original infinite hard-voting forest, the margin at an example is the probability over randomized trees of voting for its true class minus the largest such probability for any wrong class. Its strength s is the expected margin over examples. If s is positive, a variance bound gives P(margin≤0)≤Var(margin)/s². The published result further bounds this through a specifically weighted correlation of raw-margin variables, obtaining ρ̄(1−s²)/s² under its definitions.</Prose><Prose>That ρ̄ is not simply the output correlation slider above. The result motivates strong members whose mistakes are less dependent; it does not guarantee that every additional finite tree improves accuracy, that any choice of feature count is optimal, or that probabilities are calibrated. Convergence of a vote average with increasing tree count also does not by itself prove statistical consistency as the training sample grows.</Prose></details>
+
+    <H2>10. Run and evaluate a complete experiment</H2>
+    <Prose>We now separate fitting mechanics from model selection. The next program creates a noisy two-moons classification task, reserves 300 training, 100 validation and 100 test rows, and defines four candidates before consulting the test set. Validation log loss chooses among shallow/deeper trees and forests with different minimum leaf sizes. A prior classifier supplies a baseline. Models remain fit only on the training subset, so the reported test evaluates that exact frozen choice.</Prose>
+    <Example id="held-out-forest"><Prose>In this executed run the one-row-minimum forest is selected: its validation log loss is 0.139317. Its final test accuracy is 0.94 and log loss 0.162984, against baseline accuracy 0.50 and log loss 0.693147. The forest's OOB accuracy of 0.956667 is a different internal estimate, not the final test result and not proof that it will attain that score in deployment.</Prose></Example>
+    <Prose>Log loss evaluates probabilities, including confidence in wrong predictions. A truly zero probability for an observed class has infinite mathematical log loss. Software clips probabilities according to its numerical policy when reporting a finite score; clipping does not make unsupported certainty reliable. Larger leaves, regularization choices or a separately validated calibration procedure can change probability quality. Check their effects instead of equating high accuracy with good probabilities.</Prose>
+    <Prose>If a missed positive costs C_FN and a false alarm costs C_FP, calibrated p leads to expected costs C_FN·p for predicting negative and C_FP·(1−p) for predicting positive. Predict positive when p exceeds C_FP/(C_FP+C_FN), with an explicit equality policy. This derives a decision rule under the stated costs and probability assumptions; the task's observed outcomes and deployment prevalence determine whether those assumptions are appropriate.</Prose>
+    <H3>Categories, missing measurements and unequal weights</H3>
+    <Prose>A numeric threshold on category codes imposes an order. Encoding red=0, green=1, blue=2 lets a stump isolate a prefix or suffix, but cannot isolate just green with one threshold. One-hot encoding makes a separate green indicator available. It changes the available questions and the number of candidate columns. Native categorical methods have their own search strategies; neither ordinal codes nor one-hot encoding is a universal winner.</Prose>
+    <Prose>An unseen category needs an explicit policy. An encoder configured to ignore unknown categories produces all zeros for that feature's indicators; the downstream prediction follows whatever those zeros mean to the fitted tree. It does not create a learned effect for the unseen category. Preserve the fitted feature names, column order and encoder as part of the inference artifact.</Prose>
+    <Prose>In the tested scikit-learn version, supported tree/forest estimators can learn missing-value directions while considering thresholds. Prediction routes a missing feature according to the fitted direction; when that feature had no missing training values, the documented fallback uses the child with more samples. Support depends on estimator, criterion, input representation and constraints. A missing value is not numerically zero, and missingness related to collection procedures can change across deployment.</Prose>
+    <Example id="categories-missing-weights"><Prose>These isolated mechanism cases show an unseen category's route, a learned missing direction and weighted leaf probabilities. The weighted constant-feature example has three negative rows of weight one and one positive row of weight six, giving p(1)=6/9. These are training demonstrations, not held-out performance comparisons.</Prose></Example>
+    <Prose>Nonnegative sample weights replace counts by mass in impurities and leaf distributions. Count constraints and weight constraints remain different. Class weights change the fitted objective; resampling changes which observations and multiplicities enter a fit. They are not equivalent under every stopping rule or bootstrap procedure, and neither creates evidence about rare situations absent from the data. Weighted probabilities may need adjustment or calibration for the intended deployment distribution.</Prose>
+    <Prose>For a real workflow, fit the encoder and model inside the development split or pipeline, specify feature availability time, evaluate the intended groups or chronology, and persist the complete fitted schema with library versions. If you refit the selected recipe on training plus validation data, that produces a new fitted model; evaluate that frozen model on the untouched test rather than silently attributing an earlier score to it. Reopening the test for repeated decisions consumes its independence.</Prose>
+
+    <H2>11. Ask what feature importance actually measures</H2>
+    <Prose><strong>Mean decrease in impurity (MDI)</strong> credits a feature with each split's impurity reduction, weighted by the fraction of training mass reaching that split. Sum these contributions over nodes using that feature, then normalize by their total when it is positive. A tree with no reduction has all-zero importances. Forest implementations aggregate the member results according to their defined normalization.</Prose>
+    <Prose>MDI describes how training splits used features. A column offering many candidate thresholds has more opportunities to look useful by chance. A correlated copy can take split credit away from the original, and a noisy high-cardinality feature can receive substantial credit while contributing little to held-out predictions. The scores are neither effect sizes nor causal explanations.</Prose>
+    <Prose><strong>Permutation importance</strong> freezes a fitted model and an evaluation set. Measure a score, shuffle one feature across rows, measure it again, and record the decrease in a score where larger is better. Use negative log loss if evaluating a loss. Repeat permutations to inspect shuffle variation. This asks how that fitted model's score relies on the feature under that perturbation.</Prose>
+    <PermutationRelianceLab />
+    <Prose>The two columns in this lab are exact copies, and the displayed rule reads only the first. Shuffling the unused copy leaves accuracy unchanged; that does not make the underlying information useless. Shuffling only the used column creates pairs that never occurred in the original data. Jointly shuffling both columns with one row permutation preserves their internal relationship and tests reliance on the group. It can still break relationships with other columns.</Prose>
+    <Example id="importance-report"><Prose>The held-out accuracy is 0.886667. Noise receives about 0.27 of normalized training impurity credit, but its mean held-out permutation accuracy decrease is only 0.005 in this run. Shuffling the two correlated signal columns together gives a different answer from adding their separate decreases. These are actual finite-sample results, not a general ranking of importance methods.</Prose></Example>
+    <Prose>Shuffling a one-hot block column by column can create impossible category encodings; use one shared row permutation for the block when testing it as one feature. Conditional permutation, which tries to preserve specified dependencies, asks a different question and requires a justified conditional model. None of these procedures automatically identifies a causal intervention.</Prose>
+    <Prose>The spread over repeated shuffles measures sensitivity to those shuffles on this fitted model and dataset. It is not by itself a population confidence interval. If importance results guide feature selection, the evaluation data become part of development. Reserve independent data for the final selected workflow and examine subgroup behavior when it matters to the task.</Prose>
+
+    <H2>12. Match computation and model to the task</H2>
+    <H3>Count operations before claiming speed</H3>
+    <Prose>One tree prediction follows one path, taking O(h) node tests at depth h. A forest uses the sum of its members' path lengths; 300 trees capped at depth twenty permit at most 6,000 such tests per query, plus aggregation and implementation overhead. This is an operation bound, not a microsecond estimate. Data layout, cache behavior, dtype, output size and batching influence actual latency.</Prose>
+    <Prose>At a node with m rows and q candidate features, sorting each feature and scanning prefix counts costs roughly O(q·m·log m) for sorting and O(q·m) for the scans in our scratch implementation. Re-sorting at each node of a balanced tree gives an O(q·n·log²n) bound under those assumptions. Presorting, histogram methods, reused orderings and very unbalanced trees have different costs. A family name alone does not establish a universal training complexity.</Prose>
+    <Prose>A binary tree with L leaves has 2L−1 nodes. With minimum unweighted leaf count a, L≤⌊n/a⌋; a depth-h bound also gives L≤2ʰ. Here counts include bootstrap multiplicities in the teaching implementation. Storing thresholds, children, feature indices and K-class distributions scales with actual nodes and K, not a fixed number of megabytes per forest. Measure the fitted artifact and workload if memory or latency is a requirement.</Prose>
+    <Prose>Independent trees and query batches offer parallel work, but memory bandwidth, process overhead and available cores limit scaling. Nested parallel model selection can oversubscribe a machine. The complete examples use one worker so they remain modest and reproducible. A larger <Code>n_jobs</Code> is a scheduling request, not a promise of linear speedup.</Prose>
+    <LessonTable caption="Choose a useful hypothesis, then validate it on the task" headers={['Model family','Mechanism that can help','Question to test']} rows={[
+      ['Single tree','Readable conditional rules; local interactions','Are the fitted rules stable and small enough to inspect?'],
+      ['Random forest','Average differently fitted trees','Does the ensemble improve held-out loss enough for its cost?'],
+      ['Linear / logistic model','Shared additive score; compact fitted representation','Do feature transformations capture enough of the relationship?'],
+      ['Extra Trees','Additional randomness in candidate thresholds','Does reduced fitting cost or variance compensate for altered bias?'],
+      ['Boosted trees','Sequential updates to a chosen loss','Do validated updates improve the target metric without overfitting?'],
+    ]} />
+    <Prose><strong>Extra Trees</strong> randomize candidate thresholds and compare the resulting candidate splits. This is not choosing every split without looking at labels. In scikit-learn, Extra Trees and Random Forest also have different bootstrap defaults. Compare explicitly chosen settings instead of attributing all differences to one mechanism. Boosting builds sequential corrections under a loss; it is not the only tree family able to represent feature interactions.</Prose>
+    <H3>An interesting connection: a forest can define similarity</H3>
+    <Prose>Send two observations through every tree. Their <strong>proximity</strong> is the fraction of trees in which they land in the same leaf. Suppose their two-tree leaf codes are A=(1,2), B=(1,3) and C=(4,3). A and B share one leaf, B and C share one, and A and C share none. The similarity matrix has ones on its diagonal and off-diagonal values 1/2, 1/2 and zero.</Prose>
+    <Prose>Why does this behave like an inner product? Encode each tree's leaf as a one-hot vector, concatenate the B vectors and divide by √B. The dot product of two resulting vectors is exactly their shared-leaf fraction. Thus the matrix is positive semidefinite; it need not be strictly positive definite. Euclidean distance between these encoded vectors is √[2(1−proximity)], which can be zero for distinct original inputs assigned to the same leaves.</Prose>
+    <Prose>This connects rule-based partitions to the neighbor and kernel ideas coming later. It is a learned representation: a supervised forest used training labels to construct it. Fit it within the relevant training folds before using its similarities in a downstream model. A proximity matrix built with test labels would transfer that information into the next learner. This connection is useful when ordinary coordinate distance misses the interactions the fitted forest represents.</Prose>
+
+    <H2>13. Practise with changed questions</H2>
+    <Prose>Work from the stated data before opening either disclosure. State the split contract, calculation and interpretation; a correct final number without its meaning is not enough. The last task combines the mechanisms in an independent experiment.</Prose>
+    <Practice title="1. Recompute a weighted gain" question="A parent has six positives and four negatives. A split puts four positives in the left child and two positives plus four negatives in the right. Compute binary Gini gain." hint="Calculate the 4/10 and 6/10 contributions separately."><Prose>Parent Gini is 2×0.6×0.4=0.48. Left impurity is zero; right impurity is 2×(1/3)×(2/3)=4/9. Weighted child impurity is (6/10)×4/9=4/15. Gain is 0.48−4/15=16/75≈0.213333. Averaging the two child impurities equally would be incorrect.</Prose></Practice>
+    <Practice title="2. Separate impurity scales" question="For an 80/20 binary node, compute Gini impurity, entropy in bits and majority-class training error. Does the smallest number identify the best split criterion?" hint="The three quantities have different definitions."><Prose>Gini is 0.32, entropy is −0.8log₂0.8−0.2log₂0.2≈0.721928 bits and error is 0.20. Their numeric sizes do not rank the criteria. Compare candidate reductions within a chosen criterion, then validate the fitted model against the task's metric.</Prose></Practice>
+    <Practice title="3. Check both children" question="A ten-row node permits splitting when it has at least six rows. Minimum leaf size is three. May its highest-gain 1/9 split be used?" hint="A parent eligibility rule and a child constraint have different jobs."><Prose>No. The parent may attempt a split, but the one-row child violates minimum leaf size. Search the remaining candidates for one with at least three rows in each child; if none qualifies, keep a leaf.</Prose></Practice>
+    <Practice title="4. Explain a failed XOR search" question="A depth limit of two is sufficient to represent XOR. Why might a greedy builder still return one leaf?" hint="Compute the immediate gain of either root question."><Prose>Both root questions leave half-positive children and have zero immediate gain. A builder that requires strictly positive gain stops. Allowing that intermediate split exposes the perfectly informative second question. Representation capacity and a search/stopping policy are separate.</Prose></Practice>
+    <Practice title="5. Test a nonlinear transformation" question="Train on x=0,label0 and x=4,label1 with arithmetic midpoint thresholds. Compare the prediction at x=2.5 before and after squaring this nonnegative feature." hint="The midpoint of squared endpoints is not the square of the original midpoint."><Prose>The original threshold is 2, so 2.5 goes right and predicts 1. The squared threshold is 8; 2.5²=6.25 goes left and predicts 0. The training partitions agree while this unseen query differs. Positive affine unit changes do not have this midpoint mismatch in exact arithmetic.</Prose></Practice>
+    <Practice title="6. Identify missing OOB evidence" question="For n=4 and two bootstrap trees, what is the probability that a specified row has no OOB prediction?" hint="First compute the chance it is omitted from one tree."><Prose>Omission probability is q=(3/4)⁴=81/256. No OOB prediction means the row is included in both trees: (1−q)²=(175/256)²=30625/65536≈0.467300. The correct response to this event is unavailable evidence, not a fabricated class probability.</Prose></Practice>
+    <Practice title="7. Find information outside the OOB boundary" question="You fit a target encoder on every training label and then report a forest's OOB accuracy. Has each OOB prediction excluded its row's label from the whole workflow?" hint="Trace what determined that row's encoded feature value."><Prose>No. Its label could influence the already fitted encoding, which is passed to trees that omit the raw row. OOB membership alone does not undo that information. Cross-fit label-dependent transforms and evaluate the complete workflow within suitable development folds.</Prose></Practice>
+    <Practice title="8. Compare two aggregation rules" question="Three trees give positive probabilities 0.40, 0.40 and 0.95. What does mean-probability classification predict, and what does hard majority voting predict?" hint="Average scores before applying the decision rule in the first case."><Prose>The mean is 1.75/3≈0.583333, giving class 1 at a 0.5 threshold. The hard labels are 0,0,1, giving majority class 0. State which rule is used before interpreting a forest output.</Prose></Practice>
+    <Practice title="9. Apply a conditional variance model" question="Under equal individual variance σ²=4 and common pairwise correlation ρ=0.25, calculate the variance of ten averaged outputs. What assumption makes extrapolation to a different model risky?" hint="Use σ²[ρ+(1−ρ)/B]."><Prose>The result is 4×[0.25+0.75/10]=1.3. The formula's inputs are assumed fixed. Changing tree depth, feature sampling or data can change variance and dependence simultaneously, so the same curve need not describe that new fitted procedure.</Prose></Practice>
+    <Practice title="10. Find a pruning crossover" question="A five-leaf subtree has root-normalized risk 0.10. A root-only subtree has risk 0.40. At what α do their penalized training costs tie? Does that choose the deployment model?" hint="Set 0.10+5α equal to 0.40+α."><Prose>They tie at α=0.30/4=0.075. Below it the five-leaf candidate costs less; above it the root-only candidate does. Other candidate subtrees may matter, and held-out validation still chooses useful complexity. A training-objective crossing is not a generalization guarantee.</Prose></Practice>
+    <Practice title="11. Diagnose an extrapolation proposal" question="All observed targets lie between 10 and 30. Someone expects a standard mean-leaf forest to predict 40 for a future input after log-transforming the targets. Does this change enable that extrapolation?" hint="Track the range of the transformed leaf means and their inverse transform."><Prose>No. Means of log targets stay between log10 and log30, so exponentiating returns values between 10 and 30. Constant leaves still remain constant beyond their last split. A justified trend model or another explicit extrapolating mechanism is needed; its behavior must be tested under a relevant deployment split.</Prose></Practice>
+    <Practice title="12. Interpret correlated features" question="An unused duplicate has zero permutation importance. Can you conclude its information is useless? How would you perturb a one-hot category block coherently?" hint="Distinguish information in the data from reliance of this fitted predictor."><Prose>No. Another copy may supply all the information the fitted model needs. Zero reliance on this column does not establish zero information. Apply one shared row permutation to the category block to preserve valid encodings within it, and explain that relationships with other columns may still be broken. Neither result is a causal effect.</Prose></Practice>
+    <Practice title="13. Produce a changed-data model report" question="Create 500 two-moons rows with noise 0.35 and seed 17. Reserve stratified 300/100/100 train/validation/test sets using split seeds 42 and 43. Before looking at test labels, compare Random Forest and Extra Trees with 80 members, minimum leaf sizes 2 or 8, max_features='sqrt', seed 3 and one worker. Select by validation log loss, then report test log loss, the prior baseline, a [0,1]-ordered confusion matrix and a limitation." hint="Keep the selected estimator trained on the training set for this experiment. The family defaults differ in bootstrap behavior."><Prose>An acceptable response includes all four development scores and identifies the chosen model before the final report. In the executed solution below, Extra Trees with leaf size two is selected, with validation log loss 0.449203. Its test log loss is 0.372891 against baseline 0.693147; the confusion matrix is [[42,8],[8,42]]. These 100 synthetic test cases and one split do not establish population superiority or calibration. Explain the changed noise, limited sample, family settings and retained fitting boundary.</Prose></Practice>
+    <details><summary>Complete executable response for the changed-data report</summary><Example id="changed-capstone"><Prose>This is one fully reproducible response with the stated contract. A different deployment question may require grouped/time splits, another metric or separate calibration data; those changes should be declared before final evaluation.</Prose></Example></details>
+
+    <H2>14. Continue from regions to neighbors</H2>
+    <Prose>You can now explain how a tree learns regions, audit a split, distinguish model capacity from greedy search, account for OOB membership and interpret a forest's probabilities and feature reliance. The next module topic is <a href="/learn/topic/k-nearest-neighbors-knn">K-Nearest Neighbors (KNN)</a>. It predicts from nearby observations instead of fitting a sequence of threshold questions. The contrast makes distance, scaling and local support especially concrete. <a href="/learn/topic/gradient-boosted-trees-xgboost-lightgbm-catboost">Gradient-Boosted Trees</a> follows KNN and develops sequential fitting under a loss.</Prose>
+    <Sources>{[
+      { label:'StatQuest — Random Forests, Step-by-Step (video)',href:'https://www.youtube.com/watch?v=J4Wdy0Wc_xQ',note:'An alternate bootstrap/feature-randomness explanation after the first tree sections. Creator/title were verified; the linked original author companion was read. Full playback/transcript was not reviewed. Distinguish classic hard voting from the mean-probability implementation used here.' },
+      { label:'scikit-learn — Decision Trees',href:'https://scikit-learn.org/stable/modules/tree.html',note:'Read for fitted leaf probabilities, numeric feature handling, missing-value routes and cost-complexity pruning. The examples here were executed with version 1.9.1; consult the API for your estimator/criterion/constraint combination.' },
+      { label:'scikit-learn — Minimal Cost-Complexity Pruning example',href:'https://scikit-learn.org/stable/auto_examples/tree/plot_cost_complexity_pruning.html',note:'A worked path from effective alpha to tree size and development-set performance. Its set named test is used to select alpha, so it functions as validation; reserve another untouched test for a final selected-model estimate.' },
+      { label:'scikit-learn — Forests and Extra Trees',href:'https://scikit-learn.org/stable/modules/ensemble.html#forest',note:'Implementation-specific probability averaging, feature randomness, bootstrap settings and related ensemble behavior. Do not substitute generic hard-voting descriptions for the API contract.' },
+      { label:'scikit-learn — Permutation Feature Importance',href:'https://scikit-learn.org/stable/modules/permutation_importance.html',note:'Worked score perturbations, model-specific interpretation, training versus held-out use and correlated-feature cautions. Useful after doing the duplicate-feature investigation.' },
+      { label:'Leo Breiman — Random Forests (2001 paper)',href:'https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf',note:'Advanced primary source for randomized-tree voting, margins, strength and the precisely defined correlation bound. Historical experiments are not current library benchmarks.' },
+      { label:'Breiman and Cutler — Random Forests companion',href:'https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm',note:'The overview, OOB construction and proximity sections were read as a historical companion. Treat broad performance and unbiasedness wording in its original setting; this lesson states finite-sample, selection and validation limits explicitly.' },
+    ].map(({ label, href, note })=><li key={href}><a href={href}>{label}</a> — {note}</li>)}</Sources>
+  </div>,
 };
-
-export default decisionTreesRandomForestsContent;

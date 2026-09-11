@@ -1,80 +1,258 @@
-import { Callout, Code, CodeBlock, H2, Prose } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
+import { H2, H3, Prose, Code, Callout } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { Checkpoint, LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { StateMeaningFigure, StabilityMeaningFigure, EquilibriumBranchFigure, ScalarFlowLab, PlanarFlowLab, LogisticIterationLab, SensitivityLab, TentFoldingLab, LorenzProjectionLab, NumericalDynamicsLab } from '../../components/lesson-labs/DynamicalSystemsLabs.jsx';
+import { dynamicalSystemsExamples as examples } from '../dynamical-systems-examples.js';
 
-const content = {
-  title: "Dynamical Systems Theory & Chaos",
-  readTime: "~43 min",
-  content: () => <div>
-    <H2>1. The question: how does a state evolve under a rule?</H2>
-    <Prose>
-      A dynamical system specifies how a state changes over time. The state may be a pendulum's position and velocity, a population, a chemical concentration, a hidden state in a recurrent model, or a control system. The rule may be continuous in time, expressed as a differential equation, or discrete, expressed as an update map. Dynamics helps us reason about trajectories, long-run behaviour, stability, and the limits of prediction.
-    </Prose>
-    <MathBlock>{`\\frac{dx}{dt}=f(x,t)\\quad\\text{(continuous time)}, \\qquad x_{t+1}=F(x_t)\\quad\\text{(discrete time)}`}</MathBlock>
-    <Prose>
-      The key distinction from a static model is feedback: tomorrow's state depends on today's state. A small modelling error can therefore compound through repeated updates, even if every individual update looks reasonable.
-    </Prose>
+function Example({ example }) {
+  return <section><Prose><strong>Before running.</strong> {example.question}</Prose><RunnableExample example={example} /><Prose>{example.interpretation}</Prose></section>;
+}
 
-    <H2>2. Fixed points and stability are the first things to inspect</H2>
-    <Prose>
-      A fixed point (or equilibrium) is a state that does not change under the dynamics. For a discrete map it satisfies <Code>x* = F(x*)</Code>; for an autonomous differential equation it satisfies <Code>f(x*) = 0</Code>. The important follow-up is stability: does a small perturbation return toward the equilibrium or move away from it?
-    </Prose>
-    <MathBlock>{`|F'(x^*)|&lt;1\\Rightarrow\\text{locally stable discrete fixed point}, \\qquad \\operatorname{Re}(\\lambda(J_f(x^*)))&lt;0\\Rightarrow\\text{locally stable continuous equilibrium}`}</MathBlock>
-    <Prose>
-      The Jacobian <Code>J_f</Code> is the multidimensional derivative. Its eigenvalues describe local expansion, contraction, rotation, and oscillation. Linearisation is a local approximation, so it can be misleading far from the equilibrium or near strongly non-linear transitions.
-    </Prose>
+function Practice({ title, prompt, hint, children }) {
+  return <section className="lesson-check"><h3>{title}</h3><Prose>{prompt}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Show explained solution</summary>{children}</details></section>;
+}
 
-    <H2>3. The logistic map shows feedback becoming complicated</H2>
-    <Prose>
-      The logistic map is a tiny deterministic population model: x is a scaled population between zero and one, r controls growth, and the factor <Code>(1 - x)</Code> represents limited resources. Its simplicity makes it ideal for seeing bifurcations and chaos without hiding behind a complex simulator.
-    </Prose>
-    <MathBlock>{`x_{t+1}=r x_t(1-x_t)`}</MathBlock>
-    <Prose>
-      It has fixed points 0 and <Code>(r - 1) / r</Code>. The nonzero fixed point has derivative <Code>2 - r</Code>, so it is stable for 1 &lt; r &lt; 3. As r rises, the system moves through period doubling—one stable value becomes a two-cycle, then four, then more complex behaviour. For many r values beyond about 3.57 it is chaotic, though periodic windows still occur.
-    </Prose>
+export default {
+  title: 'Dynamical Systems Theory & Chaos',
+  readTime: '~95 min read + 3–4 hours practice',
+  content: () => <div className="dynamical-systems-lesson">
+    <LessonIntro prerequisites="Read a derivative as a local rate, multiply a small matrix by a vector, and interpret an eigenvalue or Jacobian. A short rate-to-trajectory bridge is included; you do not need a prior differential-equations course. Probability density is refreshed where the statistical view begins." sections={[
+      ['1-choose-a-state-and-a-clock', 'State, rules and time'],
+      ['2-ask-what-a-disturbance-does', 'Stability and attraction'],
+      ['3-read-the-landscape-and-its-basins', 'Phase lines and bifurcations'],
+      ['4-see-time-through-a-phase-portrait', 'Geometry and transient growth'],
+      ['5-build-an-attracting-oscillation', 'Cycles and return maps'],
+      ['6-feed-an-output-back-into-the-rule', 'Logistic iteration and cycles'],
+      ['7-measure-sensitivity-without-overclaiming', 'Error growth and chaos evidence'],
+      ['8-see-why-stretching-and-folding-matter', 'An exact chaotic map'],
+      ['9-keep-the-full-state-behind-a-projection', 'Lorenz and higher dimensions'],
+      ['10-check-the-dynamics-of-the-numerical-method', 'Numerical stability and energy'],
+      ['11-transfer-the-reasoning-and-practise', 'Applications and independent practice'],
+    ]}>A rule can be completely deterministic and still be difficult to predict far ahead. Learn to follow a state, recognize where it settles, explain why that behavior changes, and judge what a simulation actually establishes. The central question throughout is: which conclusion follows from the rule, and which is only evidence from a finite run?</LessonIntro>
 
-    <H2>4. Chaos is deterministic but rapidly unpredictable</H2>
-    <Prose>
-      Chaotic systems have sensitive dependence on initial conditions: two states that begin almost identically can separate exponentially fast. There is no random number generator in the rule. The unpredictability comes from limited measurement precision and repeated nonlinear feedback, which create a finite horizon for accurate individual forecasts.
-    </Prose>
-    <CodeBlock language="python">{`def logistic(x, r):
-    return r * x * (1 - x)
+    <H2>1. Choose a state and a clock</H2>
+    <Prose>A photograph shows a cart at the center of a track. Is it about to move left or right? Position alone cannot answer: you also need velocity. A <strong>state</strong> is the collection of quantities needed to determine how your chosen model evolves, given any specified external inputs. For this cart it might be the pair (position, velocity). For an iterative algorithm it might include its current estimate and its momentum, not only the estimate.</Prose>
+    <StateMeaningFigure />
+    <Prose>A <strong>dynamical system</strong> combines a state space, a rule for change and a time convention. A state space is the set of permitted states, such as all position–velocity pairs or a population fraction between 0 and 1. A <strong>trajectory</strong> is the sequence or curve obtained by starting at one state and following the rule. Parameters, such as a drag coefficient, belong to the rule; the initial state selects a trajectory under that rule.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    x_{n+1}&=F(x_n) &&\text{discrete update},\\
+    \dot x(t)&=f(x(t)) &&\text{continuous rate}.
+    \end{aligned}`}</MathBlock>
+    <Prose>Here n counts updates and t measures continuous time. F returns a new state. In contrast, f returns a <em>rate</em>, with units “state units per time unit.” The dot means a time derivative. For a vector state, f returns one rate for each coordinate. Knowing the rate at one instant is not the same as knowing the full change over the next second.</Prose>
+    <Prose>Consider a warm object cooling toward a fixed room temperature. Let x be its excess temperature, measured in degrees, and let k&gt;0 be a decay rate measured in inverse minutes. The rule x′=−kx says the object loses excess temperature at a rate proportional to what remains. The trajectory from x₀ is x(t)=x₀e⁻ᵏᵗ: differentiate it and you recover the stated rate and initial value.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \Delta x&=x(t+h)-x(t),\\
+    \Delta x&=\int_t^{t+h}f(x(s))\,ds,\\
+    \Delta x&\approx h f(x(t)).
+    \end{aligned}`}</MathBlock>
+    <Prose>The integral adds the changing rate over the interval. Replacing the whole rate curve by its value at the left endpoint gives <strong>forward Euler</strong>, a numerical approximation. Cooling then has Euler multiplier 1−kh, while the exact multiplier over the interval is e⁻ᵏʰ. A numerical update is a new discrete dynamical system, and its behavior can differ from the continuous system it approximates.</Prose>
+    <Example example={examples.cooling} />
+    <H3>When is the next state actually determined?</H3>
+    <Prose>The autonomous rule f(x) has no explicit clock dependence. A driven cart may instead obey x′=f(x,t,u(t)), where u is a specified control or external force. If you omit a changing input, two apparently identical recorded states may evolve differently. Adding a clock coordinate τ′=1 makes explicit time dependence autonomous in an enlarged state space; it does not make the unknown forcing known.</Prose>
+    <Prose>For ordinary differential equations, a continuously differentiable vector field near the initial state gives a unique local solution. “Local” matters. The smooth rule x′=x² with x(0)=1 has solution 1/(1−t), which becomes unbounded at t=1. Smoothness does not promise existence for all future time. Nor is every possible state physically meaningful just because an equation accepts its numbers.</Prose>
+    <Checkpoint prompt="A recurrent predictor uses both its current output and an internal memory vector. Two runs have the same output but different memory. Must their next outputs agree?"><Prose>No. The output alone is not the full state of that rule. A valid comparison must include the memory and the same next external input. This is a state-modeling issue, not automatically randomness or numerical error.</Prose></Checkpoint>
+    <Prose><strong>Reproduce the examples.</strong> Save each complete Python program below in its own file. Most use the standard library. The matrix-exponential and Lorenz examples need NumPy and SciPy; the Jacobian example needs NumPy. They were run with Python 3.12.14, NumPy 2.3.5 and SciPy 1.18.1. The browser labs use their declared bounded models and do not execute Python. All unqualified coordinates and times in the mathematical examples below are dimensionless.</Prose>
 
-r = 3.9
-x, y = 0.5, 0.500001  # initial states differ by one millionth
-for _ in range(50):
-    x = logistic(x, r)
-    y = logistic(y, r)
+    <H2>2. Ask what a disturbance does</H2>
+    <Prose>A state that stays unchanged is an <strong>equilibrium</strong> of a continuous rule, or a <strong>fixed point</strong> of an update map. Solve f(x*)=0 for the former and F(x*)=x* for the latter. The star marks the special state; it is not multiplication. Finding a resting state is only the first question. The more useful question is what happens if the system starts a little away from it.</Prose>
+    <LessonTable caption="Three different promises about nearby starts" headers={['Property', 'What it says', 'What it does not say']} rows={[
+      ['Lyapunov stability', 'For every permitted small distance ε, some sufficiently small starting distance δ keeps the entire future trajectory inside ε.', 'The trajectory need not return to the equilibrium.'],
+      ['Attraction', 'Starts in a neighborhood approach the equilibrium as time goes to infinity.', 'This definition alone does not supply the stays-near condition.'],
+      ['Asymptotic stability', 'The equilibrium is both stable and attracting.', 'The rate need not be exponential, and the basin need not be the entire state space.'],
+      ['Exponential stability', 'Distance is bounded by C e⁻ᵅᵗ times initial distance, for positive C and α in the stated neighborhood.', 'C may exceed 1, so a temporary increase in a chosen norm can still occur.'],
+    ]} />
+    <StabilityMeaningFigure />
+    <Prose>For x′=0, every nearby initial point stays exactly where it started. The origin is stable but not attracting. For x′=−x, the distance decays exponentially. For x′=−x³, the origin also attracts, but the exact solution is x₀/√(1+2x₀²t), so the decay is algebraic rather than exponential. If the chosen neighborhood can be the entire permitted state space, the corresponding attraction or stability result is called global; otherwise it is local.</Prose>
+    <H3>Linearize, then check the correct boundary</H3>
+    <Prose>Write a small disturbance as δ=x−x*. A first-order expansion gives δ′≈Jδ for a flow and δₙ₊₁≈Aδₙ for a map. J and A are the Jacobians of f and F at the special state. In one dimension they are ordinary derivatives. The linear flow repeatedly applies eᴶᵗ; the linear map repeatedly applies A. That difference explains why their stability boundaries differ.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \delta'&=\lambda\delta
+      &&\Rightarrow \delta(t)=e^{\lambda t}\delta(0),\\
+    \delta_{n+1}&=m\delta_n
+      &&\Rightarrow \delta_n=m^n\delta_0.
+    \end{aligned}`}</MathBlock>
+    <Prose>For a continuously differentiable finite-dimensional autonomous flow, all Jacobian eigenvalues having negative real part is a sufficient local exponential stability condition. A positive real part implies instability. For a continuously differentiable map, all eigenvalue magnitudes below 1 give local exponential stability; an eigenvalue outside the unit circle implies instability. These statements concern an appropriate neighborhood of the equilibrium and the stated smooth model.</Prose>
+    <Prose>The unresolved boundaries are real part zero for a flow, and magnitude one for a map. They require further analysis. Both x′=−x³ and x′=x³ have derivative zero at the origin; one attracts and the other repels. A derivative test with equality cannot decide between them. For a constrained state space, also specify from which admissible side a perturbation is allowed.</Prose>
+    <Example example={examples.scalar} />
+    <Checkpoint prompt="A scalar continuous flow has rate derivative −2. A discrete map has derivative −2. Are both locally attracting?"><Prose>The flow's linear disturbance decays as e⁻²ᵗ. The map's disturbance flips sign and doubles in magnitude at each update. The same printed number has a different role: a rate in the first case, a multiplier in the second.</Prose></Checkpoint>
 
-print(round(x, 6), round(y, 6), round(abs(x - y), 6))`}</CodeBlock>
-    <CodeBlock language="output">{`0.241355 0.800844 0.559489`}</CodeBlock>
-    <Prose>
-      A Lyapunov exponent quantifies average local separation; a positive largest exponent is a hallmark of chaos. One dramatic trajectory is not proof of chaos. Estimate sensitivity across states and time, rule out numerical artifacts, and distinguish deterministic nonlinearity from stochastic noise.
-    </Prose>
+    <H2>3. Read the landscape and its basins</H2>
+    <Prose>In one dimension, the sign of f(x) gives the direction of motion. Draw the x-axis, mark zeros of f, and put arrows right where f&gt;0 and left where f&lt;0. This <strong>phase line</strong> makes the qualitative future visible without solving the equation. With a locally unique autonomous solution, trajectories cannot pass through an equilibrium and continue to the other side: that would conflict with the solution that stays there.</Prose>
+    <Prose>Use x′=a x−x³. At a=1 the equilibria are −1, 0 and 1. On the positive side, motion points right below 1 and left above 1. Every positive start approaches 1; every negative start approaches −1; the exact zero start remains zero. The <strong>basin of attraction</strong> of an attractor is the set of initial states that approach it. Here the positive and negative half-lines are different basins, separated by the unstable equilibrium at zero.</Prose>
+    <Prose>There is also a useful landscape. Define V(x)=x⁴/4−a x²/2. Its negative derivative is the rate, so motion travels downhill in V. This function is not necessarily a physical energy, and its zero level is arbitrary.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \dot x&=-V'(x),\\
+    \frac{dV}{dt}&=V'(x)\dot x
+                  =-[V'(x)]^2\le 0.
+    \end{aligned}`}</MathBlock>
+    <Prose>At a=1 there are two valleys and a hill between them. Starting near the hill on different sides leads to different destinations even without chaos. The basin boundary, rather than persistent expansion within one attractor, explains that final difference. A nonincreasing function is useful evidence, but alone it does not say that every trajectory converges to your favorite point.</Prose>
+    <ScalarFlowLab />
+    <H3>Change the rule and watch a bifurcation</H3>
+    <Prose>A <strong>bifurcation</strong> is a qualitative change in the dynamics as a parameter varies. In this example, a&lt;0 gives one attracting equilibrium at zero. At a=0, the cubic still attracts but its linearization is zero. For a&gt;0, zero repels and two attracting states appear at ±√a. This symmetric branching is the supercritical pitchfork normal form. “Normal form” means a simple representative local equation; it is not a claim that every physical system is exactly this polynomial.</Prose>
+    <Prose>Break the symmetry with the tilted rule x′=b+x−x³. A fold occurs when an equilibrium also has zero derivative. Solve b+x−x³=0 together with 1−3x²=0: the turning states are ±1/√3 and the parameter thresholds are ∓2/(3√3). Between those thresholds there are three equilibria, including two attracting ones. At a threshold two meet in a saddle-node bifurcation; the double root attracts from only one side. Beyond it only one attracting root remains.</Prose>
+    <Prose>This is a mechanism for <strong>hysteresis</strong>: in an ideal sufficiently slow parameter sweep, a system tracking one attracting branch may remain there until that branch disappears, then move to the other. Reversing the sweep can switch it back at a different threshold. Actual finite-speed dynamics can add delayed switching, while noise can induce earlier transitions. The lab solves each fixed parameter separately; it does not simulate those sweep rates or noise.</Prose>
+    <EquilibriumBranchFigure />
+    <details><summary>Deeper: when does a Lyapunov function establish convergence?</summary><Prose>Near a chosen equilibrium, a positive-definite V means V(x*)&nbsp;=&nbsp;0 and V&gt;0 elsewhere nearby. A negative-definite derivative along solutions gives a local asymptotic stability argument under the usual smoothness conditions. For a global result, suitable properness or radial unboundedness is also needed to stop level sets from permitting escape. In the two-well example, shift V by its value at a chosen minimum and restrict to a neighborhood of that minimum; the raw two-well polynomial is not positive-definite about zero.</Prose><Prose>If V̇≤0 only, the invariance principle asks for the largest invariant set inside V̇=0 within an appropriate compact positively invariant set. That set may contain more than one equilibrium or an entire orbit. “Energy never increases” is not a proof that all states return to a selected equilibrium. The dedicated nonlinear-control lesson extends this into regional certificates and control design.</Prose></details>
 
-    <H2>5. Attractors, cycles, and basins of attraction</H2>
-    <Prose>
-      Long-run trajectories can approach a fixed point, a periodic orbit (limit cycle), a more complicated attractor, or escape the model's meaningful region. A basin of attraction is the set of initial states that lead to the same attractor. Multiple basins matter in optimisation and control: two nearly identical starting conditions can settle into qualitatively different outcomes if they sit on opposite sides of a boundary.
-    </Prose>
-    <Prose>
-      Phase portraits visualise trajectories against one another—such as position versus velocity—rather than against time. They often expose cycles, equilibria, and unstable regions that a single time-series plot obscures. In high dimensions, projections can be useful but must not be mistaken for the full state-space geometry.
-    </Prose>
+    <H2>4. See time through a phase portrait</H2>
+    <Prose>A time plot shows a coordinate against t. A <strong>phase portrait</strong> plots state coordinates against each other: every point is a complete two-coordinate state, and an arrow shows the current rate there. For q′=−p, p′=q, the radius squared q²+p² stays constant because its derivative is 2q(−p)+2p(q)=0. A time trace oscillates; the phase trace is a circle.</Prose>
+    <Prose>The origin of that system is a <strong>center</strong>. Nearby circles remain nearby but do not spiral into the origin or into one special circle. Adding −0.4 times each coordinate gives an attracting spiral: q′=−0.4q−p, p′=q−0.4p. Its radius decays as e⁻⁰·⁴ᵗ while its angle increases at one radian per time unit. A saddle such as q′=0.4q, p′=−0.5p has one decaying direction and one growing direction. Exact starts on q=0 approach zero; a nonzero q eventually grows.</Prose>
+    <PlanarFlowLab />
+    <Prose>These examples connect eigenvalues to geometry. A complex pair with real part −0.4 and imaginary parts ±1 gives decay plus rotation. A positive and negative real pair gives a saddle. The stable and unstable directions of a nonlinear saddle can become curved <strong>manifolds</strong>: sets of states that approach the equilibrium in forward or backward time. Local linearization describes their tangent directions, not their entire global shapes.</Prose>
+    <H3>A stable system can initially amplify an error</H3>
+    <Prose>It is tempting to think that negative eigenvalues mean every distance shrinks at every instant. Consider q′=−q+6p, p′=−2p. Both eigenvalues are negative, but starting at (0,1) gives p=e⁻²ᵗ and q=6(e⁻ᵗ−e⁻²ᵗ). At t=ln2 the state is (1.5,0.25), whose distance from the origin is about 1.52, larger than its initial distance 1. Eventually both coordinates vanish.</Prose>
+    <Prose>The reason is transfer: while p decays, it drives q through the coefficient 6. This is an example of <strong>nonnormal transient growth</strong>; the matrix does not commute with its transpose, and its eigenvectors do not provide an orthogonal decomposition that makes Euclidean decay obvious. The effect matters when a brief amplification can overflow an actuator or computation before eventual decay arrives. The norm and units must also be meaningful: mixing meters and meters per second in an unscaled Euclidean norm can hide an arbitrary weighting choice.</Prose>
+    <Example example={examples.transient} />
+    <Checkpoint prompt="Two phase curves cross in a picture of x against z from a three-dimensional model. Does uniqueness fail?"><Prose>Not necessarily. Their omitted y coordinates may differ. Uniqueness applies to the full state of the same deterministic rule. Projected crossings can be artifacts of discarding a coordinate, and a time-varying rule also needs its clock/input context.</Prose></Checkpoint>
 
-    <H2>6. Connections to ML, control, and simulation</H2>
-    <Prose>
-      Recurrent networks and iterative optimisation are discrete dynamical systems; exploding or vanishing gradients correspond to repeated expansion or contraction. Neural ODEs define continuous-time dynamics learned from data. Model-predictive control plans actions using a dynamics model, while reinforcement learning must account for state transitions. In all these cases, stability and error propagation are engineering concerns, not just theoretical decoration.
-    </Prose>
-    <Callout accent="green" label="A learned one-step model can still fail long term">
-      Low one-step prediction error does not guarantee accurate rollouts. Reusing a model's own output as its next input exposes it to states absent from training and compounds small bias. Evaluate multi-step trajectories, conservation laws, stability regions, and uncertainty—not only single-step loss.
-    </Callout>
+    <H2>5. Build an attracting oscillation</H2>
+    <Prose>Many systems settle into repeated motion instead of a resting point. A <strong>periodic orbit</strong> returns to the same full state after a positive period. A <strong>limit cycle</strong> is an isolated periodic orbit: nearby curves are not all periodic orbits of the same family as they are at a center. An attracting limit cycle draws nearby trajectories toward the orbit as a set.</Prose>
+    <Prose>We can build one by controlling radius and angle separately. Let r=√(q²+p²), and let θ be the angle. Choose θ′=1, so the state rotates once every 2π time units, and r′=a r−r³. In Cartesian coordinates this gives the following smooth system, including at r=0 where angle itself is undefined.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \dot q&=a q-p-(q^2+p^2)q,\\
+    \dot p&=q+a p-(q^2+p^2)p.
+    \end{aligned}`}</MathBlock>
+    <Prose>For a&lt;0 all nonzero radii decrease to zero. At a=0 they still decrease, but algebraically. For a&gt;0, small positive radii increase and large radii decrease toward √a. The origin remains a fixed state but is unstable; the circle r=√a is attracting. This is a supercritical Hopf normal form: a pair of eigenvalues a±i crosses the imaginary axis as the cycle is born. For a general system, additional nondegeneracy and nonlinear coefficients decide whether a Hopf bifurcation occurs and which type it is.</Prose>
+    <Prose>Return to the planar lab and select Hopf. At a=0.25 the target radius is 0.5. A point starting at radius 0.2 spirals outward; one starting at radius 1 spirals inward. They approach the same circle, but two different angles need not synchronize. <strong>Orbital attraction</strong> concerns distance to the cycle; convergence to the same position at the same clock time is a stronger claim.</Prose>
+    <H3>Turn one revolution into an update map</H3>
+    <Prose>A <strong>Poincaré section</strong> samples repeated crossings of a surface through state space. Choose the positive q-axis and record a crossing only when the orbit crosses in the chosen direction. In our radial example each nonzero start returns after 2π, so the return map sends one radius to the radius one turn later. In a general flow the return time varies with the starting point; simply sampling every fixed second is a different construction.</Prose>
+    <Prose>Linearize the radial equation at r*=√a. Its derivative is a−3r*²=−2a. A small radial error therefore gets multiplier e⁻⁴πᵃ after one turn. For a=0.25 that is e⁻π≈0.0432, a strong radial contraction. The full continuous orbit has a neutral phase direction: shifting a point along the same cycle does not disappear under repeated flow. The section removes that direction and reveals transverse stability.</Prose>
+    <Example example={examples.hopf} />
+    <details><summary>Deeper: why ordinary planar flows have a special restriction</summary><Prose>For a continuously differentiable autonomous planar vector field, a trajectory trapped in an appropriate compact positively invariant region, whose omega-limit set contains no equilibrium, has a periodic orbit as that limit set. The omega-limit set contains states approached along arbitrarily late times. This is a useful form of the Poincaré–Bendixson theorem, not a guarantee that every two-dimensional trajectory is periodic. Escape, equilibria and connections between them require separate treatment.</Prose><Prose>The familiar strange-attractor mechanism of the Lorenz flow needs more than this planar autonomous setting. A periodically forced two-coordinate model gains a third coordinate when the forcing phase is included. A discrete one-dimensional noninvertible map also avoids the planar-flow restriction because iteration is not a unique continuous-time planar flow.</Prose></details>
 
-    <H2>7. Numerical and modelling pitfalls</H2>
-    <Prose>
-      Numerical integrators introduce their own dynamics: a large step size can manufacture instability or damp a real oscillation. Compare step sizes and, when relevant, use integrators that preserve important structure. Estimate parameters on held-out trajectories, respect measurement noise and unobserved inputs, and avoid interpreting correlation in a time series as evidence of a complete state model. External forcing can make an apparently autonomous system time-varying.
-    </Prose>
-    <Callout label="Practice">
-      Simulate the logistic map for r values 2.5, 3.2, 3.5, and 3.9 from several nearby initial states. For each, decide whether trajectories approach a fixed point, a cycle, or show sensitive behaviour. What finite-time evidence would you collect before claiming the last case is chaotic?
-    </Callout>
+    <H2>6. Feed an output back into the rule</H2>
+    <Prose>Now switch time conventions: one update is one generation. The logistic map xₙ₊₁=r xₙ(1−xₙ) treats x as a scaled population and r as a growth parameter. The factor 1−x reduces growth as the current state approaches its upper scale. This is a deliberately simple feedback model, not a universal population law. For 0≤r≤4 and 0≤x≤1, the output remains in [0,1] because x(1−x) lies between 0 and 1/4. Outside this parameter range that state-space promise fails.</Prose>
+    <Prose>At r=2.5, starting from 0.2 gives 0.4, then 0.6, then 0.6 again. The long-run state can be found by solving x=r x(1−x): zero is always a fixed point; when r&gt;0 the other algebraic root is 1−1/r. That second root is inside the population interval only when r≥1, and it coincides with zero at r=1.</Prose>
+    <Prose>The derivative is F′(x)=r(1−2x). At zero its value is r. At the nonzero root it is 2−r, whose magnitude is below 1 for 1&lt;r&lt;3. A negative multiplier means alternate-side corrections; magnitude below 1 means those corrections shrink. The cobweb below exposes both steps of feedback: evaluate the rule, then use that output as the next input.</Prose>
+    <LogisticIterationLab />
+    <H3>When the fixed point loses stability, inspect a whole cycle</H3>
+    <Prose>A two-cycle consists of distinct points x₋ and x₊ with F(x₋)=x₊ and F(x₊)=x₋. Solve F(F(x))=x, factor out the fixed-point roots, and the remaining roots are:</Prose>
+    <MathBlock>{String.raw`x_\pm=\frac{r+1\pm\sqrt{(r-3)(r+1)}}{2r}.`}</MathBlock>
+    <Prose>For r&gt;3 these are distinct real points in the invariant interval for the displayed range. Stability depends on the derivative of a full return: multiply F′ at both points. The result is 4+2r−r². Its magnitude is below 1 for 3&lt;r&lt;1+√6, about 3.44949. At r=3.2 the points are approximately 0.513045 and 0.799455, and one full two-step cycle has multiplier 0.16.</Prose>
+    <Prose>This produces the first <strong>period doubling</strong>: an attracting fixed point gives way to an attracting two-cycle. Later doublings produce four, eight and further periods. The classical sequence accumulates near r=3.56995, but this is not a dividing line after which every parameter has identical chaotic behavior. There are periodic windows, including an attracting period-three regime near r=3.83. A finite atlas also misses windows narrower than its parameter grid.</Prose>
+    <Example example={examples.cycles} />
+    <details><summary>Deeper: equality at r=1 or r=3 needs nonlinear terms</summary><Prose>At r=1, every 0&lt;x&lt;1 decreases under x↦x−x² and is bounded below by zero. Its limit must satisfy L=L−L², so L=0. The boundary fixed point attracts from the admissible right side even though its derivative equals 1. At r=3, write x=2/3+δ. One step gives δ↦−δ−3δ². Two steps give δ↦δ−18δ³−27δ⁴. For sufficiently small nonzero δ, the leading cubic correction reduces its magnitude after two steps. Thus the marginal case needs nonlinear reasoning; the strict derivative test was inconclusive rather than false.</Prose></details>
+
+    <H2>7. Measure sensitivity without overclaiming</H2>
+    <Prose>Deterministic means the rule and full initial state specify the evolution. It does not mean that an initial measurement with finite precision permits accurate predictions indefinitely. To examine sensitivity, run the same rule from x₀ and x₀+δ₀. Their actual separation δₙ is a finite difference. For a sufficiently small difference, linearization instead predicts a tangent disturbance that is multiplied by the derivative at each point of the reference orbit.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \delta_{n+1}&\approx F'(x_n)\delta_n,\\
+    \log\left|\frac{\delta_n}{\delta_0}\right|
+      &\approx\sum_{j=0}^{n-1}\log|F'(x_j)|.
+    \end{aligned}`}</MathBlock>
+    <Prose>A <strong>Lyapunov exponent</strong>, when this limit exists for the stated orbit, is the long-run average logarithmic tangent expansion per update. In a multidimensional system there can be several directional rates. A finite estimate uses a declared number of terms, often after discarding a transient. It is evidence about that chosen orbit and window; it is not automatically the limiting exponent of every initial state.</Prose>
+    <MathBlock>{String.raw`\lambda(x_0)=
+    \lim_{n\to\infty}\frac1n
+      \sum_{j=0}^{n-1}\log|F'(x_j)|.`}</MathBlock>
+    <Prose>The logarithm converts products into sums and makes exponential growth appear linear. Use natural logarithms for λ in these equations; the lab labels its separation chart with base-10 logs for readability. If a derivative is exactly zero, its log is −∞. Replacing it by an arbitrary small number manufactures a different exponent. Higher-order finite perturbations may still move away after such a zero tangent derivative.</Prose>
+    <Example example={examples.original} />
+    <Prose>The preserved nearby-start program illustrates a large eventual difference. Notice its special initial state x₀=0.5: the logistic derivative is zero there. Expanding exactly gives F(0.5+δ)−F(0.5)=−rδ². The first difference is quadratic and shrinks dramatically before later updates amplify it. That is a useful example of why a dramatic final number should not replace analysis of the intermediate mechanism.</Prose>
+    <SensitivityLab />
+    <H3>What does a positive rate establish?</H3>
+    <Prose>Positive tangent expansion is a hallmark of many chaotic regimes, but it is insufficient by itself to classify an orbit as chaotic. At r=4, the exact state x=0.75 is fixed forever, while |F′(0.75)|=2 and its exponent is ln2&gt;0. The orbit is an unstable periodic orbit. Unbounded simple expansion, such as x↦2x on the real line, also has a positive rate without the bounded recurrent stretching-and-folding behavior we want to explain.</Prose>
+    <Prose>There are several formal definitions of chaos, suited to different settings. Sensitive dependence, recurrence, aperiodicity of typical trajectories, topological mixing and measure-theoretic properties are related but are not interchangeable one-line tests. In the next section, we will use an exact bounded map where stretching, folding, dense periodic points and mixing can be justified directly. A finite jagged plot alone proves none of those infinite-time statements.</Prose>
+    <Prose>Actual pair separation in [0,1] cannot grow beyond 1. Once it reaches the scale of the attractor, the tangent approximation no longer predicts that pair. Estimating λ by fitting a straight line across the saturated region understates expansion. Tangent propagation or repeated renormalization addresses that measurement issue; it does not remove finite-sample, roundoff or model errors.</Prose>
+    <MathBlock>{String.raw`n_{\mathrm{horizon}}\approx
+    \frac{\log(\varepsilon/|\delta_0|)}{\lambda},
+    \qquad \lambda>0.`}</MathBlock>
+    <Prose>This forecast horizon assumes a roughly representative positive rate, a small initial error and a tolerance ε within the regime where local growth remains useful. With δ₀=10⁻⁶, ε=0.01 and λ=0.5 per update, it is about 18.4 updates. It is an approximation under that growth model, not a guaranteed forecast deadline. Uncertain parameters, hidden forcing or numerical error can invalidate its assumptions sooner.</Prose>
+    <Example example={examples.exponent} />
+
+    <H2>8. See why stretching and folding matter</H2>
+    <Prose>To see the mechanism without a complicated simulator, use the <strong>tent map</strong> T(y)=2y on the left half of [0,1], and T(y)=2(1−y) on the right half. Each half stretches to the full interval, and the right half folds back. Expansion separates nearby inputs until they encounter different branches; folding keeps the outputs bounded. The graph's two straight segments make that mechanism explicit.</Prose>
+    <Prose>An L/R word records which half an orbit visits at each step. To find inputs with a chosen itinerary, work backward: the inverse left branch is u↦u/2 and the inverse right branch is u↦1−u/2. Compose those inverse branches in the itinerary's order. For LR, the result is u↦1/2−u/4, giving initial interval [1/4,1/2]. Two forward steps carry that whole interval across [0,1]. Endpoints can admit more than one branch label.</Prose>
+    <TentFoldingLab />
+    <H3>From the picture to actual dynamical statements</H3>
+    <Prose>A word of length n defines an interval of width 2⁻ⁿ, with Tⁿ mapping it onto the entire unit interval. These intervals partition [0,1] apart from shared endpoints, and their maximum width tends to zero. Therefore any open interval of starting states contains a sufficiently small full itinerary interval. After enough updates its image covers [0,1], and every later image still does. That proves a strong mixing property: any initial open region eventually reaches any target open region.</Prose>
+    <Prose>The inverse composition for that itinerary has slope ±2⁻ⁿ and maps [0,1] into the itinerary interval. It is a contraction, so it has a unique fixed point. That point returns under n forward steps, although its smallest period may divide n. Every open interval therefore contains a periodic point. These dense periodic points coexist with sensitive dependence; they do not mean that every orbit is periodic. Together with the mixing argument, they establish the familiar topological chaos criteria for this map.</Prose>
+    <Prose>Now relate this exact picture to the logistic map at r=4. Make the monotone coordinate change h(y)=sin²(πy/2), a continuous one-to-one mapping of [0,1] onto itself. The double-angle identity gives 4h(y)(1−h(y))=h(T(y)). Updating the tent coordinate and then changing coordinates produces exactly the same result as changing coordinates first and applying the logistic rule. This is a <strong>conjugacy</strong>: the two maps describe the same topological dynamics using different coordinates.</Prose>
+    <H3>Individual uncertainty can coexist with stable statistics</H3>
+    <Prose>Under a uniform distribution of tent inputs, a target interval of width w has two inverse intervals each of width w/2. Its total incoming probability is w, so the uniform law is <strong>invariant</strong>: one update leaves that probability distribution unchanged. Invariance is a statement about a distribution of states, not a claim that an individual state stays fixed.</Prose>
+    <Prose>Changing from y to x=h(y) transforms that invariant law. Since h is increasing, the probability of being below x is h⁻¹(x)=2 arcsin(√x)/π. Differentiate to obtain the density on 0&lt;x&lt;1:</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    H(x)&=\frac2\pi\arcsin\sqrt{x},\\
+    p(x)&=\frac{1}{\pi\sqrt{x(1-x)}}.
+    \end{aligned}`}</MathBlock>
+    <Prose>The density is high near the two ends but integrable: total probability is H(1)−H(0)=1. A high density at an endpoint does not mean an atom of positive probability sits exactly there. The probability below 0.25 is 1/3; between 0.25 and 0.75 it is also 1/3. The invariant mean is 1/2 by symmetry. Thus an irregular individual trajectory can belong to a system with precisely specified long-run statistical laws.</Prose>
+    <Prose>The ergodic theorem for this map gives those time frequencies for almost every initial point under the invariant law, and its typical Lyapunov exponent is ln2. “Almost every” permits exceptional measure-zero initial states, such as exact periodic orbits and critical preimages. Invariance alone, for an arbitrary dynamical system, would not guarantee that one trajectory samples the full invariant distribution. That additional ergodic qualification matters.</Prose>
+    <Example example={examples.tent} />
+    <Callout label="Finite arithmetic is a different state space">A deterministic computation with finitely many representable states must eventually repeat if it continues indefinitely. That eventual periodicity is compatible with a real-number model having chaotic typical dynamics. In the exact dyadic tent example, repeated doubling shifts out all fractional bits and the orbit reaches zero. Do not infer either “chaos is impossible” or “my numerical orbit proves aperiodicity” from the finite computation.</Callout>
+
+    <H2>9. Keep the full state behind a projection</H2>
+    <Prose>The Lorenz system is a classic three-dimensional autonomous flow. It arose from a severe reduction of a convection model; its three dimensionless variables represent modes of that model, not a direct map of three geographical coordinates. We use it here to connect local equilibria, volume contraction, projections and finite numerical evidence.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    \dot x&=\sigma(y-x),\\
+    \dot y&=x(\rho-z)-y,\\
+    \dot z&=xy-\beta z.
+    \end{aligned}`}</MathBlock>
+    <Prose>Fix σ=10 and β=8/3 and vary ρ. Solving the three zero-rate equations gives the origin, plus two nonzero equilibria when ρ&gt;1: x=y=±√(β(ρ−1)), z=ρ−1. The plus/minus signs must match in x and y. At ρ=1 the branches coincide with the origin. Finding these equilibria does not establish that they attract.</Prose>
+    <Prose>The sum of the diagonal Jacobian entries is −σ−1−β=−41/3. This <strong>divergence</strong> gives the instantaneous logarithmic contraction rate of infinitesimal phase-space volume. A small volume carried by the flow contracts by e⁻⁴¹ᵗ⁄³ while the flow exists. This does not mean every direction contracts: stretching in one direction can coexist with stronger contraction in others. Nor does negative divergence by itself prove bounded trajectories or chaos.</Prose>
+    <LorenzProjectionLab />
+    <Prose>At the familiar parameter ρ=28, generic numerical starts show the well-known repeated excursions between two regions. The two projection choices expose different parts of the same finite three-coordinate path. A return close in x and z may remain far away in y. A visually dense loop is also not proof of an exact periodic orbit: a periodic orbit must repeat the full state, with appropriate numerical or analytical evidence.</Prose>
+    <Example example={examples.lorenz} />
+    <Prose>A sound numerical investigation first checks short trajectories against an independent solver or refinement, confirms equilibria satisfy the equations, and tests invariants or balance laws where available. For longer sensitive trajectories, two accurate approximations can separate pointwise; then assess the quantities relevant to the question, such as finite-time statistics, with their own convergence and uncertainty checks. A theorem about this idealized system remains different from validation of a weather forecast or measured physical device.</Prose>
+    <Prose>When using an adaptive solver, relative and absolute tolerances control its local error estimate. They are not a universal bound on total global error. An event detector based on sign changes can miss multiple crossings within one integration step; a return-map experiment needs a suitable event direction, step control and validation. The complete Lorenz program deliberately makes only a short-horizon agreement claim.</Prose>
+
+    <H2>10. Check the dynamics of the numerical method</H2>
+    <Prose>Return to cooling x′=−kx. Forward Euler gives xₙ₊₁=(1−kh)xₙ, so its strict attraction condition is |1−kh|&lt;1, or 0&lt;kh&lt;2. At kh=2 it alternates without shrinking; beyond 2 it amplifies alternating signs. The exact cooling solution still decays for every positive k. A large step has created instability that the original system does not have. Even a stable step can be inaccurate.</Prose>
+    <NumericalDynamicsLab />
+    <H3>For an oscillator, inspect the quantity that should be preserved</H3>
+    <Prose>Use q′=p and p′=−q, with initial state (1,0). This sign convention rotates in the opposite direction to the earlier center, but the energy E=(q²+p²)/2 is again constant. Forward Euler updates both coordinates from their old values: qₙ₊₁=qₙ+h pₙ and pₙ₊₁=pₙ−h qₙ. Squaring and adding cancels the cross terms, leaving Eₙ₊₁=(1+h²)Eₙ. It injects energy at every nonzero step.</Prose>
+    <Prose>A simple <strong>symplectic Euler</strong> variant first kicks the momentum and then drifts the position using the new momentum. It respects a geometric structure of Hamiltonian dynamics, but that does not mean it exactly conserves the original energy.</Prose>
+    <MathBlock>{String.raw`\begin{aligned}
+    p_{n+1}&=p_n-hq_n,\\
+    q_{n+1}&=q_n+h p_{n+1},\\
+    \widetilde E(q,p)&=
+      \tfrac12(q^2+p^2-hqp).
+    \end{aligned}`}</MathBlock>
+    <Prose>Substitution shows that this update preserves the displayed modified energy in exact arithmetic. For |h|&lt;2 that quadratic form is positive-definite, so its bounded level curves constrain the numerical orbit. The ordinary energy oscillates. At |h|=2 the form becomes degenerate and the update is generally not bounded; outside that interval the useful boundedness argument fails. The browser's oscillator choices stay inside the strict range, while the independent practice examines the boundary.</Prose>
+    <Example example={examples.energy} />
+    <Prose>Compare methods over the same physical time. At h=0.1, reaching t=20 requires 200 steps; at h=0.5 it requires 40. Comparing 40 steps of each would mix different horizons with different accuracy. Choose errors that reflect the task: short-time state error, phase error over many revolutions, conservation drift, an event time, or a statistical quantity. A method with an attractive-looking trace can still get the quantity of interest wrong.</Prose>
+    <Checkpoint prompt="The symplectic run reports modified energy 0.5 at every step. A teammate says it conserves the physical energy exactly. How do you check?"><Prose>Compute both E=(q²+p²)/2 and Ẽ=(q²+p²−hqp)/2 on the same numerical states. They agree at this chosen initial state because qp=0, but generally differ later. The preserved modified function does not establish exact conservation of the original one.</Prose></Checkpoint>
+
+    <H2>11. Transfer the reasoning and practise</H2>
+    <H3>Useful connections that carry the mechanism with them</H3>
+    <Prose><strong>Optimization.</strong> Gradient flow x′=−∇L(x) decreases a smooth objective because dL/dt=−‖∇L‖². Its discrete counterpart xₙ₊₁=xₙ−η∇L(xₙ) can overshoot when the learning rate η is too large. For the scalar quadratic L(x)=kx²/2, its multiplier is 1−ηk, exactly the same stability calculation as Euler cooling. Decreasing a nonconvex objective does not certify a global minimum; basins and stationary points still matter.</Prose>
+    <Prose><strong>Recurrent models and gradients.</strong> A recurrent state update has a Jacobian at each step. Small forward disturbances and reverse gradient propagation involve ordered products of those matrices. In a fixed linear system, spectral analysis is a powerful first tool. For changing matrices, averaging their individual eigenvalues loses how one step redirects the next one's input.</Prose>
+    <Example example={examples.products} />
+    <Prose><strong>Learned dynamics and control.</strong> A neural ordinary differential equation learns a rate field, while a one-step predictor learns an update map. Low one-step training error does not ensure accurate rollouts: the model feeds its own errors back and can reach states absent from training. Model-predictive control repeatedly replans actions using a dynamics model; reinforcement learning also depends on the transition model or sampled transitions. Evaluate multi-step behavior, relevant constraints, uncertainty and conservation or stability features, rather than only one-step loss.</Prose>
+    <Prose><strong>Switching and oscillation in applications.</strong> The two-well example gives a concrete model of bistability and switching thresholds. An attracting cycle instead describes self-sustained repetition. Excitable systems can make one large excursion after a threshold crossing and then return to rest without having a stable repeating cycle. That distinction is useful for neuron models, where the dedicated neural-modeling lesson supplies the biological variables and assumptions. The pictures here teach the mathematical mechanisms, not a diagnosis of a particular device or neuron.</Prose>
+    <LessonTable caption="Claims to repair before trusting a dynamical explanation" headers={['Tempting claim', 'What to check instead']} rows={[
+      ['“The curve is irregular, so it is chaotic.”', 'Rule, full state, finite versus asymptotic evidence, numerical accuracy and an appropriate chaos criterion.'],
+      ['“All eigenvalues are negative, so every error shrinks immediately.”', 'Continuous versus discrete convention, the relevant norm, nonnormal transfer and transient growth.'],
+      ['“A multiplier of magnitude one means unstable.”', 'Nonlinear terms or a separate boundary analysis.'],
+      ['“The two starts end far apart, so they share one chaotic attractor.”', 'They may be on opposite sides of a basin boundary or under different forcing.'],
+      ['“Negative divergence proves a strange attractor.”', 'Volume contraction is not boundedness, recurrence or a chaos proof.'],
+      ['“The solver tolerance is my long-term forecast error.”', 'Local error estimates, global sensitivity, parameter uncertainty and the desired observable.'],
+      ['“An invariant distribution describes every initial orbit.”', 'Ergodicity, almost-everywhere qualifications and exceptional orbits.'],
+    ]} />
+    <H3>Independent practice</H3>
+    <Prose>Work out a prediction before opening a hint. Use a sketch or small calculation to explain the mechanism, then use code as a check. A numerical match is not a substitute for stating the assumptions behind the conclusion.</Prose>
+    <Practice title="1. Find the missing state" prompt="A controller records only a pendulum's angle. Two visits to angle zero are followed by different next angles. Give two deterministic explanations and propose the state/input data needed to distinguish them." hint="A crossing can have a different direction or speed; the same mechanical state can also receive a different input."><Prose>The angular velocities may differ, so angle alone is incomplete. Alternatively, angle and velocity may agree but the torque, forcing phase or controller memory may differ. Record angle, angular velocity and relevant controller state, together with the applied input and clock/forcing phase. Do not label the mismatch stochastic until those deterministic omissions and measurement error have been examined.</Prose></Practice>
+    <Practice title="2. Keep rates and multipliers separate" prompt="Analyze x′=−3x and the Euler update with h=0.2, 0.5 and 0.8. Which cases decay monotonically, decay with alternating signs, or grow? What happens at h=2/3?" hint="Calculate 1−3h and compare its magnitude with 1."><Prose>The continuous solution is x₀e⁻³ᵗ. Euler multipliers are 0.4, −0.5 and −1.4. They give same-sign decay, alternating decay and alternating growth respectively. At h=2/3 the multiplier is −1: nonzero iterates alternate without decay. Strict stability does not imply a sufficiently accurate approximation.</Prose></Practice>
+    <Practice title="3. Resolve a marginal linearization" prompt="Classify the origin for x′=0, x′=−x³ and x′=x³. Explain why their equal derivative at zero does not give them equal behavior." hint="Inspect the rate's sign on both sides and distinguish staying near from returning."><Prose>The zero field is stable but not attracting. The negative cubic is asymptotically stable with algebraic decay. The positive cubic repels on both sides and is unstable; every nonzero initial solution has a finite-time pole. All three linearizations are zero, so the missing nonlinear or exact information decides the result.</Prose></Practice>
+    <Practice title="4. Change the basin landscape" prompt="For x′=4x−x³, find equilibria, their stability, the basins of the attracting ones and a decreasing potential. Do close starts always end close?" hint="Factor x(4−x²), then integrate its negative to obtain V."><Prose>The equilibria are −2,0,2. The derivative 4−3x² is −8 at ±2 and +4 at zero, so ±2 attract and zero repels. Positive starts tend to 2; negative starts tend to −2; zero stays zero. V=x⁴/4−2x² has V̇=−(4x−x³)². Two arbitrarily close starts on opposite sides of zero end in different wells, separated by 4. This is a basin-boundary effect, not proof of chaos.</Prose></Practice>
+    <Practice title="5. Explain transient amplification" prompt="For q′=−q+6p, p′=−2p, compare initial states (1,0) and (0,1) at t=ln2. Why does an eigenvalue list alone hide the contrast?" hint="Use the exact expressions q=q₀e⁻ᵗ+6p₀(e⁻ᵗ−e⁻²ᵗ), p=p₀e⁻²ᵗ."><Prose>The first becomes (0.5,0), norm 0.5. The second becomes (1.5,0.25), norm √2.3125≈1.52069. The off-diagonal coupling transfers p into q for the second start. Both eventually decay; their finite-time norms differ because initial directions and the nonorthogonal eigenstructure matter.</Prose></Practice>
+    <Practice title="6. A cycle is not a center" prompt="For r′=r/4−r³, θ′=1, predict the future of radii 0, 0.3 and 1. If two starts have the same radius but angles differing by π/4, does their phase difference vanish?" hint="The positive radial equilibrium is 0.5, and both angles advance at the same speed."><Prose>Radius zero stays at the unstable origin. Radius 0.3 rises toward 0.5; radius 1 decreases toward 0.5. The angle difference remains π/4, so their positions do not converge at equal times even though both approach the attracting circle. A center would preserve every starting radius instead of attracting nearby radii to one isolated cycle. The radial return multiplier is e⁻π.</Prose></Practice>
+    <Practice title="7. Recover the original four regimes" prompt="From x₀=0.217, compare logistic r=2.5, 3.2, 3.5 and 3.9. Discard 1,000 updates and inspect a longer retained sequence. Add r=3.83 and several nearby initial states. Which conclusions are numerical evidence, and which can you derive?" hint="For 2.5 use the fixed-point multiplier. For 3.2 use both points and the full two-step derivative. Do not identify a period from only two similar rounded values."><Prose>At 2.5, the nonzero fixed point is 0.6 with multiplier −0.5, a derived local attraction result. At 3.2, the exact two-cycle is about 0.513045↔0.799455 with full-cycle multiplier 0.16, also a derived local result. The displayed finite runs at 3.5 settle to four rounded values; at 3.83 they settle to three. At 3.9 the tested tail is irregular and the finite exponent is positive for the tested generic start. Compare longer windows, starts, arithmetic and repeated-cycle residuals; these finite observations alone do not prove infinite-time aperiodicity. A start exactly at an unstable fixed point is an important exception.</Prose></Practice>
+    <Practice title="8. Repair a chaos classifier" prompt="A classifier declares chaos whenever its finite exponent is positive. What does it return for r=4,x₀=0.75? What goes wrong when it replaces a zero derivative by 10⁻¹²?" hint="Evaluate the map and derivative exactly at 0.75 and 0.5."><Prose>It misclassifies the fixed orbit 0.75, which has derivative −2 and exponent ln2 but period one. At a critical derivative zero, the actual log term is −∞. Substituting 10⁻¹² makes it a finite arbitrary negative term that can later be averaged away. That changes the quantity being estimated. Report the singular case, the orbit, window and definition rather than forcing a binary chaos label.</Prose></Practice>
+    <Practice title="9. Use and qualify a forecast horizon" prompt="Assume a local growth rate 0.4 per update, initial error 10⁻⁵ and useful tolerance 0.02. Estimate the horizon, then name three reasons a real prediction may fail sooner." hint="Solve 10⁻⁵ exp(0.4n)=0.02."><Prose>The estimate is ln(2000)/0.4≈19.0 updates. It assumes a representative rate and a small-error regime. Time-varying expansion, parameter/model bias, hidden forcing, measurement error in another state direction or numerical error can shorten the useful horizon. Error saturation also makes the exponential model inappropriate for large tolerances.</Prose></Practice>
+    <Practice title="10. Work backward through the tent" prompt="Find the starting interval and repeating point for itinerary RL. Then compute the logistic-4 invariant probability of 0.25≤x≤0.75. Why do neither results imply that every starting point has the same trajectory statistics?" hint="Compose the inverse maps R(u)=1−u/2 and L(u)=u/2. Use the invariant CDF for the probability."><Prose>R(L(u))=1−u/4 maps [0,1] to [3/4,1]. Its fixed point solves y=1−y/4, giving y=4/5. It follows 4/5→2/5→4/5. The invariant probability is H(0.75)−H(0.25)=2/3−1/3=1/3. Exact periodic points can have exceptional frequencies; the stated typical time-frequency theorem holds almost everywhere under the invariant law, not at every point.</Prose></Practice>
+    <Practice title="11. Inspect the integration boundary" prompt="Apply kick-then-drift symplectic Euler to (q,p)=(1,0) with h=2 for three steps. Does a conserved modified energy guarantee bounded motion at this step?" hint="The modified form becomes (q−p)²/2 and no longer bounds q and p separately."><Prose>The states are (−3,−2), (5,4), then (−7,−6). Their norms grow while (q−p)²/2 stays 0.5. At h=2 the form is degenerate, and a constant value permits arbitrarily large q and p together. The positive-definite condition |h|&lt;2 was essential to the boundedness argument.</Prose></Practice>
+    <Practice title="12. Design an evidence plan" prompt="A learned simulator produces a butterfly-shaped phase plot and small one-step validation error. Propose a test plan before claiming it accurately models a chaotic physical system." hint="Separate the numerical method, the learned rule, the observed physical system and the particular prediction task."><Prose>Verify the implemented rule against independent short-time calculations and step/tolerance refinement. Inspect full states and inputs rather than only projections; check units, constraints and relevant balance laws. Evaluate held-out multi-step trajectories over declared horizons and initial/parameter uncertainty. Examine finite sensitivity and statistics with their assumptions and convergence checks, while distinguishing them from an infinite-time chaos theorem. Validate the quantities needed by the physical task against suitable measurements, including uncertainty and unobserved inputs. A pleasing shape and one-step loss alone establish none of these separate claims.</Prose></Practice>
+    <Prose><strong>Readiness check.</strong> You should now be able to choose a state, distinguish a flow from a numerical update, analyze a new fixed point or short cycle, read a phase portrait, explain a basin or transient, and repair an overconfident conclusion from a finite simulation. If the explanation depends on a hidden coordinate, an unqualified equality case or an unexplained plotted number, return to that mechanism before proceeding.</Prose>
+    <Prose><strong>Next in this module:</strong> <a href="/learn/path/full-curriculum/it-calculus-stochastic-differential-equations?module=math-foundations">Itô Calculus &amp; Stochastic Differential Equations</a> adds explicitly stochastic forcing to continuous evolution. Review the Brownian-increment and quadratic-variation reasoning in Stochastic Processes first. Numerical Methods later extends the integration tools, and Ordinary Differential Equations &amp; Linear Systems provides a broader solution-method route. These links support the declared module sequence rather than replacing it with a publication-based jump.</Prose>
+    <Sources alternatives={<p>For a spoken route, the <a href="https://www.youtube.com/playlist?list=PLbN57C5Zdl6j_qJA-pARJnKsmROzPnO9V" target="_blank" rel="noreferrer">Strogatz/Cornell nonlinear dynamics course</a> progresses through phase lines, oscillations, bifurcations and chaos. The playlist identity was checked through the instructor-linked course page; it was not watched end to end. Pair it with the written derivations and experiments here rather than expecting every convention to match.</p>}>
+      <li><a href="https://personalpages.manchester.ac.uk/staff/yanghong.huang/ads/html/maps-log.html" target="_blank" rel="noreferrer">Huang, Manchester: the logistic map, section 6.3</a> — fixed points, two-cycle factorization and bifurcation structure. Selected derivations were read and independently checked; marginal stability needs the separate reasoning given here.</li>
+      <li><a href="https://personalpages.manchester.ac.uk/staff/yanghong.huang/ads/html/equi-nl.html" target="_blank" rel="noreferrer">Huang: nonlinear linearization</a> and <a href="https://personalpages.manchester.ac.uk/staff/yanghong.huang/ads/html/period-exist.html" target="_blank" rel="noreferrer">existence of periodic orbits</a> — local manifold geometry and the conditions behind the planar limit-set theorem. These are deeper mathematical notes, not a shortcut around the conditions.</li>
+      <li><a href="https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec10-11.pdf" target="_blank" rel="noreferrer">MIT Rothman: two-dimensional bifurcations</a> — inspected normal forms and Hopf/excitability discussion, pages 1–11. The lesson's equations and figures are independently derived; printed normal-form signs and powers should always be checked against the stated rule.</li>
+      <li><a href="https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec24.pdf" target="_blank" rel="noreferrer">MIT Rothman: Lyapunov exponents</a> — sections 1.2–1.6 on perturbation evolution and renormalization. Useful after the scalar chain-rule example; general changing Jacobians require ordered products.</li>
+      <li><a href="https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec15-16.pdf" target="_blank" rel="noreferrer">MIT Rothman: Poincaré sections</a> and <a href="https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec20-21.pdf" target="_blank" rel="noreferrer">Lorenz equations</a> — inspected sections 1.1–1.2 and 1.3–1.4 respectively for oriented returns, varying return time and the physical-model reduction. The notes include a loop-model parameter variant; this lesson explicitly uses β=8/3.</li>
+      <li><a href="https://www.math.ucdavis.edu/~romik/teaching-pages/mat119b/lecturenotes-119B.pdf" target="_blank" rel="noreferrer">Romik, UC Davis: mathematical chaos notes</a> — Example 29 and sections 2.9–2.12 on invariant laws and ergodic qualifications; Exercise 26 gives the inverse coordinate correspondence. Read after the tent-map construction. Measure-preserving and ergodic are distinct properties.</li>
+      <li><a href="https://www.dam.brown.edu/people/menon/publications/ds-2020-1.pdf" target="_blank" rel="noreferrer">Menon, Brown: dynamical systems notes</a> — section 6.1–6.2 was inspected for Jacobian products, map/flow stability and transverse return maps. The broader graduate text offers additional depth in differential equations, Hamiltonian systems and numerical algorithms.</li>
+      <li><a href="https://underactuated.mit.edu/lyapunov.html" target="_blank" rel="noreferrer">MIT Underactuated: Lyapunov analysis</a> — direct-method, global and invariance-principle sections for why signs, level-set bounds and invariant sets matter. Follow with the dedicated nonlinear-control lesson for control-specific certificates.</li>
+      <li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html" target="_blank" rel="noreferrer">SciPy: solve_ivp</a> — solver methods, local error tolerances, maximum step and event limitations. The inspected documentation page identifies version 1.18.0; the native examples here were tested with SciPy 1.18.1. This is an implementation reference, not a guarantee of long-time accuracy.</li>
+    </Sources>
   </div>,
 };
-
-export default content;

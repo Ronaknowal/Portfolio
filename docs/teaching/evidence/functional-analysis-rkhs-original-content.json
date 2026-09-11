@@ -1,0 +1,24 @@
+{
+  "status": "original preservation and execution only; replacement not implemented",
+  "capturedAt": "2026-09-10T21:07:00.071604+00:00",
+  "source": "src/learn/data/topics/functional-analysis-rkhs.jsx",
+  "archive": "docs/teaching/evidence/functional-analysis-rkhs-original.jsx",
+  "sourceSha256": "56df99e5b364ad303e62539baf2c6f471714687eca65f83a7d0ac10b32918d18",
+  "sourceByteLength": 7123,
+  "archiveMatchesSource": true,
+  "pythonVersion": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "pythonExecutable": "C:\\Personal Projects and files\\Portfolio\\Portfolio\\scratch\\lesson-tools\\Scripts\\python.exe",
+  "comparison": "Exact decoded code/output retained, CRLF normalized only for subprocess stdout comparison; final output newline ignored.",
+  "programs": [
+    {
+      "number": 1,
+      "code": "import math\n\nxs, ys = [0.0, 1.0], [0.0, 1.0]\ngamma, regularisation = 1.0, 0.1\nk01 = math.exp(-gamma * (xs[0] - xs[1]) ** 2)\n\n# Invert K + lambda I for this 2-by-2 example.\na, b = 1 + regularisation, k01\ndeterminant = a * a - b * b\nalpha0 = (a * ys[0] - b * ys[1]) / determinant\nalpha1 = (-b * ys[0] + a * ys[1]) / determinant\n\nx = 0.5\nprediction = (\n    alpha0 * math.exp(-gamma * (x - xs[0]) ** 2)\n    + alpha1 * math.exp(-gamma * (x - xs[1]) ** 2)\n)\n\nprint(round(k01, 3))\nprint(round(alpha0, 3), round(alpha1, 3))\nprint(round(prediction, 3))",
+      "codeSha256": "3cc650c8f043c9578498156ca5fb323218bab3174940027af932546100019545",
+      "expectedOutput": "0.368\n-0.342 1.024\n0.531",
+      "outputSha256": "52a817e16c312dcd447f0e8d11c428867f60b0cb0495d607415ee97d92d8e816",
+      "actualStdout": "0.368\n-0.342 1.024\n0.531\n",
+      "stderr": "",
+      "exitCode": 0
+    }
+  ]
+}

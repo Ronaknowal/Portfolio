@@ -1,0 +1,245 @@
+{
+  "amendedAuthorFrozenAt": "2026-09-11T10:29:32.726795+00:00",
+  "topicId": "numerical-pdes-grids-finite-elements-stability",
+  "originalAuthorFrozenAt": "2026-09-11T09:36:25.855111+00:00",
+  "originalPacketArchive": "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\docs\\teaching\\evidence\\numerical-pdes-author-review.json.txt",
+  "beforeManifest": "docs/teaching/evidence/numerical-pdes-endpoint-before.json",
+  "sourceHashes": {
+    "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+    "src/learn/data/numerical-pde-models.js": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7",
+    "src/learn/data/numerical-pde-examples.js": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821",
+    "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+    "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+    "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+  },
+  "changedProductionFiles": [
+    "src/learn/data/numerical-pde-models.js",
+    "src/learn/data/numerical-pde-examples.js"
+  ],
+  "finding": "A generated endpoint 3*0.7/3 is below 0.7; strict interpolation correctly rejected a curve evaluation beyond that generated domain.",
+  "repair": "Pin JS mesh and curve endpoints to the prescribed exact inputs. Pin the actual Python Poisson helper endpoints likewise; preserve strict outside-domain rejection and all interior arithmetic.",
+  "model": {
+    "checkedAt": "2026-09-11T10:24:19.242Z",
+    "passed": true,
+    "sourceHashes": {
+      "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+      "src/learn/data/numerical-pde-models.js": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7",
+      "src/learn/data/numerical-pde-examples.js": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821",
+      "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+      "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+      "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    },
+    "originalError": "RangeError: Position must be finite and between 0 and 0.6999999999999998.",
+    "reproducer": {
+      "intervals": 3,
+      "length": 0.7,
+      "profile": "linear",
+      "scale": 1.7,
+      "left": -2.3,
+      "right": 4.1,
+      "method": "jacobi",
+      "iterations": 9,
+      "tolerance": 0.03
+    },
+    "originalUnpinnedEndpoint": 0.6999999999999998,
+    "finalEndpoint": 0.7,
+    "cases": 150,
+    "previousFailures": 6,
+    "preservedInteriorCases": 144,
+    "changedPrograms": [
+      "poisson"
+    ],
+    "conservedStdoutPrograms": 16,
+    "unchangedExampleRecords": 15,
+    "strictOutsideDomainStillRejected": true
+  },
+  "native": {
+    "checkedAt": "2026-09-11T10:27:05.716992+00:00",
+    "passed": true,
+    "sourceHashes": {
+      "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+      "src/learn/data/numerical-pde-models.js": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7",
+      "src/learn/data/numerical-pde-examples.js": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821",
+      "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+      "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+      "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    },
+    "counts": {
+      "complete displayed programs": 16,
+      "changed endpoint helper states": 105,
+      "previous Python endpoint discrepancies": 12
+    },
+    "scope": "Actual programs and narrowly changed physical endpoints; prior full independent numerical suite remains source-versioned separately."
+  },
+  "browser": {
+    "checkedAt": "2026-09-11T10:26:25.957Z",
+    "passed": true,
+    "sourceHashes": {
+      "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "e78b57aacbb1bc5f8677ff4f189f6b482b62da963ab7cba413e0a09ac4c2029e",
+      "src/learn/data/numerical-pde-models.js": "d5a078c6db80284805f9c9c3e467ce38f29bba54b0fa284816ef6ef10aa015d7",
+      "src/learn/data/numerical-pde-examples.js": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821",
+      "src/learn/components/lesson-labs/NumericalPdeLabs.jsx": "eeb2f50c60cdebd370c2674311f31652a31fae65a94973e3acddbb2564f6ee25",
+      "src/learn/components/lesson-labs/numerical-pde-labs.css": "67c3dedfeb90c183d0897d3ea3b0225eee0473726a0cb9487085c64a9f9847dd",
+      "src/learn/data/curriculum/blueprints/numerical-pdes-grids-finite-elements-stability.js": "f6733ebe56fa4b81ee6e21ef5b04de3e15f6c766165884f11e0521ac5e08b893"
+    },
+    "records": [
+      {
+        "width": 1440,
+        "states": [
+          "Actual served model accepts changed physical endpoint; UI remains fixed to the unit rod.",
+          "Existing unit-rod linear field and nonzero boundary values render.",
+          "Jacobi slider responds to keyboard; keyboard Reset restores the original field.",
+          "Amended complete program, visible question and conserved actual output match source."
+        ],
+        "captures": [
+          "unit-rod-boundary-1440.png",
+          "pinned-endpoint-program-1440.png",
+          "unchanged-program-output-1440.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "servedModuleRegression": {
+          "first": 0,
+          "last": 0.7,
+          "curveEnd": {
+            "x": 0.7,
+            "exact": 4.1,
+            "numerical": 4.1
+          },
+          "right": 4.1
+        }
+      },
+      {
+        "width": 390,
+        "states": [
+          "Actual served model accepts changed physical endpoint; UI remains fixed to the unit rod.",
+          "Existing unit-rod linear field and nonzero boundary values render.",
+          "Jacobi slider responds to keyboard; keyboard Reset restores the original field.",
+          "Amended complete program, visible question and conserved actual output match source."
+        ],
+        "captures": [
+          "unit-rod-boundary-390.png",
+          "pinned-endpoint-program-390.png",
+          "unchanged-program-output-390.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "servedModuleRegression": {
+          "first": 0,
+          "last": 0.7,
+          "curveEnd": {
+            "x": 0.7,
+            "exact": 4.1,
+            "numerical": 4.1
+          },
+          "right": 4.1
+        }
+      },
+      {
+        "width": 320,
+        "states": [
+          "Actual served model accepts changed physical endpoint; UI remains fixed to the unit rod.",
+          "Existing unit-rod linear field and nonzero boundary values render.",
+          "Jacobi slider responds to keyboard; keyboard Reset restores the original field.",
+          "Amended complete program, visible question and conserved actual output match source."
+        ],
+        "captures": [
+          "unit-rod-boundary-320.png",
+          "pinned-endpoint-program-320.png",
+          "unchanged-program-output-320.png"
+        ],
+        "fonts": [
+          "JetBrains Mono",
+          "JetBrains Mono",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "Space Grotesk",
+          "KaTeX_Main",
+          "KaTeX_Math",
+          "KaTeX_Size1",
+          "KaTeX_Size2",
+          "KaTeX_Size3"
+        ],
+        "servedModuleRegression": {
+          "first": 0,
+          "last": 0.7,
+          "curveEnd": {
+            "x": 0.7,
+            "exact": 4.1,
+            "numerical": 4.1
+          },
+          "right": 4.1
+        }
+      }
+    ],
+    "errors": [],
+    "scope": "Targeted amended program and endpoint/model paths; original full lesson browser evidence is preserved separately."
+  },
+  "actuallyOpenedImages": [
+    {
+      "path": "scratch/numerical-pde-endpoint-amendment/browser/pinned-endpoint-program-320.png",
+      "sha256": "7553dd6ddac68c48828abfbc3fac82b80172bbe62fa6abeed8c109cf3e2b7174",
+      "inspection": "Opened with view_image after the targeted final run. Complete code/output retain intentional horizontal scrolling on phones."
+    },
+    {
+      "path": "scratch/numerical-pde-endpoint-amendment/browser/unit-rod-boundary-390.png",
+      "sha256": "da3a055a324c76bd4639a3a06c882eae6a4f6c60a3e0723a5c24b1a4c7d8dfd2",
+      "inspection": "Opened with view_image after the targeted final run. Complete code/output retain intentional horizontal scrolling on phones."
+    },
+    {
+      "path": "scratch/numerical-pde-endpoint-amendment/browser/unchanged-program-output-1440.png",
+      "sha256": "658fba6c3fff9a9472c5cb1073d6702a1141926a82e8e79618fada90fff444f1",
+      "inspection": "Opened with view_image after the targeted final run. Complete code/output retain intentional horizontal scrolling on phones."
+    },
+    {
+      "path": "scratch/numerical-pde-endpoint-amendment/browser/pinned-endpoint-program-1440.png",
+      "sha256": "ac0284bbbd464defcef4f9244f7f0f0760feb4e20ab8ebac0f730f1de4f8f4bf",
+      "inspection": "Opened with view_image after the targeted final run. Complete code/output retain intentional horizontal scrolling on phones."
+    },
+    {
+      "path": "scratch/numerical-pde-endpoint-amendment/browser/unchanged-program-output-320.png",
+      "sha256": "f69214758425ad95ccfcc539ae1ec4800643bba27dc9035d7a05020f532a81b2",
+      "inspection": "Opened with view_image after the targeted final run. Complete code/output retain intentional horizontal scrolling on phones."
+    }
+  ],
+  "evidenceHashes": {
+    "docs/teaching/evidence/numerical-pdes-endpoint-before.json": "d94bf605c9d25655bf97f73e0975cfa95d354d8e0c271afb093c26133545089a",
+    "docs\\teaching\\archive\\numerical-pdes-before-endpoint-repair\\docs\\teaching\\evidence\\numerical-pdes-author-review.json.txt": "0f42391ed4ef17e28115040966d75bfc0af372922823e950a55c7fe0ae131ded",
+    "scratch/numerical-pde-endpoint-amendment/model-results.json": "a9a4c10fc5ac6c419b7378c4278ce740085dd0082fd048a0fe73e4d5fe5edbeb",
+    "scratch/numerical-pde-endpoint-amendment/native-results.json": "fb99c5338edf18f913753e1a08d695934122abf7b6834bd3af70004c43f26f58",
+    "scratch/numerical-pde-endpoint-amendment/browser/results.json": "aff944ede3fa1b90ec3fd1a5fd3536339dcbe6b0b165b1e06dc7723efb1a21e9",
+    "scratch/numerical-pde-native/example-runs.json": "e746afe44ccd1bbc70046d22ae967bee0ff48d73d56953d6d2dcc5da712a8d78"
+  },
+  "scriptHashes": {
+    "scripts/generate-numerical-pde-examples.py": "f4852dbd1553f7af424aa57724d614f75f7d33602fcf30badc71bb711f623340",
+    "scripts/verify-numerical-pde-endpoint-amendment.mjs": "b6a41f7042a23a639272f8c6c193e981116cd61f547d3f39a5a4bc1b6f959361",
+    "scripts/verify-numerical-pde-endpoint-native.py": "f5fb0e7f002cda9896c611d4ca340b1f744cc6ff4abf48da7b5658d00c93e8ad",
+    "scripts/review-numerical-pde-endpoint-amendment.cjs": "eee7356d3faa2a6bff32f976a3d665f0ef6384830a033ba6090e3e143ccb802a",
+    "scripts/finalize-numerical-pde-endpoint-amendment.py": "d600532c4b0120d7da0e4e7b268452812da5cbd69ad1e1c3f0f432c91e4485cc"
+  },
+  "harnessCorrection": "The first amendment harness incorrectly expected the Poisson helper in the refinement record. Source inspection confirmed only the Poisson record changes; the harness now asserts the other fifteen entire example records remain unchanged. This was a test assumption, not a second production defect.",
+  "scope": "Narrow author amendment. Original full native/browser evidence remains bound to its original source hashes; no unrelated full-suite rerun is claimed. The independent reviewer and integrated production checks remain separately attributed."
+}

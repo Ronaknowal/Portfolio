@@ -1,0 +1,18 @@
+# Numerical PDEs — independent design assessment
+
+11 September 2026. The full root-authored [design](NUMERICAL-PDES-LESSON-DESIGN.md), individual stable-ID brief, exact topic inventory, original-plan preservation and all three destination notes were read before implementation. This assessment is separate from the parent's proposed-fixture script and from later author/model/browser/independent production verification.
+
+No material mathematical or scope defect was identified. The stencil sign, quartic defect and error sign, maximum-principle barrier, equation-scaling invariance, interpolation contribution, finite-grid versus uniform heat restrictions, implicit mode/energy distinction, face resistance, source-functional weights and P1 norm distinctions are coherent. All fifteen teaching stages and the representation/practice plan were read, including the conditional optional branches and their outstanding primary-source checks. The blueprint's three prerequisites match the actual planned inventory; no new dependency is proposed.
+
+Complementary changed checks passed at **2026-09-11T07:57:50.147011+00:00** using [the independent script](../../scripts/verify-numerical-pde-design-independent.py). [Evidence](evidence/numerical-pdes-design-independent-review.json) captures the exact assessed design/brief/script fingerprints and SymPy 1.14.0 environment.
+
+- Twelve changed odd grids, domain lengths and source scales have independently inverted matrices with nonzero endpoints. Fifty-six nodal errors agree with the scaled quartic formula. The exact inverse norm on an odd grid is strictly below the universal barrier constant.
+- Sixty-eight reconstructed polynomial pieces were checked at endpoints and numerically solved derivative roots, not at a dense plotting grid. The algebraic expressions are symbolic; root/evaluation comparisons use finite precision and are supporting checks, not proofs of the supremum theorem.
+- A two-interior-node FTCS example at ratio 3/5 has eigenvalues 2/5 and −4/5 while mapping a nonnegative impulse to a negative entry. This independently checks the design's spectral-stability versus positivity distinction.
+- A nonuniform P1 Robin problem with outward flux, source 2, coefficient 1, exchange 3 and bath 5 agrees at all four nodes with `u=2x−x²+17/3`; the outward boundary load sums to 2.
+- Three changed affine triangles compare gradients recovered directly from interpolation coefficients with inverse-transpose mapping. Their computed energy for an affine field equals its constant gradient energy times area.
+- A pinned incompatible Neumann system still violates its omitted original row. The normalization must follow compatibility, not replace it.
+
+Implementation qualifications to retain: use the actual boundary-adjusted right-hand side consistently in the residual identity; identify the norm when saying “spectral stability”; distinguish an exact mathematical certificate from rounded/native residual evaluation; scale the physical source and domain consistently in changed examples. The point-load branch is weak-form data, so smooth Taylor hypotheses do not apply at its kink. A scalar mode graph must not masquerade as an executed spatial solver. Optional Godunov, adaptive and coarse-grid branches need their promised local derivation, complete code where promised, and the remaining source inspection before claiming completion.
+
+The design and original parent fixture record were not changed by this assessment. Root approved owned implementation after this review. This is **design assessment only**; no lesson body or production numerical model existed at the time of these checks.

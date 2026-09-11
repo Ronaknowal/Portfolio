@@ -1,0 +1,689 @@
+{
+  "reviewedAt": "2026-09-11T05:52:20.346Z",
+  "topicId": "ordinary-differential-equations-linear-systems",
+  "reviewer": "/root",
+  "status": "independent-review-closed; two final amendments verified; production integration and user acceptance separate",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+      "sha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be",
+      "bytes": 62845,
+      "authorSha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be",
+      "amended": false
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-models.js",
+      "sha256": "c9464713e7554ed1d652faaba4ce787f9d2a5c91247b23e58d94241486276fe0",
+      "bytes": 11904,
+      "authorSha256": "d732bc008440749b3a9907aa92cf2e0273ebcd9637752f3cb6ac77aa9086ff5c",
+      "amended": true
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-examples.js",
+      "sha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e",
+      "bytes": 21231,
+      "authorSha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e",
+      "amended": false
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+      "sha256": "1412ff555bca10abf934ef021d0a17a361df7566f6669192e7c03b56e2222ace",
+      "bytes": 23737,
+      "authorSha256": "614ffa813e3b4b3fc5c256d1234190b951e751dfc36b7c748fc9ee4b33b29190",
+      "amended": true
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+      "sha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49",
+      "bytes": 4461,
+      "authorSha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49",
+      "amended": false
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+      "sha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6",
+      "bytes": 4895,
+      "authorSha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6",
+      "amended": false
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+      "sha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9",
+      "bytes": 6809,
+      "authorSha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9",
+      "amended": false
+    }
+  ],
+  "authorRecord": {
+    "path": "docs/teaching/evidence/ordinary-differential-equations-author-review.json",
+    "sha256": "fade51b1f486a223726fda87cba938b95212ca5c4454456b126d6f258baac65e",
+    "bytes": 108314
+  },
+  "originalAuthorSources": [
+    {
+      "path": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+      "sha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be",
+      "bytes": 62845,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/ordinary-differential-equations-linear-systems.jsx"
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-models.js",
+      "sha256": "d732bc008440749b3a9907aa92cf2e0273ebcd9637752f3cb6ac77aa9086ff5c",
+      "bytes": 11390,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/ordinary-differential-equations-models.js"
+    },
+    {
+      "path": "src/learn/data/ordinary-differential-equations-examples.js",
+      "sha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e",
+      "bytes": 21231,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/ordinary-differential-equations-examples.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+      "sha256": "614ffa813e3b4b3fc5c256d1234190b951e751dfc36b7c748fc9ee4b33b29190",
+      "bytes": 23314,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/OrdinaryDifferentialEquationsLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+      "sha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49",
+      "bytes": 4461,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/OrdinaryDifferentialEquationsFigures.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+      "sha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6",
+      "bytes": 4895,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/ordinary-differential-equations-labs.css"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+      "sha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9",
+      "bytes": 6809,
+      "archive": "scratch/ordinary-differential-equations-independent/author-sources/ordinary-differential-equations-linear-systems.js"
+    }
+  ],
+  "sourceReview": [
+    "Full fourteen-section body, fourteen independent practice groups and thirteen actual Python programs.",
+    "All models, eight investigations, four inline figures, scoped CSS, individual blueprint, assessed design and incoming ownership note.",
+    "Thermal units; local existence and Picard uniqueness; maximal domains; scalar separation/integrating factors; exact and Bernoulli equations; matrix-series and fundamental-column arguments; Jordan and state-specific growth.",
+    "Initial versus forced response, chronological products, resonance conditions, actual numerical stages, common-domain Euler error proof, stiffness/events, endpoint compatibility and ordinary-point series."
+  ],
+  "findingsResolved": [
+    "Cooling now uses cancellation-resistant weighted terms and exact initial/equilibrium shortcuts; a positive rate-time product that underflows before a potentially amplified gain is rejected explicitly.",
+    "Dense vector and matrix inputs require their own indexed values rather than accepting inherited entries.",
+    "A zero-length stationary trajectory has a visible labelled point; the nilpotent first basis column is no longer visually absent."
+  ],
+  "native": {
+    "file": {
+      "path": "scratch/ordinary-differential-equations-independent/results.json",
+      "sha256": "83dc5f77d383eb3b45d6607288f4808c747d64c13e0b44fe254808fc1c70fb6a",
+      "bytes": 2488
+    },
+    "result": {
+      "checkedAt": "2026-09-11T05:43:10.163118+00:00",
+      "passed": true,
+      "sources": [
+        {
+          "path": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+          "sha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be"
+        },
+        {
+          "path": "src/learn/data/ordinary-differential-equations-models.js",
+          "sha256": "c9464713e7554ed1d652faaba4ce787f9d2a5c91247b23e58d94241486276fe0"
+        },
+        {
+          "path": "src/learn/data/ordinary-differential-equations-examples.js",
+          "sha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+          "sha256": "1412ff555bca10abf934ef021d0a17a361df7566f6669192e7c03b56e2222ace"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+          "sha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+          "sha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+          "sha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9"
+        }
+      ],
+      "counts": {
+        "highPrecisionCooling": 140,
+        "highPrecisionLogistic": 45,
+        "independentMatrixExponential": 54,
+        "forcingQuadrature": 16,
+        "exactNonautonomousStages": 27,
+        "nonautonomousEqualHorizon": 9,
+        "exactDisplayedPrograms": 13,
+        "changedNativeMotion": 12,
+        "changedNativeHeldInput": 12,
+        "changedNativeSeriesAiry": 9,
+        "changedNativeStepHelper": 3,
+        "changedNativeEvent": 1
+      },
+      "conservedAuthorStates": 770,
+      "comparedFields": 6159,
+      "maximumAbsoluteConservationChange": 1.4210854715202004e-14,
+      "invalidInputsRejected": 25,
+      "refinementErrors": {
+        "euler": [
+          0.04765122243057063,
+          0.02726032622832053,
+          0.014297298527085944
+        ],
+        "midpoint": [
+          0.019703232961429284,
+          0.0037416968312895538,
+          0.0008251496524415147
+        ],
+        "rk4": [
+          0.00032073696891854464,
+          0.0000167264373928111,
+          9.268444330912118e-7
+        ]
+      },
+      "environment": {
+        "python": "3.12.14",
+        "numpy": "2.3.5",
+        "scipy": "1.18.1",
+        "mpmath": "1.3.0"
+      }
+    }
+  },
+  "browser": {
+    "file": {
+      "path": "scratch/ordinary-differential-equations-independent/browser-results.json",
+      "sha256": "4fdba82c01ff4b8272f137fa2513bf890480519cc3a513606dce6d14e2174c33",
+      "bytes": 13927
+    },
+    "result": {
+      "at": "2026-09-11T05:43:16.598Z",
+      "sources": [
+        {
+          "path": "src/learn/data/topics/ordinary-differential-equations-linear-systems.jsx",
+          "sha256": "5e1875ec91f4da24c29c313bf5720d4ab775ec7cefbea680bb774d2557f266be"
+        },
+        {
+          "path": "src/learn/data/ordinary-differential-equations-models.js",
+          "sha256": "c9464713e7554ed1d652faaba4ce787f9d2a5c91247b23e58d94241486276fe0"
+        },
+        {
+          "path": "src/learn/data/ordinary-differential-equations-examples.js",
+          "sha256": "bbaa1fbbd84b68251e1e8bb726fcc3bdfb1c02d1ba4dc21486f6b56748c5f32e"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+          "sha256": "1412ff555bca10abf934ef021d0a17a361df7566f6669192e7c03b56e2222ace"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsFigures.jsx",
+          "sha256": "d1db7f505d2ab48d73974699bea017c4cbb8b8a762763b512f35a3d66e47de49"
+        },
+        {
+          "path": "src/learn/components/lesson-labs/ordinary-differential-equations-labs.css",
+          "sha256": "246bda575fd97c8dc9ed23337b98f11e0640fdc67b77a51cdd24f30446e17bc6"
+        },
+        {
+          "path": "src/learn/data/curriculum/blueprints/ordinary-differential-equations-linear-systems.js",
+          "sha256": "7dfd227add1cba5ee06c56cc7c9873f81c6525ce50cab176634ff61d274cedc9"
+        }
+      ],
+      "records": [
+        {
+          "width": 1440,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "investigations": 8,
+          "inlineFigures": 4,
+          "programs": 13,
+          "equations": 23,
+          "anchors": 14,
+          "keyboardActions": 41,
+          "amended": {
+            "initial": 1e-200,
+            "tinyTime": 2e-200,
+            "invalid": [
+              true,
+              true
+            ]
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 390,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "investigations": 8,
+          "inlineFigures": 4,
+          "programs": 13,
+          "equations": 23,
+          "anchors": 14,
+          "keyboardActions": 41,
+          "amended": {
+            "initial": 1e-200,
+            "tinyTime": 2e-200,
+            "invalid": [
+              true,
+              true
+            ]
+          },
+          "errors": [],
+          "failedRequests": []
+        },
+        {
+          "width": 320,
+          "fonts": [
+            "JetBrains Mono",
+            "JetBrains Mono",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "Space Grotesk",
+            "KaTeX_Main",
+            "KaTeX_Math",
+            "KaTeX_Size1",
+            "KaTeX_Size2",
+            "KaTeX_Size3"
+          ],
+          "investigations": 8,
+          "inlineFigures": 4,
+          "programs": 13,
+          "equations": 23,
+          "anchors": 14,
+          "keyboardActions": 41,
+          "amended": {
+            "initial": 1e-200,
+            "tinyTime": 2e-200,
+            "invalid": [
+              true,
+              true
+            ]
+          },
+          "errors": [],
+          "failedRequests": []
+        }
+      ],
+      "images": [
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-logistic-trajectory-1440.png",
+          "sha256": "bd0427d9cc061d7ff8c468bd92c30bb08e226984b26884712af2fdf9814e99a4",
+          "viewport": {
+            "width": 1440,
+            "height": 1075
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-departure-1440.png",
+          "sha256": "d6f92be543b67e606ff4e60d804c70bf787cc1392da3c09d21918e6a1d98a7d8",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/critical-eigenvector-motion-1440.png",
+          "sha256": "ca1555f8f53a32cb35d2c88d56a478b008953a8aaf0ae25828739b5d76f0084b",
+          "viewport": {
+            "width": 1440,
+            "height": 1071
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-summed-columns-1440.png",
+          "sha256": "a31829151f42971bd4138b90948f79b023c1795bdbdf17bf54a601b82d250029",
+          "viewport": {
+            "width": 1440,
+            "height": 1271
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/second-input-not-yet-active-1440.png",
+          "sha256": "00d208eb610f0bf4ea365e3433f64227302c4e1369debdce99a6a04919009aa3",
+          "viewport": {
+            "width": 1440,
+            "height": 1169
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-chronological-stages-1440.png",
+          "sha256": "ddc46aa1c2622d241e1f51bc5ca6234b089dfa8990a9eb06f7c4338d145af6ed",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-midpoint-probes-1440.png",
+          "sha256": "cb461a763aa2e7dba46580a19129b7e9fe9da22f9f2276dbed2cdb20eb66d6cb",
+          "viewport": {
+            "width": 1440,
+            "height": 1368
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/candidate-does-not-meet-boundary-1440.png",
+          "sha256": "00fb15bc94a355753bf19bde872eb9c3ef4d43c0b37501646a4cf8c727787719",
+          "viewport": {
+            "width": 1440,
+            "height": 1087
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-0-1440.png",
+          "sha256": "ff2a2d811cba6bbb58a2ee49f83de70b89f822164eaebfdb69fd9697bf5764d5",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-1-1440.png",
+          "sha256": "db5f80a1382076854d59ac52d24360f876a881619c6c1093edaa1f1aa41ac8fa",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-2-1440.png",
+          "sha256": "f11f31585d26ed3f0c8c47b0f63636a2ef5415943caa1dca37719a19f5bf5921",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/energy-balance-1440.png",
+          "sha256": "91e040f6e1ad505e5d1b1095a158324fd211c5cc1052022cf0a96ab27f1661d4",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-complete-heating-task-1440.png",
+          "sha256": "d89d153f4479bb875def614a785d2e83432b2169ffa060f0a84ddae4312bce46",
+          "viewport": {
+            "width": 1440,
+            "height": 1854
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-logistic-trajectory-390.png",
+          "sha256": "556ddb2a25f6dac7a01c8726cd0094fb682e5b91fed491f39e1e947f0dcb72c0",
+          "viewport": {
+            "width": 390,
+            "height": 1296
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-departure-390.png",
+          "sha256": "f71a7754635097fb7506be1fad9fd9c1889b88e2a53931255ebab2b67c632ec1",
+          "viewport": {
+            "width": 390,
+            "height": 1093
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/critical-eigenvector-motion-390.png",
+          "sha256": "808b068e6e7b82f880e70936f22d3392be6532c0c4d63da36aeaf3ce2fd4b250",
+          "viewport": {
+            "width": 390,
+            "height": 1849
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-summed-columns-390.png",
+          "sha256": "08d436fd57302b82fd0cb5478b3b7df5244f1f5664cb8cfe8d2d0045528cdff7",
+          "viewport": {
+            "width": 390,
+            "height": 1672
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/second-input-not-yet-active-390.png",
+          "sha256": "5721de0ba43486f0ba17ed84d7c0425b717564c7bdfea694ace6d73de64e09e9",
+          "viewport": {
+            "width": 390,
+            "height": 1525
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-chronological-stages-390.png",
+          "sha256": "74d20f9c2817005dfb3c9e0d9165c1b3cca69e2be7390b2720e912c16af0808c",
+          "viewport": {
+            "width": 390,
+            "height": 1149
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-midpoint-probes-390.png",
+          "sha256": "8733e88d729c2b8b0e84aba5cc5c4c60024c6ebf2003162f2ab4458ae9287212",
+          "viewport": {
+            "width": 390,
+            "height": 1652
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/candidate-does-not-meet-boundary-390.png",
+          "sha256": "513c7a5e0cf5935e836c8d26c3a1f19f0043fa3af7c81cc90495fabde073a7d7",
+          "viewport": {
+            "width": 390,
+            "height": 1387
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-0-390.png",
+          "sha256": "ac5196fa8dac8d09af8b3c7bbe9406f5cc18d637aafebad1e0700bf5e6aef42e",
+          "viewport": {
+            "width": 390,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-1-390.png",
+          "sha256": "acd92192a47f818f438975ebaf71548124fb3c02e860e2beb60f325a8fa7a7ae",
+          "viewport": {
+            "width": 390,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-2-390.png",
+          "sha256": "88847729014ff528b3990e2b3b3fce87bb3235c0f20642ee3df93ba559394e3d",
+          "viewport": {
+            "width": 390,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/energy-balance-390.png",
+          "sha256": "c4ce7dd70bd44f6b23dbb2787f21f61523623e0e1767d101f1893506b1a9fded",
+          "viewport": {
+            "width": 390,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-complete-heating-task-390.png",
+          "sha256": "a8c38034dfd06db9b1a447ccaed65c9adb15a24e641bb154eb60f55db43274bc",
+          "viewport": {
+            "width": 390,
+            "height": 2098
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-logistic-trajectory-320.png",
+          "sha256": "413cd8921040ecd9326e8ac2ba765002a60f3b83b4455af40a1856460bf1b94e",
+          "viewport": {
+            "width": 320,
+            "height": 1341
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-departure-320.png",
+          "sha256": "aaa63f1da61a1a4fbbf82a053abcc58fb413a3dc626b4d09896b723afd64bade",
+          "viewport": {
+            "width": 320,
+            "height": 1120
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/critical-eigenvector-motion-320.png",
+          "sha256": "cdeebdf8db28f2f6527fd562e8582a0ba4b59256632ef574d0d22896ce965ebf",
+          "viewport": {
+            "width": 320,
+            "height": 1844
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-summed-columns-320.png",
+          "sha256": "18bfbf7eb4f644fa544a07c93a7645ce79898ebf5509a786a0eb8781e08f56dd",
+          "viewport": {
+            "width": 320,
+            "height": 1722
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/second-input-not-yet-active-320.png",
+          "sha256": "b296514e9519645c151444311fcd6040a0a2a7866fe603cc1ac02b0fb17ce684",
+          "viewport": {
+            "width": 320,
+            "height": 1574
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-chronological-stages-320.png",
+          "sha256": "6b5613ea21692538bba60888b7240ce9ea8f4c51d24fde0f7bf37171fea04470",
+          "viewport": {
+            "width": 320,
+            "height": 1231
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-midpoint-probes-320.png",
+          "sha256": "a38b8530b174e285f28e957cc28b09eca6543510365e0ed0056db88a78d20670",
+          "viewport": {
+            "width": 320,
+            "height": 1811
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/candidate-does-not-meet-boundary-320.png",
+          "sha256": "26b7625b9ecf144d437e73fc39326cad451a8f9767c4a8dbaee21424a1ecb69c",
+          "viewport": {
+            "width": 320,
+            "height": 1474
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-0-320.png",
+          "sha256": "d8a18949bcf4f997a454aa1d87f34d5af241a4823f317ba8295d86713f7d7c49",
+          "viewport": {
+            "width": 320,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-1-320.png",
+          "sha256": "204b5bcf47c919326e146372d644782bdfd38dcb75ebdd73a9a44331f6baf8e3",
+          "viewport": {
+            "width": 320,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/inline-2-320.png",
+          "sha256": "c7228dcd999d4f4b80baaaab682f9db0a499c1ad64960e393ff576c8c996ef84",
+          "viewport": {
+            "width": 320,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/energy-balance-320.png",
+          "sha256": "ae00170a9957dac14923cf12309b9ef2696bc3fa85b6545e3d6707cfeda171ba",
+          "viewport": {
+            "width": 320,
+            "height": 1000
+          }
+        },
+        {
+          "path": "scratch/ordinary-differential-equations-independent/changed-complete-heating-task-320.png",
+          "sha256": "c5ba24997e07ae2f4fbf532cfcb80a790ce678850410b29f9f5b87f40e997456",
+          "viewport": {
+            "width": 320,
+            "height": 2250
+          }
+        }
+      ],
+      "browser": "152.0.4191.66",
+      "passed": true
+    }
+  },
+  "visuallyOpenedFinal": [
+    {
+      "path": "scratch/ordinary-differential-equations-independent/changed-summed-columns-320.png",
+      "sha256": "18bfbf7eb4f644fa544a07c93a7645ce79898ebf5509a786a0eb8781e08f56dd",
+      "bytes": 66562
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-independent/changed-midpoint-probes-1440.png",
+      "sha256": "cb461a763aa2e7dba46580a19129b7e9fe9da22f9f2276dbed2cdb20eb66d6cb",
+      "bytes": 101629
+    },
+    {
+      "path": "scratch/ordinary-differential-equations-independent/inline-0-320.png",
+      "sha256": "d8a18949bcf4f997a454aa1d87f34d5af241a4823f317ba8295d86713f7d7c49",
+      "bytes": 22807
+    }
+  ],
+  "earlierVisualReview": "Thirteen first-run reviewer images were opened before the stationary-point amendment. Three final-run images were reopened, including the affected narrow matrix-column plot. The 39 saved final images are not all claimed as opened.",
+  "sourceRecheck": [
+    {
+      "date": "2026-09-11",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+      "scope": "API tolerances, output-time sampling, event limitations and status; current page 1.18.0 versus executed installed 1.18.1."
+    },
+    {
+      "date": "2026-09-11",
+      "url": "https://www.jirka.org/diffyqs/html/forcedo_section.html",
+      "scope": "Section 2.6.2 damped forcing, amplitude and resonance peak derivation. No unqualified claim that increasing damping always accelerates transient decay is imported."
+    }
+  ],
+  "limitations": [
+    "Finite numerical comparisons supplement separately reviewed arguments; they are not a solver certification or learner study.",
+    "Actual browser checks cover the bounded controls at 1440, 390 and 320 pixels; source validation and high-precision checks extend selected numerical boundaries.",
+    "The original author packet remains unchanged and its timestamps are not reassigned to amended sources.",
+    "Production integration and user acceptance remain separate; no site deployment occurred."
+  ]
+}

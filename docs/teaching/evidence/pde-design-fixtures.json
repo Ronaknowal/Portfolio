@@ -1,0 +1,135 @@
+{
+  "checkedAt": "2026-09-11T07:09:32.762672+00:00",
+  "topicId": "partial-differential-equations-conservation-boundary-conditions",
+  "status": "design fixtures only; no production implementation or browser claim",
+  "checks": {
+    "balance": 1,
+    "variable_conductivity": 1,
+    "transport_pde": 2,
+    "transport_corner": 3,
+    "transport_total": 1,
+    "sine_coefficient_quadrature": 39,
+    "heat_mass_independent_integration": 5,
+    "heat_squared_norm": 5,
+    "heat_high_precision_tail": 25,
+    "neumann_exact_pde": 1,
+    "neumann_exact_mass": 1,
+    "bump_C2_join": 6,
+    "wave_compact_velocity_integral": 15,
+    "wave_standing_pde": 1,
+    "wave_standing_energy": 1,
+    "poisson_pde": 27,
+    "poisson_left_flux": 27,
+    "poisson_right_flux": 27,
+    "poisson_mean_selection": 27,
+    "green_weak_identity": 15,
+    "harmonic_2d_pde": 3,
+    "harmonic_top_boundary": 3,
+    "periodic_depth_pde": 1,
+    "kernel_pde": 1,
+    "kernel_mass": 3,
+    "kernel_variance": 3,
+    "forced_rod_pde": 1,
+    "forced_rod_balance": 1,
+    "uniform_settling_threshold": 1,
+    "rankine_hugoniot": 4,
+    "entropy_orientation": 4
+  },
+  "maxScaledError": 2.5706426093223297e-15,
+  "values": {
+    "transport": {
+      "boundaryRegion": "7/8",
+      "initialRegion": "3/2"
+    },
+    "heatComparison": [
+      {
+        "theta": 0.002,
+        "centerDirichlet": 0.9620399056482062,
+        "centerNeumann": 0.9620399056482061,
+        "meanDirichlet": 0.4974257843242724,
+        "meanNeumann": 0.5,
+        "logAnalyticUniformTailBound63": -88.30871756633448
+      },
+      {
+        "theta": 0.01,
+        "centerDirichlet": 0.8368944379719888,
+        "centerNeumann": 0.8369127256157167,
+        "meanDirichlet": 0.4745062244761406,
+        "meanNeumann": 0.5,
+        "logAnalyticUniformTailBound63": -411.7159145812306
+      },
+      {
+        "theta": 0.05,
+        "centerDirichlet": 0.5202066072697162,
+        "centerNeumann": 0.5694555665714002,
+        "meanDirichlet": 0.3294763023573097,
+        "meanNeumann": 0.5,
+        "logAnalyticUniformTailBound63": -2028.751899655711
+      },
+      {
+        "theta": 0.2,
+        "centerDirichlet": 0.11791143521709725,
+        "centerNeumann": 0.5001861736530169,
+        "meanDirichlet": 0.07506474827219908,
+        "meanNeumann": 0.5,
+        "logAnalyticUniformTailBound63": -8092.6368436850125
+      },
+      {
+        "theta": 0.5,
+        "centerDirichlet": 0.006104660193173839,
+        "centerNeumann": 0.500000001337644,
+        "meanDirichlet": 0.0038863473825597647,
+        "meanNeumann": 0.5,
+        "logAnalyticUniformTailBound63": -20220.406731743617
+      }
+    ],
+    "compactBumpPrimitive": "-x**7/7 + 3*x**5/5 - x**3 + x",
+    "standingEnergy": "5*pi**2/16",
+    "harmonicDepthRatios": {
+      "1": 0.19926840766919338,
+      "3": 0.008982566132376003,
+      "5": 0.00038820314542388165
+    },
+    "seasonalOneDepth": {
+      "amplitudeRatio": 0.36787944117144233,
+      "phaseLagRadians": 1
+    },
+    "forcedRod": {
+      "capacity": 2,
+      "conductivity": 0.5,
+      "source": 1,
+      "diffusivity": 0.25,
+      "steadyCenter": 0.25,
+      "initialCenter": 0.45,
+      "uniformTolerance": 0.05,
+      "settlingSeconds": 0.561843942181463
+    },
+    "shockPairs": [
+      {
+        "left": 2,
+        "right": 0,
+        "speed": "1",
+        "entropyProduction": "-2/3"
+      },
+      {
+        "left": 0,
+        "right": 2,
+        "speed": "1",
+        "entropyProduction": "2/3"
+      },
+      {
+        "left": 3,
+        "right": -1,
+        "speed": "1",
+        "entropyProduction": "-16/3"
+      },
+      {
+        "left": -1,
+        "right": 3,
+        "speed": "1",
+        "entropyProduction": "16/3"
+      }
+    ]
+  },
+  "scriptSha256": "0b44416411295f26ba700b5a86bae2cf3548021d0122f2619fece4ccd048bc8c"
+}

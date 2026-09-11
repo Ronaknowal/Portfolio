@@ -1,0 +1,48 @@
+.algebra-lesson { --algebra-gold: #f4bd63; --algebra-blue: #8db9df; }
+.algebra-lab,.algebra-figure { margin: 2rem 0; padding: 1.4rem; border: 1px solid #414047; background: #19191d; border-radius: 6px; }
+.algebra-lab h3 { margin: 0 0 .7rem; color: #f3e9da; font-size: 1.25rem; }
+.algebra-lab p,.algebra-figure figcaption { line-height: 1.7; color: #d0cbd0; }
+.algebra-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 1.2rem; margin: 1.1rem 0; }
+.algebra-controls label,.algebra-control { display: flex; flex-direction: column; gap: .45rem; min-width: 0; color: #e8dcca; }
+.algebra-controls input:not([type=checkbox]):not([type=range]) { width: 5rem; }
+.algebra-controls input,.algebra-controls select,.algebra-lab button { font: inherit; }
+.algebra-controls select,.algebra-controls input:not([type=range]):not([type=checkbox]) { padding: .55rem; border: 1px solid #736552; color: #f3e9da; background: #26232a; border-radius: 3px; max-width: 100%; }
+.algebra-lab input[type=range] { accent-color: var(--algebra-gold); min-height: 32px; width: 100%; min-width: 140px; }
+.algebra-lab input[type=checkbox] { accent-color: var(--algebra-gold); width: 20px; height: 20px; }
+.algebra-buttons { display: flex; flex-wrap: wrap; gap: .65rem; margin: 1rem 0; }
+.algebra-lab button { min-height: 44px; padding: .5rem .8rem; color: #f6d6a3; border: 1px solid #7a6242; background: #29241d; border-radius: 4px; cursor: pointer; }
+.algebra-lab button:disabled { opacity: .4; cursor: default; }
+.algebra-lab :focus-visible { outline: 2px solid #f4bd63; outline-offset: 4px; }
+.algebra-lab [role=alert] { border: 1px solid #dc997e; padding: .8rem; color: #f3cbb8; }
+.algebra-equation { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin: 1.5rem 0; }
+.algebra-equation span { padding: 1rem .3rem; border-bottom: 2px solid var(--algebra-gold); text-align: center; font-size: clamp(1.2rem,3vw,1.8rem); overflow-wrap: anywhere; }
+.algebra-readout,.algebra-result { padding: .8rem 0; font-weight: 500; color: #fae3ba !important; }
+.algebra-pipeline { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem; margin: 1.2rem 0; padding: .8rem 0; border-bottom: 1px solid #514534; }
+.algebra-pipeline strong { flex-basis: 100%; color: var(--algebra-gold); }
+.algebra-pipeline span { border-bottom: 2px solid var(--algebra-gold); padding: .4rem; min-width: 2.5rem; text-align: center; font-size: 1.25rem; }
+.algebra-pipeline.second span { border-color: var(--algebra-blue); }
+.algebra-pipeline.second strong { color: var(--algebra-blue); }
+.algebra-plot { width: min(100%,510px); display: block; margin: 1rem auto; overflow: visible; }
+.algebra-figure>svg { width: min(100%,430px); display: block; margin: 1rem auto; }
+.algebra-ruler { display: block; width: min(100%,570px); margin: 1.3rem auto; }
+.algebra-lab svg text,.algebra-figure svg text { fill: #ddd4c6; font: 17px 'Space Grotesk',sans-serif; }
+.algebra-lab svg .axis-title { font-size: 16px; }
+.algebra-lab .axis,.algebra-figure .axis { stroke: #ad9b82; stroke-width: 1.4; }
+.algebra-lab .grid,.algebra-figure .grid { stroke: #484047; stroke-width: 1; }
+.algebra-lab .curve,.algebra-figure .curve { stroke: var(--algebra-gold); stroke-width: 2.5; }
+.algebra-lab .curve.second { stroke: var(--algebra-blue); stroke-dasharray: 6 3; }
+.algebra-lab .point,.algebra-figure .point { fill: var(--algebra-gold); stroke: #17171a; stroke-width: 2; }
+.algebra-figure .point.hollow { fill: #19191d; stroke: var(--algebra-gold); stroke-width: 2.5; }
+.algebra-fraction { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.algebra-fraction>div { display: grid; gap: .7rem; }
+.algebra-fraction span { display: flex; gap: 3px; }
+.algebra-fraction i { width: 22px; height: 30px; border: 1px solid #a28c6b; }
+.algebra-fraction i.filled { background: #bd8c42; }
+@media(max-width:620px) {
+  .algebra-lab,.algebra-figure { padding: .85rem .65rem; margin-inline: 0; }
+  .algebra-controls { gap: .85rem; }
+  .algebra-control { width: 100%; }
+  .algebra-lab svg text,.algebra-figure svg text { font-size: 18px; }
+  .algebra-lab svg .axis-title { font-size: 17px; }
+  .algebra-pipeline { gap: .4rem; }
+}

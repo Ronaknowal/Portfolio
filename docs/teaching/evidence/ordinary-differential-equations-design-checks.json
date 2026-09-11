@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-09-11T01:20:30.902877+00:00",
+  "scope": "Provisional design arithmetic only. No production ODE model, displayed program or browser implementation exists yet. General proofs require their independent source/derivation review.",
+  "checks": {
+    "thermal": {
+      "coolingOneMinute": 32.749230123119276,
+      "coolingHalfTime": 3.465735902799726,
+      "heatedFiveMinutes": 21.03638323514327,
+      "changedQuarterTime": 4.620981203732969
+    },
+    "integratingFactorPoints": 4,
+    "changedSpringMatrixChecks": 4,
+    "changedCompartmentChecks": 4,
+    "singularHeldInput": [
+      7.0,
+      5.0,
+      2.0
+    ],
+    "stageOrders": {
+      "[1, 0]": {
+        "UthenV": [
+          1.0,
+          1.0
+        ],
+        "VthenU": [
+          2.0,
+          1.0
+        ]
+      },
+      "[0, 1]": {
+        "UthenV": [
+          1.0,
+          2.0
+        ],
+        "VthenU": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "couplingExcursion": 1.5168057934430552,
+    "series(1, 0)": [
+      "1",
+      "0",
+      "0",
+      "1/6",
+      "0",
+      "0",
+      "1/180",
+      "0",
+      "0",
+      "1/12960",
+      "0"
+    ],
+    "series(0, 1)": [
+      "0",
+      "1",
+      "0",
+      "0",
+      "1/12",
+      "0",
+      "0",
+      "1/504",
+      "0",
+      "0",
+      "1/45360"
+    ],
+    "resonantIndependentIvps": 4
+  }
+}

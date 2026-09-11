@@ -1,0 +1,851 @@
+{
+  "checkedAt": "2026-09-11T09:53:47.144Z",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/dynamic-programming-states-transitions-optimization.jsx",
+      "sha256": "4775925f5bd7e5c953d32777cb5500e6c4e4a081f74d4c1f342c9ec99d67fbd9"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "4334d6c5b31cc7263a60407076364423e635db35d47fb572de357c617d39cc93"
+    },
+    {
+      "path": "src/learn/data/practice/dynamic-programming-states-transitions-optimization.js",
+      "sha256": "3762e03cc25745649e1b2efcb75b5b2f03ca3bcc0a17c53c405298c90b5252e7"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-models.js",
+      "sha256": "3d81395a1d72e732b077cc08d7f19c2f31701779a35d4f8833077a7bc24af86d"
+    },
+    {
+      "path": "src/learn/data/dp-state-families-examples.js",
+      "sha256": "b03b2a49e8edfecf8f0ccb209b8dd56c4799b53898bacb03ffbb89969a888355"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "sha256": "f07349a9f07d5773bf727c94dc87a13019d1a54b73da33464d3aa62c8f63958d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/dp-state-families-labs.css",
+      "sha256": "3faeb02bb67e724c6b42e41cb4cbc4c325253f4253c3f322abc1c65b726eb9c2"
+    }
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "values": [
+        {
+          "text": "k=1 · 192 (chosen)",
+          "textWidth": 135.45701599121094,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 216 (chosen)",
+          "textWidth": 138.43301391601562,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 120 (chosen)",
+          "textWidth": 135.9210205078125,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 480",
+          "textWidth": 69.61595153808594,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 360",
+          "textWidth": 69.10394287109375,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 108 (chosen)",
+          "textWidth": 139.21701049804688,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 204 (chosen)",
+          "textWidth": 139.2330322265625,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 984",
+          "textWidth": 69.15194702148438,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 264",
+          "textWidth": 68.84794616699219,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 42 (chosen)",
+          "textWidth": 128.97703552246094,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 70 (chosen)",
+          "textWidth": 131.44822692871094,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 175",
+          "textWidth": 61.727935791015625,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 8 (chosen)",
+          "textWidth": 119.29702758789062,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 8 (chosen)",
+          "textWidth": 122.25703430175781,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 16 (chosen)",
+          "textWidth": 125.80902099609375,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 16",
+          "textWidth": 55.8719482421875,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 8000 (chosen)",
+          "textWidth": 150.0650177001953,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 8000 (chosen)",
+          "textWidth": 153.0250244140625,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 8000 (chosen)",
+          "textWidth": 153.041015625,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 8000 (chosen)",
+          "textWidth": 153.3770294189453,
+          "available": 672.2
+        },
+        {
+          "text": "k=5 · 8000 (chosen)",
+          "textWidth": 152.96102905273438,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 16000 (chosen)",
+          "textWidth": 156.57701110839844,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 16000",
+          "textWidth": 86.63993835449219,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 16000 (chosen)",
+          "textWidth": 159.53701782226562,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 16000",
+          "textWidth": 86.65592956542969,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 16000 (chosen)",
+          "textWidth": 159.55300903320312,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 16000",
+          "textWidth": 86.991943359375,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 16000 (chosen)",
+          "textWidth": 159.88902282714844,
+          "available": 672.2
+        },
+        {
+          "text": "k=5 · 16000",
+          "textWidth": 86.57594299316406,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 24000 (chosen)",
+          "textWidth": 159.27317810058594,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 24000",
+          "textWidth": 89.33610534667969,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 24000 (chosen)",
+          "textWidth": 162.23318481445312,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 24000 (chosen)",
+          "textWidth": 162.24917602539062,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 672.2
+        },
+        {
+          "text": "k=5 · 24000",
+          "textWidth": 89.27210998535156,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 32000 (chosen)",
+          "textWidth": 159.4090118408203,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 32000",
+          "textWidth": 89.47193908691406,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 32000 (chosen)",
+          "textWidth": 162.3690185546875,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 672.2
+        },
+        {
+          "text": "k=5 · 32000",
+          "textWidth": 89.40794372558594,
+          "available": 672.2
+        },
+        {
+          "text": "k=1 · 40000 (chosen)",
+          "textWidth": 160.35302734375,
+          "available": 672.2
+        },
+        {
+          "text": "k=2 · 40000",
+          "textWidth": 90.41595458984375,
+          "available": 672.2
+        },
+        {
+          "text": "k=3 · 40000",
+          "textWidth": 90.43194580078125,
+          "available": 672.2
+        },
+        {
+          "text": "k=4 · 40000",
+          "textWidth": 90.76795959472656,
+          "available": 672.2
+        },
+        {
+          "text": "k=5 · 40000",
+          "textWidth": 90.35195922851562,
+          "available": 672.2
+        }
+      ],
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 390,
+      "values": [
+        {
+          "text": "k=1 · 192 (chosen)",
+          "textWidth": 135.45701599121094,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 216 (chosen)",
+          "textWidth": 138.43301391601562,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 120 (chosen)",
+          "textWidth": 135.9210205078125,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 480",
+          "textWidth": 69.61595153808594,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 360",
+          "textWidth": 69.10394287109375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 108 (chosen)",
+          "textWidth": 139.21701049804688,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 204 (chosen)",
+          "textWidth": 139.2330322265625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 984",
+          "textWidth": 69.15194702148438,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 264",
+          "textWidth": 68.84794616699219,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 42 (chosen)",
+          "textWidth": 128.97703552246094,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 70 (chosen)",
+          "textWidth": 131.44822692871094,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 175",
+          "textWidth": 61.727935791015625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 8 (chosen)",
+          "textWidth": 119.29702758789062,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 8 (chosen)",
+          "textWidth": 122.25703430175781,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 16 (chosen)",
+          "textWidth": 125.80902099609375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 16",
+          "textWidth": 55.8719482421875,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 8000 (chosen)",
+          "textWidth": 150.0650177001953,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 8000 (chosen)",
+          "textWidth": 153.0250244140625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 8000 (chosen)",
+          "textWidth": 153.041015625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 8000 (chosen)",
+          "textWidth": 153.3770294189453,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=5 · 8000 (chosen)",
+          "textWidth": 152.96102905273438,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 16000 (chosen)",
+          "textWidth": 156.57701110839844,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 16000",
+          "textWidth": 86.63993835449219,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 16000 (chosen)",
+          "textWidth": 159.53701782226562,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 16000",
+          "textWidth": 86.65592956542969,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 16000 (chosen)",
+          "textWidth": 159.55300903320312,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 16000",
+          "textWidth": 86.991943359375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 16000 (chosen)",
+          "textWidth": 159.88902282714844,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=5 · 16000",
+          "textWidth": 86.57594299316406,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 24000 (chosen)",
+          "textWidth": 159.27317810058594,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 24000",
+          "textWidth": 89.33610534667969,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 24000 (chosen)",
+          "textWidth": 162.23318481445312,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 24000 (chosen)",
+          "textWidth": 162.24917602539062,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=5 · 24000",
+          "textWidth": 89.27210998535156,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 32000 (chosen)",
+          "textWidth": 159.4090118408203,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 32000",
+          "textWidth": 89.47193908691406,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 32000 (chosen)",
+          "textWidth": 162.3690185546875,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=5 · 32000",
+          "textWidth": 89.40794372558594,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=1 · 40000 (chosen)",
+          "textWidth": 160.35302734375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=2 · 40000",
+          "textWidth": 90.41595458984375,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=3 · 40000",
+          "textWidth": 90.43194580078125,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=4 · 40000",
+          "textWidth": 90.76795959472656,
+          "available": 275.20000000000005
+        },
+        {
+          "text": "k=5 · 40000",
+          "textWidth": 90.35195922851562,
+          "available": 275.20000000000005
+        }
+      ],
+      "errors": [],
+      "failedRequests": []
+    },
+    {
+      "width": 320,
+      "values": [
+        {
+          "text": "k=1 · 192 (chosen)",
+          "textWidth": 135.45701599121094,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 216 (chosen)",
+          "textWidth": 138.43301391601562,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 120 (chosen)",
+          "textWidth": 135.9210205078125,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 480",
+          "textWidth": 69.61595153808594,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 360",
+          "textWidth": 69.10394287109375,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 108 (chosen)",
+          "textWidth": 139.21701049804688,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 204 (chosen)",
+          "textWidth": 139.2330322265625,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 984",
+          "textWidth": 69.15194702148438,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 264",
+          "textWidth": 68.84794616699219,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 42 (chosen)",
+          "textWidth": 128.97703552246094,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 70 (chosen)",
+          "textWidth": 131.44822692871094,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 175",
+          "textWidth": 61.727935791015625,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 72 (chosen)",
+          "textWidth": 130.80615234375,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 8 (chosen)",
+          "textWidth": 119.29702758789062,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 8 (chosen)",
+          "textWidth": 122.25703430175781,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 16 (chosen)",
+          "textWidth": 125.80902099609375,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 16",
+          "textWidth": 55.8719482421875,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 8000 (chosen)",
+          "textWidth": 150.0650177001953,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 8000 (chosen)",
+          "textWidth": 153.0250244140625,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 8000 (chosen)",
+          "textWidth": 153.041015625,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 8000 (chosen)",
+          "textWidth": 153.3770294189453,
+          "available": 205.2
+        },
+        {
+          "text": "k=5 · 8000 (chosen)",
+          "textWidth": 152.96102905273438,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 16000 (chosen)",
+          "textWidth": 156.57701110839844,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 16000",
+          "textWidth": 86.63993835449219,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 16000 (chosen)",
+          "textWidth": 159.53701782226562,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 16000",
+          "textWidth": 86.65592956542969,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 16000 (chosen)",
+          "textWidth": 159.55300903320312,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 16000",
+          "textWidth": 86.991943359375,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 16000 (chosen)",
+          "textWidth": 159.88902282714844,
+          "available": 205.2
+        },
+        {
+          "text": "k=5 · 16000",
+          "textWidth": 86.57594299316406,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 24000 (chosen)",
+          "textWidth": 159.27317810058594,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 24000",
+          "textWidth": 89.33610534667969,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 24000 (chosen)",
+          "textWidth": 162.23318481445312,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 24000",
+          "textWidth": 89.35209655761719,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 24000 (chosen)",
+          "textWidth": 162.24917602539062,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 24000",
+          "textWidth": 89.6881103515625,
+          "available": 205.2
+        },
+        {
+          "text": "k=5 · 24000",
+          "textWidth": 89.27210998535156,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 32000 (chosen)",
+          "textWidth": 159.4090118408203,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 32000",
+          "textWidth": 89.47193908691406,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 32000 (chosen)",
+          "textWidth": 162.3690185546875,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 32000",
+          "textWidth": 89.48793029785156,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 32000",
+          "textWidth": 89.82394409179688,
+          "available": 205.2
+        },
+        {
+          "text": "k=5 · 32000",
+          "textWidth": 89.40794372558594,
+          "available": 205.2
+        },
+        {
+          "text": "k=1 · 40000 (chosen)",
+          "textWidth": 160.35302734375,
+          "available": 205.2
+        },
+        {
+          "text": "k=2 · 40000",
+          "textWidth": 90.41595458984375,
+          "available": 205.2
+        },
+        {
+          "text": "k=3 · 40000",
+          "textWidth": 90.43194580078125,
+          "available": 205.2
+        },
+        {
+          "text": "k=4 · 40000",
+          "textWidth": 90.76795959472656,
+          "available": 205.2
+        },
+        {
+          "text": "k=5 · 40000",
+          "textWidth": 90.35195922851562,
+          "available": 205.2
+        }
+      ],
+      "errors": [],
+      "failedRequests": []
+    }
+  ]
+}

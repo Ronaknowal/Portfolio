@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-09-11T13:11:52.424Z",
+  "records": [
+    {
+      "width": 1440,
+      "errors": [],
+      "controls": 16,
+      "screenshots": [
+        {
+          "path": "scratch/decision-tree-browser/partition-equality-1440.png",
+          "sha256": "16657ecdff8129a9899fd9d9a23f2913fab43b4fe3a37592505336f0eb4d7b30"
+        }
+      ],
+      "outsideLabels": []
+    },
+    {
+      "width": 390,
+      "errors": [],
+      "controls": 16,
+      "screenshots": [
+        {
+          "path": "scratch/decision-tree-browser/partition-equality-390.png",
+          "sha256": "94d38d791d3b0fc6f18a9928e0927b5dc1b012f3a6fe0c9998f2e6124e7834ce"
+        },
+        {
+          "path": "scratch/decision-tree-browser/xor-interaction-390.png",
+          "sha256": "b5d093c5afab8c0119ddd8dec4357eb3607165fa83e1ae1eef62b8030dbf7065"
+        }
+      ],
+      "outsideLabels": []
+    },
+    {
+      "width": 320,
+      "errors": [],
+      "controls": 16,
+      "screenshots": [
+        {
+          "path": "scratch/decision-tree-browser/tree-pruning-changed-320.png",
+          "sha256": "dabaf5112e3babd74531d4e1b08b7b68b9383c34086b2f5b5fea0cbcda60d137"
+        },
+        {
+          "path": "scratch/decision-tree-browser/tree-bootstrap-changed-320.png",
+          "sha256": "621db6168ddb8cd7ebccfe7ec2b4fd5c27601c6768b4571c8dc28036ae919a65"
+        },
+        {
+          "path": "scratch/decision-tree-browser/tree-permutation-changed-320.png",
+          "sha256": "36616f1a6be198fc167f38c77a6107de746df45497dccf653559eb018eb840b8"
+        },
+        {
+          "path": "scratch/decision-tree-browser/partition-equality-320.png",
+          "sha256": "6a085c59d48dba628ad8135142e3184bab17623ea90c3756dc53ef43f365fcfc"
+        }
+      ],
+      "outsideLabels": []
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/DecisionTreeLabs.jsx",
+      "sha256": "a9228818eafc7c335ef7bafe0ab4ab48d0ba96a14e22cb968cc788288f6b165d"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/decision-tree-labs.css",
+      "sha256": "f27a65d6d0ada5bcf582d4883c362997d7c4cc9bb7512980a85960523895a87d"
+    }
+  ]
+}

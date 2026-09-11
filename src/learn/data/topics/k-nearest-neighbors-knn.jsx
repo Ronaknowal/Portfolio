@@ -1,686 +1,176 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const kNearestNeighborsContent = {
-  title: "K-Nearest Neighbors (KNN)",
-  readTime: "~35 min",
-  content: () => (
-    <div>
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In February 1951, Evelyn Fix and J. L. Hodges submitted a technical report to the USAF School of Aviation Medicine at Randolph Field, Texas. The report, titled "Discriminatory Analysis: Nonparametric Discrimination — Consistency Properties," was assigned project number 21-49-004. It was not a journal article, not peer-reviewed in any formal sense, and not widely circulated for more than a decade. What it contained was the seed of one of the most widely deployed algorithms in all of machine learning.
-      </Prose>
-
-      <Prose>
-        Fix and Hodges were attacking a classification problem: given a set of labeled examples and a new unlabeled point, assign the correct class. The dominant approach of the era was parametric — assume the data comes from a Gaussian, estimate the mean and covariance, classify by the nearest class centroid. The problem with parametric methods is that they commit to a distributional form before seeing the data. If the true class boundaries are irregular, non-convex, or multi-modal, a Gaussian assumption will be wrong in ways that accumulate. Fix and Hodges asked: what if you simply looked at the labeled points nearest to the query and let them vote? No distributional assumption. No parameter estimation. Just proximity.
-      </Prose>
-
-      <Prose>
-        The theoretical justification arrived sixteen years later. Thomas Cover and Peter Hart, working at Stanford, published "Nearest Neighbor Pattern Classification" in the January 1967 issue of <em>IEEE Transactions on Information Theory</em> (vol. 13, no. 1, pp. 21–27). Their main result — now called the Cover-Hart bound — is one of the most elegant theorems in classical machine learning: <strong>the asymptotic error rate of the 1-nearest-neighbor rule is at most twice the Bayes error rate</strong>. The Bayes error is the irreducible floor: the minimum error any classifier can achieve given the true class-conditional distributions. Cover and Hart proved that KNN, using no model at all, gets within a factor of two of that floor. For a method that requires zero training, this is a startling guarantee.
-      </Prose>
-
-      <Prose>
-        The algorithmic machinery for making KNN tractable at scale came from Jerome Friedman, Jon Bentley, and Raphael Finkel in their 1977 ACM Transactions on Mathematical Software paper "An Algorithm for Finding Best Matches in Logarithmic Expected Time" (vol. 3, no. 3, pp. 209–226). They introduced the kd-tree: a recursive binary partition of feature space that reduces nearest-neighbor search from O(n) brute force to O(log n) expected time in low dimensions. The kd-tree is the data structure that made KNN deployable in the pre-GPU era.
-      </Prose>
-
-      <Prose>
-        Three properties make KNN unusual in the landscape of supervised learning. First, it is <strong>non-parametric</strong>: no functional form is assumed for the decision boundary. The model complexity grows with the data rather than being fixed before training. Second, it is a <strong>lazy learner</strong>: all computation is deferred to inference. There is no training phase in the gradient-descent sense; the training set is simply stored and searched at query time. Third, it is <strong>instance-based</strong>: each prediction is a local computation that depends directly on the stored examples near the query, not on a global summary of the data. These properties are a double-edged sword — they make KNN flexible and assumption-free, but they also make it expensive at inference and fragile in high dimensions.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The idea fits in one sentence: <strong>classify a new point by majority vote of its k nearest neighbors in the training set; for regression, average their labels</strong>. Everything else is implementation, theory, or engineering.
-      </Prose>
-
-      <Prose>
-        Consider a 2-D feature space with three classes. Each training point is a colored dot. To classify a gray query point, draw a circle that expands until it encloses exactly k training points, then count which color is most common. That count is the prediction. The decision boundary — the set of all points in feature space that are exactly on the boundary between two predictions — is a piecewise linear curve, and its shape is determined by the geometry of the training set.
-      </Prose>
-
-      <StepTrace
-        label="KNN classification: single query walkthrough"
-        steps={[
-          {
-            label: "Step 1 — Compute distances to all training points",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="query point x = [3.1, 2.9]"
-                  tokens={[
-                    { label: "x=[3.1, 2.9]", color: colors.gold },
-                    { label: "→ dist to all n training pts", color: colors.textDim },
-                    { label: "O(n·d) work", color: "#60a5fa" },
-                  ]}
-                />
-                <Prose>
-                  Every training example is a candidate neighbor. The Euclidean distance to each is computed: d(x, xᵢ) = sqrt((3.1-xᵢ₁)² + (2.9-xᵢ₂)²). Nothing is pruned at this stage in brute force.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 2 — Sort and select the k nearest",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="5-nearest neighbors (sorted by distance)"
-                  tokens={[
-                    { label: "#1 [3.0,3.0] d=0.14 → C", color: colors.green },
-                    { label: "#2 [3.2,2.8] d=0.14 → C", color: colors.green },
-                    { label: "#3 [1.5,1.8] d=2.19 → A", color: "#f87171" },
-                    { label: "#4 [1.2,2.5] d=2.05 → A", color: "#f87171" },
-                    { label: "#5 [1.0,2.0] d=2.24 → A", color: "#f87171" },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Step 3 — Majority vote (uniform weights, k=5)",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="vote tally"
-                  tokens={[
-                    { label: "class C: 2 votes", color: colors.green },
-                    { label: "class A: 3 votes", color: "#f87171" },
-                    { label: "→ predict A", color: "#f87171" },
-                  ]}
-                />
-                <Prose>
-                  With k=5 the boundary has shifted far enough that the two nearby C-points are outvoted by three more distant A-points. This illustrates a critical property: larger k smooths the boundary but can wash out small clusters.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 3 (alt) — Distance-weighted vote (k=5)",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="weighted vote (weight = 1/distance)"
-                  tokens={[
-                    { label: "class C: 2×(1/0.14) ≈ 14.3", color: colors.green },
-                    { label: "class A: 1/2.19+1/2.05+1/2.24 ≈ 1.37", color: "#f87171" },
-                    { label: "→ predict C", color: colors.green },
-                  ]}
-                />
-                <Prose>
-                  Distance-weighted voting gives closer neighbors more influence. Here the two nearby C-points dominate despite being outnumbered. This is the <Code>weights='distance'</Code> mode in sklearn.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <Prose>
-        The decision boundary that KNN induces is the <strong>Voronoi diagram</strong> of the training set, partitioned by class. For k=1 each training point owns a convex cell; the boundary is the set of points equidistant between two cells of different classes. For k{">"} 1 the boundary is a smoothed version of this — a point near the k=1 boundary may have neighbors of both classes, and the majority shifts. As k grows toward n, every query sees the entire training set and the prediction converges to the global class prior, regardless of where the query falls. The useful operating range is somewhere between these extremes, and finding it is a tuning problem.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Distance metrics</H3>
-
-      <Prose>
-        KNN is parameterized by a distance function. The default choice is Euclidean (L2), but the right metric depends on the problem geometry.
-      </Prose>
-
-      <MathBlock caption="Minkowski distance family (p controls the norm)">
-        {"d_p(\\mathbf{x}, \\mathbf{z}) = \\left( \\sum_{j=1}^{d} |x_j - z_j|^p \\right)^{1/p}"}
-      </MathBlock>
-
-      <Prose>
-        Setting p=2 gives Euclidean distance, which treats all directions equally and grows as the square root of the sum of squared differences — the standard geometric notion of distance. Setting p=1 gives Manhattan (L1) distance, which sums absolute differences and is more robust to outliers in individual features; it is the preferred metric in grid-like domains and in high dimensions because it degrades more gracefully than L2 (the differences between nearest and farthest distances remain larger relative to the mean). Setting p→∞ gives Chebyshev distance, the maximum absolute difference across all dimensions, which is relevant when only the worst-case feature deviation matters.
-      </Prose>
-
-      <MathBlock caption="Cosine similarity (used when magnitude is irrelevant)">
-        {"\\text{sim}(\\mathbf{x}, \\mathbf{z}) = \\frac{\\mathbf{x} \\cdot \\mathbf{z}}{\\|\\mathbf{x}\\| \\|\\mathbf{z}\\|}"}
-      </MathBlock>
-
-      <Prose>
-        Cosine similarity measures the angle between two vectors, ignoring their magnitudes. It is the standard metric for text and embedding retrieval: a short document and a long document on the same topic should be considered close, even though their raw feature vectors differ in scale. To use cosine with KNN, L2-normalize each vector and compute Euclidean distance — L2 distance on unit-norm vectors is monotonically related to cosine similarity. This is the default behavior in approximate nearest-neighbor libraries like FAISS.
-      </Prose>
-
-      <H3>3.2 The Cover-Hart bound</H3>
-
-      <Prose>
-        The Cover-Hart bound formalizes the non-obvious strength of the 1-NN rule. Let R* denote the Bayes error — the minimum error achievable by any classifier given the true class-conditional distributions P(x|class). In the binary classification case, Cover and Hart proved that the asymptotic error R of the 1-NN rule satisfies:
-      </Prose>
-
-      <MathBlock caption="Cover-Hart bound: 1-NN error is at most twice the Bayes error (binary case)">
-        {"R^* \\leq R \\leq R^*\\left(2 - \\frac{R^*}{1 - R^*} \\cdot \\frac{1}{C-1}\\right) \\leq 2R^*"}
-      </MathBlock>
-
-      <Prose>
-        where C is the number of classes. The bound tightens as C grows: with many classes, 1-NN can actually approach R*. The intuition is that as n → ∞, the nearest neighbor of any query point converges to the query point itself (by the law of large numbers over a dense sample). At that limit, the nearest neighbor is essentially an independent draw from the same class-conditional distribution as the query. The classification error is then the probability that two independent draws from the same mixture disagree — exactly 2R*(1-R*) for the binary case, which is bounded above by 2R*.
-      </Prose>
-
-      <Prose>
-        For k {">"} 1 the bound improves: the majority vote of k independent approximate draws from the local distribution concentrates faster than a single draw, so the error decreases as k increases — up to a point. The optimal k is a variance-bias tradeoff: small k (especially k=1) has low bias (follows every local fluctuation) but high variance (noise in individual points drives predictions); large k has lower variance but higher bias (ignores local structure). The asymptotically optimal k grows as O(n^(4/(d+4))), balancing these two terms.
-      </Prose>
-
-      <H3>3.3 Curse of dimensionality</H3>
-
-      <Prose>
-        The most important theoretical property of KNN in high dimensions is also the most damaging. As dimension d grows, the volume of a ball of radius r grows as r^d. This means that to capture a fixed fraction of the training data, the neighborhood radius must grow — and as the radius grows, the assumption that "nearby points have similar labels" weakens. The extreme case is the <strong>concentration of measure phenomenon</strong>: in high dimensions, the distances from any query point to all training points become nearly equal.
-      </Prose>
-
-      <MathBlock caption="Concentration of measure: relative distance contrast collapses in high d">
-        {"\\frac{d_{\\max}(n, d) - d_{\\min}(n, d)}{d_{\\min}(n, d)} \\to 0 \\quad \\text{as } d \\to \\infty"}
-      </MathBlock>
-
-      <Prose>
-        When all distances are nearly equal, the notion of "nearest neighbor" becomes meaningless — any point is roughly as close as any other. The practical consequence is that KNN accuracy degrades sharply as d grows past roughly 10–20, depending on the data structure and the metric. The code in section 4 demonstrates this directly.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Every code block below was run and the output embedded verbatim. No pseudocode; no hidden dependencies beyond NumPy.
-      </Prose>
-
-      <H3>4a. Brute-force KNN classifier and regressor</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from collections import Counter
-
-class KNNClassifier:
-    def __init__(self, k=3):
-        self.k = k
-
-    def fit(self, X, y):
-        self.X_train = np.array(X, dtype=float)
-        self.y_train = np.array(y)
-
-    def _distances(self, x):
-        return np.sqrt(((self.X_train - x) ** 2).sum(axis=1))
-
-    def predict_one(self, x):
-        dists = self._distances(x)
-        nn_idx = np.argsort(dists)[: self.k]
-        votes = Counter(self.y_train[nn_idx])
-        return votes.most_common(1)[0][0]
-
-    def predict(self, X):
-        return np.array([self.predict_one(x) for x in X])
-
-
-class KNNRegressor:
-    def __init__(self, k=3):
-        self.k = k
-
-    def fit(self, X, y):
-        self.X_train = np.array(X, dtype=float)
-        self.y_train = np.array(y, dtype=float)
-
-    def _distances(self, x):
-        return np.sqrt(((self.X_train - x) ** 2).sum(axis=1))
-
-    def predict_one(self, x):
-        dists = self._distances(x)
-        nn_idx = np.argsort(dists)[: self.k]
-        return self.y_train[nn_idx].mean()
-
-    def predict(self, X):
-        return np.array([self.predict_one(x) for x in X])
-
-
-# Toy 2-D classification
-np.random.seed(42)
-X_train = np.array([
-    [1.0, 2.0], [1.5, 1.8], [1.2, 2.5],   # class A
-    [5.0, 5.0], [5.5, 4.8], [4.8, 5.2],   # class B
-    [3.0, 3.0], [3.2, 2.8],               # class C
-])
-y_train = np.array(["A","A","A","B","B","B","C","C"])
-
-clf = KNNClassifier(k=3)
-clf.fit(X_train, y_train)
-
-test_pts = np.array([[1.3, 2.1], [5.1, 5.0], [3.1, 2.9]])
-preds = clf.predict(test_pts)
-for pt, pred in zip(test_pts, preds):
-    print(f"query {pt} -> predicted class: {pred}")
-
-# Output:
-# query [1.3 2.1] -> predicted class: A
-# query [5.1 5. ] -> predicted class: B
-# query [3.1 2.9] -> predicted class: C
-
-# Toy 1-D regression (approximating y = x^2)
-X_reg = np.array([[i] for i in range(10)], dtype=float)
-y_reg = np.array([0,1,4,9,16,25,36,49,64,81], dtype=float)
-reg = KNNRegressor(k=3)
-reg.fit(X_reg, y_reg)
-for q in [2.5, 5.5, 8.0]:
-    print(f"query x={q} -> predicted y: {reg.predict_one(np.array([q])):.2f}")
-
-# Output:
-# query x=2.5 -> predicted y: 4.67
-# query x=5.5 -> predicted y: 25.67
-# query x=8.0 -> predicted y: 64.67`}
-      </CodeBlock>
-
-      <H3>4b. Curse of dimensionality in practice</H3>
-
-      <Prose>
-        The following demo measures the ratio of maximum to minimum distances from a random query to 1,000 random points as dimension grows. A ratio close to 1 means all points are equidistant — nearest-neighbor search becomes meaningless.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-print("d     max_dist  min_dist  ratio (max/min)")
-for d in [2, 5, 10, 20, 50, 100, 500]:
-    pts = np.random.randn(1000, d)
-    query = np.zeros(d)
-    dists = np.sqrt(((pts - query)**2).sum(axis=1))
-    ratio = dists.max() / (dists.min() + 1e-12)
-    print(f"{d:4d}  {dists.max():8.3f}   {dists.min():7.3f}   {ratio:.3f}")
-
-# Output:
-#    d     max_dist  min_dist  ratio (max/min)
-#    2       3.887     0.028   139.531
-#    5       4.785     0.411    11.636
-#   10       5.534     1.046     5.289
-#   20       6.633     1.754     3.782
-#   50       8.990     4.996     1.800
-#  100      12.118     7.729     1.568
-#  500      24.575    19.692     1.248`}
-      </CodeBlock>
-
-      <Prose>
-        At d=2, the farthest point is 140× further than the nearest — distances are highly discriminative. At d=500, the farthest is only 1.25× further than the nearest. The signal-to-noise ratio of the distance function has essentially collapsed. This is why KNN accuracy degrades in high dimensions, and why you should always reduce dimensionality (PCA, UMAP, learned embeddings) before applying KNN to high-dimensional data.
-      </Prose>
-
-      <H3>4c. Simplified KD-tree</H3>
-
-      <Prose>
-        A KD-tree is a binary tree where each node splits the dataset along one coordinate axis at the median. Querying finds the nearest neighbor by traversing the tree and backtracking only when a closer point might exist on the other side of a split. In low dimensions this is O(log n); in high dimensions the backtracking dominates and it degrades to O(n).
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class KDNode:
-    def __init__(self, point, label, axis, left=None, right=None):
-        self.point = point
-        self.label = label
-        self.axis = axis
-        self.left = left
-        self.right = right
-
-def build_kdtree(points, labels, depth=0):
-    if len(points) == 0:
-        return None
-    k = points.shape[1]
-    axis = depth % k
-    order = np.argsort(points[:, axis])
-    points, labels = points[order], labels[order]
-    mid = len(points) // 2
-    return KDNode(
-        point=points[mid], label=labels[mid], axis=axis,
-        left=build_kdtree(points[:mid], labels[:mid], depth + 1),
-        right=build_kdtree(points[mid+1:], labels[mid+1:], depth + 1),
-    )
-
-def kd_nn_search(node, query, best=None, best_dist=float("inf")):
-    if node is None:
-        return best, best_dist
-    d = np.sqrt(((node.point - query) ** 2).sum())
-    if d < best_dist:
-        best, best_dist = node, d
-    axis = node.axis
-    diff = query[axis] - node.point[axis]
-    near, far = (node.left, node.right) if diff <= 0 else (node.right, node.left)
-    best, best_dist = kd_nn_search(near, query, best, best_dist)
-    if abs(diff) < best_dist:   # might be closer on far side
-        best, best_dist = kd_nn_search(far, query, best, best_dist)
-    return best, best_dist
-
-# Use the same 8-point toy dataset
-X_train = np.array([
-    [1.0,2.0],[1.5,1.8],[1.2,2.5],
-    [5.0,5.0],[5.5,4.8],[4.8,5.2],
-    [3.0,3.0],[3.2,2.8]], dtype=float)
-y_train = np.array(["A","A","A","B","B","B","C","C"])
-
-root = build_kdtree(X_train.copy(), y_train.copy())
-
-queries = [np.array([1.3,2.1]), np.array([5.1,5.0]), np.array([3.1,2.9])]
-for q in queries:
-    node, dist = kd_nn_search(root, q)
-    print(f"query {q} -> nearest={node.point}, label={node.label}, dist={dist:.4f}")
-
-# Output:
-# query [1.3 2.1] -> nearest=[1. 2.], label=A, dist=0.3162
-# query [5.1 5. ] -> nearest=[5. 5.], label=B, dist=0.1000
-# query [3.1 2.9] -> nearest=[3.2 2.8], label=C, dist=0.1414`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5a. scikit-learn</H3>
-
-      <Prose>
-        For datasets up to a few hundred thousand points in moderate dimensions, <Code>sklearn.neighbors</Code> is the right starting point. It exposes four algorithms — <Code>brute</Code> (exact, O(n·d) per query), <Code>kd_tree</Code> (fast for d {"<"} ~20), <Code>ball_tree</Code> (works in any metric space, slower constant but better in d ~10–30), and <Code>auto</Code> (picks based on n and d at fit time) — plus distance-weighted voting and arbitrary Minkowski metrics.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.preprocessing import StandardScaler
-
-# Always scale before KNN — features on different scales dominate distance
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled  = scaler.transform(X_test)
-
-# Classification
-clf = KNeighborsClassifier(
-    n_neighbors=5,
-    algorithm="auto",      # picks kd_tree or ball_tree or brute automatically
-    weights="distance",    # "uniform" (equal vote) or "distance" (1/d weight)
-    metric="minkowski",    # default; p=2 -> Euclidean, p=1 -> Manhattan
-    p=2,
-    n_jobs=-1,             # parallelize distance computation across all CPUs
-)
-clf.fit(X_train_scaled, y_train)
-preds = clf.predict(X_test_scaled)
-
-# Regression
-reg = KNeighborsRegressor(n_neighbors=5, weights="distance")
-reg.fit(X_train_scaled, y_train_reg)
-
-# Bare nearest-neighbor retrieval (no labels needed)
-from sklearn.neighbors import NearestNeighbors
-nn = NearestNeighbors(n_neighbors=10, algorithm="ball_tree", metric="cosine")
-nn.fit(embedding_matrix)
-distances, indices = nn.kneighbors(query_embedding.reshape(1, -1))`}
-      </CodeBlock>
-
-      <Prose>
-        The most important decision in the sklearn API is <Code>algorithm</Code>. In practice: use <Code>kd_tree</Code> for d {"<"} 20 and moderate n; use <Code>ball_tree</Code> for non-Euclidean metrics or slightly higher d; use <Code>brute</Code> when n is small ({"<"} 2,000) or d is very high — in both cases the tree overhead exceeds the brute-force savings.
-      </Prose>
-
-      <H3>5b. Large-scale approximate nearest neighbors</H3>
-
-      <Prose>
-        When n exceeds a few million, exact KNN becomes intractable. The standard solution is approximate nearest neighbor (ANN) search: trade a small probability of missing the true nearest neighbor for a large speedup. The dominant open-source library is <strong>FAISS</strong> (Facebook AI Similarity Search), which implements two key index types. IVF (Inverted File Index) partitions the space into Voronoi cells with k-means, searches only nearby cells at query time, and achieves sub-linear query cost with controllable recall. HNSW (Hierarchical Navigable Small World) builds a layered proximity graph and navigates it greedily at query time, achieving near-O(log n) search with recall above 95% at typical settings. FAISS also supports GPU acceleration, enabling billion-scale retrieval in milliseconds.
-      </Prose>
-
-      <Callout type="info">
-        KNN on embedding vectors is the retrieval engine behind every RAG (Retrieval-Augmented Generation) system. The embeddings topic in the LLM track covers how those vectors are produced; FAISS or a hosted vector database (Pinecone, Weaviate, Chroma) handles the KNN step at production scale.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Effect of k on decision boundary smoothing</H3>
-
-      <Plot
-        label="test accuracy vs k — 3-class, 20-feature noisy dataset (U-shape: k=1 underfits noise; k=5–11 near-optimal; k=51 oversmooths)"
-        xLabel="k"
-        yLabel="test accuracy"
-        series={[
-          {
-            name: "test accuracy",
-            color: colors.gold,
-            points: [[1, 0.798], [5, 0.909], [11, 0.929], [25, 0.919], [51, 0.950]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The table below shows test accuracy on a 3-class, 20-feature noisy dataset (300 training, 99 test) as k sweeps from 1 to 51. Notice the U-shape: k=1 underfits due to noise sensitivity, k=5–11 is near-optimal, and k=51 starts to oversmooth.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Results on 3-class, 20-feature dataset (300 train, 99 test, seed=0):
-# k=  1  accuracy=0.7980
-# k=  3  accuracy=0.8283
-# k=  5  accuracy=0.9091
-# k= 11  accuracy=0.9293
-# k= 25  accuracy=0.9192
-# k= 51  accuracy=0.9495`}
-      </CodeBlock>
-
-      <H3>6b. Distance-weighted voting heatmap</H3>
-
-      <Heatmap
-        label="Vote weight by distance: uniform vs 1/d weighting (nearest two at d=0.14 contribute ~7× more under inverse-distance)"
-        rowLabels={["neighbor 1 (d=0.14)", "neighbor 2 (d=0.14)", "neighbor 3 (d=2.19)", "neighbor 4 (d=2.05)", "neighbor 5 (d=2.24)"]}
-        colLabels={["uniform weight", "1/d weight"]}
-        matrix={[
-          [1.0, 7.14],
-          [1.0, 7.14],
-          [1.0, 0.46],
-          [1.0, 0.49],
-          [1.0, 0.45],
-        ]}
-        colorScale="gold"
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>When KNN wins</H3>
-
-      <Prose>
-        KNN performs best under the following conditions. <strong>Small to medium datasets</strong> (n {"<"} 100,000) in moderate dimensions (d {"<"} 20): brute force or kd-tree search is fast enough that inference latency is acceptable. <strong>Irregular or multi-modal decision boundaries</strong>: KNN can represent any boundary shape, including concave regions and donut-shaped class distributions that defeat linear classifiers and even shallow trees. <strong>Multi-class problems</strong>: the majority vote generalizes trivially to any number of classes with no modification. <strong>Similarity-based retrieval</strong>: when the task is "find the most similar items" rather than "classify into bins," KNN is the natural formulation — recommendation systems, duplicate detection, nearest-neighbor retrieval in embedding space all reduce to this.
-      </Prose>
-
-      <Prose>
-        KNN is also the standard <strong>non-parametric baseline</strong>. Before fitting a neural network or a boosted tree, a well-tuned KNN gives you a principled floor. If your model doesn't beat KNN on a small dataset, something is wrong.
-      </Prose>
-
-      <H3>When KNN loses</H3>
-
-      <Prose>
-        KNN is the wrong tool in three important regimes. <strong>High-dimensional features</strong> (d {">"} ~50 without dimensionality reduction): the curse of dimensionality degrades distance discrimination to the point where nearest-neighbor search loses meaning. Use dimensionality reduction (PCA, UMAP) or a model that can learn which dimensions matter. <strong>Large n, latency-constrained inference</strong>: even with a kd-tree, serving KNN in a low-latency production system requires ANN infrastructure (FAISS, HNSW) — there is no free lunch. <strong>Interpretability requirements</strong>: KNN predictions cannot be explained by feature importance or rules, only by the identity of the training neighbors. In regulated industries (credit, medical diagnosis) this is usually insufficient.
-      </Prose>
-
-      <Callout type="warning">
-        KNN has no separate training phase, but it has a hidden cost: the entire training set must be loaded into memory and searched at every inference call. At n=10M examples with d=128 float32 features, the training set alone is 5.1 GB. Plan for this.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>Query complexity</H3>
-
-      <Prose>
-        Brute-force KNN computes a distance to every training point for every query. The cost per query is O(n·d): linear in both training set size and feature dimension. For n=100,000 and d=100, this is 10 million floating-point operations per query — fast enough on modern hardware, but it does not scale to millions of queries per second.
-      </Prose>
-
-      <Prose>
-        The Friedman-Bentley-Finkel kd-tree achieves O(log n) <em>expected</em> query time in low dimensions. "Expected" is key: it assumes the data is reasonably well-distributed, and the guarantee degrades as d grows. Empirically, kd-trees outperform brute force for d {"<"} ~20 and moderate n. Beyond d ≈ 20, the number of nodes that must be visited during backtracking grows toward n, and the kd-tree's advantage vanishes. Ball trees (which partition by enclosing balls rather than axis-aligned hyperplanes) extend this range slightly, performing well to d ≈ 30 depending on the data.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Empirical query timing: brute force, n=10000, d=2
-# (from section 4 code run)
-# Brute-force query time on n=10000, d=2 (avg over 500 queries):
-# ~1.048 ms per query
-#
-# Scaling analysis (approximate):
-#   n=1K,   d=10  -> brute ~0.01 ms, kd_tree ~0.001 ms  -> 10x speedup
-#   n=10K,  d=10  -> brute ~0.1  ms, kd_tree ~0.003 ms  -> 33x speedup
-#   n=100K, d=10  -> brute ~1.0  ms, kd_tree ~0.005 ms  -> 200x speedup
-#   n=100K, d=50  -> brute ~5.0  ms, kd_tree ~1.5   ms  -> 3x speedup only
-#   n=100K, d=100 -> brute ~10   ms, kd_tree ~9     ms  -> tree overhead
-#                                                           exceeds gain`}
-      </CodeBlock>
-
-      <H3>Memory</H3>
-
-      <Prose>
-        KNN stores the entire training set. There is no compression, no pruning, no parameter-reduction. A model with n=1,000,000 training examples and d=128 float32 features requires 512 MB of memory just for the feature matrix, plus additional overhead for labels and tree structure. For comparison, a fully-connected neural network with the same effective capacity might store only millions of parameters — orders of magnitude smaller. This is the core scalability trade-off of lazy learning.
-      </Prose>
-
-      <H3>Training vs inference asymmetry</H3>
-
-      <Prose>
-        This deserves emphasis because it inverts the usual machine learning intuition. Neural networks and gradient boosted trees have expensive training (hours to days) and cheap inference (milliseconds). KNN has <strong>zero training cost</strong> — fit() is just a memory copy — and <strong>expensive inference</strong> that scales linearly with the training set. For applications where the training set is updated frequently and predictions are needed occasionally, this asymmetry is a feature. For high-volume prediction services, it is a liability.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>Unscaled features</H3>
-
-      <Prose>
-        This is the most common mistake beginners make with KNN. If one feature has values in the thousands (e.g., income in dollars) and another in fractions (e.g., a probability), the Euclidean distance will be dominated entirely by the large-scale feature. The small-scale feature contributes essentially nothing to the distance computation — the algorithm is effectively ignoring it. <strong>Always apply StandardScaler or MinMaxScaler before fitting KNN</strong>. This is not optional; it is as mandatory as one-hot encoding for categorical features.
-      </Prose>
-
-      <H3>Wrong metric for the domain</H3>
-
-      <Prose>
-        Euclidean distance assumes features live in a flat Euclidean space where all directions are equivalent. This is wrong for text (use cosine on TF-IDF or embedding vectors), for geographic coordinates (use haversine on latitude/longitude), for counts with heavy tails (use L1 or a transformed space), and for any domain where the relationship between feature differences and semantic similarity is nonlinear. Choosing the metric is not a hyperparameter to grid-search blindly — it requires domain knowledge.
-      </Prose>
-
-      <H3>k too small: noise sensitivity</H3>
-
-      <Prose>
-        At k=1, a single mislabeled training point creates an island of wrong predictions in its Voronoi cell. Any query that happens to be nearest to that outlier gets the wrong label regardless of all other evidence. This is pure variance: the model has zero bias (it fits training data perfectly) but is maximally sensitive to noise. In practice k=1 should be avoided except as an academic baseline or when the training labels are known to be noiseless.
-      </Prose>
-
-      <H3>k too large: washing out local structure</H3>
-
-      <Prose>
-        When k approaches n, every query effectively sees the entire training set, and the prediction converges to the global class prior regardless of where the query falls. Small clusters — minority classes, local modes — get outvoted by the ambient majority. If your dataset has class imbalance, large k will systematically misclassify the minority class even for points in its dense region.
-      </Prose>
-
-      <H3>Tied votes</H3>
-
-      <Prose>
-        With uniform voting and an even k in a binary problem, tied votes are possible. sklearn resolves ties by returning the class with the smallest index in the label array — which is arbitrary and dataset-order-dependent. Use odd k for binary classification, or switch to <Code>weights='distance'</Code> where ties are broken by proximity.
-      </Prose>
-
-      <H3>Irrelevant features drowning signal</H3>
-
-      <Prose>
-        In a dataset with d=100 features, only 3 of which are predictive, the distance computation is dominated by the 97 noise features. The nearest neighbors in the full 100-dimensional space are essentially random with respect to the true class boundary. This is a subtler version of the curse of dimensionality. The fix is feature selection (drop irrelevant features), dimensionality reduction (PCA, UMAP), or learning a distance metric (metric learning) that up-weights informative dimensions.
-      </Prose>
-
-      <H3>Imbalanced classes</H3>
-
-      <Prose>
-        In a heavily imbalanced dataset (e.g., 95% negative, 5% positive), most of the k-nearest neighbors of any point will be negative simply because 95% of all points are negative. KNN will predict the majority class almost everywhere. Options: use <Code>weights='distance'</Code> to give closer positive examples more influence, use class-weighted loss during evaluation (accuracy is misleading), or resample the training set before fitting.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <H3>Fix and Hodges (1951)</H3>
-
-      <Prose>
-        Evelyn Fix and J. L. Hodges, "Discriminatory Analysis: Nonparametric Discrimination — Consistency Properties," USAF School of Aviation Medicine, Randolph Field, Texas, Technical Report 4, Project No. 21-49-004, February 1951. Republished in <em>International Statistical Review</em> 57(3): 238–247, 1989. This is the founding document of the nearest-neighbor classifier. It introduced the rule (classify by the label of the nearest training example), proved consistency under mild continuity assumptions, and established the non-parametric paradigm. Available via DTIC (ADA800276) and the HathiTrust digital library (catalog record 100923824).
-      </Prose>
-
-      <H3>Cover and Hart (1967)</H3>
-
-      <Prose>
-        Thomas M. Cover and Peter E. Hart, "Nearest Neighbor Pattern Classification," <em>IEEE Transactions on Information Theory</em>, vol. 13, no. 1, pp. 21–27, January 1967. DOI: 10.1109/TIT.1967.1053964. This paper proved the Cover-Hart bound: the asymptotic 1-NN error is at most 2R*(1-R*) ≤ 2R*, where R* is the Bayes error. The paper received the IEEE Information Theory Society Golden Jubilee Paper Award. Full text available at Stanford ISL: <Code>isl.stanford.edu/~cover/papers/transIT/0021cove.pdf</Code>. Cited over 12,000 times.
-      </Prose>
-
-      <H3>Friedman, Bentley, and Finkel (1977)</H3>
-
-      <Prose>
-        Jerome H. Friedman, Jon Louis Bentley, and Raphael Ari Finkel, "An Algorithm for Finding Best Matches in Logarithmic Expected Time," <em>ACM Transactions on Mathematical Software</em>, vol. 3, no. 3, pp. 209–226, September 1977. DOI: 10.1145/355744.355745. This paper introduced the kd-tree data structure and proved O(log n) expected query time for uniformly distributed data. It is the algorithmic foundation for all exact KNN systems in moderate dimensions. Available via ACM DL and OSTI (biblio/1443274).
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1</H3>
-      <Prose>
-        You have a training set with 1,000 examples, 50 features, and you want to serve KNN predictions at 1,000 queries per second. Which algorithm — brute, kd_tree, or ball_tree — would you choose, and why? What infrastructure change would you consider if the latency requirement tightened to 10,000 QPS?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> At d=50, kd-tree performance has largely degraded to near-brute-force due to high-dimensional backtracking. Ball-tree is marginally better but not by enough to matter. For exact search at 1,000 QPS with n=1,000 and d=50, brute force (O(n·d) = 50,000 ops per query) is fast enough on modern hardware and the simplest choice. At 10,000 QPS you would move to ANN: FAISS IVF or HNSW gives sub-millisecond query time with {">"} 95% recall. Alternatively, reduce dimensionality to d {"<"} 20 with PCA before applying kd-tree.
-      </Callout>
-
-      <H3>Exercise 2</H3>
-      <Prose>
-        A colleague trains KNN on a medical dataset with two features: patient age (range 20–80) and blood glucose (range 70–400 mg/dL). The classifier performs poorly. What is the most likely cause, and how do you fix it?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> Unscaled features. Blood glucose has a range of 330 while age has a range of 60. Euclidean distances are dominated almost entirely by glucose differences; age contributes {"<"} 3% of the typical distance. The classifier has effectively discarded age as a predictor. Fix: apply <Code>StandardScaler</Code> (zero mean, unit variance) before fitting. After scaling, both features contribute equally to distances.
-      </Callout>
-
-      <H3>Exercise 3</H3>
-      <Prose>
-        The Cover-Hart bound says 1-NN error ≤ 2·Bayes-error asymptotically. What does "asymptotically" mean here, and is this bound useful in practice for small datasets?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> "Asymptotically" means as n → ∞ with a fixed query point and fixed distribution. As the training set grows dense, the nearest neighbor converges to the query point itself, and the bound holds. For small datasets the bound can be wildly optimistic: with n=50 examples in a 10-dimensional space, the nearest neighbor may be far from the query, and the local class-conditional distribution estimate is noisy. In practice, the Cover-Hart bound is a theoretical justification for why KNN is worth trying, not a guarantee of performance on any specific finite dataset.
-      </Callout>
-
-      <H3>Exercise 4</H3>
-      <Prose>
-        You have a binary classification problem with 90% negative examples and 10% positive. You fit KNN with k=19 and uniform weights. You notice the classifier predicts "negative" for every test point. Why, and what are two independent fixes?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> With 90% negatives and k=19, the expected number of negative neighbors for any query is ~17 and positive neighbors is ~2 — so majority vote always picks negative. Fix 1: switch to <Code>weights='distance'</Code> so that a nearby positive example (which likely has a small distance) contributes more weight than distant negative examples. Fix 2: oversample the positive class (SMOTE or simple duplication) before fitting so that the local neighborhood composition reflects the corrected class balance. Fix 3 (bonus): use a smaller k so that a locally dense pocket of positives can win the vote.
-      </Callout>
-
-      <H3>Exercise 5</H3>
-      <Prose>
-        A dataset has d=200 features. You run PCA and retain 95% of variance in 15 components, then fit KNN on the 15-component space. A colleague argues you should fit KNN on all 200 features to preserve all information. Who is right?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> You are right, almost certainly. In 200 dimensions, distance computation is dominated by noise dimensions. The 185 dimensions not in the top-15 components contribute variance but not signal — by definition they contain only 5% of the variance, and most of that is noise. KNN on 15 components will use distances that track meaningful variation. KNN on 200 features will use distances dominated by noise, degrading neighbor quality. PCA before KNN is standard practice for this reason. The caveat: if the discarded components actually contain class-discriminative signal (possible if classes differ in small-variance directions), PCA can hurt — use supervised dimensionality reduction (LDA) in that case.
-      </Callout>
-
-      <H3>Exercise 6</H3>
-      <Prose>
-        Describe the structural difference between a kd-tree and a ball tree. In what regime does each outperform brute force, and why does neither help in very high dimensions?
-      </Prose>
-
-      <Callout type="info">
-        <strong>Answer:</strong> A kd-tree partitions space using axis-aligned hyperplanes at the median of each dimension, alternating across dimensions at each tree level. A ball tree partitions space using hyperballs — each node defines a centroid and radius that encloses all its children. kd-trees are fast to build and query in low dimensions (d {"<"} ~15) because axis-aligned splits allow efficient ball-in-box pruning. Ball trees work with any metric and degrade more gracefully to d ≈ 30. In very high dimensions, both fail for the same reason: the ball (or box) centered on the query overlaps many tree nodes, forcing backtracking to most or all of them — effectively recovering brute force. The root cause is that in high d, the ratio of surface area to volume grows, making it impossible to prune large fractions of the search space.
-      </Callout>
-
-    </div>
-  ),
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { KnnLifecycleFigure, KnnValidationFigure, NeighborVotingLab, NeighborUnitsLab, CosineDirectionFigure, LocalRegressionLab, KdTreeSearchLab, CandidateRecallLab, NeighborhoodVolumeLab } from '../../components/lesson-labs/KnnLabs.jsx';
+import { knnExamples } from '../knn-examples.js';
+function Example({
+  id,
+  children
+}) {
+  const example = knnExamples.find(item => item.id === id);
+  return <><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></>;
+}
+function Practice({
+  title,
+  question,
+  hint,
+  children
+}) {
+  return <section className="lesson-check"><H3>{title}</H3><Prose>{question}</Prose><details><summary>Hint</summary><Prose>{hint}</Prose></details><details><summary>Explained solution</summary>{children}</details></section>;
+}
+export default {
+  title: 'K-Nearest Neighbors (KNN)',
+  readTime: '~100 min read + 2–3 hours practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot knn-lesson">
+    <LessonIntro prerequisites="Linear & Logistic Regression introduced features, targets, baselines and separate training/validation/test roles; we refresh each where needed. Fractions, averages and coordinates are enough to start. Vector and probability notation support the deeper sections. Python and NumPy are needed only for the executable route." sections={[['1-predict-by-comparing-with-past-cases', 'The task and eight past cases'], ['2-make-nearness-an-explicit-choice', 'Distances, units and direction'], ['3-turn-neighbors-into-a-prediction', 'Votes, probabilities and local means'], ['4-build-a-complete-neighbor-estimator', 'Complete implementation'], ['5-choose-the-neighborhood-with-held-out-evidence', 'Choosing k and evaluating'], ['6-search-exactly-with-a-geometric-bound', 'KD-tree search'], ['7-price-search-work-and-approximation', 'Cost, indexes and candidate recall'], ['8-understand-the-dimension-problem', 'Neighborhood volume and representation'], ['9-separate-closeness-from-certainty', 'Noise, Bayes risk and consistency'], ['10-use-neighbors-in-less-obvious-ways', 'Geography, joint outputs and learned similarity'], ['11-diagnose-the-observation-and-distance-contract', 'Failure diagnosis'], ['12-practise-and-write-a-changed-report', 'Independent practice'], ['13-connect-this-rule-to-the-next-model', 'Next step and references']]}>Given a new case, find relevant past cases and use what happened to them. This lesson makes every part of “relevant” visible: representation, distance, search, neighborhood size and target aggregation. Build the method, investigate its limits and evaluate a complete pipeline.</LessonIntro>
+
+    <H2 id="1-predict-by-comparing-with-past-cases">1. Predict by comparing with past cases</H2>
+    <Prose>You have completed inspections with two measurements and an eventual outcome: A, B or C. A new inspection has measurements (3.1, 2.9), but its outcome is unknown. Instead of fitting one global line or a sequence of tree questions, ask: <em>which earlier inspections look most like this one, and what happened to them?</em></Prose>
+    <Prose><strong>K-nearest neighbors</strong> turns that question into a rule. Store labelled training rows. Measure each row's distance from the query. Select the k closest rows. Combine their targets: vote for a category, or average a numerical outcome. The integer k is a setting chosen using development evidence; it is not learned by minimizing a tree's split impurity.</Prose>
+    <KnnLifecycleFigure />
+    <Prose>The same training data can produce different predictions under different distances. Calling the method <em>nonparametric</em> means its description is not restricted to a fixed-size parameter vector such as one slope per feature. It does not mean no assumptions or fitting work. A scaler, representation or search index may need fitting, and stored examples are part of the fitted predictor.</Prose>
+    <Prose>The eight rows below are a deliberately tiny coordinate example. A1, A2 and A3 belong to A; B1, B2 and B3 belong to B; C1 and C2 belong to C. These dimensionless measurements let us inspect every step. They are not a real inspection dataset or evidence of predictive usefulness.</Prose>
+    <NeighborVotingLab />
+    <Prose>For the default query, C1 and C2 are each about 0.141421 away. A2 and A3 are each about 1.941649 away; A1 is about 2.284732 away. The five nearest rows therefore contain <strong>three A votes and two C votes</strong>. Equal voting predicts A even though the C cases are much closer. Inverse-distance voting gives C about 0.905974 of the normalized weight. Neither choice is automatically correct: each assumes a different relationship between distance and relevance.</Prose>
+    <Prose>Save each optional complete program in its own Python file. Recorded outputs use Python 3.12, NumPy 2.3.5 and scikit-learn 1.9.1. These programs execute locally; browser investigations are separate bounded calculations. Package formatting and final floating-point digits may vary by version.</Prose>
+    <CodeBlock language="shell">{'python -m venv .venv\n# Activate the environment using your platform’s command, then:\npython -m pip install numpy==2.3.5 scikit-learn==1.9.1\npython neighbor_example.py'}</CodeBlock>
+    <Example id="neighbor-ledger"><Prose>The IDs, distances and two distributions reproduce the first investigation. A declared12-place distance key resolves decimal-fixture numerical ties. A general library may use a different cutoff tie convention.</Prose></Example>
+
+    <H2 id="2-make-nearness-an-explicit-choice">2. Make nearness an explicit choice</H2>
+    <Prose>Between (1,2) and (4,6), coordinate differences have magnitudes3 and4. Euclidean distance is the straight-line length, √(3²+4²)=5. Manhattan distance adds the absolute changes,3+4=7. Maximum-coordinate distance asks for the largest change, max(3,4)=4.</Prose>
+    <LessonTable caption="Three distance rules and their equal-distance contours" headers={['Rule', 'Calculation', 'A radius-r set in two dimensions']} rows={[['Euclidean, L₂', 'Square differences, sum, take the square root', 'Circle'], ['Manhattan, L₁', 'Sum absolute differences', 'Diamond aligned with coordinate axes'], ['Maximum, L∞', 'Largest absolute difference', 'Axis-aligned square']]} />
+    <MathBlock>{'d_p(x,z)=\\left(\\sum_{j=1}^{d}|x_j-z_j|^p\\right)^{1/p},\\qquad p\\ge1.'}</MathBlock>
+    <Prose>This is the Minkowski family. Its p=1 and p=2 members give the first two rules; the limit as p grows gives the maximum difference. The p≥1 restriction matters for the triangle inequality used by search bounds. Squared Euclidean distance preserves Euclidean rankings but does not itself satisfy the ordinary triangle inequality. An index must use a bound consistent with the quantity it stores.</Prose>
+    <Prose>Keep the first map's query and k fixed while changing the distance. The contour changes because “equally far” changed. A diamond is not a stylistic alternative to a circle: it represents another calculation. Neither L₁ nor L₂ is universally superior in high dimensions. Choose a rule for coordinate meaning and check it on held-out data.</Prose>
+    <H3>Units can dominate before the algorithm makes a decision</H3>
+    <Prose>If one coordinate is time in hours and another energy in watt-hours, squared differences such as0.2² and500² contribute on radically different numerical scales. Converting Wh to kWh can change a raw Euclidean neighbor without changing the physical observation. That indicates an implicit choice of coordinate weights.</Prose>
+    <NeighborUnitsLab />
+    <Prose>Standardization replaces coordinate xj by (xj−μj)/sj using a training mean and standard deviation. When comparing two transformed rows, the common mean cancels. Squared distance becomes the sum of (xj−zj)²/sj²: an explicit weighted geometry. Raw distances choose S in the fixture; training-standardized distances choose R. A zero-variance feature needs a policy; StandardScaler uses a scale of 1 for that coordinate.</Prose>
+    <Prose>Standardization makes typical training fluctuations comparable. It does not prove equal predictive influence. Domain weights, robust scales, a meaningful log transform or feature selection may suit the task better. Fit learned transforms only on training rows. In cross-validation, refit within each training fold; fitting once on all rows lets held-out observations influence the representation.</Prose>
+    <H3>Direction can matter more than magnitude</H3>
+    <CosineDirectionFigure />
+    <Prose>For nonzero vectors, cosine similarity divides their dot product by both lengths. Its common dissimilarity is 1 minus that value: identical direction gives zero even when lengths differ. A zero vector has no direction, so dropping it or using a fallback belongs in the data contract, not in an unexplained tiny denominator.</Prose>
+    <MathBlock>{'s(x,z)=\\frac{x^\\top z}{\\|x\\|_2\\|z\\|_2},\\qquad \\left\\|\\frac{x}{\\|x\\|_2}-\\frac{z}{\\|z\\|_2}\\right\\|_2^2=2-2s(x,z).'}</MathBlock>
+    <Prose>Expand the squared difference between unit vectors: each squared norm is 1, and the cross term is twice their dot product. Thus normalized Euclidean and cosine retrieval rank identically, subject to ties. Normalize <em>both</em> stored vectors and queries. Unnormalized inner product also rewards magnitude. Cosine dissimilarity does not satisfy the ordinary triangle inequality, so it cannot be passed indiscriminately to metric trees.</Prose>
+    <Example id="units-cosine"><Prose>The first comparison changes a mixed-unit neighborhood; the second changes what similar vectors mean. Neither establishes the best representation for a new task.</Prose></Example>
+
+    <H2 id="3-turn-neighbors-into-a-prediction">3. Turn neighbors into a prediction</H2>
+    <Prose>Attach nonnegative mass wi to each selected row and divide by total mass. The normalized weights ai sum to 1. For classification, add weights by class. For regression, multiply each target by its weight and add. The same retrieved evidence supports two different output rules.</Prose>
+    <MathBlock>{'a_i=\\frac{w_i}{\\sum_{j\\in N_k(x)}w_j},\\quad \\widehat p(c\\mid x)=\\sum_{i\\in N_k(x)}a_i\\mathbf1[y_i=c],\\quad \\widehat y(x)=\\sum_{i\\in N_k(x)}a_i y_i.'}</MathBlock>
+    <Prose>Nₖ(x) names the selected indices. Uniform weighting uses wi=1. Inverse-distance weighting uses wi=1/di when every selected distance is positive. If selected rows exactly match the query, share all mass among those exact matches. This avoids infinite weights and exposes conflicting duplicates. If more than k rows match exactly, the cutoff policy still selects which k enter.</Prose>
+    <Prose>The largest class fraction minimizes the neighborhood's weighted count of mistakes. It estimates local composition, not automatically a calibrated future probability. A numerical weighted mean minimizes local squared loss: differentiating Σai(yi−t)² gives 2(t−Σaiyi), so the optimum is Σaiyi. For absolute loss the corresponding optimum is a weighted median, not a mean.</Prose>
+    <LocalRegressionLab />
+    <Prose>At x=2.5 with k=3, stable ordering selects x=2,3 and1. Targets4,9 and1 average to 14/3. Moving the query without changing membership preserves this uniform mean; crossing a membership boundary can make it jump. Distance weights can vary inside a fixed set, but ties and membership changes still require attention.</Prose>
+    <Prose>A nonnegative normalized mean cannot exceed its largest contributing target or fall below its smallest. At x=8, targets 25,16 and9 average to 50/3; inverse weighting still stays at most 25. Knowing the demonstration generated y=x² does not give the estimator a quadratic extrapolation rule. This connects to constant-leaf extrapolation in the previous lesson.</Prose>
+    <H3>Two kinds of ties, and the shape of the boundary</H3>
+    <Prose>A <strong>retrieval tie</strong> places several rows at the kth distance. A <strong>decision tie</strong> gives classes equal total weight. Odd k prevents equal unweighted counts between exactly two classes; it does not prevent multiclass, weighted or retrieval ties. Record each applicable convention.</Prose>
+    <Prose>For Euclidean 1NN with distinct stored locations, a site's Voronoi cell contains queries at least as close to it as to every competitor, with boundary ties assigned by policy. Expanding two squared distances cancels the query's squared norm, leaving a linear half-space inequality. Intersecting these half-spaces makes each site's cell convex; one class may own disconnected cells. Larger k introduces order-k regions, while voting and weighting change the final boundary. “Larger k smooths everything” is a rough intuition, not a geometric theorem.</Prose>
+
+    <H2 id="4-build-a-complete-neighbor-estimator">4. Build a complete neighbor estimator</H2>
+    <Prose>Fitting below stores copies of a finite coordinate matrix and one target per row. Querying computes Euclidean distances, stably sorts them and selects exactly k. Equal distances prefer an earlier training row; equal class totals prefer the earlier sorted class. This floating-point rule differs from the first lab's declared decimal rounding convention.</Prose>
+    <Example id="scratch-estimator"><Prose>Opposite labels at one input produce probabilities(0.5,0.5) when both exact matches enter. The declared class tie chooses A; that is conflicting evidence, not certainty. The regression results show changed weighting between observations and beyond their range. Refitting replaces the previous class vocabulary and stored rows.</Prose></Example>
+    <Prose>The full sort exposes the selection rule: O(nd) distance arithmetic plus O(n log n) ordering for one query. Optimized code can partially select, batch or index the search while preserving its metric, ties and duplicate behavior. This estimator supports dense Euclidean coordinates and scalar targets. Encodings, missing values and other metrics need explicit preparation or extensions.</Prose>
+    <Prose>Huge finite coordinates can overflow distances; rescale rather than silently returning a meaningless nearest row. For positive selected distances, dividing their minimum by each distance before normalization gives the same inverse weights without reciprocal overflow.</Prose>
+
+    <H2 id="5-choose-the-neighborhood-with-held-out-evidence">5. Choose the neighborhood with held-out evidence</H2>
+    <Prose>Small neighborhoods preserve local distinctions but let a few noisy labels dominate. Larger ones average more labels while reaching regions that may have different targets. This tradeoff does not determine k from sample size alone: representation, density, noise, class structure and loss matter.</Prose>
+    <Prose>Uniform k=n returns the training majority or target mean everywhere. Inverse-weighted k=n can still vary by query. Likewise k=1 is not zero population bias: its nearest row may be far away along an informative coordinate, and even a close row can have a noisy label.</Prose>
+    <Prose>Define one observation and when its features become available. Keep related copies, people, devices or time windows together when splitting them would leak information. Training fits the model; validation selects settings; a reserved test assesses the frozen choice. Fit a majority/prior or mean baseline on training rows. Losing to a baseline is a finding about this experiment, not proof that code must be wrong.</Prose>
+    <KnnValidationFigure />
+    <Example id="held-out-workflow"><Prose>Eight candidates share120 validation observations in this seeded two-moons experiment. Validation log loss selects k=41 with distance weights. Separate test accuracy is 0.916667 and log loss0.193920, against prior-baseline log loss0.693147. This is one controlled synthetic example, not a universal recommendation for 41 neighbors.</Prose></Example>
+    <Prose>One-neighbor class probabilities are 0 or1. A confidently wrong probability has infinite mathematical log loss. The library clips at a floating-point-dependent boundary and prints a large finite value; this does not make the forecast desirable. Validation may prefer a larger neighborhood for probability quality even when a smaller one has respectable accuracy. Calibration and cost-sensitive actions require separate assessment.</Prose>
+    <Prose>For K-fold selection, put the scaler inside the pipeline supplied to the search so every fold fits its own training transform. The reserved test cannot select k, metric, scale, weights or threshold. A new choice prompted by its result needs fresh evaluation evidence.</Prose>
+    <Prose>Passing stored training rows as explicit queries commonly includes each row itself. Some search APIs offer a no-query form that excludes self. Neither a self-neighbor training score nor that API distinction replaces a held-out protocol.</Prose>
+
+    <H2 id="6-search-exactly-with-a-geometric-bound">6. Search exactly with a geometric bound</H2>
+    <Prose>A KD-tree skips groups only when geometry proves they cannot beat the current best. Build a binary index by choosing a coordinate, storing a median row and partitioning lower/higher coordinate rows into children. The simple implementation alternates axes. This organizes features for search; it does not learn class-pure leaves like a decision tree.</Prose>
+    <Prose>At each node, compare the query with its stored row and update the incumbent. Visit the child on the query's side of the split. For split xj=t, every point across it differs in that coordinate by at least |xj−t|. Euclidean distance is at least any absolute coordinate difference. If this plane distance exceeds the best distance already found, the far branch cannot win.</Prose>
+    <KdTreeSearchLab />
+    <Prose>Use the incumbent <em>after</em> searching the near branch, because it may improve. At equality, another row might win the ID tie; search the far branch. A strict-less comparison may still return some nearest-distance row but violate the specified tie winner.</Prose>
+    <Example id="kd-tree"><Prose>The query(1.3,2.1) visits four of eight rows and finds row 0 at distance√0.1. The complete program compares results with brute force and tests an equality case. Its integer IDs correspond to original row positions; the browser uses named IDs.</Prose></Example>
+    <Prose>Median splitting balances height, but weak geometric bounds can force an exact query through many branches, even all rows. For k neighbors, maintain a max-heap of the best k and compare bounds with the current kth distance. Before the heap is full, an absent kth threshold cannot justify pruning. Node bounding boxes can provide tighter bounds than one plane.</Prose>
+    <Prose>A BallTree encloses groups inside metric balls. For query q, center c and radius r, the triangle inequality gives lower bound max(0,d(q,c)−r). This explains both pruning and why arbitrary dissimilarities cannot substitute without a valid bound. Implementations support specific metrics and layouts.</Prose>
+
+    <H2 id="7-price-search-work-and-approximation">7. Price search work and approximation</H2>
+    <LessonTable caption="Separate query workload from the predictor" headers={['Work', 'Simple dense implementation', 'What the expression omits']} rows={[['One query against n rows and d coordinates', 'O(nd) distance work; full sort adds O(n log n)', 'Kernels, cache, batching and partial selection'], ['m queries against n stored rows', 'O(mnd) distance work', 'A full m×n temporary matrix can be avoided by batches'], ['Every row compared with every row', 'O(n²d)', 'A different workload from one new query'], ['Float32 coordinate storage', '4nd bytes', 'Targets, indexes, copies and object overhead'], ['Repeated-sort median KD construction', 'O(n log² n) under balanced splits', 'More careful construction can avoid repeated sorting'], ['Exact tree query', 'Data-dependent; worst case O(nd)', 'Balanced height alone does not imply logarithmic query cost']]} />
+    <Prose>One million 128-dimensional float32 rows occupy 512,000,000 coordinate bytes, about 488 MiB, before labels or an index. Ten million occupy 5.12 GB, about 4.77 GiB. Fit depends on hardware and layout. Prototypes, quantization, disk search and sharding change the storage/accuracy/latency contract; not every implementation stores one Python object per row in RAM.</Prose>
+    <Example id="library-search"><Prose>Current scikit-learn supports cosine with brute search; cosine is absent from BallTree's valid metrics. The final lines expose the self-query distinction. Choose an API compatible with the geometry, then measure your dimensions, query batch and hardware.</Prose></Example>
+    <Prose>Approximate search is a choice separate from the prediction rule. A candidate stage may restrict which rows are examined before exact reranking. IVF uses coarse partitions; probing more cells can recover more neighbors. HNSW navigates a layered proximity graph with bounded search effort. These mechanisms trade work against recall, but neither provides a universal percentage or millisecond guarantee.</Prose>
+    <CandidateRecallLab />
+    <Prose>Recall@k counts exact top-k IDs also present in the approximate result, divided by k, under a declared tie convention. Lower recall may leave the final class unchanged or alter it. Losing a close, heavily weighted case can matter more than losing a weak contributor. Exact reranking cannot recover an absent candidate.</Prose>
+    <Example id="candidate-recall"><Prose>Removing far B rows preserves the exact top three and class C. Removing close C rows leaves recall 1/3 and changes the prediction to A. This is a finite candidate-set example, not measured HNSW or IVF behavior.</Prose></Example>
+    <Prose>Evaluate recall and downstream metrics on representative held-out queries, including rare groups and difficult boundaries. Measure latency distributions, memory, build cost and updates for the intended workload. Efficient CPU/GPU kernels can make exact search practical at large scales; size alone does not decide that approximation is required. Faiss has exact and approximate families whose metric conventions must be checked explicitly.</Prose>
+
+    <H2 id="8-understand-the-dimension-problem">8. Understand the dimension problem</H2>
+    <Prose>A useful coordinate can distinguish previously identical cases. Many independent nuisance coordinates can instead make distance reflect irrelevant variation. The <em>curse of dimensionality</em> concerns sparse coverage and statistical estimation as dimension grows. It is not a fixed column count beyond which all neighbors become useless.</Prose>
+    <NeighborhoodVolumeLab />
+    <Prose>In a uniform unit cube, a contained cube of side s has probability mass sᵈ. To cover fraction f, solve s=f^(1/d). For f=0.01, the side is 0.1 in two dimensions, about 0.630957 in ten and 0.954993 in one hundred. Small volume need not be local along each coordinate. A fixed side-0.1 cube has expected count n·0.1ᵈ; asking for expected count 10 requires n=10^(d+1).</Prose>
+    <Prose>This is a specified cube under a uniform distribution. Real kth-neighbor radii are random; Euclidean balls, boundary truncation and nonuniform density change the geometry. The chart is not a measured radius for every dataset.</Prose>
+    <Prose>Distance concentration has a related explanation. A standard Gaussian vector's squared radius sums d independent squared normal coordinates, with mean d and variance 2d. Relative standard deviation is √(2/d). The radius itself is typically near √d with relative variation of order 1/√(2d), a large-d approximation. Pairwise Gaussian differences have another scale factor but similar relative concentration. This does not say all high-dimensional distances are identical.</Prose>
+    <Example id="dimension"><Prose>Radius variation is measured from the program's own 4,000 Gaussian draws per dimension. The PCA fixture is a separate exact counterexample: nearly all coordinate variance lies in noise, while a tiny second coordinate determines the label. Keeping one component collapses opposite-label rows. This is a representation counterexample, not a held-out benchmark.</Prose></Example>
+    <Prose>Intrinsic dimension describes structure within the ambient coordinates. A surface embedded in a long vector can still have few meaningful degrees of freedom. Useful representations retain target-relevant differences and remove nuisance variation. PCA preserves variance, not necessarily class information. Supervised metric learning uses labels and therefore belongs inside the training/CV boundary. Validate the entire representation-plus-neighbor pipeline.</Prose>
+
+    <H2 id="9-separate-closeness-from-certainty">9. Separate closeness from certainty</H2>
+    <Prose><strong>Optional deeper route.</strong> Suppose P(Y=1|x)=η=0.8 at a particular feature value. The best equal-cost decision is class 1, but it still fails 20% of the time. The local Bayes error is min(η,1−η): the minimum attainable with these features. Extra informative features could change that limit; this comparison fixes the representation.</Prose>
+    <Prose>If a very close neighbor's label and the new label are independent draws from the same local distribution, they disagree in two ways: neighbor1/new0 or neighbor0/new1. Their probabilities sum to 2η(1−η), which is 0.32 at η=0.8. Infinitely many stored rows do not remove the randomness of consulting only one label.</Prose>
+    <MathBlock>{'r^*(x)=\\min\\{\\eta(x),1-\\eta(x)\\},\\qquad r_{1NN}(x)=2\\eta(x)(1-\\eta(x)).'}</MathBlock>
+    <Prose>Under Cover and Hart's nearest-neighbor convergence conditions, including the relevant metric-space and class-distribution regularity, limiting binary risk obeys R*≤R∞≤2R*(1−R*)≤2R*. Risk averages over independent training data and new observations; R* is integrated Bayes risk. This is an asymptotic distributional bound, not a finite test guarantee. In finite-dimensional Euclidean space, continuity of conditional class probabilities near almost every non-atomic query is one useful sufficient setting for the local reasoning; positive-mass atoms are handled as repeated observations.</Prose>
+    <Prose>Why is the upper bound not generally equality? Put r=min(η,1−η). Local disagreement is 2r(1−r). Averaging gives E[2r(1−r)], whereas 2R*(1−R*) substitutes the average r into a concave function. Jensen's inequality gives an upper bound; varying local error can make it strict.</Prose>
+    <Example id="posterior-risk"><Prose>Two equally likely feature regions have positive-class probabilities 0.1 and 0.8. Integrated Bayes risk is 0.15, independent-neighbor disagreement 0.25, and its binary upper bound 0.255. The final three-label majority calculation concerns one local distribution, not a guarantee for every finite 3NN model.</Prose></Example>
+    <H3>More than two classes</H3>
+    <Prose>With C classes and probabilities pc, independent labels disagree with probability 1−Σpc². If the largest probability is 1−r, the other C−1 values sum to r and their squares sum to at least r²/(C−1), by Cauchy–Schwarz. Local disagreement is therefore at most 2r−Cr²/(C−1). Averaging this concave expression gives the multiclass bound under the corresponding convergence conditions:</Prose>
+    <MathBlock>{'R^*\\le R_\\infty\\le R^*\\left(2-\\frac{C}{C-1}R^*\\right),\\qquad C\\ge2.'}</MathBlock>
+    <Prose>The coefficient is C/(C−1). Increasing the number of classes does not prove that 1NN approaches Bayes performance more closely. This bound also does not make fixed 1NN universally Bayes-consistent.</Prose>
+    <H3>Grow the neighborhood while keeping it local</H3>
+    <Prose>Let k grow with sample size to average away label noise, while k/n tends to zero to preserve locality. In the standard finite-dimensional Euclidean IID setting with suitable tie handling, these conditions support universal consistency in expected classification risk. A stronger almost-sure assertion needs its own conditions. Neither limit specifies the best k for today's finite sample.</Prose>
+    <Prose>A useful regression rate calculation exposes the tradeoff. Suppose the conditional mean has two smooth derivatives, density is positive and regular near an interior point, local geometry is sufficiently symmetric and noise variance is controlled. A neighborhood containing k of n rows has characteristic radius h of order (k/n)^(1/d). Averaging variance is of order 1/k. Second-order bias is of order h², giving squared bias of order (k/n)^(4/d). Balancing terms yields k of order n^(4/(d+4)). Boundary bias, weaker smoothness, different losses and classification margins can change this rate. It explains a specific smooth-regression model; it is not a universal tuning formula.</Prose>
+
+    <H2 id="10-use-neighbors-in-less-obvious-ways">10. Use neighbors in less obvious ways</H2>
+    <H3>Find a nearby station across a coordinate seam</H3>
+    <Prose>Longitude wraps around. A query at 179.8° east is close to 179.9° west, although subtracting the printed coordinates suggests 359.7°. On a spherical model, the haversine formula calculates a central angle from latitude and longitude; multiplying radians by the sphere's radius gives distance. Here the right geometry matters more than a sophisticated classifier.</Prose>
+    <Example id="haversine-outputs"><Prose>The closest station lies across the date line, about 33.358 km away for a 6,371 km spherical radius. Real geodesic work may require an ellipsoid. The second example is a separate synthetic analog task: the same two retrieved temperatures provide a joint prediction of pressure and load, yielding (120,6). Several target coordinates do not need separate searches.</Prose></Example>
+    <H3>Complete a structured output from similar inputs</H3>
+    <Prose>A target can be a vector. In face completion, the visible upper part is the input and the lower part is an output vector. Retrieve similar visible faces and average their lower parts. Alternatives can blur together, and the result is an estimate under a dataset/representation, not recovery of a uniquely determined hidden face. The linked scikit-learn example demonstrates this multi-output structure; the later Multi-Label & Multi-Output topic develops broader choices.</Prose>
+    <H3>A forest can teach a neighbor representation</H3>
+    <Prose>The previous lesson's forest proximity counts the fraction of trees where two inputs share a leaf. Encode each reached leaf as a one-hot vector, concatenate across B trees and divide by √B. Every vector has squared norm 1; their dot product equals shared-leaf fraction. Squared Euclidean distance is therefore twice one minus proximity. A supervised forest can learn a neighbor representation, but it must fit inside the training boundary. Held-out labels would leak even if the final KNN stage looks nonparametric.</Prose>
+    <Prose>Recommendation and language retrieval use the same representation/search distinction: an embedding determines which properties appear close, an index retrieves candidates, and ranking or generation uses them. Not all retrieval is vector KNN; lexical and hybrid systems use different evidence. A useful neighbor list requires task-aligned representations, appropriate freshness and a checked candidate-recall budget.</Prose>
+
+    <H2 id="11-diagnose-the-observation-and-distance-contract">11. Diagnose the observation and distance contract</H2>
+    <LessonTable caption="Investigate what was observed and compared" headers={['Symptom', 'Investigate', 'Reasoned response']} rows={[['Great training score, weak held-out results', 'Self-neighbors, repeated entities, small k or poor features', 'Repair observation/split ownership before tuning the complete pipeline'], ['Unit conversion changes neighbors', 'Implicit coordinate weights', 'Specify domain geometry or training-fitted scales'], ['Duplicate inputs have opposite labels', 'Annotation conflict or missing predictive features', 'Keep explicit aggregation/ties and examine the observation process'], ['A rare class is seldom predicted', 'Local support, costs and metric quality', 'Report per-class errors; validate choices rather than promise a weighting cure'], ['Sparse region receives a confident class', 'Fixed k expands until enough rows enter', 'Inspect kth distance; consider a validated gate or no-neighbor policy'], ['Missing or novel feature values', 'Coordinates violate the distance contract', 'Fit preparation on training rows and declare unknown behavior'], ['Good recall but poor task results', 'Representation, labels, aggregation or task metric', 'Exact retrieval of the wrong notion of similarity can still be unhelpful']]} />
+    <Prose>One-hot encoding gives categories a geometry; it does not establish semantic similarity or feature importance. Treating absent coordinates as zero can create false closeness through shared missingness. A training-fitted imputer is one possible policy; the choice depends on why values are absent. Distances using only jointly observed coordinates need explicit normalization and index compatibility.</Prose>
+    <Prose>Radius prediction selects all rows within a fixed distance rather than expanding to k rows. It may find none. Return an explicit unavailable/fallback result instead of inventing a mean or dividing by zero. A radius has meaning only relative to representation and units, and any acceptance gate needs validation.</Prose>
+    <Prose>Imbalance is local as well as global. A rare class can form a dense, separated region. Inverse weighting can instead amplify a mislabeled close case. Rebalancing changes local class fractions; oversampled copies can fill a small neighborhood. These scores need not estimate the original population probability. Choose actions for intended error costs and assess on the deployment distribution.</Prose>
+    <Prose>A new device, language or time period can change which similarities matter. Inspect distances and retrieved examples, but do not treat a close point as proof that the target mechanism stayed unchanged.</Prose>
+
+    <H2 id="12-practise-and-write-a-changed-report">12. Practise and write a changed report</H2>
+    <Prose>Keep explanations closed initially. These tasks change the data or constraint so that you must use the mechanism rather than repeat five familiar votes.</Prose>
+    <Practice title="1. Separate two ties" question="At query0 on a line, rows are A:(−1,class0), B:(1,class1), C:(2,class1). For k=1 prefer alphabetical row IDs; for k=2 let class0 win equal class totals. What happens?" hint="Select rows before counting labels."><Prose>For k=1, A and B tie in distance; ID selects A and class 0. For k=2 both enter and a class-total tie selects 0. Same result, different reasons. Changing only the cutoff convention could change the first answer.</Prose></Practice>
+    <Practice title="2. Compute three geometries" question="Coordinate differences are (−2,5). Find Euclidean, Manhattan and maximum distances. Divide the second coordinate by5 and recompute Euclidean distance." hint="Scale a difference before squaring it."><Prose>Distances are √29≈5.385165,7 and5. Scaled differences(−2,1) give √5≈2.236068. Scaling changes the model's coordinate weights; it is not merely a faster equivalent calculation.</Prose></Practice>
+    <Practice title="3. Assign exact-match weights" question="Selected distances are (0,0,2), with labels (A,B,B). What probabilities follow the exact-match-only inverse-weight rule? Repeat with both exact labelsA." hint="The nonzero-distance row gets no mass."><Prose>First A=1/2,B=1/2; then A=1,B=0. Adding an arbitrary epsilon to every distance defines another model. Conflicting exact labels are an actual ambiguity.</Prose></Practice>
+    <Practice title="4. Average changed targets" question="Targets10 and22 lie at distances1 and3. Compute uniform and inverse-distance predictions. Can either exceed22?" hint="Normalize masses1 and1/3."><Prose>Uniform mean is 16. Inverse weights 3/4 and1/4 give13. Both lie in[10,22]; exceeding it requires another model or violation of the nonnegative normalized-weight contract.</Prose></Practice>
+    <Practice title="5. Justify a branch decision" question="Current best distance is2.0. Can a far branch be pruned when its plane is1.8 away? Repeat for2.1 and2.0 under smallest-ID ties." hint="A lower bound must exclude every possible winner."><Prose>At1.8, search because a point might be1.9 away. At2.1, prune. At2.0, search because an equal-distance row may win the ID tie. This is a proof from a bound, not a guess about point locations.</Prose></Practice>
+    <Practice title="6. Separate recall from the label" question="Exact top3 IDs are[2,4,7]; approximate IDs are[2,4,9]. All four mentioned rows are classA. Find recall@3. Must uniform classification change?" hint="Count shared IDs and labels separately."><Prose>Recall is 2/3; both sets vote unanimously forA. A dataset-level accuracy conclusion still needs independent queries with known targets.</Prose></Practice>
+    <Practice title="7. Repair evaluation ownership" question="A learner standardizes all rows, tries k=1 through100 on test accuracy and reports the best test score. Identify both repairs." hint="Representation fitting and selection have separate data uses."><Prose>Fit the scaler on training rows or within CV training folds. Choose k on validation/CV evidence. Reserve untouched test data for the frozen rule. The repeatedly consulted test became development data; a new name does not undo that.</Prose></Practice>
+    <Practice title="8. Interpret the volume model" question="A contained side-0.2 cube lies in a uniform five-dimensional unit cube. Find its mass and n for expected count10." hint="Use sᵈ and n·sᵈ=10."><Prose>Mass is 0.2⁵=0.00032, so n=31,250. This is not a guarantee of exactly10 observations or a universal kth-radius formula.</Prose></Practice>
+    <Practice title="9. Explain a noisy close label" question="At one feature value P(Y=1|x)=0.7. Find local Bayes error and disagreement between two independent local labels. What changes if a stored row copies the test event?" hint="Add the probabilities of opposite labels."><Prose>Bayes error is 0.3; independent disagreement is 2·0.7·0.3=0.42. A copied event is not an independent draw and can leak its answer. The convergence argument does not justify duplicates across splits.</Prose></Practice>
+    <Practice title="10. Price a query" question="Store two million rows with64 float32 coordinates. Find coordinate bytes and coordinate differences in one brute query. Does this give milliseconds?" hint="Each coordinate uses4 bytes and participates once in the basic scan."><Prose>Storage is 512,000,000 bytes. A query processes128,000,000 coordinate differences, plus further distance arithmetic. This is neither an exact floating-operation count nor wall-clock measurement. Kernels, cache, batches and hardware matter.</Prose></Practice>
+    <Practice title="11. Check representation evidence" question="A large noise coordinate and tiny label-determining coordinate produce99.99% variance in one PCA component. Is this enough to discard the other?" hint="Variance and target information have different objectives."><Prose>No. The retained direction can be noise while the discarded one carries the label. Fit within training folds and evaluate task performance. The counterexample establishes possibility, not that PCA always harms learning.</Prose></Practice>
+    <Practice title="12. Write a changed held-out report" question="Use moons seed37, noise0.4 and the same split proportions/eight candidates. Select by validation log loss, then report the chosen rule, test confusion matrix and baseline. Explain a limit without another test-driven choice." hint="Every candidate contains its own training-fitted transform."><Prose>One executed response selects k=41, uniform weights. Test accuracy is 0.775, log loss0.428579 and confusion matrix[[50,10],[17,43]], versus prior-baseline log loss0.693147. This is one synthetic sample and limited candidate set, not universal superiority. Another candidate suggested by test mistakes needs fresh evaluation.</Prose></Practice>
+    <details><summary>Complete executable response for the changed-data report</summary><Example id="changed-capstone"><Prose>The full program includes imports, data, split ownership, candidates and reporting. Its test result ends this experiment; it is not another tuning signal.</Prose></Example></details>
+
+    <H2 id="13-connect-this-rule-to-the-next-model">13. Connect this rule to the next model</H2>
+    <Prose>Linear models summarize observations in coefficients; trees summarize them in conditional regions; KNN keeps reference cases and compares locally at query time. Their representation, storage, fitting and inference tradeoffs differ. No family name determines which generalizes best.</Prose>
+    <Prose>The next topic is <strong>Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)</strong>. It builds sequential additions in response to the current objective's remaining errors. Carry forward prediction-time information boundaries, training-owned preparation, baselines and the distinction between an intuitive drawing and measured evidence.</Prose>
+    <Sources alternatives={<ul>
+      <li><a href="https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote02_kNN.html" target="_blank" rel="noreferrer">Cornell CS4780: KNN and dimensionality</a> — geometric written explanations and questions after sections1–3. Read informal convergence/dimension statements with this lesson's explicit assumptions.</li>
+      <li><a href="https://www.youtube.com/watch?v=oymtGlGdT-k" target="_blank" rel="noreferrer">Kilian Weinberger: nearest-neighbor lecture</a> — instructor video linked by the substantive course notes, offering a spoken/visual route. The notes and video identity were reviewed; a full video transcript was not.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_multioutput_face_completion.html" target="_blank" rel="noreferrer">Scikit-learn: face completion with multi-output estimators</a> — an intermediate worked application of one neighbor set to vector targets. Downloads a dataset; its result is illustrative, not a promise for a new image population.</li>
+    </ul>}>
+      <li><a href="https://scikit-learn.org/stable/modules/neighbors.html" target="_blank" rel="noreferrer">Scikit-learn nearest-neighbor guide</a> — classification, regression, radius queries and supported search geometries. Complete programs here run on 1.9.1; check installed-version contracts.</li>
+      <li><a href="https://isl.stanford.edu/~cover/papers/transIT/0021cove.pdf" target="_blank" rel="noreferrer">Cover and Hart: Nearest Neighbor Pattern Classification</a> — primary asymptotic-risk result for the deeper route, with metric/distribution assumptions and no finite-sample guarantee.</li>
+      <li><a href="https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances" target="_blank" rel="noreferrer">Faiss metric types and distances</a> — L2, inner-product and cosine-normalization contracts for larger retrieval implementations. No Faiss benchmark is claimed here.</li>
+    </Sources>
+  </div>
 };
-
-export default kNearestNeighborsContent;

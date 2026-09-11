@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-09-11T12:12:47.805640+00:00",
+  "numpy": "2.3.5",
+  "sklearn": "1.9.1",
+  "records": [
+    {
+      "index": 0,
+      "sourceSha256": "d6fac930897fb6b0066c8d229ad021ebff21983e5520cee8ef9edb95e92125ff",
+      "setupBlocks": [],
+      "restoredImport": null,
+      "stdout": "X shape: (1000, 20)\nY shape: (1000, 5)\nLabel distribution:\n  Label 0: 369 positives (36.9%)\n  Label 1: 635 positives (63.5%)\n  Label 2: 563 positives (56.3%)\n  Label 3: 478 positives (47.8%)\n  Label 4: 194 positives (19.4%)\nAvg labels per sample: 2.24\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 1,
+      "sourceSha256": "f456bdfe992c85ee0433a8a8f9293a5ad4471344c9546cb2b354411ffa4de786",
+      "setupBlocks": [
+        0
+      ],
+      "restoredImport": null,
+      "stdout": "",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 2,
+      "sourceSha256": "e7127a77601340aefabbf5752f1573a2b99169724da50b22fd9b9f5abe28e55a",
+      "setupBlocks": [
+        0,
+        1
+      ],
+      "restoredImport": null,
+      "stdout": "",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 3,
+      "sourceSha256": "fd3e82da412e7515c76aa388f83cc7cd520aed647ab7822235f2adfaf426f298",
+      "setupBlocks": [
+        0,
+        1,
+        2
+      ],
+      "restoredImport": null,
+      "stdout": "Label 0 trained. Weight shape: (21,)\nLabel 1 trained. Weight shape: (22,)\nLabel 2 trained. Weight shape: (23,)\nLabel 3 trained. Weight shape: (24,)\nLabel 4 trained. Weight shape: (25,)\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 4,
+      "sourceSha256": "f9e451d20940d479c626acb4e7564fec89c033eddea29d6d381debf5806fff49",
+      "setupBlocks": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "restoredImport": null,
+      "stdout": "=== Binary Relevance ===\nHamming loss:      0.1740\nSubset accuracy:   0.3950\nF1 micro:          0.7986\nF1 macro:          0.7454\nF1 samples:        0.8180\n\n=== Classifier Chain ===\nHamming loss:      0.1790\nSubset accuracy:   0.3950\nF1 micro:          0.7954\nF1 macro:          0.7370\nF1 samples:        0.8140\n",
+      "stderr": "",
+      "failure": null
+    },
+    {
+      "index": 5,
+      "sourceSha256": "2258f99aeab9455d7cb25b0a5d1b29fd72346be88ff5f3048e2dbd74e7221af1",
+      "setupBlocks": [],
+      "restoredImport": null,
+      "stdout": "OneVsRestClassifier (Binary Relevance):\n  Hamming loss:    0.1780\n  Subset accuracy: 0.4000\n  F1 micro:        0.7968\n  F1 macro:        0.7428\n  F1 samples:      0.8140\n\nClassifierChain (random order):\n  Hamming loss:    0.1660\n  Subset accuracy: 0.4600\n  F1 micro:        0.8096\n  F1 macro:        0.7537\n  F1 samples:      0.8310\n",
+      "stderr": "",
+      "failure": null
+    }
+  ],
+  "pendingOriginalBlocks": [
+    6
+  ],
+  "note": "Actual execution preserves original bytes, not their claims. Block 6 also depends on an omitted NumPy import; the namespace restores it explicitly. Its random added labels are synthetic noise, not a genuine text annotation benchmark."
+}

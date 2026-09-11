@@ -1,0 +1,203 @@
+{
+  "capturedAt": "2026-09-11T08:30:40.618Z",
+  "topicId": "arrays-strings-hash-maps",
+  "sources": [
+    {
+      "path": "src/learn/data/topics/arrays-strings-hash-maps.jsx",
+      "sha256": "1d2c25f3b21b3e06801b5041d42a63a5d9bb4b25b4c8ca8a089d1ed057621b65",
+      "bytes": 22146,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\data\\topics\\arrays-strings-hash-maps.jsx"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/arrays-strings-hash-maps.js",
+      "sha256": "16769514363dee74da1fb54215573d3b8cc3acb975a047e13ad5db230b266ae0",
+      "bytes": 4564,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\data\\curriculum\\blueprints\\arrays-strings-hash-maps.js"
+    },
+    {
+      "path": "src/learn/data/practice/arrays-strings-hash-maps.js",
+      "sha256": "a21debc888af9d068e8e36050b079241f5d4babc16fff2e23d591415ef274e5d",
+      "bytes": 8227,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\data\\practice\\arrays-strings-hash-maps.js"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-examples.js",
+      "sha256": "a836e5fdaa05a26bea81562fa9bb796758790fbc1b81538ba8ab4e0b0dbf21e2",
+      "bytes": 3842,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\data\\array-map-foundations-examples.js"
+    },
+    {
+      "path": "src/learn/data/array-map-foundations-model.js",
+      "sha256": "d7f6296609374210a83f9d9b9c02f749aeeb6029fd48bf2621ab3431d00c670c",
+      "bytes": 3627,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\data\\array-map-foundations-model.js"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/ArrayMapFoundationsLabs.jsx",
+      "sha256": "d77c59e0ae51146cdc026f374958c3f6a78cb614d8b8fce61055667b22f1c9cc",
+      "bytes": 8947,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\components\\lesson-labs\\ArrayMapFoundationsLabs.jsx"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/systems-structures.css",
+      "sha256": "f527533566232abe4779693b0bd9d82bbe78c8cd7390fc7b0cfc260055130b97",
+      "bytes": 2897,
+      "archive": "scratch\\bitwise-foundations-original\\src\\learn\\components\\lesson-labs\\systems-structures.css"
+    }
+  ],
+  "inventory": {
+    "topic": {
+      "title": "Arrays, Strings & Hash Maps",
+      "level": "foundation",
+      "blueprint": {
+        "summary": "Choose positional, textual and keyed storage by its operations; trace element movement, Unicode units and collision-safe lookup before combining them into useful programs.",
+        "outcomes": [
+          "Distinguish length, capacity, value identity and position",
+          "Count dynamic-array movement and separate individual from amortized costs",
+          "Compare code points, visible characters, UTF-8 bytes and a declared normalization policy",
+          "Explain hash/equality rules, replacement, collisions, occupancy and expected cost assumptions",
+          "Build an inverted index and independently find the first unique integer event"
+        ],
+        "prerequisites": [
+          "Python Basics: Types, Control Flow, Functions & Modules"
+        ],
+        "sequence": [
+          "Start with a reading position, a recorded label and event frequency",
+          "Derive base plus index times fixed slot width; distinguish CPython references, NumPy values and virtual contiguity",
+          "Run indexing, insertion, deletion, append and half-open slicing with identity caveats",
+          "Trace front/middle/end insertions, growth and deletion before introducing O(1)/O(n)",
+          "Use geometric copy totals as an optional explanation of amortized append",
+          "Compare code points, UTF-8 offsets and canonical normalization; retain raw labels under a declared matching policy",
+          "Hash a key to a chained bucket then compare candidate equality; include missing lookup and existing replacement",
+          "Run dict counting and equal numeric key/unhashable key cases",
+          "Optionally force collisions with a custom class while preserving stable key identity",
+          "Compare ordering, membership, cost assumptions and resizing; link formal hashing later",
+          "Build word-to-document posting sets and intersect an AND query",
+          "Independently count then scan a reusable integer sequence for its earliest unique ID"
+        ],
+        "visual": {
+          "type": "Backing-array cells and source/destination arrows",
+          "question": "What must move to preserve order?",
+          "interaction": "Choose insertion position or deletion and spare/full capacity; step copying, shifting and insertion with counted writes."
+        },
+        "visuals": [
+          {
+            "type": "Text units linked to encoded bytes",
+            "question": "Can two identical-looking labels differ in length and equality?",
+            "interaction": "Select ASCII, composed/decomposed accented text or emoji, toggle NFC and inspect each code point and UTF-8 span."
+          },
+          {
+            "type": "Bucket and equality trace",
+            "question": "Why do colliding keys remain separate entries?",
+            "interaction": "Choose bucket count, key and get/set; step candidates, comparison counts, replacement or absence."
+          }
+        ],
+        "practice": {
+          "task": "Run six full examples including a tiny inverted index; independently solve first-unique-event selection with empty, repeated, zero and changed-order cases.",
+          "success": "Sequences and normalization agree with Python; collisions preserve unequal keys; posting sets count document presence, and the unique result preserves first-occurrence order."
+        },
+        "misconceptions": [
+          "Position is not stable element identity",
+          "Spare slots are not live elements",
+          "Amortized does not promise each append has low latency",
+          "Python len(str) is neither a byte count nor full grapheme count",
+          "Equal hash does not mean equal key",
+          "Insertion order is not sorted order",
+          "A reusable sequence and a one-shot iterator have different two-pass contracts"
+        ],
+        "sources": [
+          "https://docs.python.org/3/tutorial/datastructures.html",
+          "https://docs.python.org/3/faq/design.html#how-are-lists-implemented-in-cpython",
+          "https://docs.python.org/3/howto/unicode.html",
+          "https://docs.python.org/3/library/unicodedata.html",
+          "https://docs.python.org/3/library/stdtypes.html#mapping-types-dict",
+          "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/resources/lecture-4-hashing/"
+        ],
+        "depth": "core",
+        "reviewFocus": "Three investigations, six programs; independent list/dict/encoding oracles. Separate-chaining and doubling are explicit models, not CPython layouts. Formal amortization, probing and string matching stay with existing later owners. MIT lecture videos/notes and Python Unicode tutorial provide alternate explanations. Optional custom keys need OOP; the core does not.",
+        "designRecord": "docs/teaching/systems-and-structures-design.md"
+      },
+      "prerequisites": [
+        "Python Basics: Types, Control Flow, Functions & Modules"
+      ],
+      "id": "arrays-strings-hash-maps",
+      "trackId": "data-structures-algorithms",
+      "section": "Core Data Structures",
+      "trackIds": [
+        "data-structures-algorithms"
+      ],
+      "prerequisiteStatus": "recorded",
+      "prerequisiteIds": [
+        "python-basics-types-control-flow-functions-modules"
+      ],
+      "designStatus": "topic-brief-ready",
+      "publicationStatus": "published",
+      "teachingReview": "implementation-reviewed-user-acceptance-pending",
+      "teachingReviewRecord": "SYSTEMS-STRUCTURES-IMPLEMENTATION.md",
+      "domainStrategy": "algorithms"
+    },
+    "domainGuidance": {
+      "strategy": "algorithms",
+      "flow": [
+        "Specify inputs, outputs and a small task",
+        "Establish a simple correct method and its cost",
+        "Expose the data structure and trace its changing state",
+        "State and justify an invariant and termination",
+        "Analyze resources under a stated cost model",
+        "Implement, diagnose edge cases and transfer to a new constraint"
+      ],
+      "visuals": [
+        "Execution trace linked to code and state",
+        "Pointer/tree/frontier diagram",
+        "Same-input method comparison"
+      ],
+      "practice": "Predict a next state, implement from an invariant, construct a counterexample and compare time/space tradeoffs.",
+      "verification": "Correctness argument plus independent/oracle outputs for meaningful boundary and adversarial cases; measurements do not prove asymptotics.",
+      "exampleAnchor": "Scheduling jobs, finding routes and maintaining changing collections under explicit constraints.",
+      "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+      "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+    },
+    "authoringNotes": {
+      "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+      "workflow": "docs/teaching/topic-notes/README.md",
+      "destination": {
+        "path": "docs/teaching/topic-notes/arrays-strings-hash-maps.md",
+        "exists": true,
+        "markdown": "# Authoring notes: Arrays, Strings & Hash Maps\n\nCanonical topic ID: `arrays-strings-hash-maps`.\n\n## 2026-09-11 — A connected bitwise representation branch\n\n- Status: assigned and designed; implementation pending.\n- Origin: [bounded DSA practice ownership review](../DSA-PRACTICE-OWNERSHIP-REVIEW.md) and the earlier [unassigned note](UNASSIGNED.md).\n- Destination rationale: this lesson already compares positions, presence, frequency and keys, and implements posting sets. Finite bitsets and parity summaries expose another storage choice with explicit information loss. They fit a signposted deeper branch without moving the module or overloading Python Basics.\n- Existing coverage: DP section7 already teaches finite masks and subset/endpoint states; Fenwick derives the lowest set bit. Preserve those local explanations as later applications. The original unassigned title search was incomplete evidence of absence.\n- Proposed treatment: [full extension design](../BITWISE-FOUNDATIONS-EXTENSION-DESIGN.md) derives finite-universe set operations, signed/unsigned word interpretation, arithmetic/logical shifts, XOR parity with its input promises, sparse popcount, two-singleton partition and bitmap posting queries. It includes distinct visual contracts, complete programs, changed practice and researched official136/191/231/461/260links.\n- Dependencies and boundaries: local binary place-value refresher; Python arbitrary integers versus explicitly bounded words; storage count versus bit complexity; promise checking uses separate extra state. No new prerequisite or stable-ID change.\n- Evidence: actual current topic/brief/practice and incoming notes were read; original files are archived in [the baseline](../evidence/bitwise-foundations-original.json). Current Python docs and selected Handbook passages were inspected, with outdated/nonportable C++ claims explicitly rejected. No implementation or verification claim yet.\n- Resolution: canonical foundation owner assigned here. Root author implementation then independent review/integration remain required. Full XOR tries, advanced coding theory and every bit technique are not implied by this bounded scope.\n"
+      },
+      "unassigned": {
+        "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+        "exists": true,
+        "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: assigned11September2026 to [Arrays, Strings & Hash Maps](arrays-strings-hash-maps.md); designed, implementation pending.\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: the later bounded source review found substantive DP section7mask teaching and the Fenwick lowest-bit proof. The original title/brief search was incomplete evidence of absence. Broader XOR/popcount/word interpretation and direct practice remain the concrete extension gap.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: the existing Arrays owner is assigned a connected deeper representation branch, retaining stable title/ID/order and existing DP/Fenwick applications. No new topic is added. The earlier discovery itself made no source edit; the subsequent scoped extension has its own baseline and evidence.\n- Implementation/verification links: [design and authoring instructions](../BITWISE-FOUNDATIONS-EXTENSION-DESIGN.md), [destination note](arrays-strings-hash-maps.md); implementation/native/browser/independent evidence pending.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+      }
+    },
+    "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+  },
+  "originalExamples": {
+    "sequence": {
+      "code": "items = [\"A\", \"B\", \"C\"]\nprint(\"index 1:\", items[1])\nitems.insert(1, \"X\")\nprint(\"insert:\", items)\nremoved = items.pop(2)\nprint(\"removed:\", removed)\nitems.append(\"D\")\nprint(\"final:\", items)\nprint(\"slice:\", items[1:3])\nassert items == [\"A\", \"X\", \"C\", \"D\"]",
+      "output": "index 1: B\ninsert: ['A', 'X', 'B', 'C']\nremoved: B\nfinal: ['A', 'X', 'C', 'D']\nslice: ['X', 'C']"
+    },
+    "unicode": {
+      "code": "import unicodedata\n\ncomposed = \"café\"\ndecomposed = \"café\"\nprint(\"exact equality:\", composed == decomposed)\nprint(\"code points:\", len(composed), len(decomposed))\nprint(\"UTF-8 bytes:\", len(composed.encode(\"utf-8\")), len(decomposed.encode(\"utf-8\")))\nnormalized = unicodedata.normalize(\"NFC\", decomposed)\nprint(\"after NFC:\", normalized == composed)\nprint(\"accent retained:\", normalized)\n\n# A declared label-matching policy, not a universal identity rule.\ndef label_key(raw):\n    return unicodedata.normalize(\"NFC\", raw.strip().casefold())\n\ncounts = {}\nfor raw in [\" Temp \", \"temp\", \"café\", \"café\", \"TEMP\"]:\n    key = label_key(raw)\n    counts[key] = counts.get(key, 0) + 1\nprint(\"counts:\", sorted(counts.items()))",
+      "output": "exact equality: False\ncode points: 4 5\nUTF-8 bytes: 5 6\nafter NFC: True\naccent retained: café\ncounts: [('café', 2), ('temp', 3)]"
+    },
+    "keys": {
+      "code": "counts = {}\nfor event_id in [10, 14, 10, 18, 14, 10]:\n    counts[event_id] = counts.get(event_id, 0) + 1\nprint(\"counts:\", sorted(counts.items()))\nprint(\"missing lookup:\", counts.get(22, 0))\nprint(\"22 inserted by get:\", 22 in counts)\ncounts[14] = 99\nprint(\"replacement:\", counts[14], \"keys:\", len(counts))\n\n# Equal numeric keys name the same entry, despite different Python types.\nnumeric = {1: \"integer\", True: \"boolean\", 1.0: \"float\"}\nprint(\"equal numeric keys:\", len(numeric), numeric[1])\ntry:\n    counts[[10, 14]] = 1\nexcept TypeError:\n    print(\"a mutable list is not a dictionary key\")",
+      "output": "counts: [(10, 3), (14, 2), (18, 1)]\nmissing lookup: 0\n22 inserted by get: False\nreplacement: 99 keys: 3\nequal numeric keys: 1 float\na mutable list is not a dictionary key"
+    },
+    "collisions": {
+      "code": "class Key:\n    def __init__(self, number):\n        self.number = number\n\n    def __hash__(self):\n        return 0  # Deliberately poor distribution, for this demonstration only.\n\n    def __eq__(self, other):\n        if not isinstance(other, Key):\n            return NotImplemented\n        return self.number == other.number\n\ntable = {Key(10): 2, Key(14): 5, Key(18): 1}\nprint(\"distinct colliding keys:\", len(table))\nprint(\"lookup 18:\", table[Key(18)])\ntable[Key(14)] = 99\nprint(\"after equal-key update:\", len(table), table[Key(14)])\nprint(\"absent key:\", Key(22) not in table)",
+      "output": "distinct colliding keys: 3\nlookup 18: 1\nafter equal-key update: 3 99\nabsent key: True"
+    },
+    "index": {
+      "code": "documents = [\"red fox red\", \"blue fox\", \"red blue\"]\npostings = {}\nfor document_id, text in enumerate(documents):\n    for word in text.split():\n        postings.setdefault(word, set()).add(document_id)\nfor word in sorted(postings):\n    print(word, \"->\", sorted(postings[word]))\nmatches = postings.get(\"red\", set()) & postings.get(\"fox\", set())\nprint(\"red AND fox:\", sorted(matches))\nassert matches == {0}\nassert postings[\"red\"] == {0, 2}",
+      "output": "blue -> [1, 2]\nfox -> [0, 1]\nred -> [0, 2]\nred AND fox: [0]"
+    },
+    "unique": {
+      "code": "def first_unique(events):\n    counts = {}\n    for event in events:\n        counts[event] = counts.get(event, 0) + 1\n    # Iterate the original sequence to preserve first-occurrence order.\n    for event in events:\n        if counts[event] == 1:\n            return event\n    return None\n\nfor events in [[7, 2, 7, 9, 2, 4], [], [0, 1, 1], [3, 3]]:\n    print(events, \"->\", first_unique(events))\nassert first_unique([7, 2, 7, 9, 2, 4]) == 9",
+      "output": "[7, 2, 7, 9, 2, 4] -> 9\n[] -> None\n[0, 1, 1] -> 0\n[3, 3] -> None"
+    }
+  },
+  "scope": "Preserve existing arrays/text/hash teaching and six programs while adding a connected deeper bitset/word/XOR branch; publication identity and module order remain unchanged."
+}

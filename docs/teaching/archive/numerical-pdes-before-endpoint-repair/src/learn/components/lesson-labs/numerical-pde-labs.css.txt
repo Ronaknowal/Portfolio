@@ -1,0 +1,329 @@
+.npde-investigation, .npde-inline {
+  margin: 2rem 0;
+  padding: clamp(.8rem, 3vw, 1.5rem);
+  border: 1px solid var(--color-border, #303239);
+  background: #0b0e12;
+  border-radius: 8px;
+  min-width: 0;
+}
+.npde-investigation header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.npde-investigation h3 {
+  margin: 0;
+  color: var(--color-text,#eee);
+  line-height: 1.4;
+}
+.npde-investigation button {
+  min-height: 44px;
+  padding: .4rem .8rem;
+  background: #151a20;
+  color: #eed194;
+  border: 1px solid #675632;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.npde-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,220px),1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.npde-control {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-width: 0;
+  margin: 1rem 0;
+  color: #d2d7df;
+}
+.npde-control span {
+  display: block;
+}
+.npde-control select {
+  min-height: 44px;
+  width: 100%;
+  max-width: 100%;
+  padding: .4rem;
+  background: #141921;
+  color: #eee;
+  border: 1px solid #58616b;
+  border-radius: 4px;
+  font: inherit;
+  font-size: .92rem;
+}
+.npde-control input[type=range] {
+  min-height: 32px;
+  width: 100%;
+  accent-color: #e8b44a;
+}
+.npde-investigation :is(button,input,select,summary):focus-visible, .npde-table:focus-visible {
+  outline: 2px solid #78b9ee;
+  outline-offset: 4px;
+}
+.npde-figure {
+  margin: 1.4rem 0;
+  min-width: 0;
+}
+.npde-figure figcaption {
+  color: #f0dfb9;
+  line-height: 1.5;
+  margin-bottom: .6rem;
+}
+.npde-figure svg {
+  width: 100%;
+  max-width: 650px;
+  display: block;
+  margin: auto;
+  overflow: visible;
+}
+.npde-figure svg text, .npde-triangle text {
+  fill: #c7d0da;
+  font: 11px ui-monospace,monospace;
+}
+.npde-grid {
+  stroke: #29323c;
+  stroke-width: .7;
+}
+.npde-axis {
+  text-align: center;
+  margin: 0 0 .7rem;
+  color: #bdc8d5;
+  font-size: .9rem;
+}
+.npde-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  padding: 0!important;
+  list-style: none;
+  font-size: .85rem;
+}
+.npde-legend li {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.npde-legend i {
+  width: 15px;
+  height: 3px;
+  display: inline-block;
+}
+.npde-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: center;
+  justify-content: center;
+}
+.npde-flow span {
+  padding: .6rem .8rem;
+  border-bottom: 2px solid #667b8f;
+}
+.npde-flow b {
+  color: #e8b44a;
+  font-size: .9rem;
+}
+.npde-stencil {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: .5rem;
+  margin: 1.2rem 0;
+}
+.npde-stencil span {
+  text-align: center;
+  border-top: 2px solid #78b9ee;
+  padding: .8rem .3rem;
+  font-family: ui-monospace,monospace;
+}
+.npde-stencil b {
+  display: block;
+  font-size: .85rem;
+  color: #e8b44a;
+  margin-top: .5rem;
+  overflow-wrap: anywhere;
+}
+.npde-budget {
+  margin: 1.2rem 0;
+}
+.npde-budget p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .6rem 0;
+  margin: 0;
+  border-bottom: 1px solid #303844;
+}
+.npde-budget output {
+  color: #e8b44a;
+  font-family: ui-monospace,monospace;
+}
+.npde-total {
+  border-top: 2px solid #e8b44a;
+}
+.npde-result {
+  border-left: 3px solid #e8b44a;
+  padding: .5rem 0 .5rem 1rem;
+  color: #e5decf;
+}
+.npde-table {
+  overflow-x: auto;
+  margin: 1.2rem 0;
+}
+.npde-table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: .9rem;
+}
+.npde-table th, .npde-table td {
+  padding: .55rem .7rem;
+  border-bottom: 1px solid #34404c;
+  text-align: left;
+}
+.npde-table th {
+  color: #d9c28b;
+}
+.npde-table caption {
+  text-align: left;
+  margin-bottom: .5rem;
+  color: #d3dbe4;
+}
+.npde-highlight {
+  background: #302919;
+  color: #f1ce79;
+}
+.npde-resistance {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 1rem 0;
+}
+.npde-resistance div {
+  background: #182d3d;
+  border: 1px solid #658ba7;
+  padding: .75rem .3rem;
+  text-align: center;
+  min-width: 0;
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+.npde-resistance div:last-child {
+  background: #352e1d;
+  border-color: #b29b53;
+}
+.npde-resistance b {
+  color: #e8b44a;
+  white-space: nowrap;
+  font-size: .85rem;
+}
+.npde-cell-strip {
+  display: grid;
+  grid-template-columns: repeat(8,1fr);
+  gap: 3px;
+  margin: 1rem 0;
+}
+.npde-cell-strip div {
+  text-align: center;
+  padding: .3rem 1px;
+  color: #eee;
+  min-width: 0;
+}
+.npde-cell-strip span {
+  display: block;
+  font-size: .7rem;
+  color: #d0d0d0;
+}
+.npde-cell-strip b {
+  font-size: .62rem;
+  display: block;
+  overflow-wrap: anywhere;
+}
+.npde-riemann {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .6rem;
+  padding: 1.5rem .2rem;
+  color: #e8b44a;
+}
+.npde-coordinate-grid {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 4px;
+  margin: 1rem 0;
+}
+.npde-coordinate-grid span {
+  min-width: 0;
+  text-align: center;
+  padding: .4rem 0;
+  background: #141a20;
+  border: 1px solid #303b46;
+}
+.npde-coordinate-grid small {
+  display: block;
+  font-size: .65rem;
+}
+.npde-coordinate-grid b {
+  display: block;
+  font-size: .9rem;
+}
+.npde-coordinate-grid .npde-selected {
+  background: #5c481c;
+  border-color: #e8b44a;
+}
+.npde-coordinate-grid .npde-neighbor {
+  border-color: #78b9ee;
+  background: #172d3f;
+}
+.npde-triangle {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+}
+.npde-practice {
+  margin: 2rem 0;
+  border-top: 1px solid #3a414a;
+  padding-top: 1rem;
+}
+.npde-practice summary {
+  min-height: 44px;
+  cursor: pointer;
+  color: #d4b97c;
+  padding: .5rem 0;
+}
+.npde-lesson details {
+  margin: 1rem 0;
+}
+.npde-lesson .npde-section {
+  scroll-margin-top: 90px;
+}
+.npde-lesson code {
+  overflow-wrap: anywhere;
+}
+@media (max-width:420px) {
+  .npde-investigation header {
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .npde-cell-strip {
+    grid-template-columns: repeat(4,1fr);
+  }
+  .npde-cell-strip b {
+    font-size: .75rem;
+  }
+  .npde-figure svg text {
+    font-size: 11px;
+  }
+  .npde-resistance {
+    gap: .25rem;
+  }
+}
+.npde-triangle text {
+  font-size: 14px;
+}

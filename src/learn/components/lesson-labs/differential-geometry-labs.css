@@ -1,0 +1,58 @@
+.dg-lab,.dg-figure { margin: 1.8rem 0; padding: 1.15rem; border: 1px solid #39495a; border-radius: 4px; color: #e0e7ef; background: #0c141d; }
+.dg-lab { border-left: 3px solid #e9b759; }
+.dg-lab h3 { margin: 0 0 .6rem; color: #f5f2e9; font-size: 1.2rem; }
+.dg-lab h4,.dg-figure h4 { margin: .55rem 0; font-size: 1rem; line-height: 1.55; }
+.dg-lab p,.dg-figure figcaption { line-height: 1.75; }
+.dg-two-column,.dg-atlas-layout,.dg-step-endpoints { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; align-items: center; }
+.dg-two-column>div,.dg-step-endpoints>div { min-width: 0; }
+.dg-plot { display: block; width: 100%; max-width: 430px; margin: .65rem auto; overflow: visible; }
+.dg-plot text { font-family: inherit; font-size: 15px; fill: #dbe4ec; }
+.dg-axes line { stroke: #3d4f61; stroke-width: 1; }
+.dg-axes text { fill: #b2c3d3; font-size: 13px; }
+.dg-control { display: flex; flex: 1 1 180px; flex-direction: column; min-width: 0; gap: .35rem; margin: .6rem 0; }
+.dg-control span { font-size: .95rem; overflow-wrap: anywhere; }
+.dg-control input { width: 100%; min-height: 44px; accent-color: #e8ba68; }
+.dg-controls,.dg-actions,.dg-legend { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; }
+.dg-actions { margin: .7rem 0; }
+.dg-lab button { padding: .5rem .75rem; border: 1px solid #826d48; border-radius: 3px; background: #172435; color: #f3d397; min-height: 44px; font: inherit; cursor: pointer; }
+.dg-lab button[aria-pressed=true] { background: #38403b; border-color: #a0dfbb; }
+.dg-lab :focus-visible,.dg-figure :focus-visible,.dg-practice :focus-visible { outline: 3px solid #99caff; outline-offset: 3px; }
+.dg-readouts { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,185px),1fr)); gap: .9rem 1rem; margin: 1rem 0; }
+.dg-readouts div { min-width: 0; }
+.dg-readouts dt { font-size: .85rem; color: #c0ccda; }
+.dg-readouts dd { margin: .2rem 0 0; color: #f4d9a6; overflow-wrap: anywhere; }
+.dg-caption,.dg-figure figcaption { color: #c0cfdd; font-size: .92rem; margin: 1rem 0 .2rem; }
+.dg-key { display: inline-flex; gap: .45rem; align-items: center; }
+.dg-key:before { content: ''; width: 15px; min-width: 15px; height: 3px; background: currentColor; }
+.dg-key.amber { color: #f3c16a; }.dg-key.blue { color: #99caff; }.dg-key.green { color: #a0dfbb; }.dg-key.pink { color: #ecb3d4; }
+.dg-chart-strips { padding: .5rem .75rem; }
+.dg-chart-strips>div+div { margin-top: 1.6rem; }
+.dg-coordinate-strip { height: 2px; background: #8b9cab; margin: 1.2rem .4rem .55rem; position: relative; }
+.dg-open-end { position: absolute; border: 2px solid #b9c8d6; background: #0c141d; width: 10px; height: 10px; border-radius: 50%; top: -4px; }
+.dg-open-end.left { left: -5px; }.dg-open-end.right { right: -5px; }
+.dg-coordinate-marker { position: absolute; height: 16px; width: 5px; top: -7px; transform: translateX(-50%); }
+.dg-strip-labels { display: flex; justify-content: space-between; font-size: .9rem; color: #d0dbe5; }
+.dg-bands { display: flex; flex-direction: column; gap: 1.2rem; padding: .6rem 0; }
+.dg-bands>div,.dg-curvature-bars>div { display: flex; flex-direction: column; gap: .45rem; }
+.dg-area-strip { height: 12px; background: #213044; width: 100%; }
+.dg-area-strip i { display: block; height: 100%; }
+.dg-curvature-bars { display: flex; flex-direction: column; gap: 1.25rem; margin: 1rem 0; }
+.dg-curvature-bars>div>div:first-child { display: flex; gap: .8rem; justify-content: space-between; }
+.dg-identity { padding: .7rem 0; border-top: 1px solid #475b6d; border-bottom: 1px solid #475b6d; color: #b8e3cd; overflow-wrap: anywhere; }
+.dg-step-endpoints>div,.dg-cancellations>div { display: flex; flex-direction: column; gap: .45rem; }
+.dg-cancellations>div+div { margin-top: 1rem; }
+.dg-step-endpoints { align-items: start; margin: 1rem 0; }
+.dg-practice { border-top: 1px solid #394b5d; margin: 1.5rem 0; padding: .7rem 0; }
+.dg-practice details { margin: .7rem 0; }
+.dg-practice summary { min-height: 44px; cursor: pointer; color: #f1cf91; padding: .5rem 0; }
+@media(max-width:700px) {
+  .dg-two-column,.dg-atlas-layout { grid-template-columns: 1fr; gap: .4rem; }
+  .dg-lab,.dg-figure { padding: .85rem; }
+  .dg-plot { max-width: 400px; }
+}
+@media(max-width:390px) {
+  .dg-step-endpoints { grid-template-columns: 1fr; }
+  .dg-plot text { font-size: 17px; }
+  .dg-axes text { font-size: 15px; }
+  .dg-lab,.dg-figure { padding: .6rem; }
+}

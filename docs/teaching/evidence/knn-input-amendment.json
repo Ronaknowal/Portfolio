@@ -1,0 +1,53 @@
+{
+  "amendedAt": "2026-09-11T14:30:38.794Z",
+  "topicId": "k-nearest-neighbors-knn",
+  "status": "author amendment verified; independent review pending",
+  "description": "Reject sparse/inherited query and fixture arrays; require distinct candidates. Normalize cosine vectors separately and use stable hypot reductions in the two displayed Python estimators to avoid squared-distance underflow/overflow.",
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+      "sha256": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516"
+    },
+    {
+      "path": "src/learn/data/knn-models.js",
+      "sha256": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74"
+    },
+    {
+      "path": "src/learn/data/knn-examples.js",
+      "sha256": "f98fa95e5bd98573280e10c3b63d7556ca7a19b875757c013f5a0c5b2863537a"
+    },
+    {
+      "path": "src/learn/data/knn-validation-data.js",
+      "sha256": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "sha256": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/knn-labs.css",
+      "sha256": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+    },
+    {
+      "path": "src/learn/data/curriculum/blueprints/k-nearest-neighbors-knn.js",
+      "sha256": "43e77af81755130051ec81693e767ac5001d15322b0d2a745f28c89a82cf4929"
+    }
+  ],
+  "previousAuthor": "docs/teaching/evidence/knn-author-review.json",
+  "originalSourceArchive": "docs/teaching/archive/tree-knn-input-amendment/manifest.json",
+  "checks": [
+    {
+      "path": "scratch/tree-knn-input-contracts/checks.json",
+      "sha256": "dbcfeb6c2d1e2937ffe28506ac5d81b68ee304676265e34b1821562b003616bb"
+    },
+    {
+      "path": "scratch/tree-knn-input-contracts/stable-distances.json",
+      "sha256": "7a720074f69dc465b3959d26d7ab6e20c671377aac1f59de64bf95efb13c8f33"
+    },
+    {
+      "path": "scratch/tree-knn-input-contracts/knn-browser.json",
+      "sha256": "b725b2603e3b6b284c8866f3dbb521ac60e802911e45a5e3271e19e2976f5096"
+    }
+  ],
+  "reuse": "All original valid fixtures preserved within explicit cosine floating-point tolerance. Only scratch-estimator and kd-tree programs re-executed; all stdout unchanged and nine unaffected execution records reused. Both amended code/output blocks checked on actual 390px route. Existing full lab, practice, anchor and responsive checks reused."
+}

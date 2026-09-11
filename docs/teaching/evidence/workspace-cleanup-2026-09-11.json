@@ -1,0 +1,1285 @@
+{
+  "createdAt": "2026-09-11T12:41:00.162Z",
+  "reason": "Narrowed after automatic review rejected broader deletion. Only unreferenced obsolete editing utilities and one byte-identical installed draft; all verification outputs, original snapshots, nonidentical drafts, research and runtime are retained. Exact recovery archive must be created and verified before removal.",
+  "archive": "docs/archive/workspace-cleanup/2026-09-11-editing-utilities.zip",
+  "selected": [
+    {
+      "path": "scratch/add-concentration-prompts.py",
+      "directory": false,
+      "bytes": 4175,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/add-second-order-worked-practice.cjs",
+      "directory": false,
+      "bytes": 1246,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/amend-algebra-growth-sampling.py",
+      "directory": false,
+      "bytes": 2923,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/amend-comparison-and-likelihood-reviews.cjs",
+      "directory": false,
+      "bytes": 1771,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/amend-functional-analysis-freeze.py",
+      "directory": false,
+      "bytes": 2082,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/amend-graph-native-normalization-evidence.py",
+      "directory": false,
+      "bytes": 2193,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/amend-graph-normalization-evidence.py",
+      "directory": false,
+      "bytes": 1974,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/clarify-constrained-pareto-ties.cjs",
+      "directory": false,
+      "bytes": 950,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/decision-tree-lesson-draft.jsx",
+      "directory": false,
+      "bytes": 53305,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/finalize-eigenvalue-draft.cjs",
+      "directory": false,
+      "bytes": 1759,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/finalize-mutual-information-source.py",
+      "directory": false,
+      "bytes": 837,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/finish-naive-bayes-draft.py",
+      "directory": false,
+      "bytes": 2076,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/finish-schedule-authoring-docs.cjs",
+      "directory": false,
+      "bytes": 7564,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/fix-gradient-geometry.cjs",
+      "directory": false,
+      "bytes": 1207,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/fix-vi-range.mjs",
+      "directory": false,
+      "bytes": 324,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/fix-vi-selector.cjs",
+      "directory": false,
+      "bytes": 343,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-backtracking-divide.cjs",
+      "directory": false,
+      "bytes": 1510,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-constrained-multiobjective.cjs",
+      "directory": false,
+      "bytes": 1442,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-convex-sources.cjs",
+      "directory": false,
+      "bytes": 1769,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-eigenvalue-sources.cjs",
+      "directory": false,
+      "bytes": 2454,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-einsum.cjs",
+      "directory": false,
+      "bytes": 1281,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-functional-analysis-source.mjs",
+      "directory": false,
+      "bytes": 3210,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-gradient-variants.cjs",
+      "directory": false,
+      "bytes": 1407,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-greedy.cjs",
+      "directory": false,
+      "bytes": 840,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-hypothesis-testing.cjs",
+      "directory": false,
+      "bytes": 1435,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-matrix-calculus.cjs",
+      "directory": false,
+      "bytes": 1300,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-matrix-decompositions.cjs",
+      "directory": false,
+      "bytes": 1511,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-multivariate.cjs",
+      "directory": false,
+      "bytes": 1317,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-nonconvex-landscape.cjs",
+      "directory": false,
+      "bytes": 1407,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-owned-dsa.cjs",
+      "directory": false,
+      "bytes": 1649,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-persistent-structures-jsx.cjs",
+      "directory": false,
+      "bytes": 2229,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-persistent-structures-sources.cjs",
+      "directory": false,
+      "bytes": 2199,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-probability-distributions.cjs",
+      "directory": false,
+      "bytes": 1327,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-second-order-examples.mjs",
+      "directory": false,
+      "bytes": 1319,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-union-find.cjs",
+      "directory": false,
+      "bytes": 1428,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-vector-tensor.cjs",
+      "directory": false,
+      "bytes": 1361,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/format-weighted-graph-sources.cjs",
+      "directory": false,
+      "bytes": 1165,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/harden-range-inputs.cjs",
+      "directory": false,
+      "bytes": 1027,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/install-format-vi.mjs",
+      "directory": false,
+      "bytes": 977,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/polish-complex-design.py",
+      "directory": false,
+      "bytes": 6749,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/polish-conditioning.py",
+      "directory": false,
+      "bytes": 1925,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/polish-eigenvalue-reading.cjs",
+      "directory": false,
+      "bytes": 2061,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/polish-network-flow-sources.cjs",
+      "directory": false,
+      "bytes": 3031,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/polish-network-flow-text.cjs",
+      "directory": false,
+      "bytes": 1446,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-bayesian-body.cjs",
+      "directory": false,
+      "bytes": 1777,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-combinatorial-design.cjs",
+      "directory": false,
+      "bytes": 845,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-decision-tree-draft.cjs",
+      "directory": false,
+      "bytes": 1219,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-dsa-duality-integration.cjs",
+      "directory": false,
+      "bytes": 2461,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-einsum-outputs.mjs",
+      "directory": false,
+      "bytes": 976,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-learning-rate-lesson.cjs",
+      "directory": false,
+      "bytes": 1927,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-random-matrix-design.py",
+      "directory": false,
+      "bytes": 1850,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/prepare-second-order-lesson.cjs",
+      "directory": false,
+      "bytes": 1653,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/publish-bayesian-body.cjs",
+      "directory": false,
+      "bytes": 2089,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-active-foundations-designs.cjs",
+      "directory": false,
+      "bytes": 813,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-foundations-review.mjs",
+      "directory": false,
+      "bytes": 2143,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-foundations-reviews.cjs",
+      "directory": false,
+      "bytes": 3126,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-graph-fundamentals-evidence.py",
+      "directory": false,
+      "bytes": 3619,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-greedy-dp-tensor-reviews.cjs",
+      "directory": false,
+      "bytes": 2712,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-hashing-convex-authors.cjs",
+      "directory": false,
+      "bytes": 2407,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-range-correctness-multivariate-authors.cjs",
+      "directory": false,
+      "bytes": 2808,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-schedule-string-authors.cjs",
+      "directory": false,
+      "bytes": 2688,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-vi-expected.mjs",
+      "directory": false,
+      "bytes": 679,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/record-weighted-graphs-gradient-variants-authors.cjs",
+      "directory": false,
+      "bytes": 2042,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-learning-rate-prose.cjs",
+      "directory": false,
+      "bytes": 2412,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-mutual-information-labs.py",
+      "directory": false,
+      "bytes": 2246,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-mutual-information-layout.py",
+      "directory": false,
+      "bytes": 4541,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-persistent-practice.cjs",
+      "directory": false,
+      "bytes": 1068,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-schedule-browser-check.cjs",
+      "directory": false,
+      "bytes": 998,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-topology-equation-layout.py",
+      "directory": false,
+      "bytes": 2530,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/refine-topology-visual-contracts.cjs",
+      "directory": false,
+      "bytes": 2521,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-bayesian-inference-design.cjs",
+      "directory": false,
+      "bytes": 1168,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-causal-information-designs.cjs",
+      "directory": false,
+      "bytes": 1145,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-causal-information-reviews.cjs",
+      "directory": false,
+      "bytes": 2858,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-concentration-monte-carlo-designs.cjs",
+      "directory": false,
+      "bytes": 1282,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-concentration-review.cjs",
+      "directory": false,
+      "bytes": 1126,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-divergence-ipm-design.cjs",
+      "directory": false,
+      "bytes": 937,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-entropy-design.cjs",
+      "directory": false,
+      "bytes": 919,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-external-memory-design.cjs",
+      "directory": false,
+      "bytes": 966,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-external-memory-review.cjs",
+      "directory": false,
+      "bytes": 1107,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-flow-and-landscape.cjs",
+      "directory": false,
+      "bytes": 1491,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-foundation-author-reviews.cjs",
+      "directory": false,
+      "bytes": 2638,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-graph-fundamentals-design.cjs",
+      "directory": false,
+      "bytes": 978,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-graph-optimization-reviews.cjs",
+      "directory": false,
+      "bytes": 2020,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-hypothesis-review.cjs",
+      "directory": false,
+      "bytes": 1377,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-intractability.cjs",
+      "directory": false,
+      "bytes": 953,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-ito-functional-designs.cjs",
+      "directory": false,
+      "bytes": 627,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-likelihood-design.cjs",
+      "directory": false,
+      "bytes": 1340,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-mcmc-measure-review.cjs",
+      "directory": false,
+      "bytes": 2954,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-optimal-transport-design.cjs",
+      "directory": false,
+      "bytes": 1045,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-persistent-structure-draft.cjs",
+      "directory": false,
+      "bytes": 1181,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-probability-and-constrained-designs.cjs",
+      "directory": false,
+      "bytes": 1144,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-random-matrix-queueing-designs.cjs",
+      "directory": false,
+      "bytes": 1205,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-randomized-and-kkt.cjs",
+      "directory": false,
+      "bytes": 1770,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-rate-distortion-design.cjs",
+      "directory": false,
+      "bytes": 1049,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-reviewed-optimization-and-geometry.cjs",
+      "directory": false,
+      "bytes": 3753,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-second-order-design.cjs",
+      "directory": false,
+      "bytes": 1965,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-spectral-combinatorial-designs.cjs",
+      "directory": false,
+      "bytes": 1169,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-stochastic-dynamics-author-reviews.cjs",
+      "directory": false,
+      "bytes": 2345,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-stochastic-dynamics-designs.cjs",
+      "directory": false,
+      "bytes": 1275,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-string-matching.cjs",
+      "directory": false,
+      "bytes": 548,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-topology-design.cjs",
+      "directory": false,
+      "bytes": 951,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-transport-inference-reviews.cjs",
+      "directory": false,
+      "bytes": 5078,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/register-variational-exponential-designs.cjs",
+      "directory": false,
+      "bytes": 1251,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/repair-eigenvalue-references.cjs",
+      "directory": false,
+      "bytes": 1196,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/repair-optimization-paragraphs.cjs",
+      "directory": false,
+      "bytes": 3688,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/repair-second-order-readouts.cjs",
+      "directory": false,
+      "bytes": 1787,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/repair-vi-entities.mjs",
+      "directory": false,
+      "bytes": 473,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/repair-vi-readability.mjs",
+      "directory": false,
+      "bytes": 2994,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/synchronize-reviewed-source-records.cjs",
+      "directory": false,
+      "bytes": 940,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/update-category-geometry-integration-docs.py",
+      "directory": false,
+      "bytes": 9451,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/update-flow-optimization-handoff.cjs",
+      "directory": false,
+      "bytes": 12527,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/wrap-naive-bayes-equations.py",
+      "directory": false,
+      "bytes": 2096,
+      "fileCount": 1
+    },
+    {
+      "path": "scratch/wrap-naive-bayes-narrow-equations.py",
+      "directory": false,
+      "bytes": 1489,
+      "fileCount": 1
+    }
+  ],
+  "files": [
+    {
+      "path": "scratch/add-concentration-prompts.py",
+      "bytes": 4175,
+      "sha256": "80280ac79e8dcb0374002ef365d2a0a4c14000f654b05ab4fca831514a80c08a"
+    },
+    {
+      "path": "scratch/add-second-order-worked-practice.cjs",
+      "bytes": 1246,
+      "sha256": "17dec7a840691d128bae3ad29aefa92ec49ffa23428f01029450bda9d5514150"
+    },
+    {
+      "path": "scratch/amend-algebra-growth-sampling.py",
+      "bytes": 2923,
+      "sha256": "78a3499e122d5115f8cbf076ce7d7080bd275eeecddbc97cf8c2ebc224a556af"
+    },
+    {
+      "path": "scratch/amend-comparison-and-likelihood-reviews.cjs",
+      "bytes": 1771,
+      "sha256": "3c6ab6353d7637326d5f7efaf99dbe8f02f9266c71c57d5ec6a3be48eb8b4c82"
+    },
+    {
+      "path": "scratch/amend-functional-analysis-freeze.py",
+      "bytes": 2082,
+      "sha256": "fee7be73d82bda416bdfd81ab63843de379e3d466b37b72340a868c2afdb0c38"
+    },
+    {
+      "path": "scratch/amend-graph-native-normalization-evidence.py",
+      "bytes": 2193,
+      "sha256": "0eb82126d70c461e86f23d47405c02e82c5d49b1b80948d5c016cf84f05c68b1"
+    },
+    {
+      "path": "scratch/amend-graph-normalization-evidence.py",
+      "bytes": 1974,
+      "sha256": "bf18f6c76491c940af31483a05c00ab31f21a7c30e2e1c6686c0dd8a602f515a"
+    },
+    {
+      "path": "scratch/clarify-constrained-pareto-ties.cjs",
+      "bytes": 950,
+      "sha256": "96c1d011bf2801654029412fc66891ec243648adcf5657cd422c7a586372671c"
+    },
+    {
+      "path": "scratch/decision-tree-lesson-draft.jsx",
+      "bytes": 53305,
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    },
+    {
+      "path": "scratch/finalize-eigenvalue-draft.cjs",
+      "bytes": 1759,
+      "sha256": "16dfb719da2b8d5312e76ad31976ab8d3a66b31bae7c2fbf26d5fae8d3056948"
+    },
+    {
+      "path": "scratch/finalize-mutual-information-source.py",
+      "bytes": 837,
+      "sha256": "d00a9972aa73a844b78523094f51309329738ba2f3fd1f4fc2972ea81f31ee72"
+    },
+    {
+      "path": "scratch/finish-naive-bayes-draft.py",
+      "bytes": 2076,
+      "sha256": "eece4f3b1dd1e00b7bf020fb17fb5a56a8295b5b438e2c4bbfde02a13c7a7c96"
+    },
+    {
+      "path": "scratch/finish-schedule-authoring-docs.cjs",
+      "bytes": 7564,
+      "sha256": "d8a007783e87d781dd360d9bd21016ad197e6032cc645be8ede7a33530ec11f1"
+    },
+    {
+      "path": "scratch/fix-gradient-geometry.cjs",
+      "bytes": 1207,
+      "sha256": "6602c7310004d502952293709165152d55ef6007b4694e780889ef7396e8683c"
+    },
+    {
+      "path": "scratch/fix-vi-range.mjs",
+      "bytes": 324,
+      "sha256": "88d9da3741a0524aab44507fcd00bf4656936b2f57ac053e8c29b135b9de7548"
+    },
+    {
+      "path": "scratch/fix-vi-selector.cjs",
+      "bytes": 343,
+      "sha256": "421200524d66d8ed10a61037939ef25fc3f4a5c14626c91e89769ee672b20391"
+    },
+    {
+      "path": "scratch/format-backtracking-divide.cjs",
+      "bytes": 1510,
+      "sha256": "979baaee11dc744dad858b67f98fecf7f613cb277008310fb4b3d25bfd101eb3"
+    },
+    {
+      "path": "scratch/format-constrained-multiobjective.cjs",
+      "bytes": 1442,
+      "sha256": "5fa6d8199b8ae64aa483106fe0c329e71794769124d5ebab63af49a2990b2126"
+    },
+    {
+      "path": "scratch/format-convex-sources.cjs",
+      "bytes": 1769,
+      "sha256": "7591b3050e4f740e0e342f0b085ac5043314f97da534bf6799edefbfb4181b82"
+    },
+    {
+      "path": "scratch/format-eigenvalue-sources.cjs",
+      "bytes": 2454,
+      "sha256": "25dd4893e6497e92c359d2ad8fd8c7eef634c645e11f4d1fb72bc5ad28337cae"
+    },
+    {
+      "path": "scratch/format-einsum.cjs",
+      "bytes": 1281,
+      "sha256": "b5a27cc80a2d0c31bf9b6823a27e1839de1a5618cae064afd959a741ddb273ad"
+    },
+    {
+      "path": "scratch/format-functional-analysis-source.mjs",
+      "bytes": 3210,
+      "sha256": "26a1e4adb246e0f3e2b4135962cc4f0c24b1ad403d60bdd6a1e6cc246705f870"
+    },
+    {
+      "path": "scratch/format-gradient-variants.cjs",
+      "bytes": 1407,
+      "sha256": "ece0b67ca7d321cd7033203387b846a3409851fe412188eb55aa847e0f79a9d8"
+    },
+    {
+      "path": "scratch/format-greedy.cjs",
+      "bytes": 840,
+      "sha256": "648a4f2838595e93494f70b86845df749ea161e4c5ae70901abbecda178f633a"
+    },
+    {
+      "path": "scratch/format-hypothesis-testing.cjs",
+      "bytes": 1435,
+      "sha256": "6a1103b46d8faa71c024738c56e8bd442800c2d6c90b72a005c94c17addc4190"
+    },
+    {
+      "path": "scratch/format-matrix-calculus.cjs",
+      "bytes": 1300,
+      "sha256": "72bcedd53275f764fd885f20e3fcbba469355b551b186c6d11c755a216a4e17f"
+    },
+    {
+      "path": "scratch/format-matrix-decompositions.cjs",
+      "bytes": 1511,
+      "sha256": "d487b04422ed027afcef973c390599eb4f76b3ba4a970962d76dc79071431a4e"
+    },
+    {
+      "path": "scratch/format-multivariate.cjs",
+      "bytes": 1317,
+      "sha256": "b1990142835cb8e014ec9c748be5ef2eb6faa0d042de3b23da08ecd9b37f45eb"
+    },
+    {
+      "path": "scratch/format-nonconvex-landscape.cjs",
+      "bytes": 1407,
+      "sha256": "0146527522bbe3a0704e888e50396b3fe2974eae040b8553781ef8cd77b9bdc8"
+    },
+    {
+      "path": "scratch/format-owned-dsa.cjs",
+      "bytes": 1649,
+      "sha256": "17a9942b6ecabf71854d8ee8ddfc6cb01636094678a21ccd3f088ea7ac93aae5"
+    },
+    {
+      "path": "scratch/format-persistent-structures-jsx.cjs",
+      "bytes": 2229,
+      "sha256": "5ce25ee96ca9d4e78ff5ef4611f52716cd211b002f866d0d9b22d582e6e98c89"
+    },
+    {
+      "path": "scratch/format-persistent-structures-sources.cjs",
+      "bytes": 2199,
+      "sha256": "72405aae7fa8a50a0fe3036460c1733c1c19b36d928b7d6bb77975fd56ba0b2e"
+    },
+    {
+      "path": "scratch/format-probability-distributions.cjs",
+      "bytes": 1327,
+      "sha256": "334c863f2e886eba079d7aa8471be3775511d821615a2a25ea79c67b55e14a3c"
+    },
+    {
+      "path": "scratch/format-second-order-examples.mjs",
+      "bytes": 1319,
+      "sha256": "a1c3947c3466afeb7d2c0e4c431578608b676d03a1ca8e71992ba2482493c29f"
+    },
+    {
+      "path": "scratch/format-union-find.cjs",
+      "bytes": 1428,
+      "sha256": "58e241067783ae2c1bc867b6b9802415ea28eb0a54db6fe72fd5adb5cf210516"
+    },
+    {
+      "path": "scratch/format-vector-tensor.cjs",
+      "bytes": 1361,
+      "sha256": "e33db29148c8920b423219d91b8a81a58cc81136547315878025f413fc487685"
+    },
+    {
+      "path": "scratch/format-weighted-graph-sources.cjs",
+      "bytes": 1165,
+      "sha256": "717c272b096277b314bf4c93402dab1fb9f876e3a862b53afd920d086aa51c88"
+    },
+    {
+      "path": "scratch/harden-range-inputs.cjs",
+      "bytes": 1027,
+      "sha256": "5f8dc95047612a45f182c340f90b10909a1ef1c6cab5f5ee60223a21a31c3d61"
+    },
+    {
+      "path": "scratch/install-format-vi.mjs",
+      "bytes": 977,
+      "sha256": "4f93156df21d428168f5feef50590d092b7f862fd74582783ec31fc11b3f585c"
+    },
+    {
+      "path": "scratch/polish-complex-design.py",
+      "bytes": 6749,
+      "sha256": "1a7cd9e16e8398f57d0531c44db30d705ba322fbe93fe2aa105ee12929239fb9"
+    },
+    {
+      "path": "scratch/polish-conditioning.py",
+      "bytes": 1925,
+      "sha256": "cb4761d90ee2b45161b028d992c865a7f1f6ff4c74878c002a06c885ecd8cb7f"
+    },
+    {
+      "path": "scratch/polish-eigenvalue-reading.cjs",
+      "bytes": 2061,
+      "sha256": "70b69e729431db67e4773d155cba5e79886b4373fc74c01ac3749dcdbe6bbd8c"
+    },
+    {
+      "path": "scratch/polish-network-flow-sources.cjs",
+      "bytes": 3031,
+      "sha256": "c28a7108a4ed084a4cca45f644561b8815fd297c910418f493f6c49f6200ab11"
+    },
+    {
+      "path": "scratch/polish-network-flow-text.cjs",
+      "bytes": 1446,
+      "sha256": "7bfb78820d47a29e057f91d878314de25c6b7cbff67de3ad4aaa0846de6408fb"
+    },
+    {
+      "path": "scratch/prepare-bayesian-body.cjs",
+      "bytes": 1777,
+      "sha256": "daf2c30edd706cc2f1227ae79d987b795e491788dd94dd6159d3b7614b6ef837"
+    },
+    {
+      "path": "scratch/prepare-combinatorial-design.cjs",
+      "bytes": 845,
+      "sha256": "29c89253d9a9c60a7cc2e3880d55048cb9e22f0279396162d368a99592dc0401"
+    },
+    {
+      "path": "scratch/prepare-decision-tree-draft.cjs",
+      "bytes": 1219,
+      "sha256": "203218e11db256e59823f2d4b3a5131684785c3a8ed2fe3778f53de6a91255cc"
+    },
+    {
+      "path": "scratch/prepare-dsa-duality-integration.cjs",
+      "bytes": 2461,
+      "sha256": "8f927845c166128b04026f0b3b878e3613a57ceeeae0c71350a92f57ed059f10"
+    },
+    {
+      "path": "scratch/prepare-einsum-outputs.mjs",
+      "bytes": 976,
+      "sha256": "5fe6dc9b3ec16dcb1379266b33fd502ba0b91ce0e43914ddd2e4329160d33405"
+    },
+    {
+      "path": "scratch/prepare-learning-rate-lesson.cjs",
+      "bytes": 1927,
+      "sha256": "3736749c3ef065b9b9bce9de52a905963bfee32c8058a260243e5fbeb0136216"
+    },
+    {
+      "path": "scratch/prepare-random-matrix-design.py",
+      "bytes": 1850,
+      "sha256": "23d647eed1d17a998822853b45a76d08cf54c07f119cd6f72102c0e33b826f66"
+    },
+    {
+      "path": "scratch/prepare-second-order-lesson.cjs",
+      "bytes": 1653,
+      "sha256": "9c282d28dced3f486c228a67dd06d2b208146bb136c6560b6492f118ca8e974c"
+    },
+    {
+      "path": "scratch/publish-bayesian-body.cjs",
+      "bytes": 2089,
+      "sha256": "7772d2c44be9f51de603c85d81a4d29890c1aa6895c3a79c0a2d87a90a0ad6cb"
+    },
+    {
+      "path": "scratch/record-active-foundations-designs.cjs",
+      "bytes": 813,
+      "sha256": "5697bb591440d847b0ec14bfc256cb8f46fb312cd7f6440b6a2dd2db98da1e36"
+    },
+    {
+      "path": "scratch/record-foundations-review.mjs",
+      "bytes": 2143,
+      "sha256": "a1a215e3642c35ed0b06ea243c16241e8ccc8fa34c10201f29486783d895e751"
+    },
+    {
+      "path": "scratch/record-foundations-reviews.cjs",
+      "bytes": 3126,
+      "sha256": "4c3d003930f5af75cde101d8b338fa2acad8974415fc6a8468f9092f6728e054"
+    },
+    {
+      "path": "scratch/record-graph-fundamentals-evidence.py",
+      "bytes": 3619,
+      "sha256": "913cff29ac19d2c757c961bef86c40d11f49035cb5137ceebd97322dbb541da8"
+    },
+    {
+      "path": "scratch/record-greedy-dp-tensor-reviews.cjs",
+      "bytes": 2712,
+      "sha256": "3553486721a44f00807cd9f4fa42d42aacfa3531dcc815edba3d3bf3f85b2f2d"
+    },
+    {
+      "path": "scratch/record-hashing-convex-authors.cjs",
+      "bytes": 2407,
+      "sha256": "fefa693ee54403eef332d011a05f886a294a534e961a9f9d7bb096efd86391b3"
+    },
+    {
+      "path": "scratch/record-range-correctness-multivariate-authors.cjs",
+      "bytes": 2808,
+      "sha256": "8df717e1f6283c4eb30f4a9fb280c31732d03365d9bd37a707afc2ab4b55519b"
+    },
+    {
+      "path": "scratch/record-schedule-string-authors.cjs",
+      "bytes": 2688,
+      "sha256": "9300c92bd3d8a7ad6997fc0d0e19abaa1689cb261904eebf08df50d1be941f38"
+    },
+    {
+      "path": "scratch/record-vi-expected.mjs",
+      "bytes": 679,
+      "sha256": "eca620b02c1f9b7d49cb32f41eff3a8fc61350ea23b3b52d86d676a2d1e21774"
+    },
+    {
+      "path": "scratch/record-weighted-graphs-gradient-variants-authors.cjs",
+      "bytes": 2042,
+      "sha256": "e561e8ffab0d8f426bb74ca76ab40dd5466266c9980e1e2019487ef03eba21a0"
+    },
+    {
+      "path": "scratch/refine-learning-rate-prose.cjs",
+      "bytes": 2412,
+      "sha256": "36d168cbdf469f8d5671681fb1656f3b181e4df126bc7c820ef877eeb517bdfc"
+    },
+    {
+      "path": "scratch/refine-mutual-information-labs.py",
+      "bytes": 2246,
+      "sha256": "f1235f8f64a5c542dbaa1d9af79dda10f1558864e7274e9566e4b5405e148d7b"
+    },
+    {
+      "path": "scratch/refine-mutual-information-layout.py",
+      "bytes": 4541,
+      "sha256": "1663171cb99a701f5756bc4d9a1d5f07d78a27565661afac9c32a3a8c0fc7c2e"
+    },
+    {
+      "path": "scratch/refine-persistent-practice.cjs",
+      "bytes": 1068,
+      "sha256": "7c911dcc8b43ef226c0035aaa5381df26062212acf00e393f46e0a62b6267b20"
+    },
+    {
+      "path": "scratch/refine-schedule-browser-check.cjs",
+      "bytes": 998,
+      "sha256": "44be9a9db46b6328c032f616e59b46a7e82f99bab06390639a10601ce7f9beed"
+    },
+    {
+      "path": "scratch/refine-topology-equation-layout.py",
+      "bytes": 2530,
+      "sha256": "1ede7e1271164d75d4905982b11972ac37c1b36c4b25e2ffc98ff541cdc4e4f0"
+    },
+    {
+      "path": "scratch/refine-topology-visual-contracts.cjs",
+      "bytes": 2521,
+      "sha256": "0b2c4dc87f44f5cc2b1929f267f04fd98b90a9b548e0715846f3e9b5297b290a"
+    },
+    {
+      "path": "scratch/register-bayesian-inference-design.cjs",
+      "bytes": 1168,
+      "sha256": "c90cf5df96b2b2627588b0e3247b79681fb248861e1470180ada6348737c0ed2"
+    },
+    {
+      "path": "scratch/register-causal-information-designs.cjs",
+      "bytes": 1145,
+      "sha256": "9487eebfe216c6a810c51ee037fad51fa2ae39fb902c5d635351fa3ce56973e1"
+    },
+    {
+      "path": "scratch/register-causal-information-reviews.cjs",
+      "bytes": 2858,
+      "sha256": "882fe457b73b3509fbd24d12a56b599d17e15ef6d6c31dc7bb1554a5725c5e2a"
+    },
+    {
+      "path": "scratch/register-concentration-monte-carlo-designs.cjs",
+      "bytes": 1282,
+      "sha256": "7d7aa3c3139d93af628f46a149563278eb3daddf833dc7333312104cb92b3758"
+    },
+    {
+      "path": "scratch/register-concentration-review.cjs",
+      "bytes": 1126,
+      "sha256": "85fe1280e12eb105190e1e441933f4b88d503ae593d44e1d1fed3a5106ce0dbd"
+    },
+    {
+      "path": "scratch/register-divergence-ipm-design.cjs",
+      "bytes": 937,
+      "sha256": "c06d3168edfd4bad25ea951401b72dde5cce3975a1ca77d079560b24cea0438d"
+    },
+    {
+      "path": "scratch/register-entropy-design.cjs",
+      "bytes": 919,
+      "sha256": "ebd23b3870de79daf5dcbc6646557401443afc68bebe93aff2c3697ada3f3e23"
+    },
+    {
+      "path": "scratch/register-external-memory-design.cjs",
+      "bytes": 966,
+      "sha256": "1ebfb55b72f5f3bfb6453cbb2a6a16ae28b331d2fcac2b84880c55279cd849d4"
+    },
+    {
+      "path": "scratch/register-external-memory-review.cjs",
+      "bytes": 1107,
+      "sha256": "33d19cb9149682489c5db98a0f9733fc349fd957b3cbe66b4aeff93d09e54868"
+    },
+    {
+      "path": "scratch/register-flow-and-landscape.cjs",
+      "bytes": 1491,
+      "sha256": "8e6b33e786aec2b41693e23d52e890f04356ef0f73a166756c6a62e7d665c3a3"
+    },
+    {
+      "path": "scratch/register-foundation-author-reviews.cjs",
+      "bytes": 2638,
+      "sha256": "7726fbe26ab238073c6b2fdf599d6f3be2c48d2ae8691ff61745cec34d67c7ad"
+    },
+    {
+      "path": "scratch/register-graph-fundamentals-design.cjs",
+      "bytes": 978,
+      "sha256": "8d41cafd54ce7dcdea8cde8fd72b325418b69f06c7b96fbdd1145249e7660e24"
+    },
+    {
+      "path": "scratch/register-graph-optimization-reviews.cjs",
+      "bytes": 2020,
+      "sha256": "5ae829812bdf006a72e69c46da6e4b80e7800f2adce489f5efb8199339119247"
+    },
+    {
+      "path": "scratch/register-hypothesis-review.cjs",
+      "bytes": 1377,
+      "sha256": "86f98c6d749a7b544c83ea2f1ee260e6e6c32a72efc8d1382a9f67207a89a0b8"
+    },
+    {
+      "path": "scratch/register-intractability.cjs",
+      "bytes": 953,
+      "sha256": "e185199d2132999e873191b269ebbd4ef1bc45fa28518bd126d011b60ae61a76"
+    },
+    {
+      "path": "scratch/register-ito-functional-designs.cjs",
+      "bytes": 627,
+      "sha256": "661262cc5f3d49fcff62b29ef0493076ff61c2103cfc71d63838373e4727bd32"
+    },
+    {
+      "path": "scratch/register-likelihood-design.cjs",
+      "bytes": 1340,
+      "sha256": "1b457fe0b611de3efc47894e7e65c165c6d5c7080f70bee37eaace0bcfd42ffa"
+    },
+    {
+      "path": "scratch/register-mcmc-measure-review.cjs",
+      "bytes": 2954,
+      "sha256": "39d84e05ab52d354b00926bd2f10fbb7331ce48146504b3ce0cd34ae9335ca49"
+    },
+    {
+      "path": "scratch/register-optimal-transport-design.cjs",
+      "bytes": 1045,
+      "sha256": "b3547e69fe30bb5486586cc97fa3bd955f5d422ec02a33879555dba96835f619"
+    },
+    {
+      "path": "scratch/register-persistent-structure-draft.cjs",
+      "bytes": 1181,
+      "sha256": "6f4335b26b0f285f9c342e43d4139c90ee159bab0b9d2f53bbc694c9e79756b6"
+    },
+    {
+      "path": "scratch/register-probability-and-constrained-designs.cjs",
+      "bytes": 1144,
+      "sha256": "4b985541f1f7bd12bc4e0419b56232d5ad71f5317adaa353fccd54acd28af6aa"
+    },
+    {
+      "path": "scratch/register-random-matrix-queueing-designs.cjs",
+      "bytes": 1205,
+      "sha256": "62c9454d924f8b2704d296f3b7b1f5d8f2f9e2099da88ad60d367206b5154834"
+    },
+    {
+      "path": "scratch/register-randomized-and-kkt.cjs",
+      "bytes": 1770,
+      "sha256": "67dc5cb253cbe6c6574833a58cc67dd0301a02fb0a5cad5a797cffa10501d1eb"
+    },
+    {
+      "path": "scratch/register-rate-distortion-design.cjs",
+      "bytes": 1049,
+      "sha256": "f8acc5202f97c44e645e04c6d2bb095a91c84f02813a1f63d2975129d36586d8"
+    },
+    {
+      "path": "scratch/register-reviewed-optimization-and-geometry.cjs",
+      "bytes": 3753,
+      "sha256": "a4fe4761ae954bbdae8bf0ebab6ff9e207684ad644198d38e82ab0ae8f351705"
+    },
+    {
+      "path": "scratch/register-second-order-design.cjs",
+      "bytes": 1965,
+      "sha256": "eadebec55445549bfc3fdc816f6b6b6c6c82da872a93ad10a9a3f9db15980738"
+    },
+    {
+      "path": "scratch/register-spectral-combinatorial-designs.cjs",
+      "bytes": 1169,
+      "sha256": "565b876ed09addb00b05b7443c2c438cf447fbbb3fe49ba319df379d9fd875e9"
+    },
+    {
+      "path": "scratch/register-stochastic-dynamics-author-reviews.cjs",
+      "bytes": 2345,
+      "sha256": "f934bc701cf2db714b9c6a450f0a008c1224f904da8b6ad13876fecfab710d5f"
+    },
+    {
+      "path": "scratch/register-stochastic-dynamics-designs.cjs",
+      "bytes": 1275,
+      "sha256": "2f45601045dc76ffb4c471625c366c2e55c4c7118781dc72bfc3c548ad798219"
+    },
+    {
+      "path": "scratch/register-string-matching.cjs",
+      "bytes": 548,
+      "sha256": "f801c585c4754dfb05c0264d9e5399f1c9c4c07a70e5961f7797d3d8782cce87"
+    },
+    {
+      "path": "scratch/register-topology-design.cjs",
+      "bytes": 951,
+      "sha256": "a43cf47bab1f80292d4643ddc1bbc7efb79a06c3537c2544e7a8f87f35d483ab"
+    },
+    {
+      "path": "scratch/register-transport-inference-reviews.cjs",
+      "bytes": 5078,
+      "sha256": "844b04faa1dddd4047641a8bbbd02b3424b788e6fdb8cd59cb05d92859727b66"
+    },
+    {
+      "path": "scratch/register-variational-exponential-designs.cjs",
+      "bytes": 1251,
+      "sha256": "57ca381529bc0f944c96a37a9b9ff145488afbc8250e1ce825b6aee2ca0ae1f6"
+    },
+    {
+      "path": "scratch/repair-eigenvalue-references.cjs",
+      "bytes": 1196,
+      "sha256": "ad40e6d49c333d3f91c17db9e30f1a4bc3ab594a3ed903237d0d72228da300e9"
+    },
+    {
+      "path": "scratch/repair-optimization-paragraphs.cjs",
+      "bytes": 3688,
+      "sha256": "d2ff9302de3cf2c4030714dd55ea32dd0d37448847cac95ee39387f29c73edff"
+    },
+    {
+      "path": "scratch/repair-second-order-readouts.cjs",
+      "bytes": 1787,
+      "sha256": "0cd2633e70de2ba5329caa8e4e896e0104aae88a64c5400fdf1f35c7edf50833"
+    },
+    {
+      "path": "scratch/repair-vi-entities.mjs",
+      "bytes": 473,
+      "sha256": "c325022b0261adb977f81b4c3cb8c20f556a4a58e705090ac6fff05c6ede8475"
+    },
+    {
+      "path": "scratch/repair-vi-readability.mjs",
+      "bytes": 2994,
+      "sha256": "e716318842b975b7ed89547ad3020e03f79c85a98f5de0f454cda541eeb5ca70"
+    },
+    {
+      "path": "scratch/synchronize-reviewed-source-records.cjs",
+      "bytes": 940,
+      "sha256": "af29ee44083dbcde3d56a44c8753f465ee7e508c87e4f9025aa89161fdd0fb2c"
+    },
+    {
+      "path": "scratch/update-category-geometry-integration-docs.py",
+      "bytes": 9451,
+      "sha256": "2b4fd447e56b07b1394331be1e74e320c7692bc5d9f4b9d013ab6f1b491468b0"
+    },
+    {
+      "path": "scratch/update-flow-optimization-handoff.cjs",
+      "bytes": 12527,
+      "sha256": "d77764b9e3a86765148c93c7fe7eaa8a7fbf6355bb073ba2acbaad44dc90ebf9"
+    },
+    {
+      "path": "scratch/wrap-naive-bayes-equations.py",
+      "bytes": 2096,
+      "sha256": "6e8e74abd01c733ea6d55cb2f439691a0d78d07dc5ed113bc7be905829d5b57b"
+    },
+    {
+      "path": "scratch/wrap-naive-bayes-narrow-equations.py",
+      "bytes": 1489,
+      "sha256": "ca29d78af7f94a859409c11a5f03357122a467a6e3f7fe8dd30b85262c3f559f"
+    }
+  ],
+  "duplicateProof": [
+    {
+      "path": "scratch/decision-tree-lesson-draft.jsx",
+      "installed": "src/learn/data/topics/decision-trees-random-forests.jsx",
+      "identical": true,
+      "sha256": "8198bd7c4cbcec1818bac5c0bf51629aa49c4be748b00e368ba67306bcddb2ad"
+    }
+  ],
+  "archiveSha256": "ae76894ea25632b334cdb06136b6e3ca7201c7080743e9cb09521cf360ffeee1",
+  "archiveBytes": 136369,
+  "archiveVerified": true,
+  "completedAt": "2026-09-11T12:43:28.559Z",
+  "removedFiles": 113,
+  "removedLooseBytes": 277911,
+  "validation": {
+    "unchangedSourceToolingAndConfigFiles": 1930,
+    "sourceChanged": false,
+    "retainedRequiredPaths": [
+      "scratch/lesson-tools/Scripts/python.exe",
+      "scratch/decision-tree-native/example-runs.json",
+      "scratch/linear-logistic-independent-review",
+      "scratch/gradient-boosted-trees-verification",
+      "scratch/naive-bayes-browser",
+      "scratch/naive-bayes-verification",
+      "scratch/recommender-native",
+      "scratch/recommender-browser",
+      "scratch/multioutput-original-data",
+      "scratch/ensemble-topic-plan.json"
+    ],
+    "allSelectedFilesAbsent": true,
+    "applicationTestsRerun": false
+  },
+  "broaderDeletion": "Not performed: automatic review rejected the broader selection. Narrowed cleanup preserves all verification outputs, original snapshots, nonidentical drafts, downloads and active runtime; selected editing files have a verified recovery archive."
+}

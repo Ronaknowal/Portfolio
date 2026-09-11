@@ -1,0 +1,93 @@
+{
+  "topic": {
+    "title": "Real Analysis, Sequences & Modes of Convergence",
+    "level": "intermediate",
+    "blueprint": {
+      "summary": "Make limiting arguments precise enough to recognize when an approximation or interchange of limits is justified.",
+      "outcomes": [
+        "Use quantified definitions of sequence convergence and continuity",
+        "Distinguish pointwise from uniform convergence with counterexamples"
+      ],
+      "prerequisites": [
+        "Sets, Logic, Relations & Proof Techniques",
+        "Single-Variable Calculus: Limits, Derivatives & Integrals"
+      ],
+      "sequence": [
+        "Place a sequence inside shrinking error bounds",
+        "Write and interpret an epsilon definition",
+        "Compare convergence with boundedness and completeness",
+        "Contrast pointwise and uniform convergence of functions",
+        "Test a tempting interchange of limit and integral"
+      ],
+      "visual": {
+        "type": "sequence bounds and function-family explorer",
+        "question": "Can every point eventually settle while no single bound works everywhere?",
+        "interaction": "Increase the sequence index and inspect both pointwise error and worst-case error"
+      },
+      "practice": {
+        "task": "Prove a simple convergence claim and diagnose an invalid limit interchange",
+        "success": "Quantifiers are ordered correctly and any theorem used has its hypotheses checked"
+      },
+      "misconceptions": [
+        "Bounded sequences need not converge",
+        "Pointwise convergence alone does not justify every interchange of limits"
+      ],
+      "sources": [
+        "https://www.ocw.mit.edu/courses/18-100a-real-analysis-fall-2020/"
+      ],
+      "depth": "specialist",
+      "reviewFocus": "Keep real-analysis prerequisites separate from advanced measure-theoretic convergence claims."
+    },
+    "id": "real-analysis-sequences-modes-of-convergence",
+    "trackId": "math-foundations",
+    "section": "Analysis, Symmetry & Spatial Differential Models",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "sets-logic-relations-proof-techniques",
+      "single-variable-calculus-limits-derivatives-integrals"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "domainGuidance": {
+    "strategy": "mathematics",
+    "flow": [
+      "Pose a concrete question and identify known/unknown quantities",
+      "Link a small numerical case, a representation and defined notation",
+      "Derive the mechanism with justified intermediate steps",
+      "Interpret a complete worked result",
+      "Test a changed case, assumption and counterexample",
+      "Connect to a formal or applied deeper branch"
+    ],
+    "visuals": [
+      "Linked geometric and symbolic views",
+      "Labeled distributions and repeated samples",
+      "Stepwise derivation with exact-value inspection"
+    ],
+    "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+    "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+    "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/real-analysis-sequences-modes-of-convergence.md",
+      "exists": true,
+      "markdown": "# Authoring notes: Real Analysis, Sequences & Modes of Convergence\n\nCanonical topic ID: `real-analysis-sequences-modes-of-convergence`\n\n## 2026-09-11 — Use Fourier jump neighborhoods to distinguish convergence claims\n\n- Status: open; merge with the existing finite Taylor and quantifier-order entries below.\n- Origin: sections 3–5 of `complex-numbers-fourier-laplace-transforms`, [design record](../COMPLEX-FOURIER-LAPLACE-LESSON-DESIGN.md). This origin is still design-only; no completed Fourier implementation or general proof is claimed.\n- Existing coverage and ownership: the current analysis brief owns pointwise/uniform convergence and invalid interchange. The Fourier design proposes finite orthogonal projection, a square-wave partial sum, piecewise-smooth midpoint convergence and a carefully bounded continuous-transform bridge. General convergence modes and operation interchange belong here.\n- Proposed benefit and example: contrast a fixed point away from a square-wave jump with a point moving toward the jump as the cutoff grows. Small mean-square error does not imply a small supremum error. State which function values are defined at the jump and distinguish that point from an entire shrinking neighborhood. Link this to the existing moving-spike and witness-dependency explanations rather than creating an unrelated metaphor.\n- Boundaries: a sampled finite maximum is not a proof of uniform convergence or its failure; use an analytical witness or theorem. Fourier coefficient decay does not by itself authorize termwise differentiation without suitable convergence and regularity assumptions. The full Plancherel/density extension remains a separate advanced result, not a prerequisite inferred from a finite energy identity.\n- Evidence: [Lebl's piecewise-smooth Fourier convergence theorem](https://www.jirka.org/diffyqs/html/moreonfourier_section.html), especially section 4.3.2, was read on 11 September 2026. The exact scaled-neighborhood/asymptotic calculation remains an implementation proof obligation for the Fourier origin and a reassessment obligation here.\n- Resolution: receiving author should select an appropriate changed family and state its hypotheses; retain the local distinction from formal generating functions already mentioned below. No analysis body or shared prerequisite edge was changed.\n\n## 2026-09-11 — Carry finite Taylor control into series and interchange theory\n\n- Status: open; assessed during Calculus47 authoring.\n- Origin: section10 of `single-variable-calculus-limits-derivatives-integrals` and [its design](../SINGLE-VARIABLE-CALCULUS-LESSON-DESIGN.md).\n- Existing local coverage: a finite Taylor polynomial with an integral remainder under C^(n+1) assumptions; the derivative-bound estimate; a factorial-ratio argument showing exp's remainder vanishes at fixed x; and the log(1+x) series derived from a finite geometric identity. The log proof distinguishes |x|<1, a separately justified x=1 endpoint, divergence at x=−1 and term failure outside radius1. It does not provide general series convergence or termwise-operation theorems.\n- Best owner and learning benefit: Real Analysis already owns sequences, convergence modes and invalid limit interchange. Develop series as limits of partial sums, the radius/endpoint distinction, and why pointwise convergence alone does not allow differentiating or integrating a series. Connect to the existing quantifier-order notes rather than adding an isolated formula table.\n- Proposed treatment: a changed family or power series with separate endpoint behavior; sufficient uniform-convergence conditions for integration on a compact interval, and properly qualified derivative-series convergence conditions. Explain whether convergence of the derivatives plus one base value is needed. Show a counterexample before the valid theorem and test a changed set/domain. Do not assert that smooth functions necessarily equal their Taylor series.\n- Sources actually checked: OpenStax Calculus2 §6.3 theorem6.7/remainder and §6.4 nonelementary Gaussian integral. Their selected finite results support the origin; general power-series and interchange claims require the destination's own primary-source investigation.\n- Prerequisites and limits: elementary sequences, limits and the Calculus derivative/integral core; do not create a circular dependency through older advanced mathematics topics. Formal generating functions in Counting46 are algebraic coefficient objects and require a separate explicit transition before any analytic convergence claim.\n- Resolution: receiving author must include, adapt or justify a different owner, recording the actual explanation and verification. No Real Analysis body was created by this note.\n\n## 2026-09-11 — Translate finite witness order into an analysis dependency\n\n- Status: open; coordinate with the existing measure-theory note below.\n- Origin: Math44 Sets, Logic, Relations & Proof Techniques section4 and its [design](../SETS-LOGIC-LESSON-DESIGN.md).\n- Existing foundation: a job/reviewer board distinguishes one reviewer chosen separately for every job from a single reviewer fixed before the job is known. Negation pushes through quantifiers one at a time; exact empty-domain behavior is taught locally. The written integer example chooses m=n+1 after n and refutes one integer greater than every integer.\n- Destination rationale: this lesson explicitly owns pointwise/uniform convergence and epsilon definitions. When it is implemented, use that witness-dependency habit to distinguish an eventual index allowed to depend on x and ε from one depending on ε alone across all x. Introduce sequences, distance, limits and the epsilon meaning locally before the comparison; do not force students to infer an analytic theorem from the finite staffing metaphor.\n- Proposed benefit: write the dependency of N explicitly, then choose a changed function family exposing the invalid common-witness inference. The prior measure note already suggests fixed-point versus moving-spike counterexamples; combine these rather than create disconnected metaphors.\n- Accuracy boundary: no pointwise/uniform convergence theorem was proved in Sets44. Any integral/limit interchange needs its actual measure/continuity/boundedness hypotheses. This note is a reasoned handoff, not an imported proof or a prerequisite cycle.\n- Resolution: receiving author must assess and record its adopted explanation, exact counterexample and independent verification; no destination body changed here.\n\n## 2026-09-10 — Connect quantifier order to the measure lesson's fixed-point and moving-spike examples\n\n- Status: open\n- Origin: [Measure Theory design](../MEASURE-THEORY-PROBABILITY-SPACES-DESIGN.md), section 6 of `measure-theory-probability-spaces`.\n- Destination and ownership rationale: exact topic-plan command confirms a planned analysis topic with pointwise/uniform convergence and invalid interchange as explicit outcomes. This is the correct home for the epsilon/N quantifier comparison; keep advanced probability convergence criteria in a clearly optional bridge rather than making measure theory a prerequisite of the introductory core.\n- Idea and learning benefit: distinguish one fixed x from the changing choice x=1/(2n). In f_n=n·1_(0,1/n), every fixed point eventually sees zero, although the integral remains one and the supremum does not decrease. Compare x^n on [0,1], which has an exceptional limit value at 1, with uniform convergence on [0,r] for fixed r<1. Tie uniform convergence on a finite-measure domain to |∫f_n−∫f|≤μ(domain) sup|f_n−f|, explaining why that argument needs finite measure.\n- Existing coverage: the destination brief (inspected 10 September) already plans pointwise versus uniform convergence and a limit-integral counterexample. The current Measure Theory lesson supplies MCT, Fatou, DCT and the exact fixed-point/integral comparison, but does not teach a complete map of modes of convergence or uniform integrability.\n- Proposed treatment: use changed functions and explicit quantifier order in the core; link back to the Measure Theory counterexample only for readers with that context. Assess an optional uniform-integrability bridge after probability convergence has been introduced. Do not equate bounded L1 norms with uniform integrability or claim it follows from one fixed sample plot.\n- Evidence: [Axler's author-hosted book](https://measure.axler.net/MIRA.pdf), scoped sections 3.9/3.11 and 3.31 inspected for the measure lesson; finite teaching models independently verified. The stronger optional uniform-integrability theorem has not been researched in this authoring scope and requires its own primary-source/hypothesis review.\n- Prerequisites and boundaries: elementary sequences and epsilon definitions for the core; measurable random variables and probability convergence for any optional uniform-integrability statement. No prerequisite cycle should be introduced merely to cross-link an application.\n- Resolution: receiving author should merge with the already planned outcomes and decide whether the optional probability branch helps this topic or should be routed to a stochastic-process topic. No destination body or title changed.\n- Implementation/verification links: origin `scripts/verify-measure-theory.mjs`, `scratch/measure-theory-verification/native-results.json`, and [Measure Theory verification](../MEASURE-THEORY-PROBABILITY-SPACES-VERIFICATION.md).\n"
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+}

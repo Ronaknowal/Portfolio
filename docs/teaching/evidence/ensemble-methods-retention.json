@@ -1,0 +1,118 @@
+{
+  "completedAt": "2026-09-11T14:22:24.9950079Z",
+  "scope": "Only known generator-created copies, installed duplicate draft and unused captures from this topic; all 17 frozen opened images retained and SHA-256 checked",
+  "removed": [
+    {
+      "path": "scratch/ensemble-methods/lesson.jsx",
+      "bytes": 61203
+    },
+    {
+      "path": "scratch/ensemble-methods/combination-arithmetic.py",
+      "bytes": 1248
+    },
+    {
+      "path": "scratch/ensemble-methods/bootstrap-oob.py",
+      "bytes": 1305
+    },
+    {
+      "path": "scratch/ensemble-methods/signed-adaboost.py",
+      "bytes": 3764
+    },
+    {
+      "path": "scratch/ensemble-methods/full-numpy-comparison.py",
+      "bytes": 6559
+    },
+    {
+      "path": "scratch/ensemble-methods/manual-oof.py",
+      "bytes": 1954
+    },
+    {
+      "path": "scratch/ensemble-methods/api-conventions.py",
+      "bytes": 1808
+    },
+    {
+      "path": "scratch/ensemble-methods/forward-group-oof.py",
+      "bytes": 1733
+    },
+    {
+      "path": "scratch/ensemble-methods/calibrated-average.py",
+      "bytes": 861
+    },
+    {
+      "path": "scratch/ensemble-methods/context-interactions.py",
+      "bytes": 1190
+    },
+    {
+      "path": "scratch/ensemble-methods/held-out-comparison.py",
+      "bytes": 4157
+    },
+    {
+      "path": "scratch/ensemble-methods/changed-protocol.py",
+      "bytes": 4192
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/reading-start-390.png",
+      "bytes": 77152
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/reading-start-320.png",
+      "bytes": 59815
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bootstrap-gap-1440.png",
+      "bytes": 163520
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bootstrap-gap-320.png",
+      "bytes": 58044
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/boosting-second-fit-320.png",
+      "bytes": 54819
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/oof-completed-1440.png",
+      "bytes": 150918
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/native-prediction-map-1440.png",
+      "bytes": 188482
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bound-derivation-1440.png",
+      "bytes": 216366
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/bound-derivation-320.png",
+      "bytes": 75323
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/api-reading-390.png",
+      "bytes": 88601
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/context-reading-390.png",
+      "bytes": 79066
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/changed-report-320.png",
+      "bytes": 59277
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-1-1440.png",
+      "bytes": 225816
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-1-390.png",
+      "bytes": 97762
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-4-1440.png",
+      "bytes": 214681
+    },
+    {
+      "path": "scratch/ensemble-methods/browser/final-equation-4-390.png",
+      "bytes": 83985
+    }
+  ]
+}

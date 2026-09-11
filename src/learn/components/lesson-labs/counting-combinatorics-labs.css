@@ -1,0 +1,477 @@
+.counting-lab, .counting-figure {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  background: #0e1721;
+  color: #dce5ee;
+  border: 1px solid #3b5165;
+  border-radius: 3px;
+}
+.counting-figure {
+  border-width: 1px 0;
+  border-radius: 0;
+}
+.counting-lab h3 {
+  margin: 0 0 .8rem;
+  font-size: 1.2rem;
+  color: #f0dfbd;
+}
+.counting-lab p, .counting-figure p, .counting-figure figcaption {
+  line-height: 1.75;
+}
+.counting-lab p {
+  margin: .9rem 0;
+}
+.counting-figure figcaption {
+  margin-top: 1rem;
+  color: #c2d0df;
+}
+.counting-lab code, .counting-figure code {
+  overflow-wrap: anywhere;
+}
+.counting-controls, .counting-actions, .counting-statline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+.counting-control {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  flex: 1 1 145px;
+  min-width: 0;
+}
+.counting-control select {
+  min-height: 44px;
+  max-width: 100%;
+  width: 100%;
+  font: inherit;
+  color: #e4ecf5;
+  background: #172735;
+  border: 1px solid #8197a9;
+  padding: .45rem;
+  border-radius: 3px;
+}
+.counting-lab button {
+  min-height: 44px;
+  padding: .5rem .7rem;
+  font: inherit;
+  color: #edc985;
+  background: #1a2a39;
+  border: 1px solid #8c774f;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.counting-lab button[aria-pressed="true"] {
+  background: #493a22;
+  border-color: #ebc16f;
+}
+.counting-lab button:disabled {
+  opacity: .45;
+  cursor: default;
+}
+.counting-lab :focus-visible, .counting-practice summary:focus-visible {
+  outline: 3px solid #a8d3f2;
+  outline-offset: 3px;
+}
+.counting-actions > span {
+  color: #c3d1e0;
+}
+.counting-statline {
+  border-block: 1px solid #3b5165;
+  padding: .8rem 0;
+  justify-content: space-between;
+}
+.counting-statline strong {
+  color: #f2ce89;
+  font-size: 1.15rem;
+}
+.counting-result {
+  border-left: 3px solid #e3b972;
+  padding: .7rem 1rem;
+  background: #182331;
+  overflow-wrap: anywhere;
+}
+.counting-note {
+  color: #bbcbdc;
+  font-size: .92rem;
+}
+.counting-word, .counting-words {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+}
+.counting-word {
+  margin: .6rem 0;
+}
+.counting-word > span, .counting-chip, .counting-small-words code {
+  display: inline-block;
+  padding: .3rem .55rem;
+  border: 1px solid #63839e;
+  background: #1b2a39;
+  border-radius: 3px;
+  font-family: var(--font-mono, monospace);
+}
+.counting-words {
+  gap: .8rem;
+  margin: .8rem 0;
+}
+.counting-words > code {
+  padding: .35rem .55rem;
+  border: 1px solid #587184;
+}
+.counting-selected {
+  background: #4b3b22 !important;
+  outline: 1px solid #e9c47e;
+}
+.counting-branches, .counting-containers {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+}
+.counting-branches > div, .counting-containers > div {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  min-width: 0;
+  text-align: center;
+}
+.counting-branches .counting-chip {
+  margin: .2rem;
+}
+.counting-branch-arrow {
+  display: block;
+  color: #94b9d1;
+  font-size: .95rem;
+}
+.counting-fiber {
+  padding: 1rem;
+  border-block: 1px dashed #5a768a;
+}
+.counting-fiber .counting-word {
+  width: fit-content;
+}
+.counting-tagged {
+  max-width: 500px;
+  margin: auto;
+}
+.counting-tokens {
+  min-height: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  align-items: end;
+  justify-content: center;
+  border: 2px solid #7896aa;
+  border-top: 0;
+  padding: .6rem;
+}
+.counting-tokens span {
+  font-size: 1.5rem;
+  color: #f2c56f;
+  line-height: 1.2;
+}
+.counting-bar-word {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.3rem 0;
+  font-size: 1.35rem;
+  letter-spacing: .15em;
+  color: #f2c56f;
+}
+.counting-run {
+  display: flex;
+}
+.counting-run b {
+  color: #99c5e0;
+  margin: 0 .25rem;
+}
+.counting-run em {
+  font-size: .9rem;
+  color: #b4c0cc;
+  letter-spacing: 0;
+}
+.counting-double {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 1.2rem;
+  align-items: center;
+}
+.counting-double:has(.counting-paired-object) {
+  grid-template-columns: 1fr;
+}
+.counting-double > div {
+  min-width: 0;
+}
+.counting-paired-object {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  align-items: center;
+  border-block: 1px dashed #6b879a;
+  padding: 1rem;
+}
+.counting-paired-object > span, .counting-paired-object > strong {
+  border: 1px solid #879bad;
+  padding: .5rem .8rem;
+}
+.counting-paired-object > strong {
+  color: #f1ca7d;
+  border-color: #f1ca7d;
+}
+.counting-paired-object > small {
+  width: 100%;
+}
+.counting-membership-roster {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,1fr));
+  gap: .45rem;
+  margin: 1rem 0;
+}
+.counting-membership-roster button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: .4rem .15rem;
+  gap: .3rem;
+  font-size: .86rem;
+}
+.counting-membership-roster button strong {
+  font-size: 1rem;
+}
+.counting-selected-object {
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border-block: 1px solid #3b5165;
+}
+.counting-contributions, .counting-fixed-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 1rem 0;
+}
+.counting-contributions > span, .counting-fixed-counts > span {
+  display: flex;
+  flex-direction: column;
+  min-width: 65px;
+  gap: .5rem;
+  border-bottom: 2px solid #839fb4;
+  padding: .5rem;
+  text-align: center;
+}
+.counting-contributions strong {
+  font-size: 1.3rem;
+}
+.counting-small-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: 1rem 0;
+}
+.counting-base-cases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+.counting-base-cases button {
+  flex: 1 1 120px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  align-items: center;
+}
+.counting-proof-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin: 1.3rem 0;
+}
+.counting-proof-chain > span {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+}
+.counting-proof-chain strong {
+  display: block;
+  border: 1px solid #718ca2;
+  padding: .6rem;
+}
+.counting-proof-chain small {
+  color: #b9cde0;
+}
+.counting-supported {
+  border-color: #89c9a9 !important;
+  color: #a9e1c4;
+}
+.counting-unsupported {
+  border-color: #e7b08b !important;
+  color: #f4c7a5;
+  border-style: dashed !important;
+}
+.counting-svg {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  margin: 1rem auto;
+  overflow: visible;
+}
+.counting-svg text {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  fill: #d7e4ef;
+}
+.counting-path-word {
+  display: flex;
+  justify-content: center;
+}
+.counting-path-word .counting-word {
+  gap: .15rem;
+}
+.counting-path-word .counting-word > span {
+  padding: .25rem .35rem;
+}
+.counting-coefficients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 1.2rem 0;
+}
+.counting-coefficients > span {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  align-items: center;
+  border-bottom: 2px solid #718fa8;
+  padding: .5rem;
+  min-width: 48px;
+}
+.counting-coefficient-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.counting-coefficient-sources > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 145px;
+  gap: .5rem;
+  border-left: 2px solid #78a4c4;
+  padding: .75rem;
+  background: #152331;
+}
+.counting-coefficient-sources small {
+  color: #b6c6d6;
+}
+.counting-orbit-view {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  align-items: center;
+  gap: 1rem;
+}
+.counting-orbit-view > div {
+  min-width: 0;
+}
+.counting-practice {
+  margin: 2rem 0;
+  padding-top: 1rem;
+  border-top: 1px solid #4a5d70;
+}
+.counting-practice details {
+  margin: .8rem 0;
+}
+.counting-practice summary {
+  cursor: pointer;
+  color: #e8c17c;
+  min-height: 44px;
+  padding: .55rem 0;
+}
+@media (max-width: 600px) {
+  .counting-lab, .counting-figure {
+    padding: .9rem;
+  }
+  .counting-branches, .counting-double, .counting-orbit-view {
+    grid-template-columns: 1fr;
+  }
+  .counting-branches > div {
+    border-bottom: 1px solid #3e576b;
+    padding: .5rem 0 1rem;
+  }
+  .counting-containers {
+    gap: .5rem;
+    font-size: .88rem;
+  }
+  .counting-tokens {
+    padding: .3rem;
+  }
+  .counting-tokens span {
+    font-size: 1.2rem;
+  }
+  .counting-membership-roster {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+  .counting-path-word .counting-word > span {
+    padding: .2rem .24rem;
+  }
+  .counting-svg {
+    max-width: 350px;
+  }
+}
+.counting-svg text {
+  font-size: 14px;
+}
+.counting-path-plot text {
+  font-size: 16px;
+}
+.counting-tiling-cases, .counting-partition-cases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+.counting-tile-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin: .7rem 0;
+  max-width: 300px;
+}
+.counting-tile-strip > span {
+  display: block;
+  padding: .65rem .3rem;
+  text-align: center;
+  background: #193247;
+  border: 1px solid #8fb8d1;
+}
+.counting-tile-strip > .counting-first-tile {
+  background: #4b3b22;
+  border-color: #edc67e;
+}
+.counting-partition {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: .8rem 0;
+}
+.counting-partition-block {
+  display: inline-flex;
+  gap: .5rem;
+  border: 1px solid #839eb4;
+  border-radius: 12px;
+  padding: .65rem;
+}
+.counting-last-item {
+  color: #f3cd85;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .counting-tiling-cases, .counting-partition-cases {
+    grid-template-columns: 1fr;
+  }
+}
+.counting-words > .counting-word {
+  border-bottom: 1px solid #68859b;
+  padding: .3rem .15rem .6rem;
+}

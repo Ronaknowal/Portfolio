@@ -1,6 +1,6 @@
 # Lesson teaching standard
 
-Updated 10 September 2026 from the user's continuation instructions, teaching references, scope/discovery requirements and alternate-resource requirement. Coverage, titles and useful applications must be reconsidered during authoring as well as before it. This is the authoritative teaching policy. [The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and status; historical reports do not override this standard.
+Updated 11 September 2026 from the user's continuation instructions, teaching references, scope/discovery requirements, alternate-resource requirement and explicit authoring/review workflow. Coverage, titles and useful applications must be reconsidered during authoring as well as before it. This is the authoritative teaching policy. [The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and status; historical reports do not override this standard.
 
 ## 1. Start here in a future session
 
@@ -15,6 +15,33 @@ Follow [the learning code standard](docs/engineering/LEARNING-CODE-STANDARD.md) 
 Suggested future-session prompt:
 
 > Read LESSON-AUTHORING-HANDOFF.md and follow its reading order. Continue the existing educational improvement work for the topics I name. Preserve the approved Linux lesson's teaching strengths, adapt the flow to the domain, plan support for each conceptual hurdle, and report what changed, why, validation, and remaining gaps.
+
+### Quality takes priority over efficiency
+
+Content quality, correctness, completeness within the intended scope, clarity, useful visual teaching, meaningful practice and reliable behavior take priority over token or time savings. Efficiency guidance in these documents is a set of working defaults, not a limit on depth, research, context reading, implementation effort, review rounds, verification or evidence. Do not apply an optimization when it could weaken those qualities; if its effect is uncertain, do the work needed to assess and protect quality.
+
+The author or reviewer may depart from an efficiency default whenever their judgment identifies a worthwhile improvement or a quality concern. They may read more source material, investigate further, revise the teaching structure, add examples/diagrams/labs, broaden relevant checks, seek additional authorized review or revisit an earlier decision. A reproduced defect is not required: a confusing transition, weak explanation, potentially misleading assumption or opportunity for substantially better understanding is sufficient reason. Continue autonomously within the user's authorized scope; this does not create an extra permission gate. Briefly record the reason in the existing work record when it helps the handoff, without creating another reporting requirement.
+
+Preserve valid evidence and avoid repetition that adds no value, while using professional judgment about what the topic needs. No suggested pass count, concise-output preference, small-team preference or completed checklist justifies reducing quality or leaving an identified useful improvement unfinished within the agreed scope.
+
+### Six-stage authoring workflow
+
+Use these stages for each authorized lesson, with shared integration at the end of the authorized increment. These are work stages, not six full rewrites or six user-approval gates. Research, numerical checks, visual implementation and review may overlap when their inputs are ready. Adapt the lesson's teaching sequence and representations to its domain; this workflow does not prescribe learner-facing headings or a lab count.
+
+| Stage | Responsible role and work | Completion condition |
+| --- | --- | --- |
+| **1. Assess and research** | The author reads the current lesson and destination notes, defines outcomes and prerequisites, assesses scope/title, preserves useful depth, researches material claims, and maps examples, visuals and practice to the conceptual hurdles. | A usable topic design explains what to keep, repair and add, what belongs elsewhere, and how learners will demonstrate the scoped outcomes. Research can continue when writing reveals a new question. |
+| **2. Build the complete lesson** | The author implements the explanations, worked examples, topic-specific illustrations/investigations, changed practice, solutions and annotated alternatives. Check the actual metadata, blueprint and shared-component contracts early, using the code standard's compatibility checks. | A complete runnable draft follows its planned learning progression and exposes its examples, outputs and interactions through the real reader. An incomplete draft is not publication-ready. |
+| **3. Author review and verification** | The author reviews the whole reading flow, including inline visuals without operating the labs; verifies claims, assumptions and complete native outputs; checks model/visual agreement and supported edge cases; and begins actual browser/keyboard review. | The source version, completed checks, their scope and remaining findings are recorded. Unverified claims, missing teaching steps and failed checks are explicit; the reviewer is not given an implied clean result. |
+| **4. Independent review** | A reviewer other than the author assesses coverage, beginner continuity, technical accuracy, representation fit and changed practice. Inspect the existing evidence and investigate complementary risks instead of duplicating the author's full test run. | A bounded set of actionable findings or a no-findings assessment is attached to the reviewed source. An author's own second reading is not independent review; record that distinction if no independent reviewer is available. |
+| **5. Focused corrections and browser closure** | The author resolves findings and checks affected behavior; the reviewer confirms the relevant corrections. Complete the required desktop/narrow-screen, actual reading, keyboard, interaction and selected-image checks. | No material finding remains; affected rechecks pass, unchanged evidence is reused, and the final reviewed source is identified. Check geometry and teaching clarity as well as successful clicks. |
+| **6. Website integration and handoff** | The increment owner validates generated metadata, catalogue/identity conservation, sequence/counts/progress, the production build and relevant loading/recovery behavior. Update the existing ledger, brief, note dispositions and handoff; remove disposable working material. | The authorized increment has passing relevant integration evidence, a concise completion/next-action record and stated limits. User acceptance remains separate; completing this stage does not authorize the next topic. |
+
+Let the topic's complexity and quality needs determine the number of revisions and review rounds. Work from a complete draft and combine related corrections when useful, but do not treat one author revision or one independent round as a target that constrains better work. A stage may require no edits or several revisions. Further work is justified by a quality concern, a worthwhile teaching improvement, relevant source/environment change or learner feedback. Changing a sentence, checking three viewport widths or exercising many numerical fixtures does not mean rewriting the lesson that many times.
+
+Use the existing topic/increment record to state the current stage, owner, reviewed source, findings and next action. Record substantive correction rounds with their reason and affected checks when they occur; do not create a new report for every edit or retroactively invent an exact iteration count. Keep implementation, numerical verification, browser review, independent review, integration and user acceptance distinguishable.
+
+**Readiness requires that the scoped outcomes are taught and assessed, material claims/examples are verified, the reading and interaction experience works, and no material review or integration finding remains.** Meeting this minimum does not require stopping if an identified in-scope improvement would materially improve understanding or correctness. Neither a fixed number of passes nor a claim of perfection establishes readiness. Apply section 11's bounded-verification guidance under the quality-first principle above.
 
 ## 2. Intended learning experience
 
@@ -243,6 +270,8 @@ Research the particular weak explanation, uncertain claim, current API, or diffi
 
 Check that each source actually supports the associated claim. Record its URL, the concept it helped verify, and date/version where relevant. Do not claim to have watched a video or executed a reference tool unless that happened. Popularity alone is not evidence of accuracy or instructional effectiveness.
 
+Reuse an inspected source for the same claim, scope and applicable version when it remains valid. Research a new claim or changed/version-sensitive behavior explicitly. Stop searching once the actual uncertainty is resolved and the needed alternate learning resources are assessed; accumulating more links is not a quality measure. Keep source locators and unresolved questions in the existing claim ledger so another author can retrieve the relevant passage without repeating the whole search.
+
 Investigate conflicting definitions, assumptions, conventions, and nuanced cases. State the convention used. Keep consequential qualifications beside the claim: examples include statistical assumptions, nonunique solutions, indexing behavior, and shell/platform differences. Avoid words such as “always” or “guaranteed” without their conditions.
 
 Sources should be optional for following the core walkthrough; a reference link must not replace a missing explanation. Separate evidence for technical correctness from inspiration for pedagogy.
@@ -290,11 +319,33 @@ Check the fit of each representation as well: can a beginner identify the topic'
 
 Run checks appropriate to the actual change. For implemented code/numerical models, test meaningful behavior and compare results against an independent reference or real runtime, not merely the same fixture on both sides of an assertion. Run the relevant project build and browser checks after lesson/component changes. Documentation-only updates do not need a new application build.
 
+### Keep verification bounded and reusable
+
+Plan the checks needed for the topic's actual claims, models and interactions, run them, resolve material findings, and record the reviewed source version. A passing recorded check remains evidence for that unchanged version; resuming a session does not make it stale. Read its result and unresolved findings instead of automatically running it again. Do not reopen completed modules or launch historical integration scripts merely because their artifacts still exist.
+
+After a fix, rerun the affected behavior and any dependencies it can change. A CSS label repair needs focused visual/keyboard checks; it does not require regenerating unchanged Python examples. A numerical model repair needs relevant numerical and displayed-result checks; it does not reopen unrelated topics. Broaden testing when a concrete failure, shared change, source-version mismatch, environment change or unresolved concern justifies it. Perform the required final build and integration once the authorized increment is ready, rather than after every documentation or ledger edit.
+
+An independent reviewer should assess complementary correctness and teaching risks, report a bounded set of actionable findings, and close them with targeted evidence. Do not duplicate the author's entire run by default, repeatedly manufacture new review stages, or pursue inputs outside a declared supported model without a specific reason. Retain sufficient depth and accuracy; avoid turning evidence production into a separate expanding project.
+
+Choose complementary checks for specific failure risks: an independently derived small case, a counterexample to an assumption, a change of units, a permutation/relabeling invariant, a limiting case or a comparison with an independent implementation. State why the expected relationship holds. Two views or programs calling the same helper establish agreement, not independent correctness. These examples are options, not a checklist to apply to every lesson. Scope edge cases to the lesson's claims and supported inputs; extra exotic cases need an identified risk.
+
+Keep one current progress ledger and a concise next action. Detailed passed results belong in the linked evidence record. Temporary drafts, patch scripts and superseded captures are not instructions; follow the [scratch retention policy](docs/engineering/LEARNING-CODE-STANDARD.md#temporary-work-and-evidence-retention) and remove disposable working material when its job is done.
+
 Check agreement between every linked representation at intermediate steps, not only the final answer: if fault handling updates a mapping, its table must update with the diagram; if copying retains old storage, show which representation still holds the authoritative sequence. Inspect actual screenshots as well as bounds checks—labels can remain inside an SVG yet spill outside their node or intersect an arrow. Fix those teaching ambiguities and repeat the affected checks.
 
-For the three original pilots, existing numerical and browser checks are `scripts/verify-lesson-pilot.mjs` and `scripts/review-lesson-pilot.cjs`. Programming batch scripts live under `scripts`; inspect their actual scope and runtime requirements before using them. Multi-lab work must update checks that currently assume a single `.lesson-lab` element.
+Historical reports identify older verification scripts and their dated scope. Consult those only when changing the covered behavior; they are not an automatic test queue for new lessons. Current checks must reflect the topic's actual investigations rather than assume one lab per page.
 
 Do not mark a lesson ready if the core example is incomplete, a material claim is unverified, a required mechanism remains unexplained, or learners have no way to assess their practice. Record remaining concerns explicitly. Passing a build, meeting a word count, registering a route, and clicking completion are not teaching-quality certificates.
+
+### Source-bound evidence and review handoff
+
+Preserve the original lesson baseline and its useful coverage once, using the existing increment record. Attach each completed review to the exact relevant source version, using commit/file hashes as appropriate. A hash proves identity, not correctness. Reuse a passing result only while its relevant code, data, assumptions and environment remain applicable; a byte-identical model cannot validate a newly added claim or changed surrounding interpretation.
+
+Give the reviewer a compact summary in the existing topic record: scope/design link, current source paths and versions, checks actually passed with relevant environment/commands, open findings and retained evidence links. Report a finding with its location, learner or correctness consequence, supporting example and closure check. The reviewer still reads the complete lesson and relevant implementation; the summary replaces rediscovery of history, not substantive review.
+
+Finalize source changes and selected-evidence retention before handing the version to final integration. Keep recorded executions faithful to the version actually run. For a later correction, record the changed files, reason, affected dependencies and checks rerun or reused; do not rewrite an old result to imply a new execution. Preserve an exact prior source or a reproducible difference when needed to establish conservation, without copying the whole lesson and every attachment after each edit. One increment owner coordinates shared integration after its topic versions are ready.
+
+Efficiency must preserve the scoped explanations, independent practice, accuracy and actual visual review. Use the code standard's [context and coordination rules](docs/engineering/LEARNING-CODE-STANDARD.md#efficient-context-tools-and-coordination) to reduce repeated reading/output and unnecessary work. If reporting efficiency, use available actual usage or coarse process counts already recorded (for example, full native reruns and late corrections); mark unavailable token usage as unknown. Do not invent a savings percentage or build a separate measurement campaign unless requested.
 
 ## 12. Delivery and handoff
 

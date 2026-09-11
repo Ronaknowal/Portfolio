@@ -1,0 +1,15 @@
+# Recommender Systems — incoming context-dependent combination bridge
+
+11 September 2026. **Assessed and resolved by existing coverage** during the bounded Recommender independent review. The originating [Ensemble lesson](../ENSEMBLE-METHODS-LESSON-DESIGN.md) is implemented and author-reviewed, with [verification](../ENSEMBLE-METHODS-VERIFICATION.md). No additional chapter or production rewrite was needed to close this note.
+
+Its deeper stacking branch explains why a linear combiner with constant coefficients cannot automatically choose different model weights for cold versus established users. Adding a context column changes an intercept; adding products of context and base predictions changes effective coefficients. A local synthetic regression example teaches this without requiring matrix factorization. [Sill et al., Feature-Weighted Linear Stacking](https://arxiv.org/pdf/0911.0460), section 2 equations 1–4, is the inspected primary source; historical recommendation experiments are not adopted as current performance guarantees.
+
+This destination can use the same idea only if it benefits its actual recommendation problem: distinguish a warm user/item holdout from genuinely unseen users/items and future interactions; explain which user/item statistics are available at recommendation time. Counts or popularity summaries computed using held-out interactions would contaminate context features. A complete recommendation evaluation should explain those units and information boundaries rather than promise that a heterogeneous blend always improves ranking.
+
+Do not add a new stacking chapter merely to use this note. Assess a short connected application against the current intended flow, and include, adapt, route or reject it with a reason. Keep Ensemble as the owner of combination mathematics and OOF construction; Recommenders owns user/item representations, recommendation-specific splits, retrieval/ranking objectives and cold-start interpretation.
+
+## Disposition
+
+The complete implemented Recommender body already teaches training-only counts, means, similarity and metadata fitting in section 2; global cutoffs versus per-user temporal leakage and warm/cold cohorts there; metadata transfer, two-tower precomputation and request-prefix context in section 11; and a complete timestamped evaluation plus changed new-item report in sections 13–14. These directly satisfy the information-boundary and representation transfer proposed here. The independent changed-cutoff check also changes only test labels and confirms every fitted training call and chosen configuration stays identical.
+
+Constant versus context-dependent ensemble weights and the corresponding interaction-product derivation stay in Ensemble. Repeating that chapter would obscure this lesson's own objective and candidate-set reasoning. The separate neighbor-fallback repair identified in independent review does not change this coverage disposition. See [the independent review](../RECOMMENDER-SYSTEMS-INDEPENDENT-REVIEW.md) for exact source identity and evidence; this note closure is not a claim of parent production integration or user approval.

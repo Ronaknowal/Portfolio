@@ -29,6 +29,12 @@ function scalarRk4(field, value, step) {
   return value + step * (first + 2 * second + 2 * third + fourth) / 6;
 }
 
+function exponentialRelative(value) {
+  // Continuous value of expm1(z)/z, including a product rounded to zero.
+  if (Math.abs(value) < 1e-7) return 1 + value / 2 + value * value / 6;
+  return Math.expm1(value) / value;
+}
+
 export function coolingTrace({ decay = 0.5, step = 0.5, steps = 12, initial = 8 } = {}) {
   boundedNumber(decay, 0, 2, "Decay rate");
   boundedNumber(step, 0.05, 2, "Step");
@@ -168,10 +174,9 @@ export function planarTrace({
       let scale = 1;
       if (mode === "spiral") scale = Math.exp(-0.4 * time);
       if (mode === "hopf") {
-        scale = parameter === 0 ?
-          1 / Math.sqrt(1 + 2 * initialRadiusSquared * time) :
-          Math.sqrt(Math.exp(2 * parameter * time) /
-            (1 + initialRadiusSquared * Math.expm1(2 * parameter * time) / parameter));
+        const exponent = 2 * parameter * time;
+        scale = Math.sqrt(Math.exp(exponent) /
+          (1 + 2 * initialRadiusSquared * time * exponentialRelative(exponent)));
       }
       position = [
         scale * (horizontal * Math.cos(time) - vertical * Math.sin(time)),

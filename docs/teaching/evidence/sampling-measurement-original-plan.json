@@ -1,0 +1,91 @@
+{
+  "topic": {
+    "title": "Sampling, Measurement & Experimental Design",
+    "level": "foundation",
+    "blueprint": {
+      "summary": "Decide what observations can support before calculating a statistical result.",
+      "outcomes": [
+        "Separate population, sample, unit and measurement",
+        "Identify confounding and choose randomization or blocking"
+      ],
+      "prerequisites": [
+        "Random Variables, Expectation & Covariance"
+      ],
+      "sequence": [
+        "State the target question and population",
+        "Draw the measurement and sampling process",
+        "Identify selection and measurement bias",
+        "Randomize or block a tiny experiment",
+        "Specify estimand and independent units before analysis"
+      ],
+      "visual": {
+        "type": "sampling and assignment diagram",
+        "question": "Does collecting more biased observations fix the bias?",
+        "interaction": "Change inclusion probabilities separately from sample size"
+      },
+      "practice": {
+        "task": "Design a fair comparison of two teaching methods",
+        "success": "Units, assignment, outcome and threats to inference are explicit"
+      },
+      "misconceptions": [
+        "Random sampling and random assignment solve different problems",
+        "Repeated measurements are not automatically independent subjects"
+      ],
+      "sources": [
+        "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/"
+      ],
+      "depth": "core",
+      "reviewFocus": "Separate causal claims from descriptive and predictive claims."
+    },
+    "id": "sampling-measurement-experimental-design",
+    "trackId": "math-foundations",
+    "section": "Bridges: Mathematical Language, Proof & Measurement",
+    "trackIds": [
+      "math-foundations"
+    ],
+    "prerequisiteStatus": "recorded",
+    "prerequisiteIds": [
+      "random-variables-expectation-covariance"
+    ],
+    "designStatus": "topic-brief-ready",
+    "publicationStatus": "planned",
+    "teachingReview": "individual-review-required",
+    "domainStrategy": "mathematics"
+  },
+  "domainGuidance": {
+    "strategy": "mathematics",
+    "flow": [
+      "Pose a concrete question and identify known/unknown quantities",
+      "Link a small numerical case, a representation and defined notation",
+      "Derive the mechanism with justified intermediate steps",
+      "Interpret a complete worked result",
+      "Test a changed case, assumption and counterexample",
+      "Connect to a formal or applied deeper branch"
+    ],
+    "visuals": [
+      "Linked geometric and symbolic views",
+      "Labeled distributions and repeated samples",
+      "Stepwise derivation with exact-value inspection"
+    ],
+    "practice": "Hand calculation, explanation of a representation, flawed reasoning to repair, and independent transfer with an explained solution.",
+    "verification": "Check assumptions, conventions, proof steps, units, numerical approximations and independent reference values.",
+    "exampleAnchor": "Small vectors, measurements and uncertainty; connect exact operations to an interpreted decision.",
+    "playbook": "docs/teaching/DOMAIN-PLAYBOOK.md",
+    "nextDesignStep": "Adapt this domain strategy using the topic's scoped outcomes, exact prerequisites, concept-hurdle map, source checks, complete examples and individual visual/practice contracts."
+  },
+  "authoringNotes": {
+    "instruction": "Read destination notes and relevant unresolved routing notes. Reassess evidence and learner benefit; record inclusion, adaptation, rerouting, reasoned deferral or rejection. A saved proposal is not an automatic content requirement.",
+    "workflow": "docs/teaching/topic-notes/README.md",
+    "destination": {
+      "path": "docs/teaching/topic-notes/sampling-measurement-experimental-design.md",
+      "exists": true,
+      "markdown": "# Authoring notes: Sampling, Measurement & Experimental Design\n\nCanonical topic ID: `sampling-measurement-experimental-design`\n\n## 2026-09-11 — Carry covariance into the choice of independent measurement units\n\n- Status: open\n- Origin: `random-variables-expectation-covariance`, [current design](../RANDOM-VARIABLES-LESSON-DESIGN.md), scoped Mathematics48 authoring. The destination is Mathematics49, the next actual topic in this module.\n- Destination and ownership rationale: Random Variables48 teaches the exact covariance algebra and distinguishes population moments from sample statistics. Sampling49 is the stronger home for deciding what is an independent sampling unit, whether repeated measurements or clusters share errors, and which data collection/assignment design supports the intended inference. Concentration and Hypothesis Testing provide later theorem/inference depth rather than replace these design decisions.\n- Existing coverage: the current planned Sampling49 brief says repeated measurements are not automatically independent subjects, but there is no published body or prior destination note. Probability15 briefly derives finite-population covariance; Concentration19 has an explicit independent-evidence contract. The current source check does not establish full cluster or paired-design instruction elsewhere.\n- Idea and learning benefit: turn the covariance term from a formula into a design question. Learners should identify which observations share a source of variation, explain why more copies do not create more independent evidence, and distinguish paired differences, repeated measurements and independent units before choosing a standard error.\n- Proposed treatment: after defining population/unit/measurement and before a sample-size or randomization recommendation, show a small set of units with repeated readings. Label subject-specific or shared systematic error separately from per-reading error. Compare averaging within a unit, collecting a new unit and taking a calibrated paired difference; identify the estimand in each case. Make finite-population without-replacement dependence explicit when relevant.\n- Explanation/example: Mathematics48 plans the original synthetic A=10+S+e_A and B=20+S+e_B example, with S equally likely±2 and independent e_A,e_B equally likely±1. Its covariance algebra will show Var(A)=Var(B)=5, Cov(A,B)=4, Var((A+B)/2)=9/2 and Var(B−A)=2. These are distributions of different quantities with different means, not automatically competing estimators of the same target. Sampling49 should decide what must be calibrated/subtracted to compare a common target, and how the shared term changes under genuinely new units. Reassess the final implemented origin rather than copying a design-stage claim unverified.\n- Prerequisites and boundaries: expectation/variance/covariance, a paired joint outcome and a declared data-generating model. The ordinary n−1 covariance correction assumes iid paired observations with finite second moments; it does not correct arbitrary weights, selection bias or cluster dependence. Do not offer an unsupported universal effective-sample-size formula or a clinical/real-device performance claim.\n- Evidence: [MIT18.05 covariance reading](https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class07-prep-b.pdf), selected finite covariance/sum-variance properties inspected11September2026. The sensor model is an original exact teaching scenario, not a sourced empirical experiment. Sampling/assignment methods need their own primary research when authored.\n- Resolution: awaiting the destination author's scoped assessment; include, adapt, route or defer with reasons. No destination lesson changed and no new topic added.\n- Implementation/verification links: origin is currently design-only; final origin evidence will be linked after implementation. A saved note does not establish completion.\n"
+    },
+    "unassigned": {
+      "path": "docs/teaching/topic-notes/UNASSIGNED.md",
+      "exists": true,
+      "markdown": "# Discoveries awaiting a teaching owner\n\nThis routing inbox records actual discoveries awaiting an owner; it is not evidence that the whole curriculum was audited or is complete.\n\n## 2026-09-10 — Establish a teaching owner for bit manipulation in interview preparation\n\n- Status: open\n- Origin: [DSA practice standard and evolving coverage map](../DSA-PRACTICE-STANDARD.md), prepared while adding practice to the first five DSA lessons.\n- Proposed destination and alternatives: find an existing programming/DSA owner before proposing a new topic. A scoped search of track definitions and curriculum source for bitwise, bit manipulation, bitmask and XOR found incidental numerical-reproducibility mentions, not an explicit DSA teaching home. This does not prove that no relevant sentence exists elsewhere.\n- Idea and learning benefit: a future interview-preparation route should teach masks as sets, bitwise versus boolean operations, width/sign and shift contracts, and the reasoning behind useful XOR identities before asking learners to memorize bit tricks. Determine which mechanisms already belong to a foundation lesson and which need a DSA extension.\n- Existing coverage: unresolved in this narrow title/brief search. The first five DSA practice sets do not establish coverage of this family, and the current three-lesson request is not a full-catalogue audit.\n- Proposed treatment: inspect plausible owners and prerequisites during the next relevant scoped authoring/planning task; route a full note there with examples, independently verified language behavior and curated transfer practice. Preserve stable IDs and module order. Do not insert an unexplained hard problem into the present foundation sets merely to increase breadth.\n- Prerequisites and boundaries: integer representation, boolean logic, sets, language-specific bit/shift semantics; distinguish Python's integer behavior from fixed-width machine integers. API/version details must be researched before authoring.\n- Evidence: the local curriculum search and the explicitly partial practice coverage map; no new technical implementation claim or source endorsement is made by this note.\n- Resolution: unassigned; no topic added and no existing lesson rewritten by this discovery.\n- Implementation/verification links: none yet.\n\nAdd further unassigned discoveries using the [note format](README.md), substituting a proposed module/topic and ownership alternatives for the canonical destination. Record why each matters and what remains uncertain. Once assigned, save the full note against the receiving topic's stable ID and leave a link and disposition here. Authors review entries relevant to the current topic; they do not implement every inbox idea on each run.\n"
+    }
+  },
+  "authoringContract": "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction."
+}

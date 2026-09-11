@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-09-11T13:45:56.382Z",
+  "records": [
+    {
+      "width": 1440,
+      "controls": 13,
+      "screenshots": [
+        {
+          "path": "scratch/knn-browser/learning-state-1440-0.png",
+          "sha256": "8c059905a91d10c210d8ff39a8e3601a2558b6057c43a722ee7e0fea9e35defc"
+        },
+        {
+          "path": "scratch/knn-browser/learning-state-1440-1.png",
+          "sha256": "f2ba7571782ec5476fb2fb3a80d7b5be6baab59c02ec828fb4696cb059ef9fb2"
+        }
+      ],
+      "errors": [],
+      "labelIssues": []
+    },
+    {
+      "width": 390,
+      "controls": 13,
+      "screenshots": [
+        {
+          "path": "scratch/knn-browser/learning-state-390-0.png",
+          "sha256": "736327ee9aa8988efd16e5b223a432bbdd2cf16f6215134ee24468505e30f915"
+        },
+        {
+          "path": "scratch/knn-browser/learning-state-390-1.png",
+          "sha256": "8926d0b04eda551faf03a644effe0bdbd72b8e788355a8d261e82263e7c6f121"
+        },
+        {
+          "path": "scratch/knn-browser/learning-state-390-2.png",
+          "sha256": "454187c04fb39e23025a5f4a503cb1c6f5dd4bcead6054fe2c03b22d3bd957da"
+        }
+      ],
+      "errors": [],
+      "labelIssues": []
+    },
+    {
+      "width": 320,
+      "controls": 13,
+      "screenshots": [
+        {
+          "path": "scratch/knn-browser/learning-state-320-0.png",
+          "sha256": "e01d314673a17285c61ae4ac5348b03c0d8db34c9cfcbf41ab94d148808bc163"
+        },
+        {
+          "path": "scratch/knn-browser/learning-state-320-1.png",
+          "sha256": "2085de480b9aeeb1e1dd49b5bbc45e0ac868a1cfb324c1ca39fcaa216e095b06"
+        },
+        {
+          "path": "scratch/knn-browser/learning-state-320-2.png",
+          "sha256": "dabf6792f2fb0d56d2bb9bbc69fdff1dc530f5aae1a5b7dc3b1e2e3eac8cdb02"
+        }
+      ],
+      "errors": [],
+      "labelIssues": []
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/learn/data/topics/k-nearest-neighbors-knn.jsx",
+      "sha256": "912c8deb930610864c1a448572d40cdb6bd9721aefeeec38b01e8be9d1523516"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/KnnLabs.jsx",
+      "sha256": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded"
+    },
+    {
+      "path": "src/learn/components/lesson-labs/knn-labs.css",
+      "sha256": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-11T12:58:41.484969+00:00",
+  "independentNodes": 1952,
+  "partitionModels": 56,
+  "oobReports": 64,
+  "programs": 10,
+  "programEvidence": "Unchanged code/output hashes match the ten actual standalone executions in example-runs.json; not unnecessarily rerun.",
+  "proximity": [
+    [
+      0.9999999999999998,
+      0.4999999999999999,
+      0.0
+    ],
+    [
+      0.4999999999999999,
+      0.9999999999999998,
+      0.4999999999999999
+    ],
+    [
+      0.0,
+      0.4999999999999999,
+      0.9999999999999998
+    ]
+  ],
+  "sourceHashes": {
+    "src/learn/data/decision-tree-models.js": "c518194566df93953774c47fa76e373d078b280d73310d2f6e9cf3b8b25bea1c",
+    "src/learn/data/decision-tree-examples.js": "949260f2041b803bd7cd7508113f29c8718a7a79c818a08e2fe0166c7589206e"
+  }
+}
