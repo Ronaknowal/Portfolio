@@ -1,0 +1,58 @@
+{
+  "createdAt": "2026-09-11T23:05:45.658983+00:00",
+  "scope": "One fixed author calculation supplying real visual-input scores and an unpublished-to-learner contrast. No runtime/browser or independent verification.",
+  "programSHA256": "4f1cb5e2b4df87390dc706207e8e66911976ecf1f4da67be983090710da527ab",
+  "stdout": "fit/cal/test: 885 1152 20634\nBaseline         q=0.95 alerts= 4416 inside=1379 outside=3037 windows=4/4\nBaseline         q=0.99 alerts= 1461 inside=1016 outside= 445 windows=4/4\nIsolation Forest q=0.95 alerts=10530 inside=1722 outside=8808 windows=4/4\nIsolation Forest q=0.99 alerts= 1548 inside= 971 outside= 577 windows=4/4\nOne-Class SVM    q=0.95 alerts= 9719 inside=1347 outside=8372 windows=4/4\nOne-Class SVM    q=0.99 alerts= 9232 inside=1319 outside=7913 windows=4/4\nLOF novelty      q=0.95 alerts= 8771 inside=1275 outside=7496 windows=4/4\nLOF novelty      q=0.99 alerts= 7837 inside=1138 outside=6699 windows=4/4\n",
+  "sourceCalculation": "The complete temperature program in lesson.md, with unchanged settings.",
+  "csvSHA256": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+  "rows": 22671,
+  "columns": [
+    "level",
+    "one_hour_change",
+    "period",
+    "baseline",
+    "isolation",
+    "one_class_svm",
+    "lof",
+    "window"
+  ],
+  "missingScorePolicy": "Reference rows deliberately have blank scores; calibration/test rows are scored as new observations.",
+  "q975AuthorOnlyFixtures": [
+    {
+      "method": "Baseline",
+      "q": 0.975,
+      "threshold": 4.566579723695049,
+      "calibrationAlerts": 28,
+      "testAlerts": 2170,
+      "outsideWindows": 1036,
+      "windowsHit": 4
+    },
+    {
+      "method": "Isolation Forest",
+      "q": 0.975,
+      "threshold": 0.5555652392489324,
+      "calibrationAlerts": 28,
+      "testAlerts": 5632,
+      "outsideWindows": 4263,
+      "windowsHit": 4
+    },
+    {
+      "method": "One-Class SVM",
+      "q": 0.975,
+      "threshold": -6.415545934270259,
+      "calibrationAlerts": 28,
+      "testAlerts": 9661,
+      "outsideWindows": 8318,
+      "windowsHit": 4
+    },
+    {
+      "method": "LOF novelty",
+      "q": 0.975,
+      "threshold": 1.4936764075602469,
+      "calibrationAlerts": 28,
+      "testAlerts": 8191,
+      "outsideWindows": 7002,
+      "windowsHit": 4
+    }
+  ]
+}

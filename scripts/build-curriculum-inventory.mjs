@@ -8,8 +8,11 @@ import { getDomainGuidance } from "../src/learn/data/curriculum/domain-guidance.
 import { slugify } from "../src/learn/data/topic-id.js";
 import { readTopicAuthoringNotes } from "./topic-authoring-notes.mjs";
 import { createHash } from "node:crypto";
+import { deliveryLedgerPath, validateDeliveryLedger, getDeliveryState, assertDeliveryRequest, getImplementationReviewOverride } from './lib/lesson-delivery.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const deliveryLedger = JSON.parse(fs.readFileSync(path.join(root, deliveryLedgerPath), 'utf8'));
+validateDeliveryLedger(deliveryLedger, new Set(Object.keys(topicCatalogue)));
 const published = new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(root, "src/learn/data/lesson-manifest.json"), "utf8"))));
 // Recorded review evidence, not a status inferred merely from publication or a brief.
 const pythonDataFoundationsReviewed = new Set([
@@ -61,20 +64,34 @@ for (const review of extensionReviews) {
     return fs.existsSync(absolute) && createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') === expectedHash;
   })) currentSourceReviews.set(review.topicId, review.verificationRecord);
 }
+// Future phase-two completion uses the same source-identity rule as historical
+// ledgers. A completed manuscript alone never becomes implementation review.
+for (const [id, entry] of Object.entries(deliveryLedger.topics)) {
+  if (!entry.legacyReview && getDeliveryState(root, entry).implementation === 'complete') {
+    currentSourceReviews.set(id, entry.record);
+  }
+}
 const topics = Object.values(topicCatalogue).map((topic) => ({
   ...topic,
   publicationStatus: published.has(topic.id) ? "published" : "planned",
   teachingReview: topic.id === "linux-basics-filesystems-processes" ? "user-approved-reference" : currentSourceReviews.has(topic.id) || pythonDataFoundationsReviewed.has(topic.id) || analysisWorkflowReviewed.has(topic.id) || systemsStructuresReviewed.has(topic.id) || programmingReliabilityReviewed.has(topic.id) || dsaCoreStructuresReviewed.has(topic.id) ? "implementation-reviewed-user-acceptance-pending" : "individual-review-required",
   teachingReviewRecord: topic.id === "linux-basics-filesystems-processes" ? "PROGRAMMING-REWRITE-LINUX.md" : currentSourceReviews.get(topic.id) || (dsaCoreStructuresReviewed.has(topic.id) ? "DSA-CORE-STRUCTURES-IMPLEMENTATION.md" : programmingReliabilityReviewed.has(topic.id) ? "PROGRAMMING-MODULE-COMPLETION.md" : pythonDataFoundationsReviewed.has(topic.id) ? "FIRST-FIVE-REIMPLEMENTATION.md" : analysisWorkflowReviewed.has(topic.id) ? "NEXT-THREE-REIMPLEMENTATION.md" : systemsStructuresReviewed.has(topic.id) ? "SYSTEMS-STRUCTURES-IMPLEMENTATION.md" : undefined),
   domainStrategy: getDomainGuidance(topic.trackId).strategy,
-}));
+})).map(topic => {
+  const entry = deliveryLedger.topics[topic.id];
+  const delivery = getDeliveryState(root, entry, topic.teachingReview !== 'individual-review-required');
+  return { ...topic, ...getImplementationReviewOverride(entry, delivery), delivery };
+});
 
 const selected = process.argv.indexOf("--topic");
+const requestedWork = process.argv.indexOf('--work');
+if (requestedWork !== -1 && selected === -1) throw new Error('--work requires --topic.');
 if (selected !== -1) {
   const query = process.argv[selected + 1];
   const topic = topics.find((item) => item.id === query || item.title === query || item.id === slugify(query || ""));
   if (!topic) throw new Error(`Topic not found: ${query}`);
-  console.log(JSON.stringify({ topic, domainGuidance: getDomainGuidance(topic.trackId), authoringNotes: readTopicAuthoringNotes(root, topic.id), authoringContract: "Read LESSON-AUTHORING-HANDOFF.md, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Revisit coverage/title and useful applications before and during writing; route discoveries to their best teaching owner. A stored brief or note is not a completed lesson, verified claim or automatic inclusion instruction." }, null, 2));
+  if (requestedWork !== -1) assertDeliveryRequest(process.argv[requestedWork + 1], topic.delivery);
+  console.log(JSON.stringify({ topic, requestedWork: requestedWork === -1 ? undefined : process.argv[requestedWork + 1], deliveryLedger: deliveryLedgerPath, domainGuidance: getDomainGuidance(topic.trackId), authoringNotes: readTopicAuthoringNotes(root, topic.id), authoringContract: "Read LESSON-AUTHORING-HANDOFF.md, the teaching standard's delivery modes, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Follow the user's full/content-first/finish scope and topic.delivery; finishing requires a current complete content checkpoint. Revisit coverage/title and useful applications while writing. A brief, published old body or completed draft does not certify the new implementation." }, null, 2));
 } else {
   const out = path.join(root, "docs/curriculum");
   fs.mkdirSync(out, { recursive: true });
@@ -86,12 +103,12 @@ if (selected !== -1) {
     const resolved = getLearningRoute(route);
     return { id: route.id, title: route.title, trackIds: route.trackIds, resolvedModuleIds: resolved.navigationGroups.map(group => group.id), moduleCount: resolved.moduleCount, focusTrackIds: route.focusTrackIds, coreTrackIds: route.coreTrackIds, backgroundMode: route.backgroundMode || "foundations", milestones: route.milestones || [], topicIds: resolved.topicIds };
   });
-  const counts = { modules: modules.length, uniqueTopics: topics.length, published: topics.filter((t) => t.publicationStatus === "published").length, topicBriefs: topics.filter((t) => t.blueprint).length, prerequisiteReviewsRecorded: topics.filter((t) => t.prerequisiteStatus === "recorded").length, guidedPaths: paths.length };
+  const counts = { modules: modules.length, uniqueTopics: topics.length, published: topics.filter((t) => t.publicationStatus === "published").length, topicBriefs: topics.filter((t) => t.blueprint).length, prerequisiteReviewsRecorded: topics.filter((t) => t.prerequisiteStatus === "recorded").length, guidedPaths: paths.length, contentComplete: topics.filter(t => t.delivery.content === 'complete').length, implementationComplete: topics.filter(t => t.delivery.implementation === 'complete').length };
   const inventory = { scopeReviewedOn: "2026-09-09", generatedOn: new Date().toISOString().slice(0, 10), counts, meanings: { topicBrief: "Topic-specific scope, sequence, representation, practice and research starting points; full lesson not implied", individualDesignRequired: "Domain guidance available; individual outcomes, dependencies and lesson design still required", publication: "Content is registered, not necessarily verified or approved", prerequisiteOrder: "Recorded graphs are checked and supporting topics included; reading follows module syllabus order, with prerequisite review links. Unknown older dependencies are not certified." }, modules, paths, topics };
   fs.writeFileSync(path.join(out, "curriculum-inventory.json"), JSON.stringify(inventory, null, 2) + "\n");
   const lines = ["# Curriculum coverage inventory", "", "Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.", "", `**${counts.uniqueTopics} unique topics · ${counts.modules} modules · ${counts.published} registered published lessons · ${counts.topicBriefs} topic-specific briefs · ${counts.guidedPaths} guided paths.**`, "", `**${topics.length - counts.topicBriefs} older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. ${counts.prerequisiteReviewsRecorded} topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.`, "", "See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).", "", "## Module coverage", "", "| Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |", "| --- | ---: | ---: | ---: | ---: |"]; 
   for (const module of modules) lines.push(`| ${module.title} | ${module.topics} | ${module.published} | ${module.topicBriefs} | ${module.prerequisitesRecorded} |`);
-  lines.push("", "Counts within modules may include shared topics. The headline counts each stable topic ID once.", "", "## Individual authoring inventory", "", "`brief` means a topic-specific starting plan. `design needed` means use the domain playbook, research the topic and complete its individual design before writing. Published content also needs an individual quality review unless the handoff records one.", "");
+  lines.push("", "Counts within modules may include shared topics. The headline counts each stable topic ID once.", "", "## Delivery phases", "", `**${counts.contentComplete} current content checkpoints complete · ${counts.implementationComplete} current implementations complete.**`, "", "[The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.", "", "## Individual authoring inventory", "", "`brief` means a topic-specific starting plan. `design needed` means use the domain playbook, research the topic and complete its individual design before writing. Published content also needs an individual quality review unless the handoff records one.", "");
   for (const module of modules) {
     lines.push(`### ${module.title}`, "", `**Module anchor:** ${module.guidance.exampleAnchor}`, "", `**Teaching strategy:** ${module.guidance.flow.join(" → ")}.`, "", `**Practice:** ${module.guidance.practice}`, "", `**Verification:** ${module.guidance.verification}`, "", "| Topic | Level | Content | Design |", "| --- | --- | --- | --- |");
     const definition = trackDefinitions.find(track => track.id === module.id);

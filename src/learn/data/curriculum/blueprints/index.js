@@ -8,6 +8,9 @@ import multiOutputBlueprint from './multi-label-multi-output-learning.js';
 import ensembleMethodsBlueprint from './ensemble-methods-stacking.js';
 import survivalAnalysisBlueprint from './survival-analysis-cox-regression-kaplan-meier-hazard-models.js';
 import kMeansHierarchicalBlueprint from './k-means-hierarchical-clustering.js';
+import pcaBlueprint from './pca-dimensionality-reduction.js';
+import clusteringEvaluationBlueprint from './clustering-evaluation-validation-silhouette-ari-nmi.js';
+import dbscanBlueprint from './dbscan-density-based-clustering.js';
 import knnBlueprint from './k-nearest-neighbors-knn.js';
 import numericalPdesBlueprint from './numerical-pdes-grids-finite-elements-stability.js';
 import partialDifferentialEquationsBlueprint from './partial-differential-equations-conservation-boundary-conditions.js';
@@ -120,6 +123,9 @@ export const authoredBlueprints = {
   'Ensemble Methods & Stacking': ensembleMethodsBlueprint,
   'Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models)': survivalAnalysisBlueprint,
   'K-Means & Hierarchical Clustering': kMeansHierarchicalBlueprint,
+  'PCA & Dimensionality Reduction': pcaBlueprint,
+  'Clustering Evaluation & Validation (Silhouette, ARI, NMI)': clusteringEvaluationBlueprint,
+  'DBSCAN & Density-Based Clustering': dbscanBlueprint,
   'K-Nearest Neighbors (KNN)': knnBlueprint,
   "Arrays, Strings & Hash Maps": arraysStringsHashMapsBlueprint,
   "Bash Scripting & Command-Line Automation": bashScriptingCommandLineAutomationBlueprint,

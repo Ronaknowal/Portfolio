@@ -1,891 +1,258 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { DbscanTrailLab, DbscanMetricLab, DbscanIrisLab, DbscanIntervalLab } from '../../components/lesson-labs/DbscanLabs.jsx';
+import { TrailRosterFigure, BorderTransmissionFigure, CoreRadiusFigure, IncompatibleIntervalFigure, OpticsOrderingFigure, StabilityTreeFigure, RingsFigure } from '../../components/lesson-labs/DbscanFigures.jsx';
+import { dbscanExamples } from '../dbscan-examples.js';
+
+const headings = [
+  '1. Start with a radius and a count',
+  '2. Build the core graph before assigning the border',
+  '3. Reachability: why the arrows matter',
+  '4. A complete small implementation',
+  '5. Choose a scale, then inspect what it does',
+  '6. Units and representation are part of the model',
+  '7. A real question: which Iris measurements form dense groups?',
+  '8. Know when a single radius is the wrong tool',
+  '9. Deeper branch: OPTICS keeps an ordering of density structure',
+  '10. Deeper branch: HDBSCAN builds and selects a density hierarchy',
+  '11. Deeper branch: what costs time and memory?',
+  '12. Deeper branch: what about a new observation?',
+  '13. Practice: change the data, then explain the result',
+  '14. What to remember, and another way to learn it'
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="db-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const dbscanContent = {
-  title: "DBSCAN & Density-Based Clustering",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        By 1996 the clustering literature had a clean story: partition the data into k groups by minimizing within-cluster variance. k-means, published by Lloyd in 1957 and independently by Forgy in 1965, was the dominant algorithm. It was fast, it was simple, and it was wrong in a way that took decades to fully articulate. k-means assumes that every cluster is a convex blob, roughly spherical in the metric space defined by Euclidean distance. Real spatial data — the positions of crime incidents across a city, the distribution of galaxies in a sky survey, the locations of customer purchases on a retail floor — does not respect that assumption. Natural clusters follow irregular contours, wind around obstacles, and embed in lower-dimensional manifolds inside a higher-dimensional ambient space. A crescent moon and a circle are not convex. A river valley is not a sphere. And noise — readings from broken sensors, GPS jitter, genuinely anomalous events — does not belong in any cluster at all, yet k-means must assign every point to something.
-      </Prose>
-
-      <Prose>
-        Martin Ester, Hans-Peter Kriegel, Jörg Sander, and Xiaowei Xu at the Institute for Computer Science, University of Munich, addressed this directly. Their paper "A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise," published in the proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD '96), Portland, Oregon, pages 226–231, introduced DBSCAN — Density-Based Spatial Clustering of Applications with Noise. The core observation is disarmingly simple: a cluster is a region of space that is denser than its surroundings. Any point in a dense enough neighborhood belongs to a cluster; any point stranded in a sparse region is noise. You do not need to declare k in advance. You do not need to know what shape the clusters will take. The algorithm discovers both.
-      </Prose>
-
-      <Prose>
-        Three years later, in 1999, Mihael Ankerst, Markus Breunig, Kriegel, and Sander published "OPTICS: Ordering Points to Identify the Clustering Structure" in SIGMOD Record, volume 28, issue 2, pages 49–60. OPTICS addressed DBSCAN's sharpest limitation: it requires a single global density threshold (the ε parameter), which fails when clusters have genuinely different densities — a tight dense core surrounded by a looser halo, for example. OPTICS does not produce a flat clustering at all. Instead it computes a reachability plot — a linear ordering of the data paired with reachability distances — from which clusterings at any density threshold can be read off. It is the density-based answer to hierarchical clustering's dendrogram.
-      </Prose>
-
-      <Prose>
-        The modern descendant is HDBSCAN, introduced by Ricardo Campello, Davide Moulavi, and Jörg Sander in "Density-Based Clustering Based on Hierarchical Density Estimates," PAKDD 2013, Lecture Notes in Computer Science vol. 7819, pages 160–172. HDBSCAN builds a hierarchy of density levels by varying ε across its full range, extracts the "most stable" flat clusters from that hierarchy using a cluster tree and an excess-of-mass formulation, and assigns probabilistic soft membership scores to every point. Leland McInnes, John Healy, and Steve Astels packaged this into the <Code>hdbscan</Code> library, described in "hdbscan: Hierarchical density based clustering," Journal of Open Source Software, 2017, 2(11), article 205, doi:10.21105/joss.00205. That library is now the practical default for density-based clustering on real datasets.
-      </Prose>
-
-      <Prose>
-        The intellectual arc from DBSCAN to HDBSCAN is a story about parameter sensitivity. DBSCAN requires ε and minPts — two numbers that can be tuned with a k-distance plot, but which still encode a hard assumption about global density. OPTICS relaxes the density threshold into a spectrum. HDBSCAN makes that spectrum automatic and formalizes what it means to extract the "right" flat partition from a density hierarchy. Each step reduces the burden on the practitioner while increasing the algorithm's ability to handle messy, heterogeneous real-world data.
-      </Prose>
-
-      <Prose>
-        It is worth being precise about what DBSCAN is <em>not</em>. It is not a probabilistic model — it produces hard assignments, not posteriors. It is not a hierarchical clustering algorithm — it does not produce a dendrogram, and every run at fixed parameters produces a flat partition. It is not robust to feature scaling — ε is a distance, and Euclidean distances depend entirely on the scale of each feature axis. And despite its name including "Applications with Noise," it does not model noise probabilistically; any point below the density threshold is labeled as noise regardless of how close it falls to a genuine cluster boundary. These are not bugs — they are design decisions that make DBSCAN fast, deterministic, and interpretable. Understanding them precisely is what separates a practitioner who reaches for DBSCAN correctly from one who applies it blindly and blames the algorithm when it fails.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The driving idea is simpler than any formula: <strong>a cluster is a dense connected region; everything outside a dense region is noise</strong>. To make "dense" precise, DBSCAN introduces two parameters. <strong>ε (epsilon)</strong> is a distance threshold — the radius of a neighborhood around each point. <strong>minPts</strong> is a count threshold — the minimum number of points that must fall within distance ε of a point for that point to be considered a local density peak.
-      </Prose>
-
-      <Prose>
-        With those two numbers fixed, every point in the dataset falls into one of three categories. A <strong>core point</strong> has at least minPts neighbors within its ε-ball (counting itself). Core points are the dense interior of clusters. A <strong>border point</strong> has fewer than minPts neighbors within ε, but falls within the ε-ball of at least one core point — it is on the edge of a cluster, reachable from the interior but not dense enough to anchor expansion itself. A <strong>noise point</strong> (outlier) is neither a core point nor within ε of any core point. It belongs to no cluster.
-      </Prose>
-
-      <Prose>
-        Cluster expansion works by transitive closure. Start at any unvisited core point. Label it with a new cluster ID. Add all its neighbors to a seed set. For each seed, if it is also a core point, add its neighbors to the seed set too — and keep going until the seed set is exhausted. Every point reached in this expansion gets the same cluster ID. Then find the next unvisited core point and repeat with a new cluster ID. When every core point has been visited, the border points absorb the cluster ID of whatever core point reached them first, and any remaining unassigned points stay labeled as noise.
-      </Prose>
-
-      <Prose>
-        The critical contrast with k-means: because expansion follows density rather than distance to a centroid, the clusters that emerge can be <em>any shape</em> that a connected chain of overlapping ε-balls can trace. Two crescent moons sitting next to each other — a dataset where k-means irreparably fails, always drawing a vertical boundary through the middle — are trivially separated by DBSCAN because no chain of ε-balls connects the two crescents; they are density-disconnected. The gap between them, even if narrow, creates a low-density barrier that the expansion cannot cross.
-      </Prose>
-
-      <Prose>
-        HDBSCAN extends this by asking: what happens as ε shrinks from infinity to zero? At ε → ∞ everything is in one cluster. As ε decreases, clusters split. The split history forms a tree — the cluster hierarchy. Rather than picking one ε, HDBSCAN scores every subtree by its "excess of mass" (roughly: how many point-steps of density does this cluster persist over?), and extracts the subtrees that maximize total stability. The result is a flat partition that automatically adapts to local density — dense sub-clusters within a looser cloud get their own labels instead of being homogenized with their neighbors.
-      </Prose>
-
-      <Prose>
-        An important practical consequence: HDBSCAN returns not just cluster labels but also a <strong>membership probability</strong> for every point, ranging from 0 (core of the noise distribution) to 1 (deep core of a stable cluster). Border points — those near the edge of a cluster — receive intermediate probabilities that reflect their geometric ambiguity. This is structurally similar to GMM's posterior probabilities, but derived from density geometry rather than Gaussian assumptions. A point with probability 0.4 is on the fringe of its cluster and could legitimately be treated as noise depending on your downstream tolerance for uncertainty. This is a level of nuance that neither k-means nor plain DBSCAN can express.
-      </Prose>
-
-      <Prose>
-        The practical difference in usage is decisive. With DBSCAN you tune ε with a k-distance plot — typically 10-20 minutes of experimentation on a new dataset. With HDBSCAN you set <Code>min_cluster_size</Code> (the smallest cluster you would care about finding, in absolute point count) and <Code>min_samples</Code> (which controls how conservative the noise classification is — larger values declare more points as noise but make the clusters cleaner). Both parameters have direct domain interpretations: "I don't care about clusters smaller than 50 customers" or "flag any point that isn't surrounded by at least 10 others as suspect." This interpretability is a significant practical advantage over the geometric abstraction of ε.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 ε-neighborhood and point classification</H3>
-
-      <Prose>
-        Let <Code>X = {"{"} x₁, x₂, ..., xₙ {"}"}</Code> be a dataset of points in a metric space with distance function <Code>d</Code>. Fix parameters <Code>ε {">"} 0</Code> and <Code>minPts ∈ ℕ</Code>. The <strong>ε-neighborhood</strong> of point <Code>p</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"N_\\varepsilon(p) = \\{q \\in X : d(p, q) \\leq \\varepsilon\\}"}
-      </MathBlock>
-
-      <Prose>
-        Point <Code>p</Code> is a <strong>core point</strong> if and only if:
-      </Prose>
-
-      <MathBlock>
-        {"|N_\\varepsilon(p)| \\geq \\text{minPts}"}
-      </MathBlock>
-
-      <Prose>
-        Point <Code>q</Code> is <strong>directly density-reachable</strong> from core point <Code>p</Code> if <Code>q ∈ N_ε(p)</Code>. Note this relation is not symmetric: <Code>q</Code> may not be a core point itself, so <Code>p</Code> may not be directly density-reachable from <Code>q</Code>.
-      </Prose>
-
-      <Prose>
-        Point <Code>q</Code> is <strong>density-reachable</strong> from <Code>p</Code> (with respect to ε, minPts) if there exists a chain of points <Code>p = p₁, p₂, ..., pₙ = q</Code> such that each <Code>pᵢ₊₁</Code> is directly density-reachable from <Code>pᵢ</Code>. This is the transitive closure that defines cluster membership.
-      </Prose>
-
-      <Prose>
-        Two points <Code>p</Code> and <Code>q</Code> are <strong>density-connected</strong> if there exists a point <Code>o</Code> such that both <Code>p</Code> and <Code>q</Code> are density-reachable from <Code>o</Code>. Density-connectedness is symmetric, and a cluster is defined as a maximal set of mutually density-connected core points together with all border points density-reachable from them.
-      </Prose>
-
-      <H3>3.2 Why arbitrary shapes emerge</H3>
-
-      <Prose>
-        The shape freedom of DBSCAN follows directly from the transitive closure construction. Each link in the density-reachability chain only requires that consecutive points are within ε of each other <em>and</em> that the source of the link is a core point. The chain can bend, curve, and spiral arbitrarily as long as the density along it never drops below the minPts threshold. A thin filament of points connecting two blobs — too thin for k-means to notice — is perfectly followed by DBSCAN expansion, merging what k-means would split. Conversely, a sparse gap between two blobs stops expansion cold, separating what k-means would merge.
-      </Prose>
-
-      <H3>3.3 HDBSCAN: mutual reachability and cluster stability</H3>
-
-      <Prose>
-        HDBSCAN modifies the distance metric before building the hierarchy. The <strong>core distance</strong> of a point <Code>p</Code> with respect to <Code>minPts</Code> is the distance to its <Code>minPts</Code>-th nearest neighbor:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{core-dist}_{\\text{minPts}}(p) = d(p,\\, p^{(\\text{minPts})})"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>p^(minPts)</Code> denotes the minPts-th nearest neighbor. The <strong>mutual reachability distance</strong> between two points is then:
-      </Prose>
-
-      <MathBlock>
-        {"d_{\\text{mreach}}(p, q) = \\max\\bigl(\\text{core-dist}(p),\\; \\text{core-dist}(q),\\; d(p,q)\\bigr)"}
-      </MathBlock>
-
-      <Prose>
-        Mutual reachability inflates distances in sparse regions (where core distances are large) and leaves distances in dense regions nearly unchanged. This has a smoothing effect: the resulting minimum spanning tree of the mutual reachability graph reflects the density topology of the data rather than raw Euclidean distances.
-      </Prose>
-
-      <Prose>
-        HDBSCAN builds the MST of the mutual reachability graph, then converts it to a <strong>cluster hierarchy</strong> by processing edges from longest to shortest — equivalently, from lowest density to highest. As the density threshold rises, clusters split apart. The <strong>cluster stability</strong> of a subtree <Code>C</Code> born at threshold <Code>λ_birth</Code> and dying at <Code>λ_death = 1/ε_death</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{stability}(C) = \\sum_{p \\in C} \\bigl(\\lambda_{\\text{death}}(p) - \\lambda_{\\text{birth}}(C)\\bigr)"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>λ_death(p)</Code> is the density level at which point <Code>p</Code> falls out of cluster <Code>C</Code>. The excess-of-mass algorithm then selects the subtrees that maximize total stability: if a child cluster's stability exceeds its share of the parent's stability, the child is extracted as a distinct cluster; otherwise the parent is kept whole. This is what gives HDBSCAN its ability to find clusters of varying density — it does not pick one global density level. It picks the most stable density level for each cluster independently.
-      </Prose>
-
-      <H3>3.4 OPTICS: reachability distance and the reachability plot</H3>
-
-      <Prose>
-        OPTICS uses two derived distances. The <strong>core distance</strong> is identical to HDBSCAN's: the distance from <Code>p</Code> to its minPts-th nearest neighbor (or undefined if <Code>p</Code> has fewer than minPts neighbors within the search radius ε_max). The <strong>reachability distance</strong> from <Code>o</Code> to <Code>p</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{reach-dist}_{\\text{minPts}}(p, o) = \\max\\bigl(\\text{core-dist}_{\\text{minPts}}(o),\\; d(o, p)\\bigr)"}
-      </MathBlock>
-
-      <Prose>
-        OPTICS processes points in an ordering that resembles breadth-first expansion from dense cores. For each point processed, its reachability distance to the current seed point is recorded. The output is a sequence of (point, reachability-distance) pairs — the reachability plot. Valleys in the plot (long sequences of low reachability) are clusters; peaks are transitions between clusters or noise. The key property: by setting a horizontal threshold on the reachability plot, you obtain the same result as running DBSCAN with ε equal to that threshold. OPTICS makes the full hierarchy of such results computable in a single pass, at the cost of O(n log n) time with appropriate indexing. Reading the reachability plot replaces the need to pick ε — instead you pick a threshold after the fact, guided by visual inspection of the valleys.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        The implementation below uses NumPy only — no scikit-learn, no spatial indexing. The neighbor search is brute-force O(n²), which is correct and sufficient for pedagogical purposes on small datasets. Every output block is verbatim terminal output from a Python 3.11 session.
-      </Prose>
-
-      <H3>4a. DBSCAN core algorithm</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import make_moons, make_circles
-
-def dbscan_scratch(X, eps, min_pts):
-    """
-    DBSCAN from scratch — brute-force neighbor search.
-    Returns: labels array (-1 = noise), list of point type strings.
-    """
-    n = len(X)
-    labels = np.full(n, -1)      # -1 = noise until assigned
-    visited = np.zeros(n, dtype=bool)
-    cluster_id = 0
-
-    def get_neighbors(i):
-        diffs = X - X[i]
-        dists = np.sqrt((diffs ** 2).sum(axis=1))
-        return np.where(dists <= eps)[0]
-
-    for i in range(n):
-        if visited[i]:
-            continue
-        visited[i] = True
-        neighbors = get_neighbors(i)
-
-        if len(neighbors) < min_pts:
-            continue            # noise candidate — may be upgraded to border later
-
-        # --- Core point: seed a new cluster ---
-        labels[i] = cluster_id
-        seed_set = list(neighbors)
-        si = 0
-        while si < len(seed_set):
-            q = seed_set[si]; si += 1
-            if not visited[q]:
-                visited[q] = True
-                q_neighbors = get_neighbors(q)
-                if len(q_neighbors) >= min_pts:   # q is also core: expand further
-                    for nb in q_neighbors:
-                        if nb not in seed_set:
-                            seed_set.append(nb)
-            if labels[q] == -1:
-                labels[q] = cluster_id            # border or core gets this cluster
-        cluster_id += 1
-
-    def point_type(i):
-        nb = get_neighbors(i)
-        if len(nb) >= min_pts:   return 'core'
-        elif labels[i] != -1:    return 'border'
-        else:                    return 'noise'
-
-    types = [point_type(i) for i in range(n)]
-    return labels, types
-
-# ---- Run on make_moons ----
-np.random.seed(42)
-X_moons, _ = make_moons(n_samples=200, noise=0.07, random_state=42)
-
-labels_m, types_m = dbscan_scratch(X_moons, eps=0.3, min_pts=5)
-n_clusters_m = len(set(labels_m)) - (1 if -1 in labels_m else 0)
-print("=== make_moons  (eps=0.3, min_pts=5) ===")
-print(f"n_clusters : {n_clusters_m}")
-# Output: n_clusters : 2
-print(f"core pts   : {types_m.count('core')}")
-# Output: core pts   : 199
-print(f"border pts : {types_m.count('border')}")
-# Output: border pts : 1
-print(f"noise pts  : {types_m.count('noise')}")
-# Output: noise pts  : 0
-print(f"labels     : {np.unique(labels_m)}")
-# Output: labels     : [0 1]`}
-      </CodeBlock>
-
-      <Prose>
-        Two clusters cleanly separated. On a dataset where k-means always cuts through the middle of one moon to form two approximately equal-mass blobs, DBSCAN correctly identifies the two crescents as distinct density-connected components. With minPts=5, nearly every point in this low-noise dataset qualifies as a core point — only one border point exists, sitting at the tip of a crescent where local density drops slightly below threshold.
-      </Prose>
-
-      <H3>4b. Run on make_circles</H3>
-
-      <CodeBlock language="python">
-{`X_circles, _ = make_circles(n_samples=200, noise=0.05, factor=0.5, random_state=42)
-
-# eps=0.20 separates inner from outer ring
-labels_c, types_c = dbscan_scratch(X_circles, eps=0.20, min_pts=5)
-n_clusters_c = len(set(labels_c)) - (1 if -1 in labels_c else 0)
-print("=== make_circles  (eps=0.20, min_pts=5) ===")
-print(f"n_clusters : {n_clusters_c}")
-# Output: n_clusters : 2
-print(f"core pts   : {types_c.count('core')}")
-# Output: core pts   : 200
-print(f"border pts : {types_c.count('border')}")
-# Output: border pts : 0
-print(f"noise pts  : {types_c.count('noise')}")
-# Output: noise pts  : 0
-print(f"labels     : {np.unique(labels_c)}")
-# Output: labels     : [0 1]`}
-      </CodeBlock>
-
-      <Prose>
-        The inner and outer rings are density-disconnected at ε=0.20: the annular gap between them is wide enough that no ε-ball centered on the outer ring reaches the inner ring, so two clusters emerge exactly. k-means on this dataset always produces two half-moons cutting the circles radially — a classic, unfixable failure for centroid-based methods.
-      </Prose>
-
-      <H3>4b-2. k-distance computation for ε selection</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.neighbors import NearestNeighbors
-
-# k-distance plot: fit k=min_pts-1=4 NN, extract 4th-NN distance per point
-k = 4
-nbrs = NearestNeighbors(n_neighbors=k + 1, algorithm='ball_tree').fit(X_moons)
-dists, _ = nbrs.kneighbors(X_moons)
-k_dists = np.sort(dists[:, k])[::-1]     # sorted descending: largest distances first
-
-print("k-distance plot (make_moons, k=4) — selected quantiles:")
-print(f"  index   0 (most isolated)  : {k_dists[0]:.4f}")
-# Output:   index   0 (most isolated)  : 0.3006
-print(f"  index   5                  : {k_dists[5]:.4f}")
-# Output:   index   5                  : 0.2337
-print(f"  index  10 (≈ elbow region) : {k_dists[10]:.4f}")
-# Output:   index  10 (≈ elbow region) : 0.1874
-print(f"  index  20                  : {k_dists[20]:.4f}")
-# Output:   index  20                  : 0.1643
-print(f"  index  40                  : {k_dists[40]:.4f}")
-# Output:   index  40                  : 0.1388
-print(f"  index 199 (densest point)  : {k_dists[199]:.4f}")
-# Output:   index 199 (densest point)  : 0.0462
-#
-# The elbow is near index 0-5 at k_dist ≈ 0.30.
-# Setting eps=0.30 recovers the correct 2-cluster solution.
-# eps=0.18 (below elbow) produces n_clusters=17, too fragmented.
-# eps=0.50 (above elbow) produces n_clusters=1, everything merged.`}
-      </CodeBlock>
-
-      <H3>4c. HDBSCAN sketch: mutual reachability and MST</H3>
-
-      <CodeBlock language="python">
-{`def mutual_reachability_matrix(X, min_pts):
-    """Compute n×n mutual reachability distance matrix."""
-    n = len(X)
-    # Pairwise Euclidean distances
-    diffs = X[:, None, :] - X[None, :, :]          # (n, n, d)
-    D = np.sqrt((diffs ** 2).sum(axis=-1))           # (n, n)
-
-    # Core distance for each point = distance to min_pts-th NN
-    sorted_D = np.sort(D, axis=1)
-    core_dists = sorted_D[:, min_pts - 1]            # (n,)
-
-    # Mutual reachability: max(core(p), core(q), d(p,q))
-    mreach = np.maximum(core_dists[:, None],
-             np.maximum(core_dists[None, :], D))
-    np.fill_diagonal(mreach, 0.0)
-    return mreach
-
-def prim_mst(W):
-    """Prim's algorithm for minimum spanning tree on dense weight matrix W."""
-    n = len(W)
-    in_tree = np.zeros(n, dtype=bool)
-    min_edge = np.full(n, np.inf)
-    parent = np.full(n, -1, dtype=int)
-    min_edge[0] = 0.0
-    edges = []
-    for _ in range(n):
-        # Pick minimum-cost vertex not yet in tree
-        candidates = np.where(~in_tree)[0]
-        u = candidates[np.argmin(min_edge[candidates])]
-        in_tree[u] = True
-        if parent[u] != -1:
-            edges.append((parent[u], u, W[parent[u], u]))
-        # Relax edges
-        mask = ~in_tree
-        better = W[u, mask] < min_edge[mask]
-        indices = np.where(mask)[0][better]
-        min_edge[indices] = W[u, indices]
-        parent[indices] = u
-    return edges   # list of (u, v, weight) sorted by insertion order
-
-np.random.seed(42)
-X_small, _ = make_moons(n_samples=50, noise=0.07, random_state=42)
-mreach = mutual_reachability_matrix(X_small, min_pts=5)
-mst_edges = prim_mst(mreach)
-mst_weights = [e[2] for e in mst_edges]
-print(f"MST edge count       : {len(mst_edges)}")
-# Output: MST edge count       : 49
-print(f"Min MST edge weight  : {min(mst_weights):.4f}")
-# Output: Min MST edge weight  : 0.0462
-print(f"Max MST edge weight  : {max(mst_weights):.4f}")
-# Output: Max MST edge weight  : 0.3006
-print(f"Median MST edge wgt  : {np.median(mst_weights):.4f}")
-# Output: Median MST edge wgt  : 0.1596
-# The long MST edge (0.30) marks the gap between the two crescents —
-# cutting the MST there yields the two-cluster solution HDBSCAN would extract.`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        In production, use <Code>sklearn.cluster.DBSCAN</Code> or <Code>sklearn.cluster.OPTICS</Code> for most workloads. For variable-density data or when you want soft membership probabilities, use the <Code>hdbscan</Code> library. The key parameters and their interactions:
-      </Prose>
-
-      <H3>5a. sklearn DBSCAN</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.cluster import DBSCAN
-from sklearn.datasets import make_blobs
-
-np.random.seed(42)
-
-# Realistic scenario: 3-cluster blob dataset with 10% noise
-X_blob, _ = make_blobs(
-    n_samples=300, centers=[[-3,-3],[3,3],[0,5]],
-    cluster_std=0.7, random_state=42
-)
-noise_pts = np.random.uniform(-8, 8, (30, 2))
-X_noisy = np.vstack([X_blob, noise_pts])
-
-# algorithm='ball_tree' for low d; 'kd_tree' also works; 'brute' is O(n^2)
-db = DBSCAN(eps=1.2, min_samples=5, algorithm='ball_tree', metric='euclidean')
-db.fit(X_noisy)
-
-labels = db.labels_
-n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-n_noise    = (labels == -1).sum()
-n_core     = len(db.core_sample_indices_)
-
-print(f"n_clusters   : {n_clusters}")
-# Output: n_clusters   : 2
-print(f"noise points : {n_noise}")
-# Output: noise points : 25
-print(f"core samples : {n_core}")
-# Output: core samples : 304
-print(f"unique labels: {np.unique(labels)}")
-# Output: unique labels: [-1  0  1]`}
-      </CodeBlock>
-
-      <Callout type="warning" title="eps=1.2 merges two close blobs">
-        The blobs centered at [-3,-3] and [3,3] are far apart, but the blob at [0,5] sits between them at a diagonal. With eps=1.2 and cluster_std=0.7 the two closer blobs merge into one cluster at this noise level — exactly the sensitivity to eps that HDBSCAN addresses. The k-distance plot (Section 6) is the standard tool for choosing eps before fitting.
-      </Callout>
-
-      <H3>5b. sklearn OPTICS</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.cluster import OPTICS
-
-# OPTICS extracts clusterings at multiple density thresholds automatically.
-# xi: minimum steepness on the reachability plot to be considered a cluster boundary.
-# min_cluster_size: fraction of n_samples that a cluster must contain.
-opt = OPTICS(min_samples=5, xi=0.05, min_cluster_size=0.1)
-opt.fit(X_noisy)
-
-labels_opt = opt.labels_
-n_clusters_opt = len(set(labels_opt)) - (1 if -1 in labels_opt else 0)
-n_noise_opt    = (labels_opt == -1).sum()
-print(f"OPTICS n_clusters : {n_clusters_opt}")
-# Output: OPTICS n_clusters : 3
-print(f"OPTICS noise pts  : {n_noise_opt}")
-# Output: OPTICS noise pts  : 97
-# Reachability plot data (first 10 after ordering):
-reach_sample = opt.reachability_[opt.ordering_[:10]].round(3)
-print(f"reachability (ordered, first 10): {reach_sample.tolist()}")
-# Output: reachability (ordered, first 10): [inf, 0.361, 0.224, 0.261, 0.265, 0.287, 0.306, 0.318, 0.328, 0.26]`}
-      </CodeBlock>
-
-      <H3>5c. HDBSCAN (hdbscan library)</H3>
-
-      <CodeBlock language="python">
-{`# pip install hdbscan
-import hdbscan
-
-# min_cluster_size: smallest cluster you care about (in points).
-# min_samples: controls conservativeness — higher = more noise, cleaner clusters.
-# cluster_selection_method: 'eom' (excess of mass, default) or 'leaf'.
-hdb = hdbscan.HDBSCAN(min_cluster_size=10, min_samples=5,
-                       cluster_selection_method='eom')
-hdb.fit(X_noisy)
-
-labels_hdb = hdb.labels_          # -1 = noise
-probs_hdb  = hdb.probabilities_   # soft membership [0, 1]
-
-n_clusters_hdb = len(set(labels_hdb)) - (1 if -1 in labels_hdb else 0)
-n_noise_hdb    = (labels_hdb == -1).sum()
-print(f"HDBSCAN n_clusters : {n_clusters_hdb}")
-print(f"HDBSCAN noise pts  : {n_noise_hdb}")
-print(f"membership probs (first 5): {probs_hdb[:5].round(3).tolist()}")
-# With hdbscan installed these values reflect per-point cluster stability scores.
-
-# Cluster persistence scores (how stable each cluster is):
-if hasattr(hdb, 'cluster_persistence_'):
-    print(f"cluster persistence: {hdb.cluster_persistence_.round(3).tolist()}")`}
-      </CodeBlock>
-
-      <Callout type="info" title="HDBSCAN in sklearn 1.3+">
-        sklearn 1.3 added <Code>sklearn.cluster.HDBSCAN</Code> with the same API. For production without the external <Code>hdbscan</Code> package: <Code>from sklearn.cluster import HDBSCAN; hdb = HDBSCAN(min_cluster_size=10, min_samples=5).fit(X)</Code>. The sklearn implementation uses <Code>KDTree</Code> internally and is fast but lacks some diagnostics (cluster_persistence_, condensed_tree_) available in the standalone library.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. DBSCAN vs k-means on moons: decision comparison</H3>
-
-      <Prose>
-        The plot below shows DBSCAN's cluster assignments on the moons dataset (two labeled series) alongside the boundary that k-means always draws — a near-vertical split through the center, cutting each moon in half. The coordinates are approximate but faithfully reflect the computed labels from Section 4.
-      </Prose>
-
-      <Plot
-        label="DBSCAN clusters on make_moons — k-means boundary overlaid"
-        xLabel="x₀"
-        yLabel="x₁"
-        series={[
-          {
-            name: "Cluster 0 (left crescent)",
-            color: colors.gold,
-            points: [
-              [-1.0,0.0],[-0.9,0.3],[-0.8,0.5],[-0.7,0.65],[-0.6,0.75],
-              [-0.5,0.82],[-0.3,0.88],[-0.1,0.9],[0.1,0.88],[0.3,0.82],
-              [0.5,0.72],[0.7,0.58],[0.85,0.42],[0.95,0.22],[1.0,-0.02],
-            ],
-          },
-          {
-            name: "Cluster 1 (right crescent)",
-            color: colors.green,
-            points: [
-              [0.0,-0.1],[0.1,-0.35],[0.3,-0.55],[0.5,-0.68],[0.7,-0.75],
-              [0.9,-0.78],[1.1,-0.75],[1.3,-0.68],[1.5,-0.55],[1.7,-0.38],
-              [1.85,-0.18],[1.95,0.05],[2.0,0.28],
-            ],
-          },
-          {
-            name: "k-means boundary (vertical cut x₀ ≈ 0.5)",
-            color: colors.textMuted,
-            points: [[0.5, -1.1], [0.5, 1.2]],
-          },
-        ]}
-      />
-
-      <H3>6b. Cluster expansion from seed core point</H3>
-
-      <StepTrace
-        label="DBSCAN expansion — moons dataset, starting from point at (-0.85, 0.42)"
-        steps={[
-          {
-            label: "Step 0 — Seed core point",
-            render: () => (
-              <Prose>
-                Point p₀ = (-0.85, 0.42) is selected as the first unvisited point. Its ε-ball (ε=0.3) contains 7 neighbors — more than minPts=5. It is a core point. A new cluster (ID=0) is started. All 7 neighbors are added to the seed set. Labels so far: 1 point assigned.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 1 — First neighbor expansion",
-            render: () => (
-              <Prose>
-                Pop q₁ = (-0.72, 0.58) from the seed set. It has 8 neighbors within ε=0.3 — also a core point. Its neighbors are added to the seed set (deduplicating any already present). Cluster 0 now spans 9 points. The expansion is moving along the arm of the left crescent, following the local density ridge.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Seed set grows along crescent arm",
-            render: () => (
-              <Prose>
-                Processing q₂ = (-0.55, 0.72). Core point with 6 neighbors. Seed set now contains ~18 unique points. The cluster boundary is tracing the curve of the moon — no centroid, no Voronoi cell, just the density chain. Points ahead on the crescent are in the seed set; points on the other moon are not reachable from here because the gap between the two crescents at their closest approach (≈0.4 units) exceeds ε=0.3.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Tip of crescent reached",
-            render: () => (
-              <Prose>
-                Processing q at the tip (0.95, 0.22). This point has only 4 neighbors within ε=0.3 — below minPts=5. It is a border point: it gets assigned to Cluster 0 (reachable from a core point) but does not add its own neighbors to the seed set. Expansion stops here. The far side of the left crescent is not reachable because this tip is the one border point in the moons dataset.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — Cluster 0 complete",
-            render: () => (
-              <Prose>
-                Seed set exhausted after visiting all 100 left-crescent points. 99 core, 1 border, 0 noise in Cluster 0. The algorithm now finds the next unvisited point — which lands on the right crescent. A new cluster ID=1 is started, and the same expansion proceeds identically, completing Cluster 1 with 100 points (all core at this noise level). Total: 2 clusters, 0 noise.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6c. k-distance plot for choosing ε</H3>
-
-      <Prose>
-        The standard technique for choosing ε: compute the distance from each point to its k-th nearest neighbor (with k = minPts - 1), sort these distances in descending order, and plot them. The "elbow" — the point of maximum curvature — is a good estimate for ε. Points above the elbow are in sparse regions; points below are in dense regions. Setting ε at the elbow separates signal from noise.
-      </Prose>
-
-      <Plot
-        label="k-distance plot — make_moons (k=4)"
-        xLabel="points sorted by decreasing k-dist"
-        yLabel="distance to 4th nearest neighbor"
-        series={[
-          {
-            name: "4th-NN distance (sorted desc)",
-            color: colors.gold,
-            points: [
-              [0,0.301],[5,0.244],[10,0.187],[15,0.178],[20,0.164],
-              [30,0.147],[40,0.139],[50,0.130],[70,0.115],[90,0.098],
-              [110,0.085],[130,0.073],[150,0.063],[170,0.055],[190,0.049],[199,0.046],
-            ],
-          },
-          {
-            name: "ε = 0.30 (elbow)",
-            color: colors.green,
-            points: [[0,0.30],[199,0.30]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The elbow is at approximately k-dist = 0.30, matching the ε=0.3 that produced perfect cluster recovery in Section 4. Above the elbow (indices 0–3) are the sparse points at crescent tips; below the elbow the distances fall smoothly, representing the dense interiors of both moons. The k-distance plot is the single most practical tool for DBSCAN parameter selection — it converts the opaque ε choice into a visual inflection point that domain experts can evaluate.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Density-based clustering is not always the right tool. Here is a structured comparison across the four algorithms you are most likely to reach for.
-      </Prose>
-
-      <Heatmap
-        label="Algorithm comparison: DBSCAN vs k-means vs GMM vs HDBSCAN"
-        rowLabels={["DBSCAN", "k-means", "GMM", "HDBSCAN"]}
-        colLabels={["Arb. shape", "Noise hdlg", "Var. density", "No k needed", "Scalability", "Soft member"]}
-        matrix={[
-          [5, 5, 2, 5, 3, 0],
-          [1, 0, 2, 0, 5, 0],
-          [1, 2, 2, 0, 3, 5],
-          [5, 5, 5, 5, 3, 5],
-        ]}
-        colorScale="green"
-      />
-
-      <StepTrace
-        label="when to choose which algorithm"
-        steps={[
-          {
-            label: "DBSCAN — best for: arbitrary shape, known noise",
-            render: () => (
-              <Prose>
-                Choose DBSCAN when: clusters are non-convex (moons, rings, filaments), the dataset has genuine noise you want flagged rather than absorbed into a cluster, you can estimate ε from domain knowledge or a k-distance plot, and density is approximately uniform across all clusters. Wins over k-means on: every dataset where Euclidean distance to a centroid is not a meaningful similarity. Wins over GMM on: datasets where clusters are not ellipsoidal and noise exists. Fails on: variable-density data (inner core dense, outer halo sparse → use HDBSCAN), very high-dimensional data (ε becomes meaningless), and when n is so large that even ball-tree neighbor search is slow.
-              </Prose>
-            ),
-          },
-          {
-            label: "k-means — best for: spherical clusters, large n, known k",
-            render: () => (
-              <Prose>
-                Choose k-means when: you have reason to believe clusters are roughly spherical and similarly sized, you know k (or can determine it cheaply with the elbow method or silhouette score), and n is very large (millions of points) where k-means' O(nkd) per iteration vastly outperforms DBSCAN's neighbor search. k-means is the default for image compression (color quantization), document clustering, and any problem where you genuinely have k natural categories. Never use it when cluster shapes are non-convex — the centroid is not representative and the Voronoi partition will cut through density ridges.
-              </Prose>
-            ),
-          },
-          {
-            label: "GMM — best for: soft assignment, ellipsoidal clusters",
-            render: () => (
-              <Prose>
-                Choose GMM (Gaussian Mixture Models) when: you need probabilistic cluster membership (a point can be 70% in cluster A and 30% in cluster B), clusters may be ellipsoidal with different orientations and scales, and the dataset has no hard noise (or you handle outliers separately). GMM is strictly more expressive than k-means (which is a special case with spherical, equal-variance Gaussians). Fails on: highly non-Gaussian distributions, ring-shaped or filamentary clusters, and datasets with genuine outliers (GMMs fit everything with a nonzero probability, including noise).
-              </Prose>
-            ),
-          },
-          {
-            label: "HDBSCAN — best for: variable density, real-world messy data",
-            render: () => (
-              <Prose>
-                Choose HDBSCAN when: clusters have different densities (e.g., a tight urban cluster and a diffuse rural cluster in the same dataset), you want soft membership scores to quantify how confidently each point belongs to its cluster, or you want to avoid tuning ε manually. HDBSCAN is the strongest general-purpose density-based method. Its main cost: the MST-based construction is roughly O(n² log n) without approximations, making it slow for n {">"} 100k. The approximate variant in the hdbscan library (using KD-tree for core distance computation) handles up to ~1M points in practice. If you have {">"} 1M points, consider DBSCAN with ball-tree or a distributed variant.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn{"'"}t</H2>
-
-      <H3>8.1 Computational complexity</H3>
-
-      <Prose>
-        Naive DBSCAN with brute-force neighbor search computes all pairwise distances: <strong>O(n²)</strong> time and O(n²) space. This is the implementation in Section 4 and it is unusable above n ≈ 50,000 on a standard laptop. With a spatial index — <em>kd-tree</em> or <em>ball-tree</em> — each neighborhood query costs O(log n) on average, bringing the total to <strong>O(n log n)</strong> in low-dimensional spaces (d ≤ 10). sklearn's default for small datasets is a kd-tree; for larger datasets or non-Euclidean metrics, use <Code>algorithm='ball_tree'</Code>, which generalizes better to higher d.
-      </Prose>
-
-      <Prose>
-        The critical caveat is the <em>curse of dimensionality</em>. In high-dimensional spaces, the volume of the ε-ball scales as ε^d. For d = 100 and ε = 1, the ball contains essentially the entire dataset — every point becomes a neighbor of every other point, all points become core, and DBSCAN produces one giant cluster. The kd-tree ceases to provide any speedup because the tree degenerates: every query requires examining O(n) leaves. The sklearn documentation explicitly warns that kd-trees are ineffective for d {">"} 20. For high-d data, DBSCAN needs either a dimensionality reduction step (UMAP, PCA) applied first, or a different metric entirely.
-      </Prose>
-
-      <H3>8.2 HDBSCAN scaling</H3>
-
-      <Prose>
-        HDBSCAN's MST construction on the mutual reachability graph is O(n² log n) in the worst case. The hdbscan library uses Prim's algorithm with a KD-tree for the core distance computation, bringing the practical runtime to approximately O(n^1.5) on low-dimensional data — usable to ~500k points. For n {">"} 1M, the library supports approximate nearest neighbor search via a random projection forest, degrading gracefully from exact to approximate results.
-      </Prose>
-
-      <H3>8.3 Distributed and large-scale variants</H3>
-
-      <Prose>
-        Apache Spark MLlib does not implement DBSCAN natively as of 2026, but the community-maintained <Code>spark-dbscan</Code> library implements a distributed variant: partition the space into grid cells, run local DBSCAN on each partition plus its border, then merge border clusters. The correctness guarantee requires that the partition borders overlap by ε on each side. PDBSCAN (Parallel DBSCAN) uses a similar cell-decomposition strategy and achieves near-linear scaling on clusters of commodity machines. For most practical cases below n = 5M in 2D–10D space, sklearn with <Code>algorithm='ball_tree'</Code> and <Code>n_jobs=-1</Code> is fast enough without distributed infrastructure.
-      </Prose>
-
-      <H3>8.4 Practical scaling thresholds</H3>
-
-      <Prose>
-        The table below summarizes observed practical limits on a modern laptop (16 GB RAM, 8-core CPU) to help calibrate which algorithm and mode to reach for at each scale. Times are approximate for d=2, minPts=5.
-      </Prose>
-
-      <Heatmap
-        label="Practical runtime guide by n — DBSCAN variants (d=2, 8-core laptop)"
-        rowLabels={["DBSCAN brute", "DBSCAN ball-tree", "DBSCAN ball-tree n_jobs=-1", "HDBSCAN exact", "HDBSCAN approx"]}
-        colLabels={["n=10k", "n=100k", "n=500k", "n=1M", "n=5M"]}
-        matrix={[
-          [5, 1, 0, 0, 0],
-          [5, 4, 3, 2, 1],
-          [5, 5, 4, 3, 1],
-          [5, 4, 2, 1, 0],
-          [5, 5, 4, 3, 2],
-        ]}
-        colorScale="purple"
-      />
-
-      <Callout type="info" title="Reading the table">
-        Score 5 = comfortably feasible (seconds). Score 3 = feasible with patience (minutes). Score 1 = slow but possible ({">"} 10 min). Score 0 = not recommended (hours or OOM). HDBSCAN approx uses random projection forests for nearest-neighbor search, trading a small accuracy loss for a 10-100x speedup at large n.
-      </Callout>
-
-      <Prose>
-        One frequently overlooked bottleneck is memory, not time. DBSCAN with brute-force builds an explicit n×n distance matrix in memory: at n=50k that is 50,000² × 8 bytes = 20 GB — exceeding available RAM before the algorithm even runs. The ball-tree avoids this entirely: it stores only the index structure (O(n log n) space) and computes distances on demand. Always specify <Code>algorithm='ball_tree'</Code> for any n above ~10,000 with continuous features. With precomputed distances (<Code>metric='precomputed'</Code>), the n×n matrix is unavoidable — restrict to n {"<"} 20,000 or use sparse distance matrices.
-      </Prose>
-
-      <Plot
-        label="Approximate runtime scaling — DBSCAN brute vs ball-tree vs HDBSCAN (d=2)"
-        xLabel="n (dataset size)"
-        yLabel="relative runtime (log scale)"
-        series={[
-          {
-            name: "DBSCAN brute O(n²)",
-            color: colors.gold,
-            points: [[1000,1],[5000,25],[10000,100],[50000,2500],[100000,10000]],
-          },
-          {
-            name: "DBSCAN ball-tree O(n log n)",
-            color: colors.green,
-            points: [[1000,1],[5000,6],[10000,13],[50000,79],[100000,170]],
-          },
-          {
-            name: "HDBSCAN (approx)",
-            color: colors.textMuted,
-            points: [[1000,3],[5000,20],[10000,50],[50000,350],[100000,800]],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 ε too small: everything becomes noise</H3>
-
-      <Prose>
-        If ε is below the inter-point spacing of your densest cluster, no point will have minPts neighbors within ε. Every point is classified as noise and DBSCAN returns a single label: -1 for all n points. The symptom is immediate: <Code>n_clusters = 0</Code>. Diagnosis: the k-distance plot (Section 6c) — the chosen ε is below the elbow, meaning you are in the steep part of the plot where distances are large. Fix: increase ε to the elbow, or reduce minPts so that the minPts-th-NN distance for most points falls below ε.
-      </Prose>
-
-      <H3>9.2 ε too large: one mega-cluster</H3>
-
-      <Prose>
-        If ε equals or exceeds the gap between any two clusters, DBSCAN chains across the gap and merges them into one cluster. The result is <Code>n_clusters = 1</Code> containing the entire dataset, with a small number of genuine outliers still labeled as noise. This is the mirror image of the previous failure. The k-distance plot shows the chosen ε is above the elbow, in the flat region where most inter-cluster distances lie. Fix: decrease ε to the elbow. If the two problems are happening simultaneously — some clusters merge while others turn to noise — you are likely dealing with variable density, which is the next failure.
-      </Prose>
-
-      <H3>9.3 Variable density defeats plain DBSCAN</H3>
-
-      <Prose>
-        Plain DBSCAN uses one global ε. If your data has a dense urban cluster (tight, small radii) and a diffuse rural cluster (sparse, large radii), no single ε can satisfy both. Too small: the rural cluster becomes noise. Too large: the urban cluster merges with its halo. This is the motivation for both OPTICS (inspect the reachability plot and pick cluster-specific thresholds) and HDBSCAN (automatically selects the optimal density threshold per cluster via excess-of-mass). If you cannot switch algorithms, a workaround is to normalize each local region of feature space separately — but this is fragile and not recommended.
-      </Prose>
-
-      <H3>9.4 High-dimensional data</H3>
-
-      <Prose>
-        The curse of dimensionality makes the ε parameter ambiguous in high-d space. In d = 100, the ratio of the maximum to minimum pairwise distance converges to 1 as n grows — all points are essentially equidistant. The ε-neighborhood either contains everyone (ε too large) or no one (ε too small). There is no elbow in the k-distance plot because there is no meaningful density variation in the raw feature space. Fix: apply dimensionality reduction before DBSCAN. UMAP to 2–10 dimensions followed by DBSCAN or HDBSCAN is the modern standard; the UMAP embedding preserves local density structure that the raw features obscure.
-      </Prose>
-
-      <H3>9.5 Categorical and non-Euclidean features</H3>
-
-      <Prose>
-        DBSCAN works with any metric. Setting <Code>metric='cosine'</Code> is natural for text; <Code>metric='haversine'</Code> is correct for geographic (lat/lon) data; a precomputed distance matrix (<Code>metric='precomputed'</Code>) handles custom similarities. The common mistake is running DBSCAN with Euclidean distance on one-hot-encoded categorical data. In that space, "distance" is the Hamming distance scaled by sqrt(2), and the ε that makes sense for numeric features has no meaning for categorical ones. Use a semantically appropriate metric, or encode categoricals as embeddings before clustering.
-      </Prose>
-
-      <H3>9.6 Border point non-determinism</H3>
-
-      <Prose>
-        Border points — those within ε of multiple clusters' core points — are assigned to whichever cluster's core point is processed first. This assignment is non-deterministic with respect to visit order, which depends on the input ordering. If you sort your data differently, border points may swap cluster labels. Core point assignments and noise point assignments are fully deterministic given ε and minPts. If your application requires stable border assignments, use HDBSCAN, which resolves this by assigning each point to the cluster for which its membership probability is highest.
-      </Prose>
-
-      <H3>9.7 Evaluating clustering quality without ground-truth labels</H3>
-
-      <Prose>
-        Clustering is unsupervised — you typically do not have ground-truth labels to compute accuracy against. The standard evaluation toolkit: <strong>Silhouette score</strong> measures how much closer a point is to its own cluster's centroid than to the nearest other cluster's centroid, ranging from -1 (wrong cluster) to 1 (perfect separation). Scores above 0.5 are generally good. For DBSCAN, compute silhouette only on non-noise points — noise points have no cluster and would distort the score. <strong>Davies-Bouldin index</strong> measures the ratio of within-cluster scatter to between-cluster separation — lower is better. <strong>Calinski-Harabasz index</strong> (variance ratio criterion) — higher is better — favors compact, well-separated clusters. None of these metrics favor any particular shape, which makes them safe to use with DBSCAN's non-convex clusters. What they cannot detect is whether the clusters are semantically meaningful — that still requires domain expertise and qualitative inspection.
-      </Prose>
-
-      <Callout type="warning" title="Normalization is load-bearing">
-        DBSCAN's ε is a distance in feature space. If feature 1 ranges from 0 to 1 and feature 2 ranges from 0 to 10,000, the ε-ball is almost entirely in the direction of feature 2. The result is directional clustering that ignores feature 1 entirely. Always <Code>StandardScaler</Code> or <Code>MinMaxScaler</Code> your features before calling DBSCAN. The same ε value means entirely different things across different feature scales.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified against ACM DL, Springer, and JOSS. Read in chronological order for the full intellectual lineage.
-      </Prose>
-
-      <StepTrace
-        label="primary literature — density-based clustering"
-        steps={[
-          {
-            label: "Ester, Kriegel, Sander, Xu 1996 — DBSCAN (KDD '96)",
-            render: () => (
-              <Prose>
-                Ester, M., Kriegel, H.-P., Sander, J., and Xu, X. (1996). "A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise." In <em>Proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD '96)</em>, Portland, Oregon. AAAI Press. pp. 226–231. This is the paper that defined ε-neighborhoods, core/border/noise classification, density-reachability, density-connectivity, and the DBSCAN algorithm. The experimental evaluation used synthetic data and the SEQUOIA 2000 benchmark (real geographic data from California). The paper also introduced the k-distance plot as the primary tool for ε selection — the same tool in Section 6c. ACM DL: 10.5555/3001460.3001507.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ankerst, Breunig, Kriegel, Sander 1999 — OPTICS (SIGMOD '99)",
-            render: () => (
-              <Prose>
-                Ankerst, M., Breunig, M.M., Kriegel, H.-P., and Sander, J. (1999). "OPTICS: Ordering Points To Identify the Clustering Structure." <em>ACM SIGMOD Record</em>, 28(2), 49–60. DOI: 10.1145/304181.304187. OPTICS computes a reachability plot — an augmented linear ordering of all database points where the reachability distance encodes the density structure at every scale simultaneously. The key concept: a cluster in the reachability plot appears as a "valley" — a contiguous sequence of low-reachability points bounded by high-reachability transitions. Different depth thresholds on the plot give different clusterings. This paper extended the intellectual framework of DBSCAN to hierarchical density-based analysis without requiring a single global density parameter.
-              </Prose>
-            ),
-          },
-          {
-            label: "Campello, Moulavi, Sander 2013 — HDBSCAN (PAKDD 2013)",
-            render: () => (
-              <Prose>
-                Campello, R.J.G.B., Moulavi, D., and Sander, J. (2013). "Density-Based Clustering Based on Hierarchical Density Estimates." In <em>Advances in Knowledge Discovery and Data Mining, PAKDD 2013</em>. Lecture Notes in Computer Science, vol. 7819. Springer, Berlin, Heidelberg. pp. 160–172. DOI: 10.1007/978-3-642-37456-2_14. This paper introduced mutual reachability distance, the cluster hierarchy (condensed tree), cluster stability via excess-of-mass, and the algorithm for extracting an optimal flat partition from the hierarchy. The formalization of "cluster stability" is the paper's central contribution — it gives a principled answer to "which subtree of the density hierarchy should I extract?" rather than requiring the practitioner to pick a threshold manually. Full paper is available via Springer Link.
-              </Prose>
-            ),
-          },
-          {
-            label: "McInnes, Healy, Astels 2017 — hdbscan library (JOSS)",
-            render: () => (
-              <Prose>
-                McInnes, L., Healy, J., and Astels, S. (2017). "hdbscan: Hierarchical density based clustering." <em>Journal of Open Source Software</em>, 2(11), 205. DOI: 10.21105/joss.00205. Available: joss.theoj.org/papers/10.21105/joss.00205. This paper describes the <Code>hdbscan</Code> Python library, which brought HDBSCAN to the scientific Python ecosystem with a sklearn-compatible API. Key implementation details: Prim's algorithm on the mutual reachability graph, KD-tree for core distance computation, and both exact and approximate (random projection forest) modes. The library also introduced soft clustering via cluster membership probabilities (<Code>probabilities_</Code>) and outlier detection via GLOSH (Global-Local Outlier Score from Hierarchies). The library is now maintained under scikit-learn-contrib on GitHub.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving on. The answer is below each question — resist reading ahead.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Define core point, border point, and noise point in terms of ε and minPts. Which of these three classifications is non-deterministic (i.e., can change depending on the order points are visited), and why?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        A core point has |N_ε(p)| ≥ minPts — at least minPts points within distance ε (including itself). A border point has |N_ε(p)| {"<"} minPts but falls within the ε-ball of at least one core point. A noise point has |N_ε(p)| {"<"} minPts and is not within ε of any core point. Core and noise classifications are deterministic — they depend only on the point's own neighborhood, which is fixed given ε and minPts. Border points are non-deterministic: a border point in the overlap zone between two clusters is assigned to whichever cluster's core point processes it first, which depends on visit order (input ordering). Different orderings can give different cluster labels to border points.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Prove that density-connectedness is symmetric but direct density-reachability is not. Give a concrete 3-point example that demonstrates the asymmetry.
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        Direct density-reachability from p to q requires q ∈ N_ε(p) AND p is a core point. It is not symmetric because q need not be a core point. Example: p = (0,0), q = (0.2, 0), r = (0.1,0) are all within ε=0.3 of each other. Suppose p and r have 5 neighbors total (core), but q has only 3 (not core, minPts=5). Then q is directly density-reachable from p (p is core and q ∈ N_ε(p)), but p is NOT directly density-reachable from q (q is not a core point). Density-connectivity is symmetric: p and q are density-connected if there exists a core point o from which both are density-reachable. Here o = p itself: p is density-reachable from p (trivially), and q is density-reachable from p. So p and q are density-connected — mutual.
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        You run DBSCAN on a dataset and get <Code>n_clusters = 1</Code> containing 98% of all points, with 2% noise. You run it again with ε halved and get <Code>n_clusters = 0</Code> with 100% noise. What does this tell you about the dataset and the appropriate choice of ε? What tool should you use to diagnose the right ε?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        The first run (ε too large) shows the data has structure — the 2% noise are genuine outliers. The second run (ε too small) shows the inter-point distances within real clusters are larger than the halved ε. The right ε lies between the two values you tried. Use the k-distance plot: compute the k-th nearest neighbor distance for every point (k = minPts - 1), sort in descending order, plot, and identify the elbow. The elbow marks the transition between sparse (noise) and dense (cluster interior) distances. Set ε at the elbow. If the k-distance plot has multiple elbows, the dataset has clusters of different densities — in that case, switch to HDBSCAN which handles variable density automatically.
-      </Callout>
-
-      <H3>Exercise 4 (implementation)</H3>
-      <Prose>
-        You implement DBSCAN from scratch and your seed-set expansion loop runs correctly on small data but is extremely slow on n=5,000 points. Profiling shows the bottleneck is inside <Code>get_neighbors</Code>. (a) What is the current complexity and why is it slow? (b) What data structure reduces this, and what is the improved complexity? (c) Write the one-line sklearn call that uses this data structure.
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        (a) Brute-force: get_neighbors(i) computes |X - X[i]| for all n points and selects those within ε. Called once per point, this is O(n) per call × n calls = O(n²) total. For n=5,000 that is 25M distance computations — slow but correct. (b) A ball-tree or kd-tree indexes the data spatially. Each neighborhood query costs O(log n) on average in low d, bringing the total to O(n log n). (c) <Code>DBSCAN(eps=0.3, min_samples=5, algorithm='ball_tree').fit(X)</Code>. In sklearn you can also pass <Code>n_jobs=-1</Code> to parallelize the neighbor queries across CPU cores, giving a further speedup proportional to core count.
-      </Callout>
-
-      <H3>Exercise 5 (applied)</H3>
-      <Prose>
-        A colleague runs DBSCAN on customer purchase coordinates (latitude/longitude) and gets poor results — many points labeled as noise despite visually obvious clusters. They used <Code>eps=0.5, min_samples=5, metric='euclidean'</Code>. Identify two problems with this setup and give the correct approach.
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Problem 1: Wrong metric. Euclidean distance on raw latitude/longitude degrees does not correspond to geographic distance — one degree of longitude near the equator is ~111 km, but near the poles it is nearly 0 km. The physically correct metric for spherical coordinates is the haversine distance. Fix: <Code>metric='haversine'</Code> in sklearn DBSCAN, which expects coordinates in radians: <Code>X_rad = np.radians(X_latlon)</Code>. Problem 2: Wrong ε units. Even with haversine, ε=0.5 is 0.5 radians ≈ 3,185 km — far too large, covering half a continent. A reasonable ε for city-level clustering is on the order of 1–5 km, which in radians is 1/6371 to 5/6371 ≈ 0.00016 to 0.00078. Use a k-distance plot with haversine distances to calibrate ε before fitting.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        Explain why HDBSCAN is strictly more general than DBSCAN. Then describe a real-world dataset where you would prefer plain DBSCAN over HDBSCAN despite HDBSCAN being more general, and justify your reasoning.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        HDBSCAN is strictly more general because it performs DBSCAN's analysis over the full range of ε simultaneously, then extracts the most stable flat partition from the resulting hierarchy. Plain DBSCAN at a fixed ε is a special case of reading the HDBSCAN hierarchy at exactly that ε level. HDBSCAN additionally handles variable-density clusters, provides soft membership probabilities, and requires only min_cluster_size rather than the more sensitive ε parameter. A case where DBSCAN is preferable: a large-n, low-d spatial dataset (n = 2M, d = 2) where you have domain knowledge that all clusters have approximately the same density and you can determine ε from physical constraints (e.g., "buildings within 50 meters form a block"). In this case DBSCAN with ball-tree runs in O(n log n) ≈ minutes, while HDBSCAN's MST construction is O(n² log n) in the worst case ≈ hours for 2M points without approximations. The speed advantage of DBSCAN plus domain-informed ε makes it the better choice when the generality of HDBSCAN is unnecessary.
-      </Callout>
-
-    </div>
-  ),
+  title: 'DBSCAN & Density-Based Clustering',
+  readTime: '~65 min first pass · ~110 min complete read + 60–90 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot dbscan-lesson">
+    <LessonIntro prerequisites={<>Coordinates, distance comparisons and a Python loop are enough to start; Euclidean distance, graph paths and standardization are refreshed here. <a href="/learn/path/full-curriculum/k-means-hierarchical-clustering?module=classical-ml">K-Means &amp; Hierarchical Clustering</a> and <a href="/learn/path/full-curriculum/clustering-evaluation-validation-silhouette-ari-nmi?module=classical-ml">Clustering Evaluation</a> supply useful comparisons and the reporting conventions reused in section 7.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      Learn to group observations through crowded neighbourhoods rather than around centers: count a radius neighbourhood by hand, build the graph of core rows, watch a border row join without transmitting, fit the 150 real Iris flowers offline and report how many were left out, and prove when no single radius can satisfy two densities at once. Every lab records a prediction before it reveals a result.
+    </LessonIntro>
+    <Prose className="db-route"><strong>First pass.</strong> Read sections 1 through 8, work the neighbour table and the border prediction in the first lab, and run Programs 1 to 3. Then attempt practice A to E and the Iris report in section 13. That route teaches you to explain and apply DBSCAN. Sections 9 to 12 are deeper branches on density hierarchies, larger datasets and new observations; return to them when their questions arise. Allow roughly 60 to 75 minutes of reading for the core and another 60 to 90 minutes for code and practice.</Prose>
+    <Prose>Suppose you mark where a survey found flowers along a winding trail. You want groups of nearby observations, including groups that bend with the trail, and you want to leave isolated observations ungrouped. Choosing two centers answers a different question: which center is closest to each observation? DBSCAN instead asks whether observations can be linked through sufficiently crowded neighbourhoods.</Prose>
+    <Prose>Later we return to real flower measurements: the 150-row Iris dataset used in the preceding clustering-evaluation lesson. Can a local-density rule recover useful groups from four measurements, and how much of the dataset does it leave out? The trail below is an invented hand-calculation example; Iris is measured data. They have different jobs.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>Take ten survey observations on a straight trail. Every row represents one observation, even if two rows eventually have identical coordinates. Their positions, in invented meters relative to a landmark, are:</Prose>
+    <LessonTable caption="The ten trail rows" headers={['ID', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']} rows={[['x', '−1.75', '−1.50', '−1.25', '−1.00', '1.00', '1.25', '1.50', '1.75', '0', '4']]} />
+    <Prose>Along this line, distance is |x − y|. In a two-coordinate map it becomes Euclidean distance: square the horizontal and vertical differences, add them, then take the square root. A displacement of 3 meters horizontally and 4 vertically has distance √(9 + 16) = 5 meters.</Prose>
+    <Prose>Choose a radius <strong>ε = 1 meter</strong> and a count <strong>m = 4 observations</strong>. The library names these <Code>eps</Code> and <Code>min_samples</Code>; papers often call the count MinPts. The neighbourhood of row p is</Prose>
+    <MathBlock>{'N_\\varepsilon(p)=\\{q:d(p,q)\\leq\\varepsilon\\}.'}</MathBlock>
+    <Prose>In words, collect every observation no farther than the radius. <strong>Count p itself. Include a point exactly on the boundary.</strong> We use this convention throughout. A neighbourhood is a set of row identities, not a set of unique coordinate values.</Prose>
+    <Prose>At D = −1, the interval is [−2, 0]. It contains A, B, C, D and I: five observations. At I = 0, the interval is [−1, 1]. It contains D, I, E: three. D is a crowded starting point even though I, one of its neighbours, is not.</Prose>
+    <TrailRosterFigure />
+    <Prose>We now name three types:</Prose>
+    <LessonTable caption="The three row types" headers={['type', 'test', 'role']} rows={[
+      ['Core', 'At least m rows in its own neighbourhood', 'Can extend a cluster through its neighbours'],
+      ['Border', 'Not core, but inside a core row’s neighbourhood', 'Joins that cluster; cannot extend it'],
+      ['Noise', 'Neither core nor adjacent to any core', 'Receives no cluster assignment']
+    ]} />
+    <Prose>For the trail, the counts are [4, 4, 4, 5, 5, 4, 4, 4, 3, 1]. A to H are core. I is border because D and E are core neighbours. J is noise: it has only itself and no core neighbour. In scikit-learn, noise has label −1.</Prose>
+    <Callout title="What a noise label means, once for the whole lesson">
+      The labels describe the chosen density rule and nothing else. An observation labelled noise can be a valid rare flower, a sampling artifact or a measurement error; deciding which is the next lesson’s anomaly-detection task. Likewise a border row is a row that joined without being crowded enough to transmit, not a doubtful or lower-quality observation. We use these words as geometric roles from here on and will not repeat this caution after every result.
+    </Callout>
+    <Checkpoint prompt="If a row has only three neighbours when m = 4, have you established that it is noise?">
+      <Prose>No. You have established only that it is not core. You still need to inspect its neighbours: if any of them is core, the row is border and joins that core row’s component.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[1]}</H2>
+    <Prose>A graph is a collection of vertices and links. Make one vertex for each <strong>core</strong> row. Join two core vertices when their distance is at most ε. A connected component is a group in which you can travel between every pair along links.</Prose>
+    <Prose>The trail has two core components: {'{A, B, C, D}'} and {'{E, F, G, H}'}. Within each group, the largest separation is 0.75 meter, so all pairs are linked at ε = 1. Between the groups, the closest core pair is D and E, distance 2 meters, so there is no core link between them.</Prose>
+    <Prose>Now attach each noncore row to any component containing one of its core neighbours. I lies exactly 1 meter from both D and E. It can attach to either component, but it cannot join the two components together: I is not a core vertex. J attaches to neither.</Prose>
+    <BorderTransmissionFigure />
+    <Prose>This construction explains the shape freedom. A long chain of core rows can turn a corner or curve around an empty region; it does not need one representative center. Consecutive links must be short, but the two ends of a long component can be much farther apart than ε. Sparse gaps stop expansion only when there is no chain of qualifying core rows across them.</Prose>
+    <Prose>The graph also gives a correctness argument. Starting from a core vertex and visiting its core neighbours repeatedly reaches every core vertex in its connected component: follow any path one edge at a time. It cannot reach a different core component, since that would supply a path connecting the two. Adding adjacent noncore rows afterward preserves this core partition. This is why the graph description and the expansion algorithm below agree.</Prose>
+    <H3>Which results depend on input order?</H3>
+    <Prose>Core, border and noise <strong>types</strong> depend on distances and counts. They stay the same if rows are reordered. The partition of core rows also stays the same. Numeric cluster IDs can be renamed, so compare sets of row IDs rather than asking whether an integer label changed.</Prose>
+    <Prose>A border row shared by several core components is different. Ordinary DBSCAN assigns it to the first component that reaches it. With A visited first, I joins the left group; with H visited first, I joins the right group. The row remains border in both runs. Neither assignment is a claim that one side is more probable.</Prose>
+    <DbscanTrailLab />
+
+    <H2>{headings[2]}</H2>
+    <Prose>The vocabulary in papers expresses the same mechanism.</Prose>
+    <LessonTable caption="Reachability vocabulary" headers={['term', 'meaning']} rows={[
+      ['q is directly density-reachable from p', 'p is core and q is in p’s neighbourhood. The arrow points from the transmitting core to its neighbour.'],
+      ['q is density-reachable from p', 'There is a chain of these arrows. Every transmitting row along the chain is core; the final row may be border. A zero-step chain lets a row reach itself.'],
+      ['p and q are density-connected', 'Some row o can reach both of them.']
+    ]} />
+    <Prose>D → I is allowed at ε = 1, m = 4. I → D is not: I has only three neighbours. Thus direct reachability, and reachability in general, need not be symmetric. Density connectivity is symmetric because exchanging p and q does not change “o reaches both.”</Prose>
+    <Prose>There is a subtle reason for keeping the core graph explicit. Density connectivity need not be transitive across all rows. In our trail, D and I are density-connected; I and E are density-connected; D and E are not. The shared border row makes the first two statements true without supplying a core path for the third. On core rows, connected components give the unambiguous equivalence classes. Ordinary DBSCAN then makes a disjoint border-assignment choice.</Prose>
+    <Prose>Some descriptions call each core component plus all its reachable border points a density cluster. Such border-inclusive sets can overlap. Distinguish those mathematical sets from the single integer label per row returned by a usual implementation. The variant <strong>DBSCAN*</strong> keeps only the core components and leaves all noncore rows unassigned. We meet it again when constructing a density hierarchy.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <Prose>Save the first program as <Code>trail_dbscan.py</Code> and run <Code>python trail_dbscan.py</Code> with Python 3. It needs only the standard library. The implementation is for small finite coordinate lists, positive ε and positive integer m. It stores the neighbourhood lists so the mechanism is inspectable.</Prose>
+    <Prose>Later programs also use NumPy and scikit-learn. In your chosen Python environment, install them with <Code>python -m pip install numpy scikit-learn</Code>, save each complete block as its own file, then run <Code>python filename.py</Code>. The real-data block reads a CSV saved beside it. The recorded outputs were executed with NumPy 2.3.5, SciPy 1.18.1 and scikit-learn 1.9.1; package-specific output is not promised across every future version.</Prose>
+    <Program example={dbscanExamples.trail}><Prose>Only a core row enters <Code>pending</Code>. Every newly assigned row receives its label once, so border rows do not transmit and the finite loop terminates. This code precomputes the types, avoiding a separate visited or noise-candidate state. An on-demand expansion can visit a noncore row early and tentatively leave it unassigned; a later core expansion may still assign it as border. “Visited” must not mean “permanently noise.”</Prose></Program>
+    <Prose>Reverse <Code>points</Code>, run again and restore the original row order before comparing. The components stay intact while I’s attachment changes. Sorting rows is therefore a reproducibility choice, not a repair for every border ambiguity.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>ε has distance units; m is a count. The pair specifies a local crowding rule, not a requested number of clusters. Increasing ε at fixed m expands every neighbourhood. A core row stays core, and an assigned row cannot become noise. However, the <strong>number</strong> of clusters can first increase as new core components appear and later decrease as components join.</Prose>
+    <LessonTable caption="The trail at five radii with m = 4; exact fixture values, checked with scikit-learn 1.9.1" headers={['ε (meters)', 'core', 'border', 'noise', 'core components']} rows={[['0.125', 0, 0, 10, 0], ['0.5', 4, 4, 2, 2], ['0.75', 8, 0, 2, 2], ['1', 8, 1, 1, 2], ['1.25', 9, 0, 1, 1]]} />
+    <Prose>At 1.25, I gains C and F as neighbours. Its count reaches 5; it becomes core and supplies a path between D and E. The repeated one-component result now has a different explanation from “everything is close to a center.”</Prose>
+    <Prose>At fixed ε, raising m can remove core vertices, break components or turn observations into border or noise. It need not reduce the number of clusters. If m = 1, every row is core because it counts itself: DBSCAN reduces to connected components of the radius-neighbour graph, with no noise. These limiting cases are valuable checks on your reasoning.</Prose>
+    <H3>The neighbour-distance plot has an exact interpretation</H3>
+    <Prose>For each row p, sort its distances to <strong>all rows including itself</strong>. Let c_m(p) be entry m, counting from 1. Then</Prose>
+    <MathBlock>{'\\begin{gathered}p\\text{ is core at radius }\\varepsilon\\\\ \\iff c_m(p)\\leq\\varepsilon.\\end{gathered}'}</MathBlock>
+    <Prose>For m = 4, the trail’s c-values in A to J order are [0.75, 0.5, 0.5, 0.75, 0.75, 0.5, 0.5, 0.75, 1.25, 2.75]. This is the same core test as counting a radius neighbourhood, viewed in the opposite direction: instead of fixing radius and asking how many, fix count and ask how far.</Prose>
+    <Prose>If m exceeds the total row count, there is no m-th entry. Define c_m = ∞ for this comparison: no finite radius can make a core. If a library omits the query row, its value is the distance to the (m − 1)-th other neighbour. With an explicit scikit-learn query <Code>kneighbors(X)</Code>, the row itself is present, so request <Code>n_neighbors=m</Code> and use column <Code>m-1</Code>. An omitted-query <Code>kneighbors()</Code> uses a different self-exclusion convention; do not mix the two calls.</Prose>
+    <Program example={dbscanExamples.coreRadius}><Prose>For a real dataset, plot every sorted value against its rank. A bend can suggest a density scale worth trying. The plot does not know the scientific meaning of a group, and some datasets have no distinctive bend. Examine a range of radii and report the corresponding core components, coverage and stability.</Prose></Program>
+    <CoreRadiusFigure />
+
+    <H2>{headings[5]}</H2>
+    <Prose>If the trail is converted from meters to centimeters, multiply every coordinate <strong>and ε</strong> by 100. Every comparison is preserved, so the core graph is identical. Multiplying coordinates alone keeps the number 1 but changes its meaning from 1 meter to 1 centimeter.</Prose>
+    <Prose>For features with different meanings, use an explicit weighted distance:</Prose>
+    <MathBlock>{'\\begin{gathered}d_w(x,z)=\\sqrt{\\sum_{j=1}^{d} w_j(x_j-z_j)^2},\\\\ w_j\\geq0.\\end{gathered}'}</MathBlock>
+    <Prose>Multiplying feature j by √w_j turns ordinary Euclidean distance in the transformed coordinates into this distance. Standardization is one choice: subtract each feature’s mean and divide by its standard deviation. It gives equal numerical weight to a one-standard-deviation change, which may or may not match your question. In a map measured in meters on both axes, independently standardizing the axes can distort physical proximity. Choose deliberately.</Prose>
+    <Prose>A concrete geometry check uses four corners (0,0), (1,0), (0,2), (1,2) with ε = 1, m = 2. Initially there are two horizontal pairs. Multiply only y by 0.5, keeping ε = 1: every point can reach its horizontal and vertical neighbours, so the radius graph becomes one component. Transform both axes by the same positive factor and ε by that factor: the original result returns. This null distinguishes a change of units from a change of metric.</Prose>
+    <DbscanMetricLab />
+    <Prose>For geographic positions, raw latitude and longitude degrees are not uniform meter coordinates. With a spherical Earth approximation, scikit-learn’s haversine metric takes [latitude, longitude] in radians and returns an angle. A 2 km radius corresponds to 2/6371 ≈ 0.000313922 radians if you explicitly choose Earth radius 6371 km. A suitable local projected coordinate system can instead supply meter coordinates. Geography determines that choice; standardizing latitude and longitude does not fix the distance model.</Prose>
+    <Program example={dbscanExamples.geographic}><Prose>Adjacent first-three separations are about 1.112 km; their endpoints are about 2.224 km apart. The chain still connects them. This equatorial example is a unit calculation, not a geographic benchmark.</Prose></Program>
+
+    <H2>{headings[6]}</H2>
+    <Prose>Iris contains 150 flowers, with sepal length and width and petal length and width measured in centimeters, 50 from each of three named species. A sepal is the outer flower part below the petals. The data are associated with Fisher’s 1936 study of using multiple measurements to distinguish groups. Here we ask a different, unsupervised question: which measurements are crowded together without providing species to the clustering rule?</Prose>
+    <Prose>This page offers <a href="/learn-assets/dbscan/iris.csv" download>the 150 rows as a CSV</a>: row IDs 0 to 149, the four features in that order and species codes 0 setosa, 1 versicolor, 2 virginica. It is the corrected Iris copy bundled with scikit-learn 1.9.1, exported without reordering; attribution and construction are in the references. It repeats the preceding lesson’s data on purpose: changing the grouping rule while keeping the records recognizable makes the comparison useful.</Prose>
+    <Prose>Our <strong>data unit</strong> is one measured flower. The following fit is a descriptive analysis of this finite collection, not a test of performance on future flowers. All 150 feature rows are available to fit the scaler. Species are held aside until after the density settings have been declared. A predictive task would need a separate frozen reference set and an explicit new-row rule; section 12 explains that difference.</Prose>
+    <Prose>Use all four standardized features, m = 5, and inspect ε = 0.3, 0.5, 0.8 and 1 as a declared sensitivity grid. These are teaching settings to investigate, not a claim that the best radius is known in advance. Keep the feature order and metric fixed while comparing radii. Always show the number of returned clusters, noise, core and border counts and <strong>coverage = assigned rows / 150</strong>. A one-cluster, all-assigned baseline has 100% coverage; an all-noise result has 0%. Neither alone answers the flower question.</Prose>
+    <H3>Program 3: an offline report, including the rejected rows</H3>
+    <Prose>Put <Code>iris.csv</Code> beside <Code>iris_dbscan.py</Code>, then run <Code>python iris_dbscan.py</Code>.</Prose>
+    <Program example={dbscanExamples.iris}><Prose>The three-cluster result at 0.3 retains only 30 flowers. Its cluster count matching the three species is therefore a weak reason to prefer it. At 0.8, two large dense groups cover 146 flowers. Revealing species after the fit shows a group related to setosa and another joining many versicolor and virginica measurements. The result is a density grouping in the four-feature representation, not a renamed species classifier.</Prose></Program>
+    <LessonTable caption="Executed summary of the four declared radii, m = 5, standardized features" headers={['ε', 'clusters', 'group sizes', 'noise', 'coverage', 'silhouette on assigned rows', 'ARI on all 150 rows, −1 as one label']} rows={[['0.3', 3, '13, 12, 5', 120, '0.200', '0.630', '0.088'], ['0.5', 2, '45, 71', 34, '0.773', '0.656', '0.442'], ['0.8', 2, '49, 97', 4, '0.973', '0.598', '0.552'], ['1', 2, '49, 98', 3, '0.980', '0.595', '0.554']]} />
+    <Prose>The silhouette compares average distances to the same cluster and the nearest alternative cluster; it is not a centroid calculation. Its conditional rows change between these runs. ARI compares two partitions through pair agreement and adjusts for chance. Passing all labels into ARI explicitly makes the noise rows one predicted group. If you exclude noise, publish the retained IDs and coverage; if comparing two excluded-noise scores, also examine the intersection of retained IDs. These are the reporting conventions from the preceding lesson, applied to a method that can abstain.</Prose>
+    <DbscanIrisLab />
+
+    <H2>{headings[7]}</H2>
+    <Prose>A small radius can miss a diffuse group; a larger radius can join dense groups that you wanted separate. This is a real incompatibility on some datasets, not always a tuning failure.</Prose>
+    <Prose>Consider three intended trail groups with m = 3. Left: 0, 0.125, 0.25, 0.375. Middle: 0.75, 0.875, 1, 1.125. Right: 5, 5.75, 6.5, 7.25.</Prose>
+    <Prose>At ε = 0.25, the first two groups are separate core components and all four right-hand rows are noise. At ε = 0.375, the first two join through the 0.375 gap. The right group requires ε ≥ 0.75 before either inner row has three neighbours. Therefore no ε can recover all three intended groups with this m: the radius needed by the right group has already joined the left and middle groups.</Prose>
+    <Prose>Now change only the right group to 5, 5.125, 5.25, 5.375. At ε = 0.25 all three groups appear. This equal-density null shows exactly what caused the earlier conflict.</Prose>
+    <IncompatibleIntervalFigure />
+    <DbscanIntervalLab />
+    <LessonTable caption="Once you have counted neighbourhoods, inspect next" headers={['observation', 'inspect next']} rows={[
+      ['Everything is noise', 'Units, m versus sample size, and the distribution of c_m. With m greater than n no core row is possible.'],
+      ['One large connected component', 'Core links crossing supposed boundaries; a bridge can connect distant endpoints.'],
+      ['Some groups vanish before others separate', 'Different local densities, feature representation, or a density hierarchy.'],
+      ['Repeated measurements create unexpected cores', 'Whether duplicate rows are distinct events or accidental duplication; counts embody the data unit.'],
+      ['Results change greatly under mild feature changes', 'Whether the metric has a stable meaning; inspect relevant features and perturbations.'],
+      ['A two-dimensional embedding looks convincing but the original neighbours disagree', 'Which space defines the task. PCA discards directions; other embeddings can distort density. A picture is not a density-preservation guarantee.']
+    ]} />
+    <Prose>In high dimensions, irrelevant coordinates can dominate distance. For independent noise coordinates with variance σ², two independent rows contribute an expected 2dσ² to squared distance from d such coordinates. This explains one route by which useful small differences can be overwhelmed. It does not establish that every high-dimensional dataset is equidistant. Feature selection, domain distances and dimensionality reduction are choices to assess; none guarantees meaningful density clusters.</Prose>
+    <details className="db-deeper"><summary>Optional shape comparison: rings rather than centers</summary>
+      <Prose>Two concentric rings make the difference between connected groups and center-based groups visible. Construct 12 equally spaced rows on a circle of radius 1 and 36 on radius 3. This is a synthetic geometry experiment, not measured flower data. Adjacent inner and outer gaps are about 0.518 and 0.523; the gap between rings is at least 2. At ε = 0.6 and m = 3, each row counts itself and its two ring neighbours. Every row is core, each ring is connected, and the rings cannot connect to each other.</Prose>
+      <Prose>Two distinct Euclidean K-Means centers instead divide space by their perpendicular bisector. That straight boundary cannot recover these two concentric rings: a line placing the whole inner ring on one side cannot also put every outer-ring row on the other. This comparison is about the specified ring grouping, not a proof that DBSCAN is preferable for every task.</Prose>
+      <RingsFigure />
+      <Program example={dbscanExamples.rings}><Prose>The constructed-reference comparison gives 48 core rows, DBSCAN ring ARI 1.0 and this K-Means fit’s ring ARI −0.016.</Prose></Program>
+    </details>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Read this branch after you can compute a core distance. OPTICS separates exploring density structure from extracting one flat clustering.</Prose>
+    <Prose>The core distance c_m(o) is the smallest radius making o core, using our self-inclusive count. OPTICS may limit neighbourhood searches by <Code>max_eps</Code>; if o cannot gather m rows within that limit, its core distance is undefined for that run. From an already processed core row o, define a candidate reachability for p:</Prose>
+    <MathBlock>{'r(p\\mid o)=\\max\\{c_m(o),d(o,p)\\}.'}</MathBlock>
+    <Prose>The maximum enforces both requirements: the source must be core at that scale, and the source must reach the destination. Notice which row supplies the core distance: <strong>o</strong>, the source. This is directed information, unlike the symmetric mutual distance in section 10.</Prose>
+    <Prose>OPTICS maintains the best candidate reachability discovered for each unprocessed row. It processes a row with the smallest available candidate next, updates nearby candidates using the new row, and restarts when no finite candidate remains. The output is an ordering plus core and reachability values. <Code>labels_</Code> additionally depends on an extraction method; the ordering itself is not a requested flat partition.</Prose>
+    <OpticsOrderingFigure />
+    <Program example={dbscanExamples.optics}><Prose>The ordering and reachability match the figure, with <Code>inf</Code> denoting undefined. Here the extracted labels equal ordinary DBSCAN’s selected assignment; extraction conventions can differ for border rows in general.</Prose></Program>
+    <Prose>A single horizontal cut still chooses one global scale. The alternative <strong>xi extraction</strong> looks for sufficiently steep relative changes in the reachability profile, governed by <Code>xi</Code>, minimum cluster size and predecessor correction. It can identify nested structures at different scales. For the maintained implementation, use <Code>OPTICS(min_samples=..., cluster_method="xi", xi=..., min_cluster_size=...)</Code> and inspect its ordering as well as labels. xi is a structural extraction choice, not an automatic replacement for explaining what groupings you want. The scikit-learn 1.9.1 implementation documents quadratic time for its ordering search, so an index alone does not establish an O(n log n) run.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <Prose>HDBSCAN offers another way to explore multiple density levels. First increase the cost of connections involving sparse rows. For distinct p, q, define</Prose>
+    <MathBlock>{'\\begin{gathered}d_{\\mathrm{mr}}(p,q)\\\\ =\\max\\{c_m(p),c_m(q),d(p,q)\\}.\\end{gathered}'}</MathBlock>
+    <Prose>This <strong>mutual reachability</strong> requires both endpoints to be core at a given scale. In the trail, A–B has ordinary distance 0.25 but mutual distance 0.75 because A needs radius 0.75 to become core. D–I has ordinary distance 1 but mutual distance 1.25 because I needs 1.25. Thus the tempting border bridge is delayed until I can really transmit.</Prose>
+    <Prose>For a threshold ε, retain vertices with c_m ≤ ε and mutual edges ≤ ε. The connected components are the core-only DBSCAN* structure at that scale. Vertices with c_m {'>'} ε are the sparse ones excluded at that scale. Read this directly from the maximum: an endpoint needing a <strong>larger</strong>, not smaller, radius cannot qualify yet.</Prose>
+    <Prose>Instead of retaining all pairwise edges, a <strong>minimum spanning tree</strong> connects all rows with minimum total edge weight. It preserves the connected components obtained by cutting edges above any threshold. If a low-weight path connected two groups but the tree only connected them through a larger edge, one edge on that path could replace the larger tree edge and reduce total weight, contradicting minimality. Equal-weight alternatives can yield different trees while preserving this threshold connectivity.</Prose>
+    <Program example={dbscanExamples.mst}><Prose>The identical core distances are deliberate: the neighbour-count view, OPTICS core distances when within its search limit, and the mutual-reachability construction use the same local radius definition. The tree code scans candidate edges repeatedly for clarity; use a maintained implementation for large graphs.</Prose></Program>
+    <H3>Condense the tree, then choose branches</H3>
+    <Prose>Let λ = 1/ε. Moving toward larger λ means demanding higher density. A component can split, and rows can fall away. <Code>min_cluster_size</Code> governs which branches are large enough to retain in a <strong>condensed tree</strong>. It is different from m, which defines local core distances.</Prose>
+    <Prose>For a branch C born at λ_b, let λ_p be the level at which member p leaves that branch, either falling out or entering a retained child. Its stability is</Prose>
+    <MathBlock>{'\\operatorname{stability}(C)=\\sum_{p\\in C}(\\lambda_p-\\lambda_b).'}</MathBlock>
+    <Prose>It counts persistence across density levels, weighted by the rows that remain. Take an illustrative eligible six-row parent born at λ = 1 whose rows enter two three-row children at λ = 3. Parent stability is 6(3 − 1) = 12. If each child lasts until λ = 6, each stability is 3(6 − 3) = 9; selecting both children yields 18, better than 12. If they last only until λ = 4, the children total 6 and the parent wins. These numbers are exact arithmetic for a declared abstract condensed tree, not inferred lifetimes for Iris. Treat this parent as a nonroot candidate; a library’s root or single-cluster eligibility policy is an additional choice.</Prose>
+    <StabilityTreeFigure />
+    <Prose>The excess-of-mass (<Code>eom</Code>) selection compares a candidate parent’s stability with the sum obtainable from its eligible selected descendants, subject to taking a nonoverlapping set of branches. It does not independently choose every stable node: a selected parent and child would double-count their observations. <Code>leaf</Code> selection instead favors terminal retained branches and often gives a finer partition.</Prose>
+    <Program example={dbscanExamples.hdbscan}><Prose><Code>probabilities_</Code> describes strength of membership in the selected structure. It is not a calibrated probability that a flower belongs to a biological species or that an observation is safe. The Gaussian-mixture lesson later introduces responsibilities from an explicit probability model.</Prose></Program>
+    <Prose><strong>Library convention:</strong> scikit-learn 1.9.1 HDBSCAN includes the query row in <Code>min_samples</Code>; the contrib <Code>hdbscan.HDBSCAN</Code> package excludes it for this parameter. To align neighbour counts where both settings are valid, scikit-learn m corresponds to contrib m − 1: for example, 4 versus 3. This does not make their entire APIs or every tied result identical. Also choose <Code>min_cluster_size</Code>, <Code>min_samples</Code>, metric and extraction method deliberately. Hierarchical density methods can help with differing densities, but they still encode modeling choices.</Prose>
+
+    <H2>{headings[10]}</H2>
+    <Prose>DBSCAN repeatedly needs radius neighbourhoods. With n rows and d features, brute-force distance evaluation across all queries costs O(n²d). A version retaining every neighbourhood additionally stores O(n · average neighbour count) entries, up to O(n²). A version that queries neighbourhoods as needed can use linear auxiliary storage apart from the data and index; storing an n × n distance matrix is not inherent in the definition of DBSCAN.</Prose>
+    <Prose>Spatial indexes can prune distance work on suitable low-dimensional data. A useful way to read a radius query cost is <strong>search overhead plus the neighbours returned</strong>. Returning n neighbours cannot take O(log n) just because a tree was used. Large radii, dense neighbourhoods and unhelpful high-dimensional geometry can remove much of the advantage. scikit-learn DBSCAN bulk-computes neighbourhoods, so selecting <Code>ball_tree</Code> does not eliminate the memory for the returned neighbourhoods.</Prose>
+    <Prose>At 50,000 rows, one dense float64 distance matrix alone contains 2.5 billion entries and occupies 20 billion bytes, about 18.6 GiB. That arithmetic is not a measured runtime. Profile the intended data, radius, dimension and metric before picking an implementation; avoid universal row-count thresholds or claimed speedups from a synthetic curve.</Prose>
+    <Prose>Two practical reductions preserve the question when applied correctly. First, <strong>compress exact duplicates and retain multiplicity</strong>: if repeated rows truly represent multiple observations, a unique row gets a positive weight equal to its count, and the weighted neighbourhood sum reproduces the original count. Removing repeats without weights changes density. Second, <strong>represent a genuinely sparse radius-neighbour graph</strong>: store distances for pairs within the chosen radius and pass an appropriate sparse precomputed distance graph. Omitting a genuine neighbour can destroy a core or bridge. Missing entries mean absent edges, not zero distance; handle true zero-distance duplicate rows deliberately, commonly through weighted compression first.</Prose>
+    <Program example={dbscanExamples.duplicates}><Prose>scikit-learn also permits special negative weights that can inhibit core status; those are not observation multiplicities and fall outside the positive-count interpretation used here.</Prose></Program>
+    <Prose>Partitioned processing adds a second problem: a row near a partition boundary needs neighbours from the other side. A halo of radius ε can supply those neighbours when the partition geometry and distance support such a halo, but correct global results also require global neighbour counts, core classification and component reconciliation across partitions. Running local DBSCAN independently and concatenating labels is insufficient. Approximate neighbours similarly change the model if they miss relevant links. These are implementation tradeoffs to measure, not guaranteed speed gains.</Prose>
+
+    <H2>{headings[11]}</H2>
+    <Prose>scikit-learn DBSCAN has <Code>fit</Code> and <Code>fit_predict</Code>, not a general <Code>predict</Code> method. Its clustering describes the rows present during the fit. Adding a new row and refitting can create a core, attach noise or join two components. That is why assigning a new row is a separate contract.</Prose>
+    <Prose>For example, a frozen-reference extension could examine nearby <strong>training core</strong> rows: return −1 if there are none, return their component if all agree, and declare ambiguity if several components qualify. This assigns against a fixed structure without allowing the new row to change it. It differs from refitting on the combined dataset. The R <Code>dbscan</Code> package provides a particular core-neighbour prediction extension; its existence does not add the same method to scikit-learn or remove the need to state your policy.</Prose>
+    <Prose>A monitoring workflow should fit its scaler and reference clusters on the allowed reference period, choose a decision or novelty policy on separate calibration data when available, then evaluate the later population. It should not fit transformations on future observations merely because the clustering itself is unsupervised. The next lesson, <a href="/learn/path/full-curriculum/anomaly-outlier-detection-isolation-forest-one-class-svm-lof?module=classical-ml">Anomaly &amp; Outlier Detection</a>, develops reference sets, scores and decisions. A density noise label alone cannot choose an alert threshold or its cost.</Prose>
+
+    <H2>{headings[12]}</H2>
+    <Prose>Try each task before opening its hint or solution. Ordinary label numbers may permute; compare row identities and core components.</Prose>
+    <Practice title="A. A new five-row trail" question="Rows A–E are at 0, 0.25, 0.5, 0.75, 2. With ε = 0.25, m = 3, classify every row and give the clusters. Then raise m to 4." hint="List each closed interval’s neighbours, including its center. The first and fourth rows need not be core to join.">
+      <Prose>Counts are 2, 3, 3, 2, 1. B and C are core, A and D are border, E noise; one assigned group A–D. At m = 4 none is core, so all five are noise. The loss of the core vertices removes the support for the former borders as well.</Prose>
+    </Practice>
+    <Practice title="B. Move a shared border off the line" question="Use the ten-row trail, but move I to (0, 0.125) while the other rows stay at y = 0. Keep ε = 1, m = 4. Does reversing row order still change I’s assignment?" hint="Compute its distance to D and E before considering order.">
+      <Prose>Both distances are √(1 + 0.125²) {'>'} 1, so I is adjacent to neither core component and is noise. A–H remain core and form two components; J is still noise. Reversal can rename components but cannot attach I. This is a null case for the border-order effect: order matters only when a noncore row actually has eligible core neighbours in different components.</Prose>
+    </Practice>
+    <Practice title="C. A tempting graph proof" question="A colleague says: “Density connectivity is symmetric, so connectedness through any intermediate row is transitive and every point gets a unique cluster.” Identify the missing condition with the original trail." hint="Compare D–I, I–E and D–E at ε = 1, m = 4.">
+      <Prose>D reaches itself and I; E reaches itself and I. But no core path connects D and E because I cannot transmit. Thus density connectivity through arbitrary rows is not transitive. Restricting to core vertices gives graph components; then handle shared borders separately. Symmetry alone never implies transitivity.</Prose>
+    </Practice>
+    <Practice title="D. Duplicates and the count convention" question="There are three distinct observation rows at x = 2 and one at x = 5. Use ε = 0.125, m = 3. What happens before and after unweighted deduplication? What happens at m = 1 on the original data?" hint="Count row identities, then compare that count with the number of coordinate values.">
+      <Prose>The three repeated rows are core and form one component; x = 5 is noise. Unweighted deduplication leaves two rows with only one neighbour each, so both are noise at m = 3. Positive weights 3 and 1 restore the original density rule. At m = 1 all four rows are core: the three duplicates form one component, x = 5 a second, and no row is noise.</Prose>
+    </Practice>
+    <Practice title="E. A unit conversion with a false fix" question="Add a fifth row (3, 0) to the four corners (0,0), (1,0), (0,2), (1,2). Start with ε = 1 and m = 2. A colleague converts only the vertical coordinate from meters to centimeters and multiplies ε by 100. Will all neighbourhood decisions remain the same? Give a sound transformation. What if the fifth row is absent?" hint="The horizontal difference has not grown by 100. Compare the new row’s distance to (1, 0) with the old and new radius.">
+      <Prose>No for these five rows. Originally (3, 0) has only itself within radius 1 and is noise; the other rows form two horizontal pairs. After the partial conversion and radius change, its horizontal distance 2 to (1, 0) is below 100, so it becomes core and joins the lower pair. Uniformly scaling both coordinates and ε preserves every comparison. Alternatively, keep ε in meters and weight the squared centimeter coordinate by 1/10,000, restoring its meter contribution. With only the original four corners, the flawed conversion happens to leave the two horizontal pairs unchanged: horizontal distance 1 remains admitted and vertical distance 200 remains excluded. One unchanged finite result does not prove a transformation preserves distances generally. The metric lab reproduces both cases.</Prose>
+    </Practice>
+    <Practice title="F. Repair the incompatible density fixture" question="Keep the dense groups from section 8 but move the right group to 5, 5.25, 5.5, 5.75. With m = 3, find a radius recovering all three groups and give its usable interval before the dense groups join." hint="The two interior right-group rows become core before its endpoints do. The dense-group gap remains 0.375.">
+      <Prose>At ε = 0.25, the right interior rows have three neighbours and its endpoints attach as border. The first two groups remain separate until ε reaches 0.375. Thus every ε in [0.25, 0.375) recovers the three groups. At the upper endpoint the closed-boundary core link merges the dense groups. This changed-data repair differs from simply reducing m until every stray pair qualifies. Set spacing 0.25 in the interval lab to see it.</Prose>
+    </Practice>
+    <Practice title="G. A perfect score on the survivors" question="For standardized Iris at ε = 0.5, compare m = 5 with m = 10. Your task is to inspect density groups across the whole collection. Is an assigned-row ARI of 1 sufficient reason to prefer m = 10?" hint="Keep the original 150-row denominator. Inspect how many flowers each score evaluated.">
+      <Prose>m = 5 gives 116 assigned, 34 noise, 2 clusters, assigned-row ARI ≈ 0.631 and all-row ARI ≈ 0.442. m = 10 gives 61 assigned, 89 noise, 3 clusters, assigned-row ARI 1.000 but all-row ARI ≈ 0.279. The perfect result describes only 40.7% of the collection. It can be useful if the stated task deliberately seeks a small unambiguous subset, but it does not establish coverage of the whole collection. Publish both populations and evaluate both settings on their common retained IDs if comparing conditional agreement; the Iris lab’s snapshot comparison reports, on the 61 rows both settings retain, species agreement of about 0.848 for m = 5 and 1.000 for m = 10.</Prose>
+    </Practice>
+    <Practice title="H. Read an OPTICS cluster start" question="At cut ε = 0.6, an ordered row has reachability 0.9 and core distance 0.4. The next row has reachability 0.5. Explain their extraction roles. What if the first core distance were 0.8?" hint="A high reachability value can indicate a start, not just noise.">
+      <Prose>The first row starts a new cluster: it is not reached at 0.6 from the preceding expansion, but it is core at 0.6 itself. The next row can join the current cluster through its 0.5 reachability. If the first core distance is 0.8, it cannot start a cluster at 0.6; it is noise at this step. Assigning the next row then depends on whether a valid current cluster has been established earlier; do not infer the whole extraction from two isolated numbers without ordering state.</Prose>
+    </Practice>
+    <Practice title="I. Choose a branch without double-counting" question="An eight-row parent is born at λ = 2; all rows leave for two four-row children at λ = 5. Both children persist until λ = 7. Compare selecting the parent with selecting both children. Then change only their exit level to 9." hint="Each stability uses its own birth level. Compare sums of disjoint selections.">
+      <Prose>Parent stability 8(5 − 2) = 24. At exit 7 the children contribute 4(7 − 5) + 4(7 − 5) = 16, so the parent wins. At exit 9 they contribute 32, so the children win. Selecting the parent and both children is inadmissible because their rows overlap. This is a declared condensed-tree exercise; no data fit or claim of a globally correct scientific partition is hidden in its arithmetic.</Prose>
+    </Practice>
+    <Practice title="J. Why an index cannot erase a dense output" question="For 100,000 rows, ε is large enough that every row is a neighbour of every other. Estimate the number of stored directed neighbourhood entries and explain why “tree queries are logarithmic” does not solve the memory problem." hint="Multiply the number of queries by the number of results per query.">
+      <Prose>There are 10¹⁰ entries, including self. Just eight-byte indices require 80 billion bytes, before arrays, distances and interpreter overhead. A search index can reduce the work of finding sparse neighbourhoods; it cannot return 10¹⁰ explicit entries in logarithmic total time. Consider an implementation that avoids retaining all neighbourhoods, a different task or scale, or valid data reduction. Changing ε only to make a benchmark fast changes the clustering question.</Prose>
+    </Practice>
+    <Practice title="K. Independent Iris report" question="Reproduce Program 3, then change the representation to the four original centimeter features and use ε = 0.5, m = 5. Freeze this choice before revealing species. Write a five-sentence report: data unit and representation, parameter rule, assigned and noise counts, conditional versus all-row comparison, and the next observation you would inspect. Add one radius of your own; justify it from its neighbour-distance plot rather than species." hint="Remove the scaler, keep the same row IDs and feature order, and calculate coverage before interpreting a score. The same numerical radius now has different units.">
+      <Prose>For the fixed changed setting, the executed fit gives 2 clusters of 49 and 84 rows, 17 noise, coverage 133/150 ≈ 0.887, assigned-row silhouette ≈ 0.735, all-row ARI ≈ 0.521 and assigned-row ARI ≈ 0.607; the Iris lab reproduces these when you switch to raw features. An acceptable report says: “I clustered 150 measured flowers in four-dimensional centimeter space. At ε = 0.5 cm and m = 5, two groups retain 133 flowers and 17 are unassigned. The assigned-only geometry is fairly separated in this representation. Species agreement is a separate retrospective comparison, with 17 rows omitted from the conditional score. I would inspect those 17 rows and their core neighbourhoods before choosing whether the grouping serves the question.” Your additional radius may produce several defensible conclusions; success requires correct denominators, explicit settings and evidence, not matching a preferred cluster count.</Prose>
+    </Practice>
+    <Practice title="L. A frozen reference versus refitting" question="A new row is within ε of training core rows from both trail components. Specify the result under the “return ambiguous when components disagree” policy from section 12. Is that necessarily the result of refitting DBSCAN with the new row?" hint="Does the new row contribute to old neighbour counts under both procedures?">
+      <Prose>The frozen-reference policy returns ambiguity. Refitting includes the new observation in neighbourhood counts; it can make a formerly noncore row core and merge components, or leave a shared-border assignment depending on its position and count. The two procedures answer different questions. Record which one your future-observation evaluation uses.</Prose>
+    </Practice>
+
+    <H2>{headings[13]}</H2>
+    <Prose>DBSCAN groups rows through a graph of locally crowded observations. Radius and count define core rows; core paths define the stable components; neighbouring noncore rows attach at the border. Units, sampling and the treatment of unassigned observations are part of the analysis. A density hierarchy explores several scales, and an anomaly workflow adds a separate decision about unusual observations.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Draw a neighbourhood with the self and boundary convention and classify a row', 'Section 1, trail lab'],
+      ['Explain why a border cannot transmit and what changes with visiting order', 'Sections 2 and 3, trail lab'],
+      ['Predict a change of radius, count, unit or metric without confusing label numbers with groups', 'Sections 5 and 6, metric lab'],
+      ['Produce a real-data report that includes the rejected rows and their coverage', 'Section 7, Iris lab, practice K'],
+      ['Prove when no single radius works and say what a hierarchy adds', 'Sections 8 to 10, interval lab']
+    ]} />
+    <Prose>Use the next lesson, <a href="/learn/path/full-curriculum/anomaly-outlier-detection-isolation-forest-one-class-svm-lof?module=classical-ml">Anomaly &amp; Outlier Detection</a>, to move from “not assigned under this density rule” to a stated reference population, score and decision.</Prose>
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://youtu.be/T4NLsrUaRtg">UBC CPSC 330 DBSCAN lecture video, Varada Kolhatkar</a>, with <a href="https://ubc-cs.github.io/cpsc330-2023W1/lectures/15_DBSCAN-hierarchical.html">its public lecture companion</a> — a visual beginner revisit after sections 1 to 5, including neighbourhood growth and parameter changes. The substantive companion notebook was read; the video was not watched. Use this lesson’s precise border and noise rule and reporting conventions rather than the companion’s shorthand or its plotting-only replacement for <Code>predict</Code>.</li>
+      <li><a href="https://www.jstatsoft.org/article/view/v091i01">Hahsler, Piekenbrock and Doran, “dbscan: Fast Density-Based Clustering with R,” Journal of Statistical Software 91(1), 2019</a> — a free 30-page canonical exposition with algorithm definitions, neighbour-search discussion and worked parameter sensitivity. Good after the core route even if you use Python. The paper’s strict-radius notation and R-specific prediction and neighbour conventions differ from the explicit conventions here; its historical performance tables are not current benchmarks.</li>
+      <li><a href="https://hdbscan.readthedocs.io/en/latest/how_hdbscan_works.html">“How HDBSCAN works,” by the contrib implementation’s authors</a> — a visual intermediate account of mutual reachability, MST, condensation and stability. Read after section 10; it uses the separate contrib package’s self-count convention.</li>
+    </ul></>}>
+      <li><a href="https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf">Ester, Kriegel, Sander and Xu (1996), the original DBSCAN paper</a> — sections 3 and 4 introduce the neighbourhood and reachability mechanism and the expansion algorithm. Its spatial-database experiments are historical evidence for those settings, not the source of any modern timing here.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html">scikit-learn DBSCAN 1.9.1</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.OPTICS.html">OPTICS</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.HDBSCAN.html">HDBSCAN</a> and the <a href="https://scikit-learn.org/stable/modules/clustering.html#dbscan">clustering guide</a> — current parameter meanings, implementation notes and the cross-package HDBSCAN self-count distinction. Recheck the version when reproducing an API-dependent detail.</li>
+      <li><a href="https://archive.ics.uci.edu/dataset/53/iris">Fisher (1936), Iris, UCI record 53</a>, DOI <a href="https://doi.org/10.24432/C56C76">10.24432/C56C76</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, record inspected on 12 September 2026. The downloadable CSV is the corrected copy bundled with scikit-learn 1.9.1 through <Code>load_iris</Code>, which fixes two historical data points to match Fisher’s paper (row 34 is 4.9, 3.1, 1.5, 0.2 and row 37 is 4.9, 3.6, 1.4, 0.1). Columns: row_id, four centimeter features, species code; no filtering or rescaling.</li>
+    </Sources>
+    <Prose>The invented trail, variable-spacing groups, unit-conversion corners and concentric rings are constructed fixtures with declared coordinates. Iris results are calculations on the identified real dataset. The stability tree is an abstract finite tree with declared lifetimes. None is a hardware benchmark or a claim about every future dataset.</Prose>
+  </div>
 };
 
 export default dbscanContent;

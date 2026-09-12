@@ -53,7 +53,7 @@
 
 .kh-controls {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 1rem;
   margin: 1.2rem 0;
 }
@@ -327,8 +327,6 @@
 
 .kh-pixels {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  aspect-ratio: 12/8;
   outline: 1px solid #536156;
 }
 
@@ -369,5 +367,136 @@
   }
   .kh-investigation header button {
     flex-shrink: 0;
+  }
+}
+
+/* Prediction controls and feedback */
+.kh-prediction {
+  margin: 1.1rem 0;
+  padding: .8rem .9rem;
+  border: 1px dashed #4a5650;
+  border-radius: 4px;
+  font-size: .92rem;
+  line-height: 1.7;
+}
+
+.kh-prediction > label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+.kh-prediction-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: stretch;
+}
+
+.kh-prediction-row select {
+  flex: 1 1 240px;
+  min-height: 42px;
+  min-width: 0;
+  padding: .5rem;
+  border: 1px solid #46504b;
+  border-radius: 3px;
+  color: #d8dcd9;
+  background: #121816;
+  font: inherit;
+}
+
+.kh-prediction-row select:disabled {
+  opacity: .6;
+}
+
+.kh-feedback {
+  margin: .7rem 0 0;
+  padding-left: .85rem;
+  border-left: 2px solid #8eb9a5;
+}
+
+.kh-feedback.is-miss {
+  border-left-color: #da9c86;
+}
+
+/* Nearest-center boundary */
+.kh-boundary {
+  stroke: #d9d3bf;
+  stroke-width: 1.4;
+  stroke-opacity: .75;
+}
+
+/* Exhaustive partition and merge tables */
+.kh-table-scroll tr.is-best td {
+  color: #f0e6c8;
+  background: #1a2320;
+}
+
+/* Seeding frequency comparison */
+.kh-frequency {
+  margin: 1.4rem 0;
+}
+
+.kh-frequency figcaption {
+  font-size: .88rem;
+  line-height: 1.6;
+  color: #bac6bf;
+  margin-bottom: .6rem;
+}
+
+.kh-frequency ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: .45rem;
+}
+
+.kh-frequency li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  gap: .6rem;
+  align-items: center;
+  margin: 0;
+  font: 12px/1.4 var(--font-mono, monospace);
+}
+
+.kh-frequency-bars {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  min-height: 18px;
+}
+
+.kh-frequency-bar {
+  display: block;
+  height: 8px;
+  border-radius: 1px;
+  min-width: 0;
+}
+
+.kh-frequency-bar.is-observed {
+  background: #8a9590;
+}
+
+.kh-frequency-uniform {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: #f2e7ca;
+  opacity: .8;
+}
+
+.kh-frequency-value {
+  color: #bbc4bf;
+  white-space: nowrap;
+}
+
+@media (max-width: 580px) {
+  .kh-frequency li {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+  }
+  .kh-frequency-value {
+    grid-column: 2;
   }
 }

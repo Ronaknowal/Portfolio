@@ -1,6 +1,6 @@
 # Lesson teaching standard
 
-Updated 11 September 2026 from the user's continuation instructions, teaching references, scope/discovery requirements, alternate-resource requirement and explicit authoring/review workflow. Coverage, titles and useful applications must be reconsidered during authoring as well as before it. This is the authoritative teaching policy. [The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and status; historical reports do not override this standard.
+Updated 12 September 2026 with the learning-experience checklist, the once-stated caution rule, the first-pass route, the investigation requirements for labs, real-data and displayed-code rules, figure perceptibility and the canonical-reference coverage check, after a quality review of a completed lesson found that correctness review alone had let these through. Earlier the same day: the user's full versus content-first delivery modes and separate phase tracking. Coverage, titles and useful applications must be reconsidered during authoring as well as before it. This is the authoritative teaching policy. [The handoff](LESSON-AUTHORING-HANDOFF.md) owns current scope and status; historical reports do not override this standard.
 
 ## 1. Start here in a future session
 
@@ -26,15 +26,15 @@ Preserve valid evidence and avoid repetition that adds no value, while using pro
 
 ### Six-stage authoring workflow
 
-Use these stages for each authorized lesson, with shared integration at the end of the authorized increment. These are work stages, not six full rewrites or six user-approval gates. Research, numerical checks, visual implementation and review may overlap when their inputs are ready. Adapt the lesson's teaching sequence and representations to its domain; this workflow does not prescribe learner-facing headings or a lab count.
+Use these stages for each authorized lesson, within the delivery mode below. They divide into **content (stages 1–2)** and **implementation, review and integration (stages 3–6)**. These are work stages, not six full rewrites or six user-approval gates. In a full request, proceed through both phases without pausing for another approval; stages and checks can inform one another. Adapt the teaching sequence and representations to the domain.
 
 | Stage | Responsible role and work | Completion condition |
 | --- | --- | --- |
 | **1. Assess and research** | The author reads the current lesson and destination notes, defines outcomes and prerequisites, assesses scope/title, preserves useful depth, researches material claims, and maps examples, visuals and practice to the conceptual hurdles. | A usable topic design explains what to keep, repair and add, what belongs elsewhere, and how learners will demonstrate the scoped outcomes. Research can continue when writing reveals a new question. |
-| **2. Build the complete lesson** | The author implements the explanations, worked examples, topic-specific illustrations/investigations, changed practice, solutions and annotated alternatives. Check the actual metadata, blueprint and shared-component contracts early, using the code standard's compatibility checks. | A complete runnable draft follows its planned learning progression and exposes its examples, outputs and interactions through the real reader. An incomplete draft is not publication-ready. |
-| **3. Author review and verification** | The author reviews the whole reading flow, including inline visuals without operating the labs; verifies claims, assumptions and complete native outputs; checks model/visual agreement and supported edge cases; and begins actual browser/keyboard review. | The source version, completed checks, their scope and remaining findings are recorded. Unverified claims, missing teaching steps and failed checks are explicit; the reviewer is not given an implied clean result. |
-| **4. Independent review** | A reviewer other than the author assesses coverage, beginner continuity, technical accuracy, representation fit and changed practice. Inspect the existing evidence and investigate complementary risks instead of duplicating the author's full test run. | A bounded set of actionable findings or a no-findings assessment is attached to the reviewed source. An author's own second reading is not independent review; record that distinction if no independent reviewer is available. |
-| **5. Focused corrections and browser closure** | The author resolves findings and checks affected behavior; the reviewer confirms the relevant corrections. Complete the required desktop/narrow-screen, actual reading, keyboard, interaction and selected-image checks. | No material finding remains; affected rechecks pass, unchanged evidence is reused, and the final reviewed source is identified. Check geometry and teaching clarity as well as successful clicks. |
+| **2. Write the complete lesson and visual specifications** | The author writes the actual explanations, worked examples, applications, changed practice, hints/solutions and annotated alternatives. Specify each diagram/lab at its place in that explanation, including its quantities, states, learner action and intended feedback. Check claims and example reasoning as part of writing, and reread the complete manuscript for continuity. | A complete written lesson and actionable visual/lab specifications cover the promised outcomes. Record the source checkpoint, research and any deferred runtime verification. An outline or a collection of TODOs is insufficient. This completes the content phase, not implementation review. |
+| **3. Implement, author-review and verify** | Use the completed content to build the reader body, diagrams, labs, models and example/output presentation. Apply early component/metadata compatibility checks. Review the whole reading flow, verify complete native outputs, model/visual agreement and supported edge cases, and begin actual browser/keyboard review. | A complete runnable lesson exposes the intended teaching through the real reader. Its source, actual checks, scope and remaining findings are recorded honestly. The reviewer is not given an implied clean result. |
+| **4. Independent review** | A reviewer other than the author assesses coverage, beginner continuity, technical accuracy, representation fit and changed practice, and separately runs the [learning-experience checklist](#learning-experience-checklist). Inspect the existing evidence and investigate complementary risks instead of duplicating the author's full test run. | A bounded set of actionable findings or a no-findings assessment is attached to the reviewed source, with correctness and learning-experience findings distinguished. An author's own second reading is not independent review; record that distinction if no independent reviewer is available. |
+| **5. Focused corrections and browser closure** | The author resolves findings and checks affected behavior; the reviewer confirms the relevant corrections. Complete the required desktop/narrow-screen, actual reading, keyboard, interaction and selected-image checks, capturing the informative lab and figure states rather than defaults only. | No material finding remains; affected rechecks pass, unchanged evidence is reused, and the final reviewed source is identified. Check geometry and teaching clarity as well as successful clicks. A correction must not degrade the teaching surface it repairs: prefer a prose sentence, a verifier case or a separate helper over complicating displayed teaching code or adding another qualification to the prose. |
 | **6. Website integration and handoff** | The increment owner validates generated metadata, catalogue/identity conservation, sequence/counts/progress, the production build and relevant loading/recovery behavior. Update the existing ledger, brief, note dispositions and handoff; remove disposable working material. | The authorized increment has passing relevant integration evidence, a concise completion/next-action record and stated limits. User acceptance remains separate; completing this stage does not authorize the next topic. |
 
 Let the topic's complexity and quality needs determine the number of revisions and review rounds. Work from a complete draft and combine related corrections when useful, but do not treat one author revision or one independent round as a target that constrains better work. A stage may require no edits or several revisions. Further work is justified by a quality concern, a worthwhile teaching improvement, relevant source/environment change or learner feedback. Changing a sentence, checking three viewport widths or exercising many numerical fixtures does not mean rewriting the lesson that many times.
@@ -43,11 +43,47 @@ Use the existing topic/increment record to state the current stage, owner, revie
 
 **Readiness requires that the scoped outcomes are taught and assessed, material claims/examples are verified, the reading and interaction experience works, and no material review or integration finding remains.** Meeting this minimum does not require stopping if an identified in-scope improvement would materially improve understanding or correctness. Neither a fixed number of passes nor a claim of perfection establishes readiness. Apply section 11's bounded-verification guidance under the quality-first principle above.
 
+### Delivery modes and stopping boundaries
+
+There are two delivery modes. A later **finish** request continues the second mode; it is not a third teaching standard.
+
+| User request | Authorized work and stopping point |
+| --- | --- |
+| **Full implementation** / ordinary “implement the next topic” | Complete both phases and all six stages, including topic-specific implementation, independent review, fixes, browser checks and integration. This remains the default for an implementation request. No additional approval is needed between phases. |
+| **Content first** / “research and write only” | Complete stages 1–2: the full manuscript and detailed visual/lab specifications. Stop with content complete and implementation not started. Keep implementation, formal review, browser work and integration deferred. |
+| **Finish the prepared topic** / “implement and verify the existing content” | First verify the current revision has a complete content checkpoint. Then perform stages 3–6 using that material, including necessary content corrections, additional research and improvements discovered during implementation/review. Finish the scoped topic without restarting a completed research/writing phase by default. |
+
+A user's explicit delivery mode persists for their named batch and clear continuations until they change it. Announce the selected mode briefly. Do not turn a content-first request into a full implementation because the quality-first principle allows extra work; the phase boundary is part of authorized scope. Within that boundary, do any additional research, reasoning or writing needed for quality. Full delivery keeps the existing depth and completion standards.
+
+**Content first means writing plus specifications, not building the visuals/labs.** Save a complete learner-facing manuscript at `docs/teaching/drafts/<stable-topic-id>/lesson.md` and its specifications at `visual-specifications.md` in the same directory. Link the existing design/research record instead of duplicating it. Include instructional code in the manuscript when it is part of teaching the concept, with complete inputs, intended results and explanations; distinguish derived/predicted results from outputs actually executed. Production code organization, runnable-output verification, React/SVG/lab implementation and browser integration belong to phase two.
+
+The manuscript contains the real explanations and practice solutions at the required depth, not instructions telling the next agent to write them. Specifications identify the exact placement, entities, data/formulas and provenance, labels/units, states/transitions, controls, prediction/feedback, text equivalent, mobile composition, edge cases and what must be verified. Supply enough detail to build each representation without inventing its teaching purpose; allow the implementer to improve it with a recorded reason. A specified graph is not a verified rendered graph.
+
+Research and elementary correctness are never optional: resolve material conceptual contradictions and check the reasoning/answers actually stated. Small calculations or code probes needed to substantiate a claim can be part of writing. Defer the full execution, independent review, interaction, browser, performance and integration campaigns; never invent evidence for them. If a material content gap remains, leave content in progress and state the next action. A content-complete checkpoint means ready to implement, not guaranteed error-free or ready to publish.
+
+Content-first work leaves the currently published lesson, runtime components, publication manifest and navigation unchanged. A suggested title/prerequisite/sequence change goes in the handoff for compatible implementation later. New topics remain planned. Full-mode work may use the semantic production source as its written-content checkpoint and need not create a duplicate Markdown manuscript; the scoped design still holds the visual specifications. It must establish complete content before marking the implementation phase underway.
+
+### Two-phase handoff and prerequisite
+
+[The delivery ledger](docs/teaching/lesson-delivery-progress.json) owns current phase status for all topics. Its [schema and update procedure](docs/teaching/LESSON-DELIVERY-LEDGER.md) preserve earlier evidence, source identity and revision history. Per-increment ledgers continue to hold detailed historical verification; do not create competing current phase queues.
+
+At a content-first boundary, record the stable topic ID/revision, requested mode, exact manuscript/specification file hashes, design/research links, completed author checks, deferred checks/uncertainties, intended production destinations and precise next action. Retain these drafts until phase two consumes them. Another agent must read this packet and the full written content/specifications, not rely on the originating chat. It may correct the content when evidence or implementation reveals a better explanation, and must refresh the checkpoint for changed material.
+
+Before a finish-only request, run `node scripts/build-curriculum-inventory.mjs --topic "<ID>" --work finish`. A missing/incomplete/stale content checkpoint fails the preflight. A topic title, blueprint, older published body or unfinished draft alone does not satisfy the prerequisite. Report the specific missing prerequisite and ask for content work or identification of an existing complete draft; do not silently author a whole new lesson under finish-only scope. If a complete manuscript already exists, assess and register its checkpoint without rewriting it merely to satisfy the ledger.
+
+Keep `content` and `implementation` independently recorded as `not-started`, `in-progress` or `complete`; implementation cannot start until content is complete, and completion belongs to one source revision. Later source changes make prior completion stale rather than silently approving new bytes. Preserve completed historical revisions and their evidence when beginning a new revision. A full request ends with both complete; content first ends with only content complete; a successful finish request completes implementation for that content. User acceptance and publication remain separate. Do not ask for extra approval simply because a different agent will perform phase two.
+
 ## 2. Intended learning experience
 
 Build a coherent learning resource where a newcomer can understand, explain, visualize, use, question, and practise a topic, then connect it to subsequent topics. A returning practitioner should also be able to revise or find a precise detail efficiently.
 
 The standard is **simple explanation plus complete understanding within an explicit scope**. Plain language must preserve technical truth. More words, APIs, headings, diagrams, or controls do not by themselves establish depth. A reader clicking “complete” does not demonstrate mastery.
+
+### Say each caution once, where it belongs
+
+Rigor is expressed by stating conditions precisely, not by qualifying every result. Give each important caution one clear home: an early callout, a dedicated paragraph or a table row that the rest of the lesson can refer back to. After a result, say what it shows; do not append a sentence about what it does not prove unless that limitation is new information at that point. Code must never print disclaimers; explanatory sentences belong in prose.
+
+Before delivery, reread the manuscript for this pattern specifically. A rough count of hedging phrases (“does not prove”, “not a certificate”, “not automatically”, “alone does not”) divided by the number of paragraphs is a useful signal: more than one such phrase per four or five paragraphs means the cautions are crowding out the teaching and should be consolidated. Correctness review tends to add qualifications; this pass removes the redundant ones without weakening any condition that matters.
 
 Preserve the project's encouraging, technically serious voice and existing calm dark/gold visual direction described in [.impeccable.md](.impeccable.md). This is a teaching improvement program, not authorization for a visual rebrand.
 
@@ -132,6 +168,10 @@ Do not require a beginner to already know all notation or advanced software used
 
 Use explicit core/deeper labels, meaningful section navigation, short summaries, and expandable derivations or secondary implementation details. Do not hide essential steps or safety-relevant conditions in optional material. Reference catalogues and long API inventories belong on a revision route, with links from the tasks that need them.
 
+Any lesson longer than about one sitting states a **first-pass route** immediately after its introduction: which sections to read now, which labs and programs to run on the way, and which sections are deeper branches to return to. Long sections that are deeper branches say so in their first line. A section list in the intro is navigation; it is not a route.
+
+When the same quantity, object or partition appears by two different routes in one lesson, say so explicitly at the second appearance and explain why the routes agree or when they would not. Readers do not reliably notice that a number has recurred, and the connection is often the most valuable idea on the page.
+
 Retain useful detail, but remove repetitions that add no new understanding. Break a long explanation when its learning question changes, not at an arbitrary word count. Estimate reading separately from hands-on practice.
 
 ## 5. Visuals and labs: no fixed count
@@ -185,8 +225,15 @@ For every lab, specify a short teaching contract:
 - **Visible consequence:** which states, correspondences, or quantities change and why?
 - **Check:** what observation or follow-up task would show understanding?
 - **Boundary:** what is simulated, simplified, fixed, unsupported, or outside the model?
+- **Fixture check:** which alternative settings were run to confirm that the chosen data actually exhibit the contrast the surrounding prose promises, and which null case shows the contrast is absent when it should be?
 
 Implement the interaction as **predict → manipulate → observe → explain → transfer**. Start with a useful preset and a suggested investigation. Supply meaningful reset/back controls, readable feedback, and a way to recover from invalid states. If a simulation has randomness, support reproducible comparisons and clearly distinguish changing a parameter from drawing fresh data.
+
+Three requirements turn a guided trace into an investigation and are checked at review:
+
+1. **The prediction is recorded, not merely suggested.** Wherever the outcome is determinate, the lab offers a control to record a prediction before acting and compares it with the model's actual result afterwards. A sentence beginning “Predict:” with no way to answer it is a caption, not a prediction step. The approved Linux path lab is the reference for this pattern.
+2. **The learner acts on the topic's entities.** At least one control changes something the prose has not already resolved: choosing which items start a process, placing or selecting a threshold, changing an input rather than picking among two or three labeled presets whose outcomes are described beside them. Presets remain useful as suggested starting points.
+3. **Every fixture demonstrates what it is placed beside.** Before accepting a dataset or example for a lab, run the alternatives the lab offers and confirm they differ in the way the adjacent explanation claims. A table that promises four rules behave differently is contradicted by a fixture on which all four agree. When the natural running example cannot show the contrast, add a second fixture built to show it, and check that its critical values are exactly representable so a promised tie is a real tie.
 
 Connect representations directly: selecting an edge may highlight its matrix entries; stepping a line may move a reference arrow; choosing a result cell may reveal its input operands. Use stable labels and color meaning. Explain whether layout position, line thickness, area, or color encodes a quantity or only organizes the drawing.
 
@@ -201,6 +248,8 @@ Code-rendered charts can teach relationships clearly; rendering code does not es
 - Check values independently where appropriate, along with units, scales, log transforms, ranges, normalization, rounding and correspondence to the text. Distinguish probability from density, observed samples from interpolation, and supported ranges from extrapolation. Show variability or uncertainty when the claim depends on it.
 - Real performance comparisons need applicable sourced measurements or a reproducible benchmark: record the task, corpus/input sizes, algorithm settings, software versions, hardware, parallelism, timing boundaries and variability. The caption and prose must not generalize beyond those conditions.
 - An illustrative sketch can explain a hypothetical relationship, but invented points must not imply measured seconds, real-product rankings or established scaling laws. Use explicit model assumptions and generic series for a hypothetical example, or replace it with verified data. The word “illustrative” does not justify nearby unsupported empirical claims.
+- **The claimed feature must be perceptible in the rendered figure.** If the prose says a curve bends, flattens, peaks or separates, a reader must be able to see that at the size the figure renders, on desktop and on a phone. Check the range of the plotted values against the axis: when one value dwarfs the rest, a linear axis turns the interesting region into a flat line, and a logarithmic axis, a second panel or a relative measure is needed. Include the natural baseline point (the one-component, zero-change or untreated case) when it anchors the comparison. Show repeated runs as individual marks when their disagreement is part of the message. A caption admitting that the numbers are easier to read in the table is a sign the figure has failed.
+- Full-width SVG figures scale their text with their width. Inspect each figure at desktop width as well as phone width, and constrain the figure's maximum width or text size so labels stay in proportion at both.
 
 Validate guided traces, trainer outputs and their prose against the stated algorithm/conventions as well. A convincing visual is a design reference until its model and claims have been checked; an attractive lab does not establish the accuracy of its entire lesson.
 
@@ -211,6 +260,14 @@ Every core workflow needs a complete worked example: initial data or state, the 
 For code, provide all imports, fixtures/data, required files, environment/run instructions, and visible results needed to reproduce it. Do not reference missing files such as a training script that the lesson never supplies. Separate commands from their output and explain both. Label version-dependent behavior and record tested versions as tested snapshots, not automatically the newest recommendation.
 
 Verify displayed output with real execution where appropriate. Label illustrative output, normalized paths, fake clocks, rounding, seeds, timing variability, and hardware-sensitive values honestly. A browser teaching model is not an arbitrary-code runtime; describe that distinction once where it helps a learner choose how to practise.
+
+### Use real data where the topic is about data
+
+Constructed fixtures are right for hand calculation and for exposing a specific mechanism. They cannot supply the moment where a learner asks “does this method find anything in the world?” For any topic whose subject is a method applied to data, include at least one small, openly licensed, real dataset: introduce it with the question its collectors were asking, use it for the library-level example and diagnostics, and record its provenance, version and retrieval date in the lesson and the claim ledger. Embed the data in the runnable program or supply it as a file the lesson provides, so the program runs offline and the displayed output is reproducible. Keep the constructed fixture for the hand-traced steps and say why the two are different. When no suitable real dataset exists or licensing is unclear, say so in the design record rather than silently using only synthetic data.
+
+### Displayed teaching code shows the mechanism
+
+A runnable teaching program has two audiences: the reader following the algorithm and the verifier checking its contract. Serve the first on the page. Keep the algorithm's core compact and visible; put input validation in a small clearly named helper or a single finiteness check, and describe the gap between teaching code and a production library in prose. Never print explanatory or cautionary sentences from code. When a reviewer finds that a pathological input misbehaves, the default remedy is a sentence in prose or a check inside the verifier, not a guard woven through the displayed algorithm; add a displayed guard only when the failure is one a learner could plausibly hit. A displayed program whose mechanism occupies a quarter of its lines has stopped teaching.
 
 For mathematics, show meaningful intermediate steps and explain why the operation is valid. Distinguish exact identities, estimates, approximations, and simulations. Preserve the assumptions under which the statement holds. If code numerically estimates a probability or solves an equation, make the relevant approximation and tolerance clear without overwhelming the primary lesson.
 
@@ -270,6 +327,8 @@ Research the particular weak explanation, uncertain claim, current API, or diffi
 
 Check that each source actually supports the associated claim. Record its URL, the concept it helped verify, and date/version where relevant. Do not claim to have watched a video or executed a reference tool unless that happened. Popularity alone is not evidence of accuracy or instructional effectiveness.
 
+Research is not only verification of claims already written; it is also a coverage check against the field's canonical treatment. During stage 1, identify the standard reference for the topic (the textbook chapter, survey or specification a practitioner would name first, preferring legitimately free editions) and read its section list for the topic. Note ideas it treats that the draft omits, especially: the result that explains why the method is hard or why it is fast in practice, the historical origin when it clarifies a name or convention, incompatibilities between common implementations of the same idea, and the canonical counterexample. Decide for each whether it belongs in the core, a deeper branch, a saved destination note or nowhere, and record the decision. A lesson that is correct in every sentence can still miss the one fact a reader would meet on the first page of the standard text. Add the canonical reference itself to the learner-facing alternatives when it is accessible.
+
 Reuse an inspected source for the same claim, scope and applicable version when it remains valid. Research a new claim or changed/version-sensitive behavior explicitly. Stop searching once the actual uncertainty is resolved and the needed alternate learning resources are assessed; accumulating more links is not a quality measure. Keep source locators and unresolved questions in the existing claim ledger so another author can retrieve the relevant passage without repeating the whole search.
 
 Investigate conflicting definitions, assumptions, conventions, and nuanced cases. State the convention used. Keep consequential qualifications beside the claim: examples include statistical assumptions, nonunique solutions, indexing behavior, and shell/platform differences. Avoid words such as “always” or “guaranteed” without their conditions.
@@ -303,6 +362,8 @@ Visual polish serves comprehension: highlight the current relationship, minimize
 
 ## 11. Validation and definition of ready for review
 
+This section defines complete implemented-lesson readiness in phase two. At a content-only boundary, apply the research, reasoning and manuscript-completeness requirements above and explicitly defer the implementation checks; do not claim this section has passed.
+
 Assess each revised lesson on separate axes. Do not infer one from another:
 
 | Review | Evidence to collect |
@@ -311,7 +372,22 @@ Assess each revised lesson on separate axes. Do not infer one from another:
 | Accuracy | Claim/source checks; assumptions/conventions; numerical and code outputs; relevant counterexamples and boundary cases. |
 | Interaction | Controls change the intended model; diagrams and numbers agree; reset/back and invalid states work; the investigation teaches its stated question. |
 | Browser/accessibility | Desktop and narrow-screen inspection; keyboard/focus; text alternatives; readable labels; valid anchors; no blocking overflow or rendering errors. |
-| Learner experience | An actual beginner walkthrough when available: ask for a prediction, explanation, diagnosis, and transfer. Otherwise label the review as an author's heuristic assessment. |
+| Learner experience | An actual beginner walkthrough when available: ask for a prediction, explanation, diagnosis, and transfer. Otherwise label the review as an author's heuristic assessment, and run the learning-experience checklist below in full. |
+| Voice and reading load | Hedging density, a stated first-pass route, connections made explicit, displayed code that shows its mechanism and prints no disclaimers. |
+
+### Learning-experience checklist
+
+Correctness review and learning-experience review are different activities and are recorded separately. A lesson can pass every numerical oracle and still teach poorly. The author runs this checklist before handing off and the independent reviewer runs it again; both record concrete findings, not a pass mark.
+
+1. **Route.** Is there a first-pass route after the introduction? Are deeper branches labeled where they begin?
+2. **Cautions.** Is each important caution stated once in a clear home and referred back to, rather than repeated after every result? Does any code print a cautionary sentence?
+3. **Real question.** Does the lesson open with a concrete situation a reader can care about, and return to it with a result the reader can judge? For data methods, is there real data?
+4. **Labs as investigations.** For each lab: is a prediction recorded and checked? Does at least one control change something the prose has not already resolved? Was the fixture run under every offered alternative to confirm the promised contrast, including the case where no contrast should appear?
+5. **Figures.** For each quantitative figure: is the claimed feature visible at rendered size on desktop and phone? Is the baseline present? Does the caption ever apologize for the figure?
+6. **Connections.** Where the same result appears by two routes, is the link stated? Are the canonical reference's headline facts present or deliberately routed?
+7. **Code.** In each displayed program, does the mechanism occupy most of the lines? Is validation separated and minimal?
+8. **Practice.** Do the exercises change the numbers and the context, and does at least one give the learner exact values to reproduce after an independent variation?
+9. **Screenshots.** Were the informative states captured and looked at, not only the default state: the fixture that shows the contrast, the lab after a prediction is checked, the figure at full desktop width?
 
 Include an explicit inline-visual reading pass in coverage/pedagogy review: inspect introduction of structures, alternative cases and intermediate transformations, separately from checking that lab controls work. Record concrete omissions and improvements rather than reporting only a lab count. The policy above governs when an inline figure is needed; it does not create a diagram-per-section quota.
 
@@ -329,7 +405,7 @@ An independent reviewer should assess complementary correctness and teaching ris
 
 Choose complementary checks for specific failure risks: an independently derived small case, a counterexample to an assumption, a change of units, a permutation/relabeling invariant, a limiting case or a comparison with an independent implementation. State why the expected relationship holds. Two views or programs calling the same helper establish agreement, not independent correctness. These examples are options, not a checklist to apply to every lesson. Scope edge cases to the lesson's claims and supported inputs; extra exotic cases need an identified risk.
 
-Keep one current progress ledger and a concise next action. Detailed passed results belong in the linked evidence record. Temporary drafts, patch scripts and superseded captures are not instructions; follow the [scratch retention policy](docs/engineering/LEARNING-CODE-STANDARD.md#temporary-work-and-evidence-retention) and remove disposable working material when its job is done.
+Keep current phase status in the delivery ledger and a concise next action in its linked record. Detailed passed results belong in the linked evidence record. Content-first drafts awaiting implementation are required handoff inputs, not disposable scratch. Other temporary drafts, patch scripts and superseded captures are not instructions; follow the [scratch retention policy](docs/engineering/LEARNING-CODE-STANDARD.md#temporary-work-and-evidence-retention) and remove disposable working material when its job is done.
 
 Check agreement between every linked representation at intermediate steps, not only the final answer: if fault handling updates a mapping, its table must update with the diagram; if copying retains old storage, show which representation still holds the authoritative sequence. Inspect actual screenshots as well as bounds checks—labels can remain inside an SVG yet spill outside their node or intersect an arrow. Fix those teaching ambiguities and repeat the affected checks.
 

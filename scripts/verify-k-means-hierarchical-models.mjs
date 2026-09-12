@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { clusteringPoints, rectanglePoints, assignClusters, moveClusterMeans, lloydTrace, seedingDistribution, hierarchyTrace, cutHierarchy, featureGeometry, palettePixels, quantizePalette } from '../src/learn/data/k-means-hierarchical-models.js';
+import { clusteringPoints, rectanglePoints, chainPoints, assignClusters, moveClusterMeans, lloydTrace, enumerateTwoGroupPartitions, seedingDistribution, seedingFrequencies, hierarchyTrace, cutHierarchy, featureGeometry, paletteImages, paletteLimit, palettePixels, quantizePalette } from '../src/learn/data/k-means-hierarchical-models.js';
 
 function verifyArithmeticRange() {
   const rejected = [
@@ -244,9 +244,83 @@ for (let count = 1; count <= 6; count += 1) {
   record('expanded pixel versus weighted palette objectives');
 }
 close(quantizePalette(6).displayedSse, 0, 'All six original colors reconstruct exactly');
+
+// Exhaustive two-group enumeration: every partition, exact pairwise SSE, sorted.
+for (const points of [rectanglePoints, clusteringPoints, [[0], [1], [4], [5], [10]]]) {
+  const enumerated = enumerateTwoGroupPartitions(points);
+  assert.equal(enumerated.length, 2 ** (points.length - 1) - 1, 'Every two-group split appears once');
+  enumerated.forEach((partition, index) => {
+    close(partition.sse, partitionSse(points, partition.groups), 'Enumerated split SSE equals pairwise identity');
+    if (index > 0) assert(partition.sse >= enumerated[index - 1].sse - 1e-12, 'Splits are sorted by SSE');
+    record('exhaustive two-group partitions');
+  });
+}
+for (const [unit, weight] of [[1, 1], [10, 1], [10, 0.25]]) {
+  const state = featureGeometry(unit, weight);
+  assert.equal(state.partitions.length, 7);
+  assert.deepEqual(state.labels, state.partitions[0].labels);
+  const lloydBest = Math.min(...[[0, 2], [0, 1]].map(indices => lloydTrace(state.points, indices.map(index => state.points[index])).at(-1).sse));
+  assert(state.sse <= lloydBest + 1e-10, 'Exhaustive optimum is never worse than a Lloyd fixed point');
+  record('exhaustive optimum bounds Lloyd fixed points');
+}
+// Seeded repeated draws reproduce the exact D² distribution within sampling error.
+for (const selected of [[0], [4], [0, 5]]) {
+  const frequencies = seedingFrequencies(clusteringPoints, selected, 2000, 1);
+  const again = seedingFrequencies(clusteringPoints, selected, 2000, 1);
+  assert.deepEqual(frequencies.counts, again.counts, 'Fixed seed reproduces counts');
+  assert.equal(frequencies.counts.reduce((sum, value) => sum + value, 0), 2000);
+  const distribution = seedingDistribution(clusteringPoints, selected, 0);
+  distribution.rows.forEach(row => {
+    assert(Math.abs(frequencies.frequencies[row.index] - row.probability) < 0.05, `Frequency ${frequencies.frequencies[row.index]} far from probability ${row.probability}`);
+    if (row.probability === 0) assert.equal(frequencies.counts[row.index], 0, 'Zero-probability rows are never drawn');
+  });
+  assert.equal(frequencies.farthest, distribution.rows.reduce((best, row) => row.distance > best.distance ? row : best).index);
+  close(frequencies.uniformProbability, 1 / (6 - selected.length), 'Uniform comparison');
+  record('seeded frequency draws versus exact D² probabilities');
+}
+assert.equal(seedingFrequencies([[2, 2], [2, 2]], [0]).stopped, true);
+// Chain fixture: single linkage keeps the six chain rows together at k = 2; complete breaks them.
+const chainIntact = linkage => cutHierarchy(hierarchyTrace(chainPoints, linkage), 'count', 2).groups.some(group => [...group].sort((a, b) => a - b).join(',') === '0,1,2,3,4,5');
+assert.equal(chainIntact('single'), true);
+assert.equal(chainIntact('complete'), false);
+assert.equal(chainIntact('average'), true);
+assert.equal(chainIntact('ward'), true);
+const chainSingle = hierarchyTrace(chainPoints, 'single');
+assert.equal(chainSingle.merges.filter(merge => merge.height === 1).length, 5, 'Five chain merges share the exact height 1 under single linkage');
+assert.equal(cutHierarchy(chainSingle, 'height', 1).count, 2);
+assert.equal(cutHierarchy(chainSingle, 'height', 0.999).count, 7);
+const chainComplete = hierarchyTrace(chainPoints, 'complete');
+assert.deepEqual(cutHierarchy(chainComplete, 'count', 2).groups.map(group => [...group].sort((a, b) => a - b)), [[0, 1, 2, 3], [4, 5, 6, 7, 8]], 'Complete linkage attaches the triple to the right pair before the chain rejoins');
+for (const linkage of ['single', 'complete', 'average', 'ward']) {
+  const tree = hierarchyTrace(chainPoints, linkage);
+  close(tree.merges.reduce((sum, merge) => sum + merge.delta, 0), pairwiseSse(chainPoints, chainPoints.map((_, index) => index)), 'Chain SSE increments telescope');
+  record('chain fixture linkage contrast');
+}
+// Additional palette images: weighted objective equals expanded pixels; rounded error is real.
+for (const imageId of Object.keys(paletteImages)) {
+  const limit = paletteLimit(imageId);
+  assert(limit >= 1 && limit <= 8);
+  assert.throws(() => quantizePalette(limit + 1, imageId), RangeError);
+  for (let count = 1; count <= limit; count += 1) {
+    const palette = quantizePalette(count, imageId);
+    assert.equal(palette.counts.reduce((sum, value) => sum + value, 0), palette.image.pixels.length);
+    const expanded = palette.image.pixels.reduce((sum, pixel) => {
+      const colorIndex = palette.colors.findIndex(color => color.every((value, axis) => value === pixel[axis]));
+      return sum + distance(pixel, palette.centers[palette.labels[colorIndex]]) ** 2;
+    }, 0);
+    close(palette.sse, expanded, `Weighted ${imageId} objective equals expanded pixels`);
+    const rendered = palette.image.pixels.reduce((sum, pixel, index) => sum + distance(pixel, palette.reconstructed[index]) ** 2, 0);
+    close(palette.displayedSse, rendered, `Rounded ${imageId} pixel error`);
+    if (count > 1) assert(palette.sse <= quantizePalette(count - 1, imageId).sse + 1e-9, `${imageId}: more entries never worsen this deterministic fit`);
+    assert.equal(palette.status, 'fixed assignment', `${imageId} k=${count} reached a fixed point within the sweep budget`);
+    record(`palette image ${imageId}`);
+  }
+}
+assert.equal(quantizePalette(1, 'gradient').uniqueCount, 160);
+assert.equal(quantizePalette(1, 'sky').counts.every(count => count >= 1), true);
 const invalid = [() => assignClusters([], [[0, 0]]), () => assignClusters([[0,,]], [[0, 0]]), () => assignClusters([[0, 0]], [[0]]), () => assignClusters([[0, Infinity]], [[0, 0]]), () => assignClusters([[0, 0]], [[0, 0]], [0]), () => moveClusterMeans([[0, 0]], [2], [[0, 0]]), () => lloydTrace([[0, 0]], [[0, 0]], null, 0), () => seedingDistribution([[0, 0]], [0], 1), () => seedingDistribution([[0, 0]], [0, 0]), () => hierarchyTrace(clusteringPoints, 'centroid'), () => cutHierarchy(hierarchyTrace(clusteringPoints), 'count', 0), () => featureGeometry(100, 1), () => quantizePalette(7)];
 invalid.forEach(check => assert.throws(check, RangeError));
-const sources = ['src/learn/data/k-means-hierarchical-models.js', 'src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-labs.css'];
+const sources = ['src/learn/data/k-means-hierarchical-models.js', 'src/learn/data/k-means-hierarchical-faithful.js', 'src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-labs.css', 'src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx'];
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const evidence = {
   checkedAt: new Date().toISOString(),
@@ -258,7 +332,7 @@ const evidence = {
   arithmeticRange,
   rectangleObjectives,
   fixtureHeights: heights,
-  scope: 'Bounded independent pairwise-SSE, exhaustive four-point partitions, all-candidate linkage, expanded-pixel and unit/probability oracles. Component hashes identify the proposed UI, not a completed browser review.',
+  scope: 'Bounded independent pairwise-SSE, exhaustive two-group partitions, all-candidate linkage on the six-point and chain fixtures, seeded D² frequency draws, expanded-pixel objectives for three images and unit/probability oracles. Component hashes identify the proposed UI, not a completed browser review.',
   limitations: ['No universal k-means global optimum or initialization guarantee is inferred.', 'Hierarchy input is bounded to 16 points; exact floating-point ties use deterministic IDs.', 'Numeric squared sRGB error is not perceptual image quality or encoded file size.', 'Root owns actual browser and lesson integration checks.'],
   passed: true
 };

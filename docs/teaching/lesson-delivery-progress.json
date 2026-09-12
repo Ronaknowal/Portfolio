@@ -1,0 +1,1469 @@
+{
+  "schemaVersion": 1,
+  "updatedOn": "2026-09-12",
+  "policy": "docs/teaching/LESSON-DELIVERY-LEDGER.md",
+  "migration": {
+    "date": "2026-09-12",
+    "topics": 107,
+    "basis": "Previously recorded implementation review, including the prior reviewed K-Means revision. Both phases are backfilled as complete for those historical revisions. This migration performs no new lesson review; original evidence and source bindings remain authoritative."
+  },
+  "topics": {
+    "abstract-algebra-groups-symmetry-actions": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ABSTRACT-ALGEBRA-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "algebra-functions-exponentials-logarithms": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ALGEBRA-FUNCTIONS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "algorithm-correctness-loop-invariants-termination": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ALGORITHM-CORRECTNESS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "arrays-strings-hash-maps": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/BITWISE-FOUNDATIONS-INDEPENDENT-REVIEW.md",
+      "legacyReview": true
+    },
+    "backtracking-divide-and-conquer": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/BACKTRACKING-DIVIDE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "bash-scripting-command-line-automation": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "bayesian-inference-conjugate-priors": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "binary-search-sorting-two-pointer-patterns": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ORDERED-PATTERNS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "category-theory-emerging-use-in-ml": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CATEGORY-THEORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "causal-inference-do-calculus": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CAUSAL-INFERENCE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "code-documentation-type-hints-api-design": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "combinatorial-optimization-approximation-algorithms": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/COMBINATORIAL-OPTIMIZATION-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "complex-numbers-fourier-laplace-transforms": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "complexity-analysis-recursion": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/COMPLEXITY-RECURSION-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "computational-geometry-robust-predicates-convex-hulls": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/COMPUTATIONAL-GEOMETRY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "concentration-inequalities-hoeffding-bernstein-chernoff": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CONCENTRATION-INEQUALITIES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "conditioning-stability-numerical-analysis": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "constrained-multi-objective-optimization": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CONSTRAINED-MULTIOBJECTIVE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "convex-duality-lagrangian-methods-kkt-conditions": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CONVEX-DUALITY-KKT-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "convex-optimization": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/CONVEX-OPTIMIZATION-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "counting-combinatorics-mathematical-induction": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/COUNTING-COMBINATORICS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "decision-theory-risk-cost-sensitive-decisions": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/DECISION-THEORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "decision-trees-random-forests": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "decorators-context-managers": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "differential-geometry-riemannian-manifolds": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "disjoint-sets-union-find": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/UNION-FIND-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "dynamic-programming-states-transitions-optimization": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/DP-STATE-FAMILIES-INDEPENDENT-REVIEW.md",
+      "legacyReview": true
+    },
+    "dynamical-systems-theory-chaos": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/DYNAMICAL-SYSTEMS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "eigenvalues-eigenvectors": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/EIGENVALUES-EIGENVECTORS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "ensemble-methods-stacking": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "entropy-cross-entropy-kl-divergence": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ENTROPY-CROSS-ENTROPY-KL-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "exponential-families-sufficient-statistics": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/EXPONENTIAL-FAMILIES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "external-memory-algorithms-b-trees-i-o-complexity": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/EXTERNAL-MEMORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "f-divergences-integral-probability-metrics": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/F-DIVERGENCES-IPMS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "functional-analysis-rkhs": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "geometry-trigonometry-coordinate-reasoning": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/GEOMETRY-TRIGONOMETRY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "git-github-collaborative-version-control": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "NEXT-THREE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "gradient-boosted-trees-xgboost-lightgbm-catboost": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/GRADIENT-DESCENT-VARIANTS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "graph-fundamentals-adjacency-laplacian-connectivity": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/GRAPH-FUNDAMENTALS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "graphs-representations-bfs-dfs": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "DSA-CORE-STRUCTURES-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "greedy-algorithms-exchange-arguments": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/GREEDY-EXCHANGE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "hashing-collision-resolution-amortized-analysis": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/HASHING-AMORTIZED-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "heaps-priority-queues-tries": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "DSA-CORE-STRUCTURES-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "hypothesis-testing-confidence-intervals": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "it-calculus-stochastic-differential-equations": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "iterators-iterables-generators": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "k-means-hierarchical-clustering": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/K-MEANS-HIERARCHICAL-LESSON-DESIGN.md",
+      "legacyReview": true,
+      "pendingRevision": {
+        "record": "docs/teaching/K-MEANS-HIERARCHICAL-LESSON-DESIGN.md",
+        "description": "12 September working-tree proposal is not independently reviewed or accepted. Earlier completion remains historical; reconcile its content checkpoint and user scope before continuing.",
+        "status": "awaiting-user-decision"
+      }
+    },
+    "k-nearest-neighbors-knn": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "learning-rate-schedules-cosine-warmup-onecyclelr": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/LEARNING-RATE-SCHEDULES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "linear-logistic-regression": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "linked-lists-stacks-queues": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/LINKED-TRAVERSAL-MONOTONIC-INDEPENDENT-REVIEW.md",
+      "legacyReview": true
+    },
+    "linux-basics-filesystems-processes": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-REWRITE-LINUX.md",
+      "legacyReview": true
+    },
+    "matplotlib-scientific-plotting": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "NEXT-THREE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "matrix-calculus-jacobians": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MATRIX-CALCULUS-JACOBIANS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "matrix-decompositions-svd-qr-cholesky-lu": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MATRIX-DECOMPOSITIONS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "maximum-likelihood-map-estimation": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "measure-theory-probability-spaces": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MEASURE-THEORY-PROBABILITY-SPACES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MONTE-CARLO-MCMC-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "multi-label-multi-output-learning": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "multivariate-calculus-gradients": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "mutual-information-information-bottleneck": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/MUTUAL-INFORMATION-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "naive-bayes-probabilistic-classifiers": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "network-flow-minimum-cuts-bipartite-matching": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/NETWORK-FLOW-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "non-convex-optimization-landscape": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/NONCONVEX-LANDSCAPE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "numerical-methods-finite-differences-quadrature-root-finding": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/NUMERICAL-METHODS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "numerical-pdes-grids-finite-elements-stability": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/NUMERICAL-PDES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "numpy-arrays-broadcasting-vectorization": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "FIRST-FIVE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "object-oriented-programming-in-python": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "FIRST-FIVE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "optimal-transport-wasserstein-distance-sinkhorn": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/OPTIMAL-TRANSPORT-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "ordinary-differential-equations-linear-systems": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/ORDINARY-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "os-processes-virtual-memory-isolation": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "SYSTEMS-STRUCTURES-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "pandas-data-wrangling-joins-grouping": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "NEXT-THREE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "partial-differential-equations-conservation-boundary-conditions": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "persistent-data-structures-structural-sharing-versioned-queries": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/PERSISTENT-DATA-STRUCTURES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "probability-distributions-bayes-theorem": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "python-basics-types-control-flow-functions-modules": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "FIRST-FIVE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "queueing-theory-m-m-1-m-g-1-little-s-law": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/QUEUEING-THEORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "random-matrix-theory": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RANDOM-MATRIX-THEORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "random-variables-expectation-covariance": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "randomized-algorithms-sampling-error-guarantees": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RANDOMIZED-ALGORITHMS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "randomized-linear-algebra": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RANDOMIZED-LINEAR-ALGEBRA-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "rate-distortion-theory": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RATE-DISTORTION-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "real-analysis-sequences-modes-of-convergence": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/REAL-ANALYSIS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "recommender-systems-collaborative-filtering-matrix-factorization": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "reductions-p-np-computational-intractability": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/REDUCTIONS-INTRACTABILITY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "reproducible-notebooks-experiment-structure": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "sampling-measurement-experimental-design": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/SAMPLING-MEASUREMENT-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "scientific-file-formats-schemas-reliable-data-i-o": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "FIRST-FIVE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/SECOND-ORDER-METHODS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "segment-trees-fenwick-trees-range-queries": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/RANGE-QUERIES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "sets-logic-relations-proof-techniques": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/SETS-LOGIC-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "shortest-paths-spanning-trees-topological-ordering": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/WEIGHTED-GRAPHS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "single-variable-calculus-limits-derivatives-integrals": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/SINGLE-VARIABLE-CALCULUS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "spectral-graph-theory": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "sql-relational-data-transactions-for-ml": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "FIRST-FIVE-REIMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "stochastic-processes-markov-chains-brownian-motion-poisson": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "string-matching-prefix-functions-rolling-hashes": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/STRING-MATCHING-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "support-vector-machines-svm": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "tensor-algebra-einsum-notation": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/TENSOR-ALGEBRA-EINSUM-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "testing-debugging-dependency-management": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "threads-concurrency-locks-deadlocks": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "PROGRAMMING-MODULE-COMPLETION.md",
+      "legacyReview": true
+    },
+    "topology-topological-data-analysis-tda": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/TOPOLOGY-TDA-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "trees-binary-search-trees": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "DSA-CORE-STRUCTURES-IMPLEMENTATION.md",
+      "legacyReview": true
+    },
+    "variational-inference": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/VARIATIONAL-INFERENCE-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "vectors-matrices-tensor-operations": {
+      "revision": 1,
+      "deliveryMode": "full",
+      "content": {
+        "status": "complete"
+      },
+      "implementation": {
+        "status": "complete"
+      },
+      "record": "docs/teaching/VECTORS-MATRICES-TENSORS-VERIFICATION.md",
+      "legacyReview": true
+    },
+    "pca-dimensionality-reduction": {
+      "revision": 1,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/PCA-LESSON-DESIGN.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/pca-dimensionality-reduction/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/pca-dimensionality-reduction/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/pca-dimensionality-reduction/lesson.md": "779d461fda06484aa620aa28d67267665b96ccb83bf3fcb281c54d491cdf6148",
+          "docs/teaching/drafts/pca-dimensionality-reduction/visual-specifications.md": "20033e9b558b4aa5f8d6402485d1b967e4bbf70cb52a82cf70b2ce3c02c404bd",
+          "docs/teaching/drafts/pca-dimensionality-reduction/data-provenance.md": "ad6cf535bb0b6afab9fd383891c6ee17cf93bc492935964757e9f4bcc9baf842",
+          "docs/teaching/drafts/pca-dimensionality-reduction/wine.csv": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f",
+          "docs/teaching/drafts/pca-dimensionality-reduction/author-calculations.json": "2b2fc3dcf06b9d50ca0bafaef2d85a283d613d7606fd5855d53437107b3382f9",
+          "docs/teaching/PCA-LESSON-DESIGN.md": "071165afb9c9a17f6775ca7153f65c333ccd52144aab98a8286173e9d48d1d1e"
+        },
+        "completedAt": "2026-09-11T21:51:11.450Z",
+        "revisionNote": "12 September 2026: only the shared design record changed after the content checkpoint, to add the phase-two implementation/verification/review sections; manuscript, specifications, data and calculations are byte-identical to the checkpoint."
+      },
+      "implementation": {
+        "status": "complete",
+        "reviewedFiles": {
+          "src/learn/data/topics/pca-dimensionality-reduction.jsx": "62feff1cda950a8006a100e5f62b5673e52ae510425316c2c7e5487823682d94",
+          "src/learn/data/pca-models.js": "f7c7afd488c6fb50b62baeedbf2c03050e84741be3df47a51f7c5635e6a09bac",
+          "src/learn/data/pca-wine-data.js": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
+          "src/learn/data/pca-examples.js": "166065296261d699661c0b48dd89e853882a084d2b6fe272fc0102a5a046265b",
+          "src/learn/components/lesson-labs/PcaLabs.jsx": "af2946c78ce3aa2220235c5dc6daca7a55ccfee1546111d39e03f751df83b685",
+          "src/learn/components/lesson-labs/PcaFigures.jsx": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79",
+          "src/learn/components/lesson-labs/pca-labs.css": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1",
+          "src/learn/data/curriculum/blueprints/pca-dimensionality-reduction.js": "229de2e79201b983ab78feffd8c8667d180fea8902107c9d2297cf938ee5ff2d",
+          "public/learn-assets/pca/wine.csv": "cad77e1c82e5f78b6537152a5f17eae62db32dc8b2c862a3bee1ff1d4e74c16f"
+        },
+        "completedAt": "2026-09-11T22:38:39.939514+00:00",
+        "evidence": [
+          "docs/teaching/evidence/pca-models.json",
+          "docs/teaching/evidence/pca-native.json",
+          "docs/teaching/evidence/pca-browser.json",
+          "docs/teaching/PCA-INDEPENDENT-REVIEW.md"
+        ]
+      },
+      "nextAction": "Both phases complete and integrated on 12 September 2026; user acceptance is separate. The next module topic is Clustering Evaluation & Validation (Silhouette, ARI, NMI), position 13, which awaits the user's next requested scope."
+    },
+    "clustering-evaluation-validation-silhouette-ari-nmi": {
+      "revision": 1,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/CLUSTERING-EVALUATION-LESSON-DESIGN.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-calculations.json": "925361b5497c5c3946b4d89ee0870bea2cf6abd0596cf7027f5ba99f67625625",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/author-input-probes.py": "16a76156bc1e31f20d15fbf68da08b097cc324e2157774275759c105845693a9",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/data-provenance.md": "2c27d3ebcccd2d62e18f03f34238b40f75b411a9ccf4ef06f5b5780cfd67fd9a",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/iris.csv": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/lesson.md": "4f35ac5d1c7ea4bdfffbf974e52517183a6e5f543359651ff0cd0f10244400ff",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.json": "363d0ba60cb2e319d9aa6a8a6fb857f734c8e3fa9467048e2b5ba632f0a8d498",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/report-author-calculation.py": "f4d3838d3779bae545d1e9a744b29fc706cbc79f1320491f9c59d287fb35996d",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-input-calculations.json": "56adfac716f95191ee57160440b04307872524064496fa4c1daeb9acccd4e015",
+          "docs/teaching/drafts/clustering-evaluation-validation-silhouette-ari-nmi/visual-specifications.md": "6546b674535f7ea43a6bab30df77cefb2caf9ef733fc3c0fb54211b78e52ed5f",
+          "docs/teaching/CLUSTERING-EVALUATION-LESSON-DESIGN.md": "5050e1ffb6f284b758248f2e07fd368cdfb9e22d5b53990c2810fba08086850c"
+        },
+        "completedAt": "2026-09-11T23:07:58.553Z",
+        "revisionNote": "12 September 2026: only the shared design record changed after the content checkpoint, to add the phase-two implementation, verification and review sections; manuscript, specifications, data and calculations are byte-identical."
+      },
+      "implementation": {
+        "status": "complete",
+        "reviewedFiles": {
+          "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac",
+          "src/learn/data/clustering-evaluation-models.js": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+          "src/learn/data/clustering-evaluation-data.js": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+          "src/learn/data/clustering-evaluation-examples.js": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
+          "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "25e0fa7be1179ec58cad947b3e21acc17eac6f53bb36aa222f65e281a1519173",
+          "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+          "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
+          "src/learn/data/curriculum/blueprints/clustering-evaluation-validation-silhouette-ari-nmi.js": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba",
+          "public/learn-assets/clustering-evaluation/iris.csv": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a"
+        },
+        "completedAt": "2026-09-12T03:58:34.859700+00:00",
+        "evidence": [
+          "docs/teaching/evidence/clustering-evaluation-models.json",
+          "docs/teaching/evidence/clustering-evaluation-native.json",
+          "docs/teaching/evidence/clustering-evaluation-browser.json",
+          "docs/teaching/CLUSTERING-EVALUATION-INDEPENDENT-REVIEW.md"
+        ]
+      },
+      "nextAction": "Both phases complete and integrated on 12 September 2026; user acceptance is separate. DBSCAN (position 14) was finished in the same increment; Anomaly & Outlier Detection (position 15) has a complete content packet awaiting a finish request."
+    },
+    "dbscan-density-based-clustering": {
+      "revision": 1,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/DBSCAN-LESSON-DESIGN.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/dbscan-density-based-clustering/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/dbscan-density-based-clustering/visual-specifications.md",
+        "files": {
+          "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.json": "58fca03512d78077d789bbb073258015fe1c20778c4a4f54fd8cedc1f01d57a6",
+          "docs/teaching/drafts/dbscan-density-based-clustering/author-calculations.py": "92d48eb4b5bc6c0ce1b4e43ff7a55baf4a81f36421cb3b1fb08a9d10b45110cf",
+          "docs/teaching/drafts/dbscan-density-based-clustering/data-provenance.md": "f631945dfa2a61411c6b4550be24ce82df4da14331235d969039e3fa2e31767c",
+          "docs/teaching/drafts/dbscan-density-based-clustering/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651",
+          "docs/teaching/drafts/dbscan-density-based-clustering/lesson.md": "8e884b5d3177f098f44c7ab8732e227da3fa5fce048e71475d5ee4698d46e7f0",
+          "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.json": "2ab45c3d20752c99ae76081c02ff311e6fa4701a40a1b4aba390d30162e501c7",
+          "docs/teaching/drafts/dbscan-density-based-clustering/supplementary-author-calculations.py": "1e46745162102ab9a9427c8dd82cb800c56e91c798dd59f30213df5402916cb5",
+          "docs/teaching/drafts/dbscan-density-based-clustering/visual-specifications.md": "b089b3176ed3b74e9b9b14087e0097623cc697460a3d93e4472ae2fcaa27813a",
+          "docs/teaching/DBSCAN-LESSON-DESIGN.md": "0d5074d936424372d76cfa1535a9f0e294661f58c4fca34d805339f7b1a768e1"
+        },
+        "completedAt": "2026-09-11T23:07:58.562Z",
+        "revisionNote": "12 September 2026: only the shared design record changed after the content checkpoint, to add the phase-two implementation, verification and review sections; manuscript, specifications, data and calculations are byte-identical."
+      },
+      "implementation": {
+        "status": "complete",
+        "reviewedFiles": {
+          "src/learn/data/topics/dbscan-density-based-clustering.jsx": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e",
+          "src/learn/data/dbscan-models.js": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+          "src/learn/data/dbscan-iris-data.js": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+          "src/learn/data/dbscan-examples.js": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e",
+          "src/learn/components/lesson-labs/DbscanLabs.jsx": "9369ebb8c80e6d7d1c0a4bac7a1202370de4cc0eefd7f66fdc006780552aa70e",
+          "src/learn/components/lesson-labs/DbscanFigures.jsx": "88873bc306dff08d29961d02c80c0b3602efef3f548ab48dc3d010c2aa9a1201",
+          "src/learn/components/lesson-labs/dbscan-labs.css": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
+          "src/learn/data/curriculum/blueprints/dbscan-density-based-clustering.js": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784",
+          "public/learn-assets/dbscan/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
+        },
+        "completedAt": "2026-09-12T03:58:34.908095+00:00",
+        "evidence": [
+          "docs/teaching/evidence/dbscan-models.json",
+          "docs/teaching/evidence/dbscan-native.json",
+          "docs/teaching/evidence/dbscan-browser.json",
+          "docs/teaching/DBSCAN-INDEPENDENT-REVIEW.md"
+        ]
+      },
+      "nextAction": "Both phases complete and integrated on 12 September 2026; user acceptance is separate. The next module topic, Anomaly & Outlier Detection (position 15), has a complete content packet awaiting the user's finish request."
+    },
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof": {
+      "revision": 1,
+      "deliveryMode": "content-first",
+      "record": "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md",
+      "content": {
+        "status": "complete",
+        "manuscript": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/lesson.md",
+        "visualSpecifications": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-specifications.md",
+        "files": {
+          "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md": "d0d9acd7c82b0eaab9259c0a5bc7c47e9676fa38e15c87ac4147ea0b5d6ea5fc",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/NAB-LICENSE.txt": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.json": "72907abc78905ad719ff5df25b65d769c8bd8b55019c2da4f6c06e7ab2c69721",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.py": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/check-manuscript-calculations.py": "8d3d635013b5aa17ad4e1e0b9a90d6d83db0d7c463c681759f5606beea02d76b",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/content-author-checkpoint.json": "fa33528a8ac88f7729fbb821929fa14008896a21e461063eeb666b87e7874b15",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-provenance.md": "cbe2729d2b85fee81598e7374a3a442cc5d33f788c82894d9ce5eafc3dcf821e",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-source.json": "9e18e1d9b2b147a701ff4261c3eb6b590842407a1f18124c9562919c74a3eee9",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/lesson.md": "de1530bae9ddb5e9a8ec8b3d5d52f77e5c244340599bc8bd472dd42d47faba02",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/machine_temperature_system_failure.csv": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/manuscript-calculations.json": "ad3f5efa0ca6032c90408d007089059a178de8aae9e1a7d7b7a83c3226d065c0",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-derived-scores.csv": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-event-windows.json": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-source-readme.md": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/original-published-lesson.jsx": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/prepare-temperature-visual-inputs.py": "53ab0fac9026bb9f3015d0d191b20800f8ff40b8a37743d9d1929a554299dfc7",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-input-calculation.json": "677267cff242fc4629073e62988b9f8e905fa6612526fc4c19b171b7db3f8fa9",
+          "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-specifications.md": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b"
+        },
+        "completedAt": "2026-09-11T23:18:43.934Z"
+      },
+      "implementation": {
+        "status": "not-started"
+      },
+      "nextAction": "On an explicit finish request, validate this content checkpoint, read the entire packet, implement its topic-specific visuals/labs and lesson, then perform independent review, targeted fixes and website integration. Implementation has not started."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-09-12T03:58:15.905Z",
+  "sourceHashes": {
+    "src/learn/data/clustering-evaluation-models.js": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+    "src/learn/data/clustering-evaluation-data.js": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "25e0fa7be1179ec58cad947b3e21acc17eac6f53bb36aa222f65e281a1519173",
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+    "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15"
+  },
+  "verifierHash": "4d0d06cc4cbc54cc05ecf66a1552ed015d928618c512c958ca8646ea79a6ce32",
+  "counts": {
+    "silhouette fixtures": 1,
+    "independent silhouette clouds": 5,
+    "partition same": 1,
+    "partition cross": 1,
+    "partition refine": 1,
+    "partition constant": 1,
+    "partition one_swap": 1,
+    "information measures": 1,
+    "fixed-margin null": 1,
+    "split tie-breaking": 1,
+    "exact split brute force": 3,
+    "ring contrast": 1,
+    "iris fits": 8,
+    "iris rescoring": 1
+  },
+  "totalGroupedChecks": 27,
+  "scope": "Six-point silhouette states including singleton, zero, rejection and undefined; five random clouds against a direct implementation; five eight-ID partitions with direct pair enumeration; exact 70- and 56-assignment fixed-margin nulls against the hypergeometric expectation; exact split solver against brute force over all labelings; ring contrast; all eight native Iris fits rescored in the browser model within 1e-8; frozen-weight rescoring and the full-rank invariant.",
+  "limitations": [
+    "Iris labels are natively fitted inputs, not browser k-means.",
+    "The null enumeration is bounded to eight observations.",
+    "Rendering, interaction and independent review are separate."
+  ],
+  "passed": true
+}

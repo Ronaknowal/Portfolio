@@ -1,778 +1,282 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { CeSilhouetteLab, CePairLab, CeChanceLab, CeIrisLab, CeResampleLab } from '../../components/lesson-labs/ClusteringEvaluationLabs.jsx';
+import { CeIdentityFigure, CeDistanceFanFigure, CeRingFigure, CeInformationFigure, CeIrisSnapshotFigure, CeRejectionFigure, CeReportFlowFigure } from '../../components/lesson-labs/ClusteringEvaluationFigures.jsx';
+import { clusteringEvaluationExamples as examples } from '../clustering-evaluation-examples.js';
+
+const headings = [
+  '1. Two groups look cleaner. Three groups match the species better. Which result should we keep?',
+  '2. Keep the objects fixed before comparing their groups',
+  '3. Silhouette: inspect one point’s neighborhood before averaging',
+  '4. A score evaluates a geometry as well as a partition',
+  '5. ARI: count the pairs before correcting for chance',
+  '6. NMI: how much does one label tell us about the other?',
+  '7. Explain which groups split or merge',
+  '8. Real data: separate geometric selection from reference agreement',
+  '9. Unassigned observations: a cleaner score can describe fewer cases',
+  '10. Stability: would this grouping survive the change we care about?',
+  '11. Deeper branch: tendency, relative selection and computation',
+  '12. A report you can defend, then try on your own'
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const shortTitle = heading => heading.replace(/^\d+\. /, '').replace(/[.:?].*$/, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="ce-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const clusteringEvaluationContent = {
-  title: "Clustering Evaluation & Validation (Silhouette, ARI, NMI)",
-  readTime: "~35 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Supervised learning has an unfair advantage when it comes to evaluation: the ground truth is right there. You hold out a test set, make predictions, compare them to the labels, and get a number. Clustering offers no such luxury. The whole point of unsupervised learning is that there are no labels — you are asking the algorithm to discover structure that no human has annotated. When the algorithm returns five clusters, is that the right number? When you switch from k-means to hierarchical agglomerative clustering and the clusters look different, which partition is better? Without an objective criterion, clustering risks becoming a Rorschach test: you see the structure you were looking for because you were the one who described it as structure.
-      </Prose>
-
-      <Prose>
-        The evaluation problem split early into two fundamentally different branches. The first branch operates without any external reference — it looks only at the data and the proposed clustering, measuring how tight and well-separated the clusters are. Peter Rousseeuw introduced the silhouette coefficient in a 1987 paper in the <em>Journal of Computational and Applied Mathematics</em>, titled "Silhouettes: a graphical aid to the interpretation and validation of cluster analysis." The paper gave practitioners a per-point, per-cluster, and global score for any partition of any dataset, grounded entirely in pairwise distances. It required no knowledge of the true class labels — a crucial property, because in real unsupervised settings those labels do not exist.
-      </Prose>
-
-      <Prose>
-        The second branch assumes you do have ground truth labels, at least for evaluation purposes. This happens more often than it seems: you are benchmarking a new clustering algorithm against a dataset where the true groupings are known (Iris species, document categories, image classes), or you are running ablations during algorithm development. For this setting, William M. Rand proposed what he called "objective criteria for the evaluation of clustering methods" in a 1971 paper in the <em>Journal of the American Statistical Association</em>. His Rand Index counts the fraction of pairs of points on which two clusterings agree — a neat, interpretable number in [0, 1]. The problem Rand himself noted was that random clusterings score well above zero. Two independent uniform random assignments over five clusters agree on roughly 68% of pairs purely by chance, giving a Rand Index near 0.68 rather than near 0.0. This makes raw RI nearly useless as a comparative metric.
-      </Prose>
-
-      <Prose>
-        Lawrence Hubert and Phipps Arabie corrected this in 1985, publishing "Comparing partitions" in the <em>Journal of Classification</em>. They derived the expected value of the Rand Index under a generalized hypergeometric model of random partitions and defined the Adjusted Rand Index as the ratio of the deviation from expectation to the maximum possible deviation. ARI = 0 for random clusterings, ARI = 1 for perfect agreement, and ARI can be negative if the clustering is worse than chance. This is now the standard external metric for non-overlapping cluster comparison.
-      </Prose>
-
-      <Prose>
-        Information-theoretic approaches arrived via a different route. Alexander Strehl and Joydeep Ghosh's 2002 JMLR paper "Cluster Ensembles — A Knowledge Reuse Framework for Combining Multiple Partitions" popularized Normalized Mutual Information as a symmetric, label-permutation-invariant metric for comparing two clusterings. NMI measures how much knowing one clustering reduces uncertainty about the other, normalized by the geometric mean of both entropies to sit in [0, 1]. A deeper treatment of the full family — including the Adjusted Mutual Information that corrects NMI for chance in the same spirit as ARI corrects RI — came from Nguyen Xuan Vinh, Julien Epps, and James Bailey in their 2010 JMLR paper "Information Theoretic Measures for Clusterings Comparison: Variants, Properties, Normalization and Correction for Chance," which is the authoritative reference for understanding when NMI is appropriate and when AMI should replace it.
-      </Prose>
-
-      <Prose>
-        Together these four papers — Rousseeuw 1987, Rand 1971, Hubert and Arabie 1985, Strehl and Ghosh 2002 — form the foundation for every clustering evaluation you will encounter in scikit-learn, in every benchmarking paper, and in every clustering competition. This topic walks through all of them: the math, the implementation, the diagnostics, and the failure modes.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The central distinction in clustering evaluation is between <strong>internal metrics</strong> and <strong>external metrics</strong>. Internal metrics use only the data and the cluster assignments — no ground truth. They answer the question: given this particular way of dividing the data, how geometrically coherent is it? External metrics compare the proposed clustering to a reference partition — typically the known class labels. They answer the question: how much does this algorithm's output agree with the human-annotated truth?
-      </Prose>
-
-      <Prose>
-        The intuition behind silhouette is simple and powerful. For any single point <Code>i</Code>, imagine asking two questions: (1) how close am I to the other points in my own cluster? and (2) how close am I to the nearest cluster I am <em>not</em> in? Call these distances <Code>a(i)</Code> and <Code>b(i)</Code>. If <Code>b(i)</Code> is much larger than <Code>a(i)</Code>, the point is deep inside a well-separated cluster — it is far from the nearest foreign cluster. Its silhouette score is near +1. If <Code>a(i) ≈ b(i)</Code>, the point sits on a cluster boundary, equally close to its own cluster and the next. Its silhouette score is near 0. If <Code>a(i) {">"} b(i)</Code>, the point is closer to a foreign cluster than to its own — it has probably been misassigned. Its silhouette score is negative.
-      </Prose>
-
-      <Prose>
-        Average silhouette score across all points gives a single global summary. Values above 0.7 indicate a strong, well-defined cluster structure. Values between 0.5 and 0.7 indicate reasonable structure. Values below 0.25 suggest clusters that are either poorly defined or simply not present in the data. By sweeping over different values of <Code>k</Code> and plotting mean silhouette score, you get the unsupervised equivalent of a validation curve for model selection — without ever touching labels.
-      </Prose>
-
-      <Prose>
-        Other internal metrics exist. The Calinski-Harabasz index (also called the Variance Ratio Criterion) measures the ratio of between-cluster to within-cluster variance — higher is better. The Davies-Bouldin index measures the average ratio of within-cluster scatter to between-cluster separation — lower is better. Silhouette tends to be preferred because it is interpretable at the individual point level, not just globally, and because it makes minimal geometric assumptions (it works on any pairwise distance, not just Euclidean).
-      </Prose>
-
-      <Prose>
-        For external metrics, the core idea behind ARI and NMI is pair agreement. ARI counts the fraction of data-point pairs where two clusterings make the same assignment decision — either both putting the pair in the same cluster, or both putting them in different clusters — and subtracts the expected agreement for random clusterings. NMI measures shared information: how many bits of uncertainty about one clustering are resolved by knowing the other, normalized to [0, 1]. Both are symmetric (swapping the two clusterings does not change the score) and invariant to label permutation (renaming cluster 1 as cluster 3 does not change the score). This last property is crucial — two clusterings that are identical up to relabeling should score 1.0, and both metrics guarantee this.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Silhouette coefficient</H3>
-
-      <Prose>
-        Let <Code>X</Code> be a dataset of <Code>n</Code> points with a clustering assignment <Code>C</Code>. For point <Code>i</Code> assigned to cluster <Code>C(i)</Code>, define:
-      </Prose>
-
-      <MathBlock>
-        {"a(i) = \\frac{1}{|C(i)| - 1} \\sum_{j \\in C(i),\\, j \\neq i} d(i, j)"}
-      </MathBlock>
-
-      <Prose>
-        This is the mean distance from point <Code>i</Code> to all other points in its own cluster — a measure of cohesion. Lower is better. For any cluster <Code>k ≠ C(i)</Code>, define the mean distance from <Code>i</Code> to all points in <Code>k</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"d(i, k) = \\frac{1}{|k|} \\sum_{j \\in k} d(i, j)"}
-      </MathBlock>
-
-      <Prose>
-        Then <Code>b(i)</Code> is the minimum such mean distance over all other clusters — the distance to the nearest neighbor cluster:
-      </Prose>
-
-      <MathBlock>
-        {"b(i) = \\min_{k \\neq C(i)} d(i, k)"}
-      </MathBlock>
-
-      <Prose>
-        The silhouette coefficient for point <Code>i</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"s(i) = \\frac{b(i) - a(i)}{\\max(a(i),\\, b(i))}"}
-      </MathBlock>
-
-      <Prose>
-        By construction, <Code>s(i) ∈ [-1, +1]</Code>. When <Code>|C(i)| = 1</Code> (a singleton cluster), <Code>s(i)</Code> is defined as 0. The mean silhouette score is the average over all <Code>n</Code> points. Within a cluster, the mean per-cluster silhouette reveals which clusters are tight and which are sloppy — a cluster with low mean silhouette is a candidate for re-assignment or for splitting.
-      </Prose>
-
-      <H3>3.2 Rand Index and the pair-counting framework</H3>
-
-      <Prose>
-        Given <Code>n</Code> data points with true labels <Code>U</Code> and predicted labels <Code>V</Code>, consider all <Code>C(n,2) = n(n-1)/2</Code> pairs of points. Each pair falls into one of four cells:
-      </Prose>
-
-      <Prose>
-        TP: same cluster in both <Code>U</Code> and <Code>V</Code>. TN: different clusters in both. FP: different clusters in <Code>U</Code>, same cluster in <Code>V</Code>. FN: same cluster in <Code>U</Code>, different clusters in <Code>V</Code>.
-      </Prose>
-
-      <MathBlock>
-        {"\\text{RI} = \\frac{TP + TN}{TP + TN + FP + FN}"}
-      </MathBlock>
-
-      <Prose>
-        RI = 1 for identical clusterings, but is bounded away from 0 for random ones. The expected value of RI under the null hypothesis (that <Code>U</Code> and <Code>V</Code> are drawn independently from a generalized hypergeometric distribution over partitions) is:
-      </Prose>
-
-      <MathBlock>
-        {"E[RI] = \\frac{\\sum_i \\binom{a_i}{2} \\cdot \\sum_j \\binom{b_j}{2}}{\\binom{n}{2}^2} \\cdot \\binom{n}{2} + \\left(1 - \\frac{\\sum_i \\binom{a_i}{2}}{\\binom{n}{2}}\\right)\\left(1 - \\frac{\\sum_j \\binom{b_j}{2}}{\\binom{n}{2}}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        Where <Code>a_i</Code> are the row sums and <Code>b_j</Code> are the column sums of the contingency matrix. Hubert and Arabie's ARI subtracts this expectation and normalizes by the range:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{ARI} = \\frac{\\sum_{ij}\\binom{n_{ij}}{2} - \\frac{\\left[\\sum_i\\binom{a_i}{2}\\right]\\left[\\sum_j\\binom{b_j}{2}\\right]}{\\binom{n}{2}}}{\\frac{1}{2}\\left[\\sum_i\\binom{a_i}{2}+\\sum_j\\binom{b_j}{2}\\right] - \\frac{\\left[\\sum_i\\binom{a_i}{2}\\right]\\left[\\sum_j\\binom{b_j}{2}\\right]}{\\binom{n}{2}}}"}
-      </MathBlock>
-
-      <Prose>
-        Where <Code>n_ij</Code> are the entries of the contingency matrix — the number of points in true class <Code>i</Code> and predicted cluster <Code>j</Code>. ARI = 1 for perfect agreement, ARI ≈ 0 for random clusterings (regardless of <Code>k</Code>), and ARI can be negative. The adjustment is what matters: without it, a random clustering over <Code>k = 5</Code> classes scores RI ≈ 0.68, making it appear far better than chance.
-      </Prose>
-
-      <H3>3.3 Normalized Mutual Information</H3>
-
-      <Prose>
-        NMI is rooted in information theory. Let <Code>U</Code> and <Code>V</Code> be random variables over cluster assignments drawn from the two clusterings. Their mutual information is:
-      </Prose>
-
-      <MathBlock>
-        {"I(U; V) = \\sum_{u} \\sum_{v} p(u, v) \\log \\frac{p(u, v)}{p(u)\\,p(v)}"}
-      </MathBlock>
-
-      <Prose>
-        Where <Code>p(u,v) = n_uv / n</Code> is the joint probability of a point being in class <Code>u</Code> and cluster <Code>v</Code>, and <Code>p(u), p(v)</Code> are the marginals. MI is non-negative and equals zero if and only if <Code>U</Code> and <Code>V</Code> are statistically independent. The issue is that MI is not bounded — it depends on the number of clusters and grows with the number of clusters even for random partitions. Normalization fixes this. Strehl and Ghosh's geometric normalizer:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{NMI}(U, V) = \\frac{I(U; V)}{\\sqrt{H(U) \\cdot H(V)}}"}
-      </MathBlock>
-
-      <Prose>
-        Where <Code>H(U) = -∑_u p(u) log p(u)</Code> is the entropy of the true partition. NMI ∈ [0, 1], equals 1 for identical partitions, and equals 0 when the two partitions share no mutual information. However, just like raw RI, NMI is biased upward for partitions with many clusters — random clusterings over <Code>k=32</Code> classes score NMI ≈ 0.47 rather than 0. The Adjusted Mutual Information (AMI) from Vinh et al. 2010 corrects this in the same spirit as ARI corrects RI:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{AMI}(U, V) = \\frac{I(U; V) - E[I(U; V)]}{\\frac{1}{2}[H(U) + H(V)] - E[I(U; V)]}"}
-      </MathBlock>
-
-      <Prose>
-        AMI ≈ 0 for random clusterings at any <Code>k</Code> and AMI = 1 for perfect agreement. For most benchmarking tasks where you have ground truth and want an honest metric, AMI is strictly preferable to NMI — sklearn provides both via <Code>adjusted_mutual_info_score</Code> and <Code>normalized_mutual_info_score</Code>.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        NumPy only. The following implements silhouette (per-point and average), Rand Index, Adjusted Rand Index, and Normalized Mutual Information from scratch, then cross-validates each against sklearn on a synthetic dataset with known ground truth. All stdout is verbatim.
-      </Prose>
-
-      <H3>4a. Pairwise distances and silhouette</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import make_blobs
-
-# ---- Euclidean distance matrix: O(n^2) ----
-def pairwise_distances(X):
-    diff = X[:, None, :] - X[None, :, :]
-    return np.sqrt((diff ** 2).sum(axis=-1))
-
-# ---- Per-point silhouette coefficients ----
-def silhouette_samples_scratch(X, labels):
-    n = len(X)
-    D = pairwise_distances(X)
-    unique_labels = np.unique(labels)
-    s = np.zeros(n)
-    for i in range(n):
-        own = labels[i]
-        mask_own = (labels == own)
-        mask_own[i] = False
-        if mask_own.sum() == 0:          # singleton cluster
-            s[i] = 0.0
-            continue
-        a_i = D[i, mask_own].mean()      # mean intra-cluster distance
-        b_i = np.inf
-        for cl in unique_labels:
-            if cl == own:
-                continue
-            mean_dist = D[i, labels == cl].mean()
-            if mean_dist < b_i:
-                b_i = mean_dist          # nearest cluster distance
-        s[i] = (b_i - a_i) / max(a_i, b_i)
-    return s
-
-def silhouette_score_scratch(X, labels):
-    return silhouette_samples_scratch(X, labels).mean()`}
-      </CodeBlock>
-
-      <H3>4b. Rand Index and Adjusted Rand Index</H3>
-
-      <CodeBlock language="python">
-{`from itertools import combinations
-from math import comb
-
-def rand_index_scratch(labels_true, labels_pred):
-    """RI = (TP + TN) / total_pairs over all C(n,2) pairs."""
-    n = len(labels_true)
-    tp_tn = 0
-    total = n * (n - 1) // 2
-    for i, j in combinations(range(n), 2):
-        same_true = (labels_true[i] == labels_true[j])
-        same_pred = (labels_pred[i] == labels_pred[j])
-        if same_true == same_pred:
-            tp_tn += 1
-    return tp_tn / total
-
-def adjusted_rand_index_scratch(labels_true, labels_pred):
-    """ARI = (sum_nij_C2 - E) / (max - E) using contingency matrix."""
-    n = len(labels_true)
-    classes_true = np.unique(labels_true)
-    classes_pred = np.unique(labels_pred)
-    R, C = len(classes_true), len(classes_pred)
-    # Build contingency table
-    contingency = np.zeros((R, C), dtype=np.int64)
-    for i, ct in enumerate(classes_true):
-        for j, cp in enumerate(classes_pred):
-            contingency[i, j] = ((labels_true == ct) & (labels_pred == cp)).sum()
-    a = contingency.sum(axis=1)          # true class sizes
-    b = contingency.sum(axis=0)          # pred cluster sizes
-    sum_nij = sum(comb(int(x), 2) for x in contingency.ravel())
-    sum_ai  = sum(comb(int(x), 2) for x in a)
-    sum_bj  = sum(comb(int(x), 2) for x in b)
-    n_pairs = comb(n, 2)
-    expected   = sum_ai * sum_bj / n_pairs
-    max_index  = (sum_ai + sum_bj) / 2
-    if max_index - expected == 0:
-        return 1.0
-    return (sum_nij - expected) / (max_index - expected)`}
-      </CodeBlock>
-
-      <H3>4c. Normalized Mutual Information</H3>
-
-      <CodeBlock language="python">
-{`def normalized_mutual_info_scratch(labels_true, labels_pred):
-    """NMI = I(U;V) / sqrt(H(U) * H(V))  — geometric normalizer."""
-    n = len(labels_true)
-    classes_true = np.unique(labels_true)
-    classes_pred = np.unique(labels_pred)
-    R, C = len(classes_true), len(classes_pred)
-    contingency = np.zeros((R, C), dtype=np.float64)
-    for i, ct in enumerate(classes_true):
-        for j, cp in enumerate(classes_pred):
-            contingency[i, j] = ((labels_true == ct) & (labels_pred == cp)).sum()
-    p_ij = contingency / n
-    p_i  = p_ij.sum(axis=1)
-    p_j  = p_ij.sum(axis=0)
-    # Mutual information
-    mi = 0.0
-    for i in range(R):
-        for j in range(C):
-            if p_ij[i, j] > 0 and p_i[i] > 0 and p_j[j] > 0:
-                mi += p_ij[i, j] * np.log(p_ij[i, j] / (p_i[i] * p_j[j]))
-    H_U = -sum(p * np.log(p) for p in p_i if p > 0)
-    H_V = -sum(p * np.log(p) for p in p_j if p > 0)
-    denom = np.sqrt(H_U * H_V)
-    return 1.0 if denom == 0 else mi / denom`}
-      </CodeBlock>
-
-      <H3>4d. Validation against sklearn</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.metrics import (silhouette_score, adjusted_rand_score,
-                              normalized_mutual_info_score)
-
-np.random.seed(0)
-X, y_true = make_blobs(n_samples=60, centers=3, cluster_std=0.6, random_state=0)
-# Introduce 3 deliberate misassignments to make it interesting
-y_pred = y_true.copy()
-y_pred[0]  = (y_pred[0]  + 1) % 3
-y_pred[5]  = (y_pred[5]  + 1) % 3
-y_pred[12] = (y_pred[12] + 2) % 3
-
-# --- Scratch ---
-sil_sc  = silhouette_score_scratch(X, y_pred)
-ri_sc   = rand_index_scratch(y_true, y_pred)
-ari_sc  = adjusted_rand_index_scratch(y_true, y_pred)
-nmi_sc  = normalized_mutual_info_scratch(y_true, y_pred)
-
-# --- sklearn ---
-sil_sk  = silhouette_score(X, y_pred)
-ari_sk  = adjusted_rand_score(y_true, y_pred)
-nmi_sk  = normalized_mutual_info_score(y_true, y_pred, average_method='geometric')
-
-print("Silhouette (scratch):  0.5216  |  sklearn: 0.5216  |  delta: 0.000000")
-print("Rand Index (scratch):  0.9362  |  (no sklearn RI, but pair math checks out)")
-print("ARI        (scratch):  0.8539  |  sklearn: 0.8539  |  delta: 0.000000")
-print("NMI        (scratch):  0.8197  |  sklearn: 0.8197  |  delta: 0.000000")`}
-      </CodeBlock>
-
-      <Callout type="info" title="Actual stdout">
-        Silhouette (scratch): 0.5216 | sklearn: 0.5216 | delta: 0.000000{"\n"}
-        Rand Index (scratch): 0.9362 | (no sklearn RI, but pair math checks out){"\n"}
-        ARI (scratch): 0.8539 | sklearn: 0.8539 | delta: 0.000000{"\n"}
-        NMI (scratch): 0.8197 | sklearn: 0.8197 | delta: 0.000000
-      </Callout>
-
-      <Prose>
-        All four scratch implementations match sklearn exactly (delta = 0 at float64 precision). The Rand Index of 0.9362 is misleadingly high for a clustering with three errors — that is the RI bias in action. The ARI of 0.8539 is a more honest score, and the NMI of 0.8197 reflects the moderate information overlap after the three misassignments.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        sklearn's <Code>sklearn.metrics</Code> module provides all the metrics discussed here in O(n + k²) time with efficient contingency matrix internals.
-      </Prose>
-
-      <H3>5a. Internal metrics on Iris (k=3)</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import load_iris
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import (
-    silhouette_score, silhouette_samples,
-    calinski_harabasz_score, davies_bouldin_score
-)
-
-iris = load_iris()
-X = StandardScaler().fit_transform(iris.data)
-y_true = iris.target
-
-km3 = KMeans(n_clusters=3, random_state=42, n_init=10)
-y_pred = km3.fit_predict(X)
-
-print(f"silhouette_score:        {silhouette_score(X, y_pred):.4f}")
-# Output: silhouette_score:        0.4599
-print(f"calinski_harabasz_score: {calinski_harabasz_score(X, y_pred):.2f}")
-# Output: calinski_harabasz_score: 241.90
-print(f"davies_bouldin_score:    {davies_bouldin_score(X, y_pred):.4f}")
-# Output: davies_bouldin_score:    0.8336
-# (lower is better for Davies-Bouldin)`}
-      </CodeBlock>
-
-      <H3>5b. External metrics on Iris (comparing to ground truth)</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.metrics import (
-    adjusted_rand_score, normalized_mutual_info_score,
-    fowlkes_mallows_score, adjusted_mutual_info_score
-)
-
-print(f"adjusted_rand_score:             {adjusted_rand_score(y_true, y_pred):.4f}")
-# Output: adjusted_rand_score:             0.6201
-print(f"normalized_mutual_info_score:    {normalized_mutual_info_score(y_true, y_pred):.4f}")
-# Output: normalized_mutual_info_score:    0.6595
-print(f"adjusted_mutual_info_score:      {adjusted_mutual_info_score(y_true, y_pred):.4f}")
-# Output: adjusted_mutual_info_score:      0.6277
-print(f"fowlkes_mallows_score:           {fowlkes_mallows_score(y_true, y_pred):.4f}")
-# Output: fowlkes_mallows_score:           0.7452`}
-      </CodeBlock>
-
-      <Prose>
-        The Iris ARI of 0.62 is honest: k-means with k=3 on standardized Iris correctly separates setosa from the other two species but struggles to cleanly partition virginica and versicolor, which overlap significantly in petal and sepal space. The NMI of 0.66 is slightly inflated relative to AMI of 0.63 — the difference is small here (only k=3) but grows substantially for larger k.
-      </Prose>
-
-      <H3>5c. Silhouette samples for per-cluster diagnosis</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.datasets import make_blobs
-
-np.random.seed(42)
-X_blobs, _ = make_blobs(n_samples=300, centers=4, cluster_std=0.9, random_state=42)
-X_blobs = StandardScaler().fit_transform(X_blobs)
-
-km4 = KMeans(n_clusters=4, random_state=42, n_init=10)
-y_km4 = km4.fit_predict(X_blobs)
-sil_vals = silhouette_samples(X_blobs, y_km4)   # per-point scores
-
-for c in range(4):
-    mask = y_km4 == c
-    print(f"Cluster {c}: mean={sil_vals[mask].mean():.4f}  "
-          f"min={sil_vals[mask].min():.4f}  size={mask.sum()}")
-
-# Output:
-# Cluster 0: mean=0.7819  min=0.4626  size=75
-# Cluster 1: mean=0.8813  min=0.7869  size=75
-# Cluster 2: mean=0.8415  min=0.5987  size=75
-# Cluster 3: mean=0.7669  min=0.1343  size=75`}
-      </CodeBlock>
-
-      <Prose>
-        Cluster 1 is the cleanest (mean 0.88, no points below 0.79). Cluster 3 has a minimum of 0.13 — there is at least one point sitting very close to a boundary, a potential misassignment. Clusters with minimum silhouette near or below 0 warrant inspection: plot those points, check if they live in a low-density region between two cluster centers.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Silhouette score vs k — choosing the number of clusters</H3>
-
-      <Prose>
-        On the synthetic blobs dataset (n=300, true k=4), sweeping k from 2 to 8 gives the following mean silhouette scores. The true k=4 produces the peak — silhouette correctly identifies the correct number of clusters. This is the unsupervised equivalent of a validation curve.
-      </Prose>
-
-      <Plot
-        label="Mean silhouette score vs k (n=300 blobs, true k=4)"
-        xLabel="k (number of clusters)"
-        yLabel="mean silhouette score"
-        series={[
-          {
-            name: "silhouette score",
-            color: colors.gold,
-            points: [
-              [2, 0.5639],
-              [3, 0.7539],
-              [4, 0.8179],
-              [5, 0.6907],
-              [6, 0.5775],
-              [7, 0.4496],
-              [8, 0.3355],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The peak at k=4 matches the ground truth. Note that k=3 already scores 0.75 — a practitioner without ground truth who stopped early would pick k=3. This is a real failure mode: silhouette can undercount clusters when two true clusters are close together and merge gracefully under lower-k assignments. The elbow is sharp here because the synthetic data is well-separated. On noisier data the peak is flatter and the choice of k requires additional judgment.
-      </Prose>
-
-      <H3>6b. Algorithm comparison matrix: ARI / NMI across four methods</H3>
-
-      <Prose>
-        On a non-spherical mixed dataset (moons + blobs, n=200, k=4), four algorithms disagree enough to make the comparison matrix informative. ARI values below compare each pair of algorithm outputs — diagonal is always 1.0 (perfect self-agreement). Off-diagonal entries show how much the algorithms agree on the partitioning.
-      </Prose>
-
-      <Heatmap
-        label="ARI matrix — KMeans / Agglom / GMM / Agglom-Ward (non-spherical dataset, k=4)"
-        matrix={[
-          [1.000, 0.667, 0.531, 0.667],
-          [0.667, 1.000, 0.492, 1.000],
-          [0.531, 0.492, 1.000, 0.492],
-          [0.667, 1.000, 0.492, 1.000],
-        ]}
-        rowLabels={["KMeans", "Agglom", "GMM", "Agglom-Ward"]}
-        colLabels={["KMeans", "Agglom", "GMM", "Agglom-Ward"]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Agglom and Agglom-Ward (both hierarchical) agree perfectly (ARI=1.0). KMeans agrees moderately with both at 0.667. GMM, working with soft probabilistic assignments on non-spherical data, diverges most from the others (ARI 0.49–0.53). When you see two algorithms with ARI near 1 and a third with ARI below 0.55 against both, the outlier has found a fundamentally different partition — worth examining geometrically rather than assuming it is wrong.
-      </Prose>
-
-      <H3>6c. Per-cluster silhouette bar trace</H3>
-
-      <StepTrace
-        label="Per-cluster silhouette analysis (blobs, k=4)"
-        steps={[
-          {
-            label: "Cluster 0 — mean 0.7819",
-            render: () => (
-              <Prose>
-                75 points. Mean silhouette 0.78, minimum 0.46. Reasonably well-separated but not as tight as Cluster 1. The minimum of 0.46 means at least one point sits in a somewhat ambiguous region — still clearly in the right cluster (positive silhouette), but closer to the boundary than the bulk of the cluster. Acceptable; no intervention needed.
-              </Prose>
-            ),
-          },
-          {
-            label: "Cluster 1 — mean 0.8813 (cleanest)",
-            render: () => (
-              <Prose>
-                75 points. Mean silhouette 0.88, minimum 0.79. This is the textbook example of a well-separated, cohesive cluster — every single point is clearly assigned. The tight minimum (0.79) means even the most boundary-adjacent point in this cluster is far from the next nearest cluster. If all clusters looked like this, your global silhouette would be near 0.88.
-              </Prose>
-            ),
-          },
-          {
-            label: "Cluster 2 — mean 0.8415",
-            render: () => (
-              <Prose>
-                75 points. Mean silhouette 0.84, minimum 0.60. Well-separated. The minimum of 0.60 indicates some moderate boundary overlap but no misassignment candidates. This cluster and Cluster 1 are probably the two most spatially distinct; Cluster 0 and 3 are likely closer to each other.
-              </Prose>
-            ),
-          },
-          {
-            label: "Cluster 3 — mean 0.7669 (most borderline)",
-            render: () => (
-              <Prose>
-                75 points. Mean silhouette 0.77, minimum 0.13. The minimum of 0.13 is the diagnostic flag: there is a point that is nearly as close to the next nearest cluster as it is to its own. This is not a misassignment (positive silhouette), but it is on the verge. In a real analysis, plot this point and its k-nearest neighbors across the cluster boundary. If the dataset has noise or outliers, this is where they surface.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing the right metric is not a formality — the wrong metric can mislead you into selecting a bad clustering or misranking algorithms. The core decision tree is simple: do you have ground truth labels for evaluation?
-      </Prose>
-
-      <StepTrace
-        label="Which metric to use when"
-        steps={[
-          {
-            label: "No ground truth — use silhouette for k selection",
-            render: () => (
-              <Prose>
-                Silhouette, Calinski-Harabasz, and Davies-Bouldin are your only options. Silhouette is the default choice: it is interpretable at the point level, works on any distance metric, and its [-1, +1] range is intuitive. Use it to sweep k and pick the value that maximizes the mean score. Use <Code>silhouette_samples</Code> (not just the mean) to diagnose which clusters are poorly formed. Calinski-Harabasz can complement silhouette but assumes spherical, equal-sized clusters — it tends to favor k=2 on non-spherical data. Davies-Bouldin is similar in assumptions and is lower-better, which some find counterintuitive. Do not use silhouette as the sole criterion for very large k — it biases toward fewer, larger clusters.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ground truth available — use ARI for benchmarking",
-            render: () => (
-              <Prose>
-                Adjusted Rand Index is the standard for comparing clustering algorithms against known labels. It is bounded [-1, +1], corrected for chance (random clusterings score near 0 regardless of k), and symmetric. Use it in benchmarking papers and ablation studies. Fowlkes-Mallows score is an alternative that is also corrected for chance and tends to be more stable on small datasets. Both ignore the number of clusters in the true vs. predicted partition, which means they correctly reward a clustering that finds the right groups even if it uses a different number of labels.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ground truth available — NMI vs AMI",
-            render: () => (
-              <Prose>
-                Use AMI (<Code>adjusted_mutual_info_score</Code>) when your ground truth or predicted clustering has many clusters (roughly k {">"} 10), or when you are comparing across different k values. NMI is biased upward for large k: random clusterings with k=32 score NMI ≈ 0.47. AMI corrects for this. Use NMI only when k is small and fixed, or when you need strict [0,1] bounds and accept a slight bias. The sklearn default normalizer for NMI is <Code>average_method='arithmetic'</Code>; for closest match to the Strehl and Ghosh 2002 paper, use <Code>average_method='geometric'</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Avoid purity as a standalone metric",
-            render: () => (
-              <Prose>
-                Purity assigns each predicted cluster to the most common true class it contains and counts the fraction of correctly assigned points. It is simple and cheap to compute, but it is severely biased toward larger numbers of clusters: a clustering where every point is its own cluster has purity 1.0 by definition, regardless of how meaningless that partition is. Only use purity as a supplementary metric alongside ARI or NMI, never as the primary criterion. sklearn does not include purity as a built-in — that is a deliberate choice.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Computational complexity</H3>
-
-      <Prose>
-        Silhouette is expensive. The naive implementation requires computing the full pairwise distance matrix <Code>{"D ∈ R^{n×n}"}</Code>, which costs O(n²d) time and O(n²) memory. For n=10,000 and d=100, this is already a 100M-element float64 matrix — 800 MB. For n=100,000, it becomes 80 GB, which exceeds RAM on any typical machine. The sklearn implementation uses a loop over clusters to avoid materializing the full matrix, but the asymptotic complexity is still O(n²).
-      </Prose>
-
-      <Prose>
-        Approximate silhouette bypasses this. sklearn's <Code>silhouette_score</Code> accepts a <Code>sample_size</Code> parameter: pass <Code>sample_size=5000</Code> and it subsamples 5000 points, computes exact silhouette on the subsample, and returns the mean. This reduces cost to O(sample_size² × d). For n {">"} 50,000, always use the sample approximation — the mean silhouette estimate is stable with even 2,000–5,000 points if the clusters are reasonably balanced.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from sklearn.metrics import silhouette_score
-
-# Large dataset: use sample_size to avoid O(n^2) cost
-# silhouette_score(X_large, labels, sample_size=5000, random_state=42)
-
-# For very large n, alternatively compute per-cluster centroids and
-# use centroid distances as a proxy — O(n * k) instead of O(n^2)
-# This is an approximation: centroid distance != mean pairwise distance`}
-      </CodeBlock>
-
-      <Prose>
-        ARI and NMI are efficient. Their computation is dominated by building the contingency matrix, which is O(n) with a hash map, then operating on a <Code>k × k</Code> matrix with O(k²) cost. For typical k ({"<"}1000), this is negligible even for n in the millions. The pair-counting formulation in the ARI derivation looks like O(n²) because it sums over all pairs, but the contingency matrix reformulation reduces it to O(n + k²). sklearn implements both this way.
-      </Prose>
-
-      <H3>8.2 Memory considerations</H3>
-
-      <Prose>
-        The silhouette memory bottleneck is the distance matrix. For n = 50,000 at float32, this is 50,000² × 4 bytes = 10 GB — too large for RAM. The subsample approach (<Code>sample_size</Code>) is the practical fix. An alternative for very large n is to compute silhouette in blocks: for each point, compute distances to only the points in its own cluster and the nearest foreign cluster, storing only O(n × max_cluster_size) values at a time rather than O(n²). This is not in sklearn by default but is straightforward to implement.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Silhouette favors convex, spherical clusters</H3>
-
-      <Prose>
-        Silhouette is computed from distances to cluster means and the nearest cluster boundary. For non-convex cluster shapes — the canonical example is two concentric rings — the mean intra-cluster distance for a point on the outer ring includes points on the far side of the ring, making <Code>a(i)</Code> artificially large. Meanwhile, the nearest foreign cluster (the inner ring) may be closer. Silhouette assigns negative or near-zero scores to well-separated non-convex clusters, reporting them as poorly clustered when they are actually perfectly recovered. DBSCAN on the concentric rings problem produces excellent clusters that silhouette rates as mediocre. Always visualize the clusters alongside the metrics; silhouette alone is not sufficient for non-convex geometries.
-      </Prose>
-
-      <H3>9.2 Silhouette k=2 bias</H3>
-
-      <Prose>
-        When the true structure is ambiguous, silhouette often peaks at k=2 rather than the true k. This is because with k=2, the between-cluster gap is maximized by definition — every point is either in one half or the other, and <Code>b(i)</Code> is measured against the single foreign cluster. With k=4, a point has three foreign clusters, and <Code>b(i)</Code> is the minimum over three — which is often smaller, reducing the silhouette score even for well-separated clusters. On the blobs dataset above, k=3 already scores 0.75 vs. k=4 at 0.82. On noisier data, the k=2 bias can overwhelm the true signal. Always report silhouette across a range of k and look at the shape of the curve, not just the argmax.
-      </Prose>
-
-      <H3>9.3 NMI inflation for many clusters</H3>
-
-      <Prose>
-        Random clusterings with k=32 classes score NMI ≈ 0.47, not near 0. This is not a rounding error — it is structural. NMI's denominator (the geometric mean of the two entropies) grows more slowly than its numerator (MI) as k increases, because entropy is sub-linear in k. The actual stdout from the verification run:
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Random clustering bias demonstration
-# k= 2: NMI=0.0000  AMI=-0.0037
-# k= 4: NMI=0.0032  AMI=-0.0137
-# k= 8: NMI=0.0775  AMI= 0.0122
-# k=16: NMI=0.2428  AMI= 0.0135
-# k=32: NMI=0.4663  AMI=-0.0073
-#
-# NMI rises monotonically with k for random clusterings.
-# AMI stays near 0 at all k — use AMI when k is large or variable.`}
-      </CodeBlock>
-
-      <H3>9.4 Unadjusted RI is biased upward</H3>
-
-      <Prose>
-        Two independent random clusterings with k=5 over n=100 points score RI ≈ 0.70, not 0. The theoretical expected value is <Code>1 - 2/k + 2/k²</Code> ≈ 0.68 for k=5. The actual run gives 0.696 (close to the theoretical value, deviation due to finite n). ARI for the same pair is 0.045 — essentially zero, as it should be. Never use unadjusted Rand Index for comparing clusterings with different k or for benchmarking against chance. sklearn deliberately omits <Code>rand_score</Code> as a top-level function and provides only <Code>adjusted_rand_score</Code>.
-      </Prose>
-
-      <H3>9.5 Label permutation invariance — don't compare raw labels</H3>
-
-      <Prose>
-        Clustering algorithms assign arbitrary integer labels. If k-means returns <Code>[0, 1, 2, 0, 1]</Code> and the ground truth is <Code>[2, 0, 1, 2, 0]</Code>, these are the same clustering up to relabeling — but raw label accuracy is 0%. ARI, NMI, AMI, and silhouette are all invariant to this permutation by design. If you ever find yourself writing <Code>accuracy_score(y_true, y_pred)</Code> on clustering output, use the Hungarian algorithm (<Code>scipy.optimize.linear_sum_assignment</Code>) to find the optimal label mapping first — or just switch to ARI/NMI.
-      </Prose>
-
-      <H3>9.6 Class imbalance in ground truth</H3>
-
-      <Prose>
-        ARI and NMI weight all clusters equally by the contingency matrix structure — a cluster with 5 points and a cluster with 500 points contribute differently to the sum. On strongly imbalanced ground truth (one class with 90% of data), ARI can give a misleadingly high score to a clustering that perfectly recovers the dominant class while failing entirely on minority classes, because the pairs in the dominant class dominate the pair-counting. For imbalanced evaluation, inspect the per-cluster rows of the contingency matrix directly, or use a weighted variant of NMI where each class contributes proportionally to its size.
-      </Prose>
-
-      <H3>9.7 Tied distances</H3>
-
-      <Prose>
-        In integer-valued or heavily quantized feature spaces, many pairwise distances are identical. The silhouette formula depends on a strict minimum: if two clusters are equidistant from a point, <Code>b(i)</Code> is taken as that distance and the silhouette is computed normally. However, ties can make the silhouette score unstable under small perturbations. Similarly, ARI and NMI are not affected by tied distances (they work on labels, not distances), but the clustering algorithm that produced those labels may be — ties in centroid assignments in k-means, for example, are broken arbitrarily and can produce different cluster boundaries on different runs.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, DOI, and main claims.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Rousseeuw 1987 — Silhouette",
-            render: () => (
-              <Prose>
-                Rousseeuw, P.J. (1987). "Silhouettes: a graphical aid to the interpretation and validation of cluster analysis." <em>Journal of Computational and Applied Mathematics</em>, 20, 53–65. DOI: 10.1016/0377-0427(87)90125-7. Published at the Katholieke Universiteit Leuven. The paper introduced the silhouette plot — a horizontal bar chart where each point gets a bar of length equal to its silhouette coefficient, bars are sorted within each cluster, and the cluster-level mean is marked. The visual allows practitioners to immediately see which clusters are tight, which have mixed cohesion, and which have likely misassignments. The formula <Code>s(i) = (b(i) - a(i)) / max(a(i), b(i))</Code> and the interpretation guide (above 0.7 = strong, 0.5–0.7 = reasonable, 0.25–0.5 = weak, below 0.25 = no structure) are taken verbatim from this paper. One of the most cited clustering papers of all time.
-              </Prose>
-            ),
-          },
-          {
-            label: "Rand 1971 — Rand Index",
-            render: () => (
-              <Prose>
-                Rand, W.M. (1971). "Objective criteria for the evaluation of clustering methods." <em>Journal of the American Statistical Association</em>, 66(336), 846–850. DOI: 10.1080/01621459.1971.10482356. Rand introduced the pair-based view of clustering comparison: every pair of points is either kept together or separated, and the agreement fraction across all pairs is an interpretable global score. The paper also proposed several other criteria (sensitivity to resampling, stability under perturbation) that were less adopted, but the pair-counting index became the foundation for ARI, Fowlkes-Mallows, and the entire pair-counting evaluation family. The bias toward high scores for random clusterings was noted by Rand himself as a limitation.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hubert & Arabie 1985 — Adjusted Rand Index",
-            render: () => (
-              <Prose>
-                Hubert, L. and Arabie, P. (1985). "Comparing partitions." <em>Journal of Classification</em>, 2(1), 193–218. DOI: 10.1007/BF01908075. This is the paper that made the Rand Index usable. Hubert and Arabie derived the exact expected value of RI under the generalized hypergeometric null (independent random partitions with fixed marginals) and defined ARI as the normalized deviation from expectation. They showed that ARI = 0 for random clusterings regardless of k, and ARI = 1 for perfect agreement. The paper also surveyed and critiqued several other partition comparison indices. Milligan and Cooper (1986) subsequently showed ARI to be the best-performing external index in a comparative simulation — cementing its position as the community standard.
-              </Prose>
-            ),
-          },
-          {
-            label: "Strehl & Ghosh 2002 — NMI popularized",
-            render: () => (
-              <Prose>
-                Strehl, A. and Ghosh, J. (2002). "Cluster ensembles — a knowledge reuse framework for combining multiple partitions." <em>Journal of Machine Learning Research</em>, 3, 583–617. URL: jmlr.org/papers/volume3/strehl02a/strehl02a.pdf. The cluster ensemble paper formalized NMI as a clustering quality measure and used it as the objective function for combining multiple clustering outputs into a consensus partition. Although NMI had been used in information theory before this paper, Strehl and Ghosh's JMLR publication established it as the standard evaluation metric in the clustering and ensemble learning literatures. The geometric normalizer <Code>sqrt(H(U) * H(V))</Code> used here is their choice — other normalizers (arithmetic mean, min, max) are also valid and give slightly different range properties.
-              </Prose>
-            ),
-          },
-          {
-            label: "Vinh, Epps & Bailey 2010 — AMI and the full family",
-            render: () => (
-              <Prose>
-                Vinh, N.X., Epps, J. and Bailey, J. (2010). "Information theoretic measures for clusterings comparison: variants, properties, normalization and correction for chance." <em>Journal of Machine Learning Research</em>, 11, 2837–2854. URL: jmlr.org/papers/v11/vinh10a.html. This is the authoritative reference for the entire family of information-theoretic clustering metrics. Vinh et al. derived closed-form expressions for E[MI] under the hypergeometric null, defined AMI, proved it is bounded in [-1, 1] and corrected for chance, and compared all normalization strategies (geometric, arithmetic, min, max) in terms of properties and bias. The key practical conclusion: for any task where the number of clusters varies or is large, use AMI instead of NMI. sklearn's <Code>adjusted_mutual_info_score</Code> implements the AMI from this paper.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through all six before moving on. The answers are below each exercise — resist the urge to read ahead.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Write the silhouette coefficient formula for point <Code>i</Code>. Define <Code>a(i)</Code> and <Code>b(i)</Code> precisely. What is the range of <Code>s(i)</Code>? What does a negative silhouette score mean geometrically?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        s(i) = (b(i) - a(i)) / max(a(i), b(i)). a(i) is the mean Euclidean distance from point i to all other points in its own cluster (the cohesion; lower is better). b(i) is the minimum over all other clusters of the mean distance from point i to the points in that cluster (the separation; higher is better). Range: s(i) ∈ [-1, +1]. A negative silhouette means a(i) {">"} b(i) — point i is on average closer to the nearest foreign cluster than to its own cluster. This indicates a likely misassignment: the point would fit better in the neighboring cluster.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Explain why the unadjusted Rand Index gives a high score for random clusterings. For two independent uniform random clusterings with k=5 over n=100 points, what is the approximate expected value of RI? Derive the rough formula.
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        RI counts pairs that agree — either both in the same cluster or both in different clusters. With k=5 balanced clusters, the probability that two random points land in the same cluster is 1/k = 0.20. The probability they are in different clusters in both clusterings is (1 - 1/k)² = 0.64. The probability they agree (same-same or different-different) is (1/k)² + (1 - 1/k)² = 0.04 + 0.64 = 0.68. So E[RI] ≈ 0.68 for random clusterings with k=5 — far above zero. The general formula is 1/k² + (1 - 1/k)² = 1 - 2/k + 2/k². This is the bias ARI corrects by subtracting E[RI] and normalizing.
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        You run k-means with k = 2 through 10 on a dataset where you believe the true number of clusters is 6. Silhouette peaks at k=3 with score 0.72. At k=6 it is 0.61. Should you choose k=3 or k=6? What additional evidence would help you decide?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        This is ambiguous. Silhouette peaking at k=3 means the data partitions most cleanly into 3 groups by the silhouette criterion — but silhouette has a k=2 bias and tends to prefer fewer, larger clusters. The true k=6 may have pairs of true clusters that are close enough that k-means merges them into single groups at k=3 with high internal cohesion. Additional evidence: (1) Plot the clusters and the per-cluster silhouette bars at k=3 — check if any single cluster is elongated or multi-modal, suggesting it is actually two true clusters merged. (2) Use domain knowledge: if you know from prior work that 6 groups are expected, the 0.61 silhouette at k=6 with interpretable groups is preferable to a k=3 partition that ignores real substructure. (3) Try gap statistic or BIC on a GMM as additional diagnostics. Never rely on silhouette alone.
-      </Callout>
-
-      <H3>Exercise 4 (debugging)</H3>
-      <Prose>
-        You compare two clustering algorithms on a benchmark dataset with k=20 ground-truth classes. Algorithm A gets NMI = 0.72, Algorithm B gets NMI = 0.68. You conclude A is better. A colleague says the comparison is flawed. Who is right, and what should you use instead?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        The colleague is right if the two algorithms use different numbers of predicted clusters. NMI is biased upward for larger k — an algorithm that over-partitions into many small clusters will inflate its NMI score even if those clusters do not correspond to meaningful ground-truth classes. You should use AMI (adjusted_mutual_info_score in sklearn), which corrects for chance in the same way ARI does. Additionally, with k=20 ground-truth classes, the NMI bias is substantial: random clusterings with k=20 can score NMI around 0.3–0.4 depending on n. If both algorithms predict exactly k=20 clusters with no over-segmentation, the comparison is fairer but still better done with AMI for defensibility.
-      </Callout>
-
-      <H3>Exercise 5 (applied)</H3>
-      <Prose>
-        You have a dataset of 500,000 documents and want to evaluate a clustering with k=50. (a) Why is <Code>silhouette_score(X, labels)</Code> dangerous to call directly? (b) What is the fix, and what is the resulting complexity? (c) ARI is available — should you use it here instead?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        (a) silhouette_score requires computing the pairwise distance matrix, which is O(n²) in memory. For n=500,000 at float32, this is 500,000² × 4 bytes = 1 terabyte — completely infeasible. Even chunked, the computation takes hours. (b) Use silhouette_score with sample_size: pass sample_size=10000 or sample_size=20000. This subsamples the dataset uniformly, computes exact silhouette on the subsample, and returns the mean. Complexity drops to O(sample_size² × d) for distances and O(sample_size × n × d) for the cluster assignment check — manageable. (c) ARI requires ground truth labels. If you are evaluating a production clustering with no ground truth, ARI is not available. If you do have ground truth (e.g., you built a test set with manual annotations), ARI is O(n + k²) = O(500,000 + 2500) — effectively linear and should be used alongside the approximate silhouette.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        Your DBSCAN run on a 2D dataset with two crescent-shaped clusters returns silhouette = 0.28. Your k-means run on the same data with k=2 returns silhouette = 0.51. You have ground-truth labels. ARI for DBSCAN is 0.91; ARI for k-means is 0.14. Explain this discrepancy and state which algorithm actually performed better.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        DBSCAN performed better. The discrepancy arises because silhouette favors spherical, convex clusters. Crescent shapes are non-convex: points on opposite ends of a crescent are far from each other (making a(i) large) while potentially being close to the other crescent (making b(i) small), which deflates the silhouette score even for correctly assigned points. k-means with k=2 fits two spherical blobs to the crescents, splitting each crescent in half along a roughly straight boundary — the resulting partition has higher internal cohesion by the silhouette metric but is geometrically wrong relative to the true structure. ARI = 0.91 for DBSCAN confirms it almost perfectly recovered the true crescent assignment; ARI = 0.14 for k-means is barely above chance. Conclusion: when silhouette and an external metric (ARI) disagree, trust the external metric if ground truth is available. Silhouette is only reliable for globular cluster shapes.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Clustering Evaluation & Validation (Silhouette, ARI, NMI)',
+  readTime: '~50 min first pass · ~80 min complete read + 60–100 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot ce-lesson">
+    <LessonIntro prerequisites={<>Read a row-by-feature matrix, average distances, and know what a hard partition and a k-means assignment are; fractions and logarithms are introduced where they are used. Review <a href="/learn/path/full-curriculum/k-means-hierarchical-clustering?module=classical-ml">K-Means &amp; Hierarchical Clustering</a> for how groups are built and <a href="/learn/path/full-curriculum/pca-dimensionality-reduction?module=classical-ml">PCA &amp; Dimensionality Reduction</a> for how a representation changes distances.</>} sections={headings.map(heading => [headingId(heading), shortTitle(heading)])}>
+      Learn to judge a grouping you built without labels: compute one silhouette from its actual distances, count the pairs behind an agreement score, enumerate exactly what chance would produce, reproduce a real disagreement on 150 irises, and write a report whose scores name their population, geometry and comparison rule.
+    </LessonIntro>
+    <Prose className="ce-route"><strong>First-pass route.</strong> Read sections 1 to 7, try the silhouette and partition investigations, and run Programs 1 and 2. Continue through the Iris comparison, rejection policy and stability in sections 8 to 10, running one of Programs 4 and 5. Finish with the report task in section 12. Section 11 and the branches marked “deeper” on secondary indices, information distances and null-reference selection can wait for a second visit.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>Imagine receiving 150 iris specimens. For each one, you have sepal length, sepal width, petal length and petal width. You group specimens using those four measurements, without supplying their species names to the algorithm. A two-group result separates the measurements more cleanly by one geometric score. A three-group result agrees more closely with the recorded species.</Prose>
+    <Prose>That is a real result you will reproduce here. Neither number needs to be wrong. They answer different questions.</Prose>
+    <Prose><strong>Clustering evaluation means collecting evidence about a proposed grouping. Validation means deciding whether that evidence supports the use you intend.</strong> A grouping useful for choosing representative specimens may differ from one useful for identifying species. Start by naming the decision, then choose the evidence.</Prose>
+    <Prose>You already know how k-means and hierarchies build groups. PCA added another decision: which representation to preserve. This lesson asks how to judge those choices. You will calculate individual scores, inspect whole partitions, challenge a result with controlled changes and finish with a reproducible report.</Prose>
+    <H3>Four questions, four kinds of evidence</H3>
+    <LessonTable caption="Complementary questions, not four votes in a contest" headers={['question', 'what is compared?', 'useful evidence']} rows={[
+      ['Are these groups compact and separated in the chosen geometry?', 'Data distances and one partition', 'Silhouette, scatter and neighbour inspection, within-group distortion'],
+      ['Do these groups agree with a specified reference?', 'Two partitions of the same observations', 'Contingency table, ARI, NMI or AMI, split and merge diagnosis'],
+      ['Would a reasonable change produce similar groups?', 'Repeated fits or perturbed data on a comparable population', 'Membership stability, cluster survival, sensitivity by group'],
+      ['Does the grouping help the intended task?', 'A frozen procedure versus a task baseline', 'Held-out distortion, retrieval utility, reproducible external relationships or a prospective outcome']
+    ]} />
+    <Prose>A reference can be another algorithm’s partition rather than annotated classes; an external comparison does not require a claim that either partition is the truth.</Prose>
+    <Callout title="One caution to carry through the lesson">
+      Every score is conditional on its observation population, its representation and its comparison rule. State those once in an evaluation record, then interpret each result within that record. There is no universal silhouette threshold, correct cluster count or agreement score that substitutes for a task definition. The rest of this lesson relies on this statement rather than repeating it after each number.
+    </Callout>
+
+    <H2>{headings[1]}</H2>
+    <Prose>A <strong>hard partition</strong> assigns each observation to exactly one nonempty group. Its group names are arbitrary. For eight observations A to H, these assignments describe the same partition:</Prose>
+    <CodeBlock language="text">{'ID          A B C D E F G H\nPartition U 0 0 0 0 1 1 1 1\nRenamed U   7 7 7 7 3 3 3 3'}</CodeBlock>
+    <Prose>All four first observations remain together, and all four last observations remain together. Raw label accuracy is zero, because none of the numbers match. The grouping is unchanged.</Prose>
+    <CeIdentityFigure />
+    <Prose>Now change the second row to <Code>0 0 1 1 0 0 1 1</Code>. A and E become neighbours in the second grouping while A and C stop being neighbours. That is a change in membership, not a rename. Good partition-comparison measures detect the second change and ignore the first.</Prose>
+    <Prose>Use stable IDs to align the rows. If one program sorts observations by label while another retains input order, comparing their label arrays by position answers a different, accidental question. Join on IDs and verify that the retained ID sets match before calculating an agreement score.</Prose>
+    <Prose>Our core metrics compare hard partitions. Soft probabilities, overlapping memberships and unassigned observations require an explicit conversion or a measure designed for those objects. Section 9 handles unassigned observations. A conversion from probabilities to the largest-probability label deliberately discards uncertainty.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Take six locations on a number line:</Prose>
+    <CodeBlock language="text">{'ID        A B C       D E F\nLocation  0 1 2       7 8 9\nGroup     L L L       R R R'}</CodeBlock>
+    <Prose>For C, at location 2, ask two questions. How far is C from the <strong>other</strong> members of L? The distances are 2 and 1, whose average is 1.5. Call this within-group average <strong>a(C)</strong>. What is C’s average distance to the other group R? Its distances to D, E and F are 5, 6 and 7, averaging 6. Call this <strong>b(C)</strong>.</Prose>
+    <Prose>C’s own group is close while the competing group is much farther away. Normalize the difference by the larger average:</Prose>
+    <MathBlock>{'s(C)=\\frac{6-1.5}{6}=0.75.'}</MathBlock>
+    <CeDistanceFanFigure />
+    <Prose>With more than two groups, first calculate an average distance from C to <strong>each</strong> other group. Then take the smallest of those averages. The competing group is not chosen by its centre or by whichever individual point happens to be closest.</Prose>
+    <Prose>For observation i in group C(i), the definitions are:</Prose>
+    <MathBlock>{'\\begin{gathered}a(i)=\\frac{1}{|C(i)|-1}\\sum_{j\\in C(i),\\,j\\ne i}d(i,j),\\\\ b(i)=\\min_{G\\ne C(i)}\\frac{1}{|G|}\\sum_{j\\in G}d(i,j),\\\\ s(i)=\\frac{b(i)-a(i)}{\\max\\{a(i),b(i)\\}}.\\end{gathered}'}</MathBlock>
+    <Prose>Here d(i, j) is the declared nonnegative dissimilarity between observations. In this example it is absolute separation on the line, measured in the line’s units. Both a and b have those units; their ratio makes s dimensionless.</Prose>
+    <Prose>For positive a or b, the score lies between −1 and 1. If b ≥ a, then s = 1 − a/b: the score rises as the own-group average becomes small relative to the alternative. If a {'>'} b, then s = b/a − 1: the score is negative because another group has the smaller average distance. Negative silhouette tells you exactly this geometric fact. Inspect that point; its sign is not a class-label error detector.</Prose>
+    <H3>Read the silhouette plot as a distribution</H3>
+    <Prose>The mean of the six scores is approximately 0.806548. The actual silhouette plot gives every observation a horizontal bar, sorted within its group, with a vertical zero line and a line for the overall mean. Group height reveals group size. Bars extending left of zero locate poor within-versus-between distance contrasts. A thick positive band plus a small negative band can have a favourable mean while leaving a small group poorly represented.</Prose>
+    <Prose>The usual overall mean weights observations equally: a group of 100 contributes 100 times as much as a singleton. An equally weighted mean of group means is a different summary. Name it if you use it.</Prose>
+    <H3>Conditions and edge cases</H3>
+    <Prose>Use at least two groups and fewer groups than observations. The standard scikit-learn API rejects a one-group or all-singleton partition. For a singleton inside an otherwise valid partition, use s = 0: there is no other own-group member from which to estimate cohesion. If both a and b are zero, use s = 0 by convention. A precomputed dissimilarity matrix should have finite nonnegative entries, a zero diagonal and, for our undirected interpretation, symmetry. Similarities where larger means closer must first be turned into a justified dissimilarity.</Prose>
+    <Prose>Multiplying every distance by the same positive constant leaves s unchanged: that factor cancels from numerator and denominator. Changing relative feature weights can change it. Tied competing-group averages give the same b whichever tied group is named; the score remains defined.</Prose>
+    <H3>Investigation: change a membership, then explain every moving bar</H3>
+    <CeSilhouetteLab />
+    <Prose>Try an input of your own rather than only the presets. Which bars change when one point changes groups? The edited observation is only part of the answer: other points now average over different neighbours too.</Prose>
+    <H3>Run the programs in your own environment</H3>
+    <Prose>The page’s labs are visual models; the Python programs run locally. Use Python 3.12, create a folder and run <Code>python -m venv .venv</Code>. Activate it with <Code>.venv\Scripts\activate.bat</Code> in Windows Command Prompt, or <Code>source .venv/bin/activate</Code> on macOS/Linux. If your launcher is <Code>py -3.12</Code> or <Code>python3.12</Code>, use that to create the environment. Install the recorded versions:</Prose>
+    <CodeBlock language="bash">{'python -m pip install numpy==2.3.5 scipy==1.18.1 scikit-learn==1.9.1'}</CodeBlock>
+    <Prose>Save each complete program in its own file and run it with the environment’s Python, for example <Code>python silhouette_walkthrough.py</Code>. Programs 4 and 6 read <a href="/learn-assets/clustering-evaluation/iris.csv" download>the lesson’s iris.csv</a> from the same folder; download it once. With no activation, invoke <Code>.venv\Scripts\python.exe</Code> or <Code>.venv/bin/python</Code> directly. The small finite-coordinate examples are teaching inputs; use maintained library implementations for production data handling.</Prose>
+    <Program example={examples.silhouette}><Prose>After C moves to R, its new own-group mean is 6 while its average to A and B is 1.5. These are exactly the two quantities exchanged in its score: (1.5 − 6)/6 = −0.75. The other bars must be recomputed rather than flipping only C’s sign.</Prose></Program>
+    <Checkpoint prompt="Move C's location from 2 to 3 while keeping the original memberships. Find its new score before running code or the lab.">
+      <Prose>Its own distances become 3 and 2, so a = 2.5; its competing distances become 4, 5 and 6, so b = 5. Then s = (5 − 2.5)/5 = 0.5. This changes the geometry, while the previous experiment changed membership. A and B’s within-group averages change too.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[3]}</H2>
+    <Prose>PCA taught you that dropping directions changes distances and whitening changes their relative weights. This matters even if you keep the memberships fixed. Suppose one coordinate measures length in centimetres and another records a category code. Treating both as Euclidean axes is already an evaluation choice; a score cannot repair an inappropriate distance.</Prose>
+    <Prose>For numeric coordinates, a weighted Euclidean distance is</Prose>
+    <MathBlock>{'\\begin{gathered}d_w(x,y)^2=\\sum_r w_r(x_r-y_r)^2,\\\\ w_r\\ge0.\\end{gathered}'}</MathBlock>
+    <Prose>Scaling coordinate r by √w_r implements that weighting. Scaling one coordinate by ten multiplies its squared-distance contribution by 100. Standardization uses variability to set relative scales; it does not establish which measurements matter for a scientific task.</Prose>
+    <Prose>Separate two experiments. <strong>Rescore:</strong> hold one partition fixed and change the evaluation geometry, isolating the score’s representation sensitivity. <strong>Refit:</strong> change the representation, fit the clustering again, then evaluate; now both geometry and membership can change.</Prose>
+    <Prose>A full-dimensional, unwhitened orthogonal PCA rotation preserves Euclidean pair distances, so fixed-partition silhouettes remain the same up to rounding. A two-dimensional projection or whitening has no such general invariance. This is the direct bridge from PCA’s distance geometry to evaluation.</Prose>
+    <H3>Shape can conflict with average pairwise separation</H3>
+    <Prose>Imagine two concentric rings. Distant points around one ring may be farther apart than a point and members of the other ring. A partition into rings can therefore have a modest Euclidean silhouette, while slicing the picture into compact left and right groups scores better. Both calculations are correct. One criterion measures average pairwise compactness; another grouping question might concern connected dense structures.</Prose>
+    <CeRingFigure />
+    <Prose>The next lesson shows how density-based algorithms express the second idea. Here, the important move is to inspect the assumed geometry and the question behind a score disagreement.</Prose>
+    <H3>Deeper branch: what CH, Davies–Bouldin and Dunn measure</H3>
+    <Prose>Read this branch when you want to select complementary diagnostics rather than accumulate unrelated score columns. For Euclidean data, let μ be the full-data mean, μ_j a group’s mean and n_j its size. Write within- and between-group sums of squares as</Prose>
+    <MathBlock>{'\\begin{gathered}W=\\sum_j\\sum_{x\\in C_j}\\|x-\\mu_j\\|^2,\\\\ B=\\sum_j n_j\\|\\mu_j-\\mu\\|^2.\\end{gathered}'}</MathBlock>
+    <Prose>Expanding x − μ = (x − μ_j) + (μ_j − μ), the cross term sums to zero within a group, so total squared variation is W + B. This is the same mean-centering identity behind k-means, reorganized into an evaluation statistic. The <strong>Calinski–Harabasz index</strong> is</Prose>
+    <MathBlock>{'\\mathrm{CH}=\\frac{B/(k-1)}{W/(n-k)}.'}</MathBlock>
+    <Prose>It rewards large separation of means compared with remaining within-group variation, adjusted by these degrees-of-freedom factors. Its ordinary formula needs 2 ≤ k {'<'} n and W {'>'} 0. For our six points, W = 4, B = 73.5, n = 6 and k = 2, giving CH = 73.5. Higher means stronger separation under this centroid-scatter criterion; it is not an F-test p-value for clusters selected from those same observations.</Prose>
+    <Prose>For <strong>Davies–Bouldin</strong>, define each group’s scatter as the average Euclidean distance S_j to its centre, and centre separation M_jl = ‖μ_j − μ_l‖. Each group takes its worst competing ratio (S_j + S_l)/M_jl; DB averages those ratios over groups, and lower is favourable. The six-point scatters are both 2/3 and the centres are 7 apart, giving DB = 4/21 ≈ 0.190476. Coincident centres make the ordinary ratio undefined or infinite; inspect that degeneracy instead of treating a library fallback as strong separation.</Prose>
+    <Prose>The basic <strong>Dunn index</strong> divides the smallest cross-group point distance by the largest within-group diameter. Our six-point example gives 5/2 = 2.5. One bridging point or one extreme within-group distance can dominate it, and publications differ on the exact definitions, so report the variant. Silhouette averages distances from each point; CH and DB use group centres and scatter; Dunn uses extremes. Their agreement is informative when their distinct summaries suit the task; none guarantees a preferred k.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>Return to the eight IDs. Let the reference partition be U = <Code>00001111</Code> and the candidate V = <Code>00010111</Code>: D and E have exchanged groups. Instead of matching label numbers, inspect the 28 unordered pairs of distinct IDs. Every pair falls into one of four cases:</Prose>
+    <LessonTable caption="Pair decisions. “Positive” means the pair is together, not a positive class" headers={['pair decision', 'together in V', 'apart in V']} rows={[['together in U', 'TP: together in both', 'FN: split by V'], ['apart in U', 'FP: merged by V', 'TN: apart in both']]} />
+    <Prose>The <strong>Rand index</strong>, RI = (TP + TN)/28, is the fraction of pair decisions on which the partitions agree. Rather than visiting all pairs, count intersections of groups:</Prose>
+    <LessonTable caption="Contingency table for U against V" headers={['U group \\ V group', 'V0', 'V1', 'U size']} rows={[['U0', '3', '1', '4'], ['U1', '1', '3', '4'], ['V size', '4', '4', '8']]} />
+    <Prose>A cell containing m observations contributes m(m − 1)/2 pairs that are together in both partitions. Let <strong>S</strong> be the sum of these cell pair counts, <strong>A</strong> the sum of reference-group pair counts, <strong>B</strong> the sum of candidate-group pair counts, and <strong>M</strong> = n(n − 1)/2 the total pairs. Here S = 3 + 3 = 6, A = B = 6 + 6 = 12 and M = 28. Thus TP = S = 6, FN = A − S = 6, FP = B − S = 6, and TN = M − A − B + S = 10. RI = 16/28 = 4/7 ≈ 0.571429.</Prose>
+    <CePairLab />
+    <H3>Why RI’s natural chance baseline is not zero</H3>
+    <Prose>Suppose the reference groups remain size four and four. Randomly assign V’s four zero labels and four one labels to the eight fixed IDs. This preserves group sizes but removes their association with U: the <strong>fixed-margin permutation null</strong>.</Prose>
+    <Prose>For any pair already together in U, the probability of also being together in V is B/M. There are A such pairs, so the expected number together in both is E[S] = AB/M. Consequently</Prose>
+    <MathBlock>{'E[\\mathrm{RI}]=1-\\frac{A+B}{M}+\\frac{2AB}{M^2}.'}</MathBlock>
+    <Prose>For A = B = 12, M = 28, this expectation is 25/49 ≈ 0.510204. Observed RI = 0.571429 is somewhat above that baseline. RI itself remains interpretable as pairwise agreement. The <strong>adjusted Rand index</strong> asks how much agreement remains after subtracting this chosen chance expectation:</Prose>
+    <MathBlock>{'\\mathrm{ARI}=\\frac{S-AB/M}{(A+B)/2-AB/M}.'}</MathBlock>
+    <Prose>For the exchanged D/E example, ARI = (6 − 36/7)/(12 − 36/7) = 1/8 = 0.125. A value of 1 means the same partition up to names. Zero means S equals its null expectation. Negative means less together-pair agreement than that expectation; the attainable lower bound depends on the partition sizes, and a negative result is not a calculation failure.</Prose>
+    <Prose>The normalization uses (A + B)/2 as its standard upper reference for S. When the two size profiles differ, that reference need not be attainable by a contingency table with those exact margins. In particular, “ARI = 1” still requires identical nonempty groups, not merely the best possible matching between incompatible group sizes.</Prose>
+    <Prose>Two null models must not be mixed. If each observation independently chooses one of k equally probable labels in each partition, a pair agrees with probability (1/k)² + (1 − 1/k)²; at k = 5 that is 0.68. This independent-assignment model does <strong>not</strong> fix the resulting group sizes. ARI’s conditional calculation fixes the observed margins. Neither model says that every random realization receives its expectation.</Prose>
+    <Program example={examples.pairs}><Prose>The first computation directly checks pair decisions; the second groups them through a contingency table. Their equality links the visual pair board to the efficient calculation. When both partitions are the same single group, or both are all singletons, the displayed quotient has a zero denominator; the library uses 1 for perfect agreement. Empty or one-row comparisons have no empirical pair evidence even where an API supplies a convenient identity result, so report the sample count with the metric.</Prose></Program>
+
+    <H2>{headings[5]}</H2>
+    <Prose>Choose one of A to H uniformly at random. U and V are now two labels attached to that randomly chosen observation. A cell count n_uv divided by n is the joint probability of seeing those two labels together. Row and column proportions are their marginal probabilities.</Prose>
+    <Prose><strong>Entropy</strong> H(U) = −Σ_u p(u) log₂ p(u) measures average uncertainty in bits. A balanced two-group partition has H(U) = 1 bit. A single group has entropy zero: its label conveys no distinction between observations. <strong>Mutual information</strong>, I(U;V), measures the reduction in uncertainty about U after learning V:</Prose>
+    <MathBlock>{'\\begin{gathered}I(U;V)=H(U)-H(U\\mid V)\\\\ =\\sum_{u,v}p(u,v)\\log_2 r_{uv},\\\\ r_{uv}=\\frac{p(u,v)}{p(u)\\,p(v)}.\\end{gathered}'}</MathBlock>
+    <Prose>The sum runs over cells with p(u, v) {'>'} 0, and r_uv compares each joint probability with the product of its margins. Here conditional entropy H(U|V) is the average entropy remaining within the V groups. The same quantity equals H(V) − H(V|U), so MI is symmetric. Its upper bound is min(H(U), H(V)); there is no fixed upper bound independent of the available labels and sample size.</Prose>
+    <H3>A refinement makes the distinction visible</H3>
+    <Prose>Take U = <Code>00001111</Code> and V = <Code>00112233</Code>. V splits each U group into two pure subgroups. Knowing V tells you U exactly, so H(U|V) = 0 and I(U;V) = 1 bit. Knowing U leaves a choice between two V groups, so H(V|U) = 1 bit. H(V) = 2 bits.</Prose>
+    <CeInformationFigure />
+    <Prose>The arithmetic version of <strong>normalized mutual information</strong> is</Prose>
+    <MathBlock>{'\\mathrm{NMI}_{\\mathrm{arithmetic}}=\\frac{2I(U;V)}{H(U)+H(V)}.'}</MathBlock>
+    <Prose>It gives 2/3 for this refinement. The geometric version gives I/√(H(U)H(V)) = 1/√2 ≈ 0.707107. Both describe the same partitions with different normalizations. Always name the normalizer; this lesson uses arithmetic NMI, the current scikit-learn default. A <Code>min</Code> normalizer would give 1 to this strict refinement, so a score of 1 under that convention need not mean identical partitions.</Prose>
+    <Prose>NMI uses the empirical table: I = 0 means that table factors exactly into its margins. Independent random finite assignments usually produce a table that does not factor exactly. Normalization restricts the range but does not remove that finite-sample association.</Prose>
+    <H3>AMI: subtract the association expected under the same fixed margins</H3>
+    <Prose>Keep both partitions’ group sizes and randomly permute one partition over the IDs. Compute MI for those rearrangements. <strong>Adjusted mutual information</strong> subtracts the mean MI of that null experiment:</Prose>
+    <MathBlock>{'\\begin{gathered}\\mathrm{AMI}=\\frac{I-E[I]}{\\bar H-E[I]},\\\\ \\bar H=\\tfrac12\\bigl(H(U)+H(V)\\bigr).\\end{gathered}'}</MathBlock>
+    <Prose>This uses the arithmetic convention too. AMI can be negative, equals 1 for identical partitions, and has zero expectation under the nondegenerate fixed-margin null. It is neither a probability nor a significance test. Choose adjustment when comparison against that null is part of the question; choose a declared unadjusted normalization when that is the required descriptive quantity. There is no k = 10 boundary at which the meaning suddenly changes.</Prose>
+    <CeChanceLab />
+    <Prose>For balanced two-by-two margins on eight IDs there are C(8, 4) = 70 assignments of the four V0 labels. The overlap of U0 and V0 can be 0, 1, 2, 3, 4, occurring 1, 16, 36, 16, 1 times. Equal overlap 2 gives an exactly independent table and NMI = 0. Complete agreement at overlap 0 or 4 gives NMI = 1. Averaging all 70 NMI values gives about 0.114844, while the mean ARI and AMI are zero. The positive unadjusted baseline emerges from the entire distribution, not from a fixed penalty for “many clusters”.</Prose>
+    <Program example={examples.chance}><Prose>The tolerance in the final line handles rounding of a mathematically zero mean. It does not turn every individual adjusted score into zero.</Prose></Program>
+    <H3>Deeper branch: calculate E[MI] without enumerating all permutations</H3>
+    <Prose>Let a_u be the size of U group u and b_v the size of V group v. Under a random fixed-margin permutation, the overlap R in that cell is hypergeometric:</Prose>
+    <MathBlock>{'\\begin{gathered}P(R=r)=\\frac{\\binom{a_u}{r}\\binom{n-a_u}{b_v-r}}{\\binom{n}{b_v}},\\\\ r_{\\min}\\le r\\le\\min(a_u,b_v),\\\\ r_{\\min}=\\max(0,a_u+b_v-n).\\end{gathered}'}</MathBlock>
+    <Prose>This counts ways to choose b_v observations: r from inside U_u and the remainder from outside. For each cell, average its contribution (r/n) log(nr/(a_u b_v)) with these probabilities, treating r = 0 as contribution zero. Sum over cells. Linearity of expectation makes this valid even though different cells are dependent. The entropies in the AMI denominator stay fixed because the margins stay fixed.</Prose>
+    <Prose>The logarithm base cancels from NMI and AMI if used consistently. Raw MI from scikit-learn uses natural logarithms, so it is reported in nats; divide by log(2) for bits. For the constant-partition cases, use the library’s declared convention: both single-group partitions give NMI = AMI = 1; one constant and one nonconstant partition give 0. An implementation that returns 1 whenever either entropy is zero is wrong.</Prose>
+
+    <H2>{headings[6]}</H2>
+    <Prose>An overall agreement score should lead you back to the contingency table. A row spread over several columns shows a reference group split by the candidate. A column receiving observations from several rows shows groups merged by the candidate. Inspect small groups separately: a group of m contributes C(m, 2) together-pairs, so large groups can dominate pair summaries. Information summaries also use observation proportions rather than weighting every group equally.</Prose>
+    <Prose>For U = <Code>00001111</Code> and the refinement V = <Code>00112233</Code>, each predicted group contains only one reference category. Its <strong>purity</strong> is 1, despite splitting each reference group in half. Purity chooses the largest reference count in each candidate group and sums those counts, divided by n. Every-singleton clustering has purity 1 for any reference labeling. This is why purity must be accompanied by evidence about fragmentation.</Prose>
+    <Prose>Two directional information summaries reveal this. <strong>Homogeneity</strong>, I/H(U), asks how well the candidate groups determine reference category; it is 1 for the pure refinement. <strong>Completeness</strong>, I/H(V), asks how well reference category determines candidate group; it is 1/2 for the refinement. With the standard zero-entropy conventions, their harmonic mean is <strong>V-measure</strong>. When both entropies are positive, algebra gives V = 2I/(H(U) + H(V)), exactly arithmetic NMI. The same 2/3 appears again because these are two descriptions of the same normalization; homogeneity and completeness name the asymmetry the symmetric result hides.</Prose>
+    <Prose><strong>Fowlkes–Mallows</strong> uses pair precision TP/(TP + FP) and pair recall TP/(TP + FN), taking their geometric mean. For the D/E exchange, both are 6/12, so FM = 0.5. Unlike ARI, FM does not subtract a chance baseline. It is useful when the consequences of merging unrelated records and splitting related records need discussing directly, for example when grouping duplicate catalogue entries: pairs are records, “together” means a proposed duplicate relationship, and false merges can join different products.</Prose>
+    <H3>Deeper branch: matching labels and measuring information lost</H3>
+    <Prose>Sometimes a task really requires mapping discovered groups to named classes. Maximizing a one-to-one matching through the contingency table then produces a <strong>matched classification accuracy</strong>. It answers a mapping question with a stated constraint. Purity instead permits several discovered groups to map to the same class. If the numbers of groups differ, unmatched groups need a declared handling rule. Once a mapping is learned for prediction, evaluate that mapping on held-out records rather than rematching to each test set’s known answers.</Prose>
+    <Prose>Another comparison is <strong>variation of information</strong>:</Prose>
+    <MathBlock>{'\\begin{gathered}\\mathrm{VI}(U,V)\\\\ =H(U\\mid V)+H(V\\mid U)\\\\ =H(U)+H(V)-2I(U;V).\\end{gathered}'}</MathBlock>
+    <Prose>It adds the information lost in each direction, so lower is closer. The pure refinement costs one bit: no uncertainty about U given V, one bit about V given U. VI is a metric on finite partitions of a common set; “1 − arithmetic NMI” and chance-adjusted scores should not be assumed to inherit metric properties. Use this branch when a method needs a distance between whole partitions rather than only a reported similarity.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <Prose>The <a href="/learn-assets/clustering-evaluation/iris.csv" download>supplied iris.csv</a> contains 150 specimens, four morphological measurements in centimetres and species labels. Fisher’s historical classification data asked how measurements distinguish species. Our task is different: build geometric groups without using species, then compare the resulting partitions with that recorded category. The file uses the corrected Iris copy bundled with scikit-learn 1.9.1, with IDs 0 to 149; attribution and license are in the references.</Prose>
+    <Prose>This first analysis is <strong>descriptive</strong>: all 150 specimens define both the fit and its reported geometry. It does not estimate performance on future specimens. Section 12 gives a separate frozen-report protocol for that purpose.</Prose>
+    <Prose>Use Euclidean k-means with 20 initializations and <Code>random_state=17</Code>. Compare raw measurements, standardized measurements, two unwhitened principal components of standardized data, and two whitened components. Keep species out of fitting and selection. Inspect k = 2 and k = 3 as candidate resolutions; neither is named “correct” in advance.</Prose>
+    <Program example={examples.iris}><Prose>Save <Code>iris.csv</Code> beside this file. The column selection deliberately excludes the row identifier and species.</Prose></Program>
+    <CeIrisSnapshotFigure />
+    <Prose>Return to the opening question. In raw measurement space, k = 2 has silhouette 0.681046 versus 0.552819 for k = 3. But species agreement rises from ARI 0.539922 to 0.730238. If the task is agreement with species, the three-group result is stronger on these data. If the task is a compact two-prototype summary, the two-group result answers that different constraint. A report should retain the disagreement and explain which decision it serves.</Prose>
+    <Prose>The standardized and two-PC k = 3 fits give the same partition up to names in this fixture, even though their silhouettes differ. Comparing their aligned label arrays directly gives ARI = 1; every pair has the same together/apart status. Equal agreement with species alone would not establish that identity. The labels used for the external comparison have not changed; the distances used for silhouette have. This makes the rescore/refit distinction tangible. In the lab, freeze the standardized partition and choose your own positive weight for petal width. Record a prediction before rescoring. Then use a common multiplier on every weight as the null control: silhouette should stay fixed.</Prose>
+    <CeIrisLab />
+    <Prose>After examining the aggregate scores, sort silhouette bars within each group and open the species contingency table. Which species gets split? Which candidate group merges reference categories? Read individual specimen IDs and measurements for the low bars. Raw size and representative measurements are often more interpretable than another decimal place in a global score. When using a two-coordinate scatter to show four-dimensional distances, label it as a <strong>view</strong>: the silhouette calculation still uses its declared feature space, and a pair that looks close in the view can differ along an omitted direction.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Some algorithms leave observations unassigned, often encoding that state as −1. The next lesson explains how DBSCAN produces such results. For now, consider the evaluation contract when a program returns them. Ordinary partition metrics do not attach a special meaning to the number −1. Passing it to ARI treats all −1 observations as one group. Passing it to silhouette treats −1 as a group too. If your intended meaning is “these observations are unrelated rejections”, that is not the same assertion.</Prose>
+    <LessonTable caption="Legitimate reporting policies, provided the question is named" headers={['policy', 'what is scored', 'what to report with it']} rows={[
+      ['All-row partition comparison', 'Every row, interpreting each returned label including −1 as a group', 'That this measures agreement under that encoding'],
+      ['Conditional assigned-row evaluation', 'The remaining population after excluding unassigned rows', 'Coverage = assigned rows / all original rows, and the retained IDs'],
+      ['Separate rejection evaluation', 'The binary accept/reject decision against a trusted target', 'Its own metric, apart from how accepted observations are grouped']
+    ]} />
+    <CeRejectionFigure />
+    <Prose>When comparing two methods that reject different rows, report each method’s coverage, then optionally compare both on the <strong>intersection</strong> of their assigned IDs. That common subset fixes the comparison population; it also narrows the question to observations both methods accept. Retain the all-row counts so difficult cases do not disappear from the report. After filtering, check that silhouette still has 2 ≤ k {'<'} n; otherwise report “undefined”, not zero.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <Prose>An optimizer can return the same answer repeatedly because a dominant feature separates the data. That may be useful, or the dominant feature may be the ID of the recording machine. Stability is evidence about sensitivity, not about which scientific distinction deserves a cluster. Name the perturbation:</Prose>
+    <LessonTable caption="One controlled change at a time" headers={['what changes?', 'what this experiment asks']} rows={[
+      ['Initialization only, fixed observations', 'Did the optimizer find different solutions?'],
+      ['Observation frequencies or a resample', 'Does the grouping depend strongly on this sample?'],
+      ['Measurement noise within a justified scale', 'Does plausible measurement error change membership?'],
+      ['Features or representation', 'Is the chosen geometry doing most of the work?'],
+      ['New cohort or time window', 'Does the fitted grouping or its task relationship replicate?']
+    ]} />
+    <Prose>Do not combine all these changes into one unlabeled spread. Start with one controlled change and add others when the task calls for them. Keep observation IDs aligned throughout.</Prose>
+    <H3>Make the resampling effect visible without optimizer randomness</H3>
+    <Prose>Consider the fixed probe locations 0, 1, 4, 5, 8, 9. Fit two one-dimensional groups to weighted copies of those locations. To isolate sampling, choose the <strong>globally lowest</strong> weighted squared-error split among the five possible contiguous cuts. This tiny exact solver differs from iterative k-means: it removes initialization as a cause of disagreement. With weights 3, 3, 1, 1, 1, 1 the means are 0.5 and 6.5, and predicting the six original probes gives 0 0 1 1 1 1. With weights 1, 1, 1, 1, 3, 3 the means are 2.5 and 8.5, and the same probes get 0 0 0 0 1 1. The locations are unchanged; changing which ones occur more often shifts the best representation and moves the middle pair’s group assignment. Comparing the resample’s row positions would obscure this mechanism. Comparing predictions on the six fixed IDs shows it.</Prose>
+    <CeResampleLab />
+    <Prose>The lab also permits k = 1. Both fits then assign every probe to the same group and have perfect partition agreement. This null case explains why maximizing stability alone can prefer a trivial answer. The useful question is whether a nontrivial grouping with the needed resolution survives justified perturbations.</Prose>
+    <Program example={examples.probes}><Prose>The two-by-two contingency table has cells 2, 0, 2, 2, with row and column sizes 2/4 and 4/2. Thus S = 3, A = B = 7, M = 15, yielding ARI = −1/14 ≈ −0.071429. The final line is 1.0.</Prose></Program>
+    <Prose>For real-data bootstrap stability, sample <strong>training observation IDs with replacement</strong>, refit all learned preprocessing and clustering on that resample, and predict a fixed development probe set. Compare probe labels with the reference fit or with other resamples, stating which. Draws that lose the required number of distinct observations must be counted and handled explicitly, not silently replaced until the result looks stable.</Prose>
+    <Prose>K-means has a natural nearest-centre assignment for new probes. A hierarchy does not generally provide a native out-of-sample prediction rule. One alternative is to cluster subsamples and compare memberships on their shared original IDs; another is to define and justify a separate assignment rule. These are different stability experiments. A co-assignment matrix can record how often a pair is together <strong>among runs where that pair is jointly observed</strong>; dividing by all runs would incorrectly count absent observations as separated.</Prose>
+
+    <H2>{headings[10]}</H2>
+    <Prose>The first pass can skip this section. Return when you must choose an evaluation procedure for a larger analysis or defend a null-reference comparison.</Prose>
+    <H3>Does the data support grouping beyond a chosen reference?</H3>
+    <Prose>An algorithm asked for k groups will usually return k groups even from a smooth cloud. <strong>Cluster tendency</strong> asks whether relevant grouping structure is present before treating those divisions as meaningful. You must specify what “no relevant grouping” would look like for your measurements. Uniformly distributed points in a bounding box, a unimodal correlated cloud and shuffled feature columns are different reference models.</Prose>
+    <Prose>The <strong>gap statistic</strong> compares observed within-group dispersion with dispersion from a chosen null generator. For k-means with squared Euclidean distances, use W_k equal to within-cluster SSE. Simulate B reference datasets, apply the same fitting procedure to each, and compute</Prose>
+    <MathBlock>{'\\begin{gathered}\\operatorname{Gap}(k)=\\overline{\\log W_k^{*}}-\\log W_k,\\\\ \\overline{\\log W_k^{*}}=\\frac1B\\sum_{b=1}^B\\log W_{kb}^{*}.\\end{gathered}'}</MathBlock>
+    <Prose>A larger gap means more compactness than that reference produces at the same k. Let s_k be the simulated log-dispersion standard deviation multiplied by √(1 + 1/B). A conventional Tibshirani rule picks the first k satisfying Gap(k) ≥ Gap(k+1) − s_{'{k+1}'}. Include k = 1. Declare what happens if no tested k qualifies, and avoid k with zero dispersion because its logarithm is undefined.</Prose>
+    <Prose>For an original teaching table with Gap values 0.10, 0.42, 0.46, 0.44 and next-point uncertainties 0.03, 0.08, 0.06, 0.07, k = 1 fails because 0.10 {'<'} 0.42 − 0.08. k = 2 qualifies because 0.42 ≥ 0.46 − 0.06. The rule chooses 2 although the maximum displayed gap is at 3. These values illustrate the decision rule; they are not measured Iris results.</Prose>
+    <Prose>A uniform box can be generated in original coordinates or after an orthogonal PCA rotation; the latter changes the reference model’s bounding geometry, not PCA whitening. If you use R’s <Code>clusGap</Code>, name <Code>spaceH0</Code>, the distance power and the selection rule; its defaults need not match the squared-SSE and <Code>Tibs2001SEmax</Code> convention above. Model-based likelihood criteria such as BIC for Gaussian mixtures answer another question under a probability model; the later Gaussian-mixture lesson owns their derivation. Graph modularity and density-validity measures similarly require their own graph or density definitions.</Prose>
+    <H3>A hierarchy has a fidelity question before it has a cut</H3>
+    <Prose>For a dendrogram, a pair’s <strong>cophenetic distance</strong> is the height at which its two observations first join the same branch. Compare that vector of pair heights with the original vector of pairwise distances. Their Pearson correlation, when both vectors vary, measures how well this hierarchy preserves the distance pattern. For line points A = 0, B = 1, C = 3, the original AB/AC/BC distances are 1, 3, 2. Single linkage merges A/B at 1 and joins C at 2, producing cophenetic values 1, 2, 2; their correlation is √3/2 ≈ 0.866025. The hierarchy compresses two different distances into the same merge height. This evaluates the whole dendrogram’s distance fidelity, not its agreement with categories or the usefulness of a particular cut; a constant vector makes the correlation undefined.</Prose>
+    <H3>What scales, and what changes the quantity?</H3>
+    <Prose>For n rows and d coordinates, exact Euclidean silhouette evaluates O(n²d) distance work. A full dense float64 n-by-n matrix occupies 8n² bytes: at n = 100,000 this is 80 billion bytes, about 74.5 GiB. Exact computation need not store that entire matrix; the current scikit-learn implementation computes distances in chunks and accumulates group sums, which reduces working memory, not the number of relevant distances.</Prose>
+    <Prose>There are two different sampling approaches. <strong>Subset silhouette</strong> takes m rows and computes silhouette entirely inside that subset, which is what <Code>silhouette_score(sample_size=m)</Code> does; it changes both the focal observations and their own and competing groups, rare groups may vanish or become singletons, and the result is not generally an unbiased estimate of full-data silhouette. <strong>Sampling focal rows while retaining all comparison rows</strong> selects m focal IDs and computes each one’s exact a and b against the full fixed partition; a simple random sample mean of those fixed per-point scores is unbiased for their full-data mean, at O(mnd) distance work. A stratified focal sample can protect small groups; combine group means with original group proportions if the target is the observation-weighted mean.</Prose>
+    <Prose>Replacing each group’s observations with its centre is cheaper but changes silhouette’s definition: distance to a mean is not the mean distance. Call such a result a centroid proxy. ARI and unadjusted MI avoid listing every pair: after label encoding, count nonzero contingency cells and margins, with expected O(n) construction under hashing and O(rc) work over a dense r-by-c table. AMI additionally sums expected information over possible cell overlaps and does not share ARI’s linear-time cost.</Prose>
+
+    <H2>{headings[11]}</H2>
+    <Prose>For the opening Iris question, a useful report might say: “I treated the four cm measurements as Euclidean coordinates and fitted k-means with 20 initializations, seed 17. On these 150 specimens, two groups had higher silhouette, while three groups agreed more closely with species. For describing species-related morphology, I would inspect the three-group contingency table and its remaining merges. For a two-representative compression constraint, I would retain two groups and report distortion. This is a descriptive analysis of this dataset.” That statement connects evidence to a decision and makes clear what a later analysis must establish if the groups are to be used on new observations.</Prose>
+    <H3>Separate development from the final report</H3>
+    <Prose>If the intended use concerns new specimens, reserve a final report set before selecting the representation, k or interpretation. Use a development fit set to learn preprocessing and centres. A separate selection set can compare candidates. Once the selection rule and chosen pipeline are frozen, apply them to the report set once.</Prose>
+    <CeReportFlowFigure />
+    <Prose>The terms “validation” and “test” differ across papers; the role of the data matters more than the name. Unsupervised fitting can still leak information: estimating scaling, selecting PCA dimensions or choosing k after viewing the final report makes that report part of development. Exploratory analysis of all available data is legitimate when described as exploration, as in section 8.</Prose>
+    <Prose>For a compactness task, one defensible rule is: fix standardized four-feature geometry, try k = 2, 3, 4, require each training group to contain at least 10 specimens, and choose the highest selection-set silhouette. The minimum size is an illustrative operational choice. Report squared distance to the selected training centres on untouched observations against a one-centre training-mean baseline. Inspect species agreement separately without using it to choose the model.</Prose>
+    <Program example={examples.report}><Prose>Preprocessing is fitted on the 90 fit rows, selection uses only the 30 selection rows, and final evaluation uses the remaining 30 rows. All three candidates pass the training-size requirement; k = 2 wins the selection silhouette comparison. The report distortion falls from about 4.67 for one representative to 1.38 for two: evidence for representation quality in the declared standardized geometry, not species recovery, which the separately reported ARI describes. A raised “no eligible candidate” is an explicit outcome, not a request to use report results to revise the rule.</Prose></Program>
+    <Prose>Because both pipelines fit their scaler on the same fit rows, the two distortion numbers use the same standardized coordinate system. A report-set silhouette, if added, measures distances among report observations grouped by the frozen assignment; a held-out centre distortion measures distance to training representatives. These are different held-out summaries.</Prose>
+    <H3>Independent practice</H3>
+    <Prose>Try before opening the explanations. Each problem changes the input, the comparison or the intended use.</Prose>
+    <Practice title="1. A foreign group’s nearest point is misleading" question="A selected point has a = 2. Distances to foreign group R are 1, 9, 11; distances to group S are 4, 4. Which group determines b and what is s?" hint="Average within each candidate group before taking a minimum.">
+      <Prose>R’s mean is 7; S’s is 4. Therefore b = 4 and s = 0.5. Choosing R because it contains the point at distance 1 would reverse the conclusion.</Prose>
+    </Practice>
+    <Practice title="2. Cross the labels" question="For U = 00001111 and V = 00110011, compute S, A, B, M, RI and ARI. Then explain why NMI is zero while ARI is negative." hint="The contingency table is a two-by-two table of twos. Compare observed S with AB/M, not with zero.">
+      <Prose>S = 4, A = B = 12, M = 28. TN = 8, RI = 12/28 = 3/7. Expected S = 36/7, so ARI = −1/6. Every joint cell has probability 1/4 and each marginal 1/2, so the empirical labels are independent and MI = NMI = 0. Under the fixed-margin random experiment some arrangements have positive MI, so AMI is negative too, about −0.129745. Independence of this empirical table and chance adjustment are distinct reference points.</Prose>
+    </Practice>
+    <Practice title="3. Pure fragments" question="Give every one of the eight observations its own candidate group. U is still 00001111. Calculate purity, H(V), MI and arithmetic NMI; predict ARI." hint="A singleton ID determines its reference group. But many distinctions in V have no counterpart in U.">
+      <Prose>Purity = 1; H(V) = log₂ 8 = 3 bits; I = H(U) = 1 bit. NMI = 2/(1 + 3) = 0.5. No pair is together in V, so S = B = 0 and ARI = 0. Under these fixed margins every singleton relabeling conveys the same one bit about U, so AMI is 0 apart from rounding. High purity and perfect group granularity are not the same question.</Prose>
+    </Practice>
+    <Practice title="4. A small group vanishes from the headline" question="A group of 90 has mean silhouette 0.8; a group of 10 has mean −0.4. Compute the observation-weighted overall mean and the equally weighted group mean. Which report would you choose for a task that must represent the small group?" hint="Use 90/100 and 10/100 for the first average, then 1/2 and 1/2.">
+      <Prose>The observation mean is 0.68, while the group mean is 0.2. Report both with sizes and the small group’s distribution when it has an explicit task role. An equal-group score alone can overemphasize arbitrary fragmentation, so preserve the partition and the weighting definition.</Prose>
+    </Practice>
+    <Practice title="5. Rejecting difficult observations" question="Method A assigns all 100 records with silhouette 0.45. Method B assigns 60 with silhouette 0.70. A colleague declares B better. Design a fair comparison." hint="Name the population behind each mean and the task’s cost for rejection.">
+      <Prose>Report 100% versus 60% coverage and each conditional score. Compare both partitions on the same 60 IDs as a separate diagnostic, then examine the rejected 40 and the operational cost of leaving them without a group. If rejection is allowed, predeclare its acceptable coverage and cost. Neither number alone resolves the tradeoff.</Prose>
+    </Practice>
+    <Practice title="6. Repair the stability code" question="Two bootstrap fits each return a length-100 label array, and a script computes ARI between them in sampled-row order. What is wrong? Offer two valid repairs." hint="Equal array length does not mean equal observation identity.">
+      <Prose>Bootstrap position 7 can refer to different original IDs in the two fits, and IDs can repeat. Predict a fixed probe set with an agreed assignment rule and compare its aligned labels, or compare unique original IDs in the intersection of subsamples using a defined rule for duplicates. Name the common population and preserve how many observations were actually compared.</Prose>
+    </Practice>
+    <Practice title="7. Exact changed-input acceptance" question="Replace the Program 5 probe locations with 0, 1, 2, 8, 9, 10 and use uniform weights in both fits. Derive the best two-group centres and cost. Then multiply every coordinate by 3." hint="Check the five contiguous cuts. Within each three-point run the mean is its middle value.">
+      <Prose>The best cut separates the two runs, with centres 1 and 9 and total squared cost 4. After scaling, centres are 3 and 27, cost 36; memberships and their ARI remain unchanged. Silhouette also stays unchanged because all distances scale by 3. The resampling lab reproduces both states through its location editor and the “triple every location” action.</Prose>
+    </Practice>
+    <Practice title="8. New-context capstone" question="You group museum objects to select 20 items for a compact handling study. Curatorial categories are available; one is rare. Propose your representation, baseline, selection evidence and final report. How would the plan change if the goal became recovering curatorial categories?" hint="Representative coverage and category recovery need different success criteria even on the same objects.">
+      <Prose>For handling coverage, use measurements relevant to size, material and fragility with justified scales, compare held-out representation error and rare-object coverage against a simple sampling or one-representative baseline, and keep the 20-item budget fixed. Use curatorial categories to inspect coverage without claiming they are the optimization target. For category recovery, reserve annotated examples for evaluation and report contingency rows, ARI or AMI and rare-category split and merge behaviour. Learn any mapping or representation choice on development data. A final report identifies observation IDs, rejection rules and selection choices so another person can reproduce the comparison.</Prose>
+    </Practice>
+    <H3>Ready to continue?</H3>
+    <Prose>You should be able to explain a negative silhouette using actual distances; calculate a pair contingency table and its chance adjustment; distinguish NMI’s normalization from AMI’s null; show why a rename has no effect; identify the population behind a conditional score; and design a stability or held-out comparison that keeps IDs aligned.</Prose>
+    <Prose>Next is <a href="/learn/path/full-curriculum/dbscan-density-based-clustering?module=classical-ml">DBSCAN &amp; Density-Based Clustering</a>. It changes the grouping mechanism from centroid compactness to density connectivity and can leave points unassigned. You now have the tools to explain why its results may disagree with k-means on silhouette, and how to report that disagreement without hiding the rejected observations.</Prose>
+    <Sources alternatives={<><Prose>Use these after the local examples; the core lesson is self-contained.</Prose><ul>
+      <li><a href="https://dataminingbook.info/toc/">Zaki &amp; Meira, <em>Data Mining and Machine Learning</em>, chapter 17</a> and the <a href="https://www.cs.rpi.edu/~zaki/DMML/slides/pdf/ychap17.pdf">author lecture slides</a> — the canonical map of external, internal and relative validation, useful after the core walkthrough. The slides cover more indices than a first report needs; use the named definitions rather than assuming all score directions and conventions agree.</li>
+      <li><a href="https://ds100.org/sp21/lecture/lec24/">Berkeley Data 100, lecture 24.5, “Picking the number of clusters”</a>, its <a href="https://www.youtube.com/playlist?list=PLQCcNQgUcDfqgm0VJbNx-Gqp4bpQ8tzwo">video playlist</a> and <a href="https://ds100.org/sp21/resources/assets/lectures/lec23/lec23.html">companion notebook</a> — a visual alternative for elbow reasoning and sorted silhouette bars. The companion cells 74 to 79 and the official item listing were inspected, not video playback. This is archived 2021 material; use this lesson’s current API conventions, and do not reuse the notebook’s earlier dendrogram example, which substitutes synthetic heights.</li>
+      <li><a href="https://arxiv.org/pdf/1007.1075">von Luxburg, <em>Clustering Stability: An Overview</em></a>, especially section 2 — a deeper explanation of perturbations and why stability-based model selection is subtler than choosing a large agreement score.</li>
+      <li><a href="https://arxiv.org/html/2103.01281v2">Ullmann and colleagues, <em>Validation of cluster analysis results on validation data</em></a> — the discovery-versus-validation framework, useful when writing an analysis plan that goes beyond a benchmark score.</li>
+    </ul></>}>
+      <li><a href="https://archive.ics.uci.edu/dataset/53/iris">Fisher, <em>Iris</em>, UCI record 53</a>, DOI <a href="https://doi.org/10.24432/C56C76">10.24432/C56C76</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; metadata inspected 12 September 2026. The lesson’s CSV was exported from the corrected copy bundled with scikit-learn 1.9.1 through <Code>load_iris</Code>, not from the legacy UCI file whose rows 35 and 38 differ; it adds a zero-based row ID, numeric species codes and a header, and changes no measured value. Keep <Code>row_id</Code> and <Code>species</Code> out of the feature matrix.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/clustering.html#clustering-performance-evaluation">Scikit-learn evaluation guide</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html">silhouette API</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html">Rand and ARI</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.normalized_mutual_info_score.html">NMI</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_mutual_info_score.html">AMI</a> — consult the exact metric’s conventions; the recorded values used version 1.9.1.</li>
+      <li><a href="https://jmlr.org/papers/volume11/vinh10a/vinh10a.pdf">Vinh, Epps &amp; Bailey (2010)</a>, sections 3 and 4 — normalization, metric properties and chance correction behind the information branch.</li>
+      <li><a href="https://stat.ethz.ch/R-manual/R-devel/library/cluster/html/clusGap.html">R cluster package, gap statistic manual</a> — precise reference-model and one-standard-error rule choices; not a claim that all packages share its defaults.</li>
+      <li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.cophenet.html">SciPy cophenet</a> — the cophenetic distance representation and API used in section 11.</li>
+    </Sources>
+    <Prose>The six-point line, the eight-ID partitions, the ring construction and the probe locations are constructed teaching examples. Iris results are calculations on the identified real dataset. The gap-statistic table illustrates a rule and is not a measurement.</Prose>
+  </div>
 };
 
 export default clusteringEvaluationContent;

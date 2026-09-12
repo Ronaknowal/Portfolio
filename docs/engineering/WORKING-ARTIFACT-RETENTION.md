@@ -8,6 +8,7 @@ The user's 11 September 2026 cleanup request applies to `scratch/` and temporary
 | --- | --- |
 | Lesson content, figures used by the site, models and examples | Topic-owned `src/` files and actual runtime assets under `public/`; keep them. |
 | Reusable checks and example generators | Semantic files under `scripts/`; keep their documented inputs, avoid one script per tiny correction. |
+| Content-first manuscript and visual/lab specifications awaiting phase two | `docs/teaching/drafts/<stable-topic-id>/`; keep while referenced by the delivery ledger. They are required handoff inputs even when another agent/session will implement them. |
 | Current drafts, datasets and temporary execution outputs | One topic-owned directory under `scratch/`; keep while the active task needs them. Remove installed duplicate drafts and obsolete patch/install scripts. |
 | Final numerical evidence, review summaries, source hashes and original baselines | Durable records under `docs/teaching/`; retain the necessary original inputs and linked final attachments. |
 | Browser screenshots | Capture a useful default and selected changed/edge states at relevant widths. Keep images supporting the final visual review and unresolved findings. Remove unused intermediate, failed, duplicate and superseded captures after closure. Do not retain every button-click screenshot automatically. |
@@ -15,7 +16,7 @@ The user's 11 September 2026 cleanup request applies to `scratch/` and temporary
 
 ## At the end of a topic or bounded change
 
-1. Record the final result and actual reviewed source version in the existing evidence record and current progress ledger. Keep the next action concise; completed checks are not a future task queue.
+1. Record the requested phase's result and actual source version in the existing evidence record and central delivery ledger. Content-first completion does not finish the topic: preserve the pending manuscript/specifications and deferred-work instructions. Retire them only after integration and an updated checkpoint to retained equivalent sources or a useful archive. Keep the next action concise; completed checks are not a future task queue.
 2. Decide which exact screenshots, native outputs and original inputs support that result. Prefer a small representative set with clear learning/verification purpose, without an arbitrary numerical quota. Keep additional states only when they establish a distinct claim or unresolved finding.
 3. Check for active owners/processes, runtime imports, script inputs, documentation/evidence references and user-authored work before removal. An old timestamp, temporary filename, lack of Git tracking or lack of a direct reference alone does not prove a file is disposable. Dynamic paths need contextual inspection.
 4. Remove confirmed disposable files. On Windows, resolve every target within the explicitly intended workspace directory, reject reparse points/path escapes, and use native literal-path file operations. Never delete a whole scratch tree or dependency environment by a broad wildcard.

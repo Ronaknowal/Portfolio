@@ -1,0 +1,88 @@
+{
+  "startedAt": "2026-09-12T03:57:08.045Z",
+  "completedAt": "2026-09-12T03:57:27.295Z",
+  "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
+  "status": "passed",
+  "browser": "152.0.4191.66",
+  "distDir": "dist",
+  "buildManifestHash": "df03f6fce8ae834cc95e684c730c42e04469b086f510ecf7b0b9d811ebc6d47d",
+  "sourceHashes": {
+    "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac",
+    "src/learn/data/clustering-evaluation-models.js": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
+    "src/learn/data/clustering-evaluation-data.js": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
+    "src/learn/data/clustering-evaluation-examples.js": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "25e0fa7be1179ec58cad947b3e21acc17eac6f53bb36aa222f65e281a1519173",
+    "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
+    "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
+    "src/learn/data/curriculum/blueprints/clustering-evaluation-validation-silhouette-ari-nmi.js": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba",
+    "public/learn-assets/clustering-evaluation/iris.csv": "13c9255444bce09fd9df60cccfec34d5b0a0eeebc06008fb4e2b836aa2caf78a"
+  },
+  "moduleTopicCount": 39,
+  "records": [
+    {
+      "case": "Complete visible code/output for six programs, twelve route anchors, seven figures, eight practice tasks, downloadable CSV, current metadata and module sequence"
+    },
+    {
+      "case": "Silhouette lab: membership change to −0.75 with recomputed mean, stale invalidation on a changed selection and on a learner-entered coordinate, geometry change to 0.5, common-scale invariance, undefined one-group state, reset"
+    },
+    {
+      "case": "Pair lab: rename leaves ARI fixed, cross gives −1/6, refinement gives 4/11, stale invalidation, 28 selectable pair tiles, reset"
+    },
+    {
+      "case": "Chance lab: negative AMI at overlap 2, unbalanced margins recompute 56 assignments, constant candidate reports a degenerate null, reset"
+    },
+    {
+      "case": "Iris lab: declared fits reproduce the raw k2/k3 disagreement, frozen rescoring moves silhouette while ARI/AMI stay fixed, common weight invariance, specimen selection, reset"
+    },
+    {
+      "case": "Resample lab: default left/right emphasis with ARI −1/14, learner weight edit, k = 1 null, changed locations 1/9 cost 4 and tripled 3/27 cost 36, reset"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-wO7kyNDk.js",
+        "assets/Reader-BMk1S6fe.js",
+        "assets/LevelBadge-BuQpStge.js",
+        "assets/clustering-evaluation-validation-silhouette-ari-nmi-B_RfA-JY.js",
+        "assets/Code-uFE04jfF.js",
+        "assets/Callout-B3pojflc.js",
+        "assets/Math-BnzqGcaK.js",
+        "assets/LessonElements-DJ21T8SY.js",
+        "assets/RunnableExample-y_hqhtM6.js"
+      ],
+      "rawScriptBytes": 1456762,
+      "gzipEstimateBytes": 326940,
+      "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and all deeper branches rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/clustering-evaluation-silhouette-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-pairs-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-chance-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-iris-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-resample-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-rings-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-report-flow-desktop.png",
+    "docs/teaching/evidence/clustering-evaluation-fan-mobile.png",
+    "docs/teaching/evidence/clustering-evaluation-rejection-mobile.png",
+    "docs/teaching/evidence/clustering-evaluation-pairs-mobile.png",
+    "docs/teaching/evidence/clustering-evaluation-resample-mobile.png",
+    "docs/teaching/evidence/clustering-evaluation-information-mobile.png"
+  ],
+  "visualInterpretation": "Intended Space Grotesk font loaded before checks. Screenshots capture informative states: compared predictions, the crossed partition, the ring contrast, the rescored Iris workspace. They require separate visual inspection."
+}
