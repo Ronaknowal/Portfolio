@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-09-11T23:02:19.217420+00:00",
+  "scope": "Content-stage elementary calculations, four compact teaching programs and syntax of the real-data program. No formal runtime/model/browser verification.",
+  "smallProgramRuns": [
+    {
+      "example": 1,
+      "codeSHA256": "adc3e3fa2f4302af34b088c89f58b5d35bf0776c910d7f36727ff4f266e247db",
+      "stdout": "Most easily isolated position: 12.0\nDuplicate-only scores: [0.5 0.5]\n"
+    },
+    {
+      "example": 2,
+      "codeSHA256": "7c463c8677732e11eb5b769886ddd7d249d6abf24b065ffd3d1a8dc5136fbdd7",
+      "stdout": "Training LOF: [0.875    1.333333 0.875    0.875    1.333333 0.875   ]\nNew-query LOF: [2.625   1.09375]\nWrong training comparison: [0.875 0.875 0.875 0.875 0.875 0.875]\n"
+    },
+    {
+      "example": 3,
+      "codeSHA256": "6a213bc0f01c0a2e79cc62b517923ef483cbe2730e0e87770d877a34ce414878",
+      "stdout": "Reference LOF: [0.875    1.333333 0.875    0.875    1.333333 0.875   ]\nQuery LOF: [1.458333 2.625    1.09375 ]\n"
+    },
+    {
+      "example": 4,
+      "codeSHA256": "3fc41ed2a78320192af9f4319cf7133bd99082446a8b24ef3000ed48c5f4ad27",
+      "stdout": "gamma=0.1: midpoint=+0.069677, reference=+0.000000\ngamma=1.0: midpoint=-0.141278, reference=+0.000000\n"
+    }
+  ],
+  "arithmetic": {
+    "reachableLeafState": {
+      "reference": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cuts": [
+        0.5,
+        1.5
+      ],
+      "query": 2,
+      "leafMembers": [
+        2,
+        3
+      ],
+      "depth": 2,
+      "correctedPath": 3,
+      "normalizer": "13/6",
+      "score": 0.38299158933399347
+    },
+    "query4LOF": 1.4583333333333333,
+    "practiceF": {
+      "trueAlerts": 90,
+      "falseAlertsExpected": 249.5,
+      "totalAlertsExpected": 339.5,
+      "precision": 0.2650957290132548
+    },
+    "practiceHWorkloadRatio": 17.782022471910114
+  },
+  "realData": "Existing author-calculations.json reused. The presentation program was syntax-checked but not rerun; full displayed-program verification remains phase two."
+}

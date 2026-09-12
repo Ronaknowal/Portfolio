@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1218 unique topics · 28 modules · 228 registered published lessons · 352 topic-specific briefs · 7 guided paths.**
+**1218 unique topics · 28 modules · 228 registered published lessons · 355 topic-specific briefs · 7 guided paths.**
 
-**866 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 380 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**863 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 383 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -13,7 +13,7 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |
 | --- | ---: | ---: | ---: | ---: |
 | Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
-| Classical Machine Learning | 39 | 36 | 14 | 16 |
+| Classical Machine Learning | 39 | 36 | 17 | 19 |
 | Deep Learning Fundamentals & Architectures | 42 | 39 | 2 | 7 |
 | Large Language Models — Architecture, Training & Inference | 61 | 57 | 4 | 6 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
@@ -42,6 +42,12 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Drosophila & Fly Embodiment | 12 | 0 | 2 | 2 |
 
 Counts within modules may include shared topics. The headline counts each stable topic ID once.
+
+## Delivery phases
+
+**110 current content checkpoints complete · 109 current implementations complete.**
+
+[The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.
 
 ## Individual authoring inventory
 
@@ -140,9 +146,9 @@ Counts within modules may include shared topics. The headline counts each stable
 | Multi-Label & Multi-Output Learning | intermediate | published | brief |
 | Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models) | advanced | published | brief |
 | K-Means & Hierarchical Clustering | foundation | published | brief |
-| PCA & Dimensionality Reduction | foundation | published | design needed |
-| Clustering Evaluation & Validation (Silhouette, ARI, NMI) | foundation | published | design needed |
-| DBSCAN & Density-Based Clustering | intermediate | published | design needed |
+| PCA & Dimensionality Reduction | foundation | published | brief |
+| Clustering Evaluation & Validation (Silhouette, ARI, NMI) | foundation | published | brief |
+| DBSCAN & Density-Based Clustering | intermediate | published | brief |
 | Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF) | intermediate | published | design needed |
 | Gaussian Mixture Models (GMM) & EM Algorithm | intermediate | published | design needed |
 | t-SNE, UMAP & Manifold Learning | intermediate | published | design needed |

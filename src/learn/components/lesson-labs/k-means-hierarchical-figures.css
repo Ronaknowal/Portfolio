@@ -8,6 +8,8 @@
 .cluster-connector { stroke: #e2b55a; stroke-width: 1.5; }
 .cluster-calculation { font-family: 'JetBrains Mono', monospace; overflow-wrap: anywhere; }
 .cluster-linkage-ruler { max-width: 480px; margin-inline: auto; }
+.cluster-standalone svg { max-width: 540px; margin-inline: auto; }
+.cluster-standalone svg text { font-size: 10.5px; }
 .cluster-practice, .cluster-deeper { margin-block: 1.5rem; }
 .cluster-practice details, .cluster-deeper { border-left: 2px solid #77623b; padding: .7rem 1rem; }
 .cluster-practice summary, .cluster-deeper > summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }

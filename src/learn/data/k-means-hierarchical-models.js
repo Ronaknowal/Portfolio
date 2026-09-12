@@ -5,6 +5,12 @@
  */
 export const clusteringPoints = Object.freeze([[1, 0], [1.5, 0.5], [3, 2], [3.5, 2], [7, 5], [7.5, 5.5]].map(point => Object.freeze(point)));
 export const rectanglePoints = Object.freeze([[0, 0], [0, 1], [3, 0], [3, 1]].map(point => Object.freeze(point)));
+/** Six points exactly one unit apart along a line, plus a compact triple above
+ * the middle of the chain. Unit spacing keeps the five chain distances exactly
+ * equal in floating point, so the single-linkage tie at height 1 is genuine.
+ * Single linkage follows the chain; complete linkage breaks it. */
+export const chainPoints = Object.freeze([[0, 0], [1, 0], [2, 0], [3, 0], [4, 0], [5, 0], [2.5, 3.3], [3.1, 3.3], [2.8, 3.8]].map(point => Object.freeze(point)));
+export const hierarchyFixtures = Object.freeze({ six: clusteringPoints, chain: chainPoints });
 function dense(values, maximum, name) {
   if (!Array.isArray(values) || !values.length || values.length > maximum || Array.from({
     length: values.length
@@ -12,7 +18,7 @@ function dense(values, maximum, name) {
     throw new RangeError(`${name} must be a nonempty dense array of at most ${maximum} entries.`);
   }
 }
-function checkPoints(points, maximum = 128) {
+function checkPoints(points, maximum = 256) {
   dense(points, maximum, 'Points');
   const dimension = points[0]?.length;
   if (!Number.isInteger(dimension) || dimension < 1 || dimension > 3) throw new RangeError('Use one to three coordinates.');
@@ -26,7 +32,7 @@ function checkPoints(points, maximum = 128) {
 }
 function checkWeights(points, weights) {
   const result = weights ?? points.map(() => 1);
-  dense(result, 128, 'Weights');
+  dense(result, 256, 'Weights');
   if (result.length !== points.length || result.some(value => !Number.isFinite(value) || value <= 0 || value > 1000000)) {
     throw new RangeError('Provide one positive finite weight per point (at most one million).');
   }
@@ -57,7 +63,7 @@ function checkedQuotient(numerator, denominator, label) {
   return result;
 }
 function validateLabels(points, labels, clusterCount) {
-  dense(labels, 128, 'Labels');
+  dense(labels, 256, 'Labels');
   if (labels.length !== points.length || labels.some(label => !Number.isInteger(label) || label < 0 || label >= clusterCount)) {
     throw new RangeError('Each label must index a supplied center.');
   }
@@ -139,6 +145,24 @@ export function lloydTrace(points, initialCenters, weights, maxSweeps = 30) {
   }
   return trace;
 }
+/** Every way to split at most eight points into two nonempty groups, scored by
+ * the squared error of the two group means. P0 is pinned to group 0 so each
+ * partition appears once. Because the list is exhaustive, its first entry is
+ * the exact global optimum for k = 2 under the supplied geometry. */
+export function enumerateTwoGroupPartitions(points) {
+  const dimension = checkPoints(points, 8);
+  if (points.length < 2) throw new RangeError('Enumerate at least two points.');
+  const partitions = [];
+  for (let mask = 1; mask < 2 ** (points.length - 1); mask += 1) {
+    const labels = points.map((_, index) => index === 0 ? 0 : mask >> index - 1 & 1);
+    const groups = [0, 1].map(label => labels.flatMap((value, index) => value === label ? [index] : []));
+    const centers = groups.map(members => Array.from({ length: dimension }, (_, coordinate) => checkedQuotient(members.reduce((sum, index) => sum + points[index][coordinate], 0), members.length, 'Group mean')));
+    const sse = points.reduce((sum, point, index) => sum + squaredDistance(point, centers[labels[index]]), 0);
+    partitions.push({ labels, groups, centers, sse });
+  }
+  partitions.sort((left, right) => left.sse - right.sse || left.labels.join('').localeCompare(right.labels.join('')));
+  return partitions;
+}
 export function seedingDistribution(points, selectedIndices, quantile = 0.5) {
   checkPoints(points);
   dense(selectedIndices, 8, 'Selected rows');
@@ -166,6 +190,46 @@ export function seedingDistribution(points, selectedIndices, quantile = 0.5) {
     selected,
     quantile,
     stopped: total === 0
+  };
+}
+/** Deterministic 32-bit generator (mulberry32) so repeated draws are reproducible. */
+function seededUniform(seed) {
+  let state = seed >>> 0;
+  return () => {
+    state = state + 0x6D2B79F5 >>> 0;
+    let value = state;
+    value = Math.imul(value ^ value >>> 15, value | 1);
+    value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+    return ((value ^ value >>> 14) >>> 0) / 4294967296;
+  };
+}
+/** Repeat the conditional D² draw many times with a fixed seed and count how
+ * often each row is selected; also report the uniform-seeding probability for
+ * comparison. Frequencies estimate the probabilities in the strip; they are not
+ * a second algorithm. */
+export function seedingFrequencies(points, selectedIndices, draws = 200, seed = 1) {
+  if (!Number.isInteger(draws) || draws < 1 || draws > 2000) throw new RangeError('Use one to two thousand draws.');
+  if (!Number.isInteger(seed) || seed < 0) throw new RangeError('Use a nonnegative integer seed.');
+  const distribution = seedingDistribution(points, selectedIndices, 0);
+  const counts = points.map(() => 0);
+  if (!distribution.stopped) {
+    const next = seededUniform(seed);
+    for (let draw = 0; draw < draws; draw += 1) {
+      const u = next();
+      const row = distribution.rows.find(entry => entry.probability > 0 && u < entry.end) ?? distribution.rows.findLast(entry => entry.probability > 0);
+      counts[row.index] += 1;
+    }
+  }
+  const farthest = distribution.stopped ? null : distribution.rows.reduce((best, row) => row.distance > best.distance ? row : best).index;
+  return {
+    draws,
+    seed,
+    counts,
+    frequencies: counts.map(count => count / draws),
+    uniformProbability: 1 / (points.length - selectedIndices.length),
+    farthest,
+    farthestProbability: farthest === null ? 0 : distribution.rows[farthest].probability,
+    stopped: distribution.stopped
   };
 }
 function groupMean(points, members) {
@@ -256,53 +320,91 @@ export function cutHierarchy(tree, mode, value) {
     sse: [...active].reduce((sum, id) => sum + tree.nodes[id].sse, 0)
   };
 }
+/** The rectangle under a changed vertical unit and squared-distance weight. The
+ * optimum is found by exhaustive enumeration of all seven two-group partitions,
+ * so the reported winner is exact for this geometry rather than the result of a
+ * particular initialization. */
 export function featureGeometry(unitFactor = 1, verticalWeight = 1) {
   if (![1, 10].includes(unitFactor) || ![0.01, 0.25, 1, 4].includes(verticalWeight)) throw new RangeError('Use a displayed unit and weight choice.');
   const effective = unitFactor * Math.sqrt(verticalWeight);
   const points = rectanglePoints.map(([x, y]) => [x, y * effective]);
-  const trials = [[0, 2], [0, 1]].map(indices => lloydTrace(points, indices.map(index => points[index])).at(-1));
-  const best = trials[0].sse <= trials[1].sse ? trials[0] : trials[1];
+  const partitions = enumerateTwoGroupPartitions(points);
+  const best = partitions[0];
   return {
     points,
     effective,
-    trials,
-    ...best
+    partitions,
+    labels: best.labels,
+    centers: best.centers,
+    sse: best.sse
   };
 }
-const paletteColors = [[30, 48, 65], [45, 68, 80], [196, 128, 47], [228, 172, 64], [84, 119, 97], [113, 151, 122]];
-export const palettePixels = Object.freeze(Array.from({
-  length: 96
-}, (_, index) => {
-  const row = Math.floor(index / 12),
-    column = index % 12;
-  const color = row < 3 ? column < 7 ? 0 : 1 : column < 4 ? row % 2 === 0 ? 2 : 3 : (column + row) % 3 === 0 ? 4 : 5;
-  return Object.freeze([...paletteColors[color]]);
-}));
-export function quantizePalette(clusterCount = 3) {
-  if (!Number.isInteger(clusterCount) || clusterCount < 1 || clusterCount > paletteColors.length) throw new RangeError('Use one to six palette entries.');
-  const counts = paletteColors.map(color => palettePixels.filter(pixel => pixel.every((value, coordinate) => value === color[coordinate])).length);
-  const chosen = [counts.indexOf(Math.max(...counts))];
+const mosaicColors = [[30, 48, 65], [45, 68, 80], [196, 128, 47], [228, 172, 64], [84, 119, 97], [113, 151, 122]];
+function buildImage(columns, rows, colorAt) {
+  const pixels = [];
+  for (let row = 0; row < rows; row += 1) for (let column = 0; column < columns; column += 1) pixels.push(Object.freeze(colorAt(row, column).map(Math.round)));
+  return Object.freeze({ columns, rows, pixels: Object.freeze(pixels) });
+}
+/** Three constructed rasters. The mosaic has six exact colors; the sky has
+ * gradient bands, a sun and clouds with a few dozen unique colors and very
+ * unequal counts; the gradient makes every pixel a unique color, so counts
+ * cannot help there. None is a photograph. */
+export const paletteImages = Object.freeze({
+  mosaic: buildImage(12, 8, (row, column) => mosaicColors[row < 3 ? column < 7 ? 0 : 1 : column < 4 ? row % 2 === 0 ? 2 : 3 : (column + row) % 3 === 0 ? 4 : 5]),
+  sky: buildImage(16, 10, (row, column) => {
+    if (row >= 8) return row === 8 ? [58, 104, 66] : [46, 88, 56];
+    if (Math.hypot(column - 12, row - 2) < 1.7) return Math.hypot(column - 12, row - 2) < 0.8 ? [250, 214, 96] : [236, 184, 72];
+    if (row >= 4 && row <= 5 && column >= 2 && column <= 7) return column % 3 === 0 ? [228, 232, 238] : column % 3 === 1 ? [212, 218, 228] : [196, 204, 218];
+    const t = row / 7;
+    const tint = Math.floor(column / 4) * 6;
+    return [38 + 110 * t + tint, 70 + 118 * t + tint / 2, 140 + 90 * t];
+  }),
+  gradient: buildImage(16, 10, (row, column) => [30 + 13 * column, 40 + 20 * row, 200 - 8 * column])
+});
+export const palettePixels = paletteImages.mosaic.pixels;
+function uniqueColors(pixels) {
+  const seen = new Map();
+  pixels.forEach(pixel => {
+    const key = pixel.join(',');
+    if (!seen.has(key)) seen.set(key, { color: [...pixel], count: 0 });
+    seen.get(key).count += 1;
+  });
+  const entries = [...seen.values()].sort((left, right) => right.count - left.count || left.color.join(',').localeCompare(right.color.join(',')));
+  return { colors: entries.map(entry => entry.color), counts: entries.map(entry => entry.count) };
+}
+export function paletteLimit(imageId = 'mosaic') {
+  if (!Object.hasOwn(paletteImages, imageId)) throw new RangeError('Unknown palette image.');
+  return Math.min(8, uniqueColors(paletteImages[imageId].pixels).colors.length);
+}
+export function quantizePalette(clusterCount = 3, imageId = 'mosaic') {
+  if (!Object.hasOwn(paletteImages, imageId)) throw new RangeError('Unknown palette image.');
+  const image = paletteImages[imageId];
+  const { colors, counts } = uniqueColors(image.pixels);
+  if (!Number.isInteger(clusterCount) || clusterCount < 1 || clusterCount > Math.min(8, colors.length)) throw new RangeError(`Use one to ${Math.min(8, colors.length)} palette entries for this image.`);
+  // Most frequent color first, then deterministic farthest-first: a declared start, not a D² sample.
+  const chosen = [0];
   while (chosen.length < clusterCount) {
-    const distances = paletteColors.map(color => Math.min(...chosen.map(index => squaredDistance(color, paletteColors[index]))));
+    const distances = colors.map(color => Math.min(...chosen.map(index => squaredDistance(color, colors[index]))));
     chosen.push(distances.indexOf(Math.max(...distances)));
   }
-  const trace = lloydTrace(paletteColors, chosen.map(index => paletteColors[index]), counts);
+  const trace = lloydTrace(colors, chosen.map(index => colors[index]), counts, 60);
   const final = trace.at(-1);
   const roundedCenters = final.centers.map(center => center.map(Math.round));
-  const reconstructed = palettePixels.map(pixel => {
-    const index = paletteColors.findIndex(color => color.every((value, coordinate) => value === pixel[coordinate]));
-    return roundedCenters[final.labels[index]];
-  });
-  const displayedSse = palettePixels.reduce((sum, pixel, index) => sum + squaredDistance(pixel, reconstructed[index]), 0);
+  const colorIndex = new Map(colors.map((color, index) => [color.join(','), index]));
+  const reconstructed = image.pixels.map(pixel => roundedCenters[final.labels[colorIndex.get(pixel.join(','))]]);
+  const displayedSse = image.pixels.reduce((sum, pixel, index) => sum + squaredDistance(pixel, reconstructed[index]), 0);
   return {
-    colors: paletteColors.map(color => [...color]),
+    imageId,
+    image,
+    colors,
     counts,
+    uniqueCount: colors.length,
     initialIndices: chosen,
     trace,
     ...final,
     roundedCenters,
     reconstructed,
     displayedSse,
-    meanSquaredChannelError: displayedSse / (3 * palettePixels.length)
+    meanSquaredChannelError: displayedSse / (3 * image.pixels.length)
   };
 }

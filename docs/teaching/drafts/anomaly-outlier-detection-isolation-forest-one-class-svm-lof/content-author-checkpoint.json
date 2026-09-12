@@ -1,0 +1,127 @@
+{
+  "checkedAt": "2026-09-11T23:13:28.510361+00:00",
+  "topicId": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+  "revision": 1,
+  "requestedMode": "content-first",
+  "authorStatus": "content ready for root checkpoint; implementation not started",
+  "manuscriptSHA256": "de1530bae9ddb5e9a8ec8b3d5d52f77e5c244340599bc8bd472dd42d47faba02",
+  "specificationsSHA256": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b",
+  "publishedSourcePreservedSHA256": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e",
+  "checks": {
+    "completeOriginalReadAndArchive": true,
+    "localLinkedFilesExist": true,
+    "compactProgramsExecuted": 4,
+    "temperatureProgramExecutedForVisualInputs": 1,
+    "finalProgramHashesMatchExecutedContent": true,
+    "changedPracticeTasksWithHintsAndSolutions": 10,
+    "realDataProbe": "fixed chronology, four methods and two worked quantiles; additional author-only .975 input; no tuning campaign",
+    "authorLearningChecklist": "ANOMALY-DETECTION-LESSON-DESIGN.md",
+    "parentContinuityFindingsClosed": [
+      "reachable practice B state",
+      "module-context routes",
+      "LOF radius and self-count correspondence",
+      "pinned setup and actual relative data links",
+      "unsolved editable threshold input"
+    ]
+  },
+  "deferred": [
+    "runtime implementation",
+    "formal independent review",
+    "production displayed-program verification",
+    "browser/keyboard/screen-reader/visual verification",
+    "build/performance/loading/integration"
+  ],
+  "files": [
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.json",
+      "sha256": "72907abc78905ad719ff5df25b65d769c8bd8b55019c2da4f6c06e7ab2c69721",
+      "bytes": 16333
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/author-calculations.py",
+      "sha256": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908",
+      "bytes": 8907
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/check-manuscript-calculations.py",
+      "sha256": "8d3d635013b5aa17ad4e1e0b9a90d6d83db0d7c463c681759f5606beea02d76b",
+      "bytes": 2301
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-provenance.md",
+      "sha256": "cbe2729d2b85fee81598e7374a3a442cc5d33f788c82894d9ce5eafc3dcf821e",
+      "bytes": 6582
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/dataset-source.json",
+      "sha256": "9e18e1d9b2b147a701ff4261c3eb6b590842407a1f18124c9562919c74a3eee9",
+      "bytes": 1666
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/lesson.md",
+      "sha256": "de1530bae9ddb5e9a8ec8b3d5d52f77e5c244340599bc8bd472dd42d47faba02",
+      "bytes": 54327
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/machine_temperature_system_failure.csv",
+      "sha256": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+      "bytes": 732223
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/manuscript-calculations.json",
+      "sha256": "ad3f5efa0ca6032c90408d007089059a178de8aae9e1a7d7b7a83c3226d065c0",
+      "bytes": 2104
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-derived-scores.csv",
+      "sha256": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+      "bytes": 3208330
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-event-windows.json",
+      "sha256": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+      "bytes": 15359
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/NAB-LICENSE.txt",
+      "sha256": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3",
+      "bytes": 1056
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-source-readme.md",
+      "sha256": "1d32963e44a52323b44affff374a1222ebe5ef19ef8f7f6c6fd7a747aa52db30",
+      "bytes": 2931
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/original-published-lesson.jsx",
+      "sha256": "b8aab5255ab5bc1fb6d3a8bfb002cc640e705a459c2a9f319fe8452d667aea8e",
+      "bytes": 64549
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/prepare-temperature-visual-inputs.py",
+      "sha256": "53ab0fac9026bb9f3015d0d191b20800f8ff40b8a37743d9d1929a554299dfc7",
+      "bytes": 3099
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-input-calculation.json",
+      "sha256": "677267cff242fc4629073e62988b9f8e905fa6612526fc4c19b171b7db3f8fa9",
+      "bytes": 2362
+    },
+    {
+      "path": "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/visual-specifications.md",
+      "sha256": "00f022a527237228e5063ef1512b4e4cc4daf7bfb1ea8f4ec79531460620447b",
+      "bytes": 21584
+    },
+    {
+      "path": "docs/teaching/ANOMALY-DETECTION-LESSON-DESIGN.md",
+      "sha256": "d0d9acd7c82b0eaab9259c0a5bc7c47e9676fa38e15c87ac4147ea0b5d6ea5fc",
+      "bytes": 21393
+    },
+    {
+      "path": "docs/teaching/topic-notes/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.md",
+      "sha256": "bbe10dfcee5700a615b382d97f243f6fa74c3626ec0f77d4631098337bd4e6d0",
+      "bytes": 2877
+    }
+  ],
+  "nextAction": "Root registers content revision hashes in central delivery ledger; future implementation reads full manuscript/specifications/design/provenance and runs topic --work finish. No runtime source was edited."
+}

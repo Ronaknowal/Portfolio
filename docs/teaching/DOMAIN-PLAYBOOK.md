@@ -53,6 +53,8 @@ For architecture lessons, a data-flow diagram should reveal dimensions and depen
 
 Practice includes a manual forward/update step, inspecting a tiny dataset, diagnosing leakage or mismatch, modifying an implementation and interpreting an ablation. Publish a reproducible small CPU route where feasible; state when realistic results require unavailable data or compute. No fabricated benchmark measurements or unsupported claims that one model wins universally.
 
+Use a constructed fixture for the hand-traced update and a small real dataset for the library fit and diagnostics; the real data supplies the question the method is answering and the moment a learner can judge whether the answer is useful. Embed the data so the program runs offline and record its provenance. When a method's canonical treatment includes a hardness result, a worst-case versus typical-case gap or a convention that differs between libraries, teach it briefly with its source; these are the facts a practitioner meets first and a lesson that omits them reads as incomplete to anyone who has opened the standard text.
+
 ## LLMs, agents and evaluation
 
 Explain the task boundary first: next-token prediction, retrieval, a tool action, a judged answer or a deployed service. Follow one real miniature request through tokenization, context construction, model output, parsing and any downstream action. Distinguish probabilities, logits, scores, confidence estimates and calibrated reliability.

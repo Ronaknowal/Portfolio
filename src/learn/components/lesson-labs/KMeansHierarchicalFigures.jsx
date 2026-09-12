@@ -1,36 +1,102 @@
 import { LessonTable } from './LessonElements.jsx';
+import { faithfulPoints, faithfulDiagnostics, faithfulTwoGroups, faithfulSubsample, faithfulWardLinkage } from '../../data/k-means-hierarchical-faithful.js';
 import './k-means-hierarchical-figures.css';
 
-// Rounded actual output of clusteringExamples.production, not invented curve data.
-// Fixture: 150 make_blobs rows, std .8, data seed42; KMeans n_init1, seeds0/1/2.
-export const clusteringDiagnosticRows = [
-  { k: 2, minimumInertia: 2660.009039, maximumInertia: 2660.009039, medianSilhouette: .719940 },
-  { k: 3, minimumInertia: 181.504432, maximumInertia: 181.504432, medianSilhouette: .876025 },
-  { k: 4, minimumInertia: 156.192219, maximumInertia: 171.664605, medianSilhouette: .695022 },
-  { k: 5, minimumInertia: 136.295134, maximumInertia: 149.916286, medianSilhouette: .519682 }
-];
+const groupColors = ['#e2b55a', '#7dd3fc'];
 
+/** 272 real observations. `grouped` colors each eruption by the executed
+ * standardized k = 2 fit and marks the two centers in original units. */
+export function FaithfulScatterFigure({ grouped = false }) {
+  const x = value => 40 + (value - 1.5) * (250 / 4);
+  const y = value => 200 - (value - 40) * (170 / 60);
+  return <figure className="cluster-figure cluster-standalone">
+    <figcaption><strong>{grouped ? 'The same 272 eruptions, colored by a fitted two-center partition' : 'Old Faithful: 272 recorded eruptions'}</strong> · real measurements, minutes on both axes</figcaption>
+    <svg viewBox="0 0 320 240" role="img" aria-label={grouped ? `Scatter of eruption duration against waiting time, colored by two fitted groups. Centers near ${faithfulTwoGroups.centers[0][0].toFixed(2)} minutes and ${faithfulTwoGroups.centers[0][1].toFixed(1)} minutes wait, and ${faithfulTwoGroups.centers[1][0].toFixed(2)} minutes and ${faithfulTwoGroups.centers[1][1].toFixed(1)} minutes wait.` : 'Scatter of eruption duration in minutes against waiting time to the next eruption in minutes. Two dense regions: short eruptions with waits near 55 minutes and long eruptions with waits near 80 minutes.'}>
+      {[40, 60, 80, 100].map(value => <g key={value}><line x1="40" x2="290" y1={y(value)} y2={y(value)} stroke="#333" /><text x="34" y={y(value) + 4} textAnchor="end">{value}</text></g>)}
+      {[2, 3, 4, 5].map(value => <g key={value}><line x1={x(value)} x2={x(value)} y1="30" y2="200" stroke="#2a2a2a" /><text x={x(value)} y="216" textAnchor="middle">{value}</text></g>)}
+      {faithfulPoints.map((point, index) => <circle key={index} cx={x(point[0])} cy={y(point[1])} r="2.6" fill={grouped ? groupColors[faithfulTwoGroups.labels[index]] : '#d8d8d8'} fillOpacity=".75" />)}
+      {grouped && faithfulTwoGroups.centers.map((center, index) => <g key={index} stroke={groupColors[index]} strokeWidth="3"><path d={`M${x(center[0]) - 7},${y(center[1])}h14 M${x(center[0])},${y(center[1]) - 7}v14`} /><circle cx={x(center[0])} cy={y(center[1])} r="10" fill="none" strokeWidth="1" /></g>)}
+      <text x="165" y="234" textAnchor="middle">eruption duration (minutes)</text>
+      <text x="12" y="115" textAnchor="middle" transform="rotate(-90 12 115)">waiting time (minutes)</text>
+    </svg>
+    {grouped
+      ? <p>Crosses are the two fitted centers after standardizing both columns, mapped back to minutes: about {faithfulTwoGroups.centers[0][0].toFixed(2)} min eruptions followed by {faithfulTwoGroups.centers[0][1].toFixed(1)} min waits ({faithfulTwoGroups.sizes[0]} rows) and {faithfulTwoGroups.centers[1][0].toFixed(2)} min eruptions followed by {faithfulTwoGroups.centers[1][1].toFixed(1)} min waits ({faithfulTwoGroups.sizes[1]} rows). The split is a fitted description of this geometry, not a geological classification.</p>
+      : <p>Each dot is one eruption: how long it lasted, and how long visitors then waited for the next one. Durations were recorded to the nearest second and are heavily rounded. Nothing in the file says which eruptions belong together, yet two dense regions are visible. Deciding whether that visual impression is a useful grouping is exactly the job of this lesson.</p>}
+  </figure>;
+}
+
+/** Executed on the standardized Old Faithful features by the displayed
+ * production program: KMeans(n_init=1) with seeds 0..4 at each k. */
 export function ClusteringDiagnosticsFigure() {
-  const xPosition = k => 49 + (k - 2) * 77;
+  const xPosition = k => 49 + (k - 1) * 34.5;
+  const logY = value => 205 - 170 * (Math.log10(value) - 1) / 2;
+  const linearY = value => 205 - 170 * value;
   return <figure className="cluster-figure">
-    <figcaption><strong>Calculated diagnostics from the runnable 150-row example</strong> · three single starts at each k, scikit-learn 1.9.1</figcaption>
+    <figcaption><strong>Calculated diagnostics for Old Faithful, k = 1 to 8</strong> · five single starts at each k on standardized features, scikit-learn 1.9.1</figcaption>
     <div className="cluster-figure-pair">
-      {[{ key: 'minimumInertia', label: 'Fitted inertia (squared feature units)', maximum: 2800, ticks: [0, 1400, 2800], color: '#e2b55a' }, { key: 'medianSilhouette', label: 'Median mean silhouette (unitless)', maximum: 1, ticks: [0, .5, 1], color: '#7dd3fc' }].map(chart => {
-        const yPosition = value => 205 - 170 * value / chart.maximum;
-        return <div key={chart.key}><p>{chart.label}</p><svg viewBox="0 0 320 255" role="img" aria-label={`${chart.label}: ${clusteringDiagnosticRows.map(row => `k ${row.k}, ${row[chart.key]}`).join('; ')}. Exact rounded values and inertia ranges are in the table.`}>
-          {chart.ticks.map(tick => <g key={tick}><line x1="49" x2="290" y1={yPosition(tick)} y2={yPosition(tick)} stroke="#333" /><text x="42" y={yPosition(tick) + 4} textAnchor="end">{tick}</text></g>)}
-          <polyline points={clusteringDiagnosticRows.map(row => `${xPosition(row.k)},${yPosition(row[chart.key])}`).join(' ')} fill="none" stroke={chart.color} strokeWidth="2" />
-          {clusteringDiagnosticRows.map(row => <g key={row.k}>
-            {chart.key === 'minimumInertia' && <path d={`M${xPosition(row.k) - 5} ${yPosition(row.maximumInertia)} h10 M${xPosition(row.k)} ${yPosition(row.maximumInertia)} V${yPosition(row.minimumInertia)}`} stroke={chart.color} fill="none" />}
-            <circle cx={xPosition(row.k)} cy={yPosition(row[chart.key])} r="4" fill={chart.color} />
+      <div><p>Fitted inertia, log scale (squared standardized units)</p>
+        <svg viewBox="0 0 320 255" role="img" aria-label={`Inertia by k on a logarithmic axis: ${faithfulDiagnostics.map(row => `k ${row.k}, best ${Math.min(...row.inertias).toFixed(1)}`).join('; ')}. The largest proportional drop is from one center to two.`}>
+          {[10, 100, 1000].map(value => <g key={value}><line x1="49" x2="300" y1={logY(value)} y2={logY(value)} stroke="#333" /><text x="42" y={logY(value) + 4} textAnchor="end">{value}</text></g>)}
+          <polyline points={faithfulDiagnostics.map(row => `${xPosition(row.k)},${logY(Math.min(...row.inertias))}`).join(' ')} fill="none" stroke="#e2b55a" strokeWidth="2" />
+          {faithfulDiagnostics.map(row => <g key={row.k}>
+            {row.inertias.map((value, seed) => <circle key={seed} cx={xPosition(row.k)} cy={logY(value)} r="3" fill="#e2b55a" fillOpacity=".55" />)}
             <text x={xPosition(row.k)} y="227" textAnchor="middle">{row.k}</text>
           </g>)}
-          <text x="164" y="248" textAnchor="middle">k · number of centers</text>
-        </svg></div>;
-      })}
+          <text x="174" y="248" textAnchor="middle">k · number of centers</text>
+        </svg></div>
+      <div><p>Median silhouette over the five starts (unitless)</p>
+        <svg viewBox="0 0 320 255" role="img" aria-label={`Median silhouette by k: ${faithfulDiagnostics.filter(row => row.medianSilhouette !== null).map(row => `k ${row.k}, ${row.medianSilhouette.toFixed(3)}`).join('; ')}. Undefined at k equals 1. Highest at k equals 2.`}>
+          {[0, 0.5, 1].map(value => <g key={value}><line x1="49" x2="300" y1={linearY(value)} y2={linearY(value)} stroke="#333" /><text x="42" y={linearY(value) + 4} textAnchor="end">{value}</text></g>)}
+          <polyline points={faithfulDiagnostics.filter(row => row.medianSilhouette !== null).map(row => `${xPosition(row.k)},${linearY(row.medianSilhouette)}`).join(' ')} fill="none" stroke="#7dd3fc" strokeWidth="2" />
+          {faithfulDiagnostics.map(row => <g key={row.k}>
+            {row.medianSilhouette !== null ? <circle cx={xPosition(row.k)} cy={linearY(row.medianSilhouette)} r="4" fill="#7dd3fc" /> : <text x={xPosition(row.k) + 6} y={linearY(0.5) - 8} textAnchor="start" fill="#888">undefined</text>}
+            <text x={xPosition(row.k)} y="227" textAnchor="middle">{row.k}</text>
+          </g>)}
+          <text x="174" y="248" textAnchor="middle">k · number of centers</text>
+        </svg></div>
     </div>
-    <p>The gold line is the best inertia among the three starts; whiskers extend to the worst. These ranges are seed variation, not confidence intervals. Lines connect the tested integer k values as a reading aid. Both y-axes are linear. Small inertia ranges can be easier to inspect numerically.</p>
-    <LessonTable caption="Same executed diagnostic values as the graphs; six-decimal rounding" headers={['k', 'inertia: min to max', 'median silhouette']} rows={clusteringDiagnosticRows.map(row => [row.k, `${row.minimumInertia.toFixed(6)} to ${row.maximumInertia.toFixed(6)}`, row.medianSilhouette.toFixed(6)])} />
+    <p>Each gold dot is one start; the line follows the best of the five. The inertia axis is logarithmic so that equal vertical drops mean equal proportional improvements: one center to two removes about 85% of the error, two to three about 29%, and later steps less. The silhouette is undefined for one cluster and peaks at two. From k = 3 onward the five starts disagree, which is itself information about the objective landscape.</p>
+    <LessonTable caption="Same executed values as the graphs; six-decimal rounding" headers={['k', 'inertia: best to worst of five starts', 'median silhouette']} rows={faithfulDiagnostics.map(row => [row.k, `${Math.min(...row.inertias).toFixed(6)} to ${Math.max(...row.inertias).toFixed(6)}`, row.medianSilhouette === null ? 'undefined' : row.medianSilhouette.toFixed(6)])} />
+  </figure>;
+}
+
+/** SciPy Ward tree of a deterministic 40-row Old Faithful subsample on
+ * standardized coordinates. Leaves carry the color of the executed 272-row
+ * k = 2 fit so the two representations can be compared. */
+export function FaithfulDendrogramFigure() {
+  const n = faithfulSubsample.length;
+  const nodes = faithfulSubsample.map((row, index) => ({ id: index, height: 0, members: [index] }));
+  faithfulWardLinkage.forEach(([left, right, height], index) => nodes.push({ id: n + index, left, right, height, members: [...nodes[left].members, ...nodes[right].members] }));
+  const root = nodes.at(-1);
+  const order = [];
+  const visit = id => { const node = nodes[id]; if (node.left === undefined) order.push(id); else { visit(node.left); visit(node.right); } };
+  visit(root.id);
+  const positions = new Map(order.map((id, index) => [id, 40 + 260 * index / (n - 1)]));
+  faithfulWardLinkage.forEach(([left, right], index) => positions.set(n + index, (positions.get(left) + positions.get(right)) / 2));
+  const maxHeight = root.height * 1.06;
+  const y = value => 200 - 176 * value / maxHeight;
+  const cutHeight = 5;
+  const clustersAtCut = 1 + faithfulWardLinkage.filter(([, , height]) => height > cutHeight).length;
+  const secondCut = 2;
+  const clustersAtSecond = 1 + faithfulWardLinkage.filter(([, , height]) => height > secondCut).length;
+  return <figure className="cluster-figure cluster-standalone">
+    <figcaption><strong>A realistic Ward dendrogram: 40 Old Faithful eruptions</strong> · SciPy 1.18.1 on standardized coordinates, leaf color from the 272-row two-center fit</figcaption>
+    <svg viewBox="0 0 320 236" role="img" aria-label={`Ward dendrogram with forty leaves. The final merge is at height ${root.height.toFixed(2)}, far above the next merge at ${faithfulWardLinkage.at(-2)[2].toFixed(2)}. A cut at ${cutHeight} leaves ${clustersAtCut} clusters; a cut at ${secondCut} leaves ${clustersAtSecond}.`}>
+      {[0, 4, 8, 12].map(value => <g key={value}><line x1="34" x2="306" y1={y(value)} y2={y(value)} stroke="#2a2a2a" /><text x="28" y={y(value) + 4} textAnchor="end">{value}</text></g>)}
+      {faithfulWardLinkage.map(([left, right, height], index) => {
+        const members = nodes[n + index].members;
+        const labels = members.map(member => faithfulTwoGroups.labels[faithfulSubsample[member]]);
+        const same = labels.every(label => label === labels[0]);
+        return <path key={index} d={`M${positions.get(left)},${y(nodes[left].height)}V${y(height)}H${positions.get(right)}V${y(nodes[right].height)}`} fill="none" stroke={same ? groupColors[labels[0]] : '#9a9a9a'} strokeWidth="1.4" />;
+      })}
+      <line x1="34" x2="306" y1={y(cutHeight)} y2={y(cutHeight)} stroke="#e2b55a" strokeDasharray="5 4" />
+      <text x="308" y={y(cutHeight) + 4}>{clustersAtCut}</text>
+      <line x1="34" x2="306" y1={y(secondCut)} y2={y(secondCut)} stroke="#e2b55a" strokeDasharray="2 4" strokeOpacity=".7" />
+      <text x="308" y={y(secondCut) + 4}>{clustersAtSecond}</text>
+      {order.map((id, index) => <circle key={id} cx={positions.get(id)} cy="206" r="2.6" fill={groupColors[faithfulTwoGroups.labels[faithfulSubsample[id]]]} />)}
+      <text x="170" y="228" textAnchor="middle">40 leaves, colored by the two-center fit</text>
+    </svg>
+    <p>Read the vertical gaps, not the leaf order. The last merge sits at height {root.height.toFixed(2)} while every earlier merge is below {faithfulWardLinkage.at(-2)[2].toFixed(2)}, so any cut in that long empty stretch gives the same two clusters, and they coincide with the two-center k-means colors on these rows. The dotted line at height {secondCut} instead yields {clustersAtSecond} clusters whose boundaries are much less stable to the cut position. Gaps like the tall one are the evidence a dendrogram offers; the horizontal placement of leaves is drawing convention.</p>
   </figure>;
 }
 

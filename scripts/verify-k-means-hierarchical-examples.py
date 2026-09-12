@@ -31,76 +31,60 @@ from threadpoolctl import threadpool_limits
 
 PROGRAMS = {
     "lloyd": {
-        "title": "Trace vanilla D² seeding and return an honest Lloyd state",
+        "title": "Implement vanilla D² seeding and Lloyd’s algorithm from scratch",
         "question": "If the last mean update changes the nearest-center assignments, has the algorithm reached a fixed point? What should it return when its iteration budget ends there?",
         "code": r"""
 import numpy as np
 from sklearn.datasets import make_blobs
 
 
-def checked_points(values):
-    raw = np.asarray(values)
-    if raw.dtype.kind not in "fiu" or raw.ndim != 2:
-        raise ValueError("Use a numeric row-by-feature matrix.")
-    points = raw.astype(float)
-    if not (1 <= len(points) <= 2000 and 1 <= points.shape[1] <= 16):
-        raise ValueError("This small teaching implementation admits 1–2000 rows and 1–16 features.")
-    if not np.isfinite(points).all() or np.max(np.abs(points)) > 1e6:
-        raise ValueError("Use finite coordinates with magnitude at most 1e6.")
+def check_points(values):
+    # Accept a finite numeric row-by-feature matrix and nothing else.
+    points = np.asarray(values, dtype=float)
+    if points.ndim != 2 or not np.isfinite(points).all():
+        raise ValueError("Use a finite numeric row-by-feature matrix.")
     return points
 
 
 def squared_distances(points, centers):
-    differences = points[:, None, :] - centers[None, :, :]
-    squares = differences * differences
-    if np.any((differences != 0) & (squares == 0)) or not np.isfinite(squares).all():
-        raise ValueError("Rescale coordinates: squared distances exceed this arithmetic range.")
-    return squares.sum(axis=2)
+    # Return the n × k matrix of squared Euclidean distances.
+    return ((points[:, None, :] - centers[None, :, :]) ** 2).sum(axis=2)
 
 
 def d2_seed(points, k, seed=0):
-    points = checked_points(points)
-    if type(k) is not int or not 1 <= k <= min(len(points), 32):
-        raise ValueError("Choose an integer k between 1 and min(n,32).")
+    # Vanilla k-means++: a uniform first row, then D²-proportional draws.
+    points = check_points(points)
     rng = np.random.default_rng(seed)
-    chosen = [int(rng.integers(len(points)))]  # First row is uniform.
+    chosen = [int(rng.integers(len(points)))]
     while len(chosen) < k:
         nearest = squared_distances(points, points[chosen]).min(axis=1)
-        if nearest.max() == 0:
-            # Every distinct location is covered. Keep k slots, possibly duplicate.
-            selected = next(index for index in range(len(points)) if index not in chosen)
+        if nearest.max() == 0:  # every distinct location is already a center
+            chosen.append(next(i for i in range(len(points)) if i not in chosen))
         else:
-            scaled = nearest / nearest.max()
-            selected = int(rng.choice(len(points), p=scaled / scaled.sum()))
-        chosen.append(selected)
+            chosen.append(int(rng.choice(len(points), p=nearest / nearest.sum())))
     return points[chosen].copy(), chosen
 
 
 def lloyd(points, k=3, seed=0, max_iter=100, initial=None):
-    points = checked_points(points)
-    if type(k) is not int or not 1 <= k <= min(len(points), 32):
-        raise ValueError("Choose an integer k between 1 and min(n,32).")
-    if type(max_iter) is not int or not 1 <= max_iter <= 1000:
-        raise ValueError("Choose an integer iteration budget from 1 to 1000.")
+    points = check_points(points)
+    if type(k) is not int or not 1 <= k <= len(points):
+        raise ValueError("Choose an integer k between 1 and the number of rows.")
     if initial is None:
         centers, seed_rows = d2_seed(points, k, seed)
     else:
-        centers = checked_points(initial).copy()
+        centers, seed_rows = check_points(initial).copy(), None
         if centers.shape != (k, points.shape[1]):
             raise ValueError("Initial centers must have shape (k, number of features).")
-        seed_rows = None
-    initial_centers = centers.copy()
     history = []
     for iteration in range(1, max_iter + 1):
         distances = squared_distances(points, centers)
-        labels_for_means = distances.argmin(axis=1)  # Lowest center index wins a tie.
+        labels_for_means = distances.argmin(axis=1)  # lowest index wins an exact tie
         before = float(distances[np.arange(len(points)), labels_for_means].sum())
         updated = centers.copy()
         for cluster in range(k):
             members = points[labels_for_means == cluster]
-            if len(members):
+            if len(members):  # an empty slot keeps its previous center
                 updated[cluster] = members.mean(axis=0)
-            # An empty slot keeps its previous center; no forced relocation.
         updated_distances = squared_distances(points, updated)
         after_means = float(updated_distances[np.arange(len(points)), labels_for_means].sum())
         labels = updated_distances.argmin(axis=1)
@@ -112,31 +96,31 @@ def lloyd(points, k=3, seed=0, max_iter=100, initial=None):
             break
     return {"centers": centers, "labels": labels, "inertia": inertia,
             "converged": converged, "iterations": iteration, "history": history,
-            "initial_centers": initial_centers, "seed_rows": seed_rows}
+            "seed_rows": seed_rows}
 
 
 points, _ = make_blobs(n_samples=150, centers=3, cluster_std=0.8, random_state=42)
 result = lloyd(points)
-print("original data:", points.shape, "seed rows:", result["seed_rows"])
-print("assignment / after means / after reassignment / changed labels")
+print("data:", points.shape, "seed rows:", result["seed_rows"])
+print("SSE before update / after moving means / after reassigning / labels changed")
 for before, after, reassigned, changed in result["history"]:
     print(f"{before:.6f} / {after:.6f} / {reassigned:.6f} / {changed}")
-print("fixed point / mean updates:", result["converged"], result["iterations"])
+print("fixed point:", result["converged"], "after", result["iterations"], "mean update(s)")
 for cluster in np.argsort(result["centers"][:, 0]):
     print("center:", np.round(result["centers"][cluster], 4).tolist(),
           "size:", int(np.sum(result["labels"] == cluster)))
 print("inertia:", round(result["inertia"], 6))
 
 duplicates = lloyd(np.ones((4, 2)), k=3)
-print("duplicate data: requested / occupied:", 3, len(np.unique(duplicates["labels"])))
+print("four identical rows, k=3: occupied clusters =", len(np.unique(duplicates["labels"])))
 changed = np.array([[0.0], [1.0], [4.0], [5.0], [10.0]])
 limited = lloyd(changed, k=2, initial=[[0.0], [1.0]], max_iter=1)
-print("one-update return: fixed / nearest labels:", limited["converged"], limited["labels"].tolist())
-print("One-update centers need not be means of the returned reassigned groups.")
+print("budget of one update: fixed point =", limited["converged"],
+      "returned labels =", limited["labels"].tolist())
 for initial in [[[0.0], [4.0]], [[0.0], [10.0]]]:
     local = lloyd(changed, k=2, initial=initial)
-    print("fixed point / inertia:", local["converged"], round(local["inertia"], 6))
-print("A fixed point and agreement with another run are not a global-optimum proof.")
+    print("start", np.ravel(initial).tolist(), "-> fixed point", local["converged"],
+          "inertia", round(local["inertia"], 6))
 """,
     },
     "ward": {
@@ -152,12 +136,11 @@ toy = np.array([[1.0, 0.0], [1.5, 0.5], [3.0, 2.0],
 
 
 def ward_merges(points):
+    # Agglomerate by the smallest increase in within-cluster squared error.
     points = np.asarray(points, dtype=float)
-    if points.ndim != 2 or not (2 <= len(points) <= 40 and 1 <= points.shape[1] <= 8):
-        raise ValueError("Use a small matrix with 2–40 rows and 1–8 features.")
-    if not np.isfinite(points).all() or np.max(np.abs(points)) > 1e6:
-        raise ValueError("Use finite coordinates of magnitude at most 1e6.")
-    clusters = {index: (1, row.copy(), [index]) for index, row in enumerate(points)}
+    if points.ndim != 2 or not np.isfinite(points).all():
+        raise ValueError("Use a finite numeric row-by-feature matrix.")
+    clusters = {i: (1, row.copy(), [i]) for i, row in enumerate(points)}  # size, mean, rows
     rows, costs = [], []
     for new_id in range(len(points), 2 * len(points) - 1):
         candidates = []
@@ -166,31 +149,22 @@ def ward_merges(points):
             for right in active[position + 1:]:
                 na, ma, _ = clusters[left]
                 nb, mb, _ = clusters[right]
-                difference = ma - mb
-                squares = difference * difference
-                if np.any((difference != 0) & (squares == 0)) or not np.isfinite(squares).all():
-                    raise ValueError("Rescale coordinates: squared separation is outside this arithmetic range.")
-                separation = float(squares.sum())
-                delta = na * nb / (na + nb) * separation
-                if separation > 0 and delta == 0:
-                    raise ValueError("Rescale coordinates: the positive Ward increase underflows.")
+                delta = na * nb / (na + nb) * float(((ma - mb) ** 2).sum())
                 candidates.append((delta, left, right))
-        # Lowest active ID pair breaks exact numerical ties deterministically.
-        delta, left, right = min(candidates)
+        delta, left, right = min(candidates)  # the lowest ID pair breaks an exact tie
         na, ma, members_a = clusters.pop(left)
         nb, mb, members_b = clusters.pop(right)
         clusters[new_id] = (na + nb, (na * ma + nb * mb) / (na + nb), members_a + members_b)
-        rows.append([left, right, np.sqrt(2 * delta), na + nb])
+        rows.append([left, right, np.sqrt(2 * delta), na + nb])  # SciPy's height convention
         costs.append(delta)
     return np.array(rows), np.array(costs)
 
 
 def count_cut(tree, k):
+    # Apply exactly the first n − k merges.
     n = len(tree) + 1
-    if type(k) is not int or not 1 <= k <= n:
-        raise ValueError("Choose an integer cluster count from 1 to n.")
     active = {index: [index] for index in range(n)}
-    for step, row in enumerate(tree[:n-k]):
+    for step, row in enumerate(tree[:n - k]):
         left, right = map(int, row[:2])
         active[n + step] = active.pop(left) + active.pop(right)
     labels = np.empty(n, dtype=int)
@@ -204,52 +178,104 @@ reference = linkage(toy, method="ward", metric="euclidean")
 print("left right delta_SSE scipy_height size")
 for own, cost, other in zip(ours, delta, reference):
     print(int(own[0]), int(own[1]), f"{cost:.6f}", f"{other[2]:.6f}", int(own[3]))
-print("all heights obey h²=2Δ:", bool(np.allclose(reference[:, 2] ** 2, 2 * delta)))
+print("all heights obey h² = 2Δ:", bool(np.allclose(reference[:, 2] ** 2, 2 * delta)))
 print("sum of merge costs / one-cluster SSE:", round(float(delta.sum()), 6),
       round(float(np.sum((toy - toy.mean(axis=0)) ** 2)), 6))
 for k in [2, 3, 4]:
     direct = count_cut(ours, k)
     scipy_labels = cut_tree(reference, n_clusters=[k]).ravel()
-    print("count cut", k, "co-membership ARI:", round(adjusted_rand_score(direct, scipy_labels), 6))
+    print("count cut", k, "agrees with SciPy cut_tree (ARI):",
+          round(adjusted_rand_score(direct, scipy_labels), 6))
 equal_height = reference[1, 2]
 below = fcluster(reference, np.nextafter(equal_height, -np.inf), criterion="distance")
 through = fcluster(reference, equal_height, criterion="distance")
 max_four = fcluster(reference, 4, criterion="maxclust")
-print("height cut just below / at tied height:", len(np.unique(below)), len(np.unique(through)))
-print("maxclust=4 means at most 4; actual:", len(np.unique(max_four)))
-print("An exact four-cluster cut chooses a position within a tied merge order.")
+print("clusters from a height cut just below / at the tied height:",
+      len(np.unique(below)), len(np.unique(through)))
+print("fcluster maxclust=4 returns at most 4; actual:", len(np.unique(max_four)))
 """,
     },
     "production": {
-        "title": "Compare actual KMeans, MiniBatchKMeans and agglomerative results",
-        "question": "Does a lower training inertia prove that k is correct? Does MiniBatchKMeans(n_init=10) mean ten complete mini-batch fits?",
+        "title": "Fit Old Faithful with scikit-learn, then compare three library estimators",
+        "question": "Which k does the inertia curve favor once the axis is read proportionally, and does the silhouette agree? Does MiniBatchKMeans(n_init=10) mean ten complete mini-batch fits?",
         "code": r"""
 import numpy as np
 import sklearn
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans, MiniBatchKMeans, AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score, adjusted_rand_score
 
+# Old Faithful geyser, Yellowstone: eruption duration and waiting time to the next
+# eruption, both in minutes. 272 rows, the R `faithful` version (Härdle 1991).
+FAITHFUL = (
+    "3.6 79 1.8 54 3.333 74 2.283 62 4.533 85 2.883 55 4.7 88 3.6 85 1.95 51 4.35 85 "
+    "1.833 54 3.917 84 4.2 78 1.75 47 4.7 83 2.167 52 1.75 62 4.8 84 1.6 52 4.25 79 "
+    "1.8 51 1.75 47 3.45 78 3.067 69 4.533 74 3.6 83 1.967 55 4.083 76 3.85 78 4.433 79 "
+    "4.3 73 4.467 77 3.367 66 4.033 80 3.833 74 2.017 52 1.867 48 4.833 80 1.833 59 "
+    "4.783 90 4.35 80 1.883 58 4.567 84 1.75 58 4.533 73 3.317 83 3.833 64 2.1 53 "
+    "4.633 82 2 59 4.8 75 4.716 90 1.833 54 4.833 80 1.733 54 4.883 83 3.717 71 1.667 64 "
+    "4.567 77 4.317 81 2.233 59 4.5 84 1.75 48 4.8 82 1.817 60 4.4 92 4.167 78 4.7 78 "
+    "2.067 65 4.7 73 4.033 82 1.967 56 4.5 79 4 71 1.983 62 5.067 76 2.017 60 4.567 78 "
+    "3.883 76 3.6 83 4.133 75 4.333 82 4.1 70 2.633 65 4.067 73 4.933 88 3.95 76 4.517 80 "
+    "2.167 48 4 86 2.2 60 4.333 90 1.867 50 4.817 78 1.833 63 4.3 72 4.667 84 3.75 75 "
+    "1.867 51 4.9 82 2.483 62 4.367 88 2.1 49 4.5 83 4.05 81 1.867 47 4.7 84 1.783 52 "
+    "4.85 86 3.683 81 4.733 75 2.3 59 4.9 89 4.417 79 1.7 59 4.633 81 2.317 50 4.6 85 "
+    "1.817 59 4.417 87 2.617 53 4.067 69 4.25 77 1.967 56 4.6 88 3.767 81 1.917 45 4.5 82 "
+    "2.267 55 4.65 90 1.867 45 4.167 83 2.8 56 4.333 89 1.833 46 4.383 82 1.883 51 "
+    "4.933 86 2.033 53 3.733 79 4.233 81 2.233 60 4.533 82 4.817 77 4.333 76 1.983 59 "
+    "4.633 80 2.017 49 5.1 96 1.8 53 5.033 77 4 77 2.4 65 4.6 81 3.567 71 4 70 4.5 81 "
+    "4.083 93 1.8 53 3.967 89 2.2 45 4.15 86 2 58 3.833 78 3.5 66 4.583 76 2.367 63 5 88 "
+    "1.933 52 4.617 93 1.917 49 2.083 57 4.583 77 3.333 68 4.167 81 4.333 81 4.5 73 "
+    "2.417 50 4 85 4.167 74 1.883 55 4.583 77 4.25 83 3.767 83 2.033 51 4.433 78 4.083 84 "
+    "1.833 46 4.417 83 2.183 55 4.8 81 1.833 57 4.8 76 4.1 84 3.966 77 4.233 81 3.5 87 "
+    "4.366 77 2.25 51 4.667 78 2.1 60 4.35 82 4.133 91 1.867 53 4.6 78 1.783 46 4.367 77 "
+    "3.85 84 1.933 49 4.5 83 2.383 71 4.7 80 1.867 49 3.833 75 3.417 64 4.233 76 2.4 53 "
+    "4.8 94 2 55 4.15 76 1.867 50 4.267 82 1.75 54 4.483 75 4 78 4.117 79 4.083 78 "
+    "4.267 78 3.917 70 4.55 79 4.083 70 2.417 54 4.183 86 2.217 50 4.45 90 1.883 54 "
+    "1.85 54 4.283 77 3.95 79 2.333 64 4.15 75 2.35 47 4.933 86 2.9 63 4.583 85 3.833 82 "
+    "2.083 57 4.367 82 2.133 67 4.35 74 2.2 54 4.45 83 3.567 73 4.5 73 4.15 88 3.817 80 "
+    "3.917 71 4.45 83 2 56 4.283 79 4.767 78 4.533 84 1.85 58 4.25 83 1.983 43 2.25 60 "
+    "4.75 75 4.117 81 2.15 46 4.417 90 1.817 46 4.467 74 "
+)
+faithful = np.array(FAITHFUL.split(), dtype=float).reshape(-1, 2)
+print("scikit-learn:", sklearn.__version__, "Old Faithful rows:", faithful.shape)
+scaler = StandardScaler().fit(faithful)
+standardized = scaler.transform(faithful)
+two = KMeans(n_clusters=2, n_init=10, random_state=0).fit(standardized)
+raw_two = KMeans(n_clusters=2, n_init=10, random_state=0).fit(faithful)
+print("standardized k=2 centers (minutes):",
+      np.round(scaler.inverse_transform(two.cluster_centers_), 3).tolist(),
+      "sizes:", np.bincount(two.labels_).tolist())
+print("raw-unit k=2 centers (minutes):", np.round(raw_two.cluster_centers_, 3).tolist(),
+      "sizes:", np.bincount(raw_two.labels_).tolist())
+print("agreement of the two geometries (ARI):",
+      round(adjusted_rand_score(two.labels_, raw_two.labels_), 6))
+print("k / inertia over five single starts / median silhouette, standardized")
+for k in range(1, 9):
+    runs = [KMeans(n_clusters=k, n_init=1, random_state=seed).fit(standardized)
+            for seed in range(5)]
+    inertias = [model.inertia_ for model in runs]
+    if k == 1:
+        print(k, f"{min(inertias):.6f}..{max(inertias):.6f}", "silhouette undefined")
+        continue
+    silhouettes = [silhouette_score(standardized, model.labels_) for model in runs]
+    print(k, f"{min(inertias):.6f}..{max(inertias):.6f}", f"{np.median(silhouettes):.6f}")
+
+# A synthetic comparison retained from the earlier lesson: three generated blobs.
 points, _ = make_blobs(n_samples=150, centers=3, cluster_std=0.8, random_state=42)
-print("scikit-learn:", sklearn.__version__, "data:", points.shape)
 full = KMeans(n_clusters=3, init="k-means++", n_init=10,
               max_iter=300, algorithm="lloyd", random_state=42).fit(points)
 mini = MiniBatchKMeans(n_clusters=3, init="k-means++", n_init=10,
                       batch_size=64, random_state=42).fit(points)
 ward = AgglomerativeClustering(n_clusters=3, linkage="ward", metric="euclidean").fit(points)
-for name, fitted in [("KMeans", full), ("MiniBatch", mini)]:
+print("blobs:", points.shape)
+for name, fitted in [("KMeans", full), ("MiniBatchKMeans", mini)]:
     print(name, "inertia:", round(fitted.inertia_, 6),
           "silhouette:", round(silhouette_score(points, fitted.labels_), 6))
 print("Ward silhouette:", round(silhouette_score(points, ward.labels_), 6))
-print("KMeans versus Ward ARI:", round(adjusted_rand_score(full.labels_, ward.labels_), 6))
-print("MiniBatch n_init chooses an initialization; it does not run ten complete fits.")
-print("k / inertia range across three single starts / median silhouette")
-for k in [2, 3, 4, 5]:
-    runs = [KMeans(n_clusters=k, n_init=1, random_state=seed).fit(points) for seed in [0, 1, 2]]
-    inertias = [model.inertia_ for model in runs]
-    silhouettes = [silhouette_score(points, model.labels_) for model in runs]
-    print(k, f"{min(inertias):.6f}..{max(inertias):.6f}", f"{np.median(silhouettes):.6f}")
-print("These are generated-data diagnostics, not a proof of the true k or a timing benchmark.")
+print("KMeans versus Ward agreement (ARI):",
+      round(adjusted_rand_score(full.labels_, ward.labels_), 6))
 """,
     },
     "scaling": {
@@ -295,8 +321,6 @@ print("held-out nearest standardized distances:", np.round(distances, 6).tolist(
 print("predict changed scaler or centers:",
       not (np.array_equal(mean_before, pipeline[0].mean_) and
            np.array_equal(centers_before, pipeline[1].cluster_centers_)))
-print("The distant final device still gets a label; a label is not proof of a good match.")
-print("Standardization encodes a scale choice; it does not establish equal domain importance.")
 """,
     },
     "quantization": {
@@ -339,8 +363,6 @@ print("decoded matches palette assignment:", bool(np.array_equal(decoded_indices
 print("floating / decoded squared RGB error per pixel:",
       round(weighted.inertia_ / len(pixels), 6), round(deployed_sse / len(pixels), 6))
 print("raw / palette / index / total payload bits:", raw_bits, palette_bits, len(bitstream), payload_bits)
-print("Counts describe pixels, not eight equally frequent observations.")
-print("Bit counts exclude dimensions, headers and padding; RGB SSE is not a perceptual-color guarantee.")
 """,
     },
     "capstone": {
@@ -411,9 +433,7 @@ def report(data_seed=17, split_seed=23):
     future_n = 100000
     condensed_gib = (future_n * (future_n - 1) // 2) * 8 / 2**30
     print("100000 rows: float64 condensed distance buffer alone (GiB):", round(condensed_gib, 3))
-    print("At a 16 GiB memory budget, reject that dense hierarchy plan before fitting.")
-    print("Consider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.")
-    print("One synthetic split and bootstrap stability do not establish meaningful real-world categories.")
+    print("A 16 GiB machine cannot hold that dense hierarchy plan; the reasoning belongs before fitting.")
     return {"selected_k": k, "fitted": fitted, "training": training,
             "validation": validation, "test": test, "labels": labels, "error": error,
             "baseline_error": baseline_error}

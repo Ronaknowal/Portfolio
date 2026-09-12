@@ -1,10 +1,10 @@
 {
-  "verifiedAt": "2026-09-11T16:45:46.356564+00:00",
+  "verifiedAt": "2026-09-11T19:23:57.115789+00:00",
   "stage": "native author verification; complete lesson/browser/independent review remain separate",
   "source": "src/learn/data/k-means-hierarchical-examples.js",
-  "sourceHash": "49989054e94ec00232f88462e39f3777786e363a0673407489e5e18d77b060b2",
+  "sourceHash": "382bcbc2027b64e916c5e9b5c86c3bb6befb8aeb96e6fccf11422540d5fd76d8",
   "verifier": "scripts/verify-k-means-hierarchical-examples.py",
-  "verifierHash": "a5b3b12c695e9f527d97793526420e559d08c695c58209f3492b19915adf2477",
+  "verifierHash": "516249cc9e4f43591dc2c73ed94b0022aa45479cacb7523b6fe46d35a545c3b2",
   "versions": {
     "numpy": "2.3.5",
     "scipy": "1.18.1",
@@ -12,34 +12,34 @@
   },
   "programs": {
     "lloyd": {
-      "codeHash": "935c3f1bd98798aaf2df5554b5600f18e8654aae221af964ae320bc2527855f5",
-      "stdoutHash": "47f2ea09db74ff36a899cb046611d98b61006f16546e2aa4139e455a48c253f3",
-      "stdout": "original data: (150, 2) seed rows: [127, 39, 8]\nassignment / after means / after reassignment / changed labels\n321.875530 / 181.504432 / 181.504432 / 0\nfixed point / mean updates: True 1\ncenter: [-6.7791, -6.8876] size: 50\ncenter: [-2.663, 8.9252] size: 50\ncenter: [4.5952, 2.1091] size: 50\ninertia: 181.504432\nduplicate data: requested / occupied: 3 1\none-update return: fixed / nearest labels: False [0, 0, 1, 1, 1]\nOne-update centers need not be means of the returned reassigned groups.\nfixed point / inertia: True 21.166667\nfixed point / inertia: True 17.0\nA fixed point and agreement with another run are not a global-optimum proof."
+      "codeHash": "7d140f121b58fd08fea9a974e4c66416eca0f8970dac88ec1c244f160032d975",
+      "stdoutHash": "c832d2386826a969f8c09ae2c7786d8ac0322bdaaf6111b9a3bb44e31489e9f3",
+      "stdout": "data: (150, 2) seed rows: [127, 39, 8]\nSSE before update / after moving means / after reassigning / labels changed\n321.875530 / 181.504432 / 181.504432 / 0\nfixed point: True after 1 mean update(s)\ncenter: [-6.7791, -6.8876] size: 50\ncenter: [-2.663, 8.9252] size: 50\ncenter: [4.5952, 2.1091] size: 50\ninertia: 181.504432\nfour identical rows, k=3: occupied clusters = 1\nbudget of one update: fixed point = False returned labels = [0, 0, 1, 1, 1]\nstart [0.0, 4.0] -> fixed point True inertia 21.166667\nstart [0.0, 10.0] -> fixed point True inertia 17.0"
     },
     "ward": {
-      "codeHash": "763362ccd01571670ce6dccf3504961b984a6dc8a4e5480eb9fd1c57d8b0c10d",
-      "stdoutHash": "da017bd02dccd9416dfdb902c65e250db4ed5f3567e8ca97c57510e110c3fd12",
-      "stdout": "left right delta_SSE scipy_height size\n2 3 0.125000 0.500000 2\n0 1 0.250000 0.707107 2\n4 5 0.250000 0.707107 2\n6 7 7.062500 3.758324 4\n8 9 56.020833 10.584974 6\nall heights obey h\u00b2=2\u0394: True\nsum of merge costs / one-cluster SSE: 63.708333 63.708333\ncount cut 2 co-membership ARI: 1.0\ncount cut 3 co-membership ARI: 1.0\ncount cut 4 co-membership ARI: 1.0\nheight cut just below / at tied height: 5 3\nmaxclust=4 means at most 4; actual: 3\nAn exact four-cluster cut chooses a position within a tied merge order."
+      "codeHash": "9bc961227d413d03cb158fe90d376ef648c9f94ac253f966ada2b86f28f31e94",
+      "stdoutHash": "c0460fffbc17646821de5b844ba3d1e4b5e6ee2053bf394d035ddd3fa98245cb",
+      "stdout": "left right delta_SSE scipy_height size\n2 3 0.125000 0.500000 2\n0 1 0.250000 0.707107 2\n4 5 0.250000 0.707107 2\n6 7 7.062500 3.758324 4\n8 9 56.020833 10.584974 6\nall heights obey h\u00b2 = 2\u0394: True\nsum of merge costs / one-cluster SSE: 63.708333 63.708333\ncount cut 2 agrees with SciPy cut_tree (ARI): 1.0\ncount cut 3 agrees with SciPy cut_tree (ARI): 1.0\ncount cut 4 agrees with SciPy cut_tree (ARI): 1.0\nclusters from a height cut just below / at the tied height: 5 3\nfcluster maxclust=4 returns at most 4; actual: 3"
     },
     "production": {
-      "codeHash": "95e6acc96610ceb2a3d209af1270ea291cf93d6e4e91216b444b695a87ac7263",
-      "stdoutHash": "b78ed1f9cd30f65f79bdfda324e669b62e4c4231b7b9b7e194d0cf072b585dde",
-      "stdout": "scikit-learn: 1.9.1 data: (150, 2)\nKMeans inertia: 181.504432 silhouette: 0.876025\nMiniBatch inertia: 181.64728 silhouette: 0.876025\nWard silhouette: 0.876025\nKMeans versus Ward ARI: 1.0\nMiniBatch n_init chooses an initialization; it does not run ten complete fits.\nk / inertia range across three single starts / median silhouette\n2 2660.009039..2660.009039 0.719940\n3 181.504432..181.504432 0.876025\n4 156.192219..171.664605 0.695022\n5 136.295134..149.916286 0.519682\nThese are generated-data diagnostics, not a proof of the true k or a timing benchmark."
+      "codeHash": "704f20af562b2d6a0a9770723d77b0b9ddf625c115b4267117e0e87003b80165",
+      "stdoutHash": "3286c1f1ec15019fc084de046423a1cea3a80d8e6e2f335e385f230e31708e55",
+      "stdout": "scikit-learn: 1.9.1 Old Faithful rows: (272, 2)\nstandardized k=2 centers (minutes): [[2.052, 54.592], [4.296, 80.08]] sizes: [98, 174]\nraw-unit k=2 centers (minutes): [[2.094, 54.75], [4.298, 80.285]] sizes: [100, 172]\nagreement of the two geometries (ARI): 0.941537\nk / inertia over five single starts / median silhouette, standardized\n1 544.000000..544.000000 silhouette undefined\n2 79.575959..79.575959 0.745177\n3 56.331983..64.129144 0.486277\n4 43.889324..49.624831 0.404820\n5 34.274379..39.154590 0.364631\n6 27.284262..31.281991 0.388939\n7 23.821930..24.895822 0.379598\n8 21.517550..23.437178 0.360078\nblobs: (150, 2)\nKMeans inertia: 181.504432 silhouette: 0.876025\nMiniBatchKMeans inertia: 181.64728 silhouette: 0.876025\nWard silhouette: 0.876025\nKMeans versus Ward agreement (ARI): 1.0"
     },
     "scaling": {
-      "codeHash": "eeb242a5d1736b67aeb252d59afee1aee65778ab8ba5605bb2cc77d16bade79f",
-      "stdoutHash": "1d0b2381b55ae7a4d0756e0e6f2cb18aff70aa6f2bdd2c4dc951e9045628dbbc",
-      "stdout": "original coordinate groups: [[0, 2], [1, 3]]\nfirst coordinate converted without metric correction: [[0, 1], [2, 3]]\ncompensated squared-distance weights: [[0, 2], [1, 3]]\ncompensated ARI: 1.0\ntraining-only coordinate means: [5.0, 20.333333]\nheld-out nearest standardized distances: [0.291399, 0.156559, 7.644739]\npredict changed scaler or centers: False\nThe distant final device still gets a label; a label is not proof of a good match.\nStandardization encodes a scale choice; it does not establish equal domain importance."
+      "codeHash": "311f51c92f70e7d8da89036c913ca24190c4bb7d0401930cd5fc044114d99667",
+      "stdoutHash": "54f94c8f0a28e3426b881bdd1f05e9a964ca12140d0208cfc6aeac19e0960c6b",
+      "stdout": "original coordinate groups: [[0, 2], [1, 3]]\nfirst coordinate converted without metric correction: [[0, 1], [2, 3]]\ncompensated squared-distance weights: [[0, 2], [1, 3]]\ncompensated ARI: 1.0\ntraining-only coordinate means: [5.0, 20.333333]\nheld-out nearest standardized distances: [0.291399, 0.156559, 7.644739]\npredict changed scaler or centers: False"
     },
     "quantization": {
-      "codeHash": "d50de315534de0e3c2624e7a47257bfe13865300215d90b09fd0b127f52aa750",
-      "stdoutHash": "4bb87c0f76cbd00a768afdc45c6bb1dff6a61e0cb327a4b9972f4a57b08e1117",
-      "stdout": "pixels / distinct rows: 128 8\nweighted versus repeated SSE: 9804.927631 9804.927631\nsame floating palette: True\ninteger RGB palette: [[240, 21, 20], [21, 230, 21], [24, 22, 234]]\ndecoded matches palette assignment: True\nfloating / decoded squared RGB error per pixel: 76.600997 76.882812\nraw / palette / index / total payload bits: 3072 72 256 328\nCounts describe pixels, not eight equally frequent observations.\nBit counts exclude dimensions, headers and padding; RGB SSE is not a perceptual-color guarantee."
+      "codeHash": "e3be003d81862e0cb62e09361700d1352b835eacc0a4a582658c20f484f4ce99",
+      "stdoutHash": "4af982726b211358c32e9887b2b1d736e90efd4b867ecb96b731fefe0a16542d",
+      "stdout": "pixels / distinct rows: 128 8\nweighted versus repeated SSE: 9804.927631 9804.927631\nsame floating palette: True\ninteger RGB palette: [[240, 21, 20], [21, 230, 21], [24, 22, 234]]\ndecoded matches palette assignment: True\nfloating / decoded squared RGB error per pixel: 76.600997 76.882812\nraw / palette / index / total payload bits: 3072 72 256 328"
     },
     "capstone": {
-      "codeHash": "97674f1a2bf5c55eb8973f99c1f218ff225c5166517ca1211c026f597b2374be",
-      "stdoutHash": "c5d1ff09a656cfae84960c9253dcf0bea760c9cfe2b7bb02afd07d7a1dc6eac8",
-      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.571111 0.670333 1.0 74 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.661785 0.23876 1.0 73 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.560489 0.211009 0.935727 43 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.342295 2.167591\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n20 30.442766 5.441827\n15 42.465744 3.322042\n25 52.716399 5.9017\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+      "codeHash": "67e46ba9ed26d6a4d3d916312dd61806ab81c2662f0ca0dc6d82e32c6175d661",
+      "stdoutHash": "207ab4aa30ff972f380f943c4e4728a05064c7b063036445d5cc57b91f71bd19",
+      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.571111 0.670333 1.0 74 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.661785 0.23876 1.0 73 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.560489 0.211009 0.935727 43 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.342295 2.167591\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n20 30.442766 5.441827\n15 42.465744 3.322042\n25 52.716399 5.9017\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nA 16 GiB machine cannot hold that dense hierarchy plan; the reasoning belongs before fitting."
     }
   },
   "oracles": [
@@ -702,7 +702,7 @@
       "dataSeed": 29,
       "splitSeed": 31,
       "selectedK": 3,
-      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.520765 1.186515 1.0 76 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.613739 0.458526 1.0 77 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.531905 0.324979 0.971851 36 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.253428 2.043875\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n18 31.39486 5.487237\n17 41.07825 3.281655\n25 52.206398 5.873835\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nAt a 16 GiB memory budget, reject that dense hierarchy plan before fitting.\nConsider a measured mini-batch or weighted-prototype pilot; it changes the computational/approximation contract.\nOne synthetic split and bootstrap stability do not establish meaningful real-world categories."
+      "stdout": "candidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 2 0.520765 1.186515 1.0 76 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 3 0.613739 0.458526 1.0 77 True\ncandidate k / validation silhouette / mean squared distance / median ARI / min train size / eligible: 4 0.531905 0.324979 0.971851 36 True\nselected k: 3\ntest / training-centroid baseline mean squared standardized distance: 0.253428 2.043875\nprofiles ordered by fitted center temperature: count / mean temperature / mean vibration\n18 31.39486 5.487237\n17 41.07825 3.281655\n25 52.206398 5.873835\n100000 rows: float64 condensed distance buffer alone (GiB): 37.253\nA 16 GiB machine cannot hold that dense hierarchy plan; the reasoning belongs before fitting."
     }
   ],
   "explicitRejections": 5,
@@ -1465,7 +1465,6 @@
       "Capstone uses synthetic devices; validation criteria and bootstrap stability do not identify real-world categories."
     ]
   },
-  "amendedAt": "2026-09-11T17:05:13.505532+00:00",
   "amendments": [
     {
       "verifiedAt": "2026-09-11T17:05:13.505532+00:00",
@@ -1515,5 +1514,6 @@
       "changedWardLibraryFixturesRepeated": 3,
       "scope": "Only the affected Ward program and focused cases reran. Original six-run, 49-oracle, five-rejection evidence retains its original timestamp."
     }
-  ]
+  ],
+  "amendedAt": "2026-09-11T17:05:13.505532+00:00"
 }

@@ -1,0 +1,90 @@
+{
+  "startedAt": "2026-09-12T03:57:28.232Z",
+  "completedAt": "2026-09-12T03:57:49.210Z",
+  "topicId": "dbscan-density-based-clustering",
+  "status": "passed",
+  "browser": "152.0.4191.66",
+  "distDir": "dist",
+  "buildManifestHash": "df03f6fce8ae834cc95e684c730c42e04469b086f510ecf7b0b9d811ebc6d47d",
+  "sourceHashes": {
+    "src/learn/data/topics/dbscan-density-based-clustering.jsx": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e",
+    "src/learn/data/dbscan-models.js": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
+    "src/learn/data/dbscan-iris-data.js": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
+    "src/learn/data/dbscan-examples.js": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "9369ebb8c80e6d7d1c0a4bac7a1202370de4cc0eefd7f66fdc006780552aa70e",
+    "src/learn/components/lesson-labs/DbscanFigures.jsx": "88873bc306dff08d29961d02c80c0b3602efef3f548ab48dc3d010c2aa9a1201",
+    "src/learn/components/lesson-labs/dbscan-labs.css": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
+    "src/learn/data/curriculum/blueprints/dbscan-density-based-clustering.js": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784",
+    "public/learn-assets/dbscan/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
+  },
+  "moduleTopicCount": 39,
+  "records": [
+    {
+      "case": "Complete visible code/output for nine programs, fourteen route anchors, seven figures, twelve practice tasks, downloadable CSV, current metadata and module sequence"
+    },
+    {
+      "case": "Trail lab: hidden until commitment, ε 1 and 1.25 contrasts, stale invalidation, reversed visiting order, moved I null, duplicate rows, reset"
+    },
+    {
+      "case": "Metric lab: four-corner accidental null, five-row faulty conversion changes T, uniform conversion preserves the graph, reset"
+    },
+    {
+      "case": "Iris lab: m = 5 versus m = 10 with species hidden until revealed, snapshot comparison on common rows including species ARI on the 61 common rows, slider label follows the representation, raw-feature practice K values, reset"
+    },
+    {
+      "case": "Interval lab: inspect option is neutral, baseline has no radius, magnified dense-group strip, practice F spacing gives [0.25, 0.375), reset"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-wO7kyNDk.js",
+        "assets/Reader-BMk1S6fe.js",
+        "assets/LevelBadge-BuQpStge.js",
+        "assets/dbscan-density-based-clustering-qdAYtsDt.js",
+        "assets/Code-uFE04jfF.js",
+        "assets/Callout-B3pojflc.js",
+        "assets/Math-BnzqGcaK.js",
+        "assets/LessonElements-DJ21T8SY.js",
+        "assets/RunnableExample-y_hqhtM6.js"
+      ],
+      "rawScriptBytes": 1445787,
+      "gzipEstimateBytes": 323731,
+      "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping, no SVG text below 11.5 px, all deeper branches rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping, no SVG text below 11.5 px, all deeper branches rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/dbscan-trail-desktop.png",
+    "docs/teaching/evidence/dbscan-border-figure-desktop.png",
+    "docs/teaching/evidence/dbscan-core-radius-desktop.png",
+    "docs/teaching/evidence/dbscan-iris-desktop.png",
+    "docs/teaching/evidence/dbscan-interval-desktop.png",
+    "docs/teaching/evidence/dbscan-optics-desktop.png",
+    "docs/teaching/evidence/dbscan-rings-desktop.png",
+    "docs/teaching/evidence/dbscan-roster-mobile.png",
+    "docs/teaching/evidence/dbscan-interval-figure-mobile.png",
+    "docs/teaching/evidence/dbscan-stability-mobile.png",
+    "docs/teaching/evidence/dbscan-metric-mobile.png",
+    "docs/teaching/evidence/dbscan-core-radius-320.png",
+    "docs/teaching/evidence/dbscan-interval-figure-320.png",
+    "docs/teaching/evidence/dbscan-optics-320.png",
+    "docs/teaching/evidence/dbscan-stability-320.png",
+    "docs/teaching/evidence/dbscan-interval-lab-320.png",
+    "docs/teaching/evidence/dbscan-roster-320.png"
+  ],
+  "visualInterpretation": "Intended Space Grotesk font loaded before checks. Screenshots capture informative states: compared predictions, the revealed Iris report with species, the incompatible-interval baseline, the OPTICS and rings figures. They require separate visual inspection; structural checks alone do not establish teaching quality."
+}

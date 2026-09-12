@@ -14,7 +14,7 @@ const evidencePath = 'docs/teaching/evidence/k-means-hierarchical-browser.json';
 const read = filename => JSON.parse(fs.readFileSync(filename, 'utf8'));
 const hash = filename => createHash('sha256').update(fs.readFileSync(filename)).digest('hex');
 const normalize = text => text.replace(/\s+/g, ' ').trim();
-const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js', 'src/learn/data/k-means-hierarchical-examples.js', 'src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-labs.css', 'src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-figures.css', `src/learn/data/curriculum/blueprints/${topicId}.js`];
+const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js', 'src/learn/data/k-means-hierarchical-faithful.js', 'src/learn/data/k-means-hierarchical-examples.js', 'src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-labs.css', 'src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx', 'src/learn/components/lesson-labs/k-means-hierarchical-figures.css', `src/learn/data/curriculum/blueprints/${topicId}.js`];
 
 (async () => {
   const startedAt = new Date().toISOString();
@@ -70,8 +70,8 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
     const moduleGroup = page.locator('[data-module-id="classical-ml"]');
     assert.deepEqual(await moduleGroup.locator('[data-topic-id]').evaluateAll(items => items.map(item => item.dataset.topicId)), baseline.moduleOrder);
     assert.equal(await page.locator('.kh-investigation').count(), 5);
-    assert.equal(await page.locator('.cluster-figure').count(), 4);
-    assert.equal(await page.locator('.cluster-practice').count(), 9);
+    assert.equal(await page.locator('.cluster-figure').count(), 7);
+    assert.equal(await page.locator('.cluster-practice').count(), 10);
     assert.equal(await page.locator('.python-example').count(), 6);
     const rendered = normalize(await page.locator('.clustering-lesson').textContent());
     for (const [key, example] of Object.entries(clusteringExamples)) {
@@ -99,28 +99,38 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
     await next.click();
     await checkText(lloyd.locator('.kh-readout'), /fixed point/);
     assert.ok(await next.isDisabled());
-    for (const [initialization, expected] of [['separated', 1], ['nearby', 9]]) {
+    await lloyd.getByRole('button', { name: 'Reset', exact: true }).click();
+    await lloyd.getByLabel('Predict first', { exact: false }).selectOption('1');
+    await lloyd.getByRole('button', { name: 'Run to fixed point' }).click();
+    await checkText(lloyd.locator('.kh-feedback'), /Your prediction matches: One update/);
+    assert.equal(await lloyd.locator('.kh-boundary').count(), 1, 'Nearest-center boundary is drawn');
+    for (const [secondRow, expected] of [['2', 1], ['1', 9]]) {
       await lloyd.getByLabel('Point configuration').selectOption('rectangle');
-      await lloyd.getByLabel('Initial center rows').selectOption(initialization);
+      await lloyd.getByLabel('Center 0 starts at row').selectOption('0');
+      await lloyd.getByLabel('Center 1 starts at row').selectOption(secondRow);
       for (let count = 0; await next.isEnabled() && count < 20; count += 1) await next.click();
       await checkText(lloyd.locator('.kh-readout'), new RegExp(`SSE = ${expected} using`));
     }
-    await lloyd.getByLabel('Initial center rows').selectOption('duplicate');
+    await lloyd.getByLabel('Center 1 starts at row').selectOption('0');
     await next.click();
     await next.click();
     await checkText(lloyd.locator('.kh-note'), /Empty center/);
     await lloyd.getByRole('button', { name: 'Reset', exact: true }).click();
     await checkText(lloyd.locator('.kh-readout'), /no assignment yet/);
-    records.push({ case: 'Lloyd keyboard, assignment/update values, back/reset, fixed-point disable, nonoptimal rectangle and duplicate center' });
+    records.push({ case: 'Lloyd keyboard, prediction feedback, boundary line, free seed rows, back/reset, fixed-point disable, nonoptimal rectangle and duplicate center' });
 
     const geometry = page.locator('.kh-investigation').nth(1);
-    await checkText(geometry.locator('.kh-readout'), /initializations: 1/);
+    await checkText(geometry.locator('.kh-readout'), /splits: SSE 1\./);
+    assert.equal(await geometry.locator('.kh-table-scroll').first().locator('tbody tr').count(), 7, 'All seven two-group splits are listed');
+    await geometry.getByLabel('Predict first', { exact: false }).selectOption('bottom-top');
     await geometry.getByLabel('Vertical measurement unit').selectOption('10');
-    await checkText(geometry.locator('.kh-readout'), /initializations: 9/);
+    await checkText(geometry.locator('.kh-readout'), /splits: SSE 9\./);
+    await geometry.getByRole('button', { name: 'Check', exact: true }).click();
+    await checkText(geometry.locator('.kh-feedback'), /Your prediction matches/);
     await geometry.getByLabel('Weight on squared vertical differences').selectOption('0.01');
-    await checkText(geometry.locator('.kh-readout'), /initializations: 1/);
+    await checkText(geometry.locator('.kh-readout'), /splits: SSE 1\./);
     await geometry.getByRole('button', { name: 'Reset', exact: true }).click();
-    records.push({ case: 'Unadjusted unit change alters geometry; compensating squared weight restores it' });
+    records.push({ case: 'Exhaustive seven-split table, prediction check, unadjusted unit change alters geometry and compensating weight restores it' });
 
     const seeding = page.locator('.kh-investigation').nth(2);
     assert.equal(await seeding.getByLabel('Draw position in the cumulative probability line').evaluate(element => element.tagName), 'INPUT', 'The range label must target the input, not its output');
@@ -128,12 +138,19 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
     await checkText(seeding.locator('.kh-readout'), /selects P1/);
     await seeding.getByLabel('Draw position in the cumulative probability line').press('End');
     await checkText(seeding.locator('.kh-readout'), /selects P5/);
+    await seeding.getByLabel('Draw position in the cumulative probability line').fill('0.5');
+    await checkText(seeding.locator('.kh-readout'), /selects P4 as center C1/);
+    await seeding.getByRole('button', { name: 'Accept this draw and pick the next center' }).click();
+    await checkText(seeding.locator('.kh-step-controls'), /Centers so far: P0, P4/);
+    assert.equal(await seeding.locator('.kh-frequency li').count(), 6, 'Frequency comparison lists every row');
+    await seeding.getByRole('button', { name: 'Undo last draw' }).click();
+    await checkText(seeding.locator('.kh-step-controls'), /Centers so far: P0$/);
     await seeding.getByLabel('Seeding data').selectOption('duplicates');
     await checkText(seeding.locator('.kh-readout'), /Every D² is zero/);
     await checkText(seeding.locator('.kh-scatter figcaption'), /C0/);
     assert.ok(!(await seeding.locator('.kh-scatter figcaption').innerText()).includes('C1'));
     await seeding.getByRole('button', { name: 'Reset', exact: true }).click();
-    records.push({ case: 'D² first/last positive intervals, keyboard draw, zero-mass state and reset' });
+    records.push({ case: 'D² first/last positive intervals, keyboard draw, sequential draws with frequency bars, zero-mass state and reset' });
 
     const hierarchy = page.locator('.kh-investigation').nth(3);
     for (const method of ['single', 'complete', 'average', 'ward']) {
@@ -151,8 +168,20 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
     }
     await hierarchy.getByLabel('Cut height').press('Home');
     await checkText(hierarchy.locator('.kh-readout'), /6 clusters/);
+    await hierarchy.getByRole('button', { name: 'Next merge' }).click();
+    await checkText(hierarchy.locator('.kh-readout'), /5 clusters after 1 merges/);
+    await hierarchy.getByRole('button', { name: 'Undo merge' }).click();
+    await checkText(hierarchy.locator('.kh-readout'), /6 clusters after 0 merges/);
+    await hierarchy.getByLabel('Point configuration').selectOption('chain');
+    await checkText(hierarchy.locator('.kh-readout'), /2 clusters after 7 merges/);
+    await hierarchy.getByLabel('Linkage definition').selectOption('complete');
+    await checkText(hierarchy.locator('.kh-table-scroll').nth(0), /P0, P1, P2, P3/);
+    await hierarchy.getByLabel('Predict first', { exact: false }).selectOption('not-complete');
+    await hierarchy.getByRole('button', { name: 'Check', exact: true }).click();
+    await checkText(hierarchy.locator('.kh-feedback'), /Your prediction matches/);
     await hierarchy.getByRole('button', { name: 'Reset', exact: true }).click();
-    records.push({ case: 'All four linkages, exact count prefixes, whole tied-height cuts, endpoints and reset' });
+    await checkText(hierarchy.locator('.kh-readout'), /3 clusters after 3 merges/);
+    records.push({ case: 'All four linkages, exact count prefixes, whole tied-height cuts, merge stepping, chain fixture contrast with prediction, endpoints and reset' });
 
     const palette = page.locator('.kh-investigation').nth(4);
     await palette.getByLabel('Requested palette size').press('End');
@@ -160,9 +189,15 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
     await checkText(palette.locator('.kh-readout'), /integer-RGB SSE: 0/);
     await palette.getByLabel('Requested palette size').press('Home');
     await checkText(palette.locator('.kh-readout'), /692609/);
+    await palette.getByLabel('Image to quantize').selectOption('gradient');
+    await checkText(palette.locator('.kh-readout'), /160 unique colors in 160 pixels/);
+    await palette.getByLabel('Requested palette size').press('End');
+    await checkText(palette.locator('.kh-readout'), /integer-RGB SSE: 165886/);
+    await palette.getByLabel('Image to quantize').selectOption('sky');
+    await checkText(palette.locator('.kh-readout'), /37 unique colors/);
     await palette.getByRole('button', { name: 'Reset', exact: true }).click();
     await checkText(palette.locator('.kh-readout'), /integer-RGB SSE: 44910/);
-    records.push({ case: 'Palette keyboard endpoints, actual byte-color error and reset' });
+    records.push({ case: 'Palette keyboard endpoints, three images, actual byte-color error and reset' });
 
     const firstHint = page.locator('.cluster-practice').first().getByText('Get a hint', { exact: true });
     await firstHint.focus();
@@ -202,8 +237,11 @@ const ownedFiles = [sourcePath, 'src/learn/data/k-means-hierarchical-models.js',
       assert.equal(await page.locator('.katex-error').count(), 0);
       if (width === 390) {
         await screenshot(hierarchy.locator('.kh-dendrogram'), 'k-means-tree-mobile.png');
-        await screenshot(page.locator('.cluster-figure').nth(0), 'k-means-mean-mobile.png');
-        await screenshot(page.locator('.cluster-figure').nth(2), 'k-means-diagnostics-mobile.png');
+        await screenshot(page.locator('.cluster-figure').nth(1), 'k-means-mean-mobile.png');
+        await screenshot(page.locator('.cluster-figure').nth(0), 'k-means-faithful-scatter-mobile.png');
+        await screenshot(page.locator('.cluster-figure').nth(5), 'k-means-diagnostics-mobile.png');
+        await screenshot(page.locator('.cluster-figure').nth(3), 'k-means-faithful-tree-mobile.png');
+        await screenshot(hierarchy, 'k-means-hierarchy-chain-mobile.png');
         await screenshot(palette.locator('.kh-image-pair'), 'k-means-palette-mobile.png');
       }
       records.push({ case: `Narrow ${width}px layout, readable formula grouping and all deeper branches rendered` });

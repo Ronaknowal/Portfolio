@@ -1,0 +1,780 @@
+{
+  "scope": "Content-phase elementary reasoning and fixture checks only; implementation and formal independent/browser verification deferred.",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikitLearn": "1.9.1"
+  },
+  "isolation": [
+    {
+      "values": [
+        0,
+        1,
+        2,
+        3,
+        12
+      ],
+      "maxDepth": 3,
+      "normalizer": "77/30",
+      "meanLengths": [
+        "31/12",
+        "73/22",
+        "17/5",
+        "17/6",
+        "841/660"
+      ],
+      "scores": [
+        0.497754579201586,
+        0.40815863631101407,
+        0.3992390309290062,
+        0.46525833335956823,
+        0.7088449082734247
+      ]
+    },
+    {
+      "values": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "maxDepth": 3,
+      "normalizer": "77/30",
+      "meanLengths": [
+        "25/12",
+        "17/6",
+        "3",
+        "17/6",
+        "25/12"
+      ],
+      "scores": [
+        0.5697147598395456,
+        0.46525833335956823,
+        0.44478154421636845,
+        0.46525833335956823,
+        0.5697147598395456
+      ]
+    },
+    {
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "maxDepth": 3,
+      "normalizer": "77/30",
+      "meanLengths": [
+        "77/30",
+        "77/30",
+        "77/30",
+        "77/30",
+        "77/30"
+      ],
+      "scores": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "lof": [
+    {
+      "k": 2,
+      "values": [
+        0,
+        1,
+        2,
+        20,
+        24,
+        28
+      ],
+      "state": {
+        "neighbors": [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        "radii": [
+          2.0,
+          1.0,
+          2.0,
+          8.0,
+          4.0,
+          8.0
+        ],
+        "reach": [
+          [
+            1.0,
+            2.0
+          ],
+          [
+            2.0,
+            2.0
+          ],
+          [
+            1.0,
+            2.0
+          ],
+          [
+            4.0,
+            8.0
+          ],
+          [
+            8.0,
+            8.0
+          ],
+          [
+            4.0,
+            8.0
+          ]
+        ],
+        "lrd": [
+          0.6666666666666666,
+          0.5,
+          0.6666666666666666,
+          0.16666666666666666,
+          0.125,
+          0.16666666666666666
+        ],
+        "lof": [
+          0.875,
+          1.3333333333333333,
+          0.875,
+          0.875,
+          1.3333333333333333,
+          0.875
+        ]
+      },
+      "queries": [
+        3,
+        6,
+        17,
+        25
+      ],
+      "queryLOF": [
+        1.1666666666666665,
+        2.625,
+        1.09375,
+        0.875
+      ],
+      "libraryQueryLOF": [
+        1.1666666666555554,
+        2.6249999999020837,
+        1.0937499999983074,
+        0.8750000000015625
+      ],
+      "trainingLOF": [
+        0.87500000000625,
+        1.333333333311111,
+        0.87500000000625,
+        0.8750000000015625,
+        1.3333333333277777,
+        0.8750000000015625
+      ],
+      "incorrectTrainingAsQuery": [
+        0.87500000000625,
+        0.87500000000625,
+        0.87500000000625,
+        0.8750000000015625,
+        0.8750000000015625,
+        0.8750000000015625
+      ]
+    },
+    {
+      "k": 3,
+      "values": [
+        0,
+        1,
+        2,
+        20,
+        24,
+        28
+      ],
+      "state": {
+        "neighbors": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            2,
+            3
+          ],
+          [
+            1,
+            0,
+            3
+          ],
+          [
+            4,
+            5,
+            2
+          ],
+          [
+            3,
+            5,
+            2
+          ],
+          [
+            4,
+            3,
+            2
+          ]
+        ],
+        "radii": [
+          20.0,
+          19.0,
+          18.0,
+          18.0,
+          22.0,
+          26.0
+        ],
+        "reach": [
+          [
+            19.0,
+            18.0,
+            20.0
+          ],
+          [
+            20.0,
+            18.0,
+            19.0
+          ],
+          [
+            19.0,
+            20.0,
+            18.0
+          ],
+          [
+            22.0,
+            26.0,
+            18.0
+          ],
+          [
+            18.0,
+            26.0,
+            22.0
+          ],
+          [
+            22.0,
+            18.0,
+            26.0
+          ]
+        ],
+        "lrd": [
+          0.05263157894736842,
+          0.05263157894736842,
+          0.05263157894736842,
+          0.045454545454545456,
+          0.045454545454545456,
+          0.045454545454545456
+        ],
+        "lof": [
+          0.9545454545454546,
+          0.9545454545454546,
+          0.9545454545454546,
+          1.0526315789473684,
+          1.0526315789473684,
+          1.0526315789473684
+        ]
+      },
+      "queries": [
+        3,
+        6,
+        17,
+        25
+      ],
+      "queryLOF": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "libraryQueryLOF": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "trainingLOF": [
+        0.9545454545456611,
+        0.9545454545456611,
+        0.9545454545456611,
+        1.0526315789470915,
+        1.0526315789470915,
+        1.0526315789470915
+      ],
+      "incorrectTrainingAsQuery": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "k": 5,
+      "values": [
+        0,
+        1,
+        2,
+        20,
+        24,
+        28
+      ],
+      "state": {
+        "neighbors": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            0,
+            2,
+            3,
+            4,
+            5
+          ],
+          [
+            1,
+            0,
+            3,
+            4,
+            5
+          ],
+          [
+            4,
+            5,
+            2,
+            1,
+            0
+          ],
+          [
+            3,
+            5,
+            2,
+            1,
+            0
+          ],
+          [
+            4,
+            3,
+            2,
+            1,
+            0
+          ]
+        ],
+        "radii": [
+          28.0,
+          27.0,
+          26.0,
+          20.0,
+          24.0,
+          28.0
+        ],
+        "reach": [
+          [
+            27.0,
+            26.0,
+            20.0,
+            24.0,
+            28.0
+          ],
+          [
+            28.0,
+            26.0,
+            20.0,
+            24.0,
+            28.0
+          ],
+          [
+            27.0,
+            28.0,
+            20.0,
+            24.0,
+            28.0
+          ],
+          [
+            24.0,
+            28.0,
+            26.0,
+            27.0,
+            28.0
+          ],
+          [
+            20.0,
+            28.0,
+            26.0,
+            27.0,
+            28.0
+          ],
+          [
+            24.0,
+            20.0,
+            26.0,
+            27.0,
+            28.0
+          ]
+        ],
+        "lrd": [
+          0.04,
+          0.03968253968253968,
+          0.03937007874015748,
+          0.03759398496240601,
+          0.03875968992248062,
+          0.04
+        ],
+        "lof": [
+          0.977031466537919,
+          0.9864477182702224,
+          0.9958639700025257,
+          1.0523614803963457,
+          1.0146964734671324,
+          0.977031466537919
+        ]
+      },
+      "queries": [
+        3,
+        6,
+        17,
+        25
+      ],
+      "queryLOF": [
+        0.977031466537919,
+        0.977031466537919,
+        0.977031466537919,
+        0.977031466537919
+      ],
+      "libraryQueryLOF": [
+        0.9770314665380069,
+        0.9770314665380069,
+        0.9770314665380069,
+        0.977031466538007
+      ],
+      "trainingLOF": [
+        0.977031466538007,
+        0.9864477182702732,
+        0.9958639700025396,
+        1.0523614803961383,
+        1.0146964734670725,
+        0.977031466538007
+      ],
+      "incorrectTrainingAsQuery": [
+        0.977031466538007,
+        0.977031466538007,
+        0.9770314665380069,
+        0.9770314665380069,
+        0.9770314665380069,
+        0.977031466538007
+      ]
+    }
+  ],
+  "kernel": [
+    {
+      "gamma": 0.1,
+      "rho": 0.8351600230178197,
+      "atCenter": 0.06967739501813985,
+      "atReference": 0.0,
+      "atFarQuery": -0.3990517410026723
+    },
+    {
+      "gamma": 0.5,
+      "rho": 0.5676676416183064,
+      "atCenter": 0.03886301809432702,
+      "atReference": 0.0,
+      "atFarQuery": -0.4998322686860488
+    },
+    {
+      "gamma": 1,
+      "rho": 0.5091578194443671,
+      "atCenter": -0.14127837827292478,
+      "atReference": 0.0,
+      "atFarQuery": -0.49999994373241263
+    },
+    {
+      "gamma": 2,
+      "rho": 0.5001677313139512,
+      "atCenter": -0.3648324480773385,
+      "atReference": 0.0,
+      "atFarQuery": -0.4999999999999936
+    }
+  ],
+  "alarm": [
+    {
+      "prevalence": 0.001,
+      "sensitivity": 0.8,
+      "falsePositiveRate": 0.01,
+      "trueAlerts": 80.0,
+      "falseAlerts": 999.0,
+      "precision": 0.07414272474513438
+    },
+    {
+      "prevalence": 0.01,
+      "sensitivity": 0.8,
+      "falsePositiveRate": 0.01,
+      "trueAlerts": 800.0,
+      "falseAlerts": 990.0,
+      "precision": 0.446927374301676
+    },
+    {
+      "prevalence": 0.001,
+      "sensitivity": 0.8,
+      "falsePositiveRate": 0,
+      "trueAlerts": 80.0,
+      "falseAlerts": 0.0,
+      "precision": 1.0
+    },
+    {
+      "prevalence": 0.001,
+      "sensitivity": 0.8,
+      "falsePositiveRate": 0.001,
+      "trueAlerts": 80.0,
+      "falseAlerts": 99.9,
+      "precision": 0.44469149527515284
+    }
+  ],
+  "realData": {
+    "rawRows": 22695,
+    "uniqueTimes": 22683,
+    "averagedDuplicateExcess": 12,
+    "removedMissingLagRows": 12,
+    "fitRows": 885,
+    "calibrationRows": 1152,
+    "testRows": 20634,
+    "testRowsInsideWindows": 2268,
+    "testRowsOutsideWindows": 18366,
+    "windows": [
+      [
+        "2013-12-10 06:25:00.000000",
+        "2013-12-12 05:35:00.000000"
+      ],
+      [
+        "2013-12-15 17:50:00.000000",
+        "2013-12-17 17:00:00.000000"
+      ],
+      [
+        "2014-01-27 14:20:00.000000",
+        "2014-01-29 13:30:00.000000"
+      ],
+      [
+        "2014-02-07 14:55:00.000000",
+        "2014-02-09 14:05:00.000000"
+      ]
+    ],
+    "baselineMedian": 81.86204397,
+    "baselineMAD": 4.424260250000003,
+    "fitMeans": [
+      79.29349952159322,
+      -0.009933270847457576
+    ],
+    "fitScales": [
+      9.184081096769313,
+      4.424124796247272
+    ],
+    "results": [
+      {
+        "method": "median absolute level deviation",
+        "calibrationQuantile": 0.95,
+        "threshold": 3.829516509567899,
+        "calibrationAlerts": 57,
+        "testAlerts": 4416,
+        "alertsInsideWindows": 1379,
+        "alertsOutsideWindows": 3037,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:25:00",
+          "2013-12-15 17:55:00",
+          "2014-01-27 14:20:00",
+          "2014-02-07 14:55:00"
+        ]
+      },
+      {
+        "method": "median absolute level deviation",
+        "calibrationQuantile": 0.99,
+        "threshold": 5.0919631434430155,
+        "calibrationAlerts": 11,
+        "testAlerts": 1461,
+        "alertsInsideWindows": 1016,
+        "alertsOutsideWindows": 445,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:25:00",
+          "2013-12-16 03:15:00",
+          "2014-01-28 01:45:00",
+          "2014-02-07 14:55:00"
+        ]
+      },
+      {
+        "method": "Isolation Forest",
+        "calibrationQuantile": 0.95,
+        "threshold": 0.5242667196370571,
+        "calibrationAlerts": 57,
+        "testAlerts": 10530,
+        "alertsInsideWindows": 1722,
+        "alertsOutsideWindows": 8808,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:25:00",
+          "2013-12-15 17:50:00",
+          "2014-01-27 14:25:00",
+          "2014-02-07 14:55:00"
+        ]
+      },
+      {
+        "method": "Isolation Forest",
+        "calibrationQuantile": 0.99,
+        "threshold": 0.614822508567896,
+        "calibrationAlerts": 11,
+        "testAlerts": 1548,
+        "alertsInsideWindows": 971,
+        "alertsOutsideWindows": 577,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:35:00",
+          "2013-12-15 20:15:00",
+          "2014-01-28 13:05:00",
+          "2014-02-07 17:20:00"
+        ]
+      },
+      {
+        "method": "One-Class SVM",
+        "calibrationQuantile": 0.95,
+        "threshold": -6.419821537709167,
+        "calibrationAlerts": 57,
+        "testAlerts": 9719,
+        "alertsInsideWindows": 1347,
+        "alertsOutsideWindows": 8372,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:55:00",
+          "2013-12-15 17:50:00",
+          "2014-01-28 02:55:00",
+          "2014-02-07 17:20:00"
+        ]
+      },
+      {
+        "method": "One-Class SVM",
+        "calibrationQuantile": 0.99,
+        "threshold": -6.361590703540652,
+        "calibrationAlerts": 11,
+        "testAlerts": 9232,
+        "alertsInsideWindows": 1319,
+        "alertsOutsideWindows": 7913,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 06:55:00",
+          "2013-12-15 17:50:00",
+          "2014-01-28 13:05:00",
+          "2014-02-07 17:25:00"
+        ]
+      },
+      {
+        "method": "LOF novelty",
+        "calibrationQuantile": 0.95,
+        "threshold": 1.3987222823922267,
+        "calibrationAlerts": 57,
+        "testAlerts": 8771,
+        "alertsInsideWindows": 1275,
+        "alertsOutsideWindows": 7496,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 08:50:00",
+          "2013-12-15 17:50:00",
+          "2014-01-27 14:25:00",
+          "2014-02-07 17:20:00"
+        ]
+      },
+      {
+        "method": "LOF novelty",
+        "calibrationQuantile": 0.99,
+        "threshold": 1.5571871579635983,
+        "calibrationAlerts": 11,
+        "testAlerts": 7837,
+        "alertsInsideWindows": 1138,
+        "alertsOutsideWindows": 6699,
+        "windowHits": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "firstAlertInEachWindow": [
+          "2013-12-10 09:25:00",
+          "2013-12-15 17:50:00",
+          "2014-01-27 15:25:00",
+          "2014-02-07 19:50:00"
+        ]
+      }
+    ],
+    "scope": "One fixed retrospective chronology and two prespecified threshold choices; not NAB official scoring, fault ground truth, timing benchmark, early-warning study or a model-selection campaign."
+  },
+  "sourceHash": "3ca185ee392c93954dedc073ada679bdfbee454cbf33a2db9be06d7b9a8a1908"
+}

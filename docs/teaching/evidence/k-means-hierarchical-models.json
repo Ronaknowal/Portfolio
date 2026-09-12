@@ -1,28 +1,35 @@
 {
-  "checkedAt": "2026-09-11T17:07:50.389Z",
+  "checkedAt": "2026-09-11T19:40:29.943Z",
   "sourceHashes": {
-    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
-    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "6c5ea036d7751e02a0b3925cbd372a0a449f6ba5624aa6525f3ac1ddd1a47273",
-    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "421f42263440d73139f2437a402de95c7ae7a28105cdb9c8b41ae4a2b4e857c4"
+    "src/learn/data/k-means-hierarchical-models.js": "9d70b442ca65ae4dbf6f6c784f7789d0e1936bdf8da9e92d08db895f32d263e0",
+    "src/learn/data/k-means-hierarchical-faithful.js": "64358723bb94ea232a9b4e5da3f61fedc6464711234690e47a390914aaa60e50",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "0aa180e6cfb129650cec2ae10488629c91a5e1e74748ad15705e8ac38b634289",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "6c7fd2d1bee3045f83adb8d5247d090fa71e33592803938e378a2c9f060ef72b",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "2d8926a79691a378c2bec5849cdf1afde04bba05ed146915c9a362d822e057ce"
   },
-  "verifierHash": "9a2d07e0ccd36a3c42b3eb4efae3fa14c31327ec304405641695558f4c93560f",
-  "previousVerification": {
-    "record": "docs/teaching/archive/k-means-hierarchical-models-before-range-fix/k-means-hierarchical-models.json",
-    "checkedAt": "2026-09-11T16:51:55.264Z",
-    "sourceHashes": {
-      "src/learn/data/k-means-hierarchical-models.js": "50c1deafd66c785b3cf10419e9bc10bf5059deeee364fa79fff62a92d6543c20",
-      "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "73aac20e9777f0cd1934787e28401df38582f7f8c553b2174e85347277fe6fbb",
-      "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "e789c5d4dd5d57ce149119e56f4d2924a0504faff8e11c446e14868d712d9ad3"
-    },
-    "groupedChecks": 126,
-    "rejectedInputs": 13,
-    "reused": "Prior126+13 campaign retained as historical evidence; it was not rerun for this amendment."
+  "verifierHash": "8990941e6964dd00958315cd65d719f3a13817f1fad0a4e33929a64b6a76d7e3",
+  "counts": {
+    "enumerated rectangle fixed points": 2,
+    "phasewise residual and mean identities": 45,
+    "explicit tie and empty-center policy": 1,
+    "independent D squared cumulative draws": 15,
+    "zero-distance and multi-center support": 1,
+    "independent all-candidate linkage minima and Ward identities": 36,
+    "height and squared-error unit scaling": 8,
+    "equal-height cut cannot realize four clusters": 4,
+    "unit and feature-weight states": 8,
+    "expanded pixel versus weighted palette objectives": 6,
+    "exhaustive two-group partitions": 53,
+    "exhaustive optimum bounds Lloyd fixed points": 3,
+    "seeded frequency draws versus exact D² probabilities": 3,
+    "chain fixture linkage contrast": 4,
+    "palette image mosaic": 6,
+    "palette image sky": 8,
+    "palette image gradient": 8
   },
-  "reproducedPreviousFailures": [
-    "Distinct1e-200 assignment SSE was zero.",
-    "Distinct1e-200 Ward hierarchy height was zero."
-  ],
-  "boundary": {
+  "totalGroupedChecks": 211,
+  "rejectedInputs": 13,
+  "arithmeticRange": {
     "rejected": [
       "distinct tiny assignment",
       "distinct tiny hierarchy",
@@ -52,31 +59,51 @@
     ],
     "genuineZeroCases": 3
   },
-  "unchangedFixtureOutputs": 22,
-  "changes": [
-    "Reject nonzero squared separations and weighted terms or quotients that underflow to zero.",
-    "Reject positive separation lost in Ward size scaling.",
-    "Initial Lloyd caption describes an unassigned state.",
-    "Visible D squared key includes every positive probability, its point ID, color and selected marker.",
-    "Seeding duplicate-only state caption explicitly says no second center is drawn."
+  "rectangleObjectives": [
+    6.666666666666667,
+    6.666666666666667,
+    10.000000000000002,
+    6.666666666666667,
+    9,
+    1,
+    6.666666666666667
   ],
-  "scope": "Focused stage5 amendment: arithmetic range regressions and exact previous/final output conservation on existing finite fixtures. Root owns final actual-route UI review.",
-  "passed": true,
-  "finalSourceFreezeAt": "2026-09-11T17:34:22.629Z",
-  "uiCopyAmendment": {
-    "checkedAt": "2026-09-11T17:08:55.136Z",
-    "scope": "Source and JSX parse check only; numerical model unchanged since targeted run. Root owns actual final browser."
+  "fixtureHeights": {
+    "single": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.1213203435596424,
+      4.6097722286464435
+    ],
+    "complete": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.2015621187164243,
+      8.514693182963201
+    ],
+    "average": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      2.6628273967555645,
+      6.483406249632739
+    ],
+    "ward": [
+      0.5,
+      0.7071067811865476,
+      0.7071067811865476,
+      3.758324094593227,
+      10.584973626167741
+    ]
   },
-  "numericalSourceHashesAtLastRun": {
-    "src/learn/data/k-means-hierarchical-models.js": "7ed25d9b1a26d33364c80f9102a03e5e4cc7b6c9e108ea5ad06994e2f38f050d",
-    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "42d1c2fd556b19f1be3c444206549c7a0db66698bc2eef55e7d8e904ef4d9800",
-    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "5d45d3ea076cdf00275c3c74ffeb352cb7151ef515ca2638122a5cd6d8a45477"
-  },
-  "uiLayoutAmendment": {
-    "record": "docs/teaching/evidence/k-means-label-layout-amendment.json",
-    "sourceAssertionsPassed": true,
-    "numericalModelUnchanged": true,
-    "rootRangeAssociation": "Explicit label htmlFor/input id and output htmlFor retained; original production keyboard evidence is root-owned.",
-    "browserStatus": "Own focused attempt stopped at selector timeout before states. Final actual production label review is root-owned and pending separately."
-  }
+  "scope": "Bounded independent pairwise-SSE, exhaustive two-group partitions, all-candidate linkage on the six-point and chain fixtures, seeded D² frequency draws, expanded-pixel objectives for three images and unit/probability oracles. Component hashes identify the proposed UI, not a completed browser review.",
+  "limitations": [
+    "No universal k-means global optimum or initialization guarantee is inferred.",
+    "Hierarchy input is bounded to 16 points; exact floating-point ties use deterministic IDs.",
+    "Numeric squared sRGB error is not perceptual image quality or encoded file size.",
+    "Root owns actual browser and lesson integration checks."
+  ],
+  "passed": true
 }
