@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-14T10:50:58.141564+00:00",
+  "command": "scratch/manifold-learning-runtime/Scripts/python.exe scripts/verify-manifold-examples.py",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "umap-learn": "0.5.12",
+    "numba": "0.67.0",
+    "llvmlite": "0.49.0",
+    "pynndescent": "0.6.0",
+    "threadpoolctl": "3.6.0",
+    "python": "3.12.14"
+  },
+  "threadPools": {
+    "digitsAudit": 12,
+    "otherPrograms": 1
+  },
+  "datasetSha256": "d93f963c4b2610eb07122a312eec3ddceac18a031477370d71e33835eced728e",
+  "examples": {
+    "digitsAudit": {
+      "file": "inspect_digits.py",
+      "codeSha256": "35771adddf3f0da5b0f6130fb3136a15190d817f3de549d7c3103d12017f7b98",
+      "output": "PCA R10=0.3763 T10=0.8676\nt-SNE p=5 R10=0.7103 T10=0.9874\nt-SNE p=30 R10=0.7703 T10=0.9901\nt-SNE p=80 R10=0.7623 T10=0.9894"
+    },
+    "umapFit": {
+      "file": "inspect_umap.py",
+      "codeSha256": "7cc1f6fe042a85099cbeb165bfb74d54cc221a3986666975b3965470cc73a07a",
+      "output": "0.5.12 (300, 2)\nR10=0.7143 T10=0.9890"
+    },
+    "heldoutTransform": {
+      "file": "compare_transforms.py",
+      "codeSha256": "4048b950a6411baab153fb1431242856e20c94b033b8a67b46ae484b47c00f96",
+      "output": "pixels accuracy=0.9733\nPCA-10 accuracy=0.9733\nUMAP-10 accuracy=0.9467"
+    },
+    "tinyTsne": {
+      "file": "tiny_tsne.py",
+      "codeSha256": "1d97c7d7e18a2b594129dd7bcc6e005f190c41af4ad942cc68bfd0f8f36326cd",
+      "output": "initial KL=0.053522\nfinal KL=0.018227\n[-1.775811 -0.759392  0.42237   2.112833]"
+    }
+  },
+  "checks": [
+    "all four exact displayed Python programs executed",
+    "original PCA/t-SNE coordinates agree with saved arrays",
+    "source IDs and CSV bytes preserved",
+    "UMAP fit uses all 300 feature-only rows and returns finite 300\u00d72 coordinates",
+    "stratified train/validation is 225/75",
+    "UMAP transform produces finite 75\u00d710 coordinates without modifying the fitted reference",
+    "tiny t-SNE agrees with independently calculated P and final Y",
+    "installed smooth-kNN self-column convention checked on exact calibration fixture"
+  ],
+  "installedSourceSha256": {
+    "smooth_knn_dist": "1893dcba1aed8f856f56ab21e6889ef9548a086d29e932848a66019de54a5b9f",
+    "fuzzy_simplicial_set": "b0c2efe63358c06698d4edcfc74b1ea50b862a0879388b7fd15cddd3a9672f95",
+    "compute_membership_strengths": "e8a5153552b97ed01bc419f183a011221f68cf7a9fb6b83b530d2fc1a348fda2",
+    "_optimize_layout_euclidean_single_epoch": "21953e0ef9c3c569db7cc482c224d5cfcc65de9d9e9c4d6df5dcb5eb2d15e01d",
+    "UMAP.transform": "cf4c2509eafb9f27e0fb53b197a3ac6d708163fa8d698048e110b66a69c9a7e5"
+  },
+  "sourceInterpretation": {
+    "smoothKnn": "target log2(k); summation excludes first self column",
+    "union": "forward + reverse - product",
+    "optimization": "positive-edge scheduling and randomly sampled vertex repulsion; not an unbiased full-pair BCE trace",
+    "transform": "uses the fitted reference embedding"
+  },
+  "sourceHashes": {
+    "scripts/verify-manifold-examples.py": "0ed48babdd17d36b2846f05d7bdf0889dd2b028f87d1379f24742ec8ebb591fc",
+    "src/learn/data/manifold-examples.js": "5896f48a0c7c2d2741b6fac101cb61d3f9d7b1a1b5cd6920c20bf47addcdf9c2",
+    "public/learn-assets/manifold-learning/digits-300.csv": "d93f963c4b2610eb07122a312eec3ddceac18a031477370d71e33835eced728e",
+    "public/learn-assets/manifold-learning/umap-digits.csv": "57a6ec04fca5c3739a49402bb5b06a9688664c38c5b2017065dd70918e380c01",
+    "public/learn-assets/manifold-learning/runtime-versions.json": "6d50b51386a007ff43f7c2983cb1dab72b75958c46c6b3a299a942ab9d1b2f46",
+    "public/learn-assets/manifold-learning/inspect_digits.py": "19973ec6d6ecf8bf74cfda89a3bedd5b223ecb33a8587a01d5173766b995d111",
+    "public/learn-assets/manifold-learning/inspect_umap.py": "21541157bdf2626cc494ce772d68638431dc9daca576f10ba88f24832bd58595",
+    "public/learn-assets/manifold-learning/compare_transforms.py": "1e6b522a310b7d4de580754e071bd0f195ebde6f38b8ba4050a94c98076608b7",
+    "public/learn-assets/manifold-learning/tiny_tsne.py": "b1f1660c9bb9da66aa7edb5a928a95b489da6e73c8d6d3edd4b47d9dcc3e7d53"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source_url": "https://archive.ics.uci.edu/static/public/267/banknote+authentication.zip",
+  "data_sha256": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+  "archive_sha256": "1e2acd9a2085fadf3d8145c12d3d22af853320d52294a6590c2eaf75fdc05227",
+  "bytes": 46400,
+  "rows": 1372,
+  "unique_feature_groups": 1348,
+  "repeated_groups": 11,
+  "conflicting_group_labels": [],
+  "class_counts": [
+    762,
+    610
+  ]
+}

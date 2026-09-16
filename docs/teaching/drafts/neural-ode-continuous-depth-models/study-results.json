@@ -1,0 +1,2509 @@
+{
+  "data": {
+    "columns": [
+      "sepal_length_cm",
+      "sepal_width_cm",
+      "petal_length_cm",
+      "petal_width_cm"
+    ],
+    "classes": [
+      "setosa",
+      "versicolor",
+      "virginica"
+    ],
+    "mean": [
+      5.890000000000001,
+      3.045555555555556,
+      3.793333333333333,
+      1.2177777777777776
+    ],
+    "scale": [
+      0.9057900173636023,
+      0.4392319334452182,
+      1.8423897524682449,
+      0.7836634450207108
+    ],
+    "roles": {
+      "fit": [
+        4,
+        26,
+        28,
+        44,
+        35,
+        32,
+        42,
+        36,
+        22,
+        6,
+        3,
+        24,
+        48,
+        9,
+        34,
+        30,
+        2,
+        13,
+        33,
+        20,
+        46,
+        41,
+        23,
+        39,
+        10,
+        11,
+        14,
+        49,
+        15,
+        18,
+        60,
+        58,
+        69,
+        72,
+        95,
+        76,
+        88,
+        90,
+        75,
+        57,
+        77,
+        62,
+        53,
+        94,
+        54,
+        63,
+        80,
+        97,
+        78,
+        79,
+        83,
+        51,
+        99,
+        85,
+        82,
+        74,
+        87,
+        52,
+        91,
+        89,
+        136,
+        145,
+        103,
+        142,
+        139,
+        104,
+        119,
+        120,
+        129,
+        108,
+        121,
+        106,
+        118,
+        128,
+        126,
+        101,
+        144,
+        114,
+        137,
+        110,
+        105,
+        135,
+        133,
+        116,
+        141,
+        125,
+        132,
+        124,
+        123,
+        112
+      ],
+      "validation": [
+        25,
+        40,
+        17,
+        21,
+        38,
+        8,
+        16,
+        29,
+        5,
+        47,
+        64,
+        70,
+        71,
+        92,
+        73,
+        84,
+        86,
+        68,
+        56,
+        59,
+        109,
+        150,
+        147,
+        140,
+        131,
+        111,
+        138,
+        117,
+        134,
+        146
+      ],
+      "assessment": [
+        27,
+        50,
+        37,
+        43,
+        45,
+        19,
+        31,
+        12,
+        1,
+        7,
+        61,
+        55,
+        93,
+        100,
+        81,
+        98,
+        65,
+        66,
+        96,
+        67,
+        149,
+        107,
+        122,
+        102,
+        115,
+        130,
+        113,
+        148,
+        127
+      ]
+    },
+    "duplicate_groups": [
+      [
+        102,
+        143
+      ]
+    ],
+    "unique_count": 149
+  },
+  "updates": 300,
+  "learning_rate": 0.01,
+  "weight_decay": 0.001,
+  "seeds": [
+    13,
+    37,
+    61
+  ],
+  "dtype": "float64",
+  "torch": "2.14.0+cpu",
+  "numpy": "2.3.5",
+  "dataset_sha256": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+  "runs": [
+    {
+      "kind": "linear",
+      "seed": 13,
+      "parameters": 15,
+      "selected_step": 300,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.4295957956826442,
+            "correct": 0,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.4047152751984904,
+            "correct": 0,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.796620645148723,
+            "correct": 72,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.8206425062046029,
+            "correct": 21,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.5393138673465797,
+            "correct": 77,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5923646051138789,
+            "correct": 24,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.43848586220779623,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4951176428178439,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.38308718039127954,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4432446927431157,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.3444213577829042,
+            "correct": 81,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4082396426109547,
+            "correct": 26,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.3141457089992526,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3810311103203016,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.28909956597098724,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.358393824010118,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.26778702891758427,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.33894147412939435,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.24936000029978744,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.32197782868231134,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.23326165526770484,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.30706846741465693,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.21908670684750509,
+            "correct": 87,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.29389561873085224,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.2065216583579817,
+            "correct": 87,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.28220433298920405,
+            "correct": 28,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.2065216583579817,
+        "correct": 87,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.28220433298920405,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.2204511811107761,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "linear",
+      "seed": 37,
+      "parameters": 15,
+      "selected_step": 300,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.0775539785693926,
+            "correct": 42,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.9842118410756014,
+            "correct": 14,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.6253287882709024,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6498275268784622,
+            "correct": 26,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.4532134014985584,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.49906587307766276,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.3829278705789087,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.43419297012303104,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.34055612947865715,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3950728344982963,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.30847061491695404,
+            "correct": 81,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.36605871737727524,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.28198051785663214,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.34239919104121946,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.25941927686465904,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.32231861810636503,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.2399489685189821,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.304970735115249,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.22301445095701833,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.2898454423719193,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.20819233088733718,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.2765800032657379,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.19514202692251253,
+            "correct": 87,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.264891298856287,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.18358489901462452,
+            "correct": 87,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.25454852432201797,
+            "correct": 28,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.18358489901462452,
+        "correct": 87,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.25454852432201797,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.20027701250031082,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "linear",
+      "seed": 61,
+      "parameters": 15,
+      "selected_step": 300,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.2701477585753393,
+            "correct": 18,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.1892851311261512,
+            "correct": 10,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.7173665753105466,
+            "correct": 72,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.7274290239331052,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.5071708037519257,
+            "correct": 77,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5388645024142354,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.42155035359401755,
+            "correct": 78,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.46196832421993045,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.37187210628378903,
+            "correct": 80,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.41885804878590654,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.33589754500633195,
+            "correct": 81,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.388594730032232,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.3071293119623834,
+            "correct": 84,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3644695501100923,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.283039141474327,
+            "correct": 85,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3440706218522245,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.26238844898867336,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.32635902752180956,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.24444767920767277,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.31078351907731355,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.22872088052035108,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.29699270046323345,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.2148375477690898,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.28472563068006557,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.20250601958899464,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.27377182217333046,
+            "correct": 28,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.20250601958899464,
+        "correct": 86,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.27377182217333046,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.21245257370552925,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 13,
+      "parameters": 671,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.2083782684823179,
+            "correct": 17,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.1257899094268857,
+            "correct": 8,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.32302805818885433,
+            "correct": 82,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.37662358341632646,
+            "correct": 23,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.11283973228812987,
+            "correct": 87,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.16079524799013753,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.015509536564930898,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.20135658064907572,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0039920792185455314,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.33958659239414674,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0019997375780080686,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.37459629802055733,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0013304095316073895,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.40739935955134743,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0009799514126400957,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.43517720159406487,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0007616822434593179,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4576334681924019,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0006134417342398415,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.47712982245888647,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0005071266721537588,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4945528041733886,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.0004277978971932999,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5103112520829644,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00036675950017968454,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5246996901319584,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.11283973228812987,
+        "correct": 87,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.16079524799013753,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.16762623612975155,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 37,
+      "parameters": 671,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 0.8375466719297582,
+            "correct": 54,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.8244399744216626,
+            "correct": 19,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.28208565058523893,
+            "correct": 80,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3021146017511857,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.06960822128157784,
+            "correct": 88,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1600634572803782,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.012542507254919188,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.2476764918872946,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0031387170193504306,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.324348347550653,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.001568046900501399,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3757400609621036,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0010316095156257194,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.40279511973031557,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0007515603735841287,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4270333958742338,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0005786507119335737,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4473742706465707,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0004623662785185334,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4649906178055762,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0003796988331768581,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.48072426458500617,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.0003184883614470269,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4949132025008171,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00027170976576502254,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.507833652906274,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.06960822128157784,
+        "correct": 88,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1600634572803782,
+        "correct": 27,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.10539325032226493,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "residual",
+      "seed": 61,
+      "parameters": 671,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.0219270088595738,
+            "correct": 55,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.9288619245426953,
+            "correct": 20,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.2752778162002815,
+            "correct": 82,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.31807032415791137,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.05216908825714016,
+            "correct": 88,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1523333974080302,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.006228831563871677,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.33099341623204376,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.002014660284458642,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4043610211056721,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0011962597350247543,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4326325911297527,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0008512315304279009,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.46022799962285493,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.000649587071421839,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4835685472039293,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0005164880358099783,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.503864593165661,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0004229131037225166,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5216895620551252,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.00035419598645126916,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5376175349174929,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.00030200691129822737,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5520501053729726,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00026128094340905863,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5652591947308778,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.05216908825714016,
+        "correct": 88,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1523333974080302,
+        "correct": 27,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.05132874911029413,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 13,
+      "parameters": 179,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.5035156582504228,
+            "correct": 16,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.2251046598731672,
+            "correct": 7,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.4073472991567336,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4329376597584196,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.13465583674901296,
+            "correct": 86,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1748698922556805,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.02238298383105926,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.2725110894156998,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0050920254162897405,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4558154927231594,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.00241108509693609,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5122629498756577,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0015375220762713603,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5533230620475363,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0011110337800498949,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5866652732110036,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0008562067552275727,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6142067669836542,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0006869121089321613,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6375355012331085,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0005668249970803935,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6578026086584151,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.00047770710445780017,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6758007198832919,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.0004093164899437595,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6920384749107875,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.13465583674901296,
+        "correct": 86,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1748698922556805,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.15238800360742696,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 37,
+      "parameters": 179,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 0.9185475325652781,
+            "correct": 51,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.0130718175583853,
+            "correct": 15,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.26943597441776374,
+            "correct": 78,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3095157365213447,
+            "correct": 26,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.07103729889546113,
+            "correct": 89,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1517808635945146,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.023356466732125422,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.18967700028656215,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.006637410867402584,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.2888031977906254,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.002867553599737306,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3349278246110297,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.001679112031825243,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3676280155280733,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0011395899058489155,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.39420293611895585,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0008379151689809207,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4133508726265528,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0006481663246698248,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4286377236856188,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0005195953372507644,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4415896174858414,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.00042777704764404567,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.45286882732955325,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.0003595600815851367,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4628820987006764,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.07103729889546113,
+        "correct": 89,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1517808635945146,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.10335128674161365,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "neural_ode",
+      "seed": 61,
+      "parameters": 179,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.2029899149135586,
+            "correct": 31,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.3212055489816743,
+            "correct": 8,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.3829192638503774,
+            "correct": 80,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4185642021285839,
+            "correct": 23,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.05668147111421005,
+            "correct": 89,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.15720878969579372,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.00678106731679119,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.32813363506050064,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0023392274162861515,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.40045126195001385,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0014142553773792107,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4223310537071469,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.001014627020133343,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4487656210133071,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0007785002249134536,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.47214459281955345,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0006215606343722164,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4921395217118144,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.0005103839665252898,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5099044976761181,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.000428153014103632,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5260614896665555,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.00036531858683116797,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5408936065115407,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.0003160504102436782,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5545978139222787,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.05668147111421005,
+        "correct": 89,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.15720878969579372,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.06212302493901905,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 13,
+      "parameters": 251,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 0.9563389205551007,
+            "correct": 46,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.9022395710344834,
+            "correct": 19,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.2438870203824989,
+            "correct": 79,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.26562599947387816,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.042802890352064506,
+            "correct": 89,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1495338261863028,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.0033818331485214134,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.40606414206455294,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0010943348506293783,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5026877085888328,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0006868576650756254,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5340952612721719,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0005098298415756357,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5627671841355404,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.00039989314087991447,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5867302572574433,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0003241205217371449,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6071634564773073,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.00026905439345580045,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6252659147135122,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.00022755506786403237,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6416049713712798,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.00019538959528015242,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6565189606399551,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00016988593810562892,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6702462144521163,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.042802890352064506,
+        "correct": 89,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1495338261863028,
+        "correct": 27,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.04203606789006791,
+        "correct": 29,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 37,
+      "parameters": 251,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 0.8243976421735479,
+            "correct": 59,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.800332757537231,
+            "correct": 21,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.2694425124206363,
+            "correct": 80,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.3466960885849946,
+            "correct": 25,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.07131695270086516,
+            "correct": 89,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1491404663395455,
+            "correct": 28,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.005252603204193096,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.36938770592679365,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.000993228693955763,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4626292518661118,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0005783666820269328,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.48512919068159527,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.00043217347099583207,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5064046344829924,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0003427953459797363,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5264834594471203,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.00028039208878536564,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5446869419112127,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.00023449939156279786,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5612034285594483,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0001995832446604777,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5762792114668828,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.0001723095566538739,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5901195344335818,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00015054306787731163,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6029063400189795,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.07131695270086516,
+        "correct": 89,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1491404663395455,
+        "correct": 28,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.1054937764443537,
+        "correct": 28,
+        "count": 29
+      }
+    },
+    {
+      "kind": "augmented_ode",
+      "seed": 61,
+      "parameters": 251,
+      "selected_step": 50,
+      "curves": [
+        {
+          "step": 1,
+          "fit": {
+            "cross_entropy": 1.3310887460983847,
+            "correct": 22,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 1.2133783417141182,
+            "correct": 7,
+            "count": 30
+          }
+        },
+        {
+          "step": 25,
+          "fit": {
+            "cross_entropy": 0.29324420819559277,
+            "correct": 80,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.34880650392273044,
+            "correct": 24,
+            "count": 30
+          }
+        },
+        {
+          "step": 50,
+          "fit": {
+            "cross_entropy": 0.050379440463505475,
+            "correct": 89,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.1834979297946002,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 75,
+          "fit": {
+            "cross_entropy": 0.004057702662935968,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.4568904106599799,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 100,
+          "fit": {
+            "cross_entropy": 0.0014116088324578333,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5515069724368459,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 125,
+          "fit": {
+            "cross_entropy": 0.0008822121708816877,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.5782813751242272,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 150,
+          "fit": {
+            "cross_entropy": 0.0006486164278630325,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6019226302055328,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 175,
+          "fit": {
+            "cross_entropy": 0.0005059425362240424,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.624571262757349,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 200,
+          "fit": {
+            "cross_entropy": 0.0004085079065236292,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6453784978360401,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 225,
+          "fit": {
+            "cross_entropy": 0.00033821435717326485,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6642684794871427,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 250,
+          "fit": {
+            "cross_entropy": 0.0002855656714237572,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6814416340587365,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 275,
+          "fit": {
+            "cross_entropy": 0.0002449685179738037,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.6971386287068893,
+            "correct": 27,
+            "count": 30
+          }
+        },
+        {
+          "step": 300,
+          "fit": {
+            "cross_entropy": 0.00021291595377985348,
+            "correct": 90,
+            "count": 90
+          },
+          "validation": {
+            "cross_entropy": 0.7115706524696636,
+            "correct": 27,
+            "count": 30
+          }
+        }
+      ],
+      "fit": {
+        "cross_entropy": 0.050379440463505475,
+        "correct": 89,
+        "count": 90
+      },
+      "validation": {
+        "cross_entropy": 0.1834979297946002,
+        "correct": 27,
+        "count": 30
+      },
+      "assessment": {
+        "cross_entropy": 0.03648194057048307,
+        "correct": 29,
+        "count": 29
+      }
+    }
+  ]
+}

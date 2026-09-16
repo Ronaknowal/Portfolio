@@ -1,0 +1,6 @@
+{
+  "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_mm_mlo.csv",
+  "sha256": "dcf0198658c87ebb5e3b2ce807fe3a52e1d5f000aa0479fb1bf334afb7adde4d",
+  "retrieved": "2026-09-12",
+  "selection": "1990 through 1999 inclusive; monthly average in ppm"
+}

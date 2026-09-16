@@ -1,0 +1,8 @@
+Airfoil Self-Noise
+Brooks, T., Pope, D. and Marcolini, M. (1989). UCI Machine Learning Repository.
+https://doi.org/10.24432/C5VW2C  ·  https://archive.ics.uci.edu/dataset/291/airfoil+self+noise
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+airfoil-self-noise.dat is the unchanged member, 59984 bytes, SHA-256 74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3.
+Tab separated, CRLF line endings, 1,503 rows and six columns: frequency Hz, attack angle degrees,
+chord m, free-stream velocity m/s, suction-side displacement thickness m, scaled sound pressure dB.
+This lesson serves its own copy so that no other lesson's asset edit can change it.

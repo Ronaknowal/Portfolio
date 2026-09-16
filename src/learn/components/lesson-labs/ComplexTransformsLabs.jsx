@@ -97,7 +97,7 @@ function Plane({
   const y = value => 144 - value * 116 / extent;
   return <figure className="transform-plane"><figcaption>{title}</figcaption><svg viewBox="0 0 300 284" role="img" aria-label={`${title}. Equal scales on real and imaginary axes; extent ${format(extent)}.`}>
     <line x1="22" x2="278" y1="144" y2="144" className="transform-axis" /><line x1="150" x2="150" y1="16" y2="272" className="transform-axis" />
-    <text x="276" y="163" textAnchor="end">Re</text><text x="157" y="27">Im</text><text x="155" y="162">0</text>
+    <text x="276" y="163" textAnchor="end">Re</text><text x="157" y="27">Im</text>
     <text x="270" y="137" textAnchor="end">{format(extent, 1)}</text><text x="28" y="137">−{format(extent, 1)}</text>
     {curve && <path d={curve.map((point, index) => `${index ? 'L' : 'M'}${x(point[0])},${y(point[1])}`).join(' ')} stroke={colors[2]} fill="none" strokeWidth="1.8" />}
     {vectors.map((value, index) => {
@@ -110,6 +110,7 @@ function Plane({
       })}
     {chain && <line x1={x(0)} y1={y(0)} x2={x(vertices.at(-1)[0])} y2={y(vertices.at(-1)[1])} stroke={colors[2]} strokeWidth="2" strokeDasharray="5 4" />}
     {selected && <circle cx={x(selected[0])} cy={y(selected[1])} r="5" fill="none" stroke="#eee3cc" strokeWidth="2" />}
+    <text x="155" y="162" paintOrder="stroke" stroke="#090a07" strokeWidth="4" strokeLinejoin="round">0</text>
   </svg></figure>;
 }
 export function ComplexArithmeticLab() {

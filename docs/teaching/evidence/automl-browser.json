@@ -1,0 +1,194 @@
+{
+  "startedAt": "2026-09-16T17:32:48.935Z",
+  "completedAt": "2026-09-16T17:33:46.109Z",
+  "topicId": "automl-neural-architecture-search-nas",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "424313a9b76300603cae79dc098ab4d48d6ba3bc2d835d0141b2ab93a7b3d18a",
+  "sourceHashes": {
+    "src/learn/data/topics/automl-neural-architecture-search-nas.jsx": "287c1935b720e7ca5ea3a008bdb1c4fbcf09feec08ccb1ba89462e145d34f85f",
+    "src/learn/data/automl-models.js": "f4e2ec1c7c419c41c44e1e824d37457983c98501a10cf3662a2092ed9737ad86",
+    "src/learn/data/automl-data.js": "a4a40b3c2d37c21595d6c5d63ae0deff3eb1664846dcb34661de600411c4d78d",
+    "src/learn/data/automl-examples.js": "5fac2302b73d265fd2605460ea7c80fd02e1bc85fc261ce3927a29b0117bccf9",
+    "src/learn/components/lesson-labs/AutomlShared.jsx": "9a7ac0ab867791d4cc5ac6c8be519c158bc573166bc479ed8b659d7946085fd4",
+    "src/learn/components/lesson-labs/AutomlLabs.jsx": "9823efeb6843219b73eb12a7b0551bdff6c2b1a53ddec8378c8da2743f9985cf",
+    "src/learn/components/lesson-labs/AutomlFigures.jsx": "90664bb12b96a07e8d61842c9bb9182efdbb49d473b9ba1ba079d632cf8de169",
+    "src/learn/components/lesson-labs/automl-labs.css": "024ed044b9ddfdd5279f97e1b5d493a112035918d753cdf0acc7f8a68fdf3612",
+    "src/learn/data/curriculum/blueprints/automl-neural-architecture-search-nas.js": "eef499984c5008cd4d1d7d23288e9989f4e5d4dc0bb1444eb6f4fdb541e30a89",
+    "public/learn-assets/automl-nas/banknote-data.csv": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+    "public/learn-assets/automl-nas/ATTRIBUTION.txt": "195efb05c2ac5d1e28e9d2e4f6d94c6230d9104307b4474d497dc85ab8f52587"
+  },
+  "moduleTopicCount": 39,
+  "modulePosition": 26,
+  "dataset": {
+    "file": "/learn-assets/automl-nas/banknote-data.csv",
+    "sha256": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+    "bytes": 46400,
+    "reserveScored": false
+  },
+  "displayedPrograms": {
+    "banknoteSearch": {
+      "executed": true,
+      "file": "banknote_search.py"
+    },
+    "banknoteFlaml": {
+      "executed": false,
+      "file": "banknote_flaml.py"
+    },
+    "banknoteKerasSearch": {
+      "executed": false,
+      "file": "banknote_keras_search.py"
+    },
+    "searchSpaceGrammar": {
+      "executed": false,
+      "file": null
+    }
+  },
+  "records": [
+    {
+      "case": "No investigation shows a graded quantity before a prediction is recorded",
+      "checkedStrings": 14,
+      "note": "Asks whether the answer string is on screen, rather than enumerating the containers an answer might sit in."
+    },
+    {
+      "case": "Header, route, sequence position, ten sections with working anchors, six investigations, five figures, the served dataset digest, and nothing revealed before a prediction"
+    },
+    {
+      "case": "Grammar investigation: a typed tree depth grows the count by one, an edit retires the verdict, and retuning an inactive family changes neither the count nor the active recipe"
+    },
+    {
+      "case": "Improvement investigation: B wins on uncertainty, a zero deviation is drawn as a point mass and hands the choice to A, and the shaded area is labelled as the expected improvement rather than the probability"
+    },
+    {
+      "case": "Halving investigation: the declared ladder selects C at 0.07 while D would have reached 0.02, and typing D’s first rung as 0.09 rescues it; both work accountings are printed as expressions"
+    },
+    {
+      "case": "Replay investigation: budget 2 to 3 changes the recommendation with a flat best score, reordering only the unrevealed tail changes nothing, and no prefix carries an inspection result"
+    },
+    {
+      "case": "Deployment investigation: a 5 ms cap ships B off an A/B/C frontier, a 1 ms cap returns no feasible candidate rather than the nearest miss, and an exact accuracy tie is named and settled by the rule the note states up front"
+    },
+    {
+      "case": "A zero-length step is graded within the disclosed tolerance, with an exact zero-step cause and no weight change"
+    },
+    {
+      "case": "Mixture investigation: the gradient, a separately recorded architecture step reaching 0.1993359892, and a separately recorded commitment showing the mixture beating either discrete operation"
+    },
+    {
+      "case": "Sequential audit: equal-count replacement, four inclusive numeric boundaries, locally resolved density peak, two halving ties and reset gating, decreasing replay budget, nonzero tiny gradients/updated logits, proportional bars and greatest-update/commitment-tie wording"
+    },
+    {
+      "case": "Figures: three architectures with their block equations, the observed results with per-candidate mistake tables, the stationary bilevel counterexample, and the singular activation kernel"
+    },
+    {
+      "case": "Drawn geometry at 1366px",
+      "inspectedFigures": 19,
+      "inspectedShapes": 12,
+      "curveSamplingNote": "Curves are sampled along their own geometry against every label box, because the shared inspector reads straight lines only. A label with an opaque backplate may be crossed by up to 2% of a curve length; a label without one may not be crossed at all."
+    },
+    {
+      "case": "Drawn geometry at 390px",
+      "inspectedFigures": 19,
+      "inspectedShapes": 12,
+      "curveSamplingNote": "Curves are sampled along their own geometry against every label box, because the shared inspector reads straight lines only. A label with an opaque backplate may be crossed by up to 2% of a curve length; a label without one may not be crossed at all."
+    },
+    {
+      "case": "Drawn geometry at 320px",
+      "inspectedFigures": 19,
+      "inspectedShapes": 12,
+      "curveSamplingNote": "Curves are sampled along their own geometry against every label box, because the shared inspector reads straight lines only. A label with an opaque backplate may be crossed by up to 2% of a curve length; a label without one may not be crossed at all."
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and never fetches its own dataset to render",
+      "requestedScripts": [
+        "assets/index-CZUaFbdR.js",
+        "assets/Reader-BPj6aF0B.js",
+        "assets/LevelBadge-CN8qAoME.js",
+        "assets/automl-neural-architecture-search-nas-BypeZiRW.js",
+        "assets/Code-hhIdEenh.js",
+        "assets/Callout-CKbX4YwN.js",
+        "assets/Math-CXAsvFLV.js",
+        "assets/LessonElements-BVpCGstP.js",
+        "assets/RunnableExample-Dlog8TjT.js"
+      ],
+      "rawScriptBytes": 1536116,
+      "gzipEstimateBytes": 350434,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout: no horizontal overflow, no overflowing formula, every numeric table stacked into labelled rows",
+      "svgTextRenderedPx": {
+        "labels": 157,
+        "minimumPx": 9.75,
+        "medianPx": 10.64
+      },
+      "svgTextNote": "Rendered pixels, computed as the SVG user size times the box-to-viewBox ratio. A computed font-size read straight off an SVG text node is in user units and is the same number at every viewport, which is why this once recorded an identical figure at two widths. Plots inside an investigation render into a narrower box than the inline figures, which is where the minimum sits; every number in every drawing is also in an adjacent stacking table and in the SVG aria-label."
+    },
+    {
+      "case": "Narrow 320px layout: no horizontal overflow, no overflowing formula, every numeric table stacked into labelled rows",
+      "svgTextRenderedPx": {
+        "labels": 157,
+        "minimumPx": 7.48,
+        "medianPx": 8.37
+      },
+      "svgTextNote": "Rendered pixels, computed as the SVG user size times the box-to-viewBox ratio. A computed font-size read straight off an SVG text node is in user units and is the same number at every viewport, which is why this once recorded an identical figure at two widths. Plots inside an investigation render into a narrower box than the inline figures, which is where the minimum sits; every number in every drawing is also in an adjacent stacking table and in the SVG aria-label."
+    },
+    {
+      "case": "Every table caption sits outside its scroll box and fits its container at 1366, 390 and 320 px"
+    },
+    {
+      "case": "Keyboard reach: every investigation control is focusable and carries a visible focus outline; every displayed number is one its own control accepts",
+      "focusableControls": 42
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens Hidden Markov Models"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\automl-grammar-before-prediction-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-evidence-loop-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-grammar-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-grammar-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-acquisition-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-acquisition-certain-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-halving-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-halving-counterfactual-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-halving-rescue-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-replay-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-deployment-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-deployment-infeasible-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-deployment-tie-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-mixture-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-mixture-zero-step-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-mixture-commit-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-sequential-narrow-density-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-sequential-budget-decrease-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-sequential-tiny-gradient-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-architecture-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-results-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-bilevel-stationary-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-provenance-singular-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-evidence-loop-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-architecture-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-results-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-bilevel-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-provenance-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-grammar-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-halving-390.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-evidence-loop-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-architecture-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-results-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-bilevel-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-provenance-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-grammar-320.png",
+    "docs\\teaching\\evidence\\screenshots\\automl-halving-320.png"
+  ],
+  "visualInterpretation": "Screenshots capture informative states, not defaults only: the evidence loop; the grammar after a typed tree depth and again after the inactive-setting null; the improvement panels with a Gaussian winner and again with a zero-deviation point mass; the ladder as declared and again with the slow starter rescued; the replay after a tie changed the recommendation; the frontier under a feasible cap and under an infeasible one; the mixture after an architecture step and after a commitment; the three architectures; the observed results with a mistake table open; the bilevel figure at its stationary point; the activation kernel gone singular; and every figure plus two investigations at 390 and 320 px. They require separate visual inspection by a person."
+}

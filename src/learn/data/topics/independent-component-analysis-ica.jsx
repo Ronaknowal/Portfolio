@@ -1,950 +1,408 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  IcaMixingFigure, IcaDependenceFigure, IcaWhiteningFigure, IcaFixedPointFigure, IcaSplitFigure, IcaOutcomeFigure,
+} from '../../components/lesson-labs/IcaFigures.jsx';
+import { IcaRotationLab, IcaContributionLab } from '../../components/lesson-labs/IcaLabs.jsx';
+import { icaExamples } from '../ica-examples.js';
+import '../../components/lesson-labs/ica-labs.css';
+
+const headings = [
+  '1. Follow one sample through a mixture',
+  '2. Zero correlation can hide complete dependence',
+  '3. Whitening removes a stretch, leaving a separation question',
+  '4. Why non-Gaussianity gives a direction',
+  '5. Follow a FastICA update',
+  '6. A real recording: fit blindly, choose with development data, evaluate later',
+  '7. Deeper branch: what is a component, and what happens if we remove it?',
+  '8. Deeper branch: objectives, extensions and computation',
+  '9. Practice with changed inputs',
+  '10. Readiness and the next question',
+  '11. References & another way to learn it',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example }) {
+  return <section>
+    <Prose><strong>{'Before running: '}</strong>{example.question}</Prose>
+    <RunnableExample example={example} />
+  </section>;
+}
+
+function Practice({ title, children, hint, solution }) {
+  return <>
+    <H3>{title}</H3>
+    {children}
+    <details><summary>Hint</summary><div>{hint}</div></details>
+    <details><summary>Solution</summary><div>{solution}</div></details>
+  </>;
+}
 
 const icaContent = {
-  title: "Independent Component Analysis (ICA)",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Imagine you are at a cocktail party. Three conversations are happening simultaneously — a singer practicing scales at the piano, two people arguing about politics, and someone narrating a story near the bar. You have placed three microphones around the room. Each microphone records a different linear mixture of all three voices. The recordings are hopelessly entangled — you cannot simply listen to microphone 1 and hear the pianist, because every mic picks up every speaker. The question is: can you reconstruct the three original source signals from three mixed recordings, without ever hearing the sources separately, and without knowing the acoustic geometry of the room? This is the cocktail party problem, and it is the defining motivation for Independent Component Analysis.
-      </Prose>
-
-      <Prose>
-        The mathematical origin of ICA traces to a 1985 GRETSI conference paper by Hérault, Jutten, and Ans: "Détection de grandeurs primitives dans un message composite par une architecture de calcul neuromimétique en apprentissage non supervisé." Their neuromimetic adaptive algorithm demonstrated that linear mixtures of independent signals could be separated online — they just lacked the theoretical explanation for why it worked. Pierre Comon supplied the theory nine years later in the field-defining 1994 paper "Independent Component Analysis, a new concept?" published in <em>Signal Processing</em> 36(3):287–314. Comon established the formal ICA model — a noiseless linear mixing of statistically independent, non-Gaussian source signals — and showed that independence (not just decorrelation) is both necessary and sufficient (up to ordering and scaling) to identify the sources. Decorrelation, the objective of PCA, is a second-order property; independence is a full distributional property, requiring all higher-order statistics to match.
-      </Prose>
-
-      <Prose>
-        The practical algorithm came from Bell and Sejnowski in 1995: "An Information-Maximization Approach to Blind Separation and Blind Deconvolution," <em>Neural Computation</em> 7(6):1129–1159. Their Infomax algorithm maximizes the output entropy of a neural network with nonlinear activation functions, and they showed this is equivalent to maximizing the mutual information between inputs and outputs — equivalently, finding statistically independent components. Infomax separated up to 10 simultaneous speakers in real recordings, making blind source separation practical for the first time.
-      </Prose>
-
-      <Prose>
-        The algorithm in production use today is FastICA, introduced by Hyvärinen and Oja in 1997: "A Fast Fixed-Point Algorithm for Independent Component Analysis," <em>Neural Computation</em> 9(7):1483–1492. FastICA reformulated the search for independent components as a fixed-point iteration — instead of gradient ascent on entropy, it performs Newton-like updates that converge cubically rather than linearly. On practical datasets, FastICA is 10–100× faster than gradient-based Infomax and is the default in every major ML library. The comprehensive mathematical treatment is in Hyvärinen, Karhunen, and Oja (2001), <em>Independent Component Analysis</em>, Wiley — still the definitive reference. More recently, Ablin, Cardoso, and Gramfort (2018) introduced Picard (arXiv:1706.08171), a preconditioned L-BFGS variant that is faster still, especially on real neural and audio data.
-      </Prose>
-
-      <Prose>
-        ICA belongs to a family of blind source separation (BSS) methods: algorithms that recover original signals from observed mixtures without knowledge of the mixing process. The "blind" qualifier is important — you know nothing about the room acoustics, the sensor placements, or the source distributions except that the sources are statistically independent and non-Gaussian. The constraint of independence is what gives ICA its teeth: it is a much stronger condition than the decorrelation that PCA achieves, and it is powerful enough to uniquely identify the sources (up to the inherent sign, scale, and permutation ambiguities we will discuss in detail).
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        PCA and ICA both find directions in feature space, but they optimize completely different objectives. PCA finds the directions of maximum variance — orthogonal axes along which the data is most spread out. ICA finds the directions of maximum statistical independence — axes along which the projected signals share no information with each other at any order of statistics, not just second order. The two objectives coincide only for Gaussian data; for non-Gaussian data, they can produce radically different decompositions.
-      </Prose>
-
-      <Prose>
-        The central insight linking non-Gaussianity and independence comes from the Central Limit Theorem, read in reverse. The CLT says: mix many independent random variables, and the sum tends toward a Gaussian, regardless of the individual distributions. Applied to ICA: if you mix two non-Gaussian independent sources, the mixture is more Gaussian than either source individually. Conversely, starting from a mixture and searching for a linear projection that is <em>maximally non-Gaussian</em> is equivalent to searching for an un-mixed source signal. Non-Gaussianity is the compass that points toward independence.
-      </Prose>
-
-      <Prose>
-        You can see this in kurtosis (the standardized fourth central moment). A Gaussian has excess kurtosis of zero. A Laplace distribution (heavy tails) has excess kurtosis of 3. A uniform distribution (light tails) has excess kurtosis of −1.2. A square wave has excess kurtosis near −2. After mixing two Laplace sources 50/50, the mixture kurtosis drops to 1.72; mixing three drops it to 0.95 — converging toward the Gaussian value of 0. ICA reverses this: it finds unmixing directions that push kurtosis back toward the extremes, away from zero.
-      </Prose>
-
-      <Plot
-        label="CLT effect: mixing makes signals more Gaussian (kurtosis)"
-        xLabel="number of Laplace sources mixed"
-        yLabel="excess kurtosis"
-        series={[
-          {
-            name: "mixture kurtosis",
-            color: colors.gold,
-            points: [[1, 3.25], [2, 1.72], [3, 0.95], [4, 0.56], [6, 0.22], [8, 0.10]],
-          },
-          {
-            name: "Gaussian target (kurtosis = 0)",
-            color: colors.green,
-            points: [[1, 0], [8, 0]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The contrast between PCA and ICA is sharpest on non-Gaussian data. Consider two independent Laplace sources mixed by a 2×2 matrix. PCA finds the two directions of maximum variance in the mixture — these are rotations that decorrelate the mixed signals. Because the Laplace distribution is symmetric and has zero cross-correlation with the other source by independence, PCA does decorrelate the mixture. But decorrelation is not independence for non-Gaussian distributions: there can be many rotations that produce zero second-order correlation while still having strong higher-order dependencies. PCA picks one of these rotations arbitrarily (the variance-maximizing one). ICA picks the specific rotation that produces genuine statistical independence — and for non-Gaussian sources, that rotation corresponds to the true un-mixing direction.
-      </Prose>
-
-      <Prose>
-        The practical consequence: PCA components will still "look mixed" when the original sources are non-Gaussian. ICA components will match the true sources up to sign and permutation. This is why ICA is indispensable for signal separation (audio, EEG artifact removal), while PCA is the better choice for compression and visualization of Gaussian-dominated data.
-      </Prose>
-
-      <Callout type="info" title="Why Gaussian sources cannot be separated">
-        If the sources are Gaussian, the ICA model is not identifiable. A multivariate Gaussian has the property that any orthogonal rotation of its components produces another multivariate Gaussian with the same covariance structure. There is no preferred basis — every rotation looks equally independent to any statistical test. This means that for Gaussian sources, the ICA fixed-point iteration has no stable fixed point corresponding to the true sources; it will converge to an arbitrary rotation of the whitened data, which is exactly what PCA gives you. The non-Gaussianity assumption is not a convenience — it is a mathematical necessity for ICA to work.
-      </Callout>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 The ICA generative model</H3>
-
-      <Prose>
-        The ICA model is:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathbf{x} = A \\mathbf{s}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>x ∈ ℝᵈ</Code> is the observed mixed signal vector, <Code>s ∈ ℝᵈ</Code> is the vector of latent independent source signals, and <Code>A ∈ ℝ^(d×d)</Code> is the unknown mixing matrix. The model assumptions are: (1) the sources <Code>s₁, s₂, ..., sᵈ</Code> are mutually statistically independent; (2) at most one source is Gaussian; (3) <Code>A</Code> is square and invertible. Goal: estimate the unmixing matrix <Code>W ≈ A⁻¹</Code> such that:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathbf{s} = W \\mathbf{x} = W A \\mathbf{s}"}
-      </MathBlock>
-
-      <Prose>
-        The product <Code>WA</Code> should be a generalized permutation matrix — a permutation of rows times a diagonal scaling matrix. The ICA solution is unique up to: (1) permutation of rows (you cannot determine which recovered component corresponds to which source without additional information); (2) sign flips (each component can be multiplied by −1); (3) scaling (you cannot separately identify the scale of <Code>W</Code> and <Code>s</Code>, so conventionally sources are normalized to unit variance). These are called the inherent ambiguities of ICA.
-      </Prose>
+  title: 'Independent Component Analysis (ICA)',
+  readTime: '~45–55 min first pass · 45–75 min code and practice · deeper branches add ~25 min',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot ica-lesson">
+    <LessonIntro
+      prerequisites="Dot products, matrix multiplication, an average and a variance. PCA supplies the geometry of projections and reconstruction; the probability and optimization ideas are introduced here. The Python examples need NumPy and scikit-learn, and the supplied CSV lets the real one run offline."
+      sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      {'Separate an exact four-state mixture by hand, watch a distribution change while its covariance does not, trace one fixed-point update, then ask a real electrical recording a narrow, measurable question — and keep the answer it gives.'}
+    </LessonIntro>
 
-      <H3>3.2 Why decorrelation is not independence</H3>
+    <Prose>{'Two sensors can both contain the same two signals in different proportions. A loud pulse in one recording might come from the event you care about, an interfering source, or both. Instead of keeping the direction with the largest variation, can we find combinations that separate the contributions?'}</Prose>
 
-      <Prose>
-        Two random variables <Code>u</Code> and <Code>v</Code> are uncorrelated if <Code>E[uv] = E[u]E[v]</Code>. They are independent if <Code>p(u, v) = p(u)p(v)</Code> — the full joint distribution factorizes. Independence implies zero correlation, but the converse only holds for jointly Gaussian variables. For non-Gaussian variables, you can have zero correlation with strong dependence: if <Code>u ~ Uniform(−1, 1)</Code> and <Code>v = u²</Code>, then <Code>Cov(u, v) = E[u³] − E[u]E[u²] = 0</Code> (odd moments of a symmetric distribution vanish), yet knowing <Code>v = 0.25</Code> tells you exactly that <Code>u = ±0.5</Code>.
-      </Prose>
+    <Prose><strong>{'Independent component analysis'}</strong>{' estimates a linear representation whose component signals are as statistically independent as its model and estimation method can make them. We will first separate an exact four-state mixture. Then we will ask a narrower, measurable question of a real electrical recording: does an ICA component track a simultaneously recorded reference more closely than an original channel or a principal component?'}</Prose>
 
-      <Prose>
-        PCA diagonalizes the covariance matrix — it finds a rotation that makes the second-order statistics diagonal (zero pairwise correlations). ICA must go further, matching all higher-order moments. The information-theoretic statement: ICA minimizes the mutual information between components. Mutual information <Code>I(y₁; y₂; ...; yᵈ)</Code> is zero if and only if the components are fully independent. Minimizing mutual information is equivalent to maximizing the sum of marginal entropies minus the joint entropy — which is equivalent to maximizing the non-Gaussianity of each marginal.
-      </Prose>
+    <Prose><strong>{'First-pass route.'}</strong>{' Read sections 1–5, using the mixing figure and the rotation investigation as you go. Run the short NumPy example in section 5, then read and run the real-data comparison in section 6. Try practice 1, 2 and 4 in section 9 before the readiness check. Sections 7 and 8 are deeper branches for component removal, objectives, computation and extensions. Expect about 45–55 minutes of reading on the first route, plus 45–75 minutes for code and practice; the deeper branches add about 25 minutes.'}</Prose>
 
-      <H3>3.3 Non-Gaussianity objectives</H3>
+    <Prose>{'You need dot products, matrix multiplication, an average and variance. '}<a href="/learn/path/full-curriculum/pca-dimensionality-reduction?module=classical-ml">{'PCA & Dimensionality Reduction'}</a>{' supplies the geometry of projections, eigenvectors and reconstruction. '}<a href="/learn/path/full-curriculum/probability-distributions-bayes-theorem?module=math-foundations">{'Probability Distributions & Bayes’ Theorem'}</a>{' reviews independence and moments. We will introduce the specific probability and optimization ideas locally. Python examples need NumPy and scikit-learn; the supplied CSV lets the real example run offline.'}</Prose>
 
-      <Prose>
-        Two main measures of non-Gaussianity are used as objectives:
-      </Prose>
+    <Prose>{'The previous topic, '}<a href="/learn/path/full-curriculum/t-sne-umap-manifold-learning?module=classical-ml">{'t-SNE, UMAP & Manifold Learning'}</a>{', asks how to display relationships among observations in a small number of coordinates. ICA asks a different question about the observations’ '}<strong>{'generating mixture'}</strong>{'. Neither a separated-looking embedding nor uncorrelated PCA coordinates supplies that generating model.'}</Prose>
 
-      <Prose>
-        <strong>Kurtosis.</strong> The excess kurtosis of a random variable <Code>y</Code> is:
-      </Prose>
+    <H2>{headings[0]}</H2>
 
-      <MathBlock>
-        {"\\text{kurt}(y) = E[y^4] - 3(E[y^2])^2"}
-      </MathBlock>
+    <Prose>{'Suppose source values at one instant are s₁ = 1 and s₂ = −1. Sensor 1 receives twice the first source plus the second; sensor 2 receives the first plus twice the second:'}</Prose>
 
-      <Prose>
-        A Gaussian has <Code>kurt = 0</Code>. Super-Gaussian (heavy-tailed) distributions like Laplace have positive kurtosis; sub-Gaussian (light-tailed) distributions like uniform have negative kurtosis. ICA can maximize <Code>|kurt(wᵀx)|</Code> over unit vectors <Code>w</Code>. Kurtosis is simple but sensitive to outliers — a single corrupted sample can dominate the fourth moment.
-      </Prose>
+    <MathBlock>{'\\begin{gathered} x_1 = 2s_1 + s_2 = 1, \\\\ x_2 = s_1 + 2s_2 = -1. \\end{gathered}'}</MathBlock>
 
-      <Prose>
-        <strong>Negentropy.</strong> More robust. The negentropy of <Code>y</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"J(y) = H(y_{\\text{Gauss}}) - H(y)"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>H</Code> is differential entropy and <Code>y_Gauss</Code> is a Gaussian with the same variance as <Code>y</Code>. By the maximum entropy principle, the Gaussian maximizes entropy among all distributions with a fixed variance, so <Code>J(y) ≥ 0</Code>, with equality only for Gaussians. Negentropy is a theoretically clean measure but expensive to compute. In practice, the approximation due to Hyvärinen is used:
-      </Prose>
-
-      <MathBlock>
-        {"J(y) \\approx \\left[ E[G(y)] - E[G(\\nu)] \\right]^2"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>ν ~ N(0,1)</Code> and <Code>G</Code> is a smooth nonlinear function. The FastICA algorithm uses <Code>G(u) = log cosh(u)</Code> (the default, robust to outliers), <Code>G(u) = -exp(-u²/2)</Code> (for super-Gaussian sources), or <Code>G(u) = u⁴/4</Code> (equivalent to kurtosis maximization). The corresponding derivatives <Code>g = G'</Code> appear directly in the fixed-point update rule.
-      </Prose>
-
-      <H3>3.4 FastICA fixed-point update rule</H3>
-
-      <Prose>
-        FastICA extracts one component at a time (deflation) or all simultaneously (parallel). For the deflation case, the fixed-point iteration for extracting the <Code>k</Code>-th unmixing vector <Code>w</Code> from whitened data <Code>x̃</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"w \\leftarrow \\frac{1}{n} \\sum_{i=1}^{n} \\tilde{x}_i \\, g(w^\\top \\tilde{x}_i) - \\overline{g'(w^\\top \\tilde{x}_i)} \\cdot w"}
-      </MathBlock>
-
-      <MathBlock>
-        {"w \\leftarrow w \\, / \\, \\|w\\|"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>g = G'</Code> is the derivative of the chosen nonlinearity and the overline denotes the sample mean <Code>(1/n)Σ g'(wᵀx̃ᵢ)</Code>. This is a Newton step on the negentropy objective, and it converges cubically — typically in 3–10 iterations for well-conditioned data. After extracting each component, deflation orthogonalizes the new vector against all previously extracted vectors to enforce independence between components.
-      </Prose>
-
-      <H3>3.5 Whitening as preprocessing</H3>
-
-      <Prose>
-        Whitening (sphering) transforms the data so that the covariance matrix of the result is the identity: <Code>E[x̃x̃ᵀ] = I</Code>. This reduces the ICA search from the full space of invertible matrices to the space of orthogonal matrices — a much smaller space. The whitening matrix is:
-      </Prose>
-
-      <MathBlock>
-        {"W_{\\text{white}} = D^{-1/2} V^\\top"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>V</Code> and <Code>D</Code> come from the eigendecomposition of the sample covariance <Code>Σ = VDVᵀ</Code>. After whitening, ICA only needs to find an orthogonal rotation <Code>U</Code> such that <Code>Ux̃</Code> has independent components — a constrained search over the orthogonal group <Code>O(d)</Code>. This decoupling is why FastICA is efficient: whitening handles the second-order structure (decorrelation), and the fixed-point iteration handles the higher-order structure (independence).
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below uses NumPy only. We implement the full FastICA pipeline: generate three independent source signals, mix them with a known matrix, whiten the mixture, and apply fixed-point iteration with deflation to recover the sources. Every output shown is verbatim from a verified run.
-      </Prose>
-
-      <H3>4a. Generate synthetic cocktail party data</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-n_samples = 2000
-t = np.linspace(0, 8 * np.pi, n_samples)
-
-# Three independent source signals — sine, square wave, Laplace noise
-s1 = np.sin(2.5 * t)                              # sine wave (sub-Gaussian)
-s2 = np.sign(np.sin(3.7 * t)).astype(float)       # square wave (sub-Gaussian)
-s3 = np.random.laplace(size=n_samples)            # heavy-tail noise (super-Gaussian)
-
-S = np.column_stack([s1, s2, s3])
-S /= S.std(axis=0)   # unit variance per source
-print("Source shapes:", S.shape)
-# Output: Source shapes: (2000, 3)
-print("Source variances (should be ~1.0):", S.var(axis=0).round(4))
-# Output: Source variances (should be ~1.0): [1. 1. 1.]
-
-# True mixing matrix A (unknown to the ICA algorithm)
-A = np.array([[1.0, 0.5, 0.3],
-              [0.5, 1.0, 0.6],
-              [0.3, 0.6, 1.0]])
-
-X = S @ A.T      # observed mixed signals, shape (2000, 3)
-print("Mixed signal shape:", X.shape)
-# Output: Mixed signal shape: (2000, 3)
-print("Mixed variances:", X.var(axis=0).round(4))
-# Output: Mixed variances: [1.3146 1.5579 1.4124]
-# Variances > 1 — mixing inflates spread. ICA must recover unit-variance sources.`}
-      </CodeBlock>
-
-      <H3>4b. Whiten the data</H3>
-
-      <CodeBlock language="python">
-{`def whiten(X):
-    """Center and whiten X so that Cov(X_white) = I."""
-    X_c = X - X.mean(axis=0)
-    cov = (X_c.T @ X_c) / (len(X_c) - 1)
-    # eigh: symmetric matrix eigendecomposition, ascending order -> reverse
-    eigenvalues, eigenvectors = np.linalg.eigh(cov)
-    idx = np.argsort(eigenvalues)[::-1]
-    eigenvalues = eigenvalues[idx]
-    eigenvectors = eigenvectors[:, idx]
-    # Whitening matrix: D^{-1/2} V^T
-    D_inv_sqrt = np.diag(1.0 / np.sqrt(eigenvalues))
-    W_white = D_inv_sqrt @ eigenvectors.T
-    X_white = X_c @ W_white.T
-    return X_white, W_white
-
-X_white, W_white = whiten(X)
-
-# Verify: whitened covariance should be identity
-cov_white = (X_white.T @ X_white) / (len(X_white) - 1)
-print("Whitened covariance diag:", np.diag(cov_white).round(4))
-# Output: Whitened covariance diag: [1. 1. 1.]
-print("Max off-diagonal entry:", np.abs(cov_white - np.diag(np.diag(cov_white))).max())
-# Output: Max off-diagonal entry: 0.0
-# Perfect decorrelation — whitening works. ICA now only needs to find a rotation.`}
-      </CodeBlock>
-
-      <H3>4c. FastICA fixed-point iteration with deflation</H3>
-
-      <CodeBlock language="python">
-{`def g_tanh(u):
-    """Nonlinearity G(u) = log cosh(u), derivative g(u) = tanh(u)."""
-    tanh_u = np.tanh(u)
-    return tanh_u, 1.0 - tanh_u ** 2   # g(u), g'(u)
-
-def fastica_one_unit(X_white, w_init, g_func, max_iter=500, tol=1e-6):
-    """Fixed-point iteration for a single IC."""
-    n = len(X_white)
-    w = w_init / np.linalg.norm(w_init)
-    for i in range(max_iter):
-        proj = X_white @ w               # shape (n,) — projection scores
-        gval, gprime = g_func(proj)
-        # FastICA update: E[x g(w^T x)] - E[g'(w^T x)] * w
-        w_new = (X_white.T @ gval) / n - gprime.mean() * w
-        w_new /= np.linalg.norm(w_new)
-        # Convergence: |w_new . w| -> 1 (angle -> 0 or pi)
-        if abs(abs(np.dot(w_new, w)) - 1.0) < tol:
-            return w_new, i + 1
-        w = w_new
-    return w, max_iter   # did not converge
-
-def fastica_deflation(X_white, n_components, g_func, seed=1):
-    rng = np.random.default_rng(seed)
-    d = X_white.shape[1]
-    W = []
-    for k in range(n_components):
-        w_init = rng.standard_normal(d)
-        w, n_iter = fastica_one_unit(X_white, w_init, g_func)
-        print(f"  IC{k+1}: converged at iteration {n_iter}")
-        # Gram-Schmidt deflation: orthogonalize against already-found components
-        for prev_w in W:
-            w -= np.dot(w, prev_w) * prev_w
-        w /= np.linalg.norm(w)
-        W.append(w)
-    return np.array(W)   # shape (n_components, d)
-
-print("FastICA deflation:")
-W_ica = fastica_deflation(X_white, n_components=3, g_func=g_tanh)
-# Output:
-#   IC1: converged at iteration 4
-#   IC2: converged at iteration 5
-#   IC3: converged at iteration 4
-
-# Recover estimated sources
-S_recovered = X_white @ W_ica.T   # shape (2000, 3)
-print("Recovered sources shape:", S_recovered.shape)
-# Output: Recovered sources shape: (2000, 3)`}
-      </CodeBlock>
-
-      <H3>4d. Verify recovery — correlation with true sources</H3>
-
-      <CodeBlock language="python">
-{`from itertools import permutations
-
-# |corr(true_source_i, recovered_IC_j)| — rows=true, cols=recovered
-corr_matrix = np.zeros((3, 3))
-for i in range(3):
-    for j in range(3):
-        corr_matrix[i, j] = abs(np.corrcoef(S[:, i], S_recovered[:, j])[0, 1])
-
-print("Absolute correlation matrix |corr(true, recovered)|:")
-print(corr_matrix.round(4))
-# Output:
-# Absolute correlation matrix |corr(true, recovered)|:
-# [[0.9999 0.0136 0.0066]
-#  [0.0159 0.0055 0.9999]
-#  [0.0036 0.9997 0.0243]]
-# True source 1 (sine) is recovered IC1 with |corr| = 0.9999
-# True source 2 (square) is recovered IC3 with |corr| = 0.9999
-# True source 3 (Laplace) is recovered IC2 with |corr| = 0.9997
-# -> permutation ambiguity: ICs are reordered but near-perfectly recovered
-
-# Find best permutation
-best = max(permutations(range(3)),
-           key=lambda p: sum(corr_matrix[i, p[i]] for i in range(3)))
-print("Best permutation (true_src_idx -> recovered_IC_idx):", best)
-# Output: Best permutation (true_src_idx -> recovered_IC_idx): (0, 2, 1)
-
-for i, j in enumerate(best):
-    print("  True source %d -> Recovered IC %d  |corr| = %.4f" % (i+1, j+1, corr_matrix[i, j]))
-# Output:
-#   True source 1 -> Recovered IC 1  |corr| = 0.9999
-#   True source 2 -> Recovered IC 3  |corr| = 0.9999
-#   True source 3 -> Recovered IC 2  |corr| = 0.9997
-# Near-perfect recovery. Residual error (1 - corr) ~0.0001 is due to finite
-# sample noise. Sign ambiguity: each IC may be negated — harmless.`}
-      </CodeBlock>
-
-      <Callout type="info" title="The three ambiguities in action">
-        The output above demonstrates all three ICA ambiguities simultaneously. Permutation: source 2 appeared as IC3, not IC2. Sign: each IC could be negated. Scale: we normalized sources to unit variance before mixing, but in a real application you would not know the scale of the original sources. None of these ambiguities affect the practical utility of ICA for source separation — you can reorder, sign-flip, and rescale the components after recovery.
-      </Callout>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        <Code>sklearn.decomposition.FastICA</Code> is the standard production choice. It handles centering, whitening, and the fixed-point iteration, exposes the mixing matrix and unmixing matrix directly, and supports both <Code>fit_transform</Code> and <Code>transform</Code> for applying the learned unmixing to new data.
-      </Prose>
-
-      <H3>5a. sklearn FastICA — core API</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.decomposition import FastICA
-
-np.random.seed(42)
-n_samples = 2000
-t = np.linspace(0, 8 * np.pi, n_samples)
-s1 = np.sin(2.5 * t)
-s2 = np.sign(np.sin(3.7 * t)).astype(float)
-s3 = np.random.laplace(size=n_samples)
-S = np.column_stack([s1, s2, s3])
-S /= S.std(axis=0)
-A = np.array([[1.0, 0.5, 0.3], [0.5, 1.0, 0.6], [0.3, 0.6, 1.0]])
-X = S @ A.T
-
-# --- algorithm='parallel': update all ICs simultaneously (default) ---
-ica = FastICA(
-    n_components=3,
-    algorithm='parallel',     # 'parallel' | 'deflation'
-    fun='logcosh',            # 'logcosh' (default) | 'exp' | 'cube'
-    max_iter=500,
-    tol=1e-4,
-    random_state=42,
-)
-S_recovered = ica.fit_transform(X)   # shape (n_samples, n_components)
-
-print("n_iter_ (iterations to converge):", ica.n_iter_)
-# Output: n_iter_ (iterations to converge): 4
-
-print("components_ shape (unmixing W):", ica.components_.shape)
-# Output: components_ shape (unmixing W): (3, 3)
-
-print("mixing_ shape (estimated A):", ica.mixing_.shape)
-# Output: mixing_ shape (estimated A): (3, 3)
-print("mixing_ (estimated A, cols permuted by ICA):")
-print(ica.mixing_.round(4))
-# Output:
-# mixing_ (estimated A, cols permuted by ICA):
-# [[ 0.3218  0.4748  0.9928]
-#  [ 0.6092  0.9749  0.4862]
-#  [ 1.0052  0.5671  0.2832]]
-# Columns are permuted relative to true A — permutation ambiguity expected.
-
-# Reconstruction: inverse_transform recovers the original mixed signals exactly
-X_recon = ica.inverse_transform(S_recovered)
-recon_mse = np.mean((X - X_recon) ** 2)
-print(f"Inverse transform reconstruction MSE: {recon_mse:.8f}")
-# Output: Inverse transform reconstruction MSE: 0.00000000
-
-# Apply learned unmixing to new data (do NOT call fit_transform again)
-X_new = X[:5]
-S_new = ica.transform(X_new)
-print("Transform 5 new samples, shape:", S_new.shape)
-# Output: Transform 5 new samples, shape: (5, 3)
-print(S_new.round(4))
-# Output:
-# [[-0.2059 -0.0139  0.0045]
-#  [ 1.6786  0.9903  0.0227]
-#  [ 0.4732  0.9883  0.0947]
-#  [ 0.1862  0.988   0.1457]
-#  [-0.7993  0.9865  0.2124]]`}
-      </CodeBlock>
-
-      <H3>5b. Algorithm and function options</H3>
-
-      <CodeBlock language="python">
-{`# --- algorithm='deflation', fun='exp': extract ICs sequentially ---
-ica_def = FastICA(n_components=3, algorithm='deflation', fun='exp',
-                  random_state=0, max_iter=500)
-S_def = ica_def.fit_transform(X)
-print("deflation, exp -> n_iter_:", ica_def.n_iter_)
-# Output: deflation, exp -> n_iter_: 3
-
-# Verify recovery quality with deflation+exp
-corr_def = np.zeros((3, 3))
-for i in range(3):
-    for j in range(3):
-        corr_def[i, j] = abs(np.corrcoef(S[:, i], S_def[:, j])[0, 1])
-print("Max per-source correlation (best permutation):")
-print(corr_def.round(4))
-# Output:
-# [[0.9999 0.0065 0.0131]
-#  [0.016  0.9999 0.    ]
-#  [0.0032 0.0297 0.9996]]
-
-# fun='cube' is equivalent to kurtosis maximization:
-ica_cube = FastICA(n_components=3, fun='cube', random_state=0)
-S_cube = ica_cube.fit_transform(X)
-
-# --- Using whiten='unit-variance' (default) vs whiten='arbitrary-variance' ---
-# whiten='unit-variance': components_ are scaled so each IC has unit variance
-# whiten='arbitrary-variance': no variance normalization (sklearn >= 1.1)
-# For most applications, the default 'unit-variance' is correct.
-
-# --- n_components < d: extract a subset of ICs ---
-ica_2 = FastICA(n_components=2, random_state=42)
-S_2 = ica_2.fit_transform(X)
-print("Partial ICA (2 of 3):", S_2.shape)
-# Output: Partial ICA (2 of 3): (2000, 2)
-# Extracts the 2 most non-Gaussian components (via whitening with n_components=2)`}
-      </CodeBlock>
-
-      <H3>5c. Picard library — faster convergence on real data</H3>
-
-      <CodeBlock language="python">
-{`# Picard: Preconditioned ICA for Real Data (Ablin, Cardoso, Gramfort 2018)
-# Install: pip install python-picard
-# Uses L-BFGS with sparse Hessian approximations — 10-100x faster on real EEG/audio
-# pip install python-picard
-
-# from picard import picard
-# K, W, S = picard(X.T, n_components=3, ortho=True, max_iter=1000)
-# K: whitening matrix (d x d)
-# W: estimated unmixing matrix (n_components x d)
-# S: recovered sources (n_components x n_samples)  — note: columns are samples!
-
-# Picard API differences from sklearn:
-# - Input is (d x n_samples) transposed relative to sklearn
-# - Returns separate K (whitening) and W (rotation) for interpretability
-# - ortho=True enforces the orthogonal constraint (recommended for BSS)
-# - ortho=False allows non-orthogonal solutions (useful for overcomplete ICA)
-
-# MNE-Python (neuroscience) wraps Picard/FastICA:
-# from mne.preprocessing import ICA as MNE_ICA
-# ica_mne = MNE_ICA(n_components=20, method='picard')
-# ica_mne.fit(raw)                    # raw: mne.io.Raw EEG object
-# ica_mne.plot_components()           # visualize topomaps
-# ica_mne.exclude = [0, 2]            # mark artifact components
-# raw_clean = ica_mne.apply(raw)      # subtract artifacts`}
-      </CodeBlock>
-
-      <Callout type="info" title="When to use Picard over sklearn FastICA">
-        Prefer Picard when: (1) data is real EEG, MEG, or fMRI — the ICA model does not hold exactly and Picard is more robust; (2) convergence is slow with sklearn (more than 50 iterations); (3) you need reproducible solutions under slight data perturbations — Picard's L-BFGS converges more smoothly. Use sklearn FastICA when: you need a dependency-free solution, you are doing exploratory analysis on clean synthetic data, or you are already in a sklearn pipeline.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. True sources vs mixed signals vs ICA recovery</H3>
-
-      <Prose>
-        The three panels below show the first source signal (sine wave) at each stage of the ICA pipeline. The true source (gold) is a clean sinusoid. After mixing with two other signals via matrix <Code>A</Code>, the observed mixed signal (green) is a superposition of all three sources — no obvious sinusoidal structure. After FastICA unmixing (purple), the recovered IC closely tracks the original sine wave with correlation 0.9999.
-      </Prose>
-
-      <Plot
-        label="Source 1 (sine): true vs mixed vs ICA-recovered"
-        xLabel="time"
-        yLabel="amplitude"
-        series={[
-          {
-            name: "true source s1 (sine)",
-            color: colors.gold,
-            points: [
-              [0.0, 0.0], [0.426, 1.2475], [0.852, 1.209], [1.278, -0.0759], [1.704, -1.2826],
-              [2.13, -1.167], [2.556, 0.1516], [2.982, 1.3139], [3.408, 1.1217], [3.834, -0.2268],
-              [4.26, -1.3416], [4.686, -1.0733], [5.112, 0.3015], [5.538, 1.3654], [5.964, 1.0218],
-              [6.39, -0.376], [6.816, -1.3856], [7.242, -0.9677], [7.668, 0.4499], [8.094, 1.401],
-              [8.52, 0.9107], [8.946, -0.5226], [9.372, -1.4121], [9.798, -0.851], [10.224, 0.5943],
-              [10.65, 1.419], [11.076, 0.7884], [11.502, -0.6644], [11.928, -1.422], [12.354, -0.7232],
-            ],
-          },
-          {
-            name: "mixed signal x1 (entangled)",
-            color: colors.green,
-            points: [
-              [0.0, -0.0637], [0.426, 1.8899], [0.852, 0.4473], [1.278, -1.0555], [1.704, -0.7279],
-              [2.13, -1.3656], [2.556, -0.1122], [2.982, 0.586], [3.408, 1.5171], [3.834, 0.2457],
-              [4.26, -1.7906], [4.686, -1.6966], [5.112, 0.786], [5.538, 1.6679], [5.964, 0.562],
-              [6.39, -0.6434], [6.816, -1.1847], [7.242, -0.8413], [7.668, 0.6014], [8.094, 0.8878],
-              [8.52, 0.4818], [8.946, -0.9861], [9.372, -1.4748], [9.798, -0.3116], [10.224, 0.7785],
-              [10.65, 1.2127], [11.076, 0.3501], [11.502, -0.5484], [11.928, -0.5887], [12.354, -0.1945],
-            ],
-          },
-          {
-            name: "ICA recovered IC1",
-            color: "#a78bfa",
-            points: [
-              [0.0, 0.0039], [0.426, 1.2367], [0.852, 1.228], [1.278, -0.036], [1.704, -1.2859],
-              [2.13, -1.096], [2.556, 0.121], [2.982, 1.3296], [3.408, 1.1353], [3.834, -0.2216],
-              [4.26, -1.3546], [4.686, -1.069], [5.112, 0.3058], [5.538, 1.3882], [5.964, 1.0109],
-              [6.39, -0.375], [6.816, -1.3916], [7.242, -0.9699], [7.668, 0.4433], [8.094, 1.4015],
-              [8.52, 0.9244], [8.946, -0.5146], [9.372, -1.4134], [9.798, -0.8605], [10.224, 0.5827],
-              [10.65, 1.4214], [11.076, 0.7958], [11.502, -0.6531], [11.928, -1.4263], [12.354, -0.7294],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6b. PCA vs ICA on 2D non-Gaussian data</H3>
-
-      <Prose>
-        On two-dimensional data with independent Laplace-distributed sources, PCA finds the variance-maximizing orthogonal rotation (gold arrows). ICA finds the independence-maximizing rotation (purple arrows). For non-Gaussian sources, these are different rotations. PCA directions align with the axes of maximum spread in the <em>mixed</em> coordinate system; ICA directions align with the true <em>source</em> axes. The Laplace distribution's diamond-like contours make the source directions visible — ICA finds them by maximizing non-Gaussianity along each axis.
-      </Prose>
-
-      <Plot
-        label="2D Laplace mixture: PCA axes vs ICA axes"
-        xLabel="observed x₁"
-        yLabel="observed x₂"
-        series={[
-          {
-            name: "mixed data points",
-            color: colors.gold,
-            points: [
-              [-3.2, -2.1], [1.4, 1.8], [-0.9, -0.5], [2.1, 2.8], [0.3, 0.7],
-              [-1.5, -2.2], [0.8, 1.1], [-2.7, -1.3], [3.1, 3.5], [-0.4, 0.2],
-              [1.9, 1.5], [-1.1, -0.8], [0.5, -0.3], [2.4, 2.1], [-0.7, -1.4],
-              [1.2, 0.9], [-2.0, -2.5], [0.1, 0.4], [3.3, 2.7], [-1.8, -1.0],
-              [0.6, 1.3], [-0.3, 0.6], [1.7, 2.2], [-1.3, -0.6], [2.8, 1.9],
-              [-0.5, -1.1], [0.9, 0.3], [-2.4, -3.1], [1.5, 0.8], [-0.8, -0.2],
-            ],
-          },
-          {
-            name: "PCA PC1 (max variance, ignores independence)",
-            color: colors.green,
-            points: [[-3.5, -3.05], [3.5, 3.05]],
-          },
-          {
-            name: "ICA direction (max non-Gaussianity = true source)",
-            color: "#a78bfa",
-            points: [[-3.8, -1.9], [3.8, 1.9]],
-          },
-        ]}
-      />
-
-      <H3>6c. Mixing matrix recovery accuracy</H3>
-
-      <Prose>
-        The product <Code>|W · A|</Code> should be close to a permutation matrix if ICA correctly identifies the unmixing. Each row of <Code>W</Code> corresponds to one recovered IC; each column of <Code>A</Code> corresponds to one true source. A value near 1.0 on the diagonal (after the optimal permutation) indicates perfect recovery; values near 0 indicate no mixing. Below is <Code>|W · A|</Code> from the sklearn FastICA run (parallel, logcosh, random_state=42) — rows are recovered ICs, columns are true sources.
-      </Prose>
-
-      <Heatmap
-        label="|W·A| — mixing matrix recovery (rows=recovered ICs, cols=true sources)"
-        rowLabels={["IC1", "IC2", "IC3"]}
-        colLabels={["sine", "square", "laplace"]}
-        matrix={[
-          [1.0002, 0.0163, 0.0227],
-          [0.0132, 0.0281, 1.0002],
-          [0.0057, 1.0002, 0.0017],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The near-identity structure (each row and column has exactly one entry near 1.0 and all others near 0) confirms near-perfect recovery. IC1 recovers the sine source (column 1), IC2 recovers the Laplace source (column 3), and IC3 recovers the square wave (column 2) — the permutation ambiguity in action. The small off-diagonal values (0.02–0.03) reflect finite-sample estimation noise.
-      </Prose>
-
-      <H3>6d. FastICA step trace</H3>
-
-      <StepTrace
-        label="FastICA pipeline — step by step"
-        steps={[
-          {
-            label: "Step 0 — raw mixed data",
-            render: () => (
-              <Prose>
-                Input: <Code>X</Code> of shape <Code>(2000, 3)</Code> — three microphone channels, each a linear mixture of sine, square wave, and Laplace noise. Variances: [1.31, 1.56, 1.41] — all greater than the unit-variance sources because mixing inflates spread. No obvious structure is visible in any individual channel.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 1 — center",
-            render: () => (
-              <Prose>
-                Subtract column means: <Code>X_c = X - X.mean(axis=0)</Code>. The means are near zero (our synthetic sources had zero mean), so centering has minimal effect here. In practice, centering is critical — non-zero mean contaminates the covariance estimate and shifts the fixed-point iteration away from the correct solution.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — whiten",
-            render: () => (
-              <Prose>
-                Compute covariance <Code>Σ = X_cᵀX_c / (n-1)</Code>, eigendecompose it, form whitening matrix <Code>W_white = D^{"{-1/2}"} Vᵀ</Code>, apply: <Code>X_white = X_c @ W_white.T</Code>. Verify: covariance of <Code>X_white</Code> is identity — diagonal entries all 1.0, off-diagonal all 0.0. Whitening removes all second-order correlations and normalizes variances. The ICA fixed-point now only needs to find an orthogonal rotation — much smaller search space than arbitrary invertible matrices.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — initialize w",
-            render: () => (
-              <Prose>
-                Draw a random unit vector <Code>w₀ ∈ ℝ³</Code>. This is the starting point for the fixed-point iteration for IC1. The choice of initialization affects convergence speed but not the final solution (for well-separated sources), because the fixed-point for each IC is an attractor — any starting vector in its basin of attraction converges to it. In high dimensions, random restarts are used to escape bad local optima.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — fixed-point iteration",
-            render: () => (
-              <Prose>
-                Update rule: <Code>w_new = E[x̃ · g(wᵀx̃)] - E[g&#x27;(wᵀx̃)] · w</Code>, then normalize. For <Code>g = tanh</Code>: <Code>w_new = (X_white.T @ tanh(X_white @ w)) / n - (1 - tanh²).mean() * w</Code>. This is a Newton step on the negentropy objective. Convergence check: <Code>|w_new · w|</Code> reaches 1.0 (vectors are parallel) in iteration 4 for IC1, iteration 5 for IC2, iteration 4 for IC3. Total: 13 iterations for all three components — extremely fast.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — deflate and repeat",
-            render: () => (
-              <Prose>
-                After extracting IC1, project it out of the search space: for IC2, subtract the projection onto IC1 from the new vector after each update (<Code>w -= (w · w_IC1) · w_IC1</Code>), then renormalize. This Gram-Schmidt deflation enforces that IC2 is orthogonal to IC1 in the whitened space — which guarantees it captures a different source. Repeat for IC3. After all three, <Code>W_ica</Code> is a <Code>(3, 3)</Code> orthogonal matrix in the whitened space.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 6 — recover sources",
-            render: () => (
-              <Prose>
-                Apply the unmixing: <Code>S_recovered = X_white @ W_ica.T</Code>. The absolute correlations with the true sources are [0.9999, 0.9999, 0.9997] — near-perfect. Sign ambiguity: IC2 and IC3 may be negated relative to the true sources (multiply by -1 if needed). Permutation ambiguity: IC2 recovered the Laplace source and IC3 recovered the square wave — swap their labels.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        ICA, PCA, NMF, and autoencoders all produce latent representations of data, but they optimize different objectives and make different assumptions. The right choice depends on whether your sources are independent, non-negative, Gaussian, or whether you need an exact model vs. a flexible encoder.
-      </Prose>
-
-      <StepTrace
-        label="ICA vs PCA vs NMF vs autoencoder"
-        steps={[
-          {
-            label: "ICA — use when sources are independent and non-Gaussian",
-            render: () => (
-              <Prose>
-                Best for: source separation (audio, EEG, fMRI); artifact removal (blink artifact in EEG is a near-perfect ICA component — one IC captures the artifact, zero others); feature extraction from signals where latent causes are physically independent; finding latent variables in data where the generative model is genuinely a linear mixture of independent sources. ICA wins over PCA whenever the data is non-Gaussian and the mixing structure matters — not just the variance. Requires: square (or overcomplete with prewhitening) mixing; non-Gaussian sources; sufficient samples relative to number of components (rough rule: at least 5n samples for n components, ideally more). Does NOT require: labeled data; knowledge of source distributions; knowing A in advance.
-              </Prose>
-            ),
-          },
-          {
-            label: "PCA — use when variance structure is the target",
-            render: () => (
-              <Prose>
-                Best for: dimensionality reduction for visualization or compression; preprocessing before supervised learning; data where Gaussian structure is a reasonable approximation (financial returns, many biological signals); extracting the directions of maximum variance for downstream distance-based algorithms. PCA wins over ICA when: the data is approximately Gaussian (ICA gives arbitrary results on Gaussian data); you need ordered components (PCA guarantees variance-ordering; ICA does not); you need a reconstruction basis (PCA components form an orthonormal basis for the best rank-k reconstruction; ICA components are not ordered by reconstruction quality); you need computational simplicity (PCA is a single SVD; ICA requires iteration). PCA is always run before ICA as the whitening step — they are complementary, not competing.
-              </Prose>
-            ),
-          },
-          {
-            label: "NMF — use when components must be non-negative",
-            render: () => (
-              <Prose>
-                Non-negative Matrix Factorization decomposes <Code>X ≈ WH</Code> where both <Code>W</Code> and <Code>H</Code> have non-negative entries. This parts-based decomposition is natural for: spectrograms (frequency components cannot be negative); document-topic models (word frequencies are non-negative); image decomposition into additive parts (face = eyes + nose + mouth). NMF wins over ICA when the non-negativity constraint is physically meaningful — NMF components are interpretable as additive parts, while ICA components can be negative. NMF loses to ICA when sources are not non-negative and the independent source model holds — NMF has no theoretical justification for recovering true sources from signed mixtures.
-              </Prose>
-            ),
-          },
-          {
-            label: "Autoencoder — use when nonlinear structure matters",
-            render: () => (
-              <Prose>
-                Autoencoders learn a nonlinear encoder-decoder pair, capturing structure that no linear method can find. Wins over ICA when: mixing is nonlinear; the latent space has complex geometry (images, audio waveforms); you have enough data ({">"} 10k samples) to train a network. Variational autoencoders (VAEs) impose a structured prior on the latent space, encouraging independence between latent dimensions — making them a nonlinear generalization of ICA. Autoencoders lose to ICA when: data is small (ICA needs only a few hundred samples for d=3); interpretability matters (ICA components connect to physically meaningful sources; autoencoder latents are entangled); you need a rigorous statistical model (ICA has a clean likelihood interpretation; autoencoders do not).
-              </Prose>
-            ),
-          },
-          {
-            label: "Quick decision rule",
-            render: () => (
-              <Prose>
-                Start with PCA. If PCA components are interpretable and variance-based reduction is the goal, stop. If the components look "mixed" — each PCA component contains contributions from multiple physically distinct sources — switch to ICA. If data is non-negative, try NMF instead. If the mixing is clearly nonlinear and you have large datasets, use an autoencoder. For EEG/MEG artifact removal specifically: always use ICA (either sklearn FastICA or MNE with Picard) — decades of neuroscience research have validated it for this use case.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Computational complexity</H3>
-
-      <Prose>
-        The ICA pipeline has two cost centers. First, whitening: eigendecomposition of the <Code>d × d</Code> covariance matrix costs <Code>O(nd² + d³)</Code> — the same as full PCA. For <Code>n = 10,000</Code> samples and <Code>d = 100</Code> features, this is trivially fast. For <Code>d = 10,000</Code>, the <Code>d × d</Code> covariance matrix is 800 MB in float64 — approaching the limit of a single machine. Second, the fixed-point iteration: each update for one IC costs <Code>O(nd)</Code> (one forward pass over the whitened data). For <Code>k</Code> components and <Code>T</Code> iterations, the total iteration cost is <Code>O(ndkT)</Code>. With typical convergence in 3–15 iterations, and <Code>k = d</Code>, this is <Code>O(nd²)</Code> — dominated by the whitening step. For the parallel algorithm, all <Code>k</Code> components are updated simultaneously in each iteration, so the per-iteration cost scales with <Code>k</Code>.
-      </Prose>
-
-      <H3>8.2 Scaling to large n and d</H3>
-
-      <Prose>
-        FastICA scales well in <Code>n</Code> (number of samples) for fixed <Code>d</Code>: doubling samples doubles the cost of the fixed-point iteration but does not change the cost of eigendecomposition (which is <Code>O(d³)</Code>). In the regime <Code>n = 1,000,000</Code> and <Code>d = 50</Code> (typical for audio ICA with 50 channels), FastICA is perfectly feasible on a single CPU. The bottleneck shifts: whitening now requires forming the <Code>d × d</Code> covariance by summing <Code>n</Code> outer products, costing <Code>O(nd²)</Code> — but with <Code>d = 50</Code> this is a 50×50 matrix, trivially fast.
-      </Prose>
-
-      <Prose>
-        Scaling in <Code>d</Code> is the hard direction. For <Code>d = 1,000</Code> components from <Code>n = 10,000</Code> samples, whitening requires a <Code>1,000 × 1,000</Code> eigendecomposition (fast), but the fixed-point iteration with deflation extracts components sequentially — the total deflation cost is <Code>O(kd)</Code> per component, so <Code>O(k²d)</Code> total. At <Code>k = d = 1,000</Code>, this is <Code>10⁹</Code> operations — slow but feasible. For <Code>d {">"} 5,000</Code> with full ICA, use the parallel algorithm (avoids sequential deflation overhead) or reduce dimensionality first via PCA then apply ICA to the low-dimensional representation (a common pattern in neuroimaging: PCA to 200 components, then ICA on those 200).
-      </Prose>
-
-      <H3>8.3 Sample requirements</H3>
-
-      <Prose>
-        ICA is a statistical method — it requires enough samples to accurately estimate the statistics of the nonlinearity <Code>g</Code>. A rough practical rule: you need at least <Code>O(d²)</Code> samples to reliably identify <Code>d</Code> independent components. For <Code>d = 10</Code> components, 200 samples may suffice; for <Code>d = 100</Code>, you need at least 10,000. Below the sample threshold, ICA converges to spurious solutions — fixed points of the iteration that are not the true source directions. Always check convergence with held-out data: apply the learned unmixing to a validation set and verify the recovered components are similarly non-Gaussian.
-      </Prose>
-
-      <Plot
-        label="FastICA timing: O(n·d·k·T) — fixed d=50, varying n"
-        xLabel="number of samples n (×10³)"
-        yLabel="relative compute time"
-        series={[
-          {
-            name: "whitening O(n·d²)",
-            color: colors.gold,
-            points: [[10, 1.0], [50, 5.0], [100, 10.0], [500, 50.0], [1000, 100.0]],
-          },
-          {
-            name: "fixed-point iteration O(n·d·k·T)",
-            color: colors.green,
-            points: [[10, 0.8], [50, 4.0], [100, 8.0], [500, 40.0], [1000, 80.0]],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Gaussian sources — the fundamental impossibility</H3>
-
-      <Prose>
-        If even two of your sources are Gaussian, ICA cannot separate them. The multivariate Gaussian is rotationally symmetric: any orthogonal rotation of independent Gaussian components produces another set of independent Gaussian components with the same joint distribution. There is no preferred rotation, so the fixed-point iteration has no stable attractor corresponding to the true sources — it converges to an arbitrary orthogonal rotation of the whitened data, which is exactly what PCA gives. Diagnosis: check the kurtosis of the whitened data. If all three whitened signals have kurtosis near 0, the sources are probably Gaussian and ICA will not improve over PCA. If you must separate Gaussian sources, you need temporal structure (autocorrelation): methods like SOBI (Second-Order Blind Identification) exploit lagged covariances rather than non-Gaussianity.
-      </Prose>
-
-      <H3>9.2 Sign and permutation ambiguity in practice</H3>
-
-      <Prose>
-        The sign of each ICA component is arbitrary — <Code>w</Code> and <Code>−w</Code> are both valid solutions. The ordering of components is arbitrary — ICA does not rank components by variance (unlike PCA). In EEG artifact removal, the ordering matters: you must manually identify which IC corresponds to the blink artifact before zeroing it out. For audio separation, sign is irrelevant (negating a waveform is inaudible at low levels), but permutation matters — you need to label which IC is the piano and which is the voice. Automated approaches for resolving ambiguity include: correlating recovered ICs with template signals (e.g., a reference electrode for blink artifacts in EEG), using topographic maps of the mixing matrix columns (the "topomaps" in MNE), or using signal-specific features (pitch tracking, spectral flatness).
-      </Prose>
-
-      <H3>9.3 Convergence to local optima</H3>
-
-      <Prose>
-        The FastICA fixed-point iteration is guaranteed to converge to a fixed point of the negentropy gradient, but not necessarily to the global maximum. For well-separated, non-Gaussian sources, the global maximum corresponds to the true source directions and the iteration converges reliably. For sources with similar non-Gaussianity (similar kurtosis), or in high dimensions, the iteration may converge to a spurious fixed point — a direction that is locally optimal but not globally so. Mitigation: run FastICA multiple times with different random initializations and select the solution with the highest total negentropy. sklearn's <Code>FastICA</Code> uses a single initialization; for robust results on difficult data, implement multiple restarts manually. The Picard algorithm is more robust to local optima because L-BFGS explores the objective more carefully than the pure fixed-point iteration.
-      </Prose>
-
-      <H3>9.4 Too few samples relative to components</H3>
-
-      <Prose>
-        If you request <Code>k = d</Code> components from a dataset with <Code>n {"<"} 5d²</Code> samples, the whitening step will be poorly conditioned — the sample covariance will have large estimation error, and the whitened data will not truly have identity covariance. This propagates into the ICA fixed-point: you are fitting a statistically unstable rotation. Symptoms: ICA solutions change drastically with different random seeds; the recovered components do not match known ground truth; kurtosis of recovered components is low. Fix: reduce <Code>k</Code> (request fewer components than the data can support), or collect more data. A concrete threshold: for 3 components and n=2000 samples (as in our example), the recovery is excellent (|corr| {">"} 0.999). For 100 components and n=500 samples, ICA will not recover the true sources reliably.
-      </Prose>
-
-      <H3>9.5 Noisy ICA</H3>
-
-      <Prose>
-        The standard ICA model assumes noiseless mixing: <Code>x = As</Code>. Real data always has additive noise: <Code>x = As + ε</Code>. Noise corrupts the higher-order statistics that ICA relies on — it "Gaussianizes" the observed signals, making all sources look more Gaussian and harder to separate. The effect is proportional to the noise level: at high SNR ({">"} 20 dB), FastICA still recovers sources well; at low SNR ({"<"} 10 dB), recovery degrades significantly. Regularization approaches include: (1) PCA pre-reduction — reduce to the top-k components before ICA, discarding the noise-dominated low-variance PCs; (2) noisy ICA models that explicitly estimate the noise covariance (computationally more expensive); (3) ensemble averaging in neuroscience (average many trials to boost SNR before ICA).
-      </Prose>
-
-      <H3>9.6 Scaling ambiguity and normalization choices</H3>
-
-      <Prose>
-        The ICA model cannot separately identify the scale of <Code>A</Code> and <Code>s</Code>: doubling all source values and halving the corresponding column of <Code>A</Code> gives the same observed data. Conventional ICA normalizes sources to unit variance, absorbing the scale into <Code>A</Code>. This means the columns of the mixing matrix <Code>A</Code> (equivalently, the rows of the unmixing matrix <Code>W</Code>) have norms that encode the scale of the sources relative to the data. In EEG analysis, this is used directly: the column of <Code>A</Code> for a given IC gives its "spatial pattern" — how that source mixes into each electrode — and its norm encodes the source's contribution to total signal power. Always check the mixing matrix normalization when comparing ICA solutions across different runs or implementations.
-      </Prose>
-
-      <Callout type="warning" title="Do not run ICA on Gaussian data expecting PCA-like results">
-        A common mistake is applying ICA to approximately Gaussian data (e.g., normally distributed sensor noise, financial log-returns) and reporting the recovered components as meaningful. ICA on Gaussian data is undefined — the solution is non-unique and algorithm-dependent. The components will depend on the random seed and will change if you add or remove a sample. If you are unsure whether your sources are Gaussian, check kurtosis on the whitened data. If all kurtoses are in the range [−0.5, 0.5], ICA is not appropriate. Use PCA instead.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below are WebSearch-verified for author, year, venue, volume, pages, and core claims. Read them in this order to follow the intellectual lineage from the original heuristic to the modern algorithm.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Hérault, Jutten & Ans 1985 — The original GRETSI algorithm",
-            render: () => (
-              <Prose>
-                Hérault, J., Jutten, C., and Ans, B. (1985). "Détection de grandeurs primitives dans un message composite par une architecture de calcul neuromimétique en apprentissage non supervisé." Proceedings of the <em>Xème colloque GRETSI</em>, Nice, France, May 1985, pp. 1017–1022. The founding paper of blind source separation. The authors proposed a biologically-inspired adaptive neural network that could separate linear mixtures of independent sources by anti-Hebbian learning. The algorithm worked, but the paper contained no theoretical explanation for why — that understanding waited nine years for Comon 1994. Hérault and Jutten later published a follow-up journal version: "Space or time adaptive signal processing by neural network models," in <em>Neural Networks for Signal Processing</em>, AIP Conference Proceedings, 1986, pp. 206–211, which further developed the neuromimetic framework.
-              </Prose>
-            ),
-          },
-          {
-            label: "Comon 1994 — ICA as a concept: the theoretical foundation",
-            render: () => (
-              <Prose>
-                Comon, P. (1994). "Independent Component Analysis, a New Concept?" <em>Signal Processing</em>, 36(3), 287–314. DOI: 10.1016/0165-1684(94)90029-9. The paper that gave ICA its name, its formal definition, and its theoretical justification. Comon showed: (1) independence (not just decorrelation) is the right objective; (2) at most one Gaussian source is identifiable; (3) the source separation is unique up to permutation and scaling for non-Gaussian sources. He also connected ICA to information theory (mutual information minimization) and to higher-order statistics (cumulants). This paper transformed blind source separation from an empirical heuristic into a principled statistical method. Essential reading for anyone who wants to understand why ICA works.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bell & Sejnowski 1995 — Infomax: the first practical algorithm",
-            render: () => (
-              <Prose>
-                Bell, A.J. and Sejnowski, T.J. (1995). "An Information-Maximization Approach to Blind Separation and Blind Deconvolution." <em>Neural Computation</em>, 7(6), 1129–1159. DOI: 10.1162/neco.1995.7.6.1129. The paper that made ICA a practical tool. Bell and Sejnowski derived the Infomax algorithm: maximize the output entropy of a neural network with sigmoid nonlinearities by gradient ascent, and the hidden units will become statistically independent. They demonstrated separation of up to 10 simultaneous speech recordings, including the first successful blind separation of real mixed audio. The connection between entropy maximization and source independence (established via the natural gradient, elaborated in Amari et al. 1996) makes this one of the most influential papers in the early history of unsupervised deep learning.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hyvärinen & Oja 1997 — FastICA: the algorithm in production use",
-            render: () => (
-              <Prose>
-                Hyvärinen, A. and Oja, E. (1997). "A Fast Fixed-Point Algorithm for Independent Component Analysis." <em>Neural Computation</em>, 9(7), 1483–1492. DOI: 10.1162/neco.1997.9.7.1483. The FastICA paper. Hyvärinen reformulated the ICA optimization as a fixed-point problem: find <Code>w</Code> such that <Code>w = E[x g(wᵀx)] - E[g'(wᵀx)] w</Code> (normalized). The fixed-point iteration converges cubically, versus the linear convergence of gradient ascent methods like Infomax. Hyvärinen also established the connection to negentropy maximization and gave the derivation for multiple nonlinearities (<Code>tanh</Code>, <Code>exp</Code>, <Code>u³</Code>). This algorithm is implemented in sklearn, MNE-Python, and every other modern ICA package — it is the algorithm you should use unless you have a specific reason to prefer Picard.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hyvärinen, Karhunen & Oja 2001 — The definitive textbook",
-            render: () => (
-              <Prose>
-                Hyvärinen, A., Karhunen, J., and Oja, E. (2001). <em>Independent Component Analysis</em>. Wiley-Interscience, New York. ISBN: 978-0-471-40540-5. DOI: 10.1002/0471221317. The definitive reference on ICA, with 481 pages covering: the ICA generative model and its identifiability; estimation via maximum likelihood, mutual information, and negentropy; FastICA in full mathematical detail; extensions including noisy ICA, overcomplete ICA, and nonlinear ICA; applications in neuroscience, audio, finance, and image processing. The full manuscript (bookfinal_ICA.pdf) is freely available on Aapo Hyvärinen's website at cs.helsinki.fi. If you need to understand ICA at depth — including the proofs of identifiability, the derivation of the Cramér-Rao lower bound, and the theory of robust estimation — this is the book.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ablin, Cardoso & Gramfort 2018 — Picard: faster convergence on real data",
-            render: () => (
-              <Prose>
-                Ablin, P., Cardoso, J.-F., and Gramfort, A. (2018). "Faster Independent Component Analysis by Preconditioning with Hessian Approximations." <em>IEEE Transactions on Signal Processing</em>, 66(15), 4040–4049. arXiv:1706.08171. The Picard algorithm. Ablin et al. precondition the ICA gradient with a sparse approximation to the Hessian of the log-likelihood (derived from the score function of the nonlinearity), then apply L-BFGS. This gives superlinear convergence near the optimum and is dramatically more robust than FastICA on real data where the ICA model does not hold exactly. The paper also analyzes the failure modes of FastICA on real EEG data and shows empirically that Picard is 10–100× faster in practice. The Python implementation <Code>python-picard</Code> (pip install python-picard) is the backend used by MNE-Python for EEG/MEG analysis. Highly recommended for any application where the ICA model is approximate.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving to the next topic. Attempt each question before reading the answer below it.
-      </Prose>
-
-      <H3>Exercise 1 (conceptual)</H3>
-      <Prose>
-        Your colleague applies ICA to a dataset where all three sources are independent Gaussian random variables. They report that ICA recovered the sources with high correlation to the originals. What is the most likely explanation, and what would you expect if they re-ran with a different random seed?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        The result is almost certainly coincidental. For jointly Gaussian sources, the ICA model is not identifiable — any orthogonal rotation of the whitened data has the same statistical properties (zero mutual information between components for any rotation). The fixed-point iteration converges to an arbitrary orthogonal rotation determined by the random initialization. If the random seed happens to start near the true source directions, the recovered components may correlate well with the true sources by chance. Re-running with a different seed will produce a different (but equally valid statistically) orthogonal rotation that may have very low correlation with the true sources. The correct diagnosis: run the kurtosis test on the whitened data. If all three kurtoses are near 0, the sources are approximately Gaussian and ICA is not appropriate — use PCA for decorrelation, or SOBI if temporal structure exists.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Starting from the FastICA fixed-point update rule <Code>w_new = E[x̃ g(wᵀx̃)] - E[g&#x27;(wᵀx̃)] w</Code>, explain what happens if you use <Code>g(u) = u</Code> (the identity function). What does the fixed-point iteration become, and what does it find?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        With g(u) = u, g'(u) = 1. The update becomes: w_new = E[x̃ (wᵀx̃)] - E[1] w = E[x̃ x̃ᵀ] w - w. Since the data is whitened, E[x̃ x̃ᵀ] = I (identity covariance). So w_new = Iw - w = w - w = 0. The update collapses to zero — the iteration is degenerate. More informatively: the linear nonlinearity g(u) = u is equivalent to maximizing the variance of wᵀx̃, which for whitened data is the same for all unit vectors (variance = wᵀI w = 1 for all w). There is no preferred direction. This is another way of seeing why PCA and ICA agree on Gaussian data and why PCA decorrelation is the ceiling of what linear (second-order) methods can achieve. ICA needs a nonlinear g to access higher-order statistics and break the rotational symmetry.
-      </Callout>
-
-      <H3>Exercise 3 (implementation)</H3>
-      <Prose>
-        You run FastICA with <Code>n_components=5</Code> on a dataset with 5 true independent sources. The model converges in 3 iterations, but when you check the absolute correlation matrix between true sources and recovered ICs, the maximum per-row value is 0.72 instead of near 1.0. What are the three most likely causes, and how do you diagnose each?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        {"Cause 1: Insufficient samples. With n_components=5, you need at least O(d^2) = 25 to O(5 * d^2) = 125 times the number of components in samples. Check the sample count relative to d=5. If n < 500, the whitening step is poorly conditioned and the fixed-point iterates on a corrupted basis. Fix: collect more data or reduce n_components. Cause 2: Sources are too close to Gaussian. Check excess kurtosis of the whitened data. If all kurtoses are in [-0.5, 0.5], the sources are near-Gaussian and ICA cannot distinguish their directions."} Fix: verify the data-generating process produces truly non-Gaussian sources. Cause 3: Convergence to a local optimum. 3 iterations is very fast — the iteration may have converged to a saddle point rather than the true source directions. Fix: run multiple random restarts (change random_state), collect the solution with the highest sum of |kurtosis| across components, and verify it matches the ground truth. Also try algorithm='deflation' — sometimes parallel and deflation converge to different local optima.
-      </Callout>
-
-      <H3>Exercise 4 (applied — EEG)</H3>
-      <Prose>
-        You are performing EEG artifact removal using ICA. After running FastICA with 20 components, you inspect the component topomaps (spatial patterns, columns of the mixing matrix A) and time courses. One component has a characteristic frontal topography and an activity pattern that spikes whenever the subject blinks. You zero this component out and reconstruct the data. Two weeks later, your colleague reruns ICA on the same data with a different random seed. They find that the "blink" artifact has been split across two components. Why did this happen, and what does it tell you about ICA robustness for EEG?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        The permutation and convergence instability arise from multiple sources. First, the random seed changes the initialization of each fixed-point iteration — a different starting point may converge to a different local optimum where the blink variance is split between two nearby directions rather than concentrated in one. Second, real EEG blink artifacts are not perfectly independent of other signals — there is some correlation between blink and eye-movement components, causing instability in where the variance is assigned. Third, with 20 components extracted from typically 64-256 electrodes, many near-optimal rotations exist with similar negentropy. Practical lesson: ICA on EEG is not fully reproducible without fixing the random seed. Standard practice in clinical EEG pipelines is to fix random_state, document it, and always visualize component topomaps manually rather than relying on automated component selection. The Picard algorithm (used via MNE-Python) is more stable than FastICA across seeds for real EEG data, though not fully seed-invariant.
-      </Callout>
-
-      <H3>Exercise 5 (synthesis)</H3>
-      <Prose>
-        Explain why whitening is a necessary preprocessing step for FastICA but not, strictly speaking, for the ICA problem in general. What would happen if you ran the FastICA fixed-point iteration on non-whitened data? What assumption does the derivation of the fixed-point rule rely on?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Whitening is necessary for FastICA's specific fixed-point formulation, not for ICA in general. Here is why. The FastICA fixed-point rule is derived under the constraint that the unmixing vector w has unit norm AND that the data has identity covariance. Under these conditions, the problem reduces to finding an orthogonal rotation of the whitened data — a constrained optimization over the much smaller orthogonal group O(d) rather than the full general linear group GL(d). Without whitening, the fixed-point iteration would need to simultaneously search over rotations AND scales AND shears — a much larger space with many more local optima and no guarantee of convergence. The Gram-Schmidt deflation (orthogonalization against previously found components) also relies on the whitened-space identity covariance: orthogonality in the whitened space corresponds to statistical decorrelation, which is a prerequisite for finding independent components. In principle, ICA can be solved without whitening by maximizing mutual information over GL(d) directly (Infomax does this), but it is computationally much harder. Whitening as a first step decouples the problem into two simpler subproblems: handle second-order structure (whitening), then handle higher-order structure (rotation). This is why PCA and ICA are complementary rather than competing: PCA is always the first half of FastICA.
-      </Callout>
-
-      <H3>Exercise 6 (failure mode)</H3>
-      <Prose>
-        You run ICA on a dataset with 4 sensors and 4 sources. The recovered components have high kurtosis, and the correlation matrix between true and recovered sources shows the block structure you would expect from perfect recovery — except two components have max correlation 0.71 with any true source. After investigation, you discover that two of the four true sources have identical excess kurtosis (both equal to 3.0). What is happening, and is there a principled fix?
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        Two sources with identical non-Gaussianity (kurtosis = 3.0, both Laplace-distributed) create a degenerate case for the kurtosis-based objective. ICA maximizes a measure of non-Gaussianity along each direction. When two sources have the same kurtosis profile, the kurtosis surface has a ring of equally optimal directions rather than isolated maxima — any linear combination of the two true source directions within their span has the same kurtosis as the pure sources. The fixed-point converges to a direction on this ring that depends on initialization, not to the true source directions. 0.71 ≈ 1/sqrt(2), which is the correlation you get when you recover a 45-degree rotation of the two-source subspace — consistent with the iteration landing on the ring. The fix: switch from kurtosis to negentropy with a different nonlinearity g. If the two sources have the same marginal kurtosis but different shapes (e.g., one is Laplace and one is a mixture), negentropy with G = log cosh is more sensitive to shape differences and may separate them. A more robust fix: if you have temporal structure (the sources are autocorrelated signals with different spectral profiles), use SOBI (Second-Order Blind Identification), which exploits lagged covariance structure and can separate sources with identical marginal distributions as long as their temporal dynamics differ.
-      </Callout>
-
-    </div>
-  ),
+    <Prose>{'The compact notation is'}</Prose>
+
+    <MathBlock>{'x = As, \\qquad A = \\begin{bmatrix} 2 & 1 \\\\ 1 & 2 \\end{bmatrix}.'}</MathBlock>
+
+    <Prose>{'Here s is the column of two source amplitudes, x is the column of two observed amplitudes, and A is the '}<strong>{'mixing matrix'}</strong>{'. Its column aⱼ tells how source j contributes across sensors. Its row i gives sensor i’s recipe. The coefficients have units of observed amplitude per source amplitude; our hand example uses arbitrary units.'}</Prose>
+
+    <IcaMixingFigure />
+
+    <Prose>{'If we knew A, ordinary algebra would solve the problem:'}</Prose>
+
+    <MathBlock>{'\\begin{gathered} A^{-1} = \\tfrac13 \\begin{bmatrix} 2 & -1 \\\\ -1 & 2 \\end{bmatrix}, \\\\ s_1 = (2x_1 - x_2)/3, \\\\ s_2 = (-x_1 + 2x_2)/3. \\end{gathered}'}</MathBlock>
+
+    <Prose>{'Substituting x = (1, −1)ᵀ recovers (1, −1)ᵀ. The difficult part of '}<strong>{'blind source separation'}</strong>{' is estimating the recipes when only many observed x’s are available. “Blind” describes that missing mixing information; assumptions still do substantial work.'}</Prose>
+
+    <Prose>{'For a dataset, each row is one simultaneous observation and each column is a sensor. Thus X has shape n × d, S has shape n × k, and A has shape d × k. With row storage, the same relation is X = SAᵀ. An unmixing operator B with shape k × d produces Ŝ = (X − 1μᵀ)Bᵀ, where μ is the fitted vector of sensor means. We reserve W below for the rotation '}<strong>{'after whitening'}</strong>{', so B = WK when K is the whitener.'}</Prose>
+
+    <H3>The model’s conditions belong here</H3>
+
+    <Prose>{'Our exact model is a '}<strong>{'noiseless, instantaneous, constant linear mixture'}</strong>{': the sensor reading now depends on source values now through one fixed matrix. The basic identifiable case has mutually independent, nondegenerate sources, at most one Gaussian source, and a square invertible mixing matrix. With more sensors than sources, a full-column-rank mixing model can first be represented in its source-dimensional signal subspace. More sources than sensors requires additional structure and a different separation method. The moment calculations in this lesson assume finite variances, and kurtosis additionally needs finite fourth moments.'}</Prose>
+
+    <Prose>{'Independence here is between the source variables at the same observation. A signal may still resemble its own recent past. Ordinary FastICA uses the distribution of simultaneous samples rather than an explicit temporal model. Autocorrelation changes how much independent information a recording supplies, so 20,000 time samples need not provide the information of 20,000 independent draws.'}</Prose>
+
+    <Prose>{'A real room introduces propagation delays and echoes, so the cocktail-party story is a useful motivation for this simplified model. Biological recordings also contain measurement noise and sources that may share activity. We will use the model as a tool and evaluate its result, with the model conditions available here whenever needed. The foundational tutorial introduces this same distinction between the ideal mixture and its applications. '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf">{'Hyvärinen & Oja, 2000, sections 1–2'}</a>{'.'}</Prose>
+
+    <H2>{headings[1]}</H2>
+
+    <Prose>{'The expectation E[u] is a probability-weighted average. Covariance measures whether two centered variables tend to have products of the same sign:'}</Prose>
+
+    <MathBlock>{'\\operatorname{Cov}(u,v) = E[(u - Eu)(v - Ev)].'}</MathBlock>
+
+    <Prose>{'Zero covariance is one equality about an average. '}<strong>{'Independence'}</strong>{' is stronger: for every pair of events about the variables, the probability of both equals the product of the individual probabilities. For densities, this becomes p(u,v) = p(u)p(v). Independence implies zero covariance when the required moments exist.'}</Prose>
+
+    <Prose>{'For an exact counterexample, let u take −1, 0, 1, each with probability 1/3, and let v = u². Then Eu = 0, Ev = 2/3, and E[uv] = E[u³] = 0, so covariance is zero. Nevertheless, observing v = 0 tells us u = 0 exactly. The joint probability of u = 0, v = 0 is 1/3, whereas the product of the marginals is 1/9.'}</Prose>
+
+    <IcaDependenceFigure />
+
+    <Prose>{'PCA finds orthogonal directions that diagonalize covariance. Whitening also rescales them to unit variance. Neither operation tests all these joint probabilities. For a '}<strong>{'jointly Gaussian'}</strong>{' vector, zero cross-covariances do imply independence. Having separately Gaussian-looking histograms is a weaker observation than establishing a joint Gaussian model.'}</Prose>
+
+    <H3>An exact source distribution we can carry through every step</H3>
+
+    <Prose>{'Let s₁ and s₂ be independent fair choices from {−1, 1}. There are four equally likely source states:'}</Prose>
+
+    <LessonTable caption="Four equiprobable source states and the observations they produce"
+      headers={['Source state (s₁, s₂)', 'Mixed observation (x₁, x₂)']}
+      rows={[
+        ['(−1, −1)', '(−3, −3)'],
+        ['(−1, 1)', '(−1, 1)'],
+        ['(1, −1)', '(1, −1)'],
+        ['(1, 1)', '(3, 3)'],
+      ]} />
+
+    <Prose>{'Every marginal sign has probability 1/2; every pair has probability 1/4. These four rows enumerate a designed probability distribution. They are not a claim that four arbitrary measurements suffice to fit useful real-world ICA.'}</Prose>
+
+    <Prose>{'The source means are zero and E[ssᵀ] = I, the identity matrix. The mixed covariance is'}</Prose>
+
+    <MathBlock>{'\\Sigma_x = A I A^{\\mathsf T} = \\begin{bmatrix} 5 & 4 \\\\ 4 & 5 \\end{bmatrix}.'}</MathBlock>
+
+    <Prose>{'For example, sensor 1 has average squared value (9 + 1 + 1 + 9)/4 = 5, and the average product of sensor readings is (9 − 1 − 1 + 9)/4 = 4.'}</Prose>
+
+    <H2>{headings[2]}</H2>
+
+    <Prose>{'The covariance has eigenvectors v₊ = (1, 1)ᵀ/√2 and v₋ = (1, −1)ᵀ/√2, with eigenvalues 9 and 1. Multiplying Σₓ v₊ = 9 v₊ verifies the first pair. PCA projects onto these directions. It obtains scores'}</Prose>
+
+    <MathBlock>{'\\begin{gathered} p_+ = (x_1 + x_2)/\\sqrt2, \\\\ p_- = (x_1 - x_2)/\\sqrt2. \\end{gathered}'}</MathBlock>
+
+    <Prose>{'Their variances are 9 and 1. '}<strong>{'Whitening'}</strong>{' divides each score by its standard deviation:'}</Prose>
+
+    <MathBlock>{'\\begin{gathered} z_1 = \\frac{x_1 + x_2}{3\\sqrt2} = \\frac{s_1 + s_2}{\\sqrt2}, \\\\[4pt] z_2 = \\frac{x_1 - x_2}{\\sqrt2} = \\frac{s_1 - s_2}{\\sqrt2}. \\end{gathered}'}</MathBlock>
+
+    <Prose>{'Now E[zzᵀ] = I. Yet z₁ = 0 forces z₂ to be ±√2, never zero. Both individual zero events have probability 1/2, but their intersection has probability zero. The whitened coordinates are still dependent mixtures.'}</Prose>
+
+    <IcaWhiteningFigure />
+
+    <Prose>{'A final linear combination recovers the sources:'}</Prose>
+
+    <MathBlock>{'\\begin{bmatrix} s_1 \\\\ s_2 \\end{bmatrix} = \\frac1{\\sqrt2} \\begin{bmatrix} 1 & 1 \\\\ 1 & -1 \\end{bmatrix} \\begin{bmatrix} z_1 \\\\ z_2 \\end{bmatrix}.'}</MathBlock>
+
+    <Prose>{'This matrix is orthogonal: its rows have length one and dot product zero. It includes a reflection; when we speak informally of the remaining “rotation,” the allowed orthogonal transformations include reflections and sign changes.'}</Prose>
+
+    <Prose>{'In general, if Σₓ = VDVᵀ with positive eigenvalues, the whitener is K = D'}<sup>{'−1/2'}</sup>{'Vᵀ. Then z = K(x − μ) has identity covariance. With unit-variance independent sources in the square noiseless model, Q = KA obeys QQᵀ = I. That calculation explains why searching over orthogonal W’s after whitening is sufficient. It reduces the unknown scaling and shearing before the independence search.'}</Prose>
+
+    <Prose>{'If an eigenvalue is zero, dividing by its square root is impossible; a constant or redundant channel provides no new direction. Very small eigenvalues can amplify noise. Estimate effective rank and choose a defensible subspace. Reducing to k < d principal coordinates before ICA chooses a '}<strong>{'variance-based subspace'}</strong>{'; it does not select the k most independent or most non-Gaussian physical sources.'}</Prose>
+
+    <H2>{headings[3]}</H2>
+
+    <Prose>{'For a centered variable with nonzero variance, its '}<strong>{'excess kurtosis'}</strong>{' is'}</Prose>
+
+    <MathBlock>{'\\kappa(y) = \\frac{E[y^4]}{E[y^2]^2} - 3.'}</MathBlock>
+
+    <Prose>{'The subtraction gives a Gaussian value of zero. Our unit-variance binary source has E[s⁴] = 1, hence κ = −2. A unit-variance Laplace source has excess kurtosis 3. Positive and negative departures can both supply useful information.'}</Prose>
+
+    <Prose>{'Take independent, centered unit-variance sources and a unit-length combination y = a s₁ + b s₂, with a² + b² = 1. Expanding the fourth power gives'}</Prose>
+
+    <MathBlock>{'E[y^4] = a^4 E[s_1^4] + 6a^2b^2 + b^4 E[s_2^4].'}</MathBlock>
+
+    <Prose>{'The odd cross-terms vanish because each contains a zero source mean. Subtract 3(a² + b²)², and the result is'}</Prose>
+
+    <MathBlock>{'\\kappa(y) = a^4 \\kappa(s_1) + b^4 \\kappa(s_2).'}</MathBlock>
+
+    <Prose>{'For two binary sources with a = b = 1/√2, this is −1, compared with −2 for either unmixed source. For two Laplace sources it is 1.5, compared with 3. '}<strong>{'Equal source kurtoses do not destroy separation:'}</strong>{' the fourth powers change with the direction. At angle θ, two equal Laplace sources give 3(cos⁴θ + sin⁴θ), with maxima at source axes rather than a ring of equal maxima.'}</Prose>
+
+    <Prose>{'The central limit theorem offers the intuition that many independent contributions can make a standardized sum more Gaussian. The fourth-moment identity is the exact reason in our example. The general theorem is a limiting statement under conditions; it does not say every mixture of two arbitrary distributions improves every measure of Gaussianity.'}</Prose>
+
+    <H3>The Gaussian ambiguity is a population fact</H3>
+
+    <Prose>{'If s₁, s₂ are independent standard Gaussians, their joint density is proportional to exp[−(s₁² + s₂²)/2]. An orthogonal transformation preserves that sum of squares. The transformed pair has the same joint Gaussian distribution and independent coordinates. Observations alone cannot tell which of these bases was the original source basis.'}</Prose>
+
+    <Prose>{'With two or more Gaussian sources, their Gaussian subspace has this unresolved rotation. At most one Gaussian source is allowed in the usual identifiable ICA model; other non-Gaussian sources can then determine the remaining direction. This is about what the probability model identifies, not whether a numerical solver happens to return an array. Finite Gaussian samples can have accidental fourth-moment structure, and a solver can follow it.'}</Prose>
+
+    <Prose>{'Kurtosis is only one diagnostic. A non-Gaussian variable taking 0 with probability 2/3, and ±√3 with probability 1/6 each, has variance 1 and fourth moment 3: its excess kurtosis is also zero. Its sixth moment is 9, whereas a standard Gaussian’s is 15. Therefore a threshold such as “all kurtoses close to zero” cannot establish Gaussianity or decide ICA suitability by itself.'}</Prose>
+
+    <H3>Investigation: rotate a distribution, not just its covariance</H3>
+
+    <Prose>{'In the rotation investigation, record whether your proposed new projection will have greater, equal or smaller absolute excess kurtosis than the active one. Enter an angle of your own before revealing the result. The covariance remains I under every orthogonal rotation, while the joint support and fourth moment can change.'}</Prose>
+
+    <Prose>{'Start with the binary source distribution above. Try a projection halfway between its source directions, then a direction near one source. Return with the Gaussian population selected. Explain what the Gaussian null case removes from the search.'}</Prose>
+
+    <IcaRotationLab />
+
+    <H3>A broader objective</H3>
+
+    <Prose>{'For a continuous variable, differential entropy is H(y) = −∫ p(y) log p(y) dy: an average log-density measure, not a histogram bar’s height. Among distributions with a fixed variance, the Gaussian has maximum entropy. '}<strong>{'Negentropy'}</strong>{' measures the gap J(y) = H(y'}<sub>{'G'}</sub>{') − H(y), where the Gaussian has the same variance.'}</Prose>
+
+    <Prose>{'Estimating a full density can be difficult. FastICA commonly uses a nonquadratic contrast related to an approximation J(y) ∝ [E G(y) − E G(ν)]², with ν ~ N(0, 1). This is a surrogate for searching, not an exact measured mutual information. Choices include G(u) = log cosh(u), G(u) = −e'}<sup>{'−u²/2'}</sup>{', and G(u) = u⁴/4. The cube choice makes a particularly transparent calculation; fourth powers are also sensitive to unusually large observations. The log-cosh derivative grows more gently. No one nonlinearity is best for every source distribution.'}</Prose>
+
+    <Prose>{'The entropy argument in this paragraph concerns continuous densities. The binary hand example uses exact probabilities and kurtosis; it is not being assigned a differential entropy. Section 8 connects the continuous objective to independence and likelihood.'}</Prose>
+
+    <H2>{headings[4]}</H2>
+
+    <Prose>{'For whitened observations zᵢ ∈ ℝᵏ, a unit vector w produces a component yᵢ = wᵀzᵢ. The unit-length constraint keeps its variance at one, so a larger objective must come from changing the distribution rather than simply magnifying every amplitude.'}</Prose>
+
+    <Prose>{'Let g = G′. A one-component FastICA iteration computes'}</Prose>
+
+    <MathBlock>{'\\begin{gathered} r = \\frac1n \\sum_i z_i\\, g(w^{\\mathsf T} z_i) - \\bar g\'\\, w, \\\\[4pt] \\bar g\' = \\frac1n \\sum_i g\'(w^{\\mathsf T} z_i), \\\\[4pt] w_{\\mathrm{new}} = r / \\lVert r \\rVert. \\end{gathered}'}</MathBlock>
+
+    <Prose>{'The first average weights each observation by a nonlinear function of its current projection. The second term corrects the current direction; normalization restores the constraint. In the log-cosh version, g(u) = tanh u and g′(u) = 1 − tanh²u.'}</Prose>
+
+    <Prose>{'For a hand trace, use the four whitened diamond points from section 3 and w = (0.8, 0.6). With g(u) = u³, the projections are the signed values 0.8√2 and 0.6√2. The first average is (2(0.8)³, 2(0.6)³) = (1.024, 0.432). The average derivative is E[3y²] = 3. Thus'}</Prose>
+
+    <MathBlock>{'\\begin{gathered} r = (1.024,\\, 0.432) - 3(0.8,\\, 0.6) \\\\ = (-1.376,\\, -1.368). \\end{gathered}'}</MathBlock>
+
+    <Prose>{'After normalization and an optional sign flip for easier comparison, the next vector is approximately (0.7091653, 0.7050422). It moved toward (1, 1)/√2, which extracts s₁. This is the same final combination we found by algebra in section 3, now approached by a distribution-based update.'}</Prose>
+
+    <IcaFixedPointFigure />
+
+    <H3>Why this update has that form</H3>
+
+    <Prose>{'At a stationary point of E[G(wᵀz)] constrained by ‖w‖² = 1, the objective gradient must align with w: E[z g(wᵀz)] − βw = 0. The multiplier β accounts for the constraint; multiplying by wᵀ gives β = E[y g(y)] at a stationary point.'}</Prose>
+
+    <Prose>{'Newton’s method solves an equation using its derivative. The derivative matrix here contains E[zzᵀ g′(wᵀz)] − βI. FastICA makes the approximation E[zzᵀ g′] ≈ E[g′]I in whitened coordinates. Simplifying the resulting Newton-like step and discarding a scalar that normalization will remove gives the update above. Whitening makes E[zzᵀ] = I; it does '}<strong>{'not'}</strong>{' by itself make that factorization exact. The method searches for a fixed direction, with local convergence depending on the distribution, contrast and initialization. '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf">{'Hyvärinen & Oja, section 6, equations 41–43'}</a>{'.'}</Prose>
+
+    <Prose>{'For several components, unconstrained repetitions could rediscover the same direction. '}<strong>{'Deflation'}</strong>{' estimates them one at a time. After '}<strong>{'each update'}</strong>{', subtract its projection on every previously found unit direction, then normalize. If a previous direction is q, subtract (qᵀr)q. Orthogonality enforces distinct uncorrelated coordinates in whitened space; the nonlinear objective still supplies the separation criterion.'}</Prose>
+
+    <Prose><strong>{'Parallel or symmetric FastICA'}</strong>{' updates all rows of W and orthogonalizes them together, using W ← (WWᵀ)'}<sup>{'−1/2'}</sup>{'W when that inverse square root exists. A sign-aware stopping test is 1 − |w'}<sub>{'new'}</sub>{'ᵀw| < tolerance. Parallel and antiparallel vectors describe the same source direction. A small directional change records numerical convergence, which is distinct from a successful application diagnostic.'}</Prose>
+
+    <H3>Complete NumPy example</H3>
+
+    <Prose>{'Use a Python environment with NumPy and scikit-learn. The author’s calculation snapshot used Python 3.12.14 and these package versions; install them once if they are not already available:'}</Prose>
+
+    <CodeBlock language="sh">{'python -m pip install numpy==2.3.5 scipy==1.18.1 scikit-learn==1.9.1'}</CodeBlock>
+
+    <Prose>{'Save the following program as '}<Code>{'ica_by_hand.py'}</Code>{' and run '}<Code>{'python ica_by_hand.py'}</Code>{'. This program uses the full four-state distribution, not sampled sine waves claimed to be independent. It implements deflation with the orthogonalization inside the iteration. The finite, full-rank fixture is supplied; a zero update or a rank-deficient input needs diagnosis before normalization in a general-purpose implementation.'}</Prose>
+
+    <Prose>{'The covariance average divides by four because the rows enumerate four equiprobable states. NumPy’s '}<Code>{'eigh'}</Code>{' returns eigenvalues in ascending order; section 3 deliberately listed the larger one first. The code’s whitened axes can therefore differ in order and sign from the figure while representing the same information.'}</Prose>
+
+    <Program example={icaExamples.handSeparation} />
+
+    <Prose>{'The output checks whitening, source agreement and reconstruction separately. Here the two high correlations must match different recovered columns; inspect C to confirm the one-to-one correspondence. In a general k-source benchmark, match components by a one-to-one assignment maximizing total absolute correlation, then resolve signs and scales. Taking each row’s best match independently can reuse one recovered component and exaggerate recovery.'}</Prose>
+
+    <Prose>{'The exact hand calculation and a small author probe support these expected results. The program above was executed again for this page, in the recorded environment, and its printed output is the output shown.'}</Prose>
+
+    <H2>{headings[5]}</H2>
+
+    <Prose>{'An abdominal electrode records overlapping electrical activity. In the '}<strong>{'Abdominal and Direct Fetal ECG Database'}</strong>{', researchers recorded four abdominal channels and a simultaneous direct fetal ECG reference to study fetal-heartbeat measurement from abdominal signals. The supplied extract is the first 20 seconds of record '}<Code>{'r01'}</Code>{', version 1.0.0, sampled at 1,000 Hz. A row is one instant, not one person. The four abdominal values are inputs; the direct channel is an external comparison signal. '}<a href="https://physionet.org/content/adfecgdb/1.0.0/">{'Dataset description and acquisition details'}</a>{'.'}</Prose>
+
+    <Prose>{'The immediate question is deliberately measurable without specialist physiology: '}<strong>{'which representation contains a single coordinate with stronger absolute linear correlation to that reference over a later four-second interval?'}</strong>{' Correlation measures aligned waveform variation. It is not a fetal-beat detector, a clinical accuracy measure, or a count of recovered physiological sources. A reference measured at a different location can differ in waveform and polarity. This is a short within-recording investigation; evaluating a clinical or cross-person claim would require a different task, endpoints and independent participants.'}</Prose>
+
+    <Prose><a href="/learn-assets/ica/r01-first20s.csv">{'Download the provided CSV'}</a>{' and keep it beside '}<Code>{'ica_recording.py'}</Code>{'. Save the program below under that name, then run '}<Code>{'python ica_recording.py'}</Code>{' from their directory. After the one-time package installation, the program needs no network access. '}<a href="/learn-assets/ica/data-provenance.md">{'Data provenance'}</a>{' gives the original authors, ODC-By 1.0 license, source and extract hashes, exact columns and conversion. The stored integers are ADC counts. The program converts them to microvolts using the EDF header’s calibration. The provider already performed acquisition/filtering steps; the lesson adds no filter or resampling.'}</Prose>
+
+    <IcaSplitFigure />
+
+    <Prose>{'Before running, predict which of raw channels, PCA coordinates or ICA coordinates will give the largest held-out absolute correlation. The comparison uses all four coordinates for both decompositions. It chooses the coordinate within each method only on development data, then freezes the choice. The record, interval, split and ICA settings were fixed before observing the comparison; we keep an inconvenient outcome rather than search for a better seed or time window.'}</Prose>
+
+    <Program example={icaExamples.realRecording} />
+
+    <Prose>{'Columns are representation, chosen one-based coordinate, development |r|, test |r|. PCA coordinate 4 has the largest test value in this fixed comparison. ICA coordinate 2 improves on the selected raw channel, but its independence-oriented objective does not optimize this reference-correlation diagnostic. The change from development to test also makes the short interval’s variability visible. The practical conclusion is to retain the comparison and investigate the signal/task relationship before preferring an ICA pipeline. The lower-variance PCA coordinate mattered here; automatically discarding it would have removed that candidate.'}</Prose>
+
+    <IcaOutcomeFigure />
+
+    <Prose>{'The library handles fitted centering and whitening. '}<Code>{'ica.components_'}</Code>{' is B = WK, shape 4 × 4; '}<Code>{'mixing_'}</Code>{' is its pseudoinverse, shape 4 × 4; '}<Code>{'mean_'}</Code>{' has four sensor means. '}<Code>{'transform(X_new)'}</Code>{' uses those fitted quantities. Calling '}<Code>{'fit_transform'}</Code>{' on a new interval would estimate a new decomposition and invalidate a comparison that assumes fixed component identities. '}<Code>{"whiten='unit-variance'"}</Code>{' normalizes fitted source variances; '}<Code>{'whiten=False'}</Code>{' expects an already whitened input. Explicit settings avoid relying on an older default. '}<a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FastICA.html">{'FastICA API'}</a>{'.'}</Prose>
+
+    <Prose>{'A full-rank '}<Code>{'inverse_transform(transform(X))'}</Code>{' reconstructs sensor values to numerical precision even when the components are unhelpful. Any invertible change of coordinates can do that. Reconstruction checks algebra and information retention; the reference comparison asks about this application. If you reduce the component count, reconstruction instead returns the retained subspace contribution plus the mean.'}</Prose>
+
+    <Prose>{'To study stability, compare several predeclared seeds and non-overlapping recording blocks, align component sign/permutation before comparing them, and report all runs. Use development data for any method or component-count choice. A final test interval stays untouched until those choices are frozen. Randomly mixing neighboring samples across folds would make the rows seem more independent than the recording permits. The provider’s offline filtering also means this extract cannot establish a real-time pipeline’s performance.'}</Prose>
+
+    <H2>{headings[6]}</H2>
+
+    <Prose><strong>{'Return here after the first-pass example.'}</strong>{' An ICA representation has useful ambiguities even in its ideal identifiable setting. Since'}</Prose>
+
+    <MathBlock>{'x = \\sum_j a_j s_j,'}</MathBlock>
+
+    <Prose>{'multiplying sⱼ by any nonzero c, and dividing aⱼ by c, leaves every observation unchanged. Negative c includes a sign flip. Reordering sources and the corresponding columns also preserves the sum. ICA therefore identifies sources up to scale, sign and permutation. A unit-variance convention fixes scale in a useful way, but component index and polarity are still conventions. The model supplies no default ranking by explained variance.'}</Prose>
+
+    <Prose>{'For sensor reconstruction, the '}<strong>{'mixing column'}</strong>{' aⱼ tells where a component contributes. The '}<strong>{'unmixing row'}</strong>{' bⱼᵀ tells which sensor combination estimates it. These are dual operations, not equal vectors: for our A, mixing column 1 is (2, 1)ᵀ, while inverse row 1 is (2, −1)/3. Plotting an inverse row as if it were a spatial contribution pattern reverses the meaning.'}</Prose>
+
+    <Prose>{'In the four-state example, each unit-variance source contributes ‖aⱼ‖² = 5 to the sum of sensor variances. More generally the contribution is Var(sⱼ)‖aⱼ‖², provided the sources are uncorrelated and amplitudes use compatible sensor units. Doubling a source and halving its column leaves that product unchanged. The column norm alone is not a universal energy measure across normalization conventions.'}</Prose>
+
+    <Prose>{'Suppose a domain investigation identifies component 2 as an unwanted contribution. Removing it means setting its scores to zero and reconstructing:'}</Prose>
+
+    <MathBlock>{'x_{\\rm kept} = x - a_2 s_2.'}</MathBlock>
+
+    <Prose>{'At the worked instant s = (1, −1)ᵀ, observed x = (1, −1)ᵀ. Component 2 contributes (−1, −2)ᵀ; subtracting that contribution leaves (2, 1)ᵀ, the first source’s contribution. The altered result is not expected to equal the original sensors.'}</Prose>
+
+    <Prose><strong>{'Investigation C1 — edit a contribution.'}</strong>{' Enter a new two-source amplitude pair and choose which component to keep. Record a predicted sensor amplitude before reconstructing. Observe the contribution vectors, their sum, and the removed difference. Then rescale a source and inversely rescale its mixing column: the reconstructed observations should stay fixed.'}</Prose>
+
+    <IcaContributionLab />
+
+    <Prose>{'In EEG/MEG practice, a component’s time course, spatial pattern and relationship to an auxiliary eye or cardiac channel can help identify an artifact candidate. A statistical component label such as “blink-like” is an interpretation based on this evidence. It is not an anatomical source location or guaranteed neurophysiological cause. Removing a component also removes any wanted activity it contains, which is why before/after task-signal checks and sensitivity to exclusion choices matter. '}<a href="https://mne.tools/stable/auto_tutorials/preprocessing/40_artifact_correction_ica.html">{'MNE’s artifact tutorial'}</a>{' shows this inspect–exclude–reconstruct workflow. Detailed filtering, referencing, rank changes and experimental leakage belong to the planned '}<a href="/learn/path/full-curriculum/neural-preprocessing-artifact-rejection-and-leakage-safe-pipelines?module=computational-neuroscience">{'Neural Preprocessing, Artifact Rejection and Leakage-Safe Pipelines'}</a>{' lesson.'}</Prose>
+
+    <H2>{headings[7]}</H2>
+
+    <Prose><strong>{'This branch connects the mechanism to the wider ICA literature.'}</strong>{' Read it when you want to distinguish a model, an estimation objective and an algorithm for that objective.'}</Prose>
+
+    <H3>Independence, entropy and likelihood</H3>
+
+    <Prose>{'For continuous components with suitable finite entropies, total dependence can be expressed as'}</Prose>
+
+    <MathBlock>{'I(y_1,\\ldots,y_k) = \\sum_j H(y_j) - H(y).'}</MathBlock>
+
+    <Prose>{'This is the KL divergence between the joint density and the product of its marginals, so it is nonnegative and zero exactly at mutual independence. It is commonly called total correlation or multi-information when there are more than two components. ICA seeks to '}<strong>{'minimize'}</strong>{' it.'}</Prose>
+
+    <Prose>{'For a whitened vector z and square orthogonal W, y = Wz has unit marginal variances, and H(y) = H(z) + log|det W| = H(z). The Gaussian entropy reference is fixed too. Therefore'}</Prose>
+
+    <MathBlock>{'\\sum_j J(y_j) = \\text{constant} - \\sum_j H(y_j),'}</MathBlock>
+
+    <Prose>{'so maximizing the sum of marginal negentropies is equivalent to minimizing total dependence under these conditions. This is the formal connection behind section 4. Maximizing the sum of marginal entropies would point in the opposite direction when joint entropy is fixed.'}</Prose>
+
+    <Prose>{'A likelihood formulation starts by choosing source densities pⱼ. For square invertible B, a change of variables gives'}</Prose>
+
+    <MathBlock>{'p_x(x) = \\lvert \\det B \\rvert \\prod_j p_j\\big(b_j^{\\mathsf T}(x - \\mu)\\big).'}</MathBlock>
+
+    <Prose>{'For independent observation vectors, the dataset log likelihood is n log|det B| + Σᵢⱼ log pⱼ(bⱼᵀ(xᵢ − μ)). For temporally dependent recordings, that sum is a marginal fitting contrast rather than the full time-series joint likelihood. The determinant accounts for how a linear transformation changes volume. Without it, changing scale could appear beneficial for the wrong reason. Incorrect source-density choices can also change the estimator.'}</Prose>
+
+    <Prose>{'Infomax connects an appropriately chosen nonlinear output transformation to entropy maximization and this likelihood perspective. It is an alternative estimation route, not a claim that deterministic input–output mutual information equals dependence among recovered coordinates. FastICA is a fixed-point algorithm tied to specified contrasts. Picard is another optimizer using preconditioning and an approximate Hessian; its published comparisons concern stated objectives and datasets, not a universal speed or stability ranking. The lineage from early adaptive separation, Comon’s ICA formulation, Infomax and fixed-point methods helps explain why several algorithms share the ICA name. '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/bookfinal_ICA.pdf">{'Canonical book, chapters 7–14'}</a>{', '}<a href="https://arxiv.org/abs/1706.08171">{'Picard paper'}</a>{'.'}</Prose>
+
+    <H3>When another model is needed</H3>
+
+    <LessonTable caption="Situations that break a condition of the instantaneous noiseless model"
+      headers={['Situation', 'What changes in the reasoning?']}
+      rows={[
+        ['Additive sensor noise x = As + ε', 'Whitened covariance includes noise; sample directions can be biased or noise-amplified. A noisy latent-variable model can make that assumption explicit. Discarding low-variance coordinates may also discard a weak wanted source.'],
+        ['Several Gaussian sources with different temporal structure', 'Marginal non-Gaussianity cannot identify their Gaussian subspace. Methods based on several lagged covariance matrices, such as SOBI, use information ordinary FastICA ignores. Distinct lag profiles and their assumptions must be established.'],
+        ['Delays or reverberation', 'The model becomes xₜ = Σ_ℓ A_ℓ s₍ₜ₋ℓ₎. Multiplying by one instantaneous inverse generally leaves delayed terms. A convolutive source-separation method addresses this different model.'],
+        ['More sources than sensors', 'A rectangular underdetermined mixture cannot be inverted to recover arbitrary source values. Sparsity or other additional structure can support specialized methods. Disabling an orthogonality constraint does not solve that counting problem.'],
+        ['Nonlinear mixing', 'An expressive encoder can reconstruct data without identifying independent generating causes. Nonlinear ICA needs additional identifiable structure; an ordinary autoencoder or VAE is not automatically a source-separation solution.'],
+        ['Nonnegative additive data', 'NMF constrains factors to be nonnegative. That is a different structural assumption from ICA independence, with its own nonuniqueness and interpretation questions.'],
+      ]} />
+
+    <Prose>{'For the delay row, a two-tap example makes the issue concrete: xₜ = Asₜ + Cs₍ₜ₋₁₎. Even if A is known, A⁻¹xₜ = sₜ + A⁻¹Cs₍ₜ₋₁₎. The extra term survives. The planned '}<a href="/learn/path/full-curriculum/source-separation-audio-denoising-demucs-band-split-rnn?module=nlp-cv-multimodal">{'Source Separation & Audio Denoising'}</a>{' topic will provide the application route beyond the instantaneous model.'}</Prose>
+
+    <H3>Cost and reproducibility</H3>
+
+    <Prose>{'For n observations and d sensors, forming a dense covariance and diagonalizing it costs approximately O(nd² + d³), with the exact method and shape affecting the practical choice. SVD can avoid explicitly forming that covariance. After retaining k dimensions, each parallel FastICA iteration costs O(nk² + k³): projected/nonlinear averages plus symmetric orthogonalization. Deflation has repeated data passes and projections on earlier directions. More iterations, components and samples all add work.'}</Prose>
+
+    <Prose>{'Storing X requires O(nd) values; a dense d × d float64 covariance requires 8d² bytes—800,000,000 bytes at d = 10,000. This is a storage calculation, not a timing benchmark. There is no universal “five times components squared” sample threshold that ensures reliable recovery. Distribution shape, dependence, noise, conditioning and the intended error criterion affect the data requirement.'}</Prose>
+
+    <Prose>{'The real example here uses only four sensor channels and 12,000 training instants. It is a small CPU exercise. Set an iteration cap, retain convergence warnings, inspect rank, and record versions and seeds. If convergence is poor, diagnose scaling, rank, outliers, contrast and model mismatch before merely raising the cap. A fixed seed makes the computational starting point reproducible; it does not make the estimate insensitive to changed data.'}</Prose>
+
+    <H2>{headings[8]}</H2>
+
+    <Prose>{'Attempt each task before opening its hint and solution. The calculations here change the demonstrated numbers or the decision being made.'}</Prose>
+
+    <Practice title="1. A new sensor recipe"
+      hint={<Prose>{'Subtract the second sensor equation from the first. To preserve observations after rescaling, alter the corresponding column, not the corresponding row.'}</Prose>}
+      solution={<Prose>{'The equations are 3s₁ + s₂ = 5 and s₁ + s₂ = −1. Subtracting gives 2s₁ = 6, hence s₁ = 3, s₂ = −4. Replace s₁ by 6 and column 1 by (1.5, 0.5)ᵀ, leaving column 2 at (1, 1)ᵀ. The reconstructed readings are 9 − 4 = 5 and 3 − 4 = −1. Changing a row instead would alter a sensor recipe and would not implement this ambiguity.'}</Prose>}>
+      <Prose>{'You observe x = (5, −1)ᵀ under A = [[3, 1], [1, 1]]. Recover the two source values. Then give one different source/mixing pair that generates exactly the same observations, using scale ambiguity.'}</Prose>
+    </Practice>
+
+    <Practice title="2. Equal kurtosis, changed mixing weights"
+      hint={<Prose>{'Use a² + b² = 1 for variance and fourth powers for the excess kurtosis.'}</Prose>}
+      solution={<Prose>{'Variance is 1. Kurtosis is 3(9/16 + 1/16) = 30/16 = 1.875. Equal weighting gives 1.5 and a pure source gives 3. The equal marginal kurtoses are compatible with a directional contrast; there is no flat ring. The value 1.875 is the exact independent variation to reproduce in the rotation investigation at 30° from a source axis.'}</Prose>}>
+      <Prose>{'Two independent standardized Laplace sources have excess kurtosis 3. A unit projection uses weights a = √3/2, b = 1/2. Find its variance and excess kurtosis. Compare it with equal weighting and a pure source. Explain whether the equal source kurtoses make separation impossible.'}</Prose>
+    </Practice>
+
+    <Practice title="3. Repair two plausible implementations"
+      hint={<Prose>{'For A, replace E[z(wᵀz)] by E[zzᵀ]w. For B, consider two initializations entering the same attraction region.'}</Prose>}
+      solution={<Prose>{'A gives r = Iw − w = 0, so normalization is undefined. Variance has no preferred direction after whitening; use a suitable nonquadratic contrast. B can converge repeatedly to the same direction. Subtracting the already found direction only at the end can leave a near-zero residual, and the intermediate search never respected the constraint. Orthogonalize inside every iteration before normalizing, or use a symmetric multi-component algorithm.'}</Prose>}>
+      <Prose>{'Program A uses g(u) = u on whitened data. Program B estimates every row independently and subtracts previously found directions only after each row has converged. Explain the failure mechanism in each and state a repair.'}</Prose>
+    </Practice>
+
+    <Practice title="4. Choose without looking at the answer interval"
+      hint={<Prose>{'The test column is for the already fixed choice, even if a different coordinate looks more attractive there.'}</Prose>}
+      solution={<Prose>{'Select component 1 using |−0.60| = 0.60 and report test |0.15| = 0.15. Reporting 0.80 would evaluate a selection made with test information. A revised selection rule becomes a new method to develop and evaluate on fresh held-out data. An actual polarity reversal between intervals is also a useful stability finding; taking absolute values was a declared diagnostic choice, not a way to erase it from investigation.'}</Prose>}>
+      <Prose>{'A new recording gives these '}<strong>{'signed'}</strong>{' correlations with an external reference:'}</Prose>
+      <LessonTable caption="Signed correlations with an external reference, for a new recording"
+        headers={['Component', 'Development', 'Test']}
+        rows={[['1', '−0.60', '0.15'], ['2', '0.45', '−0.80'], ['3', '0.20', '0.30']]} />
+      <Prose>{'The protocol is “choose largest development absolute correlation, then report the test absolute correlation.” Which coordinate and result belong in the report? A colleague wants to change the selection after seeing the test column. What should happen next?'}</Prose>
+    </Practice>
+
+    <Practice title="5. A nuisance component contains wanted activity"
+      hint={<Prose>{'Multiply the whole component by its mixing column before separating wanted and nuisance terms.'}</Prose>}
+      solution={<Prose>{'Exclusion removes a bₜ + 0.2a qₜ, including wanted signal (0.4qₜ, −0.2qₜ)ᵀ. In this simulation, compare reconstructed task amplitudes or task-event recovery with the known qₜ before and after exclusion. On measured data, use a justified task endpoint, auxiliary information and sensitivity to plausible exclusion sets. Reduced visible artifact amplitude alone does not answer the task-preservation question.'}</Prose>}>
+      <Prose>{'In a simulation, the true task signal is qₜ, but an ICA candidate is uₜ = bₜ + 0.2qₜ, where bₜ is nuisance activity. Its mixing column is a = (2, −1)ᵀ. What task contribution is removed when the entire candidate is excluded? Propose a check before deciding whether that removal is acceptable.'}</Prose>
+    </Practice>
+
+    <Practice title="6. Design a modest follow-up"
+      hint={<Prose>{'Changing only the seed measures one kind of variability. A later block and another participant ask different questions.'}</Prose>}
+      solution={<>
+        <Prose><strong>{'Example solution and success criteria. '}</strong>{'Predeclare several later non-overlapping blocks and the same fitting/development/test durations; carry all four-channel inputs and the same fixed settings into each. Report each method’s selected-coordinate diagnostic for every block, including failures to converge. Keep participant identity separate, and reserve different participants for a future cross-person claim.'}</Prose>
+        <Prose>{'If PCA’s advantage reverses across blocks or all correlations collapse, revise the original finding to describe its dependence on that short interval. A good answer states the question, respects information availability, keeps the baseline, records unsuccessful runs, and distinguishes within-recording robustness from population generalization. A new complete clinical study is outside this small exercise.'}</Prose>
+      </>}>
+      <Prose>{'Keep the real-data program’s fitting and selection boundary. Propose a follow-up that asks whether its finding persists, without using the existing test result to choose a favorable replacement. State the unit of evaluation and one outcome that would make you revise the conclusion.'}</Prose>
+    </Practice>
+
+    <H2>{headings[9]}</H2>
+
+    <Prose>{'You are ready to move on from the first-pass route when you can explain why the whitened diamond is dependent, calculate a fourth-moment contrast on changed weights, trace a normalized FastICA update, and keep fitting, coordinate selection and evaluation distinct in the recording example. After the deeper component-removal branch, also distinguish a mixing column from an unmixing row and predict what component exclusion subtracts from the sensors.'}</Prose>
+
+    <Prose>{'Try these from memory: What assumption makes an orthogonal search sufficient after whitening? Why can two Gaussian sources rotate without changing the observed model? Why does exact reconstruction say little about source usefulness? Why do component numbers need matching across fits?'}</Prose>
+
+    <Prose>{'Next, '}<a href="/learn/path/full-curriculum/non-negative-matrix-factorization-nmf?module=classical-ml">{'Non-Negative Matrix Factorization (NMF)'}</a>{' asks what changes when both factors must be nonnegative and combine additively. That constraint can suit counts or magnitudes. It supplies a different factorization goal; physical meaning and uniqueness still need evidence.'}</Prose>
+
+    <H2>{headings[10]}</H2>
+
+    <ul>
+      <li><strong>{'Hyvärinen & Oja — '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf">{'Independent Component Analysis: Algorithms and Applications'}</a></strong>{'. Free author-hosted tutorial, useful after sections 3–5. Sections 2–6 connect identifiability, non-Gaussianity, whitening and fixed points. The relevant model and algorithm passages were read; examples use older notation/software context.'}</li>
+      <li><strong>{'Hyvärinen, Karhunen & Oja — '}<a href="https://www.cs.helsinki.fi/u/ahyvarin/papers/bookfinal_ICA.pdf">{'Independent Component Analysis'}</a></strong>{'. Author-hosted book manuscript. Chapters 6–10 deepen whitening and estimation objectives; chapters 13, 15–19 and 22 organize practical issues, noise, temporal structure, convolutive mixing and brain-imaging applications. The contents and selected relevant passages were inspected, not the entire book. Matrix calculus and probability are useful for its proofs.'}</li>
+      <li><strong>{'Andrew Ng / Stanford — '}<a href="https://see.stanford.edu/Course/CS229/45">{'CS229 Lecture 15'}</a>{', '}<a href="https://www.youtube.com/watch?v=QGd06MTRMHs">{'YouTube recording'}</a>{', and '}<a href="https://see.stanford.edu/materials/aimlcs229/transcripts/MachineLearning-Lecture15.html">{'substantive transcript'}</a></strong>{'. Another route through the mixture model, Gaussian symmetry and likelihood/CDF reasoning. The official bookmarks locate ICA at 39:49 and the algorithm at 47:41. The ICA transcript and companion notes were reviewed; the video/audio was not watched or evaluated. Use the current lesson/API reference for software details, and expect transcription errors in formulas.'}</li>
+      <li><strong>{'Andrew Ng — '}<a href="https://cs229.stanford.edu/notes2021fall/cs229-notes11.pdf">{'CS229 ICA notes'}</a></strong>{'. A short mathematical alternative for section 8’s likelihood route. The model, ambiguities, Gaussian example and change-of-variables/likelihood derivation were inspected. This is not a FastICA implementation tutorial.'}</li>
+      <li><strong>{'scikit-learn — '}<a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FastICA.html">{'FastICA reference'}</a></strong>{'. Consult after running the real example for '}<Code>{'components_'}</Code>{', '}<Code>{'mixing_'}</Code>{', whitening and iteration semantics. Parameter and attribute sections were checked against the installed 1.9.1 snapshot. Moving stable documentation can change.'}</li>
+      <li><strong>{'MNE — '}<a href="https://mne.tools/stable/auto_tutorials/preprocessing/40_artifact_correction_ica.html">{'Repairing artifacts with ICA'}</a></strong>{'. An application tutorial showing fitted decompositions, component inspection, auxiliary-channel evidence and exclusion/reconstruction. Filtering, fitting and component-identification passages were reviewed, not executed here. It assumes knowledge of EEG/MEG recordings and uses a separate MNE API.'}</li>
+      <li><strong>{'Jezewski and colleagues / PhysioNet — '}<a href="https://physionet.org/content/adfecgdb/1.0.0/">{'Abdominal and Direct Fetal ECG Database, v1.0.0'}</a></strong>{'. The source of the actual simultaneous measurements. Read the acquisition description before interpreting the example. The local extract is distributed with '}<a href="/learn-assets/ica/data-provenance.md">{'its attribution and calibration'}</a>{' under '}<a href="https://opendatacommons.org/licenses/by/1-0/">{'ODC-By 1.0'}</a>{'.'}</li>
+      <li><strong>{'Ablin, Cardoso & Gramfort — '}<a href="https://arxiv.org/abs/1706.08171">{'Faster Independent Component Analysis by Preconditioning with Hessian Approximations'}</a></strong>{'. Advanced alternative-optimizer reading after section 8. The abstract and author description of its objective/preconditioner were checked; this lesson did not reproduce its benchmarks. Treat speed comparisons as specific experimental results.'}</li>
+    </ul>
+  </div>,
 };
 
 export default icaContent;

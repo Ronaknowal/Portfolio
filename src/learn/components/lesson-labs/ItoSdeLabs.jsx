@@ -97,12 +97,12 @@ function Plot({
       return command + x(point[0]).toFixed(3) + ',' + y(point[1]).toFixed(3);
     }).join(' ');
   };
-  return <>{!compact && <p className="ito-scroll-hint">Scroll this plot sideways for the full axes.</p>}
+  return <><p className="ito-axis-label">Vertical axis: {yLabel}</p>{!compact && <p className="ito-scroll-hint">Scroll this plot sideways for the full axes.</p>}
     <div className={'ito-plot' + (compact ? ' compact' : '')} role="region" aria-label={label + (compact ? '' : '; horizontally scrollable')} tabIndex={0}>
       <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}>
         <defs><clipPath id={id}><rect x={left} y={top} width={right - left} height={bottom - top} /></clipPath></defs>
         {ticks.map(value => <g key={value}><line x1={x(value)} x2={x(value)} y1={top} y2={bottom} />
-          <text x={x(value)} y={bottom + 21} textAnchor="middle">{xTick(value)}</text></g>)}
+          <text x={x(value)} y={bottom + 24} textAnchor={value === xDomain[0] ? 'start' : value === xDomain[1] ? 'end' : 'middle'}>{xTick(value)}</text></g>)}
         {Array.from({
           length: 5
         }, (_, i) => {
@@ -110,7 +110,6 @@ function Plot({
           return <g key={i}><line x1={left} x2={right} y1={y(value)} y2={y(value)} />
             <text x={left - 8} y={y(value) + 5} textAnchor="end">{Number(value.toPrecision(3))}</text></g>;
         })}
-        <text x={left} y={21}>{yLabel}</text><text x={(left + right) / 2} y={height - 9} textAnchor="middle">{xLabel}</text>
         <g clipPath={`url(#${id})`}>{series.map((item, index) => <path key={index} d={path(item.points)} fill="none" stroke={colors[item.color ?? 'amber']} strokeWidth={2.3} strokeDasharray={item.dashed ? '6 4' : undefined} />)}{children?.({
             x,
             y,
@@ -118,7 +117,7 @@ function Plot({
             bottom
           })}</g>
       </svg>
-    </div></>;
+    </div><p className="ito-axis-label">Horizontal axis: {xLabel}</p></>;
 }
 export function NoiseScalingFigure() {
   return <figure className="ito-figure"><div className="ito-scaling">

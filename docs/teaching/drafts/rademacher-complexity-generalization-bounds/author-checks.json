@@ -1,0 +1,76 @@
+{
+  "type": "bounded author calculation reconciliation; not formal independent or browser review",
+  "date": "2026-09-12",
+  "csv_sha256": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+  "rows": 480,
+  "disjoint_role_sizes": {
+    "representation": 80,
+    "fit": 240,
+    "validation": 80,
+    "assessment": 80
+  },
+  "models": [
+    {
+      "budget": 0.25,
+      "norm": 0.24999999999974998,
+      "stationarity_residual": 1.8877191935525873e-08,
+      "reconstructed_roles_and_bounds": true
+    },
+    {
+      "budget": 0.5,
+      "norm": 0.49999999999950007,
+      "stationarity_residual": 1.5971817929620738e-07,
+      "reconstructed_roles_and_bounds": true
+    },
+    {
+      "budget": 1,
+      "norm": 0.999999999999,
+      "stationarity_residual": 2.4832332655410757e-09,
+      "reconstructed_roles_and_bounds": true
+    },
+    {
+      "budget": 2,
+      "norm": 1.999999999998,
+      "stationarity_residual": 9.58719732308426e-10,
+      "reconstructed_roles_and_bounds": true
+    },
+    {
+      "budget": 4,
+      "norm": 3.999999999996,
+      "stationarity_residual": 2.807559099743665e-10,
+      "reconstructed_roles_and_bounds": true
+    }
+  ],
+  "zero_predictor_tie_plus_one": {
+    "fit": {
+      "errors": 134,
+      "n": 240,
+      "ramp": 1.0
+    },
+    "validation": {
+      "errors": 41,
+      "n": 80,
+      "ramp": 1.0
+    },
+    "assessment": {
+      "errors": 51,
+      "n": 80,
+      "ramp": 1.0
+    }
+  },
+  "coordinate_permutation": [
+    2,
+    4,
+    0,
+    3,
+    1
+  ],
+  "row_reversal_null_checked": true,
+  "all_ten_raw_bounds_above_one": true,
+  "local_links_checked": 7,
+  "closed_practice_details": 16,
+  "manuscript_words": 7678,
+  "programs_read_in_full": true,
+  "manuscript_and_specifications_read_in_full": true,
+  "phase_two_not_started": true
+}

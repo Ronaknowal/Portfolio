@@ -140,6 +140,7 @@ const ownedFiles = [sourcePath, 'src/learn/data/clustering-evaluation-models.js'
     await chance.getByLabel('Predict first', { exact: false }).selectOption('ami:negative');
     await chance.getByRole('button', { name: 'Apply and compare' }).click();
     await checkText(chance.locator('.ce-feedback'), /Your prediction matches: Observed AMI negative/);
+    assert.ok(await chance.getByLabel('Predict first', { exact: false }).isDisabled(), 'Compared predictions cannot be rewritten after the result is visible');
     await chance.getByRole('button', { name: 'Unbalanced 3/5 candidate' }).click();
     await chance.getByLabel('Predict first', { exact: false }).selectOption('null:positive');
     await chance.getByRole('button', { name: 'Apply and compare' }).click();
@@ -148,7 +149,20 @@ const ownedFiles = [sourcePath, 'src/learn/data/clustering-evaluation-models.js'
     await chance.getByLabel('Predict first', { exact: false }).selectOption('ami:degenerate');
     await chance.getByRole('button', { name: 'Apply and compare' }).click();
     await checkText(chance.locator('.ce-feedback'), /Your prediction matches: AMI has a degenerate null/);
+    assert.equal(await chance.locator('.ce-matrix').evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length), 3, 'A constant candidate has one group column plus row labels and totals');
     await chance.getByRole('button', { name: 'Reset', exact: true }).click();
+    await chance.getByLabel('A in U', { exact: false }).selectOption('1');
+    await chance.getByRole('button', { name: 'Match U exactly', exact: true }).click();
+    for (const name of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
+      assert.equal(await chance.getByLabel(`${name} in V`, { exact: false }).inputValue(), await chance.getByLabel(`${name} in U`, { exact: false }).inputValue(), 'Match copies the edited reference');
+    }
+    await chance.getByLabel('Predict first', { exact: false }).selectOption('ami:positive');
+    await chance.getByRole('button', { name: 'Apply and compare' }).click();
+    await checkText(chance.locator('.ce-feedback'), /Your prediction matches: Observed AMI positive/);
+    await checkText(chance.locator('.ce-readout'), /NMI \(arithmetic\) = 1; AMI = 1/);
+    assert.equal(await chance.locator('.ce-matrix .is-highlight').getAttribute('aria-label'), 'U1 and V0: 0 observations', 'Highlighted overlap uses the first U group and smaller V label, even when V first appears as 1');
+    await chance.getByRole('button', { name: 'Reset', exact: true }).click();
+    records.push({ case: 'Chance regression: immutable compared prediction, constant-candidate table alignment, edited-reference exact copy, highlighted overlap agrees with the null definition' });
     records.push({ case: 'Chance lab: negative AMI at overlap 2, unbalanced margins recompute 56 assignments, constant candidate reports a degenerate null, reset' });
 
     const iris = page.locator('.ce-investigation').nth(3);

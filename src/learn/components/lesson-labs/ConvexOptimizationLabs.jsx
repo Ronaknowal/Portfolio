@@ -49,14 +49,14 @@ function ConvexGraph({
   const x = value => box.left + (value - xBounds[0]) * (box.right - box.left) / (xBounds[1] - xBounds[0]);
   const y = value => box.bottom - (value - yBounds[0]) * (box.bottom - box.top) / (yBounds[1] - yBounds[0]);
   const points = values => values.map(([first, second]) => `${x(first)},${y(second)}`).join(" ");
-  return <svg className="convex-graph" viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${id}-title ${id}-description`}>
+  return <svg className="convex-graph" viewBox={`0 -12 ${width} ${height + 42}`} role="img" aria-labelledby={`${id}-title ${id}-description`}>
     <title id={`${id}-title`}>{title}</title><desc id={`${id}-description`}>{description}</desc>
     <defs><clipPath id={`${id}-clip`}><rect x={box.left} y={box.top} width={box.right - box.left} height={box.bottom - box.top} /></clipPath></defs>
-    {xTicks.map(tick => <g key={tick}><line className="convex-grid" x1={x(tick)} x2={x(tick)} y1={box.top} y2={box.bottom} /><text x={x(tick)} y={box.bottom + 19} textAnchor="middle">{formatNumber(tick)}</text></g>)}
+    {xTicks.map(tick => <g key={tick}><line className="convex-grid" x1={x(tick)} x2={x(tick)} y1={box.top} y2={box.bottom} /><text x={x(tick)} y={box.bottom + 23} textAnchor={tick === xBounds[0] ? 'start' : tick === xBounds[1] ? 'end' : 'middle'}>{formatNumber(tick)}</text></g>)}
     {yTicks.map(tick => <g key={tick}><line className="convex-grid" y1={y(tick)} y2={y(tick)} x1={box.left} x2={box.right} /><text x={box.left - 8} y={y(tick) + 4} textAnchor="end">{formatNumber(tick)}</text></g>)}
     <line className="convex-axis" x1={box.left} x2={box.right} y1={box.bottom} y2={box.bottom} />
     <line className="convex-axis" x1={box.left} x2={box.left} y1={box.top} y2={box.bottom} />
-    <text x={(box.left + box.right) / 2} y={height - 5} textAnchor="middle">{xLabel}</text>
+    <text x={(box.left + box.right) / 2} y={height + 12} textAnchor="middle">{xLabel}</text>
     <text x={box.left} y={14}>{yLabel}</text>
     <g clipPath={`url(#${id}-clip)`}>{children({
         x,

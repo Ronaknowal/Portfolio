@@ -39,17 +39,20 @@
       "baselineSha256": "1d40c0dc369cde537b1a6f911e1f622c81685dab9f6d23ea13464dbafb3ce563",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/MATRIX-DECOMPOSITIONS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/MATRIX-DECOMPOSITIONS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "d9c913667990f254aa14a15c322643e78d63f49f5c5d6ea6b1f4dcfffa28bfe7",
       "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
       "reviewedFiles": {
         "src/learn/data/topics/matrix-decompositions-svd-qr-cholesky-lu.jsx": "d9c913667990f254aa14a15c322643e78d63f49f5c5d6ea6b1f4dcfffa28bfe7",
         "src/learn/data/matrix-decomposition-models.js": "6c3536f7cc2b13a64d3aff61efb04e88e63727ea2aba45b825550c440d35395e",
         "src/learn/data/matrix-decomposition-examples.js": "2f6b1cd53ebd1ebf1053ef139fe39b5a94016aa98dc2b68de94ecba83fe76d2a",
-        "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "b2fad697b41bb376dcd7c344c31d9c8eb8dfe3a49785c4e6eada7c370d53a2a0",
+        "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "8d5e41ab756a4a7b42a2f47ec4447f58a885663b78e004b00e618f0ee5497f95",
         "src/learn/components/lesson-labs/matrix-decomposition-labs.css": "4d305c26ed34d7662e7213d9c9951d87d1fee905a6234cae2520ee75bcddc7cc",
         "src/learn/data/curriculum/blueprints/matrix-decompositions-svd-qr-cholesky-lu.js": "249d15f4352ec9f7aa95625655448569fe9fba5040bd6aad5069ae7925e6719e"
-      }
+      },
+      "previousVerificationRecords": [
+        "docs/teaching/MATRIX-DECOMPOSITIONS-VERIFICATION.md"
+      ]
     },
     {
       "id": "eigenvalues-eigenvectors",
@@ -60,17 +63,20 @@
       "baselineSha256": "2d568c9236be131188b984091aad62c629715ebfa290bd7ee10ff4f827f9ff1c",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/EIGENVALUES-EIGENVECTORS-DESIGN.md",
-      "verificationRecord": "docs/teaching/EIGENVALUES-EIGENVECTORS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "9b6a8e6fdc094935a10844633da2fc6f0eaf12d041c479ca9adb0833ebea8da0",
       "reviewedFiles": {
         "src/learn/data/topics/eigenvalues-eigenvectors.jsx": "9b6a8e6fdc094935a10844633da2fc6f0eaf12d041c479ca9adb0833ebea8da0",
         "src/learn/data/eigenvalue-models.js": "033c9d123d336a45020a2b7496048dfccf32dd4ae2f973e96672ca4377591c48",
         "src/learn/data/eigenvalue-examples.js": "e918f6eef7294ff8a70fb6303903c8f549712d62074efc96b45852ffefbf8073",
-        "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "e37fcc065d99178742e4bec68468c9c3ae7614c60ff7ceeb89fa7bc27b34f6be",
+        "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "9591e7a504932dd94ad126f5e6b8f67971b36b8f1550a019b2033451dea76a97",
         "src/learn/components/lesson-labs/eigenvalue-labs.css": "a044d72b36b1950ba4cd7fbe25b0c5ff545cab65d2f0cc7839ad3439bfefe85d",
         "src/learn/data/curriculum/blueprints/eigenvalues-eigenvectors.js": "daeffeda730b570538dbe02cb052d3ca3c835a090d4c26431cc27e93dbbf6a9f"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/EIGENVALUES-EIGENVECTORS-VERIFICATION.md"
+      ]
     },
     {
       "id": "matrix-calculus-jacobians",
@@ -81,17 +87,20 @@
       "baselineSha256": "5cb1d9071bcef74dcd7a4d64a016cca73f41c113ef3607c826dfb1fafe112ad5",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/MATRIX-CALCULUS-JACOBIANS-DESIGN.md",
-      "verificationRecord": "docs/teaching/MATRIX-CALCULUS-JACOBIANS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "efa0f0d78634d261c991328ab812671bb5774af3c82e6ca4b7c3827daaa9c0bf",
       "reviewedFiles": {
         "src/learn/data/topics/matrix-calculus-jacobians.jsx": "efa0f0d78634d261c991328ab812671bb5774af3c82e6ca4b7c3827daaa9c0bf",
         "src/learn/data/matrix-calculus-models.js": "691573901499ab4fbe6c654f4555f696372e8aab5a559a6dafd780ddb6a743a5",
         "src/learn/data/matrix-calculus-examples.js": "0a68ba25ba37933659baae3215654a4a9ba0d16959a9c7d2c99179f4e8d65810",
-        "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "65bd096fb897dad7f6c74e938f6d3aaaa2c853fb8cbe2458a1e4c0552817942b",
+        "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "03483c45b32084af1904f4c7780bc09a5c1480da8bc54c82e1767c9a56cb333d",
         "src/learn/components/lesson-labs/matrix-calculus-labs.css": "1e1a54caa5feafa30061838b82aed07e4150339601052c1873fb142ba2e54ed9",
         "src/learn/data/curriculum/blueprints/matrix-calculus-jacobians.js": "f3a2797d5ca6fa3c93433337b2ea1e1512241651bdc34782d2f712c74991292d"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/MATRIX-CALCULUS-JACOBIANS-VERIFICATION.md"
+      ]
     },
     {
       "id": "tensor-algebra-einsum-notation",
@@ -144,17 +153,20 @@
       "baselineSha256": "844f8a08824c57e88f5296c9704154226d35f5accea1ac9ed1cb615c5acc789e",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-DESIGN.md",
-      "verificationRecord": "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "2f2801575051d48009fccbff4fa640fa2a2051eee98cd8ffde903d4c93d8e834",
       "reviewedFiles": {
         "src/learn/data/topics/multivariate-calculus-gradients.jsx": "2f2801575051d48009fccbff4fa640fa2a2051eee98cd8ffde903d4c93d8e834",
         "src/learn/data/multivariate-calculus-models.js": "05cfaf91ed5d3f979e873c40253593a612b773ff19b56cdb445cba1058ac66e2",
         "src/learn/data/multivariate-calculus-examples.js": "0931cecfdca0afd4d55970d17a84aace35d2780f97c2e3ed8c04f0637b1a9101",
-        "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "051cb92fbed63c283f4f2856b4392e6b4b14de5deddce874a44b3f3bd1d8dfe3",
+        "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx": "b4efa3bfd754b12f07d947c694849a2b87be33ca5049d1143b0562c475dc5794",
         "src/learn/components/lesson-labs/multivariate-calculus-labs.css": "07b75ee77ff610137b3a59f8a0bddbe6ea2865fc21c5deb5337934759b071281",
         "src/learn/data/curriculum/blueprints/multivariate-calculus-gradients.js": "2e12099daf1cdaad6fd33b25d9cd6fb37b63ca90b8d301e5d292b6cc8fb5dd64"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/MULTIVARIATE-CALCULUS-GRADIENTS-VERIFICATION.md"
+      ]
     },
     {
       "id": "convex-optimization",
@@ -165,17 +177,20 @@
       "baselineSha256": "561ef588dc8097527f8b6b9439ed7279a78c73f04f00cad9c97a64e7bc172a05",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/CONVEX-OPTIMIZATION-DESIGN.md",
-      "verificationRecord": "docs/teaching/CONVEX-OPTIMIZATION-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "c01fdc899c9795ffad83c9762dba3800922abc839a3f38cd8154f19366bcb567",
       "reviewedFiles": {
         "src/learn/data/topics/convex-optimization.jsx": "c01fdc899c9795ffad83c9762dba3800922abc839a3f38cd8154f19366bcb567",
         "src/learn/data/convex-optimization-models.js": "986b677b203bb28dc42c856bcfeb5b11c12dc28a744f71bf3414b492f3845121",
         "src/learn/data/convex-optimization-examples.js": "316d9be1ada616a9132d9523cba8495bfd2577b9f9502f857320d99d96746496",
-        "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "42cc19b9af5899015613b0b3badf4426da41fa9b48882157c17b55ced018edd9",
-        "src/learn/components/lesson-labs/convex-optimization-labs.css": "b2bea6b5738f95d2d78e19ce7381e63cbaa1ab5e9e810c0f37f0010cee5947f2",
+        "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "48b9c41e81843f8f53db2d9b01466e078092dea55bf83d240384b9cab76c2bd8",
+        "src/learn/components/lesson-labs/convex-optimization-labs.css": "6cb7cf78c13a8eb8f29598760748f2b24601030755f9328a8f8682677d9c7d13",
         "src/learn/data/curriculum/blueprints/convex-optimization.js": "c4e7ff0cc2a6d85395b8c1071a9901337a7ef554336ca73c51c287ba9ccee0cb"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/CONVEX-OPTIMIZATION-VERIFICATION.md"
+      ]
     },
     {
       "id": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
@@ -186,17 +201,20 @@
       "baselineSha256": "75069884f397cec1f37eda769088f5730e90dd06ddd19f5d12bc60adc9e47315",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/GRADIENT-DESCENT-VARIANTS-DESIGN.md",
-      "verificationRecord": "docs/teaching/GRADIENT-DESCENT-VARIANTS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "368eabcb472dd140d35bad33b76d81d08c31c166aea82743881a9f6fe5a6c736",
       "reviewedFiles": {
         "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "368eabcb472dd140d35bad33b76d81d08c31c166aea82743881a9f6fe5a6c736",
         "src/learn/data/gradient-variants-models.js": "e8d4a5dfed21caa76ea7770bed46f75cb04eab32263e8001e498a073ed57afd7",
         "src/learn/data/gradient-variants-examples.js": "b78c34b57482a3c934c7626ec195ee62963b5242ce639d4f7fe469da29c580ce",
-        "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "70a048459a683b06983db9501c11c205f8fbc5a296e1d94a84f402459e1eebce",
-        "src/learn/components/lesson-labs/gradient-variants-labs.css": "c142961279cc36e593c7d911b12b739d92d1152d9710a029f3311d2f79921d12",
+        "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "8be3726498fcd8460871699eccb84a564127a2b5532bfca3d5a67217c3310ecc",
+        "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
         "src/learn/data/curriculum/blueprints/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.js": "a61d2ec8a255fc85d80ebebf14a15aeabd293a3299618b7349709e97b8c78680"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/GRADIENT-DESCENT-VARIANTS-VERIFICATION.md"
+      ]
     },
     {
       "id": "learning-rate-schedules-cosine-warmup-onecyclelr",
@@ -207,17 +225,20 @@
       "baselineSha256": "4ab6671ff57f13d4cc39ef3ffd50f0f34bac01f1114cdbe102fa4329465d8d47",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/LEARNING-RATE-SCHEDULES-DESIGN.md",
-      "verificationRecord": "docs/teaching/LEARNING-RATE-SCHEDULES-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "557b67ea918e17b1b9c499409ea825dcaf65eae4d7e7389490af47eef0f945a1",
       "reviewedFiles": {
         "src/learn/data/topics/learning-rate-schedules-cosine-warmup-onecyclelr.jsx": "557b67ea918e17b1b9c499409ea825dcaf65eae4d7e7389490af47eef0f945a1",
         "src/learn/data/learning-rate-schedule-models.js": "cf3db9b95a15f38577ae26db8f49059f5d238dd8ce220ce4c3c3aeebd9657126",
         "src/learn/data/learning-rate-schedule-examples.js": "d0736b1353b13b6e1a6ea4b4c376810b9d6c69a8d859ffd92b7d3feb30f2c771",
-        "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "a6b29e507b1d4ed6c5bf64a3e95e3ef86499eb2576b1f36218bc3e4185a1031b",
-        "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "9fd90951133fcfa46948a27815c07d3190409bc6713f1ff168d84bffd04a5789",
+        "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "ab3e71d829765e6e23336a49db24036e0c5a595bcb240e2ab9308412f7156d3e",
+        "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "cc7aa40b7dc3a84d7301cbb34d0eea96fc49ca5e8a611b16d3f05f229c88cfe9",
         "src/learn/data/curriculum/blueprints/learning-rate-schedules-cosine-warmup-onecyclelr.js": "7be2e6fa70e9b2a602c806c23bfd8332284c268cfe7f2aebfcc48c09ec06e6ff"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/LEARNING-RATE-SCHEDULES-VERIFICATION.md"
+      ]
     },
     {
       "id": "convex-duality-lagrangian-methods-kkt-conditions",
@@ -228,17 +249,20 @@
       "baselineSha256": "a7dfffe79b6f4d71db8cd5ccbfff56f49668332ee763369faeee912e4a0e35e2",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/CONVEX-DUALITY-KKT-DESIGN.md",
-      "verificationRecord": "docs/teaching/CONVEX-DUALITY-KKT-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "3051164629e9ebcab2de42ad6de094b5d62b378c0a52aaa6c07c7ae883ab236f",
       "reviewedFiles": {
         "src/learn/data/topics/convex-duality-lagrangian-methods-kkt-conditions.jsx": "3051164629e9ebcab2de42ad6de094b5d62b378c0a52aaa6c07c7ae883ab236f",
         "src/learn/data/duality-kkt-models.js": "79df9a71d12f20493df2225b16647d93340b1822c80696735dcf8c5cdbce988e",
         "src/learn/data/duality-kkt-examples.js": "6f0fb0a1fff198d67786612e48a5c57b0a0fed72ddff75fe130547211a70d2e1",
-        "src/learn/components/lesson-labs/DualityKktLabs.jsx": "49c439d12f8c334d72b04d189f4a25ac92e62f0dc32564d9e539a84808186b95",
+        "src/learn/components/lesson-labs/DualityKktLabs.jsx": "826f494eb9e7d8ecea921a183a5820514f09f96dc568b5e3cdd49fea3f4fdf59",
         "src/learn/components/lesson-labs/duality-kkt-labs.css": "71142447afd1e15b848c2ad0c5b1ff828318e6a9800973c80df8a654b06eb0a0",
         "src/learn/data/curriculum/blueprints/convex-duality-lagrangian-methods-kkt-conditions.js": "2a292bc38404d7ad3d07e1bba01bd33754f59068e2650a60aa19fee750f581df"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/CONVEX-DUALITY-KKT-VERIFICATION.md"
+      ]
     },
     {
       "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
@@ -270,17 +294,20 @@
       "baselineSha256": "f32d0c1d1c4e049f5b79f40d08d08e200c574bef701821c7818e06283ea23880",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/NONCONVEX-LANDSCAPE-DESIGN.md",
-      "verificationRecord": "docs/teaching/NONCONVEX-LANDSCAPE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "a5808ff066db96746c4976775a377d9bdfde1f976cd8ec65d7d7dd385a3f75ed",
       "reviewedFiles": {
         "src/learn/data/topics/non-convex-optimization-landscape.jsx": "a5808ff066db96746c4976775a377d9bdfde1f976cd8ec65d7d7dd385a3f75ed",
         "src/learn/data/nonconvex-landscape-models.js": "15097305c56efd5868458a0d6fa68ee9da279daa8ca21123beecdd6099e787ca",
         "src/learn/data/nonconvex-landscape-examples.js": "0e9a24b2e971c075300f63bd586db6b6d8be4667b7161d7602d81d4c124488e5",
-        "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "05b3cd25da9aa3c5093f07e5ef61aabbef9ea7b38530fe5370992faac1d72371",
+        "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "0e17c533ab3f9a001c71edbf5999c3a3d4d0d65fcffe2082c6f5428f8d50c0e1",
         "src/learn/components/lesson-labs/nonconvex-landscape-labs.css": "0bf9578876cadf3ebdf73e4aa4fce742611b2196c6c31fc844b3659a3d3da4c9",
         "src/learn/data/curriculum/blueprints/non-convex-optimization-landscape.js": "33876560bcaf8dff8a22ab94098bc7bd7fd30ad53e42f749f552d9d8064d5c9e"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/NONCONVEX-LANDSCAPE-VERIFICATION.md"
+      ]
     },
     {
       "id": "constrained-multi-objective-optimization",
@@ -312,17 +339,20 @@
       "baselineSha256": "2d377172e4385cfc593cfe32a1c837ec181a095afafb9114dbe26e35adbe0036",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/PROBABILITY-DISTRIBUTIONS-BAYES-DESIGN.md",
-      "verificationRecord": "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "a64788c0a9679e92f52ac739bb424f89b9d705599a3939c120b778fbef5c3664",
       "reviewedFiles": {
         "src/learn/data/topics/probability-distributions-bayes-theorem.jsx": "a64788c0a9679e92f52ac739bb424f89b9d705599a3939c120b778fbef5c3664",
         "src/learn/data/probability-distributions-models.js": "6cacb671c8a46701780ef98a4d2c70fe1c1981737544342f47dae76f6411e60e",
         "src/learn/data/probability-distributions-examples.js": "b3bdfe47ea5c5934aced2722dcbaa2d9379820e69c305ce45db772584f5e5a3a",
-        "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "14c095ee497c8afb66d90f3dcfa49ca132c74204d16cd0c6acdd56687fac7bee",
+        "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "daafe18c4fc857afc74dbea815cda34a140a3791d77a21ba4545ab03cde0a636",
         "src/learn/components/lesson-labs/probability-distributions-labs.css": "8be2293f8dbdc0c19322ceacad35b8a4be3dd91f481eb181430c3c6d26bb2e55",
         "src/learn/data/curriculum/blueprints/probability-distributions-bayes-theorem.js": "1c57bb7af95d959272ce9d0afcfa88843fb0a7756b75bd565ef0fa67e2407a6a"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/PROBABILITY-DISTRIBUTIONS-VERIFICATION.md"
+      ]
     },
     {
       "id": "maximum-likelihood-map-estimation",
@@ -333,17 +363,20 @@
       "baselineSha256": "c85583cd806c188a9d66132efa468f42ea283c521d3298f93f206824e7119e2f",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "00064b38ea3f1fc6607a522d2514faa1e9c5f08e0128ed789644aee8117169f9",
       "reviewedFiles": {
         "src/learn/data/topics/maximum-likelihood-map-estimation.jsx": "00064b38ea3f1fc6607a522d2514faa1e9c5f08e0128ed789644aee8117169f9",
         "src/learn/data/maximum-likelihood-models.js": "55a2f198b40e8b7e196157ea6b35bae258554029d3cb277e86aff4f5826f1ebb",
         "src/learn/data/maximum-likelihood-examples.js": "2ea19d10692c5dc5c8159f4190df5dc0b96ac5d571751b5e4b5b7bbee96c5a15",
-        "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "5ea8076f620693ece6630332fdb0aefb9b39707db0e83b77f491bbdf20cdf172",
+        "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "6cc855073983d13c5a653f2959b293e674c5416436d17fb7bbbe6bd40344cb92",
         "src/learn/components/lesson-labs/maximum-likelihood-labs.css": "e4885658388a9ee35f6a7353f9e07aaadf13499e7b573827d8853c467298ba34",
         "src/learn/data/curriculum/blueprints/maximum-likelihood-map-estimation.js": "4c99fe3a89c53ab72cd88b8f99075e2834e5b945099bf67718ebfd9013bec859"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/MAXIMUM-LIKELIHOOD-MAP-VERIFICATION.md"
+      ]
     },
     {
       "id": "hypothesis-testing-confidence-intervals",
@@ -354,17 +387,20 @@
       "baselineSha256": "deffd763ae7bd6d59d2ce5aa5ee7459546d5fab475651fa2e34594bf6a19791e",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-DESIGN.md",
-      "verificationRecord": "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "49feeebc7a2e535711a59cb702a096a26c7d4e6b86eed323d1a6bd6bb73c89d5",
       "reviewedFiles": {
         "src/learn/data/topics/hypothesis-testing-confidence-intervals.jsx": "49feeebc7a2e535711a59cb702a096a26c7d4e6b86eed323d1a6bd6bb73c89d5",
         "src/learn/data/hypothesis-testing-models.js": "6ba4629748ac5ec1557b58e50ff951966cbc33a0a8a53b4afad5f1307904a1c5",
         "src/learn/data/hypothesis-testing-examples.js": "28287d0593616eb194640544d0b38e9edf594ec87bdf7a29cf3aeed5019e19bf",
-        "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "44b0e97eb565050a622368d8d0f1d2293a1efde5ef628277d76fbfbf56e43281",
+        "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx": "4112d66720d3f6591d8506925770d74d99bda1779ab431b9d5f1ae1f1d45c207",
         "src/learn/components/lesson-labs/hypothesis-testing-labs.css": "eb41e0a8ab23b7fa47a0e800b574cc245dea2cb256defd604785d2225caa5f43",
         "src/learn/data/curriculum/blueprints/hypothesis-testing-confidence-intervals.js": "915dd07e38e68de97c2a52413f57570c1517aedcbb66475fa241b16de8f1517b"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/HYPOTHESIS-TESTING-CONFIDENCE-VERIFICATION.md"
+      ]
     },
     {
       "id": "bayesian-inference-conjugate-priors",
@@ -375,17 +411,20 @@
       "baselineSha256": "9ad3e9a48ec923e633e67f9701fd0fdf3cd3fe53640834156af1df9b23f33149",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-DESIGN.md",
-      "verificationRecord": "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "4457ede4ed46aebf690c4ce786e60611abc9a45a112606c95b1d283e1d3828de",
       "reviewedFiles": {
         "src/learn/data/topics/bayesian-inference-conjugate-priors.jsx": "4457ede4ed46aebf690c4ce786e60611abc9a45a112606c95b1d283e1d3828de",
         "src/learn/data/bayesian-inference-models.js": "71d0a3d5fa5a91135d493ffbdbbfe5063a27f6acbbcb8dca2130aef12935a3dc",
         "src/learn/data/bayesian-inference-examples.js": "58f1f38e83cd5eae5934b9b9189aa8306e04ce7f2bbffaebaf9aab2da155ac47",
-        "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "4c277461f04ff580df50b5442cca6ceb78fa67de8a4630b98b2ca85ac7917da7",
+        "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "05f05daa033e241f322dd67dc2256aad7d3fcb61f49d37b202f3066498f7df63",
         "src/learn/components/lesson-labs/bayesian-inference-labs.css": "932602520f86292f3a6b5b3e7cd2eff8f85320d5a41f2ee1cdd79fcdfbb3aa7b",
         "src/learn/data/curriculum/blueprints/bayesian-inference-conjugate-priors.js": "71cd75befbe4416c4d59e5c8f026ce580bab896b8b6820449cbdc45957288800"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/BAYESIAN-INFERENCE-CONJUGATE-VERIFICATION.md"
+      ]
     },
     {
       "id": "concentration-inequalities-hoeffding-bernstein-chernoff",
@@ -459,17 +498,20 @@
       "baselineSha256": "ce8e329beb57157ee2ffeb3ce7600d7ec083498bf50e2ededb13f123c0a05855",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/EXPONENTIAL-FAMILIES-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/EXPONENTIAL-FAMILIES-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "64a1ae33f30b28d62cf691c12a2ba86bfab637647f3a323e2793ed534320c75d",
       "reviewedFiles": {
         "src/learn/data/topics/exponential-families-sufficient-statistics.jsx": "64a1ae33f30b28d62cf691c12a2ba86bfab637647f3a323e2793ed534320c75d",
         "src/learn/data/exponential-family-models.js": "b371f7f03adebd0d60f21ab7b4ac3e1568465bd0db605c9a34a5cc58d8132a7c",
         "src/learn/data/exponential-family-examples.js": "fc115d8d97394fb82a40931a7bdf55776015fe7d71a7505295cdb9465dd41521",
-        "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "bde1928bd2c16a2f8296a05ecca29eca393bb7f1e20f5c330b7b4d492ab15a3d",
+        "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx": "da66242941db121ee9af2fa344a549e6af7087a7c0d9a3f5f7cf9f7bdbd8ee89",
         "src/learn/components/lesson-labs/exponential-family-labs.css": "f15c93899232877b131554bb297c483c94388dae33924d08a0d117c70e4459ae",
         "src/learn/data/curriculum/blueprints/exponential-families-sufficient-statistics.js": "93b8ab71e3aa79c55167f0cb2b709bd009a2e1106b97caf1425614e07bb1dfbe"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/EXPONENTIAL-FAMILIES-VERIFICATION.md"
+      ]
     },
     {
       "id": "measure-theory-probability-spaces",
@@ -648,18 +690,21 @@
       "baselineSha256": "f14a9e3fb227512c8c1875530b9ed46a45a0cfd21f32be775af55294ab305995",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/SPECTRAL-GRAPH-THEORY-DESIGN.md",
-      "verificationRecord": "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "3f9acc7d7c524e9dbb145818c4ceacdf8c0b84179f0e88016e8e5fe061935e8d",
       "reviewedFiles": {
         "src/learn/data/topics/spectral-graph-theory.jsx": "3f9acc7d7c524e9dbb145818c4ceacdf8c0b84179f0e88016e8e5fe061935e8d",
         "src/learn/data/spectral-graph-models.js": "9612dfa5e766706dcad6b7e7b7edd5d54efaf0ae34585c108607ca007377b61e",
         "src/learn/data/spectral-graph-examples.js": "ad9b8bcfe1fda36648b9560ac662f2b5afca9be886cc04e970a9373879b2b8f4",
         "src/learn/components/lesson-labs/SpectralLab.jsx": "9dbfd43637a70d8aeb627962c434b47223ec986bc152ec3a642b01d3e48e12a0",
-        "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "c93a6233ad4eab3d023e5ada39215d2a29050ada228d29470bb65d25d580c496",
-        "src/learn/components/lesson-labs/spectral-graph-labs.css": "6f877f9a9a2f316d28b9782119ececf6dc9b45ab901f2655ebad70be3f8cd5c1",
+        "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "06cb6cc3c73e6c86722c82333f99c9e1fc6af2912acd1f09e9efc0f09e844a30",
+        "src/learn/components/lesson-labs/spectral-graph-labs.css": "4d2e3299b4569eb2eab993828c8db99effaff9cda7481180dcd7824b4e955887",
         "src/learn/data/curriculum/blueprints/spectral-graph-theory.js": "a2b03f010850cc14115e57b1a77e6a630c6e86da8c58d64e593177b588ad4755"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/SPECTRAL-GRAPH-THEORY-VERIFICATION.md"
+      ]
     },
     {
       "id": "combinatorial-optimization-approximation-algorithms",
@@ -691,18 +736,21 @@
       "baselineSha256": "7854bb01f1edd11bab8f4be5e8df9c87db688b233f1694946e68a3ccbbba1676",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/STOCHASTIC-PROCESSES-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "7133383f1b1b15adb1b16b029cacbf12966c18b7fde10549832fbca8a2556c06",
       "reviewedFiles": {
         "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": "7133383f1b1b15adb1b16b029cacbf12966c18b7fde10549832fbca8a2556c06",
         "src/learn/data/stochastic-processes-models.js": "909cc8d2678d709558627f777bcf9f64f35c85226d9e1c933227c7fdecebc921",
         "src/learn/data/stochastic-processes-examples.js": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482",
-        "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "c1e74207f7d366b032099bcbbf593ac354b50fc0e174af1f2c187b7ce0e11f7b",
+        "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "9543688f8eee410b9c66a53f6c2f7bbff901e9f28c55199c3b01864b69e23547",
         "src/learn/components/lesson-labs/stochastic-processes-labs.css": "05d2936b0cbf7ccfe2a15b897c5a8545062970e791265690e784235bc8c1a6fc",
         "src/learn/data/curriculum/blueprints/stochastic-processes-markov-chains-brownian-motion-poisson.js": "5fcd97a6314528bc8977b4fe0ce6c82ec7dd586148e60c3d69427d74915af018"
       },
       "authorEvidenceRecord": "docs/teaching/evidence/stochastic-processes-author-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/STOCHASTIC-PROCESSES-VERIFICATION.md"
+      ]
     },
     {
       "id": "random-matrix-theory",
@@ -713,18 +761,21 @@
       "baselineSha256": "5e6f60194506d4bfd531c7bc2f91599d93bcfb7635d059329e2c5b526662d74d",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/RANDOM-MATRIX-THEORY-DESIGN.md",
-      "verificationRecord": "docs/teaching/RANDOM-MATRIX-THEORY-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2",
       "reviewedFiles": {
         "src/learn/data/topics/random-matrix-theory.jsx": "226725367e3a93a218a8e67b87349093333a7d7c7c1bca1d53bc5d05b1e96ad2",
         "src/learn/data/random-matrix-models.js": "ba75ce3a68e187bfc0f55b861fb9209633ecaa7a2952601754edab742069776f",
         "src/learn/data/random-matrix-examples.js": "4386d8e5b5b21886156b81c87fe2f97a844700b3b541a952bbb6ce6f63e59780",
-        "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "fc418ffaecfb5d6281b4cd68a17e357b146c4cd4feda3a187d50c13cc5c7d493",
+        "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "94c0356ce0ec15d78f6ee34e8ebf3a2c1085ecb3afe719ece4127faf72ef6193",
         "src/learn/components/lesson-labs/random-matrix-labs.css": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
         "src/learn/data/curriculum/blueprints/random-matrix-theory.js": "517b37fe8e2666f224738aa5a045d5505f7dd1a0174379744c41ea6af46a0394"
       },
       "authorEvidenceRecord": "docs/teaching/evidence/random-matrix-author-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/RANDOM-MATRIX-THEORY-VERIFICATION.md"
+      ]
     },
     {
       "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
@@ -735,18 +786,21 @@
       "baselineSha256": "90f102dc352933b248609dcd95ff6a73c4f374eb47e7ef19c138d64907910285",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/QUEUEING-THEORY-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/QUEUEING-THEORY-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
       "reviewedFiles": {
         "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": "fb98824bffab7c7b316939d5e146e6f1b7c2c3cdc2effc52840123016d9f3101",
         "src/learn/data/queueing-models.js": "a94d8bf46dafd56bd9f7e577ce9462225c96f5416d3a51d4b59211478191b63b",
         "src/learn/data/queueing-examples.js": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
-        "src/learn/components/lesson-labs/QueueingLabs.jsx": "70604b111fe760d8b3c042206e7dbb0bfe788ce8b96b0ac028b9da3fa7aad9d9",
+        "src/learn/components/lesson-labs/QueueingLabs.jsx": "23da26b1eca2fb14c47f2a1ab848e49963dcb37deb921b4f1a846dd7506df7ea",
         "src/learn/components/lesson-labs/QueueingLabs.css": "23b99dfd926a8f42d653cfd5684529d55facc3830bcfe1782213661d424d351b",
         "src/learn/data/curriculum/blueprints/queueing-theory-m-m-1-m-g-1-little-s-law.js": "0e15e62310189949377151a62676bdfd41ddb9d430b4b0ff0417bcb54db858d8"
       },
       "authorEvidenceRecord": "docs/teaching/evidence/queueing-author-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/QUEUEING-THEORY-VERIFICATION.md"
+      ]
     },
     {
       "id": "dynamical-systems-theory-chaos",
@@ -757,18 +811,21 @@
       "baselineSha256": "92036f14ef736271c5218e3e6fa6bee15a09d4fb083742fda18f6ea7960c1b6a",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/DYNAMICAL-SYSTEMS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/DYNAMICAL-SYSTEMS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "26b3c22fb1570d389fd82c6fb8c69882b0840b7ef148c89f4d9155c9c2ea49a4",
       "reviewedFiles": {
         "src/learn/data/topics/dynamical-systems-theory-chaos.jsx": "26b3c22fb1570d389fd82c6fb8c69882b0840b7ef148c89f4d9155c9c2ea49a4",
-        "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "a88b98502518d0cb874ed38e1323443db56165bd2be06002c92e099cf7e47839",
-        "src/learn/components/lesson-labs/dynamical-systems-labs.css": "6ca3931852f9399ece613197548c307a77ad34fb656a454a69b69ea7d9cfdf62",
+        "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "ed0a9f5233528f6bd0631a43e3782f1129a5dcb2cef9ef2bebb6f03bc3a62480",
+        "src/learn/components/lesson-labs/dynamical-systems-labs.css": "719e3bf2f52acfdffaee002f60d95e5991d20f045b1fe0c25005f728818b7d87",
         "src/learn/data/dynamical-systems-models.js": "b5bf068e357558100f73f5336b53a43382d0a1decc73a3aaa1467f494732909f",
         "src/learn/data/dynamical-systems-examples.js": "3af5b2d3e6303ea9193712b9a6786be7361ffa9373b997efc67b28bae39bbbf1",
         "src/learn/data/curriculum/blueprints/dynamical-systems-theory-chaos.js": "f742827de99291801cd843f5fc9faf2a0dd9e140b056bbad4b3aa1a4afc7b283"
       },
       "authorEvidenceRecord": "docs/teaching/evidence/dynamical-systems-author-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/DYNAMICAL-SYSTEMS-VERIFICATION.md"
+      ]
     },
     {
       "id": "it-calculus-stochastic-differential-equations",
@@ -779,19 +836,22 @@
       "baselineSha256": "eadd01f669092ce887284f14ee69c537f505c01d1f853a36f199048f2b453954",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/ITO-CALCULUS-SDE-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "1888babc2459b65818d9aa7c1301e32d22a0f3188773b4e15ff513ceef3dc670",
       "reviewedFiles": {
         "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx": "1888babc2459b65818d9aa7c1301e32d22a0f3188773b4e15ff513ceef3dc670",
         "src/learn/data/ito-sde-models.js": "ebe3d90c5c0d16910cdb2a0eb7ec0bf1a06a72913a895139cb8dfbacb7704b06",
         "src/learn/data/ito-sde-examples.js": "17eaeecd7a1835a2f69145995f2d93befc6e8263e9af398f79d783c90d2de477",
-        "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "84f631995d336c1a5e91ff01b7434d73d6c01f5dd881f15d9b4d5f971d96dfdb",
-        "src/learn/components/lesson-labs/ito-sde-labs.css": "83f608e1e90c0a617fb7a5a9aa0074743edb593a14f0a7f495732d2b2bb5a5b5",
+        "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "064ece5b69b0bc99e7200e867e0e928279952ee9aed40d66ca9ae53b4d421d68",
+        "src/learn/components/lesson-labs/ito-sde-labs.css": "65cc1491cfe22001e557d82e35f2dd0d2cb185f6c56278536e46c8269dc5568c",
         "src/learn/data/curriculum/blueprints/it-calculus-stochastic-differential-equations.js": "9b829735b869871787c71d8e0ba71b19c0812466073eb4b8e2f0e073394febf6"
       },
       "authorEvidence": "docs/teaching/evidence/ito-sde-author-review.json",
       "independentEvidence": "docs/teaching/evidence/ito-sde-independent-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/ITO-CALCULUS-SDE-VERIFICATION.md"
+      ]
     },
     {
       "id": "numerical-methods-finite-differences-quadrature-root-finding",
@@ -825,19 +885,22 @@
       "baselineSha256": "56df99e5b364ad303e62539baf2c6f471714687eca65f83a7d0ac10b32918d18",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01",
       "reviewedFiles": {
         "src/learn/data/topics/functional-analysis-rkhs.jsx": "3765cacb0054566b3a929d240b186a60a5e42e8185272054336a2ce862d48e01",
         "src/learn/data/functional-analysis-models.js": "d4606e42993e5fd512b9006100d91a67b4da7ca78ba777477e2004622e65265c",
         "src/learn/data/functional-analysis-examples.js": "d0b1768f86359681fcb729bc711bbdb03e441b5fc09865439dc1f16327572998",
-        "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "6aebea873e884796d9fc7ad8e919e9173652051271ead5a801bac755247a3ee6",
+        "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "a6841d7de1f3c506884ae993a63d42acdd4063a36ae594d8eab7675ffb5ae1cf",
         "src/learn/components/lesson-labs/functional-analysis-labs.css": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
         "src/learn/data/curriculum/blueprints/functional-analysis-rkhs.js": "83bb2e9a5063d661e9855c8477a79f178efd2129b2098e1463b7b09944316587"
       },
       "authorEvidence": "docs/teaching/evidence/functional-analysis-author-review.json",
       "independentEvidence": "docs/teaching/evidence/functional-analysis-independent-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/FUNCTIONAL-ANALYSIS-RKHS-VERIFICATION.md"
+      ]
     },
     {
       "id": "topology-topological-data-analysis-tda",
@@ -895,20 +958,23 @@
       "baselineSha256": "4f9a22535e04bf93314583373a2dcde737579ea8a54e5af2426b4bc3ed07989c",
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/DIFFERENTIAL-GEOMETRY-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "0ff1f1983ec08941fea6d890c07ad8915a1b16aba81a99570a25d108f1ccd586",
       "authorEvidence": "docs/teaching/evidence/differential-geometry-author-review.json",
       "reviewedFiles": {
         "src/learn/data/topics/differential-geometry-riemannian-manifolds.jsx": "0ff1f1983ec08941fea6d890c07ad8915a1b16aba81a99570a25d108f1ccd586",
         "src/learn/data/differential-geometry-models.js": "7d3118253a653ba4fc5d48fe1daae10a673e77ca346516414c918dd534eebd8f",
         "src/learn/data/differential-geometry-examples.js": "a4f5b8082c8f5cb60b8c59bc2a9b41b4a44e58119334640153f01c6bb2d3f866",
-        "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "08406fb8fe003d769c523c18cc079ee289121ac8b27dec32fec30ff309044c0a",
+        "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx": "f18fd73b954059d41377c1daea5c421aaf7b9be02bc0ebdbb99651ff01417be6",
         "src/learn/components/lesson-labs/differential-geometry-labs.css": "fc11abfc545b289b3032445db4b331633c2d115b5751908e43f6474cb8433974",
         "src/learn/data/curriculum/blueprints/differential-geometry-riemannian-manifolds.js": "70d6ec5e1c39f00e2e5c2ac43b27264724cf67b7946dc12d7fdafef8fed35b71"
       },
       "independentEvidence": "docs/teaching/evidence/differential-geometry-independent-review.json",
       "independentReviewRecord": "docs/teaching/DIFFERENTIAL-GEOMETRY-INDEPENDENT-REVIEW.md",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/DIFFERENTIAL-GEOMETRY-VERIFICATION.md"
+      ]
     },
     {
       "id": "algebra-functions-exponentials-logarithms",
@@ -919,20 +985,23 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/ALGEBRA-FUNCTIONS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/ALGEBRA-FUNCTIONS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
       "reviewedFiles": {
         "src/learn/data/topics/algebra-functions-exponentials-logarithms.jsx": "8a4b770a1ccadae81cc40071715ad4c2ed62fdd380499bd8ce25764161ed9c6c",
         "src/learn/data/algebra-functions-models.js": "a44e199e45ed8d796ade78cf013499461890f436010be53fb23a44f20b563419",
         "src/learn/data/algebra-functions-examples.js": "1c6b87162632377bcf714de2a7e39bd57bb9ad43656d9057913ccbae825ad743",
-        "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "477594286e2ff402d95bf578322705ae0cd0b1b0b4d40c8ad3104342498a8c99",
+        "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "0baa16ee4ca18578087e7b2ceb907aa3855e60963acef23bbd189be0492322be",
         "src/learn/components/lesson-labs/algebra-functions-labs.css": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
         "src/learn/data/curriculum/blueprints/algebra-functions-exponentials-logarithms.js": "dd13960fd65a2582d7330c42d63fee9dbf014be599bafec4cae73d60999b0fa9"
       },
       "authorEvidence": "docs/teaching/evidence/algebra-functions-author-review.json",
       "independentEvidence": "docs/teaching/evidence/algebra-functions-independent-review.json",
       "independentReviewRecord": "docs/teaching/ALGEBRA-FUNCTIONS-INDEPENDENT-REVIEW.md",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/ALGEBRA-FUNCTIONS-VERIFICATION.md"
+      ]
     },
     {
       "id": "sets-logic-relations-proof-techniques",
@@ -1017,7 +1086,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/SINGLE-VARIABLE-CALCULUS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/SINGLE-VARIABLE-CALCULUS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "bcabd09809a076699c116449792cba1c060258fb9f280f3842402bba57c04edf",
       "authorEvidence": "docs/teaching/evidence/single-variable-calculus-author-review.json",
       "independentEvidence": "docs/teaching/evidence/single-variable-calculus-independent-review.json",
@@ -1026,12 +1095,15 @@
         "src/learn/data/topics/single-variable-calculus-limits-derivatives-integrals.jsx": "bcabd09809a076699c116449792cba1c060258fb9f280f3842402bba57c04edf",
         "src/learn/data/single-variable-calculus-models.js": "3d6163cbfc8607fd982eb332bbacad0df873e71099c9c24d659e527fd953918f",
         "src/learn/data/single-variable-calculus-examples.js": "aa2c46ac6583c007e8a2413eac33a421bf87f0b09f4e39234c3554045b4d90ab",
-        "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "56b4664f45ec9ce94c052e65eb1ed708ad5682ec0097db5dfdff4432c3b416c8",
+        "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "35a10baf290aeddba3917050462cf7dec2ce9eb189f4a1566c96f07da01b4b0a",
         "src/learn/components/lesson-labs/single-variable-calculus-labs.css": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033",
         "src/learn/data/curriculum/blueprints/single-variable-calculus-limits-derivatives-integrals.js": "7449af8c2552218c932c71ba586cac3d4ae92b1fd41f1d271bc654ed511f953f"
       },
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/SINGLE-VARIABLE-CALCULUS-VERIFICATION.md"
+      ]
     },
     {
       "id": "random-variables-expectation-covariance",
@@ -1042,7 +1114,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/RANDOM-VARIABLES-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "ff2b5a4081005a6e48e0ba959e3eeccc53d99ba8d848d61e514ed4b5e93a5997",
       "authorEvidence": "docs/teaching/evidence/random-variables-author-review.json",
       "independentEvidence": "docs/teaching/evidence/random-variables-independent-review.json",
@@ -1051,12 +1123,15 @@
         "src/learn/data/topics/random-variables-expectation-covariance.jsx": "ff2b5a4081005a6e48e0ba959e3eeccc53d99ba8d848d61e514ed4b5e93a5997",
         "src/learn/data/random-variables-models.js": "d8fbde33467bfa85ec4daa7c01817c29d1861d2cabc040a617e353aed3ebffc2",
         "src/learn/data/random-variables-examples.js": "53e0ab69268d61f8038da23f5001d948178fee6dbbdaddfe1d280f839444a9be",
-        "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "3a439003800b275917a1d8bd6972cb90288ad541f828f306f9c8cba1231252d5",
-        "src/learn/components/lesson-labs/random-variable-labs.css": "b5992987051596371a489fd9e8d57fe5068f319beab5159df6b942618d41630f",
+        "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "56bc639cfc9631fe8ee095906db4f9563b8a308f3f5896389cd9752c2be57de0",
+        "src/learn/components/lesson-labs/random-variable-labs.css": "a23e995cb0c6fc577207f9661ce6e06612b005cf6e673fcc8c4d795a8a7a0e14",
         "src/learn/data/curriculum/blueprints/random-variables-expectation-covariance.js": "4135077be24b13160c30faae951dcae12433599d3ec75716f099c609ae62a698"
       },
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/RANDOM-VARIABLES-VERIFICATION.md"
+      ]
     },
     {
       "id": "sampling-measurement-experimental-design",
@@ -1067,7 +1142,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/SAMPLING-MEASUREMENT-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/SAMPLING-MEASUREMENT-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
       "authorEvidence": "docs/teaching/evidence/sampling-measurement-author-review.json",
       "independentEvidence": "docs/teaching/evidence/sampling-measurement-independent-review.json",
@@ -1076,12 +1151,15 @@
         "src/learn/data/topics/sampling-measurement-experimental-design.jsx": "0f81b304040c9268cb97e3eabdcc87433c0ca3987f49ac656baa076d481deff8",
         "src/learn/data/sampling-measurement-models.js": "052f97ae06616127acaad4e16282c4c40273f87ab7d58bc53878991f7c972d5c",
         "src/learn/data/sampling-measurement-examples.js": "be66c6e3d3d3e6ec71a972c913dbc28e8e4e045d22698a011febf652df531079",
-        "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "ed734ed23b69ceafa30123cba6c0a3f6ece04d30983c047c8ee9b515826a0c41",
-        "src/learn/components/lesson-labs/sampling-measurement-labs.css": "ec2ae36bb19a748383a3a252b362e7adf477002efcc68b8cc315dde70b65b740",
+        "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "09958ab737f32b2d8871bcdd55985a3433bf7bcafc85bd4b1dd68c6ea372b8e7",
+        "src/learn/components/lesson-labs/sampling-measurement-labs.css": "8a8c8e03ebb4cd607cc08505436ea3de42465de8cccf47fa21dfefea93b31510",
         "src/learn/data/curriculum/blueprints/sampling-measurement-experimental-design.js": "38640ba0ba4db563b8d72d7f2c8a66cf0dc04a2bd233a70153593f7404a722a2"
       },
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/SAMPLING-MEASUREMENT-VERIFICATION.md"
+      ]
     },
     {
       "id": "ordinary-differential-equations-linear-systems",
@@ -1118,7 +1196,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/COMPLEX-FOURIER-LAPLACE-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886",
       "authorReviewRecord": "docs/teaching/evidence/complex-transforms-author-review.json",
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
@@ -1127,12 +1205,15 @@
         "src/learn/data/topics/complex-numbers-fourier-laplace-transforms.jsx": "bc1396659fa174a99fd048ddf50a678eeda2445cb228007830fb94bfab747886",
         "src/learn/data/complex-transforms-models.js": "2ebd24996edbb0381d723ec9dce65ddb993f75df0e6d070509414e48cc57a445",
         "src/learn/data/complex-transforms-examples.js": "982c4848b6c37dc482bc98bfbab9e610c439eb05220bc73c6e626294e0ea4dee",
-        "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "5ce77a4d38523e25fa2b0cefc42f1e0d19c017ebdc0b2adc71b2512c29e267f7",
+        "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "8180ed8cff3d56001f52ce7c6993ed4ecc468488e857f742efa651b0f1cacf83",
         "src/learn/components/lesson-labs/complex-transforms-labs.css": "cb39a19d9dbcc9c7b6c533004b2f05e2fdfcdb9149acffd2c686f36e0f12b788",
         "src/learn/data/curriculum/blueprints/complex-numbers-fourier-laplace-transforms.js": "08dcc9fb9cbd75e804532f42f7e2c2772eb52c30812c92661e197464a272d54a"
       },
       "independentEvidence": "docs/teaching/evidence/complex-transforms-independent-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/COMPLEX-FOURIER-LAPLACE-VERIFICATION.md"
+      ]
     },
     {
       "id": "conditioning-stability-numerical-analysis",
@@ -1143,7 +1224,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/CONDITIONING-STABILITY-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
       "authorReviewRecord": "docs/teaching/evidence/conditioning-stability-author-review.json",
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
@@ -1152,12 +1233,15 @@
         "src/learn/data/topics/conditioning-stability-numerical-analysis.jsx": "063b53d3cf318da8b587ab13412f0fd98b86f6fbdb58524ae7217164a7d820db",
         "src/learn/data/conditioning-stability-models.js": "23a93f998e57d9ac9ceb346ec68d97667e31770c0e299f67c988fa55347a3358",
         "src/learn/data/conditioning-stability-examples.js": "ff34eeee2340a6d9817574c4cf4811e9891b51637b0b0f21cb77e91e30100ad9",
-        "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "45060210a4ab470b590cb54ffa56d64b2270c63976b76647ff38a3fbded878bd",
-        "src/learn/components/lesson-labs/conditioning-stability-labs.css": "6153a799c9e8380f740d19b80d4f608fbd5b71169c64d55d1ca9baf32d9ff6b4",
+        "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "d23a5ffbbc2f82984a7f409e5d6a2f8ecdbdb617561bd59116bed53cf4765dc8",
+        "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00",
         "src/learn/data/curriculum/blueprints/conditioning-stability-numerical-analysis.js": "866ed0ecf0ef28bd6fbf96b375b9275a7a712660f9178231b8e537eeceb15e00"
       },
       "independentEvidence": "docs/teaching/evidence/conditioning-stability-independent-review.json",
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/CONDITIONING-STABILITY-VERIFICATION.md"
+      ]
     },
     {
       "id": "decision-theory-risk-cost-sensitive-decisions",
@@ -1194,7 +1278,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/REAL-ANALYSIS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/REAL-ANALYSIS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "e5233bfdd364168518f923f57b3716f6d15f647ea6dd8b7a1093954516ac17c3",
       "authorReviewRecord": "docs/teaching/evidence/real-analysis-author-review.json",
       "reviewStage": "Final author/independent evidence and production loading/navigation integrated; user acceptance remains separate.",
@@ -1205,10 +1289,13 @@
         "src/learn/data/curriculum/blueprints/real-analysis-sequences-modes-of-convergence.js": "7552ebf0051b7256564e645aae1d6a414459c4113a6cd04fb7b04c417a528ec7",
         "src/learn/data/real-analysis-models.js": "5e71fd734537323f43a46e9fe857d175f48f2272ae840633cae6c5fa7e68a84a",
         "src/learn/data/real-analysis-examples.js": "7e3bcfae45d69acb38f8ef136fcbd7617fe2e471cfbfa39424c801928c302850",
-        "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e171a1dbb2cc4c4d61db9d9528efe72b6bb22119cb34b2027643f9f63ae19e17",
+        "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e2366619a8a2c68bc99e407b5e169a24d72b81f415e5340e17f0d9b329842bc3",
         "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/REAL-ANALYSIS-VERIFICATION.md"
+      ]
     },
     {
       "id": "abstract-algebra-groups-symmetry-actions",
@@ -1244,7 +1331,7 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99",
       "reviewStage": "Final independent source evidence and production integration complete; user acceptance remains separate.",
       "authorReviewRecord": "docs/teaching/evidence/pde-author-review.json",
@@ -1254,11 +1341,14 @@
         "src/learn/data/topics/partial-differential-equations-conservation-boundary-conditions.jsx": "0ee1d67f1aecbc402f5e5cfbd8f6ad428bb743d8256ba0d14e4e6fb5b7249c99",
         "src/learn/data/pde-models.js": "c9b4a1b5e03ec86be48da1f54017918232b260f0e6f3d01b1308f1207df1efc2",
         "src/learn/data/pde-examples.js": "dc902521d76b895f6ff1841747b0b969678d1198cccbea837430a24d84ac39b1",
-        "src/learn/components/lesson-labs/PdeLabs.jsx": "e3d98e08d924c3d7871fd171661916c6dcfc06e9f9223f0bbbd25148671b797d",
+        "src/learn/components/lesson-labs/PdeLabs.jsx": "718d151ce5349845ebe4046dd3b174598698becd853d412204d7a372b30bf9da",
         "src/learn/components/lesson-labs/pde-labs.css": "01753873c56f05c2a3e51503cb12eb6882c0302c8113eeb47e1104f58f00e170",
         "src/learn/data/curriculum/blueprints/partial-differential-equations-conservation-boundary-conditions.js": "f8c704b70c057eb8113ced0346f1ca5eb9902d357f91cc62194c81c276836fcb"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/PARTIAL-DIFFERENTIAL-EQUATIONS-VERIFICATION.md"
+      ]
     },
     {
       "id": "numerical-pdes-grids-finite-elements-stability",
@@ -1373,18 +1463,21 @@
       "baselineSha256": null,
       "status": "implementation-reviewed",
       "designRecord": "docs/teaching/BACKTRACKING-DIVIDE-LESSON-DESIGN.md",
-      "verificationRecord": "docs/teaching/BACKTRACKING-DIVIDE-VERIFICATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "reviewedSourceSha256": "58df12c81aaf774c9d5cc86be95ffb3d731e6d1b983fe44bbc081e108d50d9c4",
       "reviewedFiles": {
         "src/learn/data/topics/backtracking-divide-and-conquer.jsx": "58df12c81aaf774c9d5cc86be95ffb3d731e6d1b983fe44bbc081e108d50d9c4",
         "src/learn/data/backtracking-divide-models.js": "751484f65d9bb421ffeda9cbbf370b6fb48a397f26032431f1cda58f6d4ca62e",
         "src/learn/data/backtracking-divide-examples.js": "d30dc86c1829d989e9e5d8f0c1d90794465b741d3fbdbc62c8be4cbf528f8965",
         "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx": "4b9cd8c6bc3a6c83466cf09ce451f654b9f634f5f45633101a9b70fea3da03b8",
-        "src/learn/components/lesson-labs/backtracking-divide-labs.css": "6b98750449c50b142e4e89785b5b8fc088f04d7ea28bc033481ad168ba4c3195",
+        "src/learn/components/lesson-labs/backtracking-divide-labs.css": "a42e00a0afa8900addc6f782e2932029d68c265d8277a75ddebb7928744bfde4",
         "src/learn/data/curriculum/blueprints/backtracking-divide-and-conquer.js": "6be3a2c15d1074c6e40f1a9e664ce6426439638eddee5661630355afcc8d2d2f",
         "src/learn/data/practice/backtracking-divide-and-conquer.js": "5bc54f654f222ad751aa0a77504c092a0df686a6a5292bc9dfdf8c6d78758f69"
       },
-      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md"
+      "integrationRecord": "docs/teaching/DSA-MATH-FOUNDATIONS-INTEGRATION.md",
+      "previousVerificationRecords": [
+        "docs/teaching/BACKTRACKING-DIVIDE-VERIFICATION.md"
+      ]
     },
     {
       "id": "greedy-algorithms-exchange-arguments",

@@ -1,0 +1,305 @@
+{
+  "startedAt": "2026-09-16T17:58:22.673Z",
+  "completedAt": "2026-09-16T17:59:12.884Z",
+  "topicId": "bayesian-networks-causal-graphical-models",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "a6ed38980328fa552bd36e41dfe318d48852425e44d68de72638043a660a9f7e",
+  "sourceHashes": {
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "38c4fad05e16b44a4be4f443234d61c118684e96f1db7cd6ba03f99964921289",
+    "src/learn/data/bayesnet-models.js": "69b626517964bfcf80c99c6739ead461ed32c80b56315bf7d06700ab6d6b28c1",
+    "src/learn/data/bayesnet-data.js": "e96a76129b32af838638a55bc9f6583134478b075e369f51e508e83c5bff40cc",
+    "src/learn/data/bayesnet-examples.js": "0742ff92b949cb6b6a35cb9ef43cd1ae2eb7026a4d04f591d977372ffad114fe",
+    "src/learn/components/lesson-labs/BayesNetShared.jsx": "087a4a8e0fb445af99744e18368fc1882b0f15d36c0ae9eb977db5c44d73c155",
+    "src/learn/components/lesson-labs/BayesNetLabs.jsx": "8de9ead8dc3d6366fde420a910456d15a6a26b798946e4f0d618b6d5eab611e3",
+    "src/learn/components/lesson-labs/BayesNetFigures.jsx": "c3a58f3936be6b4364eb342d65e6baeb7b394d1f14a8f2ce2a8663b63b0203a6",
+    "src/learn/components/lesson-labs/bayesnet-labs.css": "69a0a184b7d6b44ea1ed145463d1bc86f2c7d18f741c8654f3ddef2b7f18193b",
+    "src/learn/data/curriculum/blueprints/bayesian-networks-causal-graphical-models.js": "06c1147fadf0a97b26ffea76258f17ac185f2ba6b2d68a64cece046ec9bd8b87",
+    "public/learn-assets/bayesian-networks/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "public/learn-assets/bayesian-networks/ATTRIBUTION.txt": "9d55e1d9e2edfb640d426660f21d52010322f4508f0775568e12ffbcb40e1768",
+    "public/learn-assets/bayesian-networks/network-experiments.py": "657cb8ce00e4369afe15164f5192f0c809d70a1da93c1726eb5a7f1f794cae94"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/bayesian-networks/wine.csv",
+    "sha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "bytes": 12100
+  },
+  "modelExports": 58,
+  "records": [
+    {
+      "case": "Header, position, neighbours, four investigations, ten practice sections, both executed programs, every route anchor and all three served downloads"
+    },
+    {
+      "case": "Before any prediction, no investigation renders a graded readout, a verdict, a path verdict or a history entry, and every Apply is disabled"
+    },
+    {
+      "case": "After an edit and before commitment, neither investigation 1 nor 4 prints the value it is about to grade, checked numerically rather than by formatting"
+    },
+    {
+      "case": "Investigation 2 accepts the correct separation verdict for the unobserved collider, and reveals its path verdicts only then"
+    },
+    {
+      "case": "Observing a collider descendant retires the verdict, opens the path, and the drawn reason names the descendant rule"
+    },
+    {
+      "case": "A cycle-creating edge is refused beside the control and the prior valid graph survives"
+    },
+    {
+      "case": "Investigation 1 reports impossible evidence as having no posterior, and accepts that as the correct prediction"
+    },
+    {
+      "case": "Investigation 3 reveals none of the four measured values before they are bought, including through the controls that edit them"
+    },
+    {
+      "case": "Investigation 3 grades a measurement purchase and investigation 4 a randomised assignment, both with their arithmetic shown"
+    },
+    {
+      "case": "I1 discloses the relative numeric allowance, accepts both inclusive endpoints around the .001 prior, and rejects both just-outside guesses"
+    },
+    {
+      "case": "I1 preserves positive sub-10^-12 support and a defined zero posterior; impossible-to-impossible remains undefined and recovery is explicitly newly defined"
+    },
+    {
+      "case": "I2 Reset restores the pending arrow selectors as well as the graph, predictions and errors"
+    },
+    {
+      "case": "I3 names its actual cultivar-2 target, explains mask changes and identical encoded evidence truthfully, and separates purchase/edit history from same-category numerical changes"
+    },
+    {
+      "case": "I4 hides uncommitted risks in accessible names and distinguishes absent, still-absent and newly-defined observed differences"
+    },
+    {
+      "case": "I4 keeps .001/.999 weights outside the bars at 390px and preserves exact .1%/99.9% proportional widths"
+    },
+    {
+      "case": "F5 restores all nine declared generative probabilities and identifies plain observational risks as conditioning on treatment"
+    },
+    {
+      "case": "All 17 rendered figures captured at desktop width for inspection"
+    },
+    {
+      "case": "1366px: no label collision, no curve through a label, every SVG label at least 8 rendered pixels across 55 labels, no display-math overflow, no horizontal page scroll, and no figure table clipping a column"
+    },
+    {
+      "case": "768px: no label collision, no curve through a label, every SVG label at least 8 rendered pixels across 55 labels, no display-math overflow, no horizontal page scroll"
+    },
+    {
+      "case": "390px: no label collision, no curve through a label, every SVG label at least 8 rendered pixels across 55 labels, no display-math overflow, no horizontal page scroll"
+    },
+    {
+      "case": "320px: no label collision, no curve through a label, every SVG label at least 8 rendered pixels across 55 labels, no display-math overflow, no horizontal page scroll"
+    },
+    {
+      "case": "Keyboard focus enters the lesson and the focused INPUT carries a visible outline style (solid)"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-2-first-paint-1366.png",
+      "digest": "e4fde35793723930746160bb845a698aea80188568bf45996cd52187f9ad4146",
+      "bytes": 175064
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-4-first-paint-1366.png",
+      "digest": "b07759888915f530aeb982d05fe65ab1ece6df6769a2524d49cd5e5d2109a2ae",
+      "bytes": 233106
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-2-correct-separation-1366.png",
+      "digest": "0ecd16ae66f4919a0e9ff73c3548d97be3a1229da9251ae9e147ed54876e411c",
+      "bytes": 195231
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-2-collider-descendant-1366.png",
+      "digest": "4135ef815b071aae92a961d6e345ed853efedb623e097d23b9f8538d69b591ca",
+      "bytes": 194202
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-1-screened-off-1366.png",
+      "digest": "fd0aeff52b9636ff1a47fc08328f52e79391c44f659ad8d350e9079220eebdef",
+      "bytes": 270206
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-1-impossible-evidence-1366.png",
+      "digest": "0ef70d3a03a0cddce8cae1ecfdf3860a389bf9fdbf722ed1024674df94005e35",
+      "bytes": 267945
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-3-purchase-1366.png",
+      "digest": "64c4b52e831d2947e6ac0adcc2931e36fe2846a596f182eb78153cedd1c8e172",
+      "bytes": 200702
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-4-randomised-1366.png",
+      "digest": "ea2c9432327775de21450f8ea47f0ddc21cf6169a2f19cc3ba1cdf12301ae9e5",
+      "bytes": 237265
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-sequential-rare-supported-evidence-1366.png",
+      "digest": "b9f9a4c302ba1955649029acb43c3cb6f5e2101e83e125781d5f423a38f58a57",
+      "bytes": 258540
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-sequential-tiny-mixture-390.png",
+      "digest": "7872f2d8ce469e247d4dc4006511bf1efafbe356c911f25963aeec85a1853974",
+      "bytes": 258551
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-1-1366.png",
+      "digest": "90dc294e41bcb41500a3245b4149cf5e5314e4185357c1d80385b7ce946dd6cd",
+      "bytes": 82310
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-2-1366.png",
+      "digest": "326d13212c17c2f7bdc3acfb55556b610861734149452e81b390c7a93ee1e7d4",
+      "bytes": 24228
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-3-1366.png",
+      "digest": "91bc592c88259c00e635098ba9d33eb79cc62b4dd6976209620102007e8ad476",
+      "bytes": 29594
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-4-1366.png",
+      "digest": "bf0499a333f4fe0440d4eb1d7b3ece2193ec3cecb271de551462a16d5d54ff5b",
+      "bytes": 82657
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-5-1366.png",
+      "digest": "8cf28fc303ce93ebd30b4438b5b7506286fcb9bad60f333cc8b6179c12786861",
+      "bytes": 67125
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-6-1366.png",
+      "digest": "ac9d6f65a556ebc8990b372005db36fec37e3e15f90a2dbff159dc2d891bd563",
+      "bytes": 25184
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-7-1366.png",
+      "digest": "6aa924b7f1f45c0b4d27be1fb88897f6a005bd4e76e131be296b01f139807f27",
+      "bytes": 154942
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-8-1366.png",
+      "digest": "29a5cbc184ed72cd387c08a7c0e2697c8e640d0f78f8baf88334c545be76c9bc",
+      "bytes": 14132
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-9-1366.png",
+      "digest": "7baaae1d08f07e23ece45b67c8fd584cc96a95562103055efb1429d438ce5fde",
+      "bytes": 12599
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-10-1366.png",
+      "digest": "87bfccf9c0b7a3bbaaec832088153c3f0b142173a9a2a402e2f77d8d9d57bafb",
+      "bytes": 162463
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-11-1366.png",
+      "digest": "e497394c86f3c0157b5f1624f837185b6a750376c13180ee46a9551f10de9927",
+      "bytes": 29451
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-12-1366.png",
+      "digest": "231130b220cebf78504aca8ad6ceddb56b7cdaddcda18db835fb0105208d559d",
+      "bytes": 54918
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-13-1366.png",
+      "digest": "4257880a4dcd6e400da86a44aaf0863c81aec8d02c50433844e69b52ec33882e",
+      "bytes": 98387
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-14-1366.png",
+      "digest": "b46350a0ae925ed3f6a56bc0d2453827462efe7748b880d65e24d415319d0543",
+      "bytes": 7162
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-15-1366.png",
+      "digest": "761816e7000f783a09ebdec743e3066e6f568874a2d752bd7832a5b33ad5a686",
+      "bytes": 7360
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-16-1366.png",
+      "digest": "d62c6ecf6e07722b6de32e275b474f602e284fb79fa2b586b06346ba9916eaad",
+      "bytes": 6115
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-17-1366.png",
+      "digest": "1366b87bf00846a008bbda6c54dbc786e2f8ca5b44c8362407fcdcffa60696ef",
+      "bytes": 8244
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-1-390.png",
+      "digest": "1ccbfa58514c54b5d9fb370e17927b6cec4a2b9b9e4e60991beba13007020012",
+      "bytes": 78050
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-5-390.png",
+      "digest": "d30f9009cb8718c8ce535b67121ac4991055fa06556ed2641693e8f680b19ac4",
+      "bytes": 66689
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-10-390.png",
+      "digest": "bf6cac251350b164320f462bb45f84dc6cc54fed20fe798b47133716ab083686",
+      "bytes": 176178
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-12-390.png",
+      "digest": "f3d8773a350a69ec969880dc3b11020da0876231d70b41a79db1228317575735",
+      "bytes": 63245
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-2-390.png",
+      "digest": "3e96337277263a929ad183e80ecd4250b898e8b3f7585ab43df337c340899dee",
+      "bytes": 168293
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-4-390.png",
+      "digest": "f4591575f36f920b9246de6a59469e85738b6292b3808556f70bdd5b07574431",
+      "bytes": 252313
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-1-320.png",
+      "digest": "c0dffdba976804ea66ee6853f40dbf6f97998301119e13fb1cc32487a3e28cf0",
+      "bytes": 78680
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-5-320.png",
+      "digest": "b7e9c05bd62b5ab42385f2b1a4afef71fd62080774fe3a16ca4f7d4b53729a52",
+      "bytes": 72460
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-10-320.png",
+      "digest": "c6fa22e5644644a7b7188fd961ff4aefa058b6a9619d7dbbdd6af60f84b9fe72",
+      "bytes": 174684
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-figure-12-320.png",
+      "digest": "dbaced071b236d1c15891613453a6d44c6077a743fcda7eb28bacf1d1e8b5bfc",
+      "bytes": 61719
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-2-320.png",
+      "digest": "eeeb1447361b1b6b5a2538c28e06504ffeb421040a97e69327ff07fb35156487",
+      "bytes": 175349
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\bayesnet-investigation-4-320.png",
+      "digest": "c9bf94b3d726f93e4409993f91f3eb0bac10c3d7b868b505e0dc86a5e38eda72",
+      "bytes": 260865
+    }
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks ran. Screenshots capture informative states rather than defaults only: investigation 2 after a correct separation verdict and again with a collider descendant observed, investigation 1 on the screened-off null and on impossible evidence, investigation 3 after a purchase is graded, investigation 4 under randomised assignment, every inline figure at desktop width, and the first three figures plus the path inspector at 390 and 320 px. Each capture records its own byte count and SHA-256 so a stale file from an earlier run cannot be mistaken for a fresh one. They require separate visual inspection by a person."
+}

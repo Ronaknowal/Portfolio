@@ -97,7 +97,7 @@ export function ProcessSliceFigure() {
 export function StateAggregationFigure() {
   return <figure className="process-inline">
     <Figure title="A deterministic hidden cycle A to B to C to A; reported A and B both become zero." height={245}>
-      <text x="160" y="24" textAnchor="middle">Hidden state: enough memory</text>
+      <text x="160" y="19" textAnchor="middle">Hidden state: enough memory</text>
       {[['A', 50], ['B', 160], ['C', 270]].map(([name, x]) => <g key={name}>
         <circle cx={x} cy="70" r="23" className="process-node" />
         <text x={x} y="76" textAnchor="middle">{name}</text>
@@ -105,8 +105,7 @@ export function StateAggregationFigure() {
       </g>)}
       <text x="105" y="76" textAnchor="middle">→</text>
       <text x="215" y="76" textAnchor="middle">→</text>
-      <path d="M270 45 L270 34 L50 34 L50 45" className="process-connector" />
-      <text x="160" y="42" textAnchor="middle">←</text>
+      <path d="M270 45 L270 38 L50 38 L50 45 M160 34 L154 38 L160 42" className="process-connector" />
       {[['0', 50], ['0', 160], ['1', 270]].map(([value, x]) => <text x={x} y="155" textAnchor="middle" key={x}>report {value}</text>)}
       <text x="160" y="193" textAnchor="middle">previous 1, current 0 → next 0</text>
       <text x="160" y="224" textAnchor="middle">previous 0, current 0 → next 1</text>

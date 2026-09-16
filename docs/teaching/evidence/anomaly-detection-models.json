@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-09-13T14:02:05.924Z",
+  "sourceHashes": {
+    "src/learn/data/anomaly-detection-models.js": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+    "src/learn/data/anomaly-temperature-data.js": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+    "src/learn/data/anomaly-detection-examples.js": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "c701677eea974b9cb0881057b38ffcfe7685d5ea8dd607c14081594b45cba118",
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "95e626b4f9bb64ae94f431e1742112ce794ad7979f027217925442fcbf6e6cbf",
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "7678139fc40508674b417f1b62629a29c6687c8545cbcfe0fbcc33a3012e8143",
+    "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx": "0ea3774ef1dfe62f1437eb28d81bd5cf72d9c7312cd123cf957f2c8695c2733c",
+    "src/learn/components/lesson-labs/anomaly-detection-labs.css": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164",
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "5bda9ff857407173d79091c9fa00884f67df5c038aea2967c25b69b8ee35bc0a"
+  },
+  "verifierHash": "bc48a6a12d621758df27f1bec30c3bc527f474d90426078cd9497593677d92e6",
+  "counts": {
+    "leaf corrections": 1,
+    "first-cut intervals": 1,
+    "isolation expectations versus author": 3,
+    "isolation identities": 1,
+    "truncated path": 1,
+    "LOF state versus author": 3,
+    "LOF identities": 1,
+    "fitting mode": 1,
+    "kernel versus author": 4,
+    "kernel boundary": 1,
+    "alert population versus author": 4,
+    "alert workload": 1,
+    "threshold arithmetic": 1,
+    "series counts": 1,
+    "published outcome versus author": 8,
+    "published outcome consistency": 12,
+    "threshold ladders": 4,
+    "overview bins": 1,
+    "detail rows versus published counts": 12,
+    "window detail": 1,
+    "displayed programs": 1
+  },
+  "totalGroupedChecks": 63,
+  "scope": "Browser anomaly models against the content-phase native probes (three isolation fixtures, three LOF neighbour counts with four queries each, four kernel gammas, four alert populations), the manuscript fixtures and practice answers A, B, E and F, and the generated real-series module: counts, the published table, the threshold ladders, the overview tiling and exact window-detail alert marking reproducing every published inside-window count and window hit.",
+  "limitations": [
+    "The real-series scores are precomputed native outputs; the browser reproduces outcomes, not the fits.",
+    "Displayed program output is executed separately by scripts/verify-anomaly-detection-examples.py.",
+    "Rendering, interaction and independent review are separate steps."
+  ],
+  "passed": true
+}

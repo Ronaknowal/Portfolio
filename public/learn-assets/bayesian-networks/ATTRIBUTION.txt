@@ -1,0 +1,31 @@
+Wine
+Stefan Aeberhard and M. Forina (repository citation 1992). UCI Machine Learning Repository.
+https://doi.org/10.24432/C5PC7J  ·  https://archive.ics.uci.edu/dataset/109/wine
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+wine.csv holds the unchanged bytes of the offline extract prepared for this curriculum,
+12100 bytes, SHA-256 34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be.
+That extract was produced with scikit-learn 1.9.1 load_wine, exported with %.8g formatting,
+preserving the source row order, adding a specimen_id column numbered 1 to 178, and naming
+the zero-based target column cultivar with values 0, 1 and 2 (the UCI record labels the same
+three cultivars 1, 2 and 3). No row was filtered, no measurement was transformed and no
+column was dropped: all thirteen original measurements are retained here even though this
+lesson reads only four of them. No fresh byte comparison against the original UCI archive
+is claimed; the recorded SHA-256 above pins exactly what this page serves.
+
+Comma separated, CRLF line endings, a header row and 178 data rows of fifteen columns:
+specimen_id, then the thirteen measurements alcohol, malic_acid, ash, alcalinity_of_ash,
+magnesium, total_phenols, flavanoids, nonflavanoid_phenols, proanthocyanins,
+color_intensity, hue, od280/od315_of_diluted_wines and proline, then cultivar.
+All 178 rows are distinct. The three cultivars hold 59, 71 and 48 specimens.
+The specimens are chemical analyses of wines grown in one region of Italy by three
+different cultivators. This is cultivar recognition. It is not wine quality, taste,
+price, intervention or clinical outcome data, and no collection date, vintage,
+sub-region or grower identifier accompanies the record.
+
+Measurement units are not supplied by the source record and are not invented here.
+The four columns this lesson reads span alcohol 11.03 to 14.83, malic_acid 0.74 to 5.80,
+flavanoids 0.34 to 5.08 and color_intensity 1.28 to 13.00.
+
+A different lesson serves a different Wine extract under public/learn-assets/pca/.
+This lesson serves its own copy so that no other lesson's asset edit can change it.

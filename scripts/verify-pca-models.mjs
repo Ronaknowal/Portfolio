@@ -79,6 +79,16 @@ const scaled = rectangleMetric(4, 2, 1, false), unscaled = rectangleMetric(2, 1,
 scaled.fractions.forEach((value, axis) => close(value, unscaled.fractions[axis], 'common rescaling keeps ratios'));
 close(scaled.variances[0], 4 * unscaled.variances[0], 'common rescaling scales variance by the square');
 assert.throws(() => rectangleMetric(0, 1), RangeError);
+// Every exposed rectangle parameter combination is supported, including raw
+// coordinates beyond the free-point editor's deliberately narrower guard.
+for (const a of [0.25, 2, 4]) for (const b of [0.25, 2, 4]) for (const multiplier of [0.25, 5, 10]) {
+  const raw = rectangleMetric(a, b, multiplier, false);
+  close(raw.variances[0], 4 * a ** 2 / 3, 'rectangle first variance at exposed limits');
+  close(raw.variances[1], 4 * (b * multiplier) ** 2 / 3, 'rectangle second variance at exposed limits');
+  assert.equal(rectangleMetric(a, b, multiplier, true).leadingAxis, 'tie');
+}
+assert.throws(() => principalDirections([[0, 0], [21, 1]]), RangeError, 'free-point input bound remains unchanged');
+record('rectangle full control range and preserved editor guard');
 // Label collisions.
 const collide = labelCollisions(10, 1, 'y', 'pc1');
 close(collide.retainedFraction, 100 / 101, '99.01% retained');

@@ -145,7 +145,7 @@ export function NormalPrecisionLab() {
     </div>
     <div className="bayesian-precision-balance"><span>Blue · prior precision: {number(state.priorPrecision)}</span><span>Gold · data precision: {number(state.dataPrecision)}</span><div><i style={{ width: `${100 * state.priorPrecision / (state.priorPrecision + state.dataPrecision)}%` }} /></div></div>
     <figure className="bayesian-plot"><figcaption>All three intervals contain 95% of their respective normal distributions. Dots are means; endpoints share one measurement axis.</figcaption>
-      <svg viewBox="0 0 360 280" role="img" aria-label={state.intervals.map(item => `${item.name}: ${number(item.low)} to ${number(item.high)}`).join('; ')}>
+      <svg viewBox="0 0 360 294" role="img" aria-label={state.intervals.map(item => `${item.name}: ${number(item.low)} to ${number(item.high)}`).join('; ')}>
         {state.intervals.map((item, index) => <g key={item.kind}>
           <text x="34" y={25 + 76 * index}>{item.name}</text>
           <line x1={x(item.low)} x2={x(item.high)} y1={50 + 76 * index} y2={50 + 76 * index} stroke={[blue, gold, green][index]} strokeWidth="4" />

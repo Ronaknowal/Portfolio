@@ -417,3 +417,5 @@
     font-size: .9rem;
   }
 }
+
+.sampling-distribution .sampling-axis-label { margin: .5rem 0; font-size: .9rem; line-height: 1.6; text-align: center; overflow-wrap: anywhere; }

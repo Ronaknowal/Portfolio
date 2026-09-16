@@ -11,6 +11,20 @@ import kMeansHierarchicalBlueprint from './k-means-hierarchical-clustering.js';
 import pcaBlueprint from './pca-dimensionality-reduction.js';
 import clusteringEvaluationBlueprint from './clustering-evaluation-validation-silhouette-ari-nmi.js';
 import dbscanBlueprint from './dbscan-density-based-clustering.js';
+import anomalyDetectionBlueprint from './anomaly-outlier-detection-isolation-forest-one-class-svm-lof.js';
+import gmmBlueprint from './gaussian-mixture-models-gmm-em-algorithm.js';
+import icaBlueprint from './independent-component-analysis-ica.js';
+import nmfBlueprint from './non-negative-matrix-factorization-nmf.js';
+import regularizationBlueprint from './regularization-l1-l2-elastic-net-dropout.js';
+import crossValidationBlueprint from './cross-validation-hyperparameter-tuning.js';
+import featureScalingBlueprint from './feature-scaling-encoding-imputation.js';
+import featureSelectionBlueprint from './feature-selection-importance-shap-permutation-mutual-info.js';
+import biasVarianceBlueprint from './bias-variance-tradeoff-learning-curves.js';
+import imbalancedLearningBlueprint from './imbalanced-learning-smote-cost-sensitive-learning.js';
+import automlNasBlueprint from './automl-neural-architecture-search-nas.js';
+import bayesNetBlueprint from './bayesian-networks-causal-graphical-models.js';
+import hmmBlueprint from './hidden-markov-models-hmm.js';
+import manifoldBlueprint from './t-sne-umap-manifold-learning.js';
 import knnBlueprint from './k-nearest-neighbors-knn.js';
 import numericalPdesBlueprint from './numerical-pdes-grids-finite-elements-stability.js';
 import partialDifferentialEquationsBlueprint from './partial-differential-equations-conservation-boundary-conditions.js';
@@ -126,6 +140,20 @@ export const authoredBlueprints = {
   'PCA & Dimensionality Reduction': pcaBlueprint,
   'Clustering Evaluation & Validation (Silhouette, ARI, NMI)': clusteringEvaluationBlueprint,
   'DBSCAN & Density-Based Clustering': dbscanBlueprint,
+  'Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF)': anomalyDetectionBlueprint,
+  'Gaussian Mixture Models (GMM) & EM Algorithm': gmmBlueprint,
+  'Independent Component Analysis (ICA)': icaBlueprint,
+  'Non-Negative Matrix Factorization (NMF)': nmfBlueprint,
+  'Regularization (L1, L2, Elastic Net, Dropout)': regularizationBlueprint,
+  'Cross-Validation & Hyperparameter Tuning': crossValidationBlueprint,
+  'Feature Scaling, Encoding & Imputation': featureScalingBlueprint,
+  'Feature Selection & Importance (SHAP, Permutation, Mutual Info)': featureSelectionBlueprint,
+  'Bias-Variance Tradeoff & Learning Curves': biasVarianceBlueprint,
+  'Imbalanced Learning (SMOTE, Cost-Sensitive Learning)': imbalancedLearningBlueprint,
+  'AutoML & Neural Architecture Search (NAS)': automlNasBlueprint,
+  'Bayesian Networks & Causal Graphical Models': bayesNetBlueprint,
+  'Hidden Markov Models (HMM)': hmmBlueprint,
+  't-SNE, UMAP & Manifold Learning': manifoldBlueprint,
   'K-Nearest Neighbors (KNN)': knnBlueprint,
   "Arrays, Strings & Hash Maps": arraysStringsHashMapsBlueprint,
   "Bash Scripting & Command-Line Automation": bashScriptingCommandLineAutomationBlueprint,

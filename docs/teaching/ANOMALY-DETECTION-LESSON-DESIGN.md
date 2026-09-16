@@ -1,5 +1,7 @@
 # Anomaly Detection — content revision 1
 
+**Visual-layout follow-up, 14 September 2026:** [the expanded diagram review](LESSON-VISUAL-LAYOUT-REVIEW.md) adds a bottom label gutter to the LOF reach-neighbour strip, preserving its baseline and all numeric coordinates. Desktop/320px captures were inspected and the [browser suite](evidence/anomaly-detection-browser.json) passes 13 cases. The prepared content, native examples and exact-rational model are unchanged; this later record supersedes the older affected visual capture.
+
 Date: 12 September 2026, local authoring date. Scope: research and write only, stages 1–2. The existing publication remains unchanged. This design is not a production verification record.
 
 Stable topic ID: anomaly-outlier-detection-isolation-forest-one-class-svm-lof. Catalogue title retained exactly: **Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF)**. Position 15 of Classical ML follows DBSCAN & Density-Based Clustering and precedes Gaussian Mixture Models (GMM) & EM Algorithm. H1 uses the catalogue title; no rename, reorder, publication or shared prerequisite edit is proposed.
@@ -152,3 +154,99 @@ Deferred by explicit user mode: actual diagrams/labs, interface/backend models, 
 Next implementation task: run the topic command with --work finish against root's saved content checkpoint; read the entire manuscript, specs, provenance, numerical inputs and this design. Retain the existing stable topic body destination under src/learn/data/topics. Proposed new owned support files are src/learn/data/anomaly-detection-models.js, src/learn/data/anomaly-detection-examples.js, src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx and a matching anomaly-detection-labs.css; first inspect current ownership and component conventions before creating them. An individual stable-ID blueprint belongs in the existing data/curriculum/blueprints directory when centrally registered. Runtime datasets must remain topic-owned and lazily loaded; don't pull the real series into the global catalogue.
 
 Retain the original archive and stable identity. Verify predictions, changed inputs, exact code/output, accessibility and real-series calculations before publication. If implementation reveals a better explanation or numerical boundary, correct content and refresh the revision rather than silently certifying changed bytes. The proposed filenames are a compatible handoff, not files created or registered in this content-only task.
+
+---
+
+# Phase two: implementation, 13 September 2026
+
+The content packet above was implemented without changing the approved manuscript's claims. Where the manuscript and the published page differ, the difference is recorded here.
+
+## What was built
+
+| File | What it owns |
+|---|---|
+| `src/learn/data/anomaly-detection-models.js` | Exact BigInt rational arithmetic: `correction`, `firstCutIntervals`, `isolationExpectations` (memoised exact integration over contiguous sorted runs), `isolationPath`, `lofState`, `lofModeComparison`, `kernelBoundary`, `alarmCounts`, plus the quantile index, packed window hits and row timestamps |
+| `src/learn/data/anomaly-temperature-data.js` | The generated real-series module, 298 KB: row counts, source facts, the four annotation windows, the reference fit, 480 extrema-preserving overview bins, 116 reachable quantile outcomes and 242 sweep levels per method, the published 0.95 / 0.975 / 0.99 rows, and four window blocks of 711 rows |
+| `src/learn/data/anomaly-detection-examples.js` | The five displayed programs with their executed output |
+| `src/learn/components/lesson-labs/AnomalyDetectionShared.jsx` | `Investigation`, `Field`, `NumberField`, `Table`, `usePrediction`, `Prediction`, `NumberLine` |
+| `src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx` | The five small investigations |
+| `src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx` | The real-series threshold investigation |
+| `src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx` | The four static figures |
+| `src/learn/data/curriculum/blueprints/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.js` | The authoring blueprint, registered centrally by title |
+| `public/learn-assets/anomaly-detection/` | The pinned CSV, the annotation JSON and the MIT notice, served under their upstream names so the displayed program runs unchanged |
+
+## The decision that shaped the data module
+
+The lesson lets a learner choose any of 358 thresholds per method and asks for an exact alert count, exact inside-window and outside-window splits and exact window hits. Shipping 22,671 rows x 4 scores would be several megabytes, and rounding the scores is not faithful: a quantile threshold can sit within 1e-10 of a score, so no finite rounding reproduces `native > threshold`.
+
+Two devices solved it. Every reachable outcome is precomputed natively and shipped as a small table, so the browser looks an answer up rather than recomputing a fit. And every displayed detail row stores `exceeds`, the number of offerable thresholds its exact score passes; a row alerts at threshold *i* exactly when `exceeds > i`. The generator asserts that equivalence for every offerable threshold before it writes the module, and the sweep thresholds are midpoints between consecutive distinct scores so that no offerable threshold ever coincides with a score.
+
+## Departures from the manuscript
+
+* Six displayed formulas were re-set to fit a 320 px screen without a horizontal scrollbar: the provenance triple, the reachability maximum, the local density, the RBF definition with its positivity condition, the LOF(17) line and the baseline deviation. The content is unchanged; `lrd` is now stated as an equation on the mean reach rather than as a parenthesised reciprocal, the baseline names its median *m* and deviation *s* on their own rows, and the decimal 1.09375 moved from the LOF(17) formula into the sentence beneath it.
+* The manuscript's single "Try it" checkpoint kept its place in section 1. A second was added before the real-data programs, asking whether an 11-in-1,152 calibration alert rate implies about 1% of later rows; the answer uses the lesson's own 1,548 and 9,232 figures.
+* The published table now also carries the 0.975 quantile, because that is the lab's default and a learner must be able to check the number the lab shows.
+* Two manuscript tables became figures, because each was a picture argument written as rows: section 4's radius table is now the reach-floor diagram with the table beneath it, and section 8's tie example is now the threshold ruler.
+* Section 13 gained a readiness-check table, matching the pattern of the neighbouring lessons.
+* The isolation program prints two extra lines, the fitted sample size and the five rounded scores, so that the point about the normaliser is visible in the output rather than only in the prose.
+* Three section titles were reworded for the contents list: 3, 5 and 13.
+* Three specification items are not implemented. The review-queue lab's budget prediction was initially unrecorded and is now a second committed question. The practice-B four-row terminal state is not reachable in the isolation lab, which holds five positions with no add or remove control, and practice B now says so. The optional "multiply every coordinate by ten" button in the LOF lab was not built; the invariance it would show is stated in practice C instead.
+* `RunnableExample` now prints each program's filename, because the lesson instructs the learner to save the blocks under five specific names and the component previously showed only the title.
+
+## Verification
+
+| Check | Command | Result |
+|---|---|---|
+| Browser models against the content-phase native probes, the manuscript fixtures and the generated module | `node scripts/verify-anomaly-detection-models.mjs` | 63 grouped checks |
+| The five displayed programs executed | `scratch/lesson-tools/Scripts/python.exe scripts/verify-anomaly-detection-examples.py` | 5 programs, 16 oracle assertions |
+| The real series refitted from the raw CSV and the module regenerated | `scratch/lesson-tools/Scripts/python.exe scripts/verify-anomaly-temperature-data.py` | 22,671 feature rows; every score in the packet’s 21,786-row derived table matched within 1e-9 |
+| The production build in Edge, at 1366, 390 and 320 px | `node scripts/verify-anomaly-detection-browser.cjs` | 13 cases |
+
+Evidence: `docs/teaching/evidence/anomaly-detection-models.json`, `anomaly-detection-browser.json`, `anomaly-native.json`, `anomaly-temperature-data.json`, and the screenshots under `docs/teaching/evidence/screenshots/anomaly-*.png`.
+
+## What the browser check covers
+
+A fresh route requests only this lesson's chunk and its shared closure. Every displayed program's code and output is present in the rendered text, every route anchor resolves, and the three offline data files are served. Each investigation is driven through commit, reveal and a stale-input recovery: the isolation expectation with its 77/30 normaliser, the tie and the all-identical case; the closer query taking the higher factor; the refused duplicate coordinate; 4/3 against 7/8 at one coordinate; the midpoint outside a region whose anchors are on its boundary at gamma 1 and inside it at gamma 0.1; a precision that is undefined when nobody is flagged; and the real series at the 0.975 isolation threshold, where four window hits come with 4,263 unmatched alerts. Completion persists under the stable ID, Next opens Gaussian Mixture Models, and an injected import failure and an injected render failure both keep completion disabled until an explicit reload.
+
+## Visual repairs found by inspecting the screenshots
+
+The first browser pass rendered cleanly by every assertion and still looked wrong in four places. The provenance figure filled its blocked route as a black polygon because the shared flow class set a stroke but no fill. Three SVG captions and two radius labels ran past their viewBox. The kernel lab's lower panel painted over the paragraph beneath it. The LOF number line put its point names on top of its own tick numbers. All five are fixed, and the figure and lab geometry now carries its own vertical budget rather than relying on `overflow: visible`. The browser check now also captures the two states whose absence hid a defect: the temperature lab before any commitment, and the LOF lab at k = 3.
+
+## What is still not claimed
+
+No learner study, no user acceptance, no NAB official scoring, no fault ground truth and no prospective early-warning result. The lesson's real-data claims are exactly the eight published rows under one declared chronology and two predeclared quantiles, plus the 0.975 rows the lab defaults to.
+
+## Disposition of the independent review
+
+The [independent review](ANOMALY-DETECTION-INDEPENDENT-REVIEW.md) recomputed every stated number from first principles, refitted the whole temperature pipeline from the raw CSV, and re-executed the five displayed programs. All of it agreed. It raised two blocking findings, eight to fix and fifteen observations. Every blocking and should-fix finding is resolved.
+
+| Finding | What was wrong | Resolution |
+|---|---|---|
+| B1 | The PowerShell activation line lost its backslashes to an escape pass and rendered as `..venvScriptsActivate.ps1` | Doubled in the source; the rendered block now reads `.\.venv\Scripts\Activate.ps1`, checked against a build |
+| B2 | The handoff claimed a review that did not yet exist and a ledger entry that still said not-started | The review exists, and the ledger's implementation phase is closed below with final hashes |
+| S1 | The temperature lab's window block filtered to the alerting rows, and printed their count, before the prediction was committed | The filter and the count now wait for the reveal; the toggle is disabled until then and says why. A browser case asserts the uncommitted state |
+| S2 | The fitting-mode lab explained every agreeing coordinate as "the same neighbour set", which is never true | It now names both neighbour sets and says that two contracts can land on one number |
+| S3 | The LOF paper's reachability and bounds were cited as sections 3 to 5 | Corrected to sections 4 and 5, in the lesson and in the retained manuscript |
+| S4 | Isolation Forest normalisation and subsampling were cited as sections 2 and 3 | Corrected to section 2, section 3 for swamping and masking, and section 4.1 for subsampling and the height limit, in both places |
+| S5 | The LOF pair question was worded for k = 2 and stayed live when k changed; at k = 3 both factors are 1 | The prompt and captions interpolate k and the two distances, and the explanation branches on the tie |
+| S6 | The review queue asked about the budget but recorded only the precision band | The budget is now a second committed question with its own reveal |
+| S7 | The departures list was incomplete | Extended above |
+| S8 | Two dropped "can" qualifiers made conditional claims unconditional | Restored in the section 3 title and the section 4 opening |
+
+Of the observations, four were acted on: the duplicated annotation caution in the temperature lab was shortened to the early-alert point it alone makes (O1), an unsure commitment there is now marked with a question mark rather than a mismatch sign (O10), the evidence file's threshold count now matches the module's 242 levels (O11), and the screenshot set gained the first-cut and threshold-ruler figures, the fitting-mode lab, two phone-width labs and the two states named above (O12). A dead call in the isolation lab was removed (O9) and each program now shows the filename the lesson asks for (O7).
+
+The rest are recorded and left: the comparison tables scroll horizontally on a narrow reader column (O2), phone-width SVG labels sit near 10 px where the sibling DBSCAN lesson chose a 12 px floor (O3), the annotation JSON is the whole upstream file rather than the single key the program reads (O6), the "Before running" question precedes the program's own heading (O8), the retrieval date lives in the packet while the page gives the stronger pinned commit (O13), and the displayed isolation program keeps its three validation blocks (O15).
+
+One observation deserves its own line, because it is a hazard for whoever touches this next. The pinned commit `ea702d75cc2258d9d7dd35ca8e5e2539d71f3140` **is** the Numenta Anomaly Benchmark's relicensing commit, `chore: MIT License (#408)`; its parent carries AGPL-3.0. The MIT notice shipped beside the data is correct at that SHA and false for nearly all of that repository's history. The pin must never be loosened to a tag or a branch.
+
+## Prepared-content verification follow-up, 14 September 2026
+
+The user's PCA-through-GMM verification request prompted a complete manuscript/specification-to-implementation comparison. [The scoped audit](ANOMALY-CONTENT-IMPLEMENTATION-AUDIT.md) records the coverage map, source versions, separate correctness and learner-experience findings and bounded checks. All thirteen manuscript sections, five complete programs, ten changed practice tasks and annotated resources are retained.
+
+The review found issues beyond the earlier numerical checks: reference edits left LOF labels and feedback describing the original geometry; the kernel disclosed its answer before commitment; one queue reveal answered the still-uncommitted second question; annotations flowed visually into scoring rather than evaluation; and the real-data row table permanently stopped after sixty rows. These are repaired. Two linked neighbour strips now fulfill the fitting-mode specification, all offered depth caps have cut editors, radius bars keep their lengths inside the axis, and kernel finite-scan limitations are described accurately. The equal-score LOF null and unverified reference-period status are stated precisely.
+
+An independent Fraction calculation confirms the changed reference `[0,1,2,16,24,28]`: query 4 has nearest distance 2 and factor 35/24; query 17 has nearest distance 1 and factor 11/12. JSX parsing, browser-verifier syntax and scoped whitespace checks passed. Models, generated data and displayed programs are unchanged, so their native evidence is reused. The amended browser verifier adds targeted interaction/geometry closure cases; the increment owner runs the final production browser/build and refreshes shared source checkpoints. The audit and that new browser evidence distinguish these repairs from the earlier reviewed version.
+
+## Coordinator verification closure, 14 September 2026
+
+The prepared-content comparison and subsequent repairs are closed in [the five-topic audit](PCA-THROUGH-GMM-IMPLEMENTATION-AUDIT.md). The coordinator ran 13 passing production browser cases against the corrected topic source, including changed-input and prediction regressions, narrow layouts, module navigation, loading and recovery. Selected informative screenshots were actually inspected; exact captures and the mathematical/native evidence retained for unchanged code are listed in that record. The saved manuscript/specifications and offline author inputs are unchanged by this audit. The appended design and repaired implementation are re-bound in the existing revision's phase ledger; earlier completion dates and independent-review attribution are preserved. User acceptance is separate.

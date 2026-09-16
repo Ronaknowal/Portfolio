@@ -12,6 +12,7 @@ node_modules/
 
 # Build output / bundler cache
 dist/
+dist-*/
 .vite/
 
 # One-off working material (includes a bundled Python venv under

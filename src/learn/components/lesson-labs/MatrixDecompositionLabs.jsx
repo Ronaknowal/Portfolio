@@ -35,12 +35,12 @@ function CoordinatePlane({
   const position = point => [160 + point[0] * unit, 160 - point[1] * unit];
   return <figure className="decomposition-plane">
     <figcaption>{title}</figcaption>
-    <svg viewBox="0 0 320 320" role="img" aria-labelledby={`${titleId} ${descriptionId}`}>
+    <svg viewBox="0 0 320 338" role="img" aria-labelledby={`${titleId} ${descriptionId}`}>
       <title id={titleId}>{title}</title><desc id={descriptionId}>{description}</desc>
       {[-3, -2, -1, 0, 1, 2, 3].filter(value => Math.abs(value) <= range).map(value => <g key={value}>
         <line className="decomposition-grid" x1={160 + value * unit} y1="25" x2={160 + value * unit} y2="295" />
         <line className="decomposition-grid" x1="25" y1={160 - value * unit} x2="295" y2={160 - value * unit} />
-        {value !== 0 && <text className="decomposition-tick" x={160 + value * unit} y="178" textAnchor="middle">{value}</text>}
+        {value !== 0 && <text className="decomposition-tick" x={160 + value * unit} y="320" textAnchor="middle">{value}</text>}
       </g>)}
       <line className="decomposition-axis" x1="20" y1="160" x2="298" y2="160" />
       <line className="decomposition-axis" x1="160" y1="20" x2="160" y2="298" />

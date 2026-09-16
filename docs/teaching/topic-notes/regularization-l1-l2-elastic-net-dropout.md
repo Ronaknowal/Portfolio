@@ -15,3 +15,24 @@ Canonical topic ID: `regularization-l1-l2-elastic-net-dropout`
 - Evidence: original two-factor derivation in the origin, plus Dinh et al. sections 3–4 for the distinction between equivalent predictions and parameter geometry: https://proceedings.mlr.press/v70/dinh17b.html (inspected 10 September 2026). The full penalized example is a proposal, not implemented destination content.
 - Resolution: not yet reviewed by the destination author; no destination body changed.
 - Implementation/verification links: origin's model and native record will appear in [NONCONVEX-LANDSCAPE-VERIFICATION.md](../NONCONVEX-LANDSCAPE-VERIFICATION.md).
+
+### 2026-09-12 — Destination content disposition
+
+Accepted in the prepared [regularization manuscript](../drafts/regularization-l1-l2-elastic-net-dropout/lesson.md), section 8, with the full inequality/reduced-objective derivation, λ=.25 and changed λ=.1 arithmetic, λ=0/threshold cases, and a linked two-view figure contract. The point is now explicitly the whole regularized optimum, not merely the best point on ab=1. The retained author calculation and [design](../drafts/regularization-l1-l2-elastic-net-dropout/design.md) record checks and scope. Status remains **open for implementation**: content preparation is complete; destination runtime/rendering/formal verification have not occurred.
+
+### 2026-09-14 — Implemented and closed
+
+The factor-symmetry idea is now implemented in the published lesson's section 8, with the whole-objective reduction
+min over p of ½(p − 1)² + 2λ|p|, p* = max(1 − 2λ, 0), the λ = 0.25 arithmetic (product 0.5, data cost 0.125, penalty 0.25,
+total 0.375 against the balanced zero-loss pair's 0.5), the λ = 0 degenerate case and the λ ≥ 0.5 collapse to zero, plus
+figure 6: the ab = 1 hyperbola with the balanced point, the same-prediction alternative (2, 0.5), both equal-magnitude
+optima and the reduced scalar plot. `factorOptimum` in `src/learn/data/regularization-models.js` computes all of it, and
+`scripts/verify-regularization-models.mjs` checks it against the packet's recorded values and against a scan of the whole
+two-factor surface, which confirms no pair beats the reduced answer. An independent phase-two review recomputed the same
+optimum against a 900,000-point brute-force scan of the (a, b) surface and agreed.
+
+Status: **implemented and verified in the destination lesson**, with the honesty caveat that this is not evidence that
+balancing arbitrary neural layers improves prediction on the page. This note describes the destination content only. The
+central phase ledger is the authoritative record of the topic's delivery state and is the parent's to update; until it
+does, treat the ledger, not this note, as the statement of that state. An earlier version of this paragraph said
+"closed", which asserted more than this note is entitled to.

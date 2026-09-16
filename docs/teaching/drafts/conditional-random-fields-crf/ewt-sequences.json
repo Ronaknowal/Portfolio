@@ -1,0 +1,5400 @@
+[
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0006",
+    "tokens": [
+      "The",
+      "third",
+      "was",
+      "being",
+      "run",
+      "by",
+      "the",
+      "head",
+      "of",
+      "an",
+      "investment",
+      "firm",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "AUX",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0007",
+    "tokens": [
+      "You",
+      "wonder",
+      "if",
+      "he",
+      "was",
+      "manipulating",
+      "the",
+      "market",
+      "with",
+      "his",
+      "bombing",
+      "targets",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "SCONJ",
+      "PRON",
+      "AUX",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0018",
+    "tokens": [
+      "Guerrillas",
+      "killed",
+      "an",
+      "engineer",
+      ",",
+      "Asi",
+      "Ali",
+      ",",
+      "from",
+      "Tikrit",
+      "."
+    ],
+    "upos": [
+      "NOUN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT",
+      "PROPN",
+      "PROPN",
+      "PUNCT",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0020",
+    "tokens": [
+      "His",
+      "mother",
+      "was",
+      "also",
+      "killed",
+      "in",
+      "the",
+      "attack",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "VERB",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0021",
+    "tokens": [
+      "Two",
+      "other",
+      "Dulaim",
+      "leaders",
+      "have",
+      "been",
+      "killed",
+      "in",
+      "the",
+      "past",
+      "week",
+      "and",
+      "a",
+      "half",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "ADJ",
+      "PROPN",
+      "NOUN",
+      "AUX",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "CCONJ",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0027",
+    "tokens": [
+      "The",
+      "Commission",
+      "said",
+      "it",
+      "had",
+      "no",
+      "legal",
+      "grounds",
+      "for",
+      "such",
+      "an",
+      "exclusion",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "VERB",
+      "PRON",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "DET",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0028",
+    "tokens": [
+      "This",
+      "item",
+      "is",
+      "a",
+      "small",
+      "one",
+      "and",
+      "easily",
+      "missed",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "AUX",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "CCONJ",
+      "ADV",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0029",
+    "tokens": [
+      "But",
+      "in",
+      "my",
+      "view",
+      "it",
+      "is",
+      "highly",
+      "significant",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "PRON",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0035",
+    "tokens": [
+      "The",
+      "situation",
+      "in",
+      "Iraq",
+      "is",
+      "only",
+      "going",
+      "to",
+      "get",
+      "better",
+      "this",
+      "way",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "AUX",
+      "ADV",
+      "VERB",
+      "PART",
+      "VERB",
+      "ADJ",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0036",
+    "tokens": [
+      "If",
+      "someone",
+      "committed",
+      "a",
+      "crime",
+      "against",
+      "humanity",
+      ",",
+      "prosecute",
+      "the",
+      "person",
+      "."
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0039",
+    "tokens": [
+      "A",
+      "team",
+      "from",
+      "the",
+      "court",
+      "managed",
+      "to",
+      "take",
+      "his",
+      "deposition",
+      "before",
+      "he",
+      "died",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "VERB",
+      "PART",
+      "VERB",
+      "PRON",
+      "NOUN",
+      "SCONJ",
+      "PRON",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20051126063000_ENG_20051126_063000-0040",
+    "tokens": [
+      "The",
+      "trial",
+      "begins",
+      "again",
+      "Nov.",
+      "28",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "VERB",
+      "ADV",
+      "PROPN",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20040409053012_ENG_20040409_053012-0003",
+    "tokens": [
+      "There",
+      "has",
+      "been",
+      "talk",
+      "that",
+      "the",
+      "night",
+      "curfew",
+      "might",
+      "be",
+      "implemented",
+      "again",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "NOUN",
+      "SCONJ",
+      "DET",
+      "NOUN",
+      "NOUN",
+      "AUX",
+      "AUX",
+      "VERB",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20040409053012_ENG_20040409_053012-0005",
+    "tokens": [
+      "Fedayeen",
+      "are",
+      "now",
+      "visible",
+      "on",
+      "the",
+      "street",
+      "and",
+      "they",
+      "have",
+      "become",
+      "bolder",
+      "than",
+      "ever",
+      "."
+    ],
+    "upos": [
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "ADP",
+      "DET",
+      "NOUN",
+      "CCONJ",
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADJ",
+      "ADP",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20040409053012_ENG_20040409_053012-0015",
+    "tokens": [
+      "So",
+      "what",
+      "happened",
+      "?"
+    ],
+    "upos": [
+      "ADV",
+      "PRON",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20040409053012_ENG_20040409_053012-0022",
+    "tokens": [
+      "Over",
+      "300",
+      "Iraqis",
+      "are",
+      "reported",
+      "dead",
+      "and",
+      "500",
+      "wounded",
+      "in",
+      "Fallujah",
+      "alone",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "NUM",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "ADJ",
+      "CCONJ",
+      "NUM",
+      "ADJ",
+      "ADP",
+      "PROPN",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20040409053012_ENG_20040409_053012-0023",
+    "tokens": [
+      "Al",
+      "-",
+      "Iraqiyah",
+      "tv",
+      "said",
+      "that",
+      "ICDC",
+      "were",
+      "controlling",
+      "Ramadi",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "PROPN",
+      "VERB",
+      "SCONJ",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0004",
+    "tokens": [
+      "Now",
+      "you",
+      "can",
+      "tour",
+      "Chernobyl",
+      "and",
+      "write",
+      "your",
+      "own",
+      "story",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PRON",
+      "AUX",
+      "VERB",
+      "PROPN",
+      "CCONJ",
+      "VERB",
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0005",
+    "tokens": [
+      "This",
+      "is",
+      "not",
+      "a",
+      "post",
+      "about",
+      "fault",
+      "-",
+      "finding",
+      "or",
+      "assigning",
+      "blame",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT",
+      "NOUN",
+      "CCONJ",
+      "VERB",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0011",
+    "tokens": [
+      "CHERNOBYL",
+      "ACCIDENT",
+      ":",
+      "TEN",
+      "YEARS",
+      "ON"
+    ],
+    "upos": [
+      "PROPN",
+      "NOUN",
+      "PUNCT",
+      "NUM",
+      "NOUN",
+      "ADV"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0015",
+    "tokens": [
+      "Here",
+      "are",
+      "some",
+      "excerpts",
+      ":"
+    ],
+    "upos": [
+      "ADV",
+      "AUX",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0020",
+    "tokens": [
+      "There",
+      "is",
+      "a",
+      "lot",
+      "to",
+      "learn",
+      "about",
+      "Chernobyl",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PART",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0022",
+    "tokens": [
+      "There",
+      "are",
+      "a",
+      "wealth",
+      "of",
+      "references",
+      "on",
+      "Chernobyl",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0023",
+    "tokens": [
+      "Read",
+      "some",
+      "of",
+      "the",
+      "following",
+      "links",
+      "and",
+      "draw",
+      "your",
+      "own",
+      "conclusions",
+      "."
+    ],
+    "upos": [
+      "VERB",
+      "DET",
+      "ADP",
+      "DET",
+      "VERB",
+      "NOUN",
+      "CCONJ",
+      "VERB",
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0025",
+    "tokens": [
+      "IAEA",
+      "Report",
+      "Lessons",
+      "learned"
+    ],
+    "upos": [
+      "PROPN",
+      "NOUN",
+      "PROPN",
+      "VERB"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0054",
+    "tokens": [
+      "Remember",
+      "the",
+      "old",
+      "shoe",
+      "sizing",
+      "machines",
+      "that",
+      "was",
+      "a",
+      "form",
+      "of",
+      "radiation",
+      "xray",
+      "?"
+    ],
+    "upos": [
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "VERB",
+      "NOUN",
+      "PRON",
+      "AUX",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0055",
+    "tokens": [
+      "That",
+      "too",
+      "was",
+      "stopped",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "ADV",
+      "AUX",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-typepad.com_ripples_20040407125600_ENG_20040407_125600-0062",
+    "tokens": [
+      "Take",
+      "care",
+      ",",
+      "my",
+      "friend",
+      ",",
+      "Linda"
+    ],
+    "upos": [
+      "VERB",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "NOUN",
+      "PUNCT",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20030911085700_ENG_20030911_085700-0003",
+    "tokens": [
+      "The",
+      "tape",
+      "was",
+      "a",
+      "way",
+      "to",
+      "signal",
+      "priorities",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "AUX",
+      "DET",
+      "NOUN",
+      "PART",
+      "VERB",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20030911085700_ENG_20030911_085700-0011",
+    "tokens": [
+      "All",
+      "this",
+      "is",
+      "highly",
+      "unlikely",
+      ",",
+      "as",
+      "with",
+      "most",
+      "al",
+      "-",
+      "Qaeda",
+      "crackpot",
+      "schemes",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "PRON",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "PUNCT",
+      "ADP",
+      "ADP",
+      "ADJ",
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20030911085700_ENG_20030911_085700-0021",
+    "tokens": [
+      "This",
+      "terrorist",
+      "organization",
+      "can",
+      "now",
+      "only",
+      "pull",
+      "off",
+      "far",
+      "less",
+      "sophisticated",
+      "bombings",
+      "and",
+      "attacks",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADV",
+      "VERB",
+      "ADP",
+      "ADV",
+      "ADV",
+      "ADJ",
+      "NOUN",
+      "CCONJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20030911085700_ENG_20030911_085700-0022",
+    "tokens": [
+      "It",
+      "should",
+      "continue",
+      "to",
+      "be",
+      "defanged",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "PART",
+      "AUX",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20030911085700_ENG_20030911_085700-0032",
+    "tokens": [
+      "We",
+      "need",
+      "an",
+      "FDR",
+      "in",
+      "Iraq",
+      ",",
+      "not",
+      "a",
+      "Ronald",
+      "Reagan",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "DET",
+      "PROPN",
+      "ADP",
+      "PROPN",
+      "PUNCT",
+      "PART",
+      "DET",
+      "PROPN",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0003",
+    "tokens": [
+      "Let",
+      "'s",
+      "just",
+      "remember",
+      "a",
+      "seminal",
+      "Bush",
+      "moment",
+      "in",
+      "1999",
+      ":"
+    ],
+    "upos": [
+      "VERB",
+      "PRON",
+      "ADV",
+      "VERB",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0004",
+    "tokens": [
+      "'",
+      "Bush",
+      "fails",
+      "reporter",
+      "'s",
+      "pop",
+      "quiz",
+      "on",
+      "international",
+      "leaders"
+    ],
+    "upos": [
+      "PUNCT",
+      "PROPN",
+      "VERB",
+      "NOUN",
+      "PART",
+      "NOUN",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "NOUN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0005",
+    "tokens": [
+      "November",
+      "5",
+      ",",
+      "1999"
+    ],
+    "upos": [
+      "PROPN",
+      "NUM",
+      "PUNCT",
+      "NUM"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0006",
+    "tokens": [
+      "Web",
+      "posted",
+      "at",
+      ":",
+      "3:29",
+      "p.m.",
+      "EST",
+      "(",
+      "2029",
+      "GMT",
+      ")"
+    ],
+    "upos": [
+      "NOUN",
+      "VERB",
+      "ADP",
+      "PUNCT",
+      "NUM",
+      "NOUN",
+      "PROPN",
+      "PUNCT",
+      "NUM",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0007",
+    "tokens": [
+      "WASHINGTON",
+      "(",
+      "CNN",
+      ")",
+      "--"
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0013",
+    "tokens": [
+      "He",
+      "could",
+      "not",
+      "name",
+      "the",
+      "others",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0014",
+    "tokens": [
+      "\"",
+      "Can",
+      "you",
+      "name",
+      "the",
+      "general",
+      "who",
+      "is",
+      "in",
+      "charge",
+      "of",
+      "Pakistan",
+      "?",
+      "\""
+    ],
+    "upos": [
+      "PUNCT",
+      "AUX",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PRON",
+      "AUX",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0016",
+    "tokens": [
+      "\"",
+      "Wait",
+      ",",
+      "wait",
+      ",",
+      "is",
+      "this",
+      "50",
+      "questions",
+      "?",
+      "\"",
+      "asked",
+      "Bush",
+      "."
+    ],
+    "upos": [
+      "PUNCT",
+      "VERB",
+      "PUNCT",
+      "VERB",
+      "PUNCT",
+      "AUX",
+      "PRON",
+      "NUM",
+      "NOUN",
+      "PUNCT",
+      "PUNCT",
+      "VERB",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0023",
+    "tokens": [
+      "A",
+      "spokesman",
+      "for",
+      "President",
+      "Clinton",
+      "also",
+      "criticized",
+      "Bush",
+      "'s",
+      "comments",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PROPN",
+      "ADV",
+      "VERB",
+      "PROPN",
+      "PART",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0032",
+    "tokens": [
+      "He",
+      "could",
+      "n't",
+      "tell",
+      "when",
+      "things",
+      "were",
+      "becoming",
+      "more",
+      "unstable",
+      "as",
+      "opposed",
+      "to",
+      "less",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "ADV",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADV",
+      "ADJ",
+      "SCONJ",
+      "VERB",
+      "ADP",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040708181175_ENG_20040708_181175-0041",
+    "tokens": [
+      "I",
+      "do",
+      "n't",
+      "see",
+      "Bush",
+      "doing",
+      "any",
+      "of",
+      "this",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "PROPN",
+      "VERB",
+      "DET",
+      "ADP",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0001",
+    "tokens": [
+      "From",
+      "Friday",
+      "'s",
+      "Daily",
+      "Star"
+    ],
+    "upos": [
+      "ADP",
+      "PROPN",
+      "PART",
+      "ADJ",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0002",
+    "tokens": [
+      "By",
+      "Juan",
+      "Cole"
+    ],
+    "upos": [
+      "ADP",
+      "PROPN",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0003",
+    "tokens": [
+      "Friday",
+      ",",
+      "June",
+      "04",
+      ",",
+      "2004"
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "NUM",
+      "PUNCT",
+      "NUM"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0007",
+    "tokens": [
+      "Have",
+      "they",
+      ",",
+      "however",
+      ",",
+      "actually",
+      "weakened",
+      "Israeli",
+      "security",
+      "?"
+    ],
+    "upos": [
+      "AUX",
+      "PRON",
+      "PUNCT",
+      "ADV",
+      "PUNCT",
+      "ADV",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0016",
+    "tokens": [
+      "Saddam",
+      "never",
+      "did",
+      "anything",
+      "practical",
+      "to",
+      "help",
+      "the",
+      "Palestinians",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "ADV",
+      "VERB",
+      "PRON",
+      "ADJ",
+      "PART",
+      "VERB",
+      "DET",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0018",
+    "tokens": [
+      "He",
+      "did",
+      "not",
+      "allow",
+      "Palestinian",
+      "radicals",
+      "to",
+      "launch",
+      "operations",
+      "against",
+      "Israel",
+      "from",
+      "Iraq",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "PART",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0020",
+    "tokens": [
+      "Its",
+      "ramshackle",
+      "army",
+      "had",
+      "virtually",
+      "collapsed",
+      "before",
+      "the",
+      "American",
+      "invasion",
+      "in",
+      "2003",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0025",
+    "tokens": [
+      "Anti-Israeli",
+      "and",
+      "pro-Palestinian",
+      "feeling",
+      "is",
+      "strong",
+      "among",
+      "several",
+      "major",
+      "Iraqi",
+      "ideological",
+      "groups",
+      "and",
+      "currents",
+      "."
+    ],
+    "upos": [
+      "ADJ",
+      "CCONJ",
+      "ADJ",
+      "NOUN",
+      "AUX",
+      "ADJ",
+      "ADP",
+      "ADJ",
+      "ADJ",
+      "ADJ",
+      "ADJ",
+      "NOUN",
+      "CCONJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0030",
+    "tokens": [
+      "They",
+      "have",
+      "also",
+      "reestablished",
+      "their",
+      "historical",
+      "links",
+      "with",
+      "Lebanese",
+      "and",
+      "Iranian",
+      "Shiites",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADV",
+      "VERB",
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "CCONJ",
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0041",
+    "tokens": [
+      "The",
+      "anger",
+      "has",
+      "spread",
+      "throughout",
+      "the",
+      "Muslim",
+      "world",
+      ",",
+      "including",
+      "Iraq",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT",
+      "VERB",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-juancole.com_juancole_20040604210986_ENG_20040604_210986-0044",
+    "tokens": [
+      "THE",
+      "DAILY",
+      "STAR",
+      "publishes",
+      "this",
+      "commentary",
+      "in",
+      "agreement",
+      "with",
+      "Agence",
+      "Global"
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "PROPN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0005",
+    "tokens": [
+      "India",
+      "defensive",
+      "over",
+      "Sri",
+      "Lanka"
+    ],
+    "upos": [
+      "PROPN",
+      "ADJ",
+      "ADP",
+      "PROPN",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0006",
+    "tokens": [
+      "By",
+      "Ranjit",
+      "Devraj"
+    ],
+    "upos": [
+      "ADP",
+      "PROPN",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0007",
+    "tokens": [
+      "NEW",
+      "DELHI",
+      "-"
+    ],
+    "upos": [
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0018",
+    "tokens": [
+      "But",
+      "they",
+      ",",
+      "too",
+      ",",
+      "failed",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "PUNCT",
+      "ADV",
+      "PUNCT",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0019",
+    "tokens": [
+      "Colombo",
+      ",",
+      "too",
+      ",",
+      "seems",
+      "to",
+      "be",
+      "in",
+      "an",
+      "intractable",
+      "position",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "ADV",
+      "PUNCT",
+      "VERB",
+      "PART",
+      "AUX",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0024",
+    "tokens": [
+      "In",
+      "1987",
+      ",",
+      "the",
+      "Tamil",
+      "Tigers",
+      "reluctantly",
+      "accepted",
+      "the",
+      "peace",
+      "accord",
+      "under",
+      "Indian",
+      "pressure",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "NUM",
+      "PUNCT",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "ADV",
+      "VERB",
+      "DET",
+      "NOUN",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0027",
+    "tokens": [
+      "About",
+      "1,200",
+      "Indian",
+      "soldiers",
+      "were",
+      "killed",
+      "during",
+      "this",
+      "phase",
+      "of",
+      "the",
+      "conflict",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "NUM",
+      "ADJ",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041119231111_ENG_20041119_231111-0041",
+    "tokens": [
+      "Asia",
+      "Times",
+      "Online",
+      "16/11/2004"
+    ],
+    "upos": [
+      "PROPN",
+      "PROPN",
+      "PROPN",
+      "NUM"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041028153019_ENG_20041028_153019-0004",
+    "tokens": [
+      "Musharraf",
+      "calls",
+      "the",
+      "bluff"
+    ],
+    "upos": [
+      "PROPN",
+      "VERB",
+      "DET",
+      "NOUN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041028153019_ENG_20041028_153019-0010",
+    "tokens": [
+      "That",
+      "distinction",
+      "has",
+      "now",
+      "gone",
+      "to",
+      "the",
+      "United",
+      "States",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041028153019_ENG_20041028_153019-0016",
+    "tokens": [
+      "It",
+      "is",
+      "also",
+      "far",
+      "more",
+      "than",
+      "what",
+      "any",
+      "administration",
+      "in",
+      "New",
+      "Delhi",
+      "can",
+      "deliver",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADV",
+      "ADV",
+      "ADJ",
+      "ADP",
+      "PRON",
+      "DET",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041028153019_ENG_20041028_153019-0036",
+    "tokens": [
+      "With",
+      "Colin",
+      "Powell",
+      "around",
+      ",",
+      "the",
+      "U.S.",
+      "has",
+      "no",
+      "need",
+      "of",
+      "an",
+      "Osama",
+      "bin",
+      "Laden"
+    ],
+    "upos": [
+      "SCONJ",
+      "PROPN",
+      "PROPN",
+      "ADV",
+      "PUNCT",
+      "DET",
+      "PROPN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "PROPN",
+      "PROPN",
+      "PROPN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_dakbangla_20041028153019_ENG_20041028_153019-0038",
+    "tokens": [
+      "Washington",
+      "Times",
+      "28/10/2004"
+    ],
+    "upos": [
+      "PROPN",
+      "PROPN",
+      "NUM"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0002",
+    "tokens": [
+      "We",
+      "all",
+      "know",
+      "that",
+      "John",
+      "Kerry",
+      "served",
+      "in",
+      "Vietnam",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "DET",
+      "VERB",
+      "SCONJ",
+      "PROPN",
+      "PROPN",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0008",
+    "tokens": [
+      "(",
+      "Click",
+      "here",
+      "for",
+      "source",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "VERB",
+      "ADV",
+      "ADP",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0011",
+    "tokens": [
+      "And",
+      ",",
+      "let",
+      "'s",
+      "remember",
+      ",",
+      "flying",
+      "supersonic",
+      "fighter",
+      "jets",
+      "is",
+      "dangerous",
+      "!"
+    ],
+    "upos": [
+      "CCONJ",
+      "PUNCT",
+      "VERB",
+      "PRON",
+      "VERB",
+      "PUNCT",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "NOUN",
+      "AUX",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0012",
+    "tokens": [
+      "They",
+      "do",
+      "n't",
+      "let",
+      "just",
+      "anybody",
+      "do",
+      "it",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "ADV",
+      "PRON",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0016",
+    "tokens": [
+      "Read",
+      "on",
+      "to",
+      "learn",
+      "the",
+      "facts",
+      "."
+    ],
+    "upos": [
+      "VERB",
+      "ADV",
+      "PART",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0018",
+    "tokens": [
+      "Bush",
+      "’s",
+      "National",
+      "Guard",
+      "years"
+    ],
+    "upos": [
+      "PROPN",
+      "PART",
+      "ADJ",
+      "PROPN",
+      "NOUN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0019",
+    "tokens": [
+      "Before",
+      "you",
+      "fall",
+      "for",
+      "Dems",
+      "’",
+      "spin",
+      ",",
+      "here",
+      "are",
+      "the",
+      "facts"
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PART",
+      "NOUN",
+      "PUNCT",
+      "ADV",
+      "AUX",
+      "DET",
+      "NOUN"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0021",
+    "tokens": [
+      "That",
+      "he",
+      "did",
+      "n’t",
+      "show",
+      "up",
+      "for",
+      "duty",
+      "in",
+      "Alabama",
+      "?"
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "ADP",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0022",
+    "tokens": [
+      "That",
+      "he",
+      "missed",
+      "a",
+      "physical",
+      "?"
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0023",
+    "tokens": [
+      "That",
+      "his",
+      "daddy",
+      "got",
+      "him",
+      "in",
+      "?"
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "NOUN",
+      "VERB",
+      "PRON",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0026",
+    "tokens": [
+      "The",
+      "future",
+      "president",
+      "joined",
+      "the",
+      "Guard",
+      "in",
+      "May",
+      "1968",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "NOUN",
+      "VERB",
+      "DET",
+      "PROPN",
+      "ADP",
+      "PROPN",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0027",
+    "tokens": [
+      "Almost",
+      "immediately",
+      ",",
+      "he",
+      "began",
+      "an",
+      "extended",
+      "period",
+      "of",
+      "training",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "ADV",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0028",
+    "tokens": [
+      "Six",
+      "weeks",
+      "of",
+      "basic",
+      "training",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0029",
+    "tokens": [
+      "Fifty",
+      "-",
+      "three",
+      "weeks",
+      "of",
+      "flight",
+      "training",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "PUNCT",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0030",
+    "tokens": [
+      "Twenty",
+      "-",
+      "one",
+      "weeks",
+      "of",
+      "fighter",
+      "-",
+      "interceptor",
+      "training",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "PUNCT",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0032",
+    "tokens": [
+      "It",
+      "was",
+      "full",
+      "-",
+      "time",
+      "work",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADJ",
+      "PUNCT",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0033",
+    "tokens": [
+      "By",
+      "the",
+      "time",
+      "it",
+      "was",
+      "over",
+      ",",
+      "Bush",
+      "had",
+      "served",
+      "nearly",
+      "two",
+      "years",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "DET",
+      "NOUN",
+      "PRON",
+      "AUX",
+      "ADV",
+      "PUNCT",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "ADV",
+      "NUM",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0034",
+    "tokens": [
+      "Not",
+      "two",
+      "years",
+      "of",
+      "weekends",
+      "."
+    ],
+    "upos": [
+      "PART",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0035",
+    "tokens": [
+      "Two",
+      "years",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0037",
+    "tokens": [
+      "As",
+      "he",
+      "did",
+      ",",
+      "he",
+      "accumulated",
+      "points",
+      "toward",
+      "his",
+      "National",
+      "Guard",
+      "service",
+      "requirements",
+      "."
+    ],
+    "upos": [
+      "SCONJ",
+      "PRON",
+      "AUX",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "PRON",
+      "ADJ",
+      "PROPN",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0040",
+    "tokens": [
+      "Bush",
+      "earned",
+      "340",
+      "points",
+      "in",
+      "1969",
+      "-",
+      "1970",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "VERB",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "SYM",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0042",
+    "tokens": [
+      "-",
+      "acd",
+      "]"
+    ],
+    "upos": [
+      "PUNCT",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0043",
+    "tokens": [
+      "He",
+      "earned",
+      "137",
+      "points",
+      "in",
+      "1970",
+      "-",
+      "1971",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "SYM",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0044",
+    "tokens": [
+      "And",
+      "he",
+      "earned",
+      "112",
+      "points",
+      "in",
+      "1971",
+      "-",
+      "1972",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "VERB",
+      "NUM",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "SYM",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0046",
+    "tokens": [
+      "Did",
+      "you",
+      "know",
+      "that",
+      "?"
+    ],
+    "upos": [
+      "AUX",
+      "PRON",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0048",
+    "tokens": [
+      "Bush",
+      "asked",
+      "for",
+      "permission",
+      "to",
+      "go",
+      "to",
+      "Alabama",
+      "to",
+      "work",
+      "on",
+      "a",
+      "Senate",
+      "campaign",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "VERB",
+      "ADP",
+      "NOUN",
+      "PART",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PART",
+      "VERB",
+      "ADP",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0049",
+    "tokens": [
+      "His",
+      "superior",
+      "officers",
+      "said",
+      "OK",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "VERB",
+      "INTJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0054",
+    "tokens": [
+      "In",
+      "fact",
+      ",",
+      "you",
+      "were",
+      "helping",
+      "them",
+      "solve",
+      "their",
+      "problem",
+      ".",
+      "”"
+    ],
+    "upos": [
+      "ADP",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "AUX",
+      "VERB",
+      "PRON",
+      "VERB",
+      "PRON",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0055",
+    "tokens": [
+      "So",
+      "Bush",
+      "stopped",
+      "flying",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PROPN",
+      "VERB",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0059",
+    "tokens": [
+      "Then",
+      ",",
+      "at",
+      "his",
+      "request",
+      ",",
+      "he",
+      "was",
+      "given",
+      "permission",
+      "to",
+      "go",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PUNCT",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "AUX",
+      "VERB",
+      "NOUN",
+      "PART",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0062",
+    "tokens": [
+      "During",
+      "his",
+      "service",
+      ",",
+      "Bush",
+      "received",
+      "high",
+      "marks",
+      "as",
+      "a",
+      "pilot",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "PRON",
+      "NOUN",
+      "PUNCT",
+      "PROPN",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0069",
+    "tokens": [
+      "Voters",
+      "are",
+      "perfectly",
+      "able",
+      "to",
+      "decide",
+      "whether",
+      "it",
+      "’s",
+      "important",
+      "or",
+      "not",
+      "in",
+      "November",
+      "."
+    ],
+    "upos": [
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "PART",
+      "VERB",
+      "SCONJ",
+      "PRON",
+      "AUX",
+      "ADJ",
+      "CCONJ",
+      "PART",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0074",
+    "tokens": [
+      "Now",
+      ",",
+      "after",
+      "the",
+      "Swift",
+      "boat",
+      "episode",
+      ",",
+      "the",
+      "spotlight",
+      "has",
+      "returned",
+      "to",
+      "Bush",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PUNCT",
+      "ADP",
+      "DET",
+      "PROPN",
+      "PROPN",
+      "NOUN",
+      "PUNCT",
+      "DET",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0075",
+    "tokens": [
+      "That",
+      "’s",
+      "fine",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0076",
+    "tokens": [
+      "We",
+      "should",
+      "know",
+      "as",
+      "much",
+      "as",
+      "we",
+      "can",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADV",
+      "ADJ",
+      "SCONJ",
+      "PRON",
+      "AUX",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0077",
+    "tokens": [
+      "And",
+      "perhaps",
+      "someday",
+      "Kerry",
+      "will",
+      "release",
+      "more",
+      "of",
+      "his",
+      "military",
+      "records",
+      "as",
+      "well",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "ADV",
+      "NOUN",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "ADJ",
+      "ADP",
+      "PRON",
+      "ADJ",
+      "NOUN",
+      "ADV",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0078",
+    "tokens": [
+      "Byron",
+      "York",
+      "is",
+      "a",
+      "White",
+      "House",
+      "correspondent",
+      "for",
+      "National",
+      "Review",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "PROPN",
+      "AUX",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_alaindewitt_20040929103700_ENG_20040929_103700-0079",
+    "tokens": [
+      "His",
+      "column",
+      "appears",
+      "in",
+      "The",
+      "Hill",
+      "each",
+      "week",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "NOUN",
+      "VERB",
+      "ADP",
+      "DET",
+      "PROPN",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0005",
+    "tokens": [
+      "Many",
+      "voting",
+      "centres",
+      "have",
+      "already",
+      "been",
+      "successfully",
+      "attacked",
+      "or",
+      "destroyed",
+      "in",
+      "many",
+      "areas",
+      "."
+    ],
+    "upos": [
+      "ADJ",
+      "NOUN",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "AUX",
+      "ADV",
+      "VERB",
+      "CCONJ",
+      "VERB",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0017",
+    "tokens": [
+      "Fistfights",
+      ",",
+      "please",
+      "."
+    ],
+    "upos": [
+      "NOUN",
+      "PUNCT",
+      "INTJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0021",
+    "tokens": [
+      "I",
+      "doubt",
+      "that",
+      "will",
+      "be",
+      "the",
+      "outcome",
+      "though",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "PRON",
+      "AUX",
+      "AUX",
+      "DET",
+      "NOUN",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0024",
+    "tokens": [
+      "Its",
+      "support",
+      "base",
+      "is",
+      "much",
+      "larger",
+      "than",
+      "what",
+      "it",
+      "seems",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "NOUN",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "ADP",
+      "PRON",
+      "PRON",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0032",
+    "tokens": [
+      "He",
+      "said",
+      "that",
+      "resistance",
+      "was",
+      "the",
+      "only",
+      "commonsense",
+      "solution",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "SCONJ",
+      "NOUN",
+      "AUX",
+      "DET",
+      "ADJ",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0034",
+    "tokens": [
+      "Sunni",
+      "Iraqis",
+      "contend",
+      "that",
+      "elections",
+      "are",
+      "impossible",
+      "to",
+      "hold",
+      "under",
+      "occupation",
+      "."
+    ],
+    "upos": [
+      "ADJ",
+      "PROPN",
+      "VERB",
+      "SCONJ",
+      "NOUN",
+      "AUX",
+      "ADJ",
+      "PART",
+      "VERB",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0044",
+    "tokens": [
+      "Many",
+      "of",
+      "these",
+      "Sheikhs",
+      "have",
+      "been",
+      "disenfranchised",
+      "and",
+      "abused",
+      "over",
+      "the",
+      "last",
+      "two",
+      "years",
+      "."
+    ],
+    "upos": [
+      "ADJ",
+      "ADP",
+      "DET",
+      "NOUN",
+      "AUX",
+      "AUX",
+      "VERB",
+      "CCONJ",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NUM",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0046",
+    "tokens": [
+      "Al",
+      "-",
+      "Gu'ud",
+      "had",
+      "favoured",
+      "elections",
+      "and",
+      "was",
+      "in",
+      "good",
+      "terms",
+      "with",
+      "the",
+      "government",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "AUX",
+      "VERB",
+      "NOUN",
+      "CCONJ",
+      "AUX",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0049",
+    "tokens": [
+      "The",
+      "revolt",
+      "took",
+      "two",
+      "weeks",
+      "to",
+      "be",
+      "suppressed",
+      "by",
+      "the",
+      "Republican",
+      "Guard",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "VERB",
+      "NUM",
+      "NOUN",
+      "PART",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0052",
+    "tokens": [
+      "I",
+      "believe",
+      "national",
+      "reconciliation",
+      "to",
+      "be",
+      "the",
+      "only",
+      "path",
+      "forward",
+      "to",
+      "a",
+      "new",
+      "Iraq",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "PART",
+      "AUX",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADV",
+      "ADP",
+      "DET",
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_healingiraq_20050121235804_ENG_20050121_235804-0053",
+    "tokens": [
+      "The",
+      "Shia",
+      "can",
+      "not",
+      "live",
+      "without",
+      "the",
+      "Sunnis",
+      ",",
+      "and",
+      "vice",
+      "versa",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "PROPN",
+      "AUX",
+      "PART",
+      "VERB",
+      "ADP",
+      "DET",
+      "PROPN",
+      "PUNCT",
+      "CCONJ",
+      "ADV",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_rigorousintuition_20050518101500_ENG_20050518_101500-0001",
+    "tokens": [
+      "Remember",
+      "Luis",
+      "Posada",
+      "Carriles",
+      "?"
+    ],
+    "upos": [
+      "VERB",
+      "PROPN",
+      "PROPN",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_rigorousintuition_20050518101500_ENG_20050518_101500-0003",
+    "tokens": [
+      "(",
+      "\"",
+      "At",
+      "first",
+      "I",
+      "hid",
+      "a",
+      "lot",
+      "."
+    ],
+    "upos": [
+      "PUNCT",
+      "PUNCT",
+      "ADP",
+      "ADV",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "train",
+    "id": "weblog-blogspot.com_rigorousintuition_20050518101500_ENG_20050518_101500-0004",
+    "tokens": [
+      "I",
+      "thought",
+      "the",
+      "US",
+      "government",
+      "was",
+      "looking",
+      "for",
+      "me",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADP",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_nominations_20041117172713_ENG_20041117_172713-0001",
+    "tokens": [
+      "From",
+      "the",
+      "AP",
+      "comes",
+      "this",
+      "story",
+      ":"
+    ],
+    "upos": [
+      "ADP",
+      "DET",
+      "PROPN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_gettingpolitical_20030906235000_ENG_20030906_235000-0005",
+    "tokens": [
+      "A",
+      "la",
+      "guerre",
+      "c'est",
+      "comme",
+      "a",
+      "la",
+      "guerre",
+      "!"
+    ],
+    "upos": [
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-juancole.com_juancole_20040114085100_ENG_20040114_085100-0005",
+    "tokens": [
+      "The",
+      "US",
+      "troops",
+      "fired",
+      "into",
+      "the",
+      "hostile",
+      "crowd",
+      ",",
+      "killing",
+      "4",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "PROPN",
+      "NOUN",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT",
+      "VERB",
+      "NUM",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20050210075500_ENG_20050210_075500-0005",
+    "tokens": [
+      "Read",
+      "the",
+      "entire",
+      "article",
+      ";",
+      "there",
+      "'s",
+      "a",
+      "punchline",
+      ",",
+      "too",
+      "."
+    ],
+    "upos": [
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-juancole.com_juancole_20040324065800_ENG_20040324_065800-0004",
+    "tokens": [
+      "US",
+      "troops",
+      "there",
+      "clashed",
+      "with",
+      "guerrillas",
+      "in",
+      "a",
+      "fight",
+      "that",
+      "left",
+      "one",
+      "Iraqi",
+      "dead",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "NOUN",
+      "ADV",
+      "VERB",
+      "ADP",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PRON",
+      "VERB",
+      "NUM",
+      "PROPN",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-juancole.com_juancole_20040324065800_ENG_20040324_065800-0005",
+    "tokens": [
+      "In",
+      "Ramadi",
+      ",",
+      "there",
+      "was",
+      "a",
+      "big",
+      "demonstration",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "PROPN",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20040611132900_ENG_20040611_132900-0002",
+    "tokens": [
+      "We",
+      "'ve",
+      "moved",
+      "on",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20040611132900_ENG_20040611_132900-0003",
+    "tokens": [
+      "We",
+      "'ve",
+      "grown",
+      "up",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADP",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20040611132900_ENG_20040611_132900-0004",
+    "tokens": [
+      "Now",
+      ",",
+      "people",
+      "wonder",
+      "if",
+      "Google",
+      "can",
+      "even",
+      "survive",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PUNCT",
+      "NOUN",
+      "VERB",
+      "SCONJ",
+      "PROPN",
+      "AUX",
+      "ADV",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20040611132900_ENG_20040611_132900-0005",
+    "tokens": [
+      "That",
+      "'s",
+      "overstating",
+      "it",
+      ",",
+      "I",
+      "know",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "PRON",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_marketview_20040611132900_ENG_20040611_132900-0009",
+    "tokens": [
+      "The",
+      "other",
+      "problem",
+      "?"
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_aggressivevoicedaily_20060814163400_ENG_20060814_163400-0004",
+    "tokens": [
+      "TEHRAN",
+      "(",
+      "AFP",
+      ")",
+      "-"
+    ],
+    "upos": [
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_aggressivevoicedaily_20060814163400_ENG_20060814_163400-0013",
+    "tokens": [
+      "When",
+      "they",
+      "saw",
+      "a",
+      "cartoon",
+      "of",
+      "their",
+      "prophet",
+      ",",
+      "people",
+      "had",
+      "to",
+      "die",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "PUNCT",
+      "NOUN",
+      "VERB",
+      "PART",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-juancole.com_juancole_20041111060900_ENG_20041111_060900-0005",
+    "tokens": [
+      "The",
+      "battles",
+      "and",
+      "demonstrations",
+      "were",
+      "provoked",
+      "by",
+      "the",
+      "US",
+      "assault",
+      "on",
+      "Fallujah",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "CCONJ",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "ADP",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_thelameduck_20041119192207_ENG_20041119_192207-0001",
+    "tokens": [
+      "The",
+      "hottest",
+      "item",
+      "on",
+      "Christmas",
+      "wish",
+      "lists",
+      "this",
+      "year",
+      "is",
+      "nuclear",
+      "weapons",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "NOUN",
+      "NOUN",
+      "DET",
+      "NOUN",
+      "AUX",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_thelameduck_20041119192207_ENG_20041119_192207-0009",
+    "tokens": [
+      "Right",
+      "now",
+      "that",
+      "seems",
+      "to",
+      "be",
+      "the",
+      "US",
+      ",",
+      "EU",
+      ",",
+      "and",
+      "IAEA",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "ADV",
+      "PRON",
+      "VERB",
+      "PART",
+      "AUX",
+      "DET",
+      "PROPN",
+      "PUNCT",
+      "PROPN",
+      "PUNCT",
+      "CCONJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_thelameduck_20041119192207_ENG_20041119_192207-0014",
+    "tokens": [
+      "It",
+      "is",
+      "rumored",
+      "that",
+      "North",
+      "Korea",
+      "has",
+      "at",
+      "least",
+      "a",
+      "couple",
+      "nuclear",
+      "weapons",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "SCONJ",
+      "PROPN",
+      "PROPN",
+      "VERB",
+      "ADP",
+      "ADJ",
+      "DET",
+      "NOUN",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_thelameduck_20041119192207_ENG_20041119_192207-0016",
+    "tokens": [
+      "The",
+      "case",
+      "against",
+      "Iran",
+      "has",
+      "a",
+      "feeling",
+      "of",
+      "Déjà",
+      "vu",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "X",
+      "X",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0001",
+    "tokens": [
+      "I",
+      "ran",
+      "across",
+      "this",
+      "item",
+      "on",
+      "the",
+      "Internet",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "ADP",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0006",
+    "tokens": [
+      "To",
+      "pander",
+      "to",
+      "the",
+      "mythical",
+      "\"",
+      "Arab",
+      "street",
+      "\"",
+      ",",
+      "of",
+      "course",
+      "."
+    ],
+    "upos": [
+      "PART",
+      "VERB",
+      "ADP",
+      "DET",
+      "ADJ",
+      "PUNCT",
+      "ADJ",
+      "NOUN",
+      "PUNCT",
+      "PUNCT",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0009",
+    "tokens": [
+      "Yet",
+      "we",
+      "did",
+      "n't",
+      "charge",
+      "them",
+      "for",
+      "the",
+      "evacuation",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "PRON",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0011",
+    "tokens": [
+      "And",
+      "what",
+      "do",
+      "we",
+      "get",
+      "for",
+      "this",
+      "effort",
+      "?"
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "AUX",
+      "PRON",
+      "VERB",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0012",
+    "tokens": [
+      "A",
+      "lawsuit",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0013",
+    "tokens": [
+      "That",
+      "'s",
+      "right",
+      ",",
+      "folks",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADJ",
+      "PUNCT",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0015",
+    "tokens": [
+      "Here",
+      "'s",
+      "an",
+      "excerpt",
+      "from",
+      "the",
+      "article",
+      ":"
+    ],
+    "upos": [
+      "ADV",
+      "AUX",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0020",
+    "tokens": [
+      "No",
+      "communications",
+      "nothing",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0021",
+    "tokens": [
+      "I",
+      "was",
+      "on",
+      "my",
+      "way",
+      "to",
+      "my",
+      "wedding",
+      "fearing",
+      "death",
+      ",",
+      "basically",
+      ".",
+      "\""
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "ADP",
+      "PRON",
+      "NOUN",
+      "VERB",
+      "NOUN",
+      "PUNCT",
+      "ADV",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_alaindewitt_20060827093500_ENG_20060827_093500-0023",
+    "tokens": [
+      "Dear",
+      "Nina",
+      ","
+    ],
+    "upos": [
+      "ADJ",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0006",
+    "tokens": [
+      "\"",
+      "THE",
+      "PRESIDENT",
+      ":",
+      "I",
+      "appreciate",
+      "that",
+      "."
+    ],
+    "upos": [
+      "PUNCT",
+      "DET",
+      "PROPN",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0007",
+    "tokens": [
+      "(",
+      "Laughter",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0009",
+    "tokens": [
+      "I",
+      "'m",
+      "just",
+      "speculating",
+      "now",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADV",
+      "VERB",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0010",
+    "tokens": [
+      "I",
+      "really",
+      "have",
+      "n't",
+      "thought",
+      "about",
+      "writing",
+      "a",
+      "book",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "ADV",
+      "AUX",
+      "PART",
+      "VERB",
+      "SCONJ",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0011",
+    "tokens": [
+      "My",
+      "life",
+      "is",
+      "too",
+      "complicated",
+      "right",
+      "now",
+      "trying",
+      "to",
+      "do",
+      "my",
+      "job",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "ADV",
+      "ADV",
+      "VERB",
+      "PART",
+      "VERB",
+      "PRON",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0012",
+    "tokens": [
+      "(",
+      "Laughter",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0017",
+    "tokens": [
+      "Four",
+      "months",
+      "later",
+      ",",
+      "we",
+      "were",
+      "married",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "NOUN",
+      "ADV",
+      "PUNCT",
+      "PRON",
+      "AUX",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0019",
+    "tokens": [
+      "(",
+      "Applause",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0021",
+    "tokens": [
+      "(",
+      "Laughter",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0022",
+    "tokens": [
+      "This",
+      "is",
+      "not",
+      "a",
+      "filibuster",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0023",
+    "tokens": [
+      "(",
+      "Laughter",
+      ".",
+      ")"
+    ],
+    "upos": [
+      "PUNCT",
+      "NOUN",
+      "PUNCT",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "dev",
+    "id": "weblog-blogspot.com_tacitusproject_20040712123425_ENG_20040712_123425-0024",
+    "tokens": [
+      "That",
+      "'s",
+      "a",
+      "Senate",
+      "term",
+      "--",
+      "particularly",
+      "on",
+      "good",
+      "judges",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "PUNCT",
+      "ADV",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200-0001",
+    "tokens": [
+      "What",
+      "if",
+      "Google",
+      "Morphed",
+      "Into",
+      "GoogleOS",
+      "?"
+    ],
+    "upos": [
+      "PRON",
+      "SCONJ",
+      "PROPN",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_zentelligence_20040423000200_ENG_20040423_000200-0003",
+    "tokens": [
+      "[",
+      "via",
+      "Microsoft",
+      "Watch",
+      "from",
+      "Mary",
+      "Jo",
+      "Foley",
+      "]"
+    ],
+    "upos": [
+      "PUNCT",
+      "ADP",
+      "PROPN",
+      "PROPN",
+      "ADP",
+      "PROPN",
+      "PROPN",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700-0003",
+    "tokens": [
+      "Google",
+      "is",
+      "a",
+      "nice",
+      "search",
+      "engine",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "AUX",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700-0004",
+    "tokens": [
+      "Does",
+      "anybody",
+      "use",
+      "it",
+      "for",
+      "anything",
+      "else",
+      "?"
+    ],
+    "upos": [
+      "AUX",
+      "PRON",
+      "VERB",
+      "PRON",
+      "ADP",
+      "PRON",
+      "ADV",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700-0005",
+    "tokens": [
+      "They",
+      "own",
+      "blogger",
+      ",",
+      "of",
+      "course",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "PROPN",
+      "PUNCT",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700-0006",
+    "tokens": [
+      "Is",
+      "that",
+      "a",
+      "money",
+      "maker",
+      "?"
+    ],
+    "upos": [
+      "AUX",
+      "PRON",
+      "DET",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050511222700_ENG_20050511_222700-0007",
+    "tokens": [
+      "I",
+      "'m",
+      "staying",
+      "away",
+      "from",
+      "the",
+      "stock",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADV",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0003",
+    "tokens": [
+      "Click",
+      "here",
+      "To",
+      "view",
+      "it",
+      "."
+    ],
+    "upos": [
+      "VERB",
+      "ADV",
+      "PART",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0004",
+    "tokens": [
+      "He",
+      "makes",
+      "some",
+      "good",
+      "observations",
+      "on",
+      "a",
+      "few",
+      "of",
+      "the",
+      "pic's",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "DET",
+      "ADJ",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0005",
+    "tokens": [
+      "One",
+      "of",
+      "the",
+      "pictures",
+      "shows",
+      "a",
+      "flag",
+      "that",
+      "was",
+      "found",
+      "in",
+      "Fallujah",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "ADP",
+      "DET",
+      "NOUN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADP",
+      "PROPN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0006",
+    "tokens": [
+      "On",
+      "the",
+      "next",
+      "two",
+      "pictures",
+      "he",
+      "took",
+      "screenshots",
+      "of",
+      "two",
+      "beheading",
+      "video's",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "DET",
+      "ADJ",
+      "NUM",
+      "NOUN",
+      "PRON",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "NUM",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0007",
+    "tokens": [
+      "Compare",
+      "the",
+      "flags",
+      "to",
+      "the",
+      "Fallujah",
+      "one",
+      "."
+    ],
+    "upos": [
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20041126180010_ENG_20041126_180010-0008",
+    "tokens": [
+      "You",
+      "have",
+      "to",
+      "see",
+      "these",
+      "slides",
+      "....",
+      "they",
+      "are",
+      "amazing",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "PART",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "AUX",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500-0002",
+    "tokens": [
+      "I",
+      "'m",
+      "not",
+      "fond",
+      "of",
+      "the",
+      "Google",
+      "-",
+      "hates",
+      "-",
+      "privacy",
+      "argument"
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "ADJ",
+      "ADP",
+      "DET",
+      "PROPN",
+      "PUNCT",
+      "VERB",
+      "PUNCT",
+      "NOUN",
+      "NOUN"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500-0004",
+    "tokens": [
+      "However",
+      ",",
+      "this",
+      "toolbar",
+      "is",
+      "really",
+      "bad",
+      "news",
+      "."
+    ],
+    "upos": [
+      "ADV",
+      "PUNCT",
+      "DET",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20050224181500_ENG_20050224_181500-0005",
+    "tokens": [
+      "On",
+      "the",
+      "other",
+      "hand",
+      ",",
+      "it",
+      "looks",
+      "pretty",
+      "cool",
+      "."
+    ],
+    "upos": [
+      "ADP",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT",
+      "PRON",
+      "VERB",
+      "ADV",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0001",
+    "tokens": [
+      "Iran",
+      "says",
+      "it",
+      "is",
+      "creating",
+      "nuclear",
+      "energy",
+      "without",
+      "wanting",
+      "nuclear",
+      "weapons",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "VERB",
+      "PRON",
+      "AUX",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "SCONJ",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0002",
+    "tokens": [
+      "The",
+      "United",
+      "States",
+      "does",
+      "n't",
+      "believe",
+      "the",
+      "Iranian",
+      "Government",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "PROPN",
+      "AUX",
+      "PART",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0003",
+    "tokens": [
+      "One",
+      "can",
+      "suspect",
+      "the",
+      "Iranian",
+      "Government",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0004",
+    "tokens": [
+      "But",
+      "there",
+      "is",
+      "no",
+      "proof",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "VERB",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0008",
+    "tokens": [
+      "But",
+      "he",
+      "has",
+      "insisted",
+      "that",
+      "he",
+      "wants",
+      "nuclear",
+      "power",
+      "for",
+      "peaceful",
+      "purposes",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "AUX",
+      "VERB",
+      "SCONJ",
+      "PRON",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0009",
+    "tokens": [
+      "Many",
+      "people",
+      "want",
+      "to",
+      "use",
+      "diplomacy",
+      "with",
+      "Iran",
+      "rather",
+      "than",
+      "military",
+      "pressure",
+      "."
+    ],
+    "upos": [
+      "ADJ",
+      "NOUN",
+      "VERB",
+      "PART",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "PROPN",
+      "ADV",
+      "ADP",
+      "ADJ",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0010",
+    "tokens": [
+      "But",
+      "will",
+      "diplomacy",
+      "work",
+      "?"
+    ],
+    "upos": [
+      "CCONJ",
+      "AUX",
+      "NOUN",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0011",
+    "tokens": [
+      "And",
+      "can",
+      "anyone",
+      "use",
+      "military",
+      "pressure",
+      "without",
+      "proof",
+      "?"
+    ],
+    "upos": [
+      "CCONJ",
+      "AUX",
+      "PRON",
+      "VERB",
+      "ADJ",
+      "NOUN",
+      "ADP",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0013",
+    "tokens": [
+      "He",
+      "has",
+      "denied",
+      "this",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0014",
+    "tokens": [
+      "We",
+      "do",
+      "n't",
+      "have",
+      "to",
+      "believe",
+      "him",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "PART",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_grandpasgripes_20060413051000_ENG_20060413_051000-0015",
+    "tokens": [
+      "But",
+      "we",
+      "ca",
+      "n't",
+      "prove",
+      "it",
+      "."
+    ],
+    "upos": [
+      "CCONJ",
+      "PRON",
+      "AUX",
+      "PART",
+      "VERB",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-juancole.com_juancole_20030914114200_ENG_20030914_114200-0005",
+    "tokens": [
+      "The",
+      "clerics",
+      "demanded",
+      "talks",
+      "with",
+      "local",
+      "US",
+      "commanders",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "NOUN",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "ADJ",
+      "PROPN",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800-0002",
+    "tokens": [
+      "The",
+      "actual",
+      "vote",
+      "is",
+      "a",
+      "little",
+      "confusing",
+      "."
+    ],
+    "upos": [
+      "DET",
+      "ADJ",
+      "NOUN",
+      "AUX",
+      "DET",
+      "ADJ",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800-0006",
+    "tokens": [
+      "SCALIA",
+      "filed",
+      "a",
+      "dissenting",
+      "opinion",
+      ",",
+      "in",
+      "which",
+      "THOMAS",
+      "and",
+      "ALITO",
+      "joined",
+      "."
+    ],
+    "upos": [
+      "PROPN",
+      "VERB",
+      "DET",
+      "VERB",
+      "NOUN",
+      "PUNCT",
+      "ADP",
+      "PRON",
+      "PROPN",
+      "CCONJ",
+      "PROPN",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_aggressivevoicedaily_20060629164800_ENG_20060629_164800-0010",
+    "tokens": [
+      "I",
+      "'ll",
+      "post",
+      "highlights",
+      "from",
+      "the",
+      "opinion",
+      "and",
+      "dissents",
+      "when",
+      "I",
+      "'m",
+      "finished",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "VERB",
+      "NOUN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "CCONJ",
+      "NOUN",
+      "ADV",
+      "PRON",
+      "AUX",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0002",
+    "tokens": [
+      "I",
+      "had",
+      "to",
+      "go",
+      "to",
+      "the",
+      "BBC",
+      "for",
+      "this",
+      "report",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "PART",
+      "VERB",
+      "ADP",
+      "DET",
+      "PROPN",
+      "ADP",
+      "DET",
+      "NOUN",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0004",
+    "tokens": [
+      "It",
+      "'s",
+      "just",
+      "disappointing",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADV",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_tacitusproject_20040715092419_ENG_20040715_092419-0007",
+    "tokens": [
+      "Two",
+      "weeks",
+      "later",
+      ",",
+      "and",
+      "the",
+      "violence",
+      "continues",
+      "."
+    ],
+    "upos": [
+      "NUM",
+      "NOUN",
+      "ADV",
+      "PUNCT",
+      "CCONJ",
+      "DET",
+      "NOUN",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0006",
+    "tokens": [
+      "I",
+      "'m",
+      "not",
+      "sure",
+      "how",
+      "the",
+      "market",
+      "will",
+      "react",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PART",
+      "ADJ",
+      "ADV",
+      "DET",
+      "NOUN",
+      "AUX",
+      "VERB",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0010",
+    "tokens": [
+      "Because",
+      "the",
+      "10.000.000",
+      "people",
+      "dying",
+      "from",
+      "malaria",
+      "will",
+      "otherwise",
+      "be",
+      "dead",
+      "."
+    ],
+    "upos": [
+      "SCONJ",
+      "DET",
+      "NUM",
+      "NOUN",
+      "VERB",
+      "ADP",
+      "NOUN",
+      "AUX",
+      "ADV",
+      "AUX",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_marketview_20060625150800_ENG_20060625_150800-0013",
+    "tokens": [
+      "He",
+      "mentions",
+      "his",
+      "wife",
+      "'s",
+      "death",
+      "having",
+      "an",
+      "effect",
+      "on",
+      "him",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "VERB",
+      "PRON",
+      "NOUN",
+      "PART",
+      "NOUN",
+      "VERB",
+      "DET",
+      "NOUN",
+      "ADP",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20050313182621_ENG_20050313_182621-0012",
+    "tokens": [
+      "Wtf",
+      "is",
+      "this",
+      "?"
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "PRON",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-blogspot.com_floppingaces_20050313182621_ENG_20050313_182621-0013",
+    "tokens": [
+      "This",
+      "is",
+      "a",
+      "terrorist",
+      "organization",
+      "plain",
+      "and",
+      "simple",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "DET",
+      "ADJ",
+      "NOUN",
+      "ADJ",
+      "CCONJ",
+      "ADJ",
+      "PUNCT"
+    ]
+  },
+  {
+    "split": "test",
+    "id": "weblog-juancole.com_juancole_20041109060653_ENG_20041109_060653-0002",
+    "tokens": [
+      "It",
+      "is",
+      "now",
+      "threatening",
+      "to",
+      "pull",
+      "out",
+      "of",
+      "the",
+      "Allawi",
+      "caretaker",
+      "government",
+      "."
+    ],
+    "upos": [
+      "PRON",
+      "AUX",
+      "ADV",
+      "VERB",
+      "PART",
+      "VERB",
+      "ADP",
+      "ADP",
+      "DET",
+      "PROPN",
+      "NOUN",
+      "NOUN",
+      "PUNCT"
+    ]
+  }
+]

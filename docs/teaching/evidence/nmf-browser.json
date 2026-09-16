@@ -1,0 +1,123 @@
+{
+  "startedAt": "2026-09-16T15:53:06.013Z",
+  "completedAt": "2026-09-16T15:53:41.398Z",
+  "topicId": "non-negative-matrix-factorization-nmf",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "2385b5ae534be4b61834c3a9cc5801cb30fc6fecc70ef88a4f7bc5cf841f2011",
+  "sourceHashes": {
+    "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx": "734dcb902eb95db45f406f6565eb8e87427fc954646799a03bc6ffcef76da9b0",
+    "src/learn/data/nmf-models.js": "c4e5a55b6915f8028da3bf7bf2bbeea954f0faf7bed290e6b3e7338cf2e0bc42",
+    "src/learn/data/nmf-data.js": "28dacb781b62c7479b23f16f774b94cb58de3f239d10759d7a8052c01cb8ee85",
+    "src/learn/data/nmf-examples.js": "7d6f704030abd4524b46127ff83defca977148ba8602ba02d709e1bf8ae66c86",
+    "src/learn/components/lesson-labs/NmfShared.jsx": "45ccdc1ccdcd2ea9962fbe583f38cb3ed5a0271558085f027a3bbbba2606a762",
+    "src/learn/components/lesson-labs/NmfLabs.jsx": "bcbe95241025a553f7313d7ee74ae5b2b2e6590884719d6588aef2adab7b78b0",
+    "src/learn/components/lesson-labs/NmfFigures.jsx": "4e45c2507d61edf0afd7181ddc048b9754f2496b5064d8aca1f56e68dd4f899e",
+    "src/learn/components/lesson-labs/nmf-labs.css": "693210fb14e74fb55ac462597280e340eba3adc00a29206449fc905aef52e26e",
+    "src/learn/data/curriculum/blueprints/non-negative-matrix-factorization-nmf.js": "b596b9f4850d537ee1be421703f68ac854430f0f979ce1e9088aea2d4f96150d",
+    "public/learn-assets/nmf/digits-300.csv": "d93f963c4b2610eb07122a312eec3ddceac18a031477370d71e33835eced728e",
+    "public/learn-assets/nmf/data-provenance.md": "c2622d4446a0dec6214981871c8eba7d9af282043875566f40f3874f49998e64"
+  },
+  "moduleTopicCount": 39,
+  "reservedComparison": {
+    "meanTestMse": 0.06999462363160687,
+    "pcaTestMse": 0.019678463136677867,
+    "nmfTestMse": 0.02538089143047506
+  },
+  "firstReservedImage": {
+    "sourceRow": 242,
+    "rowMse": 0.021503642602943917
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, ten route anchors, nine figures, eight practice tasks, all eight candidate scores, the downloadable CSV and provenance, current metadata and module sequence"
+    },
+    {
+      "case": "The additive figure expands every selected feature into its two exact products"
+    },
+    {
+      "case": "Mixture lab: an increase graded against the committed inputs, the H12 case where the selected feature does not move, the a = 0 null, an edit retiring the verdict, refused off-lattice and out-of-range input, and the (1,2)/(2,1) pair sharing a third feature of 3"
+    },
+    {
+      "case": "Update lab: the exact 5.5 / 2.65 step graded as a growth, the H₁₁ = 3 case graded as a shrink, the altered X[1,2] contrast at 0.489795918 and 0.224942552, the exact-fit null with an exactly zero loss strip, a refused zero row, a working back step and a bounded 41-point logarithmic trace"
+    },
+    {
+      "case": "Contribution lab: the recorded removal of component 2 at 0.068409087 graded as a rise, the zero-activation component 8 null, an individual pixel graded separately from the total, the all-removed boundary at the mean squared observation, and an image change clearing mask and prediction"
+    },
+    {
+      "case": "Sequential audit: optional pixel choice remains ungraded on exploration; an untouched mask has its own null explanation while the zero-activation switch retains its exact-null explanation"
+    },
+    {
+      "case": "Figures carry their required content: both exact products, all six crossed-zero pairs, the labelled normalization divisors, the above-one reconstruction peak, and eleven square image panels"
+    },
+    {
+      "case": "Narrow layouts at 1366, 1024, 768, 390 and 320px: no SVG label collisions, no document overflow, no formula overflow and no SVG type below 10 rendered pixels"
+    },
+    {
+      "case": "Enlarged root text keeps every figure label separated, and the numbers inside strip and matrix cells grow with it (12.48px to 24.96px, 12.48px to 24.96px)"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-DDiK5S7G.js",
+        "assets/Reader-C1jeEaL6.js",
+        "assets/LevelBadge-DHxsn23C.js",
+        "assets/non-negative-matrix-factorization-nmf-BkFRedAz.js",
+        "assets/Code-DtebU9wq.js",
+        "assets/Callout-B9TTv8FG.js",
+        "assets/Math-Cjd6mpQ-.js",
+        "assets/LessonElements-CIBbHzIf.js",
+        "assets/RunnableExample-V6eN1Lty.js"
+      ],
+      "rawScriptBytes": 1491618,
+      "gzipEstimateBytes": 338687,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\nmf-build-row-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-mixture-graded-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-mixture-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-mixture-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-update-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-update-shrinks-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-update-exact-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-update-trace-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-pixel-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-empty-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-ungraded-pixel.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-untouched-mask.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-build-row-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-residual-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-update-phases-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-zero-lock-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-ambiguity-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-fit-transform-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-candidates-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-dictionary-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-support-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-build-row-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-residual-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-ambiguity-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-fit-transform-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-candidates-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-figure-dictionary-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-contribution-320.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-mixture-390.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-update-390.png",
+    "docs\\teaching\\evidence\\screenshots\\nmf-build-row-enlarged-text.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: a matched and a missed prediction, the shrinking update contrast, the exact-fit null, the zero-activation null, the all-removed boundary, the image panels at their stated scales, and every inline figure at desktop and 320px. They require separate visual inspection."
+}

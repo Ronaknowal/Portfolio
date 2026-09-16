@@ -1,5 +1,7 @@
 # PCA & Dimensionality Reduction — content and delivery record
 
+**Visual-layout follow-up, 14 September 2026:** [the expanded diagram review](LESSON-VISUAL-LAYOUT-REVIEW.md) separates the projection-foot, conservation and residual-alarm labels from data strokes. Point coordinates, scales, examples and prepared content are unchanged. The affected desktop/320px captures were inspected and the [PCA browser suite](evidence/pca-browser.json) passes 14 cases on these sources. This later record supersedes earlier screenshots for the affected figures.
+
 Stable ID: `pca-dimensionality-reduction`. Module: Classical Machine Learning, Unsupervised Learning, position 12 of 39. Requested 12 September 2026: **research and writing only**, including visual/lab specifications. Author: primary agent. No independent review is claimed.
 
 ## Current state
@@ -190,3 +192,20 @@ The reviewer (a separate agent that did not author any source) recomputed the fo
 | Wine retrieval date absent from the lesson's provenance | Minor | Added to the reference bullet. |
 
 Every displayed program still reproduces the manuscript's output after these changes; the model verifier passes 33 grouped checks and the browser verifier 11 cases. The ledger's content checkpoint was reconciled for this record alone, which is the only content file that changed; manuscript, specifications, data and calculations remain byte-identical. `verify-lesson-delivery.mjs` currently fails on a missing handoff record for a different topic registered by a concurrent content author; that is outside this increment and was not altered.
+
+
+## Prepared-content implementation audit — 14 September 2026
+
+On the user's request to verify PCA through GMM, a fresh reviewer read the complete prepared manuscript and visual specifications against the complete implemented PCA lesson, examples, models, figures and labs. The review found no omitted core explanation, derivation, worked program, exercise or resource. The coverage map and exact inspected source versions are in [the PCA/Clustering audit](PCA-CLUSTERING-CONTENT-IMPLEMENTATION-AUDIT.md). This review is separate from the original 12 September review; its focused repairs preserve the prepared packet and all displayed programs/data.
+
+The metric lab accepted b=4 and multiplier=10 but passed coordinates of ±40 into a shared ±20 point guard, throwing before the learner could apply the draft. Its validated rectangle now goes through the same covariance calculation without widening the free-point input contract. A regression checks 27 boundary/interior parameter combinations in raw and standardized modes and confirms that the original free-point bound still rejects 21. The existing model verifier passed **34 grouped checks** on 14 September; native program execution evidence remains valid because its source and verifier hashes are unchanged.
+
+Other local repairs: projection Back restores the selected observation alongside its prior point set (Add→Back previously indexed a removed point); Fit best direction retains its exact angle instead of rounding to whole degrees; feedback distinguishes two class-pure retained locations from four distinct observations; compared predictions cannot be rewritten after the answer is revealed; a changed budget hides its new crossing until a fresh commitment. The first-pass route correctly asks for the three investigations in sections 1–6; the fourth is the optional section-8 connection.
+
+Browser closure, screenshot inspection and source-checkpoint reconciliation for these repairs belong to the integrating root agent. The model check alone does not certify that browser work. All eight learner programs, the Wine CSV and fitted data, the manuscript and specifications remain unchanged. No publication or curriculum order was changed by this focused repair.
+
+The production browser suite initially passed its original 11 cases on the integrating build. Complementary assertions were then added to `verify-pca-browser.cjs` for legal ±40 rectangle coordinates and independent axis variances, Add→Back selection restoration, an exact noninteger fitted angle, two class-pure retained locations, stale budget-curve hiding and frozen/reopened predictions. These extend the suite to 14 case records and require a fresh root execution; this append does not claim they have already passed.
+
+## Coordinator verification closure, 14 September 2026
+
+The prepared-content comparison and subsequent repairs are closed in [the five-topic audit](PCA-THROUGH-GMM-IMPLEMENTATION-AUDIT.md). The coordinator ran 14 passing production browser cases against the corrected topic source, including changed-input and prediction regressions, narrow layouts, module navigation, loading and recovery. Selected informative screenshots were actually inspected; exact captures and the mathematical/native evidence retained for unchanged code are listed in that record. The saved manuscript/specifications and offline author inputs are unchanged by this audit. The appended design and repaired implementation are re-bound in the existing revision's phase ledger; earlier completion dates and independent-review attribution are preserved. User acceptance is separate.

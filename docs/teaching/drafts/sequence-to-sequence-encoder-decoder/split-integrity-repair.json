@@ -1,0 +1,122 @@
+{
+  "reason": "Shared-form audit linked worke and work across literal lemma split. Superseded before manuscript; no architecture or training change.",
+  "data_sha256": "01d9a734988a69852f6221a326eb5498afa3e58dd27b9ff19fa58d7683b36727",
+  "old_protocol": {
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "updates": 1200,
+    "batch_size": 64,
+    "adam_lr": 0.003,
+    "gradient_clip": 1.0,
+    "max_output": 16
+  },
+  "old_baselines": {
+    "train": {
+      "copy": {
+        "count": 1350,
+        "exact": 3,
+        "character_edits": 2734,
+        "reference_characters": 10792,
+        "character_error_rate": 0.2533358042994811,
+        "no_eos": 0
+      },
+      "predeclared_suffix_rules": {
+        "count": 1350,
+        "exact": 1203,
+        "character_edits": 206,
+        "reference_characters": 10792,
+        "character_error_rate": 0.019088213491475166,
+        "no_eos": 0
+      }
+    },
+    "development": {
+      "copy": {
+        "count": 450,
+        "exact": 1,
+        "character_edits": 896,
+        "reference_characters": 3508,
+        "character_error_rate": 0.2554161915621437,
+        "no_eos": 0
+      },
+      "predeclared_suffix_rules": {
+        "count": 450,
+        "exact": 410,
+        "character_edits": 57,
+        "reference_characters": 3508,
+        "character_error_rate": 0.016248574686431014,
+        "no_eos": 0
+      }
+    }
+  },
+  "old_runs": [
+    {
+      "seed": 1,
+      "parameters": 37408,
+      "train": {
+        "teacher_forced_nll": 0.035405028611421585,
+        "count": 1350,
+        "exact": 1315,
+        "character_edits": 77,
+        "reference_characters": 10792,
+        "character_error_rate": 0.007134914751667902,
+        "no_eos": 0
+      },
+      "development": {
+        "teacher_forced_nll": 1.331465244293213,
+        "count": 450,
+        "exact": 39,
+        "character_edits": 1554,
+        "reference_characters": 3508,
+        "character_error_rate": 0.4429874572405929,
+        "no_eos": 0
+      }
+    },
+    {
+      "seed": 2,
+      "parameters": 37408,
+      "train": {
+        "teacher_forced_nll": 0.04834520071744919,
+        "count": 1350,
+        "exact": 1289,
+        "character_edits": 176,
+        "reference_characters": 10792,
+        "character_error_rate": 0.01630837657524092,
+        "no_eos": 0
+      },
+      "development": {
+        "teacher_forced_nll": 1.174115538597107,
+        "count": 450,
+        "exact": 40,
+        "character_edits": 1512,
+        "reference_characters": 3508,
+        "character_error_rate": 0.43101482326111745,
+        "no_eos": 0
+      }
+    },
+    {
+      "seed": 3,
+      "parameters": 37408,
+      "train": {
+        "teacher_forced_nll": 0.03482766076922417,
+        "count": 1350,
+        "exact": 1312,
+        "character_edits": 90,
+        "reference_characters": 10792,
+        "character_error_rate": 0.008339510748702744,
+        "no_eos": 0
+      },
+      "development": {
+        "teacher_forced_nll": 1.268890380859375,
+        "count": 450,
+        "exact": 46,
+        "character_edits": 1504,
+        "reference_characters": 3508,
+        "character_error_rate": 0.42873432155074115,
+        "no_eos": 0
+      }
+    }
+  ]
+}

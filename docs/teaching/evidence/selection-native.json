@@ -1,0 +1,64 @@
+{
+  "verifiedAt": "2026-09-14T22:53:31.056885+00:00",
+  "stage": "native execution of the displayed programs; browser, model and data checks are separate",
+  "mode": "read-only comparison",
+  "source": "src/learn/data/selection-examples.js",
+  "sourceHash": "9dd716db1d8972318d41dd1f1acfe6e501f9765dd62b63d31d884f076612a76e",
+  "verifier": "scripts/verify-selection-examples.py",
+  "verifierHash": "9d26819e938f4f640176fd5acc65534e76d2e86dee83342b0342262714b2c592",
+  "manuscript": "docs/teaching/drafts/feature-selection-importance-shap-permutation-mutual-info/lesson.md",
+  "manuscriptHash": "2e4125594caf47ff5f108fa69beff804b67f55195503958d4ba0041fb017b035",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1",
+    "shap": "0.52.0"
+  },
+  "programs": {
+    "informationFromCounts": {
+      "file": "information_from_counts.py",
+      "codeHash": "d180272eeadfa49bf6df84278ca6c6c1b95c2b100b1c1c2fc0263ef62f66ea25",
+      "stdoutHash": "c7a83daf678dee947692a5d9b070b3ac08344351054ce1073e6d56c7b017bd09",
+      "stdout": "MI = 0.188722 bits\nMI = 1.000000 bits\nMI = 0.000000 bits"
+    },
+    "coalitionAttribution": {
+      "file": "coalition_attribution.py",
+      "codeHash": "e07a1d74fb52eb601b497de49a2fd37c8afc7336594dd6087635f6da9781856a",
+      "stdoutHash": "89bf09aa37c61bfa3c64053b369ae8e9d01c211a12ba7a67defbd2b89ba1c851",
+      "stdout": "coalitions [ 0.  2.  3. 11.]\nbaseline 0.0 contributions [5. 6.]\nreconstructed prediction 11.0\ncoalitions [ 1.5  3.5  5.  11. ]\nbaseline 1.5 contributions [4.  5.5]\nreconstructed prediction 11.0"
+    },
+    "wineStudy": {
+      "file": "wine_feature_study.py",
+      "codeHash": "cca92e5bafe5b0885ffe0060559568780671760f11361ebaedf4c76a64be18ec",
+      "stdoutHash": "22edbf74da968332154d054d864bbd0f2810254f5daf5ebc5be976e3d59d0e10",
+      "stdout": "retained size 3 mean CV accuracy 0.809269\nretained size 6 mean CV accuracy 0.849673\nretained size 13 mean CV accuracy 0.839572\nselected names ['alcohol', 'total_phenols', 'flavanoids', 'color_intensity', 'od280_od315', 'proline']\nselected-model inspection accuracy 0.9473684210526315\nmajority inspection accuracy 0.39473684210526316\nfour-field inspection accuracy 0.9473684210526315\nalcohol accuracy drop 0.221053 permutation SD 0.048809\nmalic_acid accuracy drop 0.0 permutation SD 0.0\nflavanoids accuracy drop 0.359211 permutation SD 0.082076\nproline accuracy drop 0.189474 permutation SD 0.029539\nexplained source row 104 class-1 probability 0.0\nbackground prediction 0.33 contributions [-0.45  0.    0.07  0.05]\nreconstruction error -1.1102230246251565e-16"
+    },
+    "treeExplainerCheck": {
+      "file": "check_tree_explanation.py",
+      "codeHash": "17721d840d421b0dd103841e8e0f59825523b8c6ece624cb5f102f29f6f1bfdb",
+      "stdoutHash": "22edbf74da968332154d054d864bbd0f2810254f5daf5ebc5be976e3d59d0e10",
+      "stdout": "retained size 3 mean CV accuracy 0.809269\nretained size 6 mean CV accuracy 0.849673\nretained size 13 mean CV accuracy 0.839572\nselected names ['alcohol', 'total_phenols', 'flavanoids', 'color_intensity', 'od280_od315', 'proline']\nselected-model inspection accuracy 0.9473684210526315\nmajority inspection accuracy 0.39473684210526316\nfour-field inspection accuracy 0.9473684210526315\nalcohol accuracy drop 0.221053 permutation SD 0.048809\nmalic_acid accuracy drop 0.0 permutation SD 0.0\nflavanoids accuracy drop 0.359211 permutation SD 0.082076\nproline accuracy drop 0.189474 permutation SD 0.029539\nexplained source row 104 class-1 probability 0.0\nbackground prediction 0.33 contributions [-0.45  0.    0.07  0.05]\nreconstruction error -1.1102230246251565e-16"
+    }
+  },
+  "optionalShapComparison": {
+    "executed": true,
+    "package": "shap",
+    "version": "0.52.0",
+    "mode": "feature_perturbation='interventional', model_output='probability'",
+    "result": "TreeExplainer agreed with the exhaustive sixteen-coalition oracle for source row 104 to within 1e-6 in attributions and baseline, and every one of the twelve explained rows reconstructed its own predicted class-1 probability to within 1e-6."
+  },
+  "warnings": [
+    "treeExplainerCheck: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.",
+    "treeExplainerCheck: The set_over function will be deprecated in a future version. Use cmap.with_extremes(over=...) or Colormap(over=...) instead.",
+    "treeExplainerCheck: The set_under function will be deprecated in a future version. Use cmap.with_extremes(under=...) or Colormap(under=...) instead.",
+    "treeExplainerCheck: FigureCanvasAgg is non-interactive, and thus cannot be shown"
+  ],
+  "oracles": 51,
+  "limits": [
+    "The Wine program ran against the served copy of the supplied file; no network access was used.",
+    "One row-level stratified split of one small collection; the inner scores are selection records.",
+    "No reserved row was predicted or scored by any program here.",
+    "Numerical estimates can differ on other library versions.",
+    "A matching library explainer is numerical agreement, not evidence that the explanatory question is the right one."
+  ],
+  "passed": true
+}

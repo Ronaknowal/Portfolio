@@ -1,0 +1,1457 @@
+{
+  "status": "passed-for-figure-scope",
+  "reviewer": "Figure author; independent figure review is separate.",
+  "method": {
+    "browser": "Headless Microsoft Edge through Playwright",
+    "url": "http://127.0.0.1:4183/learn/path/full-curriculum/t-sne-umap-manifold-learning?module=classical-ml",
+    "fonts": "External Google fonts loaded; document.fonts.ready awaited",
+    "viewports": "1366,780,390,320 CSS px at100%;780 CSS px with root font-size200%",
+    "enlargement": "document.documentElement.style.fontSize = \"200%\"; text enlargement, not browser zoom",
+    "screenshotPreparation": "Reduced motion, smooth scroll disabled, fixed/sticky elements outside main.reader-content hidden. Full figure locator captures.",
+    "automatedTriage": "inspectLessonVisualLayout from scripts/lib/lesson-visual-layout.cjs; human inspection is additional."
+  },
+  "runs": [
+    {
+      "name": "complete-figure-pass",
+      "completedAt": "2026-09-14T10:59:45.026Z",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/ManifoldFigures.jsx": "d95fdffdbd8b3c2021e7faa6f70ee74ce94360a32244a55b7d808c84c63218f3",
+        "src/learn/components/lesson-labs/manifold-figures.css": "c3ae1be13d6c7cd29b0786766e6398318b74d33b19e53602158e60dc3f1a3402",
+        "src/learn/components/lesson-labs/ManifoldShared.jsx": "3b23be0b7836d0197213de9907e616172a26414dd29cc5e0a507630c9645d7ea",
+        "src/learn/components/lesson-labs/manifold-labs.css": "1bc62542fcd3f00b2aba79e721fdd68068483bb1569ef860a126da77d58f3d17"
+      },
+      "buildManifestHash": "ce23b35feb4f9a78f6470c8bfcc1201c604afcff9873d19b8aeccae7b900c2f0",
+      "loadedFontFamilies": [
+        "JetBrains Mono",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2"
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "final-shared-F6",
+      "completedAt": "2026-09-14T11:08:05.353Z",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/ManifoldFigures.jsx": "d95fdffdbd8b3c2021e7faa6f70ee74ce94360a32244a55b7d808c84c63218f3",
+        "src/learn/components/lesson-labs/manifold-figures.css": "c3ae1be13d6c7cd29b0786766e6398318b74d33b19e53602158e60dc3f1a3402",
+        "src/learn/components/lesson-labs/ManifoldShared.jsx": "d8cdd1540ca5c9e51e1e778346c20a7aec0e593b36d59597784c12f5a664050a",
+        "src/learn/components/lesson-labs/manifold-labs.css": "cd5c02c73d62f1d180c64963735b83e21c2a3b37b814142919e7be67494413fc"
+      },
+      "buildManifestHash": "161db5ca3d095b0c1a18d57d2ced3582047f87b8991166ae1b9c1872bcc5e3d9",
+      "loadedFontFamilies": [
+        "JetBrains Mono",
+        "Space Grotesk",
+        "KaTeX_Main",
+        "KaTeX_Math",
+        "KaTeX_Size1",
+        "KaTeX_Size2"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "records": [
+    {
+      "name": "desktop",
+      "width": 1366,
+      "textScale": 1,
+      "figures": [
+        {
+          "number": "F1",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f1-desktop.png",
+          "screenshotSha256": "1c244a88f8627a849d69cfedda330728d1625727befad24785e04e35433d762f",
+          "width": 760,
+          "height": 590.578125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.46650179856115,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+              "labelCount": 20,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+              "labelCount": 14,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F2",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f2-desktop.png",
+          "screenshotSha256": "34bb0cc6fcf888ac6b0f03b4dd720717069c967bcd269dcfbaf5e62478f4c860",
+          "width": 760,
+          "height": 881.203125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.788978494623656,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F3",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f3-desktop.png",
+          "screenshotSha256": "c04c5786611da3a5e44190d8e8b3e69132f89ab37f64af732e682e30c6d2b56d",
+          "width": 760,
+          "height": 691.84375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199634308510637,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F4",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f4-desktop.png",
+          "screenshotSha256": "e0f94c0cbf5809235afb6c764c2ff1994611b8a9e26bb4f536a1bb904432e7ab",
+          "width": 760,
+          "height": 1055.859375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.730057565789473,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F5",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f5-desktop.png",
+          "screenshotSha256": "787f7c3c44456349ff768cd32aeb0cc2c4b121ce29212502b855c2888834528d",
+          "width": 760,
+          "height": 1241.15625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.78787364130435,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F6",
+          "captureRun": "final-shared-F6",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-desktop.png",
+          "screenshotSha256": "ae0f0644a8dc4c248d7cc3a87bd62d884af1edc456e2ac79b33c45c86daa204f",
+          "width": 760,
+          "height": 1775.046875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.770763422818792,
+          "svgInspection": [
+            {
+              "svgIndex": 1,
+              "description": "PCA · two components",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "t-SNE · p30, PCA init, seed 7",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F7",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f7-desktop.png",
+          "screenshotSha256": "d0911cebae853c0fae24b15bcd0c6bd6097280dd5c3119cd279419d125f6eef0",
+          "width": 760,
+          "height": 872.9375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199802442528735,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+              "labelCount": 16,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F8",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f8-desktop.png",
+          "screenshotSha256": "19ad721e16011ce3a6f01da46a8ffbc35a3dcc06e80278a70495cacb424383fa",
+          "width": 760,
+          "height": 589.21875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.78831845238095,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+              "labelCount": 12,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+              "labelCount": 12,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F9",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f9-desktop.png",
+          "screenshotSha256": "d7f544aa933ea9990012f00619a77addc2f419051b60dcca10c0a63cbc9dd9d4",
+          "width": 760,
+          "height": 1861.640625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.788429054054054,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        }
+      ]
+    },
+    {
+      "name": "intermediate",
+      "width": 780,
+      "textScale": 1,
+      "figures": [
+        {
+          "number": "F1",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f1-intermediate.png",
+          "screenshotSha256": "f8645e875dad9059d8ff456ba06fa069c448f31ad886bd4298b2f6adfc7ea15c",
+          "width": 422,
+          "height": 957.109375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.46650179856115,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+              "labelCount": 20,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+              "labelCount": 14,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F2",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f2-intermediate.png",
+          "screenshotSha256": "159bb544f405a5e92aaa7fd42cd5e62f402f10b1ee64efdee9c7beb302898189",
+          "width": 422,
+          "height": 1377.171875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199260752688172,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F3",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f3-intermediate.png",
+          "screenshotSha256": "bc77c0644164bd247ebb486a48af664c73abf439f2d364c39b645ce19650d855",
+          "width": 422,
+          "height": 1082.390625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199634308510637,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F4",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f4-intermediate.png",
+          "screenshotSha256": "da80f30ff4aec86a285106c03c8a71673add70da838b0f32fc4efdb713d71853",
+          "width": 422,
+          "height": 1884.609375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.198190789473683,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F5",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f5-intermediate.png",
+          "screenshotSha256": "e0fdb65dfbf5531f9cdb7b74df805adae4d8d9c2bdf0f9be57c14aaa58c2cb36",
+          "width": 422,
+          "height": 1979.25,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.198879076086957,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F6",
+          "captureRun": "final-shared-F6",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-intermediate.png",
+          "screenshotSha256": "1813c9b9c443a2c1a57bed21b47d9cbd60d86007e1938f3074a210ff86c34ef0",
+          "width": 422,
+          "height": 2168.21875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12,
+          "svgInspection": [
+            {
+              "svgIndex": 1,
+              "description": "PCA · two components",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F7",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f7-intermediate.png",
+          "screenshotSha256": "fdf500d2470528a8cf0cfc6f9d99449fedff79a5af641751bc8a0ddadeea951d",
+          "width": 422,
+          "height": 1208.046875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199802442528735,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+              "labelCount": 16,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F8",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f8-intermediate.png",
+          "screenshotSha256": "b121aaf5eb9c02ddf32d0e2c46645ce94d3d4563d5ed4e9196dbf589b51ff4b2",
+          "width": 422,
+          "height": 989.0625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.199590773809524,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+              "labelCount": 12,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+              "labelCount": 12,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F9",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f9-intermediate.png",
+          "screenshotSha256": "46489cd5011d7a49e37a981c51cfbe3b0430c35b9799c6a2e6c6994721675ac4",
+          "width": 422,
+          "height": 2981.34375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.19876126126126,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        }
+      ]
+    },
+    {
+      "name": "phone",
+      "width": 390,
+      "textScale": 1,
+      "figures": [
+        {
+          "number": "F1",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f1-phone.png",
+          "screenshotSha256": "6a218d2c71e7321c53db635dba7aa237a4969a9fbff4fc91422d05f24b1bb283",
+          "width": 350,
+          "height": 955,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.287735849056604,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+              "labelCount": 20,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+              "labelCount": 14,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F2",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f2-phone.png",
+          "screenshotSha256": "4f156f0552c9bb78b808f23d62ed64caedde9b462db9e2c8a81135cd9c4ae4f2",
+          "width": 350,
+          "height": 1421.53125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.288978494623656,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F3",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f3-phone.png",
+          "screenshotSha256": "f11f62f7e5f8245730c9caaed119bdb9918f5412af1a110ba2847a5e2bf610ba",
+          "width": 350,
+          "height": 1088.953125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.28690159574468,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F4",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f4-phone.png",
+          "screenshotSha256": "5228f70c22aefde26d8b54d283c618142ff8bbf282974ed9e156eeb741c746a7",
+          "width": 350,
+          "height": 1972.71875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.286595394736842,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F5",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f5-phone.png",
+          "screenshotSha256": "2972520de368767a5705ae67a7124dc6a3a2d362b09bdb1fd14afb60fc829777",
+          "width": 350,
+          "height": 2007.65625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.285984848484848,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F6",
+          "captureRun": "final-shared-F6",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-phone.png",
+          "screenshotSha256": "389ab568a0914638ef564d9a4b55a0052bb95b98050bb34c3afee5dc9576ec3b",
+          "width": 350,
+          "height": 2157.703125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 13.89869966442953,
+          "svgInspection": [
+            {
+              "svgIndex": 1,
+              "description": "PCA · two components",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F7",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f7-phone.png",
+          "screenshotSha256": "331c37378a3eec9ae352e835d79af65c04aeaa30fd35def9f56a56a2580461aa",
+          "width": 350,
+          "height": 1263.125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.288613505747126,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+              "labelCount": 16,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F8",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f8-phone.png",
+          "screenshotSha256": "9a331bff08890ad5d1cf8f40e057dc2c803117a7e1d0435e2f671ff3f7626313",
+          "width": 350,
+          "height": 947.21875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.2890625,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+              "labelCount": 12,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+              "labelCount": 12,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F9",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f9-phone.png",
+          "screenshotSha256": "da6da225baf5757594b8e4d49ed7b1ad48630f754ab84601822143902d230bbf",
+          "width": 350,
+          "height": 3027.125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 15.28885135135135,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        }
+      ]
+    },
+    {
+      "name": "narrow",
+      "width": 320,
+      "textScale": 1,
+      "figures": [
+        {
+          "number": "F1",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f1-narrow.png",
+          "screenshotSha256": "5cbcaa03af257df578e3875fdcdd28fcf9edd916dfb7e6d005ad9f7c92ea8d8d",
+          "width": 280,
+          "height": 962.984375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.020931603773585,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+              "labelCount": 20,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+              "labelCount": 14,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F2",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f2-narrow.png",
+          "screenshotSha256": "d87f33c8fee9591827f61d5be392289961ea053143d9115f16641b37f0118d09",
+          "width": 280,
+          "height": 1429.4375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.021841397849462,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F3",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f3-narrow.png",
+          "screenshotSha256": "87e003af9a9ea7011581ed26a4bc66123d8b9b4465e4a61fb5d8a0715b18d009",
+          "width": 280,
+          "height": 1135.71875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.021941489361701,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F4",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f4-narrow.png",
+          "screenshotSha256": "6373866dab1555927b16b2ac4d01b90e688115d5f9a1a4b7f84d54e2ae315587",
+          "width": 280,
+          "height": 2152.796875,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.019736842105264,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F5",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f5-narrow.png",
+          "screenshotSha256": "e50a24ecb9215a3e549b063055aa47c1e1fb4129e3d18f27198862f89f674112",
+          "width": 280,
+          "height": 2068.640625,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.021306818181818,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F6",
+          "captureRun": "final-shared-F6",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-narrow.png",
+          "screenshotSha256": "e9c736d5092dea3e4885c6d07616f03ead9f97193b6962a93e57f080c0ae0107",
+          "width": 280,
+          "height": 2185.328125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 10.92942533557047,
+          "svgInspection": [
+            {
+              "svgIndex": 1,
+              "description": "PCA · two components",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F7",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f7-narrow.png",
+          "screenshotSha256": "fc1516fda7f1a7c3b87058e5ae4a4308ca417db00f1ec369ddf860a6efd51018",
+          "width": 280,
+          "height": 1271.234375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.022449712643677,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+              "labelCount": 16,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F8",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f8-narrow.png",
+          "screenshotSha256": "359825bb86906a2d2b3fb26354d8940d61a169ddd9c1dc4fe64bbc74f7b3d2d1",
+          "width": 280,
+          "height": 966.3125,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.022135416666668,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+              "labelCount": 12,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+              "labelCount": 12,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F9",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f9-narrow.png",
+          "screenshotSha256": "8e45920c9d377ddfcb945c0e78a4beda51b33e2167c9dd5f7e619f365b049616",
+          "width": 280,
+          "height": 3081.359375,
+          "documentOverflow": 0,
+          "minRenderedSvgFontPx": 12.021396396396398,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        }
+      ]
+    },
+    {
+      "name": "enlarged-text",
+      "width": 780,
+      "textScale": 2,
+      "figures": [
+        {
+          "number": "F1",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f1-enlarged-text.png",
+          "screenshotSha256": "257cfdb771cb6a74fbd97c676923ae0e1e833095f075ec660b8418e6b87b69ff",
+          "width": 422,
+          "height": 1990.15625,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 12.46650179856115,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+              "labelCount": 20,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+              "labelCount": 14,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F2",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f2-enlarged-text.png",
+          "screenshotSha256": "0b9b314bceafe01d6863172437d9b772be95bce51d74b0d4fa93765fcad65629",
+          "width": 422,
+          "height": 3091.5,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.199260752688172,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F3",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f3-enlarged-text.png",
+          "screenshotSha256": "b67c74dae8d9bdc1e3604b523024e6bb0f73b19e48fe9ec5fa099e131449aa61",
+          "width": 422,
+          "height": 2378.203125,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.199634308510637,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+              "labelCount": 8,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F4",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f4-enlarged-text.png",
+          "screenshotSha256": "3ebd3668353c0fa369ff441a5cea2308860a440f0081e19f3b61d7ff4abb695b",
+          "width": 422,
+          "height": 4755.515625,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.198190789473683,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F5",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f5-enlarged-text.png",
+          "screenshotSha256": "d38b63e3a0f9cfe54fc0f6233739a3cf58f461638c61a492f66a0415d066da4b",
+          "width": 422,
+          "height": 4299.6875,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.198879076086957,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+              "labelCount": 2,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F6",
+          "captureRun": "final-shared-F6",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-enlarged-text.png",
+          "screenshotSha256": "6c8f2345a5be9b5a53373ebd77a2b0ef421566b48a6ffa6ec8001aeec93f97ee",
+          "width": 422,
+          "height": 5034.25,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 12,
+          "svgInspection": [
+            {
+              "svgIndex": 1,
+              "description": "PCA · two components",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F7",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f7-enlarged-text.png",
+          "screenshotSha256": "5be5f40252fa48cd7431f075802b0f843665e758bb21d56bfa1c101e7939b92a",
+          "width": 422,
+          "height": 2877.078125,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.199802442528735,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+              "labelCount": 16,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F8",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f8-enlarged-text.png",
+          "screenshotSha256": "a2633848d7c37879cd9ec815812fcaa092e8f057e77366f1ac2c21fe48eddd84",
+          "width": 422,
+          "height": 2089.546875,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.199590773809524,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+              "labelCount": 12,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+              "labelCount": 12,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        },
+        {
+          "number": "F9",
+          "captureRun": "complete-figure-pass",
+          "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f9-enlarged-text.png",
+          "screenshotSha256": "971aa9195a51a610353e6c1314a166b77e3c006f4e2c80703601ef1d98dc48c2",
+          "width": 422,
+          "height": 5914.890625,
+          "documentOverflow": 4,
+          "minRenderedSvgFontPx": 13.19876126126126,
+          "svgInspection": [
+            {
+              "svgIndex": 0,
+              "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+              "labelCount": 8,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 3,
+              "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 5,
+              "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+              "labelCount": 4,
+              "issues": []
+            }
+          ],
+          "visualInspection": "Opened and inspected; no unresolved figure-owned clipping, collisions, or unreadable numeric tokens."
+        }
+      ]
+    }
+  ],
+  "additionalState": {
+    "figure": "F6",
+    "width": 390,
+    "sourceRow": 306,
+    "colorLabels": true,
+    "map": "tsne-p30-s7",
+    "exactMeasurementsOpen": true,
+    "screenshot": "docs/teaching/evidence/screenshots/manifold-figures/f6-selected-source306-phone.png",
+    "screenshotSha256": "7d42e5ff37919941b380e74a09a2cdc502bb110ff85d4ba3e5197e7360655c3b",
+    "visualInspection": "Inspected pixel tile, complete labels, full negative ticks, intact nine-decimal coordinates, and wrapping legend."
+  },
+  "rootEnlargementDiagnostic": {
+    "documentOverflowPx": 4,
+    "cause": "Unbroken standard/modified/Hessian in the source-list LI; word right edge783.766px at viewport780.",
+    "localLabFinding": "Optional pair reflection checkbox label overflowed its168px grid track by22px.",
+    "verifiedTrial": ".manifold-lesson li {overflow-wrap:anywhere} .mf-check {overflow-wrap:anywhere;min-width:0}",
+    "trialDocumentOverflowPx": 0,
+    "ownership": "Parent incorporated scoped list-item and mf-check wrapping plus min-width0 in manifold-lesson.css; outside figure sources.",
+    "finalRegressionEvidence": "docs/teaching/evidence/manifold-browser.json"
+  },
+  "supportingSources": {
+    "src/learn/data/manifold-models.js": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+    "src/learn/data/manifold-data.js": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0"
+  }
+}

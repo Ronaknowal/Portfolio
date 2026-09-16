@@ -1,18 +1,18 @@
 {
-  "startedAt": "2026-09-12T03:57:28.232Z",
-  "completedAt": "2026-09-12T03:57:49.210Z",
+  "startedAt": "2026-09-14T08:48:36.312Z",
+  "completedAt": "2026-09-14T08:49:07.471Z",
   "topicId": "dbscan-density-based-clustering",
   "status": "passed",
-  "browser": "152.0.4191.66",
+  "browser": "153.0.4234.32",
   "distDir": "dist",
-  "buildManifestHash": "df03f6fce8ae834cc95e684c730c42e04469b086f510ecf7b0b9d811ebc6d47d",
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
   "sourceHashes": {
     "src/learn/data/topics/dbscan-density-based-clustering.jsx": "5a1cc13ec51cb4c6f8d3287e268cec5f02b4bab09c2f6cfe45b92e69dea3855e",
     "src/learn/data/dbscan-models.js": "cd32c82e8ee50030d7d2670f05b0a28d4b29629a122bea391b1f9bb88eb921b6",
     "src/learn/data/dbscan-iris-data.js": "4361a654de47ef3f8b97643f7339accf15af8489dfdb238633c8a6b214c1cfae",
     "src/learn/data/dbscan-examples.js": "b27124dbfa1154b62879418e3d178e64201771b5b0e3b4597b8c764f0aa0ac2e",
-    "src/learn/components/lesson-labs/DbscanLabs.jsx": "9369ebb8c80e6d7d1c0a4bac7a1202370de4cc0eefd7f66fdc006780552aa70e",
-    "src/learn/components/lesson-labs/DbscanFigures.jsx": "88873bc306dff08d29961d02c80c0b3602efef3f548ab48dc3d010c2aa9a1201",
+    "src/learn/components/lesson-labs/DbscanLabs.jsx": "41a16614fcc1231fa9da1de8707d15fbbc93dcbf2a7bc4a98f0276e93d1550c6",
+    "src/learn/components/lesson-labs/DbscanFigures.jsx": "6315b5a17b53608d046873cb4953145f767dacc3e1d499a3ff07d2a3322d8184",
     "src/learn/components/lesson-labs/dbscan-labs.css": "27dc2cb98a8f662353737c69f497c636c466e5ad5c8c78499cb224255ea3eb9f",
     "src/learn/data/curriculum/blueprints/dbscan-density-based-clustering.js": "dab9435c28905f188596e21ea81e3b34d54cac50cc8548a360971bb277562784",
     "public/learn-assets/dbscan/iris.csv": "387c9585511b1d4ab2513075377d2f07c5cbf05e7a04fd934fcb254290a7a651"
@@ -21,6 +21,9 @@
   "records": [
     {
       "case": "Complete visible code/output for nine programs, fourteen route anchors, seven figures, twelve practice tasks, downloadable CSV, current metadata and module sequence"
+    },
+    {
+      "case": "Exact F3/OPTICS spoken values and F6 branch-width/stability-area ratios"
     },
     {
       "case": "Trail lab: hidden until commitment, ε 1 and 1.25 contrasts, stale invalidation, reversed visiting order, moved I null, duplicate rows, reset"
@@ -37,18 +40,18 @@
     {
       "case": "Fresh route requests only the selected lesson and its shared closure",
       "requestedScripts": [
-        "assets/index-wO7kyNDk.js",
-        "assets/Reader-BMk1S6fe.js",
-        "assets/LevelBadge-BuQpStge.js",
-        "assets/dbscan-density-based-clustering-qdAYtsDt.js",
-        "assets/Code-uFE04jfF.js",
-        "assets/Callout-B3pojflc.js",
-        "assets/Math-BnzqGcaK.js",
-        "assets/LessonElements-DJ21T8SY.js",
-        "assets/RunnableExample-y_hqhtM6.js"
+        "assets/index-D_PhhhTk.js",
+        "assets/Reader-BzvpuOZD.js",
+        "assets/LevelBadge-iqFUaCGh.js",
+        "assets/dbscan-density-based-clustering-CgIFWC9f.js",
+        "assets/Code-DfDBBZwh.js",
+        "assets/Callout-R9JvahHh.js",
+        "assets/Math-BcjjO3Ka.js",
+        "assets/LessonElements-CDSbg__y.js",
+        "assets/RunnableExample-B-FTL0k1.js"
       ],
-      "rawScriptBytes": 1445787,
-      "gzipEstimateBytes": 323731,
+      "rawScriptBytes": 1449174,
+      "gzipEstimateBytes": 324384,
       "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
     },
     {

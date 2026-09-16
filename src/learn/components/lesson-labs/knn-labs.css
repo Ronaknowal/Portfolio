@@ -30,3 +30,5 @@
   .knn-votes > div { grid-template-columns: 1fr; gap: .35rem; }
   .knn-scroll-note { display: block; font-size: .8rem; line-height: 1.6; color: #becad3; }
 }
+
+.knn-lesson .knn-plot .knn-row-label { paint-order: stroke; stroke: #0d1418; stroke-width: 4px; stroke-linejoin: round; }

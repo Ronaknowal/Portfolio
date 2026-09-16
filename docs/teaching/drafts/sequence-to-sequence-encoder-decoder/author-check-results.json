@@ -1,0 +1,34 @@
+{
+  "source_sha256": "7ad7db0588632290b7b78a6d628f97c76cb685876b601357f551fe716bbe6005",
+  "data_sha256": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+  "full_program_bound": true,
+  "saved_model_block_actual_output": [
+    "3 lac False",
+    "16 lactated True"
+  ],
+  "source_only_generation_matches_saved_all_447": true,
+  "source_batch_extraction_preserves_all_arrays": true,
+  "same_context_repeated_source_label_nulls": true,
+  "practice_closed_hint_solution_blocks": 16,
+  "final_three_run_metric_reconciliation": true,
+  "fresh_length_score": [
+    {
+      "length": 2,
+      "log_probability": -1.2,
+      "alpha0": -1.2,
+      "alpha1": -1.0285714285714285
+    },
+    {
+      "length": 5,
+      "log_probability": -1.4,
+      "alpha0": -1.4,
+      "alpha1": -0.8399999999999999
+    }
+  ],
+  "practice2": {
+    "sequence_probability": 0.1,
+    "valid_mean_nll": 0.7675283643313485,
+    "incorrect_padded_mean": 0.4605170185988091
+  },
+  "phase_two_review_or_browser_performed": false
+}

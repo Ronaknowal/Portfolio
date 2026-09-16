@@ -155,3 +155,16 @@ After these changes the model verifier passes 27 grouped checks, the six display
 ### Remaining limitations
 
 The blueprint has been registered in the shared index by the integrating agent; the manifest and the delivery ledger are theirs to update. The browser verifier ran against the topic-only build on port 4175 and must be rerun against the shared `dist` before publication.
+
+
+## Prepared-content implementation audit — 14 September 2026
+
+The user's PCA-through-GMM verification received a fresh complete comparison of this prepared manuscript/specification with the lesson, six displayed programs, pure models, figures and five investigations. [The PCA/Clustering audit](PCA-CLUSTERING-CONTENT-IMPLEMENTATION-AUDIT.md) retains the coverage map, separate correctness and learning-experience findings and inspected source hashes. The explanations, worked computations, eight independent exercises, annotated resources and real Iris protocol are preserved. Native program source and verifier hashes still match their recorded successful execution, so unchanged programs were not regenerated merely to repeat evidence.
+
+Focused interaction corrections address defects missed by the original checks: “Match U exactly” now copies the learner's current reference, not the default partition; the chance table uses its actual number of nonempty candidate columns, including a single constant group; the highlighted cell uses the same first-U-group/smaller-V-label overlap as the null histogram even when V first appears as 1; checked predictions are frozen until an input changes or Reset clears them. The resampling caption now states that scaling coordinates by three multiplies cost by nine and distinguishes changing multiplicities from changing probe locations.
+
+The existing browser verifier now contains a complementary regression case for the edited-reference copy, NMI=AMI=1, the corresponding highlighted overlap, a constant-candidate three-column table and immutable compared predictions. Root owns executing this browser case, inspecting its displayed states and reconciling the final source checkpoint. The metric models, fitted data, six learner programs, CSV and prepared packet were not changed by these repairs; previous source-bound numerical/native evidence is reused. Do not report the added browser assertions as executed until root records their actual result.
+
+## Coordinator verification closure, 14 September 2026
+
+The prepared-content comparison and subsequent repairs are closed in [the five-topic audit](PCA-THROUGH-GMM-IMPLEMENTATION-AUDIT.md). The coordinator ran 13 passing production browser cases against the corrected topic source, including changed-input and prediction regressions, narrow layouts, module navigation, loading and recovery. Selected informative screenshots were actually inspected; exact captures and the mathematical/native evidence retained for unchanged code are listed in that record. The saved manuscript/specifications and offline author inputs are unchanged by this audit. The appended design and repaired implementation are re-bound in the existing revision's phase ledger; earlier completion dates and independent-review attribution are preserved. User acceptance is separate.

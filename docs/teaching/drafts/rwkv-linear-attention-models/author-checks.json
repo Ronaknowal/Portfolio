@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-13",
+  "phase": "content-author checks only",
+  "source_sha256": "acccaa77eeefb66aeaacbe7b0b7fe7491028d1853910b65cf627cb09cfe498b0",
+  "source_lines": 1238,
+  "lesson_words": 9176,
+  "actual_local_routes": [
+    "state-space-models-s4-mamba-mamba-2",
+    "sparse-linear-attention-variants",
+    "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "hybrid-ssm-transformer-architectures-jamba",
+    "self-attention-multi-head-attention"
+  ],
+  "relative_downloads_exist": [
+    "author_calculations.py",
+    "data-provenance.md",
+    "investigation-checks.json",
+    "linear_memory_mechanisms.py",
+    "mechanism-results.json",
+    "movement_libras.data",
+    "movement_libras.names",
+    "trajectory-results.json",
+    "trajectory_memory_models.py"
+  ],
+  "closed_practice_disclosures": 20,
+  "executed_displayed_python_blocks": 2,
+  "displayed_chunk_output": "[2.  4.  2.5 3. ]",
+  "displayed_training_step_loss": 3.0247814655303955,
+  "unique_trajectories": 330,
+  "duplicate_copies": 30,
+  "roles": [
+    220,
+    50,
+    60
+  ],
+  "all_saved_arrays_finite": true,
+  "confusion_and_error_counts_consistent": true,
+  "data_hashes": {
+    "movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35"
+  },
+  "not_performed": [
+    "formal independent phase-two review",
+    "production model/lab implementation",
+    "browser/mobile/accessibility campaign",
+    "large checkpoint/GPU/FLA runs"
+  ]
+}

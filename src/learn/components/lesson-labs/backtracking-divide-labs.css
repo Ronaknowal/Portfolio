@@ -27,8 +27,10 @@
 .bd-choice-edge { stroke: #5c6556; stroke-width: 1.3; }
 .bd-choice-node circle { fill: #1c221b; stroke: #829476; stroke-width: 1.5; }
 .bd-choice-node text { fill: #e6e9dd; text-anchor: middle; font-size: 16px; }
-.bd-choice-node .bd-choice-label { fill: #b6bcae; font-size: 11px; }
-.bd-choice-node--unseen { opacity: .43; }
+.bd-choice-node .bd-choice-label { fill: #b6bcae; font-size: 11px; paint-order: stroke fill; stroke: #111610; stroke-width: 4px; stroke-linejoin: round; }
+/* Keep annotation backplates opaque; group opacity would reveal edges again. */
+.bd-choice-node--unseen circle, .bd-choice-node--unseen text:not(.bd-choice-label) { opacity: .43; }
+.bd-choice-node--unseen .bd-choice-label { fill: #747e6d; }
 .bd-choice-node--solution circle { fill: #354c29; stroke: #abc48c; }
 .bd-choice-node--pruned circle { fill: #3b2722; stroke: #ecaa8c; stroke-dasharray: 4 3; }
 .bd-choice-node--miss circle { fill: #292d27; stroke: #7d8477; }

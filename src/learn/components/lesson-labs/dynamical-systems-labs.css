@@ -13,6 +13,7 @@
 .dynamics-lab :focus-visible,.dynamics-figure :focus-visible { outline: 3px solid #91c8ff; outline-offset: 3px; }
 .dynamics-plot { overflow-x: auto; margin: 1rem 0; }
 .dynamics-scroll-hint { display: none; font-size: .85rem; color: #becada; }
+.dynamics-lab .dynamics-axis-label,.dynamics-figure .dynamics-axis-label { margin: .5rem 0; color: #d0dae7; font-size: .9rem; line-height: 1.6; overflow-wrap: anywhere; }
 .dynamics-cursor { stroke: #cbd8e9; stroke-width: 1; stroke-dasharray: 3 4; }
 .dynamics-plot svg { display: block; width: 100%; min-width: 430px; }
 .dynamics-plot text { fill: #d0dae7; font: 18px system-ui,sans-serif; }

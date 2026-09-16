@@ -120,7 +120,7 @@ function SpaceTime({
     {foot && <line x1={x(foot[0])} x2={x(point[0])} y1={y(foot[1])} y2={y(point[1])} stroke="#e8b34b" strokeWidth="3" />}
     {point && <circle cx={x(point[0])} cy={y(point[1])} r="5" fill="#e8b34b" stroke="#181a15" />}
     {foot && <circle cx={x(foot[0])} cy={y(foot[1])} r="5" fill="#79c9a1" />}
-    <text x="10" y="22">time</text><text x="39" y="171" textAnchor="end">0</text><text x="39" y="35" textAnchor="end">{timeMax}</text>
+    <text x="47" y="17">time</text><text x="39" y="171" textAnchor="end">0</text><text x="39" y="35" textAnchor="end">{timeMax}</text>
     <text x="47" y="188">{xDomain[0]}</text><text x="298" y="188" textAnchor="end">{xDomain[1]}</text><text x="172" y="213" textAnchor="middle">position x</text>{children?.({
         x,
         y

@@ -1,925 +1,322 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { IsolationLab, LofNeighbourhoodLab, LofModeLab, KernelBoundaryLab, AlertPopulationLab } from '../../components/lesson-labs/AnomalyDetectionLabs.jsx';
+import { TemperatureThresholdLab } from '../../components/lesson-labs/AnomalyTemperatureLab.jsx';
+import { ProvenanceFigure, FirstCutFigure, ReachFloorFigure, ThresholdRulerFigure } from '../../components/lesson-labs/AnomalyDetectionFigures.jsx';
+import { anomalyExamples } from '../anomaly-detection-examples.js';
+
+const headings = [
+  '1. Name the observation before choosing an algorithm',
+  '2. Separate fitting, scoring and taking action',
+  '3. Isolation Forest: an empty gap can make a point easy to separate',
+  '4. LOF: compare local spacing with nearby local spacing',
+  '5. The fitting mode is part of the LOF mathematics',
+  '6. One-Class SVM: a compatibility boundary built from similarities',
+  '7. Choose a comparison that matches the task',
+  '8. A good ranking still needs a decision policy',
+  '9. Deeper branch: where the One-Class SVM constraints come from',
+  '10. Real monitoring: temperature, change and alert workload',
+  '11. Deeper branch: local bounds, resource costs and changing references',
+  '12. Practice: explain the mechanism before choosing a label',
+  '13. What to remember, and another way to learn it'
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="ad-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const anomalyDetectionContent = {
-  title: "Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF)",
-  readTime: "~50 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Most supervised learning pipelines begin with a simple assumption: you have labels. Positive, negative, fraud, benign, healthy, diseased — whatever the vocabulary, there are enough annotated examples of each class that a model can learn to distinguish them. Anomaly detection is what you do when that assumption breaks. In fraud detection, fewer than one in a thousand transactions is fraudulent, and labeling even that fraction requires expensive human reviewers who are always chasing a moving target. In network intrusion detection, the attack patterns of tomorrow do not exist in today's logs. In industrial fault detection, a motor fails once a year, and the sensor trace of that failure is a dataset of one. In these settings, "unsupervised" is not a methodological preference — it is a description of reality.
-      </Prose>
-
-      <Prose>
-        The field attacked this problem from several directions simultaneously, each rooted in a different geometric intuition about what "normal" means.
-      </Prose>
-
-      <Prose>
-        <strong>Isolation Forest</strong> came from Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Their paper, "Isolation Forest," appeared at the 2008 IEEE International Conference on Data Mining (ICDM), pages 413–422 (DOI: 10.1109/ICDM.2008.17). The premise is elegant and counterintuitive. Previous anomaly detectors all began by modeling the normal data — building a density estimate, a distance index, or a cluster structure — and then asking whether a new point fits that model. Liu et al. observed that this framing makes things harder than necessary. Anomalies are, by definition, few and different. Partition the feature space randomly with axis-aligned cuts: anomalies will be isolated by very few cuts because they sit alone in sparse regions. Normal points, clustered densely together, require many cuts to separate. The anomaly score is therefore the average depth at which a point is isolated across many random trees. You never need to model what normal looks like — you simply measure how easy it is to isolate.
-      </Prose>
-
-      <Prose>
-        <strong>One-Class SVM</strong> came from Bernhard Schölkopf, John Platt, John Shawe-Taylor, Alex Smola, and Robert Williamson. Their paper, "Estimating the Support of a High-Dimensional Distribution," was published in <em>Neural Computation</em> 13(7):1443–1471, 2001 (DOI: 10.1162/089976601750264965). The framing is geometric: map all training points into a high-dimensional feature space via a kernel, and find the smallest hypersphere (or halfspace) that encloses them with controlled slack. Points outside this boundary at test time are anomalies. The kernel trick allows the boundary to be highly nonlinear in the original input space while remaining a convex optimization problem in kernel space. The hyperparameter <Code>nu</Code> (Greek letter ν) has a precise probabilistic interpretation: it upper-bounds the fraction of training points that are allowed to fall outside the boundary (outliers in the training set) and lower-bounds the fraction of support vectors. Tuning it amounts to specifying your prior belief about the contamination rate.
-      </Prose>
-
-      <Prose>
-        <strong>Local Outlier Factor (LOF)</strong> came from Markus Breunig, Hans-Peter Kriegel, Raymond Ng, and Jörg Sander. Their paper, "LOF: Identifying Density-Based Local Outliers," appeared at the 2000 ACM SIGMOD International Conference on Management of Data, pages 93–104 (DOI: 10.1145/342009.335388). The key insight is that "outlier" is relative to neighborhood, not to the global distribution. A point at the edge of a tight cluster is not an outlier even if it is far from the global center of mass. A point sitting alone in sparse space is an outlier even if other points exist at similar distances from the center. LOF quantifies this by comparing a point's local density to the local density of its neighbors. A point surrounded by sparser neighbors than itself looks like a local mode, not an anomaly. A point surrounded by denser neighbors looks isolated — an outlier.
-      </Prose>
-
-      <Callout type="insight">
-        All three methods are label-free and handle the core regime of anomaly detection: a large pool of mostly-normal data with an unknown, small fraction of anomalies. Their differences are geometric: Isolation Forest is global and partition-based; One-Class SVM fits a single boundary around the full normal distribution; LOF is purely local. Understanding which geometry fits your data is the central practical skill.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <H3>2a. Isolation Forest — anomalies are easy to isolate</H3>
-
-      <Prose>
-        Imagine you have a field of data points: most clustered together in two tight groups, and a handful scattered at the edges. Now drop a random vertical or horizontal line somewhere in the field, splitting it into two halves. Repeat this process recursively in each half. The scattered points at the edges get separated quickly — after only two or three cuts each region contains just that one isolated point. The clustered points in the dense center take many more cuts before any individual point is alone. Isolation Forest formalizes this: build many random trees, measuring the average depth at which each point is isolated. Low depth = easy to isolate = anomalous. High depth = hard to isolate = normal.
-      </Prose>
-
-      <Prose>
-        The beauty of this approach is what it does <em>not</em> require. You never estimate the density. You never compute pairwise distances between all points. You never cluster. Each tree is built on a random subsample of the data (typically 256 points), using random features and random split thresholds. The computational cost is dominated by constructing shallow trees, not by any O(n²) distance computation.
-      </Prose>
-
-      <H3>2b. One-Class SVM — draw a boundary around normal</H3>
-
-      <Prose>
-        One-Class SVM is the anomaly detection analog of a standard binary SVM. In binary SVM, you find a hyperplane that separates two classes with maximum margin. In one-class SVM, you have only one class: the normal data. The objective is to find a hyperplane that separates all normal training points from the origin (the kernel feature space analog of "nothing") with maximum margin. Points that fall on the origin side of the boundary at test time are called anomalies.
-      </Prose>
-
-      <Prose>
-        The key machinery is the kernel. In the original input space, the decision boundary can be arbitrarily complex — a curved, nonlinear surface that tightly wraps around the normal data. The RBF (Gaussian) kernel is the standard choice: it maps points into infinite-dimensional space where local neighborhoods are preserved, and the resulting boundary in the original space looks like a collection of smooth blobs around dense regions. Points outside all blobs are anomalies.
-      </Prose>
-
-      <H3>2c. LOF — compare local densities</H3>
-
-      <Prose>
-        LOF's intuition is best understood through contrast. Consider two regions: a dense urban cluster and a sparse rural cluster. A point at the edge of the urban cluster is very close to many neighbors; its local density is high. A point at the edge of the rural cluster is far from its few neighbors; its local density is low. Neither is necessarily an anomaly — both are consistent with the density of their local neighborhoods. An anomaly is a point whose local density is much lower than the local density of its own neighbors. LOF measures this ratio: if your density is much lower than what your neighbors enjoy, you are isolated relative to your context.
-      </Prose>
-
-      <Prose>
-        This makes LOF particularly well-suited to data with multiple clusters at very different density scales — something that trips up global methods. Isolation Forest and One-Class SVM implicitly assume a single normal distribution (possibly multi-modal but roughly uniform in density across modes). LOF makes no such assumption: it adapts its notion of "anomalous" locally for every point.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3a. Isolation Forest — path length and anomaly score</H3>
-
-      <Prose>
-        An isolation tree is a binary tree built by the following randomized process. Given a subsample of <em>n</em> points, pick a feature at random, pick a random split value uniformly between the feature's min and max, and recurse on each side until each node contains a single point or the maximum depth is reached. The path length <Code>h(x)</Code> of a point <Code>x</Code> in a single tree is the number of edges traversed from the root to the node where <Code>x</Code> is isolated.
-      </Prose>
-
-      <Prose>
-        A critical correction is needed for leaf nodes that contain more than one point (because max depth was reached before full isolation). For a leaf of size <em>t</em>, the expected additional path length — were the tree allowed to grow further — is the average path length of an unsuccessful search in a binary search tree of size <em>t</em>, which is:
-      </Prose>
-
-      <MathBlock>
-        {"c(t) = 2H(t-1) - \\frac{2(t-1)}{t}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>H(i)</Code> is the harmonic number, approximated as <Code>ln(i) + 0.5772</Code> (Euler–Mascheroni constant). This correction term <Code>c(t)</Code> is added to the observed depth when a leaf is reached before the point is fully isolated.
-      </Prose>
-
-      <Prose>
-        Let <Code>E[h(x)]</Code> be the average path length of point <Code>x</Code> across all trees in the forest, and let <Code>c(n)</Code> be the same correction applied to the original subsample size <Code>n</Code> (i.e., the expected path length for a point in a random forest of size <Code>n</Code>). The normalized anomaly score is:
-      </Prose>
-
-      <MathBlock>
-        {"s(x, n) = 2^{\\,-E[h(x)]\\,/\\,c(n)}"}
-      </MathBlock>
-
-      <Prose>
-        This score is bounded in <Code>(0, 1]</Code>. If <Code>E[h(x)]</Code> is close to <Code>c(n)</Code> (average path length), the score is near 0.5 — the point is no more isolated than average. If <Code>E[h(x)]</Code> is much smaller than <Code>c(n)</Code>, the score approaches 1 — the point is anomalous. If <Code>E[h(x)]</Code> is much larger, the score approaches 0 — the point is deep in a dense region, very normal. The threshold in practice is set by the <Code>contamination</Code> parameter, which specifies the fraction of points to flag as anomalies; the score is thresholded at the <Code>contamination</Code>-th percentile.
-      </Prose>
-
-      <H3>3b. One-Class SVM — primal and dual</H3>
-
-      <Prose>
-        Let <Code>{"φ: X → F"}</Code> be a feature map defined by a kernel <Code>{"k(x, x') = ⟨φ(x), φ(x')⟩"}</Code>. The One-Class SVM primal problem (Schölkopf et al., 2001) finds a weight vector <Code>w ∈ F</Code>, slack variables <Code>ξ_i ≥ 0</Code>, and a bias <Code>ρ</Code> that solve:
-      </Prose>
-
-      <MathBlock>
-        {"\\min_{w,\\,\\xi,\\,\\rho} \\; \\frac{1}{2}\\|w\\|^2 + \\frac{1}{\\nu n}\\sum_{i=1}^n \\xi_i - \\rho"}
-      </MathBlock>
-
-      <Prose>
-        subject to <Code>{"⟨w, φ(xᵢ)⟩ ≥ ρ − ξᵢ"}</Code> and <Code>{"ξᵢ ≥ 0"}</Code> for all <Code>i</Code>. The term <Code>{"½‖w‖²"}</Code> maximizes the margin from the origin; the slack variables <Code>ξᵢ</Code> allow training points to fall on the wrong side; <Code>ρ</Code> is the offset (analogous to the threshold); and <Code>ν ∈ (0, 1]</Code> controls the trade-off between margin width and tolerance for outliers. A larger <Code>ν</Code> allows more training points outside the boundary (a looser fit); a smaller <Code>ν</Code> is tighter and more sensitive to noise.
-      </Prose>
-
-      <Prose>
-        The dual problem is a standard QP over Lagrange multipliers <Code>αᵢ</Code> with the kernel matrix replacing explicit feature products. At test time, the decision function for a new point <Code>x</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"f(x) = \\text{sgn}\\!\\left(\\sum_{i=1}^n \\alpha_i\\, k(x_i, x) - \\rho\\right)"}
-      </MathBlock>
-
-      <Prose>
-        Points with <Code>f(x) = +1</Code> are classified as normal (inside the estimated support); points with <Code>f(x) = −1</Code> are anomalies. The <Code>score_samples</Code> method in sklearn returns the raw decision function value (not the sign), which is useful for ranking.
-      </Prose>
-
-      <H3>3c. LOF — reach-distance, lrd, and LOF score</H3>
-
-      <Prose>
-        Let <Code>k-dist(p)</Code> denote the distance from point <Code>p</Code> to its <em>k</em>-th nearest neighbor. The <em>k</em>-neighborhood <Code>N_k(p)</Code> is the set of the <em>k</em> nearest neighbors of <Code>p</Code> (ties included, so the set may have more than <Code>k</Code> members). The <strong>reachability distance</strong> of <Code>p</Code> with respect to neighbor <Code>o</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{reach-dist}_k(p, o) = \\max\\bigl(k\\text{-dist}(o),\\; d(p, o)\\bigr)"}
-      </MathBlock>
-
-      <Prose>
-        This smoothing prevents extremely small distances from dominating the density estimate: if <Code>p</Code> is very close to <Code>o</Code>, the distance is floored at <Code>o</Code>'s own neighborhood radius. The <strong>local reachability density</strong> (lrd) of <Code>p</Code> is the inverse of the average reachability distance from <Code>p</Code> to its neighbors:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{lrd}_k(p) = \\left(\\frac{\\sum_{o \\in N_k(p)} \\text{reach-dist}_k(p, o)}{|N_k(p)|}\\right)^{-1}"}
-      </MathBlock>
-
-      <Prose>
-        A high lrd means <Code>p</Code>'s neighbors are on average very close — dense local neighborhood. A low lrd means they are far — sparse local neighborhood. The <strong>Local Outlier Factor</strong> of <Code>p</Code> is the average ratio of neighbors' lrd to <Code>p</Code>'s own lrd:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{LOF}_k(p) = \\frac{1}{|N_k(p)|}\\sum_{o \\in N_k(p)} \\frac{\\text{lrd}_k(o)}{\\text{lrd}_k(p)}"}
-      </MathBlock>
-
-      <Prose>
-        If <Code>LOF_k(p) ≈ 1</Code>, the point's density is similar to its neighbors — normal. If <Code>LOF_k(p) {">"} 1</Code>, the neighbors are denser than <Code>p</Code> — <Code>p</Code> is in a sparser region than the surrounding area, flagging it as a potential outlier. LOF values significantly greater than 1 (commonly {">"} 1.5 or 2, depending on threshold) are treated as anomalies.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All three code blocks below were executed; stdout is embedded verbatim. We implement Isolation Forest and LOF from NumPy only. For One-Class SVM we sketch the algorithm — the Sequential Minimal Optimization variant for one-class learning is not commonly implemented from scratch, and the sklearn implementation is the standard — but we build a minimal decision boundary wrapper around it to expose the geometry.
-      </Prose>
-
-      <H3>4a. Isolation Forest — random isolation trees</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-def _c(n):
-    """Expected path length in BST of size n (Liu et al. 2008, Eq. 1)."""
-    if n <= 1:
-        return 0.0
-    return 2.0 * (np.log(n - 1) + 0.5772156649) - 2.0 * (n - 1) / n
-
-class IsolationTree:
-    def __init__(self, max_depth):
-        self.max_depth = max_depth
-        self.split_feature = None
-        self.split_value = None
-        self.size = None
-        self.left = None
-        self.right = None
-
-    def fit(self, X, depth=0):
-        n, d = X.shape
-        self.size = n
-        if depth >= self.max_depth or n <= 1:
-            return self          # leaf — record size for c(n) correction
-        feat = np.random.randint(0, d)
-        lo, hi = X[:, feat].min(), X[:, feat].max()
-        if lo == hi:
-            return self          # all values identical, can't split
-        val = np.random.uniform(lo, hi)
-        left_mask = X[:, feat] < val
-        self.split_feature = feat
-        self.split_value = val
-        self.left  = IsolationTree(self.max_depth).fit(X[left_mask],  depth + 1)
-        self.right = IsolationTree(self.max_depth).fit(X[~left_mask], depth + 1)
-        return self
-
-    def path_length(self, x, depth=0):
-        if self.split_feature is None:
-            # leaf: add expected additional path length for remaining points
-            return depth + _c(self.size)
-        if x[self.split_feature] < self.split_value:
-            return self.left.path_length(x, depth + 1)
-        return self.right.path_length(x, depth + 1)
-
-
-class IsolationForestScratch:
-    def __init__(self, n_trees=100, sub_samples=256, random_state=None):
-        if random_state is not None:
-            np.random.seed(random_state)
-        self.n_trees = n_trees
-        self.sub_samples = sub_samples
-        self.max_depth = int(np.ceil(np.log2(sub_samples)))
-        self.trees = []
-
-    def fit(self, X):
-        n = X.shape[0]
-        for _ in range(self.n_trees):
-            idx = np.random.choice(n, min(self.sub_samples, n), replace=False)
-            tree = IsolationTree(self.max_depth).fit(X[idx])
-            self.trees.append(tree)
-        return self
-
-    def anomaly_score(self, X):
-        """s(x,n) = 2^(-E[h(x)] / c(n)) — closer to 1.0 means more anomalous."""
-        c_n = _c(self.sub_samples)
-        scores = np.zeros(X.shape[0])
-        for i, x in enumerate(X):
-            avg_h = np.mean([t.path_length(x) for t in self.trees])
-            scores[i] = 2 ** (-avg_h / c_n)
-        return scores
-
-
-np.random.seed(42)
-X_normal   = np.random.randn(100, 2)
-X_outliers = np.array([[5., 5.], [-5., 5.], [5., -5.], [-5., -5.], [0., 8.]])
-X = np.vstack([X_normal, X_outliers])
-
-iforest = IsolationForestScratch(n_trees=100, sub_samples=64, random_state=7)
-iforest.fit(X)
-scores = iforest.anomaly_score(X)
-
-print("=== Isolation Forest (from scratch) ===")
-print("Anomaly scores: closer to 1.0 = more anomalous")
-print()
-print("Normal points (first 5):")
-for i in range(5):
-    print(f"  x={X[i]}, score={scores[i]:.4f}")
-print()
-print("Injected outliers (last 5):")
-for i in range(-5, 0):
-    print(f"  x={X[i]}, score={scores[i]:.4f}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Isolation Forest (from scratch) ===
-Anomaly scores: closer to 1.0 = more anomalous
-
-Normal points (first 5):
-  x=[ 0.49671415 -0.1382643 ], score=0.4038
-  x=[0.64768854 1.52302986], score=0.4570
-  x=[-0.23415337 -0.23413696], score=0.3867
-  x=[1.57921282 0.76743473], score=0.5121
-  x=[-0.46947439  0.54256004], score=0.3956
-
-Injected outliers (last 5):
-  x=[5. 5.], score=0.7523
-  x=[-5.  5.], score=0.7680
-  x=[ 5. -5.], score=0.7542
-  x=[-5. -5.], score=0.7418
-  x=[0. 8.], score=0.6713`}
-      </Callout>
-
-      <Prose>
-        Normal points score between 0.38 and 0.52 — around 0.5, which is the theoretical neutral value. All five injected outliers score above 0.67, clearly separated from the normal band. The point <Code>[−5, 5]</Code> scores highest (0.768) because it sits in the most isolated corner of the 2D space.
-      </Prose>
-
-      <H3>4b. LOF — brute-force k-NN implementation</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-def lof_scratch(X, k=5):
-    """
-    Local Outlier Factor (Breunig et al. 2000).
-    Returns LOF score for each point; LOF >> 1 => outlier.
-    """
-    n = X.shape[0]
-
-    # --- pairwise Euclidean distances ---
-    dists = np.sqrt(((X[:, None, :] - X[None, :, :]) ** 2).sum(axis=2))
-
-    # --- k-NN: indices of k nearest neighbors (excluding self on diagonal) ---
-    # argsort gives ascending distance; skip index 0 (self, distance=0)
-    knn_idx = np.argsort(dists, axis=1)[:, 1:k + 1]   # shape (n, k)
-
-    # --- k-dist(p): distance to k-th nearest neighbor ---
-    k_dist = dists[np.arange(n), knn_idx[:, -1]]
-
-    # --- reach-dist_k(p, o) = max(k_dist(o), d(p, o)) ---
-    def reach_dist(p, o):
-        return max(k_dist[o], dists[p, o])
-
-    # --- lrd_k(p) = k / sum of reach-dists to neighbors ---
-    lrd = np.zeros(n)
-    for p in range(n):
-        rd_sum = sum(reach_dist(p, o) for o in knn_idx[p])
-        lrd[p] = k / rd_sum if rd_sum > 0 else 0.0
-
-    # --- LOF_k(p) = mean(lrd(o)/lrd(p)) over neighbors o ---
-    lof = np.zeros(n)
-    for p in range(n):
-        if lrd[p] > 0:
-            lof[p] = np.mean([lrd[o] / lrd[p] for o in knn_idx[p]])
-        else:
-            lof[p] = np.inf
-    return lof
-
-
-np.random.seed(0)
-X_normal   = np.random.randn(50, 2) * 0.5
-X_outliers = np.array([[4., 4.], [-4., 4.], [0., 6.]])
-X = np.vstack([X_normal, X_outliers])
-
-lof_scores = lof_scratch(X, k=5)
-
-print("=== LOF (from scratch, k=5) ===")
-print("LOF >> 1 means point is less dense than its neighbors => potential outlier")
-print()
-print("Normal points (first 5):")
-for i in range(5):
-    print(f"  x={np.round(X[i], 3)}, LOF={lof_scores[i]:.4f}")
-print()
-print("Injected outliers (last 3):")
-for i in range(-3, 0):
-    print(f"  x={np.round(X[i], 3)}, LOF={lof_scores[i]:.4f}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== LOF (from scratch, k=5) ===
-LOF >> 1 means point is less dense than its neighbors => potential outlier
-
-Normal points (first 5):
-  x=[0.882 0.2  ], LOF=1.2843
-  x=[0.489 1.12 ], LOF=1.1364
-  x=[ 0.934 -0.489], LOF=1.3201
-  x=[ 0.475 -0.076], LOF=1.0311
-  x=[-0.052  0.205], LOF=1.0033
-
-Injected outliers (last 3):
-  x=[4. 4.], LOF=6.2548
-  x=[-4.  4.], LOF=7.9734
-  x=[0. 6.], LOF=5.0725`}
-      </Callout>
-
-      <Prose>
-        Normal points have LOF scores clustered near 1.0 (range 1.0–1.32), reflecting that their local density is similar to their neighbors'. The three injected outliers have LOF scores of 5.1 to 7.97 — they sit in regions far sparser than the neighborhoods of their nearest neighbors, which are themselves all drawn from the dense normal cluster.
-      </Prose>
-
-      <H3>4c. One-Class SVM — algorithm sketch and sklearn wrapper</H3>
-
-      <Prose>
-        Implementing One-Class SVM from scratch requires solving a quadratic program with the SMO (Sequential Minimal Optimization) algorithm adapted for the one-class objective. SMO iteratively selects pairs of Lagrange multipliers and updates them analytically until KKT conditions are satisfied. The one-class variant differs from binary SVM SMO in that all training points have the same "label" (+1) and the constraint is <Code>0 ≤ αᵢ ≤ 1/(νn)</Code>. This is a non-trivial ~300-line implementation; we use sklearn's C extension directly and instead expose the key geometric outputs:
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.svm import OneClassSVM
-
-np.random.seed(42)
-# Normal data: two Gaussian clusters
-X_normal   = np.vstack([
-    np.random.randn(80, 2) * 0.5 + [0, 0],
-    np.random.randn(80, 2) * 0.5 + [3, 3],
-])
-# Injected outliers
-X_outliers = np.array([[7., 7.], [-4., 4.], [0., 7.], [4., -4.], [-3., -3.]])
-X_all = np.vstack([X_normal, X_outliers])
-y_true = np.array([1]*160 + [-1]*5)
-
-# --- Fit One-Class SVM with RBF kernel ---
-# nu ~ contamination rate: fraction of training points allowed outside boundary
-ocsvm = OneClassSVM(kernel='rbf', nu=0.05, gamma='scale')
-ocsvm.fit(X_normal)  # train only on normal data (common production pattern)
-
-y_pred = ocsvm.predict(X_all)         # +1 = normal, -1 = outlier
-scores = ocsvm.score_samples(X_all)   # signed distance to decision boundary
-
-print("=== One-Class SVM (sklearn, RBF kernel, nu=0.05) ===")
-print(f"Support vectors: {ocsvm.support_vectors_.shape[0]} of {X_normal.shape[0]} training points")
-print(f"Decision function rho (threshold): {ocsvm.offset_[0]:.4f}")
-print()
-print("Normal points scores (first 5):")
-for i in range(5):
-    tag = 'NORMAL' if y_pred[i] == 1 else 'OUTLIER'
-    print(f"  x={np.round(X_all[i], 3)}, score={scores[i]:.4f}  [{tag}]")
-print()
-print("Injected outlier scores (last 5):")
-for i in range(-5, 0):
-    tag = 'NORMAL' if y_pred[i] == 1 else 'OUTLIER'
-    print(f"  x={np.round(X_all[i], 3)}, score={scores[i]:.4f}  [{tag}]")
-
-# Count correct classifications
-tp = ((y_pred == -1) & (y_true == -1)).sum()
-fp = ((y_pred == -1) & (y_true ==  1)).sum()
-tn = ((y_pred ==  1) & (y_true ==  1)).sum()
-fn = ((y_pred ==  1) & (y_true == -1)).sum()
-print(f"\\nConfusion: TP={tp} FP={fp} TN={tn} FN={fn}")
-print(f"Precision: {tp/(tp+fp):.3f}  Recall: {tp/(tp+fn):.3f}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== One-Class SVM (sklearn, RBF kernel, nu=0.05) ===
-Support vectors: 8 of 160 training points
-Decision function rho (threshold): -0.8991
-
-Normal points scores (first 5):
-  x=[ 0.248 -0.234], score=0.6793  [NORMAL]
-  x=[0.905 0.483], score=0.7241  [NORMAL]
-  x=[-0.234 0.374], score=0.6812  [NORMAL]
-  x=[ 0.985 0.547], score=0.7266  [NORMAL]
-  x=[-0.416 0.144], score=0.6532  [NORMAL]
-
-Injected outlier scores (last 5):
-  x=[7. 7.], score=-2.0316  [OUTLIER]
-  x=[-4.  4.], score=-2.4183  [OUTLIER]
-  x=[0. 7.], score=-1.8722  [OUTLIER]
-  x=[ 4. -4.], score=-2.1975  [OUTLIER]
-  x=[-3. -3.], score=-1.9631  [OUTLIER]
-
-Confusion: TP=5 FP=0 TN=160 FN=0
-Precision: 1.000  Recall: 1.000`}
-      </Callout>
-
-      <Prose>
-        All five injected outliers are correctly identified. Normal points score positive (inside the boundary); outliers score large-negative (far outside). The boundary uses only 8 support vectors out of 160 training points — the kernel expansion is sparse by design, which is also why One-Class SVM can be fast at inference even when training is slow.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        The code below runs all three methods on the same synthetic dataset: 200 normally-distributed points forming two clusters plus 20 uniformly-scattered outliers. Known labels allow us to report confusion matrices against ground truth — unusual in real anomaly detection but essential for benchmarking.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.ensemble import IsolationForest
-from sklearn.svm import OneClassSVM
-from sklearn.neighbors import LocalOutlierFactor
-from sklearn.datasets import make_blobs
-from sklearn.metrics import confusion_matrix
-
-np.random.seed(42)
-X_normal, _ = make_blobs(
-    n_samples=200, centers=[[0, 0], [2, 2]],
-    cluster_std=0.5, random_state=42
-)
-X_outliers = np.random.uniform(low=-6, high=8, size=(20, 2))
-X = np.vstack([X_normal, X_outliers])
-y_true = np.array([1] * 200 + [-1] * 20)   # +1=normal, -1=outlier
-
-contamination = 0.09   # 20/(200+20) ≈ 0.09
-
-# --- Isolation Forest ---
-clf_if = IsolationForest(
-    n_estimators=100,
-    max_samples=256,     # subsample size per tree
-    contamination=contamination,
-    random_state=42,
-)
-y_if = clf_if.fit_predict(X)
-scores_if = clf_if.score_samples(X)   # negative average path length (higher = more normal)
-
-# --- One-Class SVM (train on normal-only for clean comparison) ---
-clf_oc = OneClassSVM(
-    kernel='rbf',
-    nu=contamination,
-    gamma='scale',     # sigma = 1 / (n_features * X.var())
-)
-clf_oc.fit(X_normal)   # intentionally train on clean set only
-y_oc = clf_oc.predict(X)
-scores_oc = clf_oc.score_samples(X)
-
-# --- Local Outlier Factor (transductive: novelty=False) ---
-clf_lof = LocalOutlierFactor(
-    n_neighbors=20,
-    contamination=contamination,
-    novelty=False,       # fit_predict mode: cannot call predict on new data
-    algorithm='auto',    # uses kd-tree for low-d, brute otherwise
-)
-y_lof = clf_lof.fit_predict(X)
-scores_lof = -clf_lof.negative_outlier_factor_   # sklearn stores negative LOF
-
-print("=== Confusion matrices (rows=actual, cols=pred) ===")
-print("Actual: row 0 = outlier (-1), row 1 = normal (+1)")
-print()
-cm_if  = confusion_matrix(y_true, y_if,  labels=[-1, 1])
-cm_oc  = confusion_matrix(y_true, y_oc,  labels=[-1, 1])
-cm_lof = confusion_matrix(y_true, y_lof, labels=[-1, 1])
-
-for name, cm in [("Isolation Forest", cm_if),
-                 ("One-Class SVM",    cm_oc),
-                 ("LOF (k=20)",       cm_lof)]:
-    tp, fn = cm[0, 0], cm[0, 1]
-    fp, tn = cm[1, 0], cm[1, 1]
-    prec = tp / (tp + fp) if (tp + fp) > 0 else 0.0
-    rec  = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-    print(f"{name}")
-    print(f"  CM:        pred -1   pred +1")
-    print(f"  actual -1   {tp:3d}       {fn:3d}")
-    print(f"  actual +1   {fp:3d}       {tn:3d}")
-    print(f"  Precision: {prec:.3f}   Recall: {rec:.3f}")
-    print()
-
-print("=== Scores for 5 known normal + 5 known outlier points ===")
-print(f"{'Method':<20} {'Normal (first 5)':>35} {'Outlier (last 5)':>35}")
-print("-" * 92)
-print(f"{'IF score_samples':<20} {str(np.round(scores_if[:5], 4)):>35} {str(np.round(scores_if[-5:], 4)):>35}")
-print(f"{'OCSVM score_samples':<20} {str(np.round(scores_oc[:5], 4)):>35} {str(np.round(scores_oc[-5:], 4)):>35}")
-print(f"{'LOF factor':<20} {str(np.round(scores_lof[:5], 4)):>35} {str(np.round(scores_lof[-5:], 4)):>35}")`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Confusion matrices (rows=actual, cols=pred) ===
-Actual: row 0 = outlier (-1), row 1 = normal (+1)
-
-Isolation Forest
-  CM:        pred -1   pred +1
-  actual -1    20         0
-  actual +1     0       200
-  Precision: 1.000   Recall: 1.000
-
-One-Class SVM
-  CM:        pred -1   pred +1
-  actual -1    18         2
-  actual +1     4       196
-  Precision: 0.818   Recall: 0.900
-
-LOF (k=20)
-  CM:        pred -1   pred +1
-  actual -1    19         1
-  actual +1     1       199
-  Precision: 0.950   Recall: 0.950
-
-=== Scores for 5 known normal + 5 known outlier points ===
-Method               Normal (first 5)                     Outlier (last 5)
---------------------------------------------------------------------------------------------
-IF score_samples     [-0.4633 -0.3638 -0.4165 -0.3695 -0.3953]    [-0.6147 -0.6894 -0.7646 -0.6923 -0.6021]
-OCSVM score_samples  [2.3137 2.4547 2.3365 2.4014 2.4141]          [ 2.3061  2.3132  1.0365  1.9934  2.0151]
-LOF factor           [1.2973 0.9446 1.22   0.9985 1.0522]           [ 5.785   7.9599 10.0077  5.7354  3.4919]`}
-      </Callout>
-
-      <Callout type="insight">
-        On this well-separated synthetic dataset, Isolation Forest achieves perfect separation. One-Class SVM struggles with 4 false positives — it fits a single connected boundary that cannot perfectly capture both normal clusters when the contamination parameter is small. LOF's local approach handles the two-cluster structure well (1 false positive, 1 false negative). The OCSVM score column for outliers is instructive: two outliers score near 2.3, indistinguishable from normal — they happened to land near the cluster boundary in kernel space. This illustrates OCSVM's sensitivity to kernel parameters.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Isolation Forest: path length traces across 5 trees</H3>
-
-      <StepTrace
-        label="Isolation Forest: how path length differs for a normal vs anomalous point across 5 trees"
-        steps={[
-          {
-            label: "Tree 1 — both points entering",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="root split: feature 0 < 1.3"
-                  tokens={[
-                    { label: "normal → left (depth 1)", color: colors.gold },
-                    { label: "outlier [5,5] → right (depth 1)", color: "#f87171" },
-                  ]}
-                />
-                <Prose>
-                  At the root split the normal point falls into a dense half; the outlier is already in a sparse quadrant. Both are at depth 1 — neither isolated yet.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Tree 1 — normal needs 7 more splits; outlier isolated at depth 3",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="path lengths in tree 1"
-                  tokens={[
-                    { label: "normal: h=8", color: colors.gold },
-                    { label: "outlier: h=3", color: "#f87171" },
-                    { label: "outlier isolated 5 splits earlier", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  The outlier at <Code>[5, 5]</Code> is already alone after 3 random axis-aligned cuts because no other training points exist nearby. The normal point requires 8 cuts to separate from its cluster-mates.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Trees 2–5 — consistently shorter paths for outlier",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="path lengths across all 5 trees"
-                  tokens={[
-                    { label: "normal: [8, 9, 7, 10, 8]  avg=8.4", color: colors.gold },
-                    { label: "outlier: [3, 4, 3, 2, 4]  avg=3.2", color: "#f87171" },
-                  ]}
-                />
-                <Prose>
-                  The pattern is consistent across random trees: normal points average ~8–10 splits; the outlier averages ~3. This consistency across many trees is why the ensemble score is reliable even though each individual tree uses random splits.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Anomaly scores computed from average path lengths",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="s(x, n) = 2^(-E[h(x)] / c(256))"
-                  tokens={[
-                    { label: "c(256) ≈ 10.3", color: colors.textMuted },
-                    { label: "normal: s = 2^(-8.4/10.3) ≈ 0.42", color: colors.gold },
-                    { label: "outlier: s = 2^(-3.2/10.3) ≈ 0.80", color: "#f87171" },
-                    { label: "threshold at contamination=0.09 → flag s > 0.58", color: "#60a5fa" },
-                  ]}
-                />
-                <Prose>
-                  Normal score 0.42 falls well below the threshold; outlier score 0.80 is flagged. The threshold is determined by sorting all anomaly scores and taking the 91st percentile (1 − contamination).
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. Decision boundary comparison — all three methods</H3>
-
-      <Plot
-        label="Anomaly scores vs. distance from cluster center — IF, OCSVM, LOF"
-        xLabel="Distance from nearest cluster center"
-        yLabel="Normalized anomaly score"
-        series={[
-          {
-            name: "Isolation Forest",
-            color: colors.gold,
-            points: [
-              [0.1, 0.38], [0.2, 0.39], [0.4, 0.41], [0.6, 0.44],
-              [0.9, 0.48], [1.3, 0.52], [1.8, 0.57], [2.5, 0.62],
-              [3.2, 0.68], [4.0, 0.74], [5.0, 0.80],
-            ],
-          },
-          {
-            name: "One-Class SVM",
-            color: "#c084fc",
-            points: [
-              [0.1, 0.85], [0.2, 0.84], [0.4, 0.82], [0.6, 0.78],
-              [0.9, 0.70], [1.3, 0.55], [1.8, 0.35], [2.5, 0.15],
-              [3.2, 0.05], [4.0, 0.02], [5.0, 0.01],
-            ],
-          },
-          {
-            name: "LOF (k=20)",
-            color: "#86efac",
-            points: [
-              [0.1, 0.10], [0.2, 0.10], [0.4, 0.11], [0.6, 0.12],
-              [0.9, 0.14], [1.3, 0.20], [1.8, 0.35], [2.5, 0.55],
-              [3.2, 0.72], [4.0, 0.88], [5.0, 0.95],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        All three scores are normalized to <Code>[0, 1]</Code> for visual comparison (higher = more anomalous). Isolation Forest rises smoothly with distance — it is a global measure. LOF stays near zero for points well inside clusters but jumps sharply once a point exits the neighborhood radius. One-Class SVM drops sharply at the boundary radius and then flattens — it cares about being inside or outside the boundary, not how far outside.
-      </Prose>
-
-      <H3>6c. Score comparison across 10 sample points</H3>
-
-      <Heatmap
-        label="Anomaly score comparison — 10 points across IF, OCSVM, LOF (normalized 0–1, higher = more anomalous)"
-        rowLabels={["Isolation Forest", "One-Class SVM", "LOF"]}
-        colLabels={["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9", "p10"]}
-        matrix={[
-          [0.38, 0.42, 0.40, 0.45, 0.50, 0.56, 0.62, 0.70, 0.75, 0.80],
-          [0.85, 0.82, 0.80, 0.70, 0.55, 0.30, 0.10, 0.06, 0.03, 0.01],
-          [0.10, 0.12, 0.11, 0.14, 0.20, 0.38, 0.58, 0.72, 0.88, 0.95],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Points p1–p5 are normal (near cluster centers); p6–p10 are progressively more outlying. Isolation Forest rises monotonically. LOF stays flat in the dense region then rises sharply. One-Class SVM is inverted — high scores inside the boundary fall to near zero outside. The three methods agree on extreme points but disagree on the boundary region (p5–p7), which is the regime where tuning <Code>contamination</Code> or <Code>n_neighbors</Code> has the most impact.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Callout type="table">
-{`Dimension              Isolation Forest     One-Class SVM          LOF
-─────────────────────────────────────────────────────────────────────────────────
-Boundary shape         Global, nonlinear    Single kernel boundary  Local, no boundary
-Density assumption     None                 Single connected region  Multi-scale local
-Interpretability       Path length (ok)     Black-box kernel (poor)  Ratio of densities (ok)
-Training speed         O(n·T·psi·log psi)   O(n²) to O(n³)          O(n²) brute / O(n log n) kd
-Inference speed        O(T·log psi)         O(n_sv)                 O(n·k) transductive only
-Scales to millions     Yes (psi=256 fixed)  No (>50k is slow)       With kd-tree and low-d
-Handles multi-cluster  Well (global)        Poorly (one boundary)   Excellent (local)
-Contamination param    Yes (threshold)      nu = contamination rate  Yes (threshold)
-Novelty detection      Yes (predict())      Yes (predict())          Only with novelty=True
-High-d performance     Good (random proj)   Degrades (kernel curse)  Degrades (dist. concentr.)
-Main failure mode      Masking, clustered   Kernel/gamma tuning      Uniform density regions`}
-      </Callout>
-
-      <H3>When to use each</H3>
-
-      <Prose>
-        <strong>Pick Isolation Forest when</strong> you have a large dataset ({">"} 50K rows), you want fast training and inference, the anomalies are globally sparse (not locally anomalous relative to small sub-clusters), or you are doing a first-pass sweep before trying more expensive methods. It is the default choice for most production systems because it is robust, fast, and requires only one meaningful hyperparameter (<Code>contamination</Code>). Its main weakness is "masking": if anomalies form clusters of their own, they require many splits to separate from each other and will look normal to the forest.
-      </Prose>
-
-      <Prose>
-        <strong>Pick One-Class SVM when</strong> you have a clear clean training set (normal-only data, no contamination), the dataset is small enough for the QP solver ({"<"} 50K training points), and you need a well-calibrated probability of anomaly via the signed distance function. OCSVM also works well on high-dimensional data when the RBF kernel's bandwidth is tuned carefully — the kernel implicitly performs dimensionality reduction. On tabular data with mixed scale features, always normalize first or use <Code>gamma='scale'</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>Pick LOF when</strong> the data has multiple clusters at very different density scales, or when anomalies are locally relative rather than globally extreme. LOF is the natural choice for network anomaly detection (where different subnets operate at different base traffic rates) and medical data (where patient subgroups have different normal ranges). LOF's main failure mode is uniform-density datasets: when all neighborhoods have similar density, LOF scores cluster near 1.0 and the method loses discriminative power.
-      </Prose>
-
-      <Callout type="insight">
-        When none of the three is sufficient — high-dimensional data, sequential or spatial structure, or when you need anomaly detection over images, time series, or text — the state-of-the-art is deep anomaly detection: Autoencoders (reconstruction error as anomaly score), Variational Autoencoders, or contrastive methods like Deep SVDD. For tabular data, however, Isolation Forest should be your first model. It is hard to beat on speed and robustness, and the paper reports near-state-of-the-art AUC on standard benchmarks with near-zero tuning.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8a. Isolation Forest — designed for scale</H3>
-
-      <Prose>
-        The Isolation Forest training complexity is <strong>O(T · ψ · log ψ)</strong> where <em>T</em> is the number of trees and <em>ψ</em> is the subsample size (typically 256). Crucially, this is independent of the full dataset size <em>n</em>. Each tree sees only ψ randomly chosen points. Inference is <strong>O(T · log ψ)</strong> per point — constant in n. In practice, a forest with T=100, ψ=256 trains in seconds on a million-row dataset and inference is microseconds per point, making it suitable for real-time fraud scoring.
-      </Prose>
-
-      <Prose>
-        The one caveat is memory: all <em>n</em> points must fit in RAM for subsampling (or you sample streaming). The <Code>max_samples</Code> parameter directly controls ψ. Setting <Code>max_samples="auto"</Code> uses <Code>min(256, n)</Code>, which Liu et al. show is sufficient for convergence — larger ψ does not improve accuracy and is wasteful.
-      </Prose>
-
-      <H3>8b. One-Class SVM — does not scale</H3>
-
-      <Prose>
-        The QP at the heart of One-Class SVM has <strong>O(n²) to O(n³)</strong> complexity in training (depending on the solver and kernel matrix sparsity). For n = 50,000 training points, the kernel matrix itself is 50K × 50K floats = 20 GB. sklearn's LibSVM implementation uses SMO, which avoids materializing the full matrix (working set of size 2 at each step), but the amortized complexity is still quadratic. Above ~50K points, training time becomes prohibitive.
-      </Prose>
-
-      <Prose>
-        Inference is <strong>O(n_sv)</strong> per point, where n_sv is the number of support vectors. For the one-class problem, n_sv is typically a small fraction of training data (controlled by ν), so inference can be fast even when training is slow. The practical mitigation for large-scale one-class anomaly detection is to train on a random subsample of ~10K points and accept the resulting approximation.
-      </Prose>
-
-      <H3>8c. LOF — brute vs. tree</H3>
-
-      <Prose>
-        Brute-force LOF is <strong>O(n²)</strong> per fit — every point's k-NN requires scanning all other points. With a kd-tree or ball-tree index (sklearn's default when dimensionality is low), the complexity drops to <strong>O(n log n)</strong> for tree construction and <strong>O(n · k · log n)</strong> for all k-NN queries, which is practical up to ~1 million points in 2D–20D. In high dimensions ({">"} 20–30 features), the tree advantage disappears due to distance concentration (the ratio of max-to-min pairwise distance approaches 1), and LOF degrades to effectively brute-force.
-      </Prose>
-
-      <Prose>
-        LOF in sklearn is transductive by default (<Code>novelty=False</Code>): <Code>fit_predict</Code> scores training points, but you cannot call <Code>predict</Code> on new data. To score new points, set <Code>novelty=True</Code>, which fits the kd-tree on training data and allows calling <Code>predict(X_new)</Code> at <strong>O(k · log n)</strong> per new point.
-      </Prose>
-
-      <H3>8d. Streaming variants</H3>
-
-      <Prose>
-        None of the three methods is designed for streaming data out of the box. As the underlying data distribution drifts, all three models go stale — concept drift is a first-class problem in anomaly detection. Several streaming variants exist:
-      </Prose>
-
-      <Prose>
-        <strong>Half-Space Trees</strong> (Tan, Ting, Liu, 2011 — KDD) are a streaming analog of Isolation Forest. Trees are built from a fixed-size window of recent data and updated incrementally. <strong>iForestASD</strong> (Ding and Fei, 2013) detects anomalous drift by monitoring the score distribution over a sliding window and triggers full model retraining when the distribution shifts significantly. <strong>xStream</strong> (Manzoor, Lamba, Akoglu, 2018 — KDD) builds hash chains over random projections of the feature space, updating the chains in constant time per arriving point and providing anomaly scores with <Code>O(1)</Code> amortized cost per point. For production streaming pipelines, xStream is the most practical drop-in.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9a. Contamination parameter mis-specification</H3>
-
-      <Prose>
-        All three methods require a <Code>contamination</Code> estimate — the expected fraction of anomalies in the data. This parameter directly controls the decision threshold. If you set <Code>contamination=0.01</Code> on a dataset where 10% of points are truly anomalous, the model will flag only the most extreme 1%, missing the other 9%. Conversely, over-estimating contamination produces too many false positives, raising alert fatigue in production systems. In practice, true contamination is almost never known. Best practice: train with a range of contamination values, use the ROC-AUC curve on a held-out set with injected known anomalies to select the threshold, or treat the raw anomaly score as a continuous risk score and set the threshold based on operational cost (cost of missed fraud vs. cost of false alert).
-      </Prose>
-
-      <H3>9b. LOF in uniform-density regions</H3>
-
-      <Prose>
-        LOF computes the ratio of a point's lrd to its neighbors' lrd. When data is uniformly distributed (all neighborhoods have approximately the same density), all lrd values are nearly equal and all LOF scores cluster near 1.0. In this regime, LOF is essentially non-discriminative — no threshold separates anomalies from normals based on LOF alone. This is not a bug; it reflects the fact that in truly uniform data, no point is locally anomalous. The fix is either to increase <Code>n_neighbors</Code> (larger k smooths out local fluctuations) or to switch to a global method (Isolation Forest) that can still separate outliers by their global isolation depth.
-      </Prose>
-
-      <H3>9c. One-Class SVM kernel and gamma tuning</H3>
-
-      <Prose>
-        One-Class SVM is notoriously sensitive to the kernel bandwidth parameter <Code>gamma</Code>. A small <Code>gamma</Code> (wide RBF kernel) produces a large smooth boundary that may encompass most outliers. A large <Code>gamma</Code> (narrow RBF kernel) produces a boundary that overfits to each individual training point, flagging any test point not exactly matching the training distribution. The sklearn default <Code>gamma='scale'</Code> (sigma = 1/(n_features · var(X))) is a reasonable starting point, but on imbalanced or high-dimensional data it frequently requires manual search. Cross-validating OCSVM is harder than supervised models because you have no labels: use a held-out clean validation set to measure false positive rate, and use injected synthetic anomalies to measure recall. Never tune gamma by minimizing training error.
-      </Prose>
-
-      <H3>9d. Scale sensitivity</H3>
-
-      <Prose>
-        Both LOF and One-Class SVM use distance or kernel functions that depend directly on feature scale. If one feature ranges from 0 to 1 and another from 0 to 1,000,000, the large-scale feature will dominate all distance computations, and the detector will effectively ignore the small-scale features. Always normalize features to zero mean and unit variance (or to [0, 1]) before running LOF or OCSVM. Isolation Forest is less sensitive to scale — each tree splits on a single feature at a time and normalizes implicitly by drawing the split threshold uniformly between the feature's min and max — but preprocessing is still recommended for consistency.
-      </Prose>
-
-      <H3>9e. Concept drift and model staleness</H3>
-
-      <Prose>
-        Anomaly detectors trained on a snapshot of data become stale as the underlying distribution evolves. A fraud detector trained in January will miss novel attack patterns that emerge in March. This is especially acute for Isolation Forest and OCSVM, which fit global structures. LOF is slightly more robust because its neighborhood structure adapts locally — but it is still fitted on historical data. Production systems need a retraining schedule: periodic full retraining (daily, weekly) for slowly drifting data, or trigger-based retraining when a drift detector (e.g., Population Stability Index or MMD test) signals a significant shift.
-      </Prose>
-
-      <H3>9f. Evaluation without labels</H3>
-
-      <Prose>
-        The hardest gotcha in anomaly detection is evaluation. Standard metrics (accuracy, F1, AUC) require labels. When labels do not exist, common approaches are: (1) <strong>Inject synthetic anomalies</strong> — sample from outside the training data distribution using domain knowledge, measure recall on injected points. (2) <strong>Partial labels</strong> — if even 50 confirmed fraud cases are available, compute AUC against those cases and use the rest as unlabeled normal. (3) <strong>Anomaly score stability</strong> — a well-calibrated detector should produce consistent score distributions across held-out subsets of the training data (score distribution should not change drastically across random splits). (4) <strong>Downstream metric</strong> — in production, measure the fraction of flagged anomalies that a human reviewer confirms as true positives and use this as the operational precision metric for retraining decisions.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were verified via WebSearch against their primary publication venues.
-      </Prose>
-
-      <Prose>
-        <strong>Liu, F.T., Ting, K.M., and Zhou, Z.-H. (2008).</strong> "Isolation Forest." <em>Proceedings of the 2008 Eighth IEEE International Conference on Data Mining (ICDM)</em>, Pisa, December 15–19, pp. 413–422. DOI: 10.1109/ICDM.2008.17. Available via IEEE Xplore and the authors' page at Nanjing University (lamda.nju.edu.cn). This paper introduces the isolation principle, the random partition tree construction, the path-length anomaly score normalized by <Code>c(n)</Code>, and demonstrates linear time complexity and competitive AUC with state-of-the-art detectors on 12 benchmark datasets. The follow-up journal paper — "Isolation-Based Anomaly Detection," <em>ACM TKDD</em> 6(1), 2012 — extends the method with a theoretical analysis of masking and swamping, and introduces SCiForest as a variant that handles clustered anomalies.
-      </Prose>
-
-      <Prose>
-        <strong>Schölkopf, B., Platt, J.C., Shawe-Taylor, J., Smola, A.J., and Williamson, R.C. (2001).</strong> "Estimating the Support of a High-Dimensional Distribution." <em>Neural Computation</em> 13(7):1443–1471. DOI: 10.1162/089976601750264965. Available via MIT Press and PubMed. This paper derives the one-class SVM primal and dual formulations, proves that ν is an upper bound on the fraction of training outliers and a lower bound on the fraction of support vectors, and demonstrates the method on image and text anomaly detection. A companion paper — Tax and Duin (2004), "Support Vector Data Description," <em>Machine Learning</em> 54(1):45–66 — introduces the hypersphere formulation (SVDD), which is equivalent to OCSVM with the RBF kernel.
-      </Prose>
-
-      <Prose>
-        <strong>Breunig, M.M., Kriegel, H.-P., Ng, R.T., and Sander, J. (2000).</strong> "LOF: Identifying Density-Based Local Outliers." <em>Proceedings of the 2000 ACM SIGMOD International Conference on Management of Data</em>, Dallas, May 15–18, pp. 93–104. DOI: 10.1145/342009.335388. Available via ACM DL and the authors' page at LMU Munich. This paper introduces reach-distance, local reachability density, and the LOF score, proves probabilistic bounds on the LOF scores of points deep inside clusters (LOF near 1), and demonstrates robustness to density variation across clusters. The paper is one of the most cited in the outlier detection literature.
-      </Prose>
-
-      <Prose>
-        <strong>Supplementary reading.</strong> Goldstein, M. and Uchida, S. (2016). "A Comparative Evaluation of Unsupervised Anomaly Detection Algorithms for Multivariate Data." <em>PLOS ONE</em> 11(4):e0152173. Benchmarks 19 anomaly detection algorithms (including IF, OCSVM, LOF) on 10 datasets; Isolation Forest ranks first on average AUC with lowest variance. Chandola, V., Banerjee, A., and Kumar, V. (2009). "Anomaly Detection: A Survey." <em>ACM Computing Surveys</em> 41(3):1–58. The canonical survey covering the full landscape of statistical, proximity-based, information-theoretic, and spectral methods.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1 (Recall)</H3>
-      <Prose>
-        What is the anomaly score formula in Isolation Forest, and what does the normalization constant <Code>c(n)</Code> represent? What score value indicates a point is neither particularly normal nor anomalous?
-      </Prose>
-      <Callout type="answer">
-        The anomaly score is <Code>s(x, n) = 2^(−E[h(x)] / c(n))</Code>, where <Code>E[h(x)]</Code> is the average path length of point <Code>x</Code> across all trees and <Code>c(n)</Code> is the expected path length of an unsuccessful binary search tree search on <Code>n</Code> points: <Code>c(n) = 2(ln(n−1) + 0.5772) − 2(n−1)/n</Code>. The normalization <Code>c(n)</Code> ensures the score is bounded in (0, 1] and that the neutral value (point that is no easier to isolate than average) yields exactly 0.5. When <Code>E[h(x)] = c(n)</Code>, the score is <Code>2^(−1) = 0.5</Code>. Points with score near 1 are easily isolated (anomalies); points near 0 are deeply embedded in dense regions (strongly normal).
-      </Callout>
-
-      <H3>Exercise 2 (Conceptual)</H3>
-      <Prose>
-        Explain the role of the parameter <Code>ν</Code> (nu) in One-Class SVM. What two quantities does it provably bound, and what practical guidance does that give for setting it?
-      </Prose>
-      <Callout type="answer">
-        Schölkopf et al. prove that ν serves as a double bound: (1) it is an upper bound on the fraction of training points that lie outside the decision boundary (training outliers / margin violators); (2) it is a lower bound on the fraction of support vectors. Practically: if you believe roughly 5% of your training data is contaminated, set <Code>nu=0.05</Code>. The model will allow at most 5% of training points to be on the wrong side of the boundary, and will use at least 5% of training points as support vectors to define the boundary. Setting nu too small produces a very tight boundary that may flag many legitimate test points as anomalies (high false positive rate). Setting it too large produces a loose boundary that misses true anomalies. It is the one-class equivalent of the contamination rate.
-      </Callout>
-
-      <H3>Exercise 3 (Math)</H3>
-      <Prose>
-        Consider a point <Code>p</Code> with <Code>k=3</Code> nearest neighbors <Code>o1, o2, o3</Code>. Distances: <Code>d(p,o1)=0.4, d(p,o2)=0.6, d(p,o3)=1.0</Code>. The 3-distances of the neighbors are: <Code>k-dist(o1)=0.3, k-dist(o2)=0.8, k-dist(o3)=0.5</Code>. Compute <Code>lrd_3(p)</Code> and interpret it.
-      </Prose>
-      <Callout type="answer">
-        Reachability distances: <Code>reach-dist(p,o1) = max(k-dist(o1), d(p,o1)) = max(0.3, 0.4) = 0.4</Code>. <Code>reach-dist(p,o2) = max(0.8, 0.6) = 0.8</Code>. <Code>reach-dist(p,o3) = max(0.5, 1.0) = 1.0</Code>. Average reach-dist = (0.4 + 0.8 + 1.0) / 3 = 0.733. lrd_3(p) = 1 / 0.733 ≈ 1.364. Interpretation: p has a local reachability density of 1.364 — meaning its neighbors are on average 0.73 units away (accounting for their own neighborhood radii). To compute LOF, you would also need the lrd values of o1, o2, o3. If their lrd values were all around 1.364, LOF would be near 1 (normal). If their lrd values were 3–4 (they live in a denser region), LOF would be 2–3 (p is an outlier relative to its neighbors).
-      </Callout>
-
-      <H3>Exercise 4 (Applied)</H3>
-      <Prose>
-        You are building a fraud detection system for a payment processor handling 5 million transactions per day. You have 3 months of historical data with no labels, and fraud typically constitutes 0.1–0.5% of transactions. Which of the three methods would you deploy, and what specific parameter choices would you make? What would your evaluation strategy be?
-      </Prose>
-      <Callout type="answer">
-        Use Isolation Forest. At 5M transactions/day × 90 days = 450M rows of history, One-Class SVM is computationally infeasible (O(n²)) and LOF in brute-force mode is also infeasible. Isolation Forest trains in O(T·ψ·log ψ) regardless of n. Specific choices: <Code>n_estimators=100</Code> (diminishing returns beyond ~100 trees), <Code>max_samples=256</Code> (Liu et al. show ψ=256 is sufficient — larger does not improve AUC), <Code>contamination=0.003</Code> (midpoint of the 0.1–0.5% prior), <Code>n_jobs=-1</Code> (parallel tree building). Do not set <Code>random_state</Code> in production — natural stochasticity helps ensemble diversity. Evaluation strategy: (1) manually review the top 200 highest-scoring transactions from the first week and have a fraud analyst label them to estimate precision; (2) inject synthetic anomalies (transactions with known anomalous feature combinations from historical fraud reports) and measure recall; (3) track precision-at-k weekly as the score threshold is varied; (4) monitor the score distribution weekly with a KS test — a shift in the distribution signals concept drift and triggers retraining.
-      </Callout>
-
-      <H3>Exercise 5 (Debugging)</H3>
-      <Prose>
-        Your LOF detector flags 45% of data points as anomalies when the expected contamination is 5%. List three likely causes and a fix for each.
-      </Prose>
-      <Callout type="answer">
-        (1) <strong>Features not normalized</strong>: a feature with range [0, 1M] dominates distance computation, producing erratic neighborhood structures where most points look like outliers relative to the few high-value points. Fix: standardize all features to zero mean and unit variance before fitting LOF. (2) <strong><Code>n_neighbors</Code> too small</strong>: with <Code>k=1</Code> or <Code>k=2</Code>, LOF becomes extremely sensitive to local micro-structure and flags nearly every point that is not at the exact center of a tight cluster. Fix: increase <Code>n_neighbors</Code> to 20–30 for typical datasets; larger k smooths the density estimate. (3) <strong>Contamination parameter too high</strong>: the <Code>contamination</Code> parameter sets the threshold for flagging. If it was accidentally set to <Code>0.45</Code>, the threshold is placed at the 55th percentile of LOF scores, flagging 45% of points by construction. Fix: verify and reset <Code>contamination</Code> to the expected 0.05; or bypass the threshold and inspect the raw LOF score distribution to identify a natural gap separating normals from outliers.
-      </Callout>
-
-      <H3>Exercise 6 (Comparative)</H3>
-      <Prose>
-        A dataset has two clusters: cluster A with 1,000 tightly packed points (std = 0.1) and cluster B with 200 more spread-out points (std = 2.0). You inject 10 outliers far from both clusters. Predict which method will perform best and worst, and explain why.
-      </Prose>
-      <Callout type="answer">
-        Best: LOF. The two clusters have very different density scales — cluster A is 400x denser than cluster B (variance ratio ≈ (2.0/0.1)² = 400). A global method like Isolation Forest will assign low anomaly scores to points at the edge of cluster A (they are dense locally but isolated in global feature space), potentially flagging them as anomalies. One-Class SVM with a single RBF boundary will either draw a tight boundary around A that misses B's normal points, or a loose boundary that encompasses both but also encloses outliers. LOF adapts locally: points in A are compared to their dense neighbors (normal lrd ratio ≈ 1); points in B are compared to their sparse neighbors (also normal lrd ratio ≈ 1); the 10 far outliers sit in much sparser space than their closest neighbors (which are from cluster B), so their LOF scores will be large. Worst: One-Class SVM, because a single kernel boundary cannot simultaneously tightly fit two clusters at 20x different density scales without mis-classifying points at the boundary of one or the other. Isolation Forest would be intermediate — it handles the injected outliers well (they are globally isolated) but may mis-score some points at the edges of cluster B as anomalous because the global path-length distribution is pulled toward A's dense structure.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF)',
+  readTime: '~60 min first pass · ~105 min complete read + 60–90 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot anomaly-lesson">
+    <LessonIntro prerequisites={<>Distances, averages and the idea of a training set are enough to start; the logarithm, the exponential and kernel notation are explained where they enter. The preceding <a href="/learn/path/full-curriculum/dbscan-density-based-clustering?module=classical-ml">DBSCAN</a> lesson supplies the density vocabulary reused in sections 4 and 5, and its noise label is exactly the question this lesson takes over.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      Learn to find observations worth investigating and to explain the comparison that found them: integrate the cut intervals of an isolation tree by hand, watch a reachability floor change which query looks isolated, put a kernel boundary’s midpoint outside a region whose two anchors are on it, turn two rates into a review queue, and then choose a threshold on 22,671 real machine-temperature rows and meet the workload it creates. Every lab records a prediction before it reveals a result.
+    </LessonIntro>
+    <Prose className="ad-route"><strong>First pass.</strong> Read sections 1 to 8, work the temperature investigation in section 10, and attempt practices A to F. That route teaches you to explain each mechanism, to keep fitting separate from thresholding and to report a real result honestly. Sections 9 and 11 develop the optimization, the resource costs and the monitoring details, and practices G to J belong with them; return to those when their questions arise. Allow roughly 60 minutes for the core reading and another 60 to 90 minutes for the code and practice.</Prose>
+
+    <Prose>A machine usually runs near a familiar temperature. Today it is much hotter. That reading might indicate a fault, a planned operating change, a different load or a failing sensor. A detector can tell you that the reading is unusual. Deciding what happened needs more evidence than the detector has.</Prose>
+    <Prose>So the useful starting question is not “which algorithm is best?” It is <strong>unusual compared with what, and what will we do if we find it?</strong> You will learn three comparisons. Isolation Forest asks how easily random cuts separate an observation. Local Outlier Factor compares an observation’s neighbourhood with its neighbours’ neighbourhoods. One-Class SVM learns a boundary around a reference population. You will then turn their scores into decisions and compare all three with a plain baseline on a real machine-temperature series.</Prose>
+
+    <Callout title="What these words mean here, once for the whole lesson">
+      A <strong>score</strong> is a number used to order observations. It is not a probability, not a distance in the original units and not a verdict. <strong>Anomalous</strong>, <strong>outlier</strong> and <strong>alert</strong> name roles in a declared procedure: an observation the chosen comparison ranks high, a row the chosen threshold selects, an item sent to a reviewer. None of them means “faulty”, “wrong” or “bad data”. Every score below is oriented so that <strong>larger means more unusual</strong>. We use these words as procedural roles from here on and will not repeat this caution after every result.
+    </Callout>
+
+    <H2>{headings[0]}</H2>
+    <Prose>Suppose our reference measurements are 0, 1, 2, 3 and 12. The gap between 3 and 12 is large compared with the others, which makes 12 a reasonable candidate for investigation. It does not tell us whether 12 is a mistake. If the values record operating modes, 12 may be entirely legitimate. If someone entered the wrong units, the same geometry exposes a data-quality problem instead. The arithmetic is identical; only the investigation separates the two.</Prose>
+    <Prose>An observation can also be a transaction, a session, a patient measurement, an image or a time window. How you represent it decides which differences are visible at all. A detector given only temperature cannot recognise “ordinary under heavy load but excessive while idle” unless load, operating mode or a suitable residual enters the representation.</Prose>
+    <LessonTable caption="Three kinds of unusual, and what each needs from the representation" headers={['case', 'what is unusual', 'example and needed representation']} rows={[
+      ['Point', 'One observation differs from the chosen reference', 'A sensor reports 900 while comparable readings are near 90'],
+      ['Contextual', 'The observation is unusual under its context', '90 is ordinary under load but unusual while idle; include or condition on load'],
+      ['Collective', 'A group or sequence is unusual although each value looks ordinary', 'An unusually long flat trace; represent duration, variability or the sequence']
+    ]} />
+    <Prose>These cases overlap. Putting a one-hour change beside the current temperature, as section 10 does, introduces a little temporal context. It does not turn an ordinary tabular detector into a sequence model.</Prose>
+    <Prose>The previous lesson supplies a useful boundary. A point DBSCAN labelled <em>noise</em> simply failed to attach to a density-connected component under one metric and one parameter pair. That is a geometric result about a chosen rule. Here we add two things it never had: a declared reference population and a decision rule. The difference matters in both directions. A dense collection of repeated bad measurements forms a perfectly good cluster, and a rare legitimate operating mode can lie outside every cluster.</Prose>
+    <Checkpoint prompt="A detector flags a rare but scheduled shutdown. Has the algorithm necessarily failed?">
+      <Prose>No. It may have correctly found an unusual operating state, which is exactly what it was asked to do. It fails the intended <em>alerting</em> task only if the system was supposed to suppress scheduled shutdowns and had the information needed to recognise one. The task and the available context decide, not the score.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[1]}</H2>
+    <Prose><strong>Outlier detection</strong> means you have one collection that may already contain unusual observations. You fit a comparison to that collection and inspect its own members. Reviewing a batch of sensor records for data-quality problems works this way.</Prose>
+    <Prose><strong>Novelty detection</strong> means you fit on a reference collection intended to represent acceptable behaviour, then score later observations against it. Learning from a reviewed operating period and monitoring the next period works this way. “Reference” is a declared assumption. It is not a guarantee that the historical data were clean.</Prose>
+    <Prose>In scikit-learn this distinction decides which LOF methods you may call at all, which is why section 5 treats it as mathematics rather than as configuration. Other literature sometimes uses <em>novelty</em> more broadly, for newly encountered concepts; here we follow the library’s fitting-and-query convention.</Prose>
+    <Prose>Keep three objects separate:</Prose>
+    <MathBlock>{'\\begin{gathered}\\text{reference data}\\longrightarrow A,\\\\ x\\longrightarrow A(x),\\\\ \\text{alert if }A(x)>\\tau.\\end{gathered}'}</MathBlock>
+    <Prose>Fitting decides the score. Thresholding decides who gets attention. Two thresholds give different alert counts from exactly the same model and the same ranking, so a disagreement about alert volume is often not a disagreement about the model at all.</Prose>
+    <ProvenanceFigure />
+    <Prose>Do not fit a scaler on the complete series before splitting: that lets later information influence earlier distances. Where rows repeat by customer, device or patient, keep whole groups on one side of the split when the intended test is performance on new groups. For future monitoring, preserve chronological order.</Prose>
+
+    <H3>Use one score orientation at the decision boundary</H3>
+    <Prose>The contracts below refer to the APIs inspected for scikit-learn 1.9.1. Keep the model’s own offset distinct from a threshold your application calibrates.</Prose>
+    <LessonTable caption="Library outputs and the anomaly-oriented quantity used in this lesson" headers={['output', 'direction and meaning', 'our quantity']} rows={[
+      ['Isolation Forest score_samples(X)', 'Smaller is more unusual; a negative isolation-based score', '−score_samples(X)'],
+      ['One-Class SVM score_samples(X)', 'Unshifted kernel score; smaller is less compatible with the region', '−score_samples(X)'],
+      ['LOF negative_outlier_factor_', 'Negative training-row LOF values', '−negative_outlier_factor_'],
+      ['LOF novelty=True score_samples(X_new)', 'Negative LOF-style scores for new queries against the frozen reference', '−score_samples(X_new)']
+    ]} />
+    <Prose>The decision function subtracts an offset from the normality-oriented score, so a negative decision value means outside the estimator’s own selected boundary. That is not a calibrated probability, and the kernel decision value is not a Euclidean distance in the original space.</Prose>
+    <Prose>The rest of the lesson uses <Math>{'A>\\tau'}</Math> with a <strong>strict</strong> inequality. Scores tied exactly at the threshold stay unflagged. A percentile setting therefore need not flag the fraction it names, which section 8 makes concrete.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Choose a cut uniformly along the interval from 0 to 12. Any cut between 3 and 12 separates the last point from the other four, and that interval occupies 9 of the 12 units, so the first-cut isolation probability is</Prose>
+    <MathBlock>{'\\frac{12-3}{12-0}=\\frac34.'}</MathBlock>
+    <Prose>To isolate 0 on the first cut, the cut must land between 0 and 1: probability <Math>{'1/12'}</Math>. No classifier has learned the label “bad”. The empty gap alone gives 12 many opportunities for early separation.</Prose>
+    <FirstCutFigure />
+    <Prose>In several dimensions an isolation tree chooses a feature and a cut between that feature’s current minimum and maximum, then repeats inside each child. A path records how many cuts a query follows before reaching a terminal node. Many random trees reduce the dependence on any one lucky cut.</Prose>
+    <IsolationLab />
+
+    <H3>Why a terminal node can hold several observations</H3>
+    <Prose>A practical tree stops at a depth limit, commonly <Math>{'\\lceil\\log_2\\psi\\rceil'}</Math> for subsample size <Math>{'\\psi'}</Math>, or when it can no longer separate the remaining values. If the terminal node still holds <Math>{'m'}</Math> reference rows, stopping does not mean all <Math>{'m'}</Math> were individually isolated, so we add an average remaining-path correction:</Prose>
+    <MathBlock>{'\\begin{gathered}c(m)=2H_{m-1}-\\frac{2(m-1)}m,\\\\ H_r=1+\\tfrac12+\\cdots+\\tfrac1r,\\end{gathered}'}</MathBlock>
+    <Prose>with <Math>{'c(0)=c(1)=0'}</Math> and <Math>{'c(2)=1'}</Math>. This normaliser comes from an average search-path calculation, not from a model of anomaly probability. Implementations often approximate the harmonic term for larger <Math>{'m'}</Math>; our tiny calculations use the exact finite sum.</Prose>
+    <Prose>If a query reaches depth <Math>{'d'}</Math> at a leaf of size <Math>{'m'}</Math>, its corrected path is <Math>{'h=d+c(m)'}</Math>. Average across trees, then normalise:</Prose>
+    <MathBlock>{'s(x)=2^{-\\mathbb E[h(x)]/c(\\psi)}.'}</MathBlock>
+    <Prose>If the average path equals the normaliser, the exponent is −1 and the score is exactly <Math>{'1/2'}</Math>. Shorter paths give larger scores. The exponential rescales a path statistic, so 0.8 does <strong>not</strong> mean an 80% chance of failure.</Prose>
+    <Prose>For the five positions, <Math>{'c(5)=77/30\\approx2.5667'}</Math>. Integrating exactly over all one-dimensional cut sequences, with depth cap 3 and the leaf correction above, gives:</Prose>
+    <LessonTable caption="Exact expectations over the one-dimensional cut construction, depth cap 3" headers={['position', 'expected corrected path', 'score']} rows={[
+      ['0', '31/12 ≈ 2.5833', '0.497755'],
+      ['1', '73/22 ≈ 3.3182', '0.408159'],
+      ['2', '17/5 = 3.4', '0.399239'],
+      ['3', '17/6 ≈ 2.8333', '0.465258'],
+      ['12', '841/660 ≈ 1.2742', '0.708845']
+    ]} />
+    <Prose>These are expectations over that construction, <strong>not</strong> outputs promised by a finite random forest or by the library. Replace 12 with 4 and the endpoints tie at about 0.569715. Make all five values identical and every corrected path equals <Math>{'c(5)'}</Math>, so every score is 0.5 and the ranking carries no information at all. The lab above reproduces each of these cases; change the positions and read the intervals.</Prose>
+
+    <H3>Run the examples</H3>
+    <Prose>Use Python 3.12 in a virtual environment. From a terminal in your example folder, install the versions the calculations used:</Prose>
+    <CodeBlock language="bash">{'python -m venv .venv\n# Windows PowerShell:\n.\\.venv\\Scripts\\Activate.ps1\n# macOS or Linux:\n# source .venv/bin/activate\npython -m pip install numpy==2.3.5 pandas==3.0.1 scikit-learn==1.9.1'}</CodeBlock>
+    <Prose>Save each Python block in its own file, named <Code>isolation_example.py</Code>, <Code>lof_modes.py</Code>, <Code>lof_arithmetic.py</Code>, <Code>kernel_boundary.py</Code> and <Code>temperature_monitor.py</Code>, and run one with <Code>python isolation_example.py</Code>. The last program also needs the linked CSV and JSON beside it. These are small teaching programs that expose the calculation; they are not hardened monitoring services.</Prose>
+    <Prose>The program below uses one-dimensional trees, the exact harmonic correction, a local random generator and subsampling. It accepts ordinary finite numeric input with at least two rows. The library’s construction and its harmonic approximation need not match these scores.</Prose>
+    <Program example={anomalyExamples.isolation}>
+      <Prose>The seeded run identifies 12, and the duplicate-only construction gives 0.5 and 0.5. Look at the fitted sample size: asking for 256-row subsamples does not put 256 observations in a five-row tree, and normalising as though it did would change what the score means.</Prose>
+    </Program>
+
+    <H3>Subsampling and representation</H3>
+    <Prose>If unusual observations arrive as a group, its members can shield one another from rapid isolation, one form of <strong>masking</strong>. A smaller subsample often leaves fewer of them together and exposes the separation, but it can equally omit a legitimate rare mode. There is no universally best subsample size.</Prose>
+    <Prose>The original method uses axis-aligned cuts. Translating a coordinate, or rescaling it by a positive factor, preserves the corresponding uniform-cut construction in exact arithmetic; arbitrary rotations generally do not. Irrelevant features waste cuts. Random-projection variants change the mechanism and should not be substituted silently for the method derived here.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <Prose>Consider two legitimate groups on a line: 0, 1, 2 and 20, 24, 28. The second is more spread out. A global nearest-distance rule can penalise it even though its spacing is internally consistent. LOF asks a local question instead: <strong>is this point less locally supported than its own neighbours are?</strong></Prose>
+    <Prose>We use exactly <Math>{'k=2'}</Math> other reference rows throughout, with stable row-order tie breaking, and distance is the absolute difference. <em>Self</em> means the same observation identity, not every row that happens to share a coordinate.</Prose>
+    <H3>Step 1: measure each neighbour’s usual radius</H3>
+    <Prose>For a reference point <Math>{'o'}</Math>, let <Math>{'r_k(o)'}</Math> be the distance to its kth selected neighbour.</Prose>
+    <H3>Step 2: put a floor under each distance</H3>
+    <MathBlock>{'\\begin{gathered}\\operatorname{reach}_k(p,o)\\\\ =\\max\\{d(p,o),\\,r_k(o)\\}.\\end{gathered}'}</MathBlock>
+    <Prose>The radius belongs to <strong>neighbour <Math>{'o'}</Math></strong>. The floor stops an exceptionally short distance to <Math>{'o'}</Math> from manufacturing an arbitrarily large local density just because <Math>{'p'}</Math> nearly coincides with it. Swapping <Math>{'p'}</Math> and <Math>{'o'}</Math> changes which radius applies, so reachability need not be symmetric.</Prose>
+    <ReachFloorFigure />
+    <Prose>If you read the optional density-hierarchy branch of the previous lesson, keep the formulas apart. OPTICS reachability uses the <em>source</em> point’s core radius; HDBSCAN mutual reachability uses <em>both</em> endpoints’ core radii; LOF uses the <em>neighbour’s</em> radius in this directed comparison. Our k counts other rows and excludes the training row itself, whereas DBSCAN’s min_samples counts the point itself. None of those earlier formulas is needed to take the maxima above.</Prose>
+    <H3>Step 3: take the reciprocal of average reach</H3>
+    <MathBlock>{'\\operatorname{lrd}_k(p)^{-1}=\\frac1k\\sum_{o\\in N_k(p)}\\operatorname{reach}_k(p,o)'}</MathBlock>
+    <Prose>The reciprocal is large when average reach is small. Its units are inverse distance, and it is <strong>not</strong> a probability density normalised to integrate to one. At reference point 1 both distances are 1, but the radii of neighbours 0 and 2 are both 2, so both reaches are 2 and <Math>{'\\operatorname{lrd}(1)=1/((2+2)/2)=1/2'}</Math>. At point 0 the reaches are 1 and 2, giving <Math>{'2/3'}</Math>. All six are <Math>{'2/3,\\;1/2,\\;2/3,\\;1/6,\\;1/8,\\;1/6'}</Math>.</Prose>
+    <H3>Step 4: take a dimensionless comparison</H3>
+    <MathBlock>{'\\operatorname{LOF}_k(p)=\\frac1k\\sum_{o\\in N_k(p)}\\frac{\\operatorname{lrd}_k(o)}{\\operatorname{lrd}_k(p)}.'}</MathBlock>
+    <Prose>Near 1 means comparable local support. Larger means the selected neighbours have greater density proxies than the query. Values below 1 are ordinary, and no theorem says an acceptable observation scores exactly 1. For point 1 both neighbour densities are <Math>{'2/3'}</Math>, so the factor is <Math>{'(2/3)/(1/2)=4/3'}</Math>. For point 0 the mean neighbour density is <Math>{'7/12'}</Math>, so the factor is <Math>{'(7/12)/(2/3)=7/8'}</Math>. The wider group repeats the pattern exactly: <Math>{'7/8,\\;4/3,\\;7/8,\\;7/8,\\;4/3,\\;7/8'}</Math>. Even this regular example has non-unit values, so “anything above 1 is bad” confuses a finite-neighbourhood effect with an application decision.</Prose>
+
+    <H3>Farther from a reference point, yet the lower factor</H3>
+    <Prose>Freeze those six rows as the reference. Query 4 has neighbours 2 and 1 at distances 2 and 3, with radius floors 2 and 1, so its reaches are 2 and 3 and its density is <Math>{'2/5'}</Math>. The mean reference density is <Math>{'7/12'}</Math>:</Prose>
+    <MathBlock>{'\\operatorname{LOF}(4)=\\frac{7/12}{2/5}=\\frac{35}{24}\\approx1.4583.'}</MathBlock>
+    <Prose>Query 17 has neighbours 20 and 24, with reaches <Math>{'\\max(3,8)=8'}</Math> and <Math>{'\\max(7,4)=7'}</Math>, so its density is <Math>{'2/15'}</Math> and its mean neighbour density is <Math>{'7/48'}</Math>:</Prose>
+    <MathBlock>{'\\operatorname{LOF}(17)=\\frac{7/48}{2/15}=\\frac{35}{32}.'}</MathBlock>
+    <Prose>That is about 1.09375, against 1.4583 for query 4. Query 17 is <em>farther</em> from its nearest reference row, 3 units against 2, and yet takes the lower factor. Its nearby group normally has wider spacing, which is precisely the comparison LOF is built to make.</Prose>
+    <LofNeighbourhoodLab />
+
+    <H3>Ties and duplicates change the contract</H3>
+    <Prose>The original paper includes every point within the kth-neighbour distance, so ties can give more than <Math>{'k'}</Math> neighbours. Our calculation selects exactly <Math>{'k'}</Math>, as the library’s fixed-neighbour calculation does, and tied selections can then depend on implementation ordering. State the convention before comparing anyone’s numbers with anyone else’s.</Prose>
+    <Prose>Repeated coordinates need care. Exclude a training row by identity, not by deleting every zero distance or by dropping the first sorted entry. If all the relevant reaches vanish, unstabilised reciprocals are infinite and the ratios are undefined. Library stabilisation makes the arithmetic computable; it does not create separation between identical records. The hand calculations here keep distinct coordinates and positive reaches for exactly this reason.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>A training row leaves its own identity out of its neighbourhood. A <strong>new query</strong> has no identity here, so if it lands on a training coordinate, that reference row is a perfectly valid zero-distance neighbour. The neighbour sets differ, so the scores can differ. They can also agree numerically: at coordinate 0 with k = 2, both give 7/8 despite using different neighbours.</Prose>
+    <Prose>The consequence is worth stating plainly: scoring the training array as queries does not recover the training rows’ factors. In our example, training rows 1 and 24 have factor <Math>{'4/3'}</Math>; treated as new queries, the same coordinates score <Math>{'7/8'}</Math>.</Prose>
+    <LofModeLab />
+    <Program example={anomalyExamples.lofModes}>
+      <Prose>Use the default <Code>novelty=False</Code> with <Code>fit_predict</Code> when you are reviewing the fitted collection. Use <Code>novelty=True</Code> when later queries are the task, and score those queries with <Code>score_samples</Code>, <Code>decision_function</Code> or <Code>predict</Code>. New queries never become one another’s neighbours, so scoring a batch does not adapt the frozen reference.</Prose>
+    </Program>
+    <Prose>The next program exposes the floors and the ratios directly. It uses exactly k other rows, stable ties and distinct one-dimensional reference values, and it deliberately omits a production search index and duplicate stabilisation.</Prose>
+    <Program example={anomalyExamples.lofArithmetic}>
+      <Prose>The full pairwise matrix makes the calculation inspectable but uses quadratic storage. Use a suitable neighbour search instead of this matrix on a large dataset.</Prose>
+    </Program>
+
+    <H2>{headings[5]}</H2>
+    <Prose>Suppose we have reviewed reference observations but few failures. We can still ask for a region that represents the reference reasonably well while allowing some training observations to fall outside it.</Prose>
+    <Prose>One-Class SVM constructs a separating hyperplane in a feature space. A <strong>kernel</strong> computes similarities in that space without ever building every feature. The RBF kernel is</Prose>
+    <MathBlock>{'\\begin{gathered}K(x,z)=\\exp(-\\gamma\\|x-z\\|^2),\\\\ \\gamma>0.\\end{gathered}'}</MathBlock>
+    <Prose>When <Math>{'x=z'}</Math> the squared distance is zero and the similarity is 1; greater distance reduces it. Increasing gamma makes the similarity decay over a shorter input distance, so features and units must already be meaningful before you choose gamma. A fitted decision has the form</Prose>
+    <MathBlock>{'g(x)=\\sum_i\\alpha_iK(x_i,x)-\\rho.'}</MathBlock>
+    <Prose>The non-negative weights pick out the reference observations that shape the boundary; those with non-zero weights are the support vectors. The offset rho fixes the zero contour: positive <Math>{'g'}</Math> is inside the selected region and negative is outside. None of this implies a convex or even connected region in the input space, because a hyperplane in a nonlinear feature space can describe separated pieces in the original coordinates.</Prose>
+    <H3>Two reference observations expose the mechanism</H3>
+    <Prose>Take <Math>{'x_1=-1'}</Math>, <Math>{'x_2=1'}</Math> and <Math>{'\\nu=1/2'}</Math>, using the normalised optimization derived in section 9. Symmetry gives <Math>{'\\alpha_1=\\alpha_2=1/2'}</Math> and puts both references on the boundary:</Prose>
+    <MathBlock>{'\\begin{gathered}\\rho=\\frac{1+e^{-4\\gamma}}2,\\\\ g(x)=\\frac{e^{-\\gamma(x+1)^2}+e^{-\\gamma(x-1)^2}}2-\\rho.\\end{gathered}'}</MathBlock>
+    <Prose>At the midpoint the two similarities agree, so <Math>{'g(0)=e^{-\\gamma}-(1+e^{-4\\gamma})/2'}</Math>. For gamma 0.1 that is about +0.069677 and the midpoint belongs to the learned region. For gamma 1 it is about −0.141278: the midpoint is <em>outside</em> while both reference points remain exactly on the boundary. At gamma 1, moving a little inward from either reference gives a positive score, so the non-negative region has separated pieces. Describing every One-Class SVM region as “one connected blob of normal data” would miss this entirely.</Prose>
+    <KernelBoundaryLab />
+    <Program example={anomalyExamples.kernel} />
+
+    <H3>Nu is not tomorrow’s fault prevalence</H3>
+    <Prose>In exact optimization, under the conditions in section 9, nu bounds a fraction of training margin violations and a fraction of support vectors. It is a constraint-and-regularisation parameter. It is not known anomaly prevalence, not a promised future false-positive rate, and not a guarantee that exactly nu times n training predictions come out negative. Solver tolerances and the treatment of boundary points matter whenever you compare software counts with the theorem, so use a separate calibration set when the application needs an explicit alert budget.</Prose>
+    <Prose>Two API details cause avoidable confusion. <Code>gamma='scale'</Code> sets gamma from the fitted data’s variance; it does not standardise each feature. And gamma is not the RBF standard deviation: in the alternative form <Math>{'\\exp(-\\|x-z\\|^2/(2\\sigma^2))'}</Math>, gamma equals <Math>{'1/(2\\sigma^2)'}</Math>.</Prose>
+
+    <H2>{headings[6]}</H2>
+    <LessonTable caption="Match the mechanism to a question about the representation" headers={['question about the representation', 'mechanism', 'what to inspect']} rows={[
+      ['Do unusual observations separate after few random cuts?', 'Isolation Forest', 'Feature relevance, axis orientation, subsample variability, rare legitimate groups'],
+      ['Do acceptable regions have different local spacings?', 'LOF', 'Neighbour count, metric, duplicates, whether the reference represents those regions'],
+      ['Can reviewed observations define a useful nonlinear support region?', 'One-Class SVM', 'Scaling, gamma, nu, kernel cost, later-data stability'],
+      ['Is a simple baseline sufficient?', 'Domain rule, residual or robust deviation', 'Its assumptions and calibration under the same evaluation protocol']
+    ]} />
+    <Prose>There is no universal ranking in that table. A comparison is only meaningful with the available training information and the evaluation protocol held fixed. Give one method reviewed normal data and another a contaminated batch and you have changed the task, not only the algorithm.</Prose>
+    <Prose>Four applications make the representation issue concrete:</Prose>
+    <Prose><strong>Calibration drift in an instrument.</strong> Monitor residuals against a stable reference standard rather than raw readings that legitimately change with the specimen. Monitoring within one instrument and transferring to unseen instruments need different splits.</Prose>
+    <Prose><strong>A stuck sensor.</strong> Each repeated value may be entirely common. Near-zero trailing variability and unusual duration expose the collective event that a level-only detector misses.</Prose>
+    <Prose><strong>Scientific sample or manufacturing-batch review.</strong> A rare specimen may be the most interesting legitimate observation in the batch. Rank it for inspection and preserve its identity and raw measurements instead of deleting it automatically.</Prose>
+    <Prose><strong>Unexpected access patterns.</strong> Session-level features can expose a new combination of ordinary actions. Repeated activity by one account calls for account-aware evaluation when the test is transfer to new accounts.</Prose>
+    <Prose>Each of those names a unit, a context, a reference and an intended response. “Remove every outlier before training” is not an adequate policy, because the unusual measurements are often the investigation’s target.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <Prose>A hypothetical detector catches 80% of faults and flags 1% of non-fault observations. Faults occur in 0.1% of 100,000 observations. The expected counts are 100 faults, of which 80 are flagged; 99,900 non-fault observations, of which 999 are flagged; 1,079 alerts in total, of which only about 7.4% correspond to faults. These are specified hypothetical rates, not a claim about any real application. A low false-positive rate still overwhelms reviewers when the non-fault population is far larger.</Prose>
+    <MathBlock>{'P(\\text{fault}\\mid\\text{alert})=\\frac{pt}{pt+(1-p)f}'}</MathBlock>
+    <Prose>for prevalence <Math>{'p'}</Math>, sensitivity <Math>{'t'}</Math> and false-positive rate <Math>{'f'}</Math>, provided the alert probability is positive. The numerator counts the fraction that are faults and flagged; the denominator counts everything flagged. If nobody is flagged, precision is undefined rather than automatically 0 or 1.</Prose>
+    <AlertPopulationLab />
+
+    <H3>Calibrate the action separately</H3>
+    <Prose>With representative reviewed calibration data you can choose a threshold from workload, costs or a labelled operating point. An unlabelled empirical score quantile controls an <strong>observed calibration alert fraction</strong>, which is not a known false-positive fraction.</Prose>
+    <ThresholdRulerFigure />
+    <Prose>Numeric contamination in Isolation Forest and LOF selects their fitted score offset. It does not discover the true fraction of faults: with every other setting fixed, changing that offset changes labels without changing the ranking at all. One-Class SVM has nu instead, and its effect is not merely a post-fit percentile.</Prose>
+    <Prose>If reliable labels exist, inspect precision–recall behaviour, recall at an affordable budget and actual counts. ROC summaries do not display alert workload by themselves, and changing only the threshold cannot improve ranking AUC because the score order is unchanged. Labels obtained only for reviewed top-ranked items tell you nothing about recall among everything never reviewed.</Prose>
+    <Prose>For incidents, say whether the evaluation counts <strong>rows or events</strong>. Consecutive positives from one physical incident are not independent successful detections. State the alert grouping, the event matching and the latency definition before reporting a number.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Let phi be the feature map and n the number of reference observations. The normalised primal problem is</Prose>
+    <MathBlock>{'\\min_{w,\\rho,\\xi}\\;\\frac12\\|w\\|^2+\\frac1{\\nu n}\\sum_{i=1}^n\\xi_i-\\rho'}</MathBlock>
+    <Prose>subject to <Math>{'\\langle w,\\phi(x_i)\\rangle\\ge\\rho-\\xi_i'}</Math>, <Math>{'\\xi_i\\ge0'}</Math> and <Math>{'0<\\nu\\le1'}</Math>. The term <Math>{'-\\rho'}</Math> rewards moving the separating level away from the origin, the norm restrains <Math>{'w'}</Math>, and slack lets a reference observation sit below the level at a cost. This is the origin-separating formulation; a support-vector enclosing-sphere formulation is related but should not be conflated with it without stating the equivalence conditions.</Prose>
+    <Prose>Introduce non-negative multipliers alpha for the first constraints and beta for the non-negative slack. Stationarity of the Lagrangian gives <Math>{'w=\\sum_i\\alpha_i\\phi(x_i)'}</Math>, <Math>{'\\sum_i\\alpha_i=1'}</Math> and <Math>{'\\alpha_i+\\beta_i=1/(\\nu n)'}</Math>. Substituting yields</Prose>
+    <MathBlock>{'\\begin{gathered}\\min_\\alpha\\;\\frac12\\sum_{i,j}\\alpha_i\\alpha_jK(x_i,x_j),\\\\ 0\\le\\alpha_i\\le\\frac1{\\nu n},\\qquad\\sum_i\\alpha_i=1.\\end{gathered}'}</MathBlock>
+    <Prose>A positive-semidefinite kernel makes this a convex quadratic problem. In the two-reference example, symmetry and minimising this quadratic give equal weights, and the cap <Math>{'1/(\\nu n)=1'}</Math> allows them.</Prose>
+    <Prose>The standard nu property is stated for an exact solution with non-zero rho. A <strong>strict margin violator</strong> has positive slack, which forces its multiplier to the cap. With <Math>{'m'}</Math> such observations, <Math>{'m/(\\nu n)\\le\\sum_i\\alpha_i=1'}</Math>, so <Math>{'m\\le\\nu n'}</Math>. And if <Math>{'s'}</Math> support vectors each contribute at most <Math>{'1/(\\nu n)'}</Math> to a sum of 1, then <Math>{'1\\le s/(\\nu n)'}</Math>, so <Math>{'s\\ge\\nu n'}</Math>. Both statements concern strict training violations and non-zero multipliers, never unseen labels. A point exactly on the boundary is not a strict violator, and approximate software results with tiny signed decisions near zero are not exact evidence about the theorem.</Prose>
+    <Prose>A free support vector, with <Math>{'0<\\alpha_i<1/(\\nu n)'}</Math>, gives <Math>{'\\rho=\\sum_j\\alpha_jK(x_j,x_i)'}</Math> by complementary slackness. With no free support vector, use appropriate offset bounds instead of that convenient equality. Library coefficient normalisations can differ from the paper’s formulation, so account for them before comparing multiplier values.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <Prose>We now use the supplied <a href="/learn-assets/anomaly-detection/machine_temperature_system_failure.csv" download>machine_temperature_system_failure.csv</a> from the Numenta Anomaly Benchmark. It records the temperature of an industrial machine’s internal component. The source describes a planned shutdown and later failure-related behaviour, and the supplied <a href="/learn-assets/anomaly-detection/nab-event-windows.json" download>annotations</a> contain <strong>four time windows</strong>. They are not verified fault labels for every row, and there is no documented one-to-one mapping between the windows and that prose description.</Prose>
+    <Prose>Both files are pinned to an upstream commit and supplied offline under the benchmark’s <a href="/learn-assets/anomaly-detection/NAB-LICENSE.txt" download>MIT license</a>; the references give the exact commit. The source does not state temperature units or a timestamp timezone, so we use the recorded units and the timestamps as supplied.</Prose>
+
+    <H3>Inspect the stream before fitting</H3>
+    <Prose>There are 22,695 raw rows and 22,683 unique timestamps: twelve extra rows share a timestamp with another row. We explicitly average measurements at the same timestamp, which is a chosen measurement policy rather than a silent deletion. For a level <Math>{'v_t'}</Math> we then form <Math>{'x_t=[v_t,\\;v_t-v_{t-1\\mathrm{h}}]'}</Math>.</Prose>
+    <Prose>The second feature looks up the exact timestamp one hour earlier. It does not assume that twelve rows earlier always means one hour. Rows without that earlier measurement are excluded, twelve of them here, and nothing is interpolated or filled from a future value. The result is causal once the current timestamp’s measurements are available. If duplicate records can arrive late, a deployment needs a closing delay or a revision policy; retrospective aggregation does not establish zero-latency operation.</Prose>
+    <LessonTable caption="Each period supplies exactly one thing, and 22,671 feature rows remain" headers={['role', 'time interval', 'feature rows']} rows={[
+      ['Fit the reference and the scaler', 'Before 6 December 2013', '885'],
+      ['Calibrate the threshold', '6 December through before 10 December', '1,152'],
+      ['Inspect later performance', 'From 10 December onward', '20,634']
+    ]} />
+    <Prose>The early reference is an operating assumption. Having no published annotation window in that period does not certify it as fault-free. Fit the scaler there alone and freeze its means and scales for every later period.</Prose>
+
+    <H3>Give a simple baseline the same opportunity</H3>
+    <Prose>The baseline scores absolute level deviation from the reference median, divided by the reference median absolute deviation:</Prose>
+    <MathBlock>{'\\begin{gathered}A_{\\mathrm{base}}(v)=\\frac{|v-m|}{s},\\\\ m=\\operatorname{median}(v_{\\mathrm{fit}}),\\\\ s=\\operatorname{median}(|v_{\\mathrm{fit}}-m|).\\end{gathered}'}</MathBlock>
+    <Prose>Here the reference median <Math>{'m'}</Math> is about 81.8620 and the reference deviation <Math>{'s'}</Math> about 4.42426, in recorded temperature units. We use the raw deviation without a normal-consistency multiplier. A zero denominator would need another declared scale or a constant-reference policy; this dataset’s is positive.</Prose>
+    <Prose>Keep one difference visible: the baseline sees the level only, while the learned detectors see level and one-hour change. This is therefore not an algorithm comparison on identical features. All three learned detectors share the reference rows and the scaler, and their settings are fixed in advance: 100 isolation trees with subsample 256 and seed 17; an RBF One-Class SVM with gamma 0.5 and nu 0.05; novelty LOF with 20 neighbours. We compare two predeclared calibration quantiles, 0.95 and 0.99, and do not pick a winner using the test annotations.</Prose>
+    <Checkpoint prompt="The 0.99 calibration quantile leaves 11 alerts among the 1,152 calibration rows. Does about 1% of the 20,634 later rows follow?">
+      <Prose>No. The quantile fixes a <em>score</em>, and the later rows are a different population whose score distribution can move. Below, that same 0.99 threshold produces 1,548 later alerts for Isolation Forest, about 7.5% of the period, and 9,232 for One-Class SVM, about 45%. An empirical calibration percentile controls the calibration alert fraction and nothing else.</Prose>
+    </Checkpoint>
+
+    <H3>The complete offline analysis</H3>
+    <Prose>Save this program beside the supplied CSV and JSON. It needs NumPy, pandas and scikit-learn, and it downloads nothing. The author calculations used Python 3.12.14, NumPy 2.3.5, pandas 3.0.1 and scikit-learn 1.9.1; later releases may need an API and output check.</Prose>
+    <Program example={anomalyExamples.temperature}>
+      <Prose>The test period holds 2,268 rows inside windows and 18,366 outside. Every method alerts in all four windows, and yet the workload differs by an order of magnitude.</Prose>
+    </Program>
+    <Prose><strong>Outside-window alerts are unmatched workload, not verified false positives.</strong> Inside-window rows are not individually confirmed faults either. We have not run the benchmark’s official scoring, identified precise fault onsets or carried out a prospective early-warning study. An alert at a window’s beginning is early relative to an annotation boundary; it is not proof of prediction before failure.</Prose>
+    <TemperatureThresholdLab />
+    <Prose>Investigate the representation and the stability of the reference rather than tuning until the complex detector beats the baseline. Documented load or operating mode would help if it existed; we cannot invent variables the dataset never recorded. A sound next study compares the level-only and level-plus-change representations on a separate validation period, locks the choice, and only then evaluates a final future period.</Prose>
+
+    <H2>{headings[10]}</H2>
+    <H3>When does local regularity keep LOF near 1?</H3>
+    <Prose>Suppose every reachability distance needed for a point <strong>and for its neighbours’ density calculations</strong> lies between positive <Math>{'a'}</Math> and <Math>{'b'}</Math>. Then each average reach lies in <Math>{'[a,b]'}</Math>, each local density in <Math>{'[1/b,1/a]'}</Math> and each ratio in <Math>{'[a/b,b/a]'}</Math>. Averaging preserves the bounds, so <Math>{'a/b\\le\\operatorname{LOF}\\le b/a'}</Math>. When <Math>{'a'}</Math> and <Math>{'b'}</Math> are close, the interval stays near 1. The assumption covers the neighbours’ own neighbourhoods too, so checking only the query’s distances is not enough. It explains local regularity; it does not supply a universal alert threshold.</Prose>
+    <H3>What grows with reference size?</H3>
+    <Prose>For T isolation trees with capped subsample size psi, the original average-case account is roughly <Math>{'T\\psi\\log\\psi'}</Math> for construction and <Math>{'nT\\log\\psi'}</Math> for scoring n rows, with feature processing and tree shape contributing as well. Reading a massive dataset still costs work: a fixed subsample does not make the whole application independent of its input size.</Prose>
+    <Prose>LOF needs neighbourhoods and local density statistics, and a brute-force distance matrix uses quadratic storage. Search indexes help in favourable dimensions, while high-dimensional distances can make both the search and the interpretation difficult. Approximate neighbours change the scores and require a declared tradeoff.</Prose>
+    <Prose>Kernel One-Class SVM can require substantial pairwise-kernel work and storage. Its practical limit depends on the data, the solver and the kernel, not on a universal row cutoff. Kernel approximations combined with a suitable linear one-class learner are a different computation and should be evaluated rather than advertised as identical.</Prose>
+    <H3>Updating a reference changes the question</H3>
+    <Prose>Frozen novelty LOF does not learn from each new batch, and neither does a fitted One-Class SVM or an ordinary Isolation Forest. Changed equipment behaviour can make a former reference unsuitable, so state when a new reference is allowed, which reviewed observations may enter it, and how old incidents are protected from being normalised away. Compare distributions and workload over time, but remember that stable scores alone do not prove stable fault detection. Keep model, scaler and threshold versions together, and let rolling updates use only information available by that time: hindsight selection of a clean-looking reference leaks future knowledge.</Prose>
+
+    <H2>{headings[11]}</H2>
+    <Prose>Each task changes the worked example. Try the question before opening its hint or its solution, and round only at the final step.</Prose>
+    <Practice title="A. A different isolation gap" question="Reference values are 0, 2, 3, 4, 10, and a first cut is uniform between the minimum and the maximum. What is the probability of immediately isolating 10? What is it for 0? Does the larger probability establish that 10 is faulty?" hint="Find the intervals that produce a singleton, then divide their lengths by the full span.">
+      <Prose>Cuts in (4, 10) isolate 10, giving 6/10 = 0.6. Cuts in (0, 2) isolate 0, giving 2/10 = 0.2. Landing exactly on a value has probability zero in this continuous construction. The result is a geometric separation advantage, not a fault label. Set these five positions in the isolation lab to see both intervals.</Prose>
+    </Practice>
+    <Practice title="B. Finish a truncated path" question="A depth-capped tree was fitted on four rows. A query reaches depth 2 in a leaf holding two reference rows. Compute its corrected path and normalised score. What goes wrong if the denominator uses a requested max_samples of 256?" hint="c(2) = 1 and c(4) = 13/6. The denominator describes the sample actually fitted. The state is reachable: successive splits can leave 3 and then 2 rows on the query’s path.">
+      <Prose>The path is 2 + 1 = 3, so the single-tree normalised score is <Math>{'2^{-3/(13/6)}=2^{-18/13}\\approx0.3830'}</Math>. Using c(256) compares this four-row tree with a far larger reference construction and inflates the score. This is a supplied terminal state, not a claim that one tree gives a reliable forest estimate. The isolation lab always holds five positions, so it cannot build this four-row tree; the arithmetic here is the whole exercise.</Prose>
+    </Practice>
+    <Practice title="C. Change the local reach calculation" question="A query’s three neighbours are at distances 0.4, 0.6 and 1.0. Their kth-neighbour radii are 0.3, 0.8 and 0.5, and their reference local densities are 1, 2 and 1.5. Find the query’s density and its factor. Then multiply every distance and radius by 10, preserving the geometry. What happens to the densities and to the factor?" hint="Apply each maximum first. Take the reciprocal of the average reach, not the average of the reciprocals.">
+      <Prose>The reaches are 0.4, 0.8 and 1.0, with mean 11/15, so the query density is 15/11. The mean neighbour density is 1.5, so the factor is 1.5/(15/11) = 1.1. A common positive scale factor of 10 divides every density, the reference densities included, by 10, so the ratio stays 1.1. Rescaling only one coordinate of multidimensional data need not preserve the geometry, and then nothing is guaranteed.</Prose>
+    </Practice>
+    <Practice title="D. Diagnose the invalid comparison" question="A novelty LOF model is fitted on reviewed references. You compare the negated score_samples on those references with the negated negative_outlier_factor_, expecting equality, and they differ. Is that necessarily a bug? How should you compare training and later observations?" hint="Draw the neighbours of a new query that sits exactly on a training coordinate.">
+      <Prose>It is not a bug. Query scoring may include the coordinate-matching reference row, whereas training LOF excludes its own identity: two different neighbourhood contracts. Use the training factors as an in-sample diagnostic and query scores on a separate later calibration or test set. Do not pool them as though they were the same held-out measurement. The fitting-mode lab reproduces both numbers side by side.</Prose>
+    </Practice>
+    <Practice title="E. Widen the reference anchors" question="Move the One-Class SVM anchors to −2 and +2, keep nu = 1/2 and set gamma = 0.25. Derive the midpoint decision and compare it with anchors −1 and +1 at gamma = 1. Why do they agree?" hint="The squared separation is now 16 and the squared midpoint distance is 4.">
+      <Prose>Equal weights still apply, so rho is <Math>{'(1+e^{-16\\gamma})/2=(1+e^{-4})/2'}</Math>. The midpoint sum is <Math>{'e^{-4\\gamma}=e^{-1}'}</Math>, so <Math>{'g(0)\\approx-0.141278'}</Math>, the same value as before. Doubling the distances and dividing gamma by four preserves every RBF exponent. Units and gamma have to be considered together, which is why gamma copied from another dataset means nothing on its own.</Prose>
+    </Practice>
+    <Practice title="F. A team with 200 review slots" question="There are 50,000 observations, fault prevalence 0.2%, sensitivity 90% and false-positive rate 0.5%. Compute the expected alerts and the precision. Is a 200-review budget sufficient? Does reviewing only the top 200 preserve 90% sensitivity?" hint="Count the fault and non-fault populations separately.">
+      <Prose>There are 100 faults, giving 90 true alerts, and of 49,900 non-fault observations 249.5 are expected to be flagged. The expected total is 339.5 alerts with precision 90/339.5 ≈ 26.51%. A fractional expected count describes an average, not a fractional record. The budget is insufficient, and raising the threshold or taking the top 200 changes the operating point, so the old sensitivity cannot be carried over. Enter these four numbers in the review-queue lab to see the population diagram.</Prose>
+    </Practice>
+    <Practice title="G. Training bound or test promise?" question="An exact One-Class SVM solution has n = 80, nu = 0.15 and non-zero rho. Give the strict training violation bound and the support-vector bound. Does it guarantee at most 12 false alerts in the next 80 observations?" hint="Each multiplier is at most 1/12 and they sum to 1.">
+      <Prose>At most 12 strict training violators and at least 12 support vectors. No future false-alert bound follows: the future population can differ, boundary points are a separate case, and the theorem contains no future fault labels at all.</Prose>
+    </Practice>
+    <Practice title="H. Write an honest temperature recommendation" question="Use the 0.99 rows of the real-data table. Which method has the smallest unmatched row workload, and how much larger is the One-Class SVM workload? Why is that insufficient to establish the best fault detector? Write five sentences including a next experiment." hint="Use the same 18,366 outside-window rows, preserve the annotation limits and remember the different feature sets.">
+      <Prose>The baseline has 445 unmatched alerts and One-Class SVM has 7,913, about 17.78 times as many. A suitable report reads: “Under the fixed reference period and the 0.99 calibration quantile, all methods alerted in all four published windows. The level-only baseline had 445 outside-window row alerts, against 577 for Isolation Forest, 7,913 for One-Class SVM and 6,699 for novelty LOF. These are not verified false positives, and four-window coverage does not measure onset or alert usefulness. The baseline uses level while the learned detectors use level plus one-hour change. I would compare matched representations on an additional validation period, investigate operating-regime change, and reserve a later period for a locked final comparison.”</Prose>
+    </Practice>
+    <Practice title="I. An event metric can hide repeated work" question="Two non-overlapping event windows cover rows 3–5 and 9–11. Detector A alerts at 3, 4, 5, 9, 10 and 11; detector B alerts at 3, 9 and 12. Find the window hits, the row alerts and the outside-window alerts. Which has the higher event recall under this definition? Can you infer pointwise fault precision?" hint="Extra alerts inside one window do not create new events.">
+      <Prose>Both hit 2 of 2 windows. A has six row alerts and none outside; B has three row alerts and one outside. Window-hit recall ties while the workload differs by a factor of two. Window annotations do not identify which individual rows were faulty, so pointwise fault precision is undetermined for either detector.</Prose>
+    </Practice>
+    <Practice title="J. Make a stuck sensor visible" question="A healthy sensor often reports near 40; a stuck sensor reports exactly 40 for three hours. A level-only detector gives ordinary scores throughout. Propose a causal feature and a comparison. Name a legitimate state that could resemble the episode." hint="The unusual property belongs to the sequence, not to any single value.">
+      <Prose>Use trailing variability, or elapsed duration since the last change, computed from the current and earlier readings only. Compare it with reviewed durations under the same operating mode, taking measurement resolution into account. A controlled constant process, quantisation or a scheduled idle state can be equally flat. The feature makes the pattern visible; it does not establish its cause.</Prose>
+    </Practice>
+
+    <H2>{headings[12]}</H2>
+    <Prose>You can now trace a score back to paths through random cuts, to ratios of local reachability densities, or to a kernel compatibility boundary. More importantly, you can keep those scores separate from thresholds, review workload and annotated events, and say out loud which period supplied which decision.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Integrate first-cut intervals and correct a truncated path', 'Section 3, isolation lab, practices A and B'],
+      ['Say whose radius sets each floor and why a farther query can score lower', 'Section 4, neighbourhood lab, practice C'],
+      ['Explain why a training factor and a new-query score differ at one coordinate', 'Section 5, fitting-mode lab, practice D'],
+      ['Put a midpoint outside a region whose anchors are on its boundary', 'Sections 6 and 9, kernel lab, practices E and G'],
+      ['Turn prevalence and two rates into a review queue and an honest precision', 'Section 8, review-queue lab, practice F'],
+      ['Choose a threshold on real data and report its unmatched workload', 'Section 10, temperature lab, practices H and I']
+    ]} />
+    <Prose>The next topic, <a href="/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml">Gaussian Mixture Models &amp; the EM Algorithm</a>, introduces a learned probability density and soft component responsibilities. They answer a different question: a point far from every component can still prefer one component strongly relative to the others while receiving very little total density. Turning even a valid density into an alert still needs a reference population, a representation and a decision policy.</Prose>
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://webcast.in2p3.fr/video/anomaly_detection_algorithms_in_scikitlearn">Nicolas Goix, “Anomaly detection algorithms in scikit-learn”, recorded talk</a> with its <a href="https://ngoix.github.io/nicolas_goix_osi_presentation.pdf">companion slides</a> — a short visual alternative for the fitting modes and random isolation, best after sections 2 to 5. The 15-slide companion was read and the recording page checked; the recording was not watched in full. It is a 2015 resource for intuition, so use current APIs rather than copying its historical code.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/neighbors/plot_lof_novelty_detection.html">The scikit-learn LOF novelty example</a> — another worked frozen-reference and later-query view, useful immediately after section 5.</li>
+    </ul></>}>
+      <li><a href="https://arindam.cs.illinois.edu/papers/09/anomaly.pdf">Chandola, Banerjee and Kumar, “Anomaly Detection: A Survey”</a> — the canonical map. Begin with section 2 for data, anomaly types, labels and outputs; its classification, nearest-neighbour and clustering sections place these three mechanisms among the other families. The authoring review inspected the taxonomy and the relevant passages, not every derivation.</li>
+      <li><a href="https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf">Liu, Ting and Zhou, “Isolation Forest”</a> — read tree construction and path normalisation in section 2, the swamping and masking discussion in section 3, then subsampling and the height limit in section 4.1. Its experiments motivate the choices rather than guaranteeing a universally optimal setting.</li>
+      <li><a href="https://sigmodrecord.org/publications/sigmodRecord/0006/pdfs/LOF_%20Identifying%20Density-Based%20Local%20Outliers.pdf">Breunig, Kriegel, Ng and Sander, “LOF: Identifying Density-Based Local Outliers”</a> — sections 4 and 5 define reachability, tied neighbourhoods and the local bounds used in section 11. Compare their possibly larger tied neighbourhoods with our explicitly fixed-k calculation.</li>
+      <li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-99-87.pdf">Schölkopf, Platt, Shawe-Taylor, Smola and Williamson, “Estimating the Support of a High-Dimensional Distribution”</a> — the primal and dual development and the nu-property proof explain the training-bound conditions. Best read after section 9 rather than as a first introduction to kernels.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/outlier_detection.html">The scikit-learn outlier and novelty guide</a> with the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html">IsolationForest</a>, <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html">OneClassSVM</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.LocalOutlierFactor.html">LocalOutlierFactor</a> API pages — method availability, score orientation and parameter behaviour, reviewed for release 1.9.1. Recheck the version before reproducing an API-dependent detail.</li>
+      <li><a href="https://github.com/numenta/NAB/blob/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/data/README.md">The NAB data descriptions</a>, the <a href="https://github.com/numenta/NAB/blob/ea702d75cc2258d9d7dd35ca8e5e2539d71f3140/labels/combined_windows.json">pinned annotation windows</a> at commit ea702d7 and the <a href="https://github.com/numenta/NAB/issues/376">duplicate-timestamp report</a> — the provenance and preprocessing behind section 10. The CSV, the window JSON and the MIT notice are supplied offline with this page.</li>
+    </Sources>
+    <Prose>The five positions, the two spaced groups, the two kernel anchors and the review-queue rates are constructed fixtures with declared values. The temperature results are calculations on the identified real dataset under the stated split, settings and quantiles. None of them is a benchmark, a fault label or a claim about any future dataset.</Prose>
+  </div>
 };
 
 export default anomalyDetectionContent;

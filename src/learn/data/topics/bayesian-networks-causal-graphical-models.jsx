@@ -1,1019 +1,1042 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  EvidenceLab, InterventionLab, MeasurementLab, PathLab,
+} from '../../components/lesson-labs/BayesNetLabs.jsx';
+import {
+  CounterfactualFigure, EliminationGeometryFigure, EquivalenceFigure, FactorWorkbenchFigure,
+  FrontdoorFigure, MeasuredContrastFigure, WorldAssemblyFigure, measuredContrast,
+} from '../../components/lesson-labs/BayesNetFigures.jsx';
+import { bayesnetExamples } from '../bayesnet-examples.js';
+import { conditionalInformation, protocol, provenance, scores, trainingModels } from '../bayesnet-data.js';
+import {
+  alarmNetwork, backdoorCriterion, counterfactualOfUnit, counterfactualPair, dSeparation, eliminationRun,
+  fixtures, freeParameters, frontdoorConditions, frontdoorModel, jointProbability, markovBlanket,
+  queryFamilies, queryPosterior, serviceModel, withCallerRow,
+} from '../bayesnet-models.js';
+
+/** Print a computed number with a typographic minus sign and no float dust. */
+const num = value => String(Number(value.toFixed(9))).replace('-', '−');
+/* `Math` in this module is the KaTeX component imported above, not the global
+   object: writing `Math.round` here resolves to that component and silently
+   yields `undefined` rather than a number. Anything that would reach for the
+   global `Math` gets an explicit, shadow-proof helper instead. */
+const whole = value => Number(value.toFixed(0));
+/** A percentage in prose, at the precision the sentence around it claims.
+ *  `num` rounds to nine DECIMALS, which on a percentage is nine to eleven
+ *  significant figures -- "about 28.417183536%" after the word "about". */
+const percent = (value, digits = 2) => String(Number((100 * value).toFixed(digits)));
+
+const assembled = jointProbability(alarmNetwork, fixtures.assembledWorld);
+const posteriors = fixtures.publishedEvidence.map(entry => ({
+  ...entry, ...queryPosterior(alarmNetwork, entry.evidence),
+}));
+const bothCalls = posteriors.find(entry => entry.label === 'John and Mary call');
+const alarmKnown = posteriors.find(entry => entry.label === 'Alarm definitely sounds');
+const alarmAndJohn = posteriors.find(entry => entry.label === 'Alarm sounds; John calls');
+const withEarthquake = posteriors.find(entry => entry.label === 'Alarm sounds; earthquake occurs');
+const johnOnly = posteriors.find(entry => entry.label === 'John calls');
+
+const elimination = eliminationRun(alarmNetwork, fixtures.eliminationEvidence, fixtures.eliminationOrder);
+const earthquakeStep = elimination.steps.find(step => step.variable === 'E');
+const alarmParameters = freeParameters(fixtures.alarmParameters);
+const practiceParameters = freeParameters(fixtures.practiceParameters);
+const naiveParameters = freeParameters(fixtures.naiveBayesParameters);
+const treeParameters = freeParameters(fixtures.treeAugmentedParameters);
+
+const blanket = markovBlanket(fixtures.alarmEdges, 'B');
+const colliderClosed = dSeparation(fixtures.alarmEdges, 'B', 'E', []);
+const colliderOpen = dSeparation(fixtures.alarmEdges, 'B', 'E', ['A']);
+const colliderByDescendant = dSeparation(fixtures.alarmEdges, 'B', 'E', ['J']);
+
+const educationSets = fixtures.educationCandidateSets.map(set => ({
+  set, ...backdoorCriterion(fixtures.educationEdges, 'T', 'Y', set),
+}));
+const educationWithDirect = fixtures.educationCandidateSets.slice(1).map(set => ({
+  set, ...backdoorCriterion(fixtures.educationWithDirectEffect, 'T', 'Y', set),
+}));
+const soleBackdoorPath = educationSets[0].backdoorPaths[0];
+
+const service = serviceModel(fixtures.service);
+const randomised = serviceModel(fixtures.serviceRandomised);
+const changedResponse = serviceModel(fixtures.serviceChangedResponse);
+const noOverlap = serviceModel(fixtures.serviceNoOverlap);
+const servicedHighLoad = service.lanes[1].observedShares[1];
+
+const frontdoor = frontdoorModel();
+const frontdoorOk = frontdoorConditions(fixtures.frontdoorEdges, 'X', 'M', 'Y');
+const frontdoorLatentMediator = frontdoorConditions(fixtures.frontdoorWithLatentMediator, 'X', 'M', 'Y');
+const frontdoorDirect = frontdoorConditions(fixtures.frontdoorWithDirectEffect, 'X', 'M', 'Y');
+
+const counterfactuals = counterfactualPair();
+const observedUnit = counterfactualOfUnit(
+  fixtures.counterfactualObservation.treatment,
+  fixtures.counterfactualObservation.outcome,
+  fixtures.counterfactualObservation.changedTreatment);
+const practiceUnit = counterfactualOfUnit(
+  fixtures.practiceCounterfactualObservation.treatment,
+  fixtures.practiceCounterfactualObservation.outcome,
+  fixtures.practiceCounterfactualObservation.changedTreatment);
+
+const mapQuery = queryFamilies(fixtures.queryMasses);
+const practiceMap = queryFamilies(fixtures.practiceQueryMasses);
+
+const uninformativeMary = queryPosterior(
+  withCallerRow(withCallerRow(alarmNetwork, 'M', 0, fixtures.uninformativeCallRow), 'M', 1, fixtures.uninformativeCallRow),
+  { J: 1, M: 1 });
+const uninformativeMaryAlone = queryPosterior(
+  withCallerRow(withCallerRow(alarmNetwork, 'M', 0, fixtures.uninformativeCallRow), 'M', 1, fixtures.uninformativeCallRow),
+  { M: 1 });
+
+const contrast = measuredContrast();
+const treeParentNames = trainingModels.treeAugmented.parents
+  .map((parent, index) => (parent === null ? null : `${protocol.featureLabels[index]} ← ${protocol.featureLabels[parent]}`))
+  .filter(Boolean);
+const strongestPair = conditionalInformation.reduce((best, entry) =>
+  (entry.informationNats > best.informationNats ? entry : best));
+const retainedFraction = bothCalls.evidenceProbability;
+
+const headings = [
+  '1. One world is a product of local choices',
+  '2. Infer a cause by adding the worlds that fit',
+  '3. Reuse the arithmetic with variable elimination',
+  '4. Read independence off the paths',
+  '5. Learn the tables, then question a real specimen',
+  '6. Changing a mechanism is not selecting evidence',
+  '7. Deeper: identify an effect, then ask whose counterfactual it is',
+  '8. Deeper: larger networks, structure search and the alternatives',
+  '9. Practice: explain the changed case before calculating',
+  '10. What you can now do, and where it goes next',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section>
+    <Prose><strong>Before running:</strong> {example.question}</Prose>
+    <RunnableExample example={example}>{children}</RunnableExample>
+  </section>;
+}
+
+function Practice({ title, question, hint, revealLabel = 'Show the explained solution', children }) {
+  return <section className="bn-practice">
+    <H3>{title}</H3>
+    <Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>{revealLabel}</summary>{children}</details>
+  </section>;
+}
 
 const bayesianNetworksContent = {
-  title: "Bayesian Networks & Causal Graphical Models",
-  readTime: "~55 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In 1988, Judea Pearl published <em>Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference</em> with Morgan Kaufmann. The book arrived at a peculiar moment in AI. Expert systems — rule-based programs encoding human knowledge as if-then chains — had been the dominant paradigm for a decade, but they were brittle. They could not handle partial information, contradictory evidence, or the simple fact that real knowledge is probabilistic, not binary. Pearl's book proposed a clean alternative: represent knowledge as a directed acyclic graph (DAG) in which nodes are random variables and edges encode direct probabilistic dependencies. The joint distribution over all variables factorizes into local conditional probability tables, one per node. Inference — computing what is probably true given what is observed — can be done exactly using message-passing algorithms that exploit the graph structure. The framework had a name: Bayesian networks, or belief networks.
-      </Prose>
-
-      <Prose>
-        Pearl's contribution was not just theoretical elegance. He gave a complete computational framework. The year after Pearl's book, David Spiegelhalter and colleagues built HUGIN, a working Bayesian network engine for medical diagnosis. In 1993, Spiegelhalter, Dawid, Lauritzen, and Cowell published "Bayesian Analysis in Expert Systems" in <em>Statistical Science</em>, volume 8, issue 3, laying out the junction-tree algorithm — the canonical exact inference procedure still in use today. Independently, Lauritzen and Spiegelhalter had published the original junction-tree paper in 1988 in the <em>Journal of the Royal Statistical Society Series B</em>. By 1993, Bayesian networks had been deployed in production medical decision-support systems at hospitals in Europe and the United States. They were not academic curiosities — they were working technology.
-      </Prose>
-
-      <Prose>
-        The medical diagnosis application is still the clearest demonstration of the framework's value. Consider diagnosing pneumonia. The patient reports a cough (observed), has a fever (observed), and you want to know the probability of pneumonia (hidden) and whether it might be bacterial (another hidden cause that matters for antibiotic choice). The relevant variables — smoking history, immune status, recent travel, lab results — are connected by known causal mechanisms. A Bayesian network encodes those mechanisms explicitly. When the lab result comes back, the posterior over diagnoses updates automatically via Bayes' rule. When the treatment decision changes (intervention), the model handles the distinction between "the patient has a cough" and "the patient was given a drug that causes coughing" — a distinction that simple correlation cannot make.
-      </Prose>
-
-      <Prose>
-        That last distinction — observing versus intervening — is the central insight of Pearl's second major work, <em>Causality: Models, Reasoning and Inference</em>, first published by Cambridge University Press in 2000 and updated in a second edition in 2009. Pearl showed that the graph structure of a Bayesian network is not just a computational convenience; it encodes causal mechanisms. Two distributions can be observationally identical — all their marginals and conditionals match — yet behave completely differently under intervention. To compute the effect of an intervention, you need the causal graph. The do-calculus, Pearl's three-rule algebra for reasoning about interventions, gives a complete procedure for identifying causal effects from observational data whenever the causal graph is known. The popularization of these ideas appeared in Pearl and Mackenzie's 2018 <em>The Book of Why: The New Science of Cause and Effect</em>, published by Basic Books, which brought causal reasoning to a general scientific audience.
-      </Prose>
-
-      <Prose>
-        The application landscape of Bayesian networks is broad and has grown over decades. In genomics, BNs model regulatory networks — gene A activates gene B which suppresses gene C — and structure learning from expression data is an active research area. In reliability engineering, fault trees (a special case of BNs) compute the probability of system failure from component failure rates. In natural language processing, early parsing models used BNs over syntactic structures. In finance, BNs model credit risk, where the default of one counterparty propagates risk to others through the graph of exposures. The unifying thread: any domain where uncertainty is structured, where variables have known or learnable causal dependencies, and where you need to reason about interventions or counterfactuals is a domain where Bayesian networks add precision that purely statistical models cannot provide.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        A Bayesian network is a directed acyclic graph (DAG) where every node is a random variable and every edge points from a cause to an effect — or more precisely, from a variable that directly influences the conditional distribution of the variable it points to. The power of the structure lies in what it tells you about independence: most pairs of variables in a large system are conditionally independent given the right set of observations. The graph encodes exactly which pairs are independent and which are not, and it does so without you having to specify a full joint distribution over all variables simultaneously.
-      </Prose>
-
-      <Prose>
-        The mental model: a burglar alarm in a house can be triggered by either a burglary or a small earthquake. John and Mary, who live nearby, sometimes call you when they hear an alarm. This is the classic example from Russell and Norvig's <em>Artificial Intelligence: A Modern Approach</em>, built on Pearl's original formulation. Draw the DAG: Burglary points to Alarm, Earthquake points to Alarm, Alarm points to JohnCalls, Alarm points to MaryCalls. Each node gets a conditional probability table (CPT): P(Alarm | Burglary, Earthquake), P(JohnCalls | Alarm), and so on. The joint distribution over all five variables is:
-      </Prose>
-
-      <MathBlock>
-        {"P(B, E, A, J, M) = P(B) \\cdot P(E) \\cdot P(A \\mid B, E) \\cdot P(J \\mid A) \\cdot P(M \\mid A)"}
-      </MathBlock>
-
-      <Prose>
-        Five variables, but the full joint has been decomposed into five small tables whose sizes are proportional to each variable's number of parents, not to the total number of variables. If each variable is binary, the naive joint would have <Code>{"2^5 = 32"}</Code> entries. The factorized representation has <Code>{"2 + 2 + 8 + 4 + 4 = 20"}</Code> entries (respecting the CPT structure). For larger networks, this compression is enormous.
-      </Prose>
-
-      <Prose>
-        The key structural concept is <strong>d-separation</strong>, which tells you when two variables are conditionally independent given a set of observed variables Z. There are three types of connections to check on any undirected path between two nodes:
-      </Prose>
-
-      <Prose>
-        <strong>Chain</strong> <Code>{"A -> B -> C"}</Code>: information flows through B. If B is observed, the path is blocked — A and C become conditionally independent given B. Intuition: knowing the intermediate cause B makes the upstream cause A irrelevant for predicting the downstream effect C.
-      </Prose>
-
-      <Prose>
-        <strong>Fork</strong> <Code>{"A <- B -> C"}</Code>: B is a common cause. If B is observed, the path is blocked — A and C become conditionally independent given their common cause. Intuition: once you know the temperature (B), a hot coffee (A) and ice cream sales (C) are independent.
-      </Prose>
-
-      <Prose>
-        <strong>Collider</strong> <Code>{"A -> B <- C"}</Code>: B is a common effect. If B is <em>not</em> observed, the path is blocked — A and C are marginally independent. But if B <em>is</em> observed, the path opens — A and C become conditionally <em>dependent</em>. This is the explaining-away phenomenon: if the alarm rang (B observed), then knowing John called (J observed) makes a burglary slightly less surprising. But knowing there was an earthquake (E observed) makes burglary less likely — the earthquake explains away the alarm. Conditioning on a collider or any of its descendants activates this counterintuitive dependency. This is the most important and most commonly misunderstood rule in probabilistic graphical models.
-      </Prose>
-
-      <Prose>
-        A causal graph adds one more layer to the probabilistic structure. Pearl's structural causal model (SCM) assigns to each node an equation {"X_i := f_i(PA_i, U_i)"} where <Code>{"PA_i"}</Code> is the set of parents and <Code>{"U_i"}</Code> is a noise term. The key operation is the <Code>{"do"}</Code>-operator: <Code>{"do(X = x)"}</Code> represents an external intervention that sets X to value x by removing all incoming edges to X and fixing it to x. The resulting mutilated graph describes the post-intervention distribution. This is different from conditioning on X = x (which propagates evidence through all paths, including back through X's parents). The difference is the gap between correlation and causation.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Joint factorization</H3>
-
-      <Prose>
-        Given a DAG <Code>G</Code> over variables <Code>{"X_1, ..., X_n"}</Code>, the Bayesian network factorization is:
-      </Prose>
-
-      <MathBlock>
-        {"P(X_1, \\ldots, X_n) = \\prod_{i=1}^{n} P(X_i \\mid \\mathrm{pa}(X_i))"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"pa(X_i)"}</Code> denotes the parent set of <Code>{"X_i"}</Code> in <Code>G</Code>. This factorization is valid (consistent with a joint distribution) if and only if the graph is a DAG — cycles would create circular dependencies that no distribution can satisfy. The factorization implies a specific set of conditional independencies: every variable <Code>{"X_i"}</Code> is conditionally independent of its non-descendants given its parents. This is the local Markov condition, and it is the property that makes inference efficient.
-      </Prose>
-
-      <H3>3.2 d-separation and the global Markov property</H3>
-
-      <Prose>
-        Two sets of variables A and B are d-separated by a set Z in a DAG if every undirected path between any node in A and any node in B is blocked by Z. A path is blocked if it contains either a non-collider that is in Z, or a collider whose descendants are all absent from Z. When A and B are d-separated by Z, they are conditionally independent given Z in any distribution that factorizes according to the graph:
-      </Prose>
-
-      <MathBlock>
-        {"A \\perp\\!\\!\\!\\perp_G B \\mid Z \\implies A \\perp\\!\\!\\!\\perp_P B \\mid Z"}
-      </MathBlock>
-
-      <Prose>
-        The converse — that all conditional independencies in P are captured by the graph — holds for faithful distributions (Markov faithfulness assumption). The practical implication: d-separation is the mechanism by which graph structure constrains inference. If you want to compute <Code>{"P(Burglary | JohnCalls)"}</Code>, you need to trace which variables are needed to block all confounding paths and which can be ignored. For the Alarm network, JohnCalls and MaryCalls are d-connected to Burglary only through Alarm; once Alarm is known, both are independent of Burglary. This is why the inference problem reduces to a manageable computation rather than a full enumeration over all variable configurations.
-      </Prose>
-
-      <H3>3.3 Exact inference: variable elimination</H3>
-
-      <Prose>
-        Variable elimination (VE) computes marginals and conditionals by successively summing out variables. To compute <Code>{"P(X_q | X_e = e)"}</Code> — the posterior over query variable <Code>{"X_q"}</Code> given observed evidence — VE proceeds in two steps. First, multiply all CPTs that mention the variables to be eliminated. Second, sum out each non-query, non-evidence variable in an elimination order. The cost depends on the size of the largest factor created during elimination, which is bounded by the treewidth of the graph. Formally, if the treewidth is <Code>w</Code>, VE runs in <Code>{"O(n \\cdot k^{w+1})"}</Code> time where <Code>k</Code> is the domain size of variables. Treewidth is a graph property: trees have treewidth 1 (linear cost), grids have treewidth proportional to their smaller dimension (manageable), and dense graphs can have exponential treewidth (exact inference intractable).
-      </Prose>
-
-      <Prose>
-        The junction tree algorithm (Lauritzen and Spiegelhalter 1988) organizes VE systematically by first triangulating the graph (adding fill edges to eliminate cycles) and then building a tree of cliques. Message passing on the junction tree computes all marginals simultaneously at cost proportional to the size of the largest clique, which is directly related to treewidth. This is the algorithm underlying most production BN inference engines.
-      </Prose>
-
-      <H3>3.4 Pearl's do-calculus</H3>
-
-      <Prose>
-        The do-calculus consists of three rules that allow transforming expressions involving interventional distributions <Code>{"P(Y | do(X))"}</Code> into purely observational quantities, when the transformation is justified by the causal graph. Let <Code>G</Code> be the causal DAG, <Code>{"G_{\\bar{X}}"}</Code> the graph with all incoming edges to X removed (the intervention graph), and <Code>{"G_{\\underline{X}}"}</Code> the graph with all outgoing edges from X removed:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Rule 1 (insertion/deletion of observations):}"}
-      </MathBlock>
-      <MathBlock>
-        {"P(Y \\mid do(X), Z, W) = P(Y \\mid do(X), W) \\text{ if } (Y \\perp\\!\\!\\!\\perp Z \\mid X, W)_{G_{\\bar{X}}}"}
-      </MathBlock>
-      <MathBlock>
-        {"\\text{Rule 2 (action/observation exchange):}"}
-      </MathBlock>
-      <MathBlock>
-        {"P(Y \\mid do(X), do(Z), W) = P(Y \\mid do(X), Z, W) \\text{ if } (Y \\perp\\!\\!\\!\\perp Z \\mid X, W)_{G_{\\bar{X}\\underline{Z}}}"}
-      </MathBlock>
-      <MathBlock>
-        {"\\text{Rule 3 (insertion/deletion of actions):}"}
-      </MathBlock>
-      <MathBlock>
-        {"P(Y \\mid do(X), do(Z), W) = P(Y \\mid do(X), W) \\text{ if } (Y \\perp\\!\\!\\!\\perp Z \\mid X, W)_{G_{\\bar{X}\\bar{Z(W)}}}"}
-      </MathBlock>
-
-      <Prose>
-        Shpitser and Pearl (2006, AAAI) proved that the do-calculus is complete: any causal quantity that can be identified from observational data can be identified using these three rules. The most practically important special case is the backdoor criterion.
-      </Prose>
-
-      <H3>3.5 Backdoor criterion and frontdoor criterion</H3>
-
-      <Prose>
-        A set Z satisfies the <strong>backdoor criterion</strong> relative to an ordered pair of variables (X, Y) in a DAG G if: (1) no node in Z is a descendant of X, and (2) Z blocks every path between X and Y that contains an arrow into X (a "backdoor path"). When Z satisfies the backdoor criterion, the causal effect of X on Y is identified by:
-      </Prose>
-
-      <MathBlock>
-        {"P(Y \\mid do(X = x)) = \\sum_z P(Y \\mid X = x, Z = z) \\cdot P(Z = z)"}
-      </MathBlock>
-
-      <Prose>
-        This is the backdoor adjustment formula. It adjusts for all confounding variables in Z, computing a weighted average of conditional outcomes across the distribution of Z. The intuition: to measure the causal effect of X on Y, you must block all non-causal paths from X to Y (paths that go through common causes). Conditioning on Z achieves this, as long as Z is measured and satisfies the criterion.
-      </Prose>
-
-      <Prose>
-        The <strong>frontdoor criterion</strong> applies when no valid backdoor set exists — for instance, when all confounders are unobserved. If there exists a set W of mediators such that: (1) all causal paths from X to Y go through W, (2) there are no unblocked backdoor paths from X to W, and (3) all backdoor paths from W to Y are blocked by X — then:
-      </Prose>
-
-      <MathBlock>
-        {"P(Y \\mid do(X)) = \\sum_w P(W = w \\mid X) \\sum_{x'} P(Y \\mid W = w, X = x') P(X = x')"}
-      </MathBlock>
-
-      <Prose>
-        Both criteria are special cases of the general identification algorithm. The structural causal model (SCM) formulation, where {"X_i := f_i(PA_i, U_i)"} with noise terms <Code>{"U_i"}</Code>, makes counterfactuals computable: "what would Y have been had X been x, given that we observed X = x' and Y = y'?" involves computing the posterior over noise terms and then evaluating the structural equations with the hypothetical intervention.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below uses NumPy only. Outputs are verbatim terminal results.
-      </Prose>
-
-      <H3>4a. Pearl's Alarm network with exact inference by enumeration</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-# -----------------------------------------------------------------------
-# Pearl's Alarm Network (Russell & Norvig AIMA canonical example)
-# Nodes: Burglary (B), Earthquake (E), Alarm (A), JohnCalls (J), MaryCalls (M)
-# DAG edges: B->A, E->A, A->J, A->M
-# -----------------------------------------------------------------------
-
-# P(B)
-P_B = {True: 0.001, False: 0.999}
-
-# P(E)
-P_E = {True: 0.002, False: 0.998}
-
-# P(A | B, E)
-P_A_given_BE = {
-    (True,  True):  {True: 0.95, False: 0.05},
-    (True,  False): {True: 0.94, False: 0.06},
-    (False, True):  {True: 0.29, False: 0.71},
-    (False, False): {True: 0.001, False: 0.999},
-}
-
-# P(J | A)
-P_J_given_A = {
-    True:  {True: 0.90, False: 0.10},
-    False: {True: 0.05, False: 0.95},
-}
-
-# P(M | A)
-P_M_given_A = {
-    True:  {True: 0.70, False: 0.30},
-    False: {True: 0.01, False: 0.99},
-}
-
-def joint_prob(B, E, A, J=True, M=True):
-    """Full joint P(B,E,A,J,M) using the factorization."""
-    return (P_B[B] * P_E[E]
-            * P_A_given_BE[(B, E)][A]
-            * P_J_given_A[A][J]
-            * P_M_given_A[A][M])
-
-# Query: P(B=T | J=T, M=T)
-# Enumerate over all (B, E, A) combinations
-num = sum(joint_prob(True, E, A)
-          for E in [True, False]
-          for A in [True, False])
-
-denom = sum(joint_prob(B, E, A)
-            for B in [True, False]
-            for E in [True, False]
-            for A in [True, False])
-
-posterior = num / denom
-print(f"P(Burglary=T | JohnCalls=T, MaryCalls=T) = {posterior:.4f}")
-# Output: P(Burglary=T | JohnCalls=T, MaryCalls=T) = 0.2842
-# Matches Russell & Norvig canonical answer of 0.2842`}
-      </CodeBlock>
-
-      <Prose>
-        The canonical answer 0.2842 is reached: a roughly 28% probability of burglary when both John and Mary call. Despite a very low prior on burglary (0.001), having both neighbors call constitutes strong evidence — the likelihood ratio is large enough to overcome the prior. This is Bayesian updating in its purest form.
-      </Prose>
-
-      <H3>4b. Variable elimination — same query, more efficiently</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-# Variable Elimination order: sum out E first, then A
-# Evidence: J=True, M=True  |  Query: B
-
-# CPTs (same as above)
-P_B = {True: 0.001, False: 0.999}
-P_E = {True: 0.002, False: 0.998}
-P_A_given_BE = {
-    (True,  True,  True):  0.95,   (True,  True,  False): 0.05,
-    (True,  False, True):  0.94,   (True,  False, False): 0.06,
-    (False, True,  True):  0.29,   (False, True,  False): 0.71,
-    (False, False, True):  0.001,  (False, False, False): 0.999,
-}
-cpt_J_T = {True: 0.90, False: 0.05}   # P(J=True | A)
-cpt_M_T = {True: 0.70, False: 0.01}   # P(M=True | A)
-
-# Step 1: sum out E -> factor over (B, A)
-factor_BA = {}
-for b in [True, False]:
-    for a in [True, False]:
-        val = sum(P_E[e] * P_A_given_BE[(b, e, a)] for e in [True, False])
-        factor_BA[(b, a)] = P_B[b] * val
-
-print("Factor (B, A) after eliminating E:")
-for k, v in factor_BA.items():
-    print(f"  B={str(k[0]):5s}, A={str(k[1]):5s}: {v:.8f}")
-# Output:
-# Factor (B, A) after eliminating E:
-#   B=True , A=True : 0.00094002
-#   B=True , A=False: 0.00005998
-#   B=False, A=True : 0.00157642
-#   B=False, A=False: 0.99742358
-
-# Step 2: multiply evidence factors and sum out A -> factor over B
-factor_B = {}
-for b in [True, False]:
-    factor_B[b] = sum(
-        factor_BA[(b, a)] * cpt_J_T[a] * cpt_M_T[a]
-        for a in [True, False]
-    )
-
-# Step 3: normalize
-Z_norm = sum(factor_B.values())
-posterior_VE = factor_B[True] / Z_norm
-print(f"\\nP(B=True | J=True, M=True) via VE = {posterior_VE:.4f}")
-# Output: P(B=True | J=True, M=True) via VE = 0.2842`}
-      </CodeBlock>
-
-      <H3>4c. d-separation checker</H3>
-
-      <CodeBlock language="python">
-{`from collections import deque
-
-def get_all_paths(start, end, parents, children):
-    """All undirected paths from start to end in the DAG."""
-    paths = []
-    stack = [(start, [start], {start})]
-    while stack:
-        node, path, visited = stack.pop()
-        if node == end:
-            paths.append(path); continue
-        for nb in list(parents.get(node, [])) + list(children.get(node, [])):
-            if nb not in visited:
-                stack.append((nb, path + [nb], visited | {nb}))
-    return paths
-
-def is_path_blocked(path, Z, children):
-    """Check if path is blocked by observed set Z."""
-    for i in range(1, len(path) - 1):
-        A, B, C = path[i-1], path[i], path[i+1]
-        into_B_from_A = (B in children.get(A, []))   # A -> B
-        into_B_from_C = (B in children.get(C, []))   # C -> B
-        is_collider = into_B_from_A and into_B_from_C
-        if is_collider:
-            if B not in Z:   # collider blocks unless observed
-                return True
-        else:
-            if B in Z:       # non-collider blocks when observed
-                return True
-    return False  # no blocking node found -> path is active
-
-def d_separated(A_node, B_node, Z, parents, children):
-    """Returns True if A_node and B_node are d-separated given Z."""
-    paths = get_all_paths(A_node, B_node, parents, children)
-    return all(is_path_blocked(p, Z, children) for p in paths)
-
-# Alarm network structure
-parents = {'B': [], 'E': [], 'A': ['B', 'E'], 'J': ['A'], 'M': ['A']}
-children = {'B': ['A'], 'E': ['A'], 'A': ['J', 'M'], 'J': [], 'M': []}
-
-# Test 1: B and E independent marginally (collider A not observed)
-r1 = d_separated('B', 'E', set(), parents, children)
-print(f"d-sep(B, E | empty) = {r1}")
-# Output: d-sep(B, E | empty) = True
-
-# Test 2: Explaining away — conditioning on A opens the B-E path
-r2 = d_separated('B', 'E', {'A'}, parents, children)
-print(f"d-sep(B, E | A)     = {r2}")
-# Output: d-sep(B, E | A)     = False
-
-# Test 3: J and M become independent when A is observed
-r3 = d_separated('J', 'M', {'A'}, parents, children)
-print(f"d-sep(J, M | A)     = {r3}")
-# Output: d-sep(J, M | A)     = True
-
-# Test 4: J and M correlated marginally through A
-r4 = d_separated('J', 'M', set(), parents, children)
-print(f"d-sep(J, M | empty) = {r4}")
-# Output: d-sep(J, M | empty) = False`}
-      </CodeBlock>
-
-      <H3>4d. Backdoor adjustment — smoking and confounding by age</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-# DAG: Age (Z) -> Smoking (X) -> Cancer (Y), Age (Z) -> Cancer (Y)
-# Z is a valid backdoor adjustment set (blocks Z -> X <- ... only path via X's back)
-# Backdoor criterion: Z blocks X <- Z -> Y (the backdoor path), Z not a descendant of X
-
-P_Z = {0: 0.5, 1: 0.5}                          # 0=young, 1=old
-
-P_X_given_Z = {
-    0: {1: 0.20, 0: 0.80},   # young: 20% smoke
-    1: {1: 0.60, 0: 0.40},   # old:   60% smoke
-}
-
-P_Y_given_XZ = {               # cancer probability
-    (1, 0): {1: 0.05, 0: 0.95},  # smokes, young
-    (1, 1): {1: 0.20, 0: 0.80},  # smokes, old
-    (0, 0): {1: 0.01, 0: 0.99},  # non-smoker, young
-    (0, 1): {1: 0.10, 0: 0.90},  # non-smoker, old
-}
-
-# Naive observational: P(Y=1 | X=x) -- confounded by age
-def P_Y_obs(x_val):
-    joint = {z: P_Z[z] * P_X_given_Z[z][x_val] for z in [0, 1]}
-    Z_given_X = {z: joint[z] / sum(joint.values()) for z in [0, 1]}
-    return sum(P_Y_given_XZ[(x_val, z)][1] * Z_given_X[z] for z in [0, 1])
-
-print("Naive observational P(Cancer | Smoking):")
-print(f"  P(Y=1 | X=1) = {P_Y_obs(1):.4f}  (smokers)")
-print(f"  P(Y=1 | X=0) = {P_Y_obs(0):.4f}  (non-smokers)")
-print(f"  Naive risk difference = {P_Y_obs(1) - P_Y_obs(0):.4f}")
-# Output:
-# Naive observational P(Cancer | Smoking):
-#   P(Y=1 | X=1) = 0.1625  (smokers)
-#   P(Y=1 | X=0) = 0.0400  (non-smokers)
-#   Naive risk difference = 0.1225
-
-# Backdoor adjustment: P(Y=1 | do(X=x)) = sum_Z P(Y=1 | X=x, Z) * P(Z)
-def P_Y_do(x_val):
-    return sum(P_Y_given_XZ[(x_val, z)][1] * P_Z[z] for z in [0, 1])
-
-print("\\nBackdoor-adjusted causal P(Cancer | do(Smoking)):")
-print(f"  P(Y=1 | do(X=1)) = {P_Y_do(1):.4f}")
-print(f"  P(Y=1 | do(X=0)) = {P_Y_do(0):.4f}")
-print(f"  Causal risk difference = {P_Y_do(1) - P_Y_do(0):.4f}")
-# Output:
-# Backdoor-adjusted causal P(Cancer | do(Smoking)):
-#   P(Y=1 | do(X=1)) = 0.1250
-#   P(Y=1 | do(X=0)) = 0.0550
-#   Causal risk difference = 0.0700
-
-print(f"\\nConfounding bias = {P_Y_obs(1) - P_Y_do(1):.4f}")
-# Output: Confounding bias = 0.0375
-# (old people smoke more AND get more cancer -> upward confounding bias)`}
-      </CodeBlock>
-
-      <Prose>
-        The naive observational estimate attributes a risk difference of 0.1225 to smoking. The backdoor-adjusted causal estimate is 0.0700. The difference — 0.0375 — is the confounding bias introduced by age. Old people both smoke more and have higher baseline cancer rates, so naive association overstates the causal effect of smoking. The do-calculus disentangles these: it answers the question of what would happen if you intervened to make everyone smoke versus everyone not smoke, holding the age distribution fixed at its natural marginal.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        The pgmpy library (Ankan and Panda, SciPy 2015; version 1.1.0 as of 2026) is the standard Python library for Bayesian networks and probabilistic graphical models. Install with <Code>pip install pgmpy</Code>. All outputs below are verbatim terminal results.
-      </Prose>
-
-      <H3>5a. Define and query the Alarm network with pgmpy</H3>
-
-      <CodeBlock language="python">
-{`from pgmpy.models import DiscreteBayesianNetwork
-from pgmpy.factors.discrete import TabularCPD
-from pgmpy.inference import VariableElimination
-
-# Define structure
-model = DiscreteBayesianNetwork([
-    ('Burglary', 'Alarm'),
-    ('Earthquake', 'Alarm'),
-    ('Alarm', 'JohnCalls'),
-    ('Alarm', 'MaryCalls'),
-])
-
-# CPTs: state order 0=False, 1=True throughout
-# TabularCPD columns follow lexicographic evidence ordering
-cpd_B = TabularCPD('Burglary',   2, [[0.999], [0.001]])
-cpd_E = TabularCPD('Earthquake', 2, [[0.998], [0.002]])
-
-cpd_A = TabularCPD(
-    'Alarm', 2,
-    # columns: (B=0,E=0), (B=0,E=1), (B=1,E=0), (B=1,E=1)
-    [[0.999, 0.71, 0.06, 0.05],
-     [0.001, 0.29, 0.94, 0.95]],
-    evidence=['Burglary', 'Earthquake'],
-    evidence_card=[2, 2],
-)
-cpd_J = TabularCPD(
-    'JohnCalls', 2,
-    [[0.95, 0.10], [0.05, 0.90]],
-    evidence=['Alarm'], evidence_card=[2]
-)
-cpd_M = TabularCPD(
-    'MaryCalls', 2,
-    [[0.99, 0.30], [0.01, 0.70]],
-    evidence=['Alarm'], evidence_card=[2]
-)
-
-model.add_cpds(cpd_B, cpd_E, cpd_A, cpd_J, cpd_M)
-print('Model valid:', model.check_model())
-# Output: Model valid: True
-
-ve = VariableElimination(model)
-result = ve.query(
-    variables=['Burglary'],
-    evidence={'JohnCalls': 1, 'MaryCalls': 1},
-)
-print(result)
-# Output:
-# +-------------+-----------------+
-# | Burglary    |   phi(Burglary) |
-# +=============+=================+
-# | Burglary(0) |          0.7158 |
-# +-------------+-----------------+
-# | Burglary(1) |          0.2842 |
-# +-------------+-----------------+
-
-print(f"P(Burglary=1 | JohnCalls=1, MaryCalls=1) = {result.values[1]:.4f}")
-# Output: P(Burglary=1 | JohnCalls=1, MaryCalls=1) = 0.2842`}
-      </CodeBlock>
-
-      <H3>5b. Structure learning with HillClimb + BIC-d score</H3>
-
-      <CodeBlock language="python">
-{`from pgmpy.estimators import HillClimbSearch
-import numpy as np
-import pandas as pd
-
-np.random.seed(42)
-n = 2000
-
-# Generate data from the true Alarm network (modified priors for richer data)
-B = np.random.choice([0, 1], size=n, p=[0.95, 0.05])
-E = np.random.choice([0, 1], size=n, p=[0.95, 0.05])
-
-p_alarm = {(0,0): 0.001, (0,1): 0.29, (1,0): 0.94, (1,1): 0.95}
-A = np.array([
-    np.random.choice([0,1], p=[1-p_alarm[(b,e)], p_alarm[(b,e)]])
-    for b, e in zip(B, E)
-])
-J = np.where(A==1, np.random.choice([0,1], size=n, p=[0.10, 0.90]),
-                    np.random.choice([0,1], size=n, p=[0.95, 0.05]))
-M = np.where(A==1, np.random.choice([0,1], size=n, p=[0.30, 0.70]),
-                    np.random.choice([0,1], size=n, p=[0.99, 0.01]))
-
-# Convert to categorical strings (required by pgmpy 1.1.0 for discrete scoring)
-df = pd.DataFrame({'Burglary': B, 'Earthquake': E, 'Alarm': A,
-                   'JohnCalls': J, 'MaryCalls': M}).astype(str)
-
-print('Dataset shape:', df.shape)
-# Output: Dataset shape: (2000, 5)
-
-# HillClimb with BIC for discrete data ('bic-d')
-hc = HillClimbSearch(df)
-best_dag = hc.estimate(scoring_method='bic-d', max_iter=100)
-
-print('Learned edges:', sorted(best_dag.edges()))
-# Output: Learned edges: [('Alarm', 'JohnCalls'), ('Alarm', 'MaryCalls'),
-#                         ('Burglary', 'Alarm'), ('Earthquake', 'Alarm')]
-# Exactly recovers the true graph from 2000 samples`}
-      </CodeBlock>
-
-      <Callout type="info" title="pgmpy API notes for version 1.1.0">
-        In pgmpy 1.1.0 (released 2025), <Code>BayesianNetwork</Code> was renamed to <Code>DiscreteBayesianNetwork</Code>. The <Code>HillClimbSearch</Code> scoring_method argument expects a string: <Code>'bic-d'</Code> for discrete BIC, <Code>'k2'</Code> for K2 score, <Code>'bdeu'</Code> for Bayesian Dirichlet equivalent uniform. Data must be cast to a categorical dtype (string or object) for discrete scoring. For continuous data use <Code>'bic-g'</Code> (Gaussian BIC). The structure learning API is at <Code>pgmpy.estimators.HillClimbSearch</Code>; constraint-based learning (PC algorithm) is at <Code>pgmpy.estimators.PC</Code>.
-      </Callout>
-
-      <H3>5c. DoWhy for causal identification and estimation</H3>
-
-      <CodeBlock language="python">
-{`# pip install dowhy
-# DoWhy (Microsoft Research) implements Pearl's do-calculus and
-# provides an end-to-end causal inference pipeline.
-# This snippet shows the API pattern (requires dowhy>=0.11):
-
-# import dowhy
-# from dowhy import CausalModel
-# import pandas as pd, numpy as np
-
-# model = CausalModel(
-#     data=df,
-#     treatment='Smoking',
-#     outcome='Cancer',
-#     graph="digraph {Age->Smoking; Age->Cancer; Smoking->Cancer;}"
-# )
-
-# identified_estimand = model.identify_effect(proceed_when_unidentifiable=False)
-# print(identified_estimand)
-# # Output includes: backdoor criterion satisfied, adjustment set: {Age}
-
-# estimate = model.estimate_effect(
-#     identified_estimand,
-#     method_name="backdoor.linear_regression"
-# )
-# print("Causal effect estimate:", estimate.value)
-
-# # Refutation: placebo treatment test (should give near-zero effect)
-# refute = model.refute_estimate(
-#     identified_estimand, estimate,
-#     method_name="placebo_treatment_refuter"
-# )
-# print(refute)
-
-# DoWhy workflow:
-# 1. model:     specify DAG + data
-# 2. identify:  find estimand using do-calculus (backdoor / frontdoor / IV)
-# 3. estimate:  compute the estimand from data
-# 4. refute:    sensitivity / placebo tests to check robustness`}
-      </CodeBlock>
-
-      <Prose>
-        The DoWhy library (Microsoft Research, open-source) implements the full Pearl-style causal inference pipeline: model the DAG, let the identification engine determine which statistical estimand corresponds to the causal quantity of interest, estimate that quantity with regression or matching or instrumental variables, and then run refutation tests to check sensitivity. The separation between identification (which depends only on the graph) and estimation (which depends on the data) is Pearl's key architectural insight, and DoWhy enforces it structurally.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. d-separation on the Alarm network — step by step</H3>
-
-      <StepTrace
-        label="d-separation walkthrough — Alarm network"
-        steps={[
-          {
-            label: "Step 1 — Network structure",
-            render: () => (
-              <Prose>
-                The Alarm network DAG: Burglary (B) and Earthquake (E) are root nodes (no parents). Both point to Alarm (A). Alarm points to JohnCalls (J) and MaryCalls (M). There are exactly four directed edges: B{"->"}A, E{"->"}A, A{"->"}J, A{"->"}M. Query: are Burglary and Earthquake d-separated given the empty set?
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Enumerate all undirected paths between B and E",
-            render: () => (
-              <Prose>
-                Treating the DAG as undirected, the only path between B and E is: B — A — E. There is only one path, so we only need to check one path for blocking. (In larger networks there may be many paths; all must be blocked for d-separation to hold.)
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Identify node types on the path B — A — E",
-            render: () => (
-              <Prose>
-                The middle node is A. Check the arrow directions: B{"->"}A and E{"->"}A. Both arrows point INTO A. This makes A a collider on the path B — A — E. The rule for colliders: a collider BLOCKS the path unless the collider itself (or a descendant of the collider) is in the observation set Z. With Z = empty, A is not observed. Therefore the path B — A — E is BLOCKED. B and E are d-separated given the empty set.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — What happens when we condition on Alarm (Z = {A})?",
-            render: () => (
-              <Prose>
-                Now Z = {"\\{A\\}"}. Re-check the path B — A — E. A is still a collider. But now A IS in Z (it is observed). The collider rule: conditioning on a collider OPENS the path. Result: d-sep(B, E | A) = False. B and E become conditionally dependent given A. This is "explaining away": if the alarm went off (A=True) and we know there was no earthquake (E=False), then burglary becomes more likely. The alarm evidence is "explained" by one cause, reducing belief in the other.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — d-sep(J, M | A): the fork case",
-            render: () => (
-              <Prose>
-                Path between J and M: J — A — M. Arrow directions: A{"->"}J and A{"->"}M. Both arrows point AWAY from A. A is a non-collider (fork). The rule for non-colliders: a non-collider BLOCKS the path when it is in Z. With Z = {"\\{A\\}"}, A is observed, so the path J — A — M is blocked. J and M are d-separated given A: once you know whether the alarm actually rang, the fact that John called tells you nothing new about whether Mary called.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 6 — Summary of d-separation rules",
-            render: () => (
-              <Prose>
-                Three cases for middle node B on path A — B — C: (1) Chain A{"->"}B{"->"}C or A{"<-"}B{"<-"}C: B is a non-collider, path is blocked iff B is observed. (2) Fork A{"<-"}B{"->"}C: B is a non-collider, path is blocked iff B is observed. (3) Collider A{"->"}B{"<-"}C: path is blocked iff B (and all descendants of B) are unobserved. If any descendant of a collider is observed, that also opens the collider. This third case is the counterintuitive one that most textbooks underemphasize.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. CPT heatmap — P(Alarm | Burglary, Earthquake)</H3>
-
-      <Prose>
-        The Alarm network's core CPT shows the probability that the alarm rings given each combination of Burglary and Earthquake. The four rows correspond to the four parent configurations. P(Alarm=True) ranges from 0.1% (no burglary, no earthquake — false alarm rate) to 95% (both occur simultaneously). The dominant causal paths are clear: a burglary alone triggers the alarm with 94% probability; an earthquake alone triggers it with only 29%.
-      </Prose>
-
-      <Heatmap
-        label="P(Alarm=True | Burglary, Earthquake)"
-        rowLabels={["B=F, E=F", "B=F, E=T", "B=T, E=F", "B=T, E=T"]}
-        colLabels={["P(Alarm=True)"]}
-        matrix={[
-          [0.001],
-          [0.290],
-          [0.940],
-          [0.950],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6c. Variable elimination step trace</H3>
-
-      <StepTrace
-        label="Variable elimination — P(B | J=T, M=T)"
-        steps={[
-          {
-            label: "Step 1 — Initialize factors",
-            render: () => (
-              <Prose>
-                Active factors: f1(B) = P(B), f2(E) = P(E), f3(B,E,A) = P(A|B,E), f4(A) = P(J=T|A), f5(A) = P(M=T|A). Evidence J=T and M=T reduce f4 and f5 from full CPTs to likelihood vectors indexed only by A: f4 = {"\\{A=T: 0.90, A=F: 0.05\\}"}, f5 = {"\\{A=T: 0.70, A=F: 0.01\\}"}.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Eliminate E: multiply f2(E) × f3(B,E,A), sum over E",
-            render: () => (
-              <Prose>
-                {"New factor g(B,A) = sum_E P(E) * P(A|B,E). Computed values: g(B=T,A=T) = 0.002*0.95 + 0.998*0.94 = 0.94009; g(B=T,A=F) = 0.002*0.05 + 0.998*0.06 = 0.05991; g(B=F,A=T) = 0.002*0.29 + 0.998*0.001 = 0.001576; g(B=F,A=F) = 0.998424. Then multiply by f1(B): h(B=T,A=T) = 0.001 * 0.94009 ≈ 0.000940; h(B=F,A=T) ≈ 0.001576."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Multiply h(B,A) × f4(A) × f5(A), sum over A",
-            render: () => (
-              <Prose>
-                {"New factor r(B) = sum_A h(B,A) * P(J=T|A) * P(M=T|A). For B=T: r(T) = h(T,T)*0.90*0.70 + h(T,F)*0.05*0.01 ≈ 0.000940*0.63 + 0.0000600*0.0005 ≈ 0.000592. For B=F: r(F) = h(F,T)*0.63 + h(F,F)*0.0005 ≈ 0.001576*0.63 + 0.9974*0.0005 ≈ 0.001492."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — Normalize",
-            render: () => (
-              <Prose>
-                {"Z = r(T) + r(F) = 0.000592 + 0.001492 = 0.002084. P(B=T | J=T, M=T) = 0.000592 / 0.002084 = 0.2842. The result is exact — identical to full enumeration and to pgmpy VariableElimination. VE required evaluating 2*2 + 2 = 6 entries rather than the 2^5 = 32 entries of full enumeration. The saving grows exponentially with network size."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6d. Posterior updates as evidence arrives</H3>
-
-      <Prose>
-        The plot shows how the posterior probability of burglary updates as new evidence arrives sequentially: first no evidence (prior = 0.001), then John calls (posterior increases), then Mary also calls (posterior increases further), then we learn there was no earthquake (posterior increases slightly — earthquake explained away as an alternative cause).
-      </Prose>
-
-      <Plot
-        label="P(Burglary=True) as evidence accumulates"
-        xLabel="evidence state"
-        yLabel="P(Burglary=True)"
-        series={[
-          {
-            name: "posterior probability",
-            color: colors.gold,
-            points: [
-              [0, 0.001],
-              [1, 0.016],
-              [2, 0.284],
-              [3, 0.321],
-            ],
-          },
-          {
-            name: "prior baseline",
-            color: colors.textMuted,
-            points: [
-              [0, 0.001],
-              [3, 0.001],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The jump from 0.016 (JohnCalls only) to 0.284 (both call) is dramatic — two independent witnesses provide much stronger evidence than one, because their calls are independent given Alarm, which is itself highly diagnostic of Burglary. The final jump (adding evidence that Earthquake=False) removes an alternative explanation, slightly increasing the burglary posterior. This sequential updating is exactly what production BN inference engines do in real time as sensor readings arrive.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <StepTrace
-        label="When to use which graphical model variant"
-        steps={[
-          {
-            label: "Bayesian Network vs. Naive Bayes",
-            render: () => (
-              <Prose>
-                Naive Bayes is a degenerate Bayesian network: one class node (root) pointing to all feature nodes, with no edges among features. It is correct when features are truly conditionally independent given the class — a strong assumption that rarely holds. A full BN relaxes this: you can add edges between features when they are causally or probabilistically related. The tradeoff is parameter count and structure learning complexity. Use Naive Bayes when: you have thousands of features (e.g., text bag-of-words), the independence assumption is tolerable, and training speed matters. Use a BN when: you have domain knowledge about variable dependencies, you need interpretable structure, or you need to answer intervention queries (impossible with Naive Bayes).
-              </Prose>
-            ),
-          },
-          {
-            label: "Bayesian Network vs. Markov Random Field (MRF)",
-            render: () => (
-              <Prose>
-                BNs are directed; MRFs are undirected. BNs encode conditional independencies via d-separation; MRFs encode them via graph separation (simpler, but less expressive). The key practical difference: BNs have a natural causal/generative interpretation — each edge represents a mechanism from cause to effect. MRFs express symmetric relationships (e.g., neighboring pixels in an image have similar values, but neither "causes" the other). Use BNs when directionality is meaningful (medical diagnosis, causal inference). Use MRFs when relationships are symmetric (computer vision, Ising models, spatial statistics). Factor graphs are a unifying representation that subsumes both.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bayesian Network vs. Structural Causal Model (SCM)",
-            render: () => (
-              <Prose>
-                Every SCM defines a BN (the observational distribution factorizes according to the DAG), but an SCM additionally specifies the functional form {"X_i := f_i(PA_i, U_i)"}. The BN level is sufficient for observational inference (computing posteriors). The SCM level is required for interventional inference (computing do-queries) and for counterfactuals (abduction-action-prediction). The practical boundary: if you only need to predict Y from observations, a BN suffices. If you need to answer "what would Y be if I set X to 5?" you need the DAG at minimum (for backdoor/frontdoor adjustment). If you need "what would Y have been for this specific individual, had X been different?", you need the full SCM.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bayesian Network vs. Neural Causal Model",
-            render: () => (
-              <Prose>
-                Neural causal models (e.g., neural SCMs in NeurIPS literature) replace the tabular CPTs with neural networks: each node's conditional distribution is a neural network of its parents. This allows continuous, high-dimensional variables (images, text) and complex conditional distributions. The tradeoff: interpretability and exact inference are lost; variational or MCMC inference is required. The causal structure — the DAG — is still the backbone. Use tabular BNs when: variables are discrete or low-dimensional continuous, the CPT structure is interpretable, and exact inference is needed. Use neural causal models when: variables are high-dimensional (e.g., images) and you need causal reasoning over complex inputs.
-              </Prose>
-            ),
-          },
-          {
-            label: "Probabilistic programming (Pyro / NumPyro) as an alternative",
-            render: () => (
-              <Prose>
-                Probabilistic programming languages let you define a generative model as code and use automatic inference (HMC, NUTS, SVI) rather than manually specifying CPTs and running VE. For small-to-medium networks with known structure and discrete variables, pgmpy's exact VE is faster and more reliable. For large networks, continuous variables, or models that don't fit cleanly into the CPT paradigm (hierarchical models, models with continuous latent variables), Pyro (PyTorch backend) or NumPyro (JAX backend) are the right tools. They implement HMC (exact in the limit) and SVI (amortized variational inference) and integrate naturally with modern deep learning workflows.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Exact inference: treewidth is the ceiling</H3>
-
-      <Prose>
-        Variable elimination is exact but exponential in the treewidth of the graph. Treewidth 1 (trees, polytrees): exact inference in linear time. Treewidth 2–10 (sparse networks): exact inference tractable with junction tree. Treewidth {">"} 20 or so: exact inference is practically infeasible for most hardware. Many real networks — gene regulation, social networks, dense sensor grids — have high treewidth. The Alarm network has treewidth 2; it can be exactly solved in milliseconds. A densely connected 100-node network might have treewidth 30; exact inference would require more memory than exists on Earth.
-      </Prose>
-
-      <Prose>
-        The treewidth of a graph is NP-hard to compute exactly but can be approximated with heuristic elimination orderings. The min-fill heuristic (greedily eliminate the variable that adds the fewest fill edges) is the standard approximation. When the treewidth is large, you must switch to approximate inference.
-      </Prose>
-
-      <H3>8.2 Approximate inference: loopy BP, variational, MCMC</H3>
-
-      <Prose>
-        Loopy belief propagation (loopy BP) runs the junction-tree message-passing algorithm on graphs that contain cycles — which violates the algorithm's assumptions. Surprisingly, it often converges to good approximate marginals. Convergence is not guaranteed, and the resulting beliefs are not exact posteriors, but for many practical networks (image segmentation, error-correcting codes), loopy BP delivers good results in linear time. The algorithm underlying modern error-correcting codes (LDPC, turbo codes) is essentially loopy BP on a factor graph.
-      </Prose>
-
-      <Prose>
-        Variational inference approximates the true posterior <Code>{"P(X | evidence)"}</Code> with a simpler distribution <Code>{"Q(X; theta)"}</Code> from a tractable family (typically mean-field: fully factorized). Minimizing KL divergence between Q and P over the parameters {"theta"} converts the inference problem into an optimization problem. Mean-field is fast and scales well, but the factorized approximation underestimates correlations. For BNs, variational Bayes is also used for parameter learning with incomplete data (missing variables or latent variables not in the observed set).
-      </Prose>
-
-      <Prose>
-        MCMC (Markov chain Monte Carlo) — most commonly Gibbs sampling for discrete BNs — draws approximate samples from the posterior by repeatedly sampling each variable conditioned on its Markov blanket (parents, children, and co-parents in the DAG). Gibbs is asymptotically exact and handles any treewidth, but convergence can be slow in densely connected networks or networks with strong dependencies. For structure learning with MCMC over DAG space, it provides posterior uncertainty over the graph structure rather than a single point estimate.
-      </Prose>
-
-      <H3>8.3 Structure learning: combinatorial search</H3>
-
-      <Prose>
-        The space of DAGs over <Code>n</Code> nodes grows super-exponentially: there are <Code>{"2^{n(n-1)/2}"}</Code> possible undirected graphs and the number of DAGs is much larger once edge directions are counted. For 10 nodes, this is already astronomically large. Two families of algorithms handle this:
-      </Prose>
-
-      <Prose>
-        <strong>Score-based</strong> (HillClimb + BIC): greedily add, remove, or reverse edges to maximize a score (BIC, BDeu, K2). Computationally feasible for up to 50–100 variables in practice. Local optima are a problem; restarts and tabu search improve robustness. BIC provides a consistent estimator — it recovers the true graph in the infinite-data limit under faithfulness.
-      </Prose>
-
-      <Prose>
-        <strong>Constraint-based</strong> (PC algorithm, by Peter Spirtes and Clark Glymour): use conditional independence tests to determine which pairs of variables are dependent and what the edge orientations are. The PC algorithm (named for its creators Peter and Clark) is theoretically sound — it recovers the Markov equivalence class of the true graph in the large-sample limit — and scales better than exhaustive search. On high-dimensional problems (hundreds of variables), constraint-based methods with fast conditional independence tests (partial correlation for Gaussian data, chi-squared for discrete) are practical where score-based search is not. Glymour, Zhang, and Spirtes's 2019 "Review of Causal Discovery Methods Based on Graphical Models" in <em>Frontiers in Genetics</em> 10:524 provides an authoritative survey of both families.
-      </Prose>
-
-      <H3>8.4 Parameter learning: Dirichlet priors prevent overfitting</H3>
-
-      <Prose>
-        Given a fixed DAG structure, parameter learning for discrete BNs is a closed-form MLE or MAP problem: count co-occurrences. With Dirichlet priors over each CPT row (equivalent to adding pseudocounts), the MAP estimate is Laplace-smoothed — exactly the same reasoning as in Naive Bayes. The Dirichlet hyperparameter {"alpha_0"} controls smoothing strength. For small datasets relative to the CPT size, Dirichlet priors are essential: a node with 5 parents, each binary, has a CPT with <Code>{"2^5 = 32"}</Code> rows, each requiring its own row probability estimate. With 64 training samples, that is an average of 2 samples per row — heavily underestimated without priors.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Wrong DAG gives confidently wrong answers</H3>
-
-      <Prose>
-        A BN is only as good as its DAG. Unlike a regression model, which produces predictions that gracefully degrade when the model is misspecified, a BN with a wrong causal structure can give answers that are confidently incorrect. If you omit a confounding edge (e.g., forget that Age affects both Smoking and Cancer), the backdoor adjustment will fail to block the backdoor path, and your causal effect estimate will be biased — with no obvious signal in the data that anything is wrong. The point estimate will look precise. This is the most dangerous failure mode: high confidence in a wrong answer. Always subject your DAG to domain expert review and, when possible, sensitivity analysis over plausible alternative DAGs.
-      </Prose>
-
-      <H3>9.2 Observational data alone cannot identify causal structure</H3>
-
-      <Prose>
-        Given only observational data, the best you can identify is the Markov equivalence class (MEC) of the true DAG — the set of DAGs that have the same skeleton (undirected edges) and the same set of v-structures (colliders). Within an MEC, multiple DAGs are observationally indistinguishable. For example, A{"->"}B{"->"}C and A{"<-"}B{"<-"}C are observationally equivalent (both imply A and C are conditionally independent given B). Distinguishing between them requires either domain knowledge, temporal ordering information (causes precede effects), or interventional data (randomized experiments). This is why Pearl insists that causal discovery requires more than statistics: it requires assumptions about mechanisms.
-      </Prose>
-
-      <H3>9.3 Unobserved confounders invalidate identification</H3>
-
-      <Prose>
-        The backdoor criterion requires that all backdoor paths from treatment to outcome are blocked by observed variables. If there are unobserved confounders (common causes of X and Y that are not in the data), no set of observed variables can block those paths. The causal effect is then not identified from observational data alone. The frontdoor criterion handles some cases of unobserved confounding (when mediators are observed), but there are causal structures where no observational identification is possible. In those cases, you need randomized experiments, natural experiments (instrumental variables), or regression discontinuity designs.
-      </Prose>
-
-      <H3>9.4 Selection bias</H3>
-
-      <Prose>
-        Selection bias arises when the observed sample is not representative of the target population because selection into the sample is correlated with the outcome. In a BN, this manifests as conditioning on a collider: if you only observe patients who were hospitalized (S=1), and hospitalization depends on both disease severity (D) and insurance status (I), then D and I become correlated in your sample even if they are independent in the population. Berkson's paradox is the canonical example: in hospitalized patients, two unrelated conditions appear negatively correlated. Always check whether your data collection process could have induced collider conditioning before interpreting observational patterns.
-      </Prose>
-
-      <H3>9.5 Confusing Bayes-optimal prediction with causal correctness</H3>
-
-      <Prose>
-        A BN can be trained to produce optimal probabilistic predictions under distribution shift without those predictions being causally correct. A model trained on observational data will use all available associations — including confounded ones — to minimize prediction error on the training distribution. If the test distribution involves an intervention (e.g., a drug is administered to a population that would not normally take it), the observational model will fail. This is the covariate shift / distribution shift distinction applied to causal vs. anti-causal models. Always ask: am I predicting under the same distribution I trained on, or under an interventional distribution? If the latter, I need a causal model.
-      </Prose>
-
-      <H3>9.6 Identifiability check before do-calculus</H3>
-
-      <Prose>
-        The do-calculus is complete for identification over semi-Markovian causal models (DAGs with unobserved confounders represented as bidirected edges), as shown by Shpitser and Pearl (2006, AAAI). But not every causal quantity is identifiable — there exist DAGs where no combination of do-calculus rules can reduce {"P(Y | do(X))"} to an observational quantity. Always run an identifiability check (the ID algorithm in Shpitser and Pearl 2006, or DoWhy's <Code>identify_effect</Code>) before attempting to compute a causal effect. If the effect is not identified, report this as a finding — claiming a biased estimate as a causal effect is a serious error.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were verified for author, year, venue, and main contribution. Read in this order to follow the intellectual development from probabilistic reasoning to causal inference.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Pearl 1988 — Founding text of Bayesian networks",
-            render: () => (
-              <Prose>
-                Pearl, J. (1988). <em>Probabilistic Reasoning in Intelligent Systems: Networks of Plausible Inference.</em> Morgan Kaufmann, San Mateo. ISBN 1-55860-479-0. Available via ACM Digital Library (dl.acm.org/doi/10.5555/534975) and Elsevier. This is the foundational text. Part I introduces belief networks and the d-separation criterion. Part II covers exact inference via message passing (poly-tree propagation, the precursor to junction tree). Part III covers constraint-based learning. The Alarm network example appears here. Pearl won the Turing Award in 2011 partly on the basis of this work.
-              </Prose>
-            ),
-          },
-          {
-            label: "Spiegelhalter, Dawid, Lauritzen, Cowell 1993 — Production-ready inference",
-            render: () => (
-              <Prose>
-                Spiegelhalter, D.J., Dawid, A.P., Lauritzen, S.L., and Cowell, R.G. (1993). "Bayesian Analysis in Expert Systems." <em>Statistical Science</em>, 8(3), 219–247. Available via Project Euclid (projecteuclid.org/euclid.ss/1177010888). This paper bridges theory and practice. It introduces the junction tree algorithm as the standard computational engine for exact BN inference, covers parameter learning with Dirichlet priors, and describes the HUGIN system — the first production BN engine, used in medical diagnosis at hospitals in Denmark. The paper is unusually clear on implementation details (triangulation, clique tree construction, message passing protocol) and was the implementation blueprint for most early BN software.
-              </Prose>
-            ),
-          },
-          {
-            label: "Pearl 2009 — Causality and the do-calculus",
-            render: () => (
-              <Prose>
-                Pearl, J. (2009). <em>Causality: Models, Reasoning and Inference.</em> Cambridge University Press, 2nd edition. ISBN 978-0-521-89560-6. Available at bayes.cs.ucla.edu/BOOK-2K/. The second edition (first published 2000) contains the full development of structural causal models (SCMs), the do-calculus (Chapter 3), the identification algorithm (Chapter 3, Appendix), counterfactual analysis (Chapter 7), and mediation analysis (Chapter 9). The proof of do-calculus completeness references the companion paper by Shpitser and Pearl 2006. This is the mathematical reference for causal inference; "The Book of Why" (2018) is the accessible companion.
-              </Prose>
-            ),
-          },
-          {
-            label: "Koller & Friedman 2009 — Comprehensive PGM textbook",
-            render: () => (
-              <Prose>
-                Koller, D. and Friedman, N. (2009). <em>Probabilistic Graphical Models: Principles and Techniques.</em> MIT Press. ISBN 978-0-262-01319-2. Available via MIT Press (mitpress.mit.edu/9780262013192). 1,272 pages covering BNs, MRFs, factor graphs, exact inference (variable elimination, junction tree), approximate inference (loopy BP, variational, MCMC), and learning (MLE, Bayesian parameter estimation, structure learning). Part V on causal models (Chapters 21–22) is the most rigorous treatment of causality in a PGM textbook. This is the standard graduate course textbook; Stanford's CS228 lecture notes (freely available) are based on it.
-              </Prose>
-            ),
-          },
-          {
-            label: "Shpitser & Pearl 2006 — Completeness of do-calculus",
-            render: () => (
-              <Prose>
-                Shpitser, I. and Pearl, J. (2006). "Identification of Joint Interventional Distributions in Recursive Semi-Markovian Causal Models." <em>Proceedings of the 21st National Conference on Artificial Intelligence (AAAI-06)</em>, 1219–1226. Available at cdn.aaai.org/AAAI/2006/AAAI06-191.pdf. This paper proves that the do-calculus is complete for identification of interventional distributions in semi-Markovian models (DAGs with unobserved confounders represented as bidirected edges). It also provides the ID algorithm, a complete algorithmic procedure for determining whether {"P(Y | do(X))"} is identifiable and computing it when it is. The completeness result closed the identification problem for this model class. The algorithm is implemented in DoWhy.
-              </Prose>
-            ),
-          },
-          {
-            label: "Glymour, Zhang, Spirtes 2019 — Causal discovery survey",
-            render: () => (
-              <Prose>
-                Glymour, C., Zhang, K., and Spirtes, P. (2019). "Review of Causal Discovery Methods Based on Graphical Models." <em>Frontiers in Genetics</em>, 10, 524. DOI: 10.3389/fgene.2019.00524. Open access at frontiersin.org. The definitive modern survey covering constraint-based methods (PC algorithm, FCI for latent variables), score-based methods (GES, HillClimb), functional causal models (LiNGAM for non-Gaussian linear models, post-nonlinear models), and hybrid approaches. The paper covers the identification of causal direction from observational data — possible in some cases via non-Gaussianity (LiNGAM) or asymmetry of the noise structure — and discusses assumptions carefully. Essential reading before implementing any causal discovery pipeline.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ankan & Panda 2015 — pgmpy",
-            render: () => (
-              <Prose>
-                Ankan, A. and Panda, A. (2015). "pgmpy: Probabilistic Graphical Models using Python." <em>Proceedings of the 14th Python in Science Conference (SciPy 2015)</em>, 6–11. Available at proceedings.scipy.org/articles/Majora-7b98e3ed-001. The paper describing the pgmpy library: BN definition, parameter learning (MLE, Bayesian estimation), exact inference (VE, junction tree), and approximate inference (belief propagation, Gibbs sampling). pgmpy is the standard open-source Python library for BNs, with a NumPy/pandas-compatible API. As of 2026, version 1.1.0 uses <Code>DiscreteBayesianNetwork</Code> (previously <Code>BayesianNetwork</Code>).
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through all six before reading the answers. Exercises 1–3 test the core theory; 4–5 test the causal layer; 6 tests implementation judgment.
-      </Prose>
-
-      <H3>Exercise 1 (recall — d-separation)</H3>
-      <Prose>
-        Consider the DAG: A {"→"} B {"→"} C (a chain). (a) Is A d-separated from C given the empty set? (b) Is A d-separated from C given {"\\{B\\}"}? Explain using the collider/non-collider rules. Then consider the DAG: A {"→"} B {"←"} C (a collider at B). (c) Is A d-separated from C given the empty set? (d) Is A d-separated from C given {"\\{B\\}"}?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        (a) Chain A{"->"}B{"->"}C, Z = empty. The only path A—B—C has B as a non-collider (chain). Non-colliders block the path when they are observed. B is NOT observed. The path is ACTIVE. A and C are NOT d-separated — they are marginally dependent through B. (b) Chain, Z = {"\\{B\\}"}. B is a non-collider, B IS observed. The path is BLOCKED. A and C are d-separated given B. (c) Collider A{"->"}B{"<-"}C, Z = empty. B is a collider. Colliders BLOCK the path when unobserved. B is NOT observed. The path is BLOCKED. A and C are d-separated (marginally independent). (d) Collider, Z = {"\\{B\\}"}. B IS observed. Conditioning on a collider OPENS the path. A and C are NO LONGER d-separated — they become conditionally dependent given B. This is explaining away: if B is observed and one of A, C is known, the other becomes more or less likely.
-      </Callout>
-
-      <H3>Exercise 2 (derivation — factorization)</H3>
-      <Prose>
-        Write the full joint factorization for a 5-node BN with structure: {"X1 → X3, X2 → X3, X3 → X4, X3 → X5"}. How many parameters does this BN require if all variables are binary? How many would a full joint distribution over 5 binary variables require? What is the ratio?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        {"Factorization: P(X1,...,X5) = P(X1) * P(X2) * P(X3|X1,X2) * P(X4|X3) * P(X5|X3). Parameter count: P(X1) needs 1 parameter (binary, sums to 1); P(X2) needs 1; P(X3|X1,X2) has 2^2=4 rows, each needing 1 free parameter = 4; P(X4|X3) has 2 rows = 2; P(X5|X3) has 2 rows = 2. Total: 1+1+4+2+2 = 10 parameters. Full joint: 2^5 - 1 = 31 free parameters (31 entries, one is determined by the normalization constraint). Ratio: 10/31 ≈ 0.32. The BN uses about a third of the parameters. For a 20-node network with a similar sparse structure, this ratio becomes negligible: a full joint has 2^20 - 1 ≈ 1,000,000 parameters; a sparse BN might have 50-200."}
-      </Callout>
-
-      <H3>Exercise 3 (conceptual — explaining away)</H3>
-      <Prose>
-        In the Alarm network, Burglary and Earthquake are marginally independent (d-separated given the empty set). Yet after learning that the alarm went off (Alarm=True), they become dependent. Write a concrete numerical argument for why this dependence makes intuitive sense, using the CPT values from Section 4a. What direction does the dependence go (do they become positively or negatively correlated given Alarm=True)?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        From the CPT: P(Alarm=T | Burglary=T, Earthquake=F) = 0.94. P(Alarm=T | Burglary=F, Earthquake=T) = 0.29. P(Alarm=T | Burglary=F, Earthquake=F) = 0.001. Given Alarm=True, the most likely explanations are a burglary (with or without earthquake) or an earthquake alone. If we then learn Earthquake=True, the alarm is partially "explained" — its probability under the earthquake-only scenario is 0.29, which is much higher than the baseline 0.001. This means less of the Alarm's occurrence needs to be attributed to Burglary, so P(Burglary | Alarm=T, Earthquake=T) is lower than P(Burglary | Alarm=T). The two causes become NEGATIVELY correlated given the effect: learning that one cause is present makes the other cause less necessary to explain the observation. P(Burglary | Alarm=T) ≈ 0.376, while P(Burglary | Alarm=T, Earthquake=T) ≈ 0.116 — a substantial decrease. This is explaining away (also called "Berkson's paradox" in the statistical literature, or "selection bias" when it occurs via conditioning on a common effect).
-      </Callout>
-
-      <H3>Exercise 4 (do-calculus — backdoor criterion)</H3>
-      <Prose>
-        Consider a DAG with four variables: Socioeconomic Status (S), Education (E), Job Training (T), and Salary (Y). Edges: S{"→"}E, S{"→"}Y, E{"→"}T, T{"→"}Y. You want to estimate the causal effect of Job Training (T) on Salary (Y). (a) Identify all backdoor paths from T to Y. (b) Propose a valid backdoor adjustment set. (c) Write the backdoor adjustment formula for {"P(Y | do(T=t))"}. (d) Why is E alone NOT a valid backdoor set?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        (a) Backdoor paths from T to Y are paths that have an arrow pointing INTO T (going "backward" from T). The path T{"<-"}E{"<-"}S{"->"}Y is a backdoor path: it goes T{"<-"}E{"<-"}S{"->"}Y, with the arrow into T from E, tracing back through S to Y. This path carries confounding from S (socioeconomic status affects both training access through education and salary directly). (b) Valid backdoor sets: {"\\{S\\}"} works (S is not a descendant of T, and conditioning on S blocks T{"<-"}E{"<-"}S{"->"}Y by blocking the S{"->"}... segment). {"\\{S, E\\}"} also works. (c) Backdoor adjustment: {"P(Y | do(T=t)) = sum_s P(Y | T=t, S=s) * P(S=s)"}. If using E as the adjustment set alone: {"P(Y | do(T=t)) = sum_e P(Y | T=t, E=e) * P(E=e)"}. (d) E alone is NOT a valid backdoor set. E is on the path T{"<-"}E{"<-"}S{"->"}Y. Conditioning on E blocks that segment, but E is also on the causal path from E to T (E{"->"}T), which means E is a non-collider on the backdoor path. Conditioning on E DOES block that path — so E would actually work as a backdoor set! The issue is that E is a descendant of S but not of T, and conditioning on E can open a new path via S if S is a confounder. Actually, in this specific DAG, {"\\{E\\}"} is valid: the only backdoor path T{"<-"}E{"<-"}S{"->"}Y is blocked by conditioning on E (E is a non-collider on that path and is observed). The correct reason E alone might not be preferred is that S blocks the path more "upstream" with fewer possible conditioning side effects. Verify with an identification algorithm before applying.
-      </Callout>
-
-      <H3>Exercise 5 (debugging — structural learning)</H3>
-      <Prose>
-        You run pgmpy's HillClimbSearch with BIC scoring on a dataset of 500 samples from a known 6-node BN. The learned graph has 3 missing edges and 2 spurious edges compared to the true graph. List three causes of this discrepancy and one mitigation for each.
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Cause 1: Insufficient data. With 500 samples and 6 binary nodes, some CPT rows may have very few observations. The BIC score will penalize complex structures (many edges) appropriately, but low-data cells make the likelihood estimation noisy. Weak associations (low mutual information between variables) will be missed. Mitigation: increase dataset size to at least 1,000–5,000 samples, or use a Bayesian score (BDeu) which incorporates prior smoothing and is more robust at small sample sizes. Cause 2: Local optima in greedy search. HillClimb is a greedy local search that can get stuck in local optima. It finds one edge to add/remove/reverse per step and stops when no single-step improvement is found, missing combinations of moves that would jointly improve the score. Mitigation: run multiple random restarts, or use a tabu search that allows temporary score decreases, or switch to GES (Greedy Equivalence Search) which operates on the space of Markov equivalence classes and has better theoretical properties. Cause 3: Markov equivalence. Multiple DAGs can produce the same BIC score because they are Markov equivalent (same skeleton, same v-structures). Some edge orientations are not identifiable from observational data. The 2 spurious edges may actually be edges from a Markov-equivalent alternative. Mitigation: instead of a single point estimate, report the Markov equivalence class (CPDAG — completed partially directed acyclic graph). Use the PC algorithm which directly outputs the CPDAG. If edge directions are needed, incorporate domain knowledge or collect interventional data.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis — causal vs. predictive)</H3>
-      <Prose>
-        A data scientist trains a Bayesian network on observational hospital records to predict 30-day readmission (Y) from 50 clinical variables. The model achieves AUC 0.82 on a held-out test set from the same hospital. The hospital then introduces a new policy: all patients above a predicted readmission risk of 0.6 are given an intensive discharge counseling intervention (T=1). After 6 months, readmission rates in the T=1 group are HIGHER than in the T=0 group. Is the model wrong? Explain what happened and what the correct analysis approach would have been.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        The model is not wrong — it was doing its job correctly. It learned observational associations and predicts readmission well in the pre-intervention distribution. The problem is confusing predictive performance with causal validity under intervention. When the hospital implements the policy (T = 1 for high-risk patients), it changes the data-generating process. The new distribution is {"P(Y | do(T=1))"} for the high-risk subgroup — an interventional distribution the model was never trained on. The observed result (higher readmission in T=1) is a selection effect: T=1 patients were selected precisely because they had the highest predicted risk, and the intervention was not strong enough to overcome their underlying risk differential. This is not proof that counseling is harmful. The correct approach requires: (1) A causal model. Define the DAG: patient risk factors -> predicted risk score -> intervention assignment -> actual outcome. Add any direct paths from risk factors to outcome (the confounders). (2) Identification. Use the backdoor criterion or IV to identify the causal effect of T on Y. The predicted risk score is a mediator/confounder, not a treatment — it should not be in the outcome model without careful adjustment. (3) Estimation via randomization or instrumental variable. Ideally, run a randomized trial where some high-risk patients are randomly assigned to T=0. If randomization is not feasible, use the threshold of the risk score as a regression discontinuity instrument — patients just above and just below the 0.6 cutoff are similar in unobserved risk, making the assignment near-random at the boundary. The fundamental lesson: a predictive model's AUC says nothing about what happens when you intervene based on its predictions.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Bayesian Networks & Causal Graphical Models',
+  readTime: '~60 min first pass · ~115 min complete read + 60–100 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot bn-lesson">
+    <LessonIntro
+      prerequisites={<>Multiplication, weighted averages and conditional probability. <Math>{'P(B=1\\mid J=1)'}</Math> means
+        “among outcomes in which John called, what fraction have a burglary?”. Uppercase letters name variables and
+        lowercase letters their selected values. The preceding <a href="/learn/path/full-curriculum/hidden-markov-models-hmm?module=classical-ml">Hidden
+        Markov Models</a> lesson supplies a chain of repeated local factors; this one generalises that to an arbitrary
+        acyclic graph. Directed acyclic graphs, conditional probability tables, d-separation and the do operator are all
+        introduced here.</>}
+      sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      Two people call to report that your house alarm is sounding. Is there a burglary? An earthquake can also set the
+      alarm off, and a caller sometimes reports a sound incorrectly. You will build the five-variable model, add up the
+      {' '}{bothCalls.compatibleWorlds} worlds that fit both calls to get a burglary posterior
+      of {num(bothCalls.posterior)}, watch that number collapse to {num(withEarthquake.posterior)} when an earthquake
+      turns up, find a clue that changes it by exactly nothing, decide by hand which observation sets a graph
+      guarantees independence for, and then take four chemical measurements on {provenance.specimens} real wine
+      specimens and ask which one is worth buying. Every investigation asks for a recorded prediction before it
+      calculates anything, and retires that prediction the moment an input changes.
+    </LessonIntro>
+
+    <div className="bn-route"><Prose><strong>First pass.</strong> Read sections 1–6 and do practice 1–6. That route
+      gets you a working network, a posterior you calculated yourself, a path you can read, a real fitted classifier,
+      and the difference between observing something and doing it. Run the two programs on the way. Sections 7 and 8
+      are deeper branches: 7 develops identification, do-calculus and counterfactuals, and 8 covers structure search,
+      junction trees, sampling and the neighbouring model families. Come back to them once the small sums feel
+      natural.</Prose></div>
+
+    <Prose>A <strong>Bayesian network</strong> describes a joint probability distribution using small local
+      probability models connected by arrows. Its first job is bookkeeping: state which variables each local model
+      depends on, then combine those models consistently. Once the joint distribution is defined you can ask many
+      questions of the same model, including questions in which most of the variables are unobserved.</Prose>
+    <Prose>There is a second, stronger use for a graph. If its arrows describe how a system is <em>generated</em>,
+      under suitable causal assumptions, it can help predict what happens when a mechanism is changed. Observing that
+      an alarm is sounding and deliberately switching it on are different events. The first may tell you about a
+      burglary; the second need not.</Prose>
+
+    <Callout title="Which numbers here are measurements">
+      All alarm, maintenance and mediation probabilities in this lesson are <strong>constructed teaching
+      models</strong>. They are not measured crime statistics, engineering reliability data or clinical results.
+      The Wine experiment in section 5 is the one place real observations appear, and it is attributed there.
+      This caution is stated once; the rest of the lesson refers back to it rather than repeating it.
+    </Callout>
+
+    {/* ============================================================ §1 */}
+    <H2>{headings[0]}</H2>
+    <Prose>Name five binary variables. <Math>{'B'}</Math> is a burglary, <Math>{'E'}</Math> an
+      earthquake, <Math>{'A'}</Math> the alarm sounding, and <Math>{'J'}</Math> and <Math>{'M'}</Math> John
+      and Mary calling. Draw <Math>{'B\\to A\\leftarrow E'}</Math>, with <Math>{'A\\to J'}</Math> and <Math>{'A\\to M'}</Math>.</Prose>
+    <Prose>The drawing contains no directed cycle: following arrows can never bring you back to where you started.
+      Such a graph is a <strong>directed acyclic graph</strong>, or DAG. A <strong>parent</strong> points directly
+      into a node; an <strong>ancestor</strong> reaches it through one or more arrows, and a{' '}
+      <strong>descendant</strong> is reachable by following arrows away from it.</Prose>
+
+    <LessonTable caption="The five variables, what state 1 means, and which variables each one listens to"
+      headers={['Variable', 'State 1 means', 'Parents']}
+      rows={alarmNetwork.nodes.map(node => [
+        node, alarmNetwork.labels[node], alarmNetwork.parents[node].join(', ') || 'none',
+      ])} />
+
+    <Prose>The root probabilities are <Math>{'P(B=1)=0.001'}</Math> and <Math>{'P(E=1)=0.002'}</Math>.
+      The alarm table gives a complete distribution for each of the four parent settings. This is
+      a <strong>conditional probability table</strong>, or CPT.</Prose>
+    <LessonTable caption="The alarm's conditional probability table. Each row is a distribution and sums to one."
+      headers={['B', 'E', 'P(A = 1 | B, E)', 'P(A = 0 | B, E)']}
+      rows={Object.entries(alarmNetwork.chance.A).map(([key, chance]) => [
+        key.split(',')[0], key.split(',')[1], num(chance), num(1 - chance),
+      ])} />
+    <Prose>John calls with probability {num(alarmNetwork.chance.J[1])} if the alarm sounds
+      and {num(alarmNetwork.chance.J[0])} otherwise. Mary's corresponding probabilities
+      are {num(alarmNetwork.chance.M[1])} and {num(alarmNetwork.chance.M[0])}.</Prose>
+
+    <Prose>The model's factorisation is the product of those five local models:</Prose>
+    <MathBlock>{'\\begin{gathered}P(b,e,a,j,m)=\\\\P(b)\\,P(e)\\,P(a\\mid b,e)\\\\\\times P(j\\mid a)\\,P(m\\mid a).\\end{gathered}'}</MathBlock>
+    <Prose>Take the world <Math>{'B=1,E=0,A=1,J=1,M=1'}</Math>. Each node contributes the entry its own parents
+      select:</Prose>
+    <MathBlock>{'\\begin{gathered}(.001)(.998)(.94)(.90)(.70)\\\\=' + num(assembled) + '.\\end{gathered}'}</MathBlock>
+    <Prose>Multiply, rather than adding five confidence scores. Change a state in the figure below and watch which
+      row of each table is read.</Prose>
+
+    <WorldAssemblyFigure />
+
+    <Prose>That is one world, not the probability of a burglary. Other worlds also produce two calls, and section 2
+      adds them up.</Prose>
+
+    <H3>Why this product is already a distribution</H3>
+    <Prose>Imagine generating the variables in parent-before-child order: choose <Math>{'B'}</Math> and <Math>{'E'}</Math>,
+      then <Math>{'A'}</Math>, then <Math>{'J'}</Math> and <Math>{'M'}</Math>. Each choice distributes the probability
+      mass arriving at a node among that node's states. Equivalently, sum the joint over <Math>{'J'}</Math> and{' '}
+      <Math>{'M'}</Math>: their conditional distributions each contribute one. Sum over <Math>{'A'}</Math>, then the
+      roots, and you are left with one. Cyclic systems can have probability models too, but it is the DAG construction
+      that makes normalisation automatic here.</Prose>
+
+    <Prose>The graph also makes specific independence assumptions. John and Mary may be associated before you know
+      whether the alarm sounded, because both respond to it. Once <Math>{'A'}</Math> is known, this model treats their
+      remaining reporting randomness as independent. If they telephone one another, that assumption fails, and a
+      beautifully drawn graph cannot repair a missing dependency.</Prose>
+    <Prose>More generally the <strong>local Markov property</strong> says that a node is independent of its
+      nondescendants, other than its parents, once its parents are given. That is exactly what lets each local CPT
+      leave earlier variables out of the full chain rule. Section 4 turns the property into a test for harder
+      queries.</Prose>
+
+    <H3>What the assumptions buy</H3>
+    <Prose>For five unconstrained binary variables a joint table
+      has {alarmParameters.jointEntries} entries and {alarmParameters.jointFree} free numbers: one entry is fixed by
+      the sum-to-one constraint. This network stores {alarmParameters.stored} CPT entries but
+      only <strong>{alarmParameters.free} free numbers</strong> — one for each root, four for the alarm, two for each
+      caller. The reduction comes from assumptions, not from compression without consequences. In general a
+      node <Math>{'i'}</Math> with <Math>{'r_i'}</Math> states and <Math>{'q_i'}</Math> parent configurations
+      contributes <Math>{'q_i(r_i-1)'}</Math> free parameters.</Prose>
+    <Prose>One naming point: “Bayesian” here does not require Bayesian parameter estimation. The graph can be fitted
+      by maximum likelihood, as section 5 does. Putting a prior distribution over its parameters is an additional
+      modelling choice, which section 5 also makes, separately and on purpose.</Prose>
+
+    {/* ============================================================ §2 */}
+    <H2>{headings[1]}</H2>
+    <Prose>With both calls observed, the quantity we want is</Prose>
+    <MathBlock>{'\\begin{gathered}P(B=1\\mid J=1,M=1)\\\\[4pt]=\\frac{\\sum_{e,a}P(1,e,a,1,1)}{\\sum_{b,e,a}P(b,e,a,1,1)}.\\end{gathered}'}</MathBlock>
+    <Prose>There are two operations to recognise. <strong>Marginalisation</strong> sums over unobserved
+      alternatives. <strong>Conditioning</strong> keeps the outcomes compatible with the evidence and renormalises
+      what is left. Neither one selects a single most likely hidden explanation.</Prose>
+    <Prose>The numerator is the burglary half of that sum, {num(bothCalls.mass[1])}, and the
+      denominator is the whole of it, {num(bothCalls.evidenceProbability)}, so the posterior
+      is <strong>{num(bothCalls.posterior)}</strong>, about {percent(bothCalls.posterior)}%. Two calls are
+      substantial evidence against a {num(100 * posteriors[0].posterior)}% prior, and the model still considers the
+      no-burglary outcomes collectively more likely.</Prose>
+
+    <LessonTable caption="Burglary posterior under seven evidence sets, from enumerating all 32 worlds"
+      headers={['Evidence', 'Compatible worlds', 'Burglary posterior']}
+      rows={posteriors.map(entry => [entry.label, String(entry.compatibleWorlds), num(entry.posterior)])} />
+
+    <Prose>The last three rows carry two separate ideas. Discovering an earthquake supplies an alternative
+      explanation for the alarm, and in this particular model it drops the burglary posterior
+      from {num(alarmKnown.posterior)} to {num(withEarthquake.posterior)}. That is <strong>explaining away</strong>.
+      In the other direction, once the alarm state is already known, John's report adds nothing at all about a
+      burglary: the posterior stays at {num(alarmAndJohn.posterior)} because the intervening alarm state screens off
+      that information. “More evidence always increases the posterior” is not a rule, and neither is “more evidence
+      always changes it”.</Prose>
+
+    <EvidenceLab />
+
+    <H3>A short executable calculation</H3>
+    <Prose>Every loop below corresponds to one compatible world. It uses only the standard library.</Prose>
+    <Program example={bayesnetExamples.enumerate}>
+      <Prose>The printed number is the same {num(bothCalls.posterior)} the table gives, to the last digit the machine
+        can carry. This is a fine way to answer a question about a tiny network. Enumerating every world costs{' '}
+        <Math>{'2^n'}</Math> operations, so the same program on thirty binary variables would have a billion worlds to
+        walk, and section 3 fixes that.</Prose>
+    </Program>
+
+    {/* ============================================================ §3 */}
+    <H2>{headings[2]}</H2>
+    <Prose>A <strong>factor</strong> is a table indexed by some variables. It need not itself sum to one. You can
+      multiply factors that share variables, then sum a variable out of their product; the resulting smaller table
+      summarises exactly what the eliminated variable contributed.</Prose>
+    <Prose>With <Math>{'J=M=1'}</Math>, first combine the earthquake prior and the alarm CPT into</Prose>
+    <MathBlock>{'g(b,a)=\\sum_e P(e)\\,P(a\\mid b,e).'}</MathBlock>
+    <LessonTable caption="The factor left after summing the earthquake out. It is a table over B and A, and it does not sum to one."
+      headers={['B', 'A', 'g(B, A)']}
+      rows={earthquakeStep.cells.map(cell => [
+        String(cell.states.B), String(cell.states.A), num(cell.value),
+      ])} />
+    <Prose>Then calculate <Math>{'h(b)=P(b)\\sum_a g(b,a)P(J=1\\mid a)P(M=1\\mid a)'}</Math>.
+      For <Math>{'b=1'}</Math>:</Prose>
+    <MathBlock>{'\\begin{gathered}h(1)=.001\\bigl[(' + num(earthquakeStep.cells[2].value) + ')(.05)(.01)\\\\+(' + num(earthquakeStep.cells[3].value) + ')(.90)(.70)\\bigr]\\\\=' + num(elimination.mass[1]) + '.\\end{gathered}'}</MathBlock>
+    <Prose>And <Math>{'h(0)=' + num(elimination.mass[0])}</Math>. Dividing <Math>{'h(1)'}</Math> by the sum
+      gives {num(elimination.posterior)} — the same answer enumeration gave, with the intermediate results reused
+      instead of recomputed. <strong>The two routes agree because elimination only reorders the same sums and
+      products.</strong> That correspondence is worth holding onto: it is why a faster algorithm here is not an
+      approximation.</Prose>
+
+    <FactorWorkbenchFigure />
+
+    <H3>The four steps, and the one mistake</H3>
+    <Prose>For a general elimination step: collect every current factor containing the variable; multiply those
+      factors, aligning shared states; sum over the variable; put the resulting factor back alongside the untouched
+      ones. Do not sum a variable out of one factor while leaving another occurrence elsewhere — that breaks the
+      dependency the two factors share. Evidence can simplify factors before elimination, and ancestors irrelevant to
+      the query can often be pruned entirely.</Prose>
+
+    <Prose>The order changes the cost, even though correct arithmetic gives the same marginal. Eliminating a highly
+      connected node can create a large factor coupling all of its neighbours.</Prose>
+
+    <EliminationGeometryFigure />
+
+    <Prose>For an order with <strong>induced width</strong> <Math>{'w'}</Math>, the largest ordinary dense
+      intermediate over binary variables can have <Math>{'2^{w+1}'}</Math> entries; with equal <Math>{'r'}</Math>-state
+      variables replace 2 by <Math>{'r'}</Math>. Width is computed on the undirected interaction graph the factors
+      induce, not by counting arrows. For a Bayesian network, connect every pair of parents of the same child and then
+      drop the arrow directions: that is its <strong>moral graph</strong>, in which each CPT's variables form a
+      connected clique. The best achievable induced width over all orders is the graph's <strong>treewidth</strong>.
+      A DAG with one child of many parents can have a huge family factor while looking shallow.</Prose>
+    <Prose>At width 30, a 31-variable binary float64 factor alone takes <Math>{'2^{31}\\times8=16'}</Math> GiB, before
+      any extra copies or other factors. That is an exact storage calculation, not a measured library threshold and
+      not a claim that every network of that width is infeasible.</Prose>
+
+    {/* ============================================================ §4 */}
+    <H2>{headings[3]}</H2>
+    <Prose>The arrows do two jobs: they locate the CPTs, and they encode conditional-independence
+      guarantees. <strong>D-separation</strong> is the graphical test for the second job. A path may follow edges in
+      either direction; it is not restricted to directed ancestry.</Prose>
+    <Prose>Inspect the middle node of each three-node segment:</Prose>
+    <LessonTable caption="The three segment patterns, and what observing the middle node does to each"
+      headers={['Pattern', 'Middle node unobserved', 'Middle node observed']}
+      rows={[
+        ['Chain X → Z → Y, or reversed', 'can carry dependence', 'blocks this path'],
+        ['Fork X ← Z → Y', 'can carry dependence', 'blocks this path'],
+        ['Collider X → Z ← Y', 'blocks, unless a descendant of Z is observed', 'opens this part of the path'],
+      ]} />
+    <Prose>A path is <strong>active</strong> when every noncollider along it is unobserved and every collider is
+      either observed or has an observed descendant. Two variables are d-separated by an observation set
+      when <strong>all</strong> connecting paths are blocked. One blocked route does not cancel another active one.</Prose>
+    <Prose>In the alarm graph the single path between <Math>{'B'}</Math> and <Math>{'E'}</Math> is{' '}
+      <Code>{colliderClosed.paths[0].path.join('–')}</Code>. With nothing observed it is blocked: {colliderClosed.paths[0].reason}.
+      Observe <Math>{'A'}</Math> and it opens. Observe only <Math>{'J'}</Math> — a descendant of the alarm, not the
+      alarm itself — and it opens too: {colliderByDescendant.paths[0].reason}. A checker that tests only whether the
+      collider itself is observed misses that case entirely.</Prose>
+
+    <PathLab />
+
+    <Callout title="An active path is not a correlation">
+      For DAG-factorising distributions, d-separation <em>guarantees</em> conditional independence wherever the
+      conditioning event has support. The converse does not hold: an active path says only that the graph does not
+      guarantee independence, and particular numerical parameters can still cancel the dependence.{' '}
+      <strong>Faithfulness</strong> is the additional assumption that no such extra independence occurs. Setting every
+      alarm row to the same number makes the alarm independent of its stated parents in that distribution while the
+      graph still shows an active conditioned collider path; the independence came from the numbers, not from a new
+      d-separation. <a href="https://ermongroup.github.io/cs228-notes/representation/directed/">Stanford's
+      directed-model notes</a> develop the distinction.
+    </Callout>
+
+    <H3>The Markov blanket</H3>
+    <Prose>For a node <Math>{'Y'}</Math>, its parents, its children and its children's other parents form
+      a <strong>Markov blanket</strong>: once those variables are known, the graph guarantees that no other node adds
+      information about <Math>{'Y'}</Math>. For <Math>{'B'}</Math> the blanket
+      is <Math>{'\\{' + blanket.blanket.join(',') + '\\}'}</Math>. The earthquake belongs there precisely because
+      learning the common effect can associate its possible causes — the same explaining-away mechanism, now read off
+      the picture.</Prose>
+    <Prose>This connects to <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">Feature
+      Selection &amp; Importance</a>: a sufficient blanket can make every other input redundant for a specified
+      distribution. Marginal mutual information and pairwise correlations generally cannot identify that set on their
+      own, and degenerate distributions may admit smaller blankets.</Prose>
+
+    {/* ============================================================ §5 */}
+    <H2>{headings[4]}</H2>
+    <Prose>If a node's parent setting occurs in 10 complete training rows and the child is 1 in three of them, its
+      maximum-likelihood estimate for that entry is <Math>{'3/10'}</Math>. The same count is repeated for each parent
+      setting. The log joint likelihood separates into sums of these local count terms, so fixed-graph, fully observed,
+      discrete parameter learning reduces to estimating multinomial tables. A parent setting that never occurs has no
+      empirical distribution to estimate at all.</Prose>
+    <Prose>One response is a Dirichlet prior. For child-state counts <Math>{'N_k'}</Math> and positive prior
+      pseudo-counts <Math>{'\\alpha_k'}</Math>, the posterior predictive probability for the next case is</Prose>
+    <MathBlock>{'\\begin{gathered}P(X_{\\rm new}=k\\mid\\text{setting},D)\\\\[4pt]=\\frac{N_k+\\alpha_k}{N+\\sum_j\\alpha_j}.\\end{gathered}'}</MathBlock>
+    <Prose>For counts <Math>{'[9,1]'}</Math> with <Math>{'\\alpha=[1,1]'}</Math>, the probability of state 1
+      is <Math>{'2/12'}</Math> rather than <Math>{'1/10'}</Math>, and an empty binary row
+      gets <Math>{'[1/2,1/2]'}</Math>. These are posterior means and predictive probabilities, not generally MAP
+      estimates: where an interior mode exists, the MAP estimate subtracts one from each posterior Dirichlet parameter
+      before normalising. A prior states an assumption and can remove fragile zeros; it does not make the resulting
+      probabilities accurate. <a href="https://pgmpy.org/examples/Parameter_Learning_Discrete_BN.html">pgmpy's
+      parameter-learning guide</a> separates complete-data estimation, prior-based estimation and latent-variable EM.</Prose>
+
+    <H3>Does modelling extra dependencies improve cultivar probabilities?</H3>
+    <Prose>The <a href={provenance.doi}>UCI Wine dataset</a> holds {provenance.specimens} specimens from{' '}
+      {provenance.cultivars} cultivars grown in one region of Italy, with {provenance.measurementsInFile} chemical
+      measurements each. This page serves <a href={provenance.file} download>its own unchanged
+      copy</a>, {provenance.bytes.toLocaleString('en-US')} bytes, SHA-256 <Code>{provenance.sha256}</Code>, beside
+      its <a href={provenance.attribution}>attribution</a>; it is licensed{' '}
+      <a href={provenance.licenseUrl}>{provenance.license}</a>, created by {provenance.creator}. This is cultivar
+      recognition, not wine quality prediction.</Prose>
+    <Prose>We use four measurements: {protocol.featureLabels.join(', ')}. Each is deliberately turned into a binary
+      indicator — is it strictly above that feature's <strong>training median</strong>? That makes the learned CPTs
+      small enough to inspect, at the cost of losing detail. Median thresholds are a data-processing choice, not a
+      chemical law.</Prose>
+
+    <Prose>Two recipes are compared. <strong>Naive Bayes</strong> makes the cultivar <Math>{'C'}</Math> the parent of
+      each measurement. <strong>Tree-augmented naive Bayes</strong> also allows each measurement at most one
+      measurement parent; it picks a maximum-weight spanning tree using conditional mutual
+      information <Math>{'I(X_i;X_j\\mid C)'}</Math>, orients that tree outward from the first feature and
+      adds <Math>{'C\\to X_i'}</Math>. The extra arrows model residual associations between measurements within a
+      cultivar group; they are not discovered chemical causes.{' '}
+      <a href="https://dang.cs.technion.ac.il/journal_papers/friedman1997Bayesian.pdf">Friedman, Geiger and
+      Goldszmidt, section 4</a> establishes the tree construction.</Prose>
+    <MathBlock>{'\\begin{gathered}\\hat I(X_i;X_j\\mid C)=\\\\\\sum_{c,a,b}\\hat P(c,a,b)\\log\\frac{\\hat P(a,b\\mid c)}{\\hat P(a\\mid c)\\hat P(b\\mid c)}.\\end{gathered}'}</MathBlock>
+    <Prose>Empty joint cells contribute zero. The score asks whether knowing one measurement helps predict another
+      after the cultivar is accounted for. On the training specimens the strongest pair
+      is {protocol.featureLabels[strongestPair.left]} with {protocol.featureLabels[strongestPair.right]},
+      at {num(strongestPair.informationNats)} nats. With {provenance.cultivars} classes and four binary measurements,
+      naive Bayes has {naiveParameters.free} free parameters and the tree-augmented model {treeParameters.free}; more
+      expressive tables also divide the observations into smaller groups.</Prose>
+
+    <Callout title="The protocol, fixed before any score was read">
+      Split into {protocol.trainSize} training, {protocol.validationSize} validation
+      and {protocol.testSize} test specimens, stratified by cultivar with seeds {protocol.testSeed} and{' '}
+      {protocol.validationSeed}. Fit medians, tree structure and CPTs on the training specimens only. Both models use
+      one pseudo-count per state and the same four measurements. Choose whichever has the lower validation mean log
+      loss, breaking an exact tie in favour of naive Bayes. Refit the chosen recipe on
+      the {protocol.trainSize + protocol.validationSize} development specimens and assess it once on the
+      reserved {protocol.testSize}.
+    </Callout>
+
+    <Prose>Log loss is the average <Math>{'-\\log p'}</Math> assigned to the observed class; lower is better. A
+      confident wrong prediction costs more than a tentative one. Accuracy counts only which class has the largest
+      probability.</Prose>
+    <LessonTable caption="Training-only models on the validation specimens. The declared criterion is the log-loss column."
+      headers={['Model', 'Validation correct', 'Validation log loss']}
+      rows={[
+        ['Prior only', `${scores.priorValidation.correct}/${scores.priorValidation.rows}`, num(scores.priorValidation.logLoss)],
+        ['Naive Bayes', `${scores.naiveBayesValidation.correct}/${scores.naiveBayesValidation.rows}`, num(scores.naiveBayesValidation.logLoss)],
+        ['Tree-augmented', `${scores.treeAugmentedValidation.correct}/${scores.treeAugmentedValidation.rows}`, num(scores.treeAugmentedValidation.logLoss)],
+      ]} />
+    <Prose>Naive Bayes wins the declared criterion despite the tree's extra connections. Refit on the development
+      specimens it scores {scores.selectedTest.correct}/{scores.selectedTest.rows} correct
+      and {num(scores.selectedTest.logLoss)} log loss on the reserved test specimens; the development prior alone
+      scores {scores.priorTest.correct}/{scores.priorTest.rows} and {num(scores.priorTest.logLoss)}. One small single
+      split cannot establish a universal ordering between the two recipes, and no collection dates or grouping
+      metadata accompany these specimens to support a claim about other regions or later vintages.</Prose>
+
+    <MeasuredContrastFigure />
+
+    <H3>Missing a measurement means summing possibilities</H3>
+    <Prose>The training medians are <Math>{'[' + trainingModels.treeAugmented.medians.map(m => num(m)).join(',') + ']'}</Math>.
+      The learned tree gives {treeParentNames.length} of the four measurements a measurement parent, and in every case
+      that parent is {protocol.featureLabels[0]}, in addition to the cultivar. To calculate a posterior from a subset
+      of measurements, sum the joint over both states of every hidden measurement, then normalise across the
+      cultivars. Do not fill an unknown measurement with its more likely state: that throws away part of the joint
+      probability mass.</Prose>
+
+    <MeasurementLab />
+
+    <Prose>This is a demonstration of conditional inference under a fixed fitted model, not a validated
+      measurement-purchasing policy. Missingness that is caused by the unobserved value itself may require modelling
+      the missingness mechanism; nothing in the visible-subset calculations above establishes that ignoring that
+      mechanism is appropriate here.</Prose>
+
+    <Prose>The complete experiment — counts, tree selection, exact missing-measurement marginalisation, the split
+      protocol and every saved numerical example — is one
+      file: <a href="/learn-assets/bayesian-networks/network-experiments.py" download>network-experiments.py</a>. Save
+      it beside the CSV above and run it with Python, NumPy and scikit-learn. Its inference mechanism in words you can
+      map to the code: enumerate the 16 possible binary measurement states, discard only the assignments that
+      contradict a visible value, multiply the class prior by four CPT entries for each cultivar, add the compatible
+      assignments, then normalise. With nothing visible, all the conditional tables sum away and the answer is exactly
+      the class prior.</Prose>
+
+    {/* ============================================================ §6 */}
+    <H2>{headings[5]}</H2>
+    <Prose>Now add causal meaning explicitly. Consider a constructed maintenance
+      model <Math>{'Z\\to X\\to Y'}</Math> with <Math>{'Z\\to Y'}</Math>, where <Math>{'Z=1'}</Math> is high
+      load, <Math>{'X=1'}</Math> a particular service procedure and <Math>{'Y=1'}</Math> a later failure. Half the
+      systems run at high load. The procedure is used with probability {num(fixtures.service.assignment[0])} at low
+      load and {num(fixtures.service.assignment[1])} at high load.</Prose>
+    <LessonTable caption="Failure probabilities. These numbers intentionally describe a harmful procedure."
+      headers={['Load Z', 'Failure without the procedure', 'Failure with the procedure']}
+      rows={[0, 1].map(z => [String(z), num(fixtures.service.outcome[0][z]), num(fixtures.service.outcome[1][z])])} />
+    <Prose>A name such as “treatment” or “service” does not make an intervention beneficial.</Prose>
+
+    <Prose>Among serviced systems, {num(100 * servicedHighLoad)}% run at high load, because the assignment mechanism
+      selected them that way. Their failure probability is {num(service.lanes[1].observedRisk)}. Among unserviced
+      systems the high-load share is only {num(service.lanes[0].observedShares[1])}, giving failure
+      probability {num(service.lanes[0].observedRisk)}. The observed difference
+      is {num(service.associationDifference)}.</Prose>
+    <Prose>Suppose we instead assign <strong>every</strong> system the procedure, leaving the load and the failure
+      mechanism unchanged. The high-load share stays at one half, so</Prose>
+    <MathBlock>{'\\begin{gathered}P(Y=1\\mid do(X=1))\\\\=.5(.05)+.5(.20)=' + num(service.lanes[1].interventionRisk) + '.\\end{gathered}'}</MathBlock>
+    <Prose>Assigning no system the procedure gives {num(service.lanes[0].interventionRisk)}. The causal risk
+      difference is <strong>{num(service.causalDifference)}</strong>. The observational difference overstates it
+      by {num(service.bias)} — which is not the same as the difference between the two treated probabilities.</Prose>
+
+    <Prose>The <strong>do operator</strong> denotes the intervention that replaces the mechanism
+      assigning <Math>{'X'}</Math> with a fixed value. In a causally interpreted, fully observed DAG with independent
+      external disturbances, the post-intervention joint is the old factor product
+      with <Math>{'P(x\\mid pa_X)'}</Math> removed, <Math>{'X'}</Math> fixed, and every other mechanism retained.
+      That is the <strong>truncated factorisation</strong>. Conditioning on <Math>{'X=x'}</Math> instead keeps the
+      assignment factor and renormalises, which changes the composition of the group you are looking at.</Prose>
+
+    <InterventionLab />
+
+    <Callout title="A causal graph is an assumption, not a fitted result">
+      Fitting a Bayesian network to observations does not license reading its arrows as mechanisms. A randomised
+      experiment can justify an assignment mechanism; domain knowledge, temporal constraints and scientific arguments
+      support other arrows or exclusions. Observational fit alone never establishes that replacing a table describes
+      a real intervention.
+    </Callout>
+
+    <H3>Adjustment: block the paths that enter the treatment</H3>
+    <Prose>In the service model, <Math>{'X\\leftarrow Z\\to Y'}</Math> is a <strong>backdoor path</strong>. Comparing
+      procedure groups within load strata and averaging with the target population's load distribution gives</Prose>
+    <MathBlock>{'\\begin{gathered}P(y\\mid do(x))\\\\[4pt]=\\sum_z P(y\\mid x,z)\\,P(z).\\end{gathered}'}</MathBlock>
+    <Prose>The sufficient <strong>backdoor criterion</strong> selects a set that contains no descendant
+      of <Math>{'X'}</Math> and blocks every path from <Math>{'X'}</Math> to <Math>{'Y'}</Math> whose first arrow
+      points into <Math>{'X'}</Math>. You also need the required treatment levels to occur within the strata being
+      averaged — <strong>positivity</strong> — and measurements and causal assumptions appropriate to the
+      question.</Prose>
+    <Prose>Set the two assignment probabilities to 0 and 1 in the investigation above and procedure status identifies
+      load perfectly. The fully specified teaching model still returns a causal difference
+      of {num(noOverlap.causalDifference)}, but observed data alone never reveal the missing
+      low-load-with-procedure and high-load-without-procedure response cells. Do not present the adjustment
+      calculation as estimated from those data. Knowing a generative model and identifying a quantity from available
+      observations are different things.</Prose>
+
+    <H3>More than one set can be valid</H3>
+    <Prose>Take the graph <Math>{'S\\to E,\\ S\\to Y,\\ E\\to T,\\ T\\to Y'}</Math>, and ask for the effect
+      of <Math>{'T'}</Math> on <Math>{'Y'}</Math>. There are exactly two paths between them: the direct
+      edge <Math>{'T\\to Y'}</Math>, which is the causal path we are trying to measure, and{' '}
+      <Code>{soleBackdoorPath.path.join('–')}</Code>, whose first arrow points into <Math>{'T'}</Math>. That second
+      path is the only backdoor route, and both of its interior nodes are noncolliders.</Prose>
+    <LessonTable caption="Every candidate adjustment set for the effect of T on Y in that graph, checked against both parts of the criterion"
+      headers={['Set', 'Contains a descendant of T?', 'Backdoor path blocked?', 'Valid']}
+      rows={educationSets.map(entry => [
+        entry.set.length ? `{${entry.set.join(', ')}}` : 'the empty set',
+        entry.descendantViolations.length ? entry.descendantViolations.join(', ') : 'no',
+        entry.openPaths.length ? 'no' : 'yes',
+        entry.valid ? 'yes' : 'no',
+      ])} />
+    <Prose>So <Math>{'\\{E\\}'}</Math> <strong>and</strong> <Math>{'\\{S\\}'}</Math> both work, and so does their
+      union, subject to the data actually supporting the strata. Conditioning on <Math>{'E'}</Math> creates no new
+      path here, because the only collider in this graph is <Math>{'Y'}</Math> itself, which is an endpoint of the
+      query rather than an interior node of any <Math>{'T'}</Math>-to-<Math>{'Y'}</Math> path. The graph does not
+      declare the more upstream variable universally better. Measurement quality, cost, support and statistical
+      efficiency can distinguish valid choices; being earlier in the drawing cannot.</Prose>
+    <Prose>Add one arrow, <Math>{'E\\to Y'}</Math>, and that changes. Practice 5 asks you to work it out; the answer
+      is that <Math>{'\\{S\\}'}</Math> stops being valid while <Math>{'\\{E\\}'}</Math> and <Math>{'\\{E,S\\}'}</Math> remain
+      so. Investigation 2 grades a different question — d-separation over the whole graph, which counts the
+      direct causal path that the backdoor criterion deliberately sets aside — so it will not confirm this table.
+      The practice-5 graph is one of its presets under a question it <em>can</em> settle: whether status and
+      training can be separated at all.</Prose>
+
+    <Checkpoint prompt={'A colleague proposes adjusting for every variable that was measured, on the grounds that '
+      + 'more control is safer. Name three separate ways that can go wrong, using the vocabulary of this section.'}>
+      <Prose>A collider can <em>open</em> a route that was closed: conditioning on a common effect of the treatment
+        and the outcome creates an association where the graph had none. A mediator removes part of the total effect,
+        because blocking a directed causal path answers a different question from the one asked. And additional
+        variables can worsen overlap: the more finely the population is stratified, the more likely some stratum
+        contains only one treatment level, at which point positivity fails and the adjustment formula has an empty
+        denominator rather than a small one. First name the causal quantity you want, then inspect the paths.{' '}
+        <a href="https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf">Pearl's causal-inference paper, printed
+        pages 2517–2519</a>, develops the criterion and its assumptions.</Prose>
+    </Checkpoint>
+
+    {/* ============================================================ §7 */}
+    <H2>{headings[6]}</H2>
+    <Prose><strong>This section is a deeper branch.</strong> It assumes sections 1–6 and develops identification,
+      the three do-calculus rules and individual counterfactuals.</Prose>
+
+    <H3>A measured mediator can sometimes bypass an unmeasured cause</H3>
+    <Prose>Suppose an unobserved <Math>{'U'}</Math> influences both <Math>{'X'}</Math> and <Math>{'Y'}</Math>, while{' '}
+      <Math>{'X\\to M\\to Y'}</Math>, with no direct <Math>{'X\\to Y'}</Math> arrow. Under this graph
+      the <strong>frontdoor criterion</strong> can identify the total effect using only the
+      observed <Math>{'X,M,Y'}</Math>. It has three conditions, and they hold here:</Prose>
+    <LessonTable caption="The three frontdoor conditions, checked against the stated graph rather than asserted"
+      headers={['Condition', 'Holds here', 'Why']}
+      rows={[
+        ['M intercepts every directed path from X to Y', frontdoorOk.intercepts ? 'yes' : 'no',
+          `The directed paths are ${frontdoorOk.directedPaths.map(path => path.join('→')).join(' and ')}.`],
+        ['No backdoor path from X to M is open', frontdoorOk.treatmentToMediatorOpen.length ? 'no' : 'yes',
+          'Any route back out of X reaches M only through the collider at Y, which is unobserved.'],
+        ['Conditioning on X blocks every backdoor path from M to Y', frontdoorOk.mediatorToOutcomeOpen.length ? 'no' : 'yes',
+          'The route M ← X ← U → Y is blocked at the noncollider X once X is conditioned on.'],
+      ]} />
+    <Prose>With the required support, the result is</Prose>
+    <MathBlock>{'\\begin{gathered}P(y\\mid do(x))\\\\[4pt]=\\sum_m P(m\\mid x)\\,q(m),\\\\[6pt]q(m)=\\sum_{x\'}P(y\\mid m,x\')\\,P(x\').\\end{gathered}'}</MathBlock>
+    <Prose>Written as two steps, because that is how it is computed. The inner
+      average <Math>{'q(m)'}</Math> estimates the response to setting the mediator to <Math>{'m'}</Math>, corrected
+      for the mediator's association with the upstream treatment. The outer sum then combines those two responses
+      using the mediator distribution that setting <Math>{'X=x'}</Math> induces. Figure 5 below is those two steps as
+      two trays. Simply conditioning on the mediator is a different calculation.
+      These conditions and the formula appear in <a href="https://ftp.cs.ucla.edu/pub/stat_ser/uai12-mohan-pearl.pdf">Mohan
+      and Pearl's graphical-model tutorial</a>.</Prose>
+
+    <FrontdoorFigure />
+
+    <Callout title="An unobserved common cause does not settle the question">
+      Lack of a valid backdoor set is not the same as nonidentification. An unobserved common cause blocks <em>ordinary
+      adjustment</em> only on the paths where no observed noncollider lies: if a backdoor route runs through an
+      observed noncollider elsewhere, conditioning on that variable blocks it, and the frontdoor construction above
+      identifies an effect in a graph where no adjustment set exists at all. The reverse also holds: observing a
+      mediator does not by itself license the frontdoor formula. Check the exact graph and name which criterion you
+      are appealing to.
+    </Callout>
+
+    <Prose>Two small changes break it, in two different ways. Adding <Math>{'U\\to M'}</Math> opens{' '}
+      <Math>{'X\\leftarrow U\\to M'}</Math>, so the second condition fails
+      ({frontdoorLatentMediator.treatmentToMediatorOpen.length} backdoor path from <Math>{'X'}</Math> to{' '}
+      <Math>{'M'}</Math> is then open). Adding <Math>{'X\\to Y'}</Math> instead leaves the mediator intercepting only{' '}
+      {frontdoorDirect.directedPaths.filter(path => path.includes('M')).length} of{' '}
+      {frontdoorDirect.directedPaths.length} directed paths, so the first condition fails. Neither change licenses the
+      same formula, and neither failure proves the effect is unidentifiable by any route.</Prose>
+
+    <H3>The three do-calculus rules, with their graph operations</H3>
+    <Prose>For disjoint variable sets <Math>{'X,Y,Z,W'}</Math>, let <Math>{'G_{\\bar X}'}</Math> remove the arrows
+      entering <Math>{'X'}</Math>, and <Math>{'G_{\\underline Z}'}</Math> remove the arrows
+      leaving <Math>{'Z'}</Math>. Combined subscripts apply both. Each rule transforms an expression when the
+      indicated d-separation holds <em>in its own modified graph</em>; ordinary d-separation in the original graph
+      cannot substitute for these tests.</Prose>
+    <Prose><strong>Rule 1 — drop an irrelevant observation.</strong> If <Math>{'Y\\perp Z\\mid X,W'}</Math> in{' '}
+      <Math>{'G_{\\bar X}'}</Math>:</Prose>
+    <MathBlock>{'\\begin{gathered}P(y\\mid do(x),z,w)\\\\=P(y\\mid do(x),w).\\end{gathered}'}</MathBlock>
+    <Prose><strong>Rule 2 — exchange an action for an observation.</strong> If <Math>{'Y\\perp Z\\mid X,W'}</Math> in{' '}
+      <Math>{'G_{\\bar X,\\underline Z}'}</Math>:</Prose>
+    <MathBlock>{'\\begin{gathered}P(y\\mid do(x),do(z),w)\\\\=P(y\\mid do(x),z,w).\\end{gathered}'}</MathBlock>
+    <Prose><strong>Rule 3 — drop an irrelevant action.</strong> If <Math>{'Y\\perp Z\\mid X,W'}</Math> in{' '}
+      <Math>{'G_{\\bar X,\\overline{Z(W)}}'}</Math>:</Prose>
+    <MathBlock>{'\\begin{gathered}P(y\\mid do(x),do(z),w)\\\\=P(y\\mid do(x),w).\\end{gathered}'}</MathBlock>
+    <Prose>Here <Math>{'Z(W)'}</Math> contains the <Math>{'Z'}</Math>-nodes that are <em>not</em> ancestors of
+      any <Math>{'W'}</Math>-node in <Math>{'G_{\\bar X}'}</Math>; when <Math>{'W'}</Math> is empty it is all
+      of <Math>{'Z'}</Math>.</Prose>
+    <Prose>A worked case: in a causally sufficient <Math>{'X\\to Y'}</Math> model with no other paths, delete the
+      outgoing arrow from <Math>{'X'}</Math>. Now <Math>{'X'}</Math> and <Math>{'Y'}</Math> are separated in that
+      modified graph, so rule 2 justifies <Math>{'P(y\\mid do(x))=P(y\\mid x)'}</Math>. Add an unobserved common
+      cause, and the remaining backdoor route prevents exactly that argument.{' '}
+      <a href="https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf">Pearl's rule statements</a> give the formal
+      conditions.</Prose>
+    <Prose><strong>Identification</strong> asks whether every causal model satisfying the assumptions and yielding the
+      same observational distribution agrees on the causal query. <strong>Estimation</strong> asks how to approximate
+      an identified quantity from finite observations. Do-calculus plus ordinary probability operations is complete
+      for the relevant interventional identification problems in the standard acyclic framework with latent variables
+      allowed; that is not a promise that every effect, every counterfactual or every feedback system is identified.</Prose>
+
+    <H3>Counterfactuals need the same unit in two worlds</H3>
+    <Prose>A <strong>structural causal model</strong> writes variables as assignments
+      such as <Math>{'Y=f_Y(X,U_Y)'}</Math>, with external variables <Math>{'U'}</Math> describing the variation not
+      otherwise represented. Independent external noises in an acyclic, fully observed model yield the familiar causal
+      DAG factorisation; dependent external variables require representing that latent dependence rather than
+      silently multiplying independent noise distributions.</Prose>
+    <Prose>An individual counterfactual takes three steps: infer the external state from what
+      happened (<strong>abduction</strong>), replace the specified assignment (<strong>action</strong>), and run the
+      changed model using that same inferred state (<strong>prediction</strong>). A population intervention averages
+      over the population's external states instead.</Prose>
+    <Prose>Consider randomised binary <Math>{'X'}</Math> and an independent fair binary <Math>{'U'}</Math>, and
+      compare model A, <Math>{'Y=U'}</Math>, with model B, <Math>{'Y=X\\mathbin{\\mathrm{XOR}}U'}</Math>, where XOR is
+      1 exactly when its inputs differ.</Prose>
+
+    <CounterfactualFigure />
+
+    <Prose>Both models
+      have <Math>{'P(Y=1\\mid X=x)=P(Y=1\\mid do(X=x))=1/2'}</Math> for either <Math>{'x'}</Math>, so they agree on
+      every observational and population-interventional distribution of <Math>{'X,Y'}</Math>. Yet for a unit observed
+      with <Math>{'X=0,Y=0'}</Math>, both infer <Math>{'U=' + observedUnit[0].inferredExternalState}</Math>; changing
+      that unit's <Math>{'X'}</Math> to 1 yields <Math>{'Y=' + observedUnit[0].prediction}</Math> in
+      A and <Math>{'Y=' + observedUnit[1].prediction}</Math> in B.</Prose>
+    <Prose>The distinction is the coupling of the same unit's outcomes across settings, and a conditional probability
+      table alone did not determine it. One may include an unused <Math>{'X\\to Y'}</Math> parent in model A if using a
+      common permissive graph; it then exhibits an extra independence rather than faithfulness. Some particular
+      counterfactual quantities can be identified under weaker assumptions than a fully numerically specified
+      structural model, but the population tables in this example are not enough.</Prose>
+
+    {/* ============================================================ §8 */}
+    <H2>{headings[7]}</H2>
+    <Prose><strong>This section is a deeper branch.</strong> It covers structure search, exact compilation,
+      approximate inference, query families and the neighbouring model classes.</Prose>
+
+    <H3>A graph can predict well without revealing a unique direction</H3>
+    <Prose>With complete discrete training data, fixed-graph likelihood is easy to evaluate. Structure search can add,
+      remove or reverse an edge while preserving acyclicity, scoring fit against complexity. Under the usual
+      regular-model approximation, a BIC score to <strong>maximise</strong>
+      is <Math>{'\\ell(\\hat\\theta)-(k/2)\\log n'}</Math>; equivalently minimise <Math>{'-2\\ell+k\\log n'}</Math>,
+      using the actual CPT parameter count for <Math>{'k'}</Math>. That is a statistical approximation with
+      assumptions, not a universal penalty for arbitrary latent or singular models.</Prose>
+    <Prose>Searching many DAGs is expensive and greedy hill climbing can stop at a local optimum; parent limits,
+      domain constraints and score caching help. Conditional-independence approaches such as PC instead remove
+      adjacencies through independence tests and orient only what the resulting constraints justify. Under their
+      standard correctness conditions they rely on assumptions including causal sufficiency, Markovness, faithfulness
+      and suitable independence information, and finite samples can make the tests unstable. Latent-variable
+      approaches such as FCI address a different assumption set and represent partially determined structure.</Prose>
+    <Prose>For ordinary DAG independence models, <strong>Markov-equivalent</strong> graphs share the same skeleton and
+      the same unshielded colliders. The skeleton forgets arrowheads; an unshielded
+      collider <Math>{'X\\to Z\\leftarrow Y'}</Math> has no <Math>{'X{-}Y'}</Math> edge.</Prose>
+
+    <EquivalenceFigure />
+
+    <Prose>Pure observational independence information cannot choose between the three non-collider orientations.
+      Additional functional assumptions or actual interventions may identify more, so do not claim that observational
+      orientation is always impossible under every model class.</Prose>
+    <Prose>If values or variables are missing during fitting, local complete-data counts no longer suffice. EM
+      alternates posterior expected sufficient counts under current parameters with parameter updates; exact E-steps
+      can be costly, and local optima and unidentifiability remain possible. That connects directly to
+      the <a href="/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml">Gaussian
+      mixture</a> lesson, where the hidden quantity was a component membership rather than a graph node.</Prose>
+
+    <H3>Compile repeated exact queries, or approximate deliberately</H3>
+    <Prose>A <strong>junction tree</strong> groups interacting variables into clusters connected as a tree, and
+      neighbouring clusters exchange functions over their shared variables. Every variable must appear in a connected
+      set of clusters — the <strong>running-intersection property</strong> — so that messages can summarise the
+      excluded subproblems consistently. Building such clusters usually involves moralisation and triangulation: add
+      fill edges to remove chordless cycles of length four or more, then organise the cliques. Triangulation does not
+      remove every cycle from the graph, and its large clusters are where treewidth reappears.{' '}
+      <a href="https://ermongroup.github.io/cs228-notes/inference/jt/">Stanford's junction-tree chapter</a> is a
+      useful derivation after the factor workbench in section 3.</Prose>
+    <Prose>Sum-product messages are exact on an appropriate tree of factors or clusters. Loopy belief propagation
+      applies similar local updates to a graph with loops, where convergence and exactness are no longer
+      automatic.</Prose>
+    <LessonTable caption="Approximate choices for large discrete models, and a failure worth checking for each"
+      headers={['Method', 'Main operation', 'A failure worth checking']}
+      rows={[
+        ['Ancestral sampling', 'Sample each node after its parents', 'Rare evidence makes rejection discard almost everything'],
+        ['Likelihood weighting', 'Fix evidence; weight samples by its likelihood', 'A few samples may carry almost all the weight'],
+        ['Gibbs sampling', 'Resample each variable given its blanket', 'Strong or deterministic constraints can prevent useful movement'],
+        ['Variational inference', 'Optimise a tractable approximating distribution', 'The family and objective can miss important dependence or modes'],
+        ['Loopy belief propagation', 'Iterate local messages', 'Oscillation, or a stable but inaccurate fixed point'],
+      ]} />
+    <Prose>For the alarm's two-call evidence, rejection sampling retains
+      about {percent(retainedFraction, 4)}% of prior samples on average: roughly{' '}
+      {whole(fixtures.rejectionSampleSize * retainedFraction)} of{' '}
+      {fixtures.rejectionSampleSize.toLocaleString('en-US')}. Weighting avoids literal rejection but can still
+      concentrate weight severely. For correlated Monte Carlo draws the raw draw count overstates precision, so assess
+      effective sample size and exploration; a Gibbs chain constrained to keep two binary variables equal may be
+      unable to move either coordinate alone, and blocked updates or another sampler may be needed.{' '}
+      <a href="https://ermongroup.github.io/cs228-notes/inference/sampling/">Stanford's sampling chapter</a> supplies
+      the mechanisms.</Prose>
+
+    <H3>Three query families that are not interchangeable</H3>
+    <Prose>A <strong>marginal</strong> asks for <Math>{'P(Y\\mid e)'}</Math>. <strong>MPE</strong> selects the
+      highest-probability assignment to <em>all</em> remaining hidden variables. A <strong>marginal-MAP</strong> query
+      maximises over a selected set after summing the others out. Max and sum generally cannot swap, and a single
+      example settles it.</Prose>
+    <LessonTable caption="Four joint masses over a query variable Q and a hidden variable H"
+      headers={['Q', 'H', 'mass']}
+      rows={mapQuery.entries.map(entry => [String(entry.query), String(entry.hidden), num(entry.value)])} />
+    <Prose>The highest-probability world here has <Math>{'Q=' + mapQuery.mostProbableWorld.query}</Math>, at
+      mass {num(mapQuery.mostProbableWorld.value)}. The marginal-MAP answer
+      is <Math>{'Q=' + mapQuery.marginalMapQuery}</Math>, because its rows combine
+      to {num(mapQuery.marginalMapMass)} against {num(mapQuery.rowMasses[1 - mapQuery.marginalMapQuery])}. The two
+      questions have different answers on the same distribution.</Prose>
+
+    <H3>Choosing a representation for the question</H3>
+    <Prose>A hidden Markov model is a time-unrolled directed model with repeated local transition and emission rules,
+      and its forward algorithm is specialised variable elimination. The next lesson, Conditional Random Fields,
+      instead models <Math>{'P(\\text{labels}\\mid\\text{observations})'}</Math> directly and need not supply a
+      generative distribution for the observations at all; that changes which quantities the model can
+      answer.</Prose>
+    <Prose>An undirected Markov random field uses compatibility factors and a partition function. Neither directed nor
+      undirected graphical independence models universally contains the other: a nonchordal undirected cycle and a
+      directed collider illustrate why their conditional-independence semantics differ. Linear-Gaussian networks
+      replace discrete CPTs with local linear regressions and Gaussian disturbances and can retain analytic Gaussian
+      inference; nonlinear or neural conditional distributions broaden expressive power but may require different
+      inference methods. Probabilistic programming can express far richer hierarchical and latent models, but the
+      inference engine still has requirements — gradient-based HMC is designed for suitable continuous latent spaces,
+      not raw discrete state jumps, so discrete enumeration, marginalisation, custom samplers or variational
+      approximations may be needed.</Prose>
+    <Prose>A useful application beyond classification is <strong>diagnosis with selectively missing sensors</strong>:
+      maintain a distribution over underlying faults while measurements arrive, exactly as investigation 3 does with
+      chemical measurements. A separate utility model is needed to compare the expected value of a test against its
+      cost; probability alone does not decide what action is worthwhile. Reliability planning similarly distinguishes
+      observing a component failure from replacing a component's failure mechanism. Genomic and neural applications
+      can use graphs to state competing explanations, provided correlated signals and selection effects are not
+      relabelled as causal connections.</Prose>
+
+    <H3>A current library route</H3>
+    <Prose>The program below builds the same five-node network through pgmpy, with the state order and the
+      parent-column order written out explicitly. The content phase left it written but unexecuted. This
+      implementation installed <strong>pgmpy {bayesnetExamples.pgmpy.environment.pgmpy}</strong> into an isolated
+      environment and ran it there, so the output shown below is what it actually printed. The isolation was not
+      ceremony: resolving pgmpy moved NumPy
+      to {bayesnetExamples.pgmpy.environment.numpy} and pandas to {bayesnetExamples.pgmpy.environment.pandas},
+      against the {bayesnetExamples.enumerate.environment.numpy} and {bayesnetExamples.enumerate.environment.pandas} the
+      other programs on this page ran on, and every recorded output in this curriculum depends on those exact
+      versions. The code follows the currently
+      inspected <a href="https://pgmpy.org/api/generated/models/pgmpy.models.DiscreteBayesianNetwork.html">DiscreteBayesianNetwork</a> and{' '}
+      <a href="https://pgmpy.org/api/generated/inference/pgmpy.inference.VariableElimination.html">VariableElimination</a> APIs.</Prose>
+    <Program example={bayesnetExamples.pgmpy}>
+      <Prose>The second state is the burglary probability, and it agrees with the enumeration in section 2 to the last
+        digit NumPy prints. Do not infer a fixed-value intervention from a method's name alone: inspect whether an API
+        cuts incoming edges, changes a CPT, sets a particular state or samples an intervention. State ordering and
+        evidence-column ordering also matter, because a normalised table can still encode the wrong parent
+        configuration.</Prose>
+    </Program>
+
+    {/* ============================================================ §9 */}
+    <H2>{headings[8]}</H2>
+    <Prose>Work through 1–6 before the deeper problems. Each one changes a mechanism or an assumption rather than
+      asking you to repeat the preceding trace.</Prose>
+
+    <Practice title="1. A different caller"
+      question={<>Replace Mary's table by <Math>{'P(M=1\\mid A=0)=P(M=1\\mid A=1)=0.4'}</Math>. With only Mary
+        calling, what is the burglary posterior? With both John and Mary calling, which earlier posterior should
+        reappear?</>}
+      hint={<>The factor for Mary's evidence is now the same constant in every remaining world.</>}>
+      <Prose>It cancels between numerator and denominator. Mary alone gives back the
+        prior, {num(uninformativeMaryAlone.posterior)}. Both calls give John's posterior,
+        approximately {num(uninformativeMary.posterior)} — the same {num(johnOnly.posterior)} as before. Equal
+        conditional rows remove Mary's information from this distribution, even though the drawn graph still shows the
+        arrow. Investigation 1 has both of Mary's rows as editable fields and a “Practice 1” setup that applies this
+        exact change, so you can reproduce both numbers there.</Prose>
+    </Practice>
+
+    <Practice title="2. A descendant opens a path"
+      question={<>Draw <Math>{'R\\to S\\leftarrow T'}</Math> and <Math>{'S\\to V\\to W'}</Math>.
+        Are <Math>{'R'}</Math> and <Math>{'T'}</Math> d-separated with no observations, with <Math>{'W'}</Math> observed,
+        and with both <Math>{'S'}</Math> and <Math>{'W'}</Math> observed? Does the graph specify a negative
+        correlation in the latter two cases?</>}
+      hint={<>Ask whether the collider has an observed descendant; then separate “active” from the sign of any
+        association.</>}>
+      <Prose>{dSeparation(fixtures.colliderChainEdges, 'R', 'T', []).summary} With <Math>{'W'}</Math> observed
+        the path opens, because {dSeparation(fixtures.colliderChainEdges, 'R', 'T', ['W']).paths[0].reason}. With
+        both <Math>{'S'}</Math> and <Math>{'W'}</Math> observed it is open
+        too: {dSeparation(fixtures.colliderChainEdges, 'R', 'T', ['S', 'W']).paths[0].reason}. The graph supplies no
+        numerical sign or strength at all. Explaining away in section 2 was a consequence of the alarm's particular
+        probabilities, not a universal negative-correlation theorem. This graph is a preset in investigation 2.</Prose>
+    </Practice>
+
+    <Practice title="3. Count a different network"
+      question={<>Let a three-state <Math>{'C'}</Math> parent three binary
+        features <Math>{'F_1,F_2,F_3'}</Math>, and add <Math>{'F_1\\to F_2'}</Math>. How many free CPT parameters are
+        there? Compare with a fully unrestricted joint over the four variables.</>}
+      hint={<>Count each node's parent configurations, then multiply by its number of states minus one.</>}>
+      <Prose>{practiceParameters.rows.map(row =>
+        `${row.name} contributes ${row.configurations} × ${row.states - 1} = ${row.free}`).join('; ')}, for a total
+        of {practiceParameters.free}. The unrestricted joint has {practiceParameters.jointEntries} entries
+        and {practiceParameters.jointFree} free parameters. These count probabilities, not data rows and not
+        bytes.</Prose>
+    </Practice>
+
+    <Practice title="4. A probability query with one hidden variable"
+      question={<>You have <Math>{'P(C=1)=0.4'}</Math>, <Math>{'P(F=1\\mid C=0)=0.2'}</Math> and <Math>{'P(F=1\\mid C=1)=0.8'}</Math>.
+        A downstream measurement <Math>{'G'}</Math> depends only on <Math>{'F'}</Math>,
+        with <Math>{'P(G=1\\mid F=0)=0.1'}</Math> and <Math>{'P(G=1\\mid F=1)=0.9'}</Math>.
+        Calculate <Math>{'P(C=1\\mid G=1)'}</Math> by summing over <Math>{'F'}</Math>.</>}
+      hint={<>First obtain the two likelihoods <Math>{'P(G=1\\mid C)'}</Math>.</>}>
+      <Prose>They are <Math>{'0.8(0.1)+0.2(0.9)=0.26'}</Math> for <Math>{'C=0'}</Math>
+        and <Math>{'0.2(0.1)+0.8(0.9)=0.74'}</Math> for <Math>{'C=1'}</Math>. So the answer
+        is <Math>{'0.4(0.74)/[0.6(0.26)+0.4(0.74)]=0.296/0.452\\approx0.654867'}</Math>. Choosing the most
+        likely <Math>{'F'}</Math> first and then conditioning on it would solve a different problem, and would give a
+        different number.</Prose>
+    </Practice>
+
+    <Practice title="5. Valid adjustment sets, changed graph"
+      question={<>For <Math>{'S\\to E,\\ S\\to Y,\\ E\\to T,\\ T\\to Y'}</Math>, check <Math>{'\\{E\\}'}</Math> and{' '}
+        <Math>{'\\{S\\}'}</Math>. Now add <Math>{'E\\to Y'}</Math>. Which of <Math>{'\\{E\\},\\{S\\},\\{E,S\\}'}</Math> still
+        satisfy the backdoor criterion for the total effect of <Math>{'T'}</Math> on <Math>{'Y'}</Math>?</>}
+      hint={<>List the new route that begins <Math>{'T\\leftarrow E'}</Math>.</>}>
+      <Prose>Originally both singleton sets work, as the table in section 6 shows. Adding <Math>{'E\\to Y'}</Math> creates
+        a second backdoor route, <Code>{educationWithDirect[0].backdoorPaths.find(entry => entry.path.length === 3)?.path.join('–')}</Code>,
+        which <Math>{'S'}</Math> does not touch.</Prose>
+      <LessonTable caption="The same three candidate sets after the arrow from E to Y is added"
+        headers={['Set', 'Backdoor paths open', 'Valid']}
+        rows={educationWithDirect.map(entry => [
+          `{${entry.set.join(', ')}}`,
+          entry.openPaths.length ? entry.openPaths.map(path => path.path.join('–')).join(', ') : 'none',
+          entry.valid ? 'yes' : 'no',
+        ])} />
+      <Prose>So <Math>{'\\{E\\}'}</Math> and <Math>{'\\{E,S\\}'}</Math> work
+        while <Math>{'\\{S\\}'}</Math> does not. Required support and correct graph assumptions still apply. Being
+        earlier in the graph was never sufficient to be a valid adjustment variable, and this is the counterexample
+        that shows why.</Prose>
+    </Practice>
+
+    <Practice title="6. A more cautious real-data claim"
+      question={<>The two Wine recipes classify the same number of validation specimens correctly, but naive Bayes has
+        the lower log loss. Explain how that can happen. Would reporting the tree-augmented model's test result after
+        seeing naive Bayes's test loss preserve the declared selection protocol? And in investigation 3, why must
+        changing a <em>hidden</em> alcohol value leave the posterior unchanged?</>}
+      hint={<>Distinguish the largest-probability label from the whole probability vector, and distinguish information
+        available to a query from a value stored in a record.</>}>
+      <Prose>Two models can differ in confidence while agreeing on the label, and can even make different errors with
+        the same total count. Log loss reads the true-class probability on every row; accuracy reads only which entry
+        is largest. In figure 4 both models misclassify the same number of specimens, and the difference between{' '}
+        {num(scores.naiveBayesValidation.logLoss)} and {num(scores.treeAugmentedValidation.logLoss)} is assembled
+        entirely from confidence.</Prose>
+      <Prose>No, it would not preserve the protocol. Choosing or emphasising a second model after inspecting the
+        held-out result reuses test information for selection; a new selection needs new evaluation, or a
+        transparently exploratory report that says the assessment is no longer independent.</Prose>
+      <Prose>A hidden measurement is marginalised over: the query sums across both of its states and the stored value
+        never enters the calculation. It cannot be read until it becomes evidence. That is why the “edit a hidden
+        value” case in investigation 3 is an exact null rather than a small change.</Prose>
+    </Practice>
+
+    <Practice title="7. Change a causal response, not its assignment"
+      question={<>In the service example, change the low-load procedure failure probability
+        from {num(fixtures.service.outcome[1][0])} to {num(fixtures.serviceChangedResponse.outcome[1][0])}, leaving
+        everything else fixed. What is the new causal difference? Under the original assignment probabilities, what is
+        the observed difference?</>}
+      hint={<>Use population weights <Math>{'[1/2,1/2]'}</Math> for the intervention and serviced-group
+        weights <Math>{'[1/4,3/4]'}</Math> for the observation.</>}>
+      <Prose>The intervention probability with the procedure
+        becomes <Math>{'0.5(0.01)+0.5(0.20)=' + num(changedResponse.lanes[1].interventionRisk)}</Math>.
+        Without it, {num(changedResponse.lanes[0].interventionRisk)} is unchanged, so the causal difference
+        is {num(changedResponse.causalDifference)}. The observed serviced risk
+        becomes {num(changedResponse.lanes[1].observedRisk)}; subtracting the
+        unchanged {num(changedResponse.lanes[0].observedRisk)} gives {num(changedResponse.associationDifference)}.
+        Changing one response cell moves the two averages by different amounts, because their weights differ —
+        {' '}<Math>{'[1/2,1/2]'}</Math> against <Math>{'[1/4,3/4]'}</Math>. Investigation 4 has this exact edit as a
+        suggested setup.</Prose>
+    </Practice>
+
+    <Practice title="8. Marginal answer versus best world"
+      question={<>Change the four masses in section 8
+        to <Math>{'[' + practiceMap.entries.map(entry => num(entry.value)).join(',') + ']'}</Math> in the
+        same <Math>{'(Q,H)'}</Math> order. Find both answers. Why does their matching here not justify replacing sum
+        with max in general?</>}
+      hint={<>Compare the largest single cell with each row sum.</>}>
+      <Prose>The most likely world
+        is <Math>{'(' + practiceMap.mostProbableWorld.query + ',' + practiceMap.mostProbableWorld.hidden + ')'}</Math>,
+        and the marginal-MAP value is also <Math>{'Q=' + practiceMap.marginalMapQuery}</Math>, whose mass
+        is {num(practiceMap.marginalMapMass)} against {num(practiceMap.rowMasses[1 - practiceMap.marginalMapQuery])}.
+        They coincide here. Section 8's original table is a counterexample to the proposed general shortcut, and one
+        coincidence cannot establish an algebraic identity.</Prose>
+    </Practice>
+
+    <Practice title="9. Break a frontdoor assumption"
+      question={<>In section 7's graph, add <Math>{'U\\to M'}</Math>. Is the displayed frontdoor formula still
+        justified by that criterion? What if instead you add only <Math>{'X\\to Y'}</Math>?</>}
+      hint={<>Check the backdoor paths from the treatment to the mediator, and the set of directed treatment-to-outcome
+        paths, separately.</>}>
+      <Prose>The first addition opens <Math>{'X\\leftarrow U\\to M'}</Math>, so the second condition fails: the graph
+        now has {frontdoorLatentMediator.treatmentToMediatorOpen.length} open backdoor path
+        from <Math>{'X'}</Math> to <Math>{'M'}</Math>, against {frontdoorOk.treatmentToMediatorOpen.length} before.
+        The direct <Math>{'X\\to Y'}</Math> addition instead violates the interception condition: there are
+        now {frontdoorDirect.directedPaths.length} directed paths from <Math>{'X'}</Math> to <Math>{'Y'}</Math> and
+        the mediator lies on only {frontdoorDirect.directedPaths.filter(path => path.includes('M')).length} of them.
+        Neither change licenses the same formula. Failure of a sufficient criterion does not by itself prove the
+        effect unidentifiable; reassess the graph and the assumptions you are prepared to make.</Prose>
+    </Practice>
+
+    <Practice title="10. Find what the probability tables leave unspecified"
+      question={<>For the two structural models in section 7, observe <Math>{'X=1,Y=0'}</Math>.
+        Infer <Math>{'U'}</Math>, then set <Math>{'X=0'}</Math>. What does each model predict? Which population
+        quantities remain equal?</>}
+      hint={<>Keep each model's inferred external state fixed while changing <Math>{'X'}</Math>.</>}>
+      <Prose>Model A infers <Math>{'U=' + practiceUnit[0].inferredExternalState}</Math> and still
+        predicts <Math>{'Y=' + practiceUnit[0].prediction}</Math>. Model B
+        infers <Math>{'U=' + practiceUnit[1].inferredExternalState}</Math> and
+        predicts <Math>{'Y=' + practiceUnit[1].prediction}</Math> after the change. Both models still give a
+        fair <Math>{'Y'}</Math> under either intervention — the column averages in figure 6
+        are {num(counterfactuals.models[0].averageUnderZero)} and {num(counterfactuals.models[0].averageUnderOne)} in
+        both — and the same observational distribution over <Math>{'X,Y'}</Math>. They disagree about paired,
+        unit-level outcomes, which those distributions never specified.</Prose>
+    </Practice>
+
+    {/* ============================================================ §10 */}
+    <H2>{headings[9]}</H2>
+    <Prose>You are ready to move on when you can explain why an unobserved variable is summed out rather than filled
+      in, identify a collider's observed descendant, distinguish a causal query from a predictive one, and justify a
+      small adjustment set by naming the path it blocks. For the deeper route, add distinguishing identification from
+      finite-sample estimation, and distinguishing a population intervention from an individual counterfactual.</Prose>
+
+    <LessonTable caption="Readiness check"
+      headers={['you should be able to', 'where it was taught']}
+      rows={[
+        ['Assemble one world as a product of five local table entries', 'Section 1, figure 1'],
+        ['Add the compatible worlds and renormalise to get a posterior', 'Section 2, investigation 1, practice 4'],
+        ['Say when extra evidence changes nothing, and when a posterior has no value at all', 'Section 2, investigation 1, practice 1'],
+        ['Eliminate a variable and explain why the answer does not change', 'Section 3, figure 2'],
+        ['Read an elimination order off the moral graph and count its largest factor', 'Section 3, figure 3'],
+        ['Decide whether an observation set d-separates two variables, including a collider descendant', 'Section 4, investigation 2, practice 2'],
+        ['Name a Markov blanket and say what it makes redundant', 'Section 4'],
+        ['Fit a discrete CPT by counting, and say what a Dirichlet pseudo-count changes', 'Section 5'],
+        ['Read a real two-recipe comparison where accuracy ties and log loss does not', 'Section 5, figure 4, practice 6'],
+        ['Answer a query with measurements missing, and say why a hidden edit is a null', 'Section 5, investigation 3'],
+        ['Separate an observed difference from a causal one and name the bias', 'Section 6, investigation 4, practice 7'],
+        ['Check the backdoor criterion on a stated graph and find every valid set', 'Section 6, practice 5'],
+        ['Check the three frontdoor conditions, and break them two different ways', 'Section 7, figure 5, practice 9'],
+        ['Run abduction, action and prediction on one unit', 'Section 7, figure 6, practice 10'],
+        ['Tell a most probable world from a marginal-MAP answer', 'Section 8, practice 8'],
+      ]} />
+
+    <Prose>The next topic in this module
+      is <a href="/learn/path/full-curriculum/conditional-random-fields-crf?module=classical-ml">Conditional Random
+      Fields</a>. Carry forward factors and normalisation, then ask what changes when only the conditional label
+      distribution is modelled and the observations get no generative model at all. The
+      separate <a href="/learn/path/full-curriculum/causal-inference-do-calculus?module=math-foundations">causal-inference</a>,{' '}
+      <a href="/learn/path/full-curriculum/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts?module=math-foundations">Monte
+      Carlo</a> and <a href="/learn/path/full-curriculum/variational-inference?module=math-foundations">variational-inference</a> lessons
+      extend the deeper branches; none of them is a reason to skip this module's reading sequence.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; each of these offers
+      a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://ermongroup.github.io/cs228-notes/">Stanford CS228 notes</a>, Volodymyr Kuleshov and Stefano
+        Ermon with course staff. Begin with directed representation, then variable elimination and junction trees, and
+        use the sampling chapter after exact sums feel familiar. The course also covers undirected models,
+        latent-variable learning and variational inference. Read the formulas critically: these are evolving notes
+        that acknowledge possible errors, and several sections are marked under construction.</li>
+      <li><a href="https://dang.cs.technion.ac.il/journal_papers/friedman1997Bayesian.pdf">Bayesian Network
+        Classifiers</a>, Friedman, Geiger and Goldszmidt, 1997. Section 4 explains the conditional-information tree
+        and why a constrained graph search is tractable. Our discretisation, split, smoothing choice and choice of
+        measurements are an original small experiment here, not a reproduction of the paper's benchmark.</li>
+      <li><a href="https://ftp.cs.ucla.edu/pub/stat_ser/uai12-mohan-pearl.pdf">Graphical Models for Causal
+        Inference</a>, Mohan and Pearl — a slide-form walkthrough. Use its d-separation, intervention and frontdoor
+        diagrams as an alternative visual explanation; the presentation is more formal than this lesson's first pass.</li>
+    </ul></>}>
+      <li><a href="https://ftp.cs.ucla.edu/pub/stat_ser/r416-reprint.pdf">The Mathematics of Causal Inference</a>,
+        Pearl — the structural-model setup, and printed pages 2517–2519 for d-separation, identification, the three
+        do-calculus rules and the backdoor criterion. The later mediation and transport sections go beyond this
+        lesson's core route.</li>
+      <li><a href="https://pgmpy.org/examples/Inference_Discrete_BN.html">pgmpy discrete inference examples</a> and{' '}
+        <a href="https://pgmpy.org/examples/Parameter_Learning_Discrete_BN.html">parameter-learning examples</a> —
+        a reusable API beside our small explicit sums. Documentation inspected September 2026; the version this page
+        actually executed is named beside the program in section 8.</li>
+      <li><a href="https://ermongroup.github.io/cs228-notes/inference/jt/">CS228 — junction trees</a> and{' '}
+        <a href="https://ermongroup.github.io/cs228-notes/inference/sampling/">CS228 — sampling</a>, the two chapters
+        section 8 refers to directly.</li>
+      <li><a href={provenance.doi}>UCI Wine</a>, {provenance.creator}, licensed{' '}
+        <a href={provenance.licenseUrl}>{provenance.license}</a> — the actual observations. This page serves{' '}
+        <a href={provenance.file} download>its own unchanged copy</a>, {provenance.bytes.toLocaleString('en-US')} bytes,
+        SHA-256 <Code>{provenance.sha256}</Code>, beside its <a href={provenance.attribution}>attribution</a>, which
+        records the extraction, the column meanings and what the source record does not supply. Reuse the measurements
+        to inspect probabilities, not to infer chemical causality.</li>
+    </Sources>
+
+    <Prose>The alarm network, the maintenance service model, the mediation example, the two structural causal models
+      and every practice matrix on this page are <strong>constructed calculations</strong>, not measurements. The
+      failure probabilities of {num(fixtures.service.outcome[1][1])} and {num(fixtures.service.outcome[0][1])} are a
+      declared teaching assumption describing a deliberately harmful procedure, not an engineering figure. The Wine
+      results are calculations on the identified real dataset under one declared protocol, with
+      the {protocol.testSize} reserved test specimens never reachable from any investigation on this page and scored
+      exactly once. The {contrast.length} rows of figure 4 are recomputed in your browser from the saved fitted tables
+      and reproduce the two recorded log losses exactly; they are not a second experiment. None of this is a benchmark
+      or a claim about any future dataset.</Prose>
+  </div>,
 };
 
 export default bayesianNetworksContent;

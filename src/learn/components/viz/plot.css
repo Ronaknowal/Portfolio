@@ -1,0 +1,32 @@
+.lesson-plot {
+  width: 100%;
+  min-width: 0;
+  margin: 1.25rem 0;
+  color: #bfc6c1;
+  font: 12px/1.6 var(--font-mono, 'JetBrains Mono', monospace);
+}
+.lesson-plot-caption { margin-bottom: .6rem; color: #d9dfda; font-weight: 600; overflow-wrap: anywhere; }
+.lesson-plot-legend { display: flex; flex-wrap: wrap; gap: .3rem 1rem; list-style: none; padding: 0; margin: 0 0 .65rem; }
+.lesson-plot-legend li { display: flex; align-items: baseline; gap: .5rem; min-width: 0; overflow-wrap: anywhere; }
+.lesson-plot-legend li > span { display: inline-block; width: 12px; height: 3px; flex: 0 0 12px; align-self: center; }
+.lesson-plot > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  background: rgba(0, 0, 0, .2);
+  border: 1px solid #343c36;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.lesson-plot-axis-label { margin: .4rem 0; overflow-wrap: anywhere; }
+.lesson-plot-range { overflow-wrap: anywhere; }
+.lesson-plot-values { margin-top: .65rem; }
+.lesson-plot-values summary { cursor: pointer; overflow-wrap: anywhere; }
+.lesson-plot-values summary:focus-visible,
+.lesson-plot-value-pages button:focus-visible { outline: 2px solid #e2b55a; outline-offset: 4px; }
+.lesson-plot-values table { width: 100%; table-layout: fixed; border-collapse: collapse; margin-top: .65rem; font: inherit; }
+.lesson-plot-values th, .lesson-plot-values td { padding: .4rem; border-bottom: 1px solid #343c36; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.lesson-plot-value-pages { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .65rem; }
+.lesson-plot-value-pages button { color: inherit; font: inherit; background: #131813; border: 1px solid #626b65; border-radius: 4px; padding: .4rem .6rem; cursor: pointer; }
+.lesson-plot-value-pages button:disabled { opacity: .5; cursor: default; }

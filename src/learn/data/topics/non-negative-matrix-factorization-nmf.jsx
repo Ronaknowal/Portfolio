@@ -1,872 +1,307 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { MixtureLab, UpdateLab, ContributionLab } from '../../components/lesson-labs/NmfLabs.jsx';
+import {
+  AmbiguityFigure, BuildRowFigure, CandidateFigure, DictionaryFigure, FitTransformFigure, ResidualFigure,
+  SupportFigure, UpdatePhaseFigure, ZeroLockFigure,
+} from '../../components/lesson-labs/NmfFigures.jsx';
+import { nmfExamples } from '../nmf-examples.js';
+import { NMF_DIGITS } from '../nmf-data.js';
+import { bilinearMidpoint, fixtures, sweep, sweepCost } from '../nmf-models.js';
+
+const firstSweep = sweep(fixtures.X, fixtures.startW, fixtures.startH);
+const nonconvex = bilinearMidpoint(1, [1, 1], [2, 0.5]);
+const cost = sweepCost(180, 64, 8);
+const { runs, baselines, splitSizes, fit, versions } = NMF_DIGITS;
+const bestRun = runs.reduce((low, run) => (run.validationMse < low.validationMse ? run : low));
+const six = value => value.toFixed(6);
+
+const headings = [
+  '1. A component is a pattern, and an activation is an amount',
+  '2. What gets optimized?',
+  '3. Learn one factor while holding the other still',
+  '4. The same observations can have different explanations',
+  '5. Fit real digits and inspect the result',
+  '6. Practical choices that change the model',
+  '7. Deeper: geometry, optimization and the limits of factorization',
+  '8. Deeper applications: words, spectra and streams',
+  '9. Practice: explain, change, diagnose',
+  '10. Readiness and the next step',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="nm-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const nmfContent = {
-  title: "Non-Negative Matrix Factorization (NMF)",
-  readTime: "~40 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Every matrix factorization method makes a bet about what structure matters. PCA bets that variance explains the data; SVD bets on rank; ICA bets on statistical independence. Non-Negative Matrix Factorization makes a different and surprisingly consequential bet: the data and its factors are both non-negative, and therefore the only allowable operation in the decomposition is addition. No cancellation. No subtraction. Parts can only add together, never cancel each other out.
-      </Prose>
-
-      <Prose>
-        The formal origin of NMF goes back to Paavo Paatero and Unto Tapper, who published "Positive Matrix Factorization: A Non-Negative Factor Model with Optimal Utilization of Error Estimates of Data Values" in <em>Environmetrics</em> 5(2):111–126, 1994. Their motivation was environmental science: decompose a pollutant concentration matrix (sites × chemical species) into a product of source-profile and source-contribution matrices, both of which must be non-negative because concentrations cannot be negative. They called it Positive Matrix Factorization (PMF) — a name still used in atmospheric science — and derived weighted least squares updates for the factors. The method stayed largely within the environmental science community for five years.
-      </Prose>
-
-      <Prose>
-        What launched NMF into mainstream machine learning was a four-page paper in <em>Nature</em>: Daniel D. Lee and H. Sebastian Seung, "Learning the Parts of Objects by Non-Negative Matrix Factorization," Nature 401(6755):788–791, 1999. Lee and Seung applied Paatero and Tapper's core idea to face images and text documents, and made a conceptual argument that would prove enormously influential: non-negativity forces <em>parts-based</em> representations. When you factorize a face image matrix with NMF, the basis vectors look like facial parts — eyes, noses, mouth regions, cheek shadows — because the only way to reconstruct a face from parts is to add them together. PCA, by contrast, produces holistic "eigenfaces" because positive and negative weights can cancel and the bases do not correspond to recognizable parts. The paper included a side-by-side comparison of PCA, VQ, and NMF bases on face images that made this distinction visually undeniable.
-      </Prose>
-
-      <Prose>
-        Two years later, Lee and Seung published the algorithmic foundation: "Algorithms for Non-Negative Matrix Factorization," NIPS 2000 proceedings (published 2001), pp. 556–562. This paper gave the multiplicative update rules that remain the most widely taught NMF algorithm today, proved their monotonic convergence via an auxiliary function argument, and showed two variants — one minimizing Frobenius reconstruction error and one minimizing KL divergence. The KL variant, it turned out, was functionally equivalent to Probabilistic Latent Semantic Analysis (pLSA) under certain conditions, connecting NMF to the topic modeling literature.
-      </Prose>
-
-      <Prose>
-        The application footprint of NMF today spans an extraordinary range. In <strong>topic modeling</strong>, a document-term TF-IDF matrix factored by NMF produces topic-word distributions (H rows) and document-topic mixtures (W columns) that are directly interpretable as additive mixtures of themes — documents are partial contributions of topics, words carry non-negative weights within each topic. In <strong>audio source separation</strong>, a short-time Fourier transform magnitude spectrogram (non-negative by construction) is factored into spectral patterns (H) and their activations over time (W), isolating sources like a piano from a violin. In <strong>hyperspectral unmixing</strong> in remote sensing, pixel spectra are expressed as non-negative mixtures of pure material spectra (endmembers). In <strong>genomics</strong>, gene expression matrices decompose into metagene signatures and sample loadings, revealing latent cell-type programs. In all these cases, non-negativity is not a mathematical convenience — it is a physical or interpretive constraint that makes the factors meaningful.
-      </Prose>
-
-      <Prose>
-        The key distinction from related methods: PCA allows negative factors and loadings, producing holistic features that require cancellation to reconstruct any specific example. ICA allows negative components and seeks statistical independence. LDA models document-topic distributions probabilistically and enforces topic-word distributions to sum to one (probability simplex) but does not constrain the geometry of the factor matrices in the same direct way. NMF enforces non-negativity across the entire factor product and therefore guarantees that reconstruction is always purely additive — every element of the data matrix is explained as a weighted sum of parts, with no part allowed to "subtract" from any other.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        Start with a data matrix <Code>V</Code> of shape <Code>n × m</Code> (for example, 2,000 face images × 19,200 pixels each, or 2,500 documents × 10,000 vocabulary terms). Every entry of <Code>V</Code> is non-negative. NMF seeks to find two non-negative matrices <Code>W</Code> (shape <Code>n × r</Code>) and <Code>H</Code> (shape <Code>r × m</Code>) such that:
-      </Prose>
-
-      <MathBlock>
-        {"V \\approx W H, \\quad W \\geq 0, \\; H \\geq 0"}
-      </MathBlock>
-
-      <Prose>
-        The integer <Code>r</Code> is the rank of the factorization — the number of latent components — and is chosen by the user. It is almost always much smaller than both <Code>n</Code> and <Code>m</Code>, making this a compression. Each row of <Code>W</Code> is the representation of one data point (one face, one document) in the <Code>r</Code>-dimensional latent space. Each row of <Code>H</Code> is one basis vector in the original feature space (one facial part, one topic-word distribution). The reconstruction of data point <Code>i</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"V_{i,:} \\approx \\sum_{k=1}^{r} W_{ik} \\cdot H_{k,:}"}
-      </MathBlock>
-
-      <Prose>
-        Because every <Code>{"W_{ik} ≥ 0"}</Code> and every <Code>{"H_{k,:} ≥ 0"}</Code>, this sum is a purely additive combination of the basis vectors. The face image for person <Code>i</Code> is literally a weighted sum of facial parts — you add "0.8 × nose component" and "0.6 × left-eye component" and "0.3 × forehead shadow component" to reconstruct the face. No component subtracts from another. The constraints prevent the algorithm from finding convenient cancellations that would make individual factors uninterpretable.
-      </Prose>
-
-      <Prose>
-        Contrast this with PCA. In PCA, the eigenfaces (basis vectors) are global and holistic — each one resembles a blurry average face with positive and negative regions. Reconstructing a specific face requires both adding some eigenfaces and subtracting others. The positive and negative weights cancel in complicated ways. The resulting decomposition is mathematically elegant but does not correspond to recognizable visual parts. A PCA weight of −1.3 on the third eigenface has no intuitive interpretation. An NMF weight of 1.3 on the "left eye" component means: this face has a stronger-than-average left eye contribution.
-      </Prose>
-
-      <Callout type="info" title="Parts-based vs. holistic representations">
-        The parts-based property emerges specifically from the non-negativity constraint — it is not a property of low-rank approximation per se. You can have low-rank approximations without non-negativity (PCA, SVD) that are holistic. The constraint forces each basis vector to be a genuine "part" because the only way to explain data that is everywhere positive is to use parts that are themselves positive and can only be added. Formally, non-negativity restricts the feasible set to a polyhedral cone, and the optimal factorization finds a tiling of that cone by a small number of extreme rays — the parts.
-      </Callout>
-
-      <Prose>
-        In the document-term context, the intuition is equally clean. A document-term matrix has TF-IDF weights everywhere non-negative. NMF with <Code>r = 5</Code> topics discovers 5 topic-word distributions (rows of <Code>H</Code>) and 5 document-topic weights (columns of <Code>W</Code>). A document about sports medicine gets a positive weight on both the "sports" topic and the "medicine" topic — it is expressed as an additive mixture. No topic cancels another. The discovered topics are interpretable precisely because they are sums: every word in the vocabulary can only add to or be absent from a topic, never subtract from it. This is why NMF is often preferred over PCA for topic modeling despite LDA being the probabilistic alternative: NMF factors are directly interpretable without the need to interpret negative weights, and training is faster and simpler than MCMC-based LDA inference.
-      </Prose>
-
-      <Plot
-        label="NMF vs PCA: how factors combine to reconstruct data"
-        xLabel="component index"
-        yLabel="factor weight"
-        series={[
-          {
-            name: "NMF weights (additive, all >= 0)",
-            color: colors.gold,
-            points: [[1, 1.32], [2, 0.87], [3, 0.54], [4, 0.21], [5, 0.09]],
-          },
-          {
-            name: "PCA weights (can cancel, positive and negative)",
-            color: "#a78bfa",
-            points: [[1, 2.14], [2, -1.03], [3, 0.67], [4, -0.44], [5, 0.18]],
-          },
-        ]}
-      />
-
-      <Prose>
-        The plot illustrates the core distinction on a single data point reconstructed from 5 components. NMF weights (gold) are all non-negative — the reconstruction adds contributions without subtraction. PCA weights (purple) include large negative values: components 2 and 4 actively cancel other components. The NMF reconstruction is a sum of positive parts; the PCA reconstruction is an algebraic cancellation.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Objective functions</H3>
-
-      <Prose>
-        NMF is not a single algorithm — it is an optimization problem with a family of loss functions. The two most important are determined by the noise model you assume for the data.
-      </Prose>
-
-      <Prose>
-        <strong>Frobenius (Gaussian noise model).</strong> If you assume the entries of <Code>V</Code> have been corrupted by additive Gaussian noise, the maximum likelihood estimate minimizes the squared Frobenius norm of the residual:
-      </Prose>
-
-      <MathBlock>
-        {"\\min_{W, H \\geq 0} \\; \\|V - WH\\|_F^2 = \\min_{W, H \\geq 0} \\sum_{i,j} (V_{ij} - (WH)_{ij})^2"}
-      </MathBlock>
-
-      <Prose>
-        <strong>KL divergence (Poisson noise model).</strong> For count data — word counts in documents, pixel intensities, event counts — the natural noise model is Poisson rather than Gaussian. The generalized KL divergence between <Code>V</Code> and <Code>WH</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"D_{\\text{KL}}(V \\| WH) = \\sum_{i,j} \\left[ V_{ij} \\log \\frac{V_{ij}}{(WH)_{ij}} - V_{ij} + (WH)_{ij} \\right]"}
-      </MathBlock>
-
-      <Prose>
-        The KL loss penalizes relative errors rather than absolute errors: a residual of 2 where the true value is 3 is penalized more than the same residual where the true value is 100. For raw word counts, where small counts are informative and large counts may be dominated by a few ubiquitous terms, KL is often a better fit than Frobenius. sklearn's <Code>NMF</Code> class supports both via the <Code>beta_loss</Code> parameter.
-      </Prose>
-
-      <Callout type="info" title="Beta-divergence unification">
-        Both Frobenius and KL are special cases of the beta-divergence family parameterized by a scalar beta. At beta=2 you get Frobenius; at beta=1 you get generalized KL; at beta=0 you get the Itakura-Saito divergence, which is natural for audio spectrograms where relative error (not absolute error) determines perceptual quality. sklearn exposes all three via <Code>beta_loss={"'frobenius'"}</Code>, <Code>{"'kullback-leibler'"}</Code>, and <Code>{"'itakura-saito'"}</Code>.
-      </Callout>
-
-      <H3>3.2 Multiplicative update rules</H3>
-
-      <Prose>
-        Lee and Seung derived the multiplicative update rules for the Frobenius objective by formulating the problem as constrained gradient descent and choosing step sizes that exactly enforce non-negativity at every step. The resulting update rules are:
-      </Prose>
-
-      <MathBlock>
-        {"H \\leftarrow H \\odot \\frac{W^\\top V}{W^\\top W H + \\varepsilon}"}
-      </MathBlock>
-
-      <MathBlock>
-        {"W \\leftarrow W \\odot \\frac{V H^\\top}{W H H^\\top + \\varepsilon}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"\\odot"}</Code> denotes element-wise multiplication and division, and <Code>{"\\varepsilon"}</Code> is a small constant (typically 1e-10) to prevent division by zero. These are element-wise operations: every entry of <Code>H</Code> is multiplied by the ratio of its gradient numerator to its gradient denominator. When the numerator exceeds the denominator, the entry grows; when the denominator exceeds the numerator, the entry shrinks. The ratio is always non-negative (numerator and denominator are both products of non-negative matrices), so non-negativity is preserved at every step as long as the initialization is non-negative.
-      </Prose>
-
-      <Prose>
-        For the KL divergence, the multiplicative updates take a slightly different form. Let <Code>{"\\hat{V} = WH"}</Code>. Then:
-      </Prose>
-
-      <MathBlock>
-        {"H \\leftarrow H \\odot \\frac{W^\\top (V / \\hat{V})}{\\mathbf{1}^\\top W}"}
-      </MathBlock>
-
-      <MathBlock>
-        {"W \\leftarrow W \\odot \\frac{(V / \\hat{V}) H^\\top}{\\mathbf{1} H^\\top}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>V / {"\\hat{V}"}</Code> is element-wise and <Code>{"\\mathbf{1}"}</Code> is a column vector of ones. The KL updates have the same multiplicative structure and the same non-negativity-preserving property.
-      </Prose>
-
-      <H3>3.3 Convergence via auxiliary functions</H3>
-
-      <Prose>
-        Lee and Seung proved monotonic convergence of the multiplicative updates using the auxiliary function technique — the same proof strategy used for the EM algorithm. An auxiliary function <Code>G(h, h')</Code> for objective <Code>F(h)</Code> satisfies two properties: <Code>G(h, h) = F(h)</Code> (tight at the current point) and <Code>G(h, h') {"≥"} F(h)</Code> (upper bound everywhere). Minimizing <Code>G</Code> with respect to <Code>h</Code> while holding <Code>h'</Code> fixed is guaranteed to not increase <Code>F</Code>. The multiplicative updates for Frobenius are exactly the minimizers of a carefully constructed auxiliary function that upper-bounds the Frobenius objective quadratically at the current iterate. Therefore each multiplicative update step is guaranteed to not increase the reconstruction error. The proof is in Lee and Seung 2001, pages 557–558.
-      </Prose>
-
-      <Prose>
-        An important caveat: convergence to a stationary point is guaranteed, but not convergence to a global minimum. NMF is generally NP-hard to solve globally (Vavasis, SIAM J. Optimization, 2009) because the feasible set is non-convex in <Code>(W, H)</Code> jointly — even though it is convex in <Code>W</Code> alone (with <Code>H</Code> fixed) and in <Code>H</Code> alone (with <Code>W</Code> fixed). The multiplicative updates find a local minimum or saddle point, and the result depends on initialization.
-      </Prose>
-
-      <H3>3.4 Alternating Non-Negative Least Squares (ANLS)</H3>
-
-      <Prose>
-        An alternative to multiplicative updates is Alternating Non-Negative Least Squares. Hold <Code>H</Code> fixed and solve for <Code>W</Code> by solving <Code>r</Code> independent non-negative least squares (NNLS) problems — one per column of <Code>W</Code>. Then hold <Code>W</Code> fixed and solve for <Code>H</Code> by solving <Code>m</Code> independent NNLS problems — one per column of <Code>H</Code>. Each NNLS subproblem is convex and can be solved exactly, making ANLS more numerically stable than multiplicative updates (which can stall) and often faster to converge. sklearn's <Code>solver='cd'</Code> (coordinate descent) is an efficient implementation of this alternating scheme and is the default in modern sklearn versions. For large sparse matrices, ANLS with active-set NNLS solvers (e.g., Kim and Park's Fast ANLS, 2008) is typically the fastest choice.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below uses NumPy only. We build a toy 20-document × 50-word matrix with three true latent topics (Technology: words 0–15, Sports: words 16–32, Politics: words 33–49), run NMF via multiplicative updates for 300 iterations, and verify that the discovered topics recover the ground truth. Every output is verbatim stdout from a verified run.
-      </Prose>
-
-      <H3>4a. Toy document-term matrix</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(0)
-
-n_docs, n_words, n_topics = 20, 50, 3
-
-# True topic-word matrix: each row activates a disjoint word range
-H_true = np.zeros((n_topics, n_words))
-H_true[0, :16]  = np.random.uniform(1.0, 2.0, 16)   # topic 0: tech (words 0-15)
-H_true[1, 16:33] = np.random.uniform(1.0, 2.0, 17)  # topic 1: sports (words 16-32)
-H_true[2, 33:]  = np.random.uniform(1.0, 2.0, 17)   # topic 2: politics (words 33-49)
-
-# True document-topic matrix: each group of docs has one dominant topic
-W_true = np.zeros((n_docs, n_topics))
-W_true[:7,  0] = np.random.uniform(0.8, 1.5, 7)     # docs 0-6:  tech
-W_true[:7,  1:] = np.random.uniform(0.0, 0.15, (7, 2))
-W_true[7:14, 1] = np.random.uniform(0.8, 1.5, 7)    # docs 7-13: sports
-W_true[7:14, [0,2]] = np.random.uniform(0.0, 0.15, (7, 2))
-W_true[14:, 2] = np.random.uniform(0.8, 1.5, 6)     # docs 14-19: politics
-W_true[14:, :2] = np.random.uniform(0.0, 0.15, (6, 2))
-
-# Observed matrix = true signal + small non-negative noise
-V_clean = W_true @ H_true
-V = np.maximum(V_clean + np.random.uniform(0, 0.2, V_clean.shape), 0.0)
-
-print(f"V shape: {V.shape}")
-print(f"V min={V.min():.4f}  max={V.max():.4f}  mean={V.mean():.4f}")
-# V shape: (20, 50)
-# V min=0.0112  max=3.0472  mean=0.7277`}
-      </CodeBlock>
-
-      <H3>4b. NMF via multiplicative updates (Frobenius)</H3>
-
-      <CodeBlock language="python">
-{`def nmf_multiplicative(V, r, n_iter=300, eps=1e-10, seed=7):
-    """
-    NMF via Lee-Seung multiplicative updates, Frobenius objective.
-    Returns W (n x r), H (r x m), and per-iteration reconstruction errors.
-    """
-    rng = np.random.default_rng(seed)
-    n, m = V.shape
-    # Small positive random initialization (uniform on [0.1, 1.0])
-    W = rng.uniform(0.1, 1.0, (n, r))
-    H = rng.uniform(0.1, 1.0, (r, m))
-
-    errors = []
-    for t in range(n_iter):
-        # --- Update H ---
-        # H <- H * (W^T V) / (W^T W H + eps)
-        H = H * (W.T @ V) / (W.T @ W @ H + eps)
-        H = np.maximum(H, eps)   # numerical guard against exact zeros
-
-        # --- Update W ---
-        # W <- W * (V H^T) / (W H H^T + eps)
-        W = W * (V @ H.T) / (W @ (H @ H.T) + eps)
-        W = np.maximum(W, eps)
-
-        # Frobenius reconstruction error
-        err = np.linalg.norm(V - W @ H, 'fro')
-        errors.append(err)
-
-        if t in (0, 9, 29, 99, 199, 299):
-            print(f"  Iter {t+1:3d}: Frobenius reconstruction error = {err:.4f}")
-
-    return W, H, errors
-
-print("--- NMF Multiplicative Updates (r=3, 300 iters) ---")
-W, H, errors = nmf_multiplicative(V, r=3, n_iter=300, seed=7)
-# --- NMF Multiplicative Updates (r=3, 300 iters) ---
-#   Iter   1: Frobenius reconstruction error = 24.4964
-#   Iter  10: Frobenius reconstruction error = 13.5516
-#   Iter  30: Frobenius reconstruction error = 2.0152
-#   Iter 100: Frobenius reconstruction error = 1.7046
-#   Iter 200: Frobenius reconstruction error = 1.6678
-#   Iter 300: Frobenius reconstruction error = 1.6566
-
-print(f"W shape (docs x topics): {W.shape}")   # (20, 3)
-print(f"H shape (topics x words): {H.shape}")  # (3, 50)`}
-      </CodeBlock>
-
-      <H3>4c. Discovered topics — W and H inspection</H3>
-
-      <CodeBlock language="python">
-{`# NMF topics can be permuted relative to ground truth.
-# Identify each discovered topic by which word range dominates its H row.
-def identify_topic(h_row):
-    mass = [h_row[:16].sum(), h_row[16:33].sum(), h_row[33:].sum()]
-    return int(np.argmax(mass))   # 0=tech, 1=sports, 2=politics
-
-perm = [identify_topic(H[t]) for t in range(3)]
-print(f"Discovered-to-true topic mapping: {perm}")
-# Discovered-to-true topic mapping: [2, 1, 0]
-# (topics are internally permuted -- expected for NMF)
-
-# Re-sort W and H to match tech=0, sports=1, politics=2
-sort_idx = np.argsort(perm)
-W_sorted = W[:, sort_idx]
-H_sorted = H[sort_idx, :]
-
-topic_names = ["tech", "sports", "politics"]
-print("\\n--- W (document-topic weights) ---")
-print("doc_id  tech      sports    politics  dominant_topic")
-for d in range(n_docs):
-    w = W_sorted[d]
-    dom = topic_names[int(np.argmax(w))]
-    print(f"  doc{d:02d}  {w[0]:.4f}    {w[1]:.4f}    {w[2]:.4f}    {dom}")
-# doc_id  tech      sports    politics  dominant_topic
-#   doc00  1.7687    0.1034    0.0581    tech
-#   doc01  1.6090    0.1093    0.0000    tech
-#   doc02  2.1595    0.0611    0.0531    tech
-#   doc03  1.2952    0.1032    0.0012    tech
-#   doc04  1.3682    0.1259    0.1392    tech
-#   doc05  1.3586    0.0908    0.1408    tech
-#   doc06  1.7979    0.0699    0.1584    tech
-#   doc07  0.0403    1.6756    0.0892    sports
-#   doc08  0.0000    2.1520    0.1574    sports
-#   doc09  0.0000    1.7865    0.2106    sports
-#   doc10  0.0849    1.9329    0.1165    sports
-#   doc11  0.1072    1.2355    0.0582    sports
-#   doc12  0.1079    1.4616    0.2562    sports
-#   doc13  0.0789    1.3015    0.2120    sports
-#   doc14  0.2311    0.0000    1.2492    politics
-#   doc15  0.2203    0.0000    1.7779    politics
-#   doc16  0.2305    0.1549    1.3899    politics
-#   doc17  0.1156    0.1142    1.2920    politics
-#   doc18  0.1892    0.0634    1.6661    politics
-#   doc19  0.0885    0.2087    1.1608    politics
-
-print("\\n--- H (topic-word weights, top 5 per topic) ---")
-for t in range(3):
-    top5 = np.argsort(H_sorted[t])[::-1][:5]
-    print(f"  Topic {t} ({topic_names[t]}): top_words={list(top5)}, "
-          f"weights={H_sorted[t, top5].round(4)}")
-# Topic 0 (tech):     top_words=[8, 13, 7, 10, 1],  weights=[1.4121 1.3769 1.3408 1.3076 1.2275]
-# Topic 1 (sports):   top_words=[27, 20, 17, 19, 31], weights=[1.3682 1.3574 1.3364 1.3248 1.279]
-# Topic 2 (politics): top_words=[38, 39, 45, 44, 42], weights=[1.4557 1.291  1.2855 1.2809 1.2546]
-
-# Accuracy: what fraction of top-10 discovered words fall in the true range?
-print("\\n--- Top-10 word accuracy per topic ---")
-for t in range(3):
-    top10 = set(np.argsort(H_sorted[t])[::-1][:10])
-    expected = [set(range(16)), set(range(16, 33)), set(range(33, 50))][t]
-    overlap = len(top10 & expected)
-    print(f"  Topic {t} ({topic_names[t]}): {overlap}/10 top-10 words in expected range")
-# Topic 0 (tech):     10/10 top-10 words in expected range
-# Topic 1 (sports):   10/10 top-10 words in expected range
-# Topic 2 (politics): 10/10 top-10 words in expected range`}
-      </CodeBlock>
-
-      <Prose>
-        The from-scratch multiplicative update NMF achieves perfect topic recovery (10/10 word overlap on all three topics) and reduces the Frobenius reconstruction error from 24.5 to 1.66 over 300 iterations. The sharp early drop (24.5 to 2.0 in the first 30 iterations) reflects the rapid extraction of gross structure; the slow tail (2.0 to 1.66 from iteration 30 to 300) reflects fine-grained refinement near the local minimum.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        sklearn's <Code>sklearn.decomposition.NMF</Code> is the standard production choice for moderate-scale NMF. It exposes multiple solvers, loss functions, and initialization strategies. For large sparse matrices, the <Code>solver='cd'</Code> (coordinate descent) default is significantly faster than multiplicative updates because coordinate descent can exploit sparsity more effectively.
-      </Prose>
-
-      <H3>5a. sklearn NMF — core API and solver comparison</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.decomposition import NMF
-
-# Using the same toy V from section 4
-# (run the data generation code first)
-
-# --- Coordinate descent (default, faster) ---
-model_cd = NMF(
-    n_components=3,
-    init='nndsvd',          # NNDSVDA uses SVD-based init — much better than random
-    solver='cd',            # coordinate descent: fast, sparse-friendly
-    beta_loss='frobenius',  # L2 / Gaussian noise model
-    max_iter=500,
-    random_state=42,
-)
-W_cd = model_cd.fit_transform(V)   # shape (20, 3)
-H_cd = model_cd.components_        # shape (3, 50)
-print(f"CD solver: reconstruction_err_={model_cd.reconstruction_err_:.4f}, "
-      f"n_iter_={model_cd.n_iter_}")
-# CD solver: reconstruction_err_=1.6431, n_iter_=39
-
-# --- Multiplicative updates (mu) ---
-# Note: init='nndsvda' is preferred with mu solver (nndsvd creates zeros
-# that mu cannot escape from)
-model_mu = NMF(
-    n_components=3,
-    init='nndsvda',         # NNDSVDA: SVD init, zeros replaced with small values
-    solver='mu',            # multiplicative updates: Lee-Seung 2001
-    beta_loss='frobenius',
-    max_iter=500,
-    random_state=42,
-)
-W_mu = model_mu.fit_transform(V)
-print(f"MU solver: reconstruction_err_={model_mu.reconstruction_err_:.4f}, "
-      f"n_iter_={model_mu.n_iter_}")
-# MU solver: reconstruction_err_=2.2031, n_iter_=500
-
-# --- KL divergence (count data) ---
-model_kl = NMF(
-    n_components=3,
-    init='nndsvda',
-    solver='mu',
-    beta_loss='kullback-leibler',  # Poisson noise model -- better for raw counts
-    max_iter=500,
-    random_state=42,
-)
-W_kl = model_kl.fit_transform(V)
-print(f"KL solver: reconstruction_err_={model_kl.reconstruction_err_:.4f}")
-# KL solver: reconstruction_err_=4.5820
-
-# Transform new data (unseen documents) -- no refit
-V_new = np.random.uniform(0, 1, (5, 50))
-W_new = model_cd.transform(V_new)  # project into learned topic space
-print(f"New doc topic weights shape: {W_new.shape}")  # (5, 3)`}
-      </CodeBlock>
-
-      <H3>5b. 20 Newsgroups topic modeling with NMF</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.datasets import fetch_20newsgroups
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import NMF
-
-# 5 newsgroup categories -- enough signal for clean topic separation
-cats = ['sci.space', 'rec.sport.hockey', 'talk.politics.guns',
-        'comp.graphics', 'rec.autos']
-news = fetch_20newsgroups(subset='train', categories=cats,
-                          remove=('headers', 'footers', 'quotes'))
-
-# TF-IDF: 2000 vocab, remove English stopwords, filter very rare/common terms
-tfidf = TfidfVectorizer(max_features=2000, stop_words='english',
-                        min_df=5, max_df=0.95)
-X_tfidf = tfidf.fit_transform(news.data)   # sparse (2917, 2000)
-vocab = tfidf.get_feature_names_out()
-print(f"TF-IDF matrix shape: {X_tfidf.shape}")
-# TF-IDF matrix shape: (2917, 2000)
-
-# NMF with 5 topics (matching the 5 categories)
-nmf = NMF(n_components=5, init='nndsvd', solver='cd',
-          max_iter=500, random_state=42)
-W_news = nmf.fit_transform(X_tfidf)   # (2917, 5) document-topic
-H_news = nmf.components_               # (5, 2000) topic-word
-print(f"reconstruction_err_: {nmf.reconstruction_err_:.4f}")
-# reconstruction_err_: 51.6863
-
-print("\\nTop-8 words per topic:")
-for t in range(5):
-    top8_idx = H_news[t].argsort()[::-1][:8]
-    print(f"  Topic {t}: {list(vocab[top8_idx])}")
-# Top-8 words per topic:
-#   Topic 0: ['people', 'don', 'gun', 'just', 'think', 'guns', 'right', 'like']
-#   Topic 1: ['thanks', 'graphics', 'files', 'know', 'file', 'image', 'does', 'program']
-#   Topic 2: ['game', 'team', 'hockey', 'players', 'play', 'season', 'games', 'nhl']
-#   Topic 3: ['space', 'nasa', 'launch', 'shuttle', 'earth', 'orbit', 'moon', 'lunar']
-#   Topic 4: ['car', 'cars', 'engine', 'dealer', 'like', 'new', 'good', 'price']
-# Topics 0-4 map cleanly to: politics/guns, comp.graphics, hockey, space, autos`}
-      </CodeBlock>
-
-      <Prose>
-        The 20 Newsgroups output is nearly perfect: topic 2 (hockey, nhl, season) and topic 3 (space, nasa, launch) are clean. Topic 0 (guns, right, think) reflects the talk.politics.guns category. Topic 1 (graphics, files, image) captures comp.graphics. Topic 4 (car, engine, dealer) is autos. The non-negativity constraint ensures these word weights are directly readable as "contribution to this topic" without sign interpretation.
-      </Prose>
-
-      <H3>5c. Alternative libraries for scale</H3>
-
-      <Prose>
-        <strong>NIMFA</strong> (nimfa.nimfa.org) is the most comprehensive NMF library in Python, providing over 10 NMF variants including SNMF (sparse NMF with L1 penalty), LSNMF (large-scale ANLS-based), PMFCC (NMF with prior knowledge constraints), and Bayesian NMF. Use NIMFA when you need variants beyond the standard Frobenius/KL sklearn implementations.
-      </Prose>
-
-      <Prose>
-        <strong>TensorLy</strong> (tensorly.github.io) extends matrix factorization to tensors: Non-Negative Tucker Decomposition and Non-Negative PARAFAC (CP decomposition) for three-way and higher-order arrays. If your data is naturally a 3D tensor (e.g., time × frequency × channel in audio, or genes × samples × conditions in genomics), NTF preserves non-negativity across all modes.
-      </Prose>
-
-      <Prose>
-        <strong>Online NMF</strong> (Mairal et al., JMLR 11(2):19–60, 2010) handles streaming data: instead of holding the full <Code>V</Code> in memory, it processes mini-batches and maintains a running estimate of <Code>H</Code> (the dictionary) via a stochastic proximal gradient scheme. The key insight is that each mini-batch update of <Code>H</Code> can be written as a regularized ANLS problem using accumulated first- and second-order statistics. Memory cost is <Code>O(m × r)</Code> regardless of the number of documents processed, making it applicable to corpora too large to fit in RAM.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. W matrix — document-topic assignments</H3>
-
-      <Prose>
-        The heatmap below shows the <Code>W</Code> matrix from our from-scratch run (after topic permutation alignment). Each row is a document; each column is one of the three discovered topics. High values (bright cells) indicate strong topic membership. The block structure is clear: docs 0–6 load on tech, docs 7–13 on sports, docs 14–19 on politics. Small cross-topic weights (dim cells) reflect the noise added to the toy matrix.
-      </Prose>
-
-      <Heatmap
-        label="W matrix: document-topic weights (20 docs x 3 topics)"
-        rowLabels={[
-          "doc00","doc01","doc02","doc03","doc04","doc05","doc06",
-          "doc07","doc08","doc09","doc10","doc11","doc12","doc13",
-          "doc14","doc15","doc16","doc17","doc18","doc19"
-        ]}
-        colLabels={["tech", "sports", "politics"]}
-        matrix={[
-          [1.77, 0.10, 0.06],
-          [1.61, 0.11, 0.00],
-          [2.16, 0.06, 0.05],
-          [1.30, 0.10, 0.00],
-          [1.37, 0.13, 0.14],
-          [1.36, 0.09, 0.14],
-          [1.80, 0.07, 0.16],
-          [0.04, 1.68, 0.09],
-          [0.00, 2.15, 0.16],
-          [0.00, 1.79, 0.21],
-          [0.08, 1.93, 0.12],
-          [0.11, 1.24, 0.06],
-          [0.11, 1.46, 0.26],
-          [0.08, 1.30, 0.21],
-          [0.23, 0.00, 1.25],
-          [0.22, 0.00, 1.78],
-          [0.23, 0.15, 1.39],
-          [0.12, 0.11, 1.29],
-          [0.19, 0.06, 1.67],
-          [0.09, 0.21, 1.16],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6b. H matrix — topic-word weights</H3>
-
-      <Prose>
-        The heatmap below shows the <Code>H</Code> matrix: 3 topics × 50 words. Each row is a topic's word-weight distribution. The block diagonal structure confirms that the algorithm correctly isolated word ranges: tech topic activates words 0–15, sports activates 16–32, politics activates 33–49. Every off-block cell is near zero — no topic "borrows" words from another topic's range.
-      </Prose>
-
-      <Heatmap
-        label="H matrix: topic-word weights (3 topics x 50 words, normalized)"
-        rowLabels={["tech (words 0-15)", "sports (words 16-32)", "politics (words 33-49)"]}
-        colLabels={[
-          "w0","w1","w2","w3","w4","w5","w6","w7","w8","w9",
-          "w10","w11","w12","w13","w14","w15","w16","w17","w18","w19",
-          "w20","w21","w22","w23","w24","w25","w26","w27","w28","w29",
-          "w30","w31","w32","w33","w34","w35","w36","w37","w38","w39",
-          "w40","w41","w42","w43","w44","w45","w46","w47","w48","w49"
-        ]}
-        matrix={[
-          [0.9,0.8,0.7,1.1,0.8,0.9,1.0,1.1,1.2,0.9,1.1,0.8,0.7,1.2,0.9,0.8,
-           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-          [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.9,1.1,0.8,1.1,1.1,0.9,0.8,0.9,0.9,0.8,0.9,1.2,0.9,0.8,
-           0.9,1.0,1.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],
-          [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,
-           0.0,0.0,0.0,0.9,0.8,0.9,1.0,0.9,1.2,1.1,
-           0.9,0.8,1.1,0.9,1.1,1.1,0.9,0.8,0.9,1.0],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6c. Reconstruction error trace — multiplicative updates</H3>
-
-      <StepTrace
-        label="NMF multiplicative updates — reconstruction error per iteration"
-        steps={[
-          {
-            label: "Iter 1: error = 24.50 — random initialization",
-            render: () => (
-              <Prose>
-                Starting from random uniform initialization (W and H entries drawn from Uniform[0.1, 1.0]), the Frobenius reconstruction error is 24.50. The initial prediction W@H is a random matrix with no structure; the full gap between it and V is unresolved signal. The multiplicative updates correct the numerically largest mismatches first.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 10: error = 13.55 — gross structure extracted",
-            render: () => (
-              <Prose>
-                After 10 iterations the error has dropped to 13.55 — a 45% reduction. The updates are routing the three main word ranges to three separate H rows and concentrating W weights accordingly. The block structure of W is beginning to emerge, though with substantial noise across off-diagonal entries.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 30: error = 2.02 — topic separation near complete",
-            render: () => (
-              <Prose>
-                By iteration 30 the error has fallen to 2.02 — an 87% reduction from the start. Topic separation is essentially complete at this point: the top-10 words for each topic already fall within the correct word range. The remaining error reflects reconstruction of the small noise term added to V_clean.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 100: error = 1.70 — fine-grained refinement",
-            render: () => (
-              <Prose>
-                After 100 iterations the error is 1.70. Convergence is slowing because the algorithm is near a local minimum. The step sizes in the multiplicative rule are effectively small: the ratio (numerator/denominator) is close to 1 for most entries because W@H is a good approximation of V. Further iterations refine individual entry weights within each topic's word range.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 300: error = 1.66 — convergence plateau",
-            render: () => (
-              <Prose>
-                After 300 iterations the error is 1.66, down from 2.02 at iteration 30. The marginal improvement from iterations 30 to 300 is 0.36 — only 18% of what was gained in the first 30 iterations. This is the characteristic convergence shape of multiplicative updates: rapid early progress followed by a long slow tail. The sklearn coordinate descent solver achieves 1.64 in only 39 iterations by using a more aggressive step schedule.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        NMF occupies a specific niche among matrix decomposition and topic modeling methods. The table below covers the five most relevant alternatives.
-      </Prose>
-
-      <StepTrace
-        label="Method comparison: when to use NMF vs alternatives"
-        steps={[
-          {
-            label: "NMF — use when non-negativity is physical or interpretability is required",
-            render: () => (
-              <Prose>
-                Use NMF when: (1) your data matrix is non-negative by construction — pixel intensities, word counts, TF-IDF weights, spectral measurements, gene expression counts — and negative factor loadings would be physically meaningless; (2) you want directly interpretable parts (topics, spectral components, facial parts) without needing to explain negative weights; (3) you need a generative model of the form "data = sum of non-negative parts"; (4) you have moderate data size (up to tens of millions of entries with sklearn; larger with online NMF). Strengths: interpretable factors, efficient coordinate descent, flexible loss functions. Limitations: non-unique solution (see section 9), sensitive to rank choice, no uncertainty quantification.
-              </Prose>
-            ),
-          },
-          {
-            label: "PCA / SVD — use when linear structure, not non-negativity, is the constraint",
-            render: () => (
-              <Prose>
-                Use PCA when: the data may have negative values (or you do not care about non-negativity of factors), you need orthogonal components ordered by explained variance, you need exact reproducibility regardless of initialization, or you are preprocessing for a downstream supervised model. PCA's components are unique (up to sign and degenerate eigenvalue subspaces), while NMF's are not. PCA components are typically holistic (global features requiring cancellation), while NMF components are parts-based. On face images: PCA produces eigenfaces (ghostly blends of positive and negative pixel regions); NMF produces eye components, nose components, and shadow components. Neither is universally better — the right choice depends on whether the parts-based interpretation is meaningful for your domain.
-              </Prose>
-            ),
-          },
-          {
-            label: "ICA — use when statistical independence is the criterion",
-            render: () => (
-              <Prose>
-                Independent Component Analysis seeks components that are statistically independent rather than uncorrelated (PCA) or non-negative (NMF). ICA is the right tool for blind source separation when the mixing is linear and the sources are non-Gaussian and independent — the canonical example is the "cocktail party problem" where independent audio signals are linearly mixed. ICA allows negative factors and does not constrain the data to be non-negative. For audio, ICA on the time-domain signal and NMF on the magnitude spectrogram are complementary approaches: ICA operates in the signal domain and enforces independence; NMF operates in the non-negative spectrogram domain and enforces parts-based structure. For text, ICA is rarely used; LDA and NMF dominate.
-              </Prose>
-            ),
-          },
-          {
-            label: "LDA — use when a probabilistic topic model with Dirichlet priors is needed",
-            render: () => (
-              <Prose>
-                Latent Dirichlet Allocation (Blei, Ng, Jordan, 2003) is NMF's closest competitor for text topic modeling. Both produce a document-topic matrix and a topic-word matrix. The key differences: LDA is a fully generative probabilistic model with Dirichlet priors on both distributions, making all weights sum to 1 (proper probability distributions). NMF weights do not sum to 1 and are not proper probabilities. LDA training via variational inference or Gibbs sampling provides uncertainty estimates; NMF training is a deterministic optimization. In practice, NMF and LDA often produce similar topic quality on large corpora. NMF is faster (coordinate descent vs. MCMC), scales more easily to very large vocabularies, and produces sparser topics. LDA is better when you need calibrated probability estimates or want to incorporate prior knowledge via the Dirichlet hyperparameters. Choose NMF for fast exploration; choose LDA when probabilistic interpretation matters.
-              </Prose>
-            ),
-          },
-          {
-            label: "Sparse NMF — use when you want explicit sparsity control",
-            render: () => (
-              <Prose>
-                Standard NMF is dense: all entries of W and H are typically positive after convergence. Sparse NMF adds L1 penalties to the objective to enforce that most entries are near zero. The penalized objective is: {"min ||V - WH||_F^2 + lambda_W * ||W||_1 + lambda_H * ||H||_1"} subject to W, H {"≥"} 0. Sparsity in H makes each topic activate only a few words (sharper topic definitions). Sparsity in W makes each document belong to fewer topics (cleaner clustering). Use sparse NMF when: topics are expected to be distinct with little vocabulary overlap (e.g., technical domains), documents are expected to belong to few topics (e.g., news articles rather than interdisciplinary papers), or the vocabulary is very large and you want to prevent the model from diffusing weight across irrelevant terms. sklearn's NMF does not support L1 penalties natively; use NIMFA's SNMF class or add an L1 proximal step after each coordinate descent update.
-              </Prose>
-            ),
-          },
-          {
-            label: "Autoencoder — use when non-linear parts are needed",
-            render: () => (
-              <Prose>
-                NMF is a linear model: the reconstruction is a linear combination of basis vectors. When the true generative factors are non-linearly entangled — for example, lighting and pose in face images interact non-linearly — a linear NMF cannot separate them. A non-negative autoencoder (encoder uses ReLU activations, decoder constrains weights to be non-negative) extends the parts-based philosophy to non-linear functions. Deep NMF stacks multiple NMF layers where the output of each factorization becomes the input of the next, allowing hierarchical parts: pixel parts at the bottom layer, component combinations at the next layer, full face parts at the top. For natural images at full resolution, autoencoders dominate over linear NMF in reconstruction quality. For tabular data, spectrograms, and count matrices where linear structure holds, standard NMF remains competitive and far more interpretable.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Per-iteration complexity</H3>
-
-      <Prose>
-        The dominant cost in each multiplicative update iteration is two matrix products: <Code>W.T @ V</Code> (shape <Code>r × n</Code> times <Code>n × m</Code> = <Code>r × m</Code>, cost <Code>O(n × m × r)</Code>) and the corresponding product for the <Code>W</Code> update. Total per-iteration cost is <Code>O(n × m × r)</Code>. For a typical document-term problem with 50,000 documents, 20,000 vocabulary terms, and rank <Code>r = 50</Code>, this is <Code>50,000 × 20,000 × 50 = 5 × 10¹⁰</Code> floating point operations per iteration — feasible on a GPU but slow on CPU. The coordinate descent solver reduces this by exploiting sparsity: if <Code>V</Code> is sparse (as TF-IDF matrices always are), the matrix products only visit non-zero entries, reducing effective cost to <Code>O(nnz × r)</Code> where <Code>nnz</Code> is the number of non-zeros.
-      </Prose>
-
-      <H3>8.2 The sparsity advantage</H3>
-
-      <Prose>
-        Real document-term matrices are extremely sparse: a vocabulary of 20,000 terms with typical documents using 200–500 unique terms gives a sparsity of over 97%. sklearn's <Code>NMF(solver='cd')</Code> accepts scipy sparse matrices and exploits this: the coordinate descent updates for each entry of <Code>H</Code> involve only the columns of <Code>V</Code> where the corresponding row of <Code>W</Code> is non-zero. The effective compute per iteration is <Code>O(nnz × r)</Code> rather than <Code>O(n × m × r)</Code>, a 30–50x speedup for typical text data. This is why coordinate descent dominates for text; multiplicative updates require dense matrix products and cannot exploit sparsity as efficiently.
-      </Prose>
-
-      <H3>8.3 Online NMF for streaming</H3>
-
-      <Prose>
-        Mairal, Bach, Ponce, and Sapiro (JMLR 11:19–60, 2010) showed that the NMF dictionary <Code>H</Code> can be learned online by accumulating first- and second-order statistics across mini-batches. The algorithm maintains running matrices <Code>A</Code> and <Code>B</Code> that encode the history of past data:
-      </Prose>
-
-      <MathBlock>
-        {"A_t = \\sum_{i=1}^{t} \\alpha_i h_i h_i^\\top, \\quad B_t = \\sum_{i=1}^{t} \\alpha_i x_i h_i^\\top"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>h_i</Code> is the encoding of sample <Code>i</Code> given the current dictionary estimate and <Code>{"\\alpha_i"}</Code> is a forgetting factor. At each step, <Code>H</Code> is updated to minimize the surrogate objective defined by <Code>A_t</Code> and <Code>B_t</Code> using block coordinate descent. Memory cost is <Code>O(r × m + r²)</Code> — independent of the number of documents processed. This makes Online NMF the right choice for corpora that do not fit in RAM or for streaming applications where documents arrive continuously.
-      </Prose>
-
-      <H3>8.4 Practical scale limits</H3>
-
-      <Prose>
-        A rough guide by dataset size. For matrices with up to <Code>10⁷</Code> non-zeros: sklearn <Code>NMF(solver='cd')</Code> on a single core handles this in minutes. For <Code>10⁸</Code> non-zeros: still feasible with sklearn but may take tens of minutes; consider n_jobs parallelism or online NMF. For <Code>10⁹+</Code> non-zeros: Online NMF with mini-batching is required; batch the documents in chunks that fit in RAM (typically 5,000–10,000 documents), process each chunk, and accumulate statistics. For rank <Code>r {">"} 200</Code>: the auxiliary Gram matrix <Code>H H^T</Code> becomes an <Code>r × r</Code> bottleneck; factorizations above rank 500 on a single machine require careful implementation. For tensor data: use TensorLy's Non-Negative CP or Tucker decomposition, which extends the same multiplicative update logic to 3-way arrays.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Boundary stalling in multiplicative updates</H3>
-
-      <Prose>
-        The multiplicative update rule has the form <Code>H ← H × (numerator / denominator)</Code>. If any entry of <Code>H</Code> reaches exactly zero, the multiplicative update multiplies zero by the ratio — the result is zero regardless of the ratio. The entry is stuck at the boundary forever. This is a fundamental property of the multiplicative update rule: it cannot recover from an exact zero because it has no additive component to "push" the entry off the boundary. In practice this means: (1) always initialize <Code>W</Code> and <Code>H</Code> with strictly positive values, never zero; (2) after each update, clip all entries to a small positive floor (e.g., 1e-10) rather than zero; (3) if using NNDSVD initialization, use <Code>init='nndsvda'</Code> (which replaces the zeros in the NNDSVD result with small random values) rather than <Code>init='nndsvd'</Code> when using the <Code>solver='mu'</Code> solver. The coordinate descent solver is not affected by this pathology because it solves each subproblem to optimality rather than taking a multiplicative step.
-      </Prose>
-
-      <H3>9.2 Initialization sensitivity</H3>
-
-      <Prose>
-        NMF is a non-convex optimization problem. Different initializations lead to different local minima, and the quality of the local minimum depends heavily on the starting point. Random initialization (the naive approach) produces highly variable results across runs. NNDSVD (Non-Negative Double SVD, Boutsidis and Gallopoulos, 2008) provides a principled initialization by computing the SVD of <Code>V</Code> and then using the positive parts of the singular vectors as the initial factor columns. It dramatically reduces variance and typically converges to better local minima in fewer iterations. sklearn uses <Code>init='nndsvd'</Code> by default for <Code>solver='cd'</Code>. For very small datasets or when you want maximum reproducibility, set <Code>random_state</Code> and run multiple random initializations, then select the run with the lowest reconstruction error.
-      </Prose>
-
-      <H3>9.3 Choosing rank r</H3>
-
-      <Prose>
-        Choosing the rank <Code>r</Code> in NMF is fundamentally different from choosing the number of components in PCA. PCA provides a natural criterion (elbow in explained variance); NMF does not, because the reconstruction error decreases monotonically with <Code>r</Code> (more components always fit better) and there is no analogue of explained variance that accounts for non-negativity. The practical approaches are: (1) <strong>Cophenetic correlation coefficient</strong>: run NMF multiple times at each rank with different random seeds, compute the cophenetic correlation of the resulting consensus matrix (measure of clustering stability) — pick the rank where the cophenetic correlation is highest and begins to decrease; this is the approach recommended in the NMF bioinformatics literature (Brunet et al., PNAS 2004). (2) <strong>Reconstruction error elbow</strong>: plot reconstruction error vs. <Code>r</Code> and look for the elbow — similar to a scree plot but less reliable. (3) <strong>Domain knowledge</strong>: if you know there are 5 newsgroup categories, set <Code>r=5</Code>. Always prefer domain knowledge when available.
-      </Prose>
-
-      <H3>9.4 Non-uniqueness</H3>
-
-      <Prose>
-        NMF solutions are generally not unique. For any invertible non-negative matrix <Code>S</Code> of shape <Code>r × r</Code>, the decomposition <Code>V ≈ WH = (WS)(S⁻¹H)</Code> is equally valid as long as <Code>WS</Code> and <Code>S⁻¹H</Code> are both non-negative. Different initializations may find factorizations related by such a rescaling, reordering, or more complex transformation. This is both a feature (flexibility to find interpretable solutions) and a bug (results are not reproducible without fixing the seed). In practice, uniqueness is approached when the true underlying factors are sufficiently sparse — if only a few documents use each topic and each topic uses only a few words, the solution is essentially unique. The separability condition (Donoho and Stodden, 2004; Arora et al., 2012) formalizes this: NMF is unique if the factor matrix <Code>H</Code> has a separable structure where each column of <Code>V</Code> can be associated with a single pure basis vector.
-      </Prose>
-
-      <H3>9.5 Reconstruction error vs. interpretability</H3>
-
-      <Prose>
-        A lower reconstruction error does not imply more interpretable topics. Increasing rank <Code>r</Code> always decreases reconstruction error but may produce topics that fragment into meaningless sub-topics or duplicate each other. Setting rank too low (r {"<"} true number of topics) forces the model to merge distinct themes and produces mixed topics that are hard to label. Setting rank too high produces redundant topics and over-fitting of the noise. The sweet spot is typically the rank at which adding one more topic produces a qualitatively new, interpretable theme rather than a noisy fragmentation of an existing one. Evaluate topic quality by inspecting the top-20 words of each topic and having domain experts label them — reconstruction error is a proxy, not the true criterion.
-      </Prose>
-
-      <H3>9.6 Frobenius vs. KL — the noise model matters</H3>
-
-      <Prose>
-        The choice between Frobenius and KL divergence is a choice of noise model, and the wrong choice can produce systematically poor results. For raw count data (bag-of-words, RNA-seq read counts, pixel intensities), the Poisson noise model is appropriate: the variance of a count grows with its mean, so large counts are allowed more absolute error. Frobenius treats all entries equally, which means large counts dominate the gradient and rare words / rare pixels receive effectively no gradient signal. The KL divergence equalizes this by penalizing relative errors, making the model equally attentive to rare and common events. As a rule: use <Code>beta_loss='kullback-leibler'</Code> for raw counts; use <Code>'frobenius'</Code> for TF-IDF weights and other normalized, bounded data where Gaussian noise is a reasonable assumption.
-      </Prose>
-
-      <Callout type="warning" title="Data leakage: fit only on training documents">
-        NMF fits both W (document encodings) and H (topic-word dictionary) on the training data. To encode new test documents, call <Code>model.transform(X_test)</Code> — this solves only for W_test with H held fixed. Never call <Code>fit_transform</Code> on test data. Doing so re-estimates H from the test documents, leaking test distribution information into the dictionary. This is exactly analogous to fitting a scaler or PCA on the test set: it produces artificially high agreement between train and test encodings.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All five citations below are WebSearch-verified for author, year, venue, page numbers, and core contribution. Read in this order for a complete intellectual lineage.
-      </Prose>
-
-      <StepTrace
-        label="Primary literature — NMF"
-        steps={[
-          {
-            label: "Paatero and Tapper 1994 — Positive Matrix Factorization (the origin)",
-            render: () => (
-              <Prose>
-                Paatero, P. and Tapper, U. (1994). "Positive Matrix Factorization: A Non-Negative Factor Model with Optimal Utilization of Error Estimates of Data Values." <em>Environmetrics</em>, 5(2), 111–126. DOI: 10.1002/env.3170050203. The first paper to formalize non-negative matrix factorization as a constrained optimization. Paatero and Tapper were solving a practical problem in environmental science: decompose a matrix of airborne pollutant concentrations (measurement sites × chemical species) into a product of source-profile and source-contribution matrices, both of which must be non-negative because concentrations cannot go negative. Their contribution was the weighted least squares formulation with error estimates (not just equal weights), which is a more general objective than the unweighted Frobenius used in later work. The paper is technical and domain-specific, but it establishes every conceptual element that Lee and Seung would later popularize: non-negative factor matrices, alternating updates, parts-based interpretation. Available via Wiley Online Library.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lee and Seung 1999 — Learning the parts of objects (the breakthrough)",
-            render: () => (
-              <Prose>
-                Lee, D.D. and Seung, H.S. (1999). "Learning the Parts of Objects by Non-Negative Matrix Factorization." <em>Nature</em>, 401(6755), 788–791. DOI: 10.1038/44565. The paper that made NMF famous. Four pages in Nature, two key experiments (face images and text documents), one central argument: non-negativity forces parts-based representations. The face experiment is the most-reproduced result in NMF literature: given 2,429 face images (19×19 pixels each), NMF produces 49 basis vectors that look like parts of a face — eyes, nose, shadow regions, forehead — while PCA produces holistic eigenfaces with positive and negative pixel regions. The text experiment shows NMF on a 500-document × 3,000-word semantic space finding 7 topics that map to recognizable semantic themes. The paper's influence is outsized relative to its length: it introduced the parts-based framing and the connection to interpretability that drives NMF's application in everything from audio to genomics.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lee and Seung 2001 — Multiplicative update algorithms (NIPS)",
-            render: () => (
-              <Prose>
-                Lee, D.D. and Seung, H.S. (2001). "Algorithms for Non-Negative Matrix Factorization." <em>Advances in Neural Information Processing Systems</em>, 13, pp. 556–562. (NIPS 2000 proceedings, published 2001.) Available at papers.nips.cc/paper/1861. The algorithmic companion to the 1999 Nature paper. Two multiplicative update algorithms: one for Frobenius objective, one for generalized KL divergence. Both are derived by choosing gradient descent step sizes that keep all entries non-negative at every step — the ratio form of the update ensures that a positive entry scaled by a positive ratio remains positive. Convergence proof uses the auxiliary function method: construct an upper bound <Code>G(h, h')</Code> that is tight at the current point and whose minimizer is exactly the multiplicative update. Because minimizing <Code>G</Code> cannot increase the true objective <Code>F</Code>, the sequence of updates is monotonically non-increasing. The paper also shows that the KL-based NMF is closely related to PLSA (probabilistic latent semantic analysis) under certain parameter settings — connecting the matrix factorization and graphical model traditions.
-              </Prose>
-            ),
-          },
-          {
-            label: "Cichocki et al. 2009 — Nonnegative Matrix and Tensor Factorizations (the book)",
-            render: () => (
-              <Prose>
-                Cichocki, A., Zdunek, R., Phan, A.H., and Amari, S. (2009). <em>Nonnegative Matrix and Tensor Factorizations: Applications to Exploratory Multi-way Data Analysis and Blind Source Separation</em>. Wiley. ISBN: 978-0-470-74666-0. DOI: 10.1002/9780470747278. The definitive reference text for NMF and its extensions. Covers the beta-divergence family (unifying Frobenius, KL, and Itakura-Saito), sparse NMF with L1 and L0 penalties, constrained NMF (with smoothness, volume, or minimum-volume constraints), projective NMF, semi-NMF (non-negativity on one factor only), and the full generalization to non-negative tensor decompositions (NTF) and Tucker decompositions. Chapter 3 provides the most comprehensive treatment of multiplicative updates and their convergence; Chapter 5 covers blind source separation applications. For practitioners who need a variant beyond standard Frobenius NMF — sparse NMF, NTF, constrained factorizations — this book is the starting point.
-              </Prose>
-            ),
-          },
-          {
-            label: "Gillis 2014 — The why and how of NMF (arXiv survey)",
-            render: () => (
-              <Prose>
-                Gillis, N. (2014). "The Why and How of Nonnegative Matrix Factorization." arXiv:1401.5226. Chapter in <em>Regularization, Optimization, Kernels, and Support Vector Machines</em>, Chapman {"&"} Hall/CRC, pp. 257–291. Available at arxiv.org/abs/1401.5226. A 35-page survey that is the best single document for understanding NMF's theoretical properties. Three central topics: (1) <em>Why NMF?</em> — formal conditions under which NMF produces interpretable parts-based representations; the separability condition for uniqueness; connections to k-means clustering (NMF with orthogonality constraints on W is equivalent to k-means). (2) <em>NP-hardness</em> — NMF is generally NP-hard to solve globally, but under the separability assumption (each pure component appears as a row of V) it can be solved in polynomial time via "successive projection" algorithms. (3) <em>Applications</em> — image processing, text mining, and hyperspectral unmixing worked examples with real datasets. Freely available and essential reading for anyone who wants to understand when NMF works well and why.
-              </Prose>
-            ),
-          },
-          {
-            label: "Mairal, Bach, Ponce, Sapiro 2010 — Online NMF (JMLR)",
-            render: () => (
-              <Prose>
-                Mairal, J., Bach, F., Ponce, J., and Sapiro, G. (2010). "Online Learning for Matrix Factorization and Sparse Coding." <em>Journal of Machine Learning Research</em>, 11, 19–60. Available at jmlr.org/papers/v11/mairal10a.html. Extends NMF to the streaming setting where the full matrix cannot be held in memory. The key contribution is a block coordinate descent algorithm that maintains running first- and second-order statistics across mini-batches, enabling convergence guarantees for online (stochastic) updates of the dictionary matrix H. The algorithm handles the full beta-divergence family. Memory footprint is O(r × m + r²) regardless of the number of documents processed. Practically: this is the algorithm you use when your corpus has millions of documents and the full TF-IDF matrix does not fit in RAM.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving on. Attempt each question before reading the answer.
-      </Prose>
-
-      <H3>Exercise 1 (derivation)</H3>
-      <Prose>
-        Derive the multiplicative update for <Code>H</Code> from the Frobenius objective. Starting from the gradient of <Code>{"||V - WH||_F^2"}</Code> with respect to <Code>H</Code>, show how to split the gradient into a positive part and a negative part, and how choosing the step size to be <Code>H / (denominator + eps)</Code> gives the multiplicative rule and preserves non-negativity.
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        The Frobenius objective is F = ||V - WH||_F^2 = tr((V-WH)^T(V-WH)). The gradient with respect to H is: dF/dH = -2 W^T V + 2 W^T W H. Write this as the difference of a positive part and a negative part: dF/dH = 2[(W^T W H) - (W^T V)]. A standard gradient descent step would be H {"->"} H - eta * dF/dH. To preserve non-negativity, Lee and Seung choose eta to be element-wise: eta_kj = H_kj / (W^T W H)_kj. Substituting: H_kj {"->"} H_kj - [H_kj / (W^T W H)_kj] * [(W^T W H)_kj - (W^T V)_kj] = H_kj * (W^T V)_kj / (W^T W H)_kj. This is the multiplicative rule. Non-negativity is preserved because: H_kj {">"} 0 (initialized positive), (W^T V)_kj {">"} 0 (product of non-negative matrices), (W^T W H)_kj {">"} 0 (same reason). So the ratio is positive and H_kj remains positive. The step size choice is exactly the one that makes the gradient descent step equal to a rescaling of H by a ratio, guaranteeing both non-negativity and decrease of the objective (proved via the auxiliary function).
-      </Callout>
-
-      <H3>Exercise 2 (conceptual)</H3>
-      <Prose>
-        Explain in one paragraph why NMF produces "parts-based" representations while PCA produces "holistic" representations. Be specific about what the non-negativity constraint rules out, and give a concrete example using faces or documents.
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        PCA has no sign constraint on the components (rows of H) or the weights (columns of W). This means a face image can be reconstructed by adding the first eigenface with a large positive weight and subtracting the second eigenface with a large negative weight — the cancellation hides the fact that neither eigenface looks like a facial part. Each eigenface must represent a global "mode of variation" that, when subtracted, can cancel another mode. NMF enforces W, H {"≥"} 0, which rules out this cancellation. If a face image is reconstructed as a sum of basis vectors with only positive weights, each basis vector can only contribute positively to the reconstruction. This forces the algorithm to find basis vectors that look like localized additive parts: the "left eye component" must be a non-negative pixel pattern that adds to the eye region and is zero elsewhere, because there is no other way to achieve localized reconstruction without subtraction. For documents: a PCA document vector can have a large negative weight on the "sports" component and a large positive weight on the "mixed" component to produce a tech document — a meaningless cancellation. NMF forces each document to be a non-negative mixture of topics, so a tech document must have a high weight on the "tech" topic and near-zero weights on all others. Additive-only reconstruction forces each topic to be self-contained.
-      </Callout>
-
-      <H3>Exercise 3 (implementation)</H3>
-      <Prose>
-        Your multiplicative update NMF implementation runs for 1,000 iterations but the reconstruction error stops decreasing after iteration 50. You check: the initialization is random positive, eps is 1e-10, the learning rate is implicit in the multiplicative rule. What are two possible causes, and how would you diagnose each?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        Cause 1: Some entries of W or H have drifted to very small values near eps (the numerical floor), effectively becoming zero. These entries cannot be updated multiplicatively (zero times any ratio is zero). The stuck entries prevent the loss from decreasing further. Diagnosis: after convergence, print the minimum value of W and H and the fraction of entries below 1e-6. If many entries are at or near the floor, the algorithm has stalled at a boundary. Fix: switch to solver='cd' (coordinate descent), which can escape the boundary, or use a better initialization (nndsvda) that avoids near-zero starting values. Cause 2: The algorithm has reached a local minimum — not the global minimum, but a stationary point from which all multiplicative updates are essentially identity (ratio is 1.0). This is expected behavior and not a bug. Diagnosis: compute the gradient dF/dH at the current point; if all gradient entries are near zero, it is a genuine local minimum. Fix: run NMF from multiple random initializations (n_init {">"} 1 in a custom loop, or use sklearn with different random_state values) and keep the run with the lowest reconstruction error.
-      </Callout>
-
-      <H3>Exercise 4 (applied)</H3>
-      <Prose>
-        You run NMF with <Code>r=10</Code> on a 20,000-document × 15,000-word TF-IDF matrix and find that topics 3 and 7 have nearly identical top-20 word lists. What does this indicate, and what would you do?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        Duplicate or near-duplicate topics indicate that the rank r is too high for the intrinsic dimensionality of the data — the model is trying to fit 10 topics but the corpus only has ~8 true themes, so the extra capacity produces redundant copies of one theme. This is a sign of over-factorization. It can also occur if two categories in the data are very similar (e.g., "hockey" and "basketball" both contain sports vocabulary and the model discovers them as separate topics with overlapping top words). Diagnosis: compute the pairwise cosine similarity between all rows of H. If any pair has cosine similarity {">"} 0.85, they are likely duplicates. Action: (1) reduce r until no two topics are near-duplicates. (2) If the duplicates correspond to genuinely distinct subcategories (hockey vs. basketball), keep r as is and examine the differentiating words below the top-20 — they may be informative. (3) Consider sparse NMF with a higher L1 penalty on H to push topics apart by making each one sparser and more distinct.
-      </Callout>
-
-      <H3>Exercise 5 (theoretical)</H3>
-      <Prose>
-        Prove that the NMF objective <Code>{"||V - WH||_F^2"}</Code> is convex in <Code>W</Code> alone (with <Code>H</Code> fixed) and in <Code>H</Code> alone (with <Code>W</Code> fixed), but not jointly convex in <Code>(W, H)</Code>. What are the practical implications of this for algorithm design?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Convexity in W alone (H fixed): The objective is F(W) = ||V - WH||_F^2. Expanding: F(W) = ||V||_F^2 - 2 tr(V^T WH) + ||WH||_F^2 = ||V||_F^2 - 2 tr(V H^T W^T) + tr(H W^T W H^T). All three terms are quadratic or lower in W. The Hessian is d^2F/dW^2 = 2 H H^T (tensor product), which is positive semi-definite (since H H^T is PSD). Therefore F is convex in W. By symmetry, F is convex in H with W fixed. Joint non-convexity: Consider F(W, H) = ||V - WH||_F^2 where WH is a bilinear function of (W, H). A function g(w, h) = wh in 1D has Hessian [[0, 1], [1, 0]], which is indefinite (eigenvalues +1 and -1). The bilinear product WH is non-convex jointly in (W, H). Practical implications: (1) The alternating structure is natural — fixing one factor makes the problem convex and solvable to global optimality for the other factor. ANLS exploits this exactly. (2) Global optimality cannot be guaranteed because the joint problem is non-convex; different initializations may yield different local minima. (3) The alternating approach converges (each step provably decreases or maintains the objective) but not necessarily to the global minimum. This is why initialization strategy (NNDSVD vs. random) matters significantly for solution quality.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        You are building a topic model for a corpus of 500,000 scientific abstracts. Describe the complete pipeline from raw text to interpretable topics: preprocessing steps, choice of NMF variant and parameters, how you choose rank, and how you evaluate topic quality. Compare with what you would do differently using LDA.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        Pipeline for NMF topic modeling on 500k scientific abstracts. Step 1 (preprocessing): Lowercase, remove punctuation, tokenize, lemmatize (not just stem — lemmatization produces real words that are easier to interpret in topics). Remove English stopwords plus domain-specific stopwords (e.g., "study," "result," "show" appear in all abstracts and carry no topic signal). Step 2 (featurization): TF-IDF with vocabulary of 20,000–50,000 terms, min_df=10 (appear in at least 10 docs), max_df=0.5 (appear in no more than 50% of docs — filters corpus-wide terms). The resulting matrix is 500,000 × 20,000+ and highly sparse (~98%+ zeros). Step 3 (NMF variant and parameters): Use sklearn NMF(solver='cd', init='nndsvd', beta_loss='frobenius') for TF-IDF. For raw word counts, switch to beta_loss='kullback-leibler'. 500k documents do not fit in RAM as a dense matrix but do as a sparse matrix (500k × 20k at 98% sparsity is about 400MB). If RAM is tight, use Online NMF (Mairal et al.) with mini-batches of 5,000 documents. Step 4 (rank selection): Plot reconstruction error vs. r for r in [5, 10, 20, 30, 50, 75, 100]. Look for elbow. Compute cophenetic correlation across 5 random seeds at each candidate rank. Choose the rank where cophenetic correlation is highest before it starts decreasing — typically the intrinsic number of major themes. Manually inspect top-20 words at the candidate ranks. Step 5 (evaluation): Topic coherence (Normalized Pointwise Mutual Information, NPMI, over top-10 words per topic): measures how often top words co-occur in the corpus — high NPMI means semantically related words. Topic diversity: fraction of unique words across all topics' top-10 lists — low diversity means topics are redundant. Human evaluation: have 3 domain experts label each topic; if {">"} 80% of topics get unanimous labels, topics are interpretable. Versus LDA: LDA requires MCMC or variational inference, both slower than coordinate descent NMF on sparse matrices. LDA hyperparameters (Dirichlet alpha, beta) affect topic sparsity and require tuning; NMF rank is the only structural hyperparameter. LDA provides proper probability distributions (topic mixtures sum to 1, word distributions sum to 1) and uncertainty estimates. For a first exploration or production system with strict latency constraints, NMF is faster to train and deploy. For a system where calibrated topic proportions or Bayesian uncertainty are required, use LDA.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Non-Negative Matrix Factorization (NMF)',
+  readTime: '~50 min core reading · ~60 min code and practice · deeper branches a separate sitting',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot nm-lesson">
+    <LessonIntro prerequisites={<>Matrix multiplication, nonnegative weighted sums, squared error and the idea of a gradient, all refreshed locally where they enter. <a href="/learn/path/full-curriculum/vectors-matrices-tensor-operations?module=math-foundations">Vectors, Matrices &amp; Tensor Operations</a> and <a href="/learn/path/full-curriculum/pca-dimensionality-reduction?module=classical-ml">PCA</a> are the places to revisit if matrix shapes or reconstruction error feel unfamiliar. The preceding <a href="/learn/path/full-curriculum/independent-component-analysis-ica?module=classical-ml">Independent Component Analysis</a> lesson looked for independent hidden sources; this one asks for a different property entirely.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      Suppose you have hundreds of small pictures of handwritten digits. You could store every picture separately. Could you instead learn a small collection of reusable ink patterns and describe each picture by how much of each pattern to add? Learn to trace one reconstructed cell by hand, read a signed residual before it is squared, step both phases of a multiplicative update from your own start, see two different nonnegative dictionaries explain the same measurements exactly, and then fit {splitSizes.train} real digit images and pull an actual held-out reconstruction apart component by component. Every investigation asks for a prediction before it shows an answer, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <Prose className="nm-route"><strong>First pass.</strong> Read sections 1 to 6, working through the additive reconstruction and update investigations as they appear, then attempt exercises 1 to 5 in section 9. This route takes you from matrix entries to a complete offline fit and an interpretation of its errors. Return to section 7 for optimization, nonnegative rank and separability, and section 8 for topic models, spectra and streaming; exercises 6 to 8 assess those deeper branches. Allow roughly 50 minutes for the core reading and another hour for its code and practice. The deeper branches are a separate sitting.</Prose>
+
+    <Prose>That is the central question of <strong>non-negative matrix factorization</strong>. It learns nonnegative patterns and nonnegative amounts whose sums approximate your observations. The same arithmetic can describe a document as a combination of word patterns or a measured spectrum as a combination of spectral patterns. The useful result is a compact, inspectable representation of the measurements.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>The preceding <a href="/learn/path/full-curriculum/independent-component-analysis-ica?module=classical-ml">ICA lesson</a> looked for independent hidden sources in mixtures of signals. NMF asks for a different property: all the numbers used to build an observation must be nonnegative. Independence is not part of its basic objective.</Prose>
+    <Prose>You need to multiply a row of numbers by a matrix and add squared errors. We will refresh both. A gradient means the local direction in which an error changes; the first fit can be followed before reading its derivation.</Prose>
+    <Prose>Our convention is <strong>observations in rows, features in columns</strong>:</Prose>
+    <LessonTable caption="Every matrix in this lesson, with its shape and meaning" headers={['Matrix', 'Shape', 'Meaning']} rows={[
+      [<Math key="x">{'X'}</Math>, <Math key="xs">{'n\\times d'}</Math>, 'The observed nonnegative measurements'],
+      [<Math key="w">{'W'}</Math>, <Math key="ws">{'n\\times k'}</Math>, 'How much each observation uses each component'],
+      [<Math key="h">{'H'}</Math>, <Math key="hs">{'k\\times d'}</Math>, 'The component patterns in the original features'],
+      [<Math key="r">{'\\widehat X=WH'}</Math>, <Math key="rs">{'n\\times d'}</Math>, 'Reconstructed measurements'],
+    ]} />
+    <Prose>The letter <Math>{'k'}</Math> is the <strong>number of components</strong>. People sometimes call it the factorization rank, although the product can have matrix rank smaller than <Math>{'k'}</Math>. A column of <Math>{'W'}</Math> follows one component across observations; a row of <Math>{'H'}</Math> follows that component across features. Some references transpose the whole convention. Check shapes before translating a formula.</Prose>
+    <Prose>Consider three constructed observations with three features:</Prose>
+    <MathBlock>{'\\begin{gathered}X=\\begin{bmatrix}2&1&3\\\\1&2&3\\\\3&3&6\\end{bmatrix},\\\\[6pt] W=\\begin{bmatrix}2&1\\\\1&2\\\\3&3\\end{bmatrix},\\\\[6pt] H=\\begin{bmatrix}1&0&1\\\\0&1&1\\end{bmatrix}.\\end{gathered}'}</MathBlock>
+    <Prose>The first component contributes equally to features 1 and 3. The second contributes equally to features 2 and 3. Observation 1 is</Prose>
+    <MathBlock>{'2[1,0,1]+1[0,1,1]=[2,1,3].'}</MathBlock>
+    <Prose>To find one reconstructed cell, multiply corresponding entries and add:</Prose>
+    <MathBlock>{'\\widehat X_{ij}=\\sum_{r=1}^{k}W_{ir}H_{rj}.'}</MathBlock>
+    <Prose>For observation 1, feature 3, this is <Math>{'2\\cdot1+1\\cdot1=3'}</Math>. Every contribution is zero or positive. There is no cancellation between components.</Prose>
+    <BuildRowFigure />
+    <MixtureLab />
+
+    <H3>The interpretation contract</H3>
+    <Callout title="What nonnegativity does and does not buy you, once for the whole lesson">
+      Nonnegativity guarantees additive reconstruction. Recognizable physical parts, sparse factors, independence and a unique explanation require additional assumptions or evidence. A component can be broad, overlap another component or combine unrelated physical processes. Calling it “eye,” “topic” or “material” is an interpretation to evaluate against its features and domain evidence. NMF weights are not probabilities unless a specified normalization gives them that meaning.
+    </Callout>
+    <Prose>This distinction also separates the recent lessons: a GMM responsibility is a normalized conditional probability of a mixture assignment; a t-SNE coordinate locates a point in a neighborhood map; an ICA coordinate estimates a source under independence assumptions; an NMF activation contributes to an additive reconstruction. None is a generic unit of “hidden meaning.”</Prose>
+
+    <H2>{headings[1]}</H2>
+    <Prose>Usually the observations do not fit a small number of patterns exactly. We therefore choose <Math>{'W,H\\geq0'}</Math> to minimize a reconstruction loss. For the <strong>squared Frobenius loss</strong>,</Prose>
+    <MathBlock>{'\\begin{gathered}F(W,H)=\\tfrac12\\|X-WH\\|_F^2\\\\[4pt] =\\tfrac12\\sum_{i=1}^{n}\\sum_{j=1}^{d}(X_{ij}-\\widehat X_{ij})^2.\\end{gathered}'}</MathBlock>
+    <Prose>The subscript <Math>{'F'}</Math> means: square every matrix entry, sum, then take the square root for the norm. We square that norm in the objective. The one-half cancels a factor of two when differentiating; it does not change which factors minimize the loss.</Prose>
+    <Prose>If an observation is <Math>{'[2,1,3]'}</Math> and its reconstruction is <Math>{'[1.5,1,2.5]'}</Math>, the residual is <Math>{'[.5,0,.5]'}</Math>. Its contribution to <Math>{'F'}</Math> is <Math>{'\\tfrac12(.25+0+.25)=.25'}</Math>. Keep the residual signed when displaying it: positive means missing reconstructed mass; negative means excess.</Prose>
+    <Prose>This objective values an absolute error of 2 equally at a feature value of 2 and a feature value of 20. Rescaling one feature by ten can make its squared error a hundred times more influential. Thus preprocessing is a modeling decision. Standard centering would introduce negative entries and change the additive interpretation. Dividing all image entries by the known maximum 16, as we do later, preserves zero and relative weights. Arbitrarily shifting a signed dataset until it is nonnegative introduces a baseline pattern the model must explain.</Prose>
+    <ResidualFigure />
+
+    <H3>A loss encodes which discrepancies matter</H3>
+    <Prose>For a nonnegative observation <Math>{'x'}</Math> and positive reconstruction <Math>{'y'}</Math>, two other common entrywise losses are</Prose>
+    <MathBlock>{'\\begin{gathered}d_{\\mathrm{KL}}(x,y)=x\\log(x/y)-x+y,\\\\[4pt] d_{\\mathrm{IS}}(x,y)=x/y-\\log(x/y)-1.\\end{gathered}'}</MathBlock>
+    <Prose>The first is <strong>generalized Kullback–Leibler divergence</strong>, summed over entries. With the convention <Math>{'0\\log(0/y)=0'}</Math>, a zero observation contributes <Math>{'y'}</Math>. If <Math>{'x>0,y=0'}</Math>, the divergence is infinite. It becomes the usual KL divergence when the arrays are normalized probability distributions. The second is <strong>Itakura–Saito divergence</strong>, used for strictly positive entries here.</Prose>
+    <Prose>Compare the same absolute overestimate:</Prose>
+    <LessonTable caption="One absolute overestimate of 2, valued by three entrywise losses" headers={[<span key="p">Observed <Math>{'x'}</Math>, reconstructed <Math>{'y'}</Math></span>, <Math key="f">{'\\tfrac12(x-y)^2'}</Math>, 'Generalized KL', 'Itakura–Saito']} rows={[
+      ['2, 4', '2', '.613706', '.193147'],
+      ['20, 22', '2', '.093796', '.004401'],
+    ]} />
+    <Prose>KL and IS distinguish these two contexts. They still distinguish themselves: scaling both <Math>{'x'}</Math> and <Math>{'y'}</Math> by <Math>{'c>0'}</Math> scales squared loss by <Math>{'c^2'}</Math>, KL by <Math>{'c'}</Math>, and leaves IS unchanged. These follow by substituting into the formulas; “relative error” is too vague to describe all three.</Prose>
+    <Prose>Independent Gaussian errors with common variance yield squared-error fitting of the means. Independent Poisson counts with means <Math>{'\\widehat X_{ij}'}</Math> yield generalized-KL fitting after terms independent of the factors are removed. Choosing the latter is an assumption about count variability, not a rule that every count dataset follows a Poisson model. TF-IDF values, for example, are weighted text features rather than integer counts.</Prose>
+    <Prose>These losses belong to the beta-divergence family, with <Math>{'\\beta=2,1,0'}</Math> respectively. The library supports them, but its coordinate-descent solver uses Frobenius loss; the multiplicative solver supports the other beta losses. Strictly positive input is required for its <Math>{'\\beta\\leq0'}</Math> cases. <a href="https://scikit-learn.org/stable/modules/decomposition.html#nmf-with-a-beta-divergence">Scikit-learn’s NMF guide</a> documents those conventions.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>The difficult part is that both the component patterns and their amounts are unknown. Changing both at once creates a jointly nonconvex problem. A natural strategy is to alternate:</Prose>
+    <Prose>1. Hold the activations <Math>{'W'}</Math> fixed and improve the patterns <Math>{'H'}</Math>. 2. Hold the newly updated patterns fixed and improve <Math>{'W'}</Math>. 3. Repeat while monitoring the objective and a stopping criterion.</Prose>
+    <Prose>One especially transparent method uses <strong>multiplicative updates</strong>. For the squared loss above,</Prose>
+    <MathBlock>{'\\begin{gathered}H\\leftarrow H\\odot\\frac{W^\\top X}{(W^\\top W)H},\\\\[6pt] W\\leftarrow W\\odot\\frac{XH^\\top}{W(HH^\\top)}.\\end{gathered}'}</MathBlock>
+    <Prose>The symbol <Math>{'\\odot'}</Math> and the fraction mean entrywise multiplication and division. Ordinary adjacent matrix products still mean matrix multiplication. The second update uses the new <Math>{'H'}</Math>.</Prose>
+    <Prose>Here is the reason for the ratio. The gradient with respect to <Math>{'H'}</Math> is</Prose>
+    <MathBlock>{'\\nabla_HF=(W^\\top W)H-W^\\top X.'}</MathBlock>
+    <Prose>The first term reflects the reconstruction currently produced; the second reflects the observed data. If the second is larger at a cell, the gradient is negative there, so increasing that cell can reduce loss. Multiplying by their ratio increases it. If the first term is larger, the ratio decreases it. A positive value multiplied by a nonnegative ratio stays nonnegative.</Prose>
+
+    <H3>A full numerical step</H3>
+    <Prose>Use the <Math>{'X'}</Math> from section 1, but initialize the unknown factors as</Prose>
+    <MathBlock>{'\\begin{gathered}W^{(0)}=\\begin{bmatrix}1&.5\\\\.5&1\\\\1&1\\end{bmatrix},\\\\[6pt] H^{(0)}=\\begin{bmatrix}1&.2&.8\\\\.2&1&.8\\end{bmatrix}.\\end{gathered}'}</MathBlock>
+    <Prose>The initial loss is {firstSweep.lossBefore.toFixed(2)}. To update <Math>{'H_{11}'}</Math>, the observed-data numerator is <Math>{'1\\cdot2+.5\\cdot1+1\\cdot3=5.5'}</Math>. The first row of <Math>{'W^\\top W'}</Math> is <Math>{'[2.25,2]'}</Math>, so the denominator is <Math>{'2.25\\cdot1+2\\cdot.2=2.65'}</Math>. Therefore <Math>{'H_{11}'}</Math> becomes <Math>{'1\\cdot5.5/2.65=2.075472'}</Math>.</Prose>
+    <Prose>Updating all entries gives</Prose>
+    <MathBlock>{'\\begin{gathered}H^{(1)}\\approx\\\\[4pt] {\\small\\begin{bmatrix}2.075472&.408163&2.470588\\\\.408163&2.075472&2.470588\\end{bmatrix}.}\\end{gathered}'}</MathBlock>
+    <Prose>Using this new pattern matrix in the <Math>{'W'}</Math> update gives</Prose>
+    <MathBlock>{'W^{(1)}\\approx\\begin{bmatrix}.826888&.393655\\\\.393655&.826888\\\\1.212145&1.212145\\end{bmatrix}.'}</MathBlock>
+    <Prose>The loss after both updates is {firstSweep.loss.toFixed(7)}. Notice that some activations decreased even though the corresponding pattern entries increased. What matters is their product.</Prose>
+    <UpdatePhaseFigure />
+    <UpdateLab />
+
+    <H3>Complete NumPy program</H3>
+    <Prose>Create a Python environment with <Code>python -m pip install numpy</Code>. Save this as <Code>nmf_step.py</Code> and run <Code>python nmf_step.py</Code>. The example has strictly positive initial factors and no entirely zero data row or column, so its displayed update needs no added denominator constant. The supported numerical example is small and bounded.</Prose>
+    <Program example={nmfExamples.multiplicativeStep}>
+      <Prose>The bounded author calculation executed these updates with NumPy {versions.numpy}. The fit approaches the exact product from section 1, while its factor values need not match the chosen factors there. The next section explains why.</Prose>
+    </Program>
+
+    <H3>Why a flat error trace is not enough</H3>
+    <Prose>A zero multiplied by a ratio remains zero. An entry initialized at exactly zero can become <strong>zero locked</strong> even when increasing it would improve the fit. For example, hold <Math>{'W=[1]'}</Math>, set <Math>{'X=[2,1]'}</Math> and <Math>{'H=[0,1]'}</Math>. The gradient for the first <Math>{'H'}</Math> entry is <Math>{'-2'}</Math>, so a positive move helps. A guarded multiplicative implementation that leaves zero entries at zero cannot make that move. By contrast, the nonnegative least-squares solution with this fixed <Math>{'W'}</Math> is exactly <Math>{'[2,1]'}</Math>.</Prose>
+    <ZeroLockFigure />
+    <Prose>The original update’s upper-bound argument establishes non-increasing objective values under its mathematical conditions. Objective decrease, stationarity, a local minimum and a global minimum are different statements. At a nonnegative boundary, stationarity permits a positive gradient at a zero variable: movement toward negative values is forbidden. A zero gradient everywhere is neither the correct boundary test nor a proof of a local minimum. <a href="https://www.csie.ntu.edu.tw/~cjlin/papers/multconv.pdf">Lin’s analysis</a>, sections II to IV, separates these issues and supplies modified updates with a convergence argument. We derive the relevant conditions in section 7.</Prose>
+    <Prose>Adding an epsilon to every denominator or clipping factors after every step changes the algorithm. It can be useful numerical engineering, but the unmodified proof cannot simply be copied onto that changed procedure. For ordinary work, use a maintained solver with documented behavior and inspect its convergence information.</Prose>
+    <Checkpoint prompt="Start H₁₁ at 3 instead of 1, keeping everything else the same. Does the first H phase grow it or shrink it, and why is that a better prediction task than watching H₁₁ from 1?">
+      <Prose>The numerator does not involve <Math>{'H'}</Math> at all, so it stays 5.5. The denominator is <Math>{'2.25\\cdot3+2\\cdot.2=7.15'}</Math>, giving <Math>{'3\\times5.5/7.15=30/13\\approx2.307692'}</Math>: it shrinks. From 1 the same cell grows. A prediction task whose every supported answer is “increase” teaches nothing; the investigation above carries both cases as presets.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[3]}</H2>
+    <Prose>Even before considering local optimization, the data may admit several exact nonnegative factorizations. The factors from section 1 yield <Math>{'X'}</Math> exactly. So do</Prose>
+    <MathBlock>{'\\begin{gathered}W_2=\\begin{bmatrix}1.5&.5\\\\.5&1.5\\\\2&2\\end{bmatrix},\\\\[6pt] H_2=\\begin{bmatrix}1.25&.25&1.5\\\\.25&1.25&1.5\\end{bmatrix}.\\end{gathered}'}</MathBlock>
+    <Prose>Check the first row: <Math>{'1.5[1.25,.25,1.5]+.5[.25,1.25,1.5]=[2,1,3]'}</Math>. The second explanation has components that each contribute to every feature. They are not simply the first components with their order or scale changed. The observations alone have not identified which set of components is physically real.</Prose>
+    <AmbiguityFigure />
+    <Prose>Two simpler ambiguities always deserve attention. <strong>Permutation:</strong> exchange two rows of <Math>{'H'}</Math> and the corresponding columns of <Math>{'W'}</Math>; the product stays the same. <strong>Scale:</strong> multiply row <Math>{'r'}</Math> of <Math>{'H'}</Math> by any <Math>{'c>0'}</Math> and divide column <Math>{'r'}</Math> of <Math>{'W'}</Math> by <Math>{'c'}</Math>; every contribution stays the same.</Prose>
+    <Prose>Consequently, a larger raw activation in one fit does not establish a stronger physical component than in another fit. First align component identities and choose a stated scale convention.</Prose>
+
+    <H3>Normalize while preserving the product</H3>
+    <Prose>Let <Math>{'s_r=\\sum_jH_{rj}>0'}</Math>. Define <Math>{'\\widetilde H_{rj}=H_{rj}/s_r'}</Math> and <Math>{'\\widetilde W_{ir}=W_{ir}s_r'}</Math>. Then <Math>{'\\widetilde W\\widetilde H=WH'}</Math>, and every pattern sums to one. A zero pattern contributes nothing and is handled separately rather than divided by zero.</Prose>
+    <Prose>For the first observation of section 1, both pattern sums are 2. The normalized patterns are <Math>{'[.5,0,.5]'}</Math> and <Math>{'[0,.5,.5]'}</Math>; the activations become <Math>{'[4,2]'}</Math>. Their sum, 6, is the reconstructed total mass. Dividing these new activations by 6 gives mixture proportions <Math>{'[2/3,1/3]'}</Math> <strong>for the normalized reconstruction</strong>. The original activation vector <Math>{'[2,1]'}</Math> was not itself a probability distribution.</Prose>
+    <Prose>This normalization preserves reconstruction, but generally changes a penalty on factor magnitudes. Apply it for inspection after an unpenalized fit, or explicitly account for it when the optimization includes regularization.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>Our <a href="/learn-assets/nmf/digits-300.csv" download>offline CSV</a> contains 300 real digit images: 30 examples of each label from the scikit-learn optical-digits collection. E. Alpaydin and C. Kaynak collected the underlying <a href="https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits">UCI Optical Recognition of Handwritten Digits dataset</a> for recognition research. Each image has 64 block counts arranged as 8×8; each count is an integer from 0 to 16. These are reduced handwritten bitmaps, not MNIST images. Attribution, selection and the CC BY 4.0 license are in <a href="/learn-assets/nmf/data-provenance.md">the data provenance</a>.</Prose>
+    <Prose>The scientific question here is narrower than recognition: <strong>can a small additive dictionary reconstruct previously withheld images, and what do its patterns actually look like?</strong> Labels construct a balanced teaching collection and stratify the split; they are never factorization features. Writer identities are unavailable in this extract, so this split concerns withheld images within the collection, not a claim about new writers.</Prose>
+    <Prose>We divide every block count by 16. Use {splitSizes.train} images to learn patterns, {splitSizes.validation} for validation comparisons, and reserve {splitSizes.test} for a final diagnostic. For a new row, <Code>transform</Code> finds its nonnegative activation amounts while keeping the fitted dictionary fixed. It is a small optimization problem, not multiplication by the dictionary transpose as in an orthogonal PCA projection.</Prose>
+    <FitTransformFigure />
+    <Prose>Install <Code>numpy</Code> and <Code>scikit-learn</Code> in your own environment, save the CSV beside this program as <Code>digits-300.csv</Code>, save the code as <Code>nmf_digits.py</Code>, and run <Code>python nmf_digits.py</Code>.</Prose>
+    <CodeBlock language="bash">{'python -m pip install "numpy==2.3.5" "scikit-learn==1.9.1"'}</CodeBlock>
+    <Program example={nmfExamples.digitDictionary}>
+      <Prose>The author calculation executed the same data, split, fits and quantities under scikit-learn {versions.sklearn}. MSE means the average squared residual across all selected images and all 64 scaled features. Its units are squared fractions of the maximum block count. Here additional components improve validation reconstruction over the inspected range. The higher-rank runs also show an initialization effect. At one component, both seeds nearly agree: a useful null rather than a reason to invent variability.</Prose>
+    </Program>
+    <CandidateFigure />
+    <Prose>The separately specified eight-component comparison gives test MSE {six(baselines.meanTestMse)} for the training-mean image, {six(baselines.pcaTestMse)} for PCA and {six(baselines.nmfTestMse)} for NMF. PCA wins this reconstruction comparison. It is allowed signed, centered patterns and uses an additional mean image; NMF supplies the additive constraint we wanted to inspect. This is a comparison of those representation choices, not equal storage bits or a digit-classification benchmark. There is no reason to tune the example until NMF wins.</Prose>
+    <DictionaryFigure />
+    <Prose>For the selected image, rank components by the sum of their actual contributions, not by raw <Math>{'W_{ir}'}</Math>. Removing a component changes the reconstruction by exactly its contribution image. You can now say whether a pattern is concentrated around a stroke, spreads over several regions, or overlaps another pattern. That is stronger evidence than naming every component a digit part in advance.</Prose>
+    <ContributionLab />
+
+    <H3>Choosing a useful component count</H3>
+    <Prose>If your actual objective is validation MSE among these candidates, {bestRun.k} components with seed {bestRun.seed} is the best inspected candidate. The fixed eight-component panel was chosen for a readable demonstration, not mislabeled as the selected optimum. A genuine subsequent test evaluation would fit the chosen procedure according to its declared train/validation policy and evaluate once on the untouched test set. Repeatedly trying choices after viewing test results turns the test set into further validation.</Prose>
+    <Prose>The best attainable unregularized training error cannot increase when another component is allowed: an old fit can be embedded by adding a zero component. A particular local solver run can break that visual trend by finding a worse solution. Neither an elbow nor a stable cluster assignment identifies a universal “true number of topics.” Choose a count using the task: reconstruction on withheld data, stable interpretable patterns, downstream usefulness and the cost of a larger dictionary. When comparing patterns across seeds, normalize and match them one-to-one before measuring similarity.</Prose>
+
+    <H2>{headings[5]}</H2>
+    <H3>Solvers and initialization</H3>
+    <Prose>With <Math>{'H'}</Math> fixed, fitting each row of <Math>{'W'}</Math> is a nonnegative least-squares problem with <Math>{'k'}</Math> unknowns. There are <Math>{'n'}</Math> such row problems. With <Math>{'W'}</Math> fixed, fitting each column of <Math>{'H'}</Math> gives <Math>{'d'}</Math> problems. These are convex subproblems; alternating between them does not make the joint problem convex.</Prose>
+    <Prose><strong>Coordinate descent</strong> updates one coefficient or block using the other current values. It can activate a zero entry when the feasible descent direction points into the positive region. A full alternating NNLS method solves each subproblem to an appropriate accuracy; one sweep of coordinate updates should not be described as an exact solve of every subproblem. Multiplicative updates offer an especially readable mechanism and support different losses. There is no solver ranking independent of matrix shape, sparsity, stopping criteria and requested accuracy.</Prose>
+    <Prose>NNDSVD initializes nonnegative factors from singular-vector information. <Code>nndsvd</Code> retains zeros, <Code>nndsvda</Code> fills those zeros with the data mean, and <Code>nndsvdar</Code> uses small random fills. In the inspected scikit-learn version, <Code>init=None</Code> chooses <Code>nndsvda</Code> when the component count fits within the matrix dimensions, otherwise random initialization. Set parameters explicitly in a reproducible lesson. For multiplicative fitting, initial zeros deserve special attention because of zero locking. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF API</a>.</Prose>
+
+    <H3>Sparsity is an additional preference</H3>
+    <Prose>To prefer fewer active contributions or narrower patterns, add a penalty such as</Prose>
+    <MathBlock>{'\\begin{gathered}F(W,H)+\\lambda_W\\sum_{ir}W_{ir}\\\\[4pt] +\\lambda_H\\sum_{rj}H_{rj}.\\end{gathered}'}</MathBlock>
+    <Prose>For nonnegative factors these sums are their entrywise L1 norms. Penalizing <Math>{'W'}</Math> discourages an observation from spreading mass across many components; penalizing <Math>{'H'}</Math> discourages a component from spreading mass across many features. The effect depends on scale and the complete objective. A sparsity penalty is not a constraint that all component word lists become distinct.</Prose>
+    <Prose>Scikit-learn exposes <Code>alpha_W</Code>, <Code>alpha_H</Code> and <Code>l1_ratio</Code>, including mixed L1/L2 penalties. Its objective scales the <Math>{'W'}</Math> penalty by the number of features and the <Math>{'H'}</Math> penalty by the number of samples, so a hand-written <Math>{'\\lambda'}</Math> is not automatically the same numerical parameter. The <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization lesson</a> develops this statistical tradeoff after preprocessing and validation.</Prose>
+
+    <H3>A diagnosis table</H3>
+    <LessonTable caption="What to inspect when a factorization misbehaves" headers={['Observation', 'Inspect next', 'A justified response']} rows={[
+      ['Input contains negative values', 'Units, centering and the intended meaning of zero', 'Choose a meaningful nonnegative representation or a method supporting signed values'],
+      ['Objective barely changes', 'Initialization, stopping tolerance, gradients at active/boundary variables, iteration limit', 'Distinguish a good fit from boundary stalling; compare a documented alternate solver'],
+      ['Similar top words or patterns', 'Full normalized factors and activations across observations', 'Check redundancy, a shared background and genuine overlap; do not infer an exact topic count from top words alone'],
+      ['Different component numbers between runs', 'Permutation and scale matching', 'Compare contributions and aligned shapes'],
+      ['Low reconstruction error but unhelpful factors', 'The task’s semantic or scientific diagnostics', 'Revisit representation, loss, constraints and count rather than rewarding error alone'],
+      ['Sparse matrix becomes huge', 'Intermediate products and storage format', <span key="s">Keep data sparse and use small Gram products; avoid constructing <Math>{'WH'}</Math> merely to update factors</span>],
+    ]} />
+
+    <H2>{headings[6]}</H2>
+    <Prose>This branch explains why alternating updates work, why general NMF remains hard, and when an additional geometric assumption helps. The core fit and interpretation do not depend on completing its proofs.</Prose>
+
+    <H3>Separate convexity and joint nonconvexity</H3>
+    <Prose>For fixed <Math>{'W'}</Math>, the Hessian of a column’s least-squares objective is <Math>{'W^\\top W'}</Math>, which is positive semidefinite because <Math>{'v^\\top W^\\top Wv=\\|Wv\\|^2\\geq0'}</Math>. The nonnegative feasible region is convex. The corresponding statement holds for rows of <Math>{'W'}</Math> with <Math>{'H'}</Math> fixed.</Prose>
+    <Prose>For joint nonconvexity, take the scalar problem <Math>{'f(w,h)=\\tfrac12(1-wh)^2'}</Math>. Both <Math>{'(w,h)=(1,1)'}</Math> and <Math>{'(2,.5)'}</Math> have zero loss. Their midpoint <Math>{'(1.5,.75)'}</Math> has product {nonconvex.midpoint.product} and loss {nonconvex.midpoint.loss}. Convexity would require the midpoint loss to be at most zero. This directly tests the objective, rather than incorrectly concluding that any loss of a bilinear product must be nonconvex.</Prose>
+
+    <H3>The majorization argument</H3>
+    <Prose>For a column <Math>{'h'}</Math> of <Math>{'H'}</Math>, let <Math>{'A=W^\\top W'}</Math> and <Math>{'b=W^\\top x'}</Math>. Its objective has gradient <Math>{'Ah-b'}</Math> and Hessian <Math>{'A'}</Math>. Assume the fixed <Math>{'W'}</Math> has no all-zero component column and the current point <Math>{'h\''}</Math> is positive; then every <Math>{'(Ah\')_r>0'}</Math>. An all-zero component column is unused and must be removed or handled separately before this inverse-based derivation. Choose the diagonal matrix <Math>{'D_{rr}=(Ah\')_r/h\'_r'}</Math>. The quadratic function</Prose>
+    <MathBlock>{'\\begin{gathered}G(h,h\')=F(h\')\\\\[4pt] +(h-h\')^\\top\\nabla F(h\')\\\\[4pt] +\\tfrac12(h-h\')^\\top D(h-h\')\\end{gathered}'}</MathBlock>
+    <Prose>touches the objective at <Math>{'h\''}</Math> and lies above it. To see the key inequality, write <Math>{'z_r=h\'_ru_r'}</Math>. Since <Math>{'A'}</Math> is symmetric with nonnegative entries,</Prose>
+    <MathBlock>{'\\begin{gathered}z^\\top(D-A)z\\\\[4pt] =\\tfrac12\\sum_{rs}A_{rs}h\'_rh\'_s(u_r-u_s)^2\\geq0.\\end{gathered}'}</MathBlock>
+    <Prose>Minimizing this separable quadratic gives <Math>{'h=h\'-D^{-1}(Ah\'-b)=h\'\\odot b/(Ah\')'}</Math>, the multiplicative rule. Therefore <Math>{'F(h_{\\mathrm{new}})\\leq G(h_{\\mathrm{new}},h\')\\leq G(h\',h\')=F(h\')'}</Math>. This is an upper-bound minimization argument, and it is derived here for the squared-loss column problem only: the other beta divergences have their own multiplicative updates and their own auxiliary functions, so this derivation does not by itself carry over to them. EM in the earlier <a href="/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml">GMM lesson</a> used a lower bound while maximizing a log likelihood; the inequality direction changes with the optimization problem. <a href="https://papers.nips.cc/paper_files/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf">Lee and Seung’s original algorithm paper</a>.</Prose>
+    <Prose>For the nonnegative constraints, the first-order conditions are</Prose>
+    <MathBlock>{'\\begin{gathered}W,H\\geq0,\\\\[4pt] \\nabla_WF\\geq0,\\quad \\nabla_HF\\geq0,\\\\[4pt] W\\odot\\nabla_WF=0,\\\\[4pt] H\\odot\\nabla_HF=0.\\end{gathered}'}</MathBlock>
+    <Prose>A positive variable must have zero gradient; a zero variable must not have a negative gradient pointing into a feasible decrease. The zero-locked example violates the latter condition. Factor rescaling can also change the size of a gradient-based diagnostic without changing reconstruction, so a stopping metric needs a stated scale convention.</Prose>
+
+    <H3>Nonnegative rank and an informative surprise</H3>
+    <Prose>The ordinary rank of a matrix measures how many signed linear basis directions suffice for exact reconstruction. <strong>Nonnegative rank</strong> is the smallest <Math>{'k'}</Math> permitting an exact nonnegative factorization. It is at least ordinary rank and can be larger.</Prose>
+    <Prose>Consider</Prose>
+    <MathBlock>{'S=\\begin{bmatrix}0&0&1&1\\\\1&0&0&1\\\\1&1&0&0\\\\0&1&1&0\\end{bmatrix}.'}</MathBlock>
+    <Prose>Its ordinary rank is 3: the sum of rows 1 and 3 equals the sum of rows 2 and 4, and the first three rows are independent. Its nonnegative rank is 4. Each nonnegative rank-one contribution has rectangular positive support and cannot place positive mass in one of the zero cells, since another contribution cannot cancel it. The positive positions <Math>{'(1,3),(2,4),(3,1),(4,2)'}</Math> cannot share a single such rectangle pairwise: for any pair, at least one crossed cell is zero. At least four rank-one contributions are necessary; taking <Math>{'W=I_4,H=S'}</Math> shows four suffice.</Prose>
+    <SupportFigure />
+    <Prose>General exact NMF includes NP-hard instances, as the canonical survey discusses. Nonconvexity alone would not prove NP-hardness. Structured cases can be much easier. Under a <strong>separability</strong> assumption, every needed component direction appears among the observed rows (after our row-oriented convention). With nonzero rows normalized to sum to one, all other rows lie in the convex hull of these anchor rows. Finding its extreme points can identify candidate patterns instead of searching for arbitrary hidden directions. Noise, redundant anchors and rank/conditioning assumptions matter to algorithmic guarantees.</Prose>
+    <Prose>For example, observations <Math>{'[1,0],[0,1],[.25,.75],[.6,.4]'}</Math> visibly include the two endpoints. Removing both endpoints leaves many wider enclosing segments consistent with the remaining mixtures, just as in section 4. A general unconstrained NMF fit is not automatically a separable model. The survey’s geometric algorithms and their explicit assumptions are a useful next theoretical reading. <a href="https://arxiv.org/pdf/1401.5226">Gillis, <em>The Why and How of NMF</em></a>: section 3.2 for near-separable geometry, and section 4 for the connections that place nonnegative rank beside problems in mathematics and computer science.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <H3>Documents as nonnegative word patterns</H3>
+    <Prose>Suppose the vocabulary is <Code>[orbit, rocket, goal, team]</Code> and two component rows are <Math>{'[3,2,0,0]'}</Math> and <Math>{'[0,0,1,4]'}</Math>. A document activation <Math>{'[2,1]'}</Math> reconstructs <Math>{'[6,4,1,4]'}</Math>. The first component supplies most of the space-related words; the second supplies the sports-related words. A mixed document can use both without forcing a hard class assignment.</Prose>
+    <Prose>Real text needs a vocabulary and weighting policy. <Code>CountVectorizer</Code> produces counts; <Code>TfidfVectorizer</Code> downweights words common across the fitted corpus. Vocabulary filtering and IDF estimation belong inside the training split when evaluating new-document behavior. Check actual text examples and full weight patterns, not just attractive top-word lists. Removing a domain word as a “stop word” can remove the signal you wanted to discover.</Prose>
+    <Prose>Here is a complete constructed transfer example. Save it as <Code>nmf_words.py</Code>; it needs the same NumPy/scikit-learn installation as section 5.</Prose>
+    <Program example={nmfExamples.wordPatterns}>
+      <Prose>The exact vocabulary order is <Code>['goal', 'orbit', 'rocket', 'team']</Code>, so the four <em>columns</em> are alphabetical, while the two component <em>rows</em> come out in whichever order the fit produced. This program was declared unexecuted in the content phase; it has since been run under the same NumPy {versions.numpy} and scikit-learn {versions.sklearn} as the digit experiment, and the output above is that run rather than an expectation. Each normalized nonzero pattern sums to 1. Inspect whether the two patterns divide the vocabulary as expected and how the mixed document uses them, and notice which component the fit labels first: its component 1 is the sports pattern, the mirror image of the constructed component 1 above, which is permutation ambiguity from section 4 visible immediately. The mixed fifth document uses both components equally. The last line is the most instructive: the unseen pair <Code>rocket team</Code> reconstructs as <Code>[0.5, 0.5, 0.5, 0.5]</Code>, putting exactly as much mass on <Code>goal</Code> and <Code>orbit</Code> — two words that document never contained — as on the two it did. An additive dictionary rebuilds a new document out of whole components, so a word arrives with every other word its component carries. This tiny constructed corpus exposes the operation; the real-data evidence for this lesson remains the digit experiment.</Prose>
+    </Program>
+    <Prose>Probabilistic latent semantic analysis can express a normalized count table using a latent-topic mixture. The KL objective has a corresponding likelihood interpretation when totals and factors are normalized appropriately. Latent Dirichlet Allocation adds a hierarchical generative model with Dirichlet priors; normalizing arbitrary NMF factors after fitting does not supply that prior model or its posterior uncertainty. Nor does choosing LDA establish calibration of a scientific claim. The comparison is about modeling assumptions and the desired output, not a universal speed ranking.</Prose>
+
+    <H3>A spectrum can combine materials, with explicit assumptions</H3>
+    <Prose>In a simple linear mixing model, a measurement across three wavelength bands might be <Math>{'.3[.2,.6,.4]+.7[.8,.3,.1]=[.62,.39,.19]'}</Math>. The two vectors describe material spectra, and the coefficients are nonnegative amounts. If physics and calibration justify abundance fractions, impose a sum-to-one constraint as well; unconstrained NMF does not supply it.</Prose>
+    <Prose>This connection explains both the appeal of NMF and the need for separability or other information: if a pure material is observed, its spectrum can anchor the mixture geometry. If every observation is mixed, several dictionaries may explain it. Nonlinear light interactions, an unknown background and wavelength-dependent measurement uncertainty may require a richer model. Weighted least squares uses each measurement’s uncertainty to set its influence; equal Frobenius weights silently assume equal precision. The hyperspectral treatment and environmental-factorization references in the <a href="https://arxiv.org/pdf/1401.5226">canonical survey</a> provide the documented application context; the three-band numbers here are a constructed illustration.</Prose>
+    <Prose>For audio, the signed waveform first becomes a nonnegative magnitude or power spectrogram. Factor rows can represent frequency patterns and activations can vary across time, depending on orientation. Reconstructing a usable waveform additionally requires a treatment of phase and source assignment; magnitude addition is a modeling approximation, not the same exact linear model used for instantaneous ICA. These domain details belong in the source-separation lesson rather than being hidden inside the word “isolate.”</Prose>
+
+    <H3>What larger matrices cost</H3>
+    <Prose>With dense <Math>{'X'}</Math>, efficient Frobenius updates cost on the order of <Math>{'ndk+(n+d)k^2'}</Math> per alternating sweep. For the digit fit above, with <Math>{'n=180'}</Math>, <Math>{'d=64'}</Math> and <Math>{'k=8'}</Math>, that is about {cost.dense.toLocaleString('en-US')} operations per sweep, and the two factors together hold {cost.factorStorage.toLocaleString('en-US')} numbers. Compute denominators as <Math>{'(W^\\top W)H'}</Math> and <Math>{'W(HH^\\top)'}</Math>, rather than first forming the full <Math>{'n\\times d'}</Math> reconstruction. If <Math>{'X'}</Math> has <Math>{'s'}</Math> stored nonzeros, the data products can use roughly <Math>{'sk'}</Math> work, while the factor and Gram terms remain. This advantage is available to properly organized multiplicative updates as well as coordinate methods.</Prose>
+    <Prose>Sparse input does not make the dense factors free. Storing <Math>{'W,H'}</Math> costs <Math>{'k(n+d)'}</Math> numbers; computing every residual still touches many reconstructed entries unless a suitable algebraic objective computation is used. Do not infer elapsed seconds from these operation counts.</Prose>
+    <Prose>In an online dictionary method, encode a batch using the current dictionary, then update the dictionary using information retained from past batches. For squared loss, sums of activation outer products and data–activation products form sufficient quadratic statistics for the fixed past encodings. In our orientation those statistics have shapes <Math>{'k\\times k'}</Math> and <Math>{'d\\times k'}</Math>. They compress old data contributions for this update, while changing encodings or the data distribution introduces further choices. Forgetting factors reduce the weight of older batches.</Prose>
+    <Prose><Code>MiniBatchNMF</Code> exposes a maintained incremental route; its batch size, loss and convergence behavior should be selected from its current documentation and measured for the real task. General online dictionary-learning results have assumptions and do not automatically apply to every beta divergence or streaming implementation. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.MiniBatchNMF.html">MiniBatchNMF documentation</a>.</Prose>
+    <Prose>Tensor factorization extends this idea to data with three or more axes, such as time × frequency × sensor. Keeping those axes can preserve relationships lost by flattening them. CP and Tucker impose different factor structures; they require their own tensor-shaped derivations. They are optional specialist extensions, not prerequisites for the matrix workflow here.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Attempt the task before opening a hint or solution. The numeric cases differ from the running fit.</Prose>
+    <Practice title="1. Reconstruct and preserve scale"
+      question={<>With <Math>{'H=[[2,0,1],[0,1,2]]'}</Math> and <Math>{'w=[1,3]'}</Math>, reconstruct the observation. Normalize each pattern to sum to one while preserving the product. What are the normalized mixture proportions and reconstructed total?</>}
+      hint="Multiply each activation by its pattern’s old row sum when dividing that pattern by the same sum.">
+      <Prose>The reconstruction is <Math>{'[2,3,7]'}</Math>. Both patterns sum to 3, so normalized patterns are <Math>{'[2/3,0,1/3]'}</Math> and <Math>{'[0,1/3,2/3]'}</Math>, with new activations <Math>{'[3,9]'}</Math>. Their total is 12 and their normalized proportions are <Math>{'[1/4,3/4]'}</Math>. The third feature is large because both patterns contribute to it, not because the observation belongs to a third component.</Prose>
+    </Practice>
+    <Practice title="2. One coordinate’s update"
+      question={<>Hold <Math>{'W=[[1],[2]]'}</Math>, use <Math>{'X=[[2,1],[4,3]]'}</Math>, and initialize <Math>{'H=[[1,1]]'}</Math>. Compute one Frobenius multiplicative update of <Math>{'H'}</Math>. Does it solve the fixed-<Math>{'W'}</Math> least-squares problem in this special case?</>}
+      hint={<>Here <Math>{'W^\\top W'}</Math> is the scalar 5; calculate both entries of <Math>{'W^\\top X'}</Math>.</>}>
+      <Prose>The numerator is <Math>{'[10,7]'}</Math> and the denominator is <Math>{'[5,5]'}</Math>, giving <Math>{'H=[2,1.4]'}</Math>. Reconstruction becomes <Math>{'[[2,1.4],[4,2.8]]'}</Math>, with half-squared Frobenius loss <Math>{'.1'}</Math>. Each feature has one positive coefficient with unconstrained optimum <Math>{'b/5'}</Math>, so this update reaches the NNLS optimum for fixed <Math>{'W'}</Math>. That one-dimensional coincidence does not make a general simultaneous update an exact solution of a multivariable NNLS problem.</Prose>
+    </Practice>
+    <Practice title="3. A misleading component claim"
+      question="A colleague shows two nonnegative factors with low residual error and says, “We have proved there are exactly six biological sources; the largest activation identifies the strongest source.” Identify three missing pieces of reasoning and propose evidence to collect."
+      hint="Separate component count, scientific interpretation, and the scale ambiguity.">
+      <Prose>Six was a chosen factor count and needs a task-based comparison with other counts. Nonnegative components need biological validation, such as agreement with independent markers or controlled mixtures, before being called physical sources. Raw activations depend on dictionary scale; inspect normalized contributions using meaningful measurement units. A defensible study would record those choices, stability across fits and samples, withheld reconstruction or downstream outcomes, and external biological evidence. Merely reducing residual error addresses only the reconstruction question.</Prose>
+    </Practice>
+    <Practice title="4. Investigate an actual held-out image"
+      question="In the digit fit, choose a test image other than the first. Compute each component’s total contribution, remove the largest contributor, and report the before/after MSE for that image. Predict which pixels will lose reconstructed intensity before calculating the removal."
+      hint={<>For selected row <Math>{'i'}</Math>, the contribution totals are <Code>W_test[i] * H.sum(axis=1)</Code>. Remove the chosen rank-one contribution from the reconstructed row; leave the remaining amounts fixed. The investigation in section 5 does exactly this for any of the 60 reserved images.</>}>
+      <Prose>The removed image is exactly <Code>W_test[i, r] * H[r]</Code>. Every removed pixel contribution is nonnegative. Some overpredicted pixels can move closer to their observations, but at an exact rowwise NNLS optimum the total row MSE cannot improve by removing a component: setting its coefficient to zero was already a feasible choice. Numerical fits meet that expectation only to their optimization accuracy. Report the source-row ID, selected component, actual contribution vector and both MSE values. Check that the difference between before and after equals the contribution elementwise. Explain which individual pixel errors improve and which worsen. A component with zero activation supplies an exact unchanged case. This task holds the other contributions fixed; reoptimizing them would be a separate comparison.</Prose>
+    </Practice>
+    <Practice title="5. Repair an evaluation pipeline"
+      question="A document study fits TF-IDF and NMF on all documents, divides the activations into train/test, and reports a classifier score on the latter as evidence for new-document performance. Repair the order. What should happen to a completely unseen word at inference?"
+      hint="Identify every object whose learned state used information from the test documents.">
+      <Prose>Split documents first under the intended deployment unit. Fit vocabulary, IDF and NMF dictionary on training documents only, then train the classifier using those activations. Apply the frozen vectorizer and dictionary to validation/test documents. A word absent from the fitted vocabulary contributes no feature in this fixed representation; inspect how often that occurs and whether it makes a document’s representation uninformative. If model selection is repeated, fit the entire pipeline separately within each training fold. The next two lessons develop preprocessing and cross-validation in detail.</Prose>
+    </Practice>
+    <Practice title="6. Deeper: test joint convexity with different points"
+      question={<>For <Math>{'f(w,h)=\\tfrac12(2-wh)^2'}</Math>, compare <Math>{'(1,2)'}</Math>, <Math>{'(4,.5)'}</Math> and their midpoint. Use the result to test convexity.</>}>
+      <Prose>Both endpoints have zero loss. The midpoint is <Math>{'(2.5,1.25)'}</Math>, whose product is 3.125 and loss is <Math>{'\\tfrac12(1.125)^2=.6328125'}</Math>. This exceeds the average endpoint loss, contradicting convexity. The test concerns the actual squared-loss function.</Prose>
+    </Practice>
+    <Practice title="7. Deeper: choose a loss by its scaling behavior"
+      question="A positive spectral observation and its prediction are both multiplied by 3 because of a common gain change. Derive how Frobenius, KL and IS losses change. Which comparison is gain-invariant?">
+      <Prose>The residual triples, so squared loss increases by 9. In KL, the log ratio is unchanged and both outside linear terms triple, so loss increases by 3. In IS only the ratio appears, so the loss is unchanged. IS is gain-invariant for this joint rescaling. Whether that is desirable depends on whether absolute signal strength carries information for the task.</Prose>
+    </Practice>
+    <Practice title="8. Deeper: boundary stationarity"
+      question={<>For fixed <Math>{'W=[1]'}</Math>, <Math>{'X=[3,1]'}</Math> and <Math>{'H=[0,2]'}</Math>, compute <Math>{'\\nabla_HF'}</Math>. Which coordinates violate the nonnegative first-order conditions, and how would a feasible improving move behave?</>}>
+      <Prose>The gradient is <Math>{'[-3,1]'}</Math>. The zero first coordinate has negative gradient: increasing it is a feasible descent move, so it violates stationarity. The positive second coordinate has nonzero gradient: decreasing it slightly is also feasible and improves loss. The fixed-<Math>{'W'}</Math> optimum is <Math>{'[3,1]'}</Math>. A multiplicative zero-locked first coordinate could remain wrong even while the second coordinate improves.</Prose>
+    </Practice>
+
+    <H2>{headings[9]}</H2>
+    <Prose>For the core route, you should be able to trace a single reconstructed cell, explain one ratio update, preserve a product under factor normalization, fit a frozen dictionary to new observations, and interpret an actual residual without assuming that a component is a physical source. The deeper route adds the nonnegative first-order conditions, the difference between ordinary and nonnegative rank, and the extra assumption behind anchor-based recovery.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Trace one reconstructed cell back to its two products', 'Section 1, the additive figure, the mixture investigation'],
+      ['Read a signed residual and say why KL and IS value it differently', 'Section 2, the residual figure, practice 7'],
+      ['Substitute one multiplicative ratio and say which way the cell moves', 'Section 3, the update worksheet and investigation, practice 2'],
+      ['Preserve a product while normalizing patterns to sum to one', 'Section 4, practice 1'],
+      ['Reproduce the held-out digit comparison and report it as it came out', 'Section 5, the candidate figure, practice 4'],
+      ['Separate objective decrease from stationarity and from a local minimum', 'Sections 3 and 7, the zero-lock contrast, practice 8'],
+      ['Explain why nonnegative rank can exceed ordinary rank', 'Section 7, the support-rectangle figure'],
+    ]} />
+    <Prose>Next is <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a>. NMF made preprocessing consequences visible: centering changes signs, feature scaling changes squared-error influence, and a learned transformation must be fitted within the intended information boundary. The next lesson builds those choices into a complete representation pipeline.</Prose>
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://arxiv.org/pdf/1401.5226">Nicolas Gillis, <em>The Why and How of Nonnegative Matrix Factorization</em></a> — freely available survey/chapter. Read the image/text examples for another visual explanation, then section 3 for algorithms and section 3.2 for separable geometry. The survey uses observations in columns, so transpose the matrix convention when comparing it with this lesson. Its numerical benchmark is historical, not a prediction of current library timings.</li>
+      <li><a href="https://papers.nips.cc/paper_files/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf">Lee and Seung, <em>Algorithms for Non-negative Matrix Factorization</em></a> — original seven-page algorithm paper. Best after the ratio walkthrough; it develops both Euclidean and generalized-KL updates and the auxiliary-function argument. Read it together with the next reference for precise convergence distinctions.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/decomposition/plot_faces_decomposition.html">Scikit-learn’s example comparing decomposition patterns</a> — an alternate visual activity: compare what different constraints make visible in the same image collection. Its example requires its own dataset retrieval; this lesson supplies a separate offline digit dataset.</li>
+    </ul></>}>
+      <li><a href="https://www.csie.ntu.edu.tw/~cjlin/papers/multconv.pdf">Chih-Jen Lin, <em>On the Convergence of Multiplicative Update Algorithms for Non-negative Matrix Factorization</em></a> — deeper mathematical reading on boundary behavior, first-order conditions and modified updates. Requires comfort with gradients and limit points; section II explains the central issue before the proof.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/decomposition.html#nmf">Scikit-learn decomposition guide</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html">NMF API</a> — current parameter semantics, losses, initialization and transformation behavior, inspected as version {versions.sklearn}. Use these when reproducing the programs rather than copying defaults from an older tutorial.</li>
+      <li><a href="https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+digits">Optical Recognition of Handwritten Digits, UCI</a> — data collection, feature construction and attribution, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. See the <a href="/learn-assets/nmf/data-provenance.md">local provenance</a> before reusing or exporting the provided subset.</li>
+    </Sources>
+    <Prose>The linked papers and substantive documentation were read for this lesson. No video is required to complete its explanations or exercises; the inspected visual example and canonical chapter provide alternate learning routes. The three-by-three matrices, both exact factorizations, the loss comparison, the zero-lock case, the nonnegative-rank matrix, the three-band spectrum and the five-document corpus are constructed fixtures with declared inputs. The digit results are calculations on the identified real dataset under one fixed split, with <Code>{`k = ${fit.k}, seed = ${fit.seed}`}</Code> declared in advance for readable image panels. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>,
 };
 
 export default nmfContent;

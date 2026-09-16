@@ -1,961 +1,850 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { FoldBuilderLab, SelectionLab, NestedLab, HalvingLab } from '../../components/lesson-labs/ValidationLabs.jsx';
+import {
+  LoopFigure, SplitQuestionFigure, NestedRoomsFigure, RealExperimentExplorer, CoverageFigure, RiskFigure, ImprovementFigure,
+} from '../../components/lesson-labs/ValidationFigures.jsx';
+import { validationExamples } from '../validation-examples.js';
+import { NESTED_EXPERIMENT, PENGUIN_SOURCE, RUNTIME_VERSIONS } from '../validation-data.js';
+import { bootstrapDistinctShare, drawsForHitProbability, fitBudget, hitProbability, meanPredictorRisk } from '../validation-models.js';
+
+const experiment = NESTED_EXPERIMENT;
+const decimals = (value, digits) => value.toFixed(digits);
+const budget = fitBudget({ candidates: 6, outerFolds: 3, innerFolds: 3 });
+const bootstrap = bootstrapDistinctShare(1000000);
+
+const headings = [
+  '1. What exactly are we trying to estimate?',
+  '2. Build cross-validation one held-out prediction at a time',
+  '3. Choose splits that match the future use',
+  '4. Selection can learn the validation answers',
+  '5. Search the settings you actually mean to compare',
+  '6. A complete nested experiment with real observations',
+  '7. Deeper branch: what cross-validation uncertainty does and does not mean',
+  '8. Deeper branch: adaptive search and spending resources',
+  '9. Run a useful comparison within an honest budget',
+  '10. Practice: identify the decision before computing the score',
+  '11. Readiness and what follows',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section>
+    <Prose><strong>Before running:</strong> {example.question}</Prose>
+    <RunnableExample example={example}>{children}</RunnableExample>
+  </section>;
+}
+
+function Practice({ title, question, hint, children }) {
+  return <section className="cv-practice"><H3>{title}</H3><Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>Show the explained solution</summary>{children}</details>
+  </section>;
+}
 
 const crossValidationContent = {
-  title: "Cross-Validation & Hyperparameter Tuning",
-  readTime: "~50 min",
-  content: () => (
-    <div>
+  title: 'Cross-Validation & Hyperparameter Tuning',
+  readTime: '~55 min first pass · ~100 min complete read + 60–90 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot cv-lesson">
+    <LessonIntro
+      prerequisites={<>The fit/transform boundary from <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a>, Python indexing, and the idea of a nearest-neighbour prediction. Scores and split roles are defined locally here, so <a href="/learn/path/full-curriculum/ml-problem-formulation-baselines-data-leakage?module=classical-ml">ML Problem Formulation, Baselines &amp; Data Leakage</a> is useful background but not a gate.</>}
+      sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A model can improve its score by learning the subject, or by becoming unusually well adapted to the examples we use to judge it. Those are
+      different kinds of progress. Cross-validation gives each observation a turn as held-out evidence; hyperparameter tuning uses such evidence
+      to choose a learning procedure. This lesson combines them by deciding, every time, <strong>what is being chosen, what is being assessed,
+      and which information each decision is allowed to use</strong>. Four investigations ask for a prediction before they compute anything, and
+      retire that prediction the moment an input changes.
+    </LessonIntro>
+    <Prose className="cv-route">
+      <strong>First pass.</strong> Read sections 1–6 and try core practice questions 1–6, doing the fold-building, candidate-selection and
+      nested-fold investigations where they appear, and running the two Python programs in sections 2 and 6. Sections 7–9 deepen uncertainty,
+      adaptive search and computational budgeting; they do not become hidden prerequisites for the core readiness check, and practices 7–10
+      belong with them. Allow roughly 55 minutes for the core route and another 60–90 for the code and practice.
+    </Prose>
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+    <Callout title="Selection evidence and assessment evidence, once for the whole lesson">
+      A score that was used to <strong>choose</strong> a setting is not an estimate of that setting&rsquo;s performance. Throughout this lesson
+      the number that picked something is called a <strong>selection score</strong> and the number produced by rows that were kept out of that
+      choice is called an <strong>assessment</strong>. They are never averaged together, never plotted on the same axis, and never quoted
+      interchangeably &mdash; including inside the investigations, where the two always occupy separate rows. Everything else here follows from
+      keeping that boundary visible.
+    </Callout>
 
+    {/* ============================== 1 ============================== */}
+    <H2>{headings[0]}</H2>
+    <Prose>
+      Imagine building the penguin species classifier from <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a>.
+      The program learns medians and scales from training rows, then predicts a species from nearby examples. Three questions can all sound like
+      &ldquo;how good is the model?&rdquo;:
+    </Prose>
+    <ol>
+      <li>How well does this particular fitted model predict new observations from the intended population?</li>
+      <li>How well does a fixed learning recipe usually work when fitted to a new training sample of a specified size?</li>
+      <li>How well does the whole process of trying settings, selecting one, and refitting usually work?</li>
+    </ol>
+    <Prose>
+      The first question concerns a fitted object. The second concerns a learning algorithm. The third includes <strong>selection</strong> as
+      part of that algorithm. A score should name which question it answers.
+    </Prose>
+    <Prose>
+      A <strong>parameter</strong> is learned during ordinary fitting, such as a regression coefficient. A <strong>hyperparameter</strong>{' '}
+      specifies how that fitting or prediction works: a neighbour count, a penalty strength, a maximum tree depth, a preprocessing choice. The
+      distinction depends on the procedure. A neighbour count supplied by the programmer becomes a choice learned from data the moment we
+      compare counts using validation scores.
+    </Prose>
+    <Prose>
+      For classification here, <strong>accuracy</strong> is the number of correct predictions divided by the number assessed. For regression,{' '}
+      <strong>mean squared error</strong> averages <Math>{'(y-\\hat y)^2'}</Math>; it has squared target units and lower is better. A scoring
+      rule should reflect the practical question: if rare failures matter much more than common successes, accuracy alone can be unsuitable, and
+      the later <a href="/learn/path/full-curriculum/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae?module=classical-ml">evaluation-metrics</a>{' '}
+      and <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">imbalanced-learning</a>{' '}
+      lessons develop alternatives.
+    </Prose>
+    <LessonTable caption="Names for data roles. The names refer to use, not to permanent properties of rows." headers={['Role', 'What it can influence']} rows={[
+      ['Training', 'Fit preprocessing and model parameters'],
+      ['Validation', 'Compare candidate settings or stop training'],
+      ['Test / outer assessment', 'Assess a procedure whose choices were made elsewhere'],
+    ]} />
+    <Prose>
+      A row can be a training example in one fold and a validation example in another. Within a particular assessment, it must not influence the
+      fitted or selected procedure that is being judged on it.
+    </Prose>
+    <LoopFigure />
+
+    {/* ============================== 2 ============================== */}
+    <H2>{headings[1]}</H2>
+    <H3>A fold is a role assignment</H3>
+    <Prose>
+      In K-fold cross-validation, partition the available development rows into K nonoverlapping <strong>folds</strong>, as equal in size as
+      possible. For each fold, fit a fresh copy of the entire procedure using the other folds, predict the held-out rows, and save their results.
+      Every row is assessed once in that K-fold run.
+    </Prose>
+    <Prose>
+      &ldquo;Fresh copy&rdquo; includes any learned imputer, scaler, feature selector and model. The previous fold&rsquo;s trained object does
+      not continue learning into the next fold. The folds also need not be exactly equal: seven observations can form folds of sizes 3, 2 and 2
+      without dropping the remainder.
+    </Prose>
+    <Prose>Consider this constructed one-dimensional dataset:</Prose>
+    <LessonTable caption="Seven constructed rows" headers={['Row ID', 'Feature x', 'Label y']} rows={[
+      ['0', '0', '0'], ['1', '1', '0'], ['2', '2', '0'], ['3', '3', '1'], ['4', '4', '1'], ['5', '5', '1'], ['6', '6', '1'],
+    ]} />
+    <Prose>
+      Use three consecutive folds and a one-nearest-neighbour classifier. A new x receives the label of the closest training x; equal distances
+      use the smaller source row ID in this example.
+    </Prose>
+    <LessonTable caption="Three fits, and what each one was allowed to use" headers={['Held-out rows', 'Available training rows', 'Held-out predictions', 'Correct / assessed']} rows={[
+      ['0, 1, 2', '3, 4, 5, 6', '1, 1, 1', '0 / 3'],
+      ['3, 4', '0, 1, 2, 5, 6', '0, 1', '1 / 2'],
+      ['5, 6', '0, 1, 2, 3, 4', '1, 1', '2 / 2'],
+    ]} />
+    <Prose>
+      For the first assessment, every training label is 1, so all three predictions are 1. In the second, x = 3 is closest to training x = 2 and
+      receives the wrong label 0; x = 4 is closest to x = 5 and receives 1. The third assessment correctly labels both remaining points.
+    </Prose>
+    <Prose>
+      This ordered split is useful for understanding the mechanics. It also reveals a design problem: ordering by class creates very different
+      training problems. For approximately independent classification examples we will often distribute classes across folds. For a
+      future-in-time question, however, shuffling away the order could destroy the evaluation we actually need.{' '}
+      <strong>Choose the split from the prediction question, not from whichever arrangement gives the largest number.</strong>
+    </Prose>
+    <FoldBuilderLab />
+
+    <H3>An average over folds is not always an average over people or rows</H3>
+    <Prose>
+      The fold accuracies above are 0, 0.5 and 1. Their unweighted mean is 0.5. But only three of the seven row predictions were correct, giving
+      pooled accuracy <Math>{'3/7\\approx0.4286'}</Math>.
+    </Prose>
+    <Prose>
+      Neither arithmetic operation is mysterious. They assign different weights. The unweighted fold mean gives each fold one third of the
+      weight; pooled accuracy gives each row one seventh. Write <Math>{'\\ell_i'}</Math> for the loss of the single held-out prediction made for
+      row <Math>{'i'}</Math>, and <Math>{'\\widehat R_k'}</Math> for fold k&rsquo;s mean loss over its held-out set <Math>{'V_k'}</Math>. For a
+      loss that can be added per row,
+    </Prose>
+    <MathBlock>{'\\begin{gathered}\\widehat R_{\\text{rows}}=\\frac1n\\sum_{i=1}^{n}\\ell_i\\\\[4pt]=\\sum_{k=1}^{K}\\frac{|V_k|}{n}\\,\\widehat R_k.\\end{gathered}'}</MathBlock>
+    <Prose>
+      Here <Math>{'\\ell_i=L(y_i,\\hat f_{-k}(x_i))'}</Math>, where <Math>{'\\hat f_{-k}'}</Math> is the procedure fitted without fold k. Equal
+      fold sizes make this equal to the unweighted fold mean. Unequal group sizes may motivate another question: should each patient count
+      equally, or should every visit count equally? State the intended unit and weighting.
+    </Prose>
+    <Prose>
+      For a nonlinear summary such as F1 or AUC, pooling predictions can change the quantity even with equal fold sizes. AUC, for example,
+      compares positive&ndash;negative score pairs; pooling may compare scores emitted by different fitted models. Do not assume every metric can
+      be averaged or pooled interchangeably.
+    </Prose>
+
+    <H3>A complete splitter that keeps every row</H3>
+    <Prose>
+      This NumPy-only program recreates the small table. Install NumPy in your Python environment if needed
+      (<Code>python -m pip install numpy</Code>). Save and run it as <Code>cv_tiny.py</Code>.
+    </Prose>
+    <Program example={validationExamples.tinySplitter}>
       <Prose>
-        Every trained model makes a bet about the future: that the patterns it found in the training set will persist in new, unseen data. The simplest way to check that bet is to hold out a random chunk of your data as a "test set," train on the rest, and measure accuracy on the holdout. This is better than nothing, but it has a critical flaw: the result depends heavily on which examples happened to fall in the test set. On a dataset of 1,000 examples with a 20% holdout, shuffling the random seed can swing test accuracy by five to ten percentage points on a moderately noisy problem. If you use that single number to choose between two models, you might easily pick the wrong one.
+        The executed arithmetic gives <Code>[0,1,2] → [1,1,1], 0/3</Code>; <Code>[3,4] → [0,1], 1/2</Code>; <Code>[5,6] → [1,1], 2/2</Code>, then
+        fold mean 0.5 and pooled 0.42857142857142855. Shuffling is optional because a splitter cannot know whether rows may be exchanged without
+        changing the problem.
       </Prose>
+    </Program>
 
+    {/* ============================== 3 ============================== */}
+    <H2>{headings[2]}</H2>
+    <H3>Independent examples and rare classes</H3>
+    <Prose>
+      If examples can reasonably be treated as independent draws from a common population, shuffled K-fold is a useful baseline.{' '}
+      <strong>Stratified K-fold</strong> approximately preserves class proportions in each fold. This helps avoid folds that omit a rare class
+      and prevents certain model and metric failures.
+    </Prose>
+    <Prose>
+      It cannot create missing examples: with two positive observations and five validation folds, at least three folds contain no positive
+      observation. Nor does stratification make uncertainty disappear. Making folds more homogeneous can hide some variability caused by rare
+      classes. It is a practical allocation choice, not a universal statistical correction. The{' '}
+      <a href="https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation-iterators-with-stratification-based-on-class-labels">cross-validation guide</a>{' '}
+      describes these engineering and interpretation limits.
+    </Prose>
+    <Prose>
+      Five or ten folds are common practical starting points, not universal optima. More folds use a larger training fraction in each fit and
+      require more fits. Leave-one-out uses n folds, each with one assessed row and n&nbsp;&minus;&nbsp;1 training rows. Its error variance
+      depends on the learning procedure and the data; &ldquo;the training sets overlap, therefore variance must be highest&rdquo; is not a valid
+      general proof. Section 7 develops this distinction.
+    </Prose>
+    <Prose>
+      Repeated K-fold reruns different partitions of the <strong>same dataset</strong>. It can expose split sensitivity, but it does not collect
+      more independent people. Repeated random holdouts let the training fraction vary independently of the number of repetitions; some rows may
+      be assessed several times and others not at all. Leave-P-out enumerates all choices of P held-out rows, with{' '}
+      <Math>{'\\binom nP'}</Math> fits, which quickly becomes expensive. These are different resampling plans, not stronger and stronger
+      guarantees.
+    </Prose>
+
+    <H3>New groups versus later records from known groups</H3>
+    <Prose>
+      Suppose each person contributes several sensor windows. If the intended use is on people absent from training, all windows from a held-out
+      person must stay out of that fold&rsquo;s training set. <Code>GroupKFold</Code> and <Code>LeaveOneGroupOut</Code> express this requirement.{' '}
+      <Code>StratifiedGroupKFold</Code> also tries to balance classes, but exact balance may be impossible when groups are indivisible.
+    </Prose>
+    <Prose>
+      If the intended use is to predict later records from already known people, a forward-time evaluation may legitimately include their
+      earlier records. Calling that automatically wrong would change the question to unseen-person generalization. The problem is using
+      information that would not be available at the actual prediction point, or reporting one deployment setting as evidence for another.
+    </Prose>
+    <Prose>
+      For a system serving new people in future calendar periods, both group and time constraints can matter. A standard named splitter may not
+      express both; construct and inspect explicit index pairs. <strong>A splitter name is not a substitute for writing the required
+      boundary.</strong>
+    </Prose>
+    <SplitQuestionFigure />
+
+    <H3>Future prediction and label availability</H3>
+    <Prose>
+      For forecasting, train on information available before the prediction time and assess a later horizon. An expanding window keeps
+      accumulating history; a sliding window limits how much old history remains. A deliberate gap may be necessary because labels mature late,
+      features use overlapping windows, or the deployment pipeline has a delay.
+    </Prose>
+    <Prose>
+      For example, if a row formed at day t predicts an outcome measured through day t + 7, a training row dated yesterday may not have a known
+      target today. Removing rows solely by their feature timestamp is insufficient. Also ensure any rolling features use only permitted past
+      observations.
+    </Prose>
+    <Prose>
+      <Code>TimeSeriesSplit</Code> is a useful index-based building block with options such as <Code>gap</Code>, <Code>test_size</Code> and{' '}
+      <Code>max_train_size</Code>; a gap counts rows, not elapsed days. Irregular observations and prediction horizons require explicit date
+      logic. A timestamp column alone does not force every retrospective task to use forward validation. The evaluation must match the claimed
+      use. The later <a href="/learn/path/full-curriculum/time-series-validation-forecasting-baselines?module=classical-ml">Time-Series Validation &amp; Forecasting Baselines</a>{' '}
+      develops complete forecasting protocols.
+    </Prose>
+
+    <H3>What an out-of-fold prediction table requires</H3>
+    <Prose>
+      <Code>cross_val_score</Code> assesses the provided splits. <Code>cross_val_predict</Code> additionally requires that each supplied row
+      appear in a held-out set <strong>exactly once</strong>, so it can return one prediction per row. Ordinary K-fold and GroupKFold can meet
+      that contract. A forward-time plan leaves an initial training prefix with no held-out prediction; repeated holdouts can assess rows
+      multiple times. Those are valid evaluation plans, but they do not satisfy this API&rsquo;s partition requirement.
+    </Prose>
+    <Prose>
+      For a manual forward out-of-fold table, retain unpredicted entries as missing and use only rows with legitimate predictions in a
+      downstream stacking model. Do not fill the prefix with predictions from a model trained on that same prefix. The preceding{' '}
+      <a href="/learn/path/full-curriculum/ensemble-methods-stacking?module=classical-ml">ensemble topic</a> owns the full stacking construction;
+      here the distinction is between an evaluation plan and a complete once-per-row prediction table. See the{' '}
+      <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html">cross_val_predict contract</a>.
+    </Prose>
+    <Prose>
+      Predefined benchmark splits can be represented explicitly too. Respect what the benchmark&rsquo;s held-out partition is intended to
+      measure rather than reshuffling it merely to obtain a convenient score.
+    </Prose>
+
+    {/* ============================== 4 ============================== */}
+    <H2>{headings[3]}</H2>
+    <H3>A tiny example with no uncertain &ldquo;true performance&rdquo;</H3>
+    <Prose>
+      Imagine four validation cases whose labels are independent fair coin flips. Features contain no information about those labels. Two
+      candidate rules predict either <Code>[0,0,0,0]</Code> or <Code>[1,1,1,1]</Code> on those cases. Each rule has expected accuracy 0.5 on
+      independent future fair labels.
+    </Prose>
+    <Prose>
+      For validation labels <Code>[1,1,1,0]</Code>, choose the all-one rule: its validation accuracy is 0.75. That choice still has expected
+      future accuracy 0.5. Across all sixteen equally likely validation-label patterns, the selected validation accuracy averages 0.6875:
+    </Prose>
+    <LessonTable caption="Exhaustive enumeration over the sixteen equally likely label patterns" headers={['Number of ones', 'Number of patterns', 'Best correct count']} rows={[
+      ['0 or 4', '2', '4'], ['1 or 3', '8', '3'], ['2', '6', '2'],
+    ]} />
+    <Prose>
+      Thus the average selected score is <Math>{'(2\\cdot4+8\\cdot3+6\\cdot2)/(16\\cdot4)=0.6875'}</Math>. Nothing learned a predictive signal.
+      We used validation labels to choose the rule that happened to match them.
+    </Prose>
+    <Prose>
+      If sixteen candidate rules cover every possible four-bit prediction pattern, one scores 1 on every validation set. Its expected accuracy on
+      independent future labels remains 0.5. Adding a duplicate of an existing rule, however, does not increase the best score.{' '}
+      <strong>The number, dependence and flexibility of candidates matter; there is no universal fixed percentage of optimism per trial.</strong>
+    </Prose>
+    <SelectionLab />
+    <Prose>
+      Real hyperparameter searches are less artificial, but the same selection mechanism can exploit noise in an estimated score. Its size
+      depends on the task. Reporting a selected validation score as though it were untouched assessment evidence is the mistake; an individual
+      selected score need not exceed every later test result. Cawley and Talbot&rsquo;s{' '}
+      <a href="https://www.jmlr.org/papers/volume11/cawley10a/cawley10a.pdf">primary model-selection study</a> demonstrates how optimizing a
+      finite-data criterion can overfit it.
+    </Prose>
+
+    <H3>Two valid ways to separate choosing and assessing</H3>
+    <Prose>
+      <strong>Development plus a separate final assessment:</strong> set aside an appropriate test set, perform all search using the development
+      data, refit the selected pipeline on those development data, then assess it on the reserved set. A single split can be useful when it
+      provides enough relevant independent assessment units; there is no universal row-count threshold that makes every test reliable.
+    </Prose>
+    <Prose><strong>Nested cross-validation:</strong> repeat the entire selection process inside each outer training set. For one outer fold:</Prose>
+    <ol>
+      <li>Protect its outer assessment rows from all fitting and selection.</li>
+      <li>Split only the outer training rows into inner training/validation folds.</li>
+      <li>Evaluate every candidate pipeline in those inner folds.</li>
+      <li>Select a candidate using the declared inner score and tie rule.</li>
+      <li>Refit that candidate on all outer training rows.</li>
+      <li>Predict the protected outer rows and record the result.</li>
+    </ol>
+    <Prose>
+      Repeat for the other outer folds. The outer score assesses the <strong>selection-and-fitting procedure at the outer training size</strong>,
+      under the split&rsquo;s assumptions. It is not a guarantee about an oracle-best setting or an exactly unbiased estimate of one final
+      all-data model.
+    </Prose>
+    <Prose>
+      After this assessment, run the declared selection procedure on all available development data and fit the final model. Do not vote among
+      outer-fold settings solely because they appeared there most often; each setting was selected using a different training sample. Do not
+      select the outer fold with the highest score as the model to deploy.
+    </Prose>
+    <NestedRoomsFigure />
+    <Prose>
+      Early stopping is also a selection decision. If an outer assessment set picks the epoch, it is no longer untouched. Inside an inner
+      candidate evaluation, choosing an epoch from that same inner validation set makes its score adaptive; a protected outer assessment can
+      still assess that complete rule. For a cleaner inner comparison, use an additional stopping subset within inner training and reserve inner
+      validation for comparison. What matters is keeping the claimed assessment boundary intact, including preprocessing of any stopping set.
+    </Prose>
+
+    {/* ============================== 5 ============================== */}
+    <H2>{headings[4]}</H2>
+    <H3>Grid search: a finite, inspectable comparison</H3>
+    <Prose>
+      Suppose the candidates are neighbour counts <Code>[3,5,11]</Code> and scalers <Code>[standard,robust]</Code>. A grid contains all{' '}
+      <Math>{'3\\times2=6'}</Math> combinations. With three inner folds, that requires eighteen candidate fits, followed by a refit of the
+      selected candidate if requested.
+    </Prose>
+    <Prose>
+      A small grid is useful when the choices themselves are meaningful and affordable. A grid with ten values for each of five independent
+      choices has <Math>{'10^5=100{,}000'}</Math> combinations. At five folds and one minute per fit, that is 500,000 fit-minutes before refits
+      and overhead &mdash; not the time of one model training. The number of jobs is exact; wall time depends on training sizes, resources and
+      parallelism.
+    </Prose>
+    <Prose>
+      Some choices are conditional. An RBF kernel has a bandwidth parameter; a linear kernel does not need it. A list of separate parameter
+      dictionaries can express those branches without wasting evaluations on irrelevant combinations. Likewise, do not search impossible layer
+      shapes or a neighbour count larger than an inner training set.
+    </Prose>
+
+    <H3>Random search: specify a distribution, not just a range</H3>
+    <Prose>
+      Random search draws candidates from a declared distribution. If a positive parameter spans orders of magnitude, a log-uniform distribution
+      gives equal probability to equal multiplicative ranges. On <Code>[0.001,1000]</Code>, each decade has probability one sixth. Uniform
+      sampling on the original numeric scale instead assigns almost all probability to large values.
+    </Prose>
+    <Prose>
+      Suppose a satisfactory region has probability mass p under the chosen sampling distribution. For T independent draws, the probability of at
+      least one hit is
+    </Prose>
+    <MathBlock>{'P(\\text{hit})=1-(1-p)^T.'}</MathBlock>
+    <Prose>
+      If p = 0.05, sixty draws give about {decimals(hitProbability(0.05, 60), 7)}. If p = 0.01, the same sixty give only{' '}
+      {decimals(hitProbability(0.01, 60), 7)}. This is a coverage calculation, <strong>not</strong> a theorem that sixty trials reach within 5%
+      of the best score. A region containing 5% of the sampling probability is different from a score within 5% of an optimum.
+    </Prose>
+    <Prose>
+      A grid can repeatedly test the same few values along an important dimension while varying unimportant ones. Independent continuous random
+      draws explore more distinct values along each coordinate. That is useful when effective importance is concentrated in a few unknown
+      dimensions, but it does not make random search universally dominate a well-chosen small grid. The{' '}
+      <a href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Bergstra&ndash;Bengio paper</a> provides the original empirical
+      and geometric argument.
+    </Prose>
+    <CoverageFigure />
+    <Prose>
+      Adaptive search and early resource allocation are useful extensions in section 8. They change how candidates receive attention, while
+      leaving the selection/assessment boundary in place.
+    </Prose>
+
+    {/* ============================== 6 ============================== */}
+    <H2>{headings[5]}</H2>
+    <Prose>
+      We reuse the preceding lesson&rsquo;s {PENGUIN_SOURCE.rows}-row Palmer Penguins CSV so the model and features stay familiar. Its CC0 data,
+      measurement units and provenance are supplied with this lesson: the served file is{' '}
+      <a href={PENGUIN_SOURCE.served}>penguins.csv</a> (SHA-256 <Code>{PENGUIN_SOURCE.sha256.slice(0, 16)}…</Code>, {PENGUIN_SOURCE.bytes} bytes)
+      with its <a href={PENGUIN_SOURCE.provenance}>provenance note</a> and the complete{' '}
+      <a href="/learn-assets/cross-validation/nested-experiment.json">split record</a> — every fold’s row IDs, all eighteen candidate scores and
+      all 344 held-out predictions, so the run below can be checked without this page. This is a documented demonstration of a selection protocol on an already
+      familiar dataset, not newly independent validation of a winner from the earlier page. The program protects every outer row from the inner
+      decisions used to make its recorded prediction; generalization claims remain confined to the random-row setting represented by that
+      experiment.
+    </Prose>
+    <Prose>
+      We compare six candidates: neighbour counts 3, 5 and 11, each with standard or robust scaling. Numeric medians, categorical imputation and
+      the one-hot vocabulary are learned inside every candidate training fold &mdash; the source file still carries{' '}
+      {PENGUIN_SOURCE.missing.bill_length_mm} missing cells in each numeric measurement and {PENGUIN_SOURCE.missing.sex} missing sex entries, and
+      they are imputed only within the relevant training fold. Three stratified outer folds use seed {experiment.outerSeed}; each inner
+      three-fold split uses seed {experiment.innerSeed}. Accuracy is the declared selection metric. Exact ties use the first candidate in the
+      declared enumeration, making the procedure reproducible rather than silently choosing a favourable tie afterwards.
+    </Prose>
+    <Prose>
+      Save this complete program as <Code>cv_penguins.py</Code> beside <Code>penguins.csv</Code>. The calculation was executed through equivalent
+      operations in the supplied author script with Python {RUNTIME_VERSIONS.python}, NumPy {RUNTIME_VERSIONS.numpy}, pandas{' '}
+      {RUNTIME_VERSIONS.pandas} and scikit-learn {RUNTIME_VERSIONS.sklearn}, and re-executed verbatim for this page in the same environment. For
+      a new environment, install those pinned versions using <Code>python -m pip install</Code>. They are pins for reproducibility rather than
+      a recommendation to stay behind: newer releases can move these digits. It runs serially and requires no network data
+      request.
+    </Prose>
+    <CodeBlock language="bash">{'python -m pip install "numpy==2.3.5" "pandas==3.0.1" "scikit-learn==1.9.1"'}</CodeBlock>
+    <Program example={validationExamples.nestedPenguins}>
       <Prose>
-        The theoretical diagnosis comes from bias-variance analysis of the error estimator itself. A single holdout estimate is unbiased in expectation — averaged over all possible train/test splits it gives the right answer — but its variance is enormous. You have one realization, not many. The solution is to take many train/test splits, evaluate on each, and average the results. This is the core idea behind cross-validation, and it was formalized simultaneously by two statisticians in the mid-1970s.
+        The nested parameter name <Code>prepare__numeric__scale</Code> follows the pipeline into its numeric branch and changes that scaler. The
+        estimator selection object clones and fits the entire pipeline for each candidate and fold. Its final refit uses the selected candidate
+        on all rows supplied to that search, which are the outer training rows inside the loop.
       </Prose>
+    </Program>
+    <LessonTable caption="Recorded results" headers={['Outer fold', 'Selected neighbour count / scaler', 'Correct / held-out', 'Majority baseline correct']} rows={experiment.folds.map(fold => [
+      String(fold.fold + 1),
+      `${fold.selected.k} / ${fold.selected.scaler}`,
+      `${fold.correct} / ${fold.testRows.length}`,
+      `${fold.baselineCorrect} / ${fold.testRows.length}`,
+    ])} />
+    <Prose>
+      The unweighted outer-fold mean is {decimals(experiment.foldMean, 7)}; pooled accuracy is{' '}
+      <Math>{`${experiment.pooledCorrect}/${experiment.assessedRows}=${decimals(experiment.pooledAccuracy, 7)}`}</Math>. The difference is small
+      because fold sizes differ by only one row, but the weighting distinction is still real. The changing selected settings show that
+      near-performing choices can depend on the training sample.
+    </Prose>
+    <Prose>
+      The final search on all {PENGUIN_SOURCE.rows} rows selects {experiment.finalSelected.k} neighbours with standard scaling and has inner
+      selection score {decimals(experiment.finalSelected.selectionScore, 7)}. That score is used to choose the final configuration. It does not
+      replace the outer assessment or become a new untouched test result.
+    </Prose>
+    <Prose>
+      That selection is a <strong>tie</strong>, and the tie rule is what breaks it: {experiment.finalSelected.tiedWith.join(' and ')} reach the
+      same inner mean {decimals(experiment.finalSelected.selectionScore, 10)}, and the declared enumeration order takes the first. In fact all
+      six candidates collapse into three tied pairs here, so the scaler in the model you would deploy is settled by the order the candidates
+      were written in, not by any evidence. That is not a defect of the procedure — it is what a declared tie rule is for, and it is visible
+      only because the rule was declared in advance. The explorer below has a fourth view showing that search’s own candidate table.
+    </Prose>
+    <Prose>
+      One coincidence is worth naming, because this lesson’s whole thesis is that the two must not be confused. Outer folds 1 and 2 each score
+      114/115 = {decimals(experiment.folds[0].accuracy, 7)}, and the final selection score prints the same seven digits. They are different
+      quantities: the first was produced by rows protected from every choice, the second chose a setting using every row. The equality is
+      arithmetic — 114/115 and 228/230 are the same ratio — and not evidence of anything.
+    </Prose>
+    <RealExperimentExplorer />
+    <NestedLab />
+    <Prose>
+      In the small experiment above, x values are 0 through 15, with labels 0 below 8 and 1 from 8 upward. The first outer fold assesses even row
+      IDs and trains on odd IDs; inner validation alternates positions within that training list. Both neighbour counts initially average 0.875
+      in the inner comparison, so the declared smaller-count tie rule chooses 1. Change only row 3&rsquo;s label from 0 to 1: inner means become
+      0.5 for count 1 and 0.625 for count 3, selecting 3. The change has altered a legitimate selection input. Editing row 2&rsquo;s label
+      instead cannot affect this outer fold&rsquo;s selection, because row 2 is protected assessment data.
+    </Prose>
+    <Prose>
+      In ordinary projects, also retain the split indices, preprocessing specification, candidate space, selection metric, tie rule, seed policy
+      and failed fits. A score without its selection procedure is difficult to reproduce and easy to misinterpret. <Code>cv_results_</Code>{' '}
+      contains candidate scores and timing information; <Code>cross_validate</Code> can return additional metrics, fitted estimators and split
+      indices. These are useful records, not evidence that an invalid split became valid.
+    </Prose>
 
+    {/* ============================== 7 ============================== */}
+    <H2>{headings[6]}</H2>
+    <H3>Training size is part of the target quantity</H3>
+    <Prose>
+      For a fixed recipe A trained on m independent examples, write <Math>{'\\hat f_m=A(D_m)'}</Math> for the model it produces and define its
+      expected new-example loss as
+    </Prose>
+    <MathBlock>{'R(m)=\\mathbb E\\bigl[L(\\hat f_m,Z_{\\text{new}})\\bigr].'}</MathBlock>
+    <Prose>
+      The expectation averages both the training sample <Math>{'D_m'}</Math> and an independent new observation{' '}
+      <Math>{'Z_{\\text{new}}'}</Math>. A balanced K-fold estimate under an independent, identically distributed sampling setup targets
+      performance at approximately <Math>{'m=n(K-1)/K'}</Math> training rows. Its folds do not train on all n rows, so it need not target{' '}
+      <Math>{'R(n)'}</Math> exactly. Stratified and structured splits introduce additional conditions; do not transfer this simple
+      independent-sampling statement to every design without checking them.
+    </Prose>
+    <Prose>
+      A calculation shows why this matters. Suppose observations <Math>{'Y_i'}</Math> have mean μ and variance σ², and the model predicts their
+      training mean <Math>{'\\bar Y_m'}</Math> for every new case. Since the new observation is independent of that mean,
+    </Prose>
+    <MathBlock>{'\\begin{gathered}\\mathbb E\\bigl[(Y_{\\text{new}}-\\bar Y_m)^2\\bigr]\\\\[4pt]=\\operatorname{Var}(Y_{\\text{new}})+\\operatorname{Var}(\\bar Y_m)\\\\[4pt]=\\sigma^2+\\frac{\\sigma^2}{m}.\\end{gathered}'}</MathBlock>
+    <Prose>
+      With n = 12 and σ² = 4, a three-fold fit trains on m = 8 and has expected new loss {decimals(meanPredictorRisk(4, 8).expectedNewLoss, 1)}.
+      A full twelve-row fit has expected new loss <Math>{'4+4/12\\approx4.3333'}</Math>. The difference is training size, not evidence that the
+      splitter leaked or that an implementation failed.
+    </Prose>
+    <Prose>
+      Now compare the same full-data mean predictor&rsquo;s training loss. The expected average squared residual on its own n training values is{' '}
+      <Math>{'\\sigma^2(1-1/n)'}</Math>. Its expected new loss is <Math>{'\\sigma^2(1+1/n)'}</Math>, a gap of <Math>{'2\\sigma^2/n'}</Math>. This
+      is a precise simple example of <strong>training optimism</strong>: the model was fitted using the observations being scored. More
+      complicated models can have different optimism; the mean-predictor formula is not an all-purpose correction.
+    </Prose>
+    <RiskFigure />
+
+    <H3>Why overlap is not a variance formula</H3>
+    <Prose>For arbitrary fold losses <Math>{'E_1,\\ldots,E_K'}</Math>,</Prose>
+    <MathBlock>{'\\begin{gathered}\\operatorname{Var}\\!\\Bigl(\\tfrac1K\\textstyle\\sum_k E_k\\Bigr)\\\\[4pt]=\\frac1{K^2}\\sum_k\\operatorname{Var}(E_k)\\\\[4pt]+\\frac{2}{K^2}\\sum_{j<k}\\operatorname{Cov}(E_j,E_k).\\end{gathered}'}</MathBlock>
+    <Prose>
+      The covariance terms are about <strong>losses</strong>, not just the fraction of training rows in common. If all variances equal τ² and
+      every pairwise correlation equals ρ, this simplifies to <Math>{'\\tau^2[1+(K-1)\\rho]/K'}</Math>. Those assumptions explain the formula;
+      they do not tell us that ρ equals the training-set overlap.
+    </Prose>
+    <Prose>
+      A useful counterexample is a learning rule that ignores training and always predicts zero. Its leave-one-out losses on independent
+      observations are independent functions of their respective held-out observations. The training sets overlap almost completely, but the
+      overlap has no influence on those predictions. Conversely, an unstable fitted model can make cross-validation losses depend strongly on
+      shared observations. The learning rule and data both matter.
+    </Prose>
+    <Prose>
+      This is also why the standard deviation across a few fold scores, divided by the square root of K, is not automatically a valid standard
+      error for the CV estimate. A neat interval drawn as &ldquo;mean ± 1.96 fold standard error&rdquo; can substantially misstate uncertainty
+      when dependence and training variation are ignored. Bengio and Grandvalet&rsquo;s{' '}
+      <a href="https://www.jmlr.org/papers/volume5/grandvalet04a/grandvalet04a.pdf">primary result</a> rules out a universal unbiased variance
+      estimator based on the usual K-fold error measurements across all distributions. It does not say that uncertainty analysis is impossible
+      under additional assumptions.
+    </Prose>
+    <Prose>
+      Report the actual folds, sizes and scores, and call their spread a descriptive spread. Use an uncertainty method matched to the unit,
+      sampling assumptions and estimand when an interval is required. For a fixed model assessed on genuinely independent future cases,
+      uncertainty in its mean loss is a simpler conditional problem than uncertainty in retraining and selecting a new model. Repeating
+      partitions of the same data cannot replace collecting new independent units.
+    </Prose>
+    <Prose>
+      The later <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias&ndash;Variance Tradeoff &amp; Learning Curves</a>{' '}
+      decomposes variation in model predictions over repeated training samples. That is distinct from spread among CV fold scores and from one
+      observed train/validation gap.
+    </Prose>
+
+    <H3>Bootstrap and analytic criteria answer related questions</H3>
+    <Prose>
+      The bootstrap draws a new sample of n rows <strong>with replacement</strong> from the observed dataset, then recomputes an estimator. One
+      particular row is absent from a bootstrap sample with probability <Math>{'(1-1/n)^n'}</Math>, approaching{' '}
+      <Math>{'e^{-1}\\approx0.368'}</Math>. Thus a bootstrap sample contains about {decimals(100 * bootstrap.distinctShare, 1)}% distinct
+      original rows on average, despite having n sampled positions. This differs from K-fold&rsquo;s sampling without replacement and its
+      exactly-once validation partition.
+    </Prose>
+    <Prose>
+      Bootstrap estimates of an estimator&rsquo;s variability and out-of-bag prediction assessment have different constructions. A question about
+      the variability of a complete selected pipeline may require repeating selection, not merely resampling its final predictions. Grouped data
+      require resampling meaningful units; time dependence requires another design. A naïve bootstrap of rows is not a universal solution to the
+      dependence problem above. The familiar .632 error estimator combines apparent and out-of-bag error with specific weights; it is a
+      particular estimator with limitations, not a consequence that every bootstrap score should be multiplied by .632.
+    </Prose>
+    <Prose>
+      Analytic criteria such as AIC, BIC and complexity penalties are other ways to compare models under specified statistical assumptions. They
+      are not equivalent to one another or guaranteed substitutes for the evaluation question above. The next{' '}
+      <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization lesson</a> compares
+      predictive AIC, evidence-oriented BIC and minimum description length with their assumptions; this lesson&rsquo;s core contribution is to
+      make data use and selection explicit. The canonical{' '}
+      <a href="https://link.springer.com/content/pdf/bfm:978-0-387-84858-7/1">Elements of Statistical Learning front matter</a> lists these
+      neighbouring chapter-7 branches and the conditional-versus-expected-error distinction; it is a section map, not a claim that the linked
+      front matter contains those derivations.
+    </Prose>
+
+    {/* ============================== 8 ============================== */}
+    <H2>{headings[7]}</H2>
+    <H3>Search can learn where to look next</H3>
+    <Prose>
+      Bayesian or sequential model-based optimization fits a <strong>surrogate</strong>: a cheaper model of the relation between candidate
+      settings and their observed validation outcomes. An <strong>acquisition rule</strong> uses that model to choose the next costly
+      evaluation. After the actual evaluation, the history is updated and the surrogate is refitted.
+    </Prose>
+    <Prose>For minimization, <strong>expected improvement</strong> at candidate λ is</Prose>
+    <MathBlock>{'\\begin{gathered}\\operatorname{EI}(\\lambda)\\\\[4pt]=\\mathbb E\\bigl[\\max(\\ell_\\star-Y,0)\\bigr].\\end{gathered}'}</MathBlock>
+    <Prose>
+      Here <Math>{'\\ell_\\star'}</Math> is the incumbent best loss, and the expectation is over the surrogate&rsquo;s belief about the outcome{' '}
+      <Math>{'Y'}</Math> at λ given the history so far. That random variable describes uncertainty in a belief about a candidate outcome; it is
+      not the target label. If the current best loss is 0.20, a candidate believed certain to achieve 0.18 has EI 0.02. Another candidate with
+      equal believed probabilities of loss 0.05 and 0.45 has mean loss 0.25 but EI <Math>{'0.5(0.20-0.05)=0.075'}</Math>. A larger possible
+      improvement can justify an uncertain trial even when its mean prediction is worse.
+    </Prose>
+    <Prose>
+      These are constructed beliefs for understanding the acquisition rule, not fitted results from a real optimizer. The quality of a surrogate
+      and its uncertainty matters. Adaptive search can waste effort or overfit a noisy validation criterion; there is no universal trial count
+      after which it beats random search.
+    </Prose>
+    <ImprovementFigure />
+
+    <H3>What TPE models</H3>
+    <Prose>
+      A Gaussian-process surrogate commonly models loss conditional on settings. The <strong>tree-structured Parzen estimator</strong> instead
+      separates observed settings into a better-loss group and the remaining group, fits densities <Math>{'l(\\lambda)'}</Math> and{' '}
+      <Math>{'g(\\lambda)'}</Math>, and seeks settings likely under the better group relative to the other. In its original construction,
+      expected improvement is proportional to
+    </Prose>
+    <MathBlock>{'\\left[\\gamma+(1-\\gamma)\\frac{g(\\lambda)}{l(\\lambda)}\\right]^{-1},'}</MathBlock>
+    <Prose>
+      where γ is the probability mass assigned to the better-loss group. This motivates seeking a high <Math>{'l/g'}</Math> ratio. It is not the
+      same as fitting one Gaussian process, and its tree structure can express conditional choices such as parameters for an optional second
+      layer. The <a href="https://papers.nips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf">original TPE paper</a>{' '}
+      derives the relation and describes the density construction.
+    </Prose>
+    <Prose>
+      For an optional practical extension, save this as <Code>cv_optuna.py</Code> beside the complete <Code>cv_penguins.py</Code> and CSV above.
+      It deliberately imports the already defined loader and full preprocessing pipeline. Install Optuna 5.0.0 in addition to that
+      program&rsquo;s packages. This supplementary program was checked against the current API documentation but{' '}
+      <strong>not executed during the content phase</strong>, and no exact best settings or scores were invented for it there. The output below
+      is a later execution in the pinned environment plus Optuna 5.0.0; a different sampler version can move the trial sequence, so treat those
+      two lines as one reproducible run rather than a property of TPE.
+    </Prose>
+    <Program example={validationExamples.optunaStudy}>
       <Prose>
-        Mervyn Stone published "Cross-Validatory Choice and Assessment of Statistical Predictions" in the <em>Journal of the Royal Statistical Society Series B</em>, 36(2):111–147, 1974 (DOI: 10.1111/j.2517-6161.1974.tb00994.x). Stone framed cross-validation as a criterion for choosing between competing statistical prescriptions — what we would now call model selection — and gave it rigorous statistical grounding. Seymour Geisser followed immediately with "The Predictive Sample Reuse Method with Applications," <em>Journal of the American Statistical Association</em>, 70(350):320–328, 1975. Geisser's emphasis was prediction rather than model assessment: how well does the model actually predict, evaluated by reusing each example as both training and validation data in turn? Together these two papers established cross-validation as the standard tool for comparing and selecting models without touching the test set.
+        <Code>distance_power=1</Code> uses absolute-coordinate differences in the Minkowski metric; 2 gives Euclidean distance. Uniform neighbour
+        weights count neighbours equally; distance weighting gives nearer ones greater influence according to the estimator&rsquo;s rule. These
+        choices change the search space from the earlier six-candidate grid, so comparing the two selected scores is not a controlled claim
+        that one search algorithm is superior &mdash; and the printed number is a selection score on a development split, not an assessment of
+        anything.
       </Prose>
+    </Program>
+    <Prose>
+      The two spaces are not incomparable, though, and the more useful fact is what actually happened. This study scores candidates on{' '}
+      <em>the same three folds</em> the final grid search uses, and its space <em>contains</em> the grid’s selected setting: three neighbours,
+      standard scaling, Euclidean distance and uniform weights all lie inside it. On those same folds that point scores{' '}
+      {decimals(experiment.finalSelected.selectionScore, 7)}, against this run’s best of 0.9884058. Twenty trials of this sequential sampler did
+      not reach a strictly better point that was inside their own space, and none of the twenty evaluated it. That is a fact about one seeded run
+      at one budget &mdash; not about the tree-structured estimator, and not a reason to prefer grids. It is the reason a selected score is
+      evidence about a <em>search</em>, and never about the space the search was given.
+    </Prose>
+    <Prose>
+      The program performs development search only. It also logs one line per trial to standard error, which the two lines above do not show;
+      they are the program’s own standard output. To assess this adaptive recipe, put a new study entirely inside each outer training set, or
+      use a separately reserved final assessment set. A fixed sampler seed improves reproducibility of a sequential run; distributed completion
+      order and implementation versions can still matter.{' '}
+      <a href="https://optuna.readthedocs.io/en/stable/reference/samplers/generated/optuna.samplers.TPESampler.html">Optuna&rsquo;s TPE documentation</a>{' '}
+      specifies its startup and sampling behaviour.
+    </Prose>
 
+    <H3>Successive halving: spend more only after an initial comparison</H3>
+    <Prose>
+      Sometimes we can assess a candidate cheaply with fewer training rows or fewer optimization steps. Successive halving starts many candidates
+      at a small budget, retains a fraction, and gives survivors larger budgets. With nine candidates, budgets 10, 30 and 90, and survival factor
+      3, a simple schedule is:
+    </Prose>
+    <LessonTable caption="One halving schedule for nine candidates" headers={['Stage', 'Candidates assessed', 'Budget per candidate', 'Total nominal resource']} rows={[
+      ['1', '9', '10', '90'], ['2', '3', '30', '90'], ['3', '1', '90', '90'],
+    ]} />
+    <Prose>
+      If each stage retrains from scratch, this costs 270 resource units, compared with 810 to give all nine candidates 90 units. If training
+      genuinely resumes from saved state, incremental cost can instead be{' '}
+      <Math>{'9\\cdot10+3\\cdot20+1\\cdot60=210'}</Math>. Treating every resource unit as equal wall time is an additional approximation.
+      Three-fold evaluation would repeat corresponding fits; software overhead and refitting the winner still need a budget.
+    </Prose>
+    <Prose>
+      The key risk is <strong>early ranking</strong>, not a requirement that every validation curve be monotone. A candidate that starts slowly
+      may eventually win. In a constructed example, A has losses <Code>[.30,.25,.24]</Code> at budgets <Code>[10,30,90]</Code>, while B has{' '}
+      <Code>[.40,.20,.10]</Code>. Eliminating B after budget 10 discards the eventual winner. Both curves improve monotonically; monotonic
+      improvement alone did not make the ranking safe.
+    </Prose>
+    <HalvingLab />
+    <Prose>
+      <strong>Hyperband</strong> runs multiple halving schedules, called brackets, with different initial candidate counts and starting budgets.
+      This explores the tradeoff between examining many candidates briefly and fewer candidates more thoroughly. It is not merely a second name
+      for one successive-halving run. The <a href="https://www.jmlr.org/papers/volume18/16-558/16-558.pdf">primary Hyperband paper</a> explains
+      the distinction and the assumptions behind its analysis.
+    </Prose>
+    <Prose>
+      Scikit-learn&rsquo;s halving search remains experimental. A resource can be sample count or an eligible estimator parameter; it cannot
+      simultaneously be a searched parameter in the same grid. The final stage need not reach the nominal maximum resource, because the schedule
+      depends on candidate count, factor and starting budget. Inspect <Code>n_resources_</Code>, <Code>n_candidates_</Code> and{' '}
+      <Code>cv_results_</Code> rather than assuming every finalist received all data. The{' '}
+      <a href="https://scikit-learn.org/stable/modules/grid_search.html#searching-for-optimal-parameters-with-successive-halving">halving guide</a>{' '}
+      documents these contracts. Native full-state resumption should not be assumed just because the high-level schedule has increasing budgets.
+    </Prose>
+
+    {/* ============================== 9 ============================== */}
+    <H2>{headings[8]}</H2>
+    <Prose>
+      For G candidates and K folds, a grid makes GK candidate fits, plus one final refit if enabled. A nested plan with O outer folds and I inner
+      folds makes <Math>{'O(GI+1)'}</Math> fits for assessment, plus <Math>{'GI+1'}</Math> if the same inner configuration is then searched and
+      refitted on all development data. This counts fits; inner, outer and full-data fits have different training sizes and costs.
+    </Prose>
+    <Prose>
+      Our six-candidate, three-by-three experiment uses <Math>{`3(6\\cdot3+1)=${budget.assessment}`}</Math> pipeline fits for outer assessment
+      and {budget.final} for final selection and refit, totalling {budget.total}. The three majority baselines are separate cheap fits. This is
+      small enough to inspect serially. The displayed main script does not need all CPU cores for a useful lesson.
+    </Prose>
+    <Prose>
+      Parallelism reduces wall time only within available compute and memory. Parallelizing both folds and an estimator&rsquo;s own native
+      threads can oversubscribe a machine. Large worker pools may duplicate datasets or create too many pending jobs. Begin with a bounded worker
+      count, record actual fit times, and decide whether to parallelize trials or model internals. <Code>pre_dispatch</Code> and pipeline caching
+      can help in appropriate cases; caching is useful only when repeated transformations genuinely share inputs and parameters. Cluster
+      schedulers and database-backed studies extend this idea, but do not remove validation or resource-accounting requirements.
+    </Prose>
+    <Prose>
+      There is no universal threshold such as &ldquo;Bayesian search is better once one fit takes ten seconds.&rdquo; Measure the real cost of
+      fitting, scoring, surrogate updates and scheduling for your task. A small grid, a documented random budget, or a representative holdout can
+      be better justified than an elaborate search whose results cannot be assessed reliably.
+    </Prose>
+    <Prose>
+      When two candidates are close, inspect paired results on the same splits and the size of the practical difference. Choosing the highest
+      average is a selection rule, not automatically a collection of independent hypothesis tests. Overlapping fold intervals do not form a valid
+      general significance test, and a multiple-testing correction does not repair dependent or incorrectly constructed evidence. If a formal
+      comparison is required, choose an inferential procedure whose assumptions match the paired data and complete search history.
+    </Prose>
+    <Prose>
+      If a fit fails, keep that failure visible. Invalid settings, insufficient minority examples, numerical problems and unavailable features
+      call for different fixes. Silently removing failures or replacing them with convenient scores changes the selection procedure. During this
+      small lesson <Code>error_score=&quot;raise&quot;</Code> exposes failures immediately; a large search may log failed trials and follow a
+      predeclared handling rule.
+    </Prose>
+
+    {/* ============================== 10 ============================== */}
+    <H2>{headings[9]}</H2>
+    <Prose>
+      Try the first six using only the core route. The remaining questions extend the deeper branches. Attempt each task before opening its hint
+      or solution.
+    </Prose>
+
+    <Practice title="1. Unequal folds" question="Three folds assess 4, 3 and 3 rows and get 3, 1 and 2 correct. Find the unweighted mean fold accuracy and the pooled accuracy. Which gives each row equal weight?"
+      hint="Average the three fractions for one answer; add correct counts before dividing for the other.">
       <Prose>
-        The practical question of how many folds to use took two more decades to settle empirically. Ron Kohavi's 1995 IJCAI paper "A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection" ran over half a million experiments across real datasets, comparing leave-one-out, 5-fold, 10-fold, and stratified variants. The conclusion, which has become the field's rule of thumb: ten-fold stratified cross-validation achieves the best tradeoff between bias and variance of the estimator for most practical datasets. LOOCV has lower bias but higher variance and is prohibitively expensive; 5-fold is faster but slightly more biased; 10-fold is the compromise that works broadly.
+        The fold mean is <Math>{'(3/4+1/3+2/3)/3=7/12\\approx.5833'}</Math>. Pooled accuracy is 6/10 = .6 and gives each row equal weight. Equal
+        weighting of folds is a different declared summary.
       </Prose>
+    </Practice>
 
+    <Practice title="2. A remainder is still a learner's data" question="A splitter uses fold_size = n // k and slices exactly that many rows for each of k validation folds. What happens at n = 11, k = 3? How does the provided splitter repair it?">
       <Prose>
-        The marriage of cross-validation with hyperparameter search took another decade to mature. The standard approach — grid search over a discrete parameter lattice, each configuration evaluated by cross-validation — is correct but wasteful. James Bergstra and Yoshua Bengio showed in "Random Search for Hyper-Parameter Optimization," <em>JMLR</em> 13:281–305, 2012, that random sampling over the same search space finds configurations as good as grid search in a fraction of the compute time. The theoretical argument is elegant: if only a few hyperparameters actually matter, random search wastes no resources on the unimportant dimensions, whereas grid search evaluates each combination of unimportant values repeatedly. Empirically, random search with 60 trials matches grid search on a 10×10×10 grid in a problem where two of the three hyperparameters are uninformative.
+        Only nine rows receive a validation turn; two are omitted. Depending on how training indices are constructed, those omitted rows may be
+        permanently in training or dropped altogether. <Code>np.array_split</Code> creates folds 4, 4 and 3 so every row belongs to one
+        validation fold and the remaining folds form its training set.
       </Prose>
+    </Practice>
 
-      <Callout type="insight">
-        Cross-validation and hyperparameter tuning are inseparable in practice. CV tells you how well a configuration generalizes; the search strategy decides which configurations to try. Getting either wrong — using a single holdout to tune, or grid-searching when random/Bayesian search would do — costs either validity or compute. Both traps are common.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <H3>2.1 What cross-validation actually does</H3>
-
+    <Practice title="3. New patient or known patient?" question="A wearable model will predict tomorrow's measurements for people who already provided a week of history. A second product must work on entirely new wearers. Describe an assessment boundary for each. What extra question arises if the second product also launches in a future season?">
       <Prose>
-        K-fold cross-validation partitions the dataset into K equal-sized folds. It then trains K separate models: for fold <em>i</em>, the model trains on all folds except fold <em>i</em> and validates on fold <em>i</em>. The K validation scores are averaged to produce a single estimate of generalization performance. No example is ever used for both training and validation in the same trial. Every example is used for validation exactly once. The computational cost is K times the cost of a single training run.
+        The first task can use each person&rsquo;s available earlier history but must respect prediction time and target availability. The second
+        needs held-out people. A future season introduces a time-distribution boundary as well, so a custom group-and-time assessment may be
+        needed. A random visit split does not by itself establish either claimed setting.
       </Prose>
+    </Practice>
 
+    <Practice title="4. An impossible out-of-fold array" question="A forward plan trains on rows 0–3 and assesses 4–5, then trains 0–5 and assesses 6–7. Why can it be used for fold scoring but not passed directly to cross_val_predict on all eight rows? What should a manual prediction table contain at rows 0–3?">
       <Prose>
-        Compare the alternatives. A single holdout split wastes data and produces a high-variance estimate — the estimate changes dramatically depending on which examples land in which split. Leave-one-out CV (LOOCV) takes this to the extreme in the other direction: K equals the number of training examples n, so each validation set is a single point. LOOCV is nearly unbiased (the training set is n-1 examples, barely smaller than the full dataset), but its variance is high because the n training sets are almost identical — the n models are highly correlated, so their n validation scores are not independent, and averaging n correlated numbers does not reduce variance as much as averaging n independent ones. LOOCV is also computationally expensive: n training runs, often unaffordable.
+        Rows 0&ndash;3 never appear in a held-out set, so the required exactly-once partition is missing. A manual table should retain their
+        predictions as absent, not fit on them and label in-sample outputs out-of-fold. Score the valid held-out rows, or train a stacking stage
+        only where legitimate predictions exist.
       </Prose>
+    </Practice>
 
+    <Practice title="5. A new candidate pattern" question="Validation labels are [0,1,0,1]. Initially the candidates predict all zeros or all ones. Add a candidate predicting [0,1,0,1]. Under the independent fair-label model, what changes in best validation accuracy and expected future accuracy? What if you add only another all-zero candidate?">
       <Prose>
-        Stratified K-fold adds a constraint: the class distribution in each fold mirrors the class distribution in the full dataset. This matters for imbalanced problems. If 5% of your examples are positive and you use plain K-fold with K=20, some folds will be all-negative by chance. Stratification prevents this, reducing the variance of CV scores on imbalanced datasets substantially.
+        The best validation score rises from .5 to 1. Every fixed prediction remains independent of future fair labels, so expected future
+        accuracy remains .5. A duplicate all-zero candidate changes neither the original best validation score nor future accuracy. Candidate
+        diversity, and how selection uses the labels, are what matter. Both cases are saved setups in the selection investigation above.
       </Prose>
+    </Practice>
 
+    <Practice title="6. Which rows selected the epoch?" question="An outer-fold model chooses its number of epochs using outer assessment loss, then reports accuracy on that same outer fold. Identify the violated boundary and give two repairs.">
       <Prose>
-        <strong>GroupKFold</strong> is needed when your data has structure that breaks the i.i.d. assumption. Medical datasets often contain multiple records per patient; splitting randomly means the same patient appears in both train and validation, and the model learns patient-specific features that do not generalize. GroupKFold ensures that all examples from a given group appear in exactly one fold. The validation set contains groups that were entirely absent from training — a much harder but more honest test of generalization.
+        The assessed rows selected a training setting. Move stopping into the outer training data, either using a stopping subset inside each
+        inner training partition or treating inner-validation-based stopping as part of the complete rule assessed by protected outer rows.
+        Another valid design uses development data for all such choices and a genuinely separate final test set. Renaming the used assessment set
+        does not restore independence.
       </Prose>
+    </Practice>
 
+    <Practice title="7. Probability mass is not score distance — deeper" question="A satisfactory parameter region has probability .02 under your sampler. How many independent draws give at least a 95% chance of hitting it? Would this guarantee a score within 2% of the global optimum?"
+      hint={<>Solve <Math>{'(1-.02)^T\\le.05'}</Math> and round upward.</>}>
       <Prose>
-        <strong>Time-series CV</strong> (also called forward chaining or walk-forward validation) handles temporal data. The rule is absolute: you must never let the model see future data during training. The correct approach is to always train on a contiguous historical block and validate on the immediately following block. Each successive fold extends the training window forward in time. Shuffling temporal data before K-fold is a data leakage bug: the model learns from "future" events to predict "past" ones, and the CV score is wildly optimistic.
+        <Math>{'T\\ge\\log(.05)/\\log(.98)\\approx148.28'}</Math>, so {drawsForHitProbability(0.02, 0.95)} draws suffice under the assumed
+        independent sampling model. The 2% is sampling mass, not score proximity. The satisfactory region itself must be defined and its assumed
+        mass justified for a practical guarantee.
       </Prose>
+    </Practice>
 
-      <H3>2.2 Hyperparameter search strategies</H3>
-
+    <Practice title="8. An unchanged acquisition value — deeper" question="The incumbent loss is .30. Candidate C has equal predicted probabilities of losses .10 and .50. Find EI. If only the worse outcome changes from .50 to .90, does EI change? Does expected loss change?">
       <Prose>
-        Once you have a reliable CV score, the search problem is: which hyperparameter configuration maximizes it? Three families of strategies exist, each with a different computational philosophy.
+        EI is <Math>{'.5(.30-.10)=.10'}</Math>. The worse outcome contributes zero improvement in both cases, so EI remains .10. Expected loss
+        changes from .30 to .50. This does not prove the surrogate is calibrated; it distinguishes the summaries of its stated distribution.
       </Prose>
+    </Practice>
 
+    <Practice title="9. Account for the whole schedule — deeper" question="A halving plan starts 27 candidates with budgets 5, 15, 45 and 135 and retains one third after each stage. Find the nominal from-scratch resource cost, and compare it with giving every candidate 135. If each stage instead resumes genuine saved state, what is the incremental resource cost?">
       <Prose>
-        <strong>Grid search</strong> defines a finite set of values for each hyperparameter and evaluates every combination. It is exhaustive and deterministic. Its fatal flaw: it scales exponentially with the number of hyperparameters. A 10-value grid over 5 hyperparameters is 100,000 configurations. At one minute each with 5-fold CV, that is 8 million minutes.
+        Candidate counts 27, 9, 3 and 1 each consume 135 nominal units per stage, totalling 540, versus 3,645 for all candidates at 135.
+        Resuming costs <Math>{'27\\cdot5+9\\cdot10+3\\cdot30+1\\cdot90=405'}</Math>. Multiply appropriate evaluations by fold count and account
+        separately for scoring and refits. Real time need not be linear in this resource.
       </Prose>
+    </Practice>
 
+    <Practice title="10. A fixed rule tests an overlap story — deeper" question="A classifier always predicts class 0 and ignores training. Labels on n observations are independent fair bits. What is the variance of its leave-one-out accuracy? Why does this contradict equating loss correlation with training overlap?">
       <Prose>
-        <strong>Random search</strong> samples each hyperparameter independently from a specified distribution (uniform, log-uniform, categorical) and evaluates the sampled configuration. For the same compute budget, random search covers the hyperparameter space more efficiently than grid search whenever some hyperparameters are more important than others — which is almost always the case. The Bergstra-Bengio 2012 result is that 60 random trials find a configuration within 5% of optimal with 95% probability for many practical problems.
+        The correctness indicators are independent Bernoulli(.5), so their average has variance <Math>{'(.5)(.5)/n=1/(4n)'}</Math>. The
+        leave-one-out training sets overlap heavily, but those sets do not influence this rule&rsquo;s predictions. Thus overlap alone does not
+        determine loss correlation or imply variance stays near 1/4.
       </Prose>
-
-      <Prose>
-        <strong>Bayesian optimization</strong> treats hyperparameter search as a sequential decision problem. A surrogate model (Gaussian process, Tree Parzen Estimator, or random forest) is fitted to all previously evaluated configurations and their CV scores. An acquisition function (expected improvement, upper confidence bound) uses the surrogate to decide which configuration to evaluate next — balancing exploration (uncertain regions) and exploitation (regions that look good). Each new evaluation updates the surrogate. The Tree Parzen Estimator (TPE), introduced in Bergstra et al. 2011 and used by Optuna, models the density of good configurations and bad configurations separately and proposes configurations that maximize the ratio. Bayesian methods typically find good configurations in 30–100 trials, far fewer than grid search needs.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Bias-variance of the CV estimator</H3>
-
-      <Prose>
-        Let {"θ̂"} be some learning algorithm. Define the true generalization error as {"E[L(θ̂, D_train, x_new)]"} where the expectation is over all possible training sets and new examples. The K-fold CV estimate of this error is:
-      </Prose>
-
-      <MathBlock>
-        {"\\widehat{\\text{CV}}_K = \\frac{1}{K} \\sum_{k=1}^K L\\!\\left(\\hat{\\theta}^{(-k)},\\, D_{\\text{val}}^{(k)}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        where {"θ̂^{(-k)"} is the model trained on all folds except fold k, and {"D_val^{(k)}"} is the kth validation fold. This estimator is approximately unbiased for any K, but its variance depends on K in a non-monotone way. Increasing K reduces bias (training set approaches full dataset size) but increases variance because the K training sets become more and more similar — their correlation approaches 1 as K approaches n. The variance of an average of m correlated random variables with correlation {"ρ"} and individual variance {"σ²"} is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Var}\\!\\left(\\frac{1}{m}\\sum_{i=1}^m X_i\\right) = \\frac{\\sigma^2}{m}\\left(1 + (m-1)\\rho\\right)"}
-      </MathBlock>
-
-      <Prose>
-        For LOOCV, m = n and {"ρ → 1"}, so variance does not decrease as m grows — the {"1 + (m-1)ρ"} term grows as fast as m shrinks. For K=10, the folds overlap by 8/9 ≈ 89%, giving moderate correlation and manageable variance. Kohavi's 1995 empirical study confirmed that K=10 sits at the sweet spot: bias is low because 90% of the data is used for training, and variance is acceptable because the 10 folds are not as correlated as the n folds in LOOCV.
-      </Prose>
-
-      <H3>3.2 Why nested CV is required for unbiased hyperparameter selection</H3>
-
-      <Prose>
-        Suppose you run K-fold CV over a grid of hyperparameter configurations and pick the configuration with the best CV score. If you then report that CV score as your model's expected generalization performance, you are being optimistic. The reason: you used the CV scores to make a selection decision, and the best score in a collection of noisy estimates is biased upward by selection. This is a form of the winner's curse — you are not reporting the typical performance of the best configuration, but rather the lucky draw.
-      </Prose>
-
-      <Prose>
-        Nested cross-validation fixes this. The outer loop (K_outer folds) estimates generalization performance. The inner loop (K_inner folds, run inside each outer training set) performs hyperparameter selection. For each outer fold: (1) run the inner CV on the outer training set to pick the best configuration, (2) train a final model with that configuration on the full outer training set, (3) evaluate on the outer validation fold. The outer validation scores are held out from all selection decisions and give an unbiased estimate of generalization error. The cost is K_outer × K_inner × n_configs training runs — expensive, but necessary when reporting honest numbers.
-      </Prose>
-
-      <H3>3.3 Why random search dominates low-effective-dimension problems</H3>
-
-      <Prose>
-        Assume d hyperparameters, of which only d' {"<"} d actually affect model performance (the effective dimension). Grid search with g values per dimension evaluates {"g^d"} configurations, but only {"g^{d'}"} distinct performance levels — the remaining dimensions are wasted. Random search over the same budget of {"g^d"} configurations sees {"g^d"} distinct values along each important dimension. For d=5, d'=2, g=5: grid search has 3,125 configurations but only 25 distinct performance levels; random search with 3,125 trials sees 3,125 values along each important dimension. Bergstra and Bengio formalize this as: random search achieves {"ε"}-optimal performance with high probability in {"O(1/ε)"} trials regardless of d, while grid search requires {"O(1/ε^{d/d'})"} trials.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Every code block below was executed and the stdout is embedded verbatim. We implement KFold, StratifiedKFold, GroupKFold, TimeSeriesSplit, and LeaveOneOut in NumPy only, then implement grid search, random search, and nested CV on a logistic regression classifier.
-      </Prose>
-
-      <H3>4a. CV splitters — NumPy only</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-def kfold_indices(n, k, shuffle=True, seed=42):
-    idx = np.arange(n)
-    if shuffle:
-        np.random.default_rng(seed).shuffle(idx)
-    fs = n // k
-    return [(np.concatenate([idx[:i*fs], idx[(i+1)*fs:]]), idx[i*fs:(i+1)*fs])
-            for i in range(k)]
-
-def stratified_kfold_indices(y, k, seed=42):
-    rng = np.random.default_rng(seed)
-    class_indices = {c: rng.permutation(np.where(y == c)[0])
-                     for c in np.unique(y)}
-    folds = [[] for _ in range(k)]
-    for c, ci in class_indices.items():
-        fs = len(ci) // k
-        for i in range(k):
-            folds[i].extend(ci[i*fs:(i+1)*fs].tolist())
-    result = []
-    for i in range(k):
-        va = np.array(folds[i])
-        tr = np.concatenate([np.array(folds[j]) for j in range(k) if j != i])
-        result.append((tr, va))
-    return result
-
-def group_kfold_indices(groups, k):
-    g2f = {g: i % k for i, g in enumerate(np.unique(groups))}
-    return [(np.where([g2f[g] != fold for g in groups])[0],
-             np.where([g2f[g] == fold for g in groups])[0])
-            for fold in range(k)]
-
-def time_series_split(n, k):
-    step = n // (k + 1)
-    return [(np.arange(0, (i+1)*step), np.arange((i+1)*step, min((i+2)*step, n)))
-            for i in range(k)]
-
-def loo_indices(n):
-    return [(np.concatenate([np.arange(0,i), np.arange(i+1,n)]), np.array([i]))
-            for i in range(n)]
-
-# ── Demo ─────────────────────────────────────────────────────────────────────
-np.random.seed(42)
-n = 20
-X = np.random.randn(n, 2)
-y = (X[:,0] + np.random.randn(n)*0.3 > 0).astype(int)
-groups = np.array([i // 4 for i in range(n)])   # 5 groups of 4
-
-print('=== KFold (K=5) ===')
-for i, (tr, va) in enumerate(kfold_indices(n, 5)):
-    print(f'  Fold {i}: train_size={len(tr)} val_size={len(va)}')
-
-print('\\n=== StratifiedKFold (K=5) ===')
-for i, (tr, va) in enumerate(stratified_kfold_indices(y, 5)):
-    print(f'  Fold {i}: train_pos={y[tr].mean():.2f} val_pos={y[va].mean():.2f}')
-
-print('\\n=== GroupKFold (K=5) ===')
-for i, (tr, va) in enumerate(group_kfold_indices(groups, 5)):
-    print(f'  Fold {i}: val_groups={np.unique(groups[va])} train_groups={np.unique(groups[tr])}')
-
-print('\\n=== TimeSeriesSplit (K=4) ===')
-for i, (tr, va) in enumerate(time_series_split(n, 4)):
-    print(f'  Fold {i}: train=[0..{tr[-1]}] val=[{va[0]}..{va[-1]}]')
-
-print('\\n=== LeaveOneOut (first 5 of 20) ===')
-for i, (tr, va) in enumerate(loo_indices(n)):
-    if i >= 5: break
-    print(f'  Fold {i}: val_idx={va[0]} train_size={len(tr)}')`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== KFold (K=5) ===
-  Fold 0: train_size=16 val_size=4
-  Fold 1: train_size=16 val_size=4
-  Fold 2: train_size=16 val_size=4
-  Fold 3: train_size=16 val_size=4
-  Fold 4: train_size=16 val_size=4
-
-=== StratifiedKFold (K=5) ===
-  Fold 0: train_pos=0.33 val_pos=0.33
-  Fold 1: train_pos=0.33 val_pos=0.33
-  Fold 2: train_pos=0.33 val_pos=0.33
-  Fold 3: train_pos=0.33 val_pos=0.33
-  Fold 4: train_pos=0.33 val_pos=0.33
-
-=== GroupKFold (K=5) ===
-  Fold 0: val_groups=[0] train_groups=[1 2 3 4]
-  Fold 1: val_groups=[1] train_groups=[0 2 3 4]
-  Fold 2: val_groups=[2] train_groups=[0 1 3 4]
-  Fold 3: val_groups=[3] train_groups=[0 1 2 4]
-  Fold 4: val_groups=[4] train_groups=[0 1 2 3]
-
-=== TimeSeriesSplit (K=4) ===
-  Fold 0: train=[0..3] val=[4..7]
-  Fold 1: train=[0..7] val=[8..11]
-  Fold 2: train=[0..11] val=[12..15]
-  Fold 3: train=[0..15] val=[16..19]
-
-=== LeaveOneOut (first 5 of 20) ===
-  Fold 0: val_idx=0 train_size=19
-  Fold 1: val_idx=1 train_size=19
-  Fold 2: val_idx=2 train_size=19
-  Fold 3: val_idx=3 train_size=19
-  Fold 4: val_idx=4 train_size=19`}
-      </Callout>
-
-      <H3>4b. Grid search, random search, and nested CV — NumPy only</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-def logistic(z): return 1 / (1 + np.exp(-z))
-
-def fit_logistic(X, y, C=1.0, lr=0.05, iters=200):
-    w = np.zeros(X.shape[1])
-    n = len(y)
-    for _ in range(iters):
-        p = logistic(X @ w)
-        w -= lr * (X.T @ (p - y) / n + w / (C * n))
-    return w
-
-def accuracy(X, y, w):
-    return np.mean((logistic(X @ w) > 0.5) == y)
-
-def kfold(n, k, seed=42):
-    idx = np.random.default_rng(seed).permutation(n)
-    fs = n // k
-    return [(np.concatenate([idx[:i*fs], idx[(i+1)*fs:]]), idx[i*fs:(i+1)*fs])
-            for i in range(k)]
-
-np.random.seed(42)
-n = 200
-X = np.random.randn(n, 4)
-y = (X[:,0] - X[:,1] + np.random.randn(n)*0.5 > 0).astype(int)
-X = np.hstack([np.ones((n, 1)), X])   # prepend bias column
-
-C_grid = [0.001, 0.01, 0.1, 1.0, 10.0, 100.0]
-
-# ── Grid Search ────────────────────────────────────────────────────────────
-print('=== Grid Search CV (K=5) ===')
-gs_results = {}
-for C in C_grid:
-    scores = [accuracy(X[va], y[va], fit_logistic(X[tr], y[tr], C=C))
-              for tr, va in kfold(n, 5)]
-    gs_results[C] = np.mean(scores)
-    print(f'  C={C:<8}  cv_acc={gs_results[C]:.4f}')
-best_C = max(gs_results, key=gs_results.get)
-print(f'  Best C={best_C}  cv_acc={gs_results[best_C]:.4f}')
-
-# ── Random Search ──────────────────────────────────────────────────────────
-print('\\n=== Random Search CV (10 trials, K=5) ===')
-rng = np.random.default_rng(0)
-rs_results = []
-for _ in range(10):
-    C = 10 ** rng.uniform(-2, 2)
-    scores = [accuracy(X[va], y[va], fit_logistic(X[tr], y[tr], C=C))
-              for tr, va in kfold(n, 5)]
-    rs_results.append({'C': round(C, 4), 'cv_acc': round(np.mean(scores), 4)})
-rs_results.sort(key=lambda r: -r['cv_acc'])
-for r in rs_results[:5]:
-    print(f'  C={r["C"]:<10}  cv_acc={r["cv_acc"]}')
-print(f'  (top 5 of 10 trials shown)')
-
-# ── Nested CV ──────────────────────────────────────────────────────────────
-print('\\n=== Nested CV (5-outer x 3-inner) ===')
-outer_scores, best_Cs = [], []
-for o_tr, o_va in kfold(n, 5, seed=7):
-    best_inner_C, best_inner_score = None, -np.inf
-    for C in C_grid:
-        inner_scores = [accuracy(X[o_tr[i_tr]], y[o_tr[i_tr]],
-                                 fit_logistic(X[o_tr[i_tr]], y[o_tr[i_tr]], C=C))
-                        for i_tr, i_va in kfold(len(o_tr), 3, seed=13)]
-        # use inner val correctly
-        inner_val = [accuracy(X[o_tr[i_va]], y[o_tr[i_va]],
-                              fit_logistic(X[o_tr[i_tr]], y[o_tr[i_tr]], C=C))
-                     for i_tr, i_va in kfold(len(o_tr), 3, seed=13)]
-        s = np.mean(inner_val)
-        if s > best_inner_score:
-            best_inner_score, best_inner_C = s, C
-    w_final = fit_logistic(X[o_tr], y[o_tr], C=best_inner_C)
-    outer_scores.append(accuracy(X[o_va], y[o_va], w_final))
-    best_Cs.append(best_inner_C)
-
-print(f'  Outer fold accuracies: {[round(s,4) for s in outer_scores]}')
-print(f'  Best C per outer fold: {best_Cs}')
-print(f'  Nested CV estimate   : {np.mean(outer_scores):.4f} +/- {np.std(outer_scores):.4f}')
-print(f'  Naive (non-nested)   : {gs_results[best_C]:.4f}  <-- optimistically biased')`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Grid Search CV (K=5) ===
-  C=0.001     cv_acc=0.8800
-  C=0.01      cv_acc=0.8850
-  C=0.1       cv_acc=0.8850
-  C=1.0       cv_acc=0.8800
-  C=10.0      cv_acc=0.8800
-  C=100.0     cv_acc=0.8800
-  Best C=0.01  cv_acc=0.8850
-
-=== Random Search CV (10 trials, K=5) ===
-  C=0.0146      cv_acc=0.89
-  C=0.12        cv_acc=0.885
-  C=0.0116      cv_acc=0.885
-  C=3.5306      cv_acc=0.88
-  C=17.9094     cv_acc=0.88
-  (top 5 of 10 trials shown)
-
-=== Nested CV (5-outer x 3-inner) ===
-  Outer fold accuracies: [0.85, 0.95, 0.9, 0.9, 0.9]
-  Best C per outer fold: [0.01, 0.001, 0.01, 0.001, 0.01]
-  Nested CV estimate   : 0.9000 +/- 0.0316
-  Naive (non-nested)   : 0.8850  <-- optimistically biased`}
-      </Callout>
-
-      <Prose>
-        The nested CV estimate (0.9000) and the naive estimate (0.8850) are close here because the dataset is clean and the best C is not dramatically sensitive. On noisier problems with more hyperparameters and smaller datasets, the gap between naive and nested CV widens significantly — sometimes 5 to 10 percentage points — because the winner's curse grows with the number of configurations compared.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        All code blocks below were executed with scikit-learn and Optuna. The dataset is 500 samples, 10 features, 5 informative, generated with <Code>make_classification(random_state=42)</Code>. Every block's stdout is embedded verbatim.
-      </Prose>
-
-      <H3>5a. sklearn CV splitters and cross_val_score</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import make_classification
-from sklearn.model_selection import (
-    KFold, StratifiedKFold, cross_val_score, cross_validate
-)
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-
-np.random.seed(42)
-X, y = make_classification(n_samples=500, n_features=10, n_informative=5,
-                            n_redundant=2, random_state=42)
-
-pipe = Pipeline([('scaler', StandardScaler()),
-                 ('svc', SVC(kernel='rbf', C=1.0, gamma='scale'))])
-
-kf  = KFold(n_splits=5, shuffle=True, random_state=42)
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-scores_kf  = cross_val_score(pipe, X, y, cv=kf,  scoring='accuracy')
-scores_skf = cross_val_score(pipe, X, y, cv=skf, scoring='accuracy')
-
-print('=== cross_val_score ===')
-print(f'  KFold-5        : {scores_kf.round(4)}  mean={scores_kf.mean():.4f}')
-print(f'  StratifiedKF-5 : {scores_skf.round(4)}  mean={scores_skf.mean():.4f}')
-
-# cross_validate returns train scores + multiple metrics
-cv_results = cross_validate(pipe, X, y, cv=skf,
-                             scoring=['accuracy', 'roc_auc'],
-                             return_train_score=True)
-print('\\n=== cross_validate (StratifiedKF-5) ===')
-print(f'  train_accuracy : {cv_results["train_accuracy"].round(4)}')
-print(f'  test_accuracy  : {cv_results["test_accuracy"].round(4)}')
-print(f'  test_roc_auc   : {cv_results["test_roc_auc"].round(4)}')`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== cross_val_score ===
-  KFold-5        : [0.91 0.9  0.87 0.91 0.92]  mean=0.9020
-  StratifiedKF-5 : [0.89 0.92 0.89 0.94 0.9 ]  mean=0.9080
-
-=== cross_validate (StratifiedKF-5) ===
-  train_accuracy : [0.94   0.935  0.9425 0.9225 0.9425]
-  test_accuracy  : [0.89 0.92 0.89 0.94 0.9 ]
-  test_roc_auc   : [0.9436 0.9872 0.9524 0.9748 0.9504]`}
-      </Callout>
-
-      <H3>5b. GridSearchCV, RandomizedSearchCV, HalvingGridSearchCV</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import make_classification
-from sklearn.model_selection import (
-    StratifiedKFold, GridSearchCV, RandomizedSearchCV
-)
-from sklearn.experimental import enable_halving_search_cv  # noqa
-from sklearn.model_selection import HalvingGridSearchCV
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-from scipy.stats import loguniform
-
-np.random.seed(42)
-X, y = make_classification(n_samples=500, n_features=10, n_informative=5,
-                            n_redundant=2, random_state=42)
-pipe = Pipeline([('scaler', StandardScaler()),
-                 ('svc', SVC(kernel='rbf'))])
-skf  = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-# GridSearchCV: 3x3 = 9 combinations
-param_grid = {'svc__C': [0.1, 1, 10],
-              'svc__gamma': ['scale', 0.01, 0.1]}
-gs = GridSearchCV(pipe, param_grid, cv=skf, scoring='accuracy', n_jobs=-1)
-gs.fit(X, y)
-print('=== GridSearchCV (9 combos) ===')
-print(f'  Best params : {gs.best_params_}')
-print(f'  Best CV acc : {gs.best_score_:.4f}')
-
-# RandomizedSearchCV: 20 random trials from continuous distributions
-param_dist = {'svc__C':     loguniform(0.01, 100),
-              'svc__gamma': loguniform(0.001, 1.0)}
-rs = RandomizedSearchCV(pipe, param_dist, n_iter=20, cv=skf,
-                         scoring='accuracy', random_state=42, n_jobs=-1)
-rs.fit(X, y)
-print('\\n=== RandomizedSearchCV (20 trials) ===')
-print(f'  Best params : C={rs.best_params_["svc__C"]:.4f}  '
-      f'gamma={rs.best_params_["svc__gamma"]:.4f}')
-print(f'  Best CV acc : {rs.best_score_:.4f}')
-
-# HalvingGridSearchCV: successive halving over 25-combo grid
-param_large = {'svc__C':     [0.01, 0.1, 1, 10, 100],
-               'svc__gamma': ['scale', 0.001, 0.01, 0.1, 1.0]}
-hgs = HalvingGridSearchCV(pipe, param_large, cv=skf, factor=3,
-                           scoring='accuracy', min_resources='exhaust',
-                           random_state=42, n_jobs=-1)
-hgs.fit(X, y)
-print('\\n=== HalvingGridSearchCV (25 combos, factor=3) ===')
-print(f'  Best params : {hgs.best_params_}')
-print(f'  Best CV acc : {hgs.best_score_:.4f}')
-print(f'  n_iterations: {hgs.n_iterations_}')`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== GridSearchCV (9 combos) ===
-  Best params : {'svc__C': 1, 'svc__gamma': 'scale'}
-  Best CV acc : 0.9080
-
-=== RandomizedSearchCV (20 trials) ===
-  Best params : C=5.4567  gamma=0.0209
-  Best CV acc : 0.9020
-
-=== HalvingGridSearchCV (25 combos, factor=3) ===
-  Best params : {'svc__C': 1, 'svc__gamma': 'scale'}
-  Best CV acc : 0.9010
-  n_iterations: 3`}
-      </Callout>
-
-      <Prose>
-        HalvingGridSearchCV ran 3 successive halving rounds. In round 1, all 25 configurations received a small resource budget (a subset of training examples). The bottom two-thirds were eliminated. Survivors received a larger budget in round 2, and the final round evaluated the top configurations on the full dataset. This reduced the total number of full-dataset model evaluations from 25 (grid search) to effectively 3 finalists — roughly an order-of-magnitude saving at the cost of some statistical noise in the early rounds.
-      </Prose>
-
-      <H3>5c. Bayesian optimization with Optuna (TPE sampler)</H3>
-
-      <CodeBlock language="python">
-{`import optuna
-optuna.logging.set_verbosity(optuna.logging.WARNING)
-import numpy as np
-from sklearn.datasets import make_classification
-from sklearn.model_selection import StratifiedKFold, cross_val_score
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-
-np.random.seed(42)
-X, y = make_classification(n_samples=500, n_features=10, n_informative=5,
-                            n_redundant=2, random_state=42)
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-def objective(trial):
-    C     = trial.suggest_float('C',     1e-2, 1e2, log=True)
-    gamma = trial.suggest_float('gamma', 1e-3, 1.0, log=True)
-    pipe  = Pipeline([('sc', StandardScaler()),
-                      ('svc', SVC(kernel='rbf', C=C, gamma=gamma))])
-    return cross_val_score(pipe, X, y, cv=skf, scoring='accuracy').mean()
-
-study = optuna.create_study(direction='maximize',
-                             sampler=optuna.samplers.TPESampler(seed=42))
-study.optimize(objective, n_trials=30, show_progress_bar=False)
-
-print('=== Optuna Bayesian Optimization (30 trials, TPE) ===')
-print(f'  Best value (CV acc) : {study.best_value:.4f}')
-print(f'  Best C={study.best_params["C"]:.4f}  gamma={study.best_params["gamma"]:.4f}')
-print()
-print('  Trial | C       | gamma   | CV acc')
-print('  ------+---------+---------+-------')
-for t in sorted(study.trials, key=lambda t: -t.value)[:5]:
-    print(f'  {t.number:>5} | {t.params["C"]:7.4f} | {t.params["gamma"]:7.4f} | {t.value:.4f}')
-print('  (top 5 of 30 trials shown)')`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Optuna Bayesian Optimization (30 trials, TPE) ===
-  Best value (CV acc) : 0.9020
-  Best C=0.9733  gamma=0.0660
-
-  Trial | C       | gamma   | CV acc
-  ------+---------+---------+-------
-     16 |  0.9733 |  0.0660 | 0.9020
-     21 |  1.0325 |  0.0605 | 0.9020
-     18 |  8.3054 |  0.0141 | 0.9000
-     12 |  2.1265 |  0.1583 | 0.8980
-     17 |  0.6963 |  0.0603 | 0.8980
-  (top 5 of 30 trials shown)`}
-      </Callout>
-
-      <Callout type="insight">
-        Optuna's TPE sampler found the same region (C ≈ 1, gamma ≈ 0.06) as grid search but explored the continuous space rather than a discrete grid. The top five trials all cluster around C in [0.7, 8] and gamma in [0.01, 0.16] — the TPE model has correctly identified the promising neighborhood and is exploiting it. Trials 1–10 were near-random (warm-up); from trial 10 onward the sampler concentrated proposals in the high-value region.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. 5-fold CV iteration by iteration</H3>
-
-      <StepTrace
-        label="5-fold cross-validation on 25-example dataset"
-        steps={[
-          {
-            label: "Fold 1 of 5 — validate on examples 1–5",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="data assignment"
-                  tokens={[
-                    { label: "VAL: [1-5]", color: "#f87171" },
-                    { label: "TRAIN: [6-25]", color: colors.gold },
-                    { label: "acc=0.80", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  The model is trained on 20 examples (folds 2–5) and evaluated on the first 5. The validation score for this fold is 0.80. Training set = 80% of data, validation = 20%.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Fold 2 of 5 — validate on examples 6–10",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="data assignment"
-                  tokens={[
-                    { label: "TRAIN: [1-5, 11-25]", color: colors.gold },
-                    { label: "VAL: [6-10]", color: "#f87171" },
-                    { label: "acc=0.90", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  A completely fresh model is trained and evaluated. The previous fold's model is discarded. Fold 2 happens to contain easier examples; the score jumps to 0.90.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Fold 3 of 5 — validate on examples 11–15",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="data assignment"
-                  tokens={[
-                    { label: "TRAIN: [1-10, 16-25]", color: colors.gold },
-                    { label: "VAL: [11-15]", color: "#f87171" },
-                    { label: "acc=0.85", color: colors.textMuted },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Fold 4 of 5 — validate on examples 16–20",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="data assignment"
-                  tokens={[
-                    { label: "TRAIN: [1-15, 21-25]", color: colors.gold },
-                    { label: "VAL: [16-20]", color: "#f87171" },
-                    { label: "acc=0.90", color: colors.textMuted },
-                  ]}
-                />
-              </div>
-            ),
-          },
-          {
-            label: "Fold 5 of 5 — aggregate results",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="fold scores: [0.80, 0.90, 0.85, 0.90, 0.85]"
-                  tokens={[
-                    { label: "mean=0.86", color: colors.gold },
-                    { label: "std=0.04", color: colors.textMuted },
-                    { label: "95% CI ≈ [0.78, 0.94]", color: "#60a5fa" },
-                  ]}
-                />
-                <Prose>
-                  The CV estimate is 0.86 with a standard deviation of 0.04. Every example was used exactly once as a validation example. The confidence interval captures the real variance across folds — if this were a single holdout evaluation, you would not know whether your 0.86 was a lucky draw or a stable estimate.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. Grid search heatmap — C vs gamma for SVM</H3>
-
-      <Prose>
-        Mean CV accuracy (StratifiedKF-5) over a 5×5 grid of C and gamma values on the synthetic 500-sample classification dataset. Higher is better. The optimal region is C ≈ 1–10, gamma ≈ 0.01–0.1.
-      </Prose>
-
-      <Heatmap
-        label="Grid search CV accuracy — SVM (C × gamma)"
-        rowLabels={["C=0.01", "C=0.1", "C=1", "C=10", "C=100"]}
-        colLabels={["γ=0.001", "γ=0.01", "γ=0.1", "γ=scale", "γ=1.0"]}
-        matrix={[
-          [0.50, 0.50, 0.50, 0.72, 0.50],
-          [0.50, 0.72, 0.82, 0.86, 0.56],
-          [0.72, 0.86, 0.90, 0.91, 0.72],
-          [0.86, 0.90, 0.88, 0.90, 0.80],
-          [0.88, 0.89, 0.85, 0.90, 0.83],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6c. Bayesian optimization trajectory</H3>
-
-      <Plot
-        label="Optuna TPE: best CV accuracy found vs trial number"
-        xLabel="Trial number"
-        yLabel="Best CV accuracy so far"
-        series={[
-          {
-            name: "Bayesian (TPE)",
-            color: colors.gold,
-            points: [
-              [1, 0.876], [2, 0.876], [3, 0.886], [4, 0.886], [5, 0.886],
-              [6, 0.892], [7, 0.892], [8, 0.892], [9, 0.896], [10, 0.896],
-              [12, 0.896], [14, 0.900], [16, 0.902], [18, 0.902], [20, 0.902],
-              [22, 0.902], [25, 0.902], [28, 0.902], [30, 0.902],
-            ],
-          },
-          {
-            name: "Random search baseline",
-            color: "#94a3b8",
-            points: [
-              [1, 0.860], [3, 0.870], [5, 0.878], [8, 0.882], [10, 0.886],
-              [13, 0.888], [16, 0.890], [20, 0.892], [25, 0.894], [30, 0.896],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6d. Nested vs non-nested CV scores</H3>
-
-      <Plot
-        label="Nested CV (honest) vs non-nested CV (optimistic) — 5 outer folds"
-        xLabel="Outer fold"
-        yLabel="Accuracy"
-        series={[
-          {
-            name: "Nested CV (outer estimate)",
-            color: colors.gold,
-            points: [[1, 0.85], [2, 0.95], [3, 0.90], [4, 0.90], [5, 0.90]],
-          },
-          {
-            name: "Non-nested (naive inner CV score)",
-            color: "#f87171",
-            points: [[1, 0.885], [2, 0.885], [3, 0.885], [4, 0.885], [5, 0.885]],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 Which K to use</H3>
-
-      <Heatmap
-        label="CV strategy selection guide"
-        rowLabels={["K=5", "K=10", "LOOCV", "Repeated K-fold"]}
-        colLabels={["Bias", "Variance", "Compute cost", "Recommended for"]}
-        matrix={[
-          [0.3, 0.4, 0.2, 0.8],
-          [0.1, 0.5, 0.4, 1.0],
-          [0.0, 0.9, 1.0, 0.2],
-          [0.1, 0.2, 0.8, 0.7],
-        ]}
-        colorScale="purple"
-      />
-
-      <Prose>
-        The heatmap shows relative values (0=low, 1=high). <strong>K=10</strong> is the default recommendation: low bias, moderate variance, affordable compute. <strong>K=5</strong> is faster — preferred when training is expensive (e.g., tuning XGBoost on 1M rows) — at a small bias cost. <strong>LOOCV</strong> is best reserved for very small datasets (n {"<"} 50) where every example matters for training. <strong>Repeated K-fold</strong> (run K-fold multiple times with different random seeds and average) reduces variance further at the cost of more compute — useful when the dataset is small-to-medium and you need tight confidence intervals.
-      </Prose>
-
-      <H3>7.2 Which search strategy</H3>
-
-      <Prose>
-        <strong>Grid search:</strong> use when the search space is small ({"<"} 100 configurations) and discrete, or when you need exhaustive reproducible results. Avoid when you have {">"} 3 hyperparameters or continuous ranges.
-      </Prose>
-
-      <Prose>
-        <strong>Random search:</strong> the default choice. Use when you have 3+ hyperparameters, continuous ranges, or limited compute. Run at least 30–60 trials. Works well even when some hyperparameters are unimportant, because random search ignores unimportant dimensions automatically.
-      </Prose>
-
-      <Prose>
-        <strong>Bayesian optimization (Optuna/TPE):</strong> use when each trial is expensive (deep model, large dataset) and you want to minimize the total number of evaluations. Typically beats random search after 20–30 trials on problems with 3–8 meaningful hyperparameters. Has higher overhead per trial (surrogate fitting), so it can be slower than random search if each CV evaluation takes under 1 second.
-      </Prose>
-
-      <Prose>
-        <strong>HalvingGridSearchCV / Hyperband:</strong> use when you have a large grid ({">"} 20 configurations) and can make the resource (training examples or epochs) progressive. It eliminates bad configurations early and focuses compute on promising ones. Requires that model quality improves monotonically with more resources — usually true, but verify for your specific setting.
-      </Prose>
-
-      <H3>7.3 Which CV variant</H3>
-
-      <Prose>
-        <strong>Stratified K-fold:</strong> always use for classification. For regression, use plain K-fold.
-      </Prose>
-
-      <Prose>
-        <strong>GroupKFold / StratifiedGroupKFold:</strong> mandatory when examples are grouped (patients, users, sessions, documents from the same source). Evaluate group leakage risk before choosing a splitter — it is the most common source of unrealistically high CV scores in applied ML.
-      </Prose>
-
-      <Prose>
-        <strong>TimeSeriesSplit:</strong> mandatory for any temporal data. Never shuffle before splitting. Always ensure the validation window immediately follows the training window, with no gap that the production system would not have.
-      </Prose>
-
-      <Prose>
-        <strong>When a single split is fine:</strong> if your test set is very large ({">"} 100K examples), a single train/test split gives a variance-tight estimate. A/B testing in production is also a single split — but it is evaluated on a fresh stream of data that was generated after the model was deployed, which is the gold standard. The single-split problem is variance, not bias; large test sets fix variance directly.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8a. Compute cost analysis</H3>
-
-      <Prose>
-        K-fold CV costs exactly K times a single training run. For a dataset of n examples and a model with training cost O(f(n)), K-fold costs O(K · f(n)). For K=5 or K=10, this is rarely prohibitive. The problem arises when combining CV with hyperparameter search: grid search with G configurations and K-fold costs O(G · K · f(n)). A 100-configuration grid with 10-fold CV runs 1,000 training jobs. Nested CV with 5 outer folds, 3 inner folds, and 50 configurations costs 5 × 3 × 50 = 750 training jobs for the inner loop, plus 5 outer evaluations — roughly the same.
-      </Prose>
-
-      <Prose>
-        <strong>HalvingGridSearchCV</strong> breaks this linear scaling. With factor r and starting resources s_min, configurations are eliminated in rounds: after round 1, only 1/r survive; after round 2, only 1/r² survive. The total number of resource units consumed is approximately G · s_min · r/(r-1) — sublinear in G for large r. For r=3 and 25 configurations, you spend roughly 1.5x the cost of evaluating all 25 configurations at full budget, compared to 25x for grid search. The sklearn implementation confirmed 3 halving rounds for the 25-configuration grid.
-      </Prose>
-
-      <Prose>
-        <strong>Bayesian optimization</strong> costs O(T · K · f(n)) for T trials. The TPE surrogate fitting adds O(T²) overhead per trial — negligible when f(n) is expensive (minutes per run), but it means Optuna has higher per-trial overhead than random search for very cheap models. Use random search when individual CV evaluations take under 10 seconds; switch to Bayesian when they take minutes.
-      </Prose>
-
-      <H3>8b. Distributed CV</H3>
-
-      <Prose>
-        Sklearn's <Code>cross_val_score</Code> and <Code>GridSearchCV</Code> accept <Code>n_jobs=-1</Code> to parallelize across CPU cores via joblib. For large datasets that do not fit in memory across workers, use Dask-ML's <Code>dask_ml.model_selection.GridSearchCV</Code>, which distributes both data and compute. For cloud-scale hyperparameter search, Ray Tune wraps any sklearn-compatible model and distributes trials across a cluster, with built-in support for Bayesian search (Optuna backend) and early stopping (Hyperband scheduler). Optuna itself supports distributed optimization via a shared database backend — multiple workers read from and write to the same study, and the TPE sampler remains coherent across workers.
-      </Prose>
-
-      <H3>8c. Early stopping inside CV</H3>
-
-      <Prose>
-        For iterative models (gradient boosting, neural networks), the cost of each trial in the search is the number of boosting rounds times the per-round cost. Early stopping — stopping training when the validation metric stops improving — dramatically reduces this. Inside a hyperparameter search, each trial's CV fold acts as the validation set for early stopping. XGBoost, LightGBM, and CatBoost all support this natively via the <Code>eval_set</Code> and <Code>early_stopping_rounds</Code> parameters. A 1,000-round model that converges at round 200 saves 80% of compute per trial — a 5x reduction that is multiplicative with everything else.
-      </Prose>
-
-      <H3>8d. What does not scale</H3>
-
-      <Prose>
-        <strong>LOOCV on large datasets</strong> is simply infeasible. n=100,000 training runs is untenable. Use 10-fold instead; for n {">"} 10,000 the bias of 10-fold is negligible.
-      </Prose>
-
-      <Prose>
-        <strong>Nested CV on expensive models</strong> can be prohibitive. K_outer × K_inner × n_configs runs at 5 minutes each, with K_outer=5, K_inner=5, n_configs=50, totals 125 hours. The practical fix: use a small K_inner (3), use random search for the inner loop (30 trials), and accept that the outer estimate has wider confidence intervals than a full nested CV.
-      </Prose>
-
-      <Prose>
-        <strong>Bayesian search for very cheap models</strong> (training time {"<"} 1s) is slower than random search because surrogate fitting dominates. Profile first: if <Code>cross_val_score</Code> returns in under 5 seconds, stick with random search.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9a. Preprocessing applied before the split</H3>
-
-      <Prose>
-        The most common CV bug: fitting a scaler, imputer, or encoder on the full dataset before splitting into folds. The validation fold's statistics influence the scaler's parameters, so the model has seen information from the validation set during training — a form of data leakage. The CV score is optimistic. The fix is to always place preprocessing inside a Pipeline and let CV fit the pipeline on the training fold only. If you are using standalone preprocessing (e.g., <Code>StandardScaler().fit_transform(X)</Code> before anything else), you are leaking.
-      </Prose>
-
-      <H3>9b. Forgetting to fix random_state</H3>
-
-      <Prose>
-        Running <Code>cross_val_score</Code> twice with different <Code>random_state</Code> values produces different scores. When comparing two models, use identical folds — set the same <Code>random_state</Code> in the CV object and pass the same splitter to both. Otherwise you may attribute variance in CV outcomes to model differences when it is just fold randomness. In practice, fix <Code>random_state=42</Code> everywhere and report the mean ± std across folds.
-      </Prose>
-
-      <H3>9c. Shuffling temporal data</H3>
-
-      <Prose>
-        Standard KFold with <Code>shuffle=True</Code> on a time series allows the model to train on "future" examples and predict "past" ones. The leak is severe: a model trained on tomorrow's stock prices predicts yesterday's perfectly. CV scores can reach near-perfect accuracy on a problem that is inherently unpredictable. Always use <Code>TimeSeriesSplit</Code> for any data where the ordering in the DataFrame reflects time.
-      </Prose>
-
-      <H3>9d. Tuning on the test set</H3>
-
-      <Prose>
-        If you run CV to select hyperparameters, retrain on the full training set, evaluate on the test set, make a change, re-evaluate on the test set, and repeat — the test set has become a validation set. Its estimate of generalization is now optimistic. This is the "test set contamination" problem, and it is endemic in competitions and papers that report results after many rounds of iteration. The fix: designate a true holdout that you evaluate exactly once, at the very end. CV for development, holdout for the final honest number.
-      </Prose>
-
-      <H3>9e. Class imbalance breaking vanilla KFold</H3>
-
-      <Prose>
-        On a dataset with 1% positive rate, a fold of 100 examples is all-negative with probability {"(0.99)^{100}"} ≈ 0.37. Nearly one-third of folds will have no positive examples in the validation set, and the CV score will underestimate true performance on positive examples. Always use <Code>StratifiedKFold</Code> for classification tasks with imbalance above 5%.
-      </Prose>
-
-      <H3>9f. Reporting the inner CV score after model selection</H3>
-
-      <Prose>
-        Running GridSearchCV to select the best configuration, then reporting <Code>gs.best_score_</Code> as your model's expected test accuracy, is the winner's curse applied at scale. The best CV score in a search of 100 configurations is biased upward by at least 1–2 percentage points on typical problems. To report an honest estimate: use nested CV, or hold out a separate validation set that was not used during the search. The sklearn docs note this explicitly: <Code>best_score_</Code> is the mean cross-validated score of the best estimator, not an estimate of generalization on held-out data.
-      </Prose>
-
-      <H3>9g. Comparing many models without multiple testing correction</H3>
-
-      <Prose>
-        If you compare 20 models using the same 5-fold CV folds and pick the best one, you have run 20 statistical tests. At a 5% false positive rate, you expect one model to "win" purely by chance. If fold scores overlap substantially, the apparent winner may be statistically indistinguishable from second place. Use Dietterich's 5×2 CV test for paired model comparison, or apply Bonferroni correction to the significance threshold. At minimum, check whether confidence intervals across folds overlap before declaring one model better.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations were verified via WebSearch against primary publication venues.
-      </Prose>
-
-      <Prose>
-        <strong>Stone, M. (1974).</strong> "Cross-Validatory Choice and Assessment of Statistical Predictions." <em>Journal of the Royal Statistical Society Series B (Methodological)</em>, 36(2):111–147. DOI: 10.1111/j.2517-6161.1974.tb00994.x. The foundational paper establishing cross-validation as a principled criterion for model selection. Stone frames CV as choosing between competing statistical "prescriptions" and proves theoretical properties of the leave-one-out estimator.
-      </Prose>
-
-      <Prose>
-        <strong>Geisser, S. (1975).</strong> "The Predictive Sample Reuse Method with Applications." <em>Journal of the American Statistical Association</em>, 70(350):320–328. DOI: 10.1080/01621459.1975.10479865. Geisser's companion paper emphasizes prediction accuracy as the primary goal and introduces sample reuse (what we now call cross-validation) as a general tool for evaluating predictive performance with minimal distributional assumptions.
-      </Prose>
-
-      <Prose>
-        <strong>Kohavi, R. (1995).</strong> "A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection." <em>Proceedings of the 14th International Joint Conference on Artificial Intelligence (IJCAI '95)</em>, pp. 1137–1143. Available at ijcai.org. The definitive empirical comparison of CV variants. Over 500,000 runs on real datasets established that 10-fold stratified CV is the best general-purpose strategy, striking the right bias-variance balance for both accuracy estimation and model selection.
-      </Prose>
-
-      <Prose>
-        <strong>Bergstra, J., Bardenet, R., Bengio, Y., and Kégl, B. (2011).</strong> "Algorithms for Hyper-Parameter Optimization." <em>Advances in Neural Information Processing Systems 24 (NeurIPS 2011)</em>, pp. 2546–2554. The paper introducing the Tree Parzen Estimator (TPE) — the algorithm that powers Optuna's default sampler. TPE models the density of good and bad configurations separately and proposes configurations that maximize their likelihood ratio.
-      </Prose>
-
-      <Prose>
-        <strong>Bergstra, J. and Bengio, Y. (2012).</strong> "Random Search for Hyper-Parameter Optimization." <em>Journal of Machine Learning Research</em>, 13:281–305. Available at jmlr.org/papers/v13/bergstra12a.html. The theoretical and empirical case for random over grid search. Proves that random search achieves {"ε"}-optimal performance in {"O(1/ε)"} trials independent of the number of unimportant hyperparameters, and shows 20–60 random trials match grid search in practice.
-      </Prose>
-
-      <Prose>
-        <strong>Li, L., Jamieson, K., DeSalvo, G., Rostamizadeh, A., and Talwalkar, A. (2017).</strong> "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization." <em>Journal of Machine Learning Research</em>, 18(1):6765–6816. Available at jmlr.org/papers/v18/16-558.html. Introduces Hyperband, the successive halving algorithm that underlies sklearn's HalvingGridSearchCV. Frames hyperparameter search as a pure-exploration bandit problem and proves Hyperband achieves over an order-of-magnitude speedup over random search on deep learning benchmarks.
-      </Prose>
-
-      <Prose>
-        <strong>Akiba, T., Sano, S., Yanase, T., Ohta, T., and Koyama, M. (2019).</strong> "Optuna: A Next-generation Hyperparameter Optimization Framework." <em>Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '19)</em>, pp. 2623–2631. arXiv:1907.10902. Introduces Optuna's define-by-run API, which allows dynamic search space construction, and describes the efficient TPE and pruning implementations that make it the dominant Bayesian HPO library in production ML systems.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1 (Recall)</H3>
-      <Prose>
-        Explain why LOOCV has low bias but high variance. Why does increasing K from 5 to n (LOOCV) not reduce variance the way increasing sample size reduces variance in ordinary statistics?
-      </Prose>
-      <Callout type="answer">
-        LOOCV has low bias because each model trains on n-1 examples — nearly the full dataset — so the training set size is very close to the test condition. Variance is high because the n leave-one-out training sets differ by only one example: every pair of training sets shares n-2 examples. The n validation scores are therefore strongly correlated ({"ρ → 1"}). The variance of an average of m variables with correlation ρ and individual variance {"σ²"} is {"σ²(1 + (m-1)ρ)/m"}. When ρ approaches 1, this collapses to {"σ²"} — no reduction from averaging. In ordinary statistics, increasing sample size reduces variance because more data yields more independent information. In LOOCV, more folds means more correlated models, not more independent information.
-      </Callout>
-
-      <H3>Exercise 2 (Conceptual)</H3>
-      <Prose>
-        You have a medical dataset with records from 200 patients, each contributing 10 time-stamped clinical measurements. You want to predict hospital readmission. Which CV splitter should you use, and why would both plain KFold and TimeSeriesSplit be wrong?
-      </Prose>
-      <Callout type="answer">
-        Use <Code>StratifiedGroupKFold</Code> (or at minimum GroupKFold) with patient ID as the group. Plain KFold is wrong because it can split a patient's records across train and validation: the model learns patient-specific patterns (demographics, chronic conditions) that perfectly predict that patient's future records, inflating CV accuracy. TimeSeriesSplit is wrong because it only handles temporal ordering but ignores the grouping: it would still allow the same patient's early records in training and later records in validation, causing the same leakage. The correct approach ensures all records from a given patient appear in exactly one fold, so the validation set tests generalization to patients the model has never seen.
-      </Callout>
-
-      <H3>Exercise 3 (Applied)</H3>
-      <Prose>
-        Your colleague runs <Code>GridSearchCV</Code> over a 10×10 hyperparameter grid and reports <Code>gs.best_score_ = 0.923</Code> as the model's expected test accuracy. What is wrong with this report and how would you fix it?
-      </Prose>
-      <Callout type="answer">
-        The colleague is reporting the winner's curse: the best score in 100 CV evaluations is biased upward by selection. The true expected test accuracy is lower because you have implicitly performed 100 hypothesis tests and picked the most favorable outcome. The fix: (1) use nested cross-validation — run an outer CV loop that holds out data from all selection decisions; the outer fold scores are an unbiased estimate of generalization; or (2) designate a separate held-out test set before any model selection, use GridSearchCV on the training portion only, and evaluate <Code>gs.best_estimator_</Code> on the held-out test set exactly once. Never report <Code>best_score_</Code> as a generalization estimate; it is a training artifact.
-      </Callout>
-
-      <H3>Exercise 4 (Applied)</H3>
-      <Prose>
-        You are training a gradient boosted tree on a dataset with 500,000 rows and 50 hyperparameters to tune. 5-fold CV on the full dataset takes 20 minutes per configuration. You have a 4-hour compute budget. How do you spend it?
-      </Prose>
-      <Callout type="answer">
-        4 hours = 240 minutes. At 20 minutes per configuration, you can afford 12 full-grid evaluations. Spending all 12 on random search with 5-fold CV is a poor use: random search benefits from more trials. Better strategies: (1) Use HalvingRandomSearchCV with factor=3 — start 60 configurations on 1/9 of the data ({"~"} 2 min each, 120 min total for round 1), advance 20 to 1/3 of data ({"~"} 7 min each, 140 min for round 2). That's 260 min for 80 configurations vs 240 min for 12 — significant improvement within budget. (2) Use Optuna with early stopping inside each trial: configure LightGBM or XGBoost with 1,000 trees and early stopping at 20 rounds; most trials terminate in {"<"} 5 minutes, giving you 40+ trials in the budget. (3) Combine: use Optuna with the Hyperband pruner to cut off unpromising trials early, maximizing the number of configurations evaluated.
-      </Callout>
-
-      <H3>Exercise 5 (Debugging)</H3>
-      <Prose>
-        You get CV accuracy of 97% but test set accuracy of 71% on a tabular classification problem. List three likely causes and a concrete fix for each.
-      </Prose>
-      <Callout type="answer">
-        {"(1) Preprocessing leakage: a StandardScaler, TargetEncoder, or imputer was fitted on the full dataset before CV splits, so validation folds are contaminated. Fix: wrap all preprocessing in a sklearn Pipeline object and pass the pipeline to cross_val_score — sklearn will refit the preprocessor on each training fold independently. (2) Group leakage: examples are not i.i.d. (e.g., duplicate rows, same entity appearing multiple times, temporal proximity). Plain KFold splits correlated examples into both train and val, the model memorizes the correlation, and the high CV score does not reflect genuine generalization. Fix: identify the grouping structure (use pandas duplicated() and groupby to audit), then switch to GroupKFold or StratifiedGroupKFold. (3) Target leakage in features: a column directly or indirectly encodes the label (e.g., a status code set at the same time as the outcome, or a computed field that uses future information). The model finds a trivially predictive feature during CV, but that feature is not available at prediction time on new data. Fix: audit feature provenance — for each column, ask when it would be available relative to the prediction point. Drop any feature computed after the prediction event."}
-      </Callout>
-
-      <H3>Exercise 6 (Math)</H3>
-      <Prose>
-        A random search runs 60 independent trials, each drawing a configuration uniformly from a hyperparameter space. If the optimal region covers 5% of the space, what is the probability that at least one trial lands in that region? Compare to the probability for 20 trials. What does this imply about the rule of thumb of running at least 60 random search trials?
-      </Prose>
-      <Callout type="answer">
-        {"For 60 trials: P(at least one hit) = 1 - (1 - 0.05)^{60} = 1 - 0.95^{60} ≈ 1 - 0.0461 ≈ 0.954. For 20 trials: P = 1 - 0.95^{20} ≈ 1 - 0.358 ≈ 0.642. With 60 trials you have a 95.4% chance of finding at least one configuration in the optimal 5% region; with 20 trials only 64.2%. The 60-trial rule of thumb (from Bergstra & Bengio 2012) targets exactly this 95% coverage probability for a 5% optimal region. If the true optimal region is smaller — say 1% — then 60 trials gives only 1 - 0.99^{60} ≈ 45%, and you would need roughly 300 trials for 95% coverage. The practical implication: for complex models with many hyperparameters where the optimal region may be very small, switch to Bayesian optimization, which exploits structure to find the optimal region more efficiently than uniform random sampling."}
-      </Callout>
-
-    </div>
-  ),
+    </Practice>
+
+    {/* ============================== 11 ============================== */}
+    <H2>{headings[10]}</H2>
+    <Prose>
+      You are ready to continue when you can build a complete fold assignment, identify what each score was allowed to influence, place learned
+      preprocessing inside that assignment, select a split matching a concrete future use, and explain why a selected inner score differs from
+      protected assessment evidence. You do not need to memorize a preferred number of folds or implement a Bayesian optimizer to demonstrate
+      those core skills.
+    </Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Build a fold assignment in which every row is assessed exactly once', 'Section 2, the fold-building investigation, practice 2'],
+      ['Say which rows a score was allowed to see before it was read', 'Section 1, the loop figure, the nested investigation'],
+      ['Keep every learned transformation inside the fold that fitted it', 'Sections 2 and 6, the penguin program'],
+      ['Choose a split from a concrete future use, including groups and time', 'Section 3, its figure, practice 3'],
+      ['Explain why a selected inner score differs from protected evidence', 'Sections 4 and 6, the selection investigation, practice 5'],
+      ['Separate sampling mass from score proximity, and hindsight from decision', 'Sections 5 and 8, practices 7 and 9'],
+    ]} />
+    <Prose>
+      The next topic is <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization: L1, L2, Elastic Net &amp; Dropout</a>.
+      It asks what a penalty changes about a fitted model. This lesson supplies the procedure for choosing penalty strength without confusing the
+      score that selected it with an untouched assessment. Later{' '}
+      <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">feature selection</a> and{' '}
+      <a href="/learn/path/full-curriculum/automl-as-meta-learning?module=classical-ml">AutoML</a> reuse the same boundary around increasingly
+      broad choices.
+    </Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">Scikit-learn cross-validation guide</a>: current splitters, multiple metrics, prediction-table contracts and structured-data choices. Use its diagrams to inspect what a splitter actually assigns, then check that assignment against your task.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_cv_indices.html">Visualizing cross-validation behavior</a>: an inspected visual and code alternative showing class, group and training/test stripes together. Compare <Code>KFold</Code>, <Code>GroupKFold</Code> and <Code>TimeSeriesSplit</Code>; explain the different information boundaries before changing a model.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/grid_search.html">Scikit-learn parameter-search guide</a>: grids, random distributions, halving schedules, nested parameter names and selection/assessment separation. Its result fields are useful for making a reproducible search record.</li>
+    </ul></>}>
+      <li><a href="https://www.jmlr.org/papers/volume11/cawley10a/cawley10a.pdf">Cawley and Talbot, <em>On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation</em></a>: primary study of overfitting the criterion used to choose a model. Read its contrast between expected and particular-sample selection curves; do not copy its benchmark magnitudes as universal effects.</li>
+      <li><a href="https://www.jmlr.org/papers/volume5/grandvalet04a/grandvalet04a.pdf">Bengio and Grandvalet, <em>No Unbiased Estimator of the Variance of K-Fold Cross-Validation</em></a>: deeper primary reading on the distinction between a fitted model&rsquo;s prediction error and error averaged over training samples, and on dependence in CV uncertainty.</li>
+      <li><a href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Bergstra and Bengio, <em>Random Search for Hyper-Parameter Optimization</em></a>: the coordinate-projection argument and original experiments motivating random search as a strong baseline.</li>
+      <li><a href="https://papers.nips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf">Bergstra and colleagues, <em>Algorithms for Hyper-Parameter Optimization</em></a>: sequential model-based search, expected improvement and the original TPE derivation. Read sections 2&ndash;4 after the acquisition example rather than treating their notation as a first exposure.</li>
+      <li><a href="https://www.jmlr.org/papers/volume18/16-558/16-558.pdf">Li and colleagues, <em>Hyperband</em></a>: sections 3.1&ndash;3.2 show why one halving bracket and Hyperband are different, and why early resource allocation can eliminate a slow starter.</li>
+      <li><a href="https://link.springer.com/content/pdf/bfm:978-0-387-84858-7/1">Elements of Statistical Learning front matter</a>: the chapter-7 section list used to place the optimism, bootstrap and conditional-versus-expected-error branches. A section map only; the derivations are not in the front matter.</li>
+      <li><a href="https://optuna.readthedocs.io/en/stable/reference/samplers/generated/optuna.samplers.TPESampler.html">Optuna TPESampler documentation</a>: startup trials, sampler seeding and current sampling semantics for the optional adaptive program.</li>
+      <li><a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins project</a>, released <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>: the real input and measurement context used in the worked program. Credit Allison Horst, Alison Hill and Kristen Gorman, and the original Palmer Station measurements by Gorman and colleagues. The <a href={PENGUIN_SOURCE.provenance}>accompanying provenance note</a> preserves the license, byte hash and exact experimental split; the original measurement context differs from our instructional species-classification task.</li>
+    </Sources>
+    <Prose>
+      The seven-row splitter, the four fair-label cases, the sixteen-row nested fixture, the coverage draws, the mean-predictor curves, the
+      acquisition beliefs and the halving trajectories are constructed fixtures with declared inputs. The penguin results are calculations on the
+      identified real dataset under one seed pair, one candidate grid and one declared tie rule. None of them is a benchmark, a guarantee about
+      an oracle-best setting, or a claim about any future dataset or deployment.
+    </Prose>
+  </div>
 };
 
 export default crossValidationContent;

@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-09-14T16:51:22.434569+00:00",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1"
+  },
+  "datasetSha256": "74c75fd71783f1e6b71f8a622b993dc592897a97cd689c5090a07147a1b097b3",
+  "datasetBytes": 59984,
+  "rows": 1503,
+  "split": {
+    "development": 1200,
+    "reserved": 303
+  },
+  "fits": {
+    "candidates": 54,
+    "ols": 3,
+    "selectedRefits": 3,
+    "total": 60
+  },
+  "warnings": [],
+  "baselineMeanMse": 45.07276795952708,
+  "olsMeanMse": 17.350267682769694,
+  "selected": [
+    [
+      "ridge",
+      0.001,
+      17.31563445442561,
+      20
+    ],
+    [
+      "lasso",
+      0.001,
+      17.33540864075174,
+      20
+    ],
+    [
+      "elastic_net",
+      0.001,
+      17.325484332602972,
+      20
+    ]
+  ],
+  "reservedPredictionsComputed": false,
+  "scope": "Refitted the full 60-fit campaign from the supplied tab-separated .dat, matched the split, the fold memberships, every fold MSE, training MSE, coefficient vector, nonzero count and intercept, the three selected refits and the inference fixture against the content packet's calculated-inputs.json, then generated src/learn/data/regularization-data.js and served the unchanged data file.",
+  "limitations": [
+    "One row-level split of one collection; related experimental settings are not independent runs.",
+    "Development selection scores only; no reserved row was predicted or scored.",
+    "Numerical fitting can differ on other library versions."
+  ],
+  "passed": true
+}

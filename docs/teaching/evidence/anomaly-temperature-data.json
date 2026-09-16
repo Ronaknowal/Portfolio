@@ -1,0 +1,33 @@
+{
+  "verifiedAt": "2026-09-13T13:59:38.259776+00:00",
+  "stage": "native data derivation for the browser lesson; independent and browser review are separate",
+  "generator": "scripts/verify-anomaly-temperature-data.py",
+  "generatorHash": "91764699def41657e904b29b35d7acadfc64e08982fc0e71df86e08ddd485645",
+  "module": "src/learn/data/anomaly-temperature-data.js",
+  "moduleHash": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+  "moduleBytes": 305539,
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1"
+  },
+  "sourceHashes": {
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/machine_temperature_system_failure.csv": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-event-windows.json": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/nab-derived-scores.csv": "ae1222f93dc6c5098a8e97c2e402c2ca4c59594cc9ed3f4e4cef02efebb80cc6",
+    "docs/teaching/drafts/anomaly-outlier-detection-isolation-forest-one-class-svm-lof/NAB-LICENSE.txt": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3"
+  },
+  "checks": [
+    "Refitted every detector from the raw CSV and matched the packet's 21,786 recorded scores within 1e-9.",
+    "Row counts 885/1152/20634 and window membership 2268/18366 reproduced.",
+    "All retained feature rows are exactly five minutes apart, so derived timestamps are exact.",
+    "The manuscript's eight published 0.95/0.99 rows and the specification's four 0.975 rows reproduced exactly.",
+    "116 reachable calibration-quantile thresholds and 242 direct threshold levels per method (240 midpoints between consecutive distinct scores plus the two bounds) carry exact native counts."
+  ],
+  "limits": [
+    "Outside-window alerts are unmatched workload, not verified false positives.",
+    "One fixed retrospective chronology; no NAB official scoring, onset timing or early-warning claim.",
+    "Overview bins are a drawing summary; every published count comes from all 20,634 test rows."
+  ],
+  "passed": true
+}

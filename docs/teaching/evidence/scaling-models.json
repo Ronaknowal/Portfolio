@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-09-14T17:21:08.244Z",
+  "sourceHashes": {
+    "src/learn/data/scaling-models.js": "2016b0426dad0a3c76da8a04dd88ccee56a78c9f75bf81b029007552d56c9d2c",
+    "src/learn/data/scaling-data.js": "1f0bc9e1ae81883aa0bccbd0ee3daa1140ce9f87b5847203f1da82efdbf93c04",
+    "src/learn/data/scaling-examples.js": "0ef4de579fe7b3a38a15d10dbc8e6f8265081d6f13a82894cd5d91140aefd2ef",
+    "src/learn/components/lesson-labs/ScalingShared.jsx": "2560e271b1e92d9557b08f174b07989d24efb94903304f12cc4dd939c9de19d6",
+    "src/learn/components/lesson-labs/ScalingLabs.jsx": "c9682e0a70ccb4e8411e231a2446ee24d2e25dd1b2eb436efbef96d2710e7534",
+    "src/learn/components/lesson-labs/ScalingFigures.jsx": "3b32bab8f9375e9786301c85c3f6c14ef1ad1f9f2d110e41b80f082aff822723",
+    "src/learn/components/lesson-labs/scaling-labs.css": "aa9ad22ed790347b211c38f8690416dc91c02afc82e5fc686786abce835b6a22",
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "22b7fc178c0664a7d87d881d42997f908470c67dffbd25eb3e62f5db8cc43dcb",
+    "src/learn/data/curriculum/blueprints/feature-scaling-encoding-imputation.js": "8b87cdc8f5f49cdd7036c63f7f56016e97dabfd2006413e77151010b061310b6",
+    "public/learn-assets/feature-scaling/penguins.csv": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93"
+  },
+  "verifierHash": "6d21caabdc6858eddfa558b896af09854e7b7dbb4c6e09ccf9431f7ae04f7b18",
+  "counts": {
+    "five-value scaler fixture": 3,
+    "practice 2 fitted-once values": 1,
+    "scaler identities and validation": 1,
+    "practice 1 ruler flip": 1,
+    "distance under a chosen ruler": 1,
+    "practice 3 discarded magnitude": 1,
+    "row normalization": 1,
+    "practice 4 unknown against a fitted vocabulary": 1,
+    "one-hot geometry and the three category states": 1,
+    "practice 5 changed donors": 1,
+    "nan-aware donor eligibility": 1,
+    "the fitted preparation reproduces all 86 transformed held-out rows": 1,
+    "practice 6 a real record with a deleted measurement": 1,
+    "the fit/transform boundary in code": 1,
+    "minmax ruler refitted from the training rows": 1,
+    "robust ruler refitted from the training rows": 1,
+    "practice 7 prior-mediated change": 1,
+    "cross-fitted target encoding": 1,
+    "signed feature hashing": 1,
+    "practice 8 Yeo–Johnson branches": 1,
+    "nonlinear, rank and circular representations": 1,
+    "practice 9 pooling four analyses": 1,
+    "multiple-imputation pooling": 1,
+    "generated data module structure": 1,
+    "displayed programs": 1
+  },
+  "totalGroupedChecks": 27,
+  "scope": "Browser preparation models against the content phase’s recorded calculations, the manuscript’s worked values and independent identities: the three fitted rulers on the five-value column and the later 150, the Q/A/B distance fixture with its contrast and both nulls, row normalization, one-hot geometry with a dropped reference and an unknown block, nan-aware donor eligibility including the tie, fallback and absent-column cases, a complete refit of the mixed-column preparation from the 258 training rows that reproduces all 86 transformed held-out rows and disagrees with a fit over all 344, cross-fitted target encoding with its own-target null and prior-mediated contrast, signed hashing collisions, the Yeo–Johnson branches, the rank-versus-log contrast, Rubin pooling, and the generated data module’s structure, counts and provenance hash.",
+  "limitations": [
+    "The penguin comparison counts are precomputed native fits; the browser reproduces the fitted preparation and the transformed rows, not the neighbour classification.",
+    "Displayed program output is executed separately by scripts/verify-scaling-examples.py.",
+    "Rendering, interaction and independent review are separate steps."
+  ],
+  "passed": true
+}

@@ -1,0 +1,117 @@
+{
+  "date": "2026-09-13",
+  "phase": "author content checks only",
+  "inline_program_output": "0.150000\n-0.364286\n0.443023\n",
+  "data_hashes": {
+    "optdigits.tra": "e1b683cc211604fe8fd8c4417e6a69f31380e0c61d4af22e93cc21e9257ffedd",
+    "optdigits.tes": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+    "optdigits.names": "3e82f7202d72a2b7dbdbc324c8c90fe8853164f5d6ab978a071357ad3de89f02"
+  },
+  "feature_rows_unique": 5620,
+  "fit_rows": 1000,
+  "validation_rows": 300,
+  "test_rows": 1797,
+  "role_overlap": 0,
+  "saved_models": [
+    {
+      "model": "lstm",
+      "seed": 19,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 4138,
+      "confusions_reconciled": true
+    },
+    {
+      "model": "lstm",
+      "seed": 43,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 4138,
+      "confusions_reconciled": true
+    },
+    {
+      "model": "slstm",
+      "seed": 19,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 4074,
+      "confusions_reconciled": true
+    },
+    {
+      "model": "slstm",
+      "seed": 43,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 4074,
+      "confusions_reconciled": true
+    },
+    {
+      "model": "mlstm",
+      "seed": 19,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 2828,
+      "confusions_reconciled": true
+    },
+    {
+      "model": "mlstm",
+      "seed": 43,
+      "saved_logit_maximum_error": 0.0,
+      "parameters": 2828,
+      "confusions_reconciled": true
+    }
+  ],
+  "routes": [
+    {
+      "id": "modern-hopfield-networks",
+      "tracks": [
+        "deep-learning-fundamentals"
+      ]
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "tracks": [
+        "deep-learning-fundamentals"
+      ]
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "tracks": [
+        "deep-learning-fundamentals"
+      ]
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "tracks": [
+        "deep-learning-fundamentals"
+      ]
+    }
+  ],
+  "figures": [
+    "X01",
+    "X02",
+    "X03",
+    "X04",
+    "X05",
+    "X06",
+    "X07",
+    "X08",
+    "X09",
+    "X10",
+    "X11",
+    "X12",
+    "X13",
+    "X14",
+    "X15",
+    "X16",
+    "X17",
+    "X18",
+    "X19",
+    "X20"
+  ],
+  "investigations": [
+    "XA",
+    "XB",
+    "XC",
+    "XD"
+  ],
+  "closed_practice_details": 20,
+  "original_source_sha256": "d9594e806e11b12e8eedbd763c141da9b36bf9067a4ef82e986e80ee80f9b995",
+  "known_mathematical_fixtures_checked": true,
+  "implementation_or_browser_checks": false
+}

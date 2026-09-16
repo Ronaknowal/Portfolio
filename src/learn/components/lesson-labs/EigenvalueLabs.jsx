@@ -54,7 +54,7 @@ function CoordinatePlot({
       value,
       label,
       projected
-    }, index) => <g key={index}><circle cx={screen(value)[0]} cy={screen(value)[1]} r={projected ? 4 : 5} fill={projected ? 'none' : colors.gold} stroke={projected ? colors.green : colors.gold} strokeWidth="2" /><title>{label}: {pair(value)}</title>{!projected && <text x={screen(value)[0] + 8} y={screen(value)[1] - 7}>{label}</text>}</g>)}
+    }, index) => <g key={index}><circle cx={screen(value)[0]} cy={screen(value)[1]} r={projected ? 4 : 5} fill={projected ? 'none' : colors.gold} stroke={projected ? colors.green : colors.gold} strokeWidth="2" /><title>{label}: {pair(value)}</title>{!projected && <text x={screen(value)[0] + (value[0] < 0 ? -8 : 8)} y={screen(value)[1] - 7} textAnchor={value[0] < 0 ? 'end' : 'start'}>{label}</text>}</g>)}
   </svg>;
 }
 function AngleControl({

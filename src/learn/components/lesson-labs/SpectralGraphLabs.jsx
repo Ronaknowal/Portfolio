@@ -104,9 +104,10 @@ function EmbeddingPlot({
         {frame.labels && <line x1={px(point[1])} y1={py(point[2])} x2={px(frame.centroids[frame.labels[i]][1])} y2={py(frame.centroids[frame.labels[i]][2])} stroke={colors[frame.labels[i]]} strokeOpacity="0.45" />}
         <circle cx={px(point[1])} cy={py(point[2])} r={i === selected ? 7 : 4} fill={frame.labels ? colors[frame.labels[i]] : '#e2b55a'} stroke={i === selected ? '#fff' : 'none'} />
       </g>)}
-      {groups.map((group, i) => <text key={i} x={px(group.point[1])} y={py(group.point[2]) + (group.point[2] > 0 ? -17 : 22)} textAnchor="middle">{group.nodes.map(node => spectralNames[node]).join(' ')}</text>)}
-      {frame.centroids.map((point, i) => <g key={i}><rect x={px(point[1]) - 7} y={py(point[2]) - 7} width="14" height="14" fill="none" stroke={colors[i]} strokeWidth="2" /><text x={px(point[1]) + 12} y={py(point[2]) + 4} fill={colors[i]}>c{i + 1}</text></g>)}
+      {groups.map((group, i) => <text className="spectral-group-label" key={i} x={px(group.point[1])} y={py(group.point[2]) + (group.point[2] > 0 ? -17 : 22)} textAnchor="middle">{group.nodes.map(node => spectralNames[node]).join(' ')}</text>)}
+      {frame.centroids.map((point, i) => <g key={i}><title>Centroid c{i + 1}: coordinates {fmt(point[1], 3)}, {fmt(point[2], 3)}</title><rect x={px(point[1]) - 7} y={py(point[2]) - 7} width="14" height="14" fill="none" stroke={colors[i]} strokeWidth="2" /></g>)}
     </svg>
+    <div className="spectral-centroid-key" aria-label="Square centroid markers and their plotted coordinates">{frame.centroids.map((point, i) => <span key={i}><i style={{ borderColor: colors[i] }} aria-hidden="true" />c{i + 1}: ({fmt(point[1], 3)}, {fmt(point[2], 3)})</span>)}</div>
   </div>;
 }
 export function SpectralEmbeddingLab() {

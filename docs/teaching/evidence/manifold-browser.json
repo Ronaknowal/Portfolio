@@ -1,0 +1,1024 @@
+{
+  "checkedAt": "2026-09-16T15:33:24.589Z",
+  "status": "passed",
+  "sources": {
+    "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "5a149b1cea182600d624492d9b252fa89aa9b35046197980505d781caacfff85",
+    "src/learn/data/manifold-models.js": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+    "src/learn/data/manifold-data.js": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0",
+    "src/learn/data/manifold-examples.js": "5896f48a0c7c2d2741b6fac101cb61d3f9d7b1a1b5cd6920c20bf47addcdf9c2",
+    "src/learn/components/lesson-labs/ManifoldLabs.jsx": "c9d573d804a2e4239c0a051fd385d62f4b7bd28c4cee02d2616203e4576b4724",
+    "src/learn/components/lesson-labs/ManifoldShared.jsx": "15a9068b37671c3417dab6beb5f09b2f87cd4c8ce0161e378279a34745de1a80",
+    "src/learn/components/lesson-labs/ManifoldFigures.jsx": "d95fdffdbd8b3c2021e7faa6f70ee74ce94360a32244a55b7d808c84c63218f3",
+    "src/index.css": "a50ed1ce6bb3ac8f4778d9cc93ccfba8a5e5cf3cb45022f556ed2060297527ed",
+    "src/learn/data/curriculum/blueprints/t-sne-umap-manifold-learning.js": "ee6b16800062dc105982f49a4d1ee7fb05f1b3abac3c8e794fa1a3574d0d2f83",
+    "src/learn/components/lesson-labs/manifold-labs.css": "cd5c02c73d62f1d180c64963735b83e21c2a3b37b814142919e7be67494413fc",
+    "src/learn/components/lesson-labs/manifold-figures.css": "c3ae1be13d6c7cd29b0786766e6398318b74d33b19e53602158e60dc3f1a3402",
+    "src/learn/components/lesson-labs/manifold-lesson.css": "0746ee996a6659b591b379512d12d2ac439e31e8af3291afccce499522a4c4ea"
+  },
+  "buildHash": "8656f4902bf5a6159d7f2e43f2394041b9b5079e3d219f8b1b414858243d8623",
+  "records": [
+    "13 complete sections,9 inline figures,4 complete programs,4 labs,7 closed hint/solution pairs,assets and module sequence",
+    "Graph shorter/null/disconnected/reconnected,arbitrary coordinate edit,invalid draft preserves applied route,and undo",
+    "Affinity changed-bandwidth effect,equal-distance entropy null,and round-trip edit invalidates committed prediction",
+    "Near-saturation probability and entropy comparisons expose their graded difference rather than printing1→1",
+    "Fuzzy estimates atboth inclusive0.005 boundaries accepted;neighboring0.006 errors rejected",
+    "Fuzzy union0.625,support-null,changed scale,union1 boundary,and ideal-pair cost/reflection null",
+    "Real source30 local ranking reversal,PCA-init seed null,query/k/map invalidate reveal,40-tile bound,300-source keyboard alternative",
+    "1366/768/390/320 layout inspection,desktop/narrow informative captures,200% zoom equivalent,and display-only tabs preserve answers",
+    "Only active lesson body loaded;completion persists;revisit module cache reused;no render errors",
+    "Failed body import shows recovery UI and disables completion;retry/reload restores the lesson",
+    "Shared reader min-width repair checked on unchanged PCA and GMM bodies at1366/780/390"
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/screenshots/manifold-near-saturation-comparison.png",
+    "docs/teaching/evidence/screenshots/manifold-graph-1366.png",
+    "docs/teaching/evidence/screenshots/manifold-probability-1366.png",
+    "docs/teaching/evidence/screenshots/manifold-fuzzy-1366.png",
+    "docs/teaching/evidence/screenshots/manifold-digits-1366.png",
+    "docs/teaching/evidence/screenshots/manifold-graph-390.png",
+    "docs/teaching/evidence/screenshots/manifold-probability-390.png",
+    "docs/teaching/evidence/screenshots/manifold-fuzzy-390.png",
+    "docs/teaching/evidence/screenshots/manifold-digits-390.png",
+    "docs/teaching/evidence/screenshots/manifold-digits-map-390.png",
+    "docs/teaching/evidence/screenshots/manifold-digits-input-neighbors-390.png",
+    "docs/teaching/evidence/screenshots/manifold-digits-map-neighbors-390.png",
+    "docs/teaching/evidence/screenshots/manifold-graph-zoom.png"
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+          "labelCount": 20,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+          "labelCount": 14,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Applied graph · ε 1",
+          "labelCount": 13,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "A",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "G",
+              "lineClass": "mf-graph-edge is-route"
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 9,
+          "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 14,
+          "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "Ideal pair cost. Applied r 1, cost 0.69315.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "PCA · two components",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 20,
+          "description": "t-SNE · p30, PCA init, seed 7",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 27,
+          "description": "PCA reference map",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "t-SNE · perplexity 30 · PCA init · seed 19",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 31,
+          "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 34,
+          "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 35,
+          "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 38,
+          "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 39,
+          "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 40,
+          "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 41,
+          "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 42,
+          "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 43,
+          "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+          "labelCount": 4,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+          "labelCount": 20,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+          "labelCount": 14,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Applied graph · ε 1",
+          "labelCount": 13,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "A",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "G",
+              "lineClass": "mf-graph-edge is-route"
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 9,
+          "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 14,
+          "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "Ideal pair cost. Applied r 1, cost 0.69315.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "PCA · two components",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "t-SNE · perplexity 30 · PCA init · seed 19",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 51,
+          "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 54,
+          "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 55,
+          "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 58,
+          "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 59,
+          "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 60,
+          "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 61,
+          "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 62,
+          "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 63,
+          "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+          "labelCount": 4,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+          "labelCount": 20,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+          "labelCount": 14,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Applied graph · ε 1",
+          "labelCount": 13,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "A",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "G",
+              "lineClass": "mf-graph-edge is-route"
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 9,
+          "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 14,
+          "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "Ideal pair cost. Applied r 1, cost 0.69315.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "PCA · two components",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "t-SNE · perplexity 30 · PCA init · seed 19",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 51,
+          "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 54,
+          "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 55,
+          "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 58,
+          "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 59,
+          "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 60,
+          "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 61,
+          "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 62,
+          "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 63,
+          "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+          "labelCount": 4,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "A at 0,0; B at 0,1; C at 0,2; D at 1,2; E at 2,2; F at 2,1; G at 2,0. Six solid edges each have length 1. Dashed A to G has length 2. Both axes have the same scale.",
+          "labelCount": 20,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Cumulative path distances are A 0, B 1, C 2, D 3, E 4, F 5, G 6. A to G takes 6 units.",
+          "labelCount": 14,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Applied graph · ε 1",
+          "labelCount": 13,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "A",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route is-selected"
+            },
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "C",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "D",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "E",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "F",
+              "lineClass": "mf-graph-edge is-route"
+            },
+            {
+              "type": "line-through-label",
+              "label": "G",
+              "lineClass": "mf-graph-edge is-route"
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Original input line. Positions A 0, B 1, C 3, D 7. A and B select each other; C to B; D to C.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 4,
+          "description": "Constructed proposed map. Positions A 0, B 5, C 1, D 11. A and C select each other; B to C; D to B.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Source i at distance 0; candidates B, C and D are at distances 1, 2 and 3 from i. This is one distance row, not a complete point configuration.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 6,
+          "description": "A due to B · attraction: signed negative-gradient contribution 0.06500125249014937. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 7,
+          "description": "A due to C · attraction: signed negative-gradient contribution 0.031117664459622385. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 8,
+          "description": "A due to D · repulsion: signed negative-gradient contribution -0.018334306124923767. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 9,
+          "description": "Sum: A’s negative gradient: signed negative-gradient contribution 0.077784610824848. Shared axis from minus 0.025 to plus 0.085 in map-coordinate units per unit step size.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Algorithm diagram: i connects to B with strength 1, C with strength one half, and D with strength one half. The self edge is crossed out; it is excluded from the sum. Positions onl",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "i to j strength 0.5; j to i strength 0.25. Both use distance 2 and rho 1. Different local sigma values produce different strengths.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "One undirected fuzzy union edge between i and j with weight 0.625.",
+          "labelCount": 2,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Illustrative candidate map coordinates i 0 and j 1. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 14,
+          "description": "Illustrative candidate map coordinates i 0 and j 2. The input graph weight remains 0.625.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "Ideal pair cost. Applied r 1, cost 0.69315.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 19,
+          "description": "PCA · two components",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 25,
+          "description": "F6 · Native fitted coordinates + measured neighbor scoresThe same 300 measured digits, shown through two fitted maps.",
+          "labelCount": 5,
+          "issues": []
+        },
+        {
+          "svgIndex": 28,
+          "description": "t-SNE · perplexity 30 · PCA init · seed 19",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 51,
+          "description": "Recovered line A minus seven thirds, B minus one third, C eight thirds. The adjacent gaps are 2 and 3; A to C is 5.",
+          "labelCount": 16,
+          "issues": []
+        },
+        {
+          "svgIndex": 54,
+          "description": "Input positions: 0, 1, 3: left endpoint 0, interior 1, right endpoint 3. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels ",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 55,
+          "description": "Output positions: 0, 2, 6: left endpoint 0, interior 2, right endpoint 6. The recipe assigns weight two thirds to the left endpoint and one third to the right endpoint. Both panels",
+          "labelCount": 12,
+          "issues": []
+        },
+        {
+          "svgIndex": 58,
+          "description": "Metric geometry: square A at 0,0; B at 1,0; C at 1,1; D at 0,1. Every side is 1, both diagonals are square root 2. Equal x and y scales.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 59,
+          "description": "Metric projection: A and D both have coordinate 0; B and C both have coordinate 1. Four observations remain, at two coincident positions. Duplicate-pair distances are zero.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 60,
+          "description": "Input · ε = 1. Four side edges, no filled triangles. The loop is present. Abstract simplicial-complex drawing; positions only separate the four identities.",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 61,
+          "description": "Input · ε = √2. All six edges, four filled triangles and the tetrahedral simplex. The loop is filled. Abstract simplicial-complex drawing; positions only separate the four identiti",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 62,
+          "description": "Projection · ε = 1. All six edges, four filled triangles and the tetrahedral simplex already enter by this threshold. Abstract simplicial-complex drawing; positions only separate t",
+          "labelCount": 4,
+          "issues": []
+        },
+        {
+          "svgIndex": 63,
+          "description": "Projection · ε = √2. The same complete filled complex remains. There is no corresponding 1D loop interval. Abstract simplicial-complex drawing; positions only separate the four ide",
+          "labelCount": 4,
+          "issues": []
+        }
+      ]
+    }
+  ],
+  "payload": {
+    "lessonChunk": "assets/t-sne-umap-manifold-learning-Bx8Z0rjx.js",
+    "decodedBytes": 326899,
+    "gzipBytes": 101914
+  },
+  "errors": [],
+  "sharedLayoutSpotChecks": [
+    {
+      "topic": "pca-dimensionality-reduction",
+      "widths": [
+        1366,
+        780,
+        390
+      ],
+      "sourceHash": "e242fc5a5d5300441abc797705a85fdceeb1997d02094be3c7d382b59e25b403"
+    },
+    {
+      "topic": "gaussian-mixture-models-gmm-em-algorithm",
+      "widths": [
+        1366,
+        780,
+        390
+      ],
+      "sourceHash": "67538ac7e7b8da6d1b50a0ea301c05d467a2e4a22158498c470ce6df140c567c"
+    }
+  ],
+  "mapCount": 10
+}

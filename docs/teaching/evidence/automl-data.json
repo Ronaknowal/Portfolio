@@ -1,0 +1,88 @@
+{
+  "verifiedAt": "2026-09-15T20:17:41.464026+00:00",
+  "stage": "native regeneration of the observed study and re-derivation of the packet's trust root",
+  "verifier": "scripts/verify-automl-data.py",
+  "verifierSha256": "0b75b1d8d065485a5965e3a78feae3a4e69e2548a67b058f948dcfc4bdc0dd64",
+  "moduleSha256": "a4a40b3c2d37c21595d6c5d63ae0deff3eb1664846dcb34661de600411c4d78d",
+  "moduleWritten": false,
+  "datasetSha256": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+  "datasetBytes": 46400,
+  "servedMatchesPacket": true,
+  "packetInputsSha256": "e7a839cc100331322fe856325f6068050a9f5af9fa24382ff8b5f5d87cb8fba6",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": null,
+    "scikitLearn": "1.9.1"
+  },
+  "rows": 1372,
+  "uniqueFeatureGroups": 1348,
+  "roleRows": {
+    "development": 919,
+    "inspection": 205,
+    "reserved": 248
+  },
+  "foldValidationRows": [
+    314,
+    300,
+    305
+  ],
+  "estimatorFits": 35,
+  "fittingWarnings": [],
+  "selectedId": "mlp-tanh-16",
+  "inspectionConfusion": {
+    "selected": [
+      [
+        114,
+        0
+      ],
+      [
+        0,
+        91
+      ]
+    ],
+    "declared_baseline": [
+      [
+        111,
+        3
+      ],
+      [
+        0,
+        91
+      ]
+    ]
+  },
+  "reservedPredictionsComputed": false,
+  "groupedChecks": {
+    "dataset": 6,
+    "roles": 17,
+    "folds": 16,
+    "candidates": 112,
+    "selection": 15,
+    "inspection": 14,
+    "replay": 15,
+    "campaign": 2,
+    "records": 6,
+    "manuscript": 99,
+    "attribution": 16,
+    "author checks": 5,
+    "trust root": 90,
+    "module": 1
+  },
+  "totalChecks": 414,
+  "trustRootLeaves": 149,
+  "trustRootLeavesRederived": 107,
+  "trustRootLeavesPinnedByManuscript": 45,
+  "trustRootLeavesUncovered": [],
+  "trustRootCoverageNote": "Leaf-path coverage of calculated-inputs.json's constructed block, not a tally of check calls. 'Rederived' leaves are outputs recomputed here from the declared settings by an independent route. The remainder are declared *inputs* to those re-derivations, which cannot pin themselves; they are pinned instead against the manuscript's own printed tables, which no check read before.",
+  "manuscriptCrossChecks": 77,
+  "attributionClaimsChecked": 16,
+  "scope": "Recomputed the declared 35-fit banknote campaign from the served CSV: exact-feature grouping, the three fixed roles, the three group-respecting folds, all eleven candidates' 919 out-of-fold predictions each, both inspection confusion matrices and the seed-75 replay order, matched value by value against the content packet's calculated-inputs.json; then re-derived that packet's own trust root - every value of its constructed block, which verify-automl-models.mjs consumes as ground truth - from the declared settings alone, using math.erf rather than SciPy's ndtr, a hand-written softmax, a central difference for both architecture gradients, an explicit halving loop, pairwise Pareto dominance and Hamming-distance activation kernels, without importing author-calculations.py. Finally checked that a fresh regeneration of src/learn/data/automl-data.js is byte-identical.",
+  "limitations": [
+    "One fixed split of one small public collection; exact-feature grouping is not physical specimen identity.",
+    "Development and inspection results only; no reserved row was predicted or scored.",
+    "Numerical fitting can differ on other library versions.",
+    "Displayed program execution and browser rendering are separate checks."
+  ],
+  "passed": true
+}

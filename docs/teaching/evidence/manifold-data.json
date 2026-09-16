@@ -1,0 +1,136 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-14T10:50:35.044470+00:00",
+  "command": "scratch/manifold-learning-runtime/Scripts/python.exe scripts/verify-manifold-data.py",
+  "observations": 300,
+  "features": 64,
+  "nativeLayouts": 10,
+  "metricsChecked": 90,
+  "checks": [
+    "CSV hash/selection/source data/labels and features match original bundled collection",
+    "nine saved layouts are byte-preserved coordinate arrays",
+    "all coordinate metrics independently recomputed at k=5/10/20",
+    "actual UMAP exported coordinates preserve every source ID",
+    "query30 exposes six versus five retained neighbors",
+    "PCA-init seed equality and random-init seed contrast retained",
+    "offline 200-step tiny trace uses fixed native P"
+  ],
+  "query30": {
+    "pca": {
+      "input": [
+        0,
+        166,
+        229,
+        160,
+        36,
+        276,
+        140,
+        266,
+        178,
+        79
+      ],
+      "map": [
+        78,
+        229,
+        79,
+        306,
+        276,
+        0,
+        130,
+        266,
+        132,
+        166
+      ],
+      "count": 6
+    },
+    "tsne-p30-s7": {
+      "input": [
+        0,
+        166,
+        229,
+        160,
+        36,
+        276,
+        140,
+        266,
+        178,
+        79
+      ],
+      "map": [
+        0,
+        276,
+        266,
+        286,
+        256,
+        130,
+        48,
+        166,
+        229,
+        10
+      ],
+      "count": 5
+    }
+  },
+  "metrics10": {
+    "pca": {
+      "retention": 0.37633333333333335,
+      "trustworthiness": 0.8675946104276508,
+      "continuity": 0.9491657879320445
+    },
+    "tsne-p5-s7": {
+      "retention": 0.7103333333333333,
+      "trustworthiness": 0.9874387814879906,
+      "continuity": 0.9778968951376684
+    },
+    "tsne-p5-s19": {
+      "retention": 0.7103333333333333,
+      "trustworthiness": 0.9874387814879906,
+      "continuity": 0.9778968951376684
+    },
+    "tsne-p30-s7": {
+      "retention": 0.7703333333333334,
+      "trustworthiness": 0.9901347393087288,
+      "continuity": 0.9863526654950205
+    },
+    "tsne-p30-s19": {
+      "retention": 0.7703333333333334,
+      "trustworthiness": 0.9901347393087288,
+      "continuity": 0.9863526654950205
+    },
+    "tsne-p80-s7": {
+      "retention": 0.7623333333333333,
+      "trustworthiness": 0.9893602811950791,
+      "continuity": 0.9878910369068541
+    },
+    "tsne-p80-s19": {
+      "retention": 0.7623333333333333,
+      "trustworthiness": 0.9893602811950791,
+      "continuity": 0.9878910369068541
+    },
+    "tsne-p30-random-s7": {
+      "retention": 0.7720000000000001,
+      "trustworthiness": 0.9912653778558875,
+      "continuity": 0.9863198594024605
+    },
+    "tsne-p30-random-s19": {
+      "retention": 0.7696666666666667,
+      "trustworthiness": 0.9899906268306972,
+      "continuity": 0.9863116578793204
+    },
+    "umap-n15-d01-s7": {
+      "retention": 0.7143333333333334,
+      "trustworthiness": 0.9889736379613356,
+      "continuity": 0.9832302284710017
+    }
+  },
+  "sourceHashes": {
+    "scripts/verify-manifold-data.py": "3f65d021a5be0dd094731cfd7b71331f988e2aa47354ca1cb33622b112894067",
+    "src/learn/data/manifold-data.js": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0",
+    "docs/teaching/drafts/t-sne-umap-manifold-learning/calculated-inputs.json": "bf9c60a1ef7f57ebf0ae6becf641767edb61a97fb44b7c9d4ae49af8601c150b",
+    "public/learn-assets/manifold-learning/digits-300.csv": "d93f963c4b2610eb07122a312eec3ddceac18a031477370d71e33835eced728e",
+    "public/learn-assets/manifold-learning/umap-digits.csv": "57a6ec04fca5c3739a49402bb5b06a9688664c38c5b2017065dd70918e380c01",
+    "public/learn-assets/manifold-learning/calculated-inputs.json": "ef8ab5d5a20e14013ebffb5b067810ce29b808dfa9ff1d2bf3d4b116d6a98884",
+    "public/learn-assets/manifold-learning/runtime-versions.json": "6d50b51386a007ff43f7c2983cb1dab72b75958c46c6b3a299a942ab9d1b2f46",
+    "public/learn-assets/manifold-learning/data-provenance.md": "54fa025978ffeca07b17f98148032f514c64a7d7cec7e94c65b898be212d07f6"
+  }
+}

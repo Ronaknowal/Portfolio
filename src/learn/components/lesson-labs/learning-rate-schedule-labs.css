@@ -15,6 +15,7 @@
 .schedule-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
 .schedule-plot { display: block; width: 100%; max-width: 580px; height: auto; margin: 20px auto; overflow: visible; }
 .schedule-plot text { fill: #c5cdd8; font: 13px system-ui, sans-serif; }
+.schedule-inline .schedule-axis-label { margin: .5rem 0; color: #c5cdd8; font-size: .88rem; line-height: 1.6; text-align: center; overflow-wrap: anywhere; }
 .schedule-plot :is(polyline, line, circle) { vector-effect: non-scaling-stroke; }
 .schedule-grid { stroke: #39414e; stroke-width: .7; }
 .schedule-cursor { stroke: #e2d8b4; stroke-width: 1; stroke-dasharray: 3 4; }
@@ -52,3 +53,5 @@
   .schedule-event-strip, .schedule-attempt-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .schedule-attempt-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+@media (max-width:560px) { .schedule-inline .schedule-plot text { font-size:16px; } }

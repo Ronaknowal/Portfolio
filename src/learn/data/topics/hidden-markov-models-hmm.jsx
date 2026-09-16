@@ -1,915 +1,421 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  BoundaryCountLab, DurationLab, EvidenceLaterLab, LegalPathLab, PathProductLab, RealTaggingLab,
+} from '../../components/lesson-labs/HmmLabs.jsx';
+import {
+  BeliefFigure, CountFlowFigure, DataProvenanceNote, EmHistoryFigure, ForwardTrellisFigure,
+  GraphUnrollFigure, NumericScaleFigure, PointwiseFigure, TopologyFigure, ViterbiTrellisFigure,
+} from '../../components/lesson-labs/HmmFigures.jsx';
+import { hmmExamples } from '../hmm-examples.js';
+import {
+  configurations, decisionChanges, developmentSentences, emTrack, majority, provenance,
+  selectedConfigurationIndex, tieAudit, unknownDevelopmentTokens, vocabulary,
+} from '../hmm-data.js';
+import {
+  countFlow, durationModel, emStep, enumeratePaths, fixtures, infer, parameterCount,
+  predictNext, repeatedProduct, trellis, withRainyEmission, withStart,
+} from '../hmm-models.js';
 
-const hmmContent = {
-  title: "Hidden Markov Models (HMM)",
-  readTime: "~50 min",
-  content: () => (
-    <div>
+/** Print a computed number with a typographic minus sign and no float dust. */
+const num = value => String(Number(value.toFixed(9))).replace('-', '−');
+/* `Math` in this module is the KaTeX component imported above, not the global
+   object, so `Math.max` here resolves to that component and throws on first
+   paint. These two helpers keep the extremes explicit and shadow-proof. */
+const largest = values => values.reduce((best, value) => (value > best ? value : best));
+const smallest = values => values.reduce((best, value) => (value < best ? value : best));
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+const weather = fixtures.weather;
+const reports = fixtures.reports;
+const forward = trellis(weather, reports, 'sum');
+const best = trellis(weather, reports, 'max');
+const main = infer(weather, reports);
+const corrected = infer(weather, fixtures.correctedFinal);
+const missing = infer(weather, fixtures.missingMiddle);
+const deleted = infer(weather, fixtures.deletedMiddle);
+const altered = infer(withRainyEmission(fixtures.changedRainyEmission), reports);
+const enumerated = enumeratePaths(weather, reports);
+const forecast = predictNext(weather, infer(weather, [0]).filtered[0]);
+const split = countFlow(weather, fixtures.splitRecordings);
+const joined = countFlow(weather, fixtures.joinedRecording);
+const updated = emStep(weather, fixtures.splitRecordings);
+const constrained = fixtures.constrained;
+const pointwise = infer(constrained, [0, 0]);
+const changedPrior = infer(withStart(constrained, fixtures.changedConstrainedStart), [0, 0]);
+const rare = repeatedProduct(fixtures.rareFactor, fixtures.rareCount);
+const representable = repeatedProduct(fixtures.representableFactor, fixtures.representableCount);
+const duration = durationModel(fixtures.durationDefault);
+const practiceDuration = durationModel(fixtures.durationPractice);
 
+const selected = configurations[selectedConfigurationIndex];
+const matchedLexical = configurations[2];
+const repairs = decisionChanges.repairs.length;
+const breaks = decisionChanges.breaks.length;
+const tieBand = tieAudit.configurations[1].tokenTotals;
+const nina = developmentSentences[27];
+const article = developmentSentences[3];
+
+const headings = [
+  '1. Separate the thing you see from the state you infer',
+  '2. The same observations support different questions',
+  '3. Forward: add the paths without listing them',
+  '4. Backward: later evidence changes an earlier belief',
+  '5. Viterbi: keep the best path, not the sum',
+  '6. Learning: replace invisible counts with expected counts',
+  '7. Make the computation reliable and reproducible',
+  '8. A real sequence: infer grammatical roles in short sentences',
+  '9. Choose a model that matches how the sequence behaves',
+  '10. Where this idea leads',
+  '11. Cost follows the allowed edges',
+  '12. Practice: change the evidence, keep the question precise',
+  '13. Readiness and the next lesson',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Excerpt({ excerpt }) {
+  return <section className="hmm-excerpt">
+    <h4>{excerpt.title}</h4>
+    <p className="lesson-note">
+      Lines {excerpt.lines[0]}&ndash;{excerpt.lines[1]} of <Code>{hmmExamples.experiments.file}</Code>,
+      reproduced exactly.
+    </p>
+    <CodeBlock language="python">{excerpt.code}</CodeBlock>
+    <Prose>{excerpt.guidance}</Prose>
+  </section>;
+}
+function Practice({ title, question, hint, revealLabel = 'Show the explained solution', children }) {
+  return <section className="hmm-practice">
+    <H3>{title}</H3>
+    <Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>{revealLabel}</summary>{children}</details>
+  </section>;
+}
+
+const hiddenMarkovModelsContent = {
+  title: 'Hidden Markov Models: Infer the Process Behind a Sequence',
+  readTime: '~55 min first pass · ~105 min complete read + 60–90 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot hmm-lesson">
+    <LessonIntro prerequisites={<>Discrete probability, conditional probability and a matrix row that sums to one. The latent-variable and EM ideas from <a href="/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml">Gaussian Mixture Models &amp; EM</a> are a useful companion but not required; everything this lesson needs about dynamic programming is built here. The preceding <a href="/learn/path/full-curriculum/automl-neural-architecture-search-nas?module=classical-ml">AutoML &amp; Neural Architecture Search</a> lesson asked how to <em>select</em> a procedure. This one examines one particular model closely.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A machine changes between operating conditions, and its sensor never says which one. A low reading is evidence, not a label. You will multiply one complete story through the model and commit its probability before it is computed, watch a later report move a belief about an earlier time while another belief provably cannot move, follow a Viterbi predecessor that is <em>not</em> the largest cell in the previous column, join the two most probable states at two times into a route the model forbids, restore a recording boundary that changes the expected counts rather than merely storing them, and then read {selected.correct} of {selected.tokens} real tokens tagged from {provenance.sentences.train} real sentences &mdash; and find that {tieAudit.configurations[1].tiedSentences.length} of the {provenance.sentences.development} <strong>development</strong> sentences have two complete paths of <em>exactly</em> equal probability. The {provenance.sentences.reserved} reserved sentences are not decoded anywhere in this lesson. Every investigation asks for a recorded prediction before it calculates anything, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <div className="hmm-route"><Prose><strong>First pass.</strong> Read sections 1&ndash;5 and run the four small investigations there: one path&rsquo;s product, the two beliefs at one time, the constrained path, and the trellis figures between them. Then follow the single expected-count update in section 6 and the real tagging comparison in section 8. Sections 7, 9, 10 and 11 &mdash; numerical scale, duration and Gaussian emissions, where the idea leads, and cost &mdash; are deeper branches to return to. Practice 1&ndash;5 belong to the first pass; 6&ndash;10 transfer the deeper ideas.</Prose></div>
+
+    <Prose>A machine changes between operating conditions, but its sensor readings do not announce the condition directly. A low reading is evidence, not a label. Several readings in order can tell you more than any one reading alone.</Prose>
+    <Prose>A <strong>hidden Markov model</strong>, or <strong>HMM</strong>, describes that situation using two connected sequences: a hidden state that evolves, and an observation produced at each step. It lets us ask how likely the observations are, what states could explain them, and how to learn the model&rsquo;s probabilities. The key picture is a row of hidden-state nodes with observations hanging underneath. The key computation is a <strong>trellis</strong>: all possible states laid out across time, with shared partial calculations replacing an enormous list of complete paths.</Prose>
+    <Prose>The earlier <a href="/learn/path/full-curriculum/gaussian-mixture-models-gmm-em-algorithm?module=classical-ml">GMM lesson</a> is the useful connection: a mixture assigns a latent component to each observation independently; an HMM makes those assignments depend on each other across time. That one change is what the whole of this lesson follows.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>For a small constructed example, imagine receiving a friend&rsquo;s daily activity report while not seeing the weather. Use two hidden states, <strong>Rainy</strong> and <strong>Sunny</strong>, and three observations, <strong>Walk</strong>, <strong>Shop</strong> and <strong>Clean</strong>. These are deliberately simplified probabilities, not measured weather data, and the story is an original teaching construction rather than an example from any particular paper.</Prose>
+    <LessonTable caption="The three tables that define the model: an initial row, one transition row per state, and one emission row per state" headers={['Table', 'Row', 'Entries']} rows={[
+      ['Initial state', '—', `Rainy ${weather.start[0]}, Sunny ${weather.start[1]}`],
+      ['Transition, from Rainy', 'Rainy → …', `Rainy ${weather.transition[0][0]}, Sunny ${weather.transition[0][1]}`],
+      ['Transition, from Sunny', 'Sunny → …', `Rainy ${weather.transition[1][0]}, Sunny ${weather.transition[1][1]}`],
+      ['Emission, in Rainy', 'Rainy emits …', `Walk ${weather.emission[0][0]}, Shop ${weather.emission[0][1]}, Clean ${weather.emission[0][2]}`],
+      ['Emission, in Sunny', 'Sunny emits …', `Walk ${weather.emission[1][0]}, Shop ${weather.emission[1][1]}, Clean ${weather.emission[1][2]}`],
+    ]} />
+    <Prose>Each row is a separate distribution and sums to one. Rainy→Sunny is a transition between states. Rainy→Clean is an emission: an observation conditional on a state. Neither arrow gives the reverse probability. In particular, <Math>{'P(\\mathrm{Clean}\\mid\\mathrm{Rainy})=0.5'}</Math> does not imply <Math>{'P(\\mathrm{Rainy}\\mid\\mathrm{Clean})=0.5'}</Math>.</Prose>
+    <GraphUnrollFigure />
+    <Prose>Generate a sequence by drawing the initial state, drawing its activity, moving to a new state using the current state&rsquo;s transition row, and repeating. The observer sees the activity row of the story; inference reasons about the hidden row.</Prose>
+    <Prose>The <strong>first-order Markov assumption</strong> says that, given the current hidden state, the next state does not additionally depend on earlier states. A separate <strong>emission assumption</strong> says observations factor independently once the entire state sequence is fixed. Observations can still be correlated marginally: a persistent hidden state can produce a run of similar readings.</Prose>
+    <Callout title="Correlated readings are not by themselves a violation">
+      This distinction matters in sensor data. Consecutive readings being correlated is expected under the model, because their states are related. It is correlation that <em>remains after conditioning on the modelled states</em> that reveals a missing dependency, an inadequate state representation or an unsuitable emission family. Every later caution about assumptions in this lesson refers back to this one.
+    </Callout>
+    <Prose>Let <Math>{'z_t'}</Math> be the hidden state and <Math>{'o_t'}</Math> the observed symbol at time <Math>{'t'}</Math>, starting at <Math>{'t=0'}</Math>. Write the initial probabilities as <Math>{'\\pi'}</Math>, transitions as <Math>{'A'}</Math>, and emission probabilities as <Math>{'B'}</Math>. For <Math>{'N'}</Math> states and <Math>{'M'}</Math> symbols, their shapes are <Math>{'N'}</Math>, <Math>{'N\\times N'}</Math>, and <Math>{'N\\times M'}</Math>. The probability of one complete hidden path together with its observations is</Prose>
+    <MathBlock>{'\\begin{gathered}P(z_{0:T-1},o_{0:T-1})\\\\[4pt]=\\pi_{z_0}B_{z_0,o_0}\\\\[4pt]\\times\\prod_{t=1}^{T-1}A_{z_{t-1},z_t}B_{z_t,o_t}.\\end{gathered}'}</MathBlock>
+    <Prose>Read this as &ldquo;start, emit, transition, emit, transition, emit.&rdquo; Multiplication follows one possible story; adding over different stories accounts for uncertainty. Parameters are fixed throughout these inference calculations; learning them is a later operation. A timeline makes the count visible: four observations contain <strong>three</strong> within-sequence transitions, not four.</Prose>
+    <PathProductLab />
+
+    <H2>{headings[1]}</H2>
+    <Prose>Suppose the reports are <strong>Walk → Shop → Walk → Clean</strong>. Before calculating, choose the question:</Prose>
+    {/* The quantity column goes through KaTeX like every other formula on the
+        page. As plain strings the subscripts that tell filtering from smoothing
+        rendered as literal braces and underscores, which is the one distinction
+        sections 3 and 4 are about. */}
+    <LessonTable caption="Six different questions about one recording, and the information each is allowed to use" headers={['Question', 'Quantity', 'Available observations']} rows={[
+      ['How well does the model explain the reports?', <Math key="q1">{'P(o_{0:T-1})'}</Math>, 'The specified sequence'],
+      ['What is the current state after this report?', <Math key="q2">{'P(z_t\\mid o_{0:t})'}</Math>, 'Past and present: filtering'],
+      ['What was an earlier state, using the later reports too?', <Math key="q3">{'P(z_t\\mid o_{0:T-1})'}</Math>, 'Entire sequence: smoothing'],
+      ['What is the next state likely to be?', <Math key="q4">{'P(z_{t+1}\\mid o_{0:t})'}</Math>, 'Past and present: prediction'],
+      ['What single whole path has greatest probability?', <Math key="q5">{'{\\arg\\max_z P(z\\mid o)}'}</Math>, 'Entire sequence: Viterbi decoding'],
+      ['What probabilities should the model use?', <Math key="q6">{'\\pi, A, B'}</Math>, 'Training sequences: learning'],
+    ]} />
+    <Prose>Filtering and smoothing are not interchangeable in a live system. A dashboard operating on Tuesday cannot use a Thursday reading; a retrospective analyst can. A more informed posterior also does not promise a more accurate label on every individual example.</Prose>
+    <Prose>For a fixed observed sequence with positive probability, maximising <Math>{'P(z\\mid o)'}</Math> is equivalent to maximising the joint <Math>{'P(z,o)'}</Math>, because all paths share the denominator <Math>{'P(o)'}</Math>. Maximising <Math>{'P(o\\mid z)'}</Math> alone would omit the path prior and can choose a different answer.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Four time steps with two possible states each give <Math>{'2^4=16'}</Math> possible paths &mdash; the sixteen the investigation above lists. A thousand steps would give <Math>{'2^{1000}'}</Math>. We need to share work. Define</Prose>
+    <MathBlock>{'\\alpha_t(j)=P(o_0,\\ldots,o_t,z_t=j).'}</MathBlock>
+    <Prose>This is <strong>joint probability mass</strong>, not yet a normalised posterior over states. At the first Walk report,</Prose>
+    <MathBlock>{'\\begin{gathered}\\alpha_0(R)=0.6(0.1)=0.06,\\\\[6pt]\\alpha_0(S)=0.4(0.6)=0.24.\\end{gathered}'}</MathBlock>
+    <Prose>The observation has probability {num(forward.columnTotals[0])}. Dividing by that total gives the filtered belief: {num(100 * main.filtered[0][0])}% Rainy, {num(100 * main.filtered[0][1])}% Sunny. At the next report, Shop, Rainy can be reached from either earlier state:</Prose>
+    <MathBlock>{'\\begin{gathered}\\alpha_1(R)\\\\[4pt]=[0.06(0.7)+0.24(0.4)]\\times 0.4\\\\[4pt]=0.0552.\\end{gathered}'}</MathBlock>
+    <Prose>The bracket adds the mass arriving along both arrows; the last factor accounts for the activity at the destination. Similarly <Math>{'\\alpha_1(S)=0.0486'}</Math>. The general recurrence repeats this operation:</Prose>
+    <MathBlock>{'\\begin{gathered}\\alpha_0(j)=\\pi_jB_{j,o_0},\\\\[6pt]\\alpha_t(j)=B_{j,o_t}\\sum_i\\alpha_{t-1}(i)A_{ij}.\\end{gathered}'}</MathBlock>
+    <ForwardTrellisFigure />
+    <Prose>Summing the last two masses gives <Math>{'P(\\mathrm{Walk,Shop,Walk,Clean})='}</Math>{num(forward.final)}, the same number the sixteen enumerated paths add to. The Rainy mass rises at the last step even though the <em>total</em> prefix probability falls: contributions have moved between states, and no individual cell has to shrink monotonically.</Prose>
+
+    <H3>Filtering and forecasting without retaining the whole past</H3>
+    <Prose>Let <Math>{'f_t'}</Math> be the normalised filtered row vector. First predict the next state, <Math>{'q_{t+1}=f_tA'}</Math>. Then, when the new report arrives, multiply <Math>{'q_{t+1}'}</Math> by its emission column and normalise. After the first Walk, <Math>{'f_0=[0.2,0.8]'}</Math>, so the next-state prediction is [{num(forecast.nextState[0])}, {num(forecast.nextState[1])}].</Prose>
+    <Prose>The predicted probability of the next report being Clean weights each state&rsquo;s Clean probability by how likely that state now is: {num(forecast.nextState[0])}({weather.emission[0][2]}) + {num(forecast.nextState[1])}({weather.emission[1][2]}) = {num(forecast.nextObservation[2])}. Forecasting an observation requires both the state transition and the emission distribution. Jumping straight from the current most likely state discards that uncertainty: collapsing the belief to Sunny first would give a Shop probability of {num(forecast.collapsedObservation[1])} instead of {num(forecast.nextObservation[1])}.</Prose>
+    <Prose>For a fixed model, the current filtered vector summarises everything about the observation history that the next filtering update needs. Storing every earlier forward vector is unnecessary if this is the only query.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <Prose>At time 1, filtering slightly favours Rainy: {num(main.filtered[1][0])}. But if we later see Walk and Clean, the smoothed Rainy probability is {num(main.smoothed[1][0])}. The later observations changed the earlier conclusion. Define a backward likelihood,</Prose>
+    <MathBlock>{'\\begin{gathered}\\beta_t(i)\\\\[4pt]=P(o_{t+1},\\ldots,o_{T-1}\\mid z_t=i).\\end{gathered}'}</MathBlock>
+    <Prose>At the last time there are no later reports, so <Math>{'\\beta_{T-1}(i)=1'}</Math>. Step backward using</Prose>
+    <MathBlock>{'\\beta_t(i)=\\sum_j A_{ij}B_{j,o_{t+1}}\\beta_{t+1}(j).'}</MathBlock>
+    <Prose>At time 2 the only future report is Clean, so <Math>{'\\beta_2(R)=0.7(0.5)+0.3(0.1)=0.38'}</Math> and <Math>{'\\beta_2(S)=0.4(0.5)+0.6(0.1)=0.26'}</Math>. Multiply the evidence from the left and the right, then normalise:</Prose>
+    <MathBlock>{'\\begin{gathered}\\gamma_t(i)=P(z_t=i\\mid o_{0:T-1})\\\\[6pt]=\\frac{\\alpha_t(i)\\beta_t(i)}{P(o_{0:T-1})}.\\end{gathered}'}</MathBlock>
+    <BeliefFigure />
+    <Prose>The last row agrees exactly because no later observations remain. Smoothing uses the whole sequence, but it does not reveal a verified hidden truth: both columns are probabilities under this model.</Prose>
+    <EvidenceLaterLab />
+    <Prose>A missing report is another useful contrast. At a retained time step with no observation, summing over all possible symbols gives emission likelihood one, so the state still transitions. Removing the entire step instead changes elapsed model time and the number of transitions. Replacing Shop with a missing report gives a final Rainy probability of {num(missing.smoothed[3][0])}; deleting that step gives {num(deleted.smoothed[2][0])}. Treating missingness this way assumes the fact of missingness itself supplies no additional state evidence.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>The forward algorithm combines every path into a cell. Viterbi retains the greatest joint probability among paths ending there:</Prose>
+    <MathBlock>{'\\begin{gathered}\\delta_t(j)=\\max_{z_0,\\ldots,z_{t-1}}\\\\[4pt]P(z_0,\\ldots,z_t=j,o_0,\\ldots,o_t).\\end{gathered}'}</MathBlock>
+    <Prose>Replace the sum with a maximum, and store the maximising predecessor for each destination:</Prose>
+    <MathBlock>{'\\begin{gathered}\\delta_0(j)=\\pi_jB_{j,o_0},\\\\[6pt]\\delta_t(j)=B_{j,o_t}\\max_i[\\delta_{t-1}(i)A_{ij}].\\end{gathered}'}</MathBlock>
+    <Prose>Why can other prefixes be discarded? Two prefixes ending in the same current state have the same possible future factors. Multiplying both by the same nonnegative suffix cannot make the lower-probability prefix strictly better. The current state is the boundary that makes dynamic programming valid.</Prose>
+    <ViterbiTrellisFigure />
+    <Prose>At the Shop step the best Rainy prefix comes from Sunny, giving {num(best.columns[1].cells[0].value)}, and the best Sunny prefix is {num(best.columns[1].cells[1].value)}. At the following Walk step, however, the best <strong>Rainy</strong> predecessor is Rainy: {num(best.columns[1].cells[0].value)}(0.7) = {num(best.columns[1].cells[0].value * weather.transition[0][0])} beats {num(best.columns[1].cells[1].value)}(0.4) = {num(best.columns[1].cells[1].value * weather.transition[1][0])}. Selecting the largest cell in the previous column without accounting for the particular transition would get this predecessor wrong.</Prose>
+    <Prose>Starting from the largest final cell and following the stored predecessors backward gives <strong>{main.path.map(state => weather.stateNames[state]).join(' → ')}</strong>, with joint probability {num(main.pathJoint)} and posterior probability {num(main.pathJoint)}/{num(main.evidence)} &asymp; {num(main.pathPosterior)}. &ldquo;Most likely&rdquo; does not mean &ldquo;nearly certain&rdquo;: about {num(100 * (1 - main.pathPosterior))}% of the posterior mass belongs to other paths collectively.</Prose>
+
+    <H3>The most probable state at each time can form an impossible path</H3>
+    <Prose>Pointwise decoding chooses <Math>{'\\arg\\max_i\\gamma_t(i)'}</Math> separately at each time. It minimises expected total per-position mistakes when predictions are unconstrained. Viterbi minimises the chance of getting the entire sequence wrong under a whole-sequence 0&ndash;1 loss. They optimise different objectives.</Prose>
+    <Prose>Consider a separate two-step, three-state model whose only observation symbol has probability one in every state, so the reports carry no information at all. Its initial probabilities are [{constrained.start.join(', ')}], and the only permitted transitions are A→B, A→C, B→A and C→A. At the first time, A has the greatest marginal probability, {num(pointwise.smoothed[0][0])}. At the second, A again leads with {num(pointwise.smoothed[1][0])}. Pointwise modes therefore return <strong>A→A</strong>, a transition that has probability exactly zero.</Prose>
+    <PointwiseFigure />
+    <Prose>Viterbi returns <strong>{pointwise.path.map(state => constrained.stateNames[state]).join('→')}</strong>, with probability {num(pointwise.pathJoint)}. Its expected number of correct positions is {num(pointwise.pathExpectedCorrect)}, compared with {num(pointwise.modesExpectedCorrect)} for the unconstrained but impossible pointwise output. Better expected position count and validity as a joint path are separate properties.</Prose>
+    <LegalPathLab />
+    <Prose>Changing the starting probabilities to [{fixtures.changedConstrainedStart.join(', ')}] while keeping transitions fixed makes both decoders choose {changedPrior.path.map(state => constrained.stateNames[state]).join('→')}, at probability {num(changedPrior.pathJoint)}. Total evidence stays exactly {num(changedPrior.evidence)} because the observations remain uninformative: a changed prior moved the path probabilities without moving the evidence at all. If validity and expected position accuracy are both requirements, a constrained minimum-risk decoder can maximise <Math>{'\\sum_t\\gamma_t(z_t)'}</Math> over legal paths by another dynamic program. That is still a different objective from Viterbi&rsquo;s product of model factors.</Prose>
+
+    <H2>{headings[5]}</H2>
+    <Prose>If training states are known, estimate transitions by counting adjacent state pairs and emissions by counting symbols within each state. Sentence or recording boundaries matter: the final state of one recording is not followed by the first state of an unrelated recording.</Prose>
+    <Prose>If states are not labelled, we cannot count one true path. <strong>Baum&ndash;Welch</strong> uses expectation&ndash;maximisation: infer distributions over paths using current parameters, compute expected counts, then fit new probabilities from those counts. The state posterior <Math>{'\\gamma_t(i)'}</Math> contributes a fractional occupancy count. A transition requires a <em>joint pair posterior</em>, not the product of two marginal posteriors:</Prose>
+    <MathBlock>{'\\begin{gathered}\\xi_t(i,j)=P(z_t=i,z_{t+1}=j\\mid o)\\\\[6pt]=\\frac{\\alpha_t(i)A_{ij}B_{j,o_{t+1}}\\beta_{t+1}(j)}{P(o)}.\\end{gathered}'}</MathBlock>
+    <Prose>For each edge time, <Math>{'\\sum_{ij}\\xi_t(i,j)=1'}</Math>; its row sums equal <Math>{'\\gamma_t(i)'}</Math> and its column sums equal <Math>{'\\gamma_{t+1}(j)'}</Math>. Those relationships are useful numerical checks and they are what makes a count-flow diagram interpretable. For <Math>{'K'}</Math> independent sequences with lengths <Math>{'T_k'}</Math>, the updates are</Prose>
+    <MathBlock>{'\\begin{gathered}\\pi_i^{\\mathrm{new}}=\\frac1K\\sum_k\\gamma^{(k)}_0(i),\\\\[8pt]A_{ij}^{\\mathrm{new}}=\\frac{\\sum_k\\sum_{t}\\xi^{(k)}_t(i,j)}{\\sum_k\\sum_{t}\\gamma^{(k)}_t(i)},\\end{gathered}'}</MathBlock>
+    <MathBlock>{'B_{i,v}^{\\mathrm{new}}=\\frac{\\sum_{k,t}\\gamma^{(k)}_t(i)\\mathbf1[o_t^{(k)}=v]}{\\sum_{k,t}\\gamma^{(k)}_t(i)}.'}</MathBlock>
+    <Prose>The transition sums run to <Math>{'T_k-2'}</Math>, excluding each sequence&rsquo;s last position because it has no outgoing within-sequence transition; the emission sums run to <Math>{'T_k-1'}</Math> and include it. Initial-state counts are divided by the number of sequences, not the total number of positions. When missing reports carry no state information and are marginalised out, update emissions using only observed positions in both numerator and denominator; transitions still include the retained time steps.</Prose>
+
+    <H3>One complete update, with a boundary you can move</H3>
+    <Prose>Treat <strong>Walk→Shop</strong> and <strong>Walk→Clean</strong> as two independent recordings. Under the original parameters the expected transition counts are [[{num(split.edges[0][0].mass)}, {num(split.edges[0][1].mass)}], [{num(split.edges[1][0].mass)}, {num(split.edges[1][1].mass)}]]. They sum to {num(split.totals.edgeMass)}, because each recording contains one transition. Row-normalising gives the updated transition rows [{updated.model.transition[0].map(value => num(value)).join(', ')}] and [{updated.model.transition[1].map(value => num(value)).join(', ')}].</Prose>
+    <CountFlowFigure />
+    <Prose>Expected initial-state counts are [{split.start.map(entry => num(entry.mass)).join(', ')}], so <Math>{'\\pi^{\\mathrm{new}}'}</Math> &asymp; [{updated.model.start.map(value => num(value)).join(', ')}]. The joint training log-likelihood of the two recordings increases from {num(updated.logLikelihoodBefore)} to {num(updated.logLikelihoodAfter)} after this one update. Removing the boundary creates a <em>different</em> data model, with one start and {joined.totals.transitions} transitions, and changes the expected counts &mdash; the Rainy→Rainy count alone moves from {num(split.edges[0][0].mass)} to {num(joined.edges[0][0].mass)}. It is not merely a storage optimisation.</Prose>
+    <BoundaryCountLab />
+
+    <H3>What EM does and does not guarantee</H3>
+    <Prose>An exact E-step and matching exact M-step make the observed training log-likelihood nondecreasing in exact arithmetic. The increase can be zero. This property does not promise a global maximum, semantic recovery, better development performance, or a useful state count. Approximate updates, added penalties, changed objectives and finite-precision computations each require their own analysis.</Prose>
+    <Prose>The complete program generates {emTrack.recordings} independent length-{emTrack.length} sequences from the constructed model, using data seed {emTrack.dataSeed}. Three declared starting seeds each receive forty EM updates.</Prose>
+    <EmHistoryFigure />
+    <Prose>The generating parameters score {num(emTrack.generatingLogLikelihood)} on this particular finite sample. All three fits exceed that score by adapting to sample variation, while the symmetric start stays below it; higher training likelihood is not proof of recovering the generating parameters. With uniform state initialisation, both emission rows remain identical to each other for ever: after the first update they equal the empirical symbol frequencies, and subsequent iterations stay at approximately {num(emTrack.uniformStart.logLikelihood[1])}. Symmetry is not broken by simply iterating longer.</Prose>
+    <Prose>State labels can also be permuted without changing observation likelihood: permute <Math>{'\\pi'}</Math>, both axes of <Math>{'A'}</Math>, and the rows of <Math>{'B'}</Math> consistently. That explains index ambiguity. It does not explain every poor fit, and it does not justify naming an unsupervised state &ldquo;Rainy&rdquo; just because its index is zero. If a state has zero expected occupancy, its unconstrained emission row is unidentified; the program retains that row rather than dividing by zero.</Prose>
+
+    <H2>{headings[6]}</H2>
+    <Prose>The complete offline program implements forward&ndash;backward, filtering, Viterbi with backtracking, expected counts, independent-sequence Baum&ndash;Welch, scaled forward inference and the real tagging experiment below. Python and NumPy are its only computational dependencies. Save <a href={hmmExamples.experiments.download} download>{hmmExamples.experiments.file}</a> beside <a href={hmmExamples.experiments.dataFile} download>the supplied sequence data</a>, then run it:</Prose>
+    <RunnableExample example={hmmExamples.experiments}>
       <Prose>
-        In 1966, Leonard Baum and Ted Petrie published "Statistical Inference for Probabilistic Functions of Finite State Markov Chains" in the <em>Annals of Mathematical Statistics</em>, volume 37, number 6, pages 1554–1563. The problem they were solving was deceptively simple to state and deeply hard to solve: given a sequence of observations generated by a system that passes through a series of hidden states, what can you infer about those states and about the system itself? The phrase "hidden states" is the key. A Markov chain in its visible form generates a sequence of symbols, and every symbol tells you exactly which state you are in. A Hidden Markov Model generates a sequence of observations, but each observation is only a probabilistic clue about the underlying state — the true state remains hidden. Baum and Petrie proved that you could still learn the parameters of the hidden system from observations alone, and they gave the mathematical machinery to do it.
+        It writes <Code>{hmmExamples.experiments.writes}</Code>, holding the actual trellis, posterior rows, count
+        updates, training histories and real predictions. That file is the reference this page is checked against:
+        every number above and below was recomputed independently and matched against it. No fitted state or timing
+        curve is invented for display. The whole program is {hmmExamples.experiments.lineCount} lines, so the four
+        excerpts below carry its mechanism; each is an exact slice of the file you can download, not a retyping.
       </Prose>
+    </RunnableExample>
+    {hmmExamples.experiments.excerpts.map(excerpt => <Excerpt key={excerpt.key} excerpt={excerpt} />)}
+    <Prose>Start by changing one observation and inspecting one computed row. Understanding that row is more useful than memorising the whole program.</Prose>
 
+    <H3>Tiny probability or genuinely impossible event?</H3>
+    <Prose>Repeated multiplication can underflow even when the mathematical probability is positive. In float64, <Math>{'0.3^{100}'}</Math> &asymp; {num(representable.ordinary)} is still perfectly representable &mdash; underflow is not a property of small exponents in general. But <Math>{'0.01^{400}=10^{-800}'}</Math> rounds to zero, while its log probability, {num(rare.logValue)}, remains manageable.</Prose>
+    <Prose>In log-space, products become sums, and sums of probabilities use log-sum-exp:</Prose>
+    <MathBlock>{'\\begin{gathered}\\log\\sum_i e^{z_i}=m+\\log\\sum_i e^{z_i-m},\\\\[6pt]m=\\max_i z_i.\\end{gathered}'}</MathBlock>
+    <Prose>Handle an all-negative-infinity row explicitly: it represents a zero sum, and subtracting negative infinity from itself would create a NaN. A structural zero transition stays negative infinity in log-space. Adding an arbitrary epsilon would change which paths the model permits.</Prose>
+    <Prose>The alternative is normalised scaling. Write <Math>{'b_j(o_t)=B_{j,o_t}'}</Math>. If <Math>{'f_{t-1}'}</Math> is the filtered distribution, compute</Prose>
+    <MathBlock>{'\\begin{gathered}u_t(j)=b_j(o_t)\\sum_i f_{t-1}(i)a_{ij},\\\\[6pt]c_t=\\sum_j u_t(j),\\qquad f_t(j)=\\frac{u_t(j)}{c_t}.\\end{gathered}'}</MathBlock>
+    <Prose>At the first observation use <Math>{'\\pi_jb_j(o_0)'}</Math>. Here <Math>{'c_t=P(o_t\\mid o_{0:t-1})'}</Math> for <Math>{'t\\geq1'}</Math>, and <Math>{'c_0=P(o_0)'}</Math>, so <Math>{'\\log P(o)=\\sum_t\\log c_t'}</Math>. Our four activities give factors {main.factors.map(factor => num(factor)).join(', ')}, whose product is {num(main.evidence)}. Some texts define the scale factor as the reciprocal; their final log formula then carries a minus sign. Compare definitions before comparing code.</Prose>
+    <NumericScaleFigure />
+    <Prose>If every state assigns zero probability to an observed symbol, the observation sequence really is impossible under the model. Neither scaling nor log-space should convert it into a valid posterior. Check whether a hard constraint was intended, or whether a training vocabulary needs a deliberately learned unknown-symbol category. That is a modelling decision.</Prose>
+
+    <H3>Use the library without changing the question</H3>
+    <Prose>The optional program below targets the <a href="https://hmmlearn.readthedocs.io/en/0.3.3/tutorial.html">hmmlearn 0.3.3 API</a> and shows a fixed categorical model, independent-sequence fitting and a Gaussian-emission model. <strong>The content phase could not execute it</strong>, because the dependency was unavailable; this implementation installed it in an isolated environment and ran it, so the output below is real. The environment is deliberately separate from the one the program above ran in: resolving hmmlearn moves NumPy, and other lessons&rsquo; recorded outputs depend on the exact versions there. It resolved to hmmlearn {hmmExamples.hmmlearn.environment.hmmlearn}, NumPy {hmmExamples.hmmlearn.environment.numpy}, SciPy {hmmExamples.hmmlearn.environment.scipy} and scikit-learn {hmmExamples.hmmlearn.environment['scikit-learn']} on Python {hmmExamples.hmmlearn.environment.python}.</Prose>
+    <CodeBlock language="bash">{hmmExamples.hmmlearn.setup}</CodeBlock>
+    <RunnableExample example={hmmExamples.hmmlearn}>
       <Prose>
-        The theoretical framework sat in relative obscurity until 1989, when Lawrence Rabiner published "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition" in the <em>Proceedings of the IEEE</em>, volume 77, number 2, pages 257–286. Rabiner's tutorial is one of the most widely read papers in all of engineering. It laid out the three canonical problems of HMMs — evaluation, decoding, and learning — gave clean algorithmic solutions to each, and demonstrated their power on speech recognition, the application that made HMMs famous. The automatic speech recognition systems of the 1980s and 1990s were almost entirely HMM-based: each phoneme was modeled as a state, the acoustic features at each time step were emissions, and recognizing a word meant finding the most likely state sequence given the acoustic signal. HMMs dominated ASR until deep learning caught up in the early 2010s.
+        It also printed one warning to standard error: <Code>{hmmExamples.hmmlearn.warning}</Code> Both halves of
+        that sentence check out. Section 9 counts the free parameters of a two-state, three-symbol categorical model
+        as {parameterCount(2, 3)}, which is the number the library reports; and the two two-step recordings really do
+        supply only four observations. The fit it warns about reaches a log score of −1.386294, which is exactly
+        2&thinsp;log&thinsp;0.5: it has explained each recording with probability one half by making its states
+        deterministic. A warning naming a degenerate solution is worth more than a convergence flag.
       </Prose>
-
-      <Prose>
-        The broader list of applications is remarkable. In computational biology, HMMs model protein secondary structure (each residue's structural category is a hidden state) and find gene-coding regions in genomic sequences (the CpG island problem is a classic HMM textbook example). In natural language processing, part-of-speech tagging was the canonical sequence labeling task before neural CRFs: each word is an observation, each POS tag is a hidden state. In activity recognition, sensor streams from accelerometers can be modeled as HMM emissions, with hidden states corresponding to activities like walking, sitting, or running. In quantitative finance, hidden states represent market regimes — bull, bear, sideways — and asset returns are the observations; detecting regime switches has obvious trading applications. The unifying thread: whenever you have a sequence of noisy, indirect observations of an underlying process that evolves according to simple rules, the HMM is the right first model.
-      </Prose>
-
-      <Prose>
-        What makes the HMM intellectually satisfying is its relationship to the broader landscape of latent variable models. The Gaussian Mixture Model (covered in the previous section) uses a single discrete latent variable to explain which cluster generated each data point — but the cluster assignment is independent across data points. The HMM adds temporal structure: the hidden state at time <em>t</em> depends on the hidden state at time <em>t - 1</em>. This Markov dependency is what makes the model appropriate for sequences rather than unstructured collections of points, and it is what makes the inference algorithms — the forward-backward algorithm and the Viterbi algorithm — possible to derive in polynomial time via dynamic programming.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        The mental model for an HMM: imagine a friend in another city who calls you every day and reports what they did — walked in the park, went shopping, or cleaned the house. You cannot see the weather where they are, but you know that rainy days make outdoor activities less likely and indoor ones more likely. The weather follows its own pattern: a rainy day tends to be followed by another rainy day, and a sunny day by another sunny day, but both transitions can flip. Your job is to infer the most likely weather sequence given the reported activity sequence, and to learn the weather transition probabilities and activity likelihoods from a long sequence of calls.
-      </Prose>
-
-      <Prose>
-        This is the exact example Rabiner uses in his 1989 tutorial, and it crystallizes every element of the HMM. The weather (Rainy or Sunny) is the hidden state — it evolves in time following a Markov chain, so tomorrow's weather depends only on today's, not on any earlier history. The activity (Walk, Shop, Clean) is the observation — it is a noisy, state-conditional signal. The goal is to work backward from a sequence of observations to say something useful about the hidden state sequence.
-      </Prose>
-
-      <Prose>
-        The trellis is the key computational picture. Draw a grid with time steps on the horizontal axis ({"t=0, 1, ..., T-1"}) and hidden states on the vertical axis (Rainy or Sunny). Each cell in the grid corresponds to one state at one time step. The cell {"(t, j)"} has incoming arrows from every cell {"(t-1, i)"}, each weighted by the transition probability {"A_{ij}"} — the probability of moving from state <em>i</em> to state <em>j</em>. Each cell also has a local weight from the emission probability {"B_{j,o_t}"} — the probability of observing {"o_t"} when in state <em>j</em>. The forward algorithm fills in this trellis from left to right, computing at each cell the total probability mass of all paths that pass through that state at that time step. The Viterbi algorithm fills the same trellis but keeps track of the single best path into each cell rather than summing over all paths. Both algorithms run in O(T · N²) time — quadratic in the number of states, linear in sequence length — because the Markov structure means each cell only needs to look back one time step.
-      </Prose>
-
-      <Prose>
-        The Baum-Welch algorithm (HMM's EM) trains the model parameters from unlabeled sequences. Like all EM algorithms, it alternates between an E-step — computing soft assignments of time steps to hidden states, given current parameters — and an M-step — re-estimating parameters as weighted statistics of those soft assignments. The soft assignments here are the posterior probabilities of being in each state at each time step, computed by combining the forward and backward passes. The M-step updates have closed forms: the new transition matrix entry {"A_{ij}"} is the expected number of transitions from <em>i</em> to <em>j</em> divided by the expected number of times we were in state <em>i</em>; the new emission probability {"B_{j,k}"} is the expected number of times we emitted observation <em>k</em> while in state <em>j</em> divided by the expected number of times we were in state <em>j</em>. Every Baum-Welch iteration provably increases the log-likelihood — the same guarantee that makes EM reliable across all its applications.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 The HMM tuple</H3>
-
-      <Prose>
-        An HMM with <em>N</em> hidden states and <em>M</em> observation symbols is defined by three parameter matrices, collectively written {"λ = (π, A, B)"}:
-      </Prose>
-
-      <MathBlock>{"\\pi_i = P(s_0 = i), \\quad i = 1, \\ldots, N"}</MathBlock>
-
-      <Prose>
-        {"π"} is the initial state distribution — a probability vector of length <em>N</em> that specifies how likely each state is at time 0.
-      </Prose>
-
-      <MathBlock>{"A_{ij} = P(s_t = j \\mid s_{t-1} = i), \\quad \\sum_j A_{ij} = 1"}</MathBlock>
-
-      <Prose>
-        <em>A</em> is the {"N × N"} transition matrix. {"A_{ij}"} is the probability of moving from state <em>i</em> to state <em>j</em> in one time step. Each row sums to 1.
-      </Prose>
-
-      <MathBlock>{"B_{j,k} = P(o_t = k \\mid s_t = j), \\quad \\sum_k B_{j,k} = 1"}</MathBlock>
-
-      <Prose>
-        <em>B</em> is the {"N × M"} emission matrix. {"B_{j,k}"} is the probability of observing symbol <em>k</em> when the current state is <em>j</em>. For continuous observations, <em>B</em> is replaced by a family of density functions — Gaussian, GMM, or any other.
-      </Prose>
-
-      <H3>3.2 Problem 1: Evaluation (the Forward Algorithm)</H3>
-
-      <Prose>
-        Given a model {"λ = (π, A, B)"} and an observation sequence {"O = (o_0, o_1, ..., o_{T-1})"}, compute the probability {"P(O | λ)"}. This is the evaluation problem — how well does the model explain the observed data?
-      </Prose>
-
-      <Prose>
-        Naively, you would sum the joint probability over all {"N^T"} possible state sequences, but this is exponential in <em>T</em>. The forward algorithm uses dynamic programming. Define the forward variable:
-      </Prose>
-
-      <MathBlock>{"\\alpha_t(j) = P(o_0, o_1, \\ldots, o_t, s_t = j \\mid \\lambda)"}</MathBlock>
-
-      <Prose>
-        {"α_t(j)"} is the joint probability of the first <em>t+1</em> observations and being in state <em>j</em> at time <em>t</em>. The recursion is:
-      </Prose>
-
-      <MathBlock>{"\\alpha_0(j) = \\pi_j \\cdot B_{j, o_0}"}</MathBlock>
-
-      <MathBlock>{"\\alpha_{t+1}(j) = \\left( \\sum_{i=1}^{N} \\alpha_t(i) \\cdot A_{ij} \\right) \\cdot B_{j, o_{t+1}}"}</MathBlock>
-
-      <Prose>
-        The total probability is {"P(O | λ) = Σ_j α_{T-1}(j)"}. The inner sum over <em>i</em> accounts for all possible previous states — this is the dynamic programming step that reduces {"N^T"} paths to {"O(T · N²)"} operations.
-      </Prose>
-
-      <Prose>
-        <strong>Underflow and the log-sum-exp trick.</strong> In practice, {"α_t(j)"} shrinks geometrically with <em>t</em> because it is a product of probabilities. For sequences longer than a few hundred steps, it underflows to zero in float64. The fix is to work in log-space throughout:
-      </Prose>
-
-      <MathBlock>{"\\log \\alpha_{t+1}(j) = \\log B_{j,o_{t+1}} + \\text{log-sum-exp}_i \\left( \\log \\alpha_t(i) + \\log A_{ij} \\right)"}</MathBlock>
-
-      <Prose>
-        where {"log-sum-exp(a, b) = max(a, b) + log(1 + exp(min(a,b) - max(a,b)))"} computes {"log(exp(a) + exp(b))"} without overflow. NumPy provides <Code>{"np.logaddexp"}</Code> and <Code>{"np.logaddexp.reduce"}</Code> for this.
-      </Prose>
-
-      <H3>3.3 Problem 2: Decoding (the Viterbi Algorithm)</H3>
-
-      <Prose>
-        Given {"λ"} and <em>O</em>, find the single most likely state sequence. This is the decoding problem — what hidden states best explain what we observed?
-      </Prose>
-
-      <Prose>
-        Andrew Viterbi introduced this algorithm in 1967 in "Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm," published in <em>IEEE Transactions on Information Theory</em>, volume 13, number 2, pages 260–269 — originally for decoding convolutional codes, not for HMMs, but the algorithm is identical. Define:
-      </Prose>
-
-      <MathBlock>{"\\delta_t(j) = \\max_{s_0,\\ldots,s_{t-1}} P(s_0,\\ldots,s_{t-1}, s_t = j, o_0,\\ldots,o_t \\mid \\lambda)"}</MathBlock>
-
-      <Prose>
-        {"δ_t(j)"} is the probability of the single best path ending in state <em>j</em> at time <em>t</em>. The Viterbi recursion replaces the sum in the forward algorithm with a max:
-      </Prose>
-
-      <MathBlock>{"\\delta_0(j) = \\pi_j \\cdot B_{j,o_0}"}</MathBlock>
-
-      <MathBlock>{"\\delta_{t+1}(j) = \\left( \\max_i \\, \\delta_t(i) \\cdot A_{ij} \\right) \\cdot B_{j,o_{t+1}}"}</MathBlock>
-
-      <Prose>
-        Critically, we also store back-pointers {"ψ_t(j) = argmax_i (δ_{t-1}(i) · A_{ij})"} at every cell. After filling the trellis forward, the optimal path is recovered by tracing back from the maximizing state at the final time step. This back-trace is {"O(T)"} once the trellis is filled.
-      </Prose>
-
-      <H3>3.4 Problem 3: Learning (Baum-Welch / EM)</H3>
-
-      <Prose>
-        Given observation sequences {"O^{(1)}, ..., O^{(K)}"}, find {"λ = (π, A, B)"} that maximizes {"P(O | λ)"}. This is the learning problem. The Baum-Welch algorithm is EM applied to HMMs.
-      </Prose>
-
-      <Prose>
-        <strong>E-step.</strong> Run the forward pass to get {"log α_t(i)"} and the backward pass to get {"log β_t(i)"}. The backward variable is defined symmetrically:
-      </Prose>
-
-      <MathBlock>{"\\beta_t(i) = P(o_{t+1}, \\ldots, o_{T-1} \\mid s_t = i, \\lambda)"}</MathBlock>
-
-      <MathBlock>{"\\beta_{T-1}(i) = 1, \\qquad \\beta_t(i) = \\sum_j A_{ij} \\cdot B_{j,o_{t+1}} \\cdot \\beta_{t+1}(j)"}</MathBlock>
-
-      <Prose>
-        From {"α"} and {"β"}, compute two sets of soft assignments. The state posterior (gamma):
-      </Prose>
-
-      <MathBlock>{"\\gamma_t(i) = P(s_t = i \\mid O, \\lambda) = \\frac{\\alpha_t(i) \\cdot \\beta_t(i)}{\\sum_j \\alpha_t(j) \\cdot \\beta_t(j)}"}</MathBlock>
-
-      <Prose>
-        And the joint state-transition posterior (xi):
-      </Prose>
-
-      <MathBlock>{"\\xi_t(i,j) = P(s_t = i, s_{t+1} = j \\mid O, \\lambda) = \\frac{\\alpha_t(i) \\cdot A_{ij} \\cdot B_{j,o_{t+1}} \\cdot \\beta_{t+1}(j)}{P(O \\mid \\lambda)}"}</MathBlock>
-
-      <Prose>
-        <strong>M-step.</strong> Re-estimate parameters using closed-form updates:
-      </Prose>
-
-      <MathBlock>{"\\hat{\\pi}_i = \\gamma_0(i)"}</MathBlock>
-
-      <MathBlock>{"\\hat{A}_{ij} = \\frac{\\sum_{t=0}^{T-2} \\xi_t(i,j)}{\\sum_{t=0}^{T-2} \\gamma_t(i)}"}</MathBlock>
-
-      <MathBlock>{"\\hat{B}_{j,k} = \\frac{\\sum_{t : o_t = k} \\gamma_t(j)}{\\sum_{t=0}^{T-1} \\gamma_t(j)}"}</MathBlock>
-
-      <Prose>
-        The M-step has a natural interpretation. {"Â_{ij}"} is the expected number of transitions from <em>i</em> to <em>j</em>, divided by the expected number of times we were in state <em>i</em>. {"B̂_{j,k}"} is the fraction of time the model was in state <em>j</em> while observing symbol <em>k</em>. These are exactly the maximum-likelihood estimates you would compute if the state sequence were observed — the soft assignments do the work of replacing hard counts with expected counts, just as in GMM-EM.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below uses NumPy only. We implement the full HMM toolkit — log-space forward, backward, Viterbi, and Baum-Welch — on Rabiner's canonical weather example: 2 states (Rainy=0, Sunny=1), 3 observations (Walk=0, Shop=1, Clean=2). Outputs below are verbatim terminal output.
-      </Prose>
-
-      <H3>4a. Parameters and forward algorithm</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-# Rabiner's canonical weather HMM
-pi = np.array([0.6, 0.4])           # P(Rainy)=0.6, P(Sunny)=0.4 initially
-A  = np.array([[0.7, 0.3],          # Rainy->Rainy=0.7, Rainy->Sunny=0.3
-               [0.4, 0.6]])          # Sunny->Rainy=0.4, Sunny->Sunny=0.6
-B  = np.array([[0.1, 0.4, 0.5],     # Rainy: Walk=0.1, Shop=0.4, Clean=0.5
-               [0.6, 0.3, 0.1]])     # Sunny: Walk=0.6, Shop=0.3, Clean=0.1
-
-obs = [0, 1, 0, 2]  # Walk, Shop, Walk, Clean
-T = len(obs); N = A.shape[0]
-
-# ---- Forward algorithm (log-space) ----
-log_alpha = np.full((T, N), -np.inf)
-log_alpha[0] = np.log(pi) + np.log(B[:, obs[0]])
-
-for t in range(1, T):
-    for j in range(N):
-        log_sum = np.logaddexp.reduce(log_alpha[t-1] + np.log(A[:, j]))
-        log_alpha[t, j] = log_sum + np.log(B[j, obs[t]])
-
-log_prob = np.logaddexp.reduce(log_alpha[-1])
-print(f"log P(obs | lambda) = {log_prob:.6f}")
-# log P(obs | lambda) = -4.673518
-print(f"P(obs | lambda)     = {np.exp(log_prob):.8f}")
-# P(obs | lambda)     = 0.00933936
-
-print("alpha matrix (log-space):")
-for t in range(T):
-    print(f"  t={t}: Rainy={log_alpha[t,0]:.4f}, Sunny={log_alpha[t,1]:.4f}")
-# alpha matrix (log-space):
-#   t=0: Rainy=-2.8134, Sunny=-1.4271
-#   t=1: Rainy=-2.8968, Sunny=-3.0241
-#   t=2: Rainy=-5.1485, Sunny=-3.5960
-#   t=3: Rainy=-4.8903, Sunny=-6.3088`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>{"t=0"}</Code>, Sunny has higher log-alpha (-1.43 vs -2.81) because the prior {"P(Sunny)=0.4"} combined with {"P(Walk|Sunny)=0.6"} dominates {"P(Rainy)=0.6 × P(Walk|Rainy)=0.1 = 0.06"}. By <Code>{"t=3"}</Code> (Clean), Rainy dominates (-4.89 vs -6.31) because {"P(Clean|Rainy)=0.5"} is much higher than {"P(Clean|Sunny)=0.1"} — the model correctly infers the final day was rainy.
-      </Prose>
-
-      <H3>4b. Backward algorithm and state posteriors</H3>
-
-      <CodeBlock language="python">
-{`# ---- Backward algorithm (log-space) ----
-log_beta = np.zeros((T, N))   # beta_{T-1} = 1 => log = 0
-for t in range(T-2, -1, -1):
-    for i in range(N):
-        log_beta[t, i] = np.logaddexp.reduce(
-            np.log(A[i]) + np.log(B[:, obs[t+1]]) + log_beta[t+1]
-        )
-
-print("beta matrix (log-space):")
-for t in range(T):
-    print(f"  t={t}: Rainy={log_beta[t,0]:.4f}, Sunny={log_beta[t,1]:.4f}")
-# beta matrix (log-space):
-#   t=0: Rainy=-3.4952, Sunny=-3.4632
-#   t=1: Rainy=-2.6118, Sunny=-2.2182
-#   t=2: Rainy=-0.9676, Sunny=-1.3471
-#   t=3: Rainy=0.0000,  Sunny=0.0000
-
-# ---- Gamma: state posteriors ----
-log_gamma = log_alpha + log_beta
-log_gamma -= np.logaddexp.reduce(log_gamma, axis=1, keepdims=True)
-gamma = np.exp(log_gamma)
-
-print("Gamma (state posteriors):")
-for t in range(T):
-    print(f"  t={t}: P(Rainy)={gamma[t,0]:.4f}, P(Sunny)={gamma[t,1]:.4f}")
-# Gamma (state posteriors):
-#   t=0: P(Rainy)=0.1949, P(Sunny)=0.8051
-#   t=1: P(Rainy)=0.4338, P(Sunny)=0.5662
-#   t=2: P(Rainy)=0.2363, P(Sunny)=0.7637
-#   t=3: P(Rainy)=0.8051, P(Sunny)=0.1949`}
-      </CodeBlock>
-
-      <Prose>
-        The gamma posteriors tell the full probabilistic story. Day 0 (Walk): 80.5% Sunny — walking favors sunny weather. Day 1 (Shop): nearly even split, slight Sunny edge. Day 2 (Walk): again 76% Sunny. Day 3 (Clean): 80.5% Rainy — cleaning strongly favors rainy. The forward-backward pass combines both past (alpha) and future (beta) evidence, so it is more accurate than looking at only one direction.
-      </Prose>
-
-      <H3>4c. Viterbi decoding</H3>
-
-      <CodeBlock language="python">
-{`# ---- Viterbi algorithm (log-space) ----
-log_delta = np.full((T, N), -np.inf)
-psi       = np.zeros((T, N), dtype=int)
-log_delta[0] = np.log(pi) + np.log(B[:, obs[0]])
-
-for t in range(1, T):
-    for j in range(N):
-        scores   = log_delta[t-1] + np.log(A[:, j])
-        psi[t, j]      = np.argmax(scores)
-        log_delta[t, j] = scores[psi[t, j]] + np.log(B[j, obs[t]])
-
-best_last = np.argmax(log_delta[-1])
-print(f"log P(best path) = {log_delta[-1, best_last]:.6f}")
-# log P(best path) = -5.773004
-print(f"P(best path)     = {np.exp(log_delta[-1, best_last]):.8f}")
-# P(best path)     = 0.00311040
-
-# Back-trace
-path = [0] * T
-path[-1] = best_last
-for t in range(T-2, -1, -1):
-    path[t] = psi[t+1, path[t+1]]
-
-state_names = ["Rainy", "Sunny"]
-obs_names   = ["Walk",  "Shop",  "Walk",  "Clean"]
-print("Most likely states:", [state_names[s] for s in path])
-# Most likely states: ['Sunny', 'Sunny', 'Sunny', 'Rainy']
-print("Observation sequence:", obs_names)
-
-print("Viterbi delta + psi (log-space):")
-for t in range(T):
-    print(f"  t={t}: Rainy={log_delta[t,0]:.4f}, Sunny={log_delta[t,1]:.4f}"
-          f"  | psi={psi[t].tolist()}")
-# Viterbi delta + psi (log-space):
-#   t=0: Rainy=-2.8134, Sunny=-1.4271  | psi=[0, 0]
-#   t=1: Rainy=-3.2597, Sunny=-3.1419  | psi=[1, 1]
-#   t=2: Rainy=-5.9190, Sunny=-4.1636  | psi=[0, 1]
-#   t=3: Rainy=-5.7730, Sunny=-6.9770  | psi=[1, 1]`}
-      </CodeBlock>
-
-      <Prose>
-        The Viterbi path (Sunny, Sunny, Sunny, Rainy) differs from the most probable state at each time step individually (which would be Sunny, Sunny, Sunny, Rainy from gamma — they agree here). This is not always the case: the most likely joint path and the pointwise MAP states can differ when transitions create strong constraints. The Viterbi path probability (0.00311) is lower than the total observation probability (0.00934) because the forward algorithm sums over all {"2^4 = 16"} paths, not just the best one.
-      </Prose>
-
-      <H3>4d. Full Baum-Welch training</H3>
-
-      <CodeBlock language="python">
-{`def forward_log(pi, A, B, obs):
-    T = len(obs); N = A.shape[0]
-    log_alpha = np.full((T, N), -np.inf)
-    log_alpha[0] = np.log(pi + 1e-300) + np.log(B[:, obs[0]] + 1e-300)
-    for t in range(1, T):
-        for j in range(N):
-            log_sum = np.logaddexp.reduce(log_alpha[t-1] + np.log(A[:, j] + 1e-300))
-            log_alpha[t, j] = log_sum + np.log(B[j, obs[t]] + 1e-300)
-    return log_alpha
-
-def backward_log(A, B, obs):
-    T = len(obs); N = A.shape[0]
-    log_beta = np.zeros((T, N))
-    for t in range(T-2, -1, -1):
-        for i in range(N):
-            log_beta[t, i] = np.logaddexp.reduce(
-                np.log(A[i] + 1e-300) + np.log(B[:, obs[t+1]] + 1e-300) + log_beta[t+1]
-            )
-    return log_beta
-
-def baum_welch(obs, N, M, n_iter=30, seed=99):
-    rng = np.random.default_rng(seed)
-    pi_hat = rng.dirichlet(np.ones(N))
-    A_hat  = rng.dirichlet(np.ones(N), size=N)
-    B_hat  = rng.dirichlet(np.ones(M), size=N)
-    T = len(obs); log_liks = []
-
-    for _ in range(n_iter):
-        log_alpha = forward_log(pi_hat, A_hat, B_hat, obs)
-        log_beta  = backward_log(A_hat, B_hat, obs)
-        log_lik   = np.logaddexp.reduce(log_alpha[-1])
-        log_liks.append(log_lik)
-
-        # E-step: gamma
-        log_gamma = log_alpha + log_beta
-        log_gamma -= np.logaddexp.reduce(log_gamma, axis=1, keepdims=True)
-        gamma = np.exp(log_gamma)
-
-        # E-step: xi  (T-1, N, N)
-        xi = np.zeros((T-1, N, N))
-        for t in range(T-1):
-            xi_log = np.full((N, N), -np.inf)
-            for i in range(N):
-                for j in range(N):
-                    xi_log[i, j] = (log_alpha[t, i]
-                                    + np.log(A_hat[i, j] + 1e-300)
-                                    + np.log(B_hat[j, obs[t+1]] + 1e-300)
-                                    + log_beta[t+1, j])
-            xi[t] = np.exp(xi_log - np.logaddexp.reduce(xi_log.ravel()))
-
-        # M-step
-        pi_hat = gamma[0]
-        A_hat  = xi.sum(0) / gamma[:-1].sum(0, keepdims=True).T
-        B_new  = np.zeros_like(B_hat)
-        for k in range(M):
-            mask = np.array(obs) == k
-            B_new[:, k] = gamma[mask].sum(0)
-        B_hat = B_new / B_new.sum(1, keepdims=True)
-
-    return pi_hat, A_hat, B_hat, log_liks
-
-# Generate 200-step sequence from true HMM, then re-learn
-def generate_obs(pi, A, B, T, seed):
-    rng = np.random.default_rng(seed)
-    s = rng.choice(len(pi), p=pi)
-    seq = []
-    for _ in range(T):
-        seq.append(rng.choice(B.shape[1], p=B[s]))
-        s = rng.choice(A.shape[1], p=A[s])
-    return seq
-
-obs_seq = generate_obs(pi, A, B, T=200, seed=7)
-pi_est, A_est, B_est, log_liks = baum_welch(obs_seq, N=2, M=3, n_iter=30, seed=99)
-
-print("Log-likelihood per iteration (selected):")
-for i in [0, 1, 2, 4, 9, 19, 29]:
-    print(f"  iter {i:2d}: {log_liks[i]:.4f}")
-# Log-likelihood per iteration (selected):
-#   iter  0: -268.9096
-#   iter  1: -219.0410
-#   iter  2: -218.5248
-#   iter  4: -218.0819
-#   iter  9: -217.5177
-#   iter 19: -217.2874
-#   iter 29: -217.2358
-
-print("Estimated A:"); print(A_est.round(4))
-# Estimated A:
-# [[0.4268 0.5732]
-#  [0.7085 0.2915]]
-print("Estimated B:"); print(B_est.round(4))
-# Estimated B:
-# [[0.4834 0.0826 0.434 ]
-#  [0.075  0.6892 0.2358]]
-# Note: label switching — state indices are permuted vs. true parameters.
-# Est state-0 emission [0.48, 0.08, 0.43] matches true Sunny [0.6, 0.3, 0.1]
-# in qualitative shape (high Walk, low Shop), with compression from short T.`}
-      </CodeBlock>
-
-      <Callout type="info" title="Label switching is expected">
-        Baum-Welch can assign state indices in any order — there is no way to tell from the observations alone which index should be "Rainy" and which "Sunny." The estimated A and B above are permuted relative to the true parameters. After permuting the indices by best frobenius-norm match, the recovered structure is qualitatively correct. This is the same label switching problem that affects GMM-EM, and it is an inherent property of all latent variable models with exchangeable components.
-      </Callout>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        The <Code>{"hmmlearn"}</Code> library (pip install hmmlearn) is the standard Python HMM toolkit. It wraps Cython-optimized implementations of the forward-backward and Viterbi algorithms and provides three main model classes: <Code>{"CategoricalHMM"}</Code> for discrete observations, <Code>{"GaussianHMM"}</Code> for continuous Gaussian emissions, and <Code>{"GMMHMM"}</Code> for Gaussian mixture emissions per state.
-      </Prose>
-
-      <H3>5a. CategoricalHMM on the weather example</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from hmmlearn import hmm
-
-np.random.seed(42)
-
-# True Rabiner parameters — generate 500-step training sequence
-pi_true = np.array([0.6, 0.4])
-A_true  = np.array([[0.7, 0.3], [0.4, 0.6]])
-B_true  = np.array([[0.1, 0.4, 0.5], [0.6, 0.3, 0.1]])
-
-def generate_sequence(pi, A, B, T, seed):
-    rng = np.random.default_rng(seed)
-    s = rng.choice(len(pi), p=pi)
-    seq = []
-    for _ in range(T):
-        seq.append(rng.choice(B.shape[1], p=B[s]))
-        s = rng.choice(A.shape[1], p=A[s])
-    return seq
-
-obs_seq = generate_sequence(pi_true, A_true, B_true, T=500, seed=7)
-X = np.array(obs_seq).reshape(-1, 1)
-
-model = hmm.CategoricalHMM(n_components=2, n_iter=50, random_state=42, tol=1e-4)
-model.fit(X, lengths=[500])
-
-print(f"Log-likelihood (score): {model.score(X, [500]):.4f}")
-# Log-likelihood (score): -546.4333
-
-print("Learned startprob_:")
-print(model.startprob_.round(4))
-# Learned startprob_:
-# [1. 0.]
-
-print("Learned transmat_:")
-print(model.transmat_.round(4))
-# Learned transmat_:
-# [[7.630e-01 2.370e-01]
-#  [9.994e-01 6.000e-04]]
-
-print("Learned emissionprob_:")
-print(model.emissionprob_.round(4))
-# Learned emissionprob_:
-# [[0.2601 0.4499 0.29  ]
-#  [0.5834 0.0115 0.4051]]
-
-# Viterbi decode on 4-step test sequence
-test_obs = np.array([0, 1, 0, 2]).reshape(-1, 1)
-log_prob_vit, state_seq = model.decode(test_obs, algorithm="viterbi")
-print(f"Viterbi log P(best path) = {log_prob_vit:.4f}")
-# Viterbi log P(best path) = -5.5415
-print("Most likely states:", state_seq.tolist())
-# Most likely states: [0, 0, 0, 0]
-
-# Forward-backward posteriors
-posteriors = model.predict_proba(test_obs)
-obs_names = ["Walk", "Shop", "Walk", "Clean"]
-print("Posterior probabilities:")
-for t, (name, post) in enumerate(zip(obs_names, posteriors)):
-    print(f"  t={t} ({name}): S0={post[0]:.4f}, S1={post[1]:.4f}")
-# Posterior probabilities:
-#   t=0 (Walk):  S0=1.0000, S1=0.0000
-#   t=1 (Shop):  S0=0.9937, S1=0.0063
-#   t=2 (Walk):  S0=0.6133, S1=0.3867
-#   t=3 (Clean): S0=0.8141, S1=0.1859`}
-      </CodeBlock>
-
-      <H3>5b. GaussianHMM on continuous data</H3>
-
-      <CodeBlock language="python">
-{`# 2-state GaussianHMM: state-0 mean=-2.0, state-1 mean=+2.0
-rng = np.random.default_rng(42)
-n = 300
-A_g = np.array([[0.8, 0.2], [0.3, 0.7]])
-mu  = [[-2.0], [2.0]]
-sig = [[0.5],  [0.8]]
-cur = 0
-X_cont = []
-for _ in range(n):
-    X_cont.append([rng.normal(mu[cur][0], sig[cur][0])])
-    cur = rng.choice(2, p=A_g[cur])
-X_cont = np.array(X_cont)
-
-ghmm = hmm.GaussianHMM(n_components=2, covariance_type="diag", n_iter=50, random_state=0)
-ghmm.fit(X_cont, [n])
-
-print(f"Log-likelihood: {ghmm.score(X_cont, [n]):.4f}")
-# Log-likelihood: -417.4575
-print(f"Learned means:  {ghmm.means_.flatten().round(4).tolist()}")
-# Learned means:  [2.0593, -2.0182]
-print(f"Learned covars: {ghmm.covars_.flatten().round(4).tolist()}")
-# Learned covars: [0.6211, 0.2288]
-print("Learned transmat:")
-print(ghmm.transmat_.round(4))
-# Learned transmat:
-# [[0.6937 0.3063]
-#  [0.1809 0.8191]]`}
-      </CodeBlock>
-
-      <Prose>
-        GaussianHMM recovered the two regime means accurately (2.06 and -2.02 vs. true 2.0 and -2.0). The transition matrix is permuted from truth but structurally correct: one state is more self-persistent (0.82 diagonal) than the other (0.69 diagonal), matching the true asymmetry in {"A_g"}.
-      </Prose>
-
-      <Callout type="info" title="Beyond HMMs: the modern succession">
-        HMMs assume observations are conditionally independent given the state sequence. This is a strong assumption that breaks down when observation features are correlated (e.g., adjacent words in a sentence). Conditional Random Fields (CRFs), introduced by Lafferty, McCallum, and Pereira in 2001, relax this by modeling the conditional distribution of states given all observations, allowing arbitrary feature functions. BiLSTM-CRF models (Lample et al. 2016) replaced both the HMM emission and the linear CRF potential with a bidirectional LSTM encoder, achieving state-of-the-art NER and POS tagging. Since 2018, Transformer-based models (BERT, RoBERTa) have further supplanted CRFs for most sequence labeling tasks by encoding full-sequence context with self-attention. HMMs remain relevant where interpretability matters, data is limited, or real-time inference is required.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Transition and emission matrices</H3>
-
-      <Prose>
-        The Rabiner weather HMM in full. The transition matrix {"A"} shows strong diagonal structure (both states are self-persistent: {"A_{RR}=0.70"}, {"A_{SS}=0.60"}). The emission matrix <em>B</em> shows the discrimination power of each observation: Clean is highly informative (0.5 Rainy vs. 0.1 Sunny), Walk is highly informative in the opposite direction (0.1 Rainy vs. 0.6 Sunny), and Shop is nearly neutral (0.4 vs. 0.3).
-      </Prose>
-
-      <Heatmap
-        label="Transition matrix A — Rainy/Sunny weather HMM"
-        matrix={[[0.70, 0.30], [0.40, 0.60]]}
-        rowLabels={["From: Rainy", "From: Sunny"]}
-        colLabels={["To: Rainy", "To: Sunny"]}
-        colorScale="gold"
-      />
-
-      <Heatmap
-        label="Emission matrix B — observation likelihoods per state"
-        matrix={[[0.10, 0.40, 0.50], [0.60, 0.30, 0.10]]}
-        rowLabels={["Rainy", "Sunny"]}
-        colLabels={["Walk", "Shop", "Clean"]}
-        colorScale="green"
-      />
-
-      <H3>6b. Viterbi trellis — 4-step walkthrough</H3>
-
-      <StepTrace
-        label="Viterbi trellis: Walk → Shop → Walk → Clean"
-        steps={[
-          {
-            label: "t=0: Observe Walk (o=0)",
-            render: () => (
-              <Prose>
-                {"Initialize: δ_0(Rainy) = π_R · B_{R,Walk} = 0.6 × 0.1 = 0.060  →  log = -2.813"}<br/>
-                {"         δ_0(Sunny) = π_S · B_{S,Walk} = 0.4 × 0.6 = 0.240  →  log = -1.427"}<br/>
-                Sunny leads by a large margin — walking is 6× more likely on a sunny day. Both back-pointers {"ψ_0"} are set to 0 (no predecessor). The trellis has two live cells; Sunny is clearly favored.
-              </Prose>
-            ),
-          },
-          {
-            label: "t=1: Observe Shop (o=1)",
-            render: () => (
-              <Prose>
-                {"Best predecessor for Rainy at t=1: max over {Rainy→Rainy: log -2.813 + log 0.7 = -3.169, Sunny→Rainy: log -1.427 + log 0.4 = -2.341} → best = Sunny, score = -2.341. Add log B_{R,Shop}=log 0.4 = -0.916. δ_1(Rainy)=-3.257, ψ_1(Rainy)=Sunny."}<br/>
-                {"Best predecessor for Sunny at t=1: max over {Rainy→Sunny: -2.813+log0.3=-4.016, Sunny→Sunny: -1.427+log0.6=-1.938} → best=Sunny, score=-1.938. Add log B_{S,Shop}=log0.3=-1.204. δ_1(Sunny)=-3.142, ψ_1(Sunny)=Sunny."}<br/>
-                Sunny barely leads (-3.14 vs -3.26). Shopping is slightly more likely on rainy days (0.4 vs 0.3), but Sunny's strong lead from t=0 is not yet erased.
-              </Prose>
-            ),
-          },
-          {
-            label: "t=2: Observe Walk (o=0)",
-            render: () => (
-              <Prose>
-                {"δ_2(Rainy): best predecessor is Sunny (-3.142+log0.4=-4.059). Add log B_{R,Walk}=log0.1=-2.303. δ_2(Rainy)=-6.362. ψ_2(Rainy)=Sunny."}<br/>
-                {"δ_2(Sunny): best predecessor is Sunny (-3.142+log0.6=-3.664). Add log B_{S,Walk}=log0.6=-0.511. δ_2(Sunny)=-4.175. ψ_2(Sunny)=Sunny."}<br/>
-                Sunny now leads convincingly (-4.18 vs -6.36). Another Walk observation reinforces the Sunny streak — the path is accumulating evidence for three consecutive sunny days.
-              </Prose>
-            ),
-          },
-          {
-            label: "t=3: Observe Clean (o=2) — back-trace",
-            render: () => (
-              <Prose>
-                {"δ_3(Rainy): best predecessor is Sunny (-4.175+log0.4=-5.090). Add log B_{R,Clean}=log0.5=-0.693. δ_3(Rainy)=-5.783. ψ_3(Rainy)=Sunny."}<br/>
-                {"δ_3(Sunny): best predecessor is Sunny (-4.175+log0.6=-4.687). Add log B_{S,Clean}=log0.1=-2.303. δ_3(Sunny)=-6.990. ψ_3(Sunny)=Sunny."}<br/>
-                {"Rainy wins at t=3 (-5.78 vs -6.99). Back-trace: path[-1]=Rainy → ψ_3(Rainy)=Sunny → ψ_2(Sunny)=Sunny → ψ_1(Sunny)=Sunny."}<br/>
-                <strong>Final Viterbi path: [Sunny, Sunny, Sunny, Rainy].</strong> The model correctly identifies the pattern: three sunny days (Walk, Shop, Walk) followed by a rainy day that caused indoor cleaning. Log P(best path) = -5.773.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6c. Baum-Welch log-likelihood convergence</H3>
-
-      <Plot
-        label="Baum-Welch log-likelihood convergence (T=200 observations, 2 states)"
-        xLabel="EM iteration"
-        yLabel="log P(O | λ)"
-        series={[
-          {
-            name: "log-likelihood",
-            color: colors.gold,
-            points: [
-              [0, -268.91], [1, -219.04], [2, -218.52], [3, -218.27],
-              [4, -218.08], [6, -217.78], [9, -217.52], [14, -217.37],
-              [19, -217.29], [24, -217.25], [29, -217.24],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The classic EM convergence shape: a steep drop in the first 1–2 iterations (from -268.9 to -219.0), followed by progressively smaller improvements as the algorithm approaches a local optimum. The monotone non-decrease property of EM is visible — the curve never goes up. By iteration 29, the log-likelihood has stabilized at -217.24.
-      </Prose>
-
-      <H3>6d. Gamma heatmap — state posteriors over time</H3>
-
-      <Prose>
-        The gamma matrix {"γ_t(i)"} from the 4-step weather sequence gives the full posterior over states at each time step. Each row sums to 1. High values (bright cells) indicate confident state attribution; values near 0.5 indicate genuine ambiguity.
-      </Prose>
-
-      <Heatmap
-        label="γ_t(i) — state posteriors: rows=time steps, cols=states"
-        matrix={[
-          [0.1949, 0.8051],
-          [0.4338, 0.5662],
-          [0.2363, 0.7637],
-          [0.8051, 0.1949],
-        ]}
-        rowLabels={["t=0 Walk", "t=1 Shop", "t=2 Walk", "t=3 Clean"]}
-        colLabels={["Rainy", "Sunny"]}
-        colorScale="purple"
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        HMMs are not always the right tool for sequence modeling. Here is a concrete guide to when each model family wins.
-      </Prose>
-
-      <StepTrace
-        label="HMM vs. CRF vs. RNN vs. Transformer"
-        steps={[
-          {
-            label: "Hidden Markov Model",
-            render: () => (
-              <Prose>
-                <strong>Use when:</strong> you have discrete latent states with a Markov structure; you need a generative model (can sample sequences, compute likelihoods, detect anomalies); your training data is limited ({"<"} 10k sequences); you need interpretable transition and emission probabilities that domain experts can inspect. Also natural when you need online inference — the forward algorithm processes one observation at a time with constant memory per state.<br/><br/>
-                <strong>Wins on:</strong> financial regime detection (states = bull/bear/sideways), genomics (CpG islands, gene structure), activity recognition with sensor streams, small-data sequence labeling.<br/><br/>
-                <strong>Key limitation:</strong> the observation independence assumption — given the current state, the observation at time <em>t</em> is independent of all other observations. This fails when adjacent observations are directly correlated (consecutive words, correlated sensor readings).
-              </Prose>
-            ),
-          },
-          {
-            label: "Conditional Random Field (CRF)",
-            render: () => (
-              <Prose>
-                <strong>Use when:</strong> you have discriminative goals (sequence labeling, not generation); you want to condition on rich overlapping features of the entire input sequence; you need to avoid the HMM independence assumption without going full neural. The linear-chain CRF is a direct generalization: it models {"P(states | observations)"} directly, allowing arbitrary feature functions of adjacent state pairs and arbitrary windows of observations.<br/><br/>
-                <strong>Wins on:</strong> named entity recognition with hand-crafted features, POS tagging with rich morphological features, medical record extraction where feature engineering is possible and interpretability is required.<br/><br/>
-                <strong>Key limitation:</strong> feature engineering overhead; no generative capability; typically cannot handle long-range dependencies beyond the local window.
-              </Prose>
-            ),
-          },
-          {
-            label: "RNN / BiLSTM-CRF",
-            render: () => (
-              <Prose>
-                <strong>Use when:</strong> you have thousands of labeled sequences; observations are high-dimensional (raw text, audio features); you need the model to learn its own features rather than hand-craft them. BiLSTM-CRF (Lample et al. 2016) became the standard NER architecture from 2016–2018: the LSTM encodes context in both directions, the CRF layer enforces valid label transitions. The combination removes the need for explicit feature engineering while retaining structured prediction at the output.<br/><br/>
-                <strong>Wins on:</strong> NER, POS tagging, chunking on medium-scale datasets (10k–100k sentences). Still competitive when labeled data is limited because it is more data-efficient than Transformers.<br/><br/>
-                <strong>Key limitation:</strong> sequential computation prevents parallelism; vanishing gradients over very long sequences even with LSTM gating; requires labeled data for the CRF layer.
-              </Prose>
-            ),
-          },
-          {
-            label: "Transformer (BERT, etc.)",
-            render: () => (
-              <Prose>
-                <strong>Use when:</strong> you have access to large pretrained models and your labeled dataset is at least moderately sized ({">"} 1k examples); your sequence length fits within the context window (512–8k tokens for most practical models); you need state-of-the-art accuracy on standard benchmarks.<br/><br/>
-                <strong>Wins on:</strong> essentially all standard NLP sequence labeling tasks since 2018. Fine-tuning BERT for NER or POS tagging consistently outperforms BiLSTM-CRF with less task-specific engineering. Self-attention captures arbitrary-range dependencies in {"O(T²)"} rather than{"O(T)"} sequentially.<br/><br/>
-                <strong>Key limitation:</strong> quadratic attention cost in sequence length; requires GPU hardware for fine-tuning; no explicit interpretable structure; not a generative model in the HMM sense; no built-in guarantee that output label sequences are globally consistent.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Inference complexity</H3>
-
-      <Prose>
-        The forward algorithm is {"O(T · N²)"} in time and {"O(T · N)"} in space to store the full alpha matrix (needed for Baum-Welch). For T = 10,000 and N = 50, this is 25 million operations per sequence — completely manageable. At N = 500, it becomes 2.5 billion per sequence — still feasible but slow for large training sets. At N = 5,000, it becomes 250 billion — infeasible without approximation.
-      </Prose>
-
-      <Prose>
-        The Viterbi algorithm has the same {"O(T · N²)"} complexity and {"O(T · N)"} space (the back-pointer matrix). This is tight — you cannot reduce the N² factor without additional structure (e.g., if A is sparse or has low-rank structure). In speech recognition, the number of effective HMM states can run into the millions when modeling full words and phrases, which is why beam search (Viterbi with pruning) became standard: at each time step, only the top-K paths are retained, reducing complexity to {"O(T · K)"} at the cost of no longer being exact.
-      </Prose>
-
-      <H3>8.2 Training complexity</H3>
-
-      <Prose>
-        Each Baum-Welch iteration runs {"O(T · N²)"} for forward-backward and {"O(T · N² + T · N · M)"} to compute the xi and update B (the extra {"N · M"} term comes from re-estimating the emission matrix over all M symbols). For large emission vocabularies (e.g., word-level language models where M = 50,000), the {"T · N · M"} term dominates. This is why HMM language models never competed with n-grams at scale — the emission matrix update becomes prohibitively expensive.
-      </Prose>
-
-      <Prose>
-        For continuous-observation HMMs (GaussianHMM), the emission update requires computing a weighted covariance matrix per state — {"O(T · N · D²)"} where D is the observation dimension. For full covariance matrices in high dimensions (D = 100), this is expensive and numerically fragile. Diagonal covariance (assuming independent dimensions) reduces this to {"O(T · N · D)"} and is the practical standard. Full covariance is feasible up to D ~ 50–100; beyond that, use tied covariance (all states share one covariance matrix) or diagonal.
-      </Prose>
-
-      <H3>8.3 When to reach for structured approximations</H3>
-
-      <Prose>
-        For N beyond a few hundred states, three approximation families are standard. <strong>Beam search (Viterbi with pruning):</strong> keep only the top-K paths at each time step. Exact at K = N, approximate but fast at K ~ 10–50. <strong>Factorial HMMs</strong> (Ghahramani and Jordan 1997): decompose a large state space as a product of smaller independent chains; exact inference is still exponential but mean-field approximations are tractable. <strong>Variational inference:</strong> replace exact EM with a variational lower bound that is tractable to optimize for structured models. All three are research-level tools — if you find yourself needing them, the literature on structured prediction and approximate inference is the right place to start.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Numerical underflow — always use log-space</H3>
-
-      <Prose>
-        This is the single most common HMM implementation bug. The forward variable {"α_t(j)"} is a product of up to <em>T</em> probability values, each in (0, 1). For T = 100 with typical values around 0.3, {"α_{99}(j) ≈ 0.3^{100} ≈ 10^{-52}"} — below the float64 minimum of {"~10^{-308}"} only because of the N-dimensional summation, but for longer sequences or more states, underflow to exact zero is inevitable. Once alpha is zero, every downstream computation — gamma, xi, the M-step updates — becomes 0/0 or NaN. The fix is non-negotiable: implement the forward and backward passes entirely in log-space using log-sum-exp. NumPy provides <Code>{"np.logaddexp"}</Code> for pairs and <Code>{"np.logaddexp.reduce"}</Code> for arrays. Never attempt naive scaling tricks (dividing by a constant at each step) in new code — log-space is cleaner, numerically stable, and only marginally slower.
-      </Prose>
-
-      <H3>9.2 Local optima and initialization sensitivity</H3>
-
-      <Prose>
-        Baum-Welch maximizes the observed-data log-likelihood, which is generally non-convex in the HMM parameters. Different initializations converge to different local optima. In practice, run Baum-Welch from multiple random starting points (5–20 in typical usage) and keep the solution with the highest final log-likelihood. A particularly bad initialization is uniform: if {"π"}, {"A"}, and {"B"} are all uniform at the start, the E-step produces identical responsibilities for all states, and the M-step cannot distinguish them — you are stuck at a saddle point where all states are identical. Always break symmetry by perturbing initialization, or use k-means on the observation sequence to initialize state-conditional means.
-      </Prose>
-
-      <H3>9.3 Label switching</H3>
-
-      <Prose>
-        As demonstrated in Section 4d, Baum-Welch can assign state indices in any order. The likelihood surface is symmetric under permutations of the state indices — swapping state 0 and state 1 everywhere in {"(π, A, B)"} gives an identical likelihood. This means you cannot meaningfully compare parameters across independent runs by their raw index. When you need to match states across runs (e.g., to average multiple initializations), use the Hungarian algorithm to find the permutation that minimizes parameter distance. When reporting results, label states by their characteristics (the "high-Walk" state, the "high-Clean" state) rather than their index.
-      </Prose>
-
-      <H3>9.4 Model selection: choosing the number of states N</H3>
-
-      <Prose>
-        The number of hidden states is a hyperparameter that must be set before training. More states always improve the training log-likelihood (the model has more capacity), so likelihood alone cannot choose N. The two standard tools are information criteria: AIC = {"2k - 2 log P(O|λ)"} and BIC = {"k log T - 2 log P(O|λ)"}, where <em>k</em> is the number of free parameters {"(N(N-1) + N(M-1) + N-1 for a categorical HMM)"}. BIC penalizes complexity more harshly than AIC and tends to prefer smaller N. In practice: fit models with N = 2, 3, 4, ..., up to some maximum; plot log-likelihood, AIC, and BIC against N; look for an "elbow" in the curve. For applications where the true number of states is known from domain knowledge (two market regimes, four activity types), use that.
-      </Prose>
-
-      <H3>9.5 The observation independence assumption</H3>
-
-      <Prose>
-        Given the current state, the HMM assumes observations are drawn independently — {"P(o_t | s_t, o_{t-1}, o_{t-2}, ...) = P(o_t | s_t)"}. This is violated whenever adjacent observations share local correlations not explained by the state. In speech, formant frequencies at consecutive frames are strongly correlated even within a single phoneme state. In text, adjacent words have strong co-occurrence patterns beyond what any single POS tag explains. The standard workarounds: for speech, use the delta and delta-delta features (first and second differences) as additional observation dimensions, which make the marginal observations closer to IID given the state. For text, move to CRFs or neural sequence models that explicitly condition on context.
-      </Prose>
-
-      <H3>9.6 Degenerate solutions</H3>
-
-      <Prose>
-        In continuous HMMs (GaussianHMM), a single component can collapse onto one data point, driving its variance to zero and its likelihood to infinity. This is the same singularity problem as in GMMs. hmmlearn handles this by adding a small floor to covariance matrices; the from-scratch implementation above avoids it because it uses categorical emissions. Watch for degenerate solutions when: a component's expected count drops near zero (the model is trying to eliminate a state); a Gaussian component's covariance shrinks over iterations while its log-likelihood grows. Fix: add a minimum variance floor, use MAP estimation with an inverse-Wishart prior on covariances, or reduce N.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, volume, and page numbers. Read them in this order.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Baum & Petrie 1966 — The founding paper",
-            render: () => (
-              <Prose>
-                Baum, L.E. and Petrie, T. (1966). "Statistical Inference for Probabilistic Functions of Finite State Markov Chains." <em>Annals of Mathematical Statistics</em>, 37(6), 1554–1563. The paper that introduced the HMM and proved that the parameters could be learned from observations alone. Baum and colleagues extended this work in a series of papers through 1972, deriving the Baum-Welch (forward-backward + EM) algorithm in stages. This original paper is readable but terse — Rabiner (1989) is the better tutorial entry point.
-              </Prose>
-            ),
-          },
-          {
-            label: "Viterbi 1967 — The decoding algorithm",
-            render: () => (
-              <Prose>
-                Viterbi, A.J. (1967). "Error Bounds for Convolutional Codes and an Asymptotically Optimum Decoding Algorithm." <em>IEEE Transactions on Information Theory</em>, 13(2), 260–269. DOI: 10.1109/TIT.1967.1054010. The Viterbi algorithm was developed for decoding convolutional codes in communication systems, not for HMMs. Its application to HMM decoding came later. The algorithm itself is a clean instance of the Bellman optimality principle applied to trellis graphs: max-product belief propagation on a chain-structured graphical model.
-              </Prose>
-            ),
-          },
-          {
-            label: "Rabiner 1989 — The definitive tutorial",
-            render: () => (
-              <Prose>
-                Rabiner, L.R. (1989). "A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition." <em>Proceedings of the IEEE</em>, 77(2), 257–286. DOI: 10.1109/5.18626. The canonical reference. Defines the three problems (evaluation, decoding, learning), gives step-by-step algorithms for each, introduces the canonical weather example used in this tutorial, and demonstrates applications to speech recognition. If you read one HMM paper, read this one. The notation used throughout this topic (π, A, B, α, β, γ, ξ) is Rabiner's notation, which has become standard.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bishop 2006 — PRML Chapter 13",
-            render: () => (
-              <Prose>
-                Bishop, C.M. (2006). <em>Pattern Recognition and Machine Learning</em>. New York: Springer. ISBN: 978-0-387-31073-2. Chapter 13 (Sequential Data) gives the graduate-level treatment: the forward-backward algorithm derived as a special case of the sum-product algorithm on a factor graph, the Viterbi algorithm as max-sum, and extensions to linear dynamical systems (Kalman filter) and general state-space models. The graphical model perspective makes the relationship between HMMs, Kalman filters, and particle filters immediately clear. Available as a free PDF from Microsoft Research.
-              </Prose>
-            ),
-          },
-          {
-            label: "Murphy 2012 — MLAPP Chapter 17",
-            render: () => (
-              <Prose>
-                Murphy, K.P. (2012). <em>Machine Learning: A Probabilistic Perspective</em>. Cambridge, MA: MIT Press. ISBN: 978-0-262-01802-9. Chapter 17 (Markov and Hidden Markov Models) covers HMMs, the Baum-Welch algorithm, and extensions including input-output HMMs and factorial HMMs. Murphy's treatment is more computational than Bishop's — with more pseudocode and worked examples — making it useful as a reference when implementing. The book also covers the broader graphical models context that HMMs fit into.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lafferty, McCallum & Pereira 2001 — CRFs",
-            render: () => (
-              <Prose>
-                Lafferty, J., McCallum, A., and Pereira, F. (2001). "Conditional Random Fields: Probabilistic Models for Segmenting and Labeling Sequence Data." <em>Proceedings of the 18th International Conference on Machine Learning (ICML 2001)</em>, pp. 282–289. The paper that introduced CRFs as the discriminative alternative to HMMs for sequence labeling. Understanding the relationship between the HMM generative model ({"P(O, S | λ)"}) and the CRF discriminative model ({"P(S | O, λ)"}) is the key conceptual step from classical HMMs to modern sequence labeling.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through each exercise before reading the answer. The math sections are prerequisite for exercises 1–3; the code sections for exercises 4–5.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Write the three components of an HMM {"λ = (π, A, B)"}. What are the dimensionality constraints on each? What condition must each matrix satisfy (row-stochastic vs. column-stochastic vs. none)?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        {"π"} is the initial state distribution: an N-dimensional vector with {"π_i ≥ 0"} and {"Σ_i π_i = 1"} (sums to 1 — a probability vector, not a matrix). A is the N×N transition matrix: each row sums to 1 ({"Σ_j A_{ij} = 1 for all i"}) — row-stochastic. Columns need not sum to 1. B is the N×M emission matrix: each row sums to 1 ({"Σ_k B_{j,k} = 1 for all j"}) — also row-stochastic. For continuous emissions, B is replaced by a family of density functions (one per state), which integrate to 1 rather than sum to 1.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Explain why the Viterbi algorithm is correct even though it replaces the sum in the forward algorithm with a max. What property of the max operator makes the dynamic programming recursion valid?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        The Viterbi algorithm is correct because the max operator, like the sum, distributes across the Markov factorization of the joint probability. The key property is that {"max(a · c, b · c) = c · max(a, b)"} for {"c > 0"} — you can factor out the local emission term {"B_{j,o_t}"} from the max over incoming paths. This means the best path into state <em>j</em> at time <em>t</em> is determined entirely by the best path into each predecessor state at time {"t-1"}, independently of what happens after time <em>t</em>. This is the Bellman optimality principle: the optimal path through any subgraph is composed of optimal subpaths. The back-pointer {"ψ_t(j) = argmax_i (δ_{t-1}(i) · A_{ij})"} records the choice made at each step, enabling the final back-trace. The forward algorithm uses sum for the same structural reason — sum also distributes across the factorization.
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        You run forward-backward on a 100-step sequence with {"N=3"} states in native (non-log) probability space. After 40 time steps, all {"α_t(i) = 0.0"} exactly. What happened and what is the correct fix?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        Numerical underflow. The forward variable {"α_t(j)"} is a product of up to <em>t</em> probability values. Each transition-emission pair multiplies by a value in (0,1). After 40 steps, the product is typically on the order of {"(0.3)^{40} ≈ 10^{-21}"} — still representable in float64. But for longer sequences (T {">"} 200–300 with typical emission probabilities) it underflows to exactly 0.0. Once alpha is zero, gamma and xi become 0/0 = NaN and the M-step produces garbage. The correct fix: implement the forward algorithm entirely in log-space. Compute {"log α_t(j)"} at every step using the log-sum-exp recurrence, and only exponentiate when you need numerical values (e.g., for the gamma computation, which also stays in log-space). Never multiply small probabilities directly for sequences longer than ~50 steps.
-      </Callout>
-
-      <H3>Exercise 4 (debugging)</H3>
-      <Prose>
-        You train a 3-state HMM with Baum-Welch for 100 iterations. The log-likelihood curve decreases at iteration 7 ({"LL_7 < LL_6"}). Your code passes all tests. What is the most likely explanation?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        A decrease in log-likelihood is mathematically impossible under correct Baum-Welch — each iteration provably increases (or maintains) the log-likelihood. A decrease in the plotted curve is therefore a numerical issue, not a convergence failure. The most likely cause is numerical underflow in the forward-backward pass: if any {"α_t(j)"} or {"β_t(i)"} underflows to zero before the M-step, the xi and gamma computation produces NaN or zero values, and the re-estimated parameters are incorrect — effectively random — producing a lower-likelihood model. The diagnostic: add an assert that {"LL_{t+1} >= LL_t - 1e-6"} (with a small epsilon for floating-point noise). Switch the entire implementation to log-space as described in Exercise 3. A secondary cause: a bug in the xi normalization — if xi does not sum to 1 correctly, the A update is wrong and can degrade likelihood.
-      </Callout>
-
-      <H3>Exercise 5 (applied)</H3>
-      <Prose>
-        You are using an HMM to detect market regimes (Bull, Bear, Sideways) from daily log-returns. You fit a 3-state GaussianHMM. After fitting, you inspect the learned means and find two states with nearly identical means (both ~0.001) and one with mean ~-0.002. What happened and what should you try?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        Baum-Welch converged to a local optimum where two of the three states are nearly identical — effectively the model learned only 2 distinct regimes but wasted a state. This is a common symptom of initialization sensitivity. The two nearly-identical states may have different covariance matrices or different transition probabilities, but their means are degenerate. What to try: (1) Re-run Baum-Welch from multiple random initializations (10–20) and compare final log-likelihoods — a better local optimum may have more clearly separated states. (2) Initialize means with k-means clustering on the return series before running Baum-Welch, to give states well-separated starting means. (3) Evaluate BIC for N=2 vs N=3 — the data may genuinely support only 2 regimes, and using 3 states just splits one regime unnecessarily. (4) Check whether the two similar states have different transition dynamics — if one is a transition state between Bull and Bear with a distinct autocorrelation structure, N=3 may still be the right choice even with similar means.
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        Compare the EM update for a Gaussian Mixture Model (Section on GMMs) to the Baum-Welch update for an HMM. What is the structural analogy between responsibilities in GMM and gamma in HMM? What does the HMM add that GMM lacks, and what price do you pay?
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        The analogy is exact: GMM responsibilities {"r_{ik} = P(component k | x_i)"} correspond directly to HMM gamma {"γ_t(i) = P(state i | o_t, O, λ)"}. Both are posterior probabilities of a discrete latent variable given the observation. Both drive the M-step: the GMM mean update is a responsibility-weighted average of data points; the HMM emission update is a gamma-weighted count of observation symbols. The GMM mixing weight update is the average responsibility; the HMM initial state update is {"γ_0(i)"}.<br/><br/>
-        What the HMM adds: temporal structure through the transition matrix A and the xi terms. The xi update {"Σ_t ξ_t(i,j) / Σ_t γ_t(i)"} has no GMM analogue — it is the expected transition count, which requires the full forward-backward pass. GMM-EM can process data points independently and in any order; HMM Baum-Welch requires the entire sequence to compute alpha and beta, making mini-batch training non-trivial.<br/><br/>
-        The price: the forward-backward pass adds {"O(T · N²)"} complexity per sequence vs. {"O(N)"} per point for GMM. The sequence must be loaded fully into memory (or handled with careful streaming). The model is inherently sequential and does not parallelize across time steps as easily as a GMM, which parallelizes trivially across data points.
-      </Callout>
-
-    </div>
-  ),
+    </RunnableExample>
+    <Prose>A categorical observation is an integer symbol, stored in a <Math>{'T\\times1'}</Math> array. A multinomial observation is a vector of category counts for one observation; these are different sample spaces. A Gaussian observation is a real-valued feature vector, stored in a <Math>{'T\\times D'}</Math> array. If several independent sequences share one storage array, pass their lengths: a boundary is not an observed transition.</Prose>
+    <LessonTable caption="What each returned quantity means, and what the executed output shows" headers={['Call', 'What it returns', 'In the run above']} rows={[
+      ['score', 'log probability or log density of the observations, summed over hidden paths', '−4.673518, which is log 0.00933936'],
+      ['decode with algorithm="viterbi"', 'highest-scoring joint path and its joint log score', '−5.773004 with path Sunny Sunny Sunny Rainy'],
+      ['predict_proba', 'smoothed state marginals for the complete supplied sequence', 'the same four rows this page computes'],
+      ['decode with algorithm="map"', 'a marginal mode at each time, which can violate structural constraints', '2.940022 — see below'],
+    ]} />
+    <Callout title="One version-specific trap, now executed rather than asserted">
+      In hmmlearn 0.3.3 the MAP decoder returns the <em>sum of the selected marginal probabilities</em> as its score, despite a general return description calling the value a log probability. The run above returns 2.940022. No log probability of a probability can be positive, and the value is exactly the sum of the four smoothed maxima. It is the expected number of correct states for that pointwise decision. Inspect the <a href="https://github.com/hmmlearn/hmmlearn/blob/0.3.3/src/hmmlearn/base.py">actual decoder</a> when interpreting such a result. Likewise, a convergence monitor can stop because the iteration budget is exhausted: read the objective history and the stopping condition rather than a boolean flag.
+    </Callout>
+
+    <H2>{headings[7]}</H2>
+    <Prose>Words make the value and the limitations of context visible. &ldquo;Read the entire article&rdquo; has a sequence of grammatical roles, even though an isolated word can be ambiguous.</Prose>
+    <DataProvenanceNote />
+    <Prose>These are the first eligible short sentences from each official split, not a representative random sample. For a readable first model, map NOUN and PROPN to <strong>Noun</strong>, VERB and AUX to <strong>Verb</strong>, and all other original UPOS labels to <strong>Other</strong>. The original labels are preserved in the served data. Other is a deliberately broad category, so the task is easier and less linguistically complete than full part-of-speech tagging.</Prose>
+    <Prose>Here the training states are labelled. We estimate initial, transition and emission probabilities from actual counts rather than running latent-state EM; the labels are hidden only when predicting a new sentence. This is supervised HMM fitting, not a claim that unsupervised states recover grammatical categories.</Prose>
+
+    <H3>Fit without learning from the answer sheet</H3>
+    <Prose>Lowercase the training words and retain those occurring at least twice; all remaining words map to a single unknown symbol. That makes {vocabulary.length} emission symbols. Development words do not alter that vocabulary, and {unknownDevelopmentTokens} of the {selected.tokens} development tokens map to unknown. For smoothing strength <Math>{'\\alpha'}</Math>, use</Prose>
+    <MathBlock>{'\\begin{gathered}\\hat a_{ij}=\\frac{C_{ij}+\\alpha}{\\sum_kC_{ik}+3\\alpha},\\\\[8pt]\\hat b_i(w)=\\frac{C_{iw}+\\alpha}{\\sum_vC_{iv}+146\\alpha}.\\end{gathered}'}</MathBlock>
+    <Prose>Smooth the three initial-state counts similarly. This experiment has no declared impossible tag transitions, so adding pseudocounts to every transition is intentional. In a topology with genuinely forbidden edges, smooth only the allowed events and renormalise there. Compare two decision rules from the same fitted counts: a <strong>lexical baseline</strong>, which at each token chooses the state maximising its training frequency times the state&rsquo;s emission probability and ignores neighbouring tags; and the <strong>HMM</strong>, which uses the learned start and transition probabilities to select the Viterbi path for the sentence. Try only the two declared smoothing strengths, {configurations.map(entry => entry.smoothing).filter((value, index, all) => all.indexOf(value) === index).join(' and ')}, yielding two probability fits and four decoder configurations.</Prose>
+    <LessonTable caption="Four decoder configurations on the forty development sentences" headers={['Smoothing', 'Decoder', 'Correct tokens / 341', 'Entire sentences correct / 40']} rows={configurations.map(entry => [
+      String(entry.smoothing), entry.label, String(entry.correct), String(entry.sentencesCorrect),
+    ])} />
+    <Prose>The majority-Other baseline gets {majority.correct} tokens correct. Development token accuracy selects the HMM with smoothing {selected.smoothing} among these candidates; the declared tie rule, recorded in the program, prefers the lexical decoder and then the smaller strength, and the two lexical rows do in fact tie, so the rule is not decorative. These are development findings from a small educational extract, not final held-out estimates or a claim about modern taggers.</Prose>
+    <RealTaggingLab />
+    <Prose>Compared with its matching lexical baseline, the selected HMM repairs {repairs} token decisions and breaks {breaks}, for a net gain of {repairs - breaks}. In <strong>&ldquo;{nina.tokens.join(' ')}&rdquo;</strong> the lexical predictions are Noun&ndash;Noun&ndash;Other while the HMM predicts Other&ndash;Noun&ndash;Other, matching the coarse reference labels. In <strong>&ldquo;{article.tokens.join(' ')}&rdquo;</strong>, context changes &ldquo;article&rdquo; from a correct Noun into Other. The model&rsquo;s preference for a common transition pattern can override useful lexical evidence. Inspect both before celebrating the aggregate gain.</Prose>
+
+    <H3>How firm is that gain? An exact tie says how firm</H3>
+    <Prose>Those token counts are the output of one decoder implementation, and one thing worth knowing about them is not visible from the table. Checked in exact rational arithmetic rather than in floating point, <strong>{tieAudit.configurations[1].tiedSentences.length} of the forty development sentences have two complete paths of exactly equal probability</strong>. Each of them contains adjacent tokens that both map to the unknown symbol, so exchanging those two states permutes the same multiset of transition and emission factors and leaves the product identical. The model cannot prefer either, and which one a decoder reports is settled by its arithmetic.</Prose>
+    <Prose>Every path this page displays is verified to be an exact maximiser. But the reported {selected.correct} is one member of a band: taking the lowest-indexed state at every tie gives {tieBand.first}, taking the highest gives {tieBand.last}. The comparison the section is about survives all of it, and for a sharper reason than a band overlap: the same three sentences are tied at <em>both</em> smoothing strengths, with the same two candidate paths and the same correct-token counts, so any one consistent tie rule contributes the same amount to both totals and smoothing {selected.smoothing.toFixed(1)} beats {configurations[1].smoothing.toFixed(1)} by exactly {selected.correct - configurations[1].correct} whichever rule is chosen. The HMM also beats its matching lexical baseline under every rule, since even the band&rsquo;s lowest member exceeds {matchedLexical.correct}. What does not survive is the exact margin of {repairs - breaks} tokens. This is what the lesson&rsquo;s own point about unknown-word collapse looks like when it reaches the arithmetic, and it is a good reason to report a comparison rather than a single number.</Prose>
+    <Checkpoint prompt={`A colleague reports "our HMM tagger reaches ${selected.correct}/${selected.tokens} on development, a ${repairs - breaks}-token gain over the lexical baseline" and proposes that as the headline result. What would you add before that sentence leaves the room?`}>
+      <Prose>Three things, in order of how much they matter. First, the {tieBand.last - tieBand.first}-token tie band: {tieAudit.configurations[1].tiedSentences.length} sentences have exactly tied optimal paths, so the same fitted model reports anywhere from {tieBand.first} to {tieBand.last} depending on a tie rule nobody declared. The direction of the gain is robust; its size is not. Second, this is a development number used to <em>select</em> among four candidates, so it is not an estimate of performance on unseen text; the {provenance.sentences.reserved} reserved sentences exist precisely so that a fresh protocol remains possible, and they stay unscored here. Third, the task is a deliberately coarse three-way mapping on short sentences chosen first from each split, and {unknownDevelopmentTokens} of the {selected.tokens} tokens carry no lexical information at all. None of that makes the comparison worthless; it makes the honest sentence a comparison rather than a number.</Prose>
+    </Checkpoint>
+    <Prose>For words sharing the unknown category, the model cannot use their distinct spellings as evidence &mdash; which is why replacing one unknown spelling with another, in the investigation above, changes nothing at all. A future suffix or character feature could help, but it must be defined from training data and evaluated as a new procedure. The next conditional-model lessons explain a more flexible way to use such input features. A high posterior is confidence under the chosen model: coarse labels, misspecified independence, unknown-word collapse and limited training data can still make a confident prediction wrong.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <H3>Duration is a hidden assumption you can see</H3>
+    <Prose>A self-transition lets a state persist, but it imposes a particular duration distribution. If its self-transition probability is <Math>{'a'}</Math>, then for <Math>{'0\\leq a<1'}</Math>,</Prose>
+    <MathBlock>{'\\begin{gathered}P(D=d)=a^{d-1}(1-a),\\\\[6pt]d=1,2,\\ldots,\\qquad E[D]=\\frac1{1-a}.\\end{gathered}'}</MathBlock>
+    <Prose>A state must remain for <Math>{'d-1'}</Math> transitions and then leave. With <Math>{'a=0.7'}</Math> the mean dwell time is {num(duration.mean)} steps; with <Math>{'a=0.95'}</Math> it is {num(durationModel(0.95).mean)}. The chance of leaving next is still <Math>{'1-a'}</Math>, however long the state has already lasted. That constant hazard applies when the conditioning history has positive probability. At a = 0 the state always leaves on its first transition, so asking about its departure after ten survived steps conditions on an impossible history; the answer is undefined, not 1. This boundary matters when applying the geometric distribution&rsquo;s memorylessness.</Prose>
+    <DurationLab />
+    <Prose>This can suit a simple regime model, but not a process that becomes progressively more likely to end after a characteristic duration. An explicit-duration or hidden semi-Markov model adds a duration model. An absorbing state with <Math>{'a=1'}</Math> never leaves; do not draw it as a finite-mean geometric curve. The time step also has meaning: a transition matrix fitted per minute is not automatically a per-second matrix. If <Math>{'k'}</Math> unobserved equal time steps pass under the same homogeneous model, propagation uses <Math>{'A^k'}</Math>. Keeping a missing observation as an unobserved time step is different from deleting that time step.</Prose>
+
+    <H3>Real-valued measurements: Gaussian emissions</H3>
+    <Prose>For a sensor vector <Math>{'x_t\\in\\mathbb R^D'}</Math>, replace the categorical probability with a density, <Math>{'b_i(x_t)=\\mathcal N(x_t;\\mu_i,\\Sigma_i)'}</Math>. The forward and backward structure is unchanged. A density can exceed one and changes with measurement units; it is not a probability assigned to one exact real-valued point. With responsibilities <Math>{'\\gamma_t(i)'}</Math>, the maximum-likelihood M-step is</Prose>
+    <MathBlock>{'\\mu_i=\\frac{\\sum_t\\gamma_t(i)x_t}{\\sum_t\\gamma_t(i)},'}</MathBlock>
+    <MathBlock>{'\\Sigma_i=\\frac{\\sum_t\\gamma_t(i)(x_t-\\mu_i)(x_t-\\mu_i)^\\top}{\\sum_t\\gamma_t(i)}.'}</MathBlock>
+    <Prose>Sum across independent sequences too. A diagonal covariance models within-time features without off-diagonal covariance; a full covariance permits within-time correlations. Neither change removes the standard HMM&rsquo;s across-time conditional emission factorisation. An autoregressive emission model can instead condition a current observation on previous observations as well as the state. Adding overlapping windows or delta features to an ordinary emission vector may be useful engineering, but it does not make those windows conditionally independent.</Prose>
+    <Prose>Very small state occupancy and collapsed Gaussian covariances can make likelihood fitting unstable or degenerate &mdash; which is exactly what the library warning above was about, in its categorical form. Appropriate covariance constraints, priors, training evidence and development checks matter. Two states with equal means can still have different variances or transition roles; equality of means alone does not prove redundancy.</Prose>
+
+    <H3>How many states?</H3>
+    <Prose>For a fully free categorical HMM with <Math>{'N'}</Math> states and <Math>{'M'}</Math> symbols, the parameter count is <Math>{'p=(N-1)+N(N-1)+N(M-1)'}</Math>. Each probability row sums to one. Our two-state, three-symbol model has {parameterCount(2, 3)} free parameters. Structural zeros, tied rows, fixed parameters and other emission families change that count.</Prose>
+    <Prose>Adding states can increase expressive capacity, yet a particular locally optimised fit can have worse likelihood than a smaller model &mdash; the three seeds in figure 7 are that phenomenon at one fixed state count. Compare several starts and the query you care about, using independent sequences or a justified temporal split. AIC and BIC can be useful selection heuristics, but latent models can be nonregular and correlated observations complicate a casual choice of sample size. State the likelihood, the free-parameter count and the sample-size convention instead of treating a formula as an automatic answer. For a sensor deployed online, evaluate filtering or forecasting at the actual decision time: a beautiful smoothed reconstruction obtained after the whole recording arrives answers a different operational question.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <TopologyFigure />
+    <Prose><strong>Biological sequences.</strong> A profile HMM represents a sequence family with positions that can match, insert or skip. Match states emit aligned residues; insert states emit additional residues; delete states advance the profile without emitting one. A silent delete transition therefore differs from a missing measurement at a real time step. The <a href="https://hmmer.org/">HMMER project</a> uses profile HMMs for biological sequence analysis; its <a href="https://eddylab.org/software/hmmer/2.3.1/Userguide.pdf">historical model guide</a> explains this topology. The interesting connection is alignment as inference through an allowed graph, rather than forcing every sequence to have identical length.</Prose>
+    <Prose><strong>Speech as a sequence of submodels.</strong> Historical speech recognisers combined state models for sound or word segments. Compare observation likelihoods under candidate models, account for class priors, or compose models and search over legal concatenations. The practical questions include feature modelling, duration and boundaries, not simply &ldquo;run Viterbi.&rdquo; Rabiner&rsquo;s tutorial develops that application in its historical setting; its hardware timings are not current benchmarks.</Prose>
+    <Prose><strong>Several hidden causes at once.</strong> A household power signal can reflect several devices whose states evolve separately. A factorial HMM uses multiple hidden chains with shared observations, as the right-hand drawing above sketches. Independent prior transitions do not make posterior inference independent once those causes explain the same measurement. A joint representation grows rapidly, motivating structured approximations. This is the extension developed by <a href="https://mlg.eng.cam.ac.uk/pub/pdf/GhaJor97a.pdf">Ghahramani and Jordan</a>.</Prose>
+    <Prose><strong>Continuous hidden states.</strong> Position and velocity are naturally real-valued. A linear Gaussian state-space model replaces discrete state probabilities with Gaussian beliefs and leads to Kalman filtering and smoothing. The common pattern is prediction through a state transition followed by correction from evidence; different assumptions change the representation and computation.</Prose>
+    <Prose><strong>Conditional sequence prediction.</strong> HMMs model a joint distribution over observations and states. A CRF models the label sequence conditional on an observed input and can use rich features of that input, including future context when the application permits it. A neural encoder can provide scores to a CRF; these ideas are compatible. Parameter count, available labels, inference constraints and the actual task determine whether one model is useful. There is no universal sequence-length or data-count threshold that selects a winner.</Prose>
+
+    <H2>{headings[10]}</H2>
+    <Prose>For <Math>{'T'}</Math> time steps and <Math>{'N'}</Math> states, a dense forward or Viterbi pass evaluates <Math>{'O(TN^2)'}</Math> transition contributions, plus emission evaluation &mdash; our four-step, two-state trellis evaluates {forward.transitionContributions} of them. Forward combines them with sums; Viterbi uses maxima. A topology with <Math>{'E'}</Math> allowed edges can reduce the transition work to <Math>{'O(TE)'}</Math>, provided the representation and implementation actually exploit sparsity.</Prose>
+    <Prose>Filtering needs only the current and previous <Math>{'N'}</Math>-state rows. Retaining a full trellis or Viterbi backpointers costs <Math>{'O(TN)'}</Math> memory. A full array of pairwise posteriors costs <Math>{'O(TN^2)'}</Math>; EM can instead accumulate sufficient statistics without retaining every pair row. The teaching program deliberately retains the small pair arrays for inspection, so it is not a memory-minimal implementation.</Prose>
+    <Prose>For categorical emissions, add expected counts directly into the observed-symbol column. That avoids looping over all <Math>{'M'}</Math> symbols at every time step; dense emission tables still cost <Math>{'O(NM)'}</Math>. Gaussian diagonal densities cost roughly <Math>{'O(TND)'}</Math>; dense full-covariance densities involve matrix factorisations and roughly <Math>{'O(TND^2)'}</Math> quadratic-form work after factorisation.</Prose>
+    <Prose>A beam limits the active candidates, but work also depends on their outgoing edges and duplicate successors, so &ldquo;beam width <Math>{'K'}</Math> means <Math>{'O(TK)'}</Math>&rdquo; is incomplete for a dense state graph. Low-rank matrix multiplication can accelerate sums in some models; replacing the sum with a maximum does not preserve the same algebra automatically. Specialised parallel methods and sparse structures are options to measure, not reasons to invent hardware-independent speed ratios.</Prose>
+
+    <H2>{headings[11]}</H2>
+    <Prose>Try each before opening its hint or solution. Questions 1&ndash;5 use the first-pass route; 6&ndash;10 transfer the deeper ideas. A calculator or a short script is welcome; the target is a defensible explanation, not mental arithmetic speed.</Prose>
+
+    <Practice title="1. Forecast another activity"
+      question="After observing Walk, what is the probability of Shop next? Why not simply choose the currently most likely state and use its emission row?"
+      hint="Propagate the complete filtered distribution [0.2, 0.8] through A before applying the Shop probabilities.">
+      <Prose>The next-state probabilities are [{num(forecast.nextState[0])}, {num(forecast.nextState[1])}]. Shop has probability {num(forecast.nextState[0])}&times;{weather.emission[0][1]} + {num(forecast.nextState[1])}&times;{weather.emission[1][1]} = {num(forecast.nextObservation[1])}. Collapsing the current belief to Sunny would produce next-state probabilities [{weather.transition[1][0]}, {weather.transition[1][1]}] and a Shop probability of {num(forecast.collapsedObservation[1])}. It discards uncertainty before prediction. Reproduce both numbers with the one-step forecast calculation in section 3, first propagating the full filtered row and then replacing it with a point mass on Sunny.</Prose>
+    </Practice>
+
+    <Practice title="2. Repair a misleading backpointer"
+      question={<>At the third observation, Walk, which previous state gives the best path ending in Rainy? Use the preceding Viterbi scores {num(best.columns[1].cells[0].value)} and {num(best.columns[1].cells[1].value)}.</>}
+      hint="Compare scores after multiplying by the appropriate incoming transition, before multiplying by the shared destination emission.">
+      <Prose>Rainy contributes {num(best.columns[1].cells[0].value)}&times;{weather.transition[0][0]} = {num(best.columns[1].cells[0].value * weather.transition[0][0])}; Sunny contributes {num(best.columns[1].cells[1].value)}&times;{weather.transition[1][0]} = {num(best.columns[1].cells[1].value * weather.transition[1][0])}. The Rainy predecessor wins even though its previous score is smaller. Multiplying by the Rainy Walk emission gives {num(best.columns[2].cells[0].value)}. The final best path need not pass through this cell &mdash; and here it does not.</Prose>
+    </Practice>
+
+    <Practice title="3. A later observation is corrected"
+      question="The last Clean observation becomes Walk. Should the probability of Rainy immediately after processing the second observation change? Should the probability of Rainy at that same time, after seeing the whole corrected recording, change?"
+      hint="Name which observations each query conditions on.">
+      <Prose>The filtered value stays {num(main.filtered[1][0])}, bit for bit, because its prefix is unchanged. The smoothed value changes from {num(main.smoothed[1][0])} to {num(corrected.smoothed[1][0])}. The best complete path becomes {corrected.path.map(state => weather.stateNames[state]).join(' → ')}. These are different queries, not inconsistent answers. The &ldquo;correct the final report to Walk&rdquo; setup in the investigation above loads exactly this comparison.</Prose>
+    </Practice>
+
+    <Practice title="4. A popular state sequence is impossible"
+      question="In the three-state example, the marginal modes are A then A, but A cannot transition to A. What are that path's joint probability and the Viterbi path?"
+      hint="Marginal modes optimise expected position-wise correctness without enforcing path validity.">
+      <Prose>A→A has probability exactly {num(pointwise.modesJoint)}. {pointwise.path.map(state => constrained.stateNames[state]).join('→')} has joint probability {num(pointwise.pathJoint)} and is the Viterbi path. Pointwise modes have expected correct-state count {num(pointwise.modesExpectedCorrect)}, versus {num(pointwise.pathExpectedCorrect)} for {pointwise.path.map(state => constrained.stateNames[state]).join('→')}, but they optimise a different loss over a larger decision set. To require legal paths while optimising position-wise correctness, solve a constrained max-sum problem using marginal rewards.</Prose>
+    </Practice>
+
+    <Practice title="5. Count independent recordings"
+      question={<>Three recordings have lengths {fixtures.practiceLengths.join(', ')}. How many expected starts, emissions and within-recording transitions should the E-step counts sum to? What changes if you silently concatenate them?</>}
+      hint="A length-one recording still has a start and an emission, but no transition.">
+      <Prose>There are {fixtures.practiceLengths.length} starts, {fixtures.practiceLengths.reduce((total, value) => total + value, 0)} emissions and ({fixtures.practiceLengths.map(value => `${value}−1`).join(') + (')}) = {fixtures.practiceLengths.reduce((total, value) => total + value - 1, 0)} transitions. Concatenation changes this to 1 start, {fixtures.practiceLengths.reduce((total, value) => total + value, 0)} emissions and {fixtures.practiceLengths.reduce((total, value) => total + value, 0) - 1} transitions. The two extra transitions are invented boundaries, and the posterior fractions of the genuine transitions change too. Build all three of these in the boundary investigation and read the totals off the applied state.</Prose>
+    </Practice>
+
+    <Practice title="6. A zero that logarithms cannot rescue — deeper"
+      question="Both states emit only symbol 0, but the recording contains symbol 1. A colleague adds a tiny epsilon to every entry. Is this numerical stabilisation alone?"
+      hint="Distinguish a positive number too small to represent from a genuinely zero probability.">
+      <Prose>No. The original event is impossible: its evidence is exactly zero and its posterior has no value at all, which is different from the {num(rare.logValue)} that {fixtures.rareCount} genuinely rare reports produce. Epsilon introduces previously forbidden observations and requires row normalisation, creating a different model. If the zeros reflect insufficient data rather than hard constraints, an explicit smoothing model may be sensible; it must be stated and fitted accordingly, exactly as the {vocabulary.length}-symbol vocabulary in section 8 does with its deliberate unknown category.</Prose>
+    </Practice>
+
+    <Practice title="7. Design a five-step mean duration — deeper"
+      question="Choose the self-transition probability for mean duration five. Find the probability of duration exactly three. After ten steps already spent in the state, what is the chance of leaving next?"
+      hint="Use the geometric duration and its constant exit probability.">
+      <Prose>a = {fixtures.durationPractice}. P(D = 3) = {fixtures.durationPractice}² &times; {num(practiceDuration.exitProbability)} = {num(practiceDuration.probabilities[2])}. The next-step exit probability remains {num(practiceDuration.exitProbability)}, conditional on still being in the state, however long it has lasted. An age-dependent departure process needs a richer duration model. Set a = {fixtures.durationPractice} in the dwell-time investigation and read all three numbers off the applied state.</Prose>
+    </Practice>
+
+    <Practice title="8. The EM curve decreases — deeper"
+      question="An implementation shows a substantial log-likelihood decrease after an alleged EM iteration. List checks that could explain it before concluding EM's theorem is false."
+      hint="The theorem concerns a matching exact objective and a complete update.">
+      <Prose>Check whether the plotted quantity is log-likelihood or negative log-likelihood; whether scores and parameters refer to the same iteration; whether the sequences and their boundaries changed between the two evaluations; whether the probability rows still normalise; whether an approximate E- or M-step, clipping, prior or penalty changed the objective; and whether zeros or floating arithmetic broke the calculation. Tiny roundoff differences are distinct from substantive decreases &mdash; the program in section 7 refuses a decrease beyond 10⁻⁸ and would have raised rather than plotted one.</Prose>
+    </Practice>
+
+    <Practice title="9. Interpret the real improvement — deeper"
+      question={<>The HMM repairs {repairs} lexical predictions but breaks {breaks}. What is its net improvement? Does this establish that contextual models always help, or that development accuracy is a final test estimate?</>}
+      hint="The unit being counted is a token, the development set helped select the procedure, and three sentences have exactly tied optimal paths.">
+      <Prose>{repairs - breaks} additional tokens are correct, from {matchedLexical.correct} to {selected.correct} out of {selected.tokens}. Three qualifications belong with that number. It is a small, selected development comparison on a coarse task. Its exact size depends on a tie rule: the same fitted model reports between {tieBand.first} and {tieBand.last} depending on which member of three exact ties is reported, though the HMM beats the lexical baseline under every one of them. And the {provenance.sentences.reserved} reserved sentences remain unscored, precisely so that a frozen procedure could be evaluated on an appropriate independent set before generalisation is claimed. Do not add features based on that final set&rsquo;s mistakes and still call it untouched.</Prose>
+    </Practice>
+
+    <Practice title="10. Equal means, different states — deeper"
+      question="Two Gaussian states have the same mean but different covariances and self-transition probabilities. Must they be merged?"
+      hint="A state's role includes its observation distribution and its dynamics.">
+      <Prose>No. They can distinguish low-variance from high-variance regimes, or short from persistent episodes: with a = 0.7 the mean dwell time is {num(duration.mean)} steps and with a = 0.95 it is {num(durationModel(0.95).mean)}, which is a substantive difference in behaviour at identical means. Whether both are useful requires model and task evaluation. Equal means alone establish neither identical distributions nor redundant sequence behaviour.</Prose>
+    </Practice>
+
+    <H2>{headings[12]}</H2>
+    <Prose>You are ready to continue when you can name the conditioning information in each query, compute one sum and one maximum trellis update, explain a backward correction, preserve sequence boundaries during learning, and recognise when the model&rsquo;s assumptions are doing more work than its data.</Prose>
+    <LessonTable caption="Readiness check" headers={['You should be able to', 'Where it was taught']} rows={[
+      ['Multiply one complete story through the model and say how many transitions it has', 'Section 1, figure 1, the path investigation'],
+      ['Name what each of six queries is allowed to condition on', 'Section 2'],
+      ['Carry out one forward step and say why a cell value is joint mass, not a belief', 'Section 3, figure 2'],
+      ['Forecast the next observation without collapsing the current belief', 'Section 3, practice 1'],
+      ['Say which belief a later report can move and which it provably cannot', 'Section 4, figure 3, the evidence investigation, practice 3'],
+      ['Choose a Viterbi predecessor after multiplying by its transition, not before', 'Section 5, figure 4, practice 2'],
+      ['Recognise pointwise modes that form a path of probability zero', 'Section 5, figure 5, the path investigation, practice 4'],
+      ['Count starts, emissions and transitions across recording boundaries', 'Section 6, figure 6, the boundary investigation, practice 5'],
+      ['Read an EM objective history without treating a flat curve as a global optimum', 'Section 6, figure 7, practice 8'],
+      ['Separate underflow, log-space and a genuinely impossible event', 'Section 7, figure 8, practice 6'],
+      ['Read a library return value against what it actually computes', 'Section 7, the executed hmmlearn run'],
+      ['Compare two decision rules on real tokens and report a band rather than a number', 'Section 8, the tagging investigation, practice 9'],
+      ['Turn a self-transition into a duration assumption and back', 'Section 9, the dwell-time investigation, practice 7'],
+      ['Count free parameters and say what would change that count', 'Section 9, figure 9'],
+    ]} />
+    <Prose>The next lesson, <a href="/learn/path/full-curriculum/bayesian-networks-causal-graphical-models?module=classical-ml">Bayesian Networks &amp; Causal Graphical Models</a>, makes the graph and its conditional independences explicit: this lesson used one particular chain structure, and that lesson asks what any graph implies. After it, <a href="/learn/path/full-curriculum/conditional-random-fields-crf?module=classical-ml">Conditional Random Fields</a> revisits sequence labelling from the conditional perspective, and returns to exactly the tagging task in section 8 with a model that can use features of the input the emission table here could not.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://web.stanford.edu/~jurafsky/slp3/A.pdf">Jurafsky and Martin &mdash; Speech and Language Processing, Appendix A</a>. Markov chains, HMMs, forward inference, Viterbi and EM in one complete accessible progression, and the closest canonical treatment of this lesson&rsquo;s material. The draft fetched during authoring is dated 19 August 2026; notation and chapter numbering may change as the book develops.</li>
+      <li><a href="https://www.fceia.unr.edu.ar/prodivoz/Rabiner_1989.pdf">Rabiner &mdash; A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition, 1989</a>. Read section III for the three problems, section IV for duration and continuous emissions, and section V for scaling and multiple sequences. Its speech systems supply historical context, not current performance guidance.</li>
+      <li><a href="https://www.cs.jhu.edu/~jason/papers/#eisner-2002-tnlp">Jason Eisner&rsquo;s HMM teaching resources</a>, accompanying <a href="https://aclanthology.org/W02-0102/">An Interactive Spreadsheet for Teaching the Forward-Backward Algorithm</a>. A small model you manipulate by hand, which is a good second route to section 4 in particular. The paper metadata and resource descriptions were checked during authoring; the video was not watched and the spreadsheet was not executed.</li>
+    </ul></>}>
+      <li><a href="https://hmmlearn.readthedocs.io/en/0.3.3/tutorial.html">hmmlearn 0.3.3 tutorial</a> and its <a href="https://github.com/hmmlearn/hmmlearn/blob/0.3.3/src/hmmlearn/base.py">0.3.3 decoder source</a> &mdash; observation shapes, sequence lengths, initialisation and decoding. Pair the prose with the versioned source when interpreting returned scores; the MAP decoder&rsquo;s return value is the concrete reason why.</li>
+      <li><a href={provenance.page}>Universal Dependencies English EWT</a> and its <a href={provenance.readme}>{provenance.release} source and rights notice</a> &mdash; the actual annotations. This page serves <a href={provenance.file} download>its own unchanged copy</a> of the extract, {provenance.bytes.toLocaleString('en-US')} bytes, SHA-256 <Code>{provenance.sha256}</Code>, beside its <a href={provenance.attribution}>attribution</a>, which records the extraction, the original sentence identifiers, the licence and the coarse-label transformation.</li>
+      <li><a href="https://hmmer.org/">HMMER</a> for profile models of biological sequences, and <a href="https://mlg.eng.cam.ac.uk/pub/pdf/GhaJor97a.pdf">Ghahramani and Jordan &mdash; Factorial Hidden Markov Models</a> for several interacting hidden explanations. Both extend the state structure rather than adding iterations to the same model.</li>
+    </Sources>
+    <Prose>The Rainy/Sunny model, its four activity reports, the three-state constrained graph, the two recordings, the duration family and every practice value are explicitly <strong>constructed calculations</strong>, not measurements, and the weather story is an original teaching construction rather than an example taken from any particular paper. The EM histories are measured calculations on {emTrack.recordings} sequences sampled from that constructed model with seed {emTrack.dataSeed}. The tagging results are calculations on the identified real extract under one declared protocol, with the {provenance.sentences.reserved} reserved sentences never predicted or scored. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>,
 };
 
-export default hmmContent;
+export default hiddenMarkovModelsContent;

@@ -1,0 +1,103 @@
+{
+  "verifiedAt": "2026-09-16T15:16:42.168117+00:00",
+  "stage": "native author verification of displayed programs; browser and independent review are separate",
+  "source": "src/learn/data/hmm-examples.js",
+  "sourceHash": "4b8be65ed0ba6380b3f1e4ec8a0c4251ebade58d657239621d11a3a993273c44",
+  "verifier": "scripts/verify-hmm-examples.py",
+  "verifierHash": "795e2f6b2d2702488457e5d5da71efb671feb1b5b483d612bafdf83d5c683ac4",
+  "manuscript": "docs/teaching/drafts/hidden-markov-models-hmm/lesson.md",
+  "manuscriptHash": "f811fd57331134727c91bef4386b13bcb8b4097a11024619d177415611cdd295",
+  "extraction": "The manuscript's single fenced block is extracted by tilde-fence match and pinned by the manuscript hash. The Python programs are the packet's own frozen files, pinned by SHA-256; displayed excerpts are exact source segments taken through ast.get_source_segment, never transcribed.",
+  "programs": {
+    "hmm-experiments.py": {
+      "sha256": "25e7e4016c5420b7aae33a21e869275564d6951bc22865fd173f566c1d7b2f77",
+      "executed": true,
+      "runtime": "scratch/lesson-tools (the shared lesson runtime)",
+      "stdoutHash": "3cacd67170294f88e410708a6126716a3789fbe9a5ee162a6ac71b87cf712129",
+      "oracle": {
+        "leavesReproduced": 13243,
+        "leavesDiffering": 0,
+        "packetOnlyLeaves": [
+          "additional_author_checks.duplicated_dataset_counts_double",
+          "additional_author_checks.duplicated_dataset_parameter_null",
+          "additional_author_checks.length_one_transition_rows_retained",
+          "additional_author_checks.native_example_ast_parsed_not_executed"
+        ]
+      },
+      "excerpts": {
+        "inference": {
+          "functions": [
+            "log_values",
+            "infer"
+          ],
+          "lines": [
+            9,
+            71
+          ],
+          "sha256": "40e5586711b0fbeb9cd07621e46c6cc9a08f63fc0ed83e70d9068a5ce8c643ad"
+        },
+        "scaling": {
+          "functions": [
+            "forward_scaled"
+          ],
+          "lines": [
+            74,
+            86
+          ],
+          "sha256": "a7009192ae09ab57586daca6f6b43c8abeab1e7dfb34dec56d82186023ad0031"
+        },
+        "learning": {
+          "functions": [
+            "expected_counts",
+            "normalize_counts",
+            "em_step"
+          ],
+          "lines": [
+            89,
+            118
+          ],
+          "sha256": "2322440a089e27ad202595b068769088a0ba582b0557ce04c95f449caad20f72"
+        },
+        "tagging": {
+          "functions": [
+            "real_tagging"
+          ],
+          "lines": [
+            233,
+            300
+          ],
+          "sha256": "5b1d8be6a74413acef3996678c458fbd222892489ba2fd7389427200d6a15029"
+        }
+      }
+    },
+    "hmmlearn-examples.py": {
+      "sha256": "991ccca13385eb983d1364fb736bc4a5ac2640a05ef375bab5dae257fb8f033e",
+      "executed": true,
+      "runtime": "scratch/hmm-optional (isolated; hmmlearn is NOT in the shared runtime)",
+      "resolvedVersions": {
+        "python": "3.12.14",
+        "hmmlearn": "0.3.3",
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "scikit-learn": "1.9.1"
+      },
+      "stdoutHash": "997e2cddeb89bcc5f5fce930301ad29eca760ff9d39fe169f39245fe4fc37f57",
+      "stderr": "Fitting a model with 7 free scalar parameters with only 4 data points will result in a degenerate solution.",
+      "deterministic": true,
+      "supersedes": "The packet records additional_author_checks.native_example_ast_parsed_not_executed as true, meaning hmmlearn was absent while the content was written. That is now superseded: the program was executed for real here and the lesson displays its actual output."
+    }
+  },
+  "sharedRuntimeVersions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.0.1"
+  },
+  "oracles": 66,
+  "limits": [
+    "No network access; the program ran beside this lesson's served copy of the extract.",
+    "The optional program's Gaussian numbers are checked against the declared generating mean and variance and against qualitative properties, not pinned to exact digits, because a different hmmlearn or NumPy build may land elsewhere inside those bounds.",
+    "Rendering of this code and output on the page is verified separately."
+  ],
+  "passed": true
+}

@@ -1,0 +1,190 @@
+{
+  "scope": "author packet integrity and small null fixtures; no training or browser checks",
+  "original_sha256": "e71d445f9077cc2dcf9f265b749d47a631a5022e29f3a93f696e87a8a5d457d8",
+  "syntax_checked_programs": [
+    "author_calculations.py",
+    "deployment_example.py",
+    "hybrid_mechanisms.py",
+    "inspect_stroke.py",
+    "packet_checks.py",
+    "stroke_models.py"
+  ],
+  "manuscript": {
+    "figures": [
+      "J01",
+      "J02",
+      "J03",
+      "J04",
+      "J05",
+      "J06",
+      "J07",
+      "J08",
+      "J09",
+      "J10",
+      "J11",
+      "J12",
+      "J13",
+      "J14",
+      "J15",
+      "J16",
+      "J17",
+      "J18"
+    ],
+    "closed_disclosures": 20,
+    "relative_links": [
+      "stroke_models.py",
+      "data-provenance.md",
+      "deployment_example.py"
+    ],
+    "internal_ids": [
+      "long-context-sequence-models-transformer-xl-griffin-perceiver",
+      "mixture-of-experts-transformers-moe",
+      "neural-ode-continuous-depth-models",
+      "self-attention-multi-head-attention",
+      "state-space-models-s4-mamba-mamba-2",
+      "titans-multi-memory-architecture"
+    ]
+  },
+  "boundary_reads": {
+    "zero_decay": {
+      "states": [
+        [
+          3.0,
+          1.0,
+          3.0
+        ],
+        [
+          8.0,
+          1.0,
+          8.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          5.0,
+          1.0,
+          5.0
+        ]
+      ],
+      "weights": [
+        0.44999999999999996,
+        0.04999999999999999,
+        0.44999999999999996,
+        0.04999999999999999
+      ],
+      "attention": 2.4499999999999997,
+      "summary": 5.0
+    },
+    "unit_decay": {
+      "states": [
+        [
+          3.0,
+          1.0,
+          3.0
+        ],
+        [
+          11.0,
+          2.0,
+          5.5
+        ],
+        [
+          12.0,
+          3.0,
+          4.0
+        ],
+        [
+          17.0,
+          4.0,
+          4.25
+        ]
+      ],
+      "weights": [
+        0.44999999999999996,
+        0.04999999999999999,
+        0.44999999999999996,
+        0.04999999999999999
+      ],
+      "attention": 2.4499999999999997,
+      "summary": 4.25
+    },
+    "zero_score_gap": {
+      "states": [
+        [
+          3.0,
+          1.0,
+          3.0
+        ],
+        [
+          9.5,
+          1.5,
+          6.333333333333333
+        ],
+        [
+          5.75,
+          1.75,
+          3.2857142857142856
+        ],
+        [
+          7.875,
+          1.875,
+          4.2
+        ]
+      ],
+      "weights": [
+        0.25,
+        0.25,
+        0.25,
+        0.25
+      ],
+      "attention": 4.25,
+      "summary": 4.2
+    }
+  },
+  "router_nulls": {
+    "original": [
+      0.2500000000000002,
+      2.0
+    ],
+    "unselected_value_edit": [
+      0.2500000000000002,
+      2.0
+    ],
+    "common_logit_shift": [
+      0.25000000000000033,
+      1.9999999999999996
+    ],
+    "all_retained": [
+      0.666666666666667,
+      1.8333333333333333
+    ],
+    "all_renormalized": [
+      0.666666666666667,
+      1.8333333333333333
+    ]
+  },
+  "practice_counts": {
+    "question_2_kv_bytes": 100663296,
+    "question_8_stored_active_dense": [
+      30720,
+      18432,
+      12288
+    ]
+  },
+  "matching_carry_boundary_nulls": {
+    "worked_boundary_0": 0.0,
+    "worked_boundary_8": 0.0,
+    "fresh_boundary_0": 0.0,
+    "fresh_boundary_8": 0.0
+  },
+  "program_sha256": {
+    "author_calculations.py": "7d7891b4b8b2e5e1f6dd2b88984de0817c8951947993a92898fd3c4b3a28ca1b",
+    "deployment_example.py": "fe01f649636a705ecc5c08d2aad5a0408d251f669605e89cef924df896aa43ab",
+    "hybrid_mechanisms.py": "c449a8b2733ec6ca3c1211e4b75358142eba2e3d1f2f726fb89cb30f82a73c6b",
+    "inspect_stroke.py": "ec1a4290f35da91a2940b78ab310221e8e8ed1da4a31c7764418b2c7f4c6c79f",
+    "packet_checks.py": "84bd806e432ba4fc49eb29771f2b73d1e191491bf3d622e69efebfe7a986c9cb",
+    "stroke_models.py": "bda2789c50ae1bb246c4c60ed6e300ca1e121119f91f676210ebe67bc5040785"
+  }
+}

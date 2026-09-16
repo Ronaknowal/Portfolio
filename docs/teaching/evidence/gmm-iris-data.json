@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-09-14T05:29:32.992006+00:00",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1"
+  },
+  "csvSha256": "c6fd24e7f41dd55405cbc30f344e648c2f31eedfb24f9dcaba6290998bc26eb7",
+  "rows": 150,
+  "split": {
+    "train": 90,
+    "validation": 30,
+    "test": 30
+  },
+  "candidates": 16,
+  "selected": [
+    "full",
+    2
+  ],
+  "testMeanLogDensity": -3.0112234685906634,
+  "baselineTestMeanLogDensity": -2.8872488178783784,
+  "testAri": 0.4334462099505079,
+  "scope": "Refitted all 16 candidates, the selected model's per-row test densities and responsibilities, and the three Dirichlet-process fits from the supplied CSV, then matched every value against the content packet's recorded results before generating src/learn/data/gmm-iris-data.js.",
+  "limitations": [
+    "One fixed split of one curated balanced collection; not a sampling study.",
+    "Numerical fitting can differ on other library versions.",
+    "Species labels enter only the final ARI diagnostic."
+  ],
+  "passed": true
+}

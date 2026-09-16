@@ -133,11 +133,11 @@ export function GaussianSummaryFigure() {
       {[[1, 2, 3], [0, 2, 4]].map((values, row) => <g key={row}>
         <text x="15" y={22 + row * 103}>{row === 0 ? 'A: 1, 2, 3' : 'B: 0, 2, 4'}</text>
         <line x1="35" y1={54 + row * 103} x2="285" y2={54 + row * 103} className="family-axis" />
+        <line x1="160" y1={35 + row * 103} x2="160" y2={60 + row * 103} stroke={GREEN} strokeDasharray="3 4" />
         {values.map(value => <circle key={value} cx={35 + 62.5 * value} cy={54 + row * 103} r="5" fill={row === 0 ? BLUE : GOLD} />)}
         {[0, 1, 2, 3, 4].map(value => <text key={value} x={35 + 62.5 * value} y={75 + row * 103} textAnchor="middle">{value}</text>)}
         <text x="15" y={99 + row * 103}>mean 2 · squared deviations {row === 0 ? '2' : '8'}</text>
       </g>)}
-      <line x1="160" y1="35" x2="160" y2="166" stroke={GREEN} strokeDasharray="3 4" />
       <text x="160" y="227" textAnchor="middle">Shared measurement units</text>
     </svg>
     <figcaption>A shared sum of 6 preserves the mean information when variance is known. When variance is also unknown, the different spreads distinguish parameter pairs; retain n, sum and squared sum, or an equivalent centered summary.</figcaption>

@@ -1,0 +1,5 @@
+start w=0.000000 grad=None
+backward [0, 1] grad=-0.666667 w=0.000000
+backward [2] grad=-1.666667 w=0.000000
+step w=0.166667 momentum=-1.666667
+clear grad=None w=0.166667

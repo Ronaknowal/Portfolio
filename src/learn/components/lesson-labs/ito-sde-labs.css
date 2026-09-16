@@ -17,6 +17,7 @@
 .ito-seed [role=alert] { flex-basis: 100%; margin: 0; color: #ffc5c5; }
 .ito-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: .9rem 0; }
 .ito-plot { overflow-x: auto; margin: 1rem 0; }
+.ito-axis-label { margin: .5rem 0; color: #d4dfed; font-size: .9rem; line-height: 1.6; overflow-wrap: anywhere; }
 .ito-plot svg { display: block; width: 100%; min-width: 425px; }
 .ito-plot.compact svg { min-width: 0; max-width: 550px; margin: auto; }
 .ito-plot.compact text { font-size: 20.5px; }

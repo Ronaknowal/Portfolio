@@ -189,8 +189,10 @@ export function PracticalEffectLab() {
     <p>The zero line asks about <em>any</em> mean difference. The 1 ms line is a hypothetical minimum useful saving. The shaded band (−Δ,+Δ) is a separately chosen negligible-effect range. These thresholds come from the application.</p>
     <svg className="hypothesis-plot" viewBox="0 0 366 220" role="img" aria-label={`95% interval ${number(state.low95)} to ${number(state.high95)}; 90% interval ${number(state.low90)} to ${number(state.high90)} milliseconds`}>
       <rect x={scale(-tolerance)} y="12" width={scale(tolerance) - scale(-tolerance)} height="143" fill={GOLD} fillOpacity="0.12" />
-      <Marker x={scale(0)} lowY={12} highY={155} color={WHITE} />
-      <Marker x={scale(1)} lowY={12} highY={155} color={BLUE} dashed />
+      {[[42, 77], [112, 155]].map(([lowY, highY]) => <g key={lowY}>
+        <Marker x={scale(0)} lowY={lowY} highY={highY} color={WHITE} />
+        <Marker x={scale(1)} lowY={lowY} highY={highY} color={BLUE} dashed />
+      </g>)}
       <text x="28" y="30" fill={GOLD}>95% two-sided</text><line x1={scale(state.low95)} x2={scale(state.high95)} y1="55" y2="55" stroke={GOLD} strokeWidth="5" /><circle cx={scale(state.mean)} cy="55" r="4" fill={WHITE} />
       <text x="28" y="100" fill={PINK}>90% two-sided</text><line x1={scale(state.low90)} x2={scale(state.high90)} y1="125" y2="125" stroke={PINK} strokeWidth="5" /><circle cx={scale(state.mean)} cy="125" r="4" fill={WHITE} />
       <Axis scale={scale} values={[-3, 0, 3, 6]} y={175} />
@@ -234,8 +236,10 @@ export function PlannedPowerLab() {
         const scaleY = density => row.base - density / normalDensity(0) * 65;
         return <g key={row.label}><text x="28" y={row.base - 80} fill={row.color}>{row.label}</text>{regions.map(([start, end], index) => <path key={index} d={areaPath(row.fn, start, end, scale, scaleY, row.base)} fill={row.color} fillOpacity="0.5" />)}<path d={curvePath(row.fn, low, high, scale, scaleY)} fill="none" stroke={row.color} strokeWidth="2" /><line x1="28" x2="338" y1={row.base} y2={row.base} stroke={GREY} /></g>;
       })}
-      <Marker x={scale(state.boundary)} lowY={32} highY={240} color={WHITE} dashed />
-      {alternative === 'two-sided' && <Marker x={scale(-state.boundary)} lowY={32} highY={240} color={WHITE} dashed />}
+      {rows.map(row => <g key={row.label}>
+        <Marker x={scale(state.boundary)} lowY={row.base - 68} highY={row.base} color={WHITE} dashed />
+        {alternative === 'two-sided' && <Marker x={scale(-state.boundary)} lowY={row.base - 68} highY={row.base} color={WHITE} dashed />}
+      </g>)}
       <Axis scale={scale} values={[low, (low + high) / 2, high]} y={263} />
     </svg>
     <p className="hypothesis-axis-label">Sample mean saving, milliseconds; dashed boundary is the planned rejection cutoff</p>
@@ -323,7 +327,7 @@ export function ProportionCoverageLab() {
         setObserved(current => Math.min(current, value));
       }} min={5} max={20} step={5} /><Range label="Observed successes" value={observed} setValue={setObserved} min={0} max={n} /><Range label="Hypothetical true success probability" value={truth} setValue={setTruth} min={0} max={1} step={0.01} /></div>
     <svg className="hypothesis-plot" viewBox="0 0 366 295" role="img" aria-label={`Intervals for ${observed} successes in ${n} trials; true probability ${truth} is specified only to assess coverage`}>
-      <Marker x={scale(truth)} lowY={10} highY={240} color={WHITE} dashed />
+      {methods.map((method, index) => <Marker key={method.key} x={scale(truth)} lowY={46 + 76 * index} highY={76 + 76 * index} color={WHITE} dashed />)}
       {methods.map((method, index) => {
         const y = 58 + 76 * index;
         const [low, high] = state.current.intervals[method.key];

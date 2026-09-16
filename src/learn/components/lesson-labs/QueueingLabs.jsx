@@ -63,7 +63,7 @@ export function QueueAreaLab() {
       {state.segments.map(segment => <g key={segment.start}><rect className="queueing-area" x={x(segment.start)} y={160 - segment.count * 42} width={(segment.end - segment.start) * 32} height={segment.count * 42} /><line className="queueing-area-top" x1={x(segment.start)} x2={x(segment.end)} y1={160 - segment.count * 42} y2={160 - segment.count * 42} /></g>)}
       {Array.from({
           length: 9
-        }, (_, time) => <text key={time} x={x(time)} y={189} textAnchor="middle">{time}</text>)}<text x={8} y={19}>jobs</text><text x={315} y={189}>s</text>
+        }, (_, time) => <text key={time} x={x(time)} y={189} textAnchor="middle">{time}</text>)}<text x={40} y={19}>jobs</text><text x={315} y={189}>s</text>
       <line className="queueing-horizon" x1={x(horizon)} x2={x(horizon)} y1={18} y2={165} />
     </svg></ScrollFigure>
     <div className="queueing-table-wrap" tabIndex={0} role="region" aria-label="Observed residence table; scroll for all columns"><table><caption>Residence inside [0, {fmt(horizon)}] seconds</caption><thead><tr><th>Job</th><th>Full interval</th><th>Observed seconds</th><th>Boundary exit observed?</th></tr></thead><tbody>{state.intervals.map(job => <tr key={job.id} className={job.id === selected ? 'queueing-selected' : ''}><th>{job.id}</th><td>[{job.arrival}, {job.finish})</td><td>{fmt(job.clipped)}</td><td>{!job.observed ? 'Not arrived' : job.completedBoundary ? 'Yes' : 'Still inside'}</td></tr>)}</tbody></table></div>

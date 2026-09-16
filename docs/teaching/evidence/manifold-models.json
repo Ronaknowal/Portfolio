@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-16T15:24:46.258Z",
+  "command": "node scripts/verify-manifold-models.mjs",
+  "groups": [
+    "Radius graph: route, shortcuts, disconnected, edits, ties, independent shortest-path oracle",
+    "Gaussian normalization, entropy, tiny weights, equal-distance and common-scale invariance",
+    "UMAP directed scales, absent support, fuzzy union and ideal pair boundary cases",
+    "Exact t-SNE: normalized P/Q, independent finite differences, total force, rigid invariance and offline trace",
+    "Stable source-ID neighbor audit: false ranks, nulls, query30 reversal and every native R metric",
+    "MDS Gram/distance/eigenvalue recovery, LLE recipe and filled-versus-unfilled Rips topology"
+  ],
+  "assertions": 349,
+  "gradientMaxError": 1.8164841505963203e-10,
+  "sourceHashes": {
+    "src/learn/data/manifold-models.js": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+    "src/learn/data/manifold-data.js": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0",
+    "scripts/verify-manifold-models.mjs": "6c07f789552faae0bbca15da203a6e07bfff354ed2238cea8908263a7421a792"
+  }
+}

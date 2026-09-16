@@ -1,0 +1,180 @@
+/* Non-negative matrix factorization lesson: figures and investigations.
+   Every class is prefixed nm- and owned by this topic. */
+
+.nm-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.nm-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.nm-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.nm-investigation button, .nm-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.nm-investigation button.is-primary, .nm-figure button.is-primary { background: #1d2119; border-color: #9a8347; }
+.nm-investigation button[aria-pressed="true"], .nm-figure button[aria-pressed="true"] { background: #2a2a1a; color: #f3dfa4; border-color: #c9a85c; }
+.nm-investigation button:disabled, .nm-figure button:disabled { opacity: .4; cursor: default; }
+.nm-investigation :is(button, input, select, summary, [tabindex]):focus-visible,
+.nm-figure :is(button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+
+.nm-question, .nm-caption, .nm-note, .nm-pending, .nm-panel-note { font-size: .92rem; line-height: 1.75; }
+.nm-caption { color: #b5bfbb; }
+.nm-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.nm-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.nm-readout { border-left: 2px solid #e7b94a; padding-left: .85rem; line-height: 1.75; font-size: .93rem; }
+
+.nm-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.nm-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.nm-field > span { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.nm-field output { color: #e7b94a; font-family: var(--font-mono, monospace); flex-shrink: 0; }
+.nm-field :is(select, input[type="number"], input[type="text"]) {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.nm-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.nm-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.nm-reason textarea {
+  min-height: 52px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+.nm-reason { margin-bottom: .7rem; }
+.nm-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .9rem 0; }
+.nm-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+
+.nm-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.nm-prediction > p { margin: 0 0 .55rem; }
+.nm-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.nm-prediction legend { padding: 0; font-weight: 600; }
+.nm-choices { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .5rem 0 .7rem; }
+.nm-choice { display: flex; align-items: center; gap: .45rem; min-height: 34px; }
+.nm-choice input { accent-color: #e7b94a; width: 18px; height: 18px; }
+.nm-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 3px solid #8eb9a5; }
+.nm-verdict.is-miss { border-left-color: #da9c86; }
+.nm-verdict.is-plain { border-left-color: #8a9590; }
+.nm-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+
+.nm-table-scroll { overflow-x: auto; scrollbar-gutter: stable; max-width: 100%; margin: 1.1rem 0; }
+.nm-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.nm-table-scroll caption { text-align: left; padding: .4rem 0 .8rem; color: #bac6bf; }
+.nm-table-scroll th, .nm-table-scroll td { padding: .5rem .6rem; border-bottom: 1px solid #303a35; text-align: left; white-space: nowrap; }
+.nm-table-scroll th { color: #d0ddd5; }
+.nm-table-scroll tr.is-selected td { color: #f0e6c8; background: #1a2320; }
+.nm-rows { max-height: 19rem; overflow-y: auto; }
+
+.nm-investigation details, .nm-figure details { margin: 1rem 0; }
+.nm-investigation summary, .nm-figure summary { cursor: pointer; color: #e7b94a; line-height: 1.7; min-height: 32px; }
+
+/* Inline figures */
+.nm-figure { margin: 1.85rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.nm-figure figcaption { font-size: .95rem; line-height: 1.7; margin-bottom: 1rem; }
+.nm-figure h4, .nm-image-panel h4 { margin: 0 0 .45rem; font-size: .92rem; line-height: 1.5; color: #d0ddd5; }
+.nm-figure p { font-size: .92rem; line-height: 1.75; }
+
+/* Feature strips: equal-width cells whose position is the feature identity.
+   Cell type is relative, because the printed number is the content: it has to
+   grow with an enlarged root text size like the prose around it. */
+.nm-strip { display: grid; grid-template-columns: minmax(0, 1fr); gap: .3rem; margin: .55rem 0 .9rem; }
+.nm-strip-label { font: .82rem/1.5 var(--font-mono, monospace); color: #bac6bf; }
+.nm-cells { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.nm-cell {
+  display: flex; align-items: center; justify-content: center; min-height: 40px; padding: .25rem .1rem;
+  border: 1px solid #2b332f; border-radius: 3px; font: .78rem/1.3 var(--font-mono, monospace); text-align: center;
+  overflow-wrap: anywhere;
+}
+.nm-strip.is-compact .nm-cell { min-height: 30px; font-size: .72rem; }
+.nm-cell.is-marked { outline: 2px solid #e7b94a; outline-offset: 1px; }
+.nm-cell.is-over { border-color: #da9c86; border-width: 2px; }
+.nm-strip-row { display: grid; grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr); gap: .5rem .8rem; align-items: center; }
+
+/* Image panels: a true square aspect ratio, one cell per block count. */
+.nm-image-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); margin: 1rem 0; }
+.nm-image-panel { min-width: 0; }
+.nm-image {
+  display: grid; gap: 1px; aspect-ratio: 1; width: 100%; max-width: 240px;
+  background: #2b332f; border: 1px solid #3a443f; padding: 1px;
+}
+.nm-pixel { display: block; width: 100%; height: 100%; min-width: 0; padding: 0; border: 0; }
+/* A pixel is a cell of an image, not a control with a control's minimum height:
+   the generic button rule above would make every 8x8 grid 336px tall and stop
+   it being square. */
+.nm-investigation button.nm-pixel, .nm-figure button.nm-pixel {
+  min-height: 0; padding: 0; border: 0; border-radius: 0; cursor: pointer; color: inherit;
+}
+.nm-pixel.is-over { box-shadow: inset 0 0 0 2px #da9c86; }
+.nm-pixel.is-selected { box-shadow: inset 0 0 0 2px #8eb9a5, 0 0 0 1px #8eb9a5; }
+.nm-image.is-selectable .nm-pixel:focus-visible { outline: 2px solid #a5c7b5; outline-offset: 1px; z-index: 1; }
+.nm-panel-note { color: #b5bfbb; margin: .4rem 0 0; font-size: .84rem; }
+
+.nm-scale-key { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .9rem; margin: .9rem 0; }
+.nm-scale-key ol { display: flex; margin: 0; padding: 0; list-style: none; border: 1px solid #3a443f; }
+.nm-scale-key li { width: 34px; height: 16px; }
+.nm-scale-key p { margin: 0; flex: 1 1 16rem; font-size: .84rem; line-height: 1.65; color: #b5bfbb; }
+
+/* Plots: the viewBox sits close to the rendered width so the type stays legible. */
+.nm-plot { margin: 1.3rem 0; }
+.nm-plot figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; }
+.nm-plot svg, .nm-figure svg { display: block; width: 100%; height: auto; max-width: 430px; margin-inline: auto; }
+.nm-plot svg text, .nm-figure svg text { fill: #cfd7d2; font: 14px var(--font-mono, monospace); }
+.nm-axis { stroke: #4a5650; }
+.nm-grid { stroke: #262d2a; }
+.nm-ray { stroke-width: 2; fill: none; }
+.nm-observation { fill: #f0e6c8; stroke: #14181a; stroke-width: .8; }
+.nm-curve { fill: none; stroke-width: 2; }
+.nm-mark { fill: #e7b94a; }
+.nm-mark.is-hollow { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+.nm-lane { fill: #121816; stroke: #46504b; }
+.nm-flow { fill: none; stroke: #8eb9a5; stroke-width: 1.6; }
+.nm-flow.is-update { stroke: #e7b94a; stroke-width: 2; }
+.nm-shared { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+
+/* Matrix worksheets */
+.nm-matrix { display: inline-grid; gap: 2px; border-left: 2px solid #746138; border-right: 2px solid #746138; padding: .3rem .4rem; }
+.nm-matrix-cell {
+  min-width: 3.6rem; padding: .3rem .35rem; text-align: right; border-radius: 2px;
+  font: .78rem/1.5 var(--font-mono, monospace); background: #131a18; color: #d8dcd9;
+}
+.nm-matrix-cell.is-marked { background: #3a3116; color: #f6e3ab; outline: 1px solid #e7b94a; }
+.nm-matrix-cell.is-related { background: #1e2a26; color: #cfe0d6; }
+.nm-matrices { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 1.4rem; margin: 1rem 0; }
+.nm-matrix-group { min-width: 0; }
+.nm-matrix-group > h4 { margin-bottom: .35rem; }
+.nm-matrix-group > p { margin: .35rem 0 0; font-size: .82rem; color: #b5bfbb; }
+
+.nm-panels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.nm-panels.is-stacked { grid-template-columns: minmax(0, 1fr); }
+.nm-panel { border: 1px solid #2b332f; border-radius: 4px; padding: .7rem; min-width: 0; }
+.nm-panel p { margin: .4rem 0 0; font-size: .84rem; color: #b5bfbb; }
+.nm-panel svg { max-width: 300px; }
+
+.nm-flow-steps { margin: .4rem 0 0; padding-left: 1.15rem; font-size: .86rem; line-height: 1.7; color: #cfd7d2; }
+.nm-flow-steps li { margin-bottom: .3rem; }
+.nm-toggles { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; padding: 0; list-style: none; }
+.nm-toggles li { min-width: 0; }
+.nm-legend { display: flex; flex-wrap: wrap; gap: .45rem 1.1rem; margin: .7rem 0; padding: 0; list-style: none; font-size: .86rem; line-height: 1.6; }
+.nm-legend li { display: flex; align-items: center; gap: .45rem; min-width: 0; }
+.nm-swatch { flex: 0 0 16px; height: 16px; border-radius: 2px; border: 1px solid #3a443f; }
+
+.nm-practice { margin-block: 1.5rem; }
+.nm-practice details { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.nm-practice summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.nm-practice details + details { margin-top: .65rem; }
+.nm-route { border-left: 2px solid #8eb9a5; padding-left: .85rem; }
+.nm-lesson a { overflow-wrap: anywhere; }
+.nm-lesson code { overflow-wrap: anywhere; }
+
+@media (max-width: 640px) {
+  .nm-strip-row { grid-template-columns: minmax(0, 1fr); }
+  .nm-investigation header { gap: .65rem; }
+  .nm-panels { grid-template-columns: minmax(0, 1fr); }
+  .nm-figure { padding-block: 1rem; }
+  .nm-cell { font-size: .72rem; min-height: 34px; }
+  .nm-matrix-cell { min-width: 2.9rem; font-size: .72rem; }
+}
+@media (max-width: 400px) {
+  .nm-cell { font-size: .66rem; min-height: 30px; }
+  .nm-image { max-width: 100%; }
+}

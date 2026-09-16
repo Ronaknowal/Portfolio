@@ -43,7 +43,7 @@ function Plot({
   label,
   children
 }) {
-  return <svg className="rm-plot" viewBox="0 0 360 230" role="img" aria-label={label}>{children}</svg>;
+  return <svg className="rm-plot" viewBox="-8 -12 376 260" role="img" aria-label={label}>{children}</svg>;
 }
 function Axes({
   xLabel,
@@ -52,7 +52,7 @@ function Axes({
   left = 0,
   right = 1
 }) {
-  return <><path d="M48,25 V190 H338" fill="none" stroke="var(--rm-line)" /><text x="48" y="17">{yLabel}</text><text x="190" y="225" textAnchor="middle">{xLabel}</text><text x="47" y="195" textAnchor="end">0</text><text x="47" y="45" textAnchor="end">{format(maximum, 2)}</text><text x="48" y="210" textAnchor="middle">{format(left, 2)}</text><text x="338" y="210" textAnchor="middle">{format(right, 2)}</text></>;
+  return <><path d="M48,25 V190 H338" fill="none" stroke="var(--rm-line)" /><text x="48" y="17">{yLabel}</text><text x="190" y="238" textAnchor="middle">{xLabel}</text><text x="40" y="195" textAnchor="end">0</text><text x="40" y="45" textAnchor="end">{format(maximum, 2)}</text><text x="48" y="214" textAnchor="start">{format(left, 2)}</text><text x="338" y="214" textAnchor="end">{format(right, 2)}</text></>;
 }
 export function NoiseSampleFigure() {
   return <figure className="rm-inline"><div className="rm-counted"><div><strong>Eight observed rows</strong><table><thead><tr><th>First</th><th>Second</th><th>Count</th></tr></thead><tbody>{[[1, 1, 3], [-1, -1, 3], [1, -1, 1], [-1, 1, 1]].map((row, index) => <tr key={index}>{row.map((value, column) => <td key={column}>{value}</td>)}</tr>)}</tbody></table></div><SmallMatrix values={[[1, .5], [.5, 1]]} caption="XᵀX / 8" /></div><Plot label="Observed principal directions: same-sign direction has scale 1.5; opposite-sign direction has scale 0.5"><path d="M50,115 H310 M180,205 V25" stroke="var(--rm-line)" /><path d="M105,190 L255,40" stroke="var(--rm-gold)" strokeWidth="4" /><path d="M155,90 L205,140" stroke="var(--rm-blue)" strokeWidth="4" /><text x="240" y="30" fill="var(--rm-gold)">1.5</text><text x="218" y="145" fill="var(--rm-blue)">0.5</text><text x="295" y="108">x₁</text><text x="188" y="35">x₂</text></Plot><figcaption>This is a possible sample under independent population coordinates. Its observed counts favor matching signs. The gold and blue lines show eigenvector directions, with lengths proportional to eigenvalues; they are not confidence intervals.</figcaption></figure>;

@@ -1,0 +1,16 @@
+{
+  "original_sha256": "790a636f3c00b6eac5d9009c071c82f6caed6e66a658be9a36e3e8707c98177d",
+  "source_digests": {
+    "movement_libras.data": "97ebdaa6a9b28ab4a2cdd84b14f19a95a7456a46137c362b65a0669eca3c3c4d",
+    "movement_libras.names": "1b0702f0b664c84e66a908f07a967e56f18aea2b8a85d40f44a0d1cc2fd18c35"
+  },
+  "lesson_words": 8444,
+  "closed_disclosures": 18,
+  "checked_local_links": 14,
+  "roles": [
+    220,
+    50,
+    60
+  ],
+  "all_saved_arrays_finite": true
+}

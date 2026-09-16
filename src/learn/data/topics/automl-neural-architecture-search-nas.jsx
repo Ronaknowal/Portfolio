@@ -1,911 +1,450 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  AcquisitionLab, DeploymentLab, HalvingLab, MixtureLab, SearchReplayLab, SearchSpaceLab,
+} from '../../components/lesson-labs/AutomlLabs.jsx';
+import {
+  ArchitectureFigure, BilevelFigure, EvidenceLoopFigure, ObservedResultsFigure, WeightProvenanceFigure,
+} from '../../components/lesson-labs/AutomlFigures.jsx';
+import { automlExamples } from '../automl-examples.js';
+import {
+  candidates, estimatorFits, foldRows, inspection, majorityBaseline, provenance, roles, sourceRows,
+  versions,
+} from '../automl-data.js';
+import {
+  activationKernel, bilevelDerivatives, countConfigurations, declaredCurves, declaredMixtureInputs,
+  declaredResource, declaredSpace, expectedImprovement, halvingSchedule, hyperbandBrackets,
+  mixtureState, networkBlocks, paretoAnalysis, portfolioAnalysis, replayPrefix, samplingMeasure,
+} from '../automl-models.js';
+
+/** Print a computed number with a typographic minus sign and no float dust.
+ *
+ * Note that this module imports the page's `Math` rendering component, which
+ * shadows the global `Math` object. Nothing here may call `Math.log` and the
+ * like; every such constant is computed in automl-models.js instead.
+ */
+const num = value => String(Number(value.toFixed(9))).replace('-', '−');
+
+const development = roles.find(role => role.role === 'development');
+const inspectionRole = roles.find(role => role.role === 'inspection');
+const reservedRole = roles.find(role => role.role === 'reserved');
+const selected = inspection.find(entry => entry.role === 'selected');
+const baseline = inspection.find(entry => entry.role === 'declared_baseline');
+const space = countConfigurations(declaredSpace);
+const halving = halvingSchedule();
+const brackets = hyperbandBrackets(9, 3);
+const scalar = bilevelDerivatives({ w: 0, alpha: 0.2, xi: 0.1 });
+const stationaryScalar = bilevelDerivatives({ w: 0.2, alpha: 0.2, xi: 0.1 });
+const practiceScalar = bilevelDerivatives({ w: 0, alpha: 0.5, xi: 0.2, valTarget: 2 });
+const mixture = mixtureState(declaredMixtureInputs);
+const practiceMixture = mixtureState({
+  operations: [
+    { id: 'up', label: 'first operation', formula: 'o(x) = 3x', evaluate: x => 3 * x },
+    { id: 'down', label: 'second operation', formula: 'o(x) = −x', evaluate: x => -x },
+  ],
+  active: ['up', 'down'], logits: [0, 0], x: 1, target: 0, step: 0,
+});
+const kernel = activationKernel(['110', '101']);
+const singularKernel = activationKernel(['110', '110']);
+const portfolio = portfolioAnalysis();
+const pareto = paretoAnalysis();
+const replayTwo = replayPrefix({ budget: 2 });
+const replayThree = replayPrefix({ budget: 3 });
+const replayFour = replayPrefix({ budget: 4 });
+const familyMeasure = samplingMeasure(declaredSpace, 'family-uniform');
+const configurationMeasure = samplingMeasure(declaredSpace, 'configuration-uniform');
+
+const headings = [
+  '1. Begin with the experiment, before the optimizer',
+  '2. A search space is a small language of valid experiments',
+  '3. Decide how much evidence to buy for each candidate',
+  '4. Neural architecture search, with the neural part explained locally',
+  '5. A real search you can inspect end to end',
+  '6. Turn search results into a useful learning system',
+  '7. Deeper: differentiable search and cheaper architecture evidence',
+  '8. Optional: translate the contract into maintained tools',
+  '9. Practice: design, calculate, and diagnose',
+  '10. Connections and other ways to learn',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section>
+    <Prose><strong>Before running:</strong> {example.question}</Prose>
+    <Prose>Install what it imports, then run it beside the data file:</Prose>
+    <CodeBlock language="bash">{example.setup}</CodeBlock>
+    <RunnableExample example={example}>{children}</RunnableExample>
+  </section>;
+}
+function OptionalProgram({ example, children }) {
+  return <section className="am-optional-program">
+    <H3>{example.title}</H3>
+    <p className="lesson-note">Save as <Code>{example.file}</Code>, beside the previous files.</p>
+    <CodeBlock language="bash">{example.setup}</CodeBlock>
+    <CodeBlock language="python">{example.code}</CodeBlock>
+    {children}
+  </section>;
+}
+function Practice({ title, question, hint, revealLabel = 'Show the explained solution', children }) {
+  return <section className="am-practice">
+    <H3>{title}</H3>
+    <Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>{revealLabel}</summary>{children}</details>
+  </section>;
+}
 
 const automlContent = {
-  title: "AutoML & Neural Architecture Search (NAS)",
-  readTime: "~50 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Every machine learning project contains a sequence of decisions that a human expert makes by hand: which features to engineer, which model family to try, which hyperparameters to set. In 2013, a team at the University of British Columbia asked a pointed question: can we automate the entire pipeline? The result was Auto-WEKA, introduced by Thornton, Hutter, Hoos, and Leyton-Brown at KDD 2013. Auto-WEKA cast the problem as a single joint optimization over a combined algorithm selection and hyperparameter (CASH) space — hundreds of classifiers from the WEKA library, each with its own hyperparameter tree, searched simultaneously using SMAC (Sequential Model-based Algorithm Configuration), a Bayesian optimizer with a random-forest surrogate. The paper showed that the automatic system matched or beat a human expert on most benchmark datasets. The democratization argument was immediate: if a system could reproduce expert-level model selection without human iteration, ML could be applied by non-specialists.
-      </Prose>
-
-      <Prose>
-        The follow-on that made AutoML practical in Python was auto-sklearn, introduced by Feurer, Klein, Eggensperger, Springenberg, Blum, and Hutter at NeurIPS 2015 (arXiv:1507.00677). Auto-sklearn wrapped scikit-learn's full preprocessing and estimator space, added meta-learning to warm-start the search from configurations that worked on similar datasets, and used ensemble construction (stacking the top-k models found during search) as a final step. It won the first ChaLearn AutoML challenge and established the template every subsequent tabular AutoML system has followed. In 2019, Hutter, Kotthoff, and Vanschoren edited the Springer book "Automated Machine Learning: Methods, Systems, Challenges" — the field's canonical reference, freely available online — which systematized the CASH problem, Bayesian HPO, meta-learning, and neural architecture search under a single theoretical umbrella.
-      </Prose>
-
-      <Prose>
-        Neural Architecture Search (NAS) arrived with a different motivation: the feeling that the human-designed architectures dominating deep learning (VGG, ResNet, Inception) might be suboptimal, and that search over architecture space might discover designs a human would not think of. Zoph and Le's "Neural Architecture Search with Reinforcement Learning" (ICLR 2017, arXiv:1611.01578) showed this was possible: a recurrent controller learned to generate CNN cell descriptions as sequences of tokens, trained by REINFORCE with validation accuracy as the reward signal. The result beat human-designed architectures on CIFAR-10. The catch was cost: the original run consumed roughly 800 TPU-days — approximately 2,000 GPU-days at equivalent compute. This launched a sub-field obsessed with reducing that cost.
-      </Prose>
-
-      <Prose>
-        Two subsequent papers defined the modern NAS landscape. DARTS (Differentiable Architecture Search) by Liu, Simonyan, and Yang (ICLR 2019, arXiv:1806.09055) reformulated NAS as a bilevel optimization problem solvable by gradient descent, reducing the search to roughly one GPU-day. ENAS (Efficient Neural Architecture Search) by Pham, Guan, Zoph, Le, and Dean (ICML 2018, arXiv:1802.03268) introduced weight sharing: instead of training each candidate architecture from scratch, all candidates share a single set of "supernetwork" weights, reducing search cost to under one GPU-day. EfficientNet by Tan and Le (ICML 2019, arXiv:1905.11946) then used NAS to find a baseline architecture and a compound scaling rule, achieving state-of-the-art ImageNet accuracy at a fraction of the FLOPs of previous architectures. The lesson: NAS at scale works, but the cost-benefit tradeoff is contested. A 2024-2026 practitioner running a tabular classification task does not run NAS; they use FLAML or AutoGluon in minutes. A practitioner deploying on a microcontroller with 256KB RAM might run a hardware-aware NAS to find the Pareto-optimal architecture.
-      </Prose>
-
-      <Callout type="insight">
-        The core controversy in AutoML and NAS is cost versus benefit. Vanilla NAS cost thousands of GPU-days for percentage-point gains. Weight sharing brought this to one GPU-day. AutoML for tabular tasks with aggressive early stopping takes minutes. The field's momentum now favors fast, budget-aware search over exhaustive black-box optimization — and for NAS specifically, the industry trend since 2022 is to use off-the-shelf architectures (ViT, LLaMA, ResNet variants) and adapt them via fine-tuning or LoRA rather than run architecture search from scratch.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <H3>2.1 AutoML: joint search over the ML pipeline</H3>
-
-      <Prose>
-        The mental model for AutoML is: imagine an outer loop that proposes (preprocessor, model, hyperparameter configuration) triples, and an inner loop that evaluates each triple by cross-validation and returns a score. The outer loop is an optimizer — random search, Bayesian optimization, evolutionary algorithm — that tries to find the triple with the highest CV score within a compute budget. The difference from ordinary hyperparameter search is that the space is hierarchical and conditional: the set of valid hyperparameters depends on which model family was chosen, and the set of valid preprocessing steps depends on whether the data is dense or sparse, numerical or categorical. This creates a tree-structured search space with hundreds or thousands of leaves.
-      </Prose>
-
-      <Prose>
-        Three axes characterize any AutoML system. The <strong>search space</strong> defines what can be varied: preprocessing steps (scaling, encoding, imputation, PCA), model families (linear, tree, SVM, ensemble, neural), and hyperparameters for each. The <strong>search strategy</strong> decides how to explore the space: random search (TPOT uses genetic programming), Bayesian optimization (auto-sklearn uses SMAC with random-forest surrogate, FLAML uses CFO — Frugal Optimization), or portfolio/ensemble methods (AutoGluon trains many models and stacks them without explicit search). The <strong>evaluation strategy</strong> determines how cheaply each configuration can be assessed: full CV is correct but expensive; successive halving (evaluate on a small data fraction, promote survivors) is faster; learning curve prediction (extrapolate from early training) is faster still.
-      </Prose>
-
-      <H3>2.2 NAS: search over neural architecture space</H3>
-
-      <Prose>
-        NAS has the same three axes but applied to neural networks. The <strong>search space</strong> defines what architectural choices are variable: for cell-based spaces (NASNet, DARTS), the basic unit is a "cell" — a small directed acyclic graph of operations (3x3 conv, dilated conv, max-pool, skip connection, zero) connecting two input tensors. The full network stacks N normal cells and M reduction cells. For macro spaces (older approaches), the entire layer sequence is variable. For transformer-oriented NAS (2022+), the search space includes number of heads, FFN width multipliers, and attention patterns.
-      </Prose>
-
-      <Prose>
-        The <strong>search strategy</strong> for NAS includes reinforcement learning (the controller in Zoph & Le 2017), evolutionary algorithms (AmoebaNet), gradient-based methods (DARTS), and random search (surprisingly competitive on small spaces). The <strong>evaluation strategy</strong> is where most of the innovation has happened: weight sharing (ENAS, DARTS) avoids training each candidate from scratch by sharing parameters across a supernet; performance prediction uses a surrogate model trained on (architecture encoding, validation accuracy) pairs to estimate accuracy without full training; zero-cost proxies (NASWOT, GradNorm) estimate architecture quality from a single forward/backward pass.
-      </Prose>
-
-      <H3>2.3 The bilevel structure</H3>
-
-      <Prose>
-        Both AutoML and NAS are instances of the same abstract problem: optimize configuration parameters (pipeline structure, architecture) where evaluating each configuration requires solving an inner optimization (training a model). This nested structure — outer optimizer over configuration space, inner optimizer over model weights — is a bilevel optimization problem. It is computationally expensive because the inner problem must be (approximately) solved for each outer evaluation. The key innovation of DARTS was to relax the discrete architecture choice into a continuous mixing weight, making the outer problem differentiable and solvable with gradient descent simultaneously with the inner problem.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 The CASH problem</H3>
-
-      <Prose>
-        Let {"A = {A^{(1)}, ..., A^{(R)}}"} be a set of algorithm families, each with its own hyperparameter space {"Λ^{(j)"}. The combined algorithm selection and hyperparameter optimization (CASH) problem is:
-      </Prose>
-
-      <MathBlock>
-        {"A^*_{\\lambda^*} = \\underset{A^{(j)} \\in \\mathbf{A},\\; \\lambda \\in \\Lambda^{(j)}}{\\operatorname{argmin}}\\; \\frac{1}{k} \\sum_{i=1}^{k} \\mathcal{L}\\!\\left(A^{(j)}_{\\lambda},\\, \\mathcal{D}^{(i)}_{\\text{train}},\\, \\mathcal{D}^{(i)}_{\\text{val}}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        where {"L(A, D_train, D_val)"} is the validation loss of algorithm A trained on {"D_train"} and evaluated on {"D_val"}, and the k-fold CV average is the objective. The search space is hierarchical and conditional: the hyperparameters {"Λ^{(j)}"} are only defined when algorithm {"A^{(j)}"} is selected. This structure means the space has many inactive dimensions for any given configuration — it is not a flat grid. The SMAC algorithm (Hutter et al. 2011) handles this by learning a random-forest surrogate over the joint (algorithm, hyperparameter) space, treating inactive hyperparameters as a special missing-value category.
-      </Prose>
-
-      <H3>3.2 Bayesian optimization with random-forest surrogate (SMAC)</H3>
-
-      <Prose>
-        Standard Gaussian-process Bayesian optimization struggles with conditional and categorical spaces — GP kernels require a metric on the input space that is hard to define for mixed (continuous, discrete, conditional) inputs. SMAC replaces the GP with a random forest trained on all evaluated configurations and their CV losses. For a new candidate configuration {"λ"}, the random forest produces a predictive mean {"μ(λ)"} and variance {"σ²(λ)"} (estimated from the spread of predictions across trees). The acquisition function — Expected Improvement — then prioritizes configurations where:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathrm{EI}(\\lambda) = \\mathbb{E}\\left[\\max(f^* - f(\\lambda),\\, 0)\\right] = (f^* - \\mu(\\lambda))\\,\\Phi\\!\\left(\\frac{f^* - \\mu(\\lambda)}{\\sigma(\\lambda)}\\right) + \\sigma(\\lambda)\\,\\phi\\!\\left(\\frac{f^* - \\mu(\\lambda)}{\\sigma(\\lambda)}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        where {"f*"} is the best loss seen so far, {"Φ"} and {"φ"} are the standard normal CDF and PDF. This acquisition function balances exploitation (configurations where {"μ(λ)"} is low) and exploration (configurations where {"σ(λ)"} is high). The next configuration to evaluate is the one that maximizes EI, found by a local search over the configuration space.
-      </Prose>
-
-      <H3>3.3 NAS as bilevel optimization</H3>
-
-      <Prose>
-        Let {"α"} denote the architecture parameters (which operations to use in each cell edge) and {"w"} the network weights. The NAS problem is:
-      </Prose>
-
-      <MathBlock>
-        {"\\min_{\\alpha}\\; \\mathcal{L}_{\\text{val}}\\!\\left(w^*(\\alpha),\\, \\alpha\\right) \\quad \\text{s.t.} \\quad w^*(\\alpha) = \\underset{w}{\\operatorname{argmin}}\\; \\mathcal{L}_{\\text{train}}(w,\\, \\alpha)"}
-      </MathBlock>
-
-      <Prose>
-        This is a bilevel optimization: the outer problem minimizes validation loss over architectures, while the inner problem (parameterized by {"α"}) trains the weights to convergence. Solving the inner problem exactly for each candidate {"α"} is prohibitively expensive. DARTS approximates {"w*(α)"} with a single gradient step — a first-order approximation — making the entire bilevel problem tractable by alternating gradient updates to {"w"} and {"α"}.
-      </Prose>
-
-      <H3>3.4 DARTS: continuous relaxation over the cell graph</H3>
-
-      <Prose>
-        In a DARTS cell, each directed edge {"(i, j)"} can carry one of K candidate operations {"O = {o_1, ..., o_K}"} (e.g., 3x3 separable conv, 5x5 separable conv, max pool, skip, zero). Instead of making a discrete choice, DARTS replaces the edge operation with a softmax-weighted mixture:
-      </Prose>
-
-      <MathBlock>
-        {"\\bar{o}^{(i,j)}(x) = \\sum_{k=1}^{K} \\frac{\\exp(\\alpha^{(i,j)}_k)}{\\sum_{k'} \\exp(\\alpha^{(i,j)}_{k'})} \\cdot o_k(x)"}
-      </MathBlock>
-
-      <Prose>
-        The architecture parameters {"α^{(i,j)}_k"} are real-valued scalars, one per (edge, operation) pair. During search, both w (network weights) and {"α"} (architecture parameters) are optimized jointly by gradient descent — w on the training set, {"α"} on the validation set. After search converges, the discrete architecture is recovered by argmax: for each edge, the operation with the highest softmax weight is selected and all others are discarded. This "discretization" step can be lossy — the architecture recovered post-discretization may perform worse than the continuous relaxation suggested — which is a known failure mode called the discretization gap.
-      </Prose>
-
-      <H3>3.5 ENAS: weight sharing across a supernet</H3>
-
-      <Prose>
-        ENAS (Pham et al. 2018) takes a different approach to the inner-optimization bottleneck. Instead of training each candidate architecture from scratch, all architectures share the weights of a single large supernet. A controller (LSTM) samples a subgraph of the supernet — selecting which edges and operations to activate — and the sampled subnetwork is trained for a few steps using the shared weights. The controller is updated by REINFORCE with the validation accuracy of the sampled subnetwork as the reward. Because weights are shared, the controller can evaluate thousands of architectures without the cost of full training per architecture. The accuracy estimate is noisier than training-from-scratch, but the signal is sufficient for the controller to discover competitive architectures. The cost: roughly 1 GPU-day on CIFAR-10, versus 800 TPU-days for the original Zoph & Le approach.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        Both code blocks below were executed and the stdout is embedded verbatim. We implement (a) a small AutoML sweep over (preprocessor, model, hyperparameter) with 5-fold CV scoring; (b) a tiny "NAS" over 3 depths, 3 widths, and 2 activations for a MLP, using random sampling and top-k evaluation.
-      </Prose>
-
-      <H3>4a. AutoML pipeline sweep — NumPy + sklearn</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.datasets import make_classification
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold, cross_val_score
-from sklearn.pipeline import Pipeline
-import time
-
-np.random.seed(42)
-X, y = make_classification(n_samples=400, n_features=10, n_informative=5,
-                            n_redundant=2, random_state=42)
-
-preprocessors = [
-    ('none',     None),
-    ('standard', StandardScaler),
-    ('minmax',   MinMaxScaler),
-]
-
-models = [
-    ('logreg_C1',  LogisticRegression,     dict(C=1.0,  max_iter=500, random_state=42)),
-    ('logreg_C10', LogisticRegression,     dict(C=10.0, max_iter=500, random_state=42)),
-    ('dtree_d3',   DecisionTreeClassifier, dict(max_depth=3, random_state=42)),
-    ('dtree_d5',   DecisionTreeClassifier, dict(max_depth=5, random_state=42)),
-    ('rf_50',      RandomForestClassifier, dict(n_estimators=50, random_state=42)),
-]
-
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-print('=== AutoML Pipeline Sweep (preprocessor x model, 5-fold CV) ===')
-print('%-30s  %8s  %6s  %8s' % ('Pipeline', 'CV acc', 'Std', 'Time(s)'))
-print('-' * 58)
-
-results = []
-t_total = time.time()
-
-for pname, PrepCls in preprocessors:
-    for mname, ModelCls, params in models:
-        steps = []
-        if PrepCls is not None:
-            steps.append(('prep', PrepCls()))
-        steps.append(('model', ModelCls(**params)))
-        pipe = Pipeline(steps)
-        t0 = time.time()
-        scores = cross_val_score(pipe, X, y, cv=skf, scoring='accuracy')
-        elapsed = time.time() - t0
-        label = '%s+%s' % (pname, mname)
-        results.append({'label': label,
-                        'mean': scores.mean(),
-                        'std': scores.std(),
-                        'time': elapsed})
-        print('%-30s  %8.4f  %6.4f  %8.3f' % (
-            label, scores.mean(), scores.std(), elapsed))
-
-wall_total = time.time() - t_total
-best = max(results, key=lambda r: r['mean'])
-print()
-print('Total wall-clock : %.2fs' % wall_total)
-print('Best pipeline    : %s'   % best['label'])
-print('Best CV acc      : %.4f +/- %.4f' % (best['mean'], best['std']))`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== AutoML Pipeline Sweep (preprocessor x model, 5-fold CV) ===
-Pipeline                          CV acc     Std   Time(s)
-----------------------------------------------------------
-none+logreg_C1                    0.7850  0.0310     0.044
-none+logreg_C10                   0.7825  0.0302     0.036
-none+dtree_d3                     0.7625  0.0771     0.025
-none+dtree_d5                     0.7525  0.0644     0.029
-none+rf_50                        0.8250  0.0395     0.634
-standard+logreg_C1                0.7825  0.0302     0.039
-standard+logreg_C10               0.7825  0.0302     0.035
-standard+dtree_d3                 0.7625  0.0771     0.029
-standard+dtree_d5                 0.7525  0.0644     0.033
-standard+rf_50                    0.8250  0.0395     0.555
-minmax+logreg_C1                  0.7900  0.0382     0.050
-minmax+logreg_C10                 0.7825  0.0302     0.066
-minmax+dtree_d3                   0.7625  0.0771     0.025
-minmax+dtree_d5                   0.7525  0.0644     0.031
-minmax+rf_50                      0.8250  0.0395     0.573
-
-Total wall-clock : 2.20s
-Best pipeline    : none+rf_50
-Best CV acc      : 0.8250 +/- 0.0395`}
-      </Callout>
-
-      <Prose>
-        The sweep covered 3 preprocessors × 5 models = 15 pipelines in 2.2 seconds of wall-clock. Random Forest dominated regardless of preprocessor — unsurprising since tree-based models are invariant to monotone feature scaling. Logistic regression with MinMax scaling narrowly outperformed the unscaled version (0.7900 vs 0.7850), the expected result from better-conditioned gradient descent. In a real AutoML system, this grid would be the starting point; Bayesian optimization over the hyperparameters of each model family (RF n_estimators, max_features; logistic C) would follow.
-      </Prose>
-
-      <H3>4b. Tiny NAS: MLP architecture search by random sampling</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import warnings
-warnings.filterwarnings('ignore')
-from sklearn.datasets import make_classification
-from sklearn.model_selection import StratifiedKFold, cross_val_score
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.neural_network import MLPClassifier
-import time
-
-np.random.seed(42)
-X, y = make_classification(n_samples=400, n_features=10, n_informative=5,
-                            n_redundant=2, random_state=42)
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-# Search space: 3 depths x 3 widths x 2 activations = 18 candidates
-depths      = [1, 2, 3]
-widths      = [32, 64, 128]
-activations = ['relu', 'tanh']
-
-all_configs = [{'depth': d, 'width': w, 'activation': act}
-               for d in depths for w in widths for act in activations]
-
-# Random sample 12 of 18 candidates (simulate budget-constrained NAS)
-rng = np.random.default_rng(0)
-sampled = [all_configs[i]
-           for i in rng.choice(len(all_configs), size=12, replace=False)]
-
-print('=== Tiny NAS: MLP Architecture Search (random sample=12/18, 5-fold CV) ===')
-print('%-6s  %-6s  %-10s  %8s  %6s  %8s' % (
-    'depth', 'width', 'activation', 'CV acc', 'Std', 'Time(s)'))
-print('-' * 55)
-
-results = []
-t_start = time.time()
-for cfg in sampled:
-    hidden = tuple([cfg['width']] * cfg['depth'])
-    mlp  = MLPClassifier(hidden_layer_sizes=hidden,
-                          activation=cfg['activation'],
-                          max_iter=500, random_state=42)
-    pipe = Pipeline([('sc', StandardScaler()), ('mlp', mlp)])
-    t0   = time.time()
-    scores = cross_val_score(pipe, X, y, cv=skf, scoring='accuracy')
-    elapsed = time.time() - t0
-    results.append({'cfg': cfg, 'mean': scores.mean(), 'std': scores.std()})
-    print('%-6d  %-6d  %-10s  %8.4f  %6.4f  %8.3f' % (
-        cfg['depth'], cfg['width'], cfg['activation'],
-        scores.mean(), scores.std(), elapsed))
-
-wall = time.time() - t_start
-results.sort(key=lambda r: -r['mean'])
-best = results[0]
-print()
-print('Total wall-clock  : %.2fs' % wall)
-print('Best architecture : depth=%d, width=%d, activation=%s' % (
-    best['cfg']['depth'], best['cfg']['width'], best['cfg']['activation']))
-print('Best CV acc       : %.4f +/- %.4f' % (best['mean'], best['std']))
-print()
-print('Top 3 architectures:')
-for r in results[:3]:
-    print('  depth=%d  width=%d  act=%-4s  CV=%.4f' % (
-        r['cfg']['depth'], r['cfg']['width'], r['cfg']['activation'], r['mean']))`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== Tiny NAS: MLP Architecture Search (random sample=12/18, 5-fold CV) ===
-depth   width   activation    CV acc     Std   Time(s)
--------------------------------------------------------
-1       32      relu          0.8375  0.0403     1.168
-1       64      relu          0.8525  0.0184     2.223
-1       64      tanh          0.8425  0.0232     2.198
-1       128     relu          0.8625  0.0209     3.324
-1       128     tanh          0.8275  0.0166     3.372
-2       32      tanh          0.8375  0.0177     1.924
-2       128     tanh          0.8800  0.0100     9.672
-3       32      relu          0.8725  0.0289     2.492
-3       32      tanh          0.8625  0.0209     2.734
-3       64      relu          0.8825  0.0322     5.813
-3       64      tanh          0.8875  0.0237    10.361
-3       128     relu          0.8950  0.0203     6.669
-
-Total wall-clock  : 51.95s
-Best architecture : depth=3, width=128, activation=relu
-Best CV acc       : 0.8950 +/- 0.0203
-
-Top 3 architectures:
-  depth=3  width=128  act=relu  CV=0.8950
-  depth=3  width=64   act=tanh  CV=0.8875
-  depth=3  width=64   act=relu  CV=0.8825`}
-      </Callout>
-
-      <Prose>
-        The best architecture (depth=3, width=128, ReLU) outperforms the best AutoML pipeline from section 4a (RF at 0.8250) by about 7 points on the same dataset — a meaningful gain from allowing a deeper model. The search took 52 seconds for 12 candidates; a full grid over all 18 would cost roughly 78 seconds. The winner emerged from 12 candidates, suggesting that random sampling was efficient: the top-3 all have depth=3, which early candidates (depth=1) already suggested was the right direction. A real NAS system would use this signal to focus subsequent evaluations on the depth=3 slice.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        The AutoML ecosystem in 2024–2026 is stratified by task type and budget. For tabular data, the go-to libraries are FLAML (fast, budget-aware), AutoGluon (strong ensembling, minimal config), auto-sklearn 2.0 (Bayesian HPO, portfolio initialization), TPOT (genetic programming over sklearn pipelines), and H2O AutoML (Java-backed, GUI available). For neural architecture search specifically, the active libraries are Keras Tuner, Microsoft NNI, and AutoKeras. Commercial platforms — Google Cloud AutoML, Azure AutoML, AWS SageMaker Autopilot — wrap these ideas with managed infrastructure and no-code interfaces.
-      </Prose>
-
-      <H3>5a. FLAML — fast budget-constrained AutoML</H3>
-
-      <Prose>
-        FLAML (Fast and Lightweight AutoML), introduced by Wang et al. at MLSys 2021 (arXiv:1911.04706), is the fastest tabular AutoML library for small-to-medium budgets. Its core algorithm, CFO (Frugal Optimization for Cost-related Hyperparameters), exploits the cost of each configuration as a first-class signal: configurations that are cheap to evaluate (few trees, small learning rate) are tried first, and the optimizer biases toward cost-efficient improvements. The <Code>time_budget</Code> parameter makes FLAML the most practical choice for integration into automated pipelines where wall-clock time is the binding constraint.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import warnings
-warnings.filterwarnings('ignore')
-from flaml import AutoML
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-import numpy as np, time
-
-np.random.seed(42)
-X, y = make_classification(n_samples=500, n_features=10,
-                            n_informative=5, n_redundant=2, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y)
-
-automl = AutoML()
-t0 = automl.fit(
-    X_train=X_train,
-    y_train=y_train,
-    time_budget=30,          # 30-second wall-clock budget
-    metric='accuracy',
-    task='classification',
-    log_file_name='',        # suppress log file
-    seed=42,
-    verbose=0,
-) or time.time()
-
-elapsed = time.time() - t0 if isinstance(t0, float) else 30.0
-preds = automl.predict(X_test)
-acc   = accuracy_score(y_test, preds)
-
-print('=== FLAML AutoML (30-second budget, classification) ===')
-print('Best estimator : %s'   % automl.best_estimator)
-print('Best CV metric : %.4f' % (1 - automl.best_loss))
-print('Test accuracy  : %.4f' % acc)
-print()
-print('Best config:')
-for k, v in automl.best_config.items():
-    print('  %-25s = %s' % (k, v))`}
-      </CodeBlock>
-
-      <Callout type="output">
-{`=== FLAML AutoML (30-second budget, classification) ===
-Best estimator : lgbm
-Best CV metric : 0.9125
-Test accuracy  : 0.8800
-
-Best config:
-  n_estimators              = 25
-  num_leaves                = 23
-  min_child_samples         = 12
-  learning_rate             = 0.5635224662769907
-  log_max_bin               = 8
-  colsample_bytree          = 1.0
-  reg_alpha                 = 0.0027613244683247504
-  reg_lambda                = 10.478712367872907`}
-      </Callout>
-
-      <Prose>
-        FLAML selected LightGBM as the best estimator within the 30-second budget, achieving 0.9125 cross-validated accuracy and 0.8800 test accuracy. The configuration is notable: a shallow LightGBM with only 25 trees and 23 leaves, a high learning rate (0.56), and strong L2 regularization (lambda=10.5). FLAML's CFO optimizer preferentially explored cheap configurations (few trees) early and found that a well-regularized shallow model was more generalizable than a deeper one on this dataset. This is characteristic of FLAML's behavior: it often arrives at smaller, faster models than random search at the same time budget.
-      </Prose>
-
-      <H3>5b. AutoGluon — zero-config ensembling</H3>
-
-      <Prose>
-        AutoGluon (Erickson et al. 2020) takes a fundamentally different approach to AutoML: instead of searching for a single best model, it trains many models across multiple layers of stacking and averages/stacks them. AutoGluon's <Code>TabularPredictor</Code> with <Code>presets='best_quality'</Code> trains LightGBM, XGBoost, CatBoost, Random Forest, ExtraTrees, and a neural network, then stacks them in two layers. It does not search hyperparameters by default — it uses pre-configured "bags" of models. The result: AutoGluon is often the strongest single system on tabular benchmarks (TabZilla 2022, AMLB 2023) but requires more compute and memory than FLAML.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install autogluon.tabular
-# Demonstration (not run here due to install size ~2GB)
-from autogluon.tabular import TabularPredictor
-import pandas as pd
-
-train_df = pd.DataFrame(X_train, columns=['f%d' % i for i in range(10)])
-train_df['label'] = y_train
-
-predictor = TabularPredictor(
-    label='label',
-    eval_metric='accuracy',
-    path='autogluon_models/',
-).fit(
-    train_df,
-    time_limit=120,            # 2-minute budget
-    presets='medium_quality',  # fast preset; 'best_quality' trains longer
-    excluded_model_types=['NN_TORCH'],  # skip neural net for speed
-)
-leaderboard = predictor.leaderboard(silent=True)
-print(leaderboard[['model', 'score_val', 'pred_time_val']].head(5))`}
-      </CodeBlock>
-
-      <Prose>
-        AutoGluon's stacking approach is its strongest differentiator. A single LightGBM fold's out-of-fold predictions become features for a second-level model — this is standard stacking, but AutoGluon automates the full multi-layer pipeline with bagging to prevent leakage. The <Code>leaderboard()</Code> method returns validation scores for all trained models, making it easy to audit which layers contributed.
-      </Prose>
-
-      <H3>5c. NAS libraries — Keras Tuner and NNI</H3>
-
-      <Prose>
-        For neural architecture search in practice, <strong>Keras Tuner</strong> (O'Malley et al. 2019) is the most accessible entry point. It treats architecture choices — number of layers, layer sizes, dropout rates, optimizer hyperparameters — as searchable hyperparameters via a define-by-run API. The search strategies available are RandomSearch, BayesianOptimization (GP surrogate), Hyperband (successive halving), and Greedy. Keras Tuner handles the full training loop and checkpointing, making it production-ready for Keras/TensorFlow models.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# pip install keras-tuner
-import keras_tuner as kt
-import tensorflow as tf
-
-def build_model(hp):
-    n_layers = hp.Int('n_layers', min_value=1, max_value=4, step=1)
-    model = tf.keras.Sequential()
-    for i in range(n_layers):
-        units = hp.Int('units_%d' % i, min_value=32, max_value=256, step=32)
-        act   = hp.Choice('activation_%d' % i, values=['relu', 'tanh', 'gelu'])
-        model.add(tf.keras.layers.Dense(units, activation=act))
-        drop  = hp.Float('dropout_%d' % i, min_value=0.0, max_value=0.5, step=0.1)
-        model.add(tf.keras.layers.Dropout(drop))
-    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-    lr = hp.Float('lr', min_value=1e-4, max_value=1e-2, sampling='log')
-    model.compile(optimizer=tf.keras.optimizers.Adam(lr),
-                  loss='binary_crossentropy', metrics=['accuracy'])
-    return model
-
-tuner = kt.BayesianOptimization(
-    build_model,
-    objective='val_accuracy',
-    max_trials=20,
-    directory='nas_search',
-    project_name='mlp_demo',
-    overwrite=True,
-)
-# tuner.search(X_train, y_train, epochs=10,
-#              validation_split=0.2, verbose=0)
-# best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
-# print('Best n_layers:', best_hps.get('n_layers'))
-# print('Best lr:', best_hps.get('lr'))`}
-      </CodeBlock>
-
-      <Prose>
-        <strong>Microsoft NNI</strong> (Neural Network Intelligence) is a more complete NAS framework supporting DARTS, ENAS, ProxylessNAS, and SPOS out of the box. It provides a config-file-based search specification (JSON/YAML), multiple search strategies (random, TPE, evolution, SMAC), and a web UI for trial monitoring. NNI targets research and production use cases that require hardware-aware search (specifying target latency or FLOPs budgets) — scenarios where Keras Tuner's hyperparameter-only scope is insufficient.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. AutoML search trajectory — best-so-far accuracy vs trials</H3>
-
-      <Plot
-        label="AutoML search: best CV accuracy found vs trial number"
-        xLabel="Trial number"
-        yLabel="Best CV accuracy so far"
-        series={[
-          {
-            name: "Bayesian (SMAC surrogate)",
-            color: colors.gold,
-            points: [
-              [1, 0.755], [2, 0.775], [3, 0.810], [4, 0.810], [5, 0.820],
-              [6, 0.825], [7, 0.825], [8, 0.830], [9, 0.840], [10, 0.840],
-              [12, 0.845], [15, 0.850], [18, 0.852], [22, 0.855], [28, 0.857],
-              [35, 0.860], [42, 0.862], [50, 0.863],
-            ],
-          },
-          {
-            name: "Random search baseline",
-            color: "#94a3b8",
-            points: [
-              [1, 0.748], [3, 0.775], [5, 0.800], [8, 0.812], [10, 0.820],
-              [15, 0.828], [20, 0.832], [30, 0.838], [40, 0.842], [50, 0.848],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The Bayesian optimizer (gold) converges faster in the early trials because it exploits the surrogate model's prediction of promising regions. By trial 15 it has already found configurations close to its eventual best (0.860). Random search (grey) catches up more slowly — it finds good configurations by chance rather than directed search. For cheap evaluations (under 10 seconds per trial), the overhead of fitting the surrogate can erase the advantage of Bayesian optimization; the crossover point depends on the evaluation cost.
-      </Prose>
-
-      <H3>6b. Pipeline performance grid (model × preprocessor)</H3>
-
-      <Heatmap
-        label="CV accuracy — model x preprocessor (5-fold, classification)"
-        rowLabels={["none", "standard", "minmax"]}
-        colLabels={["logreg_C1", "logreg_C10", "dtree_d3", "dtree_d5", "rf_50"]}
-        matrix={[
-          [0.785, 0.783, 0.763, 0.753, 0.825],
-          [0.783, 0.783, 0.763, 0.753, 0.825],
-          [0.790, 0.783, 0.763, 0.753, 0.825],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The heatmap reveals that Random Forest (rightmost column) dominates all preprocessor choices, and the preprocessor choice matters far less than the model family on this dataset. Logistic regression is mildly sensitive to scaling (minmax slightly better than none). Decision trees are preprocessor-invariant by construction — splitting thresholds are rank-based, not magnitude-based. This pattern — model family dominates preprocessor choice — holds broadly for tree-based models on tabular data, which is why AutoML systems typically search model family first.
-      </Prose>
-
-      <H3>6c. DARTS continuous relaxation — 5-step walkthrough</H3>
-
-      <StepTrace
-        label="DARTS: from discrete NAS to differentiable architecture search"
-        steps={[
-          {
-            label: "Step 1 — Define the cell search space",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="candidate operations per edge"
-                  tokens={[
-                    { label: "3x3 sep-conv", color: colors.gold },
-                    { label: "5x5 sep-conv", color: colors.gold },
-                    { label: "3x3 max-pool", color: "#86efac" },
-                    { label: "skip connect", color: "#60a5fa" },
-                    { label: "zero (drop)", color: "#94a3b8" },
-                  ]}
-                />
-                <Prose>
-                  A DARTS cell is a DAG with 4 intermediate nodes. Each directed edge {"(i, j)"} connects node i to node j. In the discrete problem, one operation from the candidate set must be chosen per edge. The search space over one cell is {"|O|^{E}"} where E is the number of edges — exponential in the graph size.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 2 — Replace discrete choice with softmax mixture",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="continuous relaxation: each edge carries all ops simultaneously"
-                  tokens={[
-                    { label: "α₁ → softmax(α₁)·o₁(x)", color: colors.gold },
-                    { label: "α₂ → softmax(α₂)·o₂(x)", color: colors.gold },
-                    { label: "sum over K ops", color: "#60a5fa" },
-                    { label: "differentiable w.r.t. α", color: "#86efac" },
-                  ]}
-                />
-                <Prose>
-                  The key relaxation: the output of edge {"(i,j)"} is {"Σ_k softmax(α_k)·o_k(x)"}. All K operations run simultaneously; their outputs are mixed by the softmax weights. This is differentiable in {"α"}, so gradient-based optimization applies to the architecture parameters.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 3 — Bilevel optimization: alternate w and α updates",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="alternating gradient descent"
-                  tokens={[
-                    { label: "update w on L_train", color: colors.gold },
-                    { label: "update α on L_val", color: "#f87171" },
-                    { label: "repeat until convergence", color: colors.textMuted },
-                  ]}
-                />
-                <Prose>
-                  Network weights w are updated on the training set. Architecture parameters {"α"} are updated on the validation set. The separation is important: if {"α"} were updated on the training set, the model would memorize training data and the architecture selection would be meaningless.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 4 — Architecture parameters converge",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="α values after search (toy 3-op cell)"
-                  tokens={[
-                    { label: "sep-conv-3x3: α=2.1 → p=0.71", color: colors.gold },
-                    { label: "max-pool: α=0.5 → p=0.20", color: "#86efac" },
-                    { label: "skip: α=-0.8 → p=0.09", color: "#94a3b8" },
-                  ]}
-                />
-                <Prose>
-                  After search, the softmax over {"α"} assigns most probability mass to sep-conv-3x3. The architecture is not yet discrete at this stage — all operations still run, but the separable convolution dominates the gradient signal.
-                </Prose>
-              </div>
-            ),
-          },
-          {
-            label: "Step 5 — Discretize: argmax over α, retrain from scratch",
-            render: () => (
-              <div>
-                <TokenStream
-                  label="final architecture selection"
-                  tokens={[
-                    { label: "argmax(α) = sep-conv-3x3", color: colors.gold },
-                    { label: "all other ops discarded", color: "#f87171" },
-                    { label: "retrain from scratch on full train set", color: "#60a5fa" },
-                  ]}
-                />
-                <Prose>
-                  The discrete architecture is recovered by taking argmax over {"α"} for each edge — selecting the single operation with the highest weight. The shared weights from search are discarded; the final model is retrained from scratch on the full training set. This discretization step is the main source of the "discretization gap" — the performance difference between the mixed model during search and the final discrete model.
-                </Prose>
-              </div>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6d. Pareto frontier — accuracy vs FLOPs for architecture family</H3>
-
-      <Plot
-        label="Architecture Pareto frontier: ImageNet top-1 accuracy vs FLOPs (inference)"
-        xLabel="FLOPs (billions)"
-        yLabel="Top-1 accuracy (%)"
-        series={[
-          {
-            name: "EfficientNet family (NAS-designed)",
-            color: colors.gold,
-            points: [
-              [0.39, 77.1], [0.70, 79.8], [1.0, 81.6],
-              [2.4, 82.9], [4.2, 83.6], [9.9, 84.3],
-            ],
-          },
-          {
-            name: "ResNet family (hand-designed)",
-            color: "#94a3b8",
-            points: [
-              [1.8, 75.2], [3.6, 76.3], [7.6, 77.5], [11.3, 78.3],
-            ],
-          },
-          {
-            name: "MobileNetV3 (hardware-aware NAS)",
-            color: "#60a5fa",
-            points: [
-              [0.06, 67.4], [0.22, 72.3], [0.60, 75.2],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        EfficientNet (gold) dominates the Pareto frontier over ResNet (grey) across the full FLOPs range — it achieves higher accuracy at each compute level, or equal accuracy at lower compute. This is the empirical payoff of NAS: the search found a compound scaling rule (simultaneously scaling depth, width, and resolution) that human-designed ResNets did not explore. MobileNetV3 (blue) occupies the low-FLOPs region, designed by hardware-aware NAS targeting mobile inference latency rather than raw ImageNet accuracy.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Heatmap
-        label="AutoML library comparison (0=worst, 1=best on each axis)"
-        rowLabels={["FLAML", "AutoGluon", "auto-sklearn 2", "TPOT", "H2O AutoML"]}
-        colLabels={["Speed", "Accuracy", "Ease of use", "Interpretability", "NAS support"]}
-        matrix={[
-          [1.0, 0.7, 0.9, 0.6, 0.0],
-          [0.6, 1.0, 1.0, 0.5, 0.0],
-          [0.5, 0.8, 0.7, 0.5, 0.0],
-          [0.3, 0.7, 0.5, 0.7, 0.0],
-          [0.6, 0.8, 0.8, 0.8, 0.0],
-        ]}
-        colorScale="purple"
-      />
-
-      <H3>7.1 Tabular AutoML decision guide</H3>
-
-      <Prose>
-        <strong>FLAML</strong> is the default recommendation for time-constrained tabular AutoML. It installs in seconds (<Code>pip install flaml</Code>), requires a single <Code>time_budget</Code> parameter, and reliably finds competitive configurations on most tabular datasets within minutes. Its CFO optimizer is particularly good at cost-efficient search — it does not waste compute on expensive configurations early in the budget. Use FLAML when you have 30 seconds to 10 minutes and want a no-tuning-required baseline.
-      </Prose>
-
-      <Prose>
-        <strong>AutoGluon</strong> is the recommendation when accuracy on tabular data is the primary concern and compute is available. Its multi-layer stacking approach outperforms single-model AutoML on most benchmarks, and it requires almost no configuration — just <Code>TabularPredictor(label='target').fit(train_df, time_limit=600)</Code>. The main drawbacks are install size (~2 GB with all backends) and inference latency (stacked ensembles are slow to serve). Use AutoGluon for Kaggle competitions, offline batch prediction, and any setting where the final model does not need to serve low-latency requests.
-      </Prose>
-
-      <Prose>
-        <strong>auto-sklearn</strong> is the academically grounded choice with the most principled Bayesian HPO (SMAC), meta-learning warm-start, and ensemble construction. It is also the most complex to install (requires Linux/macOS, SWIG, smac dependency tree) and the slowest of the three. Use it when you need reproducible Bayesian optimization with documented search traces, or when writing a paper that references the CASH framework.
-      </Prose>
-
-      <Prose>
-        <strong>TPOT</strong> (Tree-based Pipeline Optimization Tool) uses genetic programming to evolve full sklearn pipelines — not just hyperparameters but also the sequence of preprocessing and modeling steps. It is the most flexible in terms of pipeline structure but the slowest in practice (evolution over many generations is expensive). TPOT produces a Python script as output, which is its key advantage: the final pipeline is fully transparent and does not require TPOT at inference time.
-      </Prose>
-
-      <H3>7.2 NAS decision guide</H3>
-
-      <Prose>
-        <strong>When NAS is worth it:</strong> hardware-constrained edge deployment where you need to find the Pareto-optimal architecture for a specific latency budget (ProxylessNAS, Once-for-All); novel task domains where no well-established architecture exists; academic benchmarks (NAS-Bench-101, NAS-Bench-201) where the search cost is a fixed sunk cost. In 2024–2026, the dominant pattern for practitioners is to use pre-trained architectures (ViT, ResNet, LLaMA variants) and adapt via LoRA, adapter layers, or full fine-tuning rather than run NAS from scratch.
-      </Prose>
-
-      <Prose>
-        <strong>When NAS is not worth it:</strong> standard image classification, NLP, and tabular tasks — pre-trained models are stronger starting points than architectures found by NAS on your dataset; when you have less than 1 GPU-day of compute budget (NAS requires at minimum a few hours of search on CIFAR-scale problems); when the accuracy improvement from NAS is marginal (1–2%) compared to the engineering cost of setting up and running the search infrastructure.
-      </Prose>
-
-      <Callout type="insight">
-        The practical NAS landscape shifted decisively around 2022. The compute required for NAS — even with weight sharing — is justified only when the deployment hardware has strict constraints (mobile, edge, embedded) that off-the-shelf architectures cannot meet. For GPU-served production models, the compute is better spent on data cleaning, feature engineering, or larger pre-trained model fine-tuning. NAS remains a research tool and an edge-deployment tool; it is not a general-purpose replacement for architecture selection in most production ML systems.
-      </Callout>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8a. AutoML compute budget analysis</H3>
-
-      <Prose>
-        AutoML cost scales as <strong>budget × eval_cost</strong> where eval_cost is the cost of one CV evaluation. For tabular data with fast models (logistic regression, shallow trees), eval_cost is milliseconds — 1,000 trials in a minute is achievable. For deep models or large datasets (XGBoost on 10M rows), eval_cost is minutes — 30 trials in a 30-minute budget. Successive halving (HalvingGridSearchCV, Hyperband) shrinks eval_cost for the first rounds by evaluating on a small data fraction and promoting only the survivors to full evaluation. FLAML's CFO takes this further by treating configuration cost as an explicit feature of the optimization problem.
-      </Prose>
-
-      <Prose>
-        Meta-learning — initializing the search from configurations that worked on similar datasets — is auto-sklearn's key scaling mechanism. By warming up the Bayesian optimizer with 25 pre-evaluated configurations from similar historical tasks, auto-sklearn skips the cold-start exploration phase and arrives at good configurations much earlier in the budget. This is the same idea as warm-starting gradient descent from a good initialization: the optimizer spends more time in promising regions.
-      </Prose>
-
-      <H3>8b. NAS compute: from 2,000 GPU-days to 1</H3>
-
-      <Prose>
-        The compute cost of NAS has dropped by several orders of magnitude since Zoph and Le 2017, driven by three techniques. <strong>Weight sharing</strong> (ENAS, DARTS) avoids training each candidate architecture from scratch: the supernet's weights are shared across all architectures, reducing the evaluation cost of any individual architecture from hundreds of epochs to a few gradient steps. ENAS brought search cost from ~2,000 GPU-days to ~1. <strong>Performance prediction</strong> trains a surrogate model on (architecture encoding, final accuracy) pairs from previous searches, allowing new architectures to be scored without any training. <strong>Zero-cost proxies</strong> (e.g., NASWOT — Neural Architecture Search Without Training, Mellor et al. 2021) score architectures using a single forward pass through random data — correlating with final accuracy without any gradient computation. These proxies enable screening thousands of architectures in minutes, though they are noisy and work best as a pre-filter before more expensive evaluation.
-      </Prose>
-
-      <H3>8c. Scaling limits</H3>
-
-      <Prose>
-        The fundamental scaling limit of AutoML and NAS is the product of search space size and per-evaluation cost. You can reduce either, but you cannot eliminate the tension. A larger search space finds better solutions but requires more evaluations to cover it. Cheaper evaluations allow more coverage but may not correlate with final performance (the proxy quality problem). The practical recommendation: match the search budget to the evaluation cost. For fast models, use random search with 100+ trials. For slow models, use Bayesian optimization with 30–50 trials and aggressive early stopping inside each trial.
-      </Prose>
-
-      <Prose>
-        <strong>The rank correlation problem in NAS</strong> is a specific scaling failure: the architecture rankings produced by weight-shared evaluation (supernet) often do not agree with the rankings produced by training-from-scratch evaluation (the ground truth). When rank correlation is low, the best architecture found by the supernet is not the best architecture in the training-from-scratch world. DARTS is particularly susceptible: the continuous relaxation during search can lead to architectures dominated by skip connections (which are cheap and gradient-friendly) that perform poorly when discretized. This is why NAS results are often not reproducible across different search budgets, seeds, and discretization strategies.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9a. Reporting the best CV score as generalization</H3>
-
-      <Prose>
-        The most pervasive AutoML mistake: running a hyperparameter search over 100 configurations, taking the best CV score, and reporting it as the model's expected test accuracy. This is the winner's curse — the best score in 100 noisy estimates is biased upward by selection. The magnitude of this optimism grows with the number of configurations and with the noise in the CV estimator (small dataset, few folds). The fix: use nested CV (outer loop estimates generalization, inner loop selects the configuration) or reserve a held-out test set that is never used during search. AutoML systems that report their best CV score as the final metric are overstating their accuracy by a predictable and measurable amount.
-      </Prose>
-
-      <H3>9b. Overfitting the validation set during NAS</H3>
-
-      <Prose>
-        In DARTS, the architecture parameters {"α"} are updated on the validation set. If the search runs long enough, the search procedure overfits to that specific validation split — the recovered architecture performs well on the validation set but generalizes worse to the true test distribution. This is a form of the same winner's curse but in the continuous gradient space. Mitigation: use a different validation split for architecture search and for hyperparameter tuning; limit the number of architecture search epochs; use early stopping on validation loss during search.
-      </Prose>
-
-      <H3>9c. Budget misallocation</H3>
-
-      <Prose>
-        A common failure in AutoML practice: spending the entire search budget on one model family (e.g., XGBoost with 200 hyperparameter configurations) and never evaluating other families (CatBoost, neural networks, linear models) that might outperform it on this specific dataset. Most AutoML libraries protect against this with portfolio initialization — they ensure that a diverse set of configurations (including different model families) are evaluated early. If you are running manual hyperparameter search, always allocate at least 20% of your budget to model families you have not tried yet, even if your prior is strong.
-      </Prose>
-
-      <H3>9d. NAS rank correlation failure</H3>
-
-      <Prose>
-        The Spearman rank correlation between supernet-based rankings and training-from-scratch rankings is often below 0.5 in the DARTS family of methods — meaning the architecture the search identifies as best is not reliably the best when evaluated honestly. This makes the entire NAS exercise potentially misleading: you may run an expensive search and end up with an architecture that is no better than a random draw from the search space. Mitigation: always evaluate the top-k architectures from the search by training them from scratch and selecting by validation performance on a fresh split.
-      </Prose>
-
-      <H3>9e. Fairness and robustness dropped from the objective</H3>
-
-      <Prose>
-        AutoML systems optimize a single scalar metric — accuracy, AUC, RMSE. They do not, by default, optimize for demographic fairness (equal error rates across groups), robustness to distribution shift, or calibration (accurate prediction probabilities). A system that AutoML-optimizes for AUC on a credit scoring dataset may find configurations that achieve high AUC by exploiting proxy attributes correlated with protected characteristics. The fix is to include fairness constraints in the optimization objective (e.g., Equalized Odds difference below a threshold) or to use a multi-objective AutoML framework — but this is not standard in any library's default configuration as of 2026.
-      </Prose>
-
-      <H3>9f. Reproducibility and random_state</H3>
-
-      <Prose>
-        AutoML systems involve multiple sources of randomness: the search strategy's sampling, CV fold assignment, model initialization, and early stopping rounds. Running the same FLAML or AutoGluon call twice without fixing all seeds may produce different best configurations and different reported scores. Always set <Code>seed</Code> parameters in the AutoML call, fix <Code>random_state</Code> in the CV splitter, and record the full configuration of the best model before deploying. In research settings, report results over multiple random seeds with mean and standard deviation.
-      </Prose>
-
-      <H3>9g. Trusting AutoML without domain knowledge</H3>
-
-      <Prose>
-        AutoML is a powerful search tool, not an oracle. It cannot detect data leakage (a feature computed from the future leaking into training), cannot identify that your "train" and "test" splits are from different populations, and cannot audit whether the features you included are appropriate to use for decision-making. AutoML raises the floor — it finds better configurations than a lazy baseline — but it does not raise the ceiling of what a domain-informed engineer can achieve with careful feature engineering and problem framing. Use AutoML as a strong starting point and sanity check, not as a replacement for understanding your data.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were verified against their primary publication venues and arXiv pages.
-      </Prose>
-
-      <Prose>
-        <strong>Thornton, C., Hutter, F., Hoos, H.H., and Leyton-Brown, K. (2013).</strong> "Auto-WEKA: Combined Selection and Hyperparameter Optimization of Classification Algorithms." <em>Proceedings of the 19th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD '13)</em>, pp. 847–855. DOI: 10.1145/2487575.2487629. The paper that introduced the CASH formulation and demonstrated that joint algorithm selection and hyperparameter optimization could match or beat expert-crafted configurations on standard benchmarks. Used SMAC (Sequential Model-based Algorithm Configuration) as the optimizer over the full WEKA classifier library.
-      </Prose>
-
-      <Prose>
-        <strong>Feurer, M., Klein, A., Eggensperger, K., Springenberg, J.T., Blum, M., and Hutter, F. (2015).</strong> "Efficient and Robust Automated Machine Learning." <em>Advances in Neural Information Processing Systems 28 (NeurIPS 2015)</em>, pp. 2962–2970. arXiv:1507.00677. Introduced auto-sklearn, which added meta-learning warm-start and ensemble construction to the CASH framework. Won the first ChaLearn AutoML challenge. Established the template for tabular AutoML: Bayesian HPO over a conditional hyperparameter space, with meta-features to initialize from historical data.
-      </Prose>
-
-      <Prose>
-        <strong>Hutter, F., Kotthoff, L., and Vanschoren, J. (Eds.) (2019).</strong> <em>Automated Machine Learning: Methods, Systems, Challenges.</em> Springer. Available open access at automl.org/book. The canonical reference for the field. Covers the CASH problem, Bayesian optimization for HPO, meta-learning, neural architecture search, and emerging directions. Authored by contributors from the auto-sklearn, SMAC, Auto-WEKA, and NAS communities.
-      </Prose>
-
-      <Prose>
-        <strong>Zoph, B. and Le, Q.V. (2017).</strong> "Neural Architecture Search with Reinforcement Learning." <em>International Conference on Learning Representations (ICLR 2017)</em>. arXiv:1611.01578. The paper that launched the NAS field. A recurrent controller generates cell architecture descriptions as token sequences; trained by REINFORCE with validation accuracy as reward. Achieved state-of-the-art on CIFAR-10 and Penn Treebank at the cost of approximately 800 TPU-days (roughly 2,000 GPU-days equivalent). The paper that made the automation of architecture design credible.
-      </Prose>
-
-      <Prose>
-        <strong>Pham, H., Guan, M.Y., Zoph, B., Le, Q.V., and Dean, J. (2018).</strong> "Efficient Neural Architecture Search via Parameter Sharing." <em>Proceedings of the 35th International Conference on Machine Learning (ICML 2018)</em>. arXiv:1802.03268. Introduced weight sharing across a supernet ("parameter sharing"), reducing NAS cost from thousands of GPU-days to approximately 1 GPU-day. The ENAS controller samples subgraphs of the supernet and evaluates them using shared weights, enabling thousands of architecture evaluations per hour. Foundational to all subsequent weight-sharing NAS methods.
-      </Prose>
-
-      <Prose>
-        <strong>Liu, H., Simonyan, K., and Yang, Y. (2019).</strong> "DARTS: Differentiable Architecture Search." <em>International Conference on Learning Representations (ICLR 2019)</em>. arXiv:1806.09055. Introduced the continuous relaxation of discrete architecture choices via softmax mixing weights, enabling gradient-based joint optimization of architecture and network weights. DARTS reduces NAS to approximately 1 GPU-day on CIFAR-10 and discovers competitive architectures. The paper also introduced the key failure mode: the discretization gap between the continuous relaxation and the recovered discrete architecture.
-      </Prose>
-
-      <Prose>
-        <strong>Tan, M. and Le, Q.V. (2019).</strong> "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks." <em>Proceedings of the 36th International Conference on Machine Learning (ICML 2019)</em>. arXiv:1905.11946. Used neural architecture search (via MnasNet's hardware-aware NAS) to find a baseline architecture, then derived a compound scaling rule — simultaneously scaling depth, width, and input resolution by a fixed ratio — to produce a family of models that dominates the ImageNet accuracy vs FLOPs Pareto frontier. EfficientNet-B7 achieved 84.3% top-1 with 8.4x fewer parameters than the best GPipe model at the time.
-      </Prose>
-
-      <Prose>
-        <strong>Wang, C., Wu, Q., Weimer, M., and Zhu, E. (2021).</strong> "FLAML: A Fast and Lightweight AutoML Library." <em>Proceedings of Machine Learning and Systems 3 (MLSys 2021)</em>, pp. 434–447. arXiv:1911.04706. Introduced FLAML and the CFO (Cost-Frugal Optimizer) algorithm, which exploits the cost of configurations as a signal in the search process. Demonstrated that FLAML finds competitive configurations with significantly less compute than auto-sklearn and H2O AutoML on tabular benchmarks, making it the practical default for time-constrained tabular AutoML.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1 (Recall)</H3>
-      <Prose>
-        Define the CASH problem. What distinguishes it from ordinary hyperparameter optimization, and why does it require a surrogate model that handles conditional hyperparameter spaces?
-      </Prose>
-      <Callout type="answer">
-        {"CASH (Combined Algorithm Selection and Hyperparameter optimization) jointly optimizes over (a) which algorithm family to use and (b) the hyperparameters of that family. Unlike ordinary HPO — which fixes the algorithm and searches only its hyperparameters — CASH treats the algorithm identity itself as a discrete choice variable. This creates a conditional structure: the hyperparameter 'kernel' is only meaningful if the algorithm is SVM; 'max_depth' is only meaningful for tree-based models. Standard GP-based Bayesian optimization cannot handle this because GP kernels require a continuous metric on the full input space. SMAC solves this by using a random forest as the surrogate — random forests naturally handle mixed (continuous + categorical + conditional) inputs by encoding inactive hyperparameters as a special missing-value category and ignoring them in tree splits. The random forest predicts the loss distribution over configurations, and the acquisition function (Expected Improvement) then proposes the next configuration to evaluate."}
-      </Callout>
-
-      <H3>Exercise 2 (Conceptual)</H3>
-      <Prose>
-        Explain the DARTS continuous relaxation. Why is the architecture updated on the validation set rather than the training set? What is the "discretization gap" and why does it occur?
-      </Prose>
-      <Callout type="answer">
-        {"DARTS replaces the discrete choice of one operation per cell edge with a softmax-weighted sum of all candidate operations: the edge output is Σ_k softmax(α_k)·o_k(x), where α_k is a real-valued architecture parameter. This makes the output differentiable in α, allowing gradient-based optimization. The architecture parameters α are updated by gradient descent on the validation loss (not the training loss) for the following reason: if α were updated on the training loss, the optimization would drive α toward operations that memorize training data rather than operations that generalize — the architecture selection would be dominated by overfitting. By using validation loss, α is updated based on held-out performance, reflecting true generalization potential. The discretization gap arises during the final step: after search, the discrete architecture is recovered by argmax over α for each edge. The continuous relaxation allows all operations to run simultaneously with gradient flow helping every operation; the discrete architecture runs only the argmax operation. The dropped operations may have been contributing gradient signal that regularized the kept operation, so the discrete model performs worse than the continuous model would suggest."}
-      </Callout>
-
-      <H3>Exercise 3 (Applied)</H3>
-      <Prose>
-        You have 2 hours of compute budget to build the best tabular classifier for a 100,000-row dataset with 50 features (mix of numerical and high-cardinality categorical). Compare FLAML, AutoGluon, and running manual XGBoost hyperparameter search. Which would you use and why?
-      </Prose>
-      <Callout type="answer">
-        {"AutoGluon is the strongest choice for maximum accuracy within a 2-hour budget on a 100K-row mixed dataset. Setting time_limit=7200 allows AutoGluon to train multiple LightGBM, XGBoost, CatBoost, and ensemble models in multiple stacking layers — CatBoost's ordered target statistics will handle the high-cardinality categoricals without manual encoding, and the stacking layer will exploit correlations between model outputs. FLAML is the better choice if the 2-hour budget is shared with other pipeline steps (feature engineering, deployment testing), because FLAML's CFO optimizer finds a strong single model in 5–30 minutes rather than consuming the full budget. Manual XGBoost tuning requires manual categorical encoding (target encoding with k-fold OOF to avoid leakage, or ordinal encoding), manual hyperparameter range specification, and careful early stopping setup — it is slower to set up and will likely produce a weaker result than AutoGluon's stacking unless you have deep domain knowledge about the data. Rule of thumb: use AutoGluon for maximum accuracy, FLAML for fast good-enough baselines, and manual tuning only when you have a specific model requirement or domain constraint."}
-      </Callout>
-
-      <H3>Exercise 4 (Applied)</H3>
-      <Prose>
-        Your team proposes running DARTS to find a custom architecture for a new image classification task. The dataset has 50,000 images across 10 classes. The team has 4 A100 GPUs available for 1 week. Evaluate whether NAS is the right approach and what the alternative would be.
-      </Prose>
-      <Callout type="answer">
-        {"NAS is likely not the best use of 4 GPU-weeks for a 50K-image, 10-class task. The argument against: (a) strong pre-trained architectures (EfficientNet, ViT-B/16, ResNet-50) fine-tuned on 50K images with transfer learning will likely outperform a DARTS-searched architecture trained from scratch, because the pre-trained features generalize far better than random initialization on 50K examples; (b) DARTS takes roughly 1 GPU-day for the search phase alone, plus 1-2 GPU-days for full retraining of the discovered architecture — so a single DARTS run consumes 2-3 GPU-days; (c) the DARTS search on CIFAR-10 does not transfer reliably to other datasets without modification, so you would likely need multiple runs with different seeds; (d) the rank correlation between DARTS proxy performance and final training-from-scratch performance is unreliable. The alternative: spend 4 GPU-weeks on (1) fine-tuning EfficientNet-B3 or ViT-B/16 pre-trained on ImageNet with various augmentation strategies, (2) hyperparameter optimization of the fine-tuning schedule (learning rate warm-up, cosine decay, label smoothing, mixup), and (3) ensembling 3-5 fine-tuned models. This workflow is more reliable, better understood, and will almost certainly produce a stronger model on 50K images. NAS would be the right choice if the images are non-standard (microscopy, radar, hyperspectral) where ImageNet pre-training transfers poorly."}
-      </Callout>
-
-      <H3>Exercise 5 (Debugging)</H3>
-      <Prose>
-        You run FLAML with a 60-second budget and get a best CV accuracy of 0.95. You then evaluate the returned model on your held-out test set and get 0.82. List four possible explanations and a concrete diagnostic for each.
-      </Prose>
-      <Callout type="answer">
-        {"(1) Data leakage during preprocessing: a scaler, target encoder, or imputer was fit on the full training data before FLAML's internal CV split, so the CV validation folds have seen statistics from the full training set. Diagnostic: wrap all preprocessing in FLAML's pipeline interface and verify that no transformation is fit before the CV split. Check feature provenance for any column computed from the label. (2) Distribution shift between train and test: the training set is from a different time period, geography, or data collection process than the test set. CV splits from the training set all look similar and give optimistic estimates; the test set is genuinely out-of-distribution. Diagnostic: compute feature distribution statistics (mean, std, cardinality for categorical) for train vs test and flag columns with KS-statistic p-value below 0.05. (3) Winner's curse from FLAML's internal CV: FLAML evaluated many configurations and returned the best CV score, which is biased upward. The 0.95 is the best in a collection of noisy estimates. Diagnostic: run nested CV manually — use 5-fold outer CV where each outer fold runs FLAML internally; the outer fold test scores (not FLAML's CV score) give an honest estimate. (4) Test set too small / high variance: if the test set has 50-100 examples, the 0.82 estimate has a 95% confidence interval of roughly +/- 5-10 percentage points. The gap from 0.95 may be partly noise. Diagnostic: compute a Wilson confidence interval on the test accuracy and check whether it overlaps with the CV estimate's confidence interval."}
-      </Callout>
-
-      <H3>Exercise 6 (Math)</H3>
-      <Prose>
-        In a DARTS search cell with 3 candidate operations (3x3 conv, max-pool, skip), the architecture parameters after 100 search epochs are {"α = [2.1, 0.5, -0.8]"} for a single edge. Compute the softmax mixing weights. After discretization (argmax), which operation is selected? If you apply L2 regularization on {"α"} with {"λ=0.5"}, how does this affect the softmax distribution at convergence, and what failure mode does this mitigate?
-      </Prose>
-      <Callout type="answer">
-        {"Softmax: exp([2.1, 0.5, -0.8]) = [8.166, 1.649, 0.449]. Sum = 10.264. Weights = [0.796, 0.161, 0.044]. So 3x3 conv gets 79.6% weight, max-pool 16.1%, skip 4.4%. Argmax selects 3x3 conv. With L2 regularization λ=0.5 on α, the gradient update for each α_k includes a penalty term -λ·α_k pulling all parameters toward zero. At convergence, the magnitudes of α are smaller, and the softmax distribution is flatter (less peaked): if α shrinks uniformly by factor c, the softmax of c·[2.1, 0.5, -0.8] approaches uniform as c→0. In practice, L2 regularization on α prevents extreme concentration of weight on a single operation, keeping all operations in the mixture. This mitigates the 'skip connection collapse' failure mode: in standard DARTS, skip connections (which have zero parameters and thus contribute zero gradient to w but still contribute gradient to α) often accumulate large α values because they are cheap for the optimizer. L2 on α penalizes large α magnitudes regardless of operation type, reducing the advantage of parameterless operations and producing more diverse final architectures."}
-      </Callout>
-
-    </div>
-  ),
+  title: 'AutoML & Neural Architecture Search (NAS)',
+  readTime: '~55 min first pass · ~105 min complete read + 60–90 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot am-lesson">
+    <LessonIntro prerequisites={<>A fitted pipeline, a cross-validation split and a held-out comparison, from <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>. Scaling from <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a>, penalty strength from <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a>, and the error-cost distinction from <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">Imbalanced Learning</a>. <strong>No prior neural-network course is required:</strong> section 4 defines a unit, an activation, a layer and a parameter count before anything depends on them.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      You specify what counts as a valid candidate, how candidates will be judged, and how much work is allowed; a search procedure does the rest. You will build a conditional search space and count it correctly, decide what a cheap evaluation is worth, meet the neural machinery locally, then read a real {estimatorFits}-fit study on {provenance.rows.toLocaleString('en-US')} banknote measurements in which the winning network is perfect on its folds and three other candidates tie by making the same single mistake. Six investigations ask for a recorded prediction before they calculate anything, and retire it the moment an input changes.
+    </LessonIntro>
+    <div className="am-route"><Prose><strong>First pass.</strong> Read sections 1–5 in order, including the small neural bridge in section 4, and try practices 1–6. You will build a valid search space, understand two ways to spend its budget, and interpret a real experiment. Section 6 turns the result into a workflow. <strong>Section 7 is a deeper branch</strong> on differentiable search and cheap architecture proxies; section 8 is optional library translation. You can stop after section 6 and be ready for the next topic.</Prose></div>
+
+    <Prose>You have a dataset, several reasonable models, and an afternoon. A logistic model might work. A tree might need less preprocessing. A small neural network might capture a useful interaction. Each choice brings more choices: which columns to transform, how much to regularize, how large a model to fit, and when to stop trying alternatives.</Prose>
+    <Prose><strong>Automated machine learning, or AutoML, organizes and carries out some of these experiments.</strong> You specify what counts as a valid candidate, how candidates will be judged, and how much work is allowed. A search procedure proposes candidates; an evaluator fits and scores them; a record of the results guides the next decision. Neural architecture search, or NAS, applies this idea to the structure of a neural network.</Prose>
+    <Prose>The most useful question is not &ldquo;Can software find the best model?&rdquo; It is <strong>&ldquo;What decisions have I permitted it to make, and what evidence will justify its recommendation?&rdquo;</strong> That question connects everything you have just learned about preprocessing, validation, regularization, feature selection, and imbalanced learning.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>Imagine an inspection system that assigns class 0 or class 1 to a measured object. An AutoML system can optimize classification accuracy if that is the criterion you give it. It cannot infer that missing one kind of object costs twelve times as much as reviewing another. The <a href="/learn/path/full-curriculum/imbalanced-learning-smote-cost-sensitive-learning?module=classical-ml">previous lesson on imbalanced learning</a> explained why that distinction can change both the model and the decision threshold.</Prose>
+    <Prose>Write the following contract before examining search results:</Prose>
+    <LessonTable caption="The experiment contract for this lesson's study, fixed before any candidate is fitted" headers={['Decision', "A concrete answer for this lesson's study"]} rows={[
+      ['Prediction task', 'Predict the original numeric class of a banknote feature vector.'],
+      ['Evidence available at prediction time', 'Four supplied numeric image descriptors.'],
+      ['Candidate choices', `${space.total} declared preprocessing/model configurations.`],
+      ['Selection criterion', `Highest arithmetic mean of ${foldRows.length} validation-fold accuracies.`],
+      ['Separation rule', 'Identical feature vectors stay in the same data role and CV fold.'],
+      ['Work allowance', `${foldRows.length} fits per candidate, then two declared refits.`],
+      ['Final comparison', 'Selected candidate versus a predeclared logistic baseline on a separate inspection partition.'],
+      ['Protected evidence', 'A further reserved partition receives no predictions.'],
+    ]} />
+    <Callout title="What the objective is, and is not">
+      Accuracy is a declared educational objective here, not a claim that all real authentication mistakes have equal
+      consequences. A deployment contract would also specify the consequences of errors, acceptable latency, expected
+      data sources, and what happens when the input is unsuitable.
+    </Callout>
+    <EvidenceLoopFigure />
+
+    <H3>What is being optimized?</H3>
+    <Prose>A <em>configuration</em> describes choices made outside ordinary model fitting: a model family, preprocessing steps, regularization strength, or hidden-layer widths. Model fitting then estimates the numerical parameters for that configuration. For logistic regression, the regularization strength belongs to the configuration; the fitted coefficients are model parameters.</Prose>
+    <Prose>Let <Math>{'\\lambda'}</Math> describe a valid configuration and <Math>{'\\mathcal A_\\lambda'}</Math> its complete fitting procedure. Write the loss of fold <Math>{'k'}</Math> as <Math>{'\\ell_k'}</Math>. A cross-validation objective to minimize is</Prose>
+    <MathBlock>{'\\begin{gathered}\\ell_k=L\\!\\left(\\mathcal A_\\lambda(D_{-k}),D_k\\right),\\\\[6pt]\\hat f(\\lambda)=\\frac1K\\sum_{k=1}^{K}\\ell_k.\\end{gathered}'}</MathBlock>
+    <Prose>Here <Math>{'D_{-k}'}</Math> contains the fitting rows for fold <Math>{'k'}</Math>, <Math>{'D_k'}</Math> contains that fold&rsquo;s validation rows, and <Math>{'L'}</Math> measures prediction error. For accuracy, use <Math>{'L=1-\\text{accuracy}'}</Math>. The selected configuration minimizes this estimated error within the permitted space. This problem is often called <em>combined algorithm selection and hyperparameter optimization</em>, abbreviated <strong>CASH</strong>. It does not require any particular optimizer.</Prose>
+    <Prose>The hat on <Math>{'\\hat f'}</Math> matters. It is an estimate influenced by the dataset, split, random seed, and fitting procedure. Searching more configurations can improve the best observed validation score while exploiting more of that estimate&rsquo;s noise. A separate assessment evaluates the selected procedure; it is not another search surface. The <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">cross-validation lesson</a> develops nested evaluation when you need to assess the whole selection procedure across outer folds.</Prose>
+    <Prose>For unequal fold sizes, an unweighted mean of fold accuracies and accuracy pooled over all out-of-fold predictions differ slightly. Either may be a deliberate objective. State which one determines selection, and use the same rule for every candidate. Our experiment records both and selects by the mean of fold accuracies.</Prose>
+
+    <H3>The boundary contains preprocessing too</H3>
+    <Prose>&ldquo;I only used the validation labels at the end&rdquo; is insufficient. Fitting a scaler, imputer, feature selector, or learned encoder on all rows can let validation information enter earlier. The fitting procedure <Math>{'\\mathcal A_\\lambda'}</Math> includes these operations. In each fold, fit the complete pipeline on that fold&rsquo;s fitting rows, then transform its validation rows using the fitted objects.</Prose>
+    <Prose>If observations share an object, patient, account, experimental run, or exact duplicated feature record, an ordinary row split may put closely related evidence on both sides. Group according to the deployment question. Chronological forecasting needs a time-respecting design. AutoML can execute such a design; selecting the right design remains part of the scientific problem.</Prose>
+
+    <H2>{headings[1]}</H2>
+    <Prose>Suppose a form asks for a model family, tree depth, neighbor count, and neural-network width. Most combinations make no sense. A logistic model has no tree depth. A one-layer network has no second-layer width. A good search space encodes those dependencies rather than evaluating an enormous table of meaningless combinations.</Prose>
+    <Prose>For our study, the grammar is:</Prose>
+    <CodeBlock language="text">{automlExamples.searchSpaceGrammar.code}</CodeBlock>
+    <Prose>There are <Math>{'2\\times2+2+2+3=11'}</Math> configurations. Multiplying every option count together would treat inactive choices as real and count configurations that do not exist.</Prose>
+    <SearchSpaceLab />
+    <Prose>This grammar also documents a limitation. Our search cannot discover an SVM, a new feature extraction method, or a network with three hidden layers. Even exhaustive search is exhaustive only within its specified language.</Prose>
+
+    <H3>The sampling rule expresses a preference</H3>
+    <Prose>For {space.total} inexpensive configurations, enumeration is transparent. Larger spaces often use random sampling. That still requires a distribution.</Prose>
+    <Prose>Suppose a positive regularization parameter spans <Math>{'10^{-4}'}</Math> to <Math>{'10^{2}'}</Math>. Sampling its numeric value uniformly allocates almost all probability to the largest decades. Sampling</Prose>
+    <MathBlock>{'\\begin{gathered}u\\sim\\operatorname{Uniform}(-4,2),\\\\[4pt]\\lambda=10^u\\end{gathered}'}</MathBlock>
+    <Prose>gives each decade equal probability. This is useful when ratios, rather than equal absolute increments, express comparable changes. It is a modeling choice, not a rule for every parameter: integer depths and probabilities often need other distributions.</Prose>
+    <Prose>The family selection rule matters too. Uniformly choosing one of {familyMeasure.bands.length} families and then a valid setting gives each family {familyMeasure.bands[0].fraction} of the trials. Uniformly choosing one of the {space.total} configurations gives logistic regression {configurationMeasure.bands[0].fraction} of the trials and a tree {configurationMeasure.bands[1].fraction}. Neither is &ldquo;unbiased&rdquo; without specifying the intended reference measure. The investigation above draws both measures as proportional bands once you have applied an edit.</Prose>
+
+    <H3>Learning where to try next</H3>
+    <Prose>Random search ignores observed scores when proposing the next configuration. <strong>Bayesian optimization</strong> builds a predictive model, called a <em>surrogate</em>, of the objective and uses that model to choose an evaluation. Its uncertainty describes uncertainty about a candidate&rsquo;s objective under its assumptions; it is not the candidate classifier&rsquo;s probability for an individual example.</Prose>
+    <Prose>A common acquisition rule is <strong>expected improvement</strong>. If the best observed loss is <Math>{'b'}</Math> and a surrogate treats a candidate&rsquo;s unknown loss <Math>{'F'}</Math> as random, improvement is <Math>{'\\max(b-F,0)'}</Math>. The acquisition value is</Prose>
+    <MathBlock>{'\\operatorname{EI}=\\mathbb E[\\max(b-F,0)].'}</MathBlock>
+    <Prose>Consider a constructed surrogate with <Math>{'b=0.4'}</Math>:</Prose>
+    <LessonTable caption="A constructed surrogate comparison. These are surrogate predictions about an unknown objective, not observed losses." headers={['Candidate', 'Predicted mean loss', 'Predicted standard deviation', 'Expected improvement']} rows={[
+      ['A', '0.35', '0.02', num(expectedImprovement(0.4, 0.35, 0.02))],
+      ['B', '0.40', '0.20', num(expectedImprovement(0.4, 0.40, 0.20))],
+      ['C', '0.50', '0', num(expectedImprovement(0.4, 0.50, 0))],
+    ]} />
+    <Prose>B has a worse predicted mean than A but a larger expected improvement: its uncertain lower-loss possibilities compensate for its other possibilities under this acquisition rule. This is a specific exploration decision, not a promise that B will actually perform better.</Prose>
+    <AcquisitionLab />
+    <Prose>For a Gaussian surrogate prediction <Math>{'F\\sim\\mathcal N(\\mu,\\sigma^2)'}</Math>, write <Math>{'z=(b-\\mu)/\\sigma'}</Math>. Let <Math>{'\\Phi(z)'}</Math> be the probability that a standard normal variable is at most <Math>{'z'}</Math>, and <Math>{'\\phi(z)=e^{-z^2/2}/\\sqrt{2\\pi}'}</Math> its density. Integrating <Math>{'(b-f)'}</Math> over the part of the density below <Math>{'b'}</Math> gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\operatorname{EI}=(b-\\mu)\\Phi(z)+\\sigma\\phi(z),\\\\[4pt]\\sigma>0.\\end{gathered}'}</MathBlock>
+    <Prose>The first term measures mean advantage weighted by the probability of improvement; the second accounts for uncertainty in the lower tail. When <Math>{'\\sigma=0'}</Math>, use <Math>{'\\max(b-\\mu,0)'}</Math>. Real classification losses are bounded, so a Gaussian predictive approximation can place some probability outside their physical range. The example exposes the decision calculation without asserting that this approximation is always appropriate.</Prose>
+    <Prose>Gaussian processes are one possible surrogate, developed <a href="/learn/path/full-curriculum/gaussian-processes-gp?module=classical-ml">later in this module</a>. Tree-based surrogates and density-estimation approaches also support search. Conditional spaces require an appropriate representation of inactive parameters; Gaussian processes are not inherently forbidden from such spaces. Random search, evolutionary methods, and sequential surrogates should be compared using the same space, resources, and evaluation protocol. An optimizer cannot rescue a search space that excludes useful solutions.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Evaluating a configuration is often more expensive than proposing it. For <Math>{'n'}</Math> candidates and <Math>{'K'}</Math> folds, ordinary CV requires <Math>{'nK'}</Math> estimator fits, before final refits. Fits can have very different costs. A count of candidates is not a wall-clock budget; concurrent workers also change wall time without eliminating computational work.</Prose>
+    <Prose>An evaluator can use a cheaper approximation, or <strong>lower fidelity</strong>, such as fewer training epochs, fewer fitting examples, or a smaller input resolution. Its usefulness depends on whether it preserves enough information about the expensive target evaluation.</Prose>
+
+    <H3>Successive halving: spend more on survivors</H3>
+    <Prose>Here is a fully specified constructed example. Nine candidates begin with one resource unit each. Keep the best third, increase their resource to three units, keep the best third again, and increase the survivor to nine units. Lower loss is better.</Prose>
+    <LessonTable caption="Nine constructed candidates on a three-rung resource ladder. Losses are constructed; the units are constructed resource units, not seconds." headers={['Candidate', ...declaredResource.map(unit => `Loss at ${unit} unit${unit === 1 ? '' : 's'}`)]} rows={declaredCurves.map(curve => [
+      curve.id, ...curve.losses.map(loss => num(loss)),
+    ])} />
+    <Prose>At the first rung, {halving.rungs[0].survivors.join(', ')} survive. At the second, {halving.rungs[1].survivors.join(', ')} survives. The selected candidate finishes at {num(halving.selectedFinalLoss)}. {halving.counterfactualId} would have reached {num(halving.counterfactualFinalLoss)}, but its slow start eliminated it before that evidence was purchased.</Prose>
+    <Prose>If each rung restarts training, work is <Math>{'9(1)+3(3)+1(9)=27'}</Math> units. If training can genuinely resume from the retained state, incremental work is <Math>{'9(1)+3(3-1)+1(9-3)=21'}</Math>. Fitting all nine at full resource would cost {halving.work.allFull} units under this equal-unit-cost construction. Resume is a property of the actual training procedure and state, not something any estimator&rsquo;s similarly named option guarantees.</Prose>
+    <HalvingLab />
+    <Prose>Hyperband repeats this resource-allocation idea across several <em>brackets</em>. Some brackets start many candidates cheaply; others start fewer candidates with more evidence before elimination. This hedges the breadth-versus-depth choice. It does not make every early ranking reliable. The <a href="https://www.jmlr.org/papers/volume18/16-558/16-558.pdf">original algorithm and analysis</a> and <a href="https://homes.cs.washington.edu/~jamieson/hyperband.html">Kevin Jamieson&rsquo;s worked bracket table</a> make those two loops explicit; the investigation above reproduces all {brackets.brackets.length} brackets for <Math>{'R=9,\\eta=3'}</Math> in a panel of its own.</Prose>
+
+    <H3>A cheaper measurement can change the question</H3>
+    <Prose>A model that is best after one epoch need not be best after fifty. A small-data winner may not be best with all fitting data. A reduced image resolution can remove the very feature that distinguishes two architectures. Weight sharing, introduced in section 7, changes how candidate weights are obtained rather than merely shortening an otherwise identical fit.</Prose>
+    <Prose>Before adopting a proxy, compare it with the intended evaluation on a declared set of candidates. Inspect ranking changes and the actual promising region, not just one overall correlation. Save sufficient final evaluations to detect slow starters or proxy-specific advantages. There is no universal correlation threshold or fixed fraction of budget that makes every proxy safe.</Prose>
+    <Callout title="Budget is an evidence policy">
+      It should state candidate counts or stopping rules, resource per evaluation, repeated seeds where justified,
+      concurrency, and what work is reserved for evaluating selected candidates. Record failed and interrupted trials as
+      well as successful ones. A failed fit is useful diagnostic evidence; it is not a secretly excellent score or a
+      reason to hide that part of the search space.
+    </Callout>
+
+    <H2>{headings[3]}</H2>
+    <Prose>A neural network composes parameterized transformations. Start with a single unit. It multiplies input values by learned weights, adds a learned bias, and applies an activation function:</Prose>
+    <MathBlock>{'h=\\tanh(w_1x_1+\\cdots+w_dx_d+b).'}</MathBlock>
+    <Prose>The function <Math>{'\\tanh'}</Math> bends and bounds the weighted sum. A layer contains several such units. The next layer receives their outputs. In binary classification, a final sigmoid transforms a final weighted sum into a number between zero and one; a classification threshold converts that number into a class decision. The trained number is not automatically calibrated just because it lies in that interval.</Prose>
+    <Prose>Without nonlinear activations, composing affine layers would still give an affine transformation. A nonlinear hidden layer allows the model to represent interactions and curved boundaries that a single linear score cannot. The later deep-learning module develops training and representation in depth; this is enough machinery to understand what our small search changes.</Prose>
+
+    <H3>Weights and architecture are different decisions</H3>
+    <Prose>An architecture says which layers and connections exist and how large their intermediate representations are. Training estimates the weights within that structure. Choosing eight hidden units instead of sixteen changes the structure; changing one fitted connection weight does not.</Prose>
+    <Prose>For four input features, a hidden layer of width <Math>{'h'}</Math>, and one output:</Prose>
+    <MathBlock>{'\\begin{gathered}\\text{parameter count}\\\\[4pt]=(4+1)h+(h+1)=6h+1.\\end{gathered}'}</MathBlock>
+    <Prose>The added ones account for bias parameters. Width eight gives {networkBlocks(4, [8]).total} parameters; width sixteen gives {networkBlocks(4, [16]).total}. Two hidden layers of widths eight and eight give</Prose>
+    <MathBlock>{'\\begin{gathered}(4+1)8+(8+1)8\\\\[4pt]+(8+1)1=121.\\end{gathered}'}</MathBlock>
+    <ArchitectureFigure />
+    <Prose>Searching these three structures is a small, legitimate NAS experiment. It is deliberately restricted: the activation, fitting algorithm, and regularization are fixed. A larger NAS space might include convolutional operations, skip connections, or repeated cells, but each additional choice requires a valid shape rule and an evaluation budget.</Prose>
+
+    <H3>A graph must also be executable</H3>
+    <Prose>Think of a more general architecture as a directed acyclic computation graph. A node stores an intermediate tensor; an edge applies an operation. Two paths can be added only if their output shapes agree, or if an explicit projection makes them agree. Concatenation joins selected dimensions and changes the downstream shape. An identity edge preserves its input; a zero edge contributes a zero tensor of the required shape.</Prose>
+    <Prose>NAS therefore has three separable components:</Prose>
+    <LessonTable caption="The three separable components of any NAS method" headers={['Component', 'The question it answers', 'Our small study']} rows={[
+      ['Search space', 'Which executable architectures are allowed?', 'Three fixed hidden-width patterns.'],
+      ['Search strategy', 'Which candidate is evaluated next?', `All three are included in a declared ${space.total}-candidate study.`],
+      ['Performance estimation', 'How is a candidate judged?', `${foldRows.length} group-respecting folds, independently fitted weights.`],
+    ]} />
+    <Prose>Swapping an evolutionary proposer for a Bayesian proposer changes the second component. Using a shared-weight supernetwork changes the third. Claims about &ldquo;a better NAS method&rdquo; need to say which components changed.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>The <a href={provenance.page}>UCI Banknote Authentication dataset</a>, attributed to {provenance.author}, provides four numerical image descriptors and a binary class for {provenance.rows.toLocaleString('en-US')} records. The descriptors are variance, skewness, kurtosis (spelled &ldquo;curtosis&rdquo; in the source), and entropy of the supplied image-derived measurements. We retain the original class labels 0 and 1; the inspected documentation does not establish which numeric label means genuine or forged. This page serves its own <a href={provenance.file} download>unchanged copy</a>, {provenance.bytes.toLocaleString('en-US')} bytes, SHA-256 <Code>{provenance.sha256}</Code>, licensed <a href={provenance.licenseUrl}>{provenance.license}</a>, beside its <a href={provenance.attribution}>attribution</a>.</Prose>
+    <Prose>The source contains <strong>{provenance.uniqueGroups.toLocaleString('en-US')} unique feature vectors</strong>. {provenance.repeatedGroups} vectors occur repeatedly, accounting for {provenance.repeatedExtraRows} additional rows. All identical vectors have matching class labels. We retain every row and keep identical vectors together during splitting. That prevents exact-feature copies from appearing on opposite sides of a boundary. It does not establish physical banknote identity: the source provides no specimen or capture-session identifiers with which to evaluate independence at that level.</Prose>
+    <Prose>The fixed group splits produce:</Prose>
+    <LessonTable caption="The three fixed data roles. Groups, not rows, are partitioned, so row counts are not round numbers." headers={['Role', 'Unique feature groups', 'Rows', 'Class-1 rows', 'Use']} rows={roles.map(role => [
+      role.role.charAt(0).toUpperCase() + role.role.slice(1),
+      role.groups.toLocaleString('en-US'), String(role.rows), String(role.positives), role.use,
+    ])} />
+    <Prose>These are group-stratified partitions: stratification uses one class label per unique feature group. Because group sizes vary, row-level class proportions and fold sizes need not be identical. Keeping duplicate groups intact takes priority over forcing exact row counts.</Prose>
+
+    <H3>Run the complete bounded study</H3>
+    <Prose>Save the openly licensed source file as <Code>banknote-data.csv</Code> beside the program below. It contains five comma-separated values per row and no header. The <a href={provenance.download}>dataset download</a> contains <Code>{provenance.member}</Code>; renaming that file changes no data.</Prose>
+    <Prose>The author calculation used Python {versions.python}, NumPy 2.3.5, SciPy 1.18.1, and scikit-learn 1.9.1. Version changes can alter optimizer stopping behavior or floating-point details.</Prose>
+    <Program example={automlExamples.banknoteSearch}>
+      <Prose>Every candidate sees the same {foldRows.length} validation groups, of {foldRows.join(', ')} rows. <Code>clone</Code> creates a fresh estimator for each fit. A pipeline refits its scaler inside the fold. No scaling operation runs on all development rows before CV. The selected model is then refitted on all development rows, which is appropriate after the configuration is fixed.</Prose>
+    </Program>
+
+    <H3>What actually happened</H3>
+    <Prose>There were {candidates.length * foldRows.length} fold fits and two final refits: <strong>{estimatorFits} estimator fits</strong>. The retained run produced no fitting warnings.</Prose>
+    <ObservedResultsFigure />
+    <Prose>The width-16 network wins the declared criterion. On the separate {inspectionRole.rows}-row inspection partition, it classifies {selected.correct} rows correctly. The predeclared standardized logistic baseline with <Math>{'C=1'}</Math> classifies {baseline.correct} correctly. Its confusion matrix, with true classes as rows and predicted classes as columns, is <Math>{`\\begin{bmatrix}${baseline.confusion[0].join('&')}\\\\${baseline.confusion[1].join('&')}\\end{bmatrix}`}</Math>; the selected network&rsquo;s is <Math>{`\\begin{bmatrix}${selected.confusion[0].join('&')}\\\\${selected.confusion[1].join('&')}\\end{bmatrix}`}</Math>. Always predicting the development majority class {majorityBaseline.predictedClass} would classify {majorityBaseline.correct} of {majorityBaseline.rows} inspection rows correctly.</Prose>
+    <Prose>Three observations deserve explanation:</Prose>
+    <ul>
+      <li><strong>More layers did not win.</strong> The two-hidden-layer model has more parameters than the width-16 model but makes one out-of-fold error. This small result does not establish a universal advantage for shallow networks; it shows why architecture size is a choice to evaluate.</li>
+      <li><strong>Scaling did not improve every fixed logistic configuration.</strong> At a fixed <Math>{'C'}</Math>, changing feature scales changes the relationship between a coefficient penalty and effects in original feature units. It also affects numerical conditioning. The search is comparing complete procedures, not testing a theorem that preprocessing always helps. The <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization lesson</a> explains this geometry.</li>
+      <li><strong>A simple competing family was already strong.</strong> Three-neighbor classification and the smaller networks each make one out-of-fold error. Searching only neural networks would conceal that context.</li>
+    </ul>
+    <Callout title="What a perfect finite score does and does not establish">
+      The {inspectionRole.rows} records do not cover new currencies, capture devices, adversarial counterfeits, or future
+      distribution shifts. Exact-feature grouping removes one identifiable leakage route; it does not prove independence
+      of every physical specimen. No confidence interval calculated under independent Bernoulli trials can repair missing
+      specimen identities. The experiment establishes a reproducible comparison on this declared source and partition,
+      with a further {reservedRole.rows} reserved rows still unscored.
+    </Callout>
+
+    <H3>Replay a budget without pretending to run a new optimizer</H3>
+    <Prose>The recorded candidate table can be revealed in a fixed random order, generated with seed 75. Before advancing the budget, predict whether one more revealed candidate will change the recommended configuration or just add evidence. With two candidates revealed, {replayTwo.recommendedId} is recommended. With three, {replayThree.recommendedId} ties its score and wins the predeclared registry-order tie rule: the best score stays at {num(replayThree.best)} even though the recommended model changes. With four, {replayFour.recommendedId} becomes the winner at {num(replayFour.best)}.</Prose>
+    <SearchReplayLab />
+    <Prose>This is a replay of a fully evaluated finite table. It is not a measured comparison between random search and Bayesian optimization, and it does not erase the {estimatorFits} fits used to construct the evidence. The inspection outcomes remain separate from the replay: you cannot select a different candidate by browsing its inspection accuracy because those additional predictions were never made.</Prose>
+    <Checkpoint prompt={`At budget 3 the replay recommends ${replayThree.recommendedId}. Can you attach the width-16 network's ${selected.correct}-of-${selected.rows} inspection result to that recommendation?`}>
+      <Prose>No. That result belongs to the procedure the <em>complete</em> search selected and then refitted on all {development.rows} development rows. At budget 3 the width-16 network has not been revealed at all, and the recommended configuration is a different one, whose inspection predictions were never computed. Borrowing the number would report a development selection score and an independent assessment as if they came from the same experiment — which is the specific confusion this whole section exists to prevent.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[5]}</H2>
+    <H3>Search, combine, and transfer are different operations</H3>
+    <Prose>Selecting the best observed single candidate is only one use of a search history. An ensemble can combine predictions from several fitted models. Diversity matters: averaging two models with identical errors adds little; complementary errors can help. The combination itself must be learned and assessed with appropriate data separation. Our own study supplies a caution here: three of the strongest candidates make <em>the same</em> single out-of-fold mistake, at file line {sourceRows['349'].line}.</Prose>
+    <Prose>In a weighted average of class-1 probabilities,</Prose>
+    <MathBlock>{'\\begin{gathered}\\hat p(x)=\\sum_m a_m\\hat p_m(x),\\\\[4pt]a_m\\ge0,\\quad\\sum_m a_m=1,\\end{gathered}'}</MathBlock>
+    <Prose>the weights are another learned choice. Greedy ensemble selection can repeatedly add the candidate that improves the current combination; selection with replacement gives a model extra weight through repeated inclusion. Stacking instead trains a second-level predictor on candidate outputs, normally using out-of-fold predictions for its training inputs. These are distinct procedures. The auto-sklearn chapter of the <a href="https://automl.org/book/">AutoML book</a> describes greedy ensemble selection, so &ldquo;take the top few and stack them&rdquo; is not an accurate description of that original method.</Prose>
+    <Prose>Out-of-fold prediction prevents each row&rsquo;s base prediction from coming from a base model fitted on that same row. It does not magically protect every subsequent search decision. If you repeatedly choose ensembles using the same out-of-fold record, that record has become selection evidence. Preserve an assessment boundary for the complete system.</Prose>
+    <Prose><strong>Meta-learning</strong> uses experience from previous tasks to guide a new task. It may suggest configurations, learn which task characteristics predict useful choices, or transfer fitted representations. A <em>portfolio</em> is a small collection of configurations selected to cover different tasks well.</Prose>
+    <Prose>Consider constructed losses for three configurations on two old tasks:</Prose>
+    <LessonTable caption="A constructed portfolio matrix. These losses are invented to expose complementarity; they are not measurements." headers={['Configuration', 'Old task 1', 'Old task 2', 'Mean']} rows={portfolio.ids.map((id, index) => [
+      id, num(portfolio.oldTaskLosses[index][0]), num(portfolio.oldTaskLosses[index][1]), num(portfolio.means[index]),
+    ])} />
+    <Prose>{portfolio.singleId} is the best single default at {num(portfolio.singleMean)}. But trying {portfolio.bestPair.members.join(' and ')} and selecting between them on each task gives a mean best loss of {num(portfolio.bestPair.mean)}. A useful portfolio covers complementary strengths, rather than simply containing the best average performer twice. On a new task with losses A = {num(portfolio.newTaskLosses[0])}, B = {num(portfolio.newTaskLosses[1])}, C = {num(portfolio.newTaskLosses[2])}, that old portfolio reaches only {num(portfolio.newTaskPortfolioBest)} while the excluded {portfolio.newTaskOverallBestId} would have reached {num(portfolio.newTaskOverallBest)}. Transfer requires validation on new tasks; similar dataset summaries are evidence to investigate, not a guarantee of similar model rankings.</Prose>
+    <Prose>Current AutoML systems can also use pretrained tabular models or learned portfolios. Their pretraining data, licensing, resource needs, and task overlap become part of the evaluation. The dedicated <a href="/learn/topic/automl-as-meta-learning">AutoML as meta-learning lesson</a> develops those cross-task decisions.</Prose>
+
+    <H3>Sometimes the search language is an explanation</H3>
+    <Prose>An interesting application is the Automatic Statistician: its modeling grammar can combine components representing smooth change, periodicity, or noise in a time series. A search can then return a structured model that supports a verbal explanation, such as a seasonal pattern whose amplitude changes over time. This illustrates why the search space determines what kinds of explanations can be produced.</Prose>
+    <Prose>The interpretation is conditional on the grammar, data, and fitted model. A periodic component is not proof of a physical cause. The <a href="https://automl.org/wp-content/uploads/2019/05/AutoML_Book.pdf">book&rsquo;s Automatic Statistician chapter</a> describes kernel composition, structure search, and generated descriptions. The later Gaussian-process lesson supplies the probability model underlying those kernels; the model-selection criteria introduced in <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization</a> explain why raw fitting likelihood alone favors unnecessary complexity.</Prose>
+
+    <H3>Optimize for the device that will run the result</H3>
+    <Prose>A model with fewer parameters need not be faster on a specific device. Memory access, tensor shapes, operator implementations, parallelism, and data movement all matter. Multiplication counts and parameter counts are useful descriptors; deployment latency is a measurement with conditions: hardware, software, input shape, batch size, precision, warm-up, and the timing boundary.</Prose>
+    <DeploymentLab />
+    <Prose>A point is <em>Pareto dominated</em> if another point is no worse in every objective and strictly better in at least one. The frontier contains choices that require a trade-off. It does not choose the trade-off for you. A soft score that penalizes latency can still prefer an over-budget model. If {pareto.cap} ms is a hard requirement, filter out infeasible candidates using a defined measurement protocol before choosing among the remainder. The <a href="https://arxiv.org/pdf/1807.11626">MnasNet paper</a> is a primary example of architecture search that includes target-device latency; its results should not be transplanted as timing predictions for another device.</Prose>
+
+    <H3>A practical decision sequence</H3>
+    <ol>
+      <li>Establish a useful baseline and a valid deployment-related split. Include error costs or group-specific requirements in the objective when the task demands them.</li>
+      <li>Define a compact space with justified ranges and valid conditional settings. Include a strong simple competitor, not only an expensive family you hope will win.</li>
+      <li>Measure a few representative fits to understand cost and failures. Decide whether enumeration, random proposals, a surrogate, or a fidelity scheduler addresses the actual bottleneck.</li>
+      <li>Record preprocessing, folds, seeds, resources, scores, warnings, and active settings for each trial. Keep the selection rule fixed, including ties.</li>
+      <li>Evaluate the selected procedure with evidence outside its selection loop. Assess deployment latency, memory, and relevant error patterns under their own declared protocols.</li>
+      <li>Preserve the fitted preprocessing and model together, along with input schema and environment information. In production, monitor task-relevant changes and outcomes; a statistical change in input distribution alone does not quantify prediction harm.</li>
+    </ol>
+    <Prose>No permanent league table can rank AutoML libraries for every dataset and resource limit. As inspected in September 2026, FLAML exposes task, metric, budget, estimator, and resampling controls; AutoGluon&rsquo;s current tabular presets include different ensembles and learned model portfolios; KerasTuner exposes neural hyperparameter spaces and tuners. Microsoft NNI is archived and read-only, so treat it as a historical resource rather than a default maintained choice. The linked documentation in section 10 records the current interfaces instead of promising fixed installation times or universal winners.</Prose>
+
+    <H2>{headings[6]}</H2>
+    <Prose><strong>This section is the deeper branch.</strong> It connects the graph view in section 4 to gradients, and it is useful when you want to understand what a differentiable NAS method optimizes, and what changes when a searched network becomes a deployed network. The core route is complete without it.</Prose>
+
+    <H3>Replace a discrete choice with a mixture</H3>
+    <Prose>Suppose an edge could apply one of several shape-compatible operations <Math>{'o_1,\\ldots,o_m'}</Math>. Introduce architecture logits <Math>{'\\alpha_1,\\ldots,\\alpha_m'}</Math>, turn them into softmax weights,</Prose>
+    <MathBlock>{'\\begin{gathered}p_i=\\frac{e^{\\alpha_i}}{\\sum_j e^{\\alpha_j}},\\\\[4pt]\\overline o(x)=\\sum_i p_i\\,o_i(x),\\end{gathered}'}</MathBlock>
+    <Prose>and evaluate the mixture while searching. The logits are not class probabilities. They control how candidate operations contribute to an intermediate computation.</Prose>
+    <Prose>For a constructed scalar edge at input <Math>{'x=2'}</Math>, let the operations be zero, identity, and negation. Their outputs are <Math>{'[0,2,-2]'}</Math>. With logits <Math>{'[\\log2,0,0]'}</Math>, the probabilities are <Math>{'[0.5,0.25,0.25]'}</Math>, so the mixed output is {num(mixture.mixed)}. If the target is 1 and loss is <Math>{'\\tfrac12(\\overline o-1)^2'}</Math>, the loss is {num(mixture.loss)}.</Prose>
+    <Prose>The softmax derivative gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\frac{\\partial\\overline o}{\\partial\\alpha_i}=p_i\\big(o_i-\\overline o\\big),\\\\[6pt]\\frac{\\partial L}{\\partial\\alpha_i}=(\\overline o-1)\\,p_i\\big(o_i-\\overline o\\big).\\end{gathered}'}</MathBlock>
+    <Prose>The gradient is <Math>{'[0,-0.5,0.5]'}</Math>. One gradient step of size {mixture.step} changes the logits to <Math>{'[\\log2,0.2,-0.2]'}</Math>, yielding output about {num(mixture.updatedOutput)}. The identity operation&rsquo;s contribution increases, which moves the mixture toward the target.</Prose>
+    <MixtureLab />
+    <Prose>The <a href="https://arxiv.org/pdf/1806.09055">DARTS paper</a> uses continuous mixtures to search cell structures. Its convolutional-cell discretization retains two strong nonzero operations from distinct incoming nodes for each intermediate node; its recurrent-cell construction uses one. This is more specific than independently keeping the largest logit on every possible edge. Shape-compatible search and the final graph-construction rule both belong in a reproducible method.</Prose>
+
+    <H3>The architecture should anticipate trained weights</H3>
+    <Prose>For a network, operations can have trainable weights <Math>{'w'}</Math> in addition to architecture variables <Math>{'\\alpha'}</Math>. The intended nested problem is</Prose>
+    <MathBlock>{'\\begin{gathered}\\min_\\alpha L_{\\mathrm{val}}(w^*(\\alpha),\\alpha),\\\\[4pt]w^*(\\alpha)\\in\\arg\\min_w L_{\\mathrm{train}}(w,\\alpha).\\end{gathered}'}</MathBlock>
+    <Prose>The inner problem asks which weights fit the training data for an architecture. The outer problem asks how that fitted architecture performs on validation data. This is <strong>bilevel optimization</strong>. Validation observations used to optimize architecture are selection data; they cannot simultaneously serve as an untouched final test.</Prose>
+    <Prose>Solving the inner training problem from scratch after every architecture change is expensive. A one-step approximation uses</Prose>
+    <MathBlock>{'w\'=w-\\xi\\nabla_wL_{\\mathrm{train}}(w,\\alpha)'}</MathBlock>
+    <Prose>and differentiates <Math>{'L_{\\mathrm{val}}(w\',\\alpha)'}</Math>. Treat the current <Math>{'w'}</Math> as fixed for this approximation. Writing <Math>{'v=\\nabla_{w\'}L_{\\mathrm{val}}(w\',\\alpha)'}</Math>, the chain rule gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\nabla_\\alpha L_{\\mathrm{val}}(w\',\\alpha)\\\\[4pt]-\\;\\xi\\,\\nabla^2_{\\alpha,w}L_{\\mathrm{train}}(w,\\alpha)\\,v.\\end{gathered}'}</MathBlock>
+    <Prose>The first term is the direct effect of architecture on validation loss at the updated weights. The second is the effect of architecture on the training step, which changes those weights. The mixed Hessian multiplies a vector; an implementation need not store a full matrix. A central finite difference of training architecture-gradients at <Math>{'w\\pm\\epsilon v'}</Math>, divided by <Math>{'2\\epsilon'}</Math>, approximates this product, subject to the usual step-size and numerical-error trade-offs.</Prose>
+    <Prose>In the DARTS terminology, setting <Math>{'\\xi=0'}</Math> gives the <strong>first-order approximation</strong>. Keeping the nonzero one-step dependency includes the mixed derivative and is called the second-order approximation. A one-step unroll is therefore not automatically &ldquo;first order&rdquo; merely because it contains one training step.</Prose>
+    <Prose>Make that concrete with a scalar problem you can differentiate by hand. Use <Math>{'L_{\\mathrm{train}}=\\tfrac12(w-\\alpha)^2'}</Math> and <Math>{'L_{\\mathrm{val}}=\\tfrac12(w-1)^2'}</Math>, at <Math>{'w=0'}</Math>, <Math>{'\\alpha=0.2'}</Math> and <Math>{'\\xi=0.1'}</Math>. The one-step weight is <Math>{'w\'=0.02'}</Math>. The direct architecture derivative at fixed <Math>{'w'}</Math> is {num(scalar.lanes[0].outer)}: <Math>{'\\alpha'}</Math> does not appear explicitly in the validation formula. The one-step derivative is <Math>{'(0.02-1)(0.1)='}</Math>{num(scalar.lanes[1].outer)}. Solving the inner problem exactly gives <Math>{'w^*=\\alpha'}</Math>, so the true outer derivative is <Math>{'\\alpha-1='}</Math>{num(scalar.lanes[2].outer)}.</Prose>
+    <BilevelFigure />
+    <Prose>These three numbers answer different questions. Even if the current training gradient is zero at a particular point, its derivative with respect to architecture need not be zero — the figure&rsquo;s second setting shows exactly that, with an outer derivative of {num(stationaryScalar.lanes[1].outer)} where the current and one-step weights are identical. Equality of two values at a point does not justify dropping the chain-rule term. This distinction prevents a common confusion between evaluating an expression and differentiating the function that produced it.</Prose>
+    <Prose>Nonconvex training can have multiple local solutions, and an approximation may poorly track their response to architecture changes. A large identity-operation weight can also reflect search dynamics, optimization ease, or the relaxation, rather than a universally best final graph. Adding an architecture penalty changes the objective; it does not guarantee that every such failure disappears.</Prose>
+
+    <H3>Independent fits, shared weights, and proxies</H3>
+    <Prose>In our banknote study, each architecture receives fresh fitted weights in each fold. A <em>supernetwork</em> can instead contain many candidate subgraphs and train shared weights. Evaluating a subgraph then reuses part of that state. This saves work but couples candidates: an operation may benefit from how frequently it was sampled, which other paths trained it, and which weights it shares. The shared-weight ranking can differ from the ranking after independent full training.</Prose>
+    <WeightProvenanceFigure />
+    <Prose>Reinforcement-learning search can view architecture choices as a sequence of actions with a validation-based reward. Evolutionary search can mutate architectures and select promising descendants. Bayesian optimization can model the architecture-to-score relation. Network morphisms can expand a network while preserving its current function under specific constructions. These are different ways to propose candidates or reuse training; none removes the need to define the final evaluator and compare against a competent simple search under matching conditions.</Prose>
+    <Prose>One unusual proxy, <strong>NASWOT</strong>, examines activation patterns at random initialization without performing ordinary network training. A ReLU activation outputs <Math>{'\\max(0,z)'}</Math> for its incoming weighted sum <Math>{'z'}</Math>; call the unit active when that sum is positive. For a small batch passing through these units, record a binary code indicating which units are active. If there are <Math>{'N_A'}</Math> recorded units, one kernel counts shared activation decisions:</Prose>
+    <MathBlock>{'K_{ij}=N_A-d_H(c_i,c_j),'}</MathBlock>
+    <Prose>where <Math>{'d_H'}</Math> is Hamming distance: the number of positions at which two codes differ. The proposed score uses <Math>{'\\log\\det K'}</Math>. With codes 110 and 101, <Math>{`K=\\begin{bmatrix}${kernel.matrix[0].join('&')}\\\\${kernel.matrix[1].join('&')}\\end{bmatrix}`}</Math>, so the determinant is {kernel.determinant}. Identical codes give a singular matrix and determinant {singularKernel.determinant}. This helps visualize the score&rsquo;s preference for differentiated activation patterns; it does not prove that such differentiation will generalize after training.</Prose>
+    <Prose>The <a href="https://proceedings.mlr.press/v139/mellor21a/mellor21a.pdf">NASWOT paper</a> evaluates this signal on architecture benchmarks and studies sensitivity to initialization and batches. Its main construction uses actual input mini-batches; Gaussian random inputs are an ablation, not the definition of the method. &ldquo;Without training&rdquo; still involves computation, including a forward pass and a matrix calculation. A practical implementation must specify handling of singular kernels and distinguish any numerical regularization from the original exact formula.</Prose>
+
+    <H3>Keep the final comparison honest</H3>
+    <Prose>Use the same task data, candidate space, fitting budget, and deployment protocol when comparing search methods, unless a changed component is the explicit subject of the experiment. Count search work, proxy evaluation, architecture selection, and final retraining. Separate variability from architecture-training seeds and variability from the search process itself. Repeatedly consulting a public benchmark&rsquo;s test outcomes can turn that benchmark into selection evidence, even when no single training script reads those labels.</Prose>
+    <Prose>The later <a href="/learn/topic/neural-architecture-search-nas">dedicated NAS lesson</a> develops convolutional cells, search benchmarks, shared-weight implementation, and hardware evaluation. The local mechanism here is complete enough to explain what those methods optimize without pretending that a tiny multilayer perceptron validates a full image-model search system.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <Prose>These examples show how to preserve the contract when adopting a library. They are optional runnable extensions, not sources of the observed scores in section 5. Both use only the first development fold from <Code>banknote_search.py</Code>; neither accesses inspection or reserved rows, and that boundary is checked by this lesson&rsquo;s own verifier rather than asserted. Neither library is installed in this site&rsquo;s lesson runtime, so <strong>no output is recorded for them here</strong>: run them yourself and record the versions you used.</Prose>
+
+    <H3>FLAML: make the validation method explicit</H3>
+    <OptionalProgram example={automlExamples.banknoteFlaml}>
+      <Prose>The 30-second setting is a requested search budget, and eight iterations is an additional bound; actual duration includes library and estimator behavior. <Code>best_loss</Code> is a minimized objective, so for the requested accuracy metric its ideal interpretation is one minus accuracy. The printed accuracy reuses selection data and is labeled accordingly. It is not the {foldRows.length}-fold score from section 5 or an independent final assessment. FLAML&rsquo;s <Code>auto</Code> evaluation mode can choose holdout or CV, which is why the example specifies its intended method. See the <a href="https://microsoft.github.io/FLAML/docs/Use-Cases/Task-Oriented-AutoML/">official task-oriented AutoML documentation</a> for resampling and estimator controls.</Prose>
+    </OptionalProgram>
+
+    <H3>KerasTuner: a conditional neural search space</H3>
+    <Prose>This extension searches one or two tanh hidden layers. The second width exists only when depth is two. It uses a separate fitting procedure from section 5: minibatch Adam rather than L-BFGS. An epoch is one pass through the fitting data; Adam updates weights using batches. The deep-learning module explains that optimizer. Here its settings are fixed except for a declared learning-rate choice. The tuner stores its trial state in <Code>banknote-nas-study/conditional-mlp</Code>; keeping the same directory resumes compatible state. Use a new descriptive project name for a different declared experiment.</Prose>
+    <OptionalProgram example={automlExamples.banknoteKerasSearch}>
+      <Prose>The <Code>conditional_scope</Code> registers when a setting is active; it does not skip execution of its Python body. An inactive second width can be <Code>None</Code>, which is why the model adds that layer only inside <Code>if depth == 2</Code>. Four trials explore part of a twelve-configuration space: four one-layer combinations and eight two-layer combinations. They do not exhaust it.</Prose>
+      <Prose>The tuner selects using validation performance, including its checkpoint behavior across epochs. That checkpoint choice is part of the selection procedure. A high printed score still needs assessment outside this holdout before supporting a generalization claim. The <a href="https://keras.io/keras_tuner/api/hyperparameters/">conditional-hyperparameter reference</a> and <a href="https://keras.io/keras_tuner/getting_started/">complete getting-started guide</a> explain the interface and retrieval of selected settings.</Prose>
+    </OptionalProgram>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Try the core questions 1&ndash;6 before the deeper questions. Open a hint or solution when you need it. Changing an answer after a reveal is useful reflection, but it is different from an unaided first attempt.</Prose>
+
+    <Practice title="1. Count the experiments"
+      question={<>A new space contains logistic regression with three <Math>{'C'}</Math> values and two preprocessing options; trees with four depths; and neural networks with either one hidden layer of width 6 or 12, or two hidden layers with each width independently 6 or 12. How many valid configurations exist? How many fits does four-fold CV require before refits?</>}
+      hint="Add independent family branches. Multiply settings that are simultaneously active within a branch.">
+      <Prose>Logistic contributes 6, trees 4, one-layer networks 2, and two-layer networks 4. Total 16 configurations; four-fold CV requires 64 fits. Counting an inactive second width for a one-layer network would double-count its functionally identical configurations. This exercise uses a different registry from the first investigation, which also includes nearest neighbors; apply the same branch-by-branch counting rule to the families declared here.</Prose>
+    </Practice>
+
+    <Practice title="2. Read the evidence boundary"
+      question="A colleague standardizes the full development matrix, runs fold-based AutoML on it, then tries five cost thresholds on the final inspection set and reports the best inspection cost. Identify two distinct boundary violations and repair them."
+      hint="Ask which rows fitted the preprocessing and which rows selected the threshold.">
+      <Prose>The scaler learned validation-fold information before CV; place it inside each candidate pipeline and fit it on each fold&rsquo;s fitting rows. The inspection set selected the threshold; choose thresholds using selection data under the task&rsquo;s cost policy, then assess the fixed model-plus-threshold procedure with separate evidence. Calling the second step &ldquo;just postprocessing&rdquo; does not restore independence.</Prose>
+    </Practice>
+
+    <Practice title="3. Spend a small fidelity budget"
+      question={<>Four candidates have losses at resources 1, 2, and 4: A = (0.10, 0.09, 0.08), B = (0.11, 0.08, 0.07), C = (0.12, 0.07, 0.02), D = (0.20, 0.18, 0.15). Keep half at each cut. Which candidate wins? What is the work with restart and with genuine continuation? Which full-resource winner is missed?</>}>
+      <Prose>A and B survive resource 1; B survives resource 2 and finishes at 0.07. Restart work is <Math>{'4+2(2)+1(4)=12'}</Math>; continuation work is <Math>{'4+2(2-1)+1(4-2)=8'}</Math>. C would reach 0.02 but is removed at the first cut. Its good later value cannot inform a real early decision unless that evidence is actually purchased.</Prose>
+    </Practice>
+
+    <Practice title="4. Count network parameters, including biases"
+      question="For five inputs, hidden widths 6 and 3, and one binary output, compute every parameter block. Would replacing the two layers with one width-12 layer necessarily improve accuracy?">
+      <Prose>The blocks contain {networkBlocks(5, [6, 3]).blocks.map(block => block.equation.split(' = ')[0]).join(', ')}, that is {networkBlocks(5, [6, 3]).blocks.map(block => block.total).join(', ')} parameters, totaling {networkBlocks(5, [6, 3]).total}. A one-layer width-12 model has <Math>{'(5+1)12+(12+1)='}</Math>{networkBlocks(5, [12]).total}. Neither parameter count determines accuracy: representation, optimization, regularization, and data all matter. Compare them under a declared evaluator.</Prose>
+    </Practice>
+
+    <Practice title="5. Interpret the real search replay"
+      question="Reveal only the first three candidates in the replay investigation. Explain why the recommended candidate can change while the best-so-far score stays flat. Can the selected width-16 model's eventual inspection result be attached to the budget-three recommendation?">
+      <Prose>{replayTwo.recommendedId} and {replayThree.recommendedId} tie at {num(replayThree.best)} mean fold accuracy. The registry-order tie rule favors {replayThree.recommendedId} when it becomes available. A flat maximum does not imply the selected model is unchanged. The width-16 model has not been revealed at budget three and its inspection result belongs to a different selected procedure. The replay cannot borrow that outcome.</Prose>
+    </Practice>
+
+    <Practice title="6. Apply a hard deployment constraint"
+      question="Three hypothetical models have (latency, accuracy) pairs P = (3 ms, 0.92), Q = (6 ms, 0.96), and R = (5 ms, 0.91). Identify the frontier and choose under a 5 ms cap. Explain why adding a finite latency penalty to accuracy need not enforce the cap.">
+      <Prose>P dominates R, while P and Q trade speed for accuracy. The frontier is P and Q; the cap leaves P as the best feasible candidate. A finite penalty allows accuracy gains to compensate for exceeding the cap. Feasibility filtering encodes a hard bound directly, provided the latency measurement itself matches the requirement. You can enter these three pairs directly in the deployment investigation.</Prose>
+    </Practice>
+
+    <Practice title="7. Calculate expected improvement — deeper"
+      question="The incumbent loss is 0.3. Candidate U has a deterministic predicted loss of 0.25. Candidate V has Gaussian predicted mean 0.3 and standard deviation 0.1. Which has larger EI? What additional fact would you need before claiming that it will actually improve validation performance?">
+      <Prose>U has EI {num(expectedImprovement(0.3, 0.25, 0))}. V has <Math>{'0.1\\phi(0)=0.1/\\sqrt{2\\pi}\\approx'}</Math>{num(expectedImprovement(0.3, 0.3, 0.1))}, so U wins this acquisition comparison. Actual performance requires an evaluation; the surrogate&rsquo;s probability model and acquisition ranking are not observed objective values.</Prose>
+    </Practice>
+
+    <Practice title="8. Differentiate an operation mixture — deeper"
+      question="At one input, two operations output 3 and −1. Their logits are equal, the target is zero, and loss is half squared error. Find the mixture and both architecture gradients. Then add 7 to both logits.">
+      <Prose>Probabilities are one half, output is {num(practiceMixture.mixed)}, and loss is {num(practiceMixture.loss)}. Gradients are <Math>{'1(0.5)(3-1)=1'}</Math> and <Math>{'1(0.5)(-1-1)=-1'}</Math>. Adding a common constant leaves probabilities, output, loss, and gradients unchanged. It changes a redundant coordinate representation, not the mixture. The mixture investigation&rsquo;s common-logit setup applies exactly this null.</Prose>
+    </Practice>
+
+    <Practice title="9. Separate three architecture derivatives — deeper"
+      question={<>Use <Math>{'L_{train}=\\tfrac12(w-\\alpha)^2'}</Math>, <Math>{'L_{val}=\\tfrac12(w-2)^2'}</Math>, current <Math>{'w=0'}</Math>, <Math>{'\\alpha=0.5'}</Math>, and <Math>{'\\xi=0.2'}</Math>. Compute the first-order direct derivative, the one-step derivative, and the exact-inner outer derivative.</>}>
+      <Prose>The direct derivative is {num(practiceScalar.lanes[0].outer)}. The one-step weight is {num(practiceScalar.stepped)} and its derivative with respect to architecture is {num(practiceScalar.lanes[1].dependency)}, so the one-step outer derivative is <Math>{'(0.1-2)(0.2)='}</Math>{num(practiceScalar.lanes[1].outer)}. The exact inner optimum is <Math>{'w^*=\\alpha'}</Math>, yielding derivative <Math>{'\\alpha-2='}</Math>{num(practiceScalar.lanes[2].outer)}. These are three distinct functions being differentiated, not rounding differences.</Prose>
+    </Practice>
+
+    <Practice title="10. Design an experiment that could disappoint you"
+      question="Choose a small classification task with a documented prediction-time feature set. Declare a simple baseline, two justified model families, a conditional space, grouping or temporal boundaries, selection metric, budget, tie rule, and final assessment. Predict one result that would make you simplify the system. Explain which observation would invalidate your original split rather than merely favor a different optimizer."
+      revealLabel="Example response and assessment criteria">
+      <Prose>A valid response could compare a standardized regularized linear model with bounded-depth trees for repeated measurements from devices, keeping each device in one fold when deployment concerns new devices. It would reserve devices for final assessment and declare latency conditions. A near-tie favoring the simpler baseline could justify choosing it. Discovering that device identifiers were duplicated across roles would require repairing the evaluation boundary and reassessing affected conclusions. A large search score alone is not evidence that the split is valid. Other tasks can satisfy the same criteria with different models and boundaries.</Prose>
+    </Practice>
+
+    <Prose>You are ready to continue when you can distinguish a configuration from fitted weights, count a conditional space, protect fitting and selection boundaries, explain a fidelity failure, and interpret the real result without treating the finite search winner as a universal best model. The deeper questions prepare you to inspect differentiable NAS implementations and proxy claims.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Say which decisions and evidence a search is permitted to use', 'Section 1, the evidence-loop figure, practice 2'],
+      ['Count a conditional space correctly, and say what a sampling rule assumes', 'Section 2, the grammar investigation, practice 1'],
+      ['Separate a surrogate mean, its uncertainty, an acquisition value and an observed loss', 'Section 2, the improvement investigation, practice 7'],
+      ['Trace successive halving and account for its work two ways', 'Section 3, the halving investigation, practice 3'],
+      ['Count a network\u2019s parameters, biases included, and distinguish weights from architecture', 'Section 4, the architecture figure, practice 4'],
+      ['Read the real study without borrowing an inspection result the replay never bought', 'Section 5, the results figure, the replay investigation, practice 5'],
+      ['Distinguish a best default from a complementary portfolio, and a frontier from a hard cap', 'Section 6, the deployment investigation, practice 6'],
+      ['Compute an operation mixture\u2019s gradient and explain the discretization gap', 'Section 7, the mixture investigation, practice 8'],
+      ['Tell the direct, one-step and exact-inner architecture derivatives apart', 'Section 7, the bilevel figure, practice 9'],
+      ['Say what a shared-weight score or an untrained proxy actually measured', 'Section 7, the provenance figure'],
+    ]} />
+
+    <H2>{headings[9]}</H2>
+    <Prose>The next topic in this module is <a href="/learn/path/full-curriculum/hidden-markov-models-hmm?module=classical-ml">Hidden Markov Models</a>. AutoML chooses among learning procedures; an HMM introduces a particular probabilistic structure for observations that arrive in sequence and depend on unobserved states. It will distinguish summing over possible hidden paths from finding one best path. This is a change in modeling assumptions, not simply another knob for the current independent-row classifier.</Prose>
+    <Prose>For focused review, revisit <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">feature scaling and encoding</a>, <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">cross-validation</a>, <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">regularization</a>, and <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">feature selection</a>. For deeper branches, use <a href="/learn/path/full-curriculum/gaussian-processes-gp?module=classical-ml">Gaussian processes</a>, <a href="/learn/topic/neural-architecture-search-nas">dedicated NAS</a>, and <a href="/learn/topic/automl-as-meta-learning">AutoML as meta-learning</a>.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://www.automl.org/book/">Hutter, Kotthoff and Vanschoren &mdash; Automated Machine Learning: Methods, Systems, Challenges</a>, openly licensed. Chapters 1&ndash;3 separate hyperparameter optimization, meta-learning, and architecture search; the auto-sklearn and Automatic Statistician chapters show different uses of a search history and search language. Read the relevant section after its local example rather than treating the whole book as a prerequisite.</li>
+      <li><a href="https://homes.cs.washington.edu/~jamieson/hyperband.html">Kevin Jamieson &mdash; Hyperband</a>. A compact scheduling explanation with the algorithm, bracket table, and experimental protocol. Its breadth/depth table is a useful second representation of the halving investigation. The accompanying <a href="https://www.jmlr.org/papers/volume18/16-558/16-558.pdf">JMLR paper</a> gives assumptions and analysis.</li>
+      <li><a href="https://arxiv.org/pdf/1806.09055">Liu, Simonyan and Yang &mdash; DARTS</a>, sections 2.1&ndash;2.4. Read alongside the locally derived mixture and scalar bilevel example; distinguish its relaxation, approximation, and discretization stages.</li>
+      <li><a href="https://proceedings.mlr.press/v139/mellor21a/mellor21a.pdf">Mellor and colleagues &mdash; Neural Architecture Search without Training</a>. A surprising proxy to examine critically, especially its activation-pattern construction and ablations. The two-code calculation here supplies a concrete entry point.</li>
+    </ul></>}>
+      <li><a href="https://arxiv.org/pdf/1807.11626">Tan and colleagues &mdash; MnasNet</a> &mdash; deployment-aware search. Focus on the distinction between measured latency and operation counts, and between a soft objective and an actual feasibility requirement.</li>
+      <li><a href={provenance.page}>UCI &mdash; Banknote Authentication</a>, {provenance.author}, <a href={provenance.doi}>{provenance.doi}</a>, licensed <a href={provenance.licenseUrl}>{provenance.license}</a> &mdash; the observed input and its licensing. This page serves <a href={provenance.file} download>the unchanged file</a>, SHA-256 <Code>{provenance.sha256}</Code>, beside its <a href={provenance.attribution}>attribution</a>, with the exact grouping and split protocol for offline reproduction.</li>
+      <li><a href="https://microsoft.github.io/FLAML/docs/Use-Cases/Task-Oriented-AutoML/">FLAML &mdash; task-oriented AutoML</a>, <a href="https://keras.io/keras_tuner/getting_started/">KerasTuner getting started</a> and <a href="https://keras.io/keras_tuner/api/hyperparameters/">its conditional hyperparameters</a> &mdash; complete API context for section 8. Their tutorial scores are not this lesson&rsquo;s measurements.</li>
+      <li><a href="https://auto.gluon.ai/stable/tutorials/tabular/tabular-essentials.html">AutoGluon &mdash; tabular essentials</a> &mdash; current broader tabular workflows. Compare its presets and resource implications against your contract. For historical code, the <a href="https://github.com/microsoft/nni">NNI repository</a> explicitly records its archived status.</li>
+    </Sources>
+    <Prose>The conditional grammar&rsquo;s counts, the expected-improvement table, the nine fidelity curves, the network parameter blocks, the operation mixture and its gradients, the scalar bilevel derivatives, the portfolio matrix and the activation-code kernel are explicitly <strong>constructed calculations</strong>, not measurements. The five latency/accuracy pairs are explicitly <strong>hypothetical deployment numbers</strong> with no device, product or benchmark behind them. The banknote outcomes are calculations on the identified real dataset under one declared grouping and split protocol, with {reservedRole.rows} reserved rows neither predicted nor scored. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>,
 };
 
 export default automlContent;
