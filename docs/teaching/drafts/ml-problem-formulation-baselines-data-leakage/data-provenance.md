@@ -1,0 +1,27 @@
+# Bank data and author calculation provenance
+
+Source: Moro, S., Rita, P., & Cortez, P. (2014). **Bank Marketing**, UCI Machine Learning Repository, [DOI 10.24432/C5K306](https://doi.org/10.24432/C5K306). UCI assigns [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Retain attribution, the source link and this unchanged-data statement. The provider requests citation of Moro, Cortez and Rita, *A Data-Driven Approach to Predict the Success of Bank Telemarketing*, Decision Support Systems (2014), DOI 10.1016/j.dss.2014.03.001.
+
+Downloaded 12 September 2026 from the URL in [data-source.json](data-source.json). The outer ZIP and nested bank-additional.zip were read in memory. Only the unchanged bank-additional.csv and bank-additional-names.txt members were retained; the latter is descriptively named [source-description.txt](source-description.txt). No archive, platform metadata, history file or full 41,188-row dataset was extracted. The CSV is the provider's 4,119-row random subset; it is not a newly sampled author subset.
+
+CSV SHA-256: 7e59cf650004d65d1c9d6b08553bad2ee9a9ad70d594f536e3c584ee6ed5df50. It is 583,898 bytes with 20 predictors and target y. Source metadata describes the larger dated collection, but this random subset is not a ready-made chronological split. The full original variable-description file was read, including categorical unknowns, the 999 no-prior-contact sentinel, current-campaign count semantics, duration warning and macroeconomic columns. Do not confuse this dataset with the older bank.csv schema or its -1 sentinel.
+
+The provider does not supply complete entity identities, serving availability, all historical revisions, counterfactual outcomes or a release-time vintage for every variable. This packet's result is a row-level development diagnostic on this file, not an independent future-client evaluation or a causal policy-benefit estimate. Candidate features are a deliberately limited recorded subset, not certified pre-call inputs.
+
+## Transformations and experiment
+
+All source rows and raw values remain unchanged. [author-calculations.py](author-calculations.py) derives contacted_before from pdays != 999 and a separate days_since_previous where 999 becomes missing. It fits medians, scaling, category vocabularies and logistic coefficients only on training rows. Provider category “unknown” remains an explicit category. The duration comparison adds that single numeric field to the same other feature families and model settings.
+
+The fixed first split has 3,295 development and 824 reserved rows, stratified seed 53. The second splits development into 2,471 training and 824 validation rows, stratified seed 54. There are 451 positives overall, 271 in training and 90 in validation. Reserved targets are used only for the stated stratification; no reserved model prediction, selection score or metric is reported. Zero-based source row identities, targets and probabilities in the results allow reconstruction of each compared validation case.
+
+Executed with the existing shared Python runtime: NumPy 2.3.5, pandas 3.0.1 and scikit-learn 1.9.1. Two fixed logistic fits converged in 54 and 60 iterations within max_iter 600. After adding actual selected-case swap/null fixtures and aligning the other-sensor edit with the supported value range, the bounded script ran once more; all model results remained identical. No parameter/seed search, model selection or extra final-test campaign occurred. [calculated-inputs.json](calculated-inputs.json) holds all results and timeline inputs. The separately assembled displayed manuscript programs have equivalent checked operations; their exact verbatim execution remains a phase-two check.
+
+Main validation results: baseline AP .10922330097087378, log loss .34488940603783835, 734 correct, six positives in top 50; candidate AP .2534403031698255, log loss .3365274235941854, 733 correct, 20 positives; duration AP .4617001298119905, log loss .2646387134831803, 738 correct, 26 positives. Exact probability ties are broken by original source-row index. A constant prior has no learned ranking; its tied subset count is not an intrinsic ranking advantage.
+
+A subsequent JSON-only calculation found top-25 positive counts 3, 12 and 15 for baseline/candidate/duration. The candidate's precision .48 and recall 12/90 are the changed practice answer. The final script also records the candidate top-25 IDs, an actual positive-to-negative swap (589→1680, positive count 12→11), and a within-set reorder null (12). Future content revisions that change splits, features or fitting must regenerate affected evidence rather than preserve these numbers by assertion.
+
+## Constructed examples
+
+The calibration history, parcels, support costs, spare-parts demand and counterfactual group probabilities are original constructed examples. No value in them is presented as a measurement from the bank records. The timeline calculation checks default 10, earlier-arrival 20, known-revision 12, later-event 20, age-limit missing, and other-entity null 10.
+
+The source download succeeded; a terminal print of its UTF-8 BOM initially failed under the shell's output encoding. The retained CSV/metadata were already valid. Reading the small source-description member with explicit UTF-8 output resolved the display issue. No environment/package/certificate configuration was changed. All retained packet files are necessary inputs for the pending implementation, not disposable scratch.

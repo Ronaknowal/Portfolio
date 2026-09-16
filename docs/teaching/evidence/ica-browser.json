@@ -1,0 +1,402 @@
+{
+  "checkedAt": "2026-09-16T15:46:01.098Z",
+  "status": "passed",
+  "distDir": "dist",
+  "baseUrl": "http://127.0.0.1:4183",
+  "sources": {
+    "src/learn/data/topics/independent-component-analysis-ica.jsx": "66dfdfab99e1a91e70ce2677fa36840061397a574eaa262006a96da864657794",
+    "src/learn/data/ica-models.js": "f4d48ae6fc021e1ff3574ebf4ce1893205852094e9519ca86b8aee66aa502774",
+    "src/learn/data/ica-data.js": "897ca68813a4b55b64677032e9a7df97e25d30d8a5acffdfde610ce9e3152e61",
+    "src/learn/data/ica-examples.js": "65262b951808f1d3bd2e12e33669c59766ed78c85e90a05224072d7a263e6064",
+    "src/learn/components/lesson-labs/IcaShared.jsx": "90d5226d9402eede3410df83f35040afae1b583cb3035ea8c616f7a15f31da4f",
+    "src/learn/components/lesson-labs/IcaFigures.jsx": "92a7acfdd2847928d98dfad207a69f2b65fb1cf8f5e064da9030a2b5ac5070a1",
+    "src/learn/components/lesson-labs/IcaLabs.jsx": "e340e26d79057c92c0325dead4da3f3ea0806270f28f3299235167b92e1c0880",
+    "src/learn/components/lesson-labs/ica-labs.css": "1556b44d8add961520b11a689cc6f44fbdc890642bda73ed72f946f8ceb2edcd",
+    "src/learn/data/curriculum/blueprints/independent-component-analysis-ica.js": "83a5dad17cf94de5518a65fc54aff6a26e56fd4add7a4e90981c9b1d28ba9454",
+    "src/learn/data/curriculum/blueprints/index.js": "0acca79a87056bd7da36fc09b16fab5c439115e2a31de24d98a3eb1f401f824b"
+  },
+  "buildHash": "d5b0943b351c2a06b62dd77aff8b9b2e3ac324ebc0cb78512538c0db811f88a4",
+  "records": [
+    "11 sections, 6 inline figures, 2 executed programs, 2 open investigations, 6 closed hint/solution pairs, 10 manuscript claims, 4 offline assets, module sequence 18 of 39",
+    "R1: matched, missed, decimal, exact equal-angle, Laplace 1.875 transfer, Gaussian null, family restart, invalid angle, prediction retirement, undo",
+    "C1: changed amplitudes required first, matched and missed numeric predictions, every keep-set, zero-source null, out-of-range refusal",
+    "C1b: compensated scale null, negative-c sign flip, source-only change, c = 0 refusal without dividing",
+    "Sequential audit: tiny graded R1/C1/C1b changes remain visible, source-only c=1 has identity feedback, parent Reset restores the independent-task gate, inclusive C1 tolerance handles floating-point dust, and E1 respects the correlation intervals",
+    "1366/768/390/320 layout inspection with no page, display-math or exact-table overflow, every figure captured at three widths, P1 stacking on a phone, 200% zoom equivalent",
+    "only the active lesson body loads, the CSV is fetched by nobody on mount, completion persists across reload, failed import recovers"
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/screenshots/ica-rotation-matched-1366.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-gaussian-null-1366.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-family-restart-1366.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-equal-kurtosis-1366.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-missed-1366.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-matched-1366.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-missed-1366.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-out-of-range-1366.png",
+    "docs/teaching/evidence/screenshots/ica-scale-initial-1366.png",
+    "docs/teaching/evidence/screenshots/ica-scale-compensated-1366.png",
+    "docs/teaching/evidence/screenshots/ica-scale-negative-1366.png",
+    "docs/teaching/evidence/screenshots/ica-scale-source-only-null-1366.png",
+    "docs/teaching/evidence/screenshots/ica-scale-zero-refusal-1366.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-tiny-change.png",
+    "docs/teaching/evidence/screenshots/ica-scale-tiny-change.png",
+    "docs/teaching/evidence/screenshots/ica-m1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-d1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-w1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-f1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-p1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-e1-1366.png",
+    "docs/teaching/evidence/screenshots/ica-m1-390.png",
+    "docs/teaching/evidence/screenshots/ica-d1-390.png",
+    "docs/teaching/evidence/screenshots/ica-w1-390.png",
+    "docs/teaching/evidence/screenshots/ica-f1-390.png",
+    "docs/teaching/evidence/screenshots/ica-p1-390.png",
+    "docs/teaching/evidence/screenshots/ica-e1-390.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-390.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-390.png",
+    "docs/teaching/evidence/screenshots/ica-scale-390.png",
+    "docs/teaching/evidence/screenshots/ica-m1-320.png",
+    "docs/teaching/evidence/screenshots/ica-d1-320.png",
+    "docs/teaching/evidence/screenshots/ica-w1-320.png",
+    "docs/teaching/evidence/screenshots/ica-f1-320.png",
+    "docs/teaching/evidence/screenshots/ica-p1-320.png",
+    "docs/teaching/evidence/screenshots/ica-e1-320.png",
+    "docs/teaching/evidence/screenshots/ica-rotation-320.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-320.png",
+    "docs/teaching/evidence/screenshots/ica-contribution-zoom.png"
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "Source 1 at plus 1 contributes 2 and source 2 at minus 1 contributes −1; sensor 1 totals 1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Source 1 at plus 1 contributes 1 and source 2 at minus 1 contributes −2; sensor 2 totals −1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Three points at minus one comma one, zero comma zero, and one comma one, on the curve v equals u squared.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Only the point zero comma zero remains; the other two outcomes are drawn as empty circles.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Source s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "Observation x",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Whitened z",
+          "labelCount": 11,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Recovered s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 15,
+          "description": "Joint support at 45°",
+          "labelCount": 10,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "ic-direction is-companion"
+            }
+          ]
+        },
+        {
+          "svgIndex": 16,
+          "description": "Absolute excess kurtosis against angle from 0 to 180 degrees, on a vertical range of 0 to 2.2. It peaks at 2 at 0, 90 and 180 degrees and dips to 1 at 45 and 135 degrees.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "The old direction 0.8, 0.6 points up and right. The actual new direction −0.7092, −0.705 points down and left. Its dashed sign-equivalent points up and right toward the source axis",
+          "labelCount": 3,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "Source 1 at plus 1 contributes 2 and source 2 at minus 1 contributes −1; sensor 1 totals 1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Source 1 at plus 1 contributes 1 and source 2 at minus 1 contributes −2; sensor 2 totals −1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Three points at minus one comma one, zero comma zero, and one comma one, on the curve v equals u squared.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Only the point zero comma zero remains; the other two outcomes are drawn as empty circles.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Source s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "Observation x",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Whitened z",
+          "labelCount": 11,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Recovered s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 15,
+          "description": "Joint support at 45°",
+          "labelCount": 10,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "ic-direction is-companion"
+            }
+          ]
+        },
+        {
+          "svgIndex": 16,
+          "description": "Absolute excess kurtosis against angle from 0 to 180 degrees, on a vertical range of 0 to 2.2. It peaks at 2 at 0, 90 and 180 degrees and dips to 1 at 45 and 135 degrees.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "The old direction 0.8, 0.6 points up and right. The actual new direction −0.7092, −0.705 points down and left. Its dashed sign-equivalent points up and right toward the source axis",
+          "labelCount": 3,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "Source 1 at plus 1 contributes 2 and source 2 at minus 1 contributes −1; sensor 1 totals 1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Source 1 at plus 1 contributes 1 and source 2 at minus 1 contributes −2; sensor 2 totals −1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Three points at minus one comma one, zero comma zero, and one comma one, on the curve v equals u squared.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Only the point zero comma zero remains; the other two outcomes are drawn as empty circles.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Source s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "Observation x",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Whitened z",
+          "labelCount": 11,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Recovered s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 15,
+          "description": "Joint support at 45°",
+          "labelCount": 10,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "ic-direction is-companion"
+            }
+          ]
+        },
+        {
+          "svgIndex": 16,
+          "description": "Absolute excess kurtosis against angle from 0 to 180 degrees, on a vertical range of 0 to 2.2. It peaks at 2 at 0, 90 and 180 degrees and dips to 1 at 45 and 135 degrees.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "The old direction 0.8, 0.6 points up and right. The actual new direction −0.7092, −0.705 points down and left. Its dashed sign-equivalent points up and right toward the source axis",
+          "labelCount": 3,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "report": [
+        {
+          "svgIndex": 0,
+          "description": "Source 1 at plus 1 contributes 2 and source 2 at minus 1 contributes −1; sensor 1 totals 1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 1,
+          "description": "Source 1 at plus 1 contributes 1 and source 2 at minus 1 contributes −2; sensor 2 totals −1.",
+          "labelCount": 8,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Three points at minus one comma one, zero comma zero, and one comma one, on the curve v equals u squared.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 3,
+          "description": "Only the point zero comma zero remains; the other two outcomes are drawn as empty circles.",
+          "labelCount": 7,
+          "issues": []
+        },
+        {
+          "svgIndex": 10,
+          "description": "Source s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 11,
+          "description": "Observation x",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 12,
+          "description": "Whitened z",
+          "labelCount": 11,
+          "issues": []
+        },
+        {
+          "svgIndex": 13,
+          "description": "Recovered s",
+          "labelCount": 10,
+          "issues": []
+        },
+        {
+          "svgIndex": 15,
+          "description": "Joint support at 45°",
+          "labelCount": 10,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "B",
+              "lineClass": "ic-direction is-companion"
+            }
+          ]
+        },
+        {
+          "svgIndex": 16,
+          "description": "Absolute excess kurtosis against angle from 0 to 180 degrees, on a vertical range of 0 to 2.2. It peaks at 2 at 0, 90 and 180 degrees and dips to 1 at 45 and 135 degrees.",
+          "labelCount": 9,
+          "issues": []
+        },
+        {
+          "svgIndex": 17,
+          "description": "The old direction 0.8, 0.6 points up and right. The actual new direction −0.7092, −0.705 points down and left. Its dashed sign-equivalent points up and right toward the source axis",
+          "labelCount": 3,
+          "issues": []
+        }
+      ]
+    }
+  ],
+  "payload": {
+    "lessonChunk": "assets/independent-component-analysis-ica-mKtfOqmd.js",
+    "decodedBytes": 147794,
+    "gzipBytes": 51884
+  },
+  "errors": [],
+  "recordingResults": [
+    {
+      "method": "channel",
+      "chosen": 3,
+      "testAbs": 0.119806
+    },
+    {
+      "method": "PCA",
+      "chosen": 4,
+      "testAbs": 0.450178
+    },
+    {
+      "method": "ICA",
+      "chosen": 2,
+      "testAbs": 0.343966
+    }
+  ]
+}

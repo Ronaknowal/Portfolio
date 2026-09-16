@@ -1,0 +1,850 @@
+{
+  "startedAt": "2026-09-14T08:34:26.054Z",
+  "scope": "Four existing published lessons exercise the shared Plot component; bounded rendered/behavior checks, not whole-site approval.",
+  "sourceHashes": {
+    "src/learn/components/viz/Plot.jsx": "9d674846a2fcad8b5f0b8b902981053f81c88802ae7a9b76056aa57f196ee99c",
+    "src/learn/components/viz/plot.css": "32e51e475a71630d54315cb113e9e750f2db885796d3a9b89cc0e2e8e2687c03"
+  },
+  "buildManifestHash": "c0dbb92dc7dfa01237d7282cb745ca50c87533a88ab709b0b754417ff0f9e85d",
+  "cases": [
+    {
+      "name": "hyena: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 1366,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "256",
+            "left": 421.01995849609375,
+            "right": 442.53558349609375,
+            "top": 23096.4296875,
+            "bottom": 23112.4296875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "16384",
+            "left": 819.483642578125,
+            "right": 855.343017578125,
+            "top": 23096.4296875,
+            "bottom": 23112.4296875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "-0.30103",
+            "left": 355.67572021484375,
+            "right": 413.05072021484375,
+            "top": 23080.490234375,
+            "bottom": 23096.490234375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "3.578",
+            "left": 377.19134521484375,
+            "right": 413.05072021484375,
+            "top": 22869.306640625,
+            "bottom": 22885.306640625,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 520,
+        "circles": 12,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "hyena: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 760,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "256",
+            "left": 390.72308349609375,
+            "right": 412.23870849609375,
+            "top": 22992.1171875,
+            "bottom": 23008.1171875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "16384",
+            "left": 789.186767578125,
+            "right": 825.046142578125,
+            "top": 22992.1171875,
+            "bottom": 23008.1171875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "-0.30103",
+            "left": 325.37884521484375,
+            "right": 382.75384521484375,
+            "top": 22976.177734375,
+            "bottom": 22992.177734375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "3.578",
+            "left": 346.89447021484375,
+            "right": 382.75384521484375,
+            "top": 22764.994140625,
+            "bottom": 22780.994140625,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 520,
+        "circles": 12,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "hyena: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 390,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "256",
+            "left": 92.59423065185547,
+            "right": 114.07860565185547,
+            "top": 32611.57421875,
+            "bottom": 32627.57421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "16384",
+            "left": 321.2627258300781,
+            "right": 357.0596008300781,
+            "top": 32611.57421875,
+            "bottom": 32627.57421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "-0.30103",
+            "left": 27.374757766723633,
+            "right": 84.64038276672363,
+            "top": 32595.666015625,
+            "bottom": 32611.666015625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "3.578",
+            "left": 48.843505859375,
+            "right": 84.640380859375,
+            "top": 32384.888671875,
+            "bottom": 32400.888671875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 350,
+        "circles": 12,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "hyena: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 320,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "256",
+            "left": 92.4863052368164,
+            "right": 113.9394302368164,
+            "top": 37888.4140625,
+            "bottom": 37904.4140625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "16384",
+            "left": 251.35023498535156,
+            "right": 287.0846252441406,
+            "top": 37888.4140625,
+            "bottom": 37904.4140625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "-0.30103",
+            "left": 27.371631622314453,
+            "right": 84.54351043701172,
+            "top": 37872.53125,
+            "bottom": 37888.53125,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "3.578",
+            "left": 48.80913543701172,
+            "right": 84.54351043701172,
+            "top": 37662.046875,
+            "bottom": 37678.046875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 280,
+        "circles": 12,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "dapo: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 1366,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 398.59063720703125,
+            "right": 405.76251220703125,
+            "top": 19440.337890625,
+            "bottom": 19456.337890625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "60",
+            "left": 801.0031127929688,
+            "right": 815.3468627929688,
+            "top": 19440.337890625,
+            "bottom": 19456.337890625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.138",
+            "left": 354.76458740234375,
+            "right": 390.62396240234375,
+            "top": 19424.404296875,
+            "bottom": 19440.404296875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.693",
+            "left": 354.76458740234375,
+            "right": 390.62396240234375,
+            "top": 19233.205078125,
+            "bottom": 19249.205078125,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 480,
+        "circles": 16,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "dapo: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 760,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 368.29376220703125,
+            "right": 375.46563720703125,
+            "top": 19240.291015625,
+            "bottom": 19256.291015625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "60",
+            "left": 770.7062377929688,
+            "right": 785.0499877929688,
+            "top": 19240.291015625,
+            "bottom": 19256.291015625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.138",
+            "left": 324.46771240234375,
+            "right": 360.32708740234375,
+            "top": 19224.357421875,
+            "bottom": 19240.357421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.693",
+            "left": 324.46771240234375,
+            "right": 360.32708740234375,
+            "top": 19033.158203125,
+            "bottom": 19049.158203125,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 480,
+        "circles": 16,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "dapo: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 390,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 70.21900939941406,
+            "right": 77.39088439941406,
+            "top": 24971.806640625,
+            "bottom": 24987.806640625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "60",
+            "left": 342.7380065917969,
+            "right": 357.06610107421875,
+            "top": 24971.806640625,
+            "bottom": 24987.806640625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.138",
+            "left": 26.467973709106445,
+            "right": 62.264841079711914,
+            "top": 24955.8984375,
+            "bottom": 24971.8984375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.693",
+            "left": 26.467973709106445,
+            "right": 62.264841079711914,
+            "top": 24764.998046875,
+            "bottom": 24780.998046875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 350,
+        "circles": 16,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "dapo: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 320,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 70.14811706542969,
+            "right": 77.30436706542969,
+            "top": 28100.744140625,
+            "bottom": 28116.744140625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "60",
+            "left": 272.7864990234375,
+            "right": 287.0833740234375,
+            "top": 28100.744140625,
+            "bottom": 28116.744140625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.138",
+            "left": 26.471027374267578,
+            "right": 62.20539855957031,
+            "top": 28084.857421875,
+            "bottom": 28100.857421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "0.693",
+            "left": 26.471027374267578,
+            "right": 62.20539855957031,
+            "top": 27894.232421875,
+            "bottom": 27910.232421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 280,
+        "circles": 16,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "byte-level: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 1366,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "1",
+            "left": 391.1484375,
+            "right": 398.3203125,
+            "top": 18864.3359375,
+            "bottom": 18880.3359375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "7",
+            "left": 848.15625,
+            "right": 855.328125,
+            "top": 18864.3359375,
+            "bottom": 18880.3359375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "1.33",
+            "left": 354.4921875,
+            "right": 383.1796875,
+            "top": 18848.3984375,
+            "bottom": 18864.3984375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "5.74",
+            "left": 354.4921875,
+            "right": 383.1796875,
+            "top": 18657.1484375,
+            "bottom": 18673.1484375,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 520,
+        "circles": 14,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "byte-level: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 760,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "1",
+            "left": 360.8515625,
+            "right": 368.0234375,
+            "top": 18520.8671875,
+            "bottom": 18536.8671875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "7",
+            "left": 817.859375,
+            "right": 825.03125,
+            "top": 18520.8671875,
+            "bottom": 18536.8671875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "1.33",
+            "left": 324.1953125,
+            "right": 352.8828125,
+            "top": 18504.9296875,
+            "bottom": 18520.9296875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "5.74",
+            "left": 324.1953125,
+            "right": 352.8828125,
+            "top": 18313.6796875,
+            "bottom": 18329.6796875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 520,
+        "circles": 14,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "byte-level: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 390,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "1",
+            "left": 62.76197814941406,
+            "right": 69.93385314941406,
+            "top": 28857.400390625,
+            "bottom": 28873.400390625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "7",
+            "left": 349.8942565917969,
+            "right": 357.06610107421875,
+            "top": 28857.400390625,
+            "bottom": 28873.400390625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "1.33",
+            "left": 26.16718864440918,
+            "right": 54.80781173706055,
+            "top": 28841.4921875,
+            "bottom": 28857.4921875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "5.74",
+            "left": 26.16718864440918,
+            "right": 54.80781173706055,
+            "top": 28650.591796875,
+            "bottom": 28666.591796875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 350,
+        "circles": 14,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "byte-level: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 320,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "1",
+            "left": 62.70182418823242,
+            "right": 69.85807800292969,
+            "top": 34558.3515625,
+            "bottom": 34574.3515625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "7",
+            "left": 279.9270935058594,
+            "right": 287.0833435058594,
+            "top": 34558.3515625,
+            "bottom": 34574.3515625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "1.33",
+            "left": 26.16536521911621,
+            "right": 54.75911331176758,
+            "top": 34542.46875,
+            "bottom": 34558.46875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "5.74",
+            "left": 26.16536521911621,
+            "right": 54.75911331176758,
+            "top": 34351.84375,
+            "bottom": 34367.84375,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 280,
+        "circles": 14,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "autoscaling: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 1366,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 391.16229248046875,
+            "right": 398.33416748046875,
+            "top": 17578.61328125,
+            "bottom": 17594.61328125,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "47",
+            "left": 900.9830322265625,
+            "right": 915.3267822265625,
+            "top": 17578.61328125,
+            "bottom": 17594.61328125,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "8",
+            "left": 376.0183410644531,
+            "right": 383.1902160644531,
+            "top": 17562.66796875,
+            "bottom": 17578.66796875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "40",
+            "left": 368.8464660644531,
+            "right": 383.1902160644531,
+            "top": 17311.548828125,
+            "bottom": 17327.548828125,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 580,
+        "circles": 144,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "autoscaling: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 760,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 360.86541748046875,
+            "right": 368.03729248046875,
+            "top": 17394.28515625,
+            "bottom": 17410.28515625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "47",
+            "left": 870.6861572265625,
+            "right": 885.0299072265625,
+            "top": 17394.28515625,
+            "bottom": 17410.28515625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "8",
+            "left": 345.7214660644531,
+            "right": 352.8933410644531,
+            "top": 17378.33984375,
+            "bottom": 17394.33984375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "40",
+            "left": 338.5495910644531,
+            "right": 352.8933410644531,
+            "top": 17127.220703125,
+            "bottom": 17143.220703125,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 580,
+        "circles": 144,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "autoscaling: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 390,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 62.76197814941406,
+            "right": 69.93385314941406,
+            "top": 24468.650390625,
+            "bottom": 24484.650390625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "47",
+            "left": 342.7380065917969,
+            "right": 357.06610107421875,
+            "top": 24468.650390625,
+            "bottom": 24484.650390625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "8",
+            "left": 47.63593673706055,
+            "right": 54.80781173706055,
+            "top": 24452.7421875,
+            "bottom": 24468.7421875,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "40",
+            "left": 40.47968673706055,
+            "right": 54.80781173706055,
+            "top": 24202.185546875,
+            "bottom": 24218.185546875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 350,
+        "circles": 144,
+        "legendWithin": true
+      }
+    },
+    {
+      "name": "144 exact values paginate 50/50/44; source-series boundaries and last value retained; reopening/closing removes rows",
+      "width": 320,
+      "status": "passed"
+    },
+    {
+      "name": "autoscaling: visible tick bounds, no label collisions, fixed readable glyphs, wrapping legend/captions, closed exact data does not mount",
+      "width": 320,
+      "status": "passed",
+      "geometry": {
+        "labels": [
+          {
+            "text": "0",
+            "left": 62.70437240600586,
+            "right": 69.86062622070312,
+            "top": 28078.322265625,
+            "bottom": 28094.322265625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "47",
+            "left": 272.7831115722656,
+            "right": 287.0799865722656,
+            "top": 28078.322265625,
+            "bottom": 28094.322265625,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "8",
+            "left": 47.60562515258789,
+            "right": 54.76187515258789,
+            "top": 28062.4375,
+            "bottom": 28078.4375,
+            "fontSize": 12,
+            "renderedScale": 1
+          },
+          {
+            "text": "40",
+            "left": 40.46500015258789,
+            "right": 54.76187515258789,
+            "top": 27812.248046875,
+            "bottom": 27828.248046875,
+            "fontSize": 12,
+            "renderedScale": 1
+          }
+        ],
+        "overlaps": [],
+        "contained": true,
+        "figureOverflow": false,
+        "plotWidth": 280,
+        "circles": 144,
+        "legendWithin": true
+      }
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/screenshots/shared-plot-hyena-1366.png",
+    "docs/teaching/evidence/screenshots/shared-plot-hyena-320.png",
+    "docs/teaching/evidence/screenshots/shared-plot-dapo-390.png",
+    "docs/teaching/evidence/screenshots/shared-plot-byte-level-320.png",
+    "docs/teaching/evidence/screenshots/shared-plot-autoscaling-760.png"
+  ],
+  "inspectedScreenshots": [
+    "docs/teaching/evidence/screenshots/shared-plot-hyena-1366.png",
+    "docs/teaching/evidence/screenshots/shared-plot-hyena-320.png",
+    "docs/teaching/evidence/screenshots/shared-plot-dapo-390.png",
+    "docs/teaching/evidence/screenshots/shared-plot-byte-level-320.png",
+    "docs/teaching/evidence/screenshots/shared-plot-autoscaling-760.png"
+  ],
+  "completedAt": "2026-09-14T08:34:47.323Z",
+  "status": "passed",
+  "consoleErrors": [],
+  "visualReview": "All five final captures were inspected after recapturing with sticky-header clearance. Hyena desktop and320px, DAPO390px, byte-level caption320px, and autoscaling760px: complete readable captions, legends outside the data, clear tick labels, and no observed distortion."
+}

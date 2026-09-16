@@ -1,0 +1,763 @@
+{
+  "models": [
+    {
+      "name": "tiny",
+      "version": 1,
+      "parameters": 28589128,
+      "feature_shapes": [
+        [
+          2,
+          96,
+          56,
+          56
+        ],
+        [
+          2,
+          192,
+          28,
+          28
+        ],
+        [
+          2,
+          384,
+          14,
+          14
+        ],
+        [
+          2,
+          768,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 14450688,
+        "stages": [
+          {
+            "side": 56,
+            "width": 96,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 28,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 22127616,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 14,
+            "width": 384,
+            "depth": 9,
+            "depthwise_macs": 33191424,
+            "pointwise_macs": 2080899072
+          },
+          {
+            "side": 7,
+            "width": 768,
+            "depth": 3,
+            "depthwise_macs": 5531904,
+            "pointwise_macs": 693633024
+          }
+        ],
+        "transition_macs": [
+          57802752,
+          57802752,
+          57802752
+        ],
+        "head_macs": 768000,
+        "total_convolution_linear_macs": 4455531264
+      }
+    },
+    {
+      "name": "tiny",
+      "version": 2,
+      "parameters": 28635496,
+      "feature_shapes": [
+        [
+          2,
+          96,
+          56,
+          56
+        ],
+        [
+          2,
+          192,
+          28,
+          28
+        ],
+        [
+          2,
+          384,
+          14,
+          14
+        ],
+        [
+          2,
+          768,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 14450688,
+        "stages": [
+          {
+            "side": 56,
+            "width": 96,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 28,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 22127616,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 14,
+            "width": 384,
+            "depth": 9,
+            "depthwise_macs": 33191424,
+            "pointwise_macs": 2080899072
+          },
+          {
+            "side": 7,
+            "width": 768,
+            "depth": 3,
+            "depthwise_macs": 5531904,
+            "pointwise_macs": 693633024
+          }
+        ],
+        "transition_macs": [
+          57802752,
+          57802752,
+          57802752
+        ],
+        "head_macs": 768000,
+        "total_convolution_linear_macs": 4455531264
+      }
+    },
+    {
+      "name": "small",
+      "version": 1,
+      "parameters": 50223688,
+      "feature_shapes": [
+        [
+          2,
+          96,
+          56,
+          56
+        ],
+        [
+          2,
+          192,
+          28,
+          28
+        ],
+        [
+          2,
+          384,
+          14,
+          14
+        ],
+        [
+          2,
+          768,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 14450688,
+        "stages": [
+          {
+            "side": 56,
+            "width": 96,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 28,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 22127616,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 14,
+            "width": 384,
+            "depth": 27,
+            "depthwise_macs": 99574272,
+            "pointwise_macs": 6242697216
+          },
+          {
+            "side": 7,
+            "width": 768,
+            "depth": 3,
+            "depthwise_macs": 5531904,
+            "pointwise_macs": 693633024
+          }
+        ],
+        "transition_macs": [
+          57802752,
+          57802752,
+          57802752
+        ],
+        "head_macs": 768000,
+        "total_convolution_linear_macs": 8683712256
+      }
+    },
+    {
+      "name": "small",
+      "version": 2,
+      "parameters": 50318440,
+      "feature_shapes": [
+        [
+          2,
+          96,
+          56,
+          56
+        ],
+        [
+          2,
+          192,
+          28,
+          28
+        ],
+        [
+          2,
+          384,
+          14,
+          14
+        ],
+        [
+          2,
+          768,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 14450688,
+        "stages": [
+          {
+            "side": 56,
+            "width": 96,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 28,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 22127616,
+            "pointwise_macs": 693633024
+          },
+          {
+            "side": 14,
+            "width": 384,
+            "depth": 27,
+            "depthwise_macs": 99574272,
+            "pointwise_macs": 6242697216
+          },
+          {
+            "side": 7,
+            "width": 768,
+            "depth": 3,
+            "depthwise_macs": 5531904,
+            "pointwise_macs": 693633024
+          }
+        ],
+        "transition_macs": [
+          57802752,
+          57802752,
+          57802752
+        ],
+        "head_macs": 768000,
+        "total_convolution_linear_macs": 8683712256
+      }
+    },
+    {
+      "name": "base",
+      "version": 1,
+      "parameters": 88591464,
+      "feature_shapes": [
+        [
+          2,
+          128,
+          56,
+          56
+        ],
+        [
+          2,
+          256,
+          28,
+          28
+        ],
+        [
+          2,
+          512,
+          14,
+          14
+        ],
+        [
+          2,
+          1024,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 19267584,
+        "stages": [
+          {
+            "side": 56,
+            "width": 128,
+            "depth": 3,
+            "depthwise_macs": 59006976,
+            "pointwise_macs": 1233125376
+          },
+          {
+            "side": 28,
+            "width": 256,
+            "depth": 3,
+            "depthwise_macs": 29503488,
+            "pointwise_macs": 1233125376
+          },
+          {
+            "side": 14,
+            "width": 512,
+            "depth": 27,
+            "depthwise_macs": 132765696,
+            "pointwise_macs": 11098128384
+          },
+          {
+            "side": 7,
+            "width": 1024,
+            "depth": 3,
+            "depthwise_macs": 7375872,
+            "pointwise_macs": 1233125376
+          }
+        ],
+        "transition_macs": [
+          102760448,
+          102760448,
+          102760448
+        ],
+        "head_macs": 1024000,
+        "total_convolution_linear_macs": 15354729472
+      }
+    },
+    {
+      "name": "base",
+      "version": 2,
+      "parameters": 88717800,
+      "feature_shapes": [
+        [
+          2,
+          128,
+          56,
+          56
+        ],
+        [
+          2,
+          256,
+          28,
+          28
+        ],
+        [
+          2,
+          512,
+          14,
+          14
+        ],
+        [
+          2,
+          1024,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 19267584,
+        "stages": [
+          {
+            "side": 56,
+            "width": 128,
+            "depth": 3,
+            "depthwise_macs": 59006976,
+            "pointwise_macs": 1233125376
+          },
+          {
+            "side": 28,
+            "width": 256,
+            "depth": 3,
+            "depthwise_macs": 29503488,
+            "pointwise_macs": 1233125376
+          },
+          {
+            "side": 14,
+            "width": 512,
+            "depth": 27,
+            "depthwise_macs": 132765696,
+            "pointwise_macs": 11098128384
+          },
+          {
+            "side": 7,
+            "width": 1024,
+            "depth": 3,
+            "depthwise_macs": 7375872,
+            "pointwise_macs": 1233125376
+          }
+        ],
+        "transition_macs": [
+          102760448,
+          102760448,
+          102760448
+        ],
+        "head_macs": 1024000,
+        "total_convolution_linear_macs": 15354729472
+      }
+    },
+    {
+      "name": "large",
+      "version": 1,
+      "parameters": 197767336,
+      "feature_shapes": [
+        [
+          2,
+          192,
+          56,
+          56
+        ],
+        [
+          2,
+          384,
+          28,
+          28
+        ],
+        [
+          2,
+          768,
+          14,
+          14
+        ],
+        [
+          2,
+          1536,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 28901376,
+        "stages": [
+          {
+            "side": 56,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 88510464,
+            "pointwise_macs": 2774532096
+          },
+          {
+            "side": 28,
+            "width": 384,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 2774532096
+          },
+          {
+            "side": 14,
+            "width": 768,
+            "depth": 27,
+            "depthwise_macs": 199148544,
+            "pointwise_macs": 24970788864
+          },
+          {
+            "side": 7,
+            "width": 1536,
+            "depth": 3,
+            "depthwise_macs": 11063808,
+            "pointwise_macs": 2774532096
+          }
+        ],
+        "transition_macs": [
+          231211008,
+          231211008,
+          231211008
+        ],
+        "head_macs": 1536000,
+        "total_convolution_linear_macs": 34361433600
+      }
+    },
+    {
+      "name": "large",
+      "version": 2,
+      "parameters": 197956840,
+      "feature_shapes": [
+        [
+          2,
+          192,
+          56,
+          56
+        ],
+        [
+          2,
+          384,
+          28,
+          28
+        ],
+        [
+          2,
+          768,
+          14,
+          14
+        ],
+        [
+          2,
+          1536,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 28901376,
+        "stages": [
+          {
+            "side": 56,
+            "width": 192,
+            "depth": 3,
+            "depthwise_macs": 88510464,
+            "pointwise_macs": 2774532096
+          },
+          {
+            "side": 28,
+            "width": 384,
+            "depth": 3,
+            "depthwise_macs": 44255232,
+            "pointwise_macs": 2774532096
+          },
+          {
+            "side": 14,
+            "width": 768,
+            "depth": 27,
+            "depthwise_macs": 199148544,
+            "pointwise_macs": 24970788864
+          },
+          {
+            "side": 7,
+            "width": 1536,
+            "depth": 3,
+            "depthwise_macs": 11063808,
+            "pointwise_macs": 2774532096
+          }
+        ],
+        "transition_macs": [
+          231211008,
+          231211008,
+          231211008
+        ],
+        "head_macs": 1536000,
+        "total_convolution_linear_macs": 34361433600
+      }
+    },
+    {
+      "name": "xlarge",
+      "version": 1,
+      "parameters": 350196968,
+      "feature_shapes": [
+        [
+          2,
+          256,
+          56,
+          56
+        ],
+        [
+          2,
+          512,
+          28,
+          28
+        ],
+        [
+          2,
+          1024,
+          14,
+          14
+        ],
+        [
+          2,
+          2048,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 38535168,
+        "stages": [
+          {
+            "side": 56,
+            "width": 256,
+            "depth": 3,
+            "depthwise_macs": 118013952,
+            "pointwise_macs": 4932501504
+          },
+          {
+            "side": 28,
+            "width": 512,
+            "depth": 3,
+            "depthwise_macs": 59006976,
+            "pointwise_macs": 4932501504
+          },
+          {
+            "side": 14,
+            "width": 1024,
+            "depth": 27,
+            "depthwise_macs": 265531392,
+            "pointwise_macs": 44392513536
+          },
+          {
+            "side": 7,
+            "width": 2048,
+            "depth": 3,
+            "depthwise_macs": 14751744,
+            "pointwise_macs": 4932501504
+          }
+        ],
+        "transition_macs": [
+          411041792,
+          411041792,
+          411041792
+        ],
+        "head_macs": 2048000,
+        "total_convolution_linear_macs": 60921030656
+      }
+    },
+    {
+      "name": "xlarge",
+      "version": 2,
+      "parameters": 350449640,
+      "feature_shapes": [
+        [
+          2,
+          256,
+          56,
+          56
+        ],
+        [
+          2,
+          512,
+          28,
+          28
+        ],
+        [
+          2,
+          1024,
+          14,
+          14
+        ],
+        [
+          2,
+          2048,
+          7,
+          7
+        ]
+      ],
+      "output_shape": [
+        2,
+        1000
+      ],
+      "costs": {
+        "stem_macs": 38535168,
+        "stages": [
+          {
+            "side": 56,
+            "width": 256,
+            "depth": 3,
+            "depthwise_macs": 118013952,
+            "pointwise_macs": 4932501504
+          },
+          {
+            "side": 28,
+            "width": 512,
+            "depth": 3,
+            "depthwise_macs": 59006976,
+            "pointwise_macs": 4932501504
+          },
+          {
+            "side": 14,
+            "width": 1024,
+            "depth": 27,
+            "depthwise_macs": 265531392,
+            "pointwise_macs": 44392513536
+          },
+          {
+            "side": 7,
+            "width": 2048,
+            "depth": 3,
+            "depthwise_macs": 14751744,
+            "pointwise_macs": 4932501504
+          }
+        ],
+        "transition_macs": [
+          411041792,
+          411041792,
+          411041792
+        ],
+        "head_macs": 2048000,
+        "total_convolution_linear_macs": 60921030656
+      }
+    }
+  ],
+  "block_v1": {
+    "parameters": 79296,
+    "input_gradient_finite": true
+  },
+  "block_v2": {
+    "parameters": 79968,
+    "input_gradient_finite": true
+  },
+  "expected_retained_tiny_branches": 17.100000381469727
+}

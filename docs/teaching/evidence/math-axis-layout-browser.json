@@ -1,0 +1,1116 @@
+{
+  "startedAt": "2026-09-14T08:48:55.673Z",
+  "complete": true,
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "dd7e234a9494c08c463ebf4d0f469cabcaaea4af9dc408c1ac9d0d693fe0ce04",
+    "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
+    "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "ab3e71d829765e6e23336a49db24036e0c5a595bcb240e2ab9308412f7156d3e",
+    "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "cc7aa40b7dc3a84d7301cbb34d0eea96fc49ca5e8a611b16d3f05f229c88cfe9",
+    "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "ed0a9f5233528f6bd0631a43e3782f1129a5dcb2cef9ef2bebb6f03bc3a62480",
+    "src/learn/components/lesson-labs/dynamical-systems-labs.css": "719e3bf2f52acfdffaee002f60d95e5991d20f045b1fe0c25005f728818b7d87",
+    "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "064ece5b69b0bc99e7200e867e0e928279952ee9aed40d66ca9ae53b4d421d68",
+    "src/learn/components/lesson-labs/ito-sde-labs.css": "65cc1491cfe22001e557d82e35f2dd0d2cb185f6c56278536e46c8269dc5568c",
+    "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "0baa16ee4ca18578087e7b2ceb907aa3855e60963acef23bbd189be0492322be",
+    "src/learn/components/lesson-labs/algebra-functions-labs.css": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+    "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "94c0356ce0ec15d78f6ee34e8ebf3a2c1085ecb3afe719ece4127faf72ef6193",
+    "src/learn/components/lesson-labs/random-matrix-labs.css": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
+    "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "a6841d7de1f3c506884ae993a63d42acdd4063a36ae594d8eab7675ffb5ae1cf",
+    "src/learn/components/lesson-labs/functional-analysis-labs.css": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+    "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e2366619a8a2c68bc99e407b5e169a24d72b81f415e5340e17f0d9b329842bc3",
+    "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094",
+    "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "09958ab737f32b2d8871bcdd55985a3433bf7bcafc85bd4b1dd68c6ea372b8e7",
+    "src/learn/components/lesson-labs/sampling-measurement-labs.css": "8a8c8e03ebb4cd607cc08505436ea3de42465de8cccf47fa21dfefea93b31510",
+    "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "871b25ec32b5dd8b4a4127dcb6e80a8ef093d125e073fe0361798e022238f0a5",
+    "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00"
+  },
+  "topicCount": 10,
+  "scope": "Final production-source representative layout captures; actual screenshot inspection follows separately. No model or full interaction-suite revalidation claimed.",
+  "records": [
+    {
+      "key": "gradient-variants",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-variants-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Full empirical quadratic objective, current parameter and proposed batch updatefull mean lossparameter θ-44Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent."
+      ],
+      "labelSizes": [
+        {
+          "text": "full mean loss",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "parameter θ",
+          "renderedFontPx": 15.92
+        },
+        {
+          "text": "-4",
+          "renderedFontPx": 12.73
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 12.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "gradient-variants",
+      "topic": "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/gradient-variants-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Full empirical quadratic objective, current parameter and proposed batch updatefull mean lossparameter θ-44Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent."
+      ],
+      "labelSizes": [
+        {
+          "text": "full mean loss",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "parameter θ",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "-4",
+          "renderedFontPx": 12.39
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 12.39
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "Green point: before. Amber point: the proposed batch step. Straight connector shows endpoints, not an optimization path or tangent.",
+        "labelCount": 4,
+        "issues": []
+      }
+    },
+    {
+      "key": "learning-rate-calibration",
+      "topic": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/learning-rate-calibration-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Target 2 · η = .2 in both updatesSame rate, smaller second displacementOn a common parameter axis, the first update moves from 5 to 3.8, a displacement of minus 1.2. The second moves from 3.8 to 3.08, a displacement of minus 0.72. Both use rate 0.2 and curvature 2 toward target 2.53.8first: −1.23.83.08second: −.722345Horizontal axis: parameter θ · common scale for both updatesThe arrows show actual displacements. The gradient shrinks from 6 to 3.6, so multiplying by the same rate .2 gives a shorter second step. Vertical separation only keeps the two updates readable."
+      ],
+      "labelSizes": [
+        {
+          "text": "5",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "3.8",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "first: −1.2",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "3.8",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "3.08",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "second: −.72",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 22.18
+        },
+        {
+          "text": "5",
+          "renderedFontPx": 22.18
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "The arrows show actual displacements. The gradient shrinks from 6 to 3.6, so multiplying by the same rate .2 gives a shorter second step. Vertical separation only keeps the two upd",
+        "labelCount": 10,
+        "issues": []
+      }
+    },
+    {
+      "key": "learning-rate-calibration",
+      "topic": "learning-rate-schedules-cosine-warmup-onecyclelr",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/learning-rate-calibration-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Target 2 · η = .2 in both updatesSame rate, smaller second displacementOn a common parameter axis, the first update moves from 5 to 3.8, a displacement of minus 1.2. The second moves from 3.8 to 3.08, a displacement of minus 0.72. Both use rate 0.2 and curvature 2 toward target 2.53.8first: −1.23.83.08second: −.722345Horizontal axis: parameter θ · common scale for both updatesThe arrows show actual displacements. The gradient shrinks from 6 to 3.6, so multiplying by the same rate .2 gives a shorter second step. Vertical separation only keeps the two updates readable."
+      ],
+      "labelSizes": [
+        {
+          "text": "5",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "3.8",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "first: −1.2",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "3.8",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "3.08",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "second: −.72",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "4",
+          "renderedFontPx": 13.18
+        },
+        {
+          "text": "5",
+          "renderedFontPx": 13.18
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "The arrows show actual displacements. The gradient shrinks from 6 to 3.6, so multiplying by the same rate .2 gives a shorter second step. Vertical separation only keeps the two upd",
+        "labelCount": 10,
+        "issues": []
+      }
+    },
+    {
+      "key": "dynamical-fold-axes",
+      "topic": "dynamical-systems-theory-chaos",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/dynamical-fold-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "-0.6-1.5-0.3-0.75000.30.750.61.5",
+        "Scroll this plot sideways to inspect the full axes.",
+        "Vertical axis: equilibrium state x*",
+        "Horizontal axis: tilt parameter b"
+      ],
+      "labelSizes": [
+        {
+          "text": "-0.6",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "-1.5",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "-0.3",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "-0.75",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "0.3",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "0.75",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "0.6",
+          "renderedFontPx": 23.93
+        },
+        {
+          "text": "1.5",
+          "renderedFontPx": 23.93
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 7,
+        "description": "Tilted cubic equilibrium branches and the two fold thresholds",
+        "labelCount": 10,
+        "issues": []
+      }
+    },
+    {
+      "key": "dynamical-fold-axes",
+      "topic": "dynamical-systems-theory-chaos",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/dynamical-fold-axes-320-after.png",
+      "scrollable": true,
+      "visibleText": [
+        "-0.6-1.5-0.3-0.75000.30.750.61.5",
+        "Scroll this plot sideways to inspect the full axes.",
+        "Vertical axis: equilibrium state x*",
+        "Horizontal axis: tilt parameter b"
+      ],
+      "labelSizes": [
+        {
+          "text": "-0.6",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "-1.5",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "-0.3",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "-0.75",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "0.3",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "0.75",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "0.6",
+          "renderedFontPx": 14.33
+        },
+        {
+          "text": "1.5",
+          "renderedFontPx": 14.33
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 7,
+        "description": "Tilted cubic equilibrium branches and the two fold thresholds",
+        "labelCount": 10,
+        "issues": []
+      },
+      "keyboardScroll": {
+        "scrollLeft": 6,
+        "scrollWidth": 430,
+        "clientWidth": 252
+      }
+    },
+    {
+      "key": "ito-curvature-axes",
+      "topic": "it-calculus-stochastic-differential-equations",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/ito-curvature-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "0.2511.75-0.50.41.32.23.1",
+        "Vertical axis: curve and tangent",
+        "Horizontal axis: state w"
+      ],
+      "labelSizes": [
+        {
+          "text": "0.25",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "1.75",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "-0.5",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "0.4",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "1.3",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "2.2",
+          "renderedFontPx": 31.32
+        },
+        {
+          "text": "3.1",
+          "renderedFontPx": 31.32
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "A quadratic curve differs from its tangent under symmetric perturbations",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "ito-curvature-axes",
+      "topic": "it-calculus-stochastic-differential-equations",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/ito-curvature-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "0.2511.75-0.50.41.32.23.1",
+        "Vertical axis: curve and tangent",
+        "Horizontal axis: state w"
+      ],
+      "labelSizes": [
+        {
+          "text": "0.25",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "1.75",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "-0.5",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "0.4",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "1.3",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "2.2",
+          "renderedFontPx": 14.37
+        },
+        {
+          "text": "3.1",
+          "renderedFontPx": 14.37
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 0,
+        "description": "A quadratic curve differs from its tangent under symmetric perturbations",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "algebra-quadratic-axes",
+      "topic": "algebra-functions-exponentials-logarithms",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/algebra-quadratic-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "output y-10316-61.59input x"
+      ],
+      "labelSizes": [
+        {
+          "text": "output y",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "-10",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "16",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "-6",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "1.5",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "9",
+          "renderedFontPx": 26.27
+        },
+        {
+          "text": "input x",
+          "renderedFontPx": 24.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 2,
+        "description": "Parabola with its vertex and real zero crossings",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "algebra-quadratic-axes",
+      "topic": "algebra-functions-exponentials-logarithms",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/algebra-quadratic-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "output y-10316-61.59input x"
+      ],
+      "labelSizes": [
+        {
+          "text": "output y",
+          "renderedFontPx": 13.25
+        },
+        {
+          "text": "-10",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "3",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "16",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "-6",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "1.5",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "9",
+          "renderedFontPx": 14.03
+        },
+        {
+          "text": "input x",
+          "renderedFontPx": 13.25
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 2,
+        "description": "Parabola with its vertex and real zero crossings",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-matrix-mass-axes",
+      "topic": "random-matrix-theory",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/random-matrix-mass-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Mass per binEigenvalue00.2202.42"
+      ],
+      "labelSizes": [
+        {
+          "text": "Mass per bin",
+          "renderedFontPx": 19.36
+        },
+        {
+          "text": "Eigenvalue",
+          "renderedFontPx": 19.36
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.36
+        },
+        {
+          "text": "0.22",
+          "renderedFontPx": 19.36
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.36
+        },
+        {
+          "text": "2.42",
+          "renderedFontPx": 19.36
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 6,
+        "description": "Observed eigenvalue mass and integrated Marchenko–Pastur mass in matching bins",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "random-matrix-mass-axes",
+      "topic": "random-matrix-theory",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/random-matrix-mass-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Mass per binEigenvalue00.2202.42"
+      ],
+      "labelSizes": [
+        {
+          "text": "Mass per bin",
+          "renderedFontPx": 14.86
+        },
+        {
+          "text": "Eigenvalue",
+          "renderedFontPx": 14.86
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 14.86
+        },
+        {
+          "text": "0.22",
+          "renderedFontPx": 14.86
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 14.86
+        },
+        {
+          "text": "2.42",
+          "renderedFontPx": 14.86
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 6,
+        "description": "Observed eigenvalue mass and integrated Marchenko–Pastur mass in matching bins",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "functional-ridge-axes",
+      "topic": "functional-analysis-rkhs",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/functional-ridge-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Fitted predictions and separately identified targets; vertical scale expands when needed-0.50.6251.75-0.250.51.25Fitted predictions and separately identified targets; vertical scale expands when needed. Horizontal axis: input coordinate; vertical axis: the named function value. ━ fitted function"
+      ],
+      "labelSizes": [
+        {
+          "text": "-0.5",
+          "renderedFontPx": 26.62
+        },
+        {
+          "text": "0.625",
+          "renderedFontPx": 26.62
+        },
+        {
+          "text": "1.75",
+          "renderedFontPx": 26.62
+        },
+        {
+          "text": "-0.25",
+          "renderedFontPx": 26.62
+        },
+        {
+          "text": "0.5",
+          "renderedFontPx": 26.62
+        },
+        {
+          "text": "1.25",
+          "renderedFontPx": 26.62
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 6,
+        "description": "Fitted predictions and separately identified targets; vertical scale expands when needed",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "functional-ridge-axes",
+      "topic": "functional-analysis-rkhs",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/functional-ridge-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Fitted predictions and separately identified targets; vertical scale expands when needed-0.50.6251.75-0.250.51.25Fitted predictions and separately identified targets; vertical scale expands when needed. Horizontal axis: input coordinate; vertical axis: the named function value. ━ fitted function"
+      ],
+      "labelSizes": [
+        {
+          "text": "-0.5",
+          "renderedFontPx": 12.24
+        },
+        {
+          "text": "0.625",
+          "renderedFontPx": 12.24
+        },
+        {
+          "text": "1.75",
+          "renderedFontPx": 12.24
+        },
+        {
+          "text": "-0.25",
+          "renderedFontPx": 12.24
+        },
+        {
+          "text": "0.5",
+          "renderedFontPx": 12.24
+        },
+        {
+          "text": "1.25",
+          "renderedFontPx": 12.24
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 6,
+        "description": "Fitted predictions and separately identified targets; vertical scale expands when needed",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "real-analysis-derivative-axes",
+      "topic": "real-analysis-sequences-modes-of-convergence",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/real-analysis-derivative-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Derivative-101-3.14203.142Input x (radians)"
+      ],
+      "labelSizes": [
+        {
+          "text": "Derivative",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "-1",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "-3.142",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "3.142",
+          "renderedFontPx": 15.18
+        },
+        {
+          "text": "Input x (radians)",
+          "renderedFontPx": 15.18
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 8,
+        "description": "Derivative values on the same fixed numerical scale",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "real-analysis-derivative-axes",
+      "topic": "real-analysis-sequences-modes-of-convergence",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/real-analysis-derivative-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Derivative-101-3.14203.142Input x (radians)"
+      ],
+      "labelSizes": [
+        {
+          "text": "Derivative",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "-1",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "-3.142",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "3.142",
+          "renderedFontPx": 10.76
+        },
+        {
+          "text": "Input x (radians)",
+          "renderedFontPx": 10.76
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 8,
+        "description": "Derivative values on the same fixed numerical scale",
+        "labelCount": 8,
+        "issues": []
+      }
+    },
+    {
+      "key": "sampling-distribution-axes",
+      "topic": "sampling-measurement-experimental-design",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/sampling-distribution-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Probability0.1400918Horizontal axis: estimateDashed: targetBlue dot: expectationGold: selected estimate"
+      ],
+      "labelSizes": [
+        {
+          "text": "Probability",
+          "renderedFontPx": 21.71
+        },
+        {
+          "text": "0.14",
+          "renderedFontPx": 19.29
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 19.29
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 21.71
+        },
+        {
+          "text": "9",
+          "renderedFontPx": 21.71
+        },
+        {
+          "text": "18",
+          "renderedFontPx": 21.71
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 1,
+        "description": "Exact distribution of the sample mean over every allowed equally probable subset",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "sampling-distribution-axes",
+      "topic": "sampling-measurement-experimental-design",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/sampling-distribution-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "Probability0.1400918Horizontal axis: estimateDashed: targetBlue dot: expectationGold: selected estimate"
+      ],
+      "labelSizes": [
+        {
+          "text": "Probability",
+          "renderedFontPx": 15.13
+        },
+        {
+          "text": "0.14",
+          "renderedFontPx": 12.86
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 12.86
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 15.13
+        },
+        {
+          "text": "9",
+          "renderedFontPx": 15.13
+        },
+        {
+          "text": "18",
+          "renderedFontPx": 15.13
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 1,
+        "description": "Exact distribution of the sample mean over every allowed equally probable subset",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-cancellation-axes",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-cancellation-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "1e01e-181e-35160",
+        "Horizontal axis: Exponent k"
+      ],
+      "labelSizes": [
+        {
+          "text": "1e0",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1e-18",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1e-35",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "60",
+          "renderedFontPx": 24.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 11,
+        "description": "Measured relative error bounds across dyadic exponents",
+        "labelCount": 5,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-cancellation-axes",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-cancellation-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "1e01e-181e-35160",
+        "Horizontal axis: Exponent k"
+      ],
+      "labelSizes": [
+        {
+          "text": "1e0",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1e-18",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1e-35",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "60",
+          "renderedFontPx": 13.77
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 11,
+        "description": "Measured relative error bounds across dyadic exponents",
+        "labelCount": 5,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-measurement-axes",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 1366,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-measurement-axes-1366-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "001122",
+        "Vertical axis: amount x₂",
+        "Horizontal axis: amount x₁"
+      ],
+      "labelSizes": [
+        {
+          "text": "0",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 24.73
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 24.73
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 12,
+        "description": "Measurement lines and their exact intersection",
+        "labelCount": 6,
+        "issues": []
+      }
+    },
+    {
+      "key": "conditioning-measurement-axes",
+      "topic": "conditioning-stability-numerical-analysis",
+      "width": 320,
+      "screenshot": "docs/teaching/evidence/screenshots/conditioning-measurement-axes-320-after.png",
+      "scrollable": false,
+      "visibleText": [
+        "001122",
+        "Vertical axis: amount x₂",
+        "Horizontal axis: amount x₁"
+      ],
+      "labelSizes": [
+        {
+          "text": "0",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "0",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "1",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.77
+        },
+        {
+          "text": "2",
+          "renderedFontPx": 13.77
+        }
+      ],
+      "geometryInspection": {
+        "svgIndex": 12,
+        "description": "Measurement lines and their exact intersection",
+        "labelCount": 6,
+        "issues": []
+      }
+    }
+  ],
+  "completedAt": "2026-09-14T08:49:25.811Z",
+  "visualInspection": {
+    "inspectedAt": "2026-09-14T09:08:47.302Z",
+    "result": "The original8 representative figure families were visually inspected atdesktop/320 after their layout repair. Source-unchanged geometry was reused across the final capture pass. The enlarged phone gradient/calibration and new sampling/conditioning captures were additionally viewed. The later gradient prose overflow and conditioning foreground collision were then closed by the final targeted addendum.",
+    "inspectedNewFinalBuildScreenshots": [
+      "docs/teaching/evidence/screenshots/gradient-variants-1366-after.png",
+      "docs/teaching/evidence/screenshots/gradient-variants-320-after.png",
+      "docs/teaching/evidence/screenshots/learning-rate-calibration-1366-after.png",
+      "docs/teaching/evidence/screenshots/learning-rate-calibration-320-after.png",
+      "docs/teaching/evidence/screenshots/sampling-distribution-axes-1366-after.png",
+      "docs/teaching/evidence/screenshots/sampling-distribution-axes-320-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-cancellation-axes-1366-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-cancellation-axes-320-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-measurement-axes-1366-after.png",
+      "docs/teaching/evidence/screenshots/conditioning-measurement-axes-320-after.png"
+    ],
+    "limitations": "The original sourceHashes remain the hashes at this capture pass. Gradient and conditioning sources changed afterward; use the final addendum for their later reviewed revisions."
+  },
+  "finalClosure": {
+    "closedAt": "2026-09-14T09:08:47.302Z",
+    "addendum": "docs/teaching/evidence/math-axis-layout-final-addendum.json",
+    "topicCount": 12,
+    "captureCases": 40,
+    "currentSourceHashes": {
+      "src/learn/components/lesson-labs/GradientVariantsLabs.jsx": "8be3726498fcd8460871699eccb84a564127a2b5532bfca3d5a67217c3310ecc",
+      "src/learn/components/lesson-labs/gradient-variants-labs.css": "f4fb39b96a2d6ddf82d1e6ed41177ba686b860f48f1500e39a6894700959a38a",
+      "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx": "ab3e71d829765e6e23336a49db24036e0c5a595bcb240e2ab9308412f7156d3e",
+      "src/learn/components/lesson-labs/learning-rate-schedule-labs.css": "cc7aa40b7dc3a84d7301cbb34d0eea96fc49ca5e8a611b16d3f05f229c88cfe9",
+      "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx": "ed0a9f5233528f6bd0631a43e3782f1129a5dcb2cef9ef2bebb6f03bc3a62480",
+      "src/learn/components/lesson-labs/dynamical-systems-labs.css": "719e3bf2f52acfdffaee002f60d95e5991d20f045b1fe0c25005f728818b7d87",
+      "src/learn/components/lesson-labs/ItoSdeLabs.jsx": "064ece5b69b0bc99e7200e867e0e928279952ee9aed40d66ca9ae53b4d421d68",
+      "src/learn/components/lesson-labs/ito-sde-labs.css": "65cc1491cfe22001e557d82e35f2dd0d2cb185f6c56278536e46c8269dc5568c",
+      "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx": "0baa16ee4ca18578087e7b2ceb907aa3855e60963acef23bbd189be0492322be",
+      "src/learn/components/lesson-labs/algebra-functions-labs.css": "a12d1e2402f9d4bf0717174faccddc23b9e04f89b09199309a08760e1d24d398",
+      "src/learn/components/lesson-labs/RandomMatrixLabs.jsx": "94c0356ce0ec15d78f6ee34e8ebf3a2c1085ecb3afe719ece4127faf72ef6193",
+      "src/learn/components/lesson-labs/random-matrix-labs.css": "53871c332a5c3e4994238b2ff5d4b57d6e98ee41d9e3f807d1ad15733b989489",
+      "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx": "a6841d7de1f3c506884ae993a63d42acdd4063a36ae594d8eab7675ffb5ae1cf",
+      "src/learn/components/lesson-labs/functional-analysis-labs.css": "db898850eaf1b4d0f1e6e8f4d961e9d687292b30ad234b87208fb2686bfa7938",
+      "src/learn/components/lesson-labs/RealAnalysisLabs.jsx": "e2366619a8a2c68bc99e407b5e169a24d72b81f415e5340e17f0d9b329842bc3",
+      "src/learn/components/lesson-labs/real-analysis-labs.css": "b465c398eb4aacaa32fee185935ec3644fbf0350857b6b3e219f5057bf21d094",
+      "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx": "09958ab737f32b2d8871bcdd55985a3433bf7bcafc85bd4b1dd68c6ea372b8e7",
+      "src/learn/components/lesson-labs/sampling-measurement-labs.css": "8a8c8e03ebb4cd607cc08505436ea3de42465de8cccf47fa21dfefea93b31510",
+      "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx": "d23a5ffbbc2f82984a7f409e5d6a2f8ecdbdb617561bd59116bed53cf4765dc8",
+      "src/learn/components/lesson-labs/conditioning-stability-labs.css": "41cf2b148fc60d9fd0406a58de13b91429eef4ac9bb8cbae2f313fbccebd2f00",
+      "src/learn/components/lesson-labs/RandomVariableLabs.jsx": "56bc639cfc9631fe8ee095906db4f9563b8a308f3f5896389cd9752c2be57de0",
+      "src/learn/components/lesson-labs/random-variable-labs.css": "a23e995cb0c6fc577207f9661ce6e06612b005cf6e673fcc8c4d795a8a7a0e14",
+      "src/learn/components/lesson-labs/SingleVariableCalculusLabs.jsx": "35a10baf290aeddba3917050462cf7dec2ce9eb189f4a1566c96f07da01b4b0a",
+      "src/learn/components/lesson-labs/single-variable-calculus-labs.css": "f8e145eab54a14e3b4e69e6c25d62a76f718a6ad0099852b49e5279c98689033"
+    },
+    "finalBuildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+    "status": "Representative rendered layout review complete; global integration and ledger remain owned by the integration agent."
+  }
+}

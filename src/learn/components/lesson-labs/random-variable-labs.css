@@ -47,3 +47,5 @@
   .rv-outcomes { grid-template-columns:repeat(2,minmax(0,1fr)); }.rv-lab svg { font-size:18px; }
   .rv-lab :is(th,td) { padding:.55rem .25rem; }.rv-joint :is(th,td) { padding:.3rem .1rem; }
 }
+
+.rv-lab .rv-axis-label { margin: .5rem 0; color: #e4e1dc; font-size: .9rem; line-height: 1.6; text-align: center; overflow-wrap: anywhere; }

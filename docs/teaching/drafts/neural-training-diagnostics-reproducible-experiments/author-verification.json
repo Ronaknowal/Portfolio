@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "date": "2026-09-13",
+  "command": "scratch/lesson-tools/Scripts/python.exe -B docs/teaching/drafts/neural-training-diagnostics-reproducible-experiments/verify_packet.py",
+  "checks": [
+    "CSV matches bundled source exactly; all178 rows partitioned once; target/row-ID excluded; tiny subset and class counts correct",
+    "All8 measured runs retained; final CE/accuracy independently recomputed from probabilities; fixed-update/same-initial/null/omitted-step contrasts and reported repetition statistics checked; no test evaluation",
+    "Independent NumPy formulas agree with actual Torch four-mode BatchNorm probes on default/fresh/matching-statistic fixtures; Fraction scalar and paired-practice results retained",
+    "Actual replay matches all saved state exactly; all4 omission outcomes and first-observable-divergence statements match retained traces",
+    "Exact complete finite-difference program extracted from manuscript executed and matched displayed output; all packet Python sources parse",
+    "All local Markdown links resolve within the available packet and current prepared-topic/scope files"
+  ],
+  "displayed_program_output": "loss=0.312500, gradient=0.750000\nh=0.01, finite_difference=0.750000000\nh=0.0001, finite_difference=0.750000000\nh=1e-06, finite_difference=0.750000000\n",
+  "class_counts": {
+    "train": [
+      24,
+      24,
+      24
+    ],
+    "validation": [
+      12,
+      12,
+      12
+    ],
+    "test": [
+      23,
+      35,
+      12
+    ],
+    "tiny": [
+      4,
+      4,
+      4
+    ]
+  },
+  "source_sha256": {
+    "calculation-results.json": "6ad1f028f621e1d280b4c7b8a5a4b25849fce1fd108e88280452ea90571c9dfe",
+    "calculations.py": "f7f57cbae6af46e5a3dac8ff1a06afd001d881ea2fb8c6aab2766ea95cb23277",
+    "checkpoint-results.json": "737d99c93c3a8e093054f0d8d09a6ba6fd0c831a5532f4c1940e72a2f18a1d76",
+    "checkpoint_replay.py": "f8c240f7e20e55845ff5ace0d445a193a8e80b96e4d1c6ae20d9345b014fb59f",
+    "data-provenance.md": "287e3306f83dcc950ac737062f993adc6dd98f078bbd1567e47a23980c3fcb63",
+    "experiment-protocol.md": "e9d40df4e70499f3980936dd3ee367a4c53c2bf233843e068f563b8824115032",
+    "lesson.md": "900368442e57eab5e96112f41853413b8006954d23f873beaa52b04fc73e0123",
+    "prediction-retention-check.json": "b7cce268b375a827bcdf10d71a1fe36d3a9f80ada50dcc38398a55572346115d",
+    "split.json": "8204aed7bd9edff16f90355f6640629fc46e0e862820dfc87ba1dce7d3491e73",
+    "verify_packet.py": "3572f7e69cdfa2cdd6922727e9ecb10f99b38129eef915862e15f4d784bda0b2",
+    "visual-specifications.md": "5dd08cd8f4c49506ea38a4ddaa3d215a33e164693fe3b10a61d8e61b560f9f52",
+    "wine-results.json": "7c8f520c4357379fc79e6d863890eecab4b131a543744357a24c965ce9af3774",
+    "wine.csv": "68386101f5ee41ef2a03d50bb8fe6dc5d4ac86aac31b6e987616be00a8c9c728",
+    "wine_diagnostics.py": "66d2476e085229b9a69e7cd7341d7bf2963f811efc016f905bbd63e05ef3635d"
+  },
+  "not_performed": [
+    "website implementation",
+    "formal independent review",
+    "browser/figure/accessibility review",
+    "application build",
+    "publication",
+    "GPU/distributed reproduction"
+  ]
+}

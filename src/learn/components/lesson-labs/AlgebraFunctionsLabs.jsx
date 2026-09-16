@@ -33,7 +33,7 @@ function Plot({
     <defs><clipPath id={clip}><rect x="44" y="45" width="252" height="174" /></clipPath></defs>
     <text x="44" y="24" className="axis-title">{yLabel}</text>
     {ticks.map(t => <g key={t}><line x1="44" x2="296" y1={y(t)} y2={y(t)} className="grid" /><text x="37" y={y(t) + 5} textAnchor="end">{t >= 1000 ? `${t / 1000}k` : fmt(t)}</text></g>)}
-    {[xRange[0], (xRange[0] + xRange[1]) / 2, xRange[1]].map(t => <g key={t}><line x1={x(t)} x2={x(t)} y1="48" y2="220" className="grid" /><text x={x(t)} y="240" textAnchor="middle">{fmt(t)}</text></g>)}
+    {[xRange[0], (xRange[0] + xRange[1]) / 2, xRange[1]].map((t, index) => <g key={t}><line x1={x(t)} x2={x(t)} y1="48" y2="220" className="grid" /><text x={x(t)} y="243" textAnchor={index === 0 ? 'start' : index === 2 ? 'end' : 'middle'}>{fmt(t)}</text></g>)}
     {xRange[0] <= 0 && xRange[1] >= 0 && <line x1={x(0)} x2={x(0)} y1="48" y2="216" className="axis" />}
     {!logY && yRange[0] <= 0 && yRange[1] >= 0 && <line x1="44" x2="296" y1={y(0)} y2={y(0)} className="axis" />}
     <g clipPath={`url(#${clip})`}>{curves.map((curve, i) => <polyline key={i} fill="none" className={`curve ${curve.style || ""}`} points={curve.values.filter(pair => pair.every(Number.isFinite) && (!logY || pair[1] > 0)).map(pair => `${x(pair[0])},${y(pair[1])}`).join(" ")} />)}

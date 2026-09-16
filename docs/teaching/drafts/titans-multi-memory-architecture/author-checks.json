@@ -1,0 +1,22 @@
+{
+  "phase": "author content checks",
+  "checks": [
+    "Manual orthogonal/correlated write and stored trace agree",
+    "Zero key, momentum-only change, full-decay-not-reset, no-update null",
+    "Sequential versus anchor mismatch; size-one and zero-rate equality",
+    "Outer derivative by analytic scalar and nonlinear finite differences",
+    "Gated topology prefix contrast/null, causality, continuation, isolation, reset, disabled writes",
+    "All real seeds: source/splits, aggregates, replay, zero-update, checkpoint and future-target perturbation",
+    "Score-before-write residual4 versus invalid score-after-write residual0",
+    "Changed practice arithmetic, exact momentum reversal and fixed-Jacobian counterexample"
+  ],
+  "browser_and_independent_review": "deferred to implementation",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 1
+  }
+}

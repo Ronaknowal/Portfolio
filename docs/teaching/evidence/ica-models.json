@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-16T15:43:42.901Z",
+  "command": "node scripts/verify-ica-models.mjs",
+  "groups": [
+    "Mixing algebra: one sample, inverse rows, transpose safety and singular refusal",
+    "Symmetric eigen-decomposition: applied-matrix oracle, ordering, diagonal and isotropic branches",
+    "Four-state fixture: exact covariance, whitened diamond, absent joint zero and recovery",
+    "Fixed-point update: exact section-5 trace, independent recomputation, contrasts and zero-update refusal",
+    "Projection kurtosis: independent identity, every family, symmetry, endpoints and refusals",
+    "Rotation investigation: unit covariance at every angle, exact support, contours and grading",
+    "Component contributions: every keep-set, exact nulls, compensated scaling and invalid zero",
+    "Zero covariance with complete dependence, and the correlation diagnostic",
+    "Published recording module: selection rule, frozen signs, envelope bounds and stated limits"
+  ],
+  "assertions": 14978,
+  "independentOracles": [
+    "eigenpairs confirmed by applying the matrix, plus trace and determinant identities",
+    "whitener confirmed by K Sigma K^T = I on every non-degenerate fixture",
+    "fixed-point averages recomputed by an explicit loop over the four whitened points",
+    "projection kurtosis checked against cos^4 t + sin^4 t = 1 - 2 cos^2 t sin^2 t at 361 angles per family",
+    "contribution fixtures and compensated scale nulls taken from the specification, not from production output",
+    "published recording selection re-derived from the twelve signed development correlations"
+  ],
+  "sourceHashes": {
+    "src/learn/data/ica-models.js": "f4d48ae6fc021e1ff3574ebf4ce1893205852094e9519ca86b8aee66aa502774",
+    "src/learn/data/ica-data.js": "897ca68813a4b55b64677032e9a7df97e25d30d8a5acffdfde610ce9e3152e61",
+    "src/learn/data/ica-examples.js": "65262b951808f1d3bd2e12e33669c59766ed78c85e90a05224072d7a263e6064",
+    "scripts/verify-ica-models.mjs": "a5d1b97ff2b5a5bfae17c4c84f84122426f71fa1590266402825c2d846aa5cf3"
+  }
+}

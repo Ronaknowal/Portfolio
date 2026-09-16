@@ -1,0 +1,54 @@
+{
+  "verifiedAt": "2026-09-15T19:36:18.036128+00:00",
+  "stage": "native execution of the displayed programs; browser, independent and integration review are separate",
+  "extraction": "verbatim from the manuscript's python code fences, pinned by SHA-256 of each fence body",
+  "manuscript": "docs/teaching/drafts/imbalanced-learning-smote-cost-sensitive-learning/lesson.md",
+  "manuscriptSha256": "6ea57a4ce4be9a7fa6c7e07cdfb10439b928a3868da0e8bef633fd6be95d4bae",
+  "source": "src/learn/data/imbalance-examples.js",
+  "sourceHash": "59345b538c693efed7b5950cbfadd2a15e38884a91e76f5a18430f1ad331813d",
+  "verifier": "scripts/verify-imbalance-examples.py",
+  "verifierHash": "4c0b62083e86e590a66123257bf00c1f307a5a2904df7058cee5f517d4635b1d",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "imbalanced-learn": "0.14.2"
+  },
+  "programs": {
+    "models": {
+      "file": "imbalance_models.py",
+      "fenceSha256": "770e9d29627f94f717690d626a319b27f23dc60694950e64e134eff3445a2199",
+      "codeHash": "41e88a92f8adf102dc1057c2404a7260eeeab8949917752c82640ca0243bee0a",
+      "stdoutHash": "496b043148f512171b78fc0e1d9bda9ba218a5a1ef5bf436de882f62e621503e",
+      "stdout": "declared midpoint [1. 0.]\nseeded synthetic points [[1.24850761 0.75149239]\n [0.94503819 1.05496181]\n [1.69803751 0.        ]]",
+      "executedAsSeparateProcess": true
+    },
+    "study": {
+      "file": "yeast_imbalance.py",
+      "fenceSha256": "fd0bd8436c15b0bca8d6d15bf06efe4acd70eb0e4a1dd2063a5fd6c9cabdaa90",
+      "codeHash": "21657d0a48224c7cebe9ecb6e8423ce67199087e7f554d0d7a9f531a10b0ee04",
+      "stdoutHash": "7ee9e0e3ca172c0985cafc5c0c6a17109f0fd6f884dd38b5f44ce5ac71156e31",
+      "stdout": "original training rows 600 threshold 0.14500574144149464\nat 0.5: TP FP FN TN cost (0, 1, 7, 192, 85)\nat selected threshold: TP FP FN TN cost (2, 12, 5, 181, 72)\nAP 0.17345928903779548 ROC-AUC 0.7971872686898593 Brier 0.03347530568493179\nbalanced_weight training rows 600 threshold 0.7408725512485014\nat 0.5: TP FP FN TN cost (4, 35, 3, 158, 71)\nat selected threshold: TP FP FN TN cost (4, 15, 3, 178, 51)\nAP 0.27331655272831745 ROC-AUC 0.8216136195410807 Brier 0.1315180645779251\nrandom_over training rows 1158 threshold 0.7061158880883859\nat 0.5: TP FP FN TN cost (4, 34, 3, 159, 70)\nat selected threshold: TP FP FN TN cost (4, 17, 3, 176, 53)\nAP 0.2786786568339966 ROC-AUC 0.8327165062916357 Brier 0.1367434276976334\nrandom_under training rows 42 threshold 0.7725687726079359\nat 0.5: TP FP FN TN cost (5, 41, 2, 152, 65)\nat selected threshold: TP FP FN TN cost (4, 19, 3, 174, 55)\nAP 0.1935498123809812 ROC-AUC 0.8164322723908215 Brier 0.16280604177488775\nsmote training rows 1158 threshold 0.7592716750213055\nat 0.5: TP FP FN TN cost (4, 29, 3, 164, 65)\nat selected threshold: TP FP FN TN cost (4, 13, 3, 180, 49)\nAP 0.27261478220557506 ROC-AUC 0.8193930421909696 Brier 0.12185638072084036",
+      "executedAsSeparateProcess": true
+    },
+    "pipeline": {
+      "file": "yeast_smote_cv.py",
+      "fenceSha256": "675b409c4316b4d798a6d8b31bb85fcc87ba68ec62aa4846e6593b1b8297a7fa",
+      "codeHash": "04a005e8f828fc9982e9fd12f12b2dec932f243ed76bbbd6f790300b22e450b5",
+      "stdoutHash": "76a819ba71e664094b3542c0f64638b30c5b1aa6232226ac62bb4f8b3a768f4c",
+      "stdout": "three fitting-partition fold AP values [0.49462759 0.36721427 0.37700713]\nmean fold AP 0.41294966368063185",
+      "executedAsSeparateProcess": true
+    }
+  },
+  "oracles": 58,
+  "notes": [
+    "The three files were written into a scratch directory beside this lesson's served copy of yeast.data and run as separate processes, because the manuscript tells a learner to save three files that import one another. No network access was used.",
+    "The content phase deliberately left the optional imbalanced-learn program unexecuted; phase two installed imbalanced-learn 0.14.2 and ran it, so the page shows real output.",
+    "The optional program is a separate three-fold development protocol with scikit-learn's C = 1 convention; its fold scores are asserted NOT to coincide with the five-model table."
+  ],
+  "limits": [
+    "One row-level split of one historical collection; the scores are model-development results.",
+    "No reserved protein was predicted or scored by any program here.",
+    "Numerical fitting and RNG stream conventions can differ on other library versions."
+  ]
+}

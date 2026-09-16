@@ -49,8 +49,8 @@ function Distribution({
     <line className="target" x1={x(target)} x2={x(target)} y1="39" y2="175" />
     <circle className="expectation" cx={x(expectation)} cy="177" r="5" />
     {[minimum, (minimum + maximum) / 2, maximum].map(tick => <text key={tick} x={x(tick)} y="200" textAnchor="middle">{f(tick, 2)}</text>)}
-    <text x="177" y="222" textAnchor="middle">Estimate</text>
-  </svg><p className="sampling-legend"><span className="rose-key">Dashed: target</span><span className="blue-key">Blue dot: expectation</span><span className="gold-key">Gold: selected estimate</span></p></div>;
+
+  </svg><p className="sampling-axis-label">Horizontal axis: estimate</p><p className="sampling-legend"><span className="rose-key">Dashed: target</span><span className="blue-key">Blue dot: expectation</span><span className="gold-key">Gold: selected estimate</span></p></div>;
 }
 export function CollectionDesignFigure() {
   return <figure className="sampling-figure collection-map"><div className="collection-stages">

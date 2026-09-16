@@ -1,0 +1,11 @@
+{
+  "url": "https://archive.ics.uci.edu/static/public/267/banknote+authentication.zip",
+  "retrieved": "2026-09-12",
+  "archive_sha256": "1e2acd9a2085fadf3d8145c12d3d22af853320d52294a6590c2eaf75fdc05227",
+  "source_file": "data_banknote_authentication.txt",
+  "source_sha256": "d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9",
+  "rows_original": 1372,
+  "selection": "NumPy default_rng(23).permutation(1372) first480:320pool80development80test; source_row1based",
+  "license": "CC BY4.0",
+  "doi": "10.24432/C55P57"
+}

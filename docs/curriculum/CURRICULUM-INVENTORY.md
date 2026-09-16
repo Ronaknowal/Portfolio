@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1218 unique topics · 28 modules · 228 registered published lessons · 355 topic-specific briefs · 7 guided paths.**
+**1218 unique topics · 28 modules · 228 registered published lessons · 369 topic-specific briefs · 7 guided paths.**
 
-**863 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 383 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**849 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 396 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -13,7 +13,7 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |
 | --- | ---: | ---: | ---: | ---: |
 | Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
-| Classical Machine Learning | 39 | 36 | 17 | 19 |
+| Classical Machine Learning | 39 | 36 | 31 | 32 |
 | Deep Learning Fundamentals & Architectures | 42 | 39 | 2 | 7 |
 | Large Language Models — Architecture, Training & Inference | 61 | 57 | 4 | 6 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
@@ -45,7 +45,7 @@ Counts within modules may include shared topics. The headline counts each stable
 
 ## Delivery phases
 
-**110 current content checkpoints complete · 109 current implementations complete.**
+**176 current content checkpoints complete · 123 current implementations complete.**
 
 [The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.
 
@@ -149,20 +149,20 @@ Counts within modules may include shared topics. The headline counts each stable
 | PCA & Dimensionality Reduction | foundation | published | brief |
 | Clustering Evaluation & Validation (Silhouette, ARI, NMI) | foundation | published | brief |
 | DBSCAN & Density-Based Clustering | intermediate | published | brief |
-| Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF) | intermediate | published | design needed |
-| Gaussian Mixture Models (GMM) & EM Algorithm | intermediate | published | design needed |
-| t-SNE, UMAP & Manifold Learning | intermediate | published | design needed |
-| Independent Component Analysis (ICA) | advanced | published | design needed |
-| Non-Negative Matrix Factorization (NMF) | advanced | published | design needed |
-| Feature Scaling, Encoding & Imputation | foundation | published | design needed |
-| Cross-Validation & Hyperparameter Tuning | foundation | published | design needed |
-| Regularization (L1, L2, Elastic Net, Dropout) | intermediate | published | design needed |
-| Feature Selection & Importance (SHAP, Permutation, Mutual Info) | intermediate | published | design needed |
-| Bias-Variance Tradeoff & Learning Curves | intermediate | published | design needed |
-| Imbalanced Learning (SMOTE, Cost-Sensitive Learning) | intermediate | published | design needed |
-| AutoML & Neural Architecture Search (NAS) | advanced | published | design needed |
-| Hidden Markov Models (HMM) | intermediate | published | design needed |
-| Bayesian Networks & Causal Graphical Models | intermediate | published | design needed |
+| Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF) | intermediate | published | brief |
+| Gaussian Mixture Models (GMM) & EM Algorithm | intermediate | published | brief |
+| t-SNE, UMAP & Manifold Learning | intermediate | published | brief |
+| Independent Component Analysis (ICA) | advanced | published | brief |
+| Non-Negative Matrix Factorization (NMF) | advanced | published | brief |
+| Feature Scaling, Encoding & Imputation | foundation | published | brief |
+| Cross-Validation & Hyperparameter Tuning | foundation | published | brief |
+| Regularization (L1, L2, Elastic Net, Dropout) | intermediate | published | brief |
+| Feature Selection & Importance (SHAP, Permutation, Mutual Info) | intermediate | published | brief |
+| Bias-Variance Tradeoff & Learning Curves | intermediate | published | brief |
+| Imbalanced Learning (SMOTE, Cost-Sensitive Learning) | intermediate | published | brief |
+| AutoML & Neural Architecture Search (NAS) | advanced | published | brief |
+| Hidden Markov Models (HMM) | intermediate | published | brief |
+| Bayesian Networks & Causal Graphical Models | intermediate | published | brief |
 | Conditional Random Fields (CRF) | advanced | published | design needed |
 | Gaussian Processes (GP) | advanced | published | design needed |
 | Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training) | intermediate | published | design needed |

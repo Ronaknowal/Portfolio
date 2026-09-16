@@ -1,0 +1,52 @@
+{
+  "verifiedAt": "2026-09-13T14:02:08.699285+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/anomaly-detection-examples.js",
+  "sourceHash": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2",
+  "verifier": "scripts/verify-anomaly-detection-examples.py",
+  "verifierHash": "2c000b5843b0d0dcdadc94dacc58ec6ec6666f0e196d22589b82c5f7aff089db",
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "isolation": {
+      "file": "isolation_example.py",
+      "codeHash": "e54914afe109f3ff8b4285e10cc3f91e1fb87d0a968fafed62941d73ca46e333",
+      "stdoutHash": "70f0bcdcbcd98e55fc0d08488f1cb4e904b88b13ba4ab4ed69c72a036aa40af0",
+      "stdout": "Fitted sample size: 5\nMost easily isolated position: 12.0\nScores: [0.4996 0.4135 0.3998 0.4613 0.7097]\nDuplicate-only scores: [0.5 0.5]"
+    },
+    "lofModes": {
+      "file": "lof_modes.py",
+      "codeHash": "7c463c8677732e11eb5b769886ddd7d249d6abf24b065ffd3d1a8dc5136fbdd7",
+      "stdoutHash": "88203be687a1dc8e615c688654d88720f753e7f21a327c9c0c8ecbae9251ec1a",
+      "stdout": "Training LOF: [0.875    1.333333 0.875    0.875    1.333333 0.875   ]\nNew-query LOF: [2.625   1.09375]\nWrong training comparison: [0.875 0.875 0.875 0.875 0.875 0.875]"
+    },
+    "lofArithmetic": {
+      "file": "lof_arithmetic.py",
+      "codeHash": "5776776dc7d9243a0473a16e779f2dc4d8c3a393c367af8b5657c7e649df1fb9",
+      "stdoutHash": "0fca90829f9e6cbff4cd243ca183d9926741bc1198878a799b76d359dfed4cf5",
+      "stdout": "Reference radii: [2. 1. 2. 8. 4. 8.]\nReference lrd: [0.666667 0.5      0.666667 0.166667 0.125    0.166667]\nReference LOF: [0.875    1.333333 0.875    0.875    1.333333 0.875   ]\nQuery LOF: [1.458333 2.625    1.09375 ]"
+    },
+    "kernel": {
+      "file": "kernel_boundary.py",
+      "codeHash": "761a6c988ec4bb2e6c72983f04e24e0d19cb75e516a696e266d819a5f0e8bd29",
+      "stdoutHash": "00c1847d172ab1fed6aa64c41cc96f161644c0ae8e4d7abe0a5bcc1513569779",
+      "stdout": "gamma=0.1: midpoint=+0.069677, reference=+0.000000\ngamma=1.0: midpoint=-0.141278, reference=+0.000000"
+    },
+    "temperature": {
+      "file": "temperature_monitor.py",
+      "codeHash": "4f1cb5e2b4df87390dc706207e8e66911976ecf1f4da67be983090710da527ab",
+      "stdoutHash": "29ff5e98fb330b5970baa58b3029df44a992d82ddae48150d616c1802a25907d",
+      "stdout": "fit/cal/test: 885 1152 20634\nBaseline         q=0.95 alerts= 4416 inside=1379 outside=3037 windows=4/4\nBaseline         q=0.99 alerts= 1461 inside=1016 outside= 445 windows=4/4\nIsolation Forest q=0.95 alerts=10530 inside=1722 outside=8808 windows=4/4\nIsolation Forest q=0.99 alerts= 1548 inside= 971 outside= 577 windows=4/4\nOne-Class SVM    q=0.95 alerts= 9719 inside=1347 outside=8372 windows=4/4\nOne-Class SVM    q=0.99 alerts= 9232 inside=1319 outside=7913 windows=4/4\nLOF novelty      q=0.95 alerts= 8771 inside=1275 outside=7496 windows=4/4\nLOF novelty      q=0.99 alerts= 7837 inside=1138 outside=6699 windows=4/4"
+    }
+  },
+  "oracles": 16,
+  "limits": [
+    "The temperature program ran against the served copies of the pinned NAB files; no network access was used.",
+    "Window hits count published annotation windows, not verified faults or onset times.",
+    "Outside-window alerts are unmatched workload, not measured false positives.",
+    "The compact forest is a teaching construction; its scores need not match the library's."
+  ]
+}

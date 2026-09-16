@@ -42,10 +42,10 @@ function CurvePlot({
   const path = fn => coordinates.map((x, i) => {
     return `${i === 0 ? 'M' : 'L'}${sx(x)},${sy(fn(x))}`;
   }).join(" ");
-  return <figure className="functional-plot"><svg viewBox="0 0 320 232" role="img" aria-label={title}>
+  return <figure className="functional-plot"><svg viewBox="-24 0 364 240" role="img" aria-label={title}>
     <title>{title}</title>
     {[ymin, (ymin + ymax) / 2, ymax].map(y => <g key={y}><line className="functional-grid" x1={42} x2={292} y1={sy(y)} y2={sy(y)} /><text x={35} y={sy(y) + 6} textAnchor="end">{fmt(y)}</text></g>)}
-    {[xmin, (xmin + xmax) / 2, xmax].map(x => <g key={x}><line className="functional-grid" x1={sx(x)} x2={sx(x)} y1={28} y2={190} /><text x={sx(x)} y={215} textAnchor="middle">{fmt(x)}</text></g>)}
+    {[xmin, (xmin + xmax) / 2, xmax].map((x, index) => <g key={x}><line className="functional-grid" x1={sx(x)} x2={sx(x)} y1={28} y2={190} /><text x={sx(x)} y={220} textAnchor={index === 0 ? 'start' : index === 2 ? 'end' : 'middle'}>{fmt(x)}</text></g>)}
     {ymin <= 0 && ymax >= 0 && <line className="functional-zero" x1={42} x2={292} y1={sy(0)} y2={sy(0)} />}
     {fill && <path d={`${path(fill)} L${sx(xmax)},${sy(0)} L${sx(xmin)},${sy(0)} Z`} className="functional-fill" />}
     {curves.map((curve, i) => <path key={curve.label} d={path(curve.fn)} className={`functional-curve functional-tone-${i}`} style={{

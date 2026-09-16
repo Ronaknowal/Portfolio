@@ -1,0 +1,10 @@
+Wine
+Aeberhard, S. and Forina, M. (1992). UCI Machine Learning Repository.
+https://doi.org/10.24432/C5PC7J  .  https://archive.ics.uci.edu/static/public/109/wine.zip
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+wine.data is the unchanged archive member, 10782 bytes, SHA-256 6be6b1203f3d51df0b553a70e57b8a723cd405683958204f96d23d7cd6aea659.
+Comma separated, 178 rows and 14 columns: the cultivar class 1/2/3 followed by thirteen
+numeric measurements (alcohol, malic acid, ash, alkalinity of ash, magnesium, total phenols,
+flavanoids, nonflavanoid phenols, proanthocyanins, color intensity, hue, OD280/OD315, proline).
+The provider's names file does not establish physical units for all fields, so the lesson
+keeps raw source scales. The split, models and attributions in the lesson are its own work.

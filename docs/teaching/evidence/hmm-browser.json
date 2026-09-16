@@ -1,0 +1,506 @@
+{
+  "startedAt": "2026-09-16T17:46:42.439Z",
+  "completedAt": "2026-09-16T17:47:35.103Z",
+  "topicId": "hidden-markov-models-hmm",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "6db5a9791a42ecafe51b5106eebdd0ec40b5e7736a3126de1b4d24d55d82bcc0",
+  "sourceHashes": {
+    "src/learn/data/topics/hidden-markov-models-hmm.jsx": "f93d52d857cb90fe9fe40943f2bd2bdb14b2f08e97816c37da8ecc923847324b",
+    "src/learn/data/hmm-models.js": "5d2d8fe6c5be6ded73a7ff80146895db8e5e11a9a67e24a9b8a8c923e74a9624",
+    "src/learn/data/hmm-data.js": "8af3a3bcd2cfcdc280102ded1fc2dc3d24c3da60cf7079e0e65bf49dae3b837b",
+    "src/learn/data/hmm-examples.js": "4b8be65ed0ba6380b3f1e4ec8a0c4251ebade58d657239621d11a3a993273c44",
+    "src/learn/components/lesson-labs/HmmShared.jsx": "4a8131962f8b0d45e0b007ac98d525bf45c5a107cfdc592af16cf2576d13469b",
+    "src/learn/components/lesson-labs/HmmLabs.jsx": "af6f6b9aee00a0a2df02d0ea393af1df0db37ac82a9a26bde9062951348601fb",
+    "src/learn/components/lesson-labs/HmmFigures.jsx": "fae283d7e010e167a54ad7c2787bf74b5451da601d46071ed501b35ca09f5565",
+    "src/learn/components/lesson-labs/hmm-labs.css": "086d0ee02371f5e62241daae2b899b72c6c2a5941397a3ebccf86c8c4cfa0ddf",
+    "src/learn/data/curriculum/blueprints/hidden-markov-models-hmm.js": "405c2ae4424e47b94fca1ee404535aef4b4c142297954d8116f5e390f479e839",
+    "public/learn-assets/hmm/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "public/learn-assets/hmm/hmm-experiments.py": "25e7e4016c5420b7aae33a21e869275564d6951bc22865fd173f566c1d7b2f77",
+    "public/learn-assets/hmm/hmmlearn-examples.py": "991ccca13385eb983d1364fb736bc4a5ac2640a05ef375bab5dae257fb8f033e",
+    "public/learn-assets/hmm/ATTRIBUTION.txt": "6ad4ef6e4197b5a350f7669fcd68944501f5ad78eef5d43f9be83ecb36f1e2ba"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/hmm/ewt-sequences.json",
+    "sha256": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "bytes": 89597,
+    "reservedScored": false
+  },
+  "nativeEnvironment": {
+    "python": "3.12.14",
+    "hmmlearn": "0.3.3",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "recordedTokenCounts": [
+    {
+      "key": "lexical-0.1",
+      "correct": 266
+    },
+    {
+      "key": "hmm-0.1",
+      "correct": 268
+    },
+    {
+      "key": "lexical-1",
+      "correct": 266
+    },
+    {
+      "key": "hmm-1",
+      "correct": 270
+    }
+  ],
+  "tieBands": [
+    {
+      "smoothing": 0.1,
+      "first": 267,
+      "last": 270,
+      "stored": 268
+    },
+    {
+      "smoothing": 1,
+      "first": 269,
+      "last": 272,
+      "stored": 270
+    }
+  ],
+  "typeReadings": [
+    {
+      "width": 1366,
+      "labels": 209,
+      "smallestRenderedPx": 10.32,
+      "largestRenderedPx": 14.82,
+      "distinctScales": 3
+    },
+    {
+      "width": 390,
+      "labels": 209,
+      "smallestRenderedPx": 10,
+      "largestRenderedPx": 12.35,
+      "distinctScales": 3
+    },
+    {
+      "width": 320,
+      "labels": 209,
+      "smallestRenderedPx": 9.81,
+      "largestRenderedPx": 12.35,
+      "distinctScales": 3
+    }
+  ],
+  "records": [
+    {
+      "case": "Complete visible code for four verbatim excerpts and the optional program with its real output and named environment, every route anchor, nine figures, six investigations, ten practice tasks, the four recorded token counts and the tie band, the served unchanged extract and both programs with their hashes and attribution, current metadata and module sequence"
+    },
+    {
+      "case": "Path investigation: nothing computed before the prediction, the eight named factors and all sixteen stories after it, and the best path reported at its exact joint mass"
+    },
+    {
+      "case": "Evidence investigation: cell values withheld until commitment, separate filtering and smoothing verdicts, an unchanged verdict showing two identical twelve-place values, a construction task graded from inference that the original report fails and the corrected one solves, and an edited emission row driving the trellis into its zero-mass state, where every edge still sets a width and none carrying nothing is painted wider than one carrying something"
+    },
+    {
+      "case": "Legal-path investigation: path scores withheld until commitment, forbidden edges drawn in their own vocabulary, a pointwise route reported at exactly zero, the changed prior under which both decoders agree, and a construction that refuses the forbidden selection and accepts B to A"
+    },
+    {
+      "case": "All 17 tables visible with investigations committed show every column at 1366px"
+    },
+    {
+      "case": "Boundary investigation: three event totals graded separately, the fractional flow and one-step update revealed only after, and a construction that rejects a one-and-three split which reaches exactly the same three totals"
+    },
+    {
+      "case": "Dwell-time investigation: the mean and the hazard withheld until the prediction is recorded while the bars stay visible, the constant hazard confirmed, and an absorbing state reported as having no finite mean rather than a very large one"
+    },
+    {
+      "case": "Tagging investigation: no chips or labels before the prediction, the reference concealed until revealed, the aggregate locked until a repair and a break are both named against the recorded outcomes, and a tied sentence declaring its exact tie"
+    },
+    {
+      "case": "Sequential audit: four numeric tolerance boundaries, honest category history, exact probability-row round trips, one-report construction rejection, seven/eight transition responses, zero-survival conditional hazard, three recorded-tie spelling nulls, construction invalidation and complete reset"
+    },
+    {
+      "case": "Figure geometry read back from the paint: twelve forward-trellis edges whose rendered stroke widths are exactly the widths the model computed and genuinely differ across edges, every bar painted with nonzero fill and width, and every trellis node and observation card with real extent and a visible outline",
+      "distinctEdgeWidths": 12,
+      "barsInspected": 29,
+      "distinctBarExtents": 20,
+      "nodesInspected": 71,
+      "strokeWidthAttributesHonouredInThePaint": 75
+    },
+    {
+      "case": "The two objective windows measured as rendered separation on screen, not as a model claim",
+      "overviewSmallestSeparationPx": 0.27,
+      "detailSmallestSeparationPx": 7.45
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label, is crossed by a straight foreground line, or is run through by a curve, at three widths; and every label’s RENDERED size stays between 9 and 26 pixels, measured as computed font size times the element-to-viewBox scale",
+      "curveSamplingNote": "Curves are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only. This lesson draws the state graph as <path> arcs and every objective track as a <polyline>.",
+      "typeReadings": [
+        {
+          "width": 1366,
+          "labels": 209,
+          "smallestRenderedPx": 10.32,
+          "largestRenderedPx": 14.82,
+          "distinctScales": 3
+        },
+        {
+          "width": 390,
+          "labels": 209,
+          "smallestRenderedPx": 10,
+          "largestRenderedPx": 12.35,
+          "distinctScales": 3
+        },
+        {
+          "width": 320,
+          "labels": 209,
+          "smallestRenderedPx": 9.81,
+          "largestRenderedPx": 12.35,
+          "distinctScales": 3
+        }
+      ]
+    },
+    {
+      "case": "Intermediate 900px width inspected between the endpoints: 1 table(s) scroll horizontally, none by more than 60px",
+      "tablesScrollingAt900": [
+        {
+          "caption": "The same repeated product, three ways of holding it",
+          "hiddenPx": 42
+        }
+      ]
+    },
+    {
+      "case": "All 15 tables show every column at 1366px without a horizontal scroll"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, never fetches the dataset to render, and never borrows another lesson’s assets",
+      "requestedScripts": [
+        "assets/index-CUrpvK65.js",
+        "assets/Reader-IJyDkQf1.js",
+        "assets/LevelBadge-Wb15re1U.js",
+        "assets/hidden-markov-models-hmm-Du9Z-vub.js",
+        "assets/Code-C5Elz3ou.js",
+        "assets/Callout-D2qGinoN.js",
+        "assets/Math-97REVqKj.js",
+        "assets/LessonElements-B5iChEO1.js",
+        "assets/RunnableExample-Cw29oCyg.js"
+      ],
+      "rawScriptBytes": 1597209,
+      "gzipEstimateBytes": 362365,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout: no horizontal overflow, 19 display formulas each inside its own width, 15 numeric tables stacked into labelled rows with their captions at full width"
+    },
+    {
+      "case": "Narrow 320px layout: no horizontal overflow, 19 display formulas each inside its own width, 15 numeric tables stacked into labelled rows with their captions at full width"
+    },
+    {
+      "case": "Keyboard reach into all six investigations, focus moving on rather than being dropped, every model control declaring both bounds while no prediction guess is bounded, every self-transition value the prose names landing on its control’s step and inside its range, and a displayed excerpt whose Python indentation survives on the page",
+      "controlRanges": 8
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "58 screenshots, each with its own path and its own content hash"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-path-initial-desktop.png",
+      "digest": "593a4328fb471e9c8ae3c9fa01dd34e58330312056a6509efd1a7571eb2d555b",
+      "bytes": 99690
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-path-best-desktop.png",
+      "digest": "89ceece1c0a9ee825522a4fce420355a4220ac025147e2b84bf2ab672bffb2dc",
+      "bytes": 187052
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-path-other-desktop.png",
+      "digest": "77718ddb8b7e9ed82fcd9e680d09dfbc021d5a23fbb636300fa496e4084429f6",
+      "bytes": 186669
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-later-initial-desktop.png",
+      "digest": "90145e0c8d3611a8d52b2c408b0b3c4f41c5e97a8912cb19780061afacdbf7ee",
+      "bytes": 200071
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-later-corrected-desktop.png",
+      "digest": "1d5e3b4626c78005a56af9241107953fbf77610cd4471283904075debca30064",
+      "bytes": 265807
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-later-construction-solved-desktop.png",
+      "digest": "bbd1a3a2a7234662f8352493d03ac9aa758717d8eb6282130e0f27f436a3a77d",
+      "bytes": 296272
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-later-construction-unsolved-desktop.png",
+      "digest": "0ca096674124bb6710593134e49b68b6b27e40dd583afb83c1a299ac65557e57",
+      "bytes": 245645
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-later-zero-mass-edges-desktop.png",
+      "digest": "ec8109198e61ad9804cd7c7f7fc9ee1234fd52d35c11618975b73ca75a65b43e",
+      "bytes": 327329
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-legal-initial-desktop.png",
+      "digest": "2b2bd0f599b11032fc5fdb78f188ba4001e02ff2494130679052ff30186e47de",
+      "bytes": 167010
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-legal-modes-desktop.png",
+      "digest": "90b58bf8dba50eb26c66d5a6ecc8e9cdb1519dfc1cf0756b6e20fca7ba8cd2e0",
+      "bytes": 225994
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-legal-changed-prior-desktop.png",
+      "digest": "8289fbc09923de0cdb3166dee2d31f29430fe4e822f9b786855e4fb32093f697",
+      "bytes": 222637
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-legal-construction-desktop.png",
+      "digest": "7cacfc23428fa15e9efb3b9ed6fce72d68e6a6f9df2f9d8b41e05de4cb3b72dc",
+      "bytes": 180966
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-boundary-initial-desktop.png",
+      "digest": "1af9332db368c364222e9d135f8a1d1da14a466f47041db18be59afa468c0d10",
+      "bytes": 145584
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-boundary-concatenated-desktop.png",
+      "digest": "4d6ca12f3424d5dbf3b820c2a7dffdaf77cf680fd3724dd4dd803c5888536ef5",
+      "bytes": 235809
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-boundary-split-desktop.png",
+      "digest": "e69b73c0042db388d6dcaada2ade69541c5ecddaa858f20ae676746f59856028",
+      "bytes": 255935
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-boundary-construction-desktop.png",
+      "digest": "1c36801efd75a0b74c680e07e36f64bbcc831d640e4d35dd8d324e39966e01e5",
+      "bytes": 187559
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-duration-initial-desktop.png",
+      "digest": "3b92a18ea8627a0f8406057688d8e1c1e3e38906b3d28f06367e5b5731ff957a",
+      "bytes": 109956
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-duration-checked-desktop.png",
+      "digest": "f6b93fce7d560c512d4c7d066c4447975538f5cacdd54c5c711558a1e181ee0f",
+      "bytes": 160482
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-duration-absorbing-desktop.png",
+      "digest": "9fc9a65b93ddacebeaa0dedb850a0367a48442b4db934e98734d363af7c03e68",
+      "bytes": 157166
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-tagging-initial-desktop.png",
+      "digest": "b365dc1b81e4c66a884d0f40e9421b4634a571005463496c094c610a581cefa9",
+      "bytes": 147945
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-tagging-concealed-desktop.png",
+      "digest": "5ff05139ff709cd4c71ec382d0a059725f2b0a8ebbe047179def8380f8e5ca5b",
+      "bytes": 201934
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-tagging-revealed-desktop.png",
+      "digest": "58bf8af66d0f765fdefedb1b4febfa2f313780f329d8eb9d92010b9ef275c012",
+      "bytes": 200405
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-tagging-aggregate-desktop.png",
+      "digest": "e6dca70ef6da62e67a8f9269e1b576a742eb6310334d1ffc6b01efe9e690ac7f",
+      "bytes": 254067
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-tagging-tied-desktop.png",
+      "digest": "556bddb518d097d7ff696c816bf2f9e845e2aa9dcba8f8fca94ae720bcb405b4",
+      "bytes": 257751
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-sequential-long-recording-desktop.png",
+      "digest": "ea7ff39d233c4ddb710f3619f111b8ab7fc08e8e42ac8417897d1e74b9b90cb0",
+      "bytes": 265423
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-sequential-zero-survival-desktop.png",
+      "digest": "11c19a6270dd1051b59c5caae238407e3d2aff1df0d5242eab10b1834c821398",
+      "bytes": 163887
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-1-desktop.png",
+      "digest": "c6fc81de5d513beea65092f530f752d7619dfa3cdb5cd161a66b9e0d24e21151",
+      "bytes": 110453
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-2-desktop.png",
+      "digest": "81ae662d1624d891f1aa99717159c9654158c5aae3c2304edbe23af7f0443786",
+      "bytes": 134846
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-3-desktop.png",
+      "digest": "783618f466a471fc8da204e4484cfb69b418845bb32ea7cc18c07027ac7b18c1",
+      "bytes": 88964
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-4-desktop.png",
+      "digest": "777231931df134697d919c1dc69eb96bf9dadf58cb163e72225e0d5f78df0478",
+      "bytes": 166181
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-5-desktop.png",
+      "digest": "a23acf9fe899a7eaffffe06f413184faede4c2aca2b4acb5504602c4ca77301c",
+      "bytes": 122653
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-6-desktop.png",
+      "digest": "4886439357850ff57c3caba9c3c7969ae2a47fe4da014d2b0f9686fdcf23e96b",
+      "bytes": 82428
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-7-desktop.png",
+      "digest": "06f4e790710a95b9ff92acc31ede1f467bf415ab3a3f3a5cd62162ee48d32375",
+      "bytes": 146590
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-8-desktop.png",
+      "digest": "6453b67d818482bb80cd40b41484c65456594e3fc4b72078bd4d756165385b28",
+      "bytes": 133581
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-9-desktop.png",
+      "digest": "eec87742d416caf06e1c6cf88025487ca275d2551c268c6742c31518387a70aa",
+      "bytes": 105622
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-1-390.png",
+      "digest": "f791bb65065a8824a2dcb3429a92b6fe6e0e77ea9be8842811569130962fad18",
+      "bytes": 98221
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-2-390.png",
+      "digest": "cc2f641fefae11e3e7e33d8119e857cbdc44bef56a2726c6aa9664527b473053",
+      "bytes": 227542
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-3-390.png",
+      "digest": "a0335e080926a9741b83962b7314914052c821eed0c9ef720fb6570acfc9c5d1",
+      "bytes": 163057
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-4-390.png",
+      "digest": "7434604bac2e3aa19f18fdb4a6a8bcc803d936769bbf0ea427b67794bc3e9355",
+      "bytes": 144009
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-5-390.png",
+      "digest": "6dce6adefe1a4333ca0cb7c908e4aa57573d154a157e60a6c79f60df667c9dd0",
+      "bytes": 170134
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-6-390.png",
+      "digest": "758641db09c5f080315aec3c24b1731f632b2815520e6ac81393b282c06680a0",
+      "bytes": 108862
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-1-390.png",
+      "digest": "f0475c18ad24898d281685780e0495a787a3a7c47acc8a8143026370e02c59c0",
+      "bytes": 105015
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-2-390.png",
+      "digest": "28b8b23a2164935282a6ee64f56078828187a9b2abbdbe9c18ca27d5ac234d33",
+      "bytes": 155335
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-3-390.png",
+      "digest": "bb101f4d8d0b4957dfd769190da761dd1694b8be27d628a799eb736e0f845d5e",
+      "bytes": 125956
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-4-390.png",
+      "digest": "be82a749688f43db5d65a011556442e665b61340b2265cac326b1f2b386282f5",
+      "bytes": 186614
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-5-390.png",
+      "digest": "eae0492b3b80cdfd81dcbaedee43790c7eb2cb9c1e6cb598a0ac4854b003c08a",
+      "bytes": 129491
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-6-390.png",
+      "digest": "6c0aed47fc8a5f6d1f195ec323d93981228afa6e6494435cb50d65049d89875b",
+      "bytes": 102437
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-7-390.png",
+      "digest": "a608c8463e3b1655dd46ca42f29345561c3adfa140cb337b311f42d65feb03e3",
+      "bytes": 154040
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-8-390.png",
+      "digest": "ec0f95606eb60581f4100db4dea79ce92bc2b59186ccb9a2cdfbb89c5e06576d",
+      "bytes": 134277
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-9-390.png",
+      "digest": "c76db524d60fa4468609ac3be4a4277468b7bc486c2b7856914b53a0397488af",
+      "bytes": 104401
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-1-320.png",
+      "digest": "616caeaba33ba1e6beb47be9459efb19ac9e0ab5ff0f26bff50ea06886afc6b8",
+      "bytes": 106705
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-2-320.png",
+      "digest": "85cb715fa8b5cdbea4f8887497a3c0e5d7040a9da0de4ba8ed0db84e06a15d5c",
+      "bytes": 155460
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-4-320.png",
+      "digest": "8a679fe2e3778059ad3fd473a52999139ff6c7a1d21a5e2909358fc3be5f09a6",
+      "bytes": 190726
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-5-320.png",
+      "digest": "c406c918cb6d41810c919079b08d250f31441360ab6138b44fddc3c04eab9b06",
+      "bytes": 128701
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-figure-7-320.png",
+      "digest": "896f2ce105571be27af36e692eee4c63d423af779d07bb384a328925df1b2b8b",
+      "bytes": 156699
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-2-320.png",
+      "digest": "65a0e7b78fbae019955fb9bf2a430514abb10f7a3ec426ccd0b66324c4c7074f",
+      "bytes": 235256
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-3-320.png",
+      "digest": "dc82d95ebaf6422194bc689926042be0ff0368c52a07f099e980174b7fd7bbc1",
+      "bytes": 168174
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\hmm-investigation-6-320.png",
+      "digest": "28cd0c503c1a9137f2075bc1907d123b2e7e7fcca55fb0fcf4a00ca3eadc3255",
+      "bytes": 109318
+    }
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states, not defaults only: every investigation before any commitment, every declared contrast, both branches of each construction grader, the concealed and revealed states of the real sentences, a tied sentence, an absorbing duration, all nine inline figures at desktop and at 390px, and the drawing-dense figures and investigations at 320px. Every capture has a distinct path and a distinct content hash. They require separate visual inspection, which was performed."
+}

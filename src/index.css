@@ -719,6 +719,7 @@ a:focus-visible {
 
 .reader-content {
   width: min(900px, 100%);
+  min-width: 0;
   min-height: calc(100vh - 57px);
   flex: 1;
   padding: clamp(24px, 4vw, 52px) clamp(20px, 5vw, 72px) 64px;

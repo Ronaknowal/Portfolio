@@ -48,10 +48,11 @@ function Dot({
   color = AMBER,
   label,
   dx = 8,
-  dy = -9
+  dy = -9,
+  outsideLabel = false
 }) {
   return <g><circle cx={point[0]} cy={point[1]} r="4.5" fill={color} />
-    {label && <text x={point[0] + dx} y={point[1] + dy} fill={color}>{label}</text>}</g>;
+    {label && <text x={point[0] + dx} y={point[1] + dy} fill={color} textAnchor={outsideLabel ? 'middle' : undefined} style={outsideLabel ? { paintOrder: 'stroke', stroke: '#0c141d', strokeWidth: 4, strokeLinejoin: 'round' } : undefined}>{label}</text>}</g>;
 }
 function Plot({
   title,
@@ -182,7 +183,7 @@ export function SphereArcLab() {
       <polyline points={pointsText(circlePoints(1, 0, state.angle).map(point => planePoint(point)))} fill="none" stroke={AMBER} strokeWidth="4" />
       <polyline points={pointsText(circlePoints(1, 0, -(2 * Math.PI - state.angle)).map(point => planePoint(point)))} fill="none" stroke={BLUE} strokeWidth="2" strokeDasharray="6 4" />
       <line x1={pos(state.first)[0]} y1={pos(state.first)[1]} x2={pos(state.second)[0]} y2={pos(state.second)[1]} stroke={PINK} strokeWidth="2" />
-      <Dot point={pos(state.first)} label="A" color={GREEN} /><Dot point={pos(state.second)} label="B" color={GREEN} dy={20} />
+      <Dot point={pos(state.first)} label="A" color={GREEN} /><Dot point={pos(state.second)} label="B" color={GREEN} dx={26 * state.second[0] / radius} dy={2 - 26 * state.second[1] / radius} outsideLabel />
       <Dot point={pos(state.shortPoint)} color={AMBER} /><Dot point={pos(state.longPoint)} color={BLUE} /><Dot point={pos(state.chordPoint)} color={PINK} />
     </Plot><p className="dg-legend"><span className="dg-key amber">Chosen short arc</span><span className="dg-key blue">Long arc</span><span className="dg-key pink">Chord</span></p>
     <div className="dg-controls"><Control label="Endpoint separation" min={0} max={180} value={angle} onChange={setAngle} unit="°" />

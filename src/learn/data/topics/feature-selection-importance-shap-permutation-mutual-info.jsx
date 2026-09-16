@@ -1,1251 +1,391 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { TokenStream, StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  CountInformationLab, SubsetSearchLab, DonorPermutationLab, CoalitionReferenceLab, WineInferenceLab,
+} from '../../components/lesson-labs/SelectionLabs.jsx';
+import {
+  QuestionRoutesFigure, XorSquareFigure, ArrivalOrderFigure, SelectionProcedureFigure, TreeExplanationFigure,
+} from '../../components/lesson-labs/SelectionFigures.jsx';
+import { selectionExamples } from '../selection-examples.js';
+import {
+  alternativeReference, candidates, explainedCases, fourFieldModel, inspectionPredictions,
+  majorityBaseline, permutationRecords, provenance, selectedModel, split,
+} from '../selection-data.js';
+import {
+  familywiseProbability, groupedUnanimity, informationFromCounts, searchFitCounts, sigmoid,
+  subsetWorld, unanimityGame, xorWorld,
+} from '../selection-models.js';
+
+/** Print a computed number with a typographic minus sign and no float dust. */
+const num = (value, digits = 9) => String(Number(value.toFixed(digits))).replace('-', '−');
+const bits = value => num(value, 6);
+
+const noisyCopy = informationFromCounts([[3, 1], [1, 3]]);
+const practiceTable = informationFromCounts([[2, 0], [0, 6]]);
+const xor = xorWorld();
+const xorSubsets = subsetWorld([0, 1, 1, 0]);
+const forwardFive = searchFitCounts({ features: 5, keep: 2, folds: 3, method: 'forward' });
+const rfeFive = searchFitCounts({ features: 5, keep: 2, method: 'rfe' });
+const forwardSix = searchFitCounts({ features: 6, keep: 3, folds: 4, method: 'forward' });
+const rfeSix = searchFitCounts({ features: 6, keep: 3, method: 'rfe' });
+const threePlayer = groupedUnanimity([2, 1]);
+const fourPlayer = groupedUnanimity([3, 1]);
+const row104 = explainedCases[0];
+const shapVersion = '0.52.0';
+
+const headings = [
+  '1. Ask which question you need to answer',
+  '2. Information before fitting: what does one variable reveal?',
+  '3. Select a subset with the learning procedure inside the boundary',
+  '4. Permutation: disturb an input, keep the model fixed',
+  '5. SHAP: allocate one prediction relative to a declared reference',
+  '6. A complete observed-data workflow',
+  '7. Deeper branches: choose the right information and explanation',
+  '8. Practice: change the question and calculate its answer',
+  '9. Readiness and what comes next',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose>
+    <RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="fs-practice"><H3>{title}</H3><Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const featureSelectionContent = {
-  title: "Feature Selection & Importance (SHAP, Permutation, Mutual Info)",
-  readTime: "~50 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Machine learning models do not automatically know which features matter. Feed a model
-        500 columns, and it will try to use all of them — including the date-stamp that
-        accidentally leaks the target, the identifier that is unique per row, the measurement
-        that is pure noise. Irrelevant features impose real costs: longer training, worse
-        generalization, opaque predictions, and higher serving latency. Feature selection and
-        importance estimation are the toolset for answering a deceptively hard question:
-        which of the inputs your model sees are actually driving its behavior?
-      </Prose>
-
-      <Prose>
-        The formal taxonomy of feature selection methods was established by Ron Kohavi and
-        George John in their 1997 paper "Wrappers for Feature Subset Selection" published in
-        <em> Artificial Intelligence</em> 97(1–2):273–324. They drew a line between
-        <strong> filter methods</strong>, which score features using properties of the data
-        alone (no model involved), and <strong>wrapper methods</strong>, which evaluate subsets
-        by training and evaluating a model on each candidate subset. Isabelle Guyon and André
-        Elisseeff extended this in "An Introduction to Variable and Feature Selection" (JMLR
-        2003, 3:1157–1182) by adding <strong>embedded methods</strong> — algorithms that
-        perform selection as part of the model fitting procedure itself, such as L1 (LASSO)
-        regularization, which drives some coefficients to exactly zero, or decision trees,
-        which implicitly select features at each split.
-      </Prose>
-
-      <Prose>
-        Feature <em>importance</em> is a related but distinct concept: rather than a binary
-        selected/not-selected decision, importance assigns a scalar score quantifying each
-        feature's contribution to a trained model. Leo Breiman introduced Mean Decrease in
-        Impurity (MDI) as a by-product of random forest training in his foundational 2001
-        paper in <em>Machine Learning</em> 45(1):5–32. MDI is fast — it accumulates during
-        training — but Carolin Strobl, Anne-Laure Boulesteix, Achim Zeileis, and Torsten
-        Hothorn documented a critical bias in "Bias in random forest variable importance
-        measures" (<em>BMC Bioinformatics</em> 2007, 8:25): MDI systematically overrates
-        features with more unique values (high cardinality) because they offer more threshold
-        candidates during the split search.
-      </Prose>
-
-      <Prose>
-        Permutation importance addresses the MDI bias by measurement rather than accumulation.
-        Fisher, Rudin, and Dominici formalized it rigorously in "All Models are Wrong, but Many
-        are Useful: Learning a Variable's Importance by Studying an Entire Class of Prediction
-        Models Simultaneously" (JMLR 2019, 20(177):1–81), introducing the concept of Model
-        Class Reliance — the range of permutation importances over all models that fit the data
-        equally well, not just a single chosen model.
-      </Prose>
-
-      <Prose>
-        The most influential recent contribution is SHAP (SHapley Additive exPlanations),
-        introduced by Scott Lundberg and Su-In Lee in "A Unified Approach to Interpreting
-        Model Predictions" (NeurIPS 2017). SHAP grounds feature attribution in cooperative
-        game theory: each feature's importance for a specific prediction is its Shapley value
-        — the average marginal contribution computed over all possible orderings of features.
-        The key advance was showing that SHAP unifies several existing methods (LIME, DeepLIFT,
-        integrated gradients) under a single axiomatic framework, and that for tree models it
-        can be computed exactly in polynomial time via the TreeSHAP algorithm described in
-        Lundberg et al. 2020 (<em>Nature Machine Intelligence</em> 2:56–67).
-      </Prose>
-
-      <Callout variant="insight">
-        Feature selection reduces dimensionality and speeds training. Feature importance
-        explains which inputs drive a trained model's decisions. They serve different purposes —
-        selection is a preprocessing step; importance is a diagnostic and interpretability tool.
-        Both are indispensable in any serious tabular ML workflow.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <H3>Three families of selection methods</H3>
-
-      <Prose>
-        <strong>Filter methods</strong> score each feature independently using a statistical
-        relationship with the target. The chi-squared test measures whether a feature's
-        distribution varies across target classes. The F-test (ANOVA) measures the ratio of
-        between-class variance to within-class variance. Mutual information measures how much
-        knowing the feature reduces uncertainty about the target. All filters are cheap — one
-        pass over the data per feature — but they are inherently univariate: they miss
-        interactions. A feature that is useless alone (zero correlation with the target) might
-        be essential in combination with another feature. Filters are blind to this.
-      </Prose>
-
-      <Prose>
-        <strong>Wrapper methods</strong> evaluate feature subsets by training a model on each
-        subset and measuring validation performance. Forward selection starts with no features
-        and greedily adds the one that most improves performance. Backward elimination starts
-        with all features and greedily removes the least useful. Recursive Feature Elimination
-        (RFE) trains the model, removes the weakest feature (by the model's internal scoring),
-        and repeats. Wrappers are accurate — they account for interactions and the specific
-        model being used — but computationally expensive. RFE with a 100-feature dataset and
-        a random forest trains {">"}100 models.
-      </Prose>
-
-      <Prose>
-        <strong>Embedded methods</strong> perform selection during training. LASSO (L1
-        regularization) adds a penalty proportional to the sum of absolute coefficient values
-        to the loss function, which drives the coefficients of truly useless features to
-        exactly zero — the model both fits and selects simultaneously. Tree-based MDI is
-        another embedded method: the forest accumulates importance while building splits,
-        producing a feature ranking with zero additional cost.
-      </Prose>
-
-      <H3>Importance is not causation</H3>
-
-      <Prose>
-        A feature can rank high in importance for reasons that have nothing to do with causal
-        mechanism. A spurious correlate — a proxy variable that happens to move with the target
-        in the training data — will be assigned high importance. In a credit model, zip code
-        might score high not because geography causes default, but because it proxies for
-        income level and historical lending patterns. Feature importance tells you what your
-        model has learned to rely on, not what causes the outcome in the real world. Confusing
-        the two leads to misleading explanations and brittle models that break when the
-        correlation structure shifts.
-      </Prose>
-
-      <H3>SHAP: game theory meets per-prediction attribution</H3>
-
-      <Prose>
-        SHAP decomposes a single prediction into per-feature contributions, not just a global
-        ranking. For a given input, each feature receives a SHAP value that represents its
-        marginal contribution to pushing the prediction away from the model's baseline (the
-        average prediction over the training set). Features that pushed the prediction higher
-        get positive SHAP values; those that pushed it lower get negative values. The SHAP
-        values for one prediction sum exactly to the difference between that prediction and
-        the baseline — a property called efficiency. This means SHAP gives you a complete
-        accounting: every unit of deviation from average is attributed to specific features,
-        with nothing left over and nothing double-counted.
-      </Prose>
-
-      <Callout variant="insight">
-        The intuition from cooperative game theory: imagine each feature as a player in a
-        coalition game where the "payout" is the model's prediction. A feature's Shapley
-        value is its fair share of the payout — the average of its marginal contributions
-        across all possible orderings in which features could "join" the coalition. Players
-        that contribute more in more orderings earn higher Shapley values.
-      </Callout>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>Mutual information</H3>
-
-      <Prose>
-        For discrete random variables X and Y, mutual information is:
-      </Prose>
-
-      <MathBlock>
-        {"I(X;Y) = \\sum_{x,y} p(x,y) \\log \\frac{p(x,y)}{p(x)\\,p(y)}"}
-      </MathBlock>
-
-      <Prose>
-        This equals zero when X and Y are independent (the joint equals the product of
-        marginals), and is strictly positive whenever knowing X reduces uncertainty about Y.
-        Unlike correlation, mutual information captures nonlinear dependencies. For continuous
-        features, the sum becomes an integral and the probability mass functions become
-        densities. Estimating these densities from data requires either histogram binning (fast,
-        biased by bin count) or the Kraskov-Stögbauer-Grassberger (KSG) estimator, which uses
-        k-nearest neighbors in the joint space — the approach used by
-        <Code>sklearn.feature_selection.mutual_info_classif</Code>.
-      </Prose>
-
-      <H3>Permutation importance</H3>
-
-      <Prose>
-        Let <Code>err(X)</Code> be the model's prediction error on a held-out dataset X.
-        Permutation importance for feature j is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{imp}(j) = \\text{err}(X_{\\text{perm}_j}) - \\text{err}(X)"}
-      </MathBlock>
-
-      <Prose>
-        where {"X_{perm_j}"} denotes X with column j randomly permuted. Permuting destroys any
-        relationship between feature j and the target while leaving the marginal distribution
-        of j intact. If the error rises substantially after permuting, j was load-bearing;
-        if the error is unchanged, j was uninformative (or its information was redundant with
-        another feature). Repeating the permutation multiple times and averaging reduces
-        Monte Carlo noise. The result is computed on held-out data, not training data, so it
-        measures generalization importance rather than training fit.
-      </Prose>
-
-      <H3>SHAP: Shapley values</H3>
-
-      <Prose>
-        For a model f with feature set F, the Shapley value for feature j at input x is:
-      </Prose>
-
-      <MathBlock>
-        {"\\phi_j = \\sum_{S \\subseteq F \\setminus \\{j\\}} \\frac{|S|!(|F|-|S|-1)!}{|F|!} \\bigl[f(S \\cup \\{j\\}) - f(S)\\bigr]"}
-      </MathBlock>
-
-      <Prose>
-        The term {"[f(S∪{j}) − f(S)]"} is the marginal contribution of feature j to a
-        coalition S. The combinatorial weight counts the fraction of orderings in which S
-        appears before j — ensuring every ordering gets equal weight. The sum is over all
-        {"2^{|F|-1}"} subsets of features not containing j.
-      </Prose>
-
-      <Prose>
-        The four Shapley axioms that uniquely characterize this formula:
-        <br />
-        <strong>Efficiency:</strong> {"Σ_j φ_j = f(x) − f(baseline)"} — the sum of all SHAP values
-        exactly equals the difference between the prediction and the expected prediction.
-        <br />
-        <strong>Symmetry:</strong> features that make identical marginal contributions to every
-        coalition receive equal SHAP values.
-        <br />
-        <strong>Dummy:</strong> a feature that contributes nothing to any coalition receives
-        SHAP value zero.
-        <br />
-        <strong>Additivity:</strong> SHAP values for an ensemble of models equal the sum of
-        SHAP values from each model separately.
-      </Prose>
-
-      <H3>TreeSHAP: exact computation for trees</H3>
-
-      <Prose>
-        Naively computing Shapley values requires evaluating {"f(S)"} for every subset S —
-        {"2^d"} evaluations for d features. For d=20 that is one million model calls per
-        prediction. Lundberg et al. (2020) introduced TreeSHAP, which exploits the tree
-        structure to compute exact Shapley values in {"O(T L D²)"} time, where T is the
-        number of trees, L is the maximum number of leaves per tree, and D is the maximum
-        depth. For a 100-tree forest with depth 6, this is orders of magnitude faster than
-        the exponential naive approach. The algorithm works by pushing a weighted distribution
-        of "the fraction of training samples reaching each node" through the tree
-        path-by-path, accumulating marginal contributions without explicit subset enumeration.
-      </Prose>
-
-      <Prose>
-        A distinction worth knowing: TreeSHAP can be computed in either <strong>interventional</strong>
-        or <strong>path-dependent</strong> mode. Interventional SHAP evaluates {"f(S)"} by
-        replacing missing features with their marginal distribution from training data —
-        appropriate when features are independent. Path-dependent SHAP conditions on the
-        decision path — appropriate when features are correlated and the conditional
-        distribution differs from the marginal. The two modes give different SHAP values when
-        features are correlated (section 9 covers this in depth).
-      </Prose>
-
-      <H3>LASSO as embedded selection</H3>
-
-      <Prose>
-        Ridge regression penalizes the squared magnitude of coefficients: {"‖β‖²₂"}. The
-        L2 penalty shrinks all coefficients toward zero but never reaches exactly zero —
-        all features remain in the model. LASSO uses the L1 norm instead:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{\\beta}^{\\text{LASSO}} = \\underset{\\beta}{\\operatorname{argmin}} \\left\\| y - X\\beta \\right\\|_2^2 + \\lambda \\|\\beta\\|_1"}
-      </MathBlock>
-
-      <Prose>
-        The L1 penalty has kinks at zero. The subgradient optimality condition implies that
-        coefficients can be driven to exactly zero when their feature's signal is below a
-        threshold determined by {"λ"}. As {"λ"} increases from zero, the LASSO path traces a
-        sequence of models with progressively fewer nonzero coefficients — a regularization
-        path that is simultaneously a feature selection path. The features whose coefficients
-        are nonzero at the chosen {"λ"} are the selected set. With correlated features, LASSO
-        tends to pick one representative from each correlated group arbitrarily, which is a
-        known instability (the elastic net adds L2 to stabilize this).
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        The following code implements five methods using NumPy only, applied to a synthetic
-        tabular dataset where features 0, 2, and 5 are the true signal features. All code was
-        executed; stdout is embedded verbatim.
-      </Prose>
-
-      <H3>4a. Chi-squared, mutual information, permutation importance, forward selection</H3>
-
-      <CodeBlock>{`import numpy as np
-from itertools import combinations
-import math
-
-# ── Synthetic dataset ─────────────────────────────────────────────────────────
-# 300 samples, 8 features; true signal in feat 0, feat 2, feat 5
-np.random.seed(42)
-n_samples = 300
-X_num  = np.random.randn(n_samples, 8)
-y_cont = 3*X_num[:, 0] - 2*X_num[:, 2] + X_num[:, 5] + 0.5 * np.random.randn(n_samples)
-y      = (y_cont > 0).astype(int)
-
-# ── (a) Chi-squared feature scoring ──────────────────────────────────────────
-def chi2_score(X, y):
-    classes = np.unique(y)
-    scores = []
-    for j in range(X.shape[1]):
-        vals = np.unique(X[:, j])
-        stat = 0.0
-        for v in vals:
-            mask_v = X[:, j] == v
-            n_v = mask_v.sum()
-            for c in classes:
-                observed = (mask_v & (y == c)).sum()
-                expected = n_v * (y == c).sum() / len(y)
-                if expected > 0:
-                    stat += (observed - expected)**2 / expected
-        scores.append(stat)
-    return np.array(scores)
-
-X_disc = (X_num > 0).astype(int)          # binarize for chi2
-chi2   = chi2_score(X_disc, y)
-rank_chi2 = np.argsort(-chi2)
-print("=== (a) Chi-squared scores ===")
-for i, f in enumerate(rank_chi2):
-    print(f"  feat {f}: chi2={chi2[f]:.3f}  rank={i+1}")
-
-# ── (b) Mutual information via histograms ─────────────────────────────────────
-def mutual_info_hist(X, y, bins=10):
-    scores = []
-    for j in range(X.shape[1]):
-        x = X[:, j]
-        hist_xy, _, _ = np.histogram2d(x, y, bins=[bins, np.unique(y).size])
-        hist_x = hist_xy.sum(axis=1, keepdims=True)
-        hist_y = hist_xy.sum(axis=0, keepdims=True)
-        n = hist_xy.sum()
-        pxy = hist_xy / n;  px = hist_x / n;  py = hist_y / n
-        mask = (pxy > 0) & (px > 0) & (py > 0)
-        mi = np.where(mask, pxy * np.log(pxy / (px * py)), 0).sum()
-        scores.append(mi)
-    return np.array(scores)
-
-mi = mutual_info_hist(X_num, y)
-rank_mi = np.argsort(-mi)
-print("\\n=== (b) Mutual Information (histogram, 10 bins) ===")
-for i, f in enumerate(rank_mi):
-    print(f"  feat {f}: MI={mi[f]:.4f}  rank={i+1}")
-
-# ── (c) Permutation importance ────────────────────────────────────────────────
-n_tr = 240
-X_tr, X_te = X_num[:n_tr], X_num[n_tr:]
-y_tr, y_te = y[:n_tr], y[n_tr:]
-centroids = np.array([X_tr[y_tr == c].mean(axis=0) for c in [0, 1]])
-
-def model_fn(X):
-    dists = np.stack([np.linalg.norm(X - c, axis=1) for c in centroids], axis=1)
-    return dists.argmin(axis=1)
-
-def permutation_importance_np(model_fn, X, y, n_repeats=20, random_state=42):
-    rng = np.random.RandomState(random_state)
-    baseline = np.mean(model_fn(X) == y)
-    importances = []
-    for j in range(X.shape[1]):
-        drops = []
-        for _ in range(n_repeats):
-            X_perm = X.copy()
-            X_perm[:, j] = rng.permutation(X_perm[:, j])
-            drops.append(baseline - np.mean(model_fn(X_perm) == y))
-        importances.append(np.mean(drops))
-    return np.array(importances)
-
-perm_imp = permutation_importance_np(model_fn, X_te, y_te)
-baseline_acc = np.mean(model_fn(X_te) == y_te)
-rank_perm = np.argsort(-perm_imp)
-print(f"\\n=== (c) Permutation Importance (baseline acc={baseline_acc:.4f}) ===")
-for i, f in enumerate(rank_perm):
-    print(f"  feat {f}: imp={perm_imp[f]:.4f}  rank={i+1}")
-
-# ── (d) Forward selection with 5-fold CV ──────────────────────────────────────
-def forward_selection(X, y, k=3, cv=5):
-    n, d = X.shape
-    selected, remaining = [], list(range(d))
-    fold_size = n // cv
-    for _ in range(k):
-        best_feat, best_score = None, -1
-        for f in remaining:
-            candidate = selected + [f]
-            fold_scores = []
-            for fold in range(cv):
-                val_idx = list(range(fold * fold_size, (fold + 1) * fold_size))
-                tr_idx  = [i for i in range(n) if i not in val_idx]
-                X_tr2   = X[tr_idx][:, candidate]
-                X_val   = X[val_idx][:, candidate]
-                y_tr2   = y[tr_idx];  y_val = y[val_idx]
-                ctrs    = np.array([X_tr2[y_tr2 == c].mean(axis=0) for c in np.unique(y_tr2)])
-                preds   = np.array([
-                    np.unique(y_tr2)[np.argmin(np.linalg.norm(ctrs - row, axis=1))]
-                    for row in X_val])
-                fold_scores.append(np.mean(preds == y_val))
-            score = np.mean(fold_scores)
-            if score > best_score:
-                best_score = score;  best_feat = f
-        selected.append(best_feat);  remaining.remove(best_feat)
-    return selected
-
-selected = forward_selection(X_num, y, k=3, cv=5)
-print(f"\\n=== (d) Forward selection (k=3, 5-fold CV) ===")
-print(f"  Selected features: {selected}")`}</CodeBlock>
-
-      <Callout variant="insight">
-{`=== (a) Chi-squared scores ===
-  feat 0: chi2=92.238  rank=1
-  feat 2: chi2=26.896  rank=2
-  feat 5: chi2=11.204  rank=3
-  feat 4: chi2=2.543   rank=4
-  feat 7: chi2=0.974   rank=5
-  feat 1: chi2=0.216   rank=6
-  feat 6: chi2=0.108   rank=7
-  feat 3: chi2=0.002   rank=8
-
-=== (b) Mutual Information (histogram, 10 bins) ===
-  feat 0: MI=0.2542  rank=1
-  feat 2: MI=0.1466  rank=2
-  feat 5: MI=0.0333  rank=3
-  feat 1: MI=0.0190  rank=4
-  feat 3: MI=0.0157  rank=5
-  feat 4: MI=0.0142  rank=6
-  feat 7: MI=0.0127  rank=7
-  feat 6: MI=0.0099  rank=8
-
-=== (c) Permutation Importance (baseline acc=0.9833) ===
-  feat 0: imp=0.3250  rank=1
-  feat 2: imp=0.2642  rank=2
-  feat 5: imp=0.0967  rank=3
-  feat 7: imp=0.0000  rank=4
-  feat 1: imp=-0.0008 rank=5
-  feat 4: imp=-0.0033 rank=6
-  feat 6: imp=-0.0058 rank=7
-  feat 3: imp=-0.0067 rank=8
-
-=== (d) Forward selection (k=3, 5-fold CV) ===
-  Selected features: [0, 2, 5]`}
-      </Callout>
-
-      <H3>4e. Exhaustive Shapley values for a 3-feature model</H3>
-
-      <CodeBlock>{`import numpy as np
-from itertools import combinations
-import math
-
-# Toy linear model: f(x) = 2*x0 + 1*x1 - 1.5*x2
-def toy_model(v):
-    return 2*v[0] + 1*v[1] - 1.5*v[2]
-
-x        = np.array([1.0, 0.5, -1.0])    # instance to explain
-baseline = np.array([0.0, 0.0, 0.0])     # reference (all-zero baseline)
-n = 3
-phis = np.zeros(n)
-
-for j in range(n):
-    others = [i for i in range(n) if i != j]
-    for size in range(len(others) + 1):
-        for S in combinations(others, size):
-            S = list(S)
-            # Build f(S) and f(S ∪ {j}) by replacing non-coalition features with baseline
-            v_s   = baseline.copy();  v_s[S]  = x[S]
-            v_sj  = baseline.copy();  v_sj[S] = x[S];  v_sj[j] = x[j]
-            weight = (math.factorial(size) *
-                      math.factorial(n - size - 1) /
-                      math.factorial(n))
-            phis[j] += weight * (toy_model(v_sj) - toy_model(v_s))
-
-print("=== Shapley values — exhaustive (3 features) ===")
-print(f"  x = {x}")
-print(f"  baseline f(0,0,0) = {toy_model(baseline):.4f}")
-print(f"  f(x)              = {toy_model(x):.4f}")
-print(f"  SHAP phi_0        = {phis[0]:.4f}  (true: 2 * 1.0 = 2.0)")
-print(f"  SHAP phi_1        = {phis[1]:.4f}  (true: 1 * 0.5 = 0.5)")
-print(f"  SHAP phi_2        = {phis[2]:.4f}  (true: -1.5 * -1.0 = 1.5)")
-print(f"  Sum(phi)          = {phis.sum():.4f}  == f(x) - f(baseline)")`}</CodeBlock>
-
-      <Callout variant="insight">
-{`=== Shapley values — exhaustive (3 features) ===
-  x = [ 1.   0.5 -1. ]
-  baseline f(0,0,0) = 0.0000
-  f(x)              = 4.0000
-  SHAP phi_0        = 2.0000  (true: 2 * 1.0 = 2.0)
-  SHAP phi_1        = 0.5000  (true: 1 * 0.5 = 0.5)
-  SHAP phi_2        = 1.5000  (true: -1.5 * -1.0 = 1.5)
-  Sum(phi)          = 4.0000  == f(x) - f(baseline)`}
-      </Callout>
-
-      <Prose>
-        For a linear model with independent features, SHAP recovers each feature's exact
-        marginal contribution. The efficiency axiom holds perfectly: {"phi_0 + phi_1 + phi_2 = 4.0"}
-        equals {"f(x) − f(baseline)"}. In nonlinear models with correlated features, SHAP still
-        satisfies the axioms — it just requires the full averaging over subsets rather than
-        the shortcut available for linear models.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        All code below operates on the same 500-sample, 10-feature classification dataset
-        ({"make_classification"} with 4 informative features, random_state=42, 80/20 split).
-        All blocks executed; stdout is verbatim.
-      </Prose>
-
-      <H3>5a. sklearn filter and wrapper methods</H3>
-
-      <CodeBlock>{`import numpy as np
-from sklearn.feature_selection import (
-    SelectKBest, chi2, f_classif, mutual_info_classif,
-    RFE, SelectFromModel,
-)
-from sklearn.inspection import permutation_importance
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-
-np.random.seed(42)
-X, y = make_classification(
-    n_samples=500, n_features=10, n_informative=4,
-    n_redundant=2, n_repeated=0, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
-# chi2 requires non-negative features — scale to [0,1]
-scaler = MinMaxScaler()
-X_tr_s = scaler.fit_transform(X_train)
-
-# ── Filter: chi-squared ────────────────────────────────────────────────────────
-sel_chi2 = SelectKBest(chi2, k=4).fit(X_tr_s, y_train)
-print("SelectKBest(chi2, k=4):")
-print(f"  selected  = {np.where(sel_chi2.get_support())[0].tolist()}")
-print(f"  scores    = {np.round(sel_chi2.scores_, 2)}")
-
-# ── Filter: F-statistic ────────────────────────────────────────────────────────
-sel_f = SelectKBest(f_classif, k=4).fit(X_train, y_train)
-print("\\nSelectKBest(f_classif, k=4):")
-print(f"  selected  = {np.where(sel_f.get_support())[0].tolist()}")
-
-# ── Filter: mutual information ────────────────────────────────────────────────
-sel_mi = SelectKBest(mutual_info_classif, k=4).fit(X_train, y_train)
-print("\\nSelectKBest(mutual_info_classif, k=4):")
-print(f"  selected  = {np.where(sel_mi.get_support())[0].tolist()}")
-print(f"  scores    = {np.round(sel_mi.scores_, 4)}")
-
-# ── Wrapper: RFE with RandomForest ────────────────────────────────────────────
-rf_base = RandomForestClassifier(n_estimators=50, random_state=42)
-rfe = RFE(estimator=rf_base, n_features_to_select=4, step=1).fit(X_train, y_train)
-print("\\nRFE(RandomForest, n_features_to_select=4):")
-print(f"  selected  = {np.where(rfe.support_)[0].tolist()}")
-print(f"  ranking   = {rfe.ranking_.tolist()}")
-
-# ── Embedded: L1 LogisticRegression ──────────────────────────────────────────
-lr_l1 = LogisticRegression(penalty='l1', solver='liblinear', C=0.5, random_state=42)
-sfm = SelectFromModel(lr_l1).fit(X_train, y_train)
-lr_l1.fit(X_train, y_train)
-print("\\nSelectFromModel(L1 LR, C=0.5):")
-print(f"  selected  = {np.where(sfm.get_support())[0].tolist()}")
-print(f"  coefs     = {np.round(lr_l1.coef_[0], 4)}")
-
-# ── Permutation importance (sklearn) ─────────────────────────────────────────
-rf = RandomForestClassifier(n_estimators=100, random_state=42).fit(X_train, y_train)
-pi = permutation_importance(rf, X_test, y_test, n_repeats=20, random_state=42)
-rank = np.argsort(-pi.importances_mean)
-print("\\nPermutation importance (RF, test set, 20 repeats):")
-for i, f in enumerate(rank):
-    print(f"  feat_{f:2d}: mean={pi.importances_mean[f]:.4f}  std={pi.importances_std[f]:.4f}")
-print(f"RF MDI: {np.round(rf.feature_importances_, 4)}")`}</CodeBlock>
-
-      <Callout variant="insight">
-{`SelectKBest(chi2, k=4):
-  selected  = [1, 4, 6, 9]
-  scores    = [0.01 2.04 0.   0.08 0.23 0.   1.93 0.03 0.09 1.86]
-
-SelectKBest(f_classif, k=4):
-  selected  = [1, 4, 6, 9]
-
-SelectKBest(mutual_info_classif, k=4):
-  selected  = [1, 6, 7, 8]
-  scores    = [0.0342 0.0365 0.0001 0.004  0.     0.     0.0795 0.0436 0.0361 0.0199]
-
-RFE(RandomForest, n_features_to_select=4):
-  selected  = [1, 6, 7, 8]
-  ranking   = [2, 1, 7, 6, 5, 4, 1, 1, 1, 3]
-
-SelectFromModel(L1 LR, C=0.5):
-  selected  = [1, 2, 3, 4, 5, 6, 8, 9]
-  coefs     = [ 0.      0.4363 -0.0155  0.0961  0.118   0.0482  0.1152  0.      0.279  -0.5477]
-
-Permutation importance (RF, test set, 20 repeats):
-  feat_ 1: mean=0.0995  std=0.0320
-  feat_ 6: mean=0.0755  std=0.0312
-  feat_ 7: mean=0.0725  std=0.0286
-  feat_ 0: mean=0.0500  std=0.0164
-  feat_ 8: mean=0.0440  std=0.0171
-  feat_ 9: mean=0.0065  std=0.0156
-  feat_ 5: mean=-0.0025 std=0.0122
-  feat_ 2: mean=-0.0060 std=0.0116
-  feat_ 4: mean=-0.0075 std=0.0144
-  feat_ 3: mean=-0.0110 std=0.0134
-RF MDI: [0.1141 0.1459 0.0454 0.0504 0.0458 0.0521 0.1406 0.1628 0.1375 0.1054]`}
-      </Callout>
-
-      <H3>5b. SHAP — TreeExplainer and KernelExplainer on XGBoost</H3>
-
-      <CodeBlock>{`import numpy as np
-import xgboost as xgb
-import shap
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-
-np.random.seed(42)
-X, y = make_classification(
-    n_samples=500, n_features=10, n_informative=4,
-    n_redundant=2, n_repeated=0, random_state=42)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42)
-
-# Train XGBoost classifier
-model = xgb.XGBClassifier(
-    n_estimators=100, max_depth=4, learning_rate=0.1,
-    tree_method='hist', random_state=42,
-    eval_metric='logloss', verbosity=0)
-model.fit(X_train, y_train)
-print(f"XGBoost test accuracy: {model.score(X_test, y_test):.4f}")
-
-# ── TreeExplainer (exact, polynomial time) ────────────────────────────────────
-explainer   = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X_test)   # shape: (100, 10)
-
-print(f"SHAP values shape: {shap_values.shape}")
-print(f"Base value (E[f(x)]): {explainer.expected_value:.4f}")
-
-mean_abs_shap = np.abs(shap_values).mean(axis=0)
-rank = np.argsort(-mean_abs_shap)
-print("\\n=== Mean |SHAP| per feature (global importance) ===")
-for i, f in enumerate(rank):
-    print(f"  feat_{f}: {mean_abs_shap[f]:.4f}  rank={i+1}")
-
-# ── Force plot decomposition for a single prediction ─────────────────────────
-idx = 0
-phi = shap_values[idx]
-pred_prob = model.predict_proba(X_test[[idx]])[0, 1]
-print(f"\\n=== SHAP force for test[0] (pred_prob={pred_prob:.4f}) ===")
-print(f"  base_value: {explainer.expected_value:.4f}")
-print(f"  phi:        {np.round(phi, 4)}")
-print(f"  sum(phi):   {phi.sum():.4f}")
-print(f"  base+sum:   {explainer.expected_value + phi.sum():.4f}  (logit space)")
-
-# ── KernelExplainer (model-agnostic, slow) ────────────────────────────────────
-background = shap.kmeans(X_train, 20)   # summarize training set
-ker_exp    = shap.KernelExplainer(
-    lambda x: model.predict_proba(x)[:, 1], background)
-shap_ker   = ker_exp.shap_values(X_test[:3], silent=True)   # shape: (3, 10)
-print("\\n=== KernelExplainer (20 kmeans backgrounds, 3 test samples) ===")
-print(f"  Output shape: {np.array(shap_ker).shape}")
-print(f"  Mean |phi| over 3 samples: {np.abs(shap_ker).mean(axis=0).round(4)}")`}</CodeBlock>
-
-      <Callout variant="insight">
-{`XGBoost test accuracy: 0.9100
-SHAP values shape: (100, 10)
-Base value (E[f(x)]): -0.0432
-
-=== Mean |SHAP| per feature (global importance) ===
-  feat_1: 0.6761  rank=1
-  feat_6: 0.6097  rank=2
-  feat_7: 0.5827  rank=3
-  feat_0: 0.5594  rank=4
-  feat_9: 0.4544  rank=5
-  feat_8: 0.4300  rank=6
-  feat_4: 0.2400  rank=7
-  feat_3: 0.1669  rank=8
-  feat_5: 0.1593  rank=9
-  feat_2: 0.0953  rank=10
-
-=== SHAP force for test[0] (pred_prob=0.2364) ===
-  base_value: -0.0432
-  phi:        [ 0.3922 -0.0182 -0.0816 -0.1347  0.1049 -0.4999 -0.144  -0.3235 -0.7199  0.2956]
-  sum(phi):   -1.1290
-  base+sum:   -1.1723  (logit space)
-
-=== KernelExplainer (20 kmeans backgrounds, 3 test samples) ===
-  Output shape: (3, 10)
-  Mean |phi| over 3 samples: [0.1562 0.0826 0.0073 0.024  0.0393 0.0346 0.0521 0.0565 0.0756 0.1107]`}
-      </Callout>
-
-      <Prose>
-        For test[0] the model predicts 23.6% class-1 probability — below the 50% baseline.
-        The logit {"base_value + sum(phi) = −1.1723"} maps to that probability via the sigmoid.
-        Feature 8 is the biggest negative driver ({"phi_8 = −0.72"}), feature 0 is the biggest
-        positive driver ({"phi_0 = +0.39"}). KernelExplainer gives the same directional
-        ranking but requires only the predict function — no model internals needed.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>Importance heatmap across 4 methods</H3>
-
-      <Prose>
-        Values below are normalized mean-absolute importance per method on the 10-feature
-        dataset from sections 4–5. MDI, permutation importance, SHAP, and mutual information
-        each tell a slightly different story, but the top features (1, 6, 7) are consistent
-        across all four.
-      </Prose>
-
-      <Heatmap
-        label="Normalized feature importance — 4 methods on 10-feature dataset"
-        rowLabels={["MDI (RF)", "Permutation", "SHAP (|phi|)", "Mutual Info"]}
-        colLabels={["f0","f1","f2","f3","f4","f5","f6","f7","f8","f9"]}
-        matrix={[
-          [0.70, 0.90, 0.28, 0.31, 0.28, 0.32, 0.86, 1.00, 0.84, 0.65],
-          [0.50, 1.00, 0.00, 0.00, 0.00, 0.00, 0.76, 0.73, 0.44, 0.07],
-          [0.83, 1.00, 0.14, 0.25, 0.36, 0.24, 0.90, 0.86, 0.64, 0.67],
-          [0.43, 0.46, 0.00, 0.05, 0.18, 0.00, 1.00, 0.55, 0.45, 0.25],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>Cumulative importance vs k selected features</H3>
-
-      <Prose>
-        A common practical question: how many features do you need to capture 90% of the
-        model's predictive signal? The cumulative SHAP importance curve answers this per
-        the trained model.
-      </Prose>
-
-      <Plot
-        label="Cumulative mean |SHAP| vs number of features selected (XGBoost, 10 features)"
-        xLabel="k features selected (sorted by |SHAP|)"
-        yLabel="Cumulative fraction of total |SHAP|"
-        series={[
-          {
-            name: "Cumulative SHAP importance",
-            color: colors.gold,
-            points: [
-              [1, 0.196],
-              [2, 0.373],
-              [3, 0.542],
-              [4, 0.703],
-              [5, 0.835],
-              [6, 0.960],
-              [7, 1.005],
-              [8, 1.021],
-              [9, 1.036],
-              [10, 1.046],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        Six features capture {">"} 95% of the total SHAP signal on this dataset. Features 7–10
-        add essentially nothing — confirming the 4-informative-feature structure of the
-        synthetic data. In practice, plotting this curve guides the selection threshold:
-        stop where the slope flattens.
-      </Prose>
-
-      <H3>RFE: step-by-step feature elimination</H3>
-
-      <StepTrace
-        label="RFE iteration — RandomForest eliminating one feature per step"
-        steps={[
-          {
-            label: "Step 1 — train on all 10 features, remove rank-10",
-            render: () => (
-              <Prose>
-                The random forest is trained on all 10 features and MDI importance is computed.
-                The weakest feature (feat_2 at MDI=0.0454) is removed. RFE ranking so far:
-                feat_2 gets rank 7 (removed first from the bottom).
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — 9 features, remove next weakest",
-            render: () => (
-              <Prose>
-                With feat_2 gone, the 9-feature model is re-trained. Importance is
-                recomputed on the reduced set. The next weakest feature is identified.
-                Each removal forces the model to redistribute importance — some apparent
-                noise features become identifiable only after the noisiest are gone.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — continue until target k=4 reached",
-            render: () => (
-              <Prose>
-                After eliminating 6 features one by one, the surviving set is
-                {" [1, 6, 7, 8]"} — the same 4 features identified by
-                {"mutual_info_classif"} and permutation importance. RFE is more expensive
-                (6 model fits vs one pass), but it accounts for feature interactions that
-                univariate filters miss, making it more reliable when budget allows.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>SHAP value distribution for top 3 features</H3>
-
-      <Plot
-        label="SHAP value spread — top 3 features across 100 test predictions (XGBoost)"
-        xLabel="SHAP value (logit units)"
-        yLabel="Feature index"
-        series={[
-          {
-            name: "feat_1 SHAP",
-            color: colors.gold,
-            points: [[-1.4, 1], [-1.1, 1], [-0.8, 1], [-0.5, 1], [-0.2, 1],
-                     [0.1, 1], [0.4, 1], [0.7, 1], [1.0, 1], [1.3, 1]],
-          },
-          {
-            name: "feat_6 SHAP",
-            color: "#86efac",
-            points: [[-1.2, 2], [-0.9, 2], [-0.7, 2], [-0.4, 2], [-0.1, 2],
-                     [0.2, 2], [0.5, 2], [0.8, 2], [1.1, 2], [1.4, 2]],
-          },
-          {
-            name: "feat_7 SHAP",
-            color: "#c084fc",
-            points: [[-1.1, 3], [-0.8, 3], [-0.6, 3], [-0.3, 3], [0.0, 3],
-                     [0.3, 3], [0.6, 3], [0.9, 3], [1.2, 3], [1.5, 3]],
-          },
-        ]}
-      />
-
-      <Prose>
-        SHAP values for the same feature vary widely across predictions — that spread encodes
-        how much each feature's contribution changes with the feature's own value (and
-        interactions with others). A SHAP dependence plot (one point per example, feature
-        value on x-axis, SHAP value on y-axis) makes this relationship explicit and is often
-        the most informative single diagnostic plot from a SHAP analysis.
-      </Prose>
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>Filter vs wrapper vs embedded</H3>
-
-      <Heatmap
-        label="Feature selection method comparison"
-        rowLabels={["Filter (chi2/MI/F)", "Wrapper (RFE/forward)", "Embedded (L1/MDI)"]}
-        colLabels={["Speed", "Interaction-aware", "Model-specific", "Leakage risk", "Stability"]}
-        matrix={[
-          [1.00, 0.00, 0.00, 0.10, 0.80],
-          [0.10, 1.00, 1.00, 0.30, 0.50],
-          [0.70, 0.80, 1.00, 0.20, 0.70],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>MDI vs permutation vs SHAP</H3>
-
-      <Prose>
-        <strong>MDI (Mean Decrease Impurity):</strong> computed for free during tree training.
-        Fast. But biased toward high-cardinality features (Strobl et al. 2007). Use MDI for a
-        quick first look, not for final decisions. Correlate high-cardinality features with
-        permutation importance before trusting MDI rankings.
-      </Prose>
-
-      <Prose>
-        <strong>Permutation importance:</strong> model-agnostic, unbiased, evaluated on
-        held-out data. The preferred default for communicating global feature importance.
-        Use {"n_repeats >= 10"} to stabilize the Monte Carlo estimate. Misleading when features
-        are strongly correlated (section 9). Prefer grouped permutation when correlated
-        features represent a single logical concept.
-      </Prose>
-
-      <Prose>
-        <strong>SHAP:</strong> the gold standard for interpretability. Provides per-prediction
-        attribution, satisfies the four Shapley axioms, and is exact for trees via TreeSHAP.
-        TreeSHAP is fast enough for production use on forests and gradient boosting.
-        KernelSHAP (model-agnostic) is slow — {"O(2^d)"} evaluations without approximation.
-        SHAP requires careful interpretation with correlated features
-        (interventional vs marginal mode, section 9).
-      </Prose>
-
-      <H3>When to use LASSO for selection</H3>
-
-      <Prose>
-        LASSO selection is a good choice when: (1) you want a single model that simultaneously
-        estimates coefficients and selects features, without a separate selection step;
-        (2) the true underlying model is sparse — most features are genuinely irrelevant;
-        (3) you want a regularization path: sweep {"λ"} from large (all features zeroed) to
-        small (all features active) and inspect which features enter the model first.
-        LASSO is unreliable when features are highly correlated — it arbitrarily picks one
-        from each correlated group. Elastic net (combining L1 and L2) stabilizes the selection
-        in the correlated case.
-      </Prose>
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>Computational complexity</H3>
-
-      <Prose>
-        <strong>Filter methods: O(n·d).</strong> One pass per feature, one pass per dataset.
-        Scales to millions of features. Use filters as a first pass to reduce d before applying
-        more expensive methods.
-      </Prose>
-
-      <Prose>
-        <strong>Permutation importance: O(n·d·r)</strong> where r is the number of repeats.
-        For d=1000 features and r=20 repeats on a slow model, this is 20,000 model evaluations.
-        Parallelize across features. For neural networks, r=5 repeats with a fast forward pass
-        is tractable; for large gradient boosting ensembles, reduce r or parallelize.
-        <em> Do not run permutation importance with n_repeats=1 on a small test set</em> —
-        the variance of the estimate will dominate the signal.
-      </Prose>
-
-      <Prose>
-        <strong>Wrapper methods (RFE): O(d·M)</strong> where M is the cost of one model fit.
-        RFE with step=1 trains d models; with step=0.1 (remove 10% per step) it trains roughly
-        10 models. Use RFECV for cross-validated RFE; the extra CV folds multiply cost again.
-        On deep learning models, RFE is usually prohibitive.
-      </Prose>
-
-      <Prose>
-        <strong>KernelSHAP: {"O(2^d)"} naively, {"O(d²)"} with sampling approximations.</strong>
-        In practice shap's KernelExplainer uses a sampling-based approximation (Shapley
-        sampling values) with a background summary (k-means). Even so, for d=1000 features
-        and 1000 test samples, KernelSHAP is impractical. Use TreeSHAP for trees.
-      </Prose>
-
-      <Prose>
-        <strong>TreeSHAP: O(T·L·D²).</strong> T trees, L max leaves per tree, D max depth.
-        For a 500-tree XGBoost model with depth 6 and 64 leaves, this is fast enough to run
-        on every row in a 1M-row dataset in seconds. This is the practical reason TreeSHAP
-        has become the default interpretability method for tree models in production.
-      </Prose>
-
-      <H3>For neural networks</H3>
-
-      <Prose>
-        KernelSHAP works on neural networks but is slow. Two faster alternatives: (1) GradientSHAP
-        (available in the shap library) uses the gradient of the output with respect to the
-        input, approximating SHAP via gradient sampling — faster than KernelSHAP but
-        approximate. (2) DeepLIFT (Shrikumar et al. 2017) assigns contribution scores by
-        comparing activations to a reference, connected to SHAP via the additivity axiom.
-        For vision or NLP models, attention weights, saliency maps, and integrated gradients
-        are more natural diagnostics than feature importance over raw input columns.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>MDI bias toward high-cardinality features</H3>
-
-      <Prose>
-        The MDI bias documented by Strobl et al. (2007) is reproducible and large. In a dataset
-        with a continuous numeric feature (1000 unique values) and a truly informative binary
-        feature, MDI will consistently overrate the continuous feature because the split search
-        considers 1000 threshold candidates and at least one will reduce impurity by chance.
-        The fix: always cross-check MDI with permutation importance on a held-out set.
-        Never trust MDI alone when feature cardinalities vary widely.
-      </Prose>
-
-      <H3>Permutation importance with correlated features</H3>
-
-      <Prose>
-        When two features X1 and X2 are highly correlated (say, height in cm and height in
-        inches), permuting X1 degrades the model's accuracy — but only slightly, because the
-        model can fall back on X2 which still carries the same information. Both features will
-        appear less important than they truly are in isolation. The correct approach is
-        <strong> grouped permutation</strong>: permute X1 and X2 simultaneously, breaking the
-        correlation structure for the whole group. This measures the importance of the
-        joint group, which is the right question when features are redundant by design.
-        {"sklearn.inspection.permutation_importance"} does not group by default; you must
-        implement grouped permutation manually or use the {"rfpimp"} library.
-      </Prose>
-
-      <H3>SHAP with correlated features: interventional vs marginal</H3>
-
-      <Prose>
-        When features are correlated, the question "what would happen if we only knew subset S
-        of features?" has two different answers. Interventional SHAP replaces missing features
-        with samples from their marginal distribution — it may create combinations that never
-        appear in training data (e.g., height = 160 cm and weight = 150 kg). Path-dependent
-        SHAP conditions on the decision path, implicitly using the conditional distribution.
-        Neither is universally correct. Interventional SHAP is closer to the causal
-        interpretation; path-dependent SHAP respects the training distribution but mixes up
-        correlation and causation. Know which your library is computing (shap defaults to
-        path-dependent for TreeExplainer, interventional when you pass
-        {"feature_perturbation='interventional'"}).
-      </Prose>
-
-      <H3>Feature selection before cross-validation — leakage</H3>
-
-      <Prose>
-        A particularly dangerous mistake: running SelectKBest or mutual information on the
-        full dataset before splitting into train/validation folds. The filter uses label
-        information from the validation fold to rank features — the selected features are
-        informative partly because they were chosen by seeing the validation labels. This
-        inflates validation accuracy and gives a falsely optimistic estimate of generalization.
-        The correct pattern: wrap the selection step inside a Pipeline or FeatureUnion and
-        run it inside each CV fold, fitted only on the training fold.
-      </Prose>
-
-      <CodeBlock>{`from sklearn.pipeline import Pipeline
-from sklearn.feature_selection import SelectKBest, mutual_info_classif
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
-
-# Correct: selection is inside the pipeline, refitted per fold
-pipe = Pipeline([
-    ('sel', SelectKBest(mutual_info_classif, k=4)),
-    ('clf', RandomForestClassifier(n_estimators=100, random_state=42)),
-])
-# cross_val_score calls pipe.fit on the training fold only — no leakage
-scores = cross_val_score(pipe, X, y, cv=5, scoring='accuracy')
-print(f"CV accuracy (no leakage): {scores.mean():.4f} ± {scores.std():.4f}")`}</CodeBlock>
-
-      <H3>Feature importance does not equal statistical significance</H3>
-
-      <Prose>
-        A feature with high permutation importance is predictive — the model relies on it.
-        That is not the same as statistically significant. Statistical significance asks
-        whether the observed relationship could arise by chance under a null hypothesis.
-        Importance asks whether the model uses the feature. With large n, both weak effects
-        and noise can appear important; with small n, truly important features may have
-        noisy importance estimates. Do not report importance scores as if they were p-values.
-      </Prose>
-
-      <H3>Ranking instability across CV folds</H3>
-
-      <Prose>
-        Feature importance rankings are random variables — they vary across different train/test
-        splits. On a dataset where several features are similarly predictive, the top-3 ranking
-        might shuffle completely between folds. Before acting on an importance ranking, compute
-        it across multiple folds and report the mean and standard deviation. A feature with
-        mean importance 0.15 ± 0.02 is reliably important; one with 0.10 ± 0.08 is
-        unreliably important. The shap library's beeswarm plots make this spread visible.
-      </Prose>
-
-      <Callout variant="warning">
-        The selection-before-CV leakage is the single most common mistake in applied feature
-        selection work. It produces models that appear to validate well but fail at deployment.
-        Always use a Pipeline so that selection is re-run inside each fold.
-      </Callout>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below verified against their primary publication venues (JMLR, NeurIPS
-        Proceedings, Springer, PubMed, Nature).
-      </Prose>
-
-      <H3>Kohavi and John 1997 — filter vs wrapper taxonomy</H3>
-      <Prose>
-        Kohavi, R. and John, G.H. (1997). Wrappers for feature subset selection.
-        <em> Artificial Intelligence</em>, 97(1–2):273–324.
-        DOI: 10.1016/S0004-3702(97)00043-X. The paper that named and formalized the
-        filter/wrapper distinction. Cohavi and John showed empirically that wrappers
-        outperform filters on most datasets but at much higher computational cost.
-        The taxonomy remains the standard reference in feature selection survey papers.
-      </Prose>
-
-      <H3>Guyon and Elisseeff 2003 — introduction to variable selection</H3>
-      <Prose>
-        Guyon, I. and Elisseeff, A. (2003). An introduction to variable and feature selection.
-        <em> Journal of Machine Learning Research</em>, 3:1157–1182. Free access at jmlr.org.
-        Extended the Kohavi/John taxonomy to include embedded methods, introduced the mutual
-        information perspective on feature selection, and gave the canonical analysis of
-        filter redundancy and complementarity. The first paper to recommend mutual information
-        as a filter criterion with theoretical justification.
-      </Prose>
-
-      <H3>Strobl et al. 2007 — MDI bias in random forests</H3>
-      <Prose>
-        Strobl, C., Boulesteix, A.-L., Zeileis, A., and Hothorn, T. (2007). Bias in random
-        forest variable importance measures: Illustrations, sources and a solution.
-        <em> BMC Bioinformatics</em>, 8:25. DOI: 10.1186/1471-2105-8-25. Open access.
-        Demonstrated via simulation that MDI (mean decrease in Gini impurity) systematically
-        overestimates the importance of high-cardinality variables. Proposed conditional
-        permutation importance as a bias-corrected alternative. Required reading before
-        reporting RF feature importances in any serious analysis.
-      </Prose>
-
-      <H3>Fisher, Rudin, Dominici 2019 — Model Class Reliance</H3>
-      <Prose>
-        Fisher, A., Rudin, C., and Dominici, F. (2019). All models are wrong, but many are
-        useful: Learning a variable's importance by studying an entire class of prediction
-        models simultaneously.
-        <em> Journal of Machine Learning Research</em>, 20(177):1–81. Free at jmlr.org.
-        Introduced Model Class Reliance — the range of permutation importances over all
-        models in a Rashomon set (models fitting the data equally well). Showed that a single
-        model's importance ranking can be a poor summary of the full set of valid models.
-        The conceptual foundation for why importance ≠ causal effect.
-      </Prose>
-
-      <H3>Lundberg and Lee 2017 — SHAP unified framework</H3>
-      <Prose>
-        Lundberg, S.M. and Lee, S.-I. (2017). A unified approach to interpreting model
-        predictions. <em>Advances in Neural Information Processing Systems 30 (NeurIPS 2017)</em>,
-        pp. 4765–4774. Available via NeurIPS Proceedings and arXiv:1705.07874.
-        Proved that SHAP (Shapley Additive exPlanations) is the unique additive feature
-        attribution method satisfying local accuracy, missingness, and consistency.
-        Showed SHAP generalizes LIME, DeepLIFT, and layer-wise relevance propagation under
-        a single framework.
-      </Prose>
-
-      <H3>Lundberg et al. 2020 — TreeSHAP</H3>
-      <Prose>
-        Lundberg, S.M., Erion, G., Chen, H., DeGrave, A., Prutkin, J.M., Nair, B., Katz,
-        R., Himmelfarb, J., Bansal, N., and Lee, S.-I. (2020). From local explanations to
-        global understanding with explainable AI for trees.
-        <em> Nature Machine Intelligence</em>, 2:56–67. DOI: 10.1038/s42256-019-0138-9.
-        Introduced the exact polynomial-time TreeSHAP algorithm for decision trees and
-        tree ensembles, enabling SHAP at production scale. Also introduced SHAP summary
-        plots, dependence plots, and force plots that are now standard interpretability
-        outputs for tree models.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Q1 (recall) — filter vs wrapper trade-off</H3>
-      <Prose>
-        You have 5 minutes to reduce a 200-feature dataset to 20 features before training
-        a neural network. Which selection method do you use, and what is its main limitation?
-      </Prose>
-      <Callout variant="answer">
-        Use a filter method — mutual information or F-statistic via SelectKBest. A single
-        pass over the data scores all 200 features in seconds. The main limitation is that
-        filters are univariate: a feature that is useless alone but critical in combination
-        with another (interaction effect) will receive a low score and may be incorrectly
-        discarded. For a neural network specifically, interaction effects matter enormously,
-        so if compute budget later allows, re-check the top-20 selection using RFE or
-        permutation importance on a held-out set after an initial training run.
-      </Callout>
-
-      <H3>Q2 (math) — Shapley axiom efficiency</H3>
-      <Prose>
-        A model predicts {"f(x) = 3.8"} for input x and has a baseline (expected value)
-        of {"f(baseline) = 1.2"}. The model has 4 features. SHAP values for the first three
-        features are {"φ₁ = 0.9, φ₂ = −0.4, φ₃ = 1.1"}. What is {"φ₄"}?
-      </Prose>
-      <Callout variant="answer">
-        By the efficiency axiom: {"φ₁ + φ₂ + φ₃ + φ₄ = f(x) − f(baseline)"}
-        {" = 3.8 − 1.2 = 2.6"}.
-        Therefore {"φ₄ = 2.6 − 0.9 − (−0.4) − 1.1 = 2.6 − 1.6 = 1.0"}.
-        The efficiency axiom guarantees that SHAP values account for every unit of deviation
-        from baseline — the budget is always fully allocated.
-      </Callout>
-
-      <H3>Q3 (applied) — correlated features and permutation importance</H3>
-      <Prose>
-        Your dataset has two nearly identical columns: income_usd and income_eur (correlation
-        = 0.99). Both permutation importances are 0.02, while your domain knowledge says
-        income is the most important predictor. What is happening, and how do you fix it?
-      </Prose>
-      <Callout variant="answer">
-        When you permute income_usd, the model falls back on income_eur (still intact),
-        recovering most of its accuracy. The measured drop is small — 0.02 — even though the
-        joint concept of income is essential. Both features appear unimportant individually.
-        Fix: use grouped permutation. Permute income_usd and income_eur simultaneously in
-        the same permutation, destroying the joint information. The resulting importance
-        correctly reflects that income (as a concept) is critical. In code: mask both columns
-        with the same permutation index inside the importance loop.
-      </Callout>
-
-      <H3>Q4 (applied) — LASSO path interpretation</H3>
-      <Prose>
-        You fit LASSO with {"λ = 0.001"} and get 50 nonzero coefficients. With {"λ = 0.01"}
-        you get 8 nonzero coefficients. With {"λ = 0.1"} you get 0. How do you choose the
-        right {"λ"}, and what does the regularization path tell you about feature importance?
-      </Prose>
-      <Callout variant="answer">
-        Choose {"λ"} via cross-validation: use LassoCV or sklearn's cross_val_score over
-        a log-spaced grid. The optimal {"λ"} is the one minimizing validation MSE. The
-        regularization path reveals relative importance: features whose coefficients remain
-        nonzero at high {"λ"} (aggressive regularization) are the most robustly informative.
-        Features that drop out at {"λ = 0.01"} but not {"λ = 0.001"} are marginally
-        informative — they add signal only when the model is allowed to use many features.
-        The path is monotone: once a coefficient reaches zero as {"λ"} increases, it stays
-        zero. Plotting coefficient magnitude vs {"log(λ)"} gives an importance ordering
-        consistent with embedded selection theory.
-      </Callout>
-
-      <H3>Q5 (applied) — SHAP interventional vs path-dependent</H3>
-      <Prose>
-        You have two SHAP analyses of the same XGBoost model on the same test point, one
-        using path-dependent mode and one using interventional mode. They give different SHAP
-        values for the same feature. Explain why and which you should report to a business
-        stakeholder.
-      </Prose>
-      <Callout variant="answer">
-        Path-dependent SHAP computes {"f(S)"} by using the conditional distribution of
-        missing features given the features in S — the distribution that the tree paths
-        naturally encode from training data. Interventional SHAP samples missing features
-        independently from their marginal distributions, potentially creating
-        out-of-distribution combinations. With correlated features (e.g., age and years of
-        experience), path-dependent SHAP attributes less to each individual feature because
-        removing one still conditions on the other through the tree structure. Interventional
-        SHAP treats them more independently.
-        For a business stakeholder: report interventional SHAP — it answers "what would
-        change if we intervened on this feature alone?" which aligns with the natural
-        interpretability question. Path-dependent SHAP is more faithful to the model's
-        internal behavior but harder to explain. Document the choice in your analysis.
-      </Callout>
-
-      <H3>Q6 (challenge) — selection leakage detection</H3>
-      <Prose>
-        A data scientist reports CV accuracy of 94% after running SelectKBest(k=10) on the
-        full dataset and then doing 5-fold CV on the reduced dataset. You suspect leakage.
-        How do you verify, and how do you fix it?
-      </Prose>
-      <Callout variant="answer">
-        Verify: run the same CV with a Pipeline that wraps SelectKBest inside the CV loop.
-        If the CV accuracy drops (say, to 89%), leakage was confirmed — the standalone
-        SelectKBest saw validation labels and selected features that were artificially
-        informative. You can also verify by deliberately including pure noise features:
-        if the pipeline without leakage drops noise features but the leaky version retains
-        them with nonzero importance, the bias is confirmed.
-        Fix: wrap selection and classifier into a Pipeline, then pass the pipeline to
-        cross_val_score. The pipeline's fit method is called only on the training fold of
-        each CV split, and the selection step has no access to validation labels.
-        This is the only correct pattern for any preprocessing step that uses the target variable.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Feature Selection & Importance (SHAP, Permutation, Mutual Info)',
+  readTime: '~60 min first pass · ~115 min complete read + 60–100 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot fs-lesson">
+    <LessonIntro prerequisites={<>Training versus validation, a prediction function and an average, from the preceding <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a> lesson and the earlier <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>. Entropy and coalition notation are introduced here before they are used.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A laboratory measures thirteen properties of each sample and wants to stop paying for some of them. Learn to tell four different questions apart — what a measurement reveals in the data, what a fitted model relies on, what survives removal and refitting, and how one prediction is allocated against a reference — then calculate each of them by hand on tables you edit yourself, and finally run all four on 178 real chemical analyses with a protected reserve. Every investigation asks for a prediction before it shows an answer, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <Prose className="fs-route"><strong>First pass.</strong> Read sections 1–6, work through the small count, permutation and coalition examples, then try practice 1–6. Section 6 connects them in a reproducible observed-data workflow. Section 7 explores deeper questions about dependence, search and stability; it is optional on a first visit.</Prose>
+
+    <Prose>A laboratory measures thirteen properties of each sample. A classifier makes useful predictions, but running every assay takes time. Which measurements could the laboratory stop collecting? Now imagine a second request: explain why the classifier gave one particular sample a high score. These sound similar, yet they need different experiments.</Prose>
+    <Prose>The preceding <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization</a> lesson showed why different coefficient vectors can represent the same predictor. Here we ask more precisely what an input contributes: to the information in the data, to a fitted model&rsquo;s performance, or to one prediction relative to a reference. That precision makes an explanation useful rather than merely persuasive.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose><strong>Feature selection</strong> chooses which inputs a learning procedure will receive. Its goal might be comparable accuracy with fewer measurements, less memory, a simpler model, or a particular scientific investigation. It can help or hurt prediction; fewer columns is not automatically better. Nor does every model use every supplied column. A tree may never split on one of them.</Prose>
+    <Prose><strong>Feature importance</strong> assigns a quantity to an input under a stated question. There is no single intrinsic importance number waiting inside a dataset.</Prose>
+    <LessonTable caption="Five questions, and what each one holds fixed" headers={['Question', 'What stays fixed?', 'Suitable starting point']} rows={[
+      ['Does this measurement tell us anything about the target on its own?', 'Observed distribution and variable definitions', 'Mutual information or an appropriate univariate statistic'],
+      ['How much does this fitted model rely on the correctly paired measurement?', 'Model, assessment rows and performance metric', 'Permutation importance'],
+      ['Could we train a useful model without this measurement?', 'Training/assessment procedure; refit the model', 'Subset comparison or a removal-and-refit experiment'],
+      ['How is this prediction allocated relative to this reference?', 'Model, instance, output scale and missing-feature rule', 'Shapley/SHAP attribution'],
+      ['Would changing this real-world quantity change the outcome?', 'A stated causal problem', 'Causal assumptions and evidence beyond these diagnostics'],
+    ]} />
+    <Prose>A large association may come from a measurement taken after the outcome becomes known. That input can score beautifully while being unavailable at prediction time. Establish availability and the unit of prediction before ranking anything. An identifier is not automatically forbidden: a known group identity can be useful in a suitable task. But memorizing unique row IDs will not teach a classifier how to handle unseen rows.</Prose>
+    <Prose>One helpful distinction is <strong>selecting a useful subset</strong> versus <strong>discovering every relevant variable</strong>. Two instruments may measure the same quantity. A low-cost predictor may need only one; a scientific inventory might care about both. State which goal is intended before interpreting an excluded column as irrelevant. The <a href="https://www.jmlr.org/papers/volume3/guyon03a/guyon03a.pdf">Guyon–Elisseeff introduction</a> develops this distinction and the interaction examples behind it.</Prose>
+    <QuestionRoutesFigure />
+
+    <H2>{headings[1]}</H2>
+    <H3>Start with counts rather than a formula</H3>
+    <Prose>Suppose eight observations have binary measurement X and binary target Y:</Prose>
+    <LessonTable caption="Eight observations, as a two-by-two table of counts" headers={['', 'Y=0', 'Y=1', 'Row total']} rows={[
+      ['X=0', '3', '1', '4'],
+      ['X=1', '1', '3', '4'],
+      ['Column total', '4', '4', '8'],
+    ]} />
+    <Prose>Before observing X, the target is evenly split. After seeing X=0, Y=0 occurs three quarters of the time; after X=1, Y=1 does. The measurement has reduced our uncertainty without perfectly predicting the answer.</Prose>
+    <Prose>For a discrete variable, <strong>entropy</strong> measures the average information required to identify its outcome:</Prose>
+    <MathBlock>{'H(Y)=-\\sum_y p(y)\\log_2 p(y).'}</MathBlock>
+    <Prose>A fair binary target has entropy one bit. A certain target has zero. An outcome that is rarer carries more information when it occurs, because <Math>{'-\\log_2 p'}</Math> is larger. We define a zero-probability contribution as zero by its limiting value; we do not take a literal logarithm of zero in code.</Prose>
+    <Prose>Conditional entropy averages the remaining uncertainty after X is known. In the table, each row has probabilities 3/4 and 1/4, so</Prose>
+    <MathBlock>{'\\begin{gathered}H(Y\\mid X)=-\\tfrac34\\log_2\\tfrac34-\\tfrac14\\log_2\\tfrac14\\\\[4pt]\\approx0.811278\\text{ bits}.\\end{gathered}'}</MathBlock>
+    <Prose><strong>Mutual information</strong>, or MI, is the reduction:</Prose>
+    <MathBlock>{'\\begin{gathered}I(X;Y)=H(Y)-H(Y\\mid X)\\\\[4pt]\\approx0.188722\\text{ bits}.\\end{gathered}'}</MathBlock>
+    <Prose>An equivalent form compares the joint distribution with what independence would predict:</Prose>
+    <MathBlock>{'\\begin{gathered}I(X;Y)=\\\\[4pt]\\sum_{x,y:\\,p(x,y)>0}p(x,y)\\log_2\\frac{p(x,y)}{p(x)p(y)}.\\end{gathered}'}</MathBlock>
+    <Prose>For independent variables the numerator equals the denominator in every occupied cell, making the log ratio zero. More generally the weighted sum is a divergence and is nonnegative, even though individual occupied cells can contribute negative terms. Zero population MI characterizes independence. MI is symmetric in X and Y, has no positive/negative direction like correlation, and is not an accuracy percentage.</Prose>
+    <CountInformationLab />
+    <Prose>Here is a complete small calculation. Save as <Code>information_from_counts.py</Code>; it requires NumPy.</Prose>
+    <Program example={selectionExamples.informationFromCounts}>
+      <Prose>The corresponding totals are {bits(noisyCopy.mutualInformation)}, 1 and 0 bits. The zero cells are excluded from the logarithm rather than evaluated at it, and the guard clauses refuse a negative count or a zero total instead of returning a number that looks like an answer.</Prose>
+    </Program>
+
+    <H3>A pair can matter even when neither member matters alone</H3>
+    <Prose>Consider four equally likely states:</Prose>
+    <LessonTable caption="The XOR world: four equally likely states" headers={['A', 'B', 'Y: are the bits different?']} rows={[
+      ['0', '0', '0'], ['0', '1', '1'], ['1', '0', '1'], ['1', '1', '0'],
+    ]} />
+    <Prose>This is XOR. Knowing A alone leaves the two target values equally likely. So does B. Therefore I(A;Y)=I(B;Y)={num(xor.projections[0].information, 6)}. Knowing the pair determines Y, so I((A,B);Y)={num(xor.jointInformation, 6)} bit. A ranking that discards every zero-MI individual input would discard both essential parts of this particular mechanism.</Prose>
+    <Prose>This does not make all filters inherently univariate. A filter is independent of the final predictor; it can evaluate joint or conditional information. Univariate filters are a common, economical subclass. Their limitation is the question they ask, not a proof that all non-model criteria ignore interactions.</Prose>
+    <Prose>The opposite issue is redundancy: two exact copies can each reveal the same one bit, while together still reveal only one. Summing their individual MI values double-counts that information. Slightly correlated measurements are subtler: they can still supply complementary signal or independent measurement noise. A correlation threshold alone does not prove one is safe to discard.</Prose>
+    <XorSquareFigure />
+
+    <H3>Estimation is not population knowledge</H3>
+    <Prose>The count-table value is an empirical estimate when counts come from a sample. With eight unique ID categories and a balanced binary target, each observed category has one known label. The empirical MI is one bit even if new IDs carry no target information. That is memorization in the contingency table, not established predictive signal.</Prose>
+    <Prose>Continuous variables need an estimator rather than a literal finite category per distinct value. Binning introduces a resolution choice: very fine bins can memorize, while coarse bins can hide relationships. Nearest-neighbor estimators use local distances instead; choosing neighborhood size trades resolution against estimator variability. Numeric storage does not decide the statistical type: category codes remain discrete, while a rounded measurement may be modeled as continuous if that matches the question and measurement process.</Prose>
+    <Prose>The current <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html"><Code>mutual_info_classif</Code> contract</a> distinguishes discrete and continuous inputs, uses a seed for tiny tie-breaking perturbations, returns <strong>nats</strong>, and clips negative estimates to zero. A nat uses the natural logarithm; divide by ln 2 to express the same quantity in bits. A returned zero is not a certificate of population independence. Its mixed continuous/discrete estimation is not simply “run the same continuous KSG formula on integer class labels.”</Prose>
+    <Prose>Other useful univariate statistics answer narrower questions. ANOVA&rsquo;s F statistic compares between-class mean variation with within-class variation, so equal class means can hide distributional differences. A contingency-table <Math>{'\\chi^2'}</Math> statistic compares observed categorical counts with independent expected counts. Scikit-learn&rsquo;s <Code>chi2</Code> selector is intended for nonnegative count/frequency-like feature inputs; merely rescaling arbitrary continuous measurements to [0,1] does not establish the inferential assumptions of a count test. A score used for ranking and a calibrated significance test are distinct uses.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Three practical families organize the search:</Prose>
+    <LessonTable caption="Filters, wrappers and embedded selection" headers={['Family', 'How it chooses', 'What to inspect']} rows={[
+      ['Filter', 'Statistics of the training data, independently of the final fitted predictor', 'Joint versus univariate criterion, estimator resolution, redundancy'],
+      ['Wrapper', 'Fit and assess candidate input subsets with a chosen learner', 'Search strategy, complete validation boundary, computation'],
+      ['Embedded', 'Selection is part of fitting, such as an L1-penalized objective or tree split choices', 'Model assumptions, tuning and selection stability'],
+    ]} />
+    <Prose><strong>Forward selection</strong> starts from an empty subset and adds the candidate that produces the best chosen validation result. <strong>Backward selection</strong> starts with all available inputs and removes a candidate. These greedy procedures do not reconsider every past decision, so neither guarantees the globally best subset.</Prose>
+    <Prose><strong>Recursive feature elimination</strong>, or RFE, fits a model, ranks its available inputs by a specified model quantity, removes the weakest and refits. Removing a column can change the ranking of the survivors. RFE&rsquo;s elimination criterion is not itself necessarily a validation score. RFECV adds a cross-validation procedure to select the retained size; its selected CV score still participated in selection. An outer assessment is needed to assess the whole recipe independently. These distinctions and the current selector APIs are documented in the <a href="https://scikit-learn.org/stable/modules/feature_selection.html">feature-selection guide</a>.</Prose>
+    <Prose>The previous regularization lesson already derived why L1 can produce zeros. It does not identify only truly useless inputs, and support can change nonmonotonically along a correlated-data path. A selected subset reflects the objective, feature scale, sample and penalty. A tree&rsquo;s internal importance can also feed a selector, but the importance itself is a score; a threshold or size rule is what turns it into a retained subset.</Prose>
+
+    <H3>See the search fail on a complete tiny world</H3>
+    <Prose>Use the four equally likely XOR states. For each subset, let a lookup predictor output the most common target among states with those observed values, breaking ties toward zero. Empty, A-only and B-only subsets each achieve {num(xorSubsets.subsets[0].accuracy, 4)} accuracy; the pair achieves {num(xorSubsets.subsets[3].accuracy, 4)}. These are exact scores over a declared finite world, not held-out experimental estimates.</Prose>
+    <Prose>A forward rule that stops unless accuracy strictly improves never leaves the empty set. A rule forced to retain two inputs reaches the pair, while backward removal from the perfect pair would reject either one-column reduction under the same strict-improvement requirement. The final size and stopping rule are part of the algorithm, not administrative details.</Prose>
+    <SubsetSearchLab />
+    <Prose>For a real dataset, the lookup table is replaced by a specified fitted learner and the score by suitable validation. A linear learner without interaction features cannot solve the XOR task just because a wrapper presents both columns. “Wrapper” is not a guarantee of interaction sensitivity.</Prose>
+
+    <H3>Protect the selection boundary</H3>
+    <Prose>If a training fold selects features by their relation to Y, its selector must see only that fold&rsquo;s training rows and labels. Selecting on the full dataset first allows validation labels to influence the representation. A pipeline inside the outer CV loop enforces the usual fit/transform boundary. However, wrapping an <strong>internally</strong> cross-validated selector after a globally fitted transform can still expose its inner validation rows to that transform. Put every learned operation inside the actual boundary being claimed.</Prose>
+    <Prose>Selection size, thresholds, encodings, feature groups inferred from correlations, and any score-driven domain revision are all choices. If an inspection result causes another choice, those inspection rows become development information. The <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">previous CV lesson</a> explains nested assessment of the complete procedure. Leakage is a fact about information flow; it is not disproved by one run in which the corrected score happens to rise.</Prose>
+    <Prose>Computation depends on the actual search. Forward selection from d=5 to k=2 assesses 5+4={forwardFive.subsets} subsets. With three folds, that is {forwardFive.candidateFits} fits before a final refit. RFE removing one at a time from five to two fits at sizes five, four and three to choose removals, then fits the retained two-feature model: {rfeFive.total} fits in that simple protocol. Neither count is “one fit per original feature” universally. Batched removal changes the candidates and cost; a percentage-step implementation&rsquo;s exact convention must be checked.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <Prose>Suppose a fitted predictor has mean squared error 2 on the assessment rows. Copy those rows and shuffle one input column among them, leaving the target and other columns in their original rows. Its error is now 5. Under this shuffle, the error increase is three in squared-target units.</Prose>
+    <Prose>Repeated random donor permutations estimate</Prose>
+    <MathBlock>{'\\operatorname{PI}_j=\\frac1R\\sum_{r=1}^R(A_r-B).'}</MathBlock>
+    <Prose>This is an estimate, averaged over <Math>{'R'}</Math> donor repeats, not a population quantity. Read the three symbols in order. <Math>{'\\pi_r'}</Math> is the donor row ordering for repeat <Math>{'r'}</Math>, and the hybrid row <Math>{'\\tilde x_i'}</Math> keeps every coordinate of row <Math>{'i'}</Math> except coordinate <Math>{'j'}</Math>, which arrives from donor row <Math>{'\\pi_r(i)'}</Math>. <Math>{'A_r'}</Math> is the mean loss over those hybrid rows, <Math>{'\\tfrac1n\\sum_i L(y_i,f(\\tilde x_i))'}</Math>, and <Math>{'B'}</Math> is the mean loss before any shuffle, <Math>{'\\tfrac1n\\sum_i L(y_i,f(x_i))'}</Math>. The fitted function <Math>{'f'}</Math> is unchanged. For a higher-is-better score such as accuracy, use original score minus shuffled score instead. A positive value then consistently means performance deteriorated after disturbing the input.</Prose>
+    <Prose>Each shuffle preserves that column&rsquo;s empirical values but disturbs its pairing with targets <strong>and other inputs</strong>. It can leave some rows unchanged and does not make a finite sample perfectly independent. It may also create unusual combinations outside the observed joint distribution. This is an explicit perturbation experiment on a particular model, population sample and metric. It is not an automatically unbiased measure of a feature&rsquo;s causal effect or universal usefulness. The <a href="https://scikit-learn.org/stable/modules/permutation_importance.html">permutation guide</a> describes the fixed-model procedure and metric-dependent interpretation.</Prose>
+
+    <H3>Redundancy does not make the fitted model refit itself</H3>
+    <Prose>Let four rows have two identical sensor columns: both equal (−1,−1,1,1). The target is that same vector. Three predictors fit perfectly: <Math>{'f_1(x)=x_1'}</Math>, <Math>{'f_2(x)=x_2'}</Math> and <Math>{'f_3(x)=(x_1+x_2)/2'}</Math>. Use the declared donor ordering (2,3,0,1), which exchanges the signs.</Prose>
+    <LessonTable caption="MSE increase under three fixed predictors and three perturbations" headers={['Fixed predictor', 'Shuffle sensor 1', 'Shuffle sensor 2', 'Shuffle both together']} rows={[
+      ['First sensor only', '4', '0', '4'],
+      ['Second sensor only', '0', '4', '4'],
+      ['Average of sensors', '1', '1', '4'],
+    ]} />
+    <Prose>The first predictor cannot suddenly use sensor 2 after sensor 1 is corrupted; its equation never reads sensor 2. The average predictor already uses both, so corrupting one produces a different result. Removing sensor 1 <strong>and refitting</strong> would be a fourth experiment: a newly trained predictor could use sensor 2 alone. These are not conflicting answers to one question.</Prose>
+    <Prose>For a logical feature group, apply the <strong>same donor ordering to all its columns</strong>. This preserves their within-group pairing while disturbing their relation to the target and remaining groups. Independent permutations inside the group would answer another question and could turn a valid one-hot category into an impossible vector. For a preprocessing pipeline, permuting a raw categorical field before encoding often makes the intended group explicit.</Prose>
+    <DonorPermutationLab />
+    <Prose>This table also illustrates model uncertainty. Several models can perform equally well and rely on different inputs. <a href="https://www.jmlr.org/papers/volume20/18-760/18-760.pdf">Fisher, Rudin and Dominici</a> formalize reliance across a specified set of well-performing models. Their model-class result is more than averaging one model&rsquo;s permutation repeats; the candidate class and allowed loss tolerance matter.</Prose>
+
+    <H3>What the uncertainty bars do and do not show</H3>
+    <Prose>Repeat-to-repeat variation reflects random donor choices with the <strong>same fitted model and assessment sample</strong>. It does not include uncertainty from new training samples, a different model, different assessment cases or a changed deployment population. More repeats reduce Monte Carlo error in that fixed experiment; they cannot repair the wrong perturbation or a weak assessment design.</Prose>
+    <Prose>A negative measured importance means the shuffled version scored better on this assessment. Sampling variability, harmful fitted reliance or a metric-insensitive effect are possible explanations. Zero importance can arise because a feature is unused, because the metric did not change, or because the chosen perturbations did not alter relevant decisions. It does not alone prove independence from the target. Importance on training rows is permitted but describes training behavior; use suitable unseen assessment rows to investigate predictive behavior beyond fitting.</Prose>
+    <Prose>Tree impurity importance asks something else. For a split node t, weighted impurity reduction is its sample fraction times the parent impurity minus the child-weighted impurities. Sum the reductions at splits using a feature, then apply the estimator&rsquo;s normalization. It records how that particular fitted tree partitioned its training criterion. Many candidate splits can favor chance reductions, so a high-cardinality measurement can receive excessive training importance. Held-out perturbation tests a different property; neither score should be disguised as the other by normalizing all bars to a common-looking scale.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>Permutation importance begins with performance across labeled cases. <strong>Shapley attribution</strong> begins with one output and asks how to allocate its difference from a reference among input features. SHAP applies this idea to model explanations. The allocation can be useful, but it is incomplete until we define what a prediction means when only some inputs are supplied.</Prose>
+
+    <H3>First define the game</H3>
+    <Prose>Suppose our model is <Math>{'f(a,b)=a+b+ab'}</Math> and the instance is (2,3), with prediction eleven. Use (0,0) as the declared reference. A coalition is simply a subset of features whose instance values are retained; replace the other values by the reference. Write <Math>{'v(S)'}</Math> for that coalition&rsquo;s output:</Prose>
+    <LessonTable caption="Four coalitions, and the input each one actually evaluates" headers={['Retained instance features S', 'Input actually evaluated', 'v(S)']} rows={[
+      ['None', '(0,0)', '0'],
+      ['A', '(2,0)', '2'],
+      ['B', '(0,3)', '3'],
+      ['A and B', '(2,3)', '11'],
+    ]} />
+    <Prose>If A arrives first, it adds two; B then adds nine. If B arrives first, it adds three; A then adds eight. Average over the two possible arrival orders:</Prose>
+    <MathBlock>{'\\begin{gathered}\\phi_A=(2+8)/2=5,\\\\[4pt]\\phi_B=(3+9)/2=6.\\end{gathered}'}</MathBlock>
+    <Prose>They add to eleven, the difference from the reference. Each receives its standalone contribution plus half of the interaction six. The model itself remains nonlinear; the additive accounting is for this particular instance and reference.</Prose>
+    <ArrivalOrderFigure />
+    <Prose>For <Math>{'d'}</Math> features, every ordering is equally weighted. If a subset <Math>{'S'}</Math> arrives before feature <Math>{'j'}</Math>, there are <Math>{'|S|!'}</Math> ways to order its members and <Math>{'(d-|S|-1)!'}</Math> ways to order those after <Math>{'j'}</Math>. Dividing by <Math>{'d!'}</Math> gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\Delta_j(S)=v(S\\cup\\{j\\})-v(S),\\\\[4pt]w_s=\\frac{s!\\,(d-s-1)!}{d!},\\\\[4pt]\\phi_j=\\sum_{S\\subseteq F\\setminus\\{j\\}}w_{|S|}\\,\\Delta_j(S).\\end{gathered}'}</MathBlock>
+    <Prose>Here <Math>{'\\Delta_j(S)'}</Math> is what feature <Math>{'j'}</Math> adds to the coalition <Math>{'S'}</Math>, and <Math>{'w_s'}</Math> is the share of orderings in which a subset of size <Math>{'s'}</Math> arrives first. The notation <Math>{'v'}</Math> matters: it is the <strong>specified coalition game</strong>, not an ordinary model <Math>{'f'}</Math> mysteriously accepting missing columns. A telescoping sum along each ordering gives <Math>{'v(F)-v(\\varnothing)'}</Math>; averaging preserves that total. Thus <Math>{'v(\\varnothing)+\\sum_j\\phi_j=v(F)'}</Math>, commonly called efficiency or local accuracy when <Math>{'v(F)=f(x)'}</Math>.</Prose>
+    <Prose>The Shapley rule also treats players symmetrically when all their marginal contributions match, gives zero to a player that changes no coalition value, and is linear when two games are added. These properties characterize the allocation <strong>for a fixed game</strong>. They do not uniquely choose a background population, certify causal truth, or prove that this is the best explanation for every user. The <a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf">original SHAP paper</a> explicitly specifies the simplified-input mapping behind its uniqueness result.</Prose>
+
+    <H3>Replace missing coordinates using actual reference rows</H3>
+    <Prose>One zero reference is often not meaningful. Instead, take a declared background collection B. For every background row, retain the instance values in S and fill the remaining coordinates from that row. Average the model outputs:</Prose>
+    <MathBlock>{'v_{x,B}(S)=\\frac1{|B|}\\sum_{b\\in B}f(x_S,b_{\\bar S}).'}</MathBlock>
+    <Prose>Missing coordinates from the <strong>same donor row stay together</strong>. This preserves dependence among those missing coordinates while breaking dependence between them and the retained values. It is often called a background-replacement or interventional game. It need not be a real-world intervention on the target-generating system.</Prose>
+    <Prose>For <Math>{'f(a,b)=a+b+ab'}</Math>, x=(2,3), and background rows (0,0),(1,1), the four coalition values become 1.5, 3.5, 5 and 11. The Shapley values are now four and 5.5, summing to 9.5 above the new baseline 1.5. <strong>The model and instance prediction did not change.</strong> The reference question changed. Nor is the average prediction necessarily the prediction at the average input: f(.5,.5)=1.25 differs from the average 1.5.</Prose>
+    <CoalitionReferenceLab />
+    <Prose>Save the complete following program as <Code>coalition_attribution.py</Code>. It computes every coalition once, caches its value, then allocates the differences. It is intentionally bounded to small <Math>{'d'}</Math>; it is the mechanism, not a replacement for scalable explainers.</Prose>
+    <Program example={selectionExamples.coalitionAttribution}>
+      <Prose>The empty subset is mask zero; A is bit zero and B is bit one. Neither a zero-valued feature nor a missing table entry automatically means an absent player. The guards refuse a ragged background, a mismatched width, a non-finite input and a predictor that does not return one finite scalar per row, rather than producing an allocation that looks complete.</Prose>
+    </Program>
+
+    <H3>Dependence changes which question the game answers</H3>
+    <Prose>Another game is observational conditioning:</Prose>
+    <MathBlock>{'v_x^{\\mathrm{cond}}(S)=\\mathbb{E}\\bigl[f(X)\\mid X_S=x_S\\bigr].'}</MathBlock>
+    <Prose>It asks what output to expect after learning those observed values under a specified joint distribution. Compare this with taking missing values from unconditional reference rows. Conditional expectations can respect dependence, but estimating them accurately is a separate statistical problem; an exact Shapley sum cannot repair inaccurate conditional estimates.</Prose>
+    <Prose>Let <Math>{'X_1=X_2'}</Math> be a fair binary variable and let <Math>{'f(x)=x_1'}</Math>. Explain x=(1,1). The baseline is 1/2. Under conditioning, knowing either coordinate reveals both, so v(&#123;1&#125;)=v(&#123;2&#125;)=1 and each feature receives 1/4. Under background replacement, learning <Math>{'X_2'}</Math> while replacing <Math>{'X_1'}</Math> still averages to 1/2; the attributions are 1/2 for <Math>{'X_1'}</Math> and zero for <Math>{'X_2'}</Math>. Both games are enumerated inside the investigation above.</Prose>
+    <Prose>There is no violation of the dummy-player rule: <Math>{'X_2'}</Math> changes coalition values in the conditional game by revealing <Math>{'X_1'}</Math>. It does not change them in the replacement game. State whether the explanation concerns information revealed by observations or the model&rsquo;s response to replaced coordinates. <a href="https://martinjullum.com/publication/aas-2021-explaining/aas-2021-explaining.pdf">Aas, Jullum and Løland</a> develop dependent-feature conditional estimation and distinguish these targets.</Prose>
+    <Prose><a href="https://proceedings.mlr.press/v108/janzing20a/janzing20a.pdf">Janzing, Minorics and Blöbaum</a>, section 3, analyze this same duplicate-input example from the model-input intervention perspective. Their distinction between the algorithm&rsquo;s output and the real-world outcome is crucial: intervention on the inputs of a known program does not establish the effect of changing the corresponding physical quantities in the world.</Prose>
+    <Prose>Tree-path-dependent SHAP uses a tree&rsquo;s recorded path counts. It is <strong>not generally the true conditional expectation under the data&rsquo;s joint distribution</strong>. Interventional TreeSHAP uses an explicit background and a different game. Current <Code>TreeExplainer</Code> has an <Code>auto</Code> mode that chooses based on whether background data are supplied; specify the intended mode explicitly rather than relying on defaults. “Exact TreeSHAP” means exact for its defined algorithm/game assumptions, not exact causal discovery.</Prose>
+    <Callout title="Name the class and the output units">
+      For classifier explanations, name the class and output units. Raw outputs can be margins or log odds for some models; probabilities require a probability-scale game. If baseline plus attributions reconstructs a logit, applying the sigmoid to the <strong>total</strong> yields the probability. Applying it separately to each contribution does not produce additive probability effects. A mean-absolute attribution summarizes magnitude across selected explained rows; it has no label-performance term and therefore cannot tell you what fraction of accuracy survives feature removal.
+    </Callout>
+
+    <H2>{headings[5]}</H2>
+    <H3>Question, data and boundaries</H3>
+    <Prose>The <a href={provenance.doi}>UCI Wine dataset</a> contains {provenance.rows} chemical analyses from three cultivars grown in the same Italian region. It provides thirteen numeric measurements and a cultivar label. This is cultivar classification, not prediction of wine quality. The preserved source file has no missing entries. Its supplied names/table do not establish measurement units for all columns, so the visual labels retain source-scale values without inventing physical units. This page serves <a href={provenance.file} download>the unchanged data file</a> ({provenance.bytes.toLocaleString('en-US')} bytes, comma separated, SHA-256 <Code>{provenance.sha256}</Code>) and <a href={provenance.attribution}>its attribution</a> beside it. Nothing is downloaded when the page renders.</Prose>
+    <Prose>The thirteen fields are alcohol, malic acid, ash, alkalinity of ash, magnesium, total phenols, flavanoids, nonflavanoid phenols, proanthocyanins, color intensity, hue, OD280/OD315 and proline. The class column is the target and is excluded from the inputs. We retain the provider&rsquo;s source order and all rows.</Prose>
+    <Prose>We ask whether a shallow classifier can use fewer measurements and then inspect a separately declared small model. The boundaries are:</Prose>
+    <ul>
+      <li>{split.development} development rows and {split.reserved} reserved rows, stratified split seed {split.splitSeed}. The {split.reserved} reserved rows receive no prediction or score here.</li>
+      <li>Within development, {split.fitting} fitting rows and {split.inspection} inspection rows, stratified seed {split.innerSeed}.</li>
+      <li>Within the {split.fitting} fitting rows, three stratified folds, seed {split.foldSeed}, compare MI-selected sizes {split.sizes.join(', ')}. The selector and depth-{split.treeDepth} tree fit separately in each fold. The tree has a minimum of {split.minSamplesLeaf} fitting cases per leaf.</li>
+    </ul>
+    <Prose>The inspection rows do not choose the subset size. Once inspected, they are part of what the author knows; use the still-reserved rows or appropriate new data if further changes are made. This small historical collection does not establish performance on a new region, vineyard, laboratory or measurement process. No corresponding grouping metadata supports such an assessment.</Prose>
+    <Prose>For a transparent local explanation, a second model uses four raw fields declared before fitting: {fourFieldModel.labels.join(', ')}. Four inputs allow all sixteen coalitions to be inspected. It is not the MI-selected model, and its smaller input set is not chosen by the inspection score. Both models use the same tree settings and fitting rows.</Prose>
+
+    <H3>Run the selection, then inspect the fixed model</H3>
+    <Prose>Save this as <Code>wine_feature_study.py</Code> beside <Code>coalition_attribution.py</Code> and the provided <Code>wine.data</Code>. Setup: Python with NumPy and scikit-learn. The record below ran with Python 3.12.14, NumPy 2.3.5 and scikit-learn 1.9.1.</Prose>
+    <Program example={selectionExamples.wineStudy}>
+      <Prose>All Wine measurements are treated as continuous inputs to this MI estimator, following the source&rsquo;s measurement description; the target is discrete. Tree splits do not require standardization in this example. This is a declared teaching estimator choice, not a universal rule for integer-valued measurements. The size tie rule prefers the first, smaller listed size. The record contains {split.fits.selectionCv} selection-CV fits, {split.fits.selectedRefit} selected refit and {split.fits.fourFieldRefit} four-feature refit: {split.fits.total} fits total.</Prose>
+    </Program>
+
+    <H3>Read the recorded outcomes without inventing a winner</H3>
+    <LessonTable caption="The three evaluated retained sizes" headers={['MI-selected size', 'Correct counts in the three validation folds', 'Mean fold accuracy']} rows={candidates.map(entry => [
+      String(entry.k),
+      entry.folds.map(fold => `${fold.correct}/${fold.total}`).join(', '),
+      entry.meanAccuracy.toFixed(6),
+    ])} />
+    <Prose>The rule selects {selectedModel.k}. Its final training-selected fields are {selectedModel.labels.join(', ')}. Across the three inner folds, the six retained identities are not identical. The column count is one hyperparameter; each fitted selector still learns a specific subset from its own rows.</Prose>
+    <Prose>The selected model classifies {selectedModel.correct}/{selectedModel.total} inspection rows correctly, as does the independently declared four-field model. The training-majority baseline, always predicting class {majorityBaseline.class}, is correct on {majorityBaseline.correct}/{majorityBaseline.total}. These small-sample results demonstrate the protocol and a possible measurement reduction. They do not prove that these are the best six chemical assays, that the two models are equivalent, or that the tiny CV difference is statistically decisive.</Prose>
+    <SelectionProcedureFigure />
+    <Prose>For the fixed four-field model, the recorded inspection permutation results are:</Prose>
+    <LessonTable caption="Two different quantities for the same four fields, in two different units" headers={['Field', 'Mean accuracy decrease', 'SD across twenty donor permutations', 'Tree impurity importance']} rows={permutationRecords.map(entry => [
+      entry.label, entry.mean.toFixed(6), entry.sd.toFixed(6), entry.mdi.toFixed(6),
+    ])} />
+    <Prose>Accuracy decrease is a proportion: {permutationRecords[0].mean.toFixed(6)} corresponds to about {(100 * permutationRecords[0].mean).toFixed(1)} percentage points in this averaging scheme. The impurity column is normalized training-criterion reduction. These are different units and mechanisms; no common heatmap should pretend the numbers measure the same thing. The tree never splits on malic acid, so changing that coordinate leaves its prediction function unchanged. That is a verified property of this fitted tree, not a statement that malic acid has no association with cultivar.</Prose>
+
+    <H3>Explain one actual prediction from actual coalition evaluations</H3>
+    <Prose>Source row {row104.sourceId} (zero-based file index), the first inspection row, has ({fourFieldModel.labels.join(', ')})=({row104.input.map(value => num(value, 4)).join(',')}), and its actual cultivar is {row104.actualClass}. The four-feature tree predicts class {inspectionPredictions[0]}; its class-1 probability is {num(row104.prediction, 4)}. We explain the class-1 probability, using all {split.fitting} fitting rows as the background. Their average class-1 prediction is {num(row104.baseline, 4)}.</Prose>
+    <LessonTable caption="The allocation, in probability units" headers={['Contribution', 'Probability units']} rows={[
+      ['Baseline', `+${num(row104.baseline, 4)}`],
+      ...fourFieldModel.labels.map((label, index) => [
+        `${label.charAt(0).toUpperCase()}${label.slice(1)} attribution`,
+        row104.phi[index] === 0 ? '0' : (row104.phi[index] > 0 ? `+${num(row104.phi[index], 4)}` : num(row104.phi[index], 4)),
+      ]),
+      ['Reconstructed class-1 probability', num(row104.prediction, 4)],
+    ]} />
+    <Prose>The negative attribution can have magnitude greater than the baseline because positive contributions offset part of it. An individual attribution is not a probability and need not lie between zero and one. The final probability does.</Prose>
+    <Prose>The alcohol-only coalition has value {num(row104.coalitions[1], 4)}; the flavanoids-only coalition has value {num(row104.coalitions[4], 4)}, proline-only {num(row104.coalitions[8], 4)}, and flavanoids-plus-proline {num(row104.coalitions[12], 4)}. Every coalition retaining this instance&rsquo;s alcohol has value {num(row104.coalitions[1], 4)} in the saved tree. Averaging the marginal differences across all orderings yields the table, with floating-point reconstruction error about 1.1×10⁻¹⁶.</Prose>
+    <TreeExplanationFigure />
+    <WineInferenceLab />
+    <Checkpoint prompt="Changing alcohol from 12.51 to 13.5 makes the saved tree output a class-1 probability of one, while changing malic acid from 1.73 to 4.1 changes nothing at all. Both are single-field edits of similar size. Why do they behave so differently?">
+      <Prose>Alcohol is the field the root node splits on, and 13.5 falls on the other side of its threshold {String(fourFieldModel.tree.threshold[0])}, so the sample leaves the entire left subtree and reaches a different leaf. Malic acid is never used by any split in this tree, so no comparison anywhere reads it and no hybrid row&rsquo;s leaf can change. Both are reproducible in the investigation above through its two presets, and neither involves retraining.</Prose>
+    </Checkpoint>
+    <Prose>For a deliberate reference contrast, use the twelve fitting rows with the largest source indices. The original file is arranged by class, so this is a class-3 cohort, <strong>not a representative population sample</strong>. Its baseline class-1 prediction is {num(alternativeReference.baseline, 4)}. For the same row {row104.sourceId}, the contributions become approximately ({alternativeReference.phi.map(value => num(value, 6)).join(', ')}), still reconstructing {num(alternativeReference.prediction, 4)}. The statement has changed from comparison with the whole fitting reference to comparison with that cohort. Selecting reference rows is a substantive explanation decision, not an invisible speed trick. The investigation above loads that cohort from its reference-contrast preset.</Prose>
+    <Prose>For a production tree explainer, the optional following program makes the same mode, background and output choice explicit. Save as <Code>check_tree_explanation.py</Code> beside the two prior programs. It additionally requires a compatible current <Code>shap</Code> installation.</Prose>
+    <Program example={selectionExamples.treeExplainerCheck}>
+      <Prose>The printed lines above come from the imported study, which this program re-runs; the program&rsquo;s own result is that its three assertions pass silently and a waterfall is drawn. Executed here with <Code>shap {shapVersion}</Code>, <Code>TreeExplainer</Code> in explicit interventional mode on the probability scale agreed with the exhaustive sixteen-coalition oracle for source row {row104.sourceId} to within 1×10⁻⁶ in both the baseline and all four attributions, and each of the twelve explained rows reconstructed its own predicted class-1 probability to within the same tolerance.</Prose>
+      <Prose>Current <a href="https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html"><Code>TreeExplainer</Code> documentation</a> describes its dependence modes, model-dependent raw outputs and multi-output shapes. For a decision-tree classifier the raw output already <em>is</em> the class probability, so <Code>model_output="probability"</Code> changes nothing here; for a gradient-boosted or margin-scale model it changes the game being solved. Naming it is what makes the two cases distinguishable. Explicitly selecting the class avoids confusing a samples×features×classes result with a two-dimensional attribution matrix. A reconstruction check is necessary numerical evidence; by itself it cannot certify that the background or explanatory question is appropriate.</Prose>
+    </Program>
+
+    <H2>{headings[6]}</H2>
+    <H3>Conditional information and measurement budgets</H3>
+    <Prose>Once a subset S is available, the additional information in candidate <Math>{'X_j'}</Math> is</Prose>
+    <MathBlock>{'\\begin{gathered}I(X_j;Y\\mid X_S)=\\\\[4pt]H(Y\\mid X_S)-H(Y\\mid X_S,X_j).\\end{gathered}'}</MathBlock>
+    <Prose>In XOR, I(B;Y)={num(xor.projections[1].information, 4)} but I(B;Y|A)=1 bit. For an exact copy B=A, conditioning on A makes B contribute no additional information. This gives a principled target for complementarity, but estimating high-dimensional conditional information from few rows is difficult. A formula does not eliminate sample requirements or measurement error.</Prose>
+    <Prose>A Markov blanket B for target Y is a set that makes Y conditionally independent of the remaining inputs given B, under the stated distribution. That is stronger than selecting the largest marginal MI values or dropping highly correlated pairs. The later <a href="/learn/path/full-curriculum/bayesian-networks-causal-graphical-models?module=classical-ml">Bayesian Networks &amp; Causal Graphical Models</a> gives graph semantics and the assumptions connecting graph structure to such conditional relationships.</Prose>
+    <Prose>For a measurement budget, a subset can be assessed by prediction loss and acquisition cost together. A hypothetical pair of sensors might cost 2 and 8 units; an equally accurate substitute costing 3 could be useful even if a global importance bar is smaller. Cost may attach to a group: once an assay panel is run, several outputs may have almost no extra acquisition cost. Keeping one feature from every panel may therefore save fewer resources than keeping a larger number from one cheap panel. These are declared engineering costs, not costs inferred from attribution magnitudes.</Prose>
+    <Prose>Unsupervised selection has a different target again. Removing a constant training column is often useful; removing every low-variance column can discard a rare alarm that matters greatly for a high-cost event. Without target labels, use a declared objective such as reconstruction, reliable measurement or clustering quality. Earlier PCA and NMF construct new coordinates from inputs rather than simply selecting old columns. They may reduce dimension without reducing the number of raw sensors that must be collected.</Prose>
+
+    <H3>Stability, significance and repeated selection</H3>
+    <Prose>A selector can be unstable while prediction is stable. The duplicate-sensor example makes that possible without any estimation noise. Across resampled training sets, record which inputs are selected and how their predictions compare on appropriate assessment cases. A selection frequency is a descriptive property of that resampling-and-fitting procedure, not automatically the probability that the feature is truly relevant. Formal stability-selection error bounds need additional assumptions and a specified algorithm.</Prose>
+    <Prose>Significance asks how unusual a statistic would be under a specified null model. An importance score alone is not a p-value. If one runs one hundred independent valid null tests at level 0.05, the probability of at least one false rejection is 1−0.95¹⁰⁰≈{num(familywiseProbability(100, 0.05), 4)}. Dependence changes that arithmetic; selection after seeing the results introduces further issues. False-discovery or family-wise procedures can be appropriate for valid input p-values, but they do not turn an arbitrary MI estimate into a significance test.</Prose>
+    <Prose>Random probe features can reveal suspicious overfitting behavior; consistently outranking a few such probes does not by itself prove relevance or guarantee an error rate. Do not remove inconvenient observations solely because they weaken the desired importance story. Investigate measurement and label quality using a documented rule. Selecting rows as well as columns is another part of the learning procedure and its assessment boundary.</Prose>
+    <Prose>A beeswarm spread over many explained cases measures variation of attribution <strong>across those cases</strong>. It is not a confidence interval over new training fits. A plot of importance across CV fits, a plot across permutation repeats and a plot across individual predictions visualize different distributions. Name which one is shown. The next Bias–Variance lesson develops why changing training data can change a fitted function even when its average performance is similar.</Prose>
+
+    <H3>Grouping players changes the attribution game</H3>
+    <Prose>Grouping columns for a valid perturbation is often useful, but “add their individual Shapley values” and “treat the group as one player” can differ. Consider three players A,B,C with value one only when all three are present, and zero for every other coalition. Each individual Shapley value is {num(threePlayer.individual[0], 6)}, so A+B sum to {num(threePlayer.summedIndividual[0], 6)}. Now form two players: group G=&#123;A,B&#125;, and C. Both are needed for the value one, so each grouped player receives {num(threePlayer.grouped[0], 6)}. The possible arrival orders changed.</Prose>
+    <Prose>Use summed individual values when that is the declared aggregation, and grouped-game values when groups are the explanatory players. A valid one-hot feature can be treated as one original variable, avoiding impossible partial-category coalitions. Feature engineering can create similar choices: explaining alcohol and alcohol² as separate players is different from explaining the single raw alcohol measurement that generates both. The decision should follow what the learner or application regards as a meaningful change.</Prose>
+
+    <H3>Scale computation to the mechanism</H3>
+    <Prose>For <Math>{'d'}</Math> raw inputs, exhaustive coalition enumeration requires <Math>{'2^d'}</Math> coalition values per explained instance; background replacement additionally evaluates <Math>{'|B|'}</Math> hybrid rows per coalition. Cached coalition values avoid recomputing the same subset for every feature. The local Wine calculation uses sixteen coalitions and {split.fitting} background rows per instance, not an exponential native search over all thirteen source columns.</Prose>
+    <Prose>Sampling arrival orders estimates Shapley values using their average marginal increments; sampling coalitions with the Shapley kernel instead yields a weighted regression problem. These are related approximations, not identical algorithms. KernelSHAP uses special coalition-size weights and constraints at empty/full coalitions. Its cost depends on the evaluated coalitions, background size, model prediction cost and regression solve; there is no universal O(d²) end-to-end guarantee or fixed number of seconds.</Prose>
+    <Prose>Tree-specific algorithms exploit shared paths. The <a href="https://arxiv.org/pdf/1802.03888">original TreeSHAP algorithm</a> gives an O(TLD²) bound per explained instance for T trees, at most L leaves and depth D in that algorithm; background-dependent variants and implementations add their own costs. That expression is not a benchmark for a million rows or a guarantee for every dependence model. Inspect the actual supported algorithm, approximation setting and output scale, then measure its cost on the intended workload. Never run large background explanations on every page render.</Prose>
+    <Prose>For differentiable models, gradients measure local sensitivity, while integrated gradients accumulates gradients along a specified path from a reference. Deep SHAP and gradient-based approximations make additional choices. They are useful extensions, but sharing an additive-looking plot does not make all methods exact Shapley estimators. Nor are attention weights automatically causal or faithful explanations. A later interpretability investigation should define its intervention, reference and evaluation just as carefully as this tabular lesson.</Prose>
+    <Prose>Finally, a global sum of mean absolute SHAP values is an attribution-magnitude total over a declared set of predictions. If you plot a cumulative <strong>fraction</strong> of that total, it must finish at one when the total is positive. If every attribution is zero, the fraction is undefined and should be labeled accordingly. Even a correct 95% cumulative fraction does not imply 95% retained accuracy, explained variance or information. For a measurement-removal decision, refit and assess the reduced-input recipe.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <Prose>Attempt the first six before opening solutions. The remaining questions use the deeper branches.</Prose>
+
+    <Practice title="1. A different count table"
+      question="The counts are [[2,0],[0,6]]. What are H(Y), H(Y|X) and I(X;Y) in bits? Why is perfect prediction now less than one bit of information?"
+      hint="The target probabilities are 1/4 and 3/4. Conditional on either occupied row, the answer is certain.">
+      <Prose>H(Y) = −(1/4) log₂(1/4) − (3/4) log₂(3/4) ≈ {bits(practiceTable.targetEntropy)} bits. Conditional entropy is {num(practiceTable.conditionalEntropy, 6)}, so MI is {bits(practiceTable.mutualInformation)} bits. Perfectly revealing a target cannot reveal more uncertainty than it originally had; this target is not balanced. The first investigation loads this exact table from its practice preset.</Prose>
+    </Practice>
+
+    <Practice title="2. A feature that becomes useful later"
+      question="For fair independent A and B with Y=A XOR B, give I(A;Y) and I(B;Y). After A is known, how many additional bits about Y does B reveal? Would adding a perfect duplicate C=A create a second independent bit about Y?">
+      <Prose>The first two values are {num(xor.projections[0].information, 4)} and {num(xor.projections[1].information, 4)}, and the conditional value is one bit. C supplies no information beyond A because it is determined by A. A and B together determine Y; copying A does not create new target information.</Prose>
+    </Practice>
+
+    <Practice title="3. A partial permutation"
+      question={<>Use the duplicate rows (−1,−1),(−1,−1),(1,1),(1,1), target (−1,−1,1,1), and predictor <Math>{'(x_1+x_2)/2'}</Math>. Shuffle only the first column using donors (0,2,1,3). What is the MSE increase? What happens if both columns use that same permutation?</>}>
+      <Prose>The first-column perturbation gives predictions (−1,0,0,1), with squared errors (0,1,1,0), so MSE rises by 0.5. Perturbing both gives (−1,1,−1,1), squared errors (0,4,4,0), and increase two. Some donor rows preserve values; a shuffle need not alter every case. The donor investigation loads this exact case from its practice preset.</Prose>
+    </Practice>
+
+    <Practice title="4. Change the interaction strength"
+      question={<>For <Math>{'f(a,b)=a+b+2ab'}</Math>, instance (1,2), and reference (0,0), calculate all four coalition values and the Shapley values. Then explain why the A-first increment differs from the A-second increment.</>}>
+      <Prose>Coalition values are 0,1,2,7. A receives (1+5)/2=3 and B receives (2+6)/2=4. The interaction term contributes four only after both variables are present; averaging arrival orders allocates two of that interaction to each. The coalition investigation loads this case from its practice preset.</Prose>
+    </Practice>
+
+    <Practice title="5. Information flow rather than a score test"
+      question="A colleague selects the six highest-MI inputs using every development label, then cross-validates a model on those columns. After moving the selector inside the folds, the score unexpectedly increases slightly. Was the original procedure free of leakage?">
+      <Prose>No. Validation labels influenced the original selected representation regardless of the observed score direction. The corrected experiment changes the information boundary; one realized difference is not a universal test for whether leakage occurred. Preserve an independent assessment of the full selection procedure.</Prose>
+    </Practice>
+
+    <Practice title="6. Read the actual Wine result"
+      question="Malic acid has zero permutation importance and zero replacement SHAP in the four-field tree. What precisely has been established? A proposed reduced model is judged only by retaining 95% of mean absolute SHAP. What calculation is missing?">
+      <Prose>The saved tree never uses malic acid, so replacing that coordinate cannot change its output. This does not establish population independence or that no other model can use it. To judge a reduced measurement set, fit the reduced-input learning procedure and assess it on appropriate protected data; attribution magnitude is not a retained-performance guarantee.</Prose>
+    </Practice>
+
+    <Practice title="7. Explain a different output — deeper"
+      question="A binary model's raw margin explanation has baseline −0.2 and contributions +0.8 and −0.1. What is the reconstructed margin and its probability under the sigmoid? Can the two contributions be separately passed through the sigmoid and added?">
+      <Prose>The margin is 0.5 and sigmoid(0.5)=1/(1+exp(−0.5))≈{num(sigmoid(0.5), 6)}. The sigmoid is nonlinear, so transforming and adding the individual terms does not yield an additive probability explanation. A probability-space coalition game must explain that output directly.</Prose>
+    </Practice>
+
+    <Practice title="8. Count the search fits — deeper"
+      question="Forward selection chooses three of six inputs using fourfold validation. Count candidate fits and one final refit. Compare simple RFE removing one at a time from six to three, including its final retained-model fit and no CV.">
+      <Prose>Forward selection assesses 6+5+4={forwardSix.subsets} candidate subsets, with four fits each: {forwardSix.candidateFits} plus one final refit, {forwardSix.total} in all. RFE fits six-, five- and four-feature models to select removals, then the final three-feature model: {rfeSix.total} fits. These methods use different selection quantities and do not have identical statistical guarantees.</Prose>
+    </Practice>
+
+    <Practice title="9. Change the players — deeper"
+      question="Four players A,B,C,D receive value one only when all four are present. Compare the sum of individual A+B+C Shapley values with the value assigned when G={A,B,C} is one player and D the other.">
+      <Prose>The individual game is symmetric, so each receives {num(unanimityGame(4).phi[0], 4)} and the sum is {num(fourPlayer.summedIndividual[0], 4)}. The two-player game is symmetric, so G receives {num(fourPlayer.grouped[0], 4)}. Grouping changes possible arrival orders and the allocation target; it is not generally the same as summing afterward.</Prose>
+    </Practice>
+
+    <Practice title="10. Design a useful deployment investigation — deeper"
+      question="A factory wants to replace an expensive sensor with two cheaper correlated sensors. A fitted model gives the expensive sensor the largest permutation score. Propose a comparison that answers the factory's question, including the unit of assessment and actual costs.">
+      <Prose>Define the future task, such as predicting faults on new machines or later operating periods, and split by that unit and information availability. Compare predeclared full and cheaper-sensor learning procedures, fitting every transform/selection stage within their development folds. Assess the locked procedures on protected machines or later periods, using relevant error costs and actual acquisition/maintenance costs. A fixed-model permutation tests present reliance; it does not evaluate the retrained substitute. Preserve calibration/threshold assessment if decisions depend on predicted probabilities.</Prose>
+    </Practice>
+
+    <H2>{headings[8]}</H2>
+    <Prose>You are ready to continue when you can distinguish data information, fixed-model reliance, removal-and-refit performance and local attribution; calculate MI from a small table; trace a permutation donor; derive a two-feature Shapley allocation; and state the reference, output units and protected data boundary in an actual analysis. You should be able to explain why an excluded feature can still be informative and why an exact explanation can still answer the wrong question.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Say which of the five questions a request is actually asking', 'Section 1, figure 1'],
+      ['Compute entropy, conditional entropy and MI from a count table, in bits', 'Section 2, the count investigation, practice 1'],
+      ['Explain why two zero-MI inputs can jointly determine the target', 'Section 2, figure 2, practice 2'],
+      ['Run a greedy search over a finite world and say why its stopping rule matters', 'Section 3, the lattice investigation'],
+      ['Trace a donor ordering through a fixed predictor and read a zero correctly', 'Section 4, the donor investigation, practice 3'],
+      ['Build coalition values from actual hybrid rows and allocate them exactly', 'Section 5, figure 3, the coalition investigation, practice 4'],
+      ['State the reference, the class and the output units of an explanation', 'Section 5 and section 6, figure 5, the wine investigation'],
+      ['Read the recorded Wine study without inventing a winner', 'Section 6, figure 4, practices 5 and 6'],
+      ['Separate conditional information, stability, grouping and computation cost', 'Section 7, practices 7 to 10'],
+    ]} />
+    <Prose>Next is <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias–Variance Tradeoff &amp; Learning Curves</a>. It develops what changes when training samples change, why prediction and selection stability can differ, and how to read learning curves. After that, Imbalanced Learning connects the metric and measurement choices here to rare events and unequal error costs.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/inspection/plot_permutation_importance_multicollinear.html">Permutation with correlated features: a visual and code example</a>: inspected tree/permutation plots, a correlation dendrogram and a removal-and-refit comparison. Its correlation grouping is exploratory and uses the full X; for a protected assessment, fit grouping within the development boundary and choose a linkage appropriate to the distance. Its particular result is not a universal fallback rule for every fixed model.</li>
+      <li><a href="https://shap.readthedocs.io/en/latest/example_notebooks/api_examples/plots/waterfall.html">SHAP waterfall notebook</a>: a visual and code route for reading a single prediction decomposition, its background and log-odds units, then comparing individual cases. The inspected notebook also discusses why a striking pattern needs further investigation rather than instant causal interpretation.</li>
+    </ul></>}>
+      <li><a href="https://www.jmlr.org/papers/volume3/guyon03a/guyon03a.pdf">Guyon and Elisseeff, An Introduction to Variable and Feature Selection</a> — section 2 covers univariate ranking, section 3 gives the small geometrical examples of individual versus joint usefulness — 3.3 is the XOR case — and section 4 covers subset search. Sections 5–7 connect construction, validation, stability and scientific discovery. Read the geometric examples alongside our exact XOR world; historical implementation recommendations need their assumptions checked.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/feature_selection.html">Scikit-learn feature-selection guide</a> — the current map of variance filters, univariate selectors, RFE/RFECV, embedded selectors and sequential search. Useful when translating a declared selection question into an API.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html">Mutual information for classification</a> — estimator inputs, discrete/continuous flags, reproducibility and nat units. It is an estimator contract, not a promise to reveal every interaction.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/permutation_importance.html">Permutation feature importance</a> — the fixed-model algorithm and the role of the metric and assessment data.</li>
+      <li><a href="https://proceedings.neurips.cc/paper_files/paper/2017/file/8a20a8621978632d76c43dfd28b67767-Paper.pdf">Lundberg and Lee, A Unified Approach to Interpreting Model Predictions</a> — sections 2–4 define the additive explanation, assumptions and coalition weighting. Our two-order calculation is preparation for its kernel-regression formulation.</li>
+      <li><a href="https://shap.readthedocs.io/en/latest/generated/shap.TreeExplainer.html">TreeExplainer API</a> — explicitly choose dependence mode, background and output scale; inspect multi-output shapes before plotting.</li>
+      <li><a href="https://arxiv.org/pdf/1802.03888">Lundberg, Erion and Lee, Consistent Individualized Feature Attribution for Tree Ensembles</a> — section 3 explains shared-path computation and the stated TreeSHAP complexity; section 4 extends the game to interaction allocations. These algorithmic bounds are more informative than an unsupported timing comparison.</li>
+      <li><a href="https://martinjullum.com/publication/aas-2021-explaining/aas-2021-explaining.pdf">Aas, Jullum and Løland, Explaining Individual Predictions When Features Are Dependent</a> — the conditional-game construction and the separate problem of estimating missing-feature distributions.</li>
+      <li><a href="https://proceedings.mlr.press/v108/janzing20a/janzing20a.pdf">Janzing, Minorics and Blöbaum, Feature Relevance Quantification in Explainable AI</a> — section 3 distinguishes an intervention on a program&rsquo;s input from a causal claim about the world and explains the duplicate-input example.</li>
+      <li><a href="https://www.jmlr.org/papers/volume20/18-760/18-760.pdf">Fisher, Rudin and Dominici, All Models are Wrong, but Many are Useful</a> — sections 2–4 expand the question from one fitted model to a declared collection of well-performing models. Its section 4 defines model class reliance, the concept the section above borrows. Their formal reliance ratios and bounds have assumptions beyond our exact zero-loss demonstration.</li>
+      <li><a href={provenance.doi}>UCI Wine dataset</a>, {provenance.creator}, licensed <a href={provenance.licenseUrl}>{provenance.license}</a> — original description, attribution and license. This page serves the unchanged numeric member, SHA-256 <Code>{provenance.sha256}</Code>, with the exact split, models and attribution records for offline reproduction.</li>
+    </Sources>
+    <Prose>The count tables, the XOR world, the duplicate-sensor rows and the polynomial games are explicitly <strong>constructed calculations</strong>, not observed measurements. The Wine results are calculations on the identified real dataset under one declared stratified split, {split.fits.total} fits and one predeclared four-field model, with no reserved row predicted or scored. None of them is a benchmark or a claim about any future dataset, and none of them identifies a cause.</Prose>
+  </div>,
 };
 
 export default featureSelectionContent;

@@ -1,0 +1,427 @@
+{
+  "startedAt": "2026-09-16T17:12:17.405Z",
+  "completedAt": "2026-09-16T17:13:18.740Z",
+  "topicId": "imbalanced-learning-smote-cost-sensitive-learning",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "0122d36d8b9dc0636a3c4256cfb0ab73bd990931003e4043c1ad3d2ac9bf79fd",
+  "sourceHashes": {
+    "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx": "5c10bc50794b982aaf4714d122592c5318a04ed4e85940ebced0c72fcf3e9705",
+    "src/learn/data/imbalance-models.js": "072c9ca9162d6d7234335699f36cfb39ef39059a514db720eb9b5b492a6f35ad",
+    "src/learn/data/imbalance-data.js": "02c9bb5eeee3e0266e3a9ec741155c646ee88bdd3686142ab81739ae5ac498c6",
+    "src/learn/data/imbalance-examples.js": "59345b538c693efed7b5950cbfadd2a15e38884a91e76f5a18430f1ad331813d",
+    "src/learn/components/lesson-labs/ImbalanceShared.jsx": "31af6b98ab12f2f62a87abb68cf029bd48cb70fba580ff3d30df4dfe39059eec",
+    "src/learn/components/lesson-labs/ImbalanceLabs.jsx": "884d5857b644229efecfbfbbc02d238b3197f18c8a7339a49f20ff38f742cef0",
+    "src/learn/components/lesson-labs/ImbalanceFigures.jsx": "c4e9581cd000175bf22548020c43f12aa5d078590fff7ddd489e83c05a74c8e1",
+    "src/learn/components/lesson-labs/imbalance-labs.css": "68fcb3313bbd5353f07d6b463f38689b68a0400e0f81b83ead2aa99a26476fa4",
+    "src/learn/data/curriculum/blueprints/imbalanced-learning-smote-cost-sensitive-learning.js": "0eea6e7d7f79fb4816704987ae5e7e5f86ae8cf3e7048552f61034fd2560a02d",
+    "public/learn-assets/imbalanced-learning/yeast.data": "7cf61776fc04f527f93bf57a327b863893a1225d82df02d457e8950173218258"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "file": "/learn-assets/imbalanced-learning/yeast.data",
+    "sha256": "7cf61776fc04f527f93bf57a327b863893a1225d82df02d457e8950173218258",
+    "bytes": 94976,
+    "reserveScored": false
+  },
+  "recordedThresholds": {
+    "original": 0.14500574144149464,
+    "smote": 0.7592716750213055
+  },
+  "typeReadings": [
+    {
+      "width": 1366,
+      "labels": 156,
+      "smallestPrimaryRenderedPx": 11.61,
+      "smallestSecondaryRenderedPx": 10.32,
+      "largestRenderedPx": 21.73
+    },
+    {
+      "width": 1024,
+      "labels": 156,
+      "smallestPrimaryRenderedPx": 19.76,
+      "smallestSecondaryRenderedPx": 12.94,
+      "largestRenderedPx": 21.9
+    },
+    {
+      "width": 768,
+      "labels": 156,
+      "smallestPrimaryRenderedPx": 12.61,
+      "smallestSecondaryRenderedPx": 11.13,
+      "largestRenderedPx": 13.77
+    },
+    {
+      "width": 390,
+      "labels": 156,
+      "smallestPrimaryRenderedPx": 12.68,
+      "smallestSecondaryRenderedPx": 10.79,
+      "largestRenderedPx": 13.31
+    },
+    {
+      "width": 320,
+      "labels": 156,
+      "smallestPrimaryRenderedPx": 10,
+      "smallestSecondaryRenderedPx": 8.53,
+      "largestRenderedPx": 10.63
+    }
+  ],
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, every route anchor, six figures, five investigations, ten practice tasks, all five recorded outcome rows with their counts, costs and average precisions, the served unchanged dataset with its hash and attribution, current metadata and module sequence"
+    },
+    {
+      "case": "Score queue: nothing preselected, no bins and no step chart on first paint, the declared counterexample falling from 2/3 to 0 with the no-alert state reported undefined, a corrected label reversing the verdict, the tie null leaving every operating point byte-identical under a reordered display, practice 2's 1/3, and an edit that retires both the prediction and its feedback while keeping it as labelled history"
+    },
+    {
+      "case": "Action costs: nothing drawn before a prediction, risks .9 against 1.2 with the 1/13 cutoff, the posterior contrast flipping the action to skipping, the common-factor null tripling both risks while the cutoff and the action stay put, and both-costs-zero reported as having no cutoff at all with its reason named"
+    },
+    {
+      "case": "No revealed numeric slot renders as an em dash: every stated value names a number or an explicit undefined state"
+    },
+    {
+      "case": "Weighted score: no curve before a prediction, the optimum .5 at p = .1 with weights 9 and 1, the doubling null holding the minimiser while the printed loss at the optimum doubles exactly, and inverse mode recovering the original probability"
+    },
+    {
+      "case": "SMOTE geometry: nothing generated before a prediction, the declared collision on majority point M, the exact majority-move null leaving the generated coordinate byte-identical, the scale-divisor contrast switching the nearest neighbour and moving the point to (0, 1.25), and practice 5's (2, 2.5)"
+    },
+    {
+      "case": "Tuning queue: a tuning role badge, no records before a prediction, the saved .5 to .15 move detecting five positives instead of one and falling from 72 to 28, labels hidden until asked for, the exact cost-scaling null, and exploratory mode restating the inspection panel as exploratory rather than untouched"
+    },
+    {
+      "case": "Sequential edge review: no-positive recall omitted from paint; selecting-risk target and six numeric boundary/incorrect-answer cases; extreme weighted-score round trip and in-axis marker; inverse q=.2 curve and mode-specific history; minority endpoint collision; decimal-distance SMOTE ID tie; tuning truth reset and sampled candidate caption"
+    },
+    {
+      "case": "Every one of the 5 presets whose label says \"null\" leaves the graded outcome exactly where it was, with the prior outcome read off the page rather than assumed, and each one's retired verdict appears beside the new one reporting that the answer did not move"
+    },
+    {
+      "case": "No figure describes its own drawing in terms of arrowheads it does not draw, and the role diagram makes the same claim about the reserved proteins in its caption, in the diagram and in its aria description"
+    },
+    {
+      "case": "Investigation 4’s two before-and-after questions refuse to grade until an input has actually changed, so the degenerate \"nothing moved, so nothing changed\" path cannot be mistaken for the null"
+    },
+    {
+      "case": "Practice 5’s preset loads three minority points, so the lab offers at most two other neighbours and refuses k = 5 with the bound its solution quotes"
+    },
+    {
+      "case": "The grading contract off its happy path: a wrong direction renders the mismatch branch naming both the recorded and the calculated outcome, the numeric guess is reported outside its tolerance, and the committed state is echoed"
+    },
+    {
+      "case": "Figures carry their required content: the bands say they are separately normalised and the baseline precision is undefined, the two flows keep their fractional expected counts, the weighted step shows both signed gradients and the updated scores, the role diagram says no arrow reaches the reserve, the outcome panel keeps its inconvenient disagreement, and the loss-mass panels name the product-rule term"
+    },
+    {
+      "case": "No shape in the lesson declares fill=\"none\" and computes to a solid fill, the four class-band parts each paint their own distinct colour, the band outline is unfilled, and every in-band count label is present"
+    },
+    {
+      "case": "Plotted coordinates read back from two figures: each of the four class-band parts is drawn at its within-class share rather than its share of the page, and every cost bar starts at a common zero with its false-alarm and missed-positive segments drawn at their own contributions"
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label, is crossed by a straight foreground line, or is run through by a curve, at five widths with all five investigations committed; and every SVG label renders between 9 and 26 CSS pixels at every one of those widths",
+      "sweptSvgCounts": {
+        "320": 19,
+        "390": 19,
+        "768": 19,
+        "1024": 19,
+        "1366": 19
+      },
+      "curveSamplingNote": "Curves, flow arcs and threshold ladders are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only. A label with an opaque backplate may be crossed by up to 2% of a curve length; a label without one may not be crossed at all.",
+      "typeSizeNote": "Rendered size is the computed font-size scaled by element width over viewBox width, which is what a reader actually sees."
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and never fetches the dataset or another lesson's asset to render",
+      "requestedScripts": [
+        "assets/index-BtjFxcc6.js",
+        "assets/Reader-B-NkLwov.js",
+        "assets/LevelBadge-zaiDtipC.js",
+        "assets/imbalanced-learning-smote-cost-sensitive-learning-BvIrILCn.js",
+        "assets/Code-BRDngvpQ.js",
+        "assets/Callout-Bdb3bbVE.js",
+        "assets/Math-DK_ZUxPa.js",
+        "assets/LessonElements-CBBhqyDv.js",
+        "assets/RunnableExample-9dlq5vBc.js"
+      ],
+      "rawScriptBytes": 1564242,
+      "gzipEstimateBytes": 366877,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout: no horizontal overflow, 15 display formulas each inside its own width, every numeric table stacked into labelled rows, and every table caption outside the scroll box at full width"
+    },
+    {
+      "case": "Narrow 320px layout: no horizontal overflow, 15 display formulas each inside its own width, every numeric table stacked into labelled rows, and every table caption outside the scroll box at full width"
+    },
+    {
+      "case": "Keyboard reach into all five investigations, focus moving on rather than being dropped, every numeric control declaring both bounds, and a displayed program whose Python indentation survives on the page"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "51 screenshots, each with its own path and its own content hash"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-initial-desktop.png",
+      "digest": "a8724b448f79f287f23a8d2deb2084221d96c9b378e23239f98f5e2820ef17fe",
+      "bytes": 156820
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-counterexample-desktop.png",
+      "digest": "f3099e7665b69a07e38a27c4a61de0454ac25e4beaddb5517969d942c8f8914f",
+      "bytes": 238839
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-corrected-desktop.png",
+      "digest": "ed9a954d970f631682338f5d169a04e3b5b59fbe99a610109732676caa756b50",
+      "bytes": 248576
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-tie-null-desktop.png",
+      "digest": "2cca6bed0313e54a8eba705c2f0c3ca2b0e047ce52aaa3636c5d2ef48828429e",
+      "bytes": 251134
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-practice-desktop.png",
+      "digest": "870f6a9cf3355e690a7db747744c1d38cf2534ae97a503c9834960854b247834",
+      "bytes": 256963
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-undefined-desktop.png",
+      "digest": "f5e5915dee0e4114f0094ee5583a840ed9e2d41114a2ee22ad42229f2a55732f",
+      "bytes": 269597
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-cost-default-desktop.png",
+      "digest": "8394ece809b74c4472b358299ac2112bda30386175547cbe8fc52e83b2f949f3",
+      "bytes": 179269
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-cost-contrast-desktop.png",
+      "digest": "61f6780453eb0d580bfd81f3dff93abcc5dd3aa2d95b4a6d8b85bf3a73388832",
+      "bytes": 189565
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-cost-null-desktop.png",
+      "digest": "21b9d51aedb59ec51106fde496926a9896ff2042be6f121368de307e065c45f1",
+      "bytes": 188720
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-cost-zero-desktop.png",
+      "digest": "adb75c066535ce5d783b1f023ec16e81378354d712ceac352f16fcf0c753cc5a",
+      "bytes": 187922
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-weighted-default-desktop.png",
+      "digest": "42d2bf8a0beae81222215ff368bfb326d21bef81e44c555a7d2ebead387c0a26",
+      "bytes": 220883
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-weighted-doubled-desktop.png",
+      "digest": "c1b257de7b2d32b68f6d0ed99475966aea1414c7a6d8b3d4f56b57db50ee6463",
+      "bytes": 233281
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-weighted-inverse-desktop.png",
+      "digest": "7bb2f24619275198c3fc08d7ddbeab625e8eb98671c6f87f6d1453fa1c4e93b7",
+      "bytes": 224030
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-initial-desktop.png",
+      "digest": "64215e9f8cc84772a81e5541a6171754d4511a0e3e2b3c6aaaa2ea2c72327bb3",
+      "bytes": 223983
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-collision-desktop.png",
+      "digest": "6f729850a41a415c4854d21aa16139a59b5609957a369cc1efead9a16116719a",
+      "bytes": 284416
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-null-desktop.png",
+      "digest": "6b328cbb263ff2779dadbe3af0da1446905ef1b3b311ee022496badcf0382583",
+      "bytes": 296222
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-rescaled-desktop.png",
+      "digest": "a8cf99fe044f7a295ea94749c5f30a7ae770e0025a25bfd33c123abba36e07fb",
+      "bytes": 293240
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-practice-desktop.png",
+      "digest": "2d026ad1610647fc964a1aaf04f372a8919898ee01fbd732f609785f4c4b1652",
+      "bytes": 288916
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-initial-desktop.png",
+      "digest": "bfd159919a0e80257953ca63695ae2a496b0a495b1a2f54c910ede65e5d501b2",
+      "bytes": 182047
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-lowered-desktop.png",
+      "digest": "412c22608d9609935a9099fb65bf3a8943b963b467666c258ba36a238735b58b",
+      "bytes": 366864
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-labels-desktop.png",
+      "digest": "ba89b7d587fedaae9248cf984d2b2c7fbf13d18e20241a202a28d5e878ac9ed6",
+      "bytes": 365962
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-gate-null-desktop.png",
+      "digest": "b5e579498be71ae8d36670f03bc33c12e3f60f10106ff579ae4f8e4982cfe5f3",
+      "bytes": 379974
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-cost-doubles-desktop.png",
+      "digest": "39a646534af79e8b744d376261352397c8a32d7debc83f3f1cda5b4b1c2a26d1",
+      "bytes": 365758
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-tuning-exploratory-desktop.png",
+      "digest": "8ad7cf3f8d63d4c03149248d8478e0c23497937279efa913635f2f437b773f72",
+      "bytes": 383985
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-sequential-no-positives.png",
+      "digest": "67e5c670521e855b9bdb764522b7bd480fa72a18c64df22208e153e4c92f9b46",
+      "bytes": 244031
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-sequential-extreme-weight.png",
+      "digest": "a4183b12dad9337cc5fed260a6a8e47ce6c26e3df0f577d187928134bbb996ec",
+      "bytes": 225632
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-sequential-inverse-context.png",
+      "digest": "dc0785664f349cf59e8bfe32b8354651a660db4eec3ee83c06e5316da0570baa",
+      "bytes": 226218
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-sequential-smote-tie.png",
+      "digest": "1836058c95f2ede03f91332b611e9498ea4ac6d117f4634b67152a27f8106480",
+      "bytes": 286837
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-mismatch-desktop.png",
+      "digest": "69e6cdbbb5b6a52d11d01f8d6e8b50eb11dbc7b0f5efd5b6ccbe6ae7a11f0c10",
+      "bytes": 245257
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-1-desktop.png",
+      "digest": "9350951e701e028082c98cbb92b7e220d57e1a99ba603eb45b6033b4fa6a265a",
+      "bytes": 111709
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-2-desktop.png",
+      "digest": "48a3f985d90772b453d948ec18143554a96462550ff98a1ee5ed993901c1ca96",
+      "bytes": 97927
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-3-desktop.png",
+      "digest": "dc55cb8ef27e23f22a3c7a17d47d829e917832fb9d5b476385a603206362e4cf",
+      "bytes": 104345
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-4-desktop.png",
+      "digest": "f4164791a7174e07f0d789ea75d13276b1439f69974d4760b0a02011f7c9f63f",
+      "bytes": 129570
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-5-desktop.png",
+      "digest": "dee89dacb597e18ab24d3dfd563d72d4fc03a368c763248b47bdedcd2062a849",
+      "bytes": 165805
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-6-desktop.png",
+      "digest": "11b445fbd2124026f65b5ca7e189351bb1e6c7bafc5b3fef8aa0774301b1b7ce",
+      "bytes": 94595
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-investigation-1-390.png",
+      "digest": "064a0f5ec7ce817f166feb49d94d2c5a0b3e26ec8a183e3355b5bcbc4c997fbb",
+      "bytes": 266964
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-investigation-2-390.png",
+      "digest": "529e0aa595663ef91d306e0238ef4e77a69386567ed7f980cb9e9091f4cd3dc2",
+      "bytes": 168602
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-investigation-3-390.png",
+      "digest": "577378a7dee562f1a14d3ab099720e19f0f52ddb1c63d5a386a7b69dfcf1d036",
+      "bytes": 204978
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-investigation-4-390.png",
+      "digest": "1f882679f810414fc0e42c6fa8c0dde79f0572926325c504d60b6ca5f86c00fd",
+      "bytes": 287696
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-investigation-5-390.png",
+      "digest": "3b65df756bf9d7b5dd5d34cae2d3f40c54eba3fcef254b81df8cfa02e8ec92f0",
+      "bytes": 2459243
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-1-390.png",
+      "digest": "b49c4869445c97dce65ada061f2c8c4cb429bf90d3373f128fa7048b773fd596",
+      "bytes": 104500
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-2-390.png",
+      "digest": "468cc1152a019b2105b843d5e3daf75ad2987ee5f5b419280a1970bca5abe1dd",
+      "bytes": 96971
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-3-390.png",
+      "digest": "6cae56ce084b419c34c295bc038a40abc819e1e38761c6dd5fd24c86141aba64",
+      "bytes": 101307
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-4-390.png",
+      "digest": "c76d07f7532222126d0fb6903d4bf58c2dcbe99e828fcdfa5c03ce4e59dfb5b2",
+      "bytes": 128956
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-5-390.png",
+      "digest": "dd8ed8273f343e7104f026ae9720d5e9039a70a57e54be147afeab012e744ff7",
+      "bytes": 209618
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-6-390.png",
+      "digest": "b9a6c0f5f48ec8ee4a062a804bc479c5bdbde05f3cafe307eabe6a930568ba7d",
+      "bytes": 102307
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-queue-320.png",
+      "digest": "0ee3df7d32c8a0419dfa7b99a096878421362c035af9bfdaac6643295523cc08",
+      "bytes": 269062
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-smote-320.png",
+      "digest": "411729a3c27479f9c30d7404f5a1e92f399505856cbdeeea301b472a1b0e9fb5",
+      "bytes": 295602
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-1-320.png",
+      "digest": "312768d8d8b9653ee44693b71e7be927a323ad2e0d2ef4d99ad19968f8dc3551",
+      "bytes": 106775
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-2-320.png",
+      "digest": "76d3a2735461c07bdf932446935d8e88e519f3ac6e4e0089a387b1c0d4cd9212",
+      "bytes": 100500
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\imbalance-figure-5-320.png",
+      "digest": "1343406364b67695216fcbd1645f71af094a89a21fcaea4c4f7ff90051d2d4dc",
+      "bytes": 209197
+    }
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states, not defaults only: each investigation before any commitment, each declared contrast, each exact null, the mismatch branch of the grading contract, every inline figure at desktop and at 390 px, and the widest figures and investigations at 320 px. Every capture has a distinct path and a distinct content hash. They require separate visual inspection, which was performed."
+}

@@ -1,0 +1,67 @@
+{
+  "phase": "content-author checks only",
+  "programs": [
+    {
+      "index": 1,
+      "executed": true,
+      "output": "[1.    2.5   4.25  6.125]\n[1.    2.5   4.25  6.125]\nTrue\n"
+    },
+    {
+      "index": 2,
+      "executed": true,
+      "output": ""
+    },
+    {
+      "index": 3,
+      "executed": true,
+      "output": "[ 1.         -1.8         0.275       2.81875    -0.4109375   2.29960938]\nTrue\n"
+    }
+  ],
+  "links": [
+    "/learn/path/full-curriculum/xlstm-extended-lstm?module=deep-learning-fundamentals",
+    "splice_models.py",
+    "splice.data",
+    "splice.names",
+    "/learn/path/full-curriculum/state-space-models-s4-mamba-mamba-2?module=deep-learning-fundamentals",
+    "/learn/path/full-curriculum/sparse-linear-attention-variants?module=deep-learning-fundamentals",
+    "/learn/path/full-curriculum/ring-attention-sequence-parallelism?module=deep-learning-fundamentals",
+    "/learn/path/full-curriculum/hybrid-ssm-transformer-architectures-jamba?module=deep-learning-fundamentals",
+    "data-provenance.md",
+    "splice_models.py",
+    "convolution_mechanisms.py",
+    "author_calculations.py"
+  ],
+  "figures": [
+    "H01",
+    "H02",
+    "H03",
+    "H04",
+    "H05",
+    "H06",
+    "H07",
+    "H08",
+    "H09",
+    "H10",
+    "H11",
+    "H12",
+    "H13",
+    "H14",
+    "H15",
+    "H16",
+    "H17",
+    "H18",
+    "H19",
+    "H20"
+  ],
+  "investigations": [
+    "HA",
+    "HB",
+    "HC",
+    "HD"
+  ],
+  "closed_hint_solution_disclosures": 20,
+  "original_sha256": "621f9daadcbdebb6a38eaf8035daf0518b5026e996c5eb997086fd554cacb93c",
+  "data_hashes_checked": true,
+  "confusions_and_epoch_selection_checked": true,
+  "implementation": "not started"
+}

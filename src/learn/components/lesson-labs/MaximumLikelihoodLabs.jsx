@@ -28,7 +28,7 @@ function Curve({
       <path d="M49 40V172H338" className="mle-axis" />
       <path d="M49 45H338" className="mle-axis" strokeDasharray="3 6" opacity=".35" />
       <text x="49" y="29">{axisNumber(ymax)}</text><text x="44" y="178" textAnchor="end">0</text>
-      {[domain[0], (domain[0] + domain[1]) / 2, domain[1]].map(x => <text key={x} x={X(x)} y="197" textAnchor="middle">{fmt(x)}</text>)}
+      {[domain[0], (domain[0] + domain[1]) / 2, domain[1]].map(x => <text key={x} x={X(x)} y="201" textAnchor={x === domain[0] ? 'start' : x === domain[1] ? 'end' : 'middle'}>{fmt(x)}</text>)}
       <text x="194" y="226" textAnchor="middle">{xlabel}</text>
       {evaluated.map((points, index) => <path key={series[index].label} fill="none" stroke={colors[index]} strokeWidth="2.8" strokeDasharray={index === 1 ? '7 3' : undefined} d={points.map((point, i) => `${i ? 'L' : 'M'}${X(point.x)},${Y(point.y)}`).join(' ')} />)}
       {marker !== undefined && <><line x1={X(marker)} x2={X(marker)} y1="42" y2="172" stroke="#eee" strokeDasharray="3 4" /><circle cx={X(marker)} cy={Y(series[0].fn(marker))} r="5" fill="#fff" /></>}

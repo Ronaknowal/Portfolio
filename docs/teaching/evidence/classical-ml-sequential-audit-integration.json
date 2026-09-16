@@ -1,0 +1,229 @@
+{
+  "verifiedAt": "2026-09-16T18:02:34.978Z",
+  "status": "passed",
+  "scope": "Sequential verification of newly implemented Classical ML positions17–28, manifold learning through Bayesian networks; prior PCA–GMM audit reused",
+  "topics": [
+    {
+      "id": "t-sne-umap-manifold-learning",
+      "position": 17,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-manifold-review.md",
+      "reviewHash": "083a799c65d98e47f95bc5f42fd802e93c8775eb3304c97a4431309ca5615570",
+      "reviewedFiles": 23,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "Prepared-to-runtime full review: no content omissions; independent review evidence/sequential-manifold-review.md",
+        "Original production349modelassertions and9browsergroups passed against current baseline",
+        "Four native programs and numerical data evidence reused after source/code/output hash reconciliation",
+        "Final production build and11browser groups passed, including near-saturation and inclusive-tolerance regressions; feedback screenshot inspected.",
+        "Independent source review closed; no prepared-content omissions."
+      ]
+    },
+    {
+      "id": "independent-component-analysis-ica",
+      "position": 18,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-ica-review.md",
+      "reviewHash": "c1d191cf23864ea2d6e937adad2fd39fc7a593e5f38588fe8cd77f0de4b0b695",
+      "reviewedFiles": 14,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "Fresh model verification:9groups14978assertions pass",
+        "Final production build/browser:7groups39captures pass including decimal tolerance boundary;51884gzipbytes",
+        "Root inspected both new graded-decimal screenshots: values visible, readable, no clipping",
+        "Unchanged31data checks and48native oracles reused with matching source hashes"
+      ]
+    },
+    {
+      "id": "non-negative-matrix-factorization-nmf",
+      "position": 19,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-nmf-review.md",
+      "reviewHash": "f364a43171f4a3bf90e26be81a78f7380293c1e4f98165106e6cdacb0c584e50",
+      "reviewedFiles": 14,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "Baseline21modelgroups and12browsercases31captures passed",
+        "Unchanged224data checks and25native oracles reused after sourcehash confirmation",
+        "First repaired browser13cases33captures passed; root inspected ungraded-feedback capture and narrow fit/transform layout",
+        "Final browser13cases33captures PASS including computed gold2px arrow and corrected Hphase caption; root inspected corrected diagram screenshot",
+        "verify-curriculum PASS:28modules1218stabletopics369briefs7paths"
+      ]
+    },
+    {
+      "id": "feature-scaling-encoding-imputation",
+      "position": 20,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-preprocessing-review.md",
+      "reviewHash": "55891e124576bd48aeca53757bafe015163662577b667e0152e5864bed276a0a",
+      "reviewedFiles": 13,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "27 model groups pass; baseline17 browser cases pass read-only",
+        "Source-current native module:24oracles reused; real-data CSV digest and reviewed data module unchanged",
+        "Six direct precision/inclusive-boundary checks pass; production rebuild passed",
+        "Final production browser:18 cases and32captures pass, including all8numeric endpoints. Root inspected Figure1 and large-coordinate feedback."
+      ]
+    },
+    {
+      "id": "cross-validation-hyperparameter-tuning",
+      "position": 21,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-cross-validation-review.md",
+      "reviewHash": "1787f985a3b35bdf0123c4897d834fd6eb0be25978f4ef3a27e2edd7f0d42af2",
+      "reviewedFiles": 15,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "Fresh10modelgroups17926assertions pass before/after numerical fixes",
+        "Baseline production13browsercases20captures pass",
+        "Unchanged53nativeoracles and129data checks reused with sourcehash confirmation",
+        "Production rebuild after six repairs passed",
+        "First repaired browser14cases24captures passed; screenshot review identified and repaired extra dense-plot defect",
+        "Final production browser14cases24captures PASS after denseplot repairs; root inspected endpoint table/plot and original-question history capture"
+      ]
+    },
+    {
+      "id": "regularization-l1-l2-elastic-net-dropout",
+      "position": 22,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-regularization-review.md",
+      "reviewHash": "b155c6313893f50c71eec053814d3a118e0c8c0178d630dc34fda2fb9e0c271f",
+      "reviewedFiles": 15,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "PASS115 grouped model checks",
+        "PASS14 production browser cases,36 captures; repaired desktop/mobile visuals inspected",
+        "Final production build passes; unchanged3native programs59oracles and dataset/data evidence reused"
+      ]
+    },
+    {
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "position": 23,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-selection-review.md",
+      "reviewHash": "725dcec663e07e571a096db0e33d720a86e542f9f5a724733f78dbc80e65d825",
+      "reviewedFiles": 16,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "PASS2570 model assertions in209groups",
+        "PASS17 final production-browser cases with41captures; gradient replacement desktop/mobile and full repeat-axis inspected",
+        "Buildpasses; unchanged native51oracles and data module source-checked for reuse"
+      ]
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "position": 24,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-bias-variance-review.md",
+      "reviewHash": "ba6ce0203ca887fad357b1c9c9aadeb8a09e8300d0f461718b85d10616310256",
+      "reviewedFiles": 15,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "PASS179modelgroups including19764gridvalues",
+        "PASS16productionbrowsercases31captures; changedchart/feedback visuallyinspected",
+        "Buildpasses; native55oracles andunchangeddataevidence reused"
+      ]
+    },
+    {
+      "id": "imbalanced-learning-smote-cost-sensitive-learning",
+      "position": 25,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-imbalance-review.md",
+      "reviewHash": "84382694ccf0dad8b51ced3362e7a83b74b9f38111dd026558612f7b326ef61d",
+      "reviewedFiles": 16,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "PASS: 390 grouped model checks across 61 groups, including 1000 threshold candidates and 168 weighted-optimum grid points",
+        "PASS: 25 production browser cases, 51 captures; final extreme curve, inverse context and undefined recall visually inspected",
+        "Build passes; unchanged native 58-oracle evidence and current data proof reused"
+      ]
+    },
+    {
+      "id": "automl-neural-architecture-search-nas",
+      "position": 26,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-automl-review.md",
+      "reviewHash": "330dda848a018c8d0ebded1ac671d9239409ff0f85320009de56cc60f51a45d4",
+      "reviewedFiles": 16,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "338 model checks across 71 groups pass",
+        "Production build passes",
+        "22 browser cases and 37 captures pass; narrow-EI and repaired tiny-gradient screenshots inspected",
+        "Unchanged 104 native oracles and 414 data checks reused with source identity"
+      ]
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "position": 27,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-hmm-review.md",
+      "reviewHash": "2a56f047e381dbc435988694e4b236cbd704b2bfca7985c3fb0054b70555b35e",
+      "reviewedFiles": 18,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "18304 model assertions across 69 groups pass",
+        "Production build passes",
+        "22 browser cases and 58 captures pass; complete M-step and zero-survival screenshots inspected",
+        "Unchanged 66 native oracles and 2668 data checks/481 groups reused with source identity"
+      ]
+    },
+    {
+      "id": "bayesian-networks-causal-graphical-models",
+      "position": 28,
+      "status": "complete",
+      "review": "docs/teaching/evidence/sequential-bayesnet-review.md",
+      "reviewHash": "17768e83877a203b7476ae6bb555c10800e31aaf4127c1f13b21365a9c952089",
+      "reviewedFiles": 17,
+      "contentCheckpointCurrent": true,
+      "implementationCheckpointCurrent": true,
+      "checks": [
+        "524 model checks across 64 groups pass",
+        "Production build passes",
+        "25 browser cases and 39 captures pass; mobile tiny-mixture and desktop/mobile frontdoor screenshots inspected",
+        "Unchanged 17 native oracles and 1270 data checks reused with source identity"
+      ]
+    }
+  ],
+  "completedTopics": 12,
+  "unrelatedCentralRowsChanged": [],
+  "centralRowsUpdated": [
+    "t-sne-umap-manifold-learning",
+    "independent-component-analysis-ica",
+    "non-negative-matrix-factorization-nmf",
+    "feature-scaling-encoding-imputation",
+    "cross-validation-hyperparameter-tuning",
+    "regularization-l1-l2-elastic-net-dropout",
+    "feature-selection-importance-shap-permutation-mutual-info",
+    "bias-variance-tradeoff-learning-curves",
+    "imbalanced-learning-smote-cost-sensitive-learning",
+    "automl-neural-architecture-search-nas",
+    "hidden-markov-models-hmm",
+    "bayesian-networks-causal-graphical-models"
+  ],
+  "publicationManifestUnchanged": true,
+  "publicationManifestHash": "693988ad047880f380114053ffd3238e3b1656cac0f189b35cbe3f39e0cf3b13",
+  "allPreparedPacketsUnchanged": true,
+  "productionBuild": "passed; final Bayesian Networks browser verified the final dist build",
+  "buildManifestHash": "a6ed38980328fa552bd36e41dfe318d48852425e44d68de72638043a660a9f7e",
+  "curriculum": "passed: 28 modules, 1218 stable topics, 369 briefs, 7 paths",
+  "deliveryContract": "passed: 177 tracked topics, 8 behavior groups",
+  "inventoryRegeneration": "passed: 1218 topics, 228 published, 176 current content checkpoints, 123 current implementation checkpoints",
+  "limitations": [
+    "Scope is Classical ML17–28; the completed PCA–GMM12–16 audit is reused. This is not a new whole-site audit.",
+    "Browser/automated/source review does not claim a fresh beginner walkthrough or screen-reader study.",
+    "AutoML optional FLAML/KerasTuner programs retain their documented unexecuted limitation.",
+    "User acceptance is separate from review completion; no commit or deployment performed."
+  ]
+}

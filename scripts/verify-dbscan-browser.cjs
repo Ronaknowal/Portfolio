@@ -86,6 +86,22 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await page.locator('.dbscan-lesson details').evaluateAll(items => items.forEach(item => { item.open = false; }));
     records.push({ case: 'Complete visible code/output for nine programs, fourteen route anchors, seven figures, twelve practice tasks, downloadable CSV, current metadata and module sequence' });
 
+    // The drawing must preserve the quantitative claim, including its accessible equivalent.
+    assert.match(await page.getByRole('img', { name: /^Sorted fourth-neighbour distances/ }).getAttribute('aria-label'), /0\.5, 0\.5, 0\.5, 0\.5, 0\.75, 0\.75, 0\.75, 0\.75, 1\.25, 2\.75/);
+    assert.match(await page.getByRole('img', { name: /^Ordered rows A, B, C/ }).getAttribute('aria-label'), /reachability undefined, 0\.75, 0\.5, 0\.5, 1, 1\.25, 0\.75, 0\.5, 0\.5, undefined/);
+    const stabilityAreas = await page.locator('[data-stability-exit]').evaluateAll(scenarios => scenarios.map(scenario => {
+      const measure = rect => ({ width: rect.width.baseVal.value, area: rect.width.baseVal.value * rect.height.baseVal.value });
+      return { exit: Number(scenario.dataset.stabilityExit), viewBox: scenario.getAttribute('viewBox'), levels: [...scenario.querySelectorAll('.db-grid')].map(line => line.y1.baseVal.value), parent: measure(scenario.querySelector('[data-branch="parent"]')), children: [...scenario.querySelectorAll('[data-branch="child"]')].map(measure) };
+    }));
+    assert.deepEqual(stabilityAreas.map(scenario => scenario.exit), [6, 4], 'both separately named stability scenarios are present');
+    assert.equal(stabilityAreas[0].viewBox, stabilityAreas[1].viewBox, 'the panels keep the same coordinate scale');
+    assert.deepEqual(stabilityAreas[0].levels, stabilityAreas[1].levels, 'both panels show the same density levels at the same heights');
+    for (const scenario of stabilityAreas) {
+      assert.ok(scenario.children.every(child => child.width === scenario.parent.width / 2), 'three rows have half the width of six');
+      assert.equal(scenario.children.reduce((sum, child) => sum + child.area, 0) / scenario.parent.area, scenario.exit === 6 ? 18 / 12 : 6 / 12, 'drawn stability area agrees with the displayed arithmetic');
+    }
+    records.push({ case: 'Exact F3/OPTICS spoken values and F6 branch-width/stability-area ratios' });
+
     const trail = page.locator('.db-investigation').nth(0);
     assert.equal(await trail.locator('.db-hidden').count(), 1, 'Trail result hidden before commitment');
     await trail.getByLabel('Number of core components').selectOption('2');
@@ -94,6 +110,18 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await checkText(trail.locator('.db-feedback'), /Your prediction matches/);
     await checkText(trail.locator('.db-readout'), /2 core components.*\{A, B, C, D\} and \{E, F, G, H\}/);
     await checkText(trail.locator('.db-readout'), /Core 8, border 1, noise 1/);
+    assert.equal(await trail.getByLabel('Type of I').isDisabled(), true, 'a revealed prediction cannot be revised into a correct answer');
+    await trail.getByLabel('Selected row', { exact: false }).selectOption('9');
+    assert.equal(await trail.locator('.db-hidden').count(), 1, 'selecting J cannot silently regrade the prediction for I');
+    assert.equal(await trail.getByLabel('Type of J').inputValue(), '');
+    assert.equal(await trail.getByLabel('Number of core components').inputValue(), '');
+    assert.equal(await trail.getByRole('button', { name: 'Commit prediction and apply' }).isDisabled(), true);
+    await trail.getByLabel('Number of core components').selectOption('2');
+    await trail.getByLabel('Type of J').selectOption('border');
+    await trail.getByRole('button', { name: 'Commit prediction and apply' }).click();
+    await checkText(trail.locator('.db-feedback'), /Not this time.*Type of J: Noise.*you chose Border/);
+    assert.equal(await trail.getByLabel('Type of J').isDisabled(), true, 'the missed prediction stays frozen too');
+    await trail.getByLabel('Selected row', { exact: false }).selectOption('8');
     await trail.getByLabel('Radius ε, meters', { exact: false }).fill('1.25');
     await checkText(trail.locator('.db-feedback'), /inputs changed after your last comparison/);
     await trail.getByLabel('Number of core components').selectOption('1');
@@ -108,6 +136,7 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await trail.getByRole('button', { name: 'Commit prediction and apply' }).click();
     await checkText(trail.locator('.db-readout'), /Visit order: J I H G F E D C B A/);
     await trail.getByLabel('I y, meters', { exact: false }).fill('0.125');
+    await trail.getByLabel('Number of core components').selectOption('2');
     await trail.getByLabel('Type of I').selectOption('noise');
     await trail.getByRole('button', { name: 'Commit prediction and apply' }).click();
     await checkText(trail.locator('.db-feedback'), /Your prediction matches/);
@@ -125,6 +154,10 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await metric.getByLabel('Same neighbourhoods?').selectOption('yes');
     await metric.getByRole('button', { name: 'Commit prediction and apply' }).click();
     await checkText(metric.locator('.db-feedback'), /Your prediction matches/);
+    assert.equal(await metric.getByLabel('Same neighbourhoods?').isDisabled(), true);
+    await metric.getByLabel('Cited pair, first row').selectOption('0');
+    assert.equal(await metric.locator('.db-hidden').count(), 1, 'a new cited pair requires a new prediction');
+    assert.equal(await metric.getByLabel('Same neighbourhoods?').inputValue(), '');
     await metric.getByLabel('Which corners').selectOption('five');
     await metric.getByLabel('Same neighbourhoods?').selectOption('no');
     await metric.getByRole('button', { name: 'Commit prediction and apply' }).click();
@@ -141,6 +174,7 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await iris.getByLabel('Coverage', { exact: false }).selectOption('gt75');
     await iris.getByRole('button', { name: 'Commit and reveal the report' }).click();
     await checkText(iris.locator('.db-feedback'), /Your prediction matches/);
+    assert.equal(await iris.getByLabel('Returned groups').isDisabled(), true);
     await checkText(iris.locator('.db-table-scroll').first(), /116 \/ 150 = 77\.3%/);
     await checkText(iris.locator('.db-table-scroll').first(), /hidden until species are revealed/);
     await iris.getByRole('button', { name: 'Save this report as snapshot A' }).click();
@@ -148,6 +182,8 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await checkText(iris.locator('.db-table-scroll').first(), /0\.442/);
     await iris.getByLabel('Count m, rows including self', { exact: false }).fill('10');
     await checkText(iris.locator('.db-feedback'), /inputs changed/);
+    assert.equal(await iris.getByLabel('Returned groups').inputValue(), '');
+    assert.equal(await iris.getByLabel('Coverage', { exact: false }).inputValue(), '');
     await iris.getByLabel('Returned groups').selectOption('3');
     await iris.getByLabel('Coverage', { exact: false }).selectOption('25to50');
     await iris.getByRole('button', { name: 'Commit and reveal the report' }).click();
@@ -159,6 +195,22 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await checkText(iris.locator('.db-table-scroll').nth(1), /ARI vs species on the common rows only/);
     await checkText(iris.locator('.db-table-scroll').nth(1), /0\.848/);
     await checkText(iris.locator('.db-table-scroll').nth(1), /61 rows, same population for both/);
+    await iris.getByText("Inspect the current report's retained and noise row IDs", { exact: true }).click();
+    await iris.getByText('Inspect snapshot A and the exact common-row population', { exact: true }).click();
+    const population = async name => {
+      const text = (await iris.locator(`[data-population="${name}"]`).innerText()).trim();
+      return text === 'none' ? [] : text.split(',').map(value => Number(value.trim()));
+    };
+    const currentAssigned = await population('current-assigned'), currentNoise = await population('current-noise');
+    const savedAssigned = await population('snapshot-assigned'), savedNoise = await population('snapshot-noise');
+    const commonIds = await population('common');
+    assert.equal(savedAssigned.length, 116); assert.equal(currentAssigned.length, 61);
+    assert.deepEqual([...currentAssigned, ...currentNoise].sort((a, b) => a - b), Array.from({ length: 150 }, (_, i) => i));
+    assert.deepEqual([...savedAssigned, ...savedNoise].sort((a, b) => a - b), Array.from({ length: 150 }, (_, i) => i));
+    assert.deepEqual(commonIds, savedAssigned.filter(id => currentAssigned.includes(id)));
+    assert.deepEqual(await population('snapshot-only'), savedAssigned.filter(id => !currentAssigned.includes(id)));
+    assert.deepEqual(await population('current-only'), currentAssigned.filter(id => !savedAssigned.includes(id)));
+    assert.equal(commonIds.length, 61, 'scores expose the actual shared denominator, not only its size');
     assert.equal(await iris.getByLabel('Radius ε in standardized units', { exact: false }).count(), 1, 'standardized slider label');
     await iris.getByLabel('Feature scaling').selectOption('raw');
     assert.equal(await iris.getByLabel('Radius ε in centimetres', { exact: false }).count(), 1, 'raw slider label names centimetres');
@@ -183,7 +235,10 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
     await interval.getByRole('button', { name: 'Commit prediction and apply' }).click();
     await checkText(interval.locator('.db-feedback'), /Your prediction matches/);
     await checkText(interval.locator('.db-readout'), /No radius satisfies both requirements/);
+    assert.equal(await interval.getByLabel('Does a radius recover all three groups?').isDisabled(), true);
     await interval.getByLabel('Spacing inside the right group', { exact: false }).fill('0.25');
+    assert.equal(await interval.getByLabel('Does a radius recover all three groups?').inputValue(), '');
+    assert.equal(await interval.getByLabel('Does ε = 0.25 recover all three?').inputValue(), '');
     await interval.getByLabel('Does a radius recover all three groups?').selectOption('yes');
     await interval.getByLabel('Does ε = 0.25 recover all three?').selectOption('yes');
     await interval.getByRole('button', { name: 'Commit prediction and apply' }).click();
@@ -243,6 +298,14 @@ const ownedFiles = [sourcePath, 'src/learn/data/dbscan-models.js', 'src/learn/da
       assert.equal(await page.locator('.katex-error').count(), 0);
       const smallText = await page.locator('.db-figure svg text, .db-investigation svg text').evaluateAll(items => items.filter(item => item.getClientRects().length > 0 && item.getBoundingClientRect().height < 11.5).map(item => `${item.textContent} ${item.getBoundingClientRect().height.toFixed(1)}px`));
       assert.deepEqual(smallText, [], `SVG text rendered below 11.5 px at ${width}px`);
+      const stabilityPanels = await page.locator('[data-stability-exit]').evaluateAll(items => items.map(item => {
+        const box = item.getBoundingClientRect();
+        return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, width: box.width, insideViewport: box.left >= -1 && box.right <= innerWidth + 1, scrollAncestor: Boolean(item.closest('.db-scroll')) };
+      }));
+      assert.equal(stabilityPanels.length, 2);
+      assert.ok(stabilityPanels.every(panel => panel.insideViewport && !panel.scrollAncestor), `Both F6 scenarios fit without a horizontal scroll at ${width}px`);
+      assert.ok(Math.abs(stabilityPanels[0].width - stabilityPanels[1].width) < 1, 'matched rendered panel scales');
+      assert.ok(stabilityPanels[1].top >= stabilityPanels[0].bottom, 'F6 scenarios stack on phones instead of hiding the comparison to the right');
       if (width === 390) {
         await screenshot(page.locator('.db-figure').nth(0), 'dbscan-roster-mobile.png');
         await screenshot(page.locator('.db-figure').nth(3), 'dbscan-interval-figure-mobile.png');

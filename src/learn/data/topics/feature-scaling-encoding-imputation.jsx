@@ -1,831 +1,298 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { RulerLab, DonorLab, PipelineLab, TargetEncodingLab } from '../../components/lesson-labs/ScalingLabs.jsx';
+import {
+  RecordFigure, RulerFigure, CategoryFigure, BoundaryFigure, PipelineFigure, ComparisonFigure, RankFigure,
+  EncodingFigure, PoolingFigure,
+} from '../../components/lesson-labs/ScalingFigures.jsx';
+import { scalingExamples } from '../scaling-examples.js';
+import { comparison, fitted, provenance, scaleFixture, split } from '../scaling-data.js';
+import { signedHash } from '../scaling-models.js';
+
+const fixture = ['standard', 'minmax', 'robust'];
+const four = value => value.toFixed(4);
+const counted = Object.fromEntries(comparison.map(row => [row.method, row]));
+/** The constructed signed map of section 8, hashed by the model layer rather
+ * than written out by hand, so the table cannot drift from the arithmetic. */
+const hashMap = { apple: { bucket: 0, sign: 1 }, pear: { bucket: 0, sign: -1 }, banana: { bucket: 1, sign: 1 } };
+const hashBags = [{ apple: 3, pear: 1, banana: 2 }, { apple: 2, banana: 2 }];
+
+const headings = [
+  '1. Three different questions hiding inside “preprocessing”',
+  '2. Scaling changes the meaning of “nearby”',
+  '3. Encoding categories means choosing relationships',
+  '4. A missing value is a question, not a zero',
+  '5. Learn the preparation rule without looking ahead',
+  '6. A complete experiment on real penguin measurements',
+  '7. Deeper branch: change the shape, not only the ruler',
+  '8. Deeper branch: high-cardinality categories and target information',
+  '9. Deeper branch: completing data versus representing uncertainty',
+  '10. Practice: explain the representation before choosing the function',
+  '11. Readiness and the next connection'
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="sc-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const featureScalingContent = {
-  title: "Feature Scaling, Encoding & Imputation",
-  readTime: "~45 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Raw tabular data is a mixed-type chaos. Age lives between 18 and 90. Annual income lives between 20,000 and 500,000. A zip code is a string that happens to look like a number. Employment status is a word. Whether someone defaulted on a loan is a 0 or 1. Pour all of that directly into a gradient descent optimizer or a k-nearest-neighbors classifier and you get a model dominated by whichever feature has the largest numeric range — not because that feature is the most predictive, but simply because its scale drowns out the others. Most classical ML algorithms assume that all numeric features live on a comparable ruler. Three preprocessing operations exist to enforce that assumption, convert non-numeric data into numeric form, and fill in the holes left by real-world data collection.
-      </Prose>
-
-      <Prose>
-        <strong>Feature scaling</strong> puts numeric columns on the same measurement scale without destroying the information they carry. Gradient descent converges faster when all features are similarly scaled — the loss surface becomes more spherical and the gradient steps point more directly toward the minimum. K-nearest neighbors and support vector machines use Euclidean distance, so a feature with a range of 10,000 overwhelms one with a range of 1. Principal component analysis builds axes of maximum variance, and without scaling the first principal component collapses onto whichever feature has the largest raw variance regardless of importance. L1 and L2 regularization penalize weight magnitudes, so an unscaled feature forces the model to use a tiny weight to compensate for its large range — the effective regularization strength becomes feature-dependent.
-      </Prose>
-
-      <Prose>
-        <strong>Encoding</strong> converts categorical variables into numbers. Scikit-learn's estimators refuse non-numeric input at the matrix level — there is no choice but to encode. But the manner of encoding is a consequential modeling decision. Treating city names as integers (0=Chicago, 1=Los Angeles, 2=New York) imposes a false ordinal relationship. One-hot encoding avoids that but multiplies the number of features. Target encoding collapses a high-cardinality column to a single float but introduces leakage when done carelessly. Each encoding choice changes what the downstream model can learn and how it generalizes.
-      </Prose>
-
-      <Prose>
-        <strong>Imputation</strong> handles missing values. Dropping rows with any missing data is statistically dangerous when missingness is not completely at random — you are silently biasing the training distribution toward the population of complete records, which may differ systematically from the full population. A medical dataset where sicker patients are more likely to have incomplete lab results will be biased if you drop incomplete rows: you train on the healthier subpopulation and evaluate on everyone. Imputation replaces missing values with plausible estimates inferred from the observed data.
-      </Prose>
-
-      <Prose>
-        The intellectual lineage of these three operations spans a century. Karl Pearson's 1901 paper introducing principal component analysis (in the <em>Philosophical Magazine</em>, vol. 6, no. 2, pp. 559–572) implicitly required that variables be standardized before decomposition — the insight that covariance structure is meaningful only when features share a common scale predates modern computing. One-hot encoding descends from binary coding in 1960s telecommunications engineering, where it was used to represent symbols in error-correcting codes. Scikit-learn's <Code>ColumnTransformer</Code>, which unified the handling of mixed-type columns under a single API, was introduced in version 0.20 in 2018, finally giving practitioners a clean single-call solution to the fit-train-test symmetry problem that had caused data leakage in countless pipelines before it.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <H3>2.1 Scaling: one ruler for all features</H3>
-
-      <Prose>
-        Imagine plotting age on the x-axis and income on the y-axis. The income axis spans $480,000 while age spans 72 years. A Euclidean distance between two people will be computed almost entirely from the income difference because a 1-unit difference in income is worth far less than a 1-unit difference in age in any meaningful sense, yet the raw arithmetic disagrees. Scaling fixes this by applying a monotone transformation to each column independently — the relative ordering of values within each column is preserved, but the ranges are brought into comparable territory. After standardization (zero mean, unit variance), a one-unit difference in any feature corresponds to one standard deviation — a natural common unit.
-      </Prose>
-
-      <Prose>
-        The critical discipline of scaling is that the transformation parameters must be learned from the training data only and then applied to the test data. You compute the mean and standard deviation on the training set, then use those same values to transform the test set. If you compute on the full dataset before splitting, your test set has informed the transformation — a subtle but real form of data leakage. The training data leaks future knowledge about the distribution to the evaluation. In cross-validation, this means each fold's validation set must be transformed using statistics computed from the other folds only. <Code>sklearn.Pipeline</Code> enforces this automatically.
-      </Prose>
-
-      <H3>2.2 Encoding: mapping categories to vectors</H3>
-
-      <Prose>
-        A categorical variable is a discrete set of unordered labels. The fundamental question encoding answers is: what numbers should represent these labels such that the model can learn the right relationships? One-hot encoding is the honest choice for nominal categories (no intrinsic order): each category becomes its own binary dimension. The model sees a city not as a number but as a direction in feature space — and no distance between any two directions is artificially constrained by an integer ordering. The cost is dimensionality: a feature with 1,000 distinct cities becomes 1,000 binary columns.
-      </Prose>
-
-      <Prose>
-        Target encoding compresses high-cardinality columns back to a single float by replacing each category with the average target value observed for that category in the training data. This is elegant and compact, but it is also dangerous: if you compute the per-category mean on the full training set and then use that mean as a feature during training, the model sees a perfect signal for the target — every training row's encoded value is derived from the target of rows including itself. The fix is out-of-fold encoding: for each training fold, compute the category mean using only the other folds. Test-set encoding uses the full training set mean. This is the same logic as cross-validation, applied to feature construction.
-      </Prose>
-
-      <H3>2.3 Imputation: reasoning about the holes</H3>
-
-      <Prose>
-        Missing data follows one of three mechanisms, each requiring a different response. Missing Completely At Random (MCAR) means the probability of a value being missing is independent of any observed or unobserved variable. Dropping MCAR rows loses information but does not bias estimates. Missing At Random (MAR) means missingness depends on observed variables but not on the missing value itself — for example, younger patients are less likely to have cholesterol recorded, but among patients of any given age, missingness does not depend on the actual cholesterol level. Imputing from observed predictors (iterative or model-based imputation) works well here. Missing Not At Random (MNAR) means the value's absence depends on the value itself — high earners skip income fields. No purely data-driven imputation strategy is unbiased for MNAR; adding a missingness indicator column and letting the model learn from the indicator is the pragmatic fallback.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Scaling transforms</H3>
-
-      <Prose>
-        Let <Code>x</Code> be a column of <Code>n</Code> training observations. The four standard scalers apply the following transforms at inference time:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{StandardScaler: } z = \\frac{x - \\hat{\\mu}}{\\hat{\\sigma}}"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{MinMaxScaler: } z = \\frac{x - x_{\\min}}{x_{\\max} - x_{\\min}}"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{RobustScaler: } z = \\frac{x - \\tilde{x}}{\\text{IQR}}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"μ̂, σ̂"}</Code> are the sample mean and standard deviation (population convention, <Code>ddof=0</Code>) computed on the training set; <Code>{"x_min, x_max"}</Code> are the training-set extremes; <Code>{"x̃"}</Code> is the median; and IQR is the interquartile range (75th minus 25th percentile). StandardScaler produces zero-mean unit-variance outputs — optimal for Gaussian-distributed features and for regularized models where the penalty should be scale-invariant. MinMaxScaler maps the training range to <Code>[0, 1]</Code> — useful when you need bounded outputs (neural network inputs with bounded activations, image pixel values) but sensitive to outliers since a single outlier compresses all other values. RobustScaler uses median and IQR, making it resistant to outliers: a handful of extreme values cannot shift the center or inflate the scale.
-      </Prose>
-
-      <Prose>
-        For strongly skewed features where even RobustScaler leaves the distribution non-Gaussian, power transforms are preferred. The Yeo-Johnson transform (Yeo and Johnson, 2000) is defined for all real inputs:
-      </Prose>
-
-      <MathBlock>
-        {"\\psi(x; \\lambda) = \\begin{cases} \\frac{(x+1)^\\lambda - 1}{\\lambda} & x \\geq 0, \\lambda \\neq 0 \\\\ \\ln(x+1) & x \\geq 0, \\lambda = 0 \\\\ -\\frac{(1-x)^{2-\\lambda}-1}{2-\\lambda} & x < 0, \\lambda \\neq 2 \\\\ -\\ln(1-x) & x < 0, \\lambda = 2 \\end{cases}"}
-      </MathBlock>
-
-      <Prose>
-        The parameter <Code>λ</Code> is estimated by maximum likelihood, maximizing the log-likelihood of the transformed data under a Gaussian model. A fitted <Code>λ ≈ 0</Code> corresponds to log-transform; <Code>λ ≈ 1</Code> corresponds to no change; <Code>λ ≈ 2</Code> corresponds to a square-root-like compression for negative values. The Box-Cox transform is similar but only valid for strictly positive inputs; Yeo-Johnson extends it to the full real line.
-      </Prose>
-
-      <Prose>
-        The QuantileTransformer maps each feature through its empirical cumulative distribution function, producing a uniform <Code>[0, 1]</Code> or normal <Code>N(0,1)</Code> output. It is fully non-parametric — no distributional assumption — but it loses the ordinal information between quantile bins and cannot extrapolate beyond the training range.
-      </Prose>
-
-      <H3>3.2 Encoding: one-hot, ordinal, and target encoding</H3>
-
-      <Prose>
-        Let <Code>C</Code> be a categorical feature with <Code>K</Code> distinct categories <Code>{"c₁, ..., c_K"}</Code>. One-hot encoding maps each observation to a binary vector <Code>{"e_k ∈ {0,1}^K"}</Code> with a single 1 in the position corresponding to the observed category. The encoded matrix has <Code>K</Code> columns. For linear models with an intercept, one-hot encoding introduces perfect multicollinearity: the sum of all K indicator columns equals 1, the same as the intercept column. The fix is <Code>drop='first'</Code> — drop one reference category, leaving <Code>K-1</Code> columns. Tree-based models do not need this since they do not invert a feature matrix, but linear models and PCA do.
-      </Prose>
-
-      <Prose>
-        Ordinal encoding maps each category to an integer in <Code>{"0, 1, ..., K-1"}</Code>. This is appropriate only when the categories have a meaningful total order (clothing sizes: XS {"<"} S {"<"} M {"<"} L {"<"} XL) and when the model can exploit that order (linear models, neural networks). Applying ordinal encoding to nominal categories (city names) imposes a false metric structure that tree-based models will exploit spuriously.
-      </Prose>
-
-      <Prose>
-        Target encoding replaces each category <Code>c</Code> with a smoothed estimate of <Code>{"E[y | C = c]"}</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"\\hat{\\mu}_c = \\frac{n_c \\cdot \\bar{y}_c + \\alpha \\cdot \\bar{y}_{\\text{global}}}{n_c + \\alpha}"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"n_c"}</Code> is the count of observations in category <Code>c</Code>, <Code>{"ȳ_c"}</Code> is their mean target, <Code>{"ȳ_global"}</Code> is the global target mean, and <Code>α</Code> is a smoothing parameter (typically 5–20). The smoothing term pulls rare categories toward the global mean, reducing variance on categories with few observations. Without smoothing, a category observed once gets encoded as exactly the single observation's target — maximum variance, minimum bias. This is the James-Stein intuition applied to categorical means.
-      </Prose>
-
-      <Prose>
-        The leakage derivation: if you compute <Code>{"ȳ_c"}</Code> from the full training set and then train a model on those encoded values, each row's encoded value was computed using that row's own target value. The model sees a feature that is a deterministic (smoothed) function of the target — in the limit of <Code>α = 0</Code> and a single observation per category, the encoded feature is literally the target. The out-of-fold fix computes, for each row <Code>i</Code>, the category mean using all rows <em>except</em> row <Code>i</Code>'s fold. Test rows always use the full-training-set mean.
-      </Prose>
-
-      <H3>3.3 Imputation: mean, MICE, and KNN</H3>
-
-      <Prose>
-        Mean imputation replaces each missing value with the column mean computed from the observed training values. It is unbiased for the column mean under MCAR, but it attenuates correlations between columns — by replacing missing values with the mean, you are inserting points that have zero deviation from center in that column, which pulls the estimated covariance toward zero. For downstream models that use the covariance structure (PCA, regularized regression), this distortion can be significant.
-      </Prose>
-
-      <Prose>
-        MICE (Multivariate Imputation by Chained Equations, van Buuren and Groothuis-Oudshoorn 2011) treats imputation as a sequence of regression problems. Initialize all missing values with column means. Then cycle through each column with missing values: regress that column on all other columns (using a model of your choice — linear regression, random forest, etc.) using only the rows where that column is observed, then use the fitted model to impute the missing rows. Cycle through all columns with missing values and repeat for several iterations until convergence. The resulting imputed values reflect the joint distribution of the features, not just the marginal mean. Scikit-learn exposes this as <Code>IterativeImputer</Code> (experimental as of sklearn 1.5).
-      </Prose>
-
-      <MathBlock>
-        {"\\text{MICE cycle: for each column } j, \\quad \\hat{x}_{ij} = f_j\\bigl(x_{i,-j}\\bigr), \\quad \\text{where } f_j \\text{ fitted on observed rows of } j"}
-      </MathBlock>
-
-      <Prose>
-        KNN imputation replaces each missing value with the weighted average of the corresponding values in the <Code>k</Code> nearest complete neighbors, where distance is computed on the observed features shared between the missing row and each candidate neighbor. It is non-parametric and captures non-linear relationships, but it scales as <Code>{"O(n² · d)"}</Code> at inference time — expensive for large datasets.
-      </Prose>
-
-      <Prose>
-        A note on trees: decision trees and gradient-boosted ensembles do not require scaling — splits are threshold comparisons on individual features, and a monotone transformation of a feature does not change any threshold. However, they do require encoding (categorical strings are not numeric) and are sensitive to the handling of missing values: some implementations (XGBoost, LightGBM) handle NaNs natively by learning which branch to send a missing value to; scikit-learn's <Code>GradientBoostingClassifier</Code> does not, and requires explicit imputation.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was run on a synthetic 20-row mixed-type table with deliberate missing values (4 missing ages, 5 missing incomes). NumPy only for the algorithms. Outputs are verbatim terminal output.
-      </Prose>
-
-      <H3>4.1 StandardScaler, MinMaxScaler</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class StandardScalerScratch:
-    def fit(self, X):
-        self.mean_ = X.mean(axis=0)
-        self.std_  = X.std(axis=0, ddof=0)   # population std, matches sklearn default
-        return self
-    def transform(self, X):
-        return (X - self.mean_) / self.std_
-    def inverse_transform(self, X_scaled):
-        return X_scaled * self.std_ + self.mean_
-
-class MinMaxScalerScratch:
-    def fit(self, X):
-        self.min_ = X.min(axis=0)
-        self.max_ = X.max(axis=0)
-        return self
-    def transform(self, X):
-        return (X - self.min_) / (self.max_ - self.min_)
-    def inverse_transform(self, X_scaled):
-        return X_scaled * (self.max_ - self.min_) + self.min_
-
-# Messy mixed-type table: age (float, some NaN), income (float, some NaN)
-age    = np.array([25, np.nan, 34, 42, np.nan, 29, 55, 38, 47, 22,
-                   31, np.nan, 60, 28, 45, 33, 52, 41, np.nan, 36], dtype=float)
-income = np.array([48000, 62000, np.nan, 95000, 71000, np.nan, 110000, 78000,
-                   np.nan, 35000, 55000, 88000, 120000, 42000, np.nan,
-                   67000, 99000, 73000, 61000, np.nan], dtype=float)
-
-print("=== BEFORE SCALING (age, income stats) ===")
-print(f"  age:    mean={np.nanmean(age):.2f}, std={np.nanstd(age):.2f}")
-print(f"  income: mean={np.nanmean(income):.2f}, std={np.nanstd(income):.2f}")
-# Output:
-# === BEFORE SCALING (age, income stats) ===
-#   age:    mean=38.62, std=10.66
-#   income: mean=73600.00, std=24002.22
-
-# Mean-impute first so scalers get clean arrays
-X_num = np.column_stack([age, income])
-col_means = np.array([np.nanmean(age), np.nanmean(income)])
-for j in range(2):
-    mask = np.isnan(X_num[:, j])
-    X_num[mask, j] = col_means[j]
-
-ss = StandardScalerScratch().fit(X_num)
-X_std = ss.transform(X_num)
-print("\\n=== AFTER STANDARD SCALING ===")
-print(f"  age:    mean={X_std[:,0].mean():.4f}, std={X_std[:,0].std():.4f}")
-print(f"  income: mean={X_std[:,1].mean():.4f}, std={X_std[:,1].std():.4f}")
-# Output:
-# === AFTER STANDARD SCALING ===
-#   age:    mean=0.0000, std=1.0000
-#   income: mean=0.0000, std=1.0000
-
-mm = MinMaxScalerScratch().fit(X_num)
-X_mm = mm.transform(X_num)
-print("\\n=== AFTER MINMAX SCALING ===")
-print(f"  age:    min={X_mm[:,0].min():.4f}, max={X_mm[:,0].max():.4f}")
-print(f"  income: min={X_mm[:,1].min():.4f}, max={X_mm[:,1].max():.4f}")
-# Output:
-# === AFTER MINMAX SCALING ===
-#   age:    min=0.0000, max=1.0000
-#   income: min=0.0000, max=1.0000`}
-      </CodeBlock>
-
-      <H3>4.2 One-hot encoding and out-of-fold target encoding</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-# One-hot encoder: fit learns the vocabulary, transform builds binary matrix
-class OneHotScratch:
-    def fit(self, col):
-        self.categories_ = sorted(set(col))
-        self.cat_to_idx  = {c: i for i, c in enumerate(self.categories_)}
-        return self
-    def transform(self, col):
-        out = np.zeros((len(col), len(self.categories_)), dtype=int)
-        for i, val in enumerate(col):
-            if val in self.cat_to_idx:
-                out[i, self.cat_to_idx[val]] = 1
-        return out
-
-city = ['NYC', 'LA', 'NYC', 'CHI', 'LA', 'NYC', 'CHI', 'LA',
-        'NYC', 'CHI', 'LA', 'NYC', 'CHI', 'LA', 'NYC',
-        'CHI', 'LA', 'NYC', 'CHI', 'LA']
-
-ohe = OneHotScratch().fit(city)
-X_ohe = ohe.transform(city)
-print("=== ONE-HOT ENCODING (city) ===")
-print(f"  categories: {ohe.categories_}")
-print(f"  output shape: {X_ohe.shape}")
-print(f"  first 5 rows (CHI, LA, NYC):\\n{X_ohe[:5]}")
-# Output:
-# === ONE-HOT ENCODING (city) ===
-#   categories: ['CHI', 'LA', 'NYC']
-#   output shape: (20, 3)
-#   first 5 rows (CHI, LA, NYC):
-# [[0 0 1]
-#  [0 1 0]
-#  [0 0 1]
-#  [1 0 0]
-#  [0 1 0]]
-
-# Out-of-fold target encoding (smoothed): no leakage
-def target_encode_oof(col, y, n_splits=4, smoothing=5):
-    global_mean = np.mean(y)
-    encoded = np.zeros(len(col))
-    fold_size = len(col) // n_splits
-    for fold in range(n_splits):
-        val_idx   = np.arange(fold * fold_size, (fold + 1) * fold_size)
-        train_idx = np.concatenate([np.arange(0, fold * fold_size),
-                                    np.arange((fold + 1) * fold_size, len(col))])
-        train_col = [col[i] for i in train_idx]
-        train_y   = y[train_idx]
-        stats = {}
-        for cat in set(train_col):
-            mask    = np.array([c == cat for c in train_col])
-            n       = mask.sum()
-            cat_mean = train_y[mask].mean()
-            # Smoothed blend: rare categories shrink toward global mean
-            stats[cat] = (n * cat_mean + smoothing * global_mean) / (n + smoothing)
-        for i in val_idx:
-            encoded[i] = stats.get(col[i], global_mean)
-    return encoded
-
-purchased = np.array([1,0,1,1,0,1,1,0,0,0,1,1,1,0,1,0,1,1,0,1], dtype=float)
-te = target_encode_oof(city, purchased, n_splits=4, smoothing=5)
-print("\\n=== TARGET ENCODING OOF (city -> float) ===")
-for cat in ['CHI', 'LA', 'NYC']:
-    mask = np.array([c == cat for c in city])
-    print(f"  {cat}: purchase_rate={purchased[mask].mean():.3f},  "
-          f"TE_mean={te[mask].mean():.3f}")
-# Output:
-# === TARGET ENCODING OOF (city -> float) ===
-#   CHI: purchase_rate=0.500,  TE_mean=0.574
-#   LA:  purchase_rate=0.429,  TE_mean=0.506
-#   NYC: purchase_rate=0.857,  TE_mean=0.732`}
-      </CodeBlock>
-
-      <H3>4.3 Mean imputer and KNN imputer</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-class MeanImputerScratch:
-    def fit(self, X):
-        self.means_ = np.nanmean(X, axis=0)
-        return self
-    def transform(self, X):
-        out = X.copy().astype(float)
-        for j in range(X.shape[1]):
-            mask = np.isnan(out[:, j])
-            out[mask, j] = self.means_[j]
-        return out
-
-class KNNImputerScratch:
-    def __init__(self, k=3):
-        self.k = k
-    def fit(self, X):
-        self.X_train_ = X.copy()
-        return self
-    def transform(self, X):
-        out = X.copy().astype(float)
-        for i in range(len(out)):
-            missing_cols  = np.where(np.isnan(out[i]))[0]
-            if len(missing_cols) == 0:
-                continue
-            observed_cols = np.where(~np.isnan(out[i]))[0]
-            dists = []
-            for j, row in enumerate(self.X_train_):
-                if np.any(np.isnan(row[observed_cols])):
-                    continue
-                d = np.sqrt(np.sum((out[i, observed_cols] - row[observed_cols]) ** 2))
-                dists.append((d, j))
-            dists.sort()
-            neighbors = [self.X_train_[j] for _, j in dists[:self.k]]
-            for col in missing_cols:
-                vals = [n[col] for n in neighbors if not np.isnan(n[col])]
-                if vals:
-                    out[i, col] = np.mean(vals)
-        return out
-
-age    = np.array([25, np.nan, 34, 42, np.nan, 29, 55, 38, 47, 22,
-                   31, np.nan, 60, 28, 45, 33, 52, 41, np.nan, 36], dtype=float)
-income = np.array([48000, 62000, np.nan, 95000, 71000, np.nan, 110000, 78000,
-                   np.nan, 35000, 55000, 88000, 120000, 42000, np.nan,
-                   67000, 99000, 73000, 61000, np.nan], dtype=float)
-X_raw = np.column_stack([age, income])
-
-# --- Mean imputation ---
-mean_imp = MeanImputerScratch().fit(X_raw)
-X_mean   = mean_imp.transform(X_raw)
-print("=== MEAN IMPUTATION ===")
-print(f"  NaNs before: age={np.isnan(age).sum()}, income={np.isnan(income).sum()}")
-print(f"  NaNs after:  age={np.isnan(X_mean[:,0]).sum()}, income={np.isnan(X_mean[:,1]).sum()}")
-print(f"  Imputed age mean: {mean_imp.means_[0]:.2f}")
-# Output:
-# === MEAN IMPUTATION ===
-#   NaNs before: age=4, income=5
-#   NaNs after:  age=0, income=0
-#   Imputed age mean: 38.62
-
-# --- KNN imputation (fit on fully-imputed data, impute original NaNs) ---
-knn_imp = KNNImputerScratch(k=3).fit(X_mean)
-X_knn   = knn_imp.transform(X_raw)
-print("\\n=== KNN IMPUTATION (k=3) ===")
-print(f"  NaNs after:  age={np.isnan(X_knn[:,0]).sum()}, income={np.isnan(X_knn[:,1]).sum()}")
-nan_rows = np.where(np.isnan(age))[0]
-print(f"  Imputed age values (rows {nan_rows.tolist()}): "
-      f"{X_knn[nan_rows, 0].round(2)}")
-# Output:
-# === KNN IMPUTATION (k=3) ===
-#   NaNs after:  age=0, income=0
-#   Imputed age values (rows [1, 4, 11, 18]): [36.75 37.88 39.54 36.08]`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 Sklearn preprocessing and imputation</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-import pandas as pd
-from sklearn.preprocessing import (StandardScaler, MinMaxScaler, RobustScaler,
-                                    PowerTransformer, QuantileTransformer,
-                                    OrdinalEncoder, OneHotEncoder)
-from sklearn.impute import SimpleImputer, KNNImputer
-# from sklearn.impute import IterativeImputer  # experimental: enable_iterative_imputer=True
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression
-
-# ---------------------------------------------------------------
-# Dataset: 20 rows, mixed types, deliberate NaNs
-# ---------------------------------------------------------------
-age    = [25, np.nan, 34, 42, np.nan, 29, 55, 38, 47, 22,
-          31, np.nan, 60, 28, 45, 33, 52, 41, np.nan, 36]
-income = [48000, 62000, np.nan, 95000, 71000, np.nan, 110000, 78000,
-          np.nan, 35000, 55000, 88000, 120000, 42000, np.nan,
-          67000, 99000, 73000, 61000, np.nan]
-city   = ['NYC','LA','NYC','CHI','LA','NYC','CHI','LA',
-          'NYC','CHI','LA','NYC','CHI','LA','NYC',
-          'CHI','LA','NYC','CHI','LA']
-y      = np.array([1,0,1,1,0,1,1,0,0,0,1,1,1,0,1,0,1,1,0,1])
-
-df = pd.DataFrame({'age': age, 'income': income, 'city': city})
-
-# ---------------------------------------------------------------
-# Numeric sub-pipeline: mean imputation + StandardScaler
-# Categorical sub-pipeline: mode imputation + OneHotEncoder
-# ---------------------------------------------------------------
-num_pipe = Pipeline([
-    ('impute', SimpleImputer(strategy='mean')),
-    ('scale',  StandardScaler()),
-])
-cat_pipe = Pipeline([
-    ('impute', SimpleImputer(strategy='most_frequent')),
-    ('ohe',    OneHotEncoder(handle_unknown='ignore', sparse_output=False)),
-])
-
-preprocessor = ColumnTransformer([
-    ('num', num_pipe, ['age', 'income']),
-    ('cat', cat_pipe, ['city']),
-])
-
-X_proc = preprocessor.fit_transform(df)
-print("=== SKLEARN COLUMN TRANSFORMER OUTPUT ===")
-print(f"  Input shape:  {df.shape}  (age, income, city)")
-print(f"  Output shape: {X_proc.shape}  (age_std, income_std, CHI, LA, NYC)")
-print(f"  First row: {X_proc[0].round(4)}")
-print(f"  Second row (age imputed): {X_proc[1].round(4)}")
-# Output:
-# === SKLEARN COLUMN TRANSFORMER OUTPUT ===
-#   Input shape:  (20, 3)  (age, income, city)
-#   Output shape: (20, 5)  (age_std, income_std, CHI, LA, NYC)
-#   First row: [-1.4292 -1.2316  0.      0.      1.    ]
-#   Second row (age imputed): [ 0.     -0.5581  0.      1.      0.    ]
-
-# ---------------------------------------------------------------
-# Yeo-Johnson power transform on skewed feature
-# ---------------------------------------------------------------
-np.random.seed(0)
-skewed = np.random.exponential(scale=2.0, size=200).reshape(-1, 1)
-pt = PowerTransformer(method='yeo-johnson')
-skewed_t = pt.fit_transform(skewed)
-print("\\n=== YEO-JOHNSON POWER TRANSFORM ===")
-print(f"  Original:    mean={skewed.mean():.3f}, std={skewed.std():.3f}")
-print(f"  Transformed: mean={skewed_t.mean():.4f}, std={skewed_t.std():.4f}")
-print(f"  Fitted lambda: {pt.lambdas_[0]:.4f}")
-# Output:
-# === YEO-JOHNSON POWER TRANSFORM ===
-#   Original:    mean=1.970, std=1.949
-#   Transformed: mean=0.0000, std=1.0000
-#   Fitted lambda: -0.3282
-
-# ---------------------------------------------------------------
-# RobustScaler (median/IQR — resistant to outliers)
-# ---------------------------------------------------------------
-age_arr    = np.array([x if not (isinstance(x, float) and np.isnan(x)) else np.nan
-                       for x in age], dtype=float)
-income_arr = np.array([x if not (isinstance(x, float) and np.isnan(x)) else np.nan
-                       for x in income], dtype=float)
-X_num_imp  = SimpleImputer(strategy='mean').fit_transform(
-                 np.column_stack([age_arr, income_arr]))
-rs = RobustScaler()
-rs.fit(X_num_imp)
-print("\\n=== ROBUST SCALER (median/IQR) ===")
-print(f"  age    center={rs.center_[0]:.2f}, scale={rs.scale_[0]:.2f}")
-print(f"  income center={rs.center_[1]:.2f}, scale={rs.scale_[1]:.2f}")
-# Output:
-# === ROBUST SCALER (median/IQR) ===
-#   age    center=38.62, scale=10.25
-#   income center=73600.00, scale=18750.00
-
-# ---------------------------------------------------------------
-# KNN Imputer
-# ---------------------------------------------------------------
-X_nan = np.column_stack([age_arr, income_arr])   # still has NaNs
-knn_imp = KNNImputer(n_neighbors=3)
-X_knn   = knn_imp.fit_transform(X_nan)
-print("\\n=== KNN IMPUTER (sklearn, k=3) ===")
-print(f"  NaNs before: {np.isnan(X_nan).sum()}")
-print(f"  NaNs after:  {np.isnan(X_knn).sum()}")
-nan_rows = np.where(np.isnan(age_arr))[0]
-for r in nan_rows:
-    print(f"  Row {r}: imputed age = {X_knn[r,0]:.2f}")
-# Output:
-# === KNN IMPUTER (sklearn, k=3) ===
-#   NaNs before: 9
-#   NaNs after:  0
-#   Row 1: imputed age = 35.00
-#   Row 4: imputed age = 37.33
-#   Row 11: imputed age = 44.00
-#   Row 18: imputed age = 35.00`}
-      </CodeBlock>
-
-      <Prose>
-        Key API notes. <Code>SimpleImputer</Code> accepts <Code>strategy</Code> of <Code>'mean'</Code>, <Code>'median'</Code>, <Code>'most_frequent'</Code>, or <Code>'constant'</Code>. <Code>KNNImputer</Code> uses <Code>nan_euclidean_distances</Code> internally — it can handle rows with multiple missing values by computing distances on observed features only. <Code>IterativeImputer</Code> requires <Code>from sklearn.experimental import enable_iterative_imputer</Code> before import in sklearn 1.x. <Code>OneHotEncoder(handle_unknown='ignore')</Code> silently outputs all-zeros for unseen categories at inference time — important for robust production pipelines where test data can contain new categories not seen during training. The <Code>category_encoders</Code> library (pip-installable, not part of sklearn core) provides James-Stein encoding, hashing encoding (fixed-dimensional output regardless of cardinality), and CatBoost-style encoding with ordered statistics.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6.1 Skewed feature before vs. after Yeo-Johnson</H3>
-
-      <Plot
-        label="Exponential feature: original vs Yeo-Johnson transformed (n=200)"
-        xLabel="value"
-        yLabel="density (approx)"
-        series={[
-          {
-            name: "original (Exponential, λ=0.5, right-skewed)",
-            color: colors.gold,
-            points: [
-              [0.05, 0.48], [0.25, 0.44], [0.5, 0.40], [0.8, 0.36], [1.2, 0.32],
-              [1.7, 0.26], [2.3, 0.20], [3.1, 0.14], [4.2, 0.09], [5.5, 0.05],
-              [7.0, 0.025], [9.0, 0.011], [11.0, 0.004], [13.5, 0.001],
-            ],
-          },
-          {
-            name: "after Yeo-Johnson (approx. Gaussian, λ=-0.33)",
-            color: colors.green,
-            points: [
-              [-3.0, 0.004], [-2.5, 0.018], [-2.0, 0.054], [-1.5, 0.130],
-              [-1.0, 0.242], [-0.5, 0.352], [0.0, 0.399], [0.5, 0.352],
-              [1.0, 0.242], [1.5, 0.130], [2.0, 0.054], [2.5, 0.018],
-              [3.0, 0.004],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        The original feature is right-skewed (exponential, mean=1.97, std=1.95). After Yeo-Johnson with fitted <Code>{"λ = −0.33"}</Code>, the output is approximately standard-normal (mean=0.000, std=1.000). This matters for linear models: OLS assumes normally distributed residuals, and a Gaussian-transformed feature produces more Gaussian residuals than a raw exponential one.
-      </Prose>
-
-      <H3>6.2 KNN accuracy vs. scaling method</H3>
-
-      <Plot
-        label="5-fold cross-val KNN accuracy by preprocessing (n=300, d=10)"
-        xLabel="method"
-        yLabel="accuracy"
-        series={[
-          {
-            name: "no scaling (dominated by large-range features)",
-            color: "#f87171",
-            points: [[0, 0.6933]],
-          },
-          {
-            name: "StandardScaler",
-            color: colors.gold,
-            points: [[1, 0.8533]],
-          },
-          {
-            name: "MinMaxScaler",
-            color: colors.green,
-            points: [[2, 0.8467]],
-          },
-          {
-            name: "RobustScaler",
-            color: "#a78bfa",
-            points: [[3, 0.8567]],
-          },
-        ]}
-      />
-
-      <Prose>
-        Without scaling, KNN achieves 69.3% accuracy on a dataset where one feature has been artificially inflated to income-scale and another to millimeter-scale. All three scalers recover accuracy to 84–85%, confirming that the scale disparity was the limiting factor, not the signal-to-noise ratio of the underlying features. The three scalers perform comparably here because the dataset has no heavy-tailed outliers — RobustScaler's advantage over StandardScaler is only visible when outliers are present.
-      </Prose>
-
-      <H3>6.3 Encoder output heatmap for a toy categorical column</H3>
-
-      <Heatmap
-        label="One-hot encoding output for 6 observations (city column)"
-        matrix={[
-          [0, 0, 1],
-          [0, 1, 0],
-          [0, 0, 1],
-          [1, 0, 0],
-          [0, 1, 0],
-          [1, 0, 0],
-        ]}
-        rowLabels={["row0=NYC", "row1=LA", "row2=NYC", "row3=CHI", "row4=LA", "row5=CHI"]}
-        colLabels={["CHI", "LA", "NYC"]}
-        colorScale="gold"
-      />
-
-      <H3>6.4 StepTrace: sklearn Pipeline fit → transform → predict</H3>
-
-      <StepTrace
-        label="ColumnTransformer + LogisticRegression Pipeline on 20-row toy dataset"
-        steps={[
-          {
-            label: "Step 1: pipeline.fit(X_train, y_train)",
-            render: () => (
-              <Prose>
-                The pipeline calls <Code>preprocessor.fit_transform(X_train)</Code> then <Code>clf.fit(X_proc_train, y_train)</Code>. The ColumnTransformer visits each transformer in order. The numeric sub-pipeline: SimpleImputer computes <Code>mean_age=38.62</Code>, <Code>mean_income=73600</Code> from observed training values; StandardScaler then computes <Code>μ_age, σ_age</Code> on the imputed numeric matrix. The categorical sub-pipeline: SimpleImputer identifies mode=<Code>'NYC'</Code> for the city column; OneHotEncoder learns vocabulary <Code>['CHI','LA','NYC']</Code>. All statistics are stored inside the fitted pipeline objects — nothing is computed again at inference time.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2: preprocessor.transform(X_test) — test split",
-            render: () => (
-              <Prose>
-                The fitted pipeline applies training-set statistics to the test data. Missing ages in the test set are filled with <Code>mean_age=38.62</Code> (not the test-set mean). Test rows are standardized with training-set <Code>μ_age, σ_age</Code>. If a test row contains a city that was not in the training vocabulary (e.g., <Code>'SEA'</Code>), <Code>handle_unknown='ignore'</Code> outputs an all-zeros row for those three columns — no error, no crash. The output is a 5-column float64 matrix regardless of the original column types.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3: clf.predict(X_proc_test)",
-            render: () => (
-              <Prose>
-                LogisticRegression receives a dense float64 matrix with no missing values, no strings, and all features on comparable scales. It applies <Code>w · x + b</Code>, passes through the sigmoid, and thresholds at 0.5. Because all features were scaled, the L2 regularization penalty (<Code>C=1.0</Code> default) applies equally to every coefficient — no feature dominates the penalty just because its raw scale was large. The predict call is a pure matrix multiply plus a sigmoid — no preprocessing logic runs again.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4: pipeline.score(X_test, y_test)",
-            render: () => (
-              <Prose>
-                The pipeline's <Code>score</Code> method calls <Code>transform</Code> then <Code>predict</Code> then computes accuracy. The key invariant: every operation in steps 2–3 uses statistics learned only from <Code>X_train</Code>. The test set has influenced nothing except the evaluation metric. This is the central guarantee that makes <Code>Pipeline</Code> worth using — it makes data leakage structurally impossible for the preprocessing steps it encapsulates.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <H3>7.1 Which scaler?</H3>
-
-      <Callout>
-        Use <strong>StandardScaler</strong> as the default for Gaussian-ish numeric features going into linear models, SVMs, PCA, or regularized regression. Use <strong>MinMaxScaler</strong> when you need bounded [0,1] output (neural network inputs, distance-based models with known-bounded features). Use <strong>RobustScaler</strong> when the column has heavy tails or confirmed outliers that should not compress the bulk of the distribution. Use <strong>PowerTransformer (Yeo-Johnson)</strong> when the feature is strongly skewed and downstream normality assumptions matter. Use <strong>QuantileTransformer</strong> when you need a non-parametric normalization that makes no distributional assumptions, at the cost of losing rank-between-quantile ordinal information. Use <strong>no scaling</strong> for tree-based models (random forest, gradient boosting, XGBoost) where splits are threshold comparisons and scale is irrelevant.
-      </Callout>
-
-      <H3>7.2 Which encoder?</H3>
-
-      <Callout>
-        <strong>OneHotEncoder</strong> for nominal categories with low cardinality (K {"<"} 20–30). Always set <Code>handle_unknown='ignore'</Code> for robustness. Use <Code>drop='first'</Code> for linear models to avoid the dummy variable trap. <strong>OrdinalEncoder</strong> for categories with a meaningful total ordering and a downstream model that can exploit the ordering. <strong>TargetEncoder</strong> (sklearn 1.3+) or the <Code>category_encoders</Code> library for high-cardinality nominal categories where one-hot would blow up dimensionality — always use out-of-fold or cross-validation during training. <strong>HashingEncoder</strong> from <Code>category_encoders</Code> for streaming or extremely high-cardinality scenarios (millions of distinct values): it hashes categories into a fixed-length binary vector using the hashing trick (Weinberger et al. 2009), at the cost of occasional hash collisions. <strong>James-Stein encoder</strong> from <Code>category_encoders</Code> for target encoding with principled shrinkage: it applies empirical Bayes shrinkage per category, reducing the smoothing hyperparameter to a single regularization strength.
-      </Callout>
-
-      <H3>7.3 Which imputer?</H3>
-
-      <Callout>
-        <strong>SimpleImputer(strategy='mean')</strong> for MCAR numeric data where the downstream model is robust to attenuated correlations (e.g., gradient boosting with many trees). <strong>SimpleImputer(strategy='median')</strong> when the column has heavy tails and the mean is unrepresentative. <strong>SimpleImputer(strategy='most_frequent')</strong> for categorical columns. <strong>KNNImputer</strong> when you have {"<"} 50,000 rows and believe nearby observations in feature space are meaningful proxies for missing values. <strong>IterativeImputer (MICE)</strong> when data is MAR and you want to preserve the joint distribution among columns — use a fast regressor (e.g., <Code>BayesianRidge</Code>) to keep iteration cost low. <strong>Add a missing indicator column</strong> (<Code>MissingIndicator</Code> in sklearn) alongside any imputation when you suspect MNAR — the indicator tells the model which rows were imputed, allowing it to learn a different relationship for imputed vs. observed values.
-      </Callout>
-
-      {/* ======================================================================
-          8. SCALING & COMPLEXITY
-          ====================================================================== */}
-      <H2>8. What scales and what doesn{"'"}t</H2>
-
-      <Prose>
-        <strong>StandardScaler and MinMaxScaler</strong> are trivially streaming. Both compute column-wise means and standard deviations (or min/max) that can be updated incrementally. Scikit-learn exposes this through <Code>partial_fit</Code>: call it on successive batches of data, and the scaler maintains running estimates using Welford's online algorithm for numerical stability. Memory usage is <Code>O(d)</Code> for storing the statistics, independent of <Code>n</Code>. This makes them suitable for pipelines that process data in chunks from disk.
-      </Prose>
-
-      <Prose>
-        <strong>RobustScaler</strong> requires the full column to compute the median and IQR — these are order statistics and cannot be computed exactly in a single pass without storing all values. Approximate versions using sketches (e.g., t-digest) exist but are not in sklearn. For large datasets, precompute robust statistics offline and pass them as fixed parameters.
-      </Prose>
-
-      <Prose>
-        <strong>PowerTransformer</strong> requires a maximum-likelihood optimization step at fit time — <Code>O(n)</Code> data pass plus the cost of the 1D optimization. Transform itself is <Code>O(n)</Code>. Streaming is not supported.
-      </Prose>
-
-      <Prose>
-        <strong>OneHotEncoder</strong> scales with the number of distinct categories <Code>K</Code>. For a column with <Code>K=10,000</Code> distinct values, the output has 10,000 columns. Downstream models with dense weight matrices (logistic regression, SVMs) then have 10,000× more parameters just from that one column. The <strong>HashingEncoder</strong> sidesteps this by projecting all categories (regardless of how many exist) into a fixed-dimensional binary vector of user-chosen size <Code>m</Code> (typically 512–4096). The collision probability for two distinct categories is <Code>1/m</Code> — manageable for <Code>m</Code> in the thousands, with the tradeoff that two colliding categories become indistinguishable to the model.
-      </Prose>
-
-      <Prose>
-        <strong>KNNImputer</strong> at inference time computes the distance from each new row to all <Code>n</Code> training rows — <Code>O(n · d)</Code> per query, <Code>O(n² · d)</Code> for imputing the full training set. This is the most expensive imputer and is not suitable for datasets larger than roughly 100,000 rows without approximate nearest-neighbor indexing. <strong>IterativeImputer</strong> at fit time runs <Code>max_iter × d</Code> regression fits, each costing <Code>O(n · d²)</Code> for linear regressors — total <Code>O(max_iter · d³ · n)</Code>, which is expensive for many columns. Use a faster regressor (<Code>BayesianRidge</Code>) or fewer iterations (<Code>max_iter=5</Code>) to keep it tractable.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes {"&"} gotchas</H2>
-
-      <H3>9.1 Data leakage through preprocessing</H3>
-
-      <Prose>
-        The most common and most costly mistake is fitting the scaler or imputer on the full dataset before splitting into train and test. If you call <Code>scaler.fit(X)</Code> on all <Code>n</Code> rows and then split, the test set has informed the scaler's statistics — its mean, standard deviation, min, max. When you later evaluate on the test set, you are using a scaler that has already "seen" the test data. The correct sequence is: split first, then fit the scaler on the training split only, then transform both splits with those training-set statistics. <Code>sklearn.Pipeline</Code> enforces this automatically in cross-validation because it refits the entire pipeline on each training fold.
-      </Prose>
-
-      <H3>9.2 Target leakage in target encoding</H3>
-
-      <Prose>
-        Fitting a target encoder on the full training set and then using the encoded values as training features is a form of target leakage: each row's encoded value is computed using that row's own target. In the extreme case (one observation per category, smoothing=0), the encoded feature is literally the target. The model will appear to perform perfectly on training data and will fail dramatically on the test set. Fix: use out-of-fold encoding during training (as shown in Section 4.2) or use sklearn 1.3+'s <Code>TargetEncoder</Code> which implements this automatically via its <Code>cv</Code> parameter.
-      </Prose>
-
-      <H3>9.3 One-hot collinearity for linear models</H3>
-
-      <Prose>
-        When one-hot encoding with <Code>K</Code> categories, the sum of all <Code>K</Code> indicator columns equals 1 for every row — the same constant as the intercept column in the design matrix. This perfect multicollinearity makes the design matrix singular (non-invertible). For linear regression this means the OLS closed-form solution <Code>{"(X^T X)^{-1} X^T y"}</Code> does not exist. Sklearn handles this gracefully for regularized models (the penalty makes the matrix invertible) but not for OLS. Fix: use <Code>drop='first'</Code> in <Code>OneHotEncoder</Code> to drop one reference category. For tree-based models this is irrelevant — trees split on individual features and do not invert the full feature matrix.
-      </Prose>
-
-      <H3>9.4 Unseen categories at test time</H3>
-
-      <Prose>
-        If a new category appears in the test set that was not in the training vocabulary, a naive encoder raises an error. Set <Code>handle_unknown='ignore'</Code> in <Code>OneHotEncoder</Code> to output an all-zeros row for that column — the model then sees the same embedding as it would for a category with no indicator active. For target encoders, fall back to the global mean for unknown categories. For ordinal encoders, sklearn will raise by default unless you set <Code>handle_unknown='use_encoded_value'</Code> with an <Code>unknown_value</Code> — typically -1 or the number of categories.
-      </Prose>
-
-      <H3>9.5 Dropping NaNs too early</H3>
-
-      <Prose>
-        Dropping all rows with any missing value before training is statistically safe only under MCAR. Under MAR or MNAR, the complete-case dataset is a biased subsample. The bias can be severe: in a medical context, patients with more severe illness are more likely to have missing lab values, so dropping incomplete rows trains on a systematically healthier subpopulation. Impute instead, and add a missing-indicator column so the model can learn the missingness pattern.
-      </Prose>
-
-      <H3>9.6 inverse_transform is not lossless</H3>
-
-      <Prose>
-        StandardScaler's <Code>inverse_transform</Code> is exact (it just reverses the arithmetic). MinMaxScaler's is also exact within floating-point precision. PowerTransformer and QuantileTransformer use iterative numerical inversion — the inverse is approximate, particularly at extreme quantiles. OneHotEncoder's <Code>inverse_transform</Code> returns <Code>None</Code> for rows where no indicator is active (e.g., after <Code>handle_unknown='ignore'</Code> for an unseen category). OrdinalEncoder's inverse is exact. Do not rely on inverse_transform for roundtrip fidelity in production logging or data reconstruction tasks without verifying numerically.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        <strong>Yeo, I.-K., and Johnson, R. A. (2000).</strong> "A new family of power transformations to improve normality or symmetry." <em>Biometrika</em>, 87(4), 954–959. Introduces the Yeo-Johnson transform as an extension of Box-Cox to handle zero and negative values. The key contribution is the piecewise definition that handles all real inputs and the MLE estimation of the transformation parameter <Code>λ</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>Micci-Barreca, D. (2001).</strong> "A preprocessing scheme for high-cardinality categorical attributes in classification and prediction problems." <em>ACM SIGKDD Explorations Newsletter</em>, 3(1), 27–32. The canonical target encoding paper. Introduces the smoothed estimator that blends the category mean toward the global mean as a function of category count. The leakage problem is described explicitly, along with the cross-validation fix.
-      </Prose>
-
-      <Prose>
-        <strong>van Buuren, S., and Groothuis-Oudshoorn, K. (2011).</strong> "mice: Multivariate Imputation by Chained Equations in R." <em>Journal of Statistical Software</em>, 45(3), 1–67. The primary MICE reference. Provides the full chained-equations framework, convergence analysis, and practical guidance on the number of imputations and iterations required for stable results. The R <Code>mice</Code> package implements this; sklearn's <Code>IterativeImputer</Code> is the Python equivalent.
-      </Prose>
-
-      <Prose>
-        <strong>Weinberger, K., Dasgupta, A., Langford, J., Smola, A., and Attenberg, J. (2009).</strong> "Feature Hashing for Large Scale Multitask Learning." <em>Proceedings of the 26th International Conference on Machine Learning (ICML)</em>, 1113–1120. Introduces the hashing trick for compressing high-cardinality categorical features into a fixed-dimensional binary vector. Proves that the inner product between hashed vectors approximates the inner product between original one-hot vectors in expectation, with bounded variance. The theoretical basis for <Code>HashingVectorizer</Code> in sklearn and <Code>HashingEncoder</Code> in <Code>category_encoders</Code>.
-      </Prose>
-
-      <Prose>
-        <strong>Pedregosa, F., et al. (2011).</strong> "Scikit-learn: Machine Learning in Python." <em>Journal of Machine Learning Research</em>, 12, 2825–2830. The primary sklearn citation. Describes the API design philosophy — estimator interface, <Code>fit</Code>/<Code>transform</Code>/<Code>predict</Code> — that makes Pipeline and ColumnTransformer possible. Over 40,000 citations as of 2025; the most-cited ML software paper.
-      </Prose>
-
-      <Prose>
-        <strong>Pearson, K. (1901).</strong> "On Lines and Planes of Closest Fit to Systems of Points in Space." <em>Philosophical Magazine</em>, 2(11), 559–572. The PCA paper. The requirement to standardize features before computing principal components is implicit in Pearson's derivation — covariance is meaningful only when variables are on comparable scales. This paper predates the term "standardization" as used in ML but is the intellectual origin of the practice.
-      </Prose>
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <H3>Exercise 1</H3>
-
-      <Prose>
-        You have a dataset with features: age (22–65), salary (30,000–200,000), and years_experience (0–40). You fit a KNN classifier with <Code>k=5</Code>. Without scaling, which feature dominates the Euclidean distance, and by approximately what factor?
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> Salary dominates. The maximum difference in salary is 170,000. The maximum difference in age is 43, and in years_experience is 40. A row with salary differing by 170,000 contributes <Code>{"170,000² = 2.89 × 10¹⁰"}</Code> to the squared distance, while the combined maximum contribution from age and experience is <Code>{"43² + 40² = 3,449"}</Code>. Salary dominates by a factor of roughly <Code>{"2.89 × 10¹⁰ / 3,449 ≈ 8.4 × 10⁶"}</Code>. KNN will essentially sort all examples by salary difference alone, ignoring age and experience entirely.
-      </Callout>
-
-      <H3>Exercise 2</H3>
-
-      <Prose>
-        A feature has the following training values: <Code>{"[1, 2, 3, 4, 1000]"}</Code>. Compute the StandardScaler output and the RobustScaler output for the value <Code>x = 3</Code>. Which scaler would you prefer if 1000 is a data entry error?
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> Training stats — mean <Code>{"μ = (1+2+3+4+1000)/5 = 202"}</Code>, std (population) <Code>{"σ = std([1,2,3,4,1000]) ≈ 399.5"}</Code>. StandardScaler: <Code>{"z = (3 − 202) / 399.5 ≈ −0.498"}</Code>. Median <Code>{"= 3"}</Code>, IQR <Code>{"= Q3 − Q1 = 4 − 1.5 = 2.5"}</Code> (using quartile interpolation). RobustScaler: <Code>{"z = (3 − 3) / 2.5 = 0.0"}</Code>. If 1000 is a data entry error (outlier), RobustScaler is strongly preferred: it correctly centers x=3 at zero and is unaffected by the outlier. StandardScaler shifts the center to 202 and compresses the scale by the outlier's magnitude.
-      </Callout>
-
-      <H3>Exercise 3</H3>
-
-      <Prose>
-        A categorical feature <Code>color</Code> has values <Code>{'["red", "blue", "green", "red", "blue"]'}</Code> with targets <Code>{"[1, 0, 1, 0, 1]"}</Code>. Compute the target-encoded value for <Code>'blue'</Code> using smoothing <Code>{"α = 2"}</Code> and a global mean of <Code>{"0.6"}</Code>.
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> The blue observations are rows 1 and 4 with targets <Code>{"[0, 1]"}</Code>, so <Code>{"n_blue = 2"}</Code> and <Code>{"ȳ_blue = 0.5"}</Code>. Smoothed estimate: <Code>{"(n_blue × ȳ_blue + α × ȳ_global) / (n_blue + α) = (2 × 0.5 + 2 × 0.6) / (2 + 2) = (1.0 + 1.2) / 4 = 0.55"}</Code>. With only 2 observations, the estimate is pulled meaningfully toward the global mean 0.6 — a sensible shrinkage given the small sample.
-      </Callout>
-
-      <H3>Exercise 4</H3>
-
-      <Prose>
-        Explain why fitting a TargetEncoder on the full training set before cross-validation inflates in-sample performance, and describe the correct procedure.
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> When you compute per-category target means over the entire training set and then train a model on those encoded values, each training row's feature value was derived using that row's own target. The model can trivially learn the encoding — in the extreme case of one sample per category and no smoothing, the encoded feature is a perfect proxy for the target. This is target leakage. The inflated in-sample (or cross-validation, if encoding happened before the split) performance does not generalize. Correct procedure: wrap the target encoder inside the Pipeline so it refits on each training fold during cross-validation. Alternatively, use out-of-fold encoding manually: for each fold, fit the encoder on the other folds' training data and apply it to the current fold's validation data, never including the validation fold's rows in the encoding statistics.
-      </Callout>
-
-      <H3>Exercise 5</H3>
-
-      <Prose>
-        A dataset has a column with 30% missing values. Under what missingness mechanism (MCAR, MAR, MNAR) is mean imputation unbiased? What preprocessing addition should you always consider when you are not sure of the mechanism?
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> Mean imputation is unbiased for the column mean under MCAR (missing completely at random), where the probability of missingness is independent of both observed and unobserved variables. Under MAR, mean imputation is biased because the complete-case mean is not the true marginal mean — the missing rows have a different distribution in observed features that correlates with the column. Under MNAR, mean imputation is biased in the most fundamental sense: the missing values themselves differ systematically from the observed values. When you are not sure of the mechanism, always add a binary missing-indicator column alongside the imputed column: <Code>{"X_missing = np.isnan(X_raw).astype(int)"}</Code>. This allows the downstream model to learn a different relationship for rows that were imputed vs. rows that had observed values, partially correcting for MAR and MNAR biases.
-      </Callout>
-
-      <H3>Exercise 6</H3>
-
-      <Prose>
-        You have a tree-based model (gradient boosted trees). Which of the following preprocessing steps are necessary, which are beneficial, and which are irrelevant? (a) StandardScaler on numeric features, (b) OrdinalEncoder on a nominal city feature, (c) mean imputation for missing values, (d) OneHotEncoder on the city feature.
-      </Prose>
-
-      <Callout>
-        <strong>Answer:</strong> (a) StandardScaler — <strong>irrelevant</strong> for gradient boosted trees. Splits are threshold comparisons on individual features; any monotone transformation of a feature produces the same set of possible splits. (b) OrdinalEncoder on a nominal city feature — <strong>harmful if misused</strong>. Assigning integers to cities implies an ordering (Chicago {"<"} Los Angeles {"<"} New York by lexicographic sort). A tree will learn thresholds like "city {"<"} 1" which means "is this Chicago," which is technically valid but less expressive than one-hot — the tree cannot learn "is this Chicago or New York" in a single split. One-hot (d) is more expressive. (c) Mean imputation — <strong>necessary</strong> for sklearn's GBT; <strong>not necessary</strong> for XGBoost/LightGBM which handle NaN natively via learned default directions. (d) OneHotEncoder — <strong>beneficial</strong>: allows the tree to learn arbitrary subsets of cities in a single split, at the cost of higher dimensionality. For very high-cardinality features, target encoding or hashing may be preferable to prevent dimensionality explosion.
-      </Callout>
-
-    </div>
-  ),
+  title: 'Feature Scaling, Encoding & Imputation',
+  readTime: '~50 min core reading · 50–80 min code and practice · deeper branches a second sitting',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot sc-lesson">
+    <LessonIntro prerequisites={<>Python arrays, a table with rows and columns, averages, and the idea of predicting a label from examples. Each new formula is unpacked where it appears. The preceding <a href="/learn/path/full-curriculum/non-negative-matrix-factorization-nmf?module=classical-ml">NMF</a> lesson also depended on representation, and <a href="/learn/path/full-curriculum/k-nearest-neighbors-knn?module=classical-ml">k-nearest neighbours</a> supplies the distance rule this lesson keeps changing the ruler for.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A table is not yet a model input. Learn to turn one into a set of coordinates on purpose: choose a ruler for measurements and watch the nearest neighbour change, give categories a geometry instead of an invented order, tell a missing value apart from a measured zero, and keep the fit/transform boundary intact on 344 real penguin observations. Every investigation asks for a prediction before it shows an answer, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <Prose className="sc-route"><strong>First pass.</strong> Read sections 1 to 6, work through the ruler investigation in section 2, the donor investigation in section 4 and the fitted-pipeline investigation in section 6, and run the penguin program. Attempt practice questions 1 to 6. Sections 7, 8 and 9 are deeper branches on nonlinear representations, target encoding and missing-data uncertainty; they extend the core rather than being prerequisites for finishing it, and practices 7 to 9 belong with them. Allow roughly 50 minutes for the core reading and another 50 to 80 for calculation and code.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>A body mass of <Code>4000</Code> might mean grams, a category called <Code>female</Code> is not a smaller number than <Code>male</Code>, and a blank measurement is not a measured zero. Before fitting a model, we need a consistent way to represent what each entry means. This lesson follows one practical question: <strong>can measurements of a penguin help distinguish its species?</strong> The answer will depend partly on the model, and partly on the representation that decides which measurements the model can compare.</Prose>
+    <Prose>Suppose one row contains a bill length, body mass, recorded sex, and species:</Prose>
+    <LessonTable caption="One row of a table, before any preparation" headers={['Bill length', 'Body mass', 'Recorded sex', 'Species']} rows={[['40 mm', '4,000 g', 'female', 'Adelie']]} />
+    <Prose>For our prediction task, species is the <strong>target</strong>: the answer available in the training examples. The other selected columns are <strong>features</strong>: information we intend to have when making a new prediction. A feature is not useful merely because it is present in the file; an identification number or a label recorded only after the answer is known can mislead the experiment.</Prose>
+    <Prose>Three preparation operations answer different questions:</Prose>
+    <LessonTable caption="Three operations, three questions" headers={['Operation', 'Question', 'Example']} rows={[
+      ['Scaling', 'What numerical differences should have comparable influence?', 'Express a difference in body mass relative to its training spread'],
+      ['Encoding', 'How should a category become a model-readable representation?', 'Give each recorded category its own indicator coordinate'],
+      ['Imputation', 'What input should we supply where a measurement is absent?', 'Insert a training median and optionally retain a missingness indicator']
+    ]} />
+    <Prose>They can interact, but they are not interchangeable. Converting grams to kilograms changes units. Replacing a missing mass with 4,000 g makes an estimate. Encoding <Code>not_recorded</Code> as its own category records absence without inventing a biological category.</Prose>
+    <Prose>The preceding <a href="/learn/path/full-curriculum/non-negative-matrix-factorization-nmf?module=classical-ml">NMF lesson</a> also depended on representation: its additive factors required nonnegative input. Subtracting a column mean can create negative numbers, so a preprocessing choice suitable for a distance model may violate an NMF input requirement. The useful question is always <strong>what information and geometry does the next model need?</strong></Prose>
+    <RecordFigure />
+
+    <H2>{headings[1]}</H2>
+    <H3>A nearest-neighbor decision you can calculate</H3>
+    <Prose>Consider a new measurement <Math>{'Q=(40,4000)'}</Math>, where the coordinates are bill length in millimeters and body mass in grams. Two possible neighbors are <Math>{'A=(41,4100)'}</Math> and <Math>{'B=(43,4001)'}</Math>. These are constructed measurements for arithmetic, not rows claimed to come from the real dataset.</Prose>
+    <Prose>The usual squared Euclidean distance adds squared coordinate differences:</Prose>
+    <MathBlock>{'\\begin{gathered}d^2(Q,A)=(41-40)^2\\\\[4pt] +(4100-4000)^2=10{,}001,\\end{gathered}'}</MathBlock>
+    <MathBlock>{'d^2(Q,B)=3^2+1^2=10.'}</MathBlock>
+    <Prose>The raw-number rule chooses B. A difference of 100 g overwhelms a difference of a few millimeters. The calculation is well defined, but its implicit relative importance came from the units we happened to write.</Prose>
+    <Prose>Now decide, explicitly, that 1 mm and 100 g should each count as one unit of difference. Divide bill differences by 1 and mass differences by 100:</Prose>
+    <MathBlock>{'\\begin{gathered}d_s^2(Q,A)=1^2+1^2=2,\\\\[4pt] d_s^2(Q,B)=3^2+0.01^2=9.0001.\\end{gathered}'}</MathBlock>
+    <Prose>A is now nearer. Nothing moved in the physical world. We changed the ruler used by the model.</Prose>
+    <Prose>For positive divisors <Math>{'s_j'}</Math>, this rule is</Prose>
+    <MathBlock>{'d_s^2(x,z)=\\sum_j\\frac{(x_j-z_j)^2}{s_j^2}.'}</MathBlock>
+    <Prose>So scaling a feature by <Math>{'1/s_j'}</Math> is equivalent to assigning its squared difference weight <Math>{'1/s_j^2'}</Math>. This is why scaling matters to nearest neighbors, k-means, and distance-based kernels. It also affects the meaning of coefficient penalties and can improve the numerical conditioning of gradient-based fitting. There is no theorem saying equal training variance is the best measure of relevance for every task.</Prose>
+    <RulerLab />
+
+    <H3>Learn a ruler from training data</H3>
+    <Prose>Often we do not have a justified domain divisor. A common baseline is to fit a separate mean and standard deviation for each feature:</Prose>
+    <MathBlock>{'\\begin{gathered}\\mu_j=\\frac1n\\sum_i x_{ij},\\\\[4pt] s_j=\\sqrt{\\frac1n\\sum_i(x_{ij}-\\mu_j)^2},\\\\[4pt] z_{ij}=\\frac{x_{ij}-\\mu_j}{s_j}.\\end{gathered}'}</MathBlock>
+    <Prose>Here <Math>{'n'}</Math> counts training rows, <Math>{'i'}</Math> selects a row, and <Math>{'j'}</Math> selects a column. The divisor <Math>{'n'}</Math>, rather than <Math>{'n-1'}</Math>, matches <Code>StandardScaler</Code>&apos;s population-style training variance. The purpose is a transformation, not an unbiased estimate of an unknown population variance.</Prose>
+    <Prose>Subtracting the same mean from two rows cancels in their difference. Centering therefore does not change their Euclidean separation; the division changes the relative feature weights. Centering still matters to other operations, including a model&apos;s intercept and ordinary PCA&apos;s variance interpretation.</Prose>
+    <Prose>Standardization makes a nonconstant training column have mean zero and variance one. It <strong>does not turn a skewed distribution into a Gaussian distribution</strong>. It also does not establish the assumptions needed for a regression confidence interval: the distribution of a feature and the distribution of a model&apos;s errors are different objects.</Prose>
+    <Prose>For a constant training column, the standard deviation is zero. A practical implementation uses a scale of one rather than dividing by zero. Its training values become zero after centering; a different future value need not become zero. Constant columns may be removed, but a value changing after training can also be a useful data-quality signal.</Prose>
+
+    <H3>An outlier makes the choice visible</H3>
+    <Prose>Fit three scalers to the five training values <Code>[1, 2, 3, 4, 100]</Code>:</Prose>
+    <LessonTable caption="Five training values on three fitted rulers, plus a later value the fit never saw" headers={['Training value', 'Standard scaling', 'Min–max scaling', 'Median/IQR scaling']} rows={[
+      ...[1, 2, 3, 4, 100].map((value, index) => [String(value), ...fixture.map(kind => four(scaleFixture[kind].values[index]))]),
+      ['New value 150', ...fixture.map(kind => four(scaleFixture[kind].new150))]
+    ]} />
+    <Prose>Standard scaling uses mean {scaleFixture.statistics.standard.center} and standard deviation about {four(scaleFixture.statistics.standard.scale)}. <strong>Min–max scaling</strong> subtracts the training minimum and divides by the training range: here <Math>{'(x-1)/99'}</Math>. <strong>Robust scaling</strong> here subtracts the training median {scaleFixture.statistics.robust.center} and divides by the interquartile range <Math>{'Q_{75}-Q_{25}=4-2=2'}</Math>, using the stated linear percentile convention.</Prose>
+    <Prose>The robust rule preserves visible separation among 1, 2, 3, and 4. It does not remove 100: that observation is still 48.5 transformed units away from the median. A new value 150 is outside the training min–max interval. Forcing it into <Code>[0,1]</Code> would be a separate clipping operation that discards how far outside the range it lies.</Prose>
+    <RulerFigure />
+
+    <H3>Column scaling is different from row normalization</H3>
+    <Prose>For a row <Math>{'x'}</Math>, L2 normalization divides by its own length, <Math>{'\\|x\\|_2=\\sqrt{\\sum_jx_j^2}'}</Math>. Thus <Code>[3,4]</Code> and <Code>[6,8]</Code> both become <Code>[0.6,0.8]</Code>. Their direction survives; their overall size does not.</Prose>
+    <Prose>This can be useful when comparing the composition of documents rather than their lengths, or a spectrum&apos;s shape rather than its overall intensity. It would be a questionable default if total intensity or total body size carries the signal. A zero vector has no mathematical direction; implementations generally leave it zero.</Prose>
+    <Prose>Sparse matrices introduce another practical constraint. A table of mostly zero word counts can become dense if we subtract a nonzero column mean. <Code>StandardScaler(with_mean=False)</Code> or <Code>MaxAbsScaler</Code> can preserve zeros when appropriate. Sparse storage and row normalization are tools for a specific representation, not mandatory steps for every dataset.</Prose>
+    <Prose>For an ideal threshold decision tree, strictly increasing transformations preserve the order of observed values and therefore the possible training partitions. This explains why unit scaling is usually much less important there. Finite precision, histogram binning, clipping, and transformations that merge values qualify that statement; it is not a promise that every implementation gives identical predictions under every transformation.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <H3>One-hot coordinates avoid an invented ordering</H3>
+    <Prose>Suppose a feature records <Code>red</Code>, <Code>green</Code>, or <Code>blue</Code>. Assigning numbers 0, 1, and 2 allows a numerical model to treat blue as twice green or to place green between the other two. A color label does not imply those relationships.</Prose>
+    <Prose>One-hot encoding assigns one coordinate to each known category. Any two different rows in that table are distance <Math>{'\\sqrt2'}</Math> apart. This is a chosen geometry: all different categories have equal separation in that feature block. With several categorical columns, each block contributes to the total distance, so mixing one-hot blocks and scaled measurements still requires judgment about their relative influence.</Prose>
+    <Prose>Dropping one column is sometimes useful for interpreting an unregularized linear model with an intercept. If all three columns are kept, their sum is the intercept column, so its coefficients are not uniquely identified. Predictions can still be fitted with a suitable numerical least-squares solver. Removing red also changes distances: red becomes <Code>[0,0]</Code>, one unit from green, while green and blue remain <Math>{'\\sqrt2'}</Math> apart. Regularization can likewise make the choice of reference coding affect fitted predictions. “Always drop the first category” is not a universal preparation rule.</Prose>
+    <CategoryFigure />
+
+    <H3>Missing, unknown, and rare are different states</H3>
+    <Prose>A missing category means the value was not recorded. An unknown category means a value is present now but was absent from the fitted vocabulary. A rare category is known but has little training support.</Prose>
+    <Prose>For example, a device model called <Code>sensor_C</Code> may be new at prediction time. <Code>OneHotEncoder(handle_unknown=&quot;ignore&quot;)</Code> represents an unknown value with zeros across that categorical block. This avoids an exception, but it does not teach the model how <Code>sensor_C</Code> behaves. With a dropped reference column, all-zero encoding can also coincide with the reference category. Alternative policies include rejecting invalid input or deliberately grouping infrequent or new values into a fitted bucket; the choice belongs to the application.</Prose>
+    <Prose>In our penguin program, absent recorded sex becomes <Code>not_recorded</Code>, and that fitted category gets its own coordinate. We keep all known one-hot columns. At deployment, unexpected values should still be monitored even when prediction remains possible.</Prose>
+
+    <H3>When order is real</H3>
+    <Prose>For <Code>low</Code>, <Code>medium</Code>, and <Code>high</Code>, an ordinal encoding may express useful order. The values <Code>[0,1,2]</Code> additionally give equal numerical gaps to a linear or distance model. An ordinal scale alone does not justify those gaps. A threshold tree can use the ordering without multiplying by a coefficient, but a single threshold still divides a contiguous portion of the order; it cannot select an arbitrary subset of categories in one split.</Prose>
+    <Prose>For very many categories, one-hot width can become expensive or weakly supported. The deeper branch explains target encoding and hashing. Some estimators also provide native categorical treatment. Check the estimator&apos;s actual interface and treatment of categories instead of assuming every model needs the same numeric encoding.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <H3>Begin with a transparent estimate</H3>
+    <Prose>Consider measured lengths <Code>[10, 20, missing, missing]</Code>. Median imputation fills both missing cells with 15. The filled table has mean 15, but the two missing measurements have not been discovered. Both <Code>[10,20,10,20]</Code>, with mean 15, and <Code>[10,20,50,60]</Code>, with mean 35, are compatible with the observed cells.</Prose>
+    <Prose>This distinction matters even when prediction improves. An imputer supplies a usable model input; it does not certify that an estimated value was physically measured.</Prose>
+    <Prose>A numeric <strong>missingness indicator</strong> adds a second feature that is 1 when the original value was absent and 0 otherwise. Now an actual 15 and an imputed 15 need not look identical to the model. This can help when absence contains predictive information, such as an optional measurement that technicians order selectively. If collection policy changes, that relationship can change too.</Prose>
+    <Prose>Fit the replacement value on training rows, then reuse it for later rows. For entirely missing training columns, specify a stable output policy: dropping the column, keeping an explicit empty feature, or refusing an unusable input. Our program uses <Code>keep_empty_features=True</Code> so its column structure is retained, although its actual numeric training columns are not entirely missing.</Prose>
+
+    <H3>Why the reason for missingness matters</H3>
+    <Prose>Let <Math>{'R'}</Math> say whether a measurement was observed. <strong>MCAR</strong> means the missingness process is independent of the data values. <strong>MAR</strong> allows missingness to depend on observed information but, conditional on that information, not additionally on the missing values. <strong>MNAR</strong> allows a remaining dependence on those unseen values. A scale that fails above an unrecorded weight limit illustrates the last case.</Prose>
+    <Prose>These describe a data-generating process, not a property a median imputer can establish from a blank cell. Observed data alone generally cannot distinguish MAR from every MNAR alternative. Understanding collection and performing sensitivity analysis matter. Adding an indicator does not, by itself, solve MNAR or recover valid scientific uncertainty. <a href="https://stefvanbuuren.name/fimd/sec-MCAR.html">Van Buuren&apos;s missingness introduction</a> develops these assumptions through concrete measurement examples.</Prose>
+
+    <H3>Borrowing information from other rows</H3>
+    <Prose>Nearest-neighbor imputation estimates a missing feature from similar rows that actually contain that feature. With incomplete rows, distance must be calculated using their available overlap.</Prose>
+    <Prose>Use these three donor rows, whose columns are <Math>{'a,b,c'}</Math>, and query <Code>[2,12,missing]</Code>:</Prose>
+    <LessonTable caption="Three donor rows with different gaps, and a query whose c is absent" headers={['Donor', 'a', 'b', 'c']} rows={[
+      ['D1', '1', '10', '100'],
+      ['D2', '3', 'missing', '300'],
+      ['D3', 'missing', '14', '500']
+    ]} />
+    <Prose>The nan-aware distance used here takes the squared differences on shared observed coordinates and multiplies by <Math>{'m/q'}</Math>, where <Math>{'m=3'}</Math> is the total number of features and <Math>{'q'}</Math> the number jointly observed. The three squared distances are:</Prose>
+    <MathBlock>{'\\begin{gathered}D1:\\tfrac32(1^2+2^2)=7.5,\\\\[4pt] D2:3(1^2)=3,\\\\[4pt] D3:3(2^2)=12.\\end{gathered}'}</MathBlock>
+    <Prose>With two neighbors and uniform weights, D2 and D1 supply <Math>{'c=(300+100)/2=200'}</Math>. D2 is a valid donor even though another feature is absent. For a different missing target column, donor eligibility may differ. If no donor has a defined overlap distance, the implementation needs a fallback; scikit-learn uses the relevant training feature&apos;s average when available. Scaling of observed features still affects these distances. <a href="https://scikit-learn.org/stable/modules/impute.html#nearest-neighbors-imputation">The imputation guide</a> describes this feature-by-feature donor behavior.</Prose>
+    <DonorLab />
+    <Prose>Iterative imputation takes a different approach: initialize missing cells, fit one incomplete column from the others using rows where that column is observed, update its missing entries, then cycle through columns. This models relationships that a separate median ignores. It still depends on the chosen conditional models and on how missingness arose. The deeper uncertainty section explains why one completed table is different from multiple imputation.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>There are two distinct operations:</Prose>
+    <Prose><strong>Fit:</strong> learn training medians, means, scales, and categories. <strong>Transform:</strong> apply those already learned values to a table.</Prose>
+    <Prose>A new row should not redefine the ruler. If the training minimum and maximum are 1 and 100, the new value 150 maps to <Math>{'149/99'}</Math>; fitting min–max again on the new batch would create a different coordinate system.</Prose>
+    <Prose>The same principle applies to evaluation. Split rows before learning preprocessing statistics. Fit preparation and the model using training rows. Apply the fitted preparation to the held-out rows, then count correct predictions. An estimate of future performance is compromised when the fitting procedure gets information it would not have at prediction time. Looking at held-out feature distributions to choose a transformation can also make an experiment adaptive, even without reading labels.</Prose>
+    <BoundaryFigure />
+    <Prose>A pipeline packages this sequence so the software can repeat it consistently. It does not repair a feature that already leaks the target, a split that puts repeated subjects on both sides, or a manually fitted transformer created before the split. Next, <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a> will repeat this fit/transform boundary inside each training/validation partition.</Prose>
+
+    <H2>{headings[5]}</H2>
+    <Prose>The supplied <a href="/learn-assets/feature-scaling/penguins.csv" download>penguins.csv</a> contains {provenance.rows} observations in the openly available Palmer Penguins dataset. We use four numeric measurements and recorded sex to predict Adelie, Chinstrap, or Gentoo. Bill length and depth are in millimeters, flipper length in millimeters, and body mass in grams. Two rows lack each of the four measurements; eleven lack recorded sex. The dataset&apos;s original research context is ecological measurement, and this small classification exercise does not establish performance on every future population or collection protocol. Dataset attribution and the original variables are described by the <a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html">Palmer Penguins authors</a>.</Prose>
+    <Prose>We reserve {split.heldOut} rows and fit on {split.training}, keeping roughly the same species proportions with a fixed stratified split. Here “accuracy” simply means correct species predictions divided by {split.heldOut}. The model takes the majority species among the five nearest training rows.</Prose>
+    <Prose>Save the supplied CSV beside this program as <Code>penguins.csv</Code>. A compatible environment is Python 3.12 with NumPy 2.3.5, pandas 3.0.1, and scikit-learn 1.9.1; for a fresh environment install those packages once:</Prose>
+    <CodeBlock language="bash">{'python -m pip install "numpy==2.3.5" "pandas==3.0.1" "scikit-learn==1.9.1"'}</CodeBlock>
+    <Prose>The block below is executed verbatim against the same served CSV before this page is published, and the output shown underneath it is that run&apos;s own output, not a transcription.</Prose>
+    <Program example={scalingExamples.penguinExperiment}>
+      <Prose>The four numeric columns go through a median imputer and then a scaler; the single categorical column goes through a constant imputer and then a one-hot encoder. <Code>ColumnTransformer</Code> keeps those two routes apart and concatenates their outputs, and <Code>Pipeline</Code> makes <Code>fit</Code> mean “fit every step on these rows” and <Code>predict</Code> mean “apply every fitted step, then classify”. Only <Code>X.iloc[train]</Code> is ever passed to <Code>fit</Code>.</Prose>
+    </Program>
+    <Prose>The recorded results are:</Prose>
+    <LessonTable caption="One split, one neighbour count, one categorical preparation; only the numeric ruler changes" headers={['Preparation for numeric features', 'Correct / held-out rows', 'Accuracy']} rows={comparison.map(row => [row.label, `${row.correct} / ${split.heldOut}`, four(row.accuracy)])} />
+    <ComparisonFigure />
+    <Prose>All four models use the same categorical preparation, split, and neighbor count. This controlled comparison makes the influence of a numerical ruler visible. One extra correct row does not establish that min–max or robust scaling is generally superior to standard scaling. We have now inspected this held-out set across several alternatives; selecting a procedure from these results would require a separate evaluation plan. The next lesson builds that plan.</Prose>
+    <Prose>The standard model&apos;s fitted medians are <Code>[45.0,17.3,197.0,4000.0]</Code>. After imputation, its training means are approximately <Code>{`[${fitted.standard.center.map(value => four(value)).join(',')}]`}</Code>, and its scales <Code>{`[${fitted.standard.scale.map(value => four(value)).join(',')}]`}</Code>.</Prose>
+    <Prose>The first held-out row, zero-based source row 309, is <Code>[51.0,18.8,203.0,4100.0,&quot;male&quot;]</Code>. It becomes:</Prose>
+    <MathBlock>{'\\begin{gathered}[1.3091,\\;0.8773,\\;0.1645,\\\\ -0.1128,\\;0,\\;1,\\;0].\\end{gathered}'}</MathBlock>
+    <Prose>The final three columns mean <Code>sex_female</Code>, <Code>sex_male</Code>, and <Code>sex_not_recorded</Code>. The negative mass coordinate says this mass is below the fitted mean; it does not mean a negative mass. Species, island, year, and row number were not included as features in this experiment.</Prose>
+    <PipelineFigure />
+    <PipelineLab />
+    <Prose>As a practical extension, compare errors rather than only the score: standard scaling misclassified {split.heldOut - counted.standard.correct} rows here, whereas the raw model misclassified {split.heldOut - counted.raw.correct}. Inspect their actual measured values and nearest-neighbor contributions before inventing a story about why. Do not treat a species label as available input while exploring those errors.</Prose>
+    <Checkpoint prompt="Set Investigation 3 to source row 309, clear its body mass so the cell is absent, and predict the body-mass output coordinate before applying.">
+      <Prose>The fitted median 4,000 g fills the absent cell, and the frozen centre and scale then give (4000 − 4190.988372093023) ÷ 806.6875829303058 ≈ −0.2368. Every other coordinate is unchanged, because nothing about the fit moved. The value is a numerical estimate supplied to the model, not a recovered observation.</Prose>
+    </Checkpoint>
+
+    <H2>{headings[6]}</H2>
+    <Prose>Affine scaling maps <Math>{'x'}</Math> to <Math>{'(x-a)/b'}</Math>. It preserves relative gaps within a feature up to a common factor. Sometimes the modeling question calls for a nonlinear relationship instead.</Prose>
+    <H3>Logs and power transforms</H3>
+    <Prose>If a quantity varies multiplicatively, <Code>log</Code> can make ratios into differences: <Math>{'\\log(100)-\\log(10)=\\log(10)-\\log(1)'}</Math>. This is useful when equal multiplicative changes should have equal influence, as in a model of concentrations or elapsed times spanning several orders of magnitude. It does not justify taking the logarithm of arbitrary signed measurements.</Prose>
+    <Prose>For strictly positive <Math>{'x'}</Math>, the Box–Cox family is</Prose>
+    <MathBlock>{'g_\\lambda(x)=\\begin{cases}(x^\\lambda-1)/\\lambda,&\\lambda\\ne0,\\\\\\log x,&\\lambda=0.\\end{cases}'}</MathBlock>
+    <Prose>Yeo–Johnson extends a related family to zero and negative values. For <Math>{'x\\ge0'}</Math>, naming the shifted value <Math>{'v=x+1'}</Math>:</Prose>
+    <MathBlock>{'g_\\lambda(x)=\\begin{cases}\\dfrac{v^\\lambda-1}{\\lambda},&\\lambda\\ne0,\\\\[6pt]\\log v,&\\lambda=0,\\end{cases}'}</MathBlock>
+    <Prose>and for <Math>{'x<0'}</Math>, naming the reflected value <Math>{'u=1-x'}</Math>:</Prose>
+    <MathBlock>{'g_\\lambda(x)=\\begin{cases}-\\dfrac{u^{2-\\lambda}-1}{2-\\lambda},&\\lambda\\ne2,\\\\[6pt]-\\log u,&\\lambda=2.\\end{cases}'}</MathBlock>
+    <Prose>Check the special cases rather than memorizing a name: <Math>{'\\lambda=1'}</Math> gives <Math>{'g(x)=x'}</Math> on both sides. At <Math>{'\\lambda=0'}</Math>, nonnegative inputs use <Code>log1p</Code>, but negative inputs use the negative quadratic branch. At <Math>{'\\lambda=2'}</Math>, negative inputs use a logarithm, not a square root. <Code>PowerTransformer</Code> fits its parameter per training feature by a likelihood criterion and standardizes afterward by default. Better marginal symmetry is a possible useful result; it is not a guarantee of jointly Gaussian features or correctly modeled residuals. The <a href="https://scikit-learn.org/stable/modules/preprocessing.html#non-linear-transformation">preprocessing guide&apos;s nonlinear section</a> gives the API and definitions.</Prose>
+
+    <H3>Quantiles answer a different question</H3>
+    <Prose>A quantile transform replaces a value by where it lies in the fitted distribution. For training values <Code>[1,2,3,4,100]</Code>, a simple illustrative rank coordinate <Math>{'(r-1)/(5-1)'}</Math> maps the sorted observations to <Code>[0,.25,.5,.75,1]</Code>. The large final gap becomes the same rank gap as the others. This rank calculation explains the idea; interpolation, ties, and endpoint handling in an actual transformer must be specified separately.</Prose>
+    <Prose>Mapping those probabilities through an inverse normal CDF gives normal-quantile coordinates, with finite endpoint handling in software. Rank ordering is generally retained where the map is strictly increasing, but original numerical gaps are not. Ties and saturation outside the fitted range can merge values, making a complete inverse impossible. A “Gaussian-looking” histogram can therefore hide an important loss of magnitude information.</Prose>
+    <RankFigure />
+
+    <H3>Features can also express thresholds and interactions</H3>
+    <Prose>Discretization assigns a value to a fitted interval: for thresholds 10 and 20, a quantity can be represented as <Code>below 10</Code>, <Code>10 to below 20</Code>, or <Code>20 and above</Code>. One-hot interval features let a linear model fit a stepwise response, at the cost of losing within-bin differences. Bin rules must be fitted on training data when they are data-dependent.</Prose>
+    <Prose>A polynomial map can instead add <Math>{'x^2'}</Math> or <Math>{'x_1x_2'}</Math>. The model remains linear in its fitted coefficients while its response varies nonlinearly with the original variables. Spline bases provide smoother local building blocks. These are choices about which relationships a model can express, beyond simply fixing units. A custom deterministic transform, such as converting an angle to sine and cosine, can express that 359° and 1° are nearby. Keep the original unit and period explicit: <Code>sin</Code> and <Code>cos</Code> expect radians in NumPy.</Prose>
+    <Prose>This circular representation is particularly useful for direction or time of day. It avoids declaring midnight far from 23:59, while preserving the fact that morning and evening can differ. It would be inappropriate for elapsed time, where completing a 24-hour cycle does not erase duration.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <H3>Why a category average can accidentally contain the answer</H3>
+    <Prose>Suppose many rows carry a product identifier, and the target is whether a product was returned. A smoothed target encoding represents category <Math>{'c'}</Math> by</Prose>
+    <MathBlock>{'t_c=\\frac{\\sum_{i:x_i=c}y_i+\\alpha\\mu}{n_c+\\alpha},'}</MathBlock>
+    <Prose>where <Math>{'n_c'}</Math> counts training examples of the category, <Math>{'\\mu'}</Math> is the relevant training target mean, and <Math>{'\\alpha\\ge0'}</Math> controls the pull toward that mean. An unseen category maps to <Math>{'\\mu'}</Math>. A category with one positive example and <Math>{'\\alpha=2,\\mu=.5'}</Math> maps to <Math>{'2/3'}</Math>, rather than an unqualified 1.</Prose>
+    <Prose>The danger is easiest to see without smoothing: if a category occurs once, its training encoded value equals that row&apos;s target. The model is being given part of the answer. Smoothing reduces this direct influence but does not replace a separation rule.</Prose>
+    <Prose><strong>Cross-fitting</strong> generates each training row&apos;s encoded feature using other training rows. Divide the outer training set into internal folds. For one fold, learn category sums, counts, <strong>and the prior mean</strong> from the other folds, then encode the held-out internal rows. Repeat until each training row has an out-of-fold representation. Once the downstream model is trained, a new external row is encoded from statistics fitted on the whole outer training set. Outer evaluation targets are never used.</Prose>
+    <EncodingFigure />
+    <Prose>Change only row 0&apos;s target from 1 to 0. Encodings for held-out fold 0 remain unchanged because their donor set did not change. Encodings for fold 1 become <Code>[2/9,2/9,5/9]</Code>. Notice that B changes even though no B target changed: the fold-specific prior changed. Computing one global prior before internal splitting would let a held-out target affect its own encoding through smoothing.</Prose>
+    <Prose>The following complete teaching calculation reproduces the table and this contrast using NumPy from the earlier setup:</Prose>
+    <Program example={scalingExamples.crossFitEncoding}>
+      <Prose>Expected arrays are <Code>[.555556,.777778,.222222,.444444,.222222,.777778]</Code> and <Code>[.555556,.222222,.222222,.222222,.222222,.555556]</Code>. This block is executed and its output pinned by the same verifier as the penguin program, so the arrays above are that run&apos;s own output. The inner loop recomputes <Code>prior</Code> once per held-out fold, from the donors alone; that single line is what keeps a row&apos;s own target out of its own encoding.</Prose>
+    </Program>
+    <TargetEncodingLab />
+    <Prose>For production use, <Code>TargetEncoder.fit_transform</Code> supplies internal cross-fitting, whereas <Code>fit(...).transform(...)</Code> does not produce the same training representation. In scikit-learn 1.9, <Code>cv</Code> can accept a splitter or iterable of splits; older examples using encoder-level <Code>shuffle</Code> and <Code>random_state</Code> are being deprecated. Group or time relationships require appropriate internal and outer splits. The default shuffled split cannot decide that for you. See the <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.TargetEncoder.html">current TargetEncoder API</a> and its <a href="https://scikit-learn.org/stable/auto_examples/preprocessing/plot_target_encoder_cross_val.html">worked cross-fitting example</a>.</Prose>
+
+    <H3>Hashing trades a learned vocabulary for collisions</H3>
+    <Prose>Feature hashing assigns each category or token to one of a fixed number of buckets. A signed version also assigns a deterministic sign and adds the signed feature value to that bucket. It is not merely a binary flag.</Prose>
+    <Prose>For a constructed map, let <Code>apple</Code> and <Code>pear</Code> both use bucket 0, with signs +1 and −1, and <Code>banana</Code> use bucket 1 with sign +1. Counts <Code>apple:3, pear:1, banana:2</Code> produce <Code>[2,2]</Code>. Counts <Code>apple:2, banana:2</Code> produce the same vector. The collision makes the original dictionary impossible to recover from this vector alone.</Prose>
+    <LessonTable caption="Two different bags of counts, one signed hash vector" headers={['Counts', 'bucket 0 = apple − pear', 'bucket 1 = banana', 'Vector']} rows={hashBags.map(bag => {
+      const hashed = signedHash(bag, hashMap, 2);
+      const part = token => hashed.detail.find(row => row.token === token);
+      return [
+        Object.entries(bag).map(([token, count]) => `${token}:${count}`).join(', '),
+        `${part('apple')?.count ?? 0} − ${part('pear')?.count ?? 0} = ${hashed.vector[0]}`,
+        String(hashed.vector[1]),
+        `[${hashed.vector.join(',')}]`
+      ];
+    })} />
+    <Prose>Hashing can bound memory and accept previously unseen names without growing a vocabulary. With suitable random-hash assumptions, signed hashing preserves inner products in expectation; that expectation is not a guarantee for every pair under a fixed small hash table. Increasing the number of buckets reduces typical collision pressure while increasing model width. The <a href="https://arxiv.org/pdf/0902.2206">original feature-hashing paper</a> derives this tradeoff.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Iterative conditional prediction is useful for building model input, but one completed dataset treats its filled cells as if there were no uncertainty about them. A point estimate can look reasonable while standard errors are too small if uncertainty from missing data is ignored.</Prose>
+    <Prose>Multiple imputation creates several plausible completed datasets under an explicit imputation model, fits the intended analysis to each, then combines <strong>analysis estimates</strong>, rather than averaging the filled tables first. Properly representing uncertainty requires more than running a deterministic imputer with a different random seed; the imputations must reflect the relevant conditional uncertainty and assumptions.</Prose>
+    <Prose>For a scalar estimate, let <Math>{'\\hat\\theta_k'}</Math> be the result from completed dataset <Math>{'k'}</Math>, <Math>{'U_k'}</Math> its estimated variance, and <Math>{'m'}</Math> the number of completed datasets. Define</Prose>
+    <MathBlock>{'\\begin{gathered}\\bar\\theta=\\frac1m\\sum_k\\hat\\theta_k,\\\\[4pt] \\bar U=\\frac1m\\sum_kU_k,\\\\[4pt] B=\\frac1{m-1}\\sum_k(\\hat\\theta_k-\\bar\\theta)^2.\\end{gathered}'}</MathBlock>
+    <Prose>Rubin&apos;s pooling rule uses total variance <Math>{'T=\\bar U+(1+1/m)B'}</Math>. The first term captures uncertainty within each completed-data analysis; the second captures variation between plausible completions, with a finite-<Math>{'m'}</Math> adjustment. For estimates <Code>[9,10,11]</Code> and within-analysis variances <Code>[4,4,4]</Code>, the pooled estimate is 10, <Math>{'B=1'}</Math>, and <Math>{'T=4+4/3=16/3'}</Math>. Its standard error is about 2.309, larger than 2 from treating the completion as certain. Constructing intervals also requires the appropriate degrees-of-freedom calculation and imputation assumptions; this small arithmetic example is not an automatic validity certificate. The <a href="https://amices.org/mice/reference/pool.html">mice pooling documentation</a> explains the analysis-then-pool workflow and available small-sample treatment.</Prose>
+    <PoolingFigure />
+    <Prose><Code>IterativeImputer</Code> is an experimental scikit-learn estimator and returns a single completion per transform. Its optional posterior sampling can support repeated completions under the chosen estimator, but a sound multiple-imputation analysis also requires a compatible scientific model, diagnostics, and pooling. A predictive pipeline and a scientific missing-data analysis share tools while answering different questions.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <Prose>Try each question before opening its hint or solution. The first six use only the core route.</Prose>
+    <Practice title="1. A changed ruler" question="Query [0,0] has candidates A [2,60] and B [5,10]. Which is nearest under raw squared distance? Which is nearest with divisors [1,30]?" hint="Calculate one contribution per feature; the divisor belongs inside the square.">
+      <Prose>Raw distances squared are 3,604 and 125, so B wins. Scaled distances squared are <Math>{'4+4=8'}</Math> and <Math>{'25+1/9=25.111\\ldots'}</Math>, so A wins. The input observations are unchanged; relative feature weighting changed. Investigation 1 shows the same mechanism, but its fields are bounded to plausible penguin measurements, so these particular coordinates cannot be typed there; reproduce the effect with its own numbers instead.</Prose>
+    </Practice>
+    <Practice title="2. Fit once, transform later" question="A training column is [2,4,6]. Find its mean, population-style standard deviation, standardized value for a new 8, and min–max value for that 8. Should adding 8 to the later batch change the saved training statistics?" hint="The training squared deviations are 4, 0, and 4.">
+      <Prose>The mean is 4 and standard deviation <Math>{'\\sqrt{8/3}'}</Math>. The standardized new value is <Math>{'4/\\sqrt{8/3}=\\sqrt6\\approx2.4495'}</Math>. Min–max gives <Math>{'(8-2)/(6-2)=1.5'}</Math>. Transformation reuses the fitted statistics; refitting on later inputs would create a different map.</Prose>
+    </Practice>
+    <Practice title="3. What did normalization discard?" question="A spectrum [2,1,2] and another [6,3,6] are L2-normalized. What are the results? Would this be appropriate if total emitted energy is the prediction signal?">
+      <Prose>The lengths are 3 and 9, so both map to <Code>[2/3,1/3,2/3]</Code>. Relative shape remains, but the threefold intensity difference disappears. If total energy matters, preserve a magnitude feature or choose another representation rather than discarding it blindly.</Prose>
+    </Practice>
+    <Practice title="4. A category that did not exist during fitting" question="A full one-hot vocabulary has small, medium, and large, and an unknown value uses an all-zero block. Compare unknown-to-small distance with small-to-medium distance. What application decision is hidden behind accepting the unknown value?">
+      <Prose>The distances are 1 and <Math>{'\\sqrt2'}</Math>. Ignoring unknown categories creates a representation with a specific geometry; it is not neutral. The application must decide whether a new value is valid, should trigger a review or fallback, or belongs in a deliberately learned other-category group.</Prose>
+    </Practice>
+    <Practice title="5. Changed donors" question="In the imputation table, change D2's c to missing. With two neighbors, what value replaces the query's missing c? What if D1's c changes from 100 to 140 while the other original cells remain unchanged?" hint="First decide who can donate the target feature, then use the distances on the query's observed coordinates.">
+      <Prose>With D2 ineligible, D1 and D3 supply <Math>{'(100+500)/2=300'}</Math>. In the separate second change, the original selected donors D2 and D1 remain nearest, so the estimate becomes <Math>{'(300+140)/2=220'}</Math>. Changing a value in the query&apos;s missing target column does not itself enter these overlap distances. Both edits are available in Investigation 2.</Prose>
+    </Practice>
+    <Practice title="6. Explain a transformed real record" question="For the fitted standard penguin pipeline, keep the first held-out record unchanged except set its body mass to missing. Predict that output coordinate. Does this mean the animal's true mass was 4,000 g?" hint="First apply the saved median, then the saved mean and scale.">
+      <Prose>The coordinate becomes <Math>{'(4000-4190.9883721)/806.6875829\\approx-0.2368'}</Math>. This is a numerical estimate passed to the model. It is not a recovered observation. Other coordinate values and the fitted statistics remain unchanged.</Prose>
+    </Practice>
+    <Practice title="7. Which part of target encoding changed? — deeper" question="In the six-row example, change row 3's target from 0 to 1. Calculate row 0's new encoding. Does row 3's own cross-fitted encoding change?">
+      <Prose>Row 0&apos;s donors are rows 1, 3, and 5, now with prior <Math>{'2/3'}</Math>. Its A donor is still positive, so its value becomes <Math>{'7/9'}</Math>. Row 3 belongs to held-out fold 1, whose donor targets are unchanged, so its own value remains <Math>{'4/9'}</Math>. The first change passes through the prior; the null demonstrates excluding one&apos;s own target.</Prose>
+    </Practice>
+    <Practice title="8. Identity is a useful transform check — deeper" question="Use the Yeo–Johnson formula at λ = 1 on 3 and −3. Why is a generic claim that “negative inputs use a square root” wrong?">
+      <Prose>For 3, <Math>{'((3+1)^1-1)/1=3'}</Math>. For −3, <Math>{'-((1+3)^1-1)/1=-3'}</Math>. Both branches depend on <Math>{'\\lambda'}</Math>; the negative exponent is <Math>{'2-\\lambda'}</Math>, with a logarithmic limit at <Math>{'\\lambda=2'}</Math>, not a fixed square root.</Prose>
+    </Practice>
+    <Practice title="9. Pool estimates, not completed tables — deeper" question="Four completed-data analyses yield estimates [8,10,10,12], each with variance 1. Find the pooled estimate and total variance using the stated rule.">
+      <Prose>The average is 10. Squared deviations sum to 8, so <Math>{'B=8/3'}</Math>. Then <Math>{'T=1+(1+1/4)(8/3)=13/3\\approx4.3333'}</Math>. Its standard error is <Math>{'\\sqrt{13/3}\\approx2.0817'}</Math>. Between-completion disagreement contributes substantial uncertainty; validity still depends on how the completions and analyses were constructed.</Prose>
+    </Practice>
+
+    <H2>{headings[10]}</H2>
+    <Prose>You are ready to continue when you can trace one record through a fitted imputer, scaler, and encoder; explain how scaling changes a distance; distinguish a missing value from an unknown category; and keep the fit/transform boundary intact for a new row. Those are core skills, independent of whether you have finished the deeper branches.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Show that a chosen divisor, not the data, decided which neighbour was nearer', 'Section 2, Investigation 1, practice 1'],
+      ['Fit a ruler on a training column and apply it to a value outside the fitted range', 'Section 2, Figure 2, practice 2'],
+      ['Give categories a geometry and say what dropping a reference column changes', 'Section 3, Figure 3, practice 4'],
+      ['Decide which incomplete rows may donate a missing measurement, and why', 'Section 4, Investigation 2, practice 5'],
+      ['Transform an edited held-out record without moving a single fitted statistic', 'Sections 5 and 6, Investigation 3, practice 6'],
+      ['Explain how a row’s own target can reach its own encoding, and how cross-fitting stops it', 'Section 8, Investigation 4, practice 7']
+    ]} />
+    <Prose>The next topic is <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>. Here, we held a split fixed to inspect a representation. Next, we will decide how to compare multiple procedures without repeatedly treating the same observations as fresh evidence. Later regularization makes the connection between feature units and coefficient penalties explicit; feature selection asks which input information should remain at all.</Prose>
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html">Compare scalers on data with outliers</a>: a visual alternative with full-range and magnified views of actual housing data. Compare robust scaling with a quantile transform and explain what happens to an identified extreme observation. The example&apos;s code and figure descriptions were inspected; its runtime is not our benchmark.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/preprocessing/plot_target_encoder_cross_val.html">Target Encoder&apos;s Internal Cross Fitting</a>: a worked code-and-results alternative showing why near-unique categories can overfit without cross-fitting. Follow where <Code>fit_transform</Code> occurs inside its pipeline.</li>
+      <li><a href="https://stefvanbuuren.name/fimd/sec-MCAR.html">Flexible Imputation of Missing Data: missingness concepts</a> and the <a href="https://amices.org/mice/reference/pool.html">mice pooling reference</a>: a conceptual measurement-based reading and a concrete analysis workflow for the deeper uncertainty branch. Do not substitute a prediction score for evidence that an inferential missingness assumption is valid.</li>
+    </ul></>}>
+      <li><a href="https://scikit-learn.org/stable/modules/preprocessing.html">Scikit-learn preprocessing guide</a>: the technical reference for current scaler, nonlinear transform, categorical, binning, polynomial and custom-transform behavior. Read the subsection matching a representation you can already explain, then inspect its API rather than treating the whole page as a required first pass.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/impute.html">Imputation guide</a>: current simple, iterative, neighbor and indicator behavior, including entirely missing columns. Use it to check a proposed imputer&apos;s exact contract.</li>
+      <li><a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset and project</a>: measurements, dataset context, and CC0 availability, by Allison Horst, Alison Hill, and Kristen Gorman, using Palmer Station penguin observations collected by Gorman and colleagues. The <a href="/learn-assets/feature-scaling/penguins.csv" download>CSV this page serves</a> is the unchanged {provenance.bytes.toLocaleString('en-US')}-byte public file, SHA-256 <Code>{provenance.sha256}</Code>, with all {provenance.rows} rows in their original order and missing values left as <Code>NA</Code>.</li>
+      <li><a href="https://arxiv.org/pdf/0902.2206">Weinberger and colleagues, Feature Hashing for Large Scale Multitask Learning</a>: primary treatment of signed hashing and its inner-product analysis; useful when a fixed-memory representation matters more than recovering an explicit vocabulary.</li>
+    </Sources>
+    <Prose>The Q/A/B measurements, the five-value column, the red/green/blue vocabulary, the three donor rows, the six-row encoding table and the three pooled analyses are constructed fixtures with declared values. The penguin results are calculations on the identified real dataset under one fixed stratified split, with every fitted statistic learned from the {split.training} training rows alone. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>
 };
 
 export default featureScalingContent;

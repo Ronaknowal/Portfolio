@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-09-11T22:39:59.974Z",
+  "checkedAt": "2026-09-14T05:41:38.073Z",
   "sourceHashes": {
-    "src/learn/data/pca-models.js": "f7c7afd488c6fb50b62baeedbf2c03050e84741be3df47a51f7c5635e6a09bac",
+    "src/learn/data/pca-models.js": "68fe8a36470a7351c7d0e73bc84339502912eaa8f405892d4b1b709fdedf1b21",
     "src/learn/data/pca-wine-data.js": "d5964935fb9bd4af7e4164fb1275fcdee339b5720267ad6e7cdf7ba85e141e84",
-    "src/learn/components/lesson-labs/PcaLabs.jsx": "af2946c78ce3aa2220235c5dc6daca7a55ccfee1546111d39e03f751df83b685",
+    "src/learn/components/lesson-labs/PcaLabs.jsx": "f7f6077243b3b20858c3e7e618bb07f4d2ab2174907cf2b491808f89f8710d2c",
     "src/learn/components/lesson-labs/PcaFigures.jsx": "a0c2d03847f7b55c5250bf77ccf2e150aeaaa946fd920aec4b883645fba54a79",
     "src/learn/components/lesson-labs/pca-labs.css": "6b4044f60f0dab5aae4b4ec7c95b88e3d07724b31d209c8797a92e2e2c0caea1"
   },
-  "verifierHash": "90c1101a1ee979a8595e0415307f55cf4dff50debc56c6ef5806a2e23c933964",
+  "verifierHash": "29a0abfdfc98fbb3d6aea8d8896b9fd095705331012d9b9f8329dcd73bc38cda",
   "counts": {
     "four-point angle fixtures": 5,
     "cloud original": 1,
@@ -17,11 +17,12 @@
     "cloud asymmetric": 1,
     "cloud vertical": 1,
     "metric standardized ties": 3,
+    "rectangle full control range and preserved editor guard": 1,
     "spread cannot repair the collision": 3,
     "validation loss ratios": 14,
     "full-collection score variance": 2
   },
-  "totalGroupedChecks": 33,
+  "totalGroupedChecks": 34,
   "scope": "Exhaustive 0.05° angle sweeps and conservation on six clouds; analytic four-point, rectangle and label-collision fixtures; browser Wine recomputation against the native 133/45 record and full-collection ratios; storage arithmetic; rejection contracts.",
   "limitations": [
     "Two-dimensional fits only in the browser; Wine directions are natively fitted inputs, not browser eigendecompositions.",

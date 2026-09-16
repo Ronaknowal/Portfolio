@@ -1,0 +1,39 @@
+{
+  "verifiedAt": "2026-09-14T05:29:27.764845+00:00",
+  "stage": "native author verification of displayed programs; browser, independent and integration review are separate",
+  "source": "src/learn/data/gmm-examples.js",
+  "sourceHash": "811b9139f69595c30fc0dd42c7366bc6f1c6fbbe6e8aa5a39f2c7c3c1ea7105a",
+  "verifier": "scripts/verify-gmm-examples.py",
+  "verifierHash": "0520e0830346c8cd94d5d48565ff66ce9402b76989f5398b7a83f4c6a1ffa260",
+  "versions": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.9.1"
+  },
+  "programs": {
+    "emOneDimension": {
+      "file": "em_1d.py",
+      "codeHash": "abaa1de15aa9de5670b702d0e3d8b2038387e37feabfca38b87d71af269c434e",
+      "stdoutHash": "82b91ed1e9e0a383ef72b97f201cdaa9f93a359f28d8758d49cda2cc1d4d874c",
+      "stdout": "initial log-likelihood -7.158187\n1 -6.461856\n2 -5.724278\n3 -5.675743\n4 -5.675742\n5 -5.675742\nmeans [-1.499994  1.499994]\nvariances [0.250018 0.250018]\nrow sums [1. 1. 1. 1.]"
+    },
+    "irisDensity": {
+      "file": "iris_density.py",
+      "codeHash": "746765e15c4f25a2e2256deec0661f42f5787c35210eb53a554152c7093e3751",
+      "stdoutHash": "f76d2d61eef23b273ff7682341d5ace4e94e75baddd16384460d22967f29dd2d",
+      "stdout": "covariance K validation_log_density training_BIC\nfull 1 -2.934881 533.238\nfull 2 -2.668800 490.753\nfull 3 -2.671122 496.832\nfull 4 -3.256749 461.595\ntied 1 -2.934881 533.238\ntied 2 -2.729729 500.157\ntied 3 -2.741336 496.608\ntied 4 -2.787305 499.707\ndiag 1 -2.939660 528.817\ndiag 2 -2.963611 528.980\ndiag 3 -3.253775 537.340\ndiag 4 -2.820248 541.401\nspherical 1 -2.939660 524.317\nspherical 2 -2.922018 527.058\nspherical 3 -2.968764 527.253\nspherical 4 -2.925480 532.312\nselected full 2\ntest log-density -3.011223\nbaseline test log-density -2.887249\ntest ARI 0.433446\nfirst test ID 34\nresponsibilities [1. 0.]\nlog-density -4.861128"
+    },
+    "bayesianWeights": {
+      "file": "iris_density.py (appendix)",
+      "codeHash": "18da5383e163bd50735013784e83ad4a340616b2760624fd122c42097ba8c109",
+      "stdoutHash": "913afba6662586bf5e28fccfab4c45d53a27ef120dea778d5a20678520e1b692",
+      "stdout": "0.01 [1.180e-02 3.748e-01 6.133e-01 1.000e-04 0.000e+00 0.000e+00] 3 2 True\n1.0 [0.0117 0.3713 0.6075 0.0055 0.0027 0.0014] 3 2 True\n10.0 [0.0114 0.3643 0.5969 0.0101 0.0091 0.0082] 4 2 True"
+    }
+  },
+  "oracles": 18,
+  "limits": [
+    "The Iris program ran against the served copy of the supplied CSV; no network access was used.",
+    "One fixed split of one curated balanced collection; the test comparison is a single demonstration.",
+    "Species labels enter only the reported ARI diagnostic, never the fitting or the selection.",
+    "Numerical fitting can differ on other library versions."
+  ]
+}

@@ -1,0 +1,33 @@
+.manifold-lesson > ul {
+  color: var(--text-secondary, #b9bfca);
+  line-height: 1.85;
+  padding-inline-start: 1.4rem;
+}
+
+.manifold-lesson > ul li + li {
+  margin-top: 0.85rem;
+}
+
+.manifold-lesson li,
+.manifold-lesson .mf-check {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.manifold-lesson > details {
+  border-block-start: 1px solid #303742;
+  margin-block: 0.75rem;
+  padding-block: 0.65rem;
+}
+
+.manifold-lesson > details > summary {
+  cursor: pointer;
+  color: #ddd6b9;
+  padding-block: 0.35rem;
+}
+
+.manifold-lesson .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.4rem;
+}

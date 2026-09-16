@@ -49,7 +49,7 @@ function Plot({
   const x = value => 52 + (value - xDomain[0]) / (xDomain[1] - xDomain[0]) * 262;
   const y = value => 242 - (value - low) / (high - low) * 188;
   const ticks = [low, (low + high) / 2, high];
-  return <svg className="calculus-plot" viewBox="0 0 340 310" role="img" aria-label={label} data-domain={JSON.stringify({
+  return <svg className="calculus-plot" viewBox={`0 0 340 ${logarithmic ? 332 : 310}`} role="img" aria-label={label} data-domain={JSON.stringify({
     x: xDomain,
     y: [low, high]
   })}>
@@ -60,7 +60,7 @@ function Plot({
         </g>)}
       <path className="calculus-axis" d="M52,44 V242 H314" />
       <text x="54" y="25">{yLabel}</text>
-      <text x="183" y="295" textAnchor="middle">{xLabel}</text>
+      <text x="183" y={logarithmic ? 320 : 295} textAnchor="middle">{xLabel}</text>
       {[xDomain[0], (xDomain[0] + xDomain[1]) / 2, xDomain[1]].map((value, index) => <text key={index} x={x(value)} y="265" textAnchor="middle">{number(value)}</text>)}
       {series.map(line => <path key={line.name} className={'calculus-curve ' + line.kind} d={line.points.map((point, index) => (index === 0 ? 'M' : 'L') + x(point[0]) + ',' + y(point[1])).join(' ')} data-series={line.name} />)}
       {marker && <g>

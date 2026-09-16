@@ -1,0 +1,153 @@
+{
+  "status": "passed",
+  "scope": "Graph close-point repair and shared F6 mobile tick gutter",
+  "fixture": {
+    "D": [
+      0.25,
+      1
+    ],
+    "G": [
+      4,
+      4
+    ],
+    "radius": 1
+  },
+  "results": [
+    {
+      "width": 390,
+      "geometry": {
+        "viewBox": "0 0 330 298",
+        "ids": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ],
+        "callouts": [
+          "B",
+          "D"
+        ],
+        "collisions": [],
+        "tickClipping": []
+      }
+    },
+    {
+      "width": 320,
+      "geometry": {
+        "viewBox": "0 0 330 298",
+        "ids": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G"
+        ],
+        "callouts": [
+          "B",
+          "D"
+        ],
+        "collisions": [],
+        "tickClipping": []
+      }
+    },
+    {
+      "width": 390,
+      "f6Ticks": [
+        {
+          "value": "-23.3",
+          "left": 38.49297332763672,
+          "right": 250.94452667236328,
+          "height": 16,
+          "font": "14px"
+        },
+        {
+          "value": "-1.5",
+          "left": 156.47335815429688,
+          "right": 140.24131774902344,
+          "height": 16,
+          "font": "14px"
+        },
+        {
+          "value": "20.3",
+          "left": 270.6412353515625,
+          "right": 26.4212646484375,
+          "height": 16,
+          "font": "14px"
+        },
+        {
+          "value": "-22.2",
+          "left": 11.457103729248047,
+          "right": 277.6207733154297,
+          "height": 16,
+          "font": "14px"
+        },
+        {
+          "value": "-0.4",
+          "left": 19.082103729248047,
+          "right": 277.63256072998047,
+          "height": 16,
+          "font": "14px"
+        },
+        {
+          "value": "21.4",
+          "left": 19.082103729248047,
+          "right": 277.63256072998047,
+          "height": 16,
+          "font": "14px"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "f6Ticks": [
+        {
+          "value": "-23.3",
+          "left": 30.264835357666016,
+          "right": 197.32891845703125,
+          "height": 13,
+          "font": "14px"
+        },
+        {
+          "value": "-1.5",
+          "left": 123.05007934570312,
+          "right": 110.55929565429688,
+          "height": 13,
+          "font": "14px"
+        },
+        {
+          "value": "20.3",
+          "left": 212.82749938964844,
+          "right": 20.781890869140625,
+          "height": 13,
+          "font": "14px"
+        },
+        {
+          "value": "-22.2",
+          "left": 9.003833770751953,
+          "right": 218.5899200439453,
+          "height": 13,
+          "font": "14px"
+        },
+        {
+          "value": "-0.4",
+          "left": 15.019454956054688,
+          "right": 217.59396362304688,
+          "height": 13,
+          "font": "14px"
+        },
+        {
+          "value": "21.4",
+          "left": 15.019454956054688,
+          "right": 217.59396362304688,
+          "height": 13,
+          "font": "14px"
+        }
+      ]
+    }
+  ]
+}

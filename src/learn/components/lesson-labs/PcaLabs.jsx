@@ -29,7 +29,7 @@ export function Prediction({ prompt, options, value, onChange, answer, revealed,
   return <div className="pca-prediction">
     <label htmlFor={id}><strong>Predict first:</strong> {prompt}</label>
     <div className="pca-prediction-row">
-      <select id={id} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}>
+      <select id={id} value={value} disabled={disabled || (revealed && !stale)} onChange={event => onChange(event.target.value)}>
         <option value="">Choose a prediction</option>
         {options.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
       </select>
@@ -134,7 +134,7 @@ export function PcaProjectionLab() {
   const baseline = projectAtAngle(points, reference);
   const fit = principalDirections(points);
   const stale = committed !== null && committed.key !== stateKey;
-  const remember = () => setHistory([...history.slice(-11), { points: points.map(point => [...point]), reference, proposed }]);
+  const remember = () => setHistory([...history.slice(-11), { points: points.map(point => [...point]), reference, proposed, selected }]);
   const editPoint = (axis, raw) => {
     if (String(raw).trim() === '' || String(raw).trim() === '-') return; // still typing
     const value = Number(raw);
@@ -148,10 +148,10 @@ export function PcaProjectionLab() {
   };
   return <Investigation title="Find the most useful ruler" question="Turning the ruler changes which differences survive as one number. Predict whether your proposed direction loses more or less squared error than the reference, then compare. Then change the data yourself and see where the best direction goes." onReset={reset}>
     <div className="pca-controls">
-      <Field label="Reference angle (degrees from the first axis)" value={`${reference}°`}><input type="range" min="0" max="179" step="1" value={reference} onChange={event => { remember(); setReference(Number(event.target.value)); }} /></Field>
-      <Field label="Proposed angle" value={`${proposed}°`}><input type="range" min="0" max="179" step="1" value={proposed} onChange={event => { remember(); setProposed(Number(event.target.value)); }} /></Field>
+      <Field label="Reference angle (degrees from the first axis)" value={`${number(reference, 2)}°`}><input type="range" min="0" max="179" step="1" value={reference} onChange={event => { remember(); setReference(Number(event.target.value)); }} /></Field>
+      <Field label="Proposed angle" value={`${number(proposed, 2)}°`}><input type="range" min="0" max="180" step="any" value={proposed} onChange={event => { remember(); setProposed(Number(event.target.value)); }} /></Field>
     </div>
-    <Prediction prompt={`Compared with the ${reference}° reference, will the ${proposed}° direction lose less, the same or more squared error on these ${points.length} points?`} options={[["less", 'Less error'], ['same', 'The same error'], ['more', 'More error']]} value={prediction} onChange={setPrediction} answer={committed ? committed.answer : errorVerdict(current.sse, baseline.sse)} revealed={committed !== null} stale={stale} onCheck={() => setCommitted({ key: stateKey, answer: errorVerdict(current.sse, baseline.sse), referenceSse: baseline.sse, proposedSse: current.sse })} explanation={committed && !stale ? `The reference loses ${number(committed.referenceSse)} units²; the proposed direction loses ${number(committed.proposedSse)} units², a difference of ${number(committed.referenceSse - committed.proposedSse)} on these same points.` : ''} />
+    <Prediction prompt={`Compared with the ${number(reference, 2)}° reference, will the ${number(proposed, 2)}° direction lose less, the same or more squared error on these ${points.length} points?`} options={[["less", 'Less error'], ['same', 'The same error'], ['more', 'More error']]} value={prediction} onChange={setPrediction} answer={committed ? committed.answer : errorVerdict(current.sse, baseline.sse)} revealed={committed !== null} stale={stale} onCheck={() => setCommitted({ key: stateKey, answer: errorVerdict(current.sse, baseline.sse), referenceSse: baseline.sse, proposedSse: current.sse })} explanation={committed && !stale ? `The reference loses ${number(committed.referenceSse)} units²; the proposed direction loses ${number(committed.proposedSse)} units², a difference of ${number(committed.referenceSse - committed.proposedSse)} on these same points.` : ''} />
     <p className="pca-readout" aria-live="polite">Mean {coordinate(current.mean)}. Total centered squared length {number(current.total)} = retained {number(current.retained)} + residual {committed && !stale ? number(current.sse) : 'hidden until you compare'}. {committed && !stale ? `Retained fraction ${current.retainedFraction === null ? 'undefined (no variation)' : percent(current.retainedFraction)}.` : ''}</p>
     <SquarePlot points={points} extra={[current.mean]} title="Original coordinates: the ruler passes through the mean" describe={`${points.length} points, a line through the mean at ${proposed}° with perpendicular feet, and the selected point ${pointName(selected)} with its residual segment. Exact values are in the table below.`}>
       {(project, domain, extent) => <>
@@ -178,8 +178,8 @@ export function PcaProjectionLab() {
     <div className="pca-buttons">
       <button type="button" disabled={points.length >= pointLimit} onClick={() => { remember(); setPoints([...points, current.mean.map(value => Math.round(value * 2) / 2)]); setSelected(points.length); }}>Add a point at the mean</button>
       <button type="button" disabled={points.length <= 4} onClick={() => { remember(); setPoints(points.filter((_, index) => index !== selected)); setSelected(0); }}>Remove selected</button>
-      <button type="button" disabled={fit.degenerate} onClick={() => { remember(); setProposed(Math.round(clampAngle(fit.angles[0]))); }}>Fit best direction</button>
-      <button type="button" disabled={history.length === 0} onClick={() => { const last = history.at(-1); setHistory(history.slice(0, -1)); setPoints(last.points); setReference(last.reference); setProposed(last.proposed); }}>Back</button>
+      <button type="button" disabled={fit.degenerate} onClick={() => { remember(); setProposed(clampAngle(fit.angles[0])); }}>Fit best direction</button>
+      <button type="button" disabled={history.length === 0} onClick={() => { const last = history.at(-1); setHistory(history.slice(0, -1)); setPoints(last.points); setReference(last.reference); setProposed(last.proposed); setSelected(last.selected); }}>Back</button>
     </div>
     <div className="pca-controls">
       <Field label="Translate every point by (Δ first, Δ second)"><div className="pca-prediction-row"><input type="number" step="1" min={-5} max={5} aria-label="Shift of the first reading" value={shift[0]} onChange={event => setShift([Number(event.target.value), shift[1]])} /><input type="number" step="1" min={-5} max={5} aria-label="Shift of the second reading" value={shift[1]} onChange={event => setShift([shift[0], Number(event.target.value)])} /><button type="button" onClick={() => { const moved = points.map(point => [point[0] + shift[0], point[1] + shift[1]]); if (moved.every(point => point.every(value => Math.abs(value) <= editorBound))) { remember(); setPoints(moved); } }}>Apply translation</button></div></Field>
@@ -234,8 +234,9 @@ export function PcaBudgetLab() {
   const [position, setPosition] = useState(0);
   const [feature, setFeature] = useState(6);
   const selection = smallestComponentCount(curve.ratios, budget);
-  const revealed = committed !== null;
-  const stale = revealed && committed.budget !== budget;
+  const compared = committed !== null;
+  const stale = compared && committed.budget !== budget;
+  const revealed = compared && !stale;
   const k = exploreK ?? (revealed ? selection.k : 0);
   const record = wineReconstruction(position, k);
   const xPosition = index => 40 + index * 20;
@@ -245,7 +246,7 @@ export function PcaBudgetLab() {
       <Field label="Allowed validation error as a fraction of the mean-only baseline" value={number(budget, 2)}><input type="range" min="0.01" max="0.6" step="0.01" value={budget} onChange={event => { setBudget(Number(event.target.value)); setExploreK(null); }} /></Field>
       <Field label="Same budget, typed"><input type="number" min="0.01" max="0.6" step="0.01" value={budget} onChange={event => { const value = Number(event.target.value); if (value >= 0.01 && value <= 0.6) { setBudget(value); setExploreK(null); } }} /></Field>
     </div>
-    <Prediction prompt={`What is the smallest number of components whose validation error is at most ${number(budget, 2)} of the baseline?`} options={Array.from({ length: 14 }, (_, count) => [String(count), `${count} component${count === 1 ? '' : 's'}`])} value={prediction} onChange={setPrediction} answer={String(selection.k)} revealed={revealed} stale={stale} onCheck={() => { setCommitted({ budget }); setExploreK(null); }} checkLabel="Reveal the crossing" explanation={`${selection.k - 1 >= 0 ? `${selection.k - 1} component${selection.k - 1 === 1 ? '' : 's'} leave ${number(selection.precedingRatio, 4)} of the baseline; ` : ''}${selection.k} leave ${number(selection.ratio, 4)}.`} />
+    <Prediction prompt={`What is the smallest number of components whose validation error is at most ${number(budget, 2)} of the baseline?`} options={Array.from({ length: 14 }, (_, count) => [String(count), `${count} component${count === 1 ? '' : 's'}`])} value={prediction} onChange={setPrediction} answer={String(selection.k)} revealed={compared} stale={stale} onCheck={() => { setCommitted({ budget }); setExploreK(null); }} checkLabel="Reveal the crossing" explanation={`${selection.k - 1 >= 0 ? `${selection.k - 1} component${selection.k - 1 === 1 ? '' : 's'} leave ${number(selection.precedingRatio, 4)} of the baseline; ` : ''}${selection.k} leave ${number(selection.ratio, 4)}.`} />
     {revealed ? <figure className="pca-curve">
       <figcaption>Validation error as a fraction of the training-mean baseline, k = 0 to 13 (fixed 133/45 split, training-only standardization and directions)</figcaption>
       <svg viewBox="0 0 320 228" role="img" aria-label={`Validation loss ratio by component count: ${curve.ratios.map((ratio, index) => `k ${index}: ${number(ratio, 3)}`).join('; ')}. Budget ${number(budget, 2)} first met at k = ${selection.k}.`}>
@@ -291,7 +292,7 @@ export function PcaTaskInformationLab() {
       <Field label="Label rule"><select value={labelAxis} onChange={event => change(setLabelAxis)(event.target.value)}><option value="y">Class by the sign of the second coordinate</option><option value="x">Class by the sign of the first coordinate</option></select></Field>
       <Field label="Retained components"><select value={kept} onChange={event => change(setKept)(event.target.value)}><option value="pc1">PC1 only</option><option value="pc2">PC2 only</option><option value="both">Both</option></select></Field>
     </div>
-    <Prediction prompt={`Keeping ${keptLabel[kept]} with labels from the ${labelAxis === 'y' ? 'second' : 'first'} coordinate, do differently labeled observations still occupy different retained coordinates?`} options={[["distinct", 'Yes, every label is distinguishable'], ['collide', 'No, some observations with different labels share a coordinate']]} value={prediction} onChange={setPrediction} answer={state.distinguishable ? 'distinct' : 'collide'} revealed={checked} onCheck={() => setChecked(true)} checkLabel="Check" explanation={state.distinguishable ? `All four observations keep distinct retained coordinates (${state.distinctLocations} locations).` : `Collisions: ${state.collisions.map(collision => collision.members.map(index => `${pointName(index)} (${state.labels[index]})`).join(' and ') + ` at ${collision.coordinate.map(value => number(value)).join(', ')}`).join('; ')}.`} />
+    <Prediction prompt={`Keeping ${keptLabel[kept]} with labels from the ${labelAxis === 'y' ? 'second' : 'first'} coordinate, do differently labeled observations still occupy different retained coordinates?`} options={[["distinct", 'Yes, every label is distinguishable'], ['collide', 'No, some observations with different labels share a coordinate']]} value={prediction} onChange={setPrediction} answer={state.distinguishable ? 'distinct' : 'collide'} revealed={checked} onCheck={() => setChecked(true)} checkLabel="Check" explanation={state.distinguishable ? `The ${state.distinctLocations} retained locations each contain only one class. Differently labeled observations remain distinguishable, even when observations of the same class share a coordinate.` : `Collisions: ${state.collisions.map(collision => collision.members.map(index => `${pointName(index)} (${state.labels[index]})`).join(' and ') + ` at ${collision.coordinate.map(value => number(value)).join(', ')}`).join('; ')}.`} />
     <p className="pca-readout" aria-live="polite">PC1 is the first axis with variance {number(state.fit.eigenvalues[0])}; PC2 has {number(state.fit.eigenvalues[1])}. Retaining {keptLabel[kept]} keeps {percent(state.retainedFraction)} of the variance. {checked ? (state.distinguishable ? 'Labels remain distinguishable.' : 'Two pairs with different labels now share one coordinate.') : 'Check your prediction to see whether the labels survive.'}</p>
     <SquarePlot points={state.points} title="All four observations in both coordinates (equal units; the inset magnifies the vertical separation)" describe={`Corners at ±${number(a)} horizontally and ±${number(b)} vertically; class A shown as circles, class B as squares.`}>
       {(project) => <>

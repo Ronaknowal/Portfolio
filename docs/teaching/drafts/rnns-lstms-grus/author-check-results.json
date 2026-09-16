@@ -1,0 +1,26 @@
+{
+  "practice_middle_edit": {
+    "first": 0.39693043200507755,
+    "second": 0.4606674922146755,
+    "final": 0.7335640857622394
+  },
+  "practice_negative_cell": {
+    "retained": -0.48,
+    "written": 0.1,
+    "cell": -0.38,
+    "hidden": -0.18135373378902556
+  },
+  "practice_gru": 0.7000000000000001,
+  "practice_forget_80_percent_after_50": 0.9955470727844663,
+  "lstm_full_jacobian_finite_difference_max_error": 7.767841925243602e-12,
+  "gru_all_one_reset_null": true,
+  "gru_diagonal_zero_bias_null": true,
+  "gru_diagonal_nonzero_bias_contrast": true,
+  "displayed_packing_program_executed": true,
+  "displayed_training_program_matches_executed_source": true,
+  "saved_run_probability_and_count_checks": 27,
+  "closed_hint_solution_blocks": 16,
+  "original_published_source_unchanged": true,
+  "data_hash_matches": true,
+  "scope": "Author arithmetic and input consistency only; no phase-two implementation or formal review."
+}

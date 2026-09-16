@@ -65,12 +65,15 @@
         "src/learn/data/knn-models.js": "cd71acac8f69c5e985f957a3fe9c611cc83ae1a57951d3e7e36871f3a9cabc74",
         "src/learn/data/knn-examples.js": "f98fa95e5bd98573280e10c3b63d7556ca7a19b875757c013f5a0c5b2863537a",
         "src/learn/data/knn-validation-data.js": "c1cd316cad24632438c21e790f3edfe91939e712bfb8d9fa0fae9500d0c91781",
-        "src/learn/components/lesson-labs/KnnLabs.jsx": "086c56e9878b1701a890846ce8152d41c57ff7b3b0ea4d99cf686548bbd2aded",
-        "src/learn/components/lesson-labs/knn-labs.css": "bd1ad00284fd2a068e128383d4b8f29bbad59f6b8f16b0c5c91ce550e8b620a4",
+        "src/learn/components/lesson-labs/KnnLabs.jsx": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c",
+        "src/learn/components/lesson-labs/knn-labs.css": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a",
         "src/learn/data/curriculum/blueprints/k-nearest-neighbors-knn.js": "43e77af81755130051ec81693e767ac5001d15322b0d2a745f28c89a82cf4929"
       },
-      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
-      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
     },
     {
       "id": "gradient-boosted-trees-xgboost-lightgbm-catboost",
@@ -132,12 +135,15 @@
         "src/learn/data/topics/naive-bayes-probabilistic-classifiers.jsx": "6a73f01a50c186b519e678b15a11b5ac80d663c45f9fb986162785ffe7cf4a95",
         "src/learn/data/naive-bayes-models.js": "48d7ff7c4035bc469e45d0f030455992a007927edc3af4b36bf4b1d8130f4dba",
         "src/learn/data/naive-bayes-examples.js": "c4b49e0871564320a19cb8adde2d50037c0f656ebb71ad10397422644624d8a3",
-        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "f0b7a7631dd85d12516b1df7a80930b793801e40e6ba573d01b5bcaf9bab2e0b",
-        "src/learn/components/lesson-labs/naive-bayes-labs.css": "a4d7f84adab9a7f179f35300fdc6c420497df87909dd99ccbfae64cf24e4dc76",
+        "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "edba8e94ac0bad70a2a93138fa117f0ef1f841ff4b10ea170ba9ab7b5bca7d23",
+        "src/learn/components/lesson-labs/naive-bayes-labs.css": "2bb500b3bb6acc27fafdaeacdc891499020674ba65660963b499f54167682228",
         "src/learn/data/curriculum/blueprints/naive-bayes-probabilistic-classifiers.js": "f20e99c6de994a410b3c1977e203ec4712c486d884a4f18f606ab9bdf5fd9506"
       },
-      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
-      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
     },
     {
       "id": "ensemble-methods-stacking",
@@ -155,12 +161,15 @@
         "src/learn/data/ensemble-methods-models.js": "53fc4d487c2bb98b37968c59ddde9307192f92e1141033a4625be34ff5351fd4",
         "src/learn/data/ensemble-methods-examples.js": "11005149bc1daa90075a97e62de6c1c0fd09a111633cb0e6cb88dfb565a78a56",
         "src/learn/data/ensemble-prediction-map.json": "7e06407ee3c81498e1b3c134935994e8bf114509c36f79e02565695f4e79d5a6",
-        "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "f9fca0ccadebccd067547d9e757686fbd032366faac88f23a9ad1a4c8d774a9d",
+        "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98",
         "src/learn/components/lesson-labs/ensemble-methods-labs.css": "6afecccd96546833c7896891bb52dc3d5731105134463ecd3cf41d1f225e395e",
         "src/learn/data/curriculum/blueprints/ensemble-methods-stacking.js": "926a7b4d9d873c6ee7ec86ceef5f960cd82776eda6ebd59c9a537847c3b1d62d"
       },
-      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
-      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
     },
     {
       "id": "recommender-systems-collaborative-filtering-matrix-factorization",
@@ -176,15 +185,18 @@
         "src/learn/data/topics/recommender-systems-collaborative-filtering-matrix-factorization.jsx": "66c718d1ff57ed35bd8735807578a746bc6f116783367bc17e1811e797a3d12c",
         "src/learn/data/recommender-models.js": "f377edef34ade812337478b8cdaac9629f9686c3a42afd1807c37e565c286e05",
         "src/learn/data/recommender-examples.js": "139e958776f519010fa77e7a4c9226e53f3dfaa9951f53894422e26c53b93556",
-        "src/learn/components/lesson-labs/RecommenderLabs.jsx": "0ebc44f76acc2221b5e883a37f50a536da6709591144562709ac5ef910be5598",
+        "src/learn/components/lesson-labs/RecommenderLabs.jsx": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650",
         "src/learn/components/lesson-labs/RecommenderFigures.jsx": "09b459561ae5451e063d818e68a7b0ac4f3df89aa0acd70c4808f69708aa42a3",
         "src/learn/components/lesson-labs/recommender-labs.css": "aa19be9eac4e20e9e82f1f8f1666a0def06fd15d1988f5979887c84aaac36d31",
         "src/learn/data/curriculum/blueprints/recommender-systems-collaborative-filtering-matrix-factorization.js": "c2ef67a72f94f6702313b4508d915aa535009b79f81a85b0f907e2dc23186819"
       },
-      "verificationRecord": "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md",
+      "verificationRecord": "docs/teaching/LESSON-VISUAL-LAYOUT-REVIEW.md",
       "nextAction": "Complete for the authorized increment; user review is separate. Reuse evidence for unchanged source.",
       "integrationAmendment": "docs/teaching/evidence/recommender-integration-amendment.json",
-      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json"
+      "integrationEvidence": "docs/teaching/evidence/classical-ml-production-review.json",
+      "previousVerificationRecords": [
+        "CLASSICAL-ML-SUPERVISED-IMPLEMENTATION.md"
+      ]
     },
     {
       "id": "multi-label-multi-output-learning",

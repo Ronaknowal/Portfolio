@@ -1,0 +1,18 @@
+{
+  "url": "https://archive.ics.uci.edu/static/public/81/pen+based+recognition+of+handwritten+digits.zip",
+  "zip_sha256": "1e02bea023613c2b11c9492f6f34caf975420455934f3527d270cee9a1f03b64",
+  "files": {
+    "pendigits.tra": {
+      "sha256": "e2b9eb9f0d0467e2b64a4816a3420edf2b8043447576f4b84337aba44a9f97d3",
+      "bytes": 502098
+    },
+    "pendigits.tes": {
+      "sha256": "8bd03229c5c5291fefe43e45465dd948d2645bf23328b9d993e0b777666b2015",
+      "bytes": 234366
+    },
+    "pendigits.names": {
+      "sha256": "a90a76e1edac6f1b50f4b44db80587d7b92601fcbb153c83c2c3210c21b34f60",
+      "bytes": 4953
+    }
+  }
+}

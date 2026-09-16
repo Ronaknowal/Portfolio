@@ -35,10 +35,10 @@ function PlotFrame({
   const bottom = height - 55;
   const x = value => left + (value - xDomain[0]) / (xDomain[1] - xDomain[0]) * (right - left);
   const y = value => bottom - (value - yDomain[0]) / (yDomain[1] - yDomain[0]) * (bottom - top);
-  return <svg className="nb-plot" viewBox={'0 0 330 ' + height} role="img" aria-label={label}>
+  return <svg className="nb-plot" viewBox={'0 -12 330 ' + (height + 38)} role="img" aria-label={label}>
     <path d={'M' + left + ',' + top + 'V' + bottom + 'H' + right} className="nb-axis" />
     {xTicks.map(value => <g key={value}><path className="nb-grid" d={'M' + x(value) + ',' + top + 'V' + bottom} />
-      <text x={x(value)} y={bottom + 22} textAnchor="middle">{number(value, 2)}</text></g>)}
+      <text x={x(value)} y={bottom + 25} textAnchor={value === xDomain[0] ? 'start' : value === xDomain[1] ? 'end' : 'middle'}>{number(value, 2)}</text></g>)}
     {yTicks.map(value => <g key={value}><path className="nb-grid" d={'M' + left + ',' + y(value) + 'H' + right} />
       <text x={left - 9} y={y(value) + 5} textAnchor="end">{number(value, 2)}</text></g>)}
     {children({
@@ -49,7 +49,7 @@ function PlotFrame({
       top,
       bottom
     })}
-    <text x={(left + right) / 2} y={height - 8} textAnchor="middle">{xLabel}</text>
+    <text x={(left + right) / 2} y={height + 12} textAnchor="middle">{xLabel}</text>
     <text x={left} y={15} className="nb-axis-title">{yLabel}</text>
   </svg>;
 }
@@ -292,7 +292,7 @@ export function ReliabilityLab() {
         <path d={'M' + x(0) + ',' + y(0) + 'L' + x(1) + ',' + y(1)} stroke="#c2bbab" strokeDasharray="5 4" />
         {state.bins.filter(bin => bin.count).map(bin => <g key={bin.index}>
           <circle cx={x(bin.meanPrediction)} cy={y(bin.observedFraction)} r="7" fill="#e5b95b" />
-          <text x={x(bin.meanPrediction) + (bin.meanPrediction > 0.8 ? -12 : 12)} y={y(bin.observedFraction) + (bin.observedFraction > 0.9 ? 23 : bin.observedFraction < 0.1 ? -12 : 5)} textAnchor={bin.meanPrediction > 0.8 ? 'end' : 'start'}>n={bin.count}</text>
+          <text className="nb-point-label" x={x(bin.meanPrediction) + (bin.meanPrediction > 0.8 ? -12 : 12)} y={y(bin.observedFraction) + (bin.observedFraction > 0.9 ? 23 : bin.observedFraction < 0.1 ? -12 : 5)} textAnchor={bin.meanPrediction > 0.8 ? 'end' : 'start'}>n={bin.count}</text>
         </g>)}
       </>}
     </PlotFrame><figcaption>Each amber point is a group average, with its case count. The diagonal marks equality of average prediction and observed fraction. Empty bins do not create points.</figcaption></figure>

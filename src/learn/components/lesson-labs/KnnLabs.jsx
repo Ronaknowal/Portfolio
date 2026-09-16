@@ -34,7 +34,9 @@ function Point({
   y,
   selected = true
 }) {
-  return <g opacity={selected ? 1 : 0.38} fill={classColors[row.label]} stroke="#11171b" strokeWidth="1.3">{row.label === 'A' ? <circle cx={x} cy={y} r="5" /> : row.label === 'B' ? <rect x={x - 5} y={y - 5} width="10" height="10" /> : <path d={`M${x},${y - 6}l6,11h-12Z`} />}<text x={x + 8} y={y + 4} stroke="none">{row.id}</text></g>;
+  // The fixed fixture permits label offsets without changing data coordinates.
+  const [dx, dy] = { A1: [-12, 5], A2: [9, 20], A3: [-12, -11], B1: [12, -8], B2: [10, 24], B3: [-12, -8], C1: [-12, -14], C2: [13, 18] }[row.id];
+  return <g opacity={selected ? 1 : 0.38} fill={classColors[row.label]} stroke="#11171b" strokeWidth="1.3">{row.label === 'A' ? <circle cx={x} cy={y} r="5" /> : row.label === 'B' ? <rect x={x - 5} y={y - 5} width="10" height="10" /> : <path d={`M${x},${y - 6}l6,11h-12Z`} />}<line x1={x + dx * .25} y1={y + dy * .25} x2={x + dx * .65} y2={y + dy - 4} stroke={classColors[row.label]} strokeWidth="1" /><text className="knn-row-label" x={x + dx} y={y + dy} textAnchor={dx < 0 ? 'end' : 'start'}>{row.id}</text></g>;
 }
 function NeighborMap({
   query,

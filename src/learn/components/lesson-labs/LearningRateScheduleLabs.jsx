@@ -11,11 +11,11 @@ export function CalibrationUpdateFigure() {
   const id = useId();
   const x = value => 42 + (value - 2) * 80;
   return <figure className="schedule-inline">
+    <p className="schedule-axis-label">Target 2 · η = .2 in both updates</p>
     <svg className="schedule-plot" viewBox="0 0 340 232" role="img" aria-labelledby={`${id}-title ${id}-description`}>
       <title id={`${id}-title`}>Same rate, smaller second displacement</title>
       <desc id={`${id}-description`}>On a common parameter axis, the first update moves from 5 to 3.8, a displacement of minus 1.2. The second moves from 3.8 to 3.08, a displacement of minus 0.72. Both use rate 0.2 and curvature 2 toward target 2.</desc>
       <defs><marker id={`${id}-arrow`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#e2b55a" /></marker></defs>
-      <text x="42" y="18">target 2 · η = .2 in both updates</text>
       <line x1={x(2)} x2={x(2)} y1="29" y2="194" stroke="#8aabba" strokeDasharray="4 4" />
       {[[5, 3.8, 65, 'first: −1.2'], [3.8, 3.08, 140, 'second: −.72']].map(([start, end, y, label]) => <g key={label}>
         <line x1={x(start)} x2={x(end) + 5} y1={y} y2={y} stroke="#e2b55a" strokeWidth="2" markerEnd={`url(#${id}-arrow)`} />
@@ -25,8 +25,8 @@ export function CalibrationUpdateFigure() {
       </g>)}
       <line x1="42" x2="305" y1="194" y2="194" stroke="#8aabba" />
       {[2, 3, 4, 5].map(value => <g key={value}><line x1={x(value)} x2={x(value)} y1="191" y2="198" stroke="#8aabba" /><text x={x(value)} y="215" textAnchor="middle">{value}</text></g>)}
-      <text x="173" y="231" textAnchor="middle">parameter θ · common horizontal scale</text>
     </svg>
+    <p className="schedule-axis-label">Horizontal axis: parameter θ · common scale for both updates</p>
     <figcaption>The arrows show actual displacements. The gradient shrinks from 6 to 3.6, so multiplying by the same rate .2 gives a shorter second step. Vertical separation only keeps the two updates readable.</figcaption>
   </figure>;
 }

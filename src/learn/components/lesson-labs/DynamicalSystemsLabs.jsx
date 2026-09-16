@@ -32,18 +32,17 @@ function Plot({ label, horizontal, vertical, xDomain, yDomain, series = [], squa
   const bottom = height - 60;
   const x = value => 65 + (value - xDomain[0]) / (xDomain[1] - xDomain[0]) * 450;
   const y = value => bottom - (value - yDomain[0]) / (yDomain[1] - yDomain[0]) * (bottom - 30);
-  return <><p className="dynamics-scroll-hint">Scroll this plot sideways to inspect the full axes.</p><div className="dynamics-plot" tabIndex={0} role="region" aria-label={label + '; scroll horizontally on a narrow screen'}>
+  return <><p className="dynamics-axis-label">Vertical axis: {vertical}</p><p className="dynamics-scroll-hint">Scroll this plot sideways to inspect the full axes.</p><div className="dynamics-plot" tabIndex={0} role="region" aria-label={label + '; scroll horizontally on a narrow screen'}>
     <svg viewBox={'0 0 540 ' + height} role="img" aria-label={label}>
       <defs><clipPath id={clipId}><rect x={65} y={30} width={450} height={bottom - 30} /></clipPath></defs>
       {Array.from({ length: 5 }, (_, index) => {
         const horizontalValue = xDomain[0] + index / 4 * (xDomain[1] - xDomain[0]);
         const verticalValue = yDomain[0] + index / 4 * (yDomain[1] - yDomain[0]);
-        return <g key={index}><line className="dynamics-grid" x1={x(horizontalValue)} x2={x(horizontalValue)} y1={30} y2={bottom} /><line className="dynamics-grid" x1={65} x2={515} y1={y(verticalValue)} y2={y(verticalValue)} /><text x={x(horizontalValue)} y={bottom + 22} textAnchor="middle">{tickFormat(horizontalValue)}</text><text x={57} y={y(verticalValue) + 4} textAnchor="end">{tickFormat(verticalValue)}</text></g>;
+        return <g key={index}><line className="dynamics-grid" x1={x(horizontalValue)} x2={x(horizontalValue)} y1={30} y2={bottom} /><line className="dynamics-grid" x1={65} x2={515} y1={y(verticalValue)} y2={y(verticalValue)} /><text x={x(horizontalValue)} y={bottom + 24} textAnchor={index === 0 ? 'start' : index === 4 ? 'end' : 'middle'}>{tickFormat(horizontalValue)}</text><text x={57} y={y(verticalValue) + 4} textAnchor="end">{tickFormat(verticalValue)}</text></g>;
       })}
-      <text x={65} y={18}>{vertical}</text><text x={290} y={height - 10} textAnchor="middle">{horizontal}</text>
       <g clipPath={'url(#' + clipId + ')'}>{series.map(({ points, tone = 'amber', dashed = false }, index) => <path key={index} className={'dynamics-line dynamics-' + tone + (dashed ? ' dynamics-dashed' : '')} d={pointsPath(points, x, y)} />)}{children?.({ x, y })}</g>
     </svg>
-  </div></>;
+  </div><p className="dynamics-axis-label">Horizontal axis: {horizontal}</p></>;
 }
 
 function CartState({ direction }) {

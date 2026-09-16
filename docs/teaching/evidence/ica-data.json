@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-14T16:30:33.221889+00:00",
+  "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-ica-data.py",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "python": "3.12.14"
+  },
+  "moduleRewritten": false,
+  "checkCount": 31,
+  "checks": [
+    "the served extract has the provenance SHA-256",
+    "the served extract is byte-identical to the retained packet CSV",
+    "the header names the direct reference and four abdominal channels",
+    "the provenance file records the original EDF hash",
+    "20,000 instants and five channels",
+    "every stored value is a signed 16-bit integer count",
+    "the calibration is the EDF header's endpoint mapping, not an assumed 0.1 uV per count",
+    "the chronological split is 12,000 / 4,000 / 4,000 half-open samples at 1,000 Hz",
+    "ICA converged in the 14 iterations the packet recorded",
+    "unit-variance whitening gives fitted sources variance one",
+    "a full-rank round trip reconstructs held-out sensors to numerical precision",
+    "the reference never enters either fit",
+    "channel development correlations match the packet to six decimals",
+    "channel selects coordinate 3 on development data only",
+    "channel development |r| is 0.201203",
+    "channel held-out |r| is 0.119806",
+    "PCA development correlations match the packet to six decimals",
+    "PCA selects coordinate 4 on development data only",
+    "PCA development |r| is 0.184580",
+    "PCA held-out |r| is 0.450178",
+    "ICA development correlations match the packet to six decimals",
+    "ICA selects coordinate 2 on development data only",
+    "ICA development |r| is 0.169804",
+    "ICA held-out |r| is 0.343966",
+    "PCA keeps its held-out advantage over ICA and the raw channel in this fixed comparison",
+    "every method offered four candidate coordinates",
+    "each envelope has 500 peak-preserving columns over 2,000 displayed samples",
+    "the channel envelope retains the extreme displayed values",
+    "the PCA envelope retains the extreme displayed values",
+    "the ICA envelope retains the extreme displayed values",
+    "the exact window exposes 20 consecutive rows from the start of the test interval"
+  ],
+  "results": [
+    {
+      "method": "channel",
+      "description": "Original abdominal channel",
+      "development": [
+        0.043935,
+        0.101807,
+        0.201203,
+        0.079348
+      ],
+      "chosen": 3,
+      "developmentAbs": 0.201203,
+      "testSigned": 0.119806,
+      "testAbs": 0.119806,
+      "displaySign": 1,
+      "unit": "microvolts"
+    },
+    {
+      "method": "PCA",
+      "description": "PCA coordinate",
+      "development": [
+        -0.03474,
+        0.127795,
+        0.01077,
+        0.18458
+      ],
+      "chosen": 4,
+      "developmentAbs": 0.18458,
+      "testSigned": 0.450178,
+      "testAbs": 0.450178,
+      "displaySign": 1,
+      "unit": "arbitrary units"
+    },
+    {
+      "method": "ICA",
+      "description": "ICA coordinate",
+      "development": [
+        0.079635,
+        0.169804,
+        -0.043955,
+        -0.116516
+      ],
+      "chosen": 2,
+      "developmentAbs": 0.169804,
+      "testSigned": 0.343966,
+      "testAbs": 0.343966,
+      "displaySign": 1,
+      "unit": "arbitrary units"
+    }
+  ],
+  "iterations": 14,
+  "reconstructionMse": 1.036337128655316e-28,
+  "sourceHashes": {
+    "scripts/verify-ica-data.py": "fd214490a1c2aa85ce9261c0a2d3fac803b47c96b7418dadd58925a07f323375",
+    "src/learn/data/ica-data.js": "897ca68813a4b55b64677032e9a7df97e25d30d8a5acffdfde610ce9e3152e61",
+    "public/learn-assets/ica/r01-first20s.csv": "7c95ef45ceaf96254950ce633b2ab0b5089b15a4fdbd617e1b843846beef23cc",
+    "public/learn-assets/ica/data-provenance.md": "c7113b661124cb16f386b843aed1065ae42e24b36396f11ebfc7db680c1e1990"
+  }
+}

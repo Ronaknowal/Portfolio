@@ -1,0 +1,263 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-09-14T17:03:00.076272+00:00",
+  "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-validation-data.py",
+  "stage": "author data regeneration; browser, independent and integration review are separate",
+  "pipelineFits": 76,
+  "checks": [
+    "the served CSV is byte-identical to the packet input the author calculated from",
+    "the packet copy and the served copy are the same bytes",
+    "the served CSV is the recorded 15,241 bytes",
+    "the file holds all 344 original rows",
+    "the original column list is unchanged",
+    "eleven sex entries are missing in the source, as the provenance records",
+    "each numeric measurement has two missing cells",
+    "every row carries a species label",
+    "outer fold 1: the training row IDs match the packet",
+    "outer fold 1: the protected row IDs match the packet",
+    "outer fold 1: the inner validation IDs match",
+    "outer fold 1: the inner training sizes match",
+    "outer fold 1 candidate k=3/StandardScaler: same enumeration position",
+    "outer fold 1 candidate k=3/StandardScaler: inner fold scores",
+    "outer fold 1 candidate k=3/StandardScaler: inner mean score",
+    "outer fold 1 candidate k=3/RobustScaler: same enumeration position",
+    "outer fold 1 candidate k=3/RobustScaler: inner fold scores",
+    "outer fold 1 candidate k=3/RobustScaler: inner mean score",
+    "outer fold 1 candidate k=5/StandardScaler: same enumeration position",
+    "outer fold 1 candidate k=5/StandardScaler: inner fold scores",
+    "outer fold 1 candidate k=5/StandardScaler: inner mean score",
+    "outer fold 1 candidate k=5/RobustScaler: same enumeration position",
+    "outer fold 1 candidate k=5/RobustScaler: inner fold scores",
+    "outer fold 1 candidate k=5/RobustScaler: inner mean score",
+    "outer fold 1 candidate k=11/StandardScaler: same enumeration position",
+    "outer fold 1 candidate k=11/StandardScaler: inner fold scores",
+    "outer fold 1 candidate k=11/StandardScaler: inner mean score",
+    "outer fold 1 candidate k=11/RobustScaler: same enumeration position",
+    "outer fold 1 candidate k=11/RobustScaler: inner fold scores",
+    "outer fold 1 candidate k=11/RobustScaler: inner mean score",
+    "outer fold 1: the same candidate is selected",
+    "outer fold 1: the same number of protected rows are correct",
+    "outer fold 1: the same assessed accuracy",
+    "outer fold 1: the same majority-baseline count",
+    "outer fold 1: every protected prediction matches",
+    "outer fold 1: every protected label matches",
+    "outer fold 2: the training row IDs match the packet",
+    "outer fold 2: the protected row IDs match the packet",
+    "outer fold 2: the inner validation IDs match",
+    "outer fold 2: the inner training sizes match",
+    "outer fold 2 candidate k=3/StandardScaler: same enumeration position",
+    "outer fold 2 candidate k=3/StandardScaler: inner fold scores",
+    "outer fold 2 candidate k=3/StandardScaler: inner mean score",
+    "outer fold 2 candidate k=3/RobustScaler: same enumeration position",
+    "outer fold 2 candidate k=3/RobustScaler: inner fold scores",
+    "outer fold 2 candidate k=3/RobustScaler: inner mean score",
+    "outer fold 2 candidate k=5/StandardScaler: same enumeration position",
+    "outer fold 2 candidate k=5/StandardScaler: inner fold scores",
+    "outer fold 2 candidate k=5/StandardScaler: inner mean score",
+    "outer fold 2 candidate k=5/RobustScaler: same enumeration position",
+    "outer fold 2 candidate k=5/RobustScaler: inner fold scores",
+    "outer fold 2 candidate k=5/RobustScaler: inner mean score",
+    "outer fold 2 candidate k=11/StandardScaler: same enumeration position",
+    "outer fold 2 candidate k=11/StandardScaler: inner fold scores",
+    "outer fold 2 candidate k=11/StandardScaler: inner mean score",
+    "outer fold 2 candidate k=11/RobustScaler: same enumeration position",
+    "outer fold 2 candidate k=11/RobustScaler: inner fold scores",
+    "outer fold 2 candidate k=11/RobustScaler: inner mean score",
+    "outer fold 2: the same candidate is selected",
+    "outer fold 2: the same number of protected rows are correct",
+    "outer fold 2: the same assessed accuracy",
+    "outer fold 2: the same majority-baseline count",
+    "outer fold 2: every protected prediction matches",
+    "outer fold 2: every protected label matches",
+    "outer fold 3: the training row IDs match the packet",
+    "outer fold 3: the protected row IDs match the packet",
+    "outer fold 3: the inner validation IDs match",
+    "outer fold 3: the inner training sizes match",
+    "outer fold 3 candidate k=3/StandardScaler: same enumeration position",
+    "outer fold 3 candidate k=3/StandardScaler: inner fold scores",
+    "outer fold 3 candidate k=3/StandardScaler: inner mean score",
+    "outer fold 3 candidate k=3/RobustScaler: same enumeration position",
+    "outer fold 3 candidate k=3/RobustScaler: inner fold scores",
+    "outer fold 3 candidate k=3/RobustScaler: inner mean score",
+    "outer fold 3 candidate k=5/StandardScaler: same enumeration position",
+    "outer fold 3 candidate k=5/StandardScaler: inner fold scores",
+    "outer fold 3 candidate k=5/StandardScaler: inner mean score",
+    "outer fold 3 candidate k=5/RobustScaler: same enumeration position",
+    "outer fold 3 candidate k=5/RobustScaler: inner fold scores",
+    "outer fold 3 candidate k=5/RobustScaler: inner mean score",
+    "outer fold 3 candidate k=11/StandardScaler: same enumeration position",
+    "outer fold 3 candidate k=11/StandardScaler: inner fold scores",
+    "outer fold 3 candidate k=11/StandardScaler: inner mean score",
+    "outer fold 3 candidate k=11/RobustScaler: same enumeration position",
+    "outer fold 3 candidate k=11/RobustScaler: inner fold scores",
+    "outer fold 3 candidate k=11/RobustScaler: inner mean score",
+    "outer fold 3: the same candidate is selected",
+    "outer fold 3: the same number of protected rows are correct",
+    "outer fold 3: the same assessed accuracy",
+    "outer fold 3: the same majority-baseline count",
+    "outer fold 3: every protected prediction matches",
+    "outer fold 3: every protected label matches",
+    "pooled accuracy matches the packet",
+    "the unweighted fold mean matches the packet",
+    "the final all-data selection matches the packet",
+    "the final all-data search is a two-way tie that the declared enumeration rule resolves",
+    "the first tied candidate in the enumeration is the one selected",
+    "the six final candidates collapse into three tied pairs, so the scaler is settled by order rather than by evidence",
+    "the other two final scores are the recorded 0.9884058 and 0.9854818",
+    "the three outer folds select 11/Standard, 3/Standard and 3/Robust",
+    "the recorded correct counts are 114, 114 and 112",
+    "the outer folds assess 115, 115 and 114 rows",
+    "the outer training sizes are 229, 229 and 230",
+    "the majority baselines are 51, 51 and 50",
+    "pooled accuracy is exactly 340/344",
+    "the unweighted fold mean prints as 0.9883549",
+    "pooled accuracy prints as 0.9883721",
+    "the final selection score prints as 0.9913043",
+    "the two summaries differ, so the weighting distinction is visible in real numbers",
+    "the three outer folds partition all 344 rows exactly once",
+    "outer fold 1 never trains on a row it assesses",
+    "outer fold 1: the inner folds partition only the outer training rows",
+    "outer fold 1: no protected row reaches an inner comparison",
+    "outer fold 1: an exact tie takes the first enumerated candidate",
+    "outer fold 2 never trains on a row it assesses",
+    "outer fold 2: the inner folds partition only the outer training rows",
+    "outer fold 2: no protected row reaches an inner comparison",
+    "outer fold 2: an exact tie takes the first enumerated candidate",
+    "outer fold 3 never trains on a row it assesses",
+    "outer fold 3: the inner folds partition only the outer training rows",
+    "outer fold 3: no protected row reaches an inner comparison",
+    "outer fold 3: an exact tie takes the first enumerated candidate",
+    "outer fold 3 has a genuine five-way tie the declared rule resolves",
+    "the selected pipeline beats the majority baseline on every outer fold",
+    "the experiment costs 57 assessment fits plus 19 for final selection and refit",
+    "the nine disclosed random search positions regenerate exactly from NumPy default_rng(5)",
+    "the first disclosed draw is the (0.8050, 0.8079) the specification names",
+    "the nine draws take nine distinct values on the projected coordinate, against the grid's three",
+    "this run used the same pinned library versions the author recorded"
+  ],
+  "checkCount": 129,
+  "result": {
+    "selections": [
+      {
+        "k": 11,
+        "scaler": "StandardScaler"
+      },
+      {
+        "k": 3,
+        "scaler": "StandardScaler"
+      },
+      {
+        "k": 3,
+        "scaler": "RobustScaler"
+      }
+    ],
+    "correct": [
+      114,
+      114,
+      112
+    ],
+    "assessed": [
+      115,
+      115,
+      114
+    ],
+    "baselineCorrect": [
+      51,
+      51,
+      50
+    ],
+    "pooledAccuracy": 0.9883720930232558,
+    "foldMean": 0.9883549453343504,
+    "finalSelected": {
+      "k": 3,
+      "scaler": "StandardScaler",
+      "selectionScore": 0.991304347826087,
+      "bestIndex": 0,
+      "candidates": [
+        {
+          "k": 3,
+          "scaler": "StandardScaler",
+          "foldScores": [
+            0.991304347826087,
+            0.9826086956521739,
+            1.0
+          ],
+          "meanScore": 0.991304347826087
+        },
+        {
+          "k": 3,
+          "scaler": "RobustScaler",
+          "foldScores": [
+            0.991304347826087,
+            0.9826086956521739,
+            1.0
+          ],
+          "meanScore": 0.991304347826087
+        },
+        {
+          "k": 5,
+          "scaler": "StandardScaler",
+          "foldScores": [
+            0.991304347826087,
+            0.9739130434782609,
+            1.0
+          ],
+          "meanScore": 0.9884057971014494
+        },
+        {
+          "k": 5,
+          "scaler": "RobustScaler",
+          "foldScores": [
+            0.991304347826087,
+            0.9739130434782609,
+            1.0
+          ],
+          "meanScore": 0.9884057971014494
+        },
+        {
+          "k": 11,
+          "scaler": "StandardScaler",
+          "foldScores": [
+            0.9826086956521739,
+            0.9826086956521739,
+            0.9912280701754386
+          ],
+          "meanScore": 0.9854818204932622
+        },
+        {
+          "k": 11,
+          "scaler": "RobustScaler",
+          "foldScores": [
+            0.9826086956521739,
+            0.9826086956521739,
+            0.9912280701754386
+          ],
+          "meanScore": 0.9854818204932622
+        }
+      ],
+      "tiedWith": [
+        "3/StandardScaler",
+        "3/RobustScaler"
+      ]
+    }
+  },
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "sklearn": "1.9.1"
+  },
+  "limits": [
+    "One dataset, one seed pair, one candidate grid: a reproducible protocol demonstration, not new evidence about penguin classification.",
+    "The outer score assesses the selection-and-fitting procedure at this outer training size, not an oracle-best setting.",
+    "No timing was recorded; the fit count is exact and the wall time is not claimed."
+  ],
+  "sourceHashes": {
+    "scripts/verify-validation-data.py": "1f42ae523cea1a3ff83f10a1831b1e888c8586a0d9362ddf55169237db6db629",
+    "src/learn/data/validation-data.js": "6a7b1a5d9ef55846fb723967202498ef4f71add328b1e94e1ae8e320b317a0a0",
+    "public/learn-assets/cross-validation/penguins.csv": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+    "public/learn-assets/cross-validation/nested-experiment.json": "f8a61a361629e29a0f9bb8e42f1b548620910611210c23709da9b095efd4290f",
+    "public/learn-assets/cross-validation/data-provenance.md": "74dd4e94c4f95070e4c98fffcc308aef0a957101fafd0d4086bbf2aa50407b30",
+    "docs/teaching/drafts/cross-validation-hyperparameter-tuning/calculated-inputs.json": "dc0311a0c1ba7a72d45708ee2d76f847ad87004108ce99018a549e8b22f51f54"
+  }
+}

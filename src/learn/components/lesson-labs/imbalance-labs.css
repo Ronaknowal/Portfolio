@@ -1,0 +1,322 @@
+/* Imbalanced-learning lesson: investigations, inline figures and their tables.
+   Calm dark ground with the site's gold accent. Every encoding that carries
+   meaning also carries a shape, a pattern, a line style or a printed value, so
+   nothing here depends on colour alone.
+
+   One rule is deliberately scoped at the lesson root rather than at figure
+   classes: `.imb-lesson svg text`. A class-scoped rule misses any diagram that
+   sits inside an investigation stage wrapper, and such a diagram then renders at
+   the browser default 16px inside a ~340-unit viewBox, which scales to
+   illegible. The rule also uses font longhands, because the `font` shorthand
+   silently resets every `fontSize` set on a child element. */
+
+.imb-lesson svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.imb-lesson svg text {
+  fill: #cfd7d2;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.imb-lesson svg text.imb-small { font-size: 10px; }
+.imb-lesson svg text.imb-strong { font-weight: 600; fill: #e7e2d4; }
+.imb-lesson svg text.imb-muted { fill: #a3aeaa; }
+
+.imb-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.imb-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.imb-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.imb-investigation button,
+.imb-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.imb-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.imb-investigation button:disabled, .imb-figure button:disabled { opacity: .4; cursor: default; }
+.imb-investigation button.is-selected { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.imb-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.imb-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+
+.imb-question, .imb-caption, .imb-note, .imb-pending { font-size: .92rem; line-height: 1.75; }
+.imb-caption { color: #b5bfbb; }
+.imb-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.imb-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.imb-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.imb-role.is-exploratory { border-left-color: #da9c86; color: #e3c1b4; }
+.imb-role.is-locked { border-left-color: #9a8347; color: #e0d3ae; }
+
+/* Controls */
+.imb-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.imb-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.imb-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.imb-field > span { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .2rem .6rem; overflow-wrap: anywhere; }
+.imb-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.imb-field :is(select, input[type="number"], input[type="text"], input[type="range"]) {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.imb-field input[type="range"] { padding: 0; accent-color: #e7b94a; }
+.imb-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.imb-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.imb-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin: .9rem 0; }
+.imb-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.imb-state-strip {
+  display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: .8rem 0;
+  font: .82rem/1.7 var(--font-mono, monospace); color: #b5bfbb;
+}
+.imb-state-strip b { color: #e7b94a; font-weight: 600; }
+.imb-state-strip .is-draft { color: #8eb9a5; }
+
+/* A row of editable records inside one labelled group */
+/* A slider and the number field that types the same quantity are one control
+   in two forms; they share a grid cell so they never land on different rows. */
+.imb-paired { display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+
+/* One editable entity per row: the column count is the number of controls that
+   entity has, so a record's score and truth, or a point's x, y and class, read
+   across as one line instead of wrapping into the next entity. */
+.imb-row-group {
+  border: 1px solid #2b332f; border-radius: 4px; padding: .5rem .6rem .7rem; margin: 0 0 .7rem; min-width: 0;
+  display: grid; grid-template-columns: repeat(var(--imb-row-columns, 3), minmax(0, 1fr)); gap: .5rem .7rem;
+}
+.imb-row-group legend { grid-column: 1 / -1; padding: 0 .3rem; font-size: .85rem; color: #d0ddd5; }
+.imb-row-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+
+/* Predict, then check */
+.imb-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.imb-prediction > p { margin: 0 0 .55rem; }
+.imb-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.imb-prediction legend { padding: 0; font-weight: 600; }
+.imb-choices { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .5rem 0 .7rem; }
+.imb-choice { display: flex; align-items: center; gap: .45rem; min-height: 34px; }
+.imb-choice input { accent-color: #e7b94a; width: 18px; height: 18px; }
+.imb-numeric-guess { max-width: 21rem; margin-bottom: .6rem; }
+.imb-numeric-guess input {
+  min-height: 42px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.imb-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 3px solid #8eb9a5; }
+.imb-verdict.is-miss { border-left-color: #da9c86; }
+.imb-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.imb-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+/* The held-attempt notice names no outcome, so it reads as a promise rather
+   than as a result: it must never look like a verdict. */
+.imb-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.imb-reason { margin-bottom: .7rem; }
+.imb-reason textarea {
+  min-height: 52px; width: 100%; padding: .5rem; border: 1px solid #46504b; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables: a scroll region on wide screens, stacked rows on a phone.
+   The caption is kept OUTSIDE the scroll box, because a table caption inside a
+   blockified table collapses to the width of its longest word and reads as a
+   vertical column of one-word lines. */
+.imb-table { margin: 1.1rem 0; }
+.imb-table > .imb-caption { margin: 0 0 .5rem; }
+.imb-table-scroll { overflow-x: auto; scrollbar-gutter: stable; max-width: 100%; }
+.imb-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.imb-table-scroll :is(th, td) { padding: .5rem .6rem; border-bottom: 1px solid #303a35; text-align: left; white-space: nowrap; }
+.imb-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.imb-table-scroll :is(th, td):last-child { white-space: normal; min-width: 6rem; }
+.imb-table-scroll tr.is-selected :is(th, td) { color: #f0e6c8; background: #1a2320; }
+.imb-table-scroll tr.is-positive :is(th, td) { color: #ecd9a8; }
+.imb-table-scroll tr.is-chosen :is(th, td) { color: #f0e6c8; background: #1f2a26; }
+.imb-table-scroll tr.is-muted :is(th, td) { color: #98a29d; }
+.imb-rows { max-height: 19rem; overflow-y: auto; }
+
+.imb-investigation details, .imb-figure details { margin: 1rem 0; }
+.imb-investigation summary, .imb-figure summary { cursor: pointer; color: #e7b94a; line-height: 1.7; min-height: 32px; }
+
+/* Plots and inline figures */
+.imb-plot { margin: 1.3rem 0; }
+.imb-plot figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; }
+.imb-plot svg { max-width: 560px; margin-inline: auto; }
+.imb-axis { stroke: #4a5650; stroke-width: 1; fill: none; }
+.imb-grid { stroke: #262d2a; stroke-width: 1; fill: none; }
+.imb-curve { fill: none; stroke-width: 1.8; }
+.imb-curve.is-select { stroke: #e7b94a; stroke-width: 2.2; }
+.imb-curve.is-skip { stroke: #8eb9a5; stroke-width: 2.2; stroke-dasharray: 6 3; }
+.imb-curve.is-loss { stroke: #e7b94a; stroke-width: 2.2; }
+.imb-curve.is-before { stroke: #91aecf; stroke-width: 2; stroke-dasharray: 4 3; }
+.imb-curve.is-after { stroke: #e7b94a; stroke-width: 2.2; }
+.imb-curve.is-faint { stroke: #46504b; stroke-width: 1.1; }
+.imb-curve.is-segment { stroke: #8eb9a5; stroke-width: 2.4; }
+.imb-step { fill: none; stroke: #e7b94a; stroke-width: 2; }
+.imb-step.is-recall { stroke: #8eb9a5; stroke-dasharray: 5 3; }
+.imb-mark { fill: #e7b94a; }
+.imb-mark.is-hollow { fill: none; stroke: #e7b94a; stroke-width: 1.8; }
+.imb-mark.is-minority { fill: #e7b94a; }
+.imb-mark.is-majority { fill: none; stroke: #91aecf; stroke-width: 1.8; }
+.imb-mark.is-generated { fill: none; stroke: #d8dcd9; stroke-width: 1.8; stroke-dasharray: 3 2; }
+.imb-mark.is-anchor { fill: none; stroke: #8eb9a5; stroke-width: 2; }
+.imb-flow { fill: none; stroke: #8eb9a5; stroke-width: 1.6; }
+.imb-flow.is-alarm { stroke: #da9c86; stroke-dasharray: 4 3; }
+.imb-flow.is-cleared { stroke: #5f6d67; }
+.imb-lane { fill: #121816; stroke: #46504b; stroke-width: 1; }
+.imb-lane.is-fitting { fill: #1a2320; stroke: #9a8347; }
+.imb-lane.is-tuning { fill: #16201f; stroke: #6f8f82; }
+.imb-lane.is-inspection { fill: #141b22; stroke: #7089a6; }
+.imb-lane.is-reserve { fill: #16110f; stroke: #7a5a4a; stroke-dasharray: 4 3; }
+/* An outline drawn OVER something must not carry a fill. A `fill="none"`
+   presentation attribute cannot express that here, because this stylesheet's
+   own `.imb-lane` fill outranks it and paints over what it was framing. */
+.imb-lane.is-outline { fill: none; }
+.imb-band { stroke: #0b0f10; stroke-width: 1; }
+.imb-band.is-tp { fill: #e7b94a; }
+.imb-band.is-fn { fill: #6b5a2c; }
+.imb-band.is-fp { fill: #8a5a49; }
+.imb-band.is-tn { fill: #2c3a35; }
+.imb-bar { stroke: #0b0f10; stroke-width: 1; }
+.imb-bar.is-cost-fp { fill: #8a5a49; }
+.imb-bar.is-cost-fn { fill: #e7b94a; }
+.imb-bar.is-ce { fill: #91aecf; }
+.imb-bar.is-focal { fill: #8eb9a5; }
+/* A value printed on top of a gridline needs an opaque backplate, or the line
+   runs through its glyphs. The stroke matches the ground each context sits on. */
+.imb-halo { paint-order: stroke; stroke: #050505; stroke-width: 3.5px; stroke-linejoin: round; }
+.imb-investigation .imb-halo { stroke: #0b0f10; }
+.imb-panel .imb-halo { stroke: #050505; }
+.imb-investigation .imb-panel .imb-halo { stroke: #0b0f10; }
+
+.imb-figure { margin: 1.75rem 0; padding: 1.2rem 0; border-block: 1px solid #333; color: #d8d8d8; }
+.imb-figure figcaption { font-size: .94rem; line-height: 1.7; margin-bottom: 1rem; }
+.imb-figure p { font-size: .92rem; line-height: 1.7; }
+.imb-figure > svg { max-width: 560px; margin-inline: auto; }
+.imb-panels { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+.imb-panels.is-stacked { grid-template-columns: minmax(0, 1fr); }
+.imb-panels.is-pair { grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.imb-panel { border: 1px solid #2b332f; border-radius: 4px; padding: .6rem; min-width: 0; }
+.imb-panel h4 { margin: 0 0 .4rem; font-size: .9rem; line-height: 1.5; color: #d0ddd5; }
+.imb-panel p { margin: .4rem 0 0; font-size: .84rem; line-height: 1.65; color: #b5bfbb; }
+.imb-panel svg { max-width: 100%; }
+
+/* A legend that names line pattern and shape as well as colour */
+.imb-legend { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; margin: .6rem 0; font: .82rem/1.7 var(--font-mono, monospace); color: #b5bfbb; }
+.imb-legend > span { display: flex; align-items: center; gap: .4rem; }
+.imb-legend svg { width: 34px; height: 12px; flex: none; }
+
+/* The record rail of investigation 1: one identifiable card per record */
+.imb-rail { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.imb-card {
+  border: 1px solid #3b4642; border-radius: 4px; padding: .4rem .55rem; min-width: 5.5rem;
+  font: .8rem/1.6 var(--font-mono, monospace); color: #c3ccc7; background: #101614;
+}
+.imb-card b { display: block; color: #e7e2d4; font-size: .92rem; }
+.imb-card.is-selected { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.imb-card.is-tp { border-left: 4px solid #e7b94a; }
+.imb-card.is-fp { border-left: 4px solid #da9c86; }
+.imb-card.is-fn { border-left: 4px dashed #6b5a2c; }
+.imb-card.is-tn { border-left: 4px dotted #5f6d67; }
+.imb-card .imb-bin { color: #9fa9a4; }
+
+/* Key/value strips for counts */
+.imb-counts { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: .7rem 0; font: .84rem/1.8 var(--font-mono, monospace); }
+.imb-counts > span { border: 1px solid #2f3a35; border-radius: 3px; padding: .2rem .55rem; color: #c3ccc7; }
+.imb-counts > span b { color: #e7b94a; font-weight: 600; }
+.imb-counts > span.is-undefined { border-style: dashed; border-color: #7a6b52; color: #d7c6a4; }
+
+/* An undefined quantity is said in words, with the empty denominator named. */
+.imb-undefined { color: #d7c6a4; font-style: normal; }
+.imb-undefined .imb-caption { color: #9fa9a4; }
+
+/* Nonnegative parts adding to one total: one track, each part patterned */
+.imb-waterfall { margin: 1.1rem 0; }
+.imb-waterfall > .imb-caption { margin: 0 0 .45rem; }
+.imb-waterfall-track {
+  display: flex; height: 22px; width: 100%; border: 1px solid #46504b; border-radius: 3px;
+  overflow: hidden; background: #151c19;
+}
+.imb-waterfall-part { display: block; height: 100%; min-width: 0; }
+.imb-swatch { display: inline-block; width: 18px; height: 12px; margin-right: .45rem; vertical-align: -1px; border: 1px solid #46504b; }
+.is-false-alarm { background: #8a5a49; background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, .34) 0 3px, transparent 3px 6px); }
+.is-missed { background: #e7b94a; }
+.is-detected { background: #8eb9a5; background-image: repeating-linear-gradient(-45deg, rgba(0, 0, 0, .42) 0 2px, transparent 2px 5px); }
+.is-cleared { background: #2c3a35; }
+.imb-waterfall-key { margin: .55rem 0 0; font: .82rem/1.8 var(--font-mono, monospace); }
+.imb-waterfall-row {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem 1rem;
+  border-bottom: 1px solid #262d2a; padding-right: .2rem;
+}
+.imb-waterfall-row dt { color: #cfd7d2; margin: 0; }
+.imb-waterfall-row dd { color: #e7b94a; margin: 0; }
+.imb-waterfall-row.is-total dt, .imb-waterfall-row.is-total dd { color: #f0e6c8; font-weight: 600; }
+
+.imb-stage + .imb-stage { margin-top: 1.4rem; }
+.imb-stage > h4 { margin: 0 0 .4rem; font-size: 1rem; line-height: 1.6; color: #d8dcd9; }
+/* A full-width diagram is capped so its type is not magnified by the column:
+   these viewBoxes are ~340 units, so a wider box would scale 12px type to 22px. */
+.imb-figure > .imb-panel > svg, .imb-investigation .imb-stage > svg, .imb-investigation > svg {
+  max-width: 440px; margin-inline: auto; display: block;
+}
+
+.imb-practice { margin-block: 1.5rem; }
+.imb-practice details { border-left: 2px solid #77623b; padding: .7rem 1rem; }
+.imb-practice summary { color: #e2b55a; cursor: pointer; line-height: 1.6; }
+.imb-practice details + details { margin-top: .65rem; }
+.imb-route { border-left: 2px solid #8eb9a5; padding-left: .85rem; }
+.imb-lesson a { overflow-wrap: anywhere; }
+.imb-lesson code { overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  .imb-lesson * { transition: none !important; animation: none !important; }
+}
+
+@media (max-width: 620px) {
+  .imb-investigation header { gap: .65rem; }
+  .imb-panels { grid-template-columns: minmax(0, 1fr); }
+  .imb-figure { padding-block: 1rem; }
+  .imb-row-group { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* A diagram's type shrinks with its element: these viewBoxes are ~340 units, so
+   on a 320px phone the drawing renders at about 0.76 and a 10px label arrives
+   at 7.6px. Two things fix it together: the panel gives the drawing its inline
+   padding back, and both type tiers step up so the RENDERED size stays legible.
+   The sizes are chosen so the longest label still fits inside 340 units. */
+@media (max-width: 560px) {
+  /* An investigation nests a panel inside a card inside the reader column, and
+     each level's inline padding comes off the drawing. Giving two of those
+     levels back is worth more than inflating the type further, which would push
+     the longest labels out of their own viewBox. */
+  .imb-investigation { padding-inline: .45rem; }
+  .imb-panel { padding-inline: 0; }
+  .imb-lesson svg text { font-size: 13px; }
+  .imb-lesson svg text.imb-small { font-size: 11px; }
+}
+
+/* Below this width a wide numeric table stops being a grid and becomes one
+   labelled block per row, so nothing is clipped and the page never scrolls
+   sideways. The explicit ARIA roles in the component keep the semantics. */
+@media (max-width: 560px) {
+  .imb-table-scroll { overflow-x: visible; }
+  .imb-table-scroll table { display: block; }
+  .imb-table-scroll thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  .imb-table-scroll :is(tbody, tr, th, td) { display: block; width: auto; }
+  .imb-table-scroll tr {
+    border: 1px solid #2b332f; border-radius: 4px; margin: 0 0 .65rem; padding: .35rem .55rem;
+  }
+  .imb-table-scroll :is(th, td) {
+    border: 0; border-bottom: 1px solid #222a26; padding: .3rem 0; white-space: normal;
+    display: grid; grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr); gap: .3rem .7rem;
+    overflow-wrap: anywhere; min-width: 0;
+  }
+  .imb-table-scroll :is(th, td):last-child { border-bottom: 0; min-width: 0; }
+  .imb-table-scroll :is(th, td)::before { content: attr(data-label); color: #93a29b; }
+  .imb-rows { max-height: none; overflow-y: visible; }
+  .imb-rail { flex-direction: column; }
+  .imb-card { min-width: 0; }
+}

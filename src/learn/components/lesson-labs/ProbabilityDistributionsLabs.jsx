@@ -200,7 +200,7 @@ function DelayPlots({
     <figure className="probability-chart"><svg viewBox="0 0 280 225" role="img" aria-labelledby={`${id}-cdf-title ${id}-cdf-desc`}>
       <title id={`${id}-cdf-title`}>CDF with a possible jump at zero</title><desc id={`${id}-cdf-desc`}>F(x) is zero for x below zero, jumps to {state.atom} at zero, then increases linearly to 1 at {state.width}. Gold horizontal levels mark F(a minus)={state.cdfLeftLimit} and F(b)={state.cdfRight}; their difference includes any selected atom.</desc>
       <line x1="25" x2="260" y1="155" y2="155" /><line x1="40" x2="40" y1="30" y2="155" />
-      <text x="40" y="19">CDF: F(x) = P(X ≤ x)</text><text x="25" y="44">1</text><text x="25" y="159">0</text>
+      <text x="40" y="19">CDF: F(x) = P(X ≤ x)</text><text x="25" y="44">1</text><text x="18" y="159" textAnchor="end">0</text>
       <line x1="25" x2="40" y1="155" y2="155" style={{
           stroke: colors[2],
           strokeWidth: 3

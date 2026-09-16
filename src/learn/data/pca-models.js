@@ -56,8 +56,12 @@ export function projectAtAngle(points, angleDegrees) {
  * covariance. Signs make the largest-magnitude coefficient positive. `tie`
  * reports equal eigenvalues, where every direction is equally good. */
 export function principalDirections(points) {
-  const { mean, centered } = centerPoints(points);
-  const denominator = Math.max(points.length - 1, 1);
+  return principalDirectionsFromCentered(centerPoints(points));
+}
+/** The rectangle validates its own parameter ranges before forming coordinates,
+ * which can reach ±40. Keep the free-point editor's stricter guard separate. */
+function principalDirectionsFromCentered({ mean, centered }) {
+  const denominator = Math.max(centered.length - 1, 1);
   const a = centered.reduce((sum, vector) => sum + vector[0] * vector[0], 0) / denominator;
   const b = centered.reduce((sum, vector) => sum + vector[0] * vector[1], 0) / denominator;
   const c = centered.reduce((sum, vector) => sum + vector[1] * vector[1], 0) / denominator;
@@ -87,7 +91,7 @@ export function rectangleMetric(a = 2, b = 1, multiplier = 1, standardized = fal
   const raw = [[-a, -multiplier * b], [-a, multiplier * b], [a, -multiplier * b], [a, multiplier * b]];
   const scales = standardized ? [a, multiplier * b] : [1, 1];
   const points = raw.map(point => [point[0] / scales[0], point[1] / scales[1]]);
-  const fit = principalDirections(points);
+  const fit = principalDirectionsFromCentered({ mean: [0, 0], centered: points });
   const variances = [fit.covariance[0][0], fit.covariance[1][1]];
   // A learner typing the tie multiplier a/b to a few decimals must see a tie, not
   // an arbitrary winner decided by the last floating-point digit.

@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-09-16T14:55:43.723480+00:00",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "datasetSha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+  "datasetBytes": 12100,
+  "servedCopy": "public/learn-assets/bayesian-networks/wine.csv",
+  "servedMatchesPacket": true,
+  "packetCalculatedInputsSha256": "774d8b14ae9de8bdea51f18a8456c408dc98c768320d45307dd71e0f932f07b6",
+  "sourceRows": 178,
+  "roles": {
+    "train": 106,
+    "validation": 36,
+    "test": 36
+  },
+  "totalChecks": 1270,
+  "trustRootScalarLeaves": 1236,
+  "trustRootLeavesReDerived": 1236,
+  "trustRootCoverage": 1.0,
+  "trustRootUncoveredPaths": [],
+  "trustRootPropertyChecks": 25,
+  "selected": "NB",
+  "validationLogLoss": {
+    "NB": 0.16292244894704044,
+    "TAN": 0.18523288599124255
+  },
+  "testScore": {
+    "correct": 33,
+    "rows": 36,
+    "logLoss": 0.2709439464482761
+  },
+  "moduleSha256": "e96a76129b32af838638a55bc9f6583134478b075e369f51e508e83c5bff40cc",
+  "verifierSha256": "30b2d090ce784c170569fe0b9bc75556130d43e5129b74851aa937cf8086beda",
+  "scope": "Every scalar of the content packet's calculated-inputs.json re-derived from the declared settings and the served dataset: the 32-world alarm queries and elimination trace in exact rational arithmetic; all simple-path enumerations for the alarm graph, its second route, and both adjustment graphs the destination note concerns; the maintenance model at its declared, randomised, no-overlap and changed-response settings; the 16-world frontdoor model by both the frontdoor formula and the truncated factorisation; and the complete Wine experiment including medians, conditional mutual information, the spanning tree, both smoothed fits, all five scores and every validation specimen's five missing-measurement queries. Regeneration of src/learn/data/bayesnet-data.js must be byte-identical.",
+  "limitations": [
+    "The split itself is defined by scikit-learn's stratified train_test_split at the declared seeds; reproducing it necessarily calls the same function, and a different library version could move it.",
+    "One small single split of one historical collection. These are model outputs, not calibration.",
+    "Displayed program execution is a separate script, as are the browser model checks and browser review."
+  ],
+  "passed": true
+}

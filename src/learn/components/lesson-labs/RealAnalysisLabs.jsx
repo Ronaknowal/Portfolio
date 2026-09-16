@@ -80,7 +80,7 @@ function Plot({
       {children?.(geometry)}
     </g>
     <path className="axis" d={`M${left},${top}V${bottom}H${right}`} />
-    {xTicks.map(tick => <text key={tick} x={x(tick)} y={bottom + 19} textAnchor="middle">{number(tick, 3)}</text>)}
+    {xTicks.map((tick, index) => <text key={tick} x={x(tick)} y={bottom + 22} textAnchor={index === 0 ? 'start' : index === 2 ? 'end' : 'middle'}>{number(tick, 3)}</text>)}
     <text x={(left + right) / 2} y="217" textAnchor="middle" className="axis-title">{xLabel}</text>
     {markers?.(geometry)}
   </svg>;

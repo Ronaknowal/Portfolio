@@ -48,6 +48,7 @@ For every visual, including a static inline diagram, record:
 - Initial state, entity labels, units/scales, what appearance encodes and what is merely layout.
 - Placement beside the relevant explanation, correspondence to its concrete example, what the reader should notice and any simplification.
 - Accessible description and narrow-screen composition that preserves relationships and readable labels.
+- Annotation/layout contract: which text reflows outside the geometry, room between successive stages, equal-scale comparisons, and the desktop/phone/intermediate-width states to inspect. Plan separation of labels from foreground marks; do not rely only on the outer SVG bounds or a fixed row-height guess.
 - Independent numerical/runtime/reference checks for the values and relationships it asserts, as appropriate.
 - For a quantitative graph: whether it is calculated, modeled, simulated, measured, sourced or illustrative; its equation/generator/data/source, assumptions and verification. Record benchmark conditions and uncertainty for empirical comparisons. Do not give invented curves real implementation names or imply verified rankings.
 

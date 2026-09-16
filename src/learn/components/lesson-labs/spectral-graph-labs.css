@@ -43,3 +43,8 @@
   .spectral-walk > span { transform: rotate(90deg); align-self: center; }
   .spectral-investigation .lesson-controls { grid-template-columns: 1fr; }
 }
+
+.spectral-embedding-scroll .spectral-group-label { paint-order: stroke; stroke: #0d0f0e; stroke-width: 5px; stroke-linejoin: round; }
+.spectral-centroid-key { display: flex; flex-wrap: wrap; gap: .7rem 1rem; font-size: .85rem; line-height: 1.5; margin-top: .75rem; }
+.spectral-centroid-key span { display: inline-flex; align-items: center; gap: .4rem; }
+.spectral-centroid-key i { display: inline-block; width: .75rem; height: .75rem; border: 2px solid; flex: none; }

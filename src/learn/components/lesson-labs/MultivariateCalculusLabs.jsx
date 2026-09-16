@@ -46,7 +46,23 @@ function CartesianPlot({
       })}
       {points.map((point, index) => {
         const placed = position(point.point);
-        return <g key={index}><circle cx={placed[0]} cy={placed[1]} r={point.radius || 5} className={point.className || 'mv-point'} />{point.label && <text x={placed[0] + 8} y={placed[1] - 10}>{point.label}</text>}</g>;
+        const outgoing = vectors.filter(vector => (vector.from || [0, 0]).every((value, axis) => value === point.point[axis]))
+          .map(vector => {
+            const end = position(vector.to);
+            const delta = end.map((value, axis) => value - placed[axis]);
+            const length = Math.hypot(...delta);
+            return length ? delta.map(value => value / length) : null;
+          }).filter(Boolean);
+        let labelOffset = [8, -10];
+        if (outgoing.length) {
+          // Put the name opposite the outgoing arrows. Opposed arrows leave
+          // their perpendicular direction free for the label instead.
+          const sum = outgoing.reduce((total, vector) => total.map((value, axis) => value + vector[axis]), [0, 0]);
+          const length = Math.hypot(...sum);
+          const direction = length > 1e-6 ? sum.map(value => -value / length) : [-outgoing[0][1], outgoing[0][0]];
+          labelOffset = [22 * direction[0], 22 * direction[1] + 4];
+        }
+        return <g key={index}><circle cx={placed[0]} cy={placed[1]} r={point.radius || 5} className={point.className || 'mv-point'} />{point.label && <text x={placed[0] + labelOffset[0]} y={placed[1] + labelOffset[1]} textAnchor={outgoing.length ? 'middle' : undefined}>{point.label}</text>}</g>;
       })}
       {children}
     </g>

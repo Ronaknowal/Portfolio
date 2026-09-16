@@ -25,17 +25,20 @@ export function Investigation({ title, question, children, onReset }) {
 /** One or more prediction fields, a commit button and feedback. `fields` is a
  * list of {key, label, options, answer}; `values` holds the learner's choices. */
 export function Prediction({ prompt, fields, values, onChange, committed, stale, onCommit, commitLabel = 'Commit prediction and apply', explanation }) {
+  const locked = Boolean(committed && !stale);
+  const displayedValues = locked ? committed.prediction : values;
   const ready = fields.every(field => values[field.key]);
-  const matches = fields.map(field => ({ ...field, chosen: values[field.key], neutral: (field.neutral ?? []).includes(values[field.key]), match: values[field.key] === String(field.answer), answerLabel: field.options.find(([key]) => key === String(field.answer))?.[1] ?? String(field.answer) }));
+  const matches = fields.map(field => ({ ...field, chosen: displayedValues[field.key], neutral: (field.neutral ?? []).includes(displayedValues[field.key]), match: displayedValues[field.key] === String(field.answer), answerLabel: field.options.find(([key]) => key === String(field.answer))?.[1] ?? String(field.answer) }));
   const allMatch = matches.every(field => field.match || field.neutral);
   const anyNeutral = matches.some(field => field.neutral);
   return <div className="db-prediction">
     <p><strong>Predict first:</strong> {prompt}</p>
     <div className="db-prediction-row">
-      {fields.map(field => <label key={field.key}>{field.label}<select value={values[field.key] ?? ''} onChange={event => onChange(field.key, event.target.value)}>
+      {fields.map(field => <label key={field.key}>{field.label}<select disabled={locked} value={displayedValues[field.key] ?? ''} onChange={event => onChange(field.key, event.target.value)}>
         <option value="">Choose</option>{field.options.map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>)}
       <button type="button" disabled={!ready || (committed && !stale)} onClick={onCommit}>{commitLabel}</button>
     </div>
+    {locked && <p className="db-note">Prediction recorded for this comparison. Change an input or reset to make a new prediction.</p>}
     {stale && <p className="db-feedback is-stale" role="status">The inputs changed after your last comparison. Record a new prediction for the current settings.</p>}
     {committed && !stale && <p className={`db-feedback ${allMatch ? '' : 'is-miss'}`} role="status">
       {allMatch ? (anyNeutral ? 'Here is the answer you chose to inspect.' : 'Your prediction matches.') : 'Not this time.'} {matches.map(field => `${field.label}: ${field.answerLabel}${field.match || field.neutral ? '' : ` (you chose ${field.options.find(([key]) => key === field.chosen)?.[1] ?? field.chosen})`}`).join('; ')}. {explanation}
@@ -132,10 +135,10 @@ export function DbscanTrailLab() {
     return order;
   };
   const currentFit = dbscan(pending.points, pending.eps, pending.m, { order: orderFor(pending) });
-  const key = JSON.stringify(pending);
+  const key = JSON.stringify({ ...pending, selected });
   const stale = applied !== null && applied.key !== key;
   const shown = applied && !stale ? applied.fit : null;
-  const update = patch => setPending({ ...pending, ...patch });
+  const update = patch => { setPending({ ...pending, ...patch }); setPrediction({}); };
   const setPoint = (axis, raw) => {
     if (String(raw).trim() === '' || String(raw).trim() === '-') return;
     const value = Number(raw);
@@ -148,7 +151,7 @@ export function DbscanTrailLab() {
   return <Investigation title="Can one row join two groups together?" question="Edit any coordinate, the radius or the count, choose a visiting order, then commit what you expect for the number of core components and the selected row's type before the result is revealed." onReset={() => loadPreset('trail')}>
     <div className="db-controls">
       <Field label="Point configuration"><select value={pending.preset} onChange={event => loadPreset(event.target.value)}>{Object.entries(presets).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}</select></Field>
-      <Field label="Selected row"><select value={selected} onChange={event => setSelected(Number(event.target.value))}>{pending.points.map((p, i) => <option key={i} value={i}>{nameOf(i, names)} ({number(p[0])}, {number(p[1])})</option>)}</select></Field>
+      <Field label="Selected row"><select value={selected} onChange={event => { setSelected(Number(event.target.value)); setPrediction({}); }}>{pending.points.map((p, i) => <option key={i} value={i}>{nameOf(i, names)} ({number(p[0])}, {number(p[1])})</option>)}</select></Field>
       <Field label={`${nameOf(selected, names)} x, meters (−3..5, step 0.125)`}><input type="number" step="0.125" min="-3" max="5" value={pending.points[selected][0]} onChange={event => setPoint(0, event.target.value)} /></Field>
       <Field label={`${nameOf(selected, names)} y, meters (−2..2)`}><input type="number" step="0.125" min="-2" max="2" value={pending.points[selected][1]} onChange={event => setPoint(1, event.target.value)} /></Field>
       <Field label="Radius ε, meters" value={number(pending.eps)}><input type="range" min="0.125" max="3" step="0.125" value={pending.eps} onChange={event => update({ eps: Number(event.target.value) })} /></Field>
@@ -159,7 +162,7 @@ export function DbscanTrailLab() {
     <Prediction prompt={`At ε = ${number(pending.eps)} and m = ${pending.m}, after applying the edits above:`} fields={[
       { key: 'components', label: 'Number of core components', options: componentOptions, answer: currentFit.clusters },
       { key: 'type', label: `Type of ${nameOf(selected, names)}`, options: [['core', 'Core'], ['border', 'Border'], ['noise', 'Noise']], answer: currentFit.types[selected] },
-    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied !== null} stale={stale} onCommit={() => setApplied({ key, fit: currentFit })} explanation={`${nameOf(selected, names)} has ${currentFit.counts[selected]} neighbour${currentFit.counts[selected] === 1 ? '' : 's'} including itself${currentFit.types[selected] === 'border' ? `, and its core neighbours belong to component${currentFit.eligible[selected].length > 1 ? 's' : ''} ${currentFit.eligible[selected].join(' and ')}` : ''}.`} />
+    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied} stale={stale} onCommit={() => setApplied({ key, fit: currentFit, prediction: { ...prediction } })} explanation={`${nameOf(selected, names)} has ${currentFit.counts[selected]} neighbour${currentFit.counts[selected] === 1 ? '' : 's'} including itself${currentFit.types[selected] === 'border' ? `, and its core neighbours belong to component${currentFit.eligible[selected].length > 1 ? 's' : ''} ${currentFit.eligible[selected].join(' and ')}` : ''}.`} />
     {shown ? <>
       <p className="db-readout" aria-live="polite"><strong>{shown.clusters} core component{shown.clusters === 1 ? '' : 's'}</strong>: {shown.components.map(group => `{${group.map(i => nameOf(i, names)).join(', ')}}`).join(' and ') || 'none'}. Core {shown.coreIds.length}, border {shown.borderIds.length}, noise {shown.noiseIds.length}. Visit order: {shown.visit.map(i => nameOf(i, names)).join(' ')}.</p>
       <SquarePlot points={pending.points} title={`Neighbourhood graph at ε = ${number(pending.eps)}, m = ${pending.m}; the dashed disk is ${nameOf(selected, names)}'s closed neighbourhood`} describe={`${pending.points.length} rows with core, border and noise glyphs, core edges within components and dotted border attachments. Exact values are in the tables.`}>
@@ -186,10 +189,10 @@ export function DbscanMetricLab() {
   const before = dbscan(rows, pending.baseEps, pending.m);
   const after = (() => { const t = transformRows(rows, [pending.xFactor, pending.yFactor], pending.eps, 1); return dbscan(t.points, pending.eps, pending.m); })();
   const same = sameNeighborGraph(before, after);
-  const key = JSON.stringify(pending);
+  const key = JSON.stringify({ ...pending, pair });
   const stale = applied !== null && applied.key !== key;
   const shown = applied && !stale;
-  const update = patch => setPending({ ...pending, ...patch });
+  const update = patch => { setPending({ ...pending, ...patch }); setPrediction({}); };
   const pairIndices = pair.map(i => Math.min(i, rows.length - 1));
   const pairBefore = Math.hypot(rows[pairIndices[0]][0] - rows[pairIndices[1]][0], rows[pairIndices[0]][1] - rows[pairIndices[1]][1]);
   const transformed = rows.map(p => [p[0] * pending.xFactor, p[1] * pending.yFactor]);
@@ -202,8 +205,8 @@ export function DbscanMetricLab() {
       <Field label="Radius ε on the original rows (0.125–20)"><input type="number" min="0.125" max="20" step="any" value={pending.baseEps} onChange={event => { const v = Number(event.target.value); if (event.target.value.trim() !== '' && v >= 0.125 && v <= 20) update({ baseEps: v }); }} /></Field>
       <Field label="Radius ε after the change (0.125–2000)"><input type="number" min="0.125" max="2000" step="any" value={pending.eps} onChange={event => { const v = Number(event.target.value); if (event.target.value.trim() !== '' && v >= 0.125 && v <= 2000) update({ eps: v }); }} /></Field>
       <Field label="Count m" value={String(pending.m)}><input type="range" min="1" max="5" step="1" value={pending.m} onChange={event => update({ m: Number(event.target.value) })} /></Field>
-      <Field label="Cited pair, first row"><select value={pairIndices[0]} onChange={event => setPair([Number(event.target.value), pairIndices[1]])}>{names.map((n, i) => <option key={i} value={i}>{n}</option>)}</select></Field>
-      <Field label="Cited pair, second row"><select value={pairIndices[1]} onChange={event => setPair([pairIndices[0], Number(event.target.value)])}>{names.map((n, i) => <option key={i} value={i}>{n}</option>)}</select></Field>
+      <Field label="Cited pair, first row"><select value={pairIndices[0]} onChange={event => { setPair([Number(event.target.value), pairIndices[1]]); setPrediction({}); }}>{names.map((n, i) => <option key={i} value={i}>{n}</option>)}</select></Field>
+      <Field label="Cited pair, second row"><select value={pairIndices[1]} onChange={event => { setPair([pairIndices[0], Number(event.target.value)]); setPrediction({}); }}>{names.map((n, i) => <option key={i} value={i}>{n}</option>)}</select></Field>
     </div>
     <div className="db-buttons">
       <button type="button" onClick={() => update({ xFactor: 100, yFactor: 100, eps: pending.baseEps * 100 })}>Convert both coordinates and ε by 100 (a unit change)</button>
@@ -211,7 +214,7 @@ export function DbscanMetricLab() {
       <button type="button" onClick={() => update({ xFactor: 1, yFactor: 0.5, eps: pending.baseEps })}>Halve y, keep ε (a metric change)</button>
       <span>The buttons only set the controls; nothing is revealed until you commit.</span>
     </div>
-    <Prediction prompt={`With x × ${pending.xFactor}, y × ${pending.yFactor} and ε = ${number(pending.eps)} afterwards (ε = ${number(pending.baseEps)} on the original rows), will the radius-neighbour graph be identical?`} fields={[{ key: 'same', label: 'Same neighbourhoods?', options: [['yes', 'Yes, every decision is preserved'], ['no', 'No, at least one pair changes']], answer: same.same ? 'yes' : 'no' }]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied !== null} stale={stale} onCommit={() => setApplied({ key })} explanation={same.same ? `Every row keeps exactly the same neighbour set. Your cited pair ${names[pairIndices[0]]}–${names[pairIndices[1]]} is ${number(pairBefore)} apart before and ${number(pairAfter)} after, against radii ${number(pending.baseEps)} and ${number(pending.eps)}.` : `Rows whose neighbour sets changed: ${same.differing.map(i => names[i]).join(', ')}. Your cited pair ${names[pairIndices[0]]}–${names[pairIndices[1]]} is ${number(pairBefore)} apart before (radius ${number(pending.baseEps)}) and ${number(pairAfter)} after (radius ${number(pending.eps)}).`} />
+    <Prediction prompt={`With x × ${pending.xFactor}, y × ${pending.yFactor} and ε = ${number(pending.eps)} afterwards (ε = ${number(pending.baseEps)} on the original rows), will the radius-neighbour graph be identical?`} fields={[{ key: 'same', label: 'Same neighbourhoods?', options: [['yes', 'Yes, every decision is preserved'], ['no', 'No, at least one pair changes']], answer: same.same ? 'yes' : 'no' }]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied} stale={stale} onCommit={() => setApplied({ key, prediction: { ...prediction } })} explanation={same.same ? `Every row keeps exactly the same neighbour set. Your cited pair ${names[pairIndices[0]]}–${names[pairIndices[1]]} is ${number(pairBefore)} apart before and ${number(pairAfter)} after, against radii ${number(pending.baseEps)} and ${number(pending.eps)}.` : `Rows whose neighbour sets changed: ${same.differing.map(i => names[i]).join(', ')}. Your cited pair ${names[pairIndices[0]]}–${names[pairIndices[1]]} is ${number(pairBefore)} apart before (radius ${number(pending.baseEps)}) and ${number(pairAfter)} after (radius ${number(pending.eps)}).`} />
     {shown ? <>
       <p className="db-readout" aria-live="polite">Before: {before.clusters} component{before.clusters === 1 ? '' : 's'}, types {before.types.map((t, i) => `${names[i]} ${t}`).join(', ')}. After: {after.clusters} component{after.clusters === 1 ? '' : 's'}, types {after.types.map((t, i) => `${names[i]} ${t}`).join(', ')}.</p>
       <div className="db-figure-pair">
@@ -242,7 +245,7 @@ export function DbscanIrisLab() {
   const key = JSON.stringify(pending);
   const stale = applied !== null && applied.key !== key;
   const shown = applied && !stale ? applied.report : null;
-  const update = patch => setPending({ ...pending, ...patch });
+  const update = patch => { setPending({ ...pending, ...patch }); setPrediction({}); };
   const groupOptions = [['0', 'No group survives'], ['1', 'One group'], ['2', 'Two groups'], ['3', 'Three groups'], ['4', 'Four or more groups']];
   const groupAnswer = Math.min(report.clusters, 4);
   const projected = shown ? shown.space.map(p => [p[axes[0]], p[axes[1]]]) : null;
@@ -257,7 +260,7 @@ export function DbscanIrisLab() {
     <Prediction prompt={`With ε = ${number(pending.eps)}, m = ${pending.m} on ${pending.representation === 'raw' ? 'raw centimetre' : 'standardized'} features:`} fields={[
       { key: 'groups', label: 'Returned groups', options: groupOptions, answer: groupAnswer },
       { key: 'coverage', label: 'Coverage (assigned rows / 150)', options: coverageBands, answer: bandOf(report.coverage) },
-    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied !== null} stale={stale} onCommit={() => { setApplied({ key, report }); setShowSpecies(false); }} commitLabel="Commit and reveal the report" explanation={`${report.clusters} group${report.clusters === 1 ? '' : 's'} of sizes ${report.sizes.join(', ') || '—'}; ${report.assignedIds.length} of 150 assigned (${percent(report.coverage)}), ${report.noiseCount} noise.`} />
+    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied} stale={stale} onCommit={() => { setApplied({ key, report, prediction: { ...prediction } }); setShowSpecies(false); }} commitLabel="Commit and reveal the report" explanation={`${report.clusters} group${report.clusters === 1 ? '' : 's'} of sizes ${report.sizes.join(', ') || '—'}; ${report.assignedIds.length} of 150 assigned (${percent(report.coverage)}), ${report.noiseCount} noise.`} />
     {shown ? <>
       <Table caption="Whole-collection report for the committed setting" headings={['quantity', 'value']} rows={[
         ['groups (sizes)', `${shown.clusters} (${shown.sizes.join(', ') || '—'})`], ['core / border / noise', `${shown.coreCount} / ${shown.borderCount} / ${shown.noiseCount}`], ['coverage', `${shown.assignedIds.length} / 150 = ${percent(shown.coverage)}`],
@@ -269,6 +272,11 @@ export function DbscanIrisLab() {
         <button type="button" onClick={() => setSaved(shown)}>Save this report as snapshot A</button>
         <span>{saved ? `Snapshot A: ε ${number(saved.eps)}, m ${saved.minimum}, ${saved.representation}` : 'No snapshot saved yet.'}</span>
       </div>
+      <details className="db-population-ids"><summary>Inspect the current report's retained and noise row IDs</summary>
+        <p>The IDs refer to the original CSV rows, including after standardization. These are the exact populations behind the current counts and conditional scores.</p>
+        <p><strong>Assigned ({shown.assignedIds.length}):</strong> <span data-population="current-assigned">{shown.assignedIds.join(', ') || 'none'}</span></p>
+        <p><strong>Noise ({shown.noiseIds.length}):</strong> <span data-population="current-noise">{shown.noiseIds.join(', ') || 'none'}</span></p>
+      </details>
       <div className="db-controls">
         <Field label="Projection: horizontal feature"><select value={axes[0]} onChange={event => setAxes([Number(event.target.value), axes[1]])}>{irisFeatures.map((f, i) => <option key={f} value={i}>{f}</option>)}</select></Field>
         <Field label="Projection: vertical feature"><select value={axes[1]} onChange={event => setAxes([axes[0], Number(event.target.value)])}>{irisFeatures.map((f, i) => <option key={f} value={i}>{f}</option>)}</select></Field>
@@ -281,13 +289,22 @@ export function DbscanIrisLab() {
       </SquarePlot>
       {showSpecies ? <p className="db-legend">Species shapes: circle setosa, square versicolor, triangle virginica. Fill color = density group; red = noise (−1). The species were never given to the fit.</p> : <GlyphLegend components />}
       <p className="db-readout">Row {row}: measurements {irisRows[row].map((v, j) => `${irisFeatures[j]} ${v}`).join(', ')}; in the fitted space {rowReport.space.map(v => number(v, 3)).join(', ')}; type <strong>{rowReport.type}</strong>, label {rowReport.label}. Nearest full-space distances including itself: {rowReport.neighbours.map(e => `row ${e.index} ${number(e.distance, 3)}`).join('; ')}.{showSpecies ? ` Species: ${speciesNames[irisSpecies[row]]}.` : ''}</p>
-      {saved && saved !== shown && (() => { const c = compareReports(saved, shown); return <Table caption="Snapshot A versus the current report on their common retained rows" headings={['quantity', 'snapshot A', 'current', 'common rows']} rows={[
+      {saved && saved !== shown && (() => { const c = compareReports(saved, shown); return <><Table caption="Snapshot A versus the current report on their common retained rows" headings={['quantity', 'snapshot A', 'current', 'common rows']} rows={[
         ['setting', `ε ${number(saved.eps)}, m ${saved.minimum}, ${saved.representation}`, `ε ${number(shown.eps)}, m ${shown.minimum}, ${shown.representation}`, `${c.common.length} rows assigned by both`],
         ['assigned rows', saved.assignedIds.length, shown.assignedIds.length, `${c.onlyFirst} only A, ${c.onlySecond} only current`],
         ['groups', saved.clusters, shown.clusters, c.ariCommon === null ? 'agreement undefined' : `partition agreement (ARI) on common rows ${number(c.ariCommon, 3)}`],
         ['ARI vs species, all rows', showSpecies ? number(saved.ariAllRows, 3) : 'hidden', showSpecies ? number(shown.ariAllRows, 3) : 'hidden', '—'],
         ['ARI vs species on the common rows only', showSpecies ? (c.ariSpeciesFirstCommon === null ? 'undefined' : number(c.ariSpeciesFirstCommon, 3)) : 'hidden', showSpecies ? (c.ariSpeciesSecondCommon === null ? 'undefined' : number(c.ariSpeciesSecondCommon, 3)) : 'hidden', `${c.common.length} rows, same population for both`],
-      ]} />; })()}
+      ]} />
+        <details className="db-population-ids"><summary>Inspect snapshot A and the exact common-row population</summary>
+          <p><strong>Snapshot A assigned ({saved.assignedIds.length}):</strong> <span data-population="snapshot-assigned">{saved.assignedIds.join(', ') || 'none'}</span></p>
+          <p><strong>Snapshot A noise ({saved.noiseIds.length}):</strong> <span data-population="snapshot-noise">{saved.noiseIds.join(', ') || 'none'}</span></p>
+          <p><strong>Assigned by both ({c.common.length}):</strong> <span data-population="common">{c.common.join(', ') || 'none'}</span></p>
+          <p><strong>Only snapshot A ({c.onlyFirst}):</strong> <span data-population="snapshot-only">{saved.assignedIds.filter(id => !shown.assignedIds.includes(id)).join(', ') || 'none'}</span></p>
+          <p><strong>Only current ({c.onlySecond}):</strong> <span data-population="current-only">{shown.assignedIds.filter(id => !saved.assignedIds.includes(id)).join(', ') || 'none'}</span></p>
+          <p>Compare conditional agreement on the listed common population; the rows excluded by one setting remain part of the whole-collection question.</p>
+        </details>
+      </>; })()}
     </> : <div className="db-hidden">Commit a prediction to reveal the whole-collection report, the projection and the row report.</div>}
     <p className="db-caption">Two settings worth committing to: standardized ε = 0.5 with m = 5 keeps 116 of 150 flowers in two groups, and with m = 10 keeps 61 in three groups whose assigned-row agreement with species is perfect while the all-row agreement falls. The score improved by describing fewer flowers. The plot is a projection of a four-feature fit: two points close on screen can be far apart in the two omitted features, and changing the projection never refits the model. Setting m = 1 removes noise by definition, and ε = 0.3 keeps only 30 flowers.</p>
   </Investigation>;
@@ -297,12 +314,11 @@ export function DbscanIrisLab() {
 export function DenseStrip({ points, fit, names, from, to, caption }) {
   const shown = points.map((p, i) => [p[0], i]).filter(([x]) => x >= from && x <= to);
   const px = x => 24 + (x - from) * (512 / (to - from));
-  return <div className="db-scroll"><svg className="db-svg-wide" viewBox="0 0 560 80" role="img" aria-label={`${caption}: ${shown.map(([x, i]) => `${names[i]} at ${number(x)} is ${fit.types[i]}`).join('; ')}.`}>
-    <text x="8" y="14">{caption}</text>
+  return <div><p className="db-legend">{caption}</p><div className="db-scroll"><svg className="db-svg-wide" viewBox="0 0 560 100" role="img" aria-label={`${caption}: ${shown.map(([x, i]) => `${names[i]} at ${number(x)} is ${fit.types[i]}`).join('; ')}.`}>
     <line x1={px(from)} x2={px(to)} y1="46" y2="46" className="db-grid" />
-    {Array.from({ length: Math.floor((to - from) / 0.25) + 1 }, (_, k) => from + 0.25 * k).map(v => <g key={v}><line x1={px(v)} x2={px(v)} y1="42" y2="50" className="db-grid" /><text x={px(v)} y="72" textAnchor="middle">{number(v)}</text></g>)}
+    {Array.from({ length: Math.floor((to - from) / 0.25) + 1 }, (_, k) => from + 0.25 * k).map(v => <g key={v}><line x1={px(v)} x2={px(v)} y1="42" y2="50" className="db-grid" /><text x={px(v)} y="88" textAnchor="middle">{number(v)}</text></g>)}
     {shown.map(([x, i]) => <g key={i}><Glyph x={px(x)} y={46} type={fit.types[i]} color={fit.labels[i] >= 0 ? componentColors[fit.labels[i] % componentColors.length] : undefined} /><text x={px(x)} y={i % 2 ? 62 : 32} textAnchor="middle">{names[i]}</text></g>)}
-  </svg></div>;
+  </svg></div></div>;
 }
 
 /* ---------------- L4: incompatible intervals ---------------- */
@@ -316,7 +332,7 @@ export function DbscanIntervalLab() {
   const key = JSON.stringify(pending);
   const stale = applied !== null && applied.key !== key;
   const shown = applied && !stale;
-  const update = patch => setPending({ ...pending, ...patch });
+  const update = patch => { setPending({ ...pending, ...patch }); setPrediction({}); };
   const names = fixture.points.map((_, i) => `${['L', 'M', 'R'][Math.floor(i / 4)]}${i % 4 + 1}`);
   const complete = fit.clusters === 3 && fit.noiseIds.length === 0;
   const axisX = value => 20 + 280 * value / 2;
@@ -329,7 +345,7 @@ export function DbscanIntervalLab() {
     <Prediction prompt={`Left group ${fixture.groups.left.join(', ')}; middle ${fixture.groups.middle.map(v => number(v)).join(', ')}; right ${fixture.groups.right.map(v => number(v)).join(', ')}; m = 3.`} fields={[
       { key: 'exists', label: 'Does a radius recover all three groups?', options: [['yes', 'Yes, some radius works'], ['no', 'No radius can'], ['inspect', 'I need to inspect the intervals (not graded)']], answer: fixture.exists ? 'yes' : 'no', neutral: ['inspect'] },
       { key: 'tested', label: `Does ε = ${number(pending.eps)} recover all three?`, options: [['yes', 'Yes'], ['no', 'No']], answer: complete ? 'yes' : 'no' },
-    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied !== null} stale={stale} onCommit={() => setApplied({ key })} explanation={`The right group is viable from ε = ${number(fixture.lower)} (closed); the two dense groups stay separate below ε = ${number(fixture.upper)} (open, because the closed boundary joins them at exactly that radius). ${fixture.exists ? `Every ε in [${number(fixture.lower)}, ${number(fixture.upper)}) works.` : 'The first requirement begins where the second has already failed: the intervals do not overlap.'} At ε = ${number(pending.eps)}: ${fit.clusters} component${fit.clusters === 1 ? '' : 's'}, ${fit.noiseIds.length} noise.`} />
+    ]} values={prediction} onChange={(field, value) => setPrediction({ ...prediction, [field]: value })} committed={applied} stale={stale} onCommit={() => setApplied({ key, prediction: { ...prediction } })} explanation={`The right group is viable from ε = ${number(fixture.lower)} (closed); the two dense groups stay separate below ε = ${number(fixture.upper)} (open, because the closed boundary joins them at exactly that radius). ${fixture.exists ? `Every ε in [${number(fixture.lower)}, ${number(fixture.upper)}) works.` : 'The first requirement begins where the second has already failed: the intervals do not overlap.'} At ε = ${number(pending.eps)}: ${fit.clusters} component${fit.clusters === 1 ? '' : 's'}, ${fit.noiseIds.length} noise.`} />
     {shown ? <>
       <div className="db-scroll"><svg className="db-interval-svg" viewBox="0 0 320 96" role="img" aria-label={`Two requirement intervals on a radius axis from 0 to 2: right group viable from ${number(fixture.lower)} upward; dense groups separate below ${number(fixture.upper)}. ${fixture.exists ? 'They overlap.' : 'They do not overlap.'}`} style={{ width: '100%', maxWidth: 560, display: 'block', margin: '1rem auto' }}>
         {[0, 0.5, 1, 1.5, 2].map(v => <g key={v}><line x1={axisX(v)} x2={axisX(v)} y1="14" y2="74" className="db-grid" /><text x={axisX(v)} y="88" textAnchor="middle">{v}</text></g>)}

@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-09-16T15:47:11.843Z",
+  "sourceHashes": {
+    "src/learn/data/nmf-models.js": "c4e5a55b6915f8028da3bf7bf2bbeea954f0faf7bed290e6b3e7338cf2e0bc42",
+    "src/learn/data/nmf-data.js": "28dacb781b62c7479b23f16f774b94cb58de3f239d10759d7a8052c01cb8ee85",
+    "src/learn/data/nmf-examples.js": "7d6f704030abd4524b46127ff83defca977148ba8602ba02d709e1bf8ae66c86",
+    "src/learn/components/lesson-labs/NmfShared.jsx": "45ccdc1ccdcd2ea9962fbe583f38cb3ed5a0271558085f027a3bbbba2606a762",
+    "src/learn/components/lesson-labs/NmfLabs.jsx": "f25de8787d185d98af3f66c20e55ecf20a6823d756ad52a9d2e6d462aa7c8af1",
+    "src/learn/components/lesson-labs/NmfFigures.jsx": "60edb99b9539e91c8c40511516de982e11819cf81e72e5273db335383d510b8e",
+    "src/learn/components/lesson-labs/nmf-labs.css": "6b09ca679a10e11993038b413df9ab5375e1675b084c80c18f07363e511d96d4",
+    "src/learn/data/topics/non-negative-matrix-factorization-nmf.jsx": "734dcb902eb95db45f406f6565eb8e87427fc954646799a03bc6ffcef76da9b0",
+    "src/learn/data/curriculum/blueprints/non-negative-matrix-factorization-nmf.js": "b596b9f4850d537ee1be421703f68ac854430f0f979ce1e9088aea2d4f96150d",
+    "public/learn-assets/nmf/digits-300.csv": "d93f963c4b2610eb07122a312eec3ddceac18a031477370d71e33835eced728e",
+    "public/learn-assets/nmf/data-provenance.md": "c2622d4446a0dec6214981871c8eba7d9af282043875566f40f3874f49998e64"
+  },
+  "verifierHash": "5db9af6b6eb6ff82aa87e91fd1d9705e1a70c0966d04fe7f86d7b45f76bf3223",
+  "counts": {
+    "matrix arithmetic": 1,
+    "validation refuses bad input": 1,
+    "one reconstructed cell": 1,
+    "the signed residual": 1,
+    "the three losses and their scaling": 1,
+    "one full alternating sweep": 1,
+    "the forty-sweep trace": 1,
+    "the altered-measurement contrast": 1,
+    "the update direction and the exact-fit null": 1,
+    "zero locking and the boundary conditions": 1,
+    "normalization and scale invariance": 1,
+    "practice 2": 1,
+    "joint nonconvexity and separate convexity": 1,
+    "the two cones": 1,
+    "nonnegative rank": 1,
+    "the anchor geometry": 1,
+    "the transfer fixtures and cost counts": 1,
+    "the held-out image contributions": 1,
+    "the image display scales": 1,
+    "the recorded candidate fits": 1,
+    "the displayed programs": 1
+  },
+  "totalGroupedChecks": 21,
+  "scope": "Browser NMF models against the content-phase native calculations (both exact factorizations, all 41 multiplicative states, the altered-input step, the loss comparison, every candidate fit, the reserved factors and all eight component removals from source row 242), independent identities (an alternative product routine, the gradient as denominator minus numerator, positive semidefiniteness of the Gram matrix, exact integer rank by Bareiss elimination, cone coordinates recovering the recorded activations, loss scaling factors, the contribution-equals-difference identity for every mask), refusal behaviour on ragged, negative, non-finite, off-lattice and zero-denominator input, and structural checks of the generated data and example modules.",
+  "limitations": [
+    "The digit candidates, dictionary and activations are precomputed native fits; the browser reproduces their recorded outcomes and rebuilds reconstructions from them, but does not fit.",
+    "Displayed program output is executed separately by scripts/verify-nmf-examples.py.",
+    "Rendering, interaction, accessibility and independent review are separate steps."
+  ],
+  "passed": true
+}

@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "completedAt": "2026-09-14T11:05:07.911Z",
+  "scope": "Complementary independent review by the figure author; no authorship of these labs or models",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/ManifoldLabs.jsx": "7513207cf1cbcc1a7ccaf8c540e2bb72163b5e741643a31787c80355f052a6ef",
+    "src/learn/components/lesson-labs/ManifoldShared.jsx": "87b7717ef28e5390f81b0f37369787bbe090b12a0da7bf112f1217199c688081",
+    "src/learn/components/lesson-labs/manifold-labs.css": "cd5c02c73d62f1d180c64963735b83e21c2a3b37b814142919e7be67494413fc",
+    "src/learn/data/manifold-models.js": "472158d05199facd42bd860dfe08b1780b7c3b5e523b39b0519a16ab4142ff10",
+    "src/learn/data/manifold-data.js": "d76e917248b1d01180cef670f9489b369af430c84377593dbeac591d8cd966a0"
+  },
+  "records": [
+    {
+      "check": "Original-source identity survives reversed storage order",
+      "query": 306,
+      "k": 20,
+      "map": "umap-n15-d01-s7",
+      "input": [
+        132,
+        84,
+        268,
+        214,
+        278,
+        142,
+        243,
+        258,
+        181,
+        184,
+        180,
+        22,
+        241,
+        187,
+        244,
+        207,
+        113,
+        259,
+        206,
+        183
+      ],
+      "mapped": [
+        214,
+        84,
+        132,
+        243,
+        184,
+        241,
+        268,
+        142,
+        181,
+        207,
+        180,
+        258,
+        278,
+        22,
+        187,
+        12,
+        244,
+        113,
+        152,
+        205
+      ],
+      "retained": [
+        132,
+        84,
+        268,
+        214,
+        278,
+        142,
+        243,
+        258,
+        181,
+        184,
+        180,
+        22,
+        241,
+        187,
+        244,
+        207,
+        113
+      ]
+    },
+    {
+      "check": "A compares new endpoints on old and edited graphs",
+      "baseline": 2,
+      "result": "No path",
+      "endpoints": [
+        "C",
+        "E"
+      ],
+      "edit": "D=(1,3), radius1"
+    },
+    {
+      "check": "B does not assume every candidate probability is monotone in bandwidth",
+      "candidate": "C",
+      "distances": [
+        1,
+        2,
+        3
+      ],
+      "sigmaBefore": 2.75,
+      "before": 0.3403799325222413,
+      "sigmaAfter": 3,
+      "after": 0.340271984831862
+    },
+    {
+      "check": "D source306/k20/actual UMAP lists agree with independently ranked pixel/map rows",
+      "count": 17
+    }
+  ]
+}

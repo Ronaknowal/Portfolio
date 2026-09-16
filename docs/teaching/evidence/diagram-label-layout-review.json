@@ -1,0 +1,352 @@
+{
+  "capturedAt": "2026-09-14T08:46:00.806Z",
+  "status": "Complete for the selected rendered states; confirmed defects repaired",
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "9591e7a504932dd94ad126f5e6b8f67971b36b8f1550a019b2033451dea76a97",
+    "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "03483c45b32084af1904f4c7780bc09a5c1480da8bc54c82e1767c9a56cb333d",
+    "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "48b9c41e81843f8f53db2d9b01466e078092dea55bf83d240384b9cab76c2bd8",
+    "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "0e17c533ab3f9a001c71edbf5999c3a3d4d0d65fcffe2082c6f5428f8d50c0e1",
+    "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "05f05daa033e241f322dd67dc2256aad7d3fcb61f49d37b202f3066498f7df63",
+    "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "6cc855073983d13c5a653f2959b293e674c5416436d17fb7bbbe6bd40344cb92",
+    "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "06cb6cc3c73e6c86722c82333f99c9e1fc6af2912acd1f09e9efc0f09e844a30",
+    "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "9543688f8eee410b9c66a53f6c2f7bbff901e9f28c55199c3b01864b69e23547",
+    "src/learn/components/lesson-labs/QueueingLabs.jsx": "23da26b1eca2fb14c47f2a1ab848e49963dcb37deb921b4f1a846dd7506df7ea",
+    "src/learn/components/lesson-labs/KnnLabs.jsx": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c",
+    "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98",
+    "src/learn/components/lesson-labs/RecommenderLabs.jsx": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650",
+    "src/learn/components/lesson-labs/PdeLabs.jsx": "718d151ce5349845ebe4046dd3b174598698becd853d412204d7a372b30bf9da",
+    "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "98d830765ffbc071d4865a44ce1b9b912b050afe3036b231db59999bee192108",
+    "src/learn/components/lesson-labs/convex-optimization-labs.css": "6cb7cf78c13a8eb8f29598760748f2b24601030755f9328a8f8682677d9c7d13",
+    "src/learn/components/lesson-labs/spectral-graph-labs.css": "4d2e3299b4569eb2eab993828c8db99effaff9cda7481180dcd7824b4e955887",
+    "src/learn/components/lesson-labs/knn-labs.css": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a",
+    "src/learn/components/lesson-labs/naive-bayes-labs.css": "69783c2d93f1e0453adca74a8e1d68a64c14374c4d7d1f61e8cd36a98fd29173"
+  },
+  "captures": [
+    {
+      "id": "k-nearest-neighbors-knn",
+      "width": 1366,
+      "svgIndex": 0,
+      "path": "docs/teaching/evidence/screenshots/layout-knn-after-1366.png",
+      "sha256": "9cb5134f4d0bd676674c5b651a50db464e8b324dec65c0d6ef5a95e3c0259cec"
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "width": 1366,
+      "svgIndex": 4,
+      "path": "docs/teaching/evidence/screenshots/layout-ensemble-stump-after-1366.png",
+      "sha256": "989394a131f44450c845d676fa2277283beeae0ace01494b6756f1c969898047"
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "width": 1366,
+      "svgIndex": 2,
+      "path": "docs/teaching/evidence/screenshots/layout-recommender-rotation-after-1366.png",
+      "sha256": "b50cb34ea1c7c21905065c869aa0c7477a99fd11a9cf8a6a1986e61724b850ce"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 1366,
+      "svgIndex": 3,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-density-after-1366.png",
+      "sha256": "ba724c350159e3c29128551884de7c9d93d230c0c74519c42ab23e62023b569f"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 1366,
+      "svgIndex": 7,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-regions-after-1366.png",
+      "sha256": "b8bee6d9bc22c72b31a6819dcefb8a326214215f3ffeb858f72fd37db46c976f"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 1366,
+      "svgIndex": 10,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-reliability-after-1366.png",
+      "sha256": "80c8816a38aa021f2f78785b0ba4d9476451e28324494e9d0ef454c3f037deac"
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "width": 320,
+      "svgIndex": 0,
+      "path": "docs/teaching/evidence/screenshots/layout-knn-after-320.png",
+      "sha256": "4ce4625985f5a12eeb97b63f320fae22ccc33150f14019cad3a461fa3713c656"
+    },
+    {
+      "id": "k-nearest-neighbors-knn",
+      "width": 320,
+      "path": "docs/teaching/evidence/screenshots/layout-knn-right-after-320.png",
+      "sha256": "5e63d54d4630cf61b40da8c974a898ad37bcf24080e774a3b3649f3d063a0c34",
+      "state": "Drawing scrolled right to inspect B1/B2/B3 labels"
+    },
+    {
+      "id": "ensemble-methods-stacking",
+      "width": 320,
+      "svgIndex": 4,
+      "path": "docs/teaching/evidence/screenshots/layout-ensemble-stump-after-320.png",
+      "sha256": "e11d4e83ae0d33a951032a56ca0d365aae9d7768821cb2fbc1820d662ca14000"
+    },
+    {
+      "id": "recommender-systems-collaborative-filtering-matrix-factorization",
+      "width": 320,
+      "svgIndex": 2,
+      "path": "docs/teaching/evidence/screenshots/layout-recommender-rotation-after-320.png",
+      "sha256": "c4dd01ea163f7ac8abbb37ef09dc55a12655ca651581bc2cf67108329cc17c90"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 320,
+      "svgIndex": 3,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-density-after-320.png",
+      "sha256": "ba72dc71832d4d897af620fd01aded945f51f59864edc6958677a09ed3db4c35"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 320,
+      "svgIndex": 7,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-regions-after-320.png",
+      "sha256": "09d3fdb2c6b237c450f800bc607ef1690e95d28ccbadf29c8478ec03a76d3c6f"
+    },
+    {
+      "id": "naive-bayes-probabilistic-classifiers",
+      "width": 320,
+      "svgIndex": 10,
+      "path": "docs/teaching/evidence/screenshots/layout-naive-reliability-after-320.png",
+      "sha256": "fc5acefab65171f51506afe5bdbb353533033f6be603feae842f48987e3f0dea"
+    }
+  ],
+  "visualReview": {
+    "reviewedAt": "2026-09-14T08:48:22.878Z",
+    "inspectedCaptures": [
+      "docs/teaching/evidence/screenshots/layout-knn-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-ensemble-stump-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-recommender-rotation-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-naive-density-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-naive-regions-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-naive-reliability-after-1366.png",
+      "docs/teaching/evidence/screenshots/layout-knn-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-knn-right-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-ensemble-stump-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-recommender-rotation-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-naive-density-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-naive-regions-after-320.png",
+      "docs/teaching/evidence/screenshots/layout-naive-reliability-after-320.png"
+    ],
+    "confirmedRemainingFinding": "The Naive Bayes reliability diagonal crosses count-label glyphs; topic-scoped background stroke applied after these captures. Only that affected figure requires a final capture.",
+    "passed": "Other selected follow-up figures contain their labels and retain numerical geometry; KNN B labels inspected in the right-scrolled phone region."
+  },
+  "finalAffectedStage": {
+    "capturedAt": "2026-09-14T09:06:06.516Z",
+    "status": "Visually reviewed: all 15 final affected captures pass",
+    "buildManifestHash": "97770500208d3f90036f9a04d51f6ee7c38adcd91674ba2e61b6bca8bb8e8bc7",
+    "sourceHashes": {
+      "src/learn/components/lesson-labs/EigenvalueLabs.jsx": "9591e7a504932dd94ad126f5e6b8f67971b36b8f1550a019b2033451dea76a97",
+      "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx": "03483c45b32084af1904f4c7780bc09a5c1480da8bc54c82e1767c9a56cb333d",
+      "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx": "48b9c41e81843f8f53db2d9b01466e078092dea55bf83d240384b9cab76c2bd8",
+      "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx": "0e17c533ab3f9a001c71edbf5999c3a3d4d0d65fcffe2082c6f5428f8d50c0e1",
+      "src/learn/components/lesson-labs/BayesianInferenceLabs.jsx": "05f05daa033e241f322dd67dc2256aad7d3fcb61f49d37b202f3066498f7df63",
+      "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx": "6cc855073983d13c5a653f2959b293e674c5416436d17fb7bbbe6bd40344cb92",
+      "src/learn/components/lesson-labs/SpectralGraphLabs.jsx": "06cb6cc3c73e6c86722c82333f99c9e1fc6af2912acd1f09e9efc0f09e844a30",
+      "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx": "9543688f8eee410b9c66a53f6c2f7bbff901e9f28c55199c3b01864b69e23547",
+      "src/learn/components/lesson-labs/QueueingLabs.jsx": "23da26b1eca2fb14c47f2a1ab848e49963dcb37deb921b4f1a846dd7506df7ea",
+      "src/learn/components/lesson-labs/KnnLabs.jsx": "24562c1dc5d2be0873651eb4fa0e330a9692f4148005062f5c0e7386f2ddb37c",
+      "src/learn/components/lesson-labs/EnsembleMethodsLabs.jsx": "963c455d8c7d9d84417f68cbd4d8f55dd72f0c24c79f848d98528a7400f46f98",
+      "src/learn/components/lesson-labs/RecommenderLabs.jsx": "b1805aa2b0372af388be96711f89c019bdabc62b3930fab89c8ccb5099659650",
+      "src/learn/components/lesson-labs/PdeLabs.jsx": "718d151ce5349845ebe4046dd3b174598698becd853d412204d7a372b30bf9da",
+      "src/learn/components/lesson-labs/NaiveBayesLabs.jsx": "edba8e94ac0bad70a2a93138fa117f0ef1f841ff4b10ea170ba9ab7b5bca7d23",
+      "src/learn/components/lesson-labs/convex-optimization-labs.css": "6cb7cf78c13a8eb8f29598760748f2b24601030755f9328a8f8682677d9c7d13",
+      "src/learn/components/lesson-labs/spectral-graph-labs.css": "4d2e3299b4569eb2eab993828c8db99effaff9cda7481180dcd7824b4e955887",
+      "src/learn/components/lesson-labs/knn-labs.css": "664314ff9aca49f551ddfaedec63ba8d4716f71d82b0ace78ef9d7b755777d0a",
+      "src/learn/components/lesson-labs/naive-bayes-labs.css": "2bb500b3bb6acc27fafdaeacdc891499020674ba65660963b499f54167682228",
+      "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx": "8d5e41ab756a4a7b42a2f47ec4447f58a885663b78e004b00e618f0ee5497f95",
+      "src/learn/components/lesson-labs/ProbabilityDistributionsLabs.jsx": "daafe18c4fc857afc74dbea815cda34a140a3791d77a21ba4545ab03cde0a636",
+      "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx": "8180ed8cff3d56001f52ce7c6993ed4ecc468488e857f742efa651b0f1cacf83"
+    },
+    "captures": [
+      {
+        "id": "naive-bayes-probabilistic-classifiers",
+        "width": 1366,
+        "svgIndex": 10,
+        "path": "docs/teaching/evidence/screenshots/layout-naive-reliability-final-1366.png",
+        "sha256": "5400ca855396d8bac4c148d96a806ab149336422738bf89fe8e6213833fbc250"
+      },
+      {
+        "id": "matrix-decompositions-svd-qr-cholesky-lu",
+        "width": 1366,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-decomposition-final-1366.png",
+        "sha256": "3c14d6028895233d8f8dacf9527bc78531d6911bdba2518d5fbe177c68f8c7c8"
+      },
+      {
+        "id": "probability-distributions-bayes-theorem",
+        "width": 1366,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-probability-cdf-final-1366.png",
+        "sha256": "b5d67eb569255ccf3ae1ed695122ad9dd2a3f703cab1df45be85fd430e08edfc"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 1366,
+        "svgIndex": 0,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-plane-final-1366.png",
+        "sha256": "b95b6967811c0db744628816cccdc5951922a97c98ccc0d347cc09062bc1617d"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 1366,
+        "svgIndex": 11,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-dft-final-1366.png",
+        "sha256": "735d13d330ba91975470eb8151f9b66b2156e9043deb5520742732b783c37e37"
+      },
+      {
+        "id": "naive-bayes-probabilistic-classifiers",
+        "width": 390,
+        "svgIndex": 10,
+        "path": "docs/teaching/evidence/screenshots/layout-naive-reliability-final-390.png",
+        "sha256": "dd0488caa451c5c7ae86057c3d0cea6e035a3cca9daee95ca3d304eb940fcc19"
+      },
+      {
+        "id": "matrix-decompositions-svd-qr-cholesky-lu",
+        "width": 390,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-decomposition-final-390.png",
+        "sha256": "b1bce5ac71e8567cee6442eebb2b7ad6da85b5ec2f87f52b378c4a4bcef4979b"
+      },
+      {
+        "id": "probability-distributions-bayes-theorem",
+        "width": 390,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-probability-cdf-final-390.png",
+        "sha256": "9a0e042a51c15ab417f909976b50c5217fcee38e07b09e3c8bb2523d4f858141"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 390,
+        "svgIndex": 0,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-plane-final-390.png",
+        "sha256": "0b7094bd62c0a78a749891ca847026fbcec58399dbb0a23e229117db35f0fca2"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 390,
+        "svgIndex": 11,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-dft-final-390.png",
+        "sha256": "f6d73f01d5e762d72d3e0cb424d9ab68d3013ad82552cbb57f9f7c2cd1f4095c"
+      },
+      {
+        "id": "naive-bayes-probabilistic-classifiers",
+        "width": 320,
+        "svgIndex": 10,
+        "path": "docs/teaching/evidence/screenshots/layout-naive-reliability-final-320.png",
+        "sha256": "9c2e2ed076657e0527a8b836e31dc2b8586bd30cd2a3b7d5bd307ed997858dbb"
+      },
+      {
+        "id": "matrix-decompositions-svd-qr-cholesky-lu",
+        "width": 320,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-decomposition-final-320.png",
+        "sha256": "9869f4ce3cad77ad1e7c612d30e821d499244fbac0d337ce61375f85d1791a79"
+      },
+      {
+        "id": "probability-distributions-bayes-theorem",
+        "width": 320,
+        "svgIndex": 3,
+        "path": "docs/teaching/evidence/screenshots/layout-probability-cdf-final-320.png",
+        "sha256": "bf5b3d68f31fa5ed413ef080e49e557f22fdf36cf008dd758ac280d7cb9e12e7"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 320,
+        "svgIndex": 0,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-plane-final-320.png",
+        "sha256": "c9235d48c781ae066e845cb7e8b0fbc4a9a22745d77e22b5213b8a3627aaece8"
+      },
+      {
+        "id": "complex-numbers-fourier-laplace-transforms",
+        "width": 320,
+        "svgIndex": 11,
+        "path": "docs/teaching/evidence/screenshots/layout-complex-dft-final-320.png",
+        "sha256": "2ad0987e15eb40409da963b33d3c0dec6962db17fdaca2fc98644eb187d238a9"
+      }
+    ],
+    "visuallyReviewedAt": "2026-09-14T09:07:51.557Z",
+    "disposition": "All selected titles, captions, tick labels and origin/count annotations are readable and contained at1366,390,320. Matrix ticks occupy their bottom gutter; CDF zero is left of the zero segment; Complex origin and Naive count labels intentionally obscure a small line segment with their opaque background strokes. Mathematical paths and coordinate maps are unchanged.",
+    "inspectedCaptures": [
+      "docs/teaching/evidence/screenshots/layout-naive-reliability-final-1366.png",
+      "docs/teaching/evidence/screenshots/layout-decomposition-final-1366.png",
+      "docs/teaching/evidence/screenshots/layout-probability-cdf-final-1366.png",
+      "docs/teaching/evidence/screenshots/layout-complex-plane-final-1366.png",
+      "docs/teaching/evidence/screenshots/layout-complex-dft-final-1366.png",
+      "docs/teaching/evidence/screenshots/layout-naive-reliability-final-390.png",
+      "docs/teaching/evidence/screenshots/layout-decomposition-final-390.png",
+      "docs/teaching/evidence/screenshots/layout-probability-cdf-final-390.png",
+      "docs/teaching/evidence/screenshots/layout-complex-plane-final-390.png",
+      "docs/teaching/evidence/screenshots/layout-complex-dft-final-390.png",
+      "docs/teaching/evidence/screenshots/layout-naive-reliability-final-320.png",
+      "docs/teaching/evidence/screenshots/layout-decomposition-final-320.png",
+      "docs/teaching/evidence/screenshots/layout-probability-cdf-final-320.png",
+      "docs/teaching/evidence/screenshots/layout-complex-plane-final-320.png",
+      "docs/teaching/evidence/screenshots/layout-complex-dft-final-320.png"
+    ]
+  },
+  "coverageLimits": "Selected default-state figures, plus KNN horizontal scroll inspection. Not all controls, hidden branches, font fallback configurations, browser zoom levels or assistive technologies were exercised.",
+  "intentionalLayering": [
+    {
+      "name": "tree-expression",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-tree-expression.png",
+      "screenshotSha256": "78194d988666aa9af304c78754a5b0ca32537e596377aab16a9df0fb2edfd04a",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/ExpressionTreeFigure.jsx": "2fb28ee61e527647b74ebb774c3860407d0369f6cac87d79321fbf46be99c525"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    },
+    {
+      "name": "combinatorial",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-combinatorial.png",
+      "screenshotSha256": "4b773ddc7e4f73b4b42548ff9f79b359bd4503517e849e134eb3fc132c3bcc30",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx": "ca48fe00bc131e76a34db7fe04c680f3a43c785be0fd64f7edb1664ac2b3ed85"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    },
+    {
+      "name": "topology",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-topology.png",
+      "screenshotSha256": "bb80bfe9f768b902471ff52de20f2dc337ef09094aba3c06f73b0333597f6916",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/TopologyTdaLabs.jsx": "2fc49e62e836f7c6bb6aa06c0e18ef31f39c048fbd47cc0b43b7323f9cbd9d25"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    },
+    {
+      "name": "reductions",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-reductions.png",
+      "screenshotSha256": "07aef3074faf5f61f2ce78c827e4825ee5ce9ed88a8399574c3217f3f77be020",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/IntractabilityLabs.jsx": "a510f867e876c1ff86aca5c2ea494f66444d7ff19e14e688e40d747472e8bba5",
+        "src/learn/components/lesson-labs/intractability-labs.css": "af67fc775a82b26b81dbc59c22f00f8c0b5c414bfae14d5e573c883735edab2a"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    },
+    {
+      "name": "network-flow",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-network-flow.png",
+      "screenshotSha256": "64c8acdd75362743463689dc51bd9510c8d5f56fd415fffc93821a95df94ca7a",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/NetworkFlowLabs.jsx": "0ccdd6761b6d6c86883e6275b479ca24446f946bab3375c3e8d6524659d796cc",
+        "src/learn/components/lesson-labs/network-flow-labs.css": "36f6a764ecdaa475b148428ac6c448e0cc73bd1a4ab9147ec8d62dbc325a88de"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    },
+    {
+      "name": "sets",
+      "screenshot": "docs/teaching/evidence/screenshots/layout-triage-sets.png",
+      "screenshotSha256": "42a2d7ebba0fd03857f145f1e39c90501f5b02488b8e923992ef8f865274154e",
+      "sourceHashes": {
+        "src/learn/components/lesson-labs/SetsLogicLabs.jsx": "f9914cfefdfb8515610599ad02932905396e3fcea4bd5893ca4ca2967ed666b2",
+        "src/learn/components/lesson-labs/sets-logic-labs.css": "b4ba373295096954d74de7309c354336db6c26008458682c874df5538c07e6ef"
+      },
+      "disposition": "Edges are beneath opaque node circles or label backplates. Representative rendered text is clear; no layout change required."
+    }
+  ]
+}

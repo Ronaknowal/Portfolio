@@ -1,854 +1,410 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import {
+  CostCrossingLab, ScoreQueueLab, SmoteGeometryLab, TuningQueueLab, WeightedScoreLab,
+} from '../../components/lesson-labs/ImbalanceLabs.jsx';
+import {
+  CaseFlowFigure, LossMassFigure, OutcomesFigure, PipelineFigure, PrevalenceFigure, WeightedStepFigure,
+} from '../../components/lesson-labs/ImbalanceFigures.jsx';
+import { imbalanceExamples } from '../imbalance-examples.js';
+import { inspectionRecords, methods, provenance, roles, study } from '../imbalance-data.js';
+import {
+  actionRisks, averagePrecisionOf, balancedWeights, confusion, costOf, countsAt, fixtures, focalMass,
+  inverseWeightedOptimum, populationFlow, priorShift, rankedQueue, rowExpansion, smoteConstruction,
+  weightedOptimum, weightedStep,
+} from '../imbalance-models.js';
+
+/** Print a computed number with a typographic minus sign and no float dust. */
+const num = value => String(Number(value.toFixed(9))).replace('-', '−');
+
+const model = confusion(fixtures.modelCounts);
+const baseline = confusion(fixtures.baselineCounts);
+const ladderQueue = averagePrecisionOf(fixtures.averagePrecisionQueue);
+const flowA = populationFlow(fixtures.flowA);
+const flowB = populationFlow(fixtures.flowB);
+const risk = actionRisks(fixtures.casePosterior, fixtures.costs.costFP, fixtures.costs.costFN);
+const practiceRisk = actionRisks(fixtures.practiceCosts.posterior,
+  fixtures.practiceCosts.costFP, fixtures.practiceCosts.costFN);
+const step = weightedStep({ rows: fixtures.stepRows, rate: fixtures.stepRate, penalty: fixtures.stepPenalty });
+const balanced = balancedWeights([study.fittingNegatives, study.fittingPositives]);
+const optimum = weightedOptimum(fixtures.weighted.probability,
+  fixtures.weighted.positiveWeight, fixtures.weighted.negativeWeight);
+const practiceOptimum = weightedOptimum(fixtures.weightedPractice.probability,
+  fixtures.weightedPractice.positiveWeight, fixtures.weightedPractice.negativeWeight);
+const smote = smoteConstruction({ points: fixtures.cloud, ...fixtures.cloudSetup });
+const focal = focalMass(fixtures.focal);
+const prior = priorShift(fixtures.prior);
+const practicePrior = priorShift(fixtures.priorPractice);
+const expansion = rowExpansion(fixtures.expansion.majority, fixtures.expansion.minority);
+const practiceExpansion = rowExpansion(fixtures.expansionPractice.majority, fixtures.expansionPractice.minority);
+
+const outcomes = methods.map(method => ({
+  method,
+  tuned: countsAt(inspectionRecords.labels, method.inspectionScores, method.chosenThreshold),
+  atHalf: countsAt(inspectionRecords.labels, method.inspectionScores, 0.5),
+  queue: rankedQueue(inspectionRecords.sourceIds, inspectionRecords.labels, method.inspectionScores, 10),
+}));
+const costOfRow = row => costOf(row.tuned, study.costFalsePositive, study.costFalseNegative);
+const bestCost = outcomes.reduce((best, row) => (costOfRow(row) < costOfRow(best) ? row : best));
+const bestAp = outcomes.reduce((best, row) => (row.method.averagePrecision > best.method.averagePrecision ? row : best));
+/* `Math` in this module is the KaTeX component imported above, not the global
+   object: using `Math.max` here resolves to that component and throws on first
+   paint. These two helpers keep the extremes explicit and shadow-proof. */
+const largest = values => values.reduce((best, value) => (value > best ? value : best));
+const smallest = values => values.reduce((best, value) => (value < best ? value : best));
+const bestTopTen = largest(outcomes.map(row => row.queue.positives));
+const topTenWinners = outcomes.filter(row => row.queue.positives === bestTopTen);
+const originalRow = outcomes.find(row => row.method.name === 'original');
+const smoteRow = outcomes.find(row => row.method.name === 'smote');
+const weightedRow = outcomes.find(row => row.method.name === 'balanced_weight');
+
+const headings = [
+  '1. A rare class is a description, not a diagnosis',
+  '2. Read the mistakes and the ranked queue',
+  '3. Choose an action from its expected consequences',
+  '4. Reweighting changes what the fitted score means',
+  '5. SMOTE creates a geometric assumption',
+  '6. Fit the sampler only where learning is allowed',
+  '7. An observed-data study: rare protein localization',
+  '8. Deeper choices: where the simple picture changes',
+  '9. Practice: make the decision yourself',
+  '10. Readiness and the next lesson',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section>
+    <Prose><strong>Before running:</strong> {example.question}</Prose>
+    <RunnableExample example={example}>{children}</RunnableExample>
+  </section>;
+}
+function Practice({ title, question, hint, revealLabel = 'Show the explained solution', children }) {
+  return <section className="imb-practice">
+    <H3>{title}</H3>
+    <Prose>{question}</Prose>
+    {hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}
+    <details><summary>{revealLabel}</summary>{children}</details>
+  </section>;
+}
 
 const imbalancedLearningContent = {
-  title: "Imbalanced Learning (SMOTE, Cost-Sensitive Learning)",
-  readTime: "~45 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        In 2002, Nitesh Chawla, Kevin Bowyer, Lawrence Hall, and W. Philip Kegelmeyer published "SMOTE: Synthetic Minority Over-sampling Technique" in the <em>Journal of Artificial Intelligence Research</em>, volume 16, pages 321–357. Their target was a class of problems that standard machine learning pipelines handle badly: credit card fraud, medical diagnosis of rare diseases, manufacturing defect detection, network intrusion detection — any supervised learning problem where the event you care most about is also the rarest. The paper opened with a diagnostic that anyone who has trained a classifier on a real-world dataset has encountered: a model that achieves 98% accuracy by learning to always predict "normal" on a dataset where 98% of examples are normal. Accuracy is not a useful metric when the class distribution is skewed. The precision, recall, and F-measure on the minority class are what matter — and those are often zero on a model that never predicts the minority class.
-      </Prose>
-
-      <Prose>
-        The problem predates Chawla et al. by a decade. In 2001, Charles Elkan published "The Foundations of Cost-Sensitive Learning" at IJCAI, which gave the field a rigorous Bayesian framework for thinking about misclassification costs. Elkan showed that cost-sensitive classification reduces to a principled threshold adjustment on top of any standard probability estimator: you do not need a special algorithm, only a correct decision rule. Then in 2009, Haibo He and Edwardo Garcia published "Learning from Imbalanced Data" in <em>IEEE Transactions on Knowledge and Data Engineering</em>, 21(9):1263–1284 — the comprehensive survey that organized the field into its three main families: resampling methods, algorithm-level methods, and hybrid methods.
-      </Prose>
-
-      <Prose>
-        The domains where the minority class matters most read like a list of the highest-stakes ML applications. In fraud detection, fraud rates typically range from 0.1% to 2% of transactions — a model that never flags fraud looks excellent by accuracy. In medical diagnosis, rare diseases affect small fractions of tested populations — missing a true positive (a false negative) has very different consequences than a false alarm. In predictive maintenance, equipment failures occur rarely — but missing a failure means an unplanned shutdown. In spam filtering, precision matters: falsely flagging legitimate email (a false positive) is often worse than missing spam. Each application has its own asymmetry in the costs of false positives versus false negatives, and the naive maximum-likelihood classifier, which treats all errors as equally costly, will systematically under-predict the minority class.
-      </Prose>
-
-      <Prose>
-        The fundamental tension is this: standard supervised learning training — maximizing likelihood or minimizing cross-entropy — assumes that the class distribution in the training set matches the class distribution at deployment. When it does not, the learned decision boundary is biased toward the majority class. The optimizer is rewarded more for correctly classifying majority examples (there are more of them contributing to the loss) and so it shapes the decision boundary to serve the majority class at the expense of the minority. Resampling and cost-sensitive methods are the two families of techniques that exist precisely to correct this imbalance before or during training.
-      </Prose>
-
-      <Callout type="insight">
-        Accuracy is a misleading metric on imbalanced data. A classifier that never predicts the positive class achieves {" (1 - prevalence) × 100%"} accuracy — 99% accuracy on a dataset with 1% prevalence. Always evaluate with precision, recall, F1, and PR-AUC when the positive class is rare.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        There are three lever families for handling imbalanced data, and they operate at different points in the ML pipeline. Understanding which lever to pull — and why — requires understanding what each one actually does to the loss surface.
-      </Prose>
-
-      <H3>2.1 Lever 1: resample the data</H3>
-
-      <Prose>
-        The first family changes the class ratio that the model sees during training by modifying the dataset. <strong>Oversampling</strong> adds copies or synthetic examples of the minority class, raising its count toward parity with the majority. The simplest form — random oversampling — duplicates existing minority examples. The problem is that duplicating exact copies adds no new information; it only inflates the gradient contribution of those specific examples and can cause overfitting to the minority points that happen to be in the training set. SMOTE replaces duplication with interpolation: for each minority example, it finds its k nearest minority-class neighbors and generates a new synthetic point uniformly along the line segment between the original example and a randomly chosen neighbor. The synthetic point is new — it did not exist in the original dataset — but it is in a region where the classifier already believes the minority class lives.
-      </Prose>
-
-      <Prose>
-        <strong>Undersampling</strong> takes the opposite approach: reduce the majority class count to match the minority. Random undersampling randomly discards majority examples. More sophisticated methods like NearMiss preferentially remove majority examples that are closest to the minority class boundary — removing the "easy" majority examples and keeping the hard ones, which can sharpen the decision boundary. The cost of undersampling is information loss: you are throwing away data you paid to collect.
-      </Prose>
-
-      <Prose>
-        <strong>Hybrid methods</strong> combine oversampling and undersampling. SMOTEENN runs SMOTE to oversample the minority and then applies Edited Nearest Neighbours (ENN) to remove noisy examples from both classes — minority synthetic points that are misclassified by their neighbors, and majority examples that are surrounded by minority examples. SMOTETomek combines SMOTE with Tomek Links removal (removing pairs of examples from opposite classes that are each other's nearest neighbor). Both clean the boundary after oversampling.
-      </Prose>
-
-      <H3>2.2 Lever 2: adjust the loss or weights</H3>
-
-      <Prose>
-        Instead of changing the data, the second family changes what the model is penalized for. <strong>Class weighting</strong> multiplies the loss contribution of each example by a weight inversely proportional to its class frequency. The <Code>class_weight='balanced'</Code> option in sklearn sets each class's weight to {"n_samples / (n_classes * n_samples_in_class)"}. The gradient update for each minority example is scaled up by the same factor, making the model attend to minority examples as much as majority examples during optimization — without changing the data at all.
-      </Prose>
-
-      <Prose>
-        <strong>Focal loss</strong>, introduced by Lin, Goyal, Girshick, He, and Dollár (2017) in the context of object detection, extends this idea dynamically. Standard cross-entropy treats all examples equally. Focal loss adds a modulating factor {"(1-p)^γ"} to the loss, where p is the predicted probability of the correct class and γ is a focusing parameter. When the model predicts a high probability for an easy example, {"(1-p)^γ"} is small — the loss contribution of easy, well-classified examples is down-weighted. Hard examples (where the model is uncertain or wrong) retain high loss contributions. This focuses training on the examples that are actually informative, regardless of their class label.
-      </Prose>
-
-      <H3>2.3 Lever 3: threshold moving at inference time</H3>
-
-      <Prose>
-        The third lever does not touch training at all. A calibrated logistic regression produces probabilities; the default decision rule is to predict positive if {"p ≥ 0.5"}. But 0.5 is an arbitrary choice that makes sense only when false positives and false negatives have equal cost and when the training distribution matches the deployment distribution. Moving the threshold changes the precision-recall tradeoff: a lower threshold (say 0.1) increases recall at the cost of precision — you flag more positives, including more false positives. A higher threshold (say 0.7) increases precision at the cost of recall. Threshold moving is free — it costs nothing computationally — and should always be tuned on a validation set using the metric that matches the deployment stakes.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Confusion-matrix metrics: precision, recall, F₁, Fβ</H3>
-
-      <Prose>
-        For a binary classifier, every prediction falls into one of four cells. The confusion matrix counts: TP (true positives — correctly flagged minority), TN (true negatives — correctly cleared majority), FP (false positives — majority incorrectly flagged), FN (false negatives — minority missed). From these four counts, the key metrics are:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}, \\qquad \\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}"}
-      </MathBlock>
-
-      <MathBlock>
-        {"F_1 = \\frac{2 \\cdot \\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}} = \\frac{2\\,\\text{TP}}{2\\,\\text{TP} + \\text{FP} + \\text{FN}}"}
-      </MathBlock>
-
-      <Prose>
-        The generalized Fβ score weights recall β times as much as precision:
-      </Prose>
-
-      <MathBlock>
-        {"F_\\beta = (1 + \\beta^2) \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\beta^2 \\cdot \\text{Precision} + \\text{Recall}}"}
-      </MathBlock>
-
-      <Prose>
-        When β {">"} 1, recall is weighted more heavily — appropriate for medical screening where missing a disease (FN) is worse than a false alarm. When β {"<"} 1, precision is weighted more heavily — appropriate for fraud alerting where annoying a legitimate customer (FP) is expensive. F2 (β=2) is common in information retrieval and medical applications; F0.5 is used in settings where false alarms are costly.
-      </Prose>
-
-      <H3>3.2 ROC-AUC vs PR-AUC — why PR-AUC is the right metric when positives are rare</H3>
-
-      <Prose>
-        The ROC curve plots the True Positive Rate (recall) against the False Positive Rate (FPR = FP / (FP + TN)) as the decision threshold varies. ROC-AUC is the area under this curve. The problem with ROC-AUC on severely imbalanced datasets is that FPR is dominated by TN. When there are 9,900 negatives and 100 positives, a model can have FPR = 0.01 (99 false positives!) while its FPR term looks small because TN = 9,801 makes the denominator large. ROC-AUC will look high even when the model produces many false positives relative to the minority class.
-      </Prose>
-
-      <Prose>
-        The Precision-Recall curve plots precision against recall as the threshold varies. PR-AUC (the area under this curve, also called Average Precision) does not involve TN at all — it only counts TP, FP, and FN. When the positive class is rare, every false positive is visible because the denominator of precision is small. PR-AUC correctly penalizes a model that achieves high recall by flagging everything as positive — its precision collapses toward the base rate. The rule: use ROC-AUC when the positive rate is {"≥"} 10% and both classes matter equally; use PR-AUC when the positive class is rare ({"<"} 10%) or when the cost of false positives is meaningfully different from the cost of false negatives.
-      </Prose>
-
-      <H3>3.3 SMOTE: the interpolation formula</H3>
-
-      <Prose>
-        Let {"x"} be a minority-class example and let {"N(x, k)"} denote its k nearest neighbors among minority-class examples. SMOTE picks a random neighbor {"x_n ∈ N(x, k)"} and generates a synthetic example by uniform interpolation along the line segment between them:
-      </Prose>
-
-      <MathBlock>
-        {"x_{\\text{syn}} = x + \\lambda \\cdot (x_n - x), \\qquad \\lambda \\sim \\text{Uniform}(0, 1)"}
-      </MathBlock>
-
-      <Prose>
-        When λ = 0 the synthetic point equals x; when λ = 1 it equals the neighbor. All values in between are interior points on the segment. Because both endpoints are minority-class examples, SMOTE assumes the region between them is also minority territory — a reasonable assumption if the minority class is compact, but a dangerous one if the minority boundary is noisy or if majority examples intrude between two minority points.
-      </Prose>
-
-      <Prose>
-        <strong>Borderline-SMOTE</strong> restricts synthesis to minority examples whose nearest neighbors include majority examples — the "borderline" points that the classifier is most likely to misclassify. Interior minority examples (surrounded entirely by minority neighbors) are left alone; they are already well-covered. Focusing synthesis on the boundary creates more examples where the classifier needs them most.
-      </Prose>
-
-      <Prose>
-        <strong>ADASYN</strong> (He, Bai, Garcia, Li 2008) goes further: it computes a density ratio for each minority example — the fraction of its k nearest neighbors that are majority-class. This ratio becomes the weight for how many synthetic examples to generate near that point. Minority examples deep in their class region (low majority fraction among neighbors) get few synthetic examples; minority examples near the majority boundary (high majority fraction) get many. ADASYN adapts the synthesis distribution to the difficulty of the region, not just the global class imbalance.
-      </Prose>
-
-      <H3>3.4 Cost-sensitive decision rule: derivation from Bayes-risk minimization</H3>
-
-      <Prose>
-        Let {"c_{FP}"} be the cost of a false positive and {"c_{FN}"} be the cost of a false negative. Given a calibrated model that estimates {"P(+|x)"}, the expected cost of predicting positive is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Cost}(\\hat{y}=1) = (1 - P(+|x)) \\cdot c_{FP}"}
-      </MathBlock>
-
-      <Prose>
-        The expected cost of predicting negative is:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{Cost}(\\hat{y}=0) = P(+|x) \\cdot c_{FN}"}
-      </MathBlock>
-
-      <Prose>
-        Predict positive when the expected cost of predicting positive is less than the expected cost of predicting negative:
-      </Prose>
-
-      <MathBlock>
-        {"(1 - P(+|x)) \\cdot c_{FP} < P(+|x) \\cdot c_{FN}"}
-      </MathBlock>
-
-      <Prose>
-        Rearranging:
-      </Prose>
-
-      <MathBlock>
-        {"c_{FP} < P(+|x) \\cdot (c_{FP} + c_{FN})"}
-      </MathBlock>
-
-      <MathBlock>
-        {"P(+|x) > \\frac{c_{FP}}{c_{FP} + c_{FN}}"}
-      </MathBlock>
-
-      <Prose>
-        This is Elkan's result: the optimal decision threshold is not 0.5 but {"c_{FP} / (c_{FP} + c_{FN})"}. When false negatives are twice as costly as false positives ({"c_{FN} = 2c_{FP}"}), the threshold becomes {"c_{FP} / (c_{FP} + 2c_{FP}) = 1/3"}. You should predict positive whenever the model's probability exceeds 1/3. This derivation assumes the model is perfectly calibrated — that {"P(+|x)"} truly reflects the posterior probability. In practice, check calibration (Platt scaling or isotonic regression) before relying on cost-sensitive thresholding.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was run on a 1:50 imbalanced synthetic dataset (500 majority, 10 minority). NumPy only — no sklearn, no imbalanced-learn. The stdout is embedded verbatim. We implement SMOTE, random undersampling, and class-weighted logistic regression gradient descent.
-      </Prose>
-
-      <H3>4a. Dataset, SMOTE, and undersampling</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-
-# 1:50 imbalanced dataset
-n_majority = 500
-n_minority  = 10
-X_maj = np.random.randn(n_majority, 2) + np.array([0, 0])
-X_min = np.random.randn(n_minority,  2) + np.array([3, 3])
-X = np.vstack([X_maj, X_min])
-y = np.hstack([np.zeros(n_majority), np.ones(n_minority)])
-
-print(f"Dataset shape: {X.shape}, class counts: {np.bincount(y.astype(int))}")
-# Output: Dataset shape: (510, 2), class counts: [500  10]
-
-# ── SMOTE ────────────────────────────────────────────────────
-def smote(X_min, n_synthetic, k=5, seed=42):
-    """
-    For each of n_synthetic new points:
-      1. Pick a random minority example x_i.
-      2. Find its k nearest minority neighbours.
-      3. Pick one neighbour x_n at random.
-      4. Synthesise: x_syn = x_i + lambda * (x_n - x_i), lambda ~ U(0,1).
-    """
-    rng = np.random.default_rng(seed)
-    synthetic = []
-    for _ in range(n_synthetic):
-        i  = rng.integers(0, len(X_min))
-        x  = X_min[i]
-        dists = np.linalg.norm(X_min - x, axis=1)
-        dists[i] = np.inf                       # exclude self
-        nn_idx = np.argsort(dists)[:k]
-        j  = nn_idx[rng.integers(0, k)]
-        xn = X_min[j]
-        lam = rng.uniform(0, 1)
-        synthetic.append(x + lam * (xn - x))   # interpolate
-    return np.array(synthetic)
-
-# Oversample minority to match majority
-X_syn   = smote(X[y == 1], n_synthetic=(n_majority - n_minority))
-X_smote = np.vstack([X, X_syn])
-y_smote = np.hstack([y, np.ones(n_majority - n_minority)])
-print(f"After SMOTE: {np.bincount(y_smote.astype(int))}")
-# Output: After SMOTE: [500 500]
-
-# ── Random undersampling ─────────────────────────────────────
-def random_undersample(X, y, seed=42):
-    rng = np.random.default_rng(seed)
-    n_min   = int(np.sum(y == 1))
-    maj_idx = np.where(y == 0)[0]
-    min_idx = np.where(y == 1)[0]
-    chosen  = rng.choice(maj_idx, size=n_min, replace=False)
-    idx = np.concatenate([chosen, min_idx])
-    return X[idx], y[idx]
-
-X_under, y_under = random_undersample(X, y)
-print(f"After undersampling: {np.bincount(y_under.astype(int))}")
-# Output: After undersampling: [10 10]`}
-      </CodeBlock>
-
-      <H3>4b. Class-weighted logistic regression gradient</H3>
-
-      <CodeBlock language="python">
-{`def sigmoid(z):
-    return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
-
-def logistic_gd_weighted(X, y, class_weight=None, lr=0.1, n_iter=300):
-    """
-    Gradient of weighted log-loss:
-      grad = (1/n) * X^T ((sigma(Xw) - y) * sample_weights)
-    class_weight='balanced' scales each sample by inverse class frequency.
-    """
-    n, d = X.shape
-    w = np.zeros(d)
-    if class_weight == 'balanced':
-        pos_w = n / (2 * np.sum(y == 1))
-        neg_w = n / (2 * np.sum(y == 0))
-        sample_w = np.where(y == 1, pos_w, neg_w)
-    else:
-        sample_w = np.ones(n)
-    for _ in range(n_iter):
-        p = sigmoid(X @ w)
-        grad = X.T @ ((p - y) * sample_w) / n
-        w -= lr * grad
-    return w
-
-def evaluate(X, y, w, threshold=0.5):
-    preds = (sigmoid(X @ w) >= threshold).astype(int)
-    tp = int(np.sum((preds == 1) & (y == 1)))
-    tn = int(np.sum((preds == 0) & (y == 0)))
-    fp = int(np.sum((preds == 1) & (y == 0)))
-    fn = int(np.sum((preds == 0) & (y == 1)))
-    prec = tp / (tp + fp + 1e-9)
-    rec  = tp / (tp + fn + 1e-9)
-    f1   = 2 * prec * rec / (prec + rec + 1e-9)
-    return tp, tn, fp, fn, prec, rec, f1
-
-# Add bias column to each dataset
-X_b       = np.column_stack([np.ones(len(y)),       X])
-X_smote_b = np.column_stack([np.ones(len(y_smote)), X_smote])
-X_under_b = np.column_stack([np.ones(len(y_under)), X_under])
-
-# ── A: Baseline — no resampling, no class weight ─────────────
-w = logistic_gd_weighted(X_b, y)
-tp, tn, fp, fn, prec, rec, f1 = evaluate(X_b, y, w)
-print("=== BASELINE (no resampling) ===")
-print(f"  TP={tp} TN={tn} FP={fp} FN={fn}")
-print(f"  Precision={prec:.3f}  Recall={rec:.3f}  F1={f1:.3f}")
-# Output:
-# === BASELINE (no resampling) ===
-#   TP=7 TN=500 FP=0 FN=3
-#   Precision=1.000  Recall=0.700  F1=0.824
-
-# ── B: After SMOTE ──────────────────────────────────────────
-w2 = logistic_gd_weighted(X_smote_b, y_smote)
-tp2, tn2, fp2, fn2, prec2, rec2, f12 = evaluate(X_b, y, w2)
-print("\n=== AFTER SMOTE ===")
-print(f"  TP={tp2} TN={tn2} FP={fp2} FN={fn2}")
-print(f"  Precision={prec2:.3f}  Recall={rec2:.3f}  F1={f12:.3f}")
-# Output:
-# === AFTER SMOTE ===
-#   TP=10 TN=491 FP=9 FN=0
-#   Precision=0.526  Recall=1.000  F1=0.690
-
-# ── C: After random undersampling ──────────────────────────
-w3 = logistic_gd_weighted(X_under_b, y_under)
-tp3, tn3, fp3, fn3, prec3, rec3, f13 = evaluate(X_b, y, w3)
-print("\n=== AFTER RANDOM UNDERSAMPLING ===")
-print(f"  TP={tp3} TN={tn3} FP={fp3} FN={fn3}")
-print(f"  Precision={prec3:.3f}  Recall={rec3:.3f}  F1={f13:.3f}")
-# Output:
-# === AFTER RANDOM UNDERSAMPLING ===
-#   TP=10 TN=467 FP=33 FN=0
-#   Precision=0.233  Recall=1.000  F1=0.377
-
-# ── D: Class-weighted gradient descent ─────────────────────
-w4 = logistic_gd_weighted(X_b, y, class_weight='balanced')
-tp4, tn4, fp4, fn4, prec4, rec4, f14 = evaluate(X_b, y, w4)
-print("\n=== CLASS_WEIGHT=BALANCED ===")
-print(f"  TP={tp4} TN={tn4} FP={fp4} FN={fn4}")
-print(f"  Precision={prec4:.3f}  Recall={rec4:.3f}  F1={f14:.3f}")
-# Output:
-# === CLASS_WEIGHT=BALANCED ===
-#   TP=10 TN=490 FP=10 FN=0
-#   Precision=0.500  Recall=1.000  F1=0.667`}
-      </CodeBlock>
-
-      <Prose>
-        The results tell a clear story. The baseline misses 3 of 10 minority examples (recall 0.70) but never false-alarms (precision 1.0) — the model is conservative about the minority class because the majority loss dominates training. SMOTE achieves perfect recall (0 FN) at the cost of 9 false positives (precision 0.526, F1 0.690). Class weighting also achieves perfect recall with 10 false positives (precision 0.500). Random undersampling achieves perfect recall but 33 false positives — it loses too much information by discarding most majority examples. On this toy problem, SMOTE and class weighting perform comparably; class weighting is cheaper (no augmented dataset, same training time) while SMOTE changes the data distribution the model sees.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <Prose>
-        The <Code>imbalanced-learn</Code> library (pip install imbalanced-learn, version 0.14+) is the standard production choice. It integrates with sklearn pipelines and provides the full zoo of resampling methods. All code below was run and the stdout is embedded verbatim.
-      </Prose>
-
-      <H3>5a. Resampling methods and imblearn Pipeline</H3>
-
-      <CodeBlock language="python">
-{`from imblearn.over_sampling  import SMOTE, ADASYN, RandomOverSampler
-from imblearn.under_sampling import RandomUnderSampler, NearMiss, TomekLinks
-from imblearn.combine        import SMOTEENN, SMOTETomek
-from imblearn.pipeline       import Pipeline as ImbPipeline  # critical import
-from sklearn.linear_model    import LogisticRegression
-from sklearn.datasets        import make_classification
-from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
-from sklearn.preprocessing   import StandardScaler
-from sklearn.metrics         import precision_score, recall_score, f1_score
-import numpy as np
-
-np.random.seed(42)
-# Imbalanced: ~5% positive rate (actual 54/1000 after make_classification)
-X, y = make_classification(
-    n_samples=1000, n_features=10, n_informative=5,
-    n_redundant=2, weights=[0.95, 0.05], random_state=42
-)
-print(f"Original class counts: {np.bincount(y)}")
-# Output: Original class counts: [946  54]
-
-# ── Resampler comparison ─────────────────────────────────────
-sm = SMOTE(random_state=42)
-X_sm, y_sm = sm.fit_resample(X, y)
-print(f"After SMOTE:      {np.bincount(y_sm)}")
-# Output: After SMOTE:      [946 946]
-
-ad = ADASYN(random_state=42)
-X_ad, y_ad = ad.fit_resample(X, y)
-print(f"After ADASYN:     {np.bincount(y_ad)}")
-# Output: After ADASYN:     [946 946]
-
-st = SMOTETomek(random_state=42)
-X_st, y_st = st.fit_resample(X, y)
-print(f"After SMOTETomek: {np.bincount(y_st)}")
-# Output: After SMOTETomek: [946 946]
-
-se = SMOTEENN(random_state=42)
-X_se, y_se = se.fit_resample(X, y)
-print(f"After SMOTEENN:   {np.bincount(y_se)}")
-# Output: After SMOTEENN:   [867 939]`}
-      </CodeBlock>
-
-      <Callout type="warning" title="Pipeline import matters">
-        Use <Code>from imblearn.pipeline import Pipeline</Code>, NOT <Code>from sklearn.pipeline import Pipeline</Code>. The imblearn version knows to apply resampling steps only on the training fold during cross-validation. The sklearn Pipeline does not call <Code>fit_resample</Code> — it will silently skip your resampler or crash.
-      </Callout>
-
-      <H3>5b. CV comparison — baseline vs SMOTE pipeline vs class_weight</H3>
-
-      <CodeBlock language="python">
-{`# ── imblearn Pipeline: resampling happens INSIDE each CV fold ──
-pipe_baseline = ImbPipeline([
-    ('scaler', StandardScaler()),
-    ('clf',    LogisticRegression(solver='lbfgs', max_iter=500, C=1.0))
-])
-pipe_smote = ImbPipeline([
-    ('scaler', StandardScaler()),
-    ('smote',  SMOTE(random_state=42)),
-    ('clf',    LogisticRegression(solver='lbfgs', max_iter=500, C=1.0))
-])
-pipe_cw = ImbPipeline([
-    ('scaler', StandardScaler()),
-    ('clf',    LogisticRegression(solver='lbfgs', max_iter=500, C=1.0,
-                                  class_weight='balanced'))
-])
-
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-scores_base  = cross_val_score(pipe_baseline, X, y, cv=cv,
-                               scoring='average_precision')
-scores_smote = cross_val_score(pipe_smote,    X, y, cv=cv,
-                               scoring='average_precision')
-scores_cw    = cross_val_score(pipe_cw,       X, y, cv=cv,
-                               scoring='average_precision')
-
-print("=== CV PR-AUC (5-fold StratifiedKF) ===")
-print(f"Baseline:              {scores_base.round(3)}  mean={scores_base.mean():.3f}")
-print(f"imblearn SMOTE pipe:   {scores_smote.round(3)}  mean={scores_smote.mean():.3f}")
-print(f"class_weight=balanced: {scores_cw.round(3)}  mean={scores_cw.mean():.3f}")
-# Output:
-# === CV PR-AUC (5-fold StratifiedKF) ===
-# Baseline:              [0.387 0.437 0.19  0.534 0.202]  mean=0.350
-# imblearn SMOTE pipe:   [0.158 0.377 0.123 0.279 0.138]  mean=0.215
-# class_weight=balanced: [0.138 0.364 0.124 0.291 0.138]  mean=0.211`}
-      </CodeBlock>
-
-      <H3>5c. Threshold moving via predict_proba</H3>
-
-      <CodeBlock language="python">
-{`# ── Threshold sweep on held-out test set ────────────────────
-X_tr, X_te, y_tr, y_te = train_test_split(
-    X, y, test_size=0.2, stratify=y, random_state=42
-)
-scaler = StandardScaler()
-X_tr_s = scaler.fit_transform(X_tr)
-X_te_s = scaler.transform(X_te)
-
-clf = LogisticRegression(solver='lbfgs', max_iter=500, C=1.0,
-                          class_weight='balanced')
-clf.fit(X_tr_s, y_tr)
-probs = clf.predict_proba(X_te_s)[:, 1]   # P(positive) for each test example
-
-print("=== Threshold sweep (class_weight=balanced, test set) ===")
-for t in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]:
-    preds = (probs >= t).astype(int)
-    p = precision_score(y_te, preds, zero_division=0)
-    r = recall_score(y_te, preds)
-    f = f1_score(y_te, preds, zero_division=0)
-    print(f"  threshold={t:.1f}  precision={p:.3f}  recall={r:.3f}  f1={f:.3f}")
-# Output:
-# === Threshold sweep (class_weight=balanced, test set) ===
-#   threshold=0.1  precision=0.065  recall=1.000  f1=0.122
-#   threshold=0.2  precision=0.081  recall=1.000  f1=0.151
-#   threshold=0.3  precision=0.105  recall=1.000  f1=0.190
-#   threshold=0.4  precision=0.147  recall=1.000  f1=0.256
-#   threshold=0.5  precision=0.167  recall=0.818  f1=0.277
-#   threshold=0.6  precision=0.179  recall=0.636  f1=0.280
-#   threshold=0.7  precision=0.200  recall=0.455  f1=0.278`}
-      </CodeBlock>
-
-      <Prose>
-        The threshold sweep reveals the precision-recall tradeoff clearly. At threshold 0.4, you capture 100% of positives with precision 0.147 — reasonable for a high-stakes screening context where missing a case is catastrophic. At 0.6, you achieve higher precision (0.179) with recall dropping to 0.636. For fraud detection, a domain expert must decide which trade-off the business can live with. The key point: never leave the threshold at 0.5 without checking. On imbalanced data, 0.5 is almost always wrong.
-      </Prose>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. SMOTE synthesis — step by step</H3>
-
-      <StepTrace
-        label="SMOTE synthesis: generating one synthetic minority example"
-        steps={[
-          {
-            label: "Step 1 — Pick a minority anchor point",
-            render: () => (
-              <Prose>
-                From the minority class (10 examples in our 1:50 dataset), pick one at random — call it x. In feature space, x lives in the region where the minority class is concentrated (around [3, 3] in our 2D example). This anchor point will be one endpoint of our interpolation segment.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Find k nearest minority neighbours",
-            render: () => (
-              <Prose>
-                Compute Euclidean distances from x to every other minority example. Sort and take the k closest (k=5 by default). These k neighbours define the local neighbourhood of x within the minority class. Only minority-class examples are considered as neighbours — the majority class is invisible to this step.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Pick one neighbour at random",
-            render: () => (
-              <Prose>
-                Randomly select one neighbour from the k candidates — call it {"x_n"}. This random selection ensures that synthesis is spread across multiple directions in feature space rather than always producing points on a single segment. With k=5, five different line segments are available per anchor point.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — Sample a random interpolation coefficient",
-            render: () => (
-              <Prose>
-                {"Draw λ ~ Uniform(0, 1). This coefficient controls where on the segment from x to x_n the synthetic point falls. λ=0 gives x itself; λ=1 gives x_n; λ=0.5 gives the midpoint. By sampling uniformly, SMOTE fills the segment with equal density."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — Create and add the synthetic point",
-            render: () => (
-              <Prose>
-                {"Compute x_syn = x + λ · (x_n − x). This is a convex combination of two minority-class examples, so it lies in the region between them. Label x_syn as minority class (y=1) and add it to the training set. Repeat for as many synthetic examples as needed to reach the target ratio. The dataset is now larger, with the minority class augmented by interpolated examples rather than duplicates."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. Confusion matrix before vs after intervention</H3>
-
-      <Prose>
-        The two heatmaps below show the confusion matrix on the original 1:50 dataset (510 examples: 500 majority, 10 minority) before any intervention, and after SMOTE oversampling (evaluated on original data). Row = true label, column = predicted label.
-      </Prose>
-
-      <Heatmap
-        label="Confusion matrix — baseline (no resampling)"
-        matrix={[[500, 0], [3, 7]]}
-        rowLabels={["True: Neg", "True: Pos"]}
-        colLabels={["Pred: Neg", "Pred: Pos"]}
-        colorScale="gold"
-      />
-
-      <Heatmap
-        label="Confusion matrix — after SMOTE (evaluated on original data)"
-        matrix={[[491, 9], [0, 10]]}
-        rowLabels={["True: Neg", "True: Pos"]}
-        colLabels={["Pred: Neg", "Pred: Pos"]}
-        colorScale="green"
-      />
-
-      <Prose>
-        The baseline achieves perfect precision (0 false positives) but misses 3 minority examples. SMOTE achieves perfect recall (0 false negatives) at the cost of 9 false positives. The choice between these two operating points depends on the application's cost matrix — not on any intrinsic property of the algorithm.
-      </Prose>
-
-      <H3>6c. Precision-recall curve — threshold tradeoff</H3>
-
-      <Plot
-        label="Precision-recall curve — baseline model on 1:50 imbalanced data"
-        xLabel="Recall"
-        yLabel="Precision"
-        series={[
-          {
-            name: "PR curve (baseline logistic regression)",
-            color: colors.gold,
-            points: [
-              [0.0, 1.0], [0.7, 1.0], [0.8, 1.0], [0.9, 1.0],
-              [1.0, 0.909], [1.0, 0.270], [1.0, 0.020],
-            ],
-          },
-          {
-            name: "No-skill baseline (prevalence = 0.020)",
-            color: colors.textMuted,
-            points: [[0.0, 0.020], [1.0, 0.020]],
-          },
-        ]}
-      />
-
-      <H3>6d. Threshold sweep: precision vs recall tradeoff</H3>
-
-      <Plot
-        label="Threshold sweep — precision and recall vs threshold"
-        xLabel="Decision threshold"
-        yLabel="Score"
-        series={[
-          {
-            name: "Recall",
-            color: colors.gold,
-            points: [
-              [0.1, 1.0], [0.2, 1.0], [0.3, 1.0], [0.4, 1.0],
-              [0.5, 0.818], [0.6, 0.636], [0.7, 0.455],
-            ],
-          },
-          {
-            name: "Precision",
-            color: colors.green,
-            points: [
-              [0.1, 0.065], [0.2, 0.081], [0.3, 0.105], [0.4, 0.147],
-              [0.5, 0.167], [0.6, 0.179], [0.7, 0.200],
-            ],
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <StepTrace
-        label="which intervention to apply"
-        steps={[
-          {
-            label: "Mild imbalance (90/10) — class_weight='balanced' is usually enough",
-            render: () => (
-              <Prose>
-                At a 9:1 ratio, the minority class is well-represented in every fold of a stratified split. The dominant issue is that the loss is still 9× dominated by the majority class. Setting <Code>class_weight='balanced'</Code> on any sklearn classifier corrects this without touching the data. This is the lowest-friction intervention: no data augmentation, no changed training set size, no pipeline changes. Start here. Evaluate with F1 and PR-AUC on the minority class. If performance is acceptable, you are done.
-              </Prose>
-            ),
-          },
-          {
-            label: "Severe imbalance (99/1) — SMOTE + class weights + threshold tuning",
-            render: () => (
-              <Prose>
-                At a 99:1 ratio, class weights alone are often insufficient — the minority class has so few examples that the gradient signal is weak even when each example is weighted 99×. SMOTE adds synthetic examples in the minority region, increasing the number of distinct gradient directions. Combine: (1) use imblearn Pipeline with SMOTE inside CV folds, (2) set <Code>class_weight='balanced'</Code> on the classifier, (3) tune the decision threshold on a validation set using the business-appropriate metric (F2 for high-recall domains, F0.5 for high-precision domains). All three levers together give the best results on standard benchmarks.
-              </Prose>
-            ),
-          },
-          {
-            label: "Extreme imbalance (99.9/0.1) — consider anomaly detection framing",
-            render: () => (
-              <Prose>
-                At 99.9:0.1 (1 positive per 1,000 negatives), supervised binary classification often fails entirely — you may have only a handful of positive examples in a dataset of 100,000. Standard SMOTE synthesizes from a tiny pool of minority examples, making interpolated points unreliable. Serious options: (1) reframe as anomaly detection (One-Class SVM, Isolation Forest, autoencoder reconstruction error) trained on majority-only data; (2) collect more minority examples (the most effective intervention); (3) use pre-trained representations (transfer learning) that compresses the feature space so the minority examples are more informative.
-              </Prose>
-            ),
-          },
-          {
-            label: "When resampling hurts — use threshold moving instead",
-            render: () => (
-              <Prose>
-                Elkan (2001) proved that cost-sensitive threshold adjustment on a well-calibrated model is decision-theoretically equivalent to resampling. If your classifier is well-calibrated (check with a calibration curve), threshold moving achieves the same result as resampling with zero training cost. Resampling can actively hurt when: (a) the minority class is noisy — SMOTE amplifies noise by synthesizing in noisy regions; (b) the classifier is a tree-based model (Random Forest, XGBoost) — these have their own built-in imbalance handling via <Code>scale_pos_weight</Code> and leaf-level sampling; (c) you need a fast prototype — class weighting is a one-line change, resampling requires an imblearn pipeline.
-              </Prose>
-            ),
-          },
-          {
-            label: "When to use focal loss — easy negatives swamping training",
-            render: () => (
-              <Prose>
-                Focal loss is the right tool when training on a dataset where the vast majority of examples are easy negatives — examples the model classifies correctly with very high confidence from early in training. In object detection, 10,000 background patches may be generated per image, and 9,990 of them are trivially classified as background after a few epochs. Standard cross-entropy treats all 10,000 equally, so 9,990 nearly-zero gradients swamp the signal from the hard 10. Focal loss {"FL(p) = -(1-p)^γ log(p)"} with γ=2 down-weights easy examples by up to 100×. Use focal loss in PyTorch or TensorFlow when: (1) you are training on raw pixel/patch data rather than pre-extracted features, (2) training loss curves show rapid early convergence followed by stagnation, (3) your dataset has a canonical hard-positive / easy-negative structure (object detection, text span extraction).
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 SMOTE computational complexity</H3>
-
-      <Prose>
-        SMOTE requires computing k nearest neighbours for each of the m minority examples. A naïve k-NN computation is O(m·n) — for each minority example, scan all n training examples to find the k closest. With m minority examples, total cost is O(m·n). For a severely imbalanced dataset with n=1,000,000 majority examples and m=10,000 minority examples, this is 10¹⁰ distance computations — expensive but feasible on a single machine with vectorized NumPy. The imbalanced-learn SMOTE implementation uses sklearn's BallTree or KDTree internally, which reduces per-query cost to O(log n) after O(n log n) preprocessing, making the total cost O(n log n + m log n). Practical to ~1M rows; beyond that, consider approximate nearest neighbours (FAISS, Annoy) for the k-NN step.
-      </Prose>
-
-      <H3>8.2 Cost of class_weight and focal loss</H3>
-
-      <Prose>
-        Class weighting adds zero overhead beyond a scalar multiply per example in the gradient computation — it is effectively free. The training set size, model size, and wall clock time are unchanged. This is why class weighting is always the first intervention to try: it costs nothing and often suffices.
-      </Prose>
-
-      <Prose>
-        Focal loss replaces the standard cross-entropy computation with {"FL(p) = -(1-p)^γ log(p)"}. This adds one exponentiation per example per forward pass — negligible overhead compared to matrix multiplications in a deep network. It is also free in practice.
-      </Prose>
-
-      <H3>8.3 Training cost of oversampling</H3>
-
-      <Prose>
-        SMOTE oversampling increases the training set size. If the original minority-to-majority ratio is r and you oversample to 1:1, the training set grows by a factor of approximately {"(1 + (1-r)/r)"} — for a 1:99 dataset, the training set roughly doubles in size. Every gradient step over the augmented dataset costs twice as much. This is linear scaling in the oversampling ratio — predictable and acceptable for moderate oversampling, but it rules out extreme oversampling on already large datasets.
-      </Prose>
-
-      <Prose>
-        Random undersampling is the opposite: it reduces training set size, which reduces per-epoch cost — but at the cost of discarding information. On a 99:1 dataset, undersampling to 1:1 discards 98% of majority examples. The reduced training set can cause the model to underfit on the majority class, leading to poor precision.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Resampling leakage — the most common mistake</H3>
-
-      <Prose>
-        The single most common mistake with SMOTE: calling <Code>SMOTE().fit_resample(X, y)</Code> on the full dataset before cross-validation, then passing the resampled data to <Code>cross_val_score</Code>. This is data leakage. The synthetic minority points in the validation fold were generated using the full minority distribution — including the minority examples that should only appear in the training fold. The SMOTE synthesizer has already "seen" validation-fold minority examples and used them as anchor points or neighbours. CV scores on leaked data are unrealistically optimistic. The fix is always to use <Code>imblearn.pipeline.Pipeline</Code>, which calls <Code>fit_resample</Code> only on the training portion of each fold. If you are not using the imblearn Pipeline, you are leaking.
-      </Prose>
-
-      <H3>9.2 SMOTE noise amplification with noisy minority</H3>
-
-      <Prose>
-        SMOTE interpolates between minority examples. If the minority class is noisy — some examples are mislabeled, are outliers, or are near the majority boundary — SMOTE will synthesize points in the noisy regions, amplifying the noise. A minority example that was mislabeled will generate k synthetic mislabeled examples. SMOTEENN and SMOTETomek were designed to mitigate this: they remove noisy synthetic points (ENN removes points whose nearest neighbours disagree with their label) or remove borderline examples from both classes (Tomek Links). If your minority class is noisy, prefer SMOTEENN over vanilla SMOTE.
-      </Prose>
-
-      <H3>9.3 Optimizing accuracy on imbalanced data — stop</H3>
-
-      <Prose>
-        Accuracy on an imbalanced dataset is almost always misleading. On a 95% majority dataset, predicting always-negative gives 95% accuracy. This is not a model; it is a constant. If you report accuracy on imbalanced data, you will be reporting a meaningless number and may convince yourself the model is good when it is useless. Always report precision, recall, F1 (or Fβ), and PR-AUC. Report confusion matrices. Never tune hyperparameters by optimizing accuracy on imbalanced data.
-      </Prose>
-
-      <H3>9.4 Threshold of 0.5 is usually wrong post-rebalancing</H3>
-
-      <Prose>
-        After SMOTE oversampling or class-weight adjustment, the model's probability estimates are no longer calibrated to the original class distribution. A model trained on a SMOTE-rebalanced 1:1 dataset predicts probabilities relative to a 50% positive rate, not the true 1% rate. Applying the 0.5 threshold will produce many false positives. After resampling, always tune the threshold on a held-out validation set using the business metric, or re-calibrate the model using Platt scaling on the original (unbalanced) validation data.
-      </Prose>
-
-      <H3>9.5 ROC-AUC instead of PR-AUC on rare-positive problems</H3>
-
-      <Prose>
-        A model on a 1:99 imbalanced dataset can achieve ROC-AUC of 0.95 while having PR-AUC of only 0.30. ROC-AUC looks good because TN is enormous — the FPR denominator is huge, making FPR look small even when many false positives exist. PR-AUC exposes this: precision collapses when the denominator (TP + FP) is dominated by FP. For any problem where positive class prevalence is below 10%, use PR-AUC as the primary evaluation metric. Use ROC-AUC as a secondary sanity check, but never as the primary metric for model selection.
-      </Prose>
-
-      <H3>9.6 Different metrics for different stakeholders</H3>
-
-      <Prose>
-        The right metric depends on the deployment context, not on a universal rule. For medical screening (cancer detection, COVID triage), missing a true case is catastrophic — maximize recall even at the cost of many false positives (F2 or F3). For fraud alerting sent to human investigators, each alert costs analyst time — false positives are expensive — so maximize precision subject to recall (F0.5). For spam filtering, falsely filtering legitimate email destroys user trust — maximize precision. For manufacturing defect detection, a missed defect ships to a customer and causes recalls — maximize recall. Never choose the metric independently of the application. Have this conversation with domain experts before writing code.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, title, and main contribution. Read in chronological order for the field's development arc.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Elkan 2001 — Cost-sensitive decision rule",
-            render: () => (
-              <Prose>
-                Elkan, C. (2001). "The Foundations of Cost-Sensitive Learning." <em>Proceedings of the 17th International Joint Conference on Artificial Intelligence (IJCAI 2001)</em>, Volume 2, pp. 973–978. Available at cseweb.ucsd.edu/~elkan/rescale.pdf. The paper that established the theoretical basis for cost-sensitive classification. The central result: for a two-class problem with misclassification costs {"c_{FP}"} and {"c_{FN}"}, the optimal decision rule predicts positive when {"P(+|x) > c_{FP} / (c_{FP} + c_{FN})"}. This means that cost-sensitive learning reduces to ordinary probability estimation plus a threshold adjustment — you do not need a special cost-sensitive algorithm, only a calibrated model and the correct threshold. The paper also proves that changing the class proportions in the training data by a known ratio is equivalent to adjusting the decision threshold by the corresponding factor.
-              </Prose>
-            ),
-          },
-          {
-            label: "Chawla, Bowyer, Hall, Kegelmeyer 2002 — SMOTE",
-            render: () => (
-              <Prose>
-                Chawla, N.V., Bowyer, K.W., Hall, L.O., and Kegelmeyer, W.P. (2002). "SMOTE: Synthetic Minority Over-sampling Technique." <em>Journal of Artificial Intelligence Research</em>, 16:321–357. arXiv:1106.1813. The original SMOTE paper. The key insight is that oversampling by replication creates decision regions that are too specific — the classifier memorizes exact duplicated points. Oversampling by interpolation between existing minority examples creates broader, more general minority decision regions. The paper showed SMOTE combined with undersampling consistently outperformed either technique alone on a suite of real-world imbalanced datasets (medical, intrusion detection, oil spill detection). This is the most-cited paper in the imbalanced learning literature with over 30,000 citations.
-              </Prose>
-            ),
-          },
-          {
-            label: "He, Bai, Garcia, Li 2008 — ADASYN",
-            render: () => (
-              <Prose>
-                He, H., Bai, Y., Garcia, E.A., and Li, S. (2008). "ADASYN: Adaptive Synthetic Sampling Approach for Imbalanced Learning." <em>2008 IEEE International Joint Conference on Neural Networks (IJCNN)</em>, Hong Kong, pp. 1322–1328. DOI: 10.1109/IJCNN.2008.4633969. Available on IEEE Xplore. ADASYN extends SMOTE with a density-aware synthesis strategy. For each minority example, compute the fraction of its k nearest neighbours that are majority-class. This ratio becomes the weight for how many synthetic examples to generate near that point — hard boundary examples get more synthetic neighbours, easy interior examples get fewer. The paper showed ADASYN improves both overall performance and reduces bias toward easy minority examples compared to SMOTE.
-              </Prose>
-            ),
-          },
-          {
-            label: "He & Garcia 2009 — Learning from Imbalanced Data (survey)",
-            render: () => (
-              <Prose>
-                He, H. and Garcia, E.A. (2009). "Learning from Imbalanced Data." <em>IEEE Transactions on Knowledge and Data Engineering</em>, 21(9):1263–1284. DOI: 10.1109/TKDE.2008.239. The canonical survey paper that organized the field. Three main families: (1) data-level methods (oversampling, undersampling, hybrid), (2) algorithm-level methods (cost-sensitive learning, class-weighted objectives, threshold moving), (3) hybrid methods (combining both families). The paper provides a systematic empirical comparison across all families and gives practical guidance on which methods to apply based on imbalance ratio and dataset size. Over 7,000 citations.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lin, Goyal, Girshick, He, Dollár 2017 — Focal Loss",
-            render: () => (
-              <Prose>
-                Lin, T.-Y., Goyal, P., Girshick, R., He, K., and Dollár, P. (2017). "Focal Loss for Dense Object Detection." <em>Proceedings of the IEEE International Conference on Computer Vision (ICCV 2017)</em>. arXiv:1708.02002. Best student paper award. Introduced focal loss: {"FL(p) = -(1-p)^γ · log(p)"}, a modification of cross-entropy that down-weights easy, well-classified examples and focuses training on hard examples. The motivation was that in one-stage object detectors like RetinaNet, the foreground-background class imbalance is extreme (~100,000 background patches per foreground object), and standard cross-entropy is dominated by trivially easy background gradient. With γ=2, easy examples (p=0.9) have their loss down-weighted by a factor of 0.01. The RetinaNet detector with focal loss matched two-stage detectors (Faster R-CNN) on COCO at faster inference speed. Focal loss is now widely used in any setting with extreme easy-negative dominance.
-              </Prose>
-            ),
-          },
-          {
-            label: "Lemaître, Nogueira, Aridas 2017 — imbalanced-learn",
-            render: () => (
-              <Prose>
-                Lemaître, G., Nogueira, F., and Aridas, C.K. (2017). "Imbalanced-learn: A Python Toolbox to Tackle the Curse of Imbalanced Datasets in Machine Learning." <em>Journal of Machine Learning Research</em>, 18(17):1–5. Available at jmlr.org/papers/v18/16-365.html. The paper introducing the imbalanced-learn library. The library provides sklearn-compatible implementations of SMOTE, ADASYN, Borderline-SMOTE, RandomOverSampler, RandomUnderSampler, NearMiss, TomekLinks, ENN, SMOTEENN, SMOTETomek, and ensemble methods. Critically, it provides an imblearn Pipeline that correctly applies resampling only to training folds during cross-validation, preventing the leakage that is the most common implementation error. This is the production-standard library for imbalanced learning in Python.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving to the next topic. The answer key is below each exercise.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        A dataset has 9,900 negatives and 100 positives. A model achieves 99% accuracy. (a) What is its recall on the positive class? (b) What metric should you use instead? (c) What is the no-skill baseline on PR-AUC for this dataset?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        {"(a) Accuracy of 99% means the model correctly classifies 9,999 of 10,000 examples. If it achieves this by predicting all-negative, then TP=0, TN=9,900, FP=0, FN=100. Recall = TP/(TP+FN) = 0/100 = 0. A model with 99% accuracy and 0% recall on the minority class is useless for its intended purpose. (b) Use PR-AUC (average precision) as the primary metric, and report precision, recall, and F1 on the positive class. ROC-AUC is also better than accuracy but is misleadingly optimistic on severely imbalanced data because TN dominates FPR. (c) A no-skill classifier that predicts the positive class with frequency equal to the base rate achieves PR-AUC equal to the prevalence: 100/10,000 = 0.01. Any real classifier must exceed 0.01 PR-AUC to be better than chance."}
-      </Callout>
-
-      <H3>Exercise 2 (math)</H3>
-      <Prose>
-        In a medical diagnosis task, the cost of a false negative (missing disease) is 10 times the cost of a false positive (unnecessary follow-up). Using Elkan's cost-sensitive decision rule, what probability threshold should you use? Show the derivation.
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        {"Let c_{FP} = 1 (one unit cost for a false positive) and c_{FN} = 10. Elkan's rule: predict positive when P(+|x) > c_{FP} / (c_{FP} + c_{FN}) = 1 / (1 + 10) = 1/11 ≈ 0.091. The decision rule: flag a patient as positive whenever the model's estimated probability of disease exceeds ~9.1%. This is far below the default 0.5 threshold, reflecting that the asymmetric cost structure demands aggressive screening. Intuitively: if a false negative costs 10× more than a false positive, you should be willing to flag 10 healthy patients to avoid missing one sick patient — which corresponds to a 1/11 threshold."}
-      </Callout>
-
-      <H3>Exercise 3 (conceptual)</H3>
-      <Prose>
-        Explain why calling <Code>SMOTE().fit_resample(X_train, y_train)</Code> outside a Pipeline before <Code>cross_val_score</Code> is a form of data leakage. What specifically is leaked, and why does it inflate CV scores?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        When you call fit_resample on X_train before CV splits, the SMOTE synthesizer uses the full training set — including examples that will later become validation folds — to find k nearest neighbours and generate synthetic points. The synthetic minority examples in what becomes the validation fold were generated using real minority examples from what becomes the training fold as anchor points and neighbours. The SMOTE synthesizer has therefore "seen" the relative positions of all minority examples, including future validation examples. The validation fold is no longer unseen: its neighbourhood structure influenced the synthetic examples it contains. This inflates CV scores because the model trains on synthetic points shaped by validation-fold information and is then evaluated on those same validation folds. The fix: use imblearn.pipeline.Pipeline, which calls fit_resample only on the training portion of each CV fold. The validation fold is held out completely from the resampling step, making it a true unseen evaluation.
-      </Callout>
-
-      <H3>Exercise 4 (applied)</H3>
-      <Prose>
-        You train a logistic regression with <Code>class_weight='balanced'</Code> on a fraud detection dataset (1% fraud rate). The model achieves PR-AUC of 0.72 on the validation set, but at threshold 0.5 the precision is only 0.08 and recall is 0.95. The fraud team can only review 200 alerts per day out of 50,000 daily transactions. How do you set the threshold, and what precision should you target?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        {"The team can review 200 of 50,000 transactions: that is a 0.4% alert rate budget. The dataset has 1% fraud rate, so 500 daily frauds. At 200 alerts per day with perfect precision, you catch 200 frauds (recall = 200/500 = 0.40). The target precision at 200 alerts is P = TP / 200. To maximize the number of frauds caught in 200 alerts, you want precision as high as possible — ideally 1.0 (all 200 alerts are real fraud). Set the threshold by computing the precision-recall curve via predict_proba and finding the threshold where the predicted positive rate equals 200/50,000 = 0.004 (0.4%). At that operating point, read off the precision. In practice: sort test examples by predicted probability descending, take the top 200, compute the fraction that are true fraud — that is your operational precision. Adjust the threshold iteratively until the daily alert volume matches the team's capacity. This is threshold tuning to meet a business constraint, not a statistical one."}
-      </Callout>
-
-      <H3>Exercise 5 (debugging)</H3>
-      <Prose>
-        A colleague trains a gradient boosted tree with <Code>scale_pos_weight=99</Code> (for a 99:1 imbalance) and then evaluates it on the test set with a threshold of 0.5. PR-AUC on the test set is 0.84, but precision at threshold 0.5 is 0.11. They report "the model has good PR-AUC but terrible precision." What is wrong, and how do you fix the evaluation?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        {"The model with scale_pos_weight=99 was trained on a reweighted objective that treats the dataset as if it were nearly balanced. Its predicted probabilities are no longer calibrated to the true 1% positive rate — they are calibrated to an effective rate closer to 50%. At threshold 0.5, the model flags many examples as positive because its internal probability estimates are inflated relative to the true base rate. This is not a model quality problem; it is a calibration and threshold problem. Fix: (1) Do not use threshold 0.5. Sweep the threshold on a held-out validation set and pick the threshold that maximizes your business metric (F-score, alert budget compliance, etc.). (2) If calibrated probabilities are needed (e.g., for risk scoring), apply Platt scaling or isotonic regression on a held-out set using the original (unbalanced) class labels to recalibrate the scores. After recalibration, the probabilities will reflect the true 1% base rate and threshold 0.5 will mean something interpretable again."}
-      </Callout>
-
-      <H3>Exercise 6 (synthesis)</H3>
-      <Prose>
-        Compare SMOTE and class weighting on the following dimensions: (a) computational cost, (b) sensitivity to noisy minority examples, (c) effect on model calibration, (d) whether they change the data the model trains on. When would you choose one over the other in production?
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        {"(a) Computational cost: SMOTE requires k-NN per minority example — O(m·n) naïve, O((n+m)log n) with a k-d tree — and increases training set size proportionally to the oversampling ratio. Class weighting adds zero computational cost beyond a scalar multiply in the gradient. For large datasets, class weighting is strictly cheaper. (b) Sensitivity to noise: SMOTE synthesizes in the neighbourhood of existing minority examples. Noisy or mislabeled minority examples generate k synthetic noisy examples, amplifying errors. Class weighting up-weights existing examples without creating new ones — noise is amplified in weight but not multiplied in count. SMOTEENN and SMOTETomek partially mitigate SMOTE noise via post-synthesis cleaning. (c) Effect on calibration: both methods produce uncalibrated probability estimates relative to the original class distribution. SMOTE changes the training distribution so probabilities reflect the oversampled ratio. Class weighting changes the loss surface so probabilities reflect the weighted class distribution. Both require threshold adjustment or recalibration after training. (d) Data modification: SMOTE physically adds synthetic examples to the training set. Class weighting does not change the data — it changes the gradient contribution of each example. Choose SMOTE when the minority class is too small for the classifier to learn a reliable boundary (very few examples); choose class weighting when the minority class has sufficient examples but the gradient is dominated by majority loss. In production, default to class_weight='balanced' first — it is one line and zero cost. Add SMOTE if class weighting is insufficient after threshold tuning."}
-      </Callout>
-
-    </div>
-  ),
+  title: 'Imbalanced Learning: SMOTE, Cost-Sensitive Learning & Rare-Event Decisions',
+  readTime: '~60 min first pass · ~110 min complete read + 60–100 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot imb-lesson">
+    <LessonIntro prerequisites={<>The train/validation distinction from <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a>, an average, and a logistic prediction. Confusion counts, decision costs and the weighted-score notation are introduced here. The preceding <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias&ndash;Variance &amp; Learning Curves</a> lesson supplies the sense in which a fitted model changes with its training data.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A laboratory has time to investigate only a small number of candidate proteins. A classifier that labels every protein &ldquo;not our target&rdquo; can be accurate most of the time and contribute nothing. You will move a gate through an editable queue of scored records and watch precision get <em>worse</em> as the gate rises, cross two expected-cost lines, turn a weighted score back into the probability it came from, generate a synthetic point that lands exactly on an observed member of the other class, and then read a real five-procedure comparison on {provenance.studyRows.toLocaleString('en-US')} yeast proteins in which the cost winner, the ranking winner and the top-ten winner are three different answers. Every investigation asks for a recorded prediction before it calculates anything, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <div className="imb-route"><Prose><strong>First pass.</strong> Follow sections 1&ndash;7, including the small score queue, the cost calculation, the weighted-probability example and the geometric SMOTE investigation. Section 7 joins them in a complete observed-data study with actual outcomes. Try practice 1&ndash;7 before opening solutions. Section 8 and practice 8&ndash;10 are deeper branches. You need the earlier train/validation distinction, averages and a logistic prediction; confusion counts, costs and the new probability notation are introduced here.</Prose></div>
+
+    <Prose>A laboratory has time to investigate only a small number of candidate proteins. Most belong to common cellular locations; the location of interest is rare. A classifier that labels every protein &ldquo;not our target&rdquo; can be accurate most of the time and still contribute nothing to the investigation. Yet flagging everything is not a solution either: it consumes the entire laboratory budget.</Prose>
+    <Prose>The preceding <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias&ndash;Variance &amp; Learning Curves</a> lesson asked how a fitted model changes with its training data. Here we add another question: <strong>which observations and mistakes should influence the learning procedure, and which action should follow a score?</strong> Changing training data, changing a loss and changing a decision threshold are three different operations.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>In <strong>class imbalance</strong>, the target classes occur at different frequencies in the dataset. We call the event of interest positive and the other class negative. Positive does not mean good, and it need not always be the smaller class. The <strong>prevalence</strong> <Math>{'\\pi'}</Math> is the positive fraction in the population or sample being discussed.</Prose>
+    <Prose>If 20 of 1,000 examples are positive, an always-negative baseline gets {baseline.tn} correct: {num(100 * baseline.accuracy)}% accuracy, zero detected positives. Now consider a model that detects {model.tp} positives, misses {model.fn}, and raises {model.fp} false alarms. It gets {model.tp + model.tn} correct &mdash; slightly less accurate &mdash; but may be more useful if detecting the event matters enough.</Prose>
+    <LessonTable caption="The four cells of one confusion table, for the model that detects fourteen of twenty positives" headers={['Actual class', 'Predicted negative', 'Predicted positive']} rows={[
+      ['Negative', `TN = ${model.tn}`, `FP = ${model.fp}`],
+      ['Positive', `FN = ${model.fn}`, `TP = ${model.tp}`],
+    ]} />
+    <CaseFlowFigure />
+    <Prose>Accuracy still has a precise meaning: the fraction of correct class decisions. It is a valid objective when every error has the same cost and the assessment population matches the intended task. It simply does not answer every rare-event decision problem. A constant predictor is a real baseline, and in a problem with indistinguishable classes and equal error costs it can even be optimal.</Prose>
+    <Prose>Nor does the ratio tell you how much information is available. A 99:1 dataset might contain one positive and 99 negatives, or 1,000 positives and 99,000 negatives. The ratio is the same; the possibilities for fitting, validation and discovering positive subgroups differ greatly. Important questions include class overlap, label quality, rare subtypes, sample dependence, feature availability and the cost of each action. No universal 10%, 1% or 0.1% boundary selects the correct algorithm.</Prose>
+    <Callout title="Two different problems that share a word">
+      Imbalance in training and a change in deployment prevalence are also different problems. Cross-entropy can learn the correct posterior from naturally imbalanced data under suitable model, sampling and optimization conditions. Rebalancing is a modeling choice to investigate; it is not a required repair to a probability law.
+    </Callout>
+
+    <H2>{headings[1]}</H2>
+    <H3>Counts become decision-specific measurements</H3>
+    <Prose>From the four cells above:</Prose>
+    <MathBlock>{'\\begin{gathered}\\text{precision}=\\frac{TP}{TP+FP}\\\\[4pt]=\\frac{14}{32}=.4375,\\\\[8pt]\\text{recall}=\\frac{TP}{TP+FN}\\\\[4pt]=\\frac{14}{20}=.7.\\end{gathered}'}</MathBlock>
+    <Prose>Precision asks how many selected cases were positive. Recall asks how many actual positives were selected. Specificity is TN/(TN+FP), which is {model.tn}/{model.negatives} = {num(model.specificity)}; the false-positive rate, FPR, is 1&minus;specificity, here {num(model.falsePositiveRate)}. <strong>Balanced accuracy</strong> is the average of positive recall and specificity for this binary task, {num(model.balancedAccuracy)}. It gives the two actual classes equal aggregate weight, unlike ordinary accuracy&rsquo;s prevalence weighting.</Prose>
+    <Prose>The harmonic summary is</Prose>
+    <MathBlock>{'\\begin{gathered}F_1=\\frac{2TP}{2TP+FP+FN},\\\\[8pt]F_\\beta=\\\\[2pt]\\frac{(1+\\beta^2)TP}{(1+\\beta^2)TP+\\beta^2FN+FP}.\\end{gathered}'}</MathBlock>
+    <Prose>For the example, F1 = 28/52 &asymp; {num(model.f1)}. Increasing <Math>{'\\beta'}</Math> emphasizes missed positives more strongly in this formula. It does not mean &ldquo;a false negative costs <Math>{'\\beta'}</Math> currency units&rdquo; or supply a universal monetary-cost conversion. F scores also ignore true negatives. If actual costs or capacity are available, evaluate those directly rather than assuming a particular <Math>{'F_\\beta'}</Math> encodes them.</Prose>
+    <Prose>When nothing is selected, precision&rsquo;s denominator is zero. That mathematical quantity is undefined; software may report zero by a declared convention. Recall is undefined if the assessment contains no actual positives. Show the counts and the convention rather than silently adding a tiny denominator and pretending the number has its ordinary interpretation.</Prose>
+
+    <H3>A higher threshold does not guarantee higher empirical precision</H3>
+    <Prose>A score-based classifier selects cases whose score is at least a threshold <Math>{'t'}</Math>. As <Math>{'t'}</Math> rises, the selected set shrinks. The number of true positives cannot increase, so recall cannot increase on the same labeled cases. Precision can move either way because the removed cases might be positive or negative.</Prose>
+    <Prose>Consider descending scores .9, .8, .7 with actual labels 0, 1, 1:</Prose>
+    <LessonTable caption="One ranking, three gates: precision falls as the gate rises" headers={['Threshold, with score≥t selected', 'Selected actual labels', 'Precision', 'Recall']} rows={[
+      ['.7', '0, 1, 1', '2/3', '1'],
+      ['.8', '0, 1', '1/2', '1/2'],
+      ['.9', '0', '0', '0'],
+    ]} />
+    <Prose>The highest-ranked case is a false alarm. Increasing the threshold makes precision worse throughout this particular queue. That is not an implementation error; it is what the actual ranking does.</Prose>
+    <ScoreQueueLab />
+    <Prose>The <a href="https://scikit-learn.org/stable/modules/classification_threshold.html">threshold-tuning guide</a> separates fitted scores from actions. Moving a threshold alone leaves the scores, their ranking and their ROC/PR curves unchanged; it selects an operating point on those curves.</Prose>
+
+    <H3>Why prevalence changes what a false-positive rate means operationally</H3>
+    <Prose>ROC plots recall/TPR against FPR. Precision&ndash;recall plots recall against precision. If the same population has prevalence <Math>{'\\pi'}</Math>, then</Prose>
+    <MathBlock>{'\\begin{gathered}\\text{precision}=\\\\[2pt]\\frac{\\pi\\,TPR}{\\pi\\,TPR+(1-\\pi)FPR}.\\end{gathered}'}</MathBlock>
+    <Prose>The numerator is the fraction of all cases that are true positives; the second denominator term is the fraction that are false positives. At <Math>{'\\pi=.01'}</Math>, TPR = {flowA.tpr} and FPR = {flowA.fpr}, {flowA.population.toLocaleString('en-US')} cases contain {flowA.positives} positives: {flowA.tp} are detected, and {flowA.fp} of {flowA.negatives.toLocaleString('en-US')} negatives raise false alarms. Precision is {flowA.tp}/{flowA.alerts} &asymp; {num(flowA.precision)}. A 1% false-positive rate can create more false alarms than true detections.</Prose>
+    <Prose>If prevalence falls to {flowB.prevalence} <strong>while the within-class score distributions stay fixed</strong>, the same TPR/FPR gives precision &asymp; {num(flowB.precision)}. The ROC operating point stays the same under that assumption; the workload composition changes. More negatives do not mechanically inflate ROC-AUC if class-conditional score distributions are unchanged. ROC and PR emphasize different quantities, and a useful report may include both plus counts at the chosen operating point. There is no mathematically privileged 10% prevalence cutoff between them. <a href="https://mark.goadrich.com/articles/davisgoadrichpr.pdf">Davis and Goadrich</a> explain their relationship and why interpolation in PR space needs care.</Prose>
+    <PrevalenceFigure />
+    <Prose><strong>Average precision</strong>, AP, summarizes a scored ranking by weighting precision at each distinct score threshold by the increment in recall:</Prose>
+    <MathBlock>{'AP=\\sum_k (R_k-R_{k-1})P_k.'}</MathBlock>
+    <Prose>For descending labels 1, 0, 1, 0 with distinct scores, recall increases at ranks 1 and 3, each by 1/2. AP = (1/2)&middot;1 + (1/2)&middot;(2/3) = 5/6 &asymp; {num(ladderQueue.value)}. Ties are handled as a score group, not by inventing an order using labels. Scikit-learn&rsquo;s <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html">AP implementation</a> uses this noninterpolated convention; a trapezoidal area under a drawn PR curve is generally different. Name the computation rather than using &ldquo;PR-AUC&rdquo; ambiguously.</Prose>
+    <Prose>A constant-score predictor has AP equal to sample prevalence when positives are present. A random independent ranking has precision equal to prevalence at the population level; an individual finite ranking&rsquo;s AP need not equal prevalence exactly. AP is a ranking summary, not performance at a particular review budget, a calibration measure, or a direct cost objective.</Prose>
+
+    <H2>{headings[2]}</H2>
+    <Prose>Suppose <Math>{'p=P(Y=1\\mid x)'}</Math> is the posterior for the intended deployment population. For a simple binary decision, declare zero cost for correct decisions, cost <Math>{'c_{FP}'}</Math> for selecting a negative and <Math>{'c_{FN}'}</Math> for missing a positive. Then</Prose>
+    <MathBlock>{'\\begin{gathered}R(\\text{select}\\mid x)=(1-p)\\,c_{FP},\\\\[6pt]R(\\text{skip}\\mid x)=p\\,c_{FN}.\\end{gathered}'}</MathBlock>
+    <Prose>Select when the first risk is no greater than the second. With positive costs,</Prose>
+    <MathBlock>{'p\\geq\\frac{c_{FP}}{c_{FP}+c_{FN}}.'}</MathBlock>
+    <Prose>At <Math>{'c_{FP}=1'}</Math>, <Math>{'c_{FN}=12'}</Math>, the threshold is 1/13 &asymp; {num(risk.cutoff)}. For a case with <Math>{'p=.1'}</Math>, selecting costs {num(risk.selectRisk)} in expectation and skipping costs {num(risk.skipRisk)}, so selecting is preferable under this declared model. The numerical costs are teaching assumptions, not laboratory prices or medical guidance. If costs are equal, .5 is the correct threshold for the true posterior, however rare the positive class is.</Prose>
+    <CostCrossingLab />
+    <Prose>The full rule is broader: for action <Math>{'a'}</Math> and actual class <Math>{'y'}</Math>, choose the action minimizing <Math>{'\\sum_y C(a,y)P(y\\mid x)'}</Math>. Correct actions may have nonzero costs; &ldquo;send to a human reviewer&rdquo; can be another action; costs can vary by case. Use one consistent accounting baseline. The <a href="https://cseweb.ucsd.edu/~elkan/rescale.pdf">Elkan paper</a>, especially section 1, explains why casually mixing lost opportunities and expenditures can create an incoherent cost matrix.</Prose>
+    <Prose>The optimality calculation assumes the probabilities used in it match the information and population under discussion. A calibration chart checks average observed frequency among similar scores; it does not prove that a score equals the full-feature posterior for every subgroup. With estimated or misspecified scores, a validation-selected decision rule can be useful, but a theorem about the true posterior is not a guarantee for that estimator.</Prose>
+
+    <H3>A review budget is not the same as an error-cost ratio</H3>
+    <Prose>If exactly <Math>{'k'}</Math> cases can be reviewed and each detected positive has equal value, selecting the <Math>{'k'}</Math> largest <strong>true posterior probabilities</strong> maximizes expected detections, since the expectation is the sum of their probabilities. With estimated scores, evaluate the resulting top-<Math>{'k'}</Math> procedure on appropriate assessment cases. If value, harm or review time differs by case, rank by the relevant expected benefit and solve the actual constrained allocation problem; a plain probability ranking need not be optimal.</Prose>
+    <Prose>Top-<Math>{'k'}</Math> and a fixed threshold differ. A fixed threshold can produce varying daily workload. Top-<Math>{'k'}</Math> fixes capacity but its cutoff moves with the day&rsquo;s scores. Declare what happens when scores tie across the capacity boundary &mdash; such as a reproducible label-independent tie breaker or a randomized policy. Do not use unseen true labels to break ties. Precision at <Math>{'k'}</Math> and recall at <Math>{'k'}</Math> describe the resulting workload, while AP aggregates many possible cutoffs.</Prose>
+
+    <H2>{headings[3]}</H2>
+    <H3>Follow the weighted loss to its gradient</H3>
+    <Prose>Logistic prediction uses margin <Math>{'z=b+x^{\\top}w'}</Math> and score <Math>{'q=\\sigma(z)=1/(1+e^{-z})'}</Math>. For <Math>{'y\\in\\{0,1\\}'}</Math>, binary log loss is <Math>{'-y\\log q-(1-y)\\log(1-q)'}</Math>. Its derivative with respect to <Math>{'z'}</Math> is <Math>{'q-y'}</Math>. Weighting observation <Math>{'i'}</Math> by a positive <Math>{'a_i'}</Math> gives the normalized objective</Prose>
+    <MathBlock>{'\\begin{gathered}J(b,w)=\\frac{1}{A}\\sum_i a_i\\,\\ell_i\\\\[4pt]+\\frac{\\lambda}{2}\\lVert w\\rVert_2^2,\\\\[6pt]\\ell_i=\\log(1+e^{z_i})-y_iz_i,\\\\[4pt]A=\\sum_i a_i.\\end{gathered}'}</MathBlock>
+    <Prose>The intercept is unpenalized. Therefore</Prose>
+    <MathBlock>{'\\begin{gathered}\\nabla_w J=\\frac1A\\sum_i a_i(q_i-y_i)x_i\\\\[4pt]+\\lambda w,\\\\[6pt]\\partial_b J=\\frac1A\\sum_i a_i(q_i-y_i).\\end{gathered}'}</MathBlock>
+    <Prose>The same residual still appears; its contribution is scaled. For two observations <Math>{'x=0,y=0'}</Math> and <Math>{'x=2,y=1'}</Math>, initial <Math>{'b=w=0'}</Math> gives <Math>{'q=.5'}</Math> for both. With weights 1 and 3, the intercept gradient is ({num(step.rows[0].interceptContribution)} {num(step.rows[1].interceptContribution)})/{num(step.totalWeight)} = {num(step.interceptGradient)} and the coefficient gradient is (0 &minus; 3)/{num(step.totalWeight)} = {num(step.coefficientGradient)}. A step of size {fixtures.stepRate} gives <Math>{'b=.1'}</Math>, <Math>{'w=.3'}</Math>, with new scores about {num(step.scoresAfter[0])} and {num(step.scoresAfter[1])}. These are a single illustrative step, not a converged model or a new accuracy claim.</Prose>
+    <WeightedStepFigure />
+    <Prose>The common balanced-class rule uses <Math>{'a_c=n/(K n_c)'}</Math>, where <Math>{'K'}</Math> is the number of observed classes and <Math>{'n_c'}</Math> the count of class <Math>{'c'}</Math> in the <strong>fitting</strong> data. Each class then contributes equal total weight. This is a convention, not an estimate of real-world error costs. Weighting after a resampler has already created equal class counts may make &ldquo;balanced&rdquo; weights all one; using old weights afterward instead creates another objective. Check which counts the estimator actually receives.</Prose>
+    <Prose>Our normalization divides by total weight <Math>{'A'}</Math>, so multiplying every <Math>{'a_i'}</Math> by the same factor leaves the full objective unchanged. A library that divides by <Math>{'n'}</Math> or uses a summed loss can change its effective regularization under that scaling unless its penalty is adjusted. The <a href="/learn/path/full-curriculum/regularization-l1-l2-elastic-net-dropout?module=classical-ml">Regularization lesson</a> explains why these objective conventions matter when comparing <Math>{'C'}</Math> or <Math>{'\\lambda'}</Math>.</Prose>
+
+    <H3>Derive the population score instead of calling it calibrated</H3>
+    <Prose>At an input with true positive probability <Math>{'p'}</Math>, positive class weight <Math>{'w_+'}</Math> and negative weight <Math>{'w_-'}</Math> give expected loss</Prose>
+    <MathBlock>{'\\begin{gathered}\\ell(q)=-w_+p\\log q\\\\[4pt]-w_-(1-p)\\log(1-q).\\end{gathered}'}</MathBlock>
+    <Prose>For <Math>{'0<p<1'}</Math> and positive weights, set the derivative to zero:</Prose>
+    <MathBlock>{'\\begin{gathered}-\\frac{w_+p}{q}+\\frac{w_-(1-p)}{1-q}=0\\\\[6pt]\\Longrightarrow\\\\[4pt]q^*=\\frac{w_+p}{w_+p+w_-(1-p)}.\\end{gathered}'}</MathBlock>
+    <Prose>The second derivative is positive, so this is the unique interior minimum. Endpoint probabilities give corresponding endpoints. At <Math>{'p=.1'}</Math>, <Math>{'w_+=9'}</Math>, <Math>{'w_-=1'}</Math>, <Math>{'q^*=.5'}</Math>. It does <strong>not</strong> mean a 50% event probability in the original population. Solving backward gives</Prose>
+    <MathBlock>{'p=\\frac{w_-q^*}{w_+(1-q^*)+w_-q^*}.'}</MathBlock>
+    <Prose>Thresholding the ideal weighted score at .5 is equivalent to thresholding <Math>{'p'}</Math> at <Math>{'w_-/(w_++w_-)'}</Math>, which is {num(optimum.equivalentProbabilityCutoff)} here. If the weights equal the intended FP/FN cost roles &mdash; <Math>{'w_-=c_{FP}'}</Math>, <Math>{'w_+=c_{FN}'}</Math> &mdash; this reproduces the simple cost decision under these population assumptions. Inverse-frequency weights generally express another cost preference. Restricted models, regularization and finite optimization can also change the ranking, not merely the intercept; inverse algebra does not automatically calibrate an arbitrary fitted estimator.</Prose>
+    <WeightedScoreLab />
+
+    <H3>Duplication and weights share a limited equivalence</H3>
+    <Prose>Repeating a row <Math>{'c_i'}</Math> times is algebraically identical to integer weight <Math>{'c_i'}</Math> in an additive full-data loss <strong>with matching normalization and regularization</strong>. Random oversampling gives random repetition counts, so it does not exactly equal uniform class weighting in every run. Mini-batch composition, early stopping and stateful operations can break a practical training equivalence even when full-data objectives agree. Weighting can save storage, but neither weighting nor duplication creates independent new evidence about an unseen positive subtype.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose><strong>Random oversampling</strong> samples existing minority rows with replacement. <strong>Random undersampling</strong> retains a chosen subset of majority rows. The first changes multiplicities; the second can discard valuable coverage. Neither requires generating a physically new input. A target ratio is tunable and need not be 1:1.</Prose>
+    <Prose><strong>SMOTE</strong>, Synthetic Minority Over-sampling Technique, adds interpolated feature vectors. For a minority anchor <Math>{'x_i'}</Math>, find <Math>{'k'}</Math> other minority neighbors under a declared distance, choose one <Math>{'x_j'}</Math>, and generate</Prose>
+    <MathBlock>{'\\begin{gathered}x_{\\mathrm{new}}=x_i+u(x_j-x_i),\\\\[4pt]u\\sim\\operatorname{Uniform}[0,1].\\end{gathered}'}</MathBlock>
+    <Prose>Use <strong>one scalar <Math>{'u'}</Math> for the entire vector</strong> in this line-segment construction. Independent fractions per coordinate generally generate a different shape. Label the synthetic vector as the targeted minority class, then train the chosen classifier on the augmented training data. Ordinary SMOTE&rsquo;s neighbor search does not consult a fitted classifier or ask whether majority examples occupy the segment. See the <a href="https://arxiv.org/pdf/1106.1813">original paper, section 4</a> and the <a href="https://imbalanced-learn.org/stable/over_sampling.html#mathematical-formulation">current sample-generation definition</a>.</Prose>
+    <Prose>For <Math>{'x_i=(0,0)'}</Math>, <Math>{'x_j=(2,0)'}</Math>, <Math>{'u=.5'}</Math>, the generated point is ({num(smote.generated.x)}, {num(smote.generated.y)}). If an observed majority point already sits at that coordinate &mdash; and in the investigation below it does &mdash; the interpolation produces a conflicting label at exactly that location. The two positive endpoints do not prove that the segment is positive. This is why synthesis can help one geometry and hurt another; many generated rows are not many independent confirmations.</Prose>
+    <SmoteGeometryLab />
+    <Prose>Distance is part of the model. One large-scale input can dominate Euclidean neighbors; fit a suitable scaler inside the training boundary. Interpolating standardized coordinates and then applying the inverse affine scaler produces a segment in source coordinates, but scaling can change <strong>which neighbor is chosen</strong>. More neighbors may cross separate minority clusters; fewer can make synthesis narrow or repetitive. With <Math>{'m'}</Math> minority rows, <Math>{'k'}</Math> must be at most <Math>{'m-1'}</Math> when self-neighbors are excluded. A fold with only one minority observation cannot support ordinary distinct-neighbor SMOTE.</Prose>
+    <Prose>Categories, one-hot constraints and biological validity require care. A halfway category code is not a new valid category. SMOTENC uses different categorical handling for mixed data, and SMOTEN targets all-categorical data; neither guarantees that every combined feature pattern is physically realizable. Domain-valid augmentations can be preferable when there is a meaningful mechanism for generating input variations.</Prose>
+
+    <H3>A complete-label row must remain a complete-label row</H3>
+    <Prose>In a multi-label task, suppose observed feature 0 has labels (A=1, B=0), while feature 2 has (A=1, B=1). SMOTE for A might place a synthetic feature at 1 and assign A=1. What is its B label? The interpolation has supplied no answer. Setting B=0, copying one endpoint, taking the union, or using a missing-label policy are different assumptions. Concatenating independently synthesized per-label arrays and pretending their rows still identify the same entities is invalid.</Prose>
+    <Prose>Randomly duplicating an observed <strong>whole row with its entire label vector</strong> preserves that observation&rsquo;s label alignment, though it changes the frequency of every co-occurring label. A justified multilabel augmentation needs an explicit joint label/missing-label rule and appropriate validation. The earlier <a href="/learn/path/full-curriculum/multi-label-multi-output-learning?module=classical-ml">Multi-Label &amp; Multi-Output Learning</a> supplies the task semantics; this lesson supplies the resampling boundary.</Prose>
+
+    <H3>Complete teaching functions</H3>
+    <Prose>Save the following as <Code>{imbalanceExamples.models.file}</Code>. It requires NumPy and SciPy. The optimizer minimizes the exact normalized objective from section 4; <Code>np.logaddexp</Code> avoids unstable direct exponentials, and <Code>expit</Code> supplies the sigmoid. The interpolation routine uses a small, explicit distance matrix so its neighbor identities can be checked. It is appropriate for this lesson&rsquo;s small minority set, not a claim of a scalable million-row implementation.</Prose>
+    <Program example={imbalanceExamples.models}>
+      <Prose>The printed midpoint is the declared construction from above. The three seeded samples are generated by running this program, not copied from another RNG implementation: each one lies on a segment between two of the three supplied minority points, and all three sit inside the triangle those points span. Inputs to <Code>fit_logistic</Code> in the complete study below are finite, aligned binary data with positive weights and both classes present. The short teaching function relies on that setup; a reusable public library should enforce its complete input contract.</Prose>
+    </Program>
+
+    <H2>{headings[5]}</H2>
+    <Prose>A protected assessment should contain appropriate <strong>observed</strong> cases from the population and unit you want to evaluate. Do not balance it just to make metrics look pleasant. A case-control evaluation sample can still be useful with an explicit design and valid reweighting, but its raw precision is not automatically deployment precision.</Prose>
+    <Prose>For each training/validation split, fit learned preprocessing on the training portion, transform it, generate or select training rows, and fit the classifier. Transform validation inputs using the fitted preprocessing and predict those original rows. No synthetic validation rows, validation-neighbor search or validation-driven cleaning enters that fit.</Prose>
+    <PipelineFigure />
+    <Prose>Using an <Code>imblearn.pipeline.Pipeline</Code> is a convenient way to implement training-only resampling in cross-validation. A correct manual fold loop can also do it. Standard sklearn pipelines require compatible transform interfaces and do not magically make a <Code>fit_resample</Code> object work. A pipeline cannot repair duplicated entities split across partitions or a target that was unavailable at prediction time. The <a href="https://imbalanced-learn.org/stable/common_pitfalls.html">resampling pitfalls example</a> illustrates both information leakage and the changed evaluation population caused by resampling before a split.</Prose>
+    <Prose>Thresholds, resampling ratios, <Math>{'k'}</Math>, class weights, model settings and preprocessing are all choices if selected using scores. Keep them within development. A threshold can be tuned on a separate set or cross-validated out-of-fold predictions. Do not tune it on a set later described as an untouched test. With few positives, one moved case can make a large difference; stratification helps preserve class counts but does not produce independent positive evidence or replace a needed group/time split.</Prose>
+
+    <H2>{headings[6]}</H2>
+    <H3>Define the source and the learning task</H3>
+    <Prose>The <a href={provenance.doi}>UCI Yeast collection</a> contains {provenance.sourceRows.toLocaleString('en-US')} rows describing protein localization, with eight numeric descriptors and a sequence identifier. We define the positive target as <strong>{provenance.positiveLabel}</strong>, membrane protein with an uncleaved signal, versus the other recorded locations. The source has {provenance.positives} {provenance.positiveLabel} rows. These are historical engineered sequence descriptors, not modern raw-sequence embeddings or a wet-laboratory trial. This page serves its own unchanged copy, <a href={provenance.file} download>{provenance.file.split('/').pop()}</a>, {provenance.bytes.toLocaleString('en-US')} bytes, SHA-256 <Code>{provenance.sha256}</Code>, licensed <a href={provenance.licenseUrl}>{provenance.license}</a>, beside its <a href={provenance.attribution}>attribution</a>.</Prose>
+    <Prose>The actual source contains {provenance.duplicateIdentifiers} repeated sequence IDs. Each repeated ID has exactly identical descriptors and label. We preserve the whole offline source file, verify this identity, and retain the first occurrence of each ID for the derived analysis. That leaves {provenance.studyRows.toLocaleString('en-US')} distinct protein IDs and {provenance.positives} positives. This documented duplicate rule prevents the same observed protein from crossing a split; it does not discard errors after seeing predictions. Protein-family similarity may still create dependence, and the source supplies no family grouping for assessing a new family or species.</Prose>
+    <Prose>We predeclare six score inputs: {provenance.names.map(name => <Code key={name}>{name}</Code>).reduce((all, item, index) => (index === 0 ? [item] : [...all, ', ', item]), [])}. Respectively, they concern signal-sequence recognition by two methods, membrane-spanning-region prediction, mitochondrial versus nonmitochondrial amino-acid content, vacuolar/extracellular content, and nuclear-localization signals. We leave out binary HDEL indicator <Code>erl</Code> and targeting-signal field <Code>pox</Code> to keep this <strong>continuous-score interpolation experiment</strong> explicit. Their omission is not a claim of predictive uselessness. Interpolating these scores creates a feature-space training example; it does not manufacture a biologically valid protein sequence. The source does not supply physical measurement units for these descriptor scores.</Prose>
+    <Prose>The deterministic split retains source-row IDs:</Prose>
+    <LessonTable caption="Four disjoint roles covering every retained protein" headers={['Role', 'Distinct protein records', `${provenance.positiveLabel} positives`, 'What it may influence']} rows={Object.entries(roles).map(([name, entry]) => [
+      name.charAt(0).toUpperCase() + name.slice(1), String(entry.records), String(entry.positives), entry.influences,
+    ])} />
+    <Prose>The outer development split uses seed {study.splitSeeds.development}, fitting split {study.splitSeeds.fitting} and tuning/inspection split {study.splitSeeds.roles}, with stratification at each step. We fit five declared logistic procedures: original data, balanced class weights, random oversampling, random undersampling and ordinary SMOTE. The six inputs, <Math>{'\\lambda=.01'}</Math>, unpenalized intercept, optimizer and preprocessing fit remain fixed. The final comparison contains five fits, with no search for a favorable model family. The scaler fits the original {roles.fitting.records} fitting records for all methods; resampling changes the classifier&rsquo;s training input afterward.</Prose>
+    <Prose>There are {study.fittingNegatives} negative and {study.fittingPositives} positive fitting records. Balancing by random duplication or SMOTE adds {study.addedMinorityRows} positives, yielding {study.balancedRows.toLocaleString('en-US')} rows. Random undersampling keeps {study.fittingPositives} negatives and all {study.fittingPositives} positives, yielding {study.undersampledRows} rows. Balanced weights leave {roles.fitting.records} stored rows and assign positive weight 600/42 = {num(balanced.weights[1])} and negative weight 600/1158 = {num(balanced.weights[0])}.</Prose>
+    <Prose>For a concrete decision comparison, use <strong>hypothetical</strong> FP cost {study.costFalsePositive} and FN cost {study.costFalseNegative}, with zero correct-decision cost. For each fitted model, evaluate all distinct tuning-score thresholds plus a no-alert policy, choose minimum tuning cost, and break ties toward the higher threshold. This selected score threshold is not claimed to be the posterior formula 1/13: the scores are imperfect and some were fitted to different objectives.</Prose>
+
+    <H3>Run the complete study</H3>
+    <Prose>Save as <Code>{imbalanceExamples.study.file}</Code> beside <Code>{imbalanceExamples.models.file}</Code> and the provided <Code>yeast.data</Code>. Setup: Python, NumPy, SciPy and scikit-learn. The author calculation ran with Python 3.12.14, NumPy 2.3.5, SciPy 1.18.1 and sklearn 1.9.1. Exact split, convergence, donor choices, predictions and thresholds are retained in the author record.</Prose>
+    <Program example={imbalanceExamples.study}>
+      <Prose>The reserved IDs are returned to make ownership explicit but never passed to prediction. Each procedure keeps its original fitted coefficients while its threshold is tuned; we do not refit on tuning data afterward and silently assume the score scale stays identical. A later production refit needs a compatible complete threshold/calibration protocol. Every number this program prints is recomputed independently from the saved scores by this lesson&rsquo;s verifiers, and the table below is read from those same saved scores.</Prose>
+    </Program>
+
+    <H3>Read the outcomes that actually occurred</H3>
+    <Prose>The following numbers are from the retained author calculation, recomputed here from the saved per-record scores:</Prose>
+    <LessonTable caption="Five procedures, three different winners" headers={['Procedure', 'Selected score threshold', 'Inspection TP / FP / FN / TN', 'Inspection cost FP+12 FN', 'AP', 'Top 10 positives']} rows={outcomes.map(row => [
+      row.method.label,
+      num(Number(row.method.chosenThreshold.toFixed(6))),
+      `${row.tuned.tp} / ${row.tuned.fp} / ${row.tuned.fn} / ${row.tuned.tn}`,
+      String(costOfRow(row)),
+      num(Number(row.method.averagePrecision.toFixed(6))),
+      String(row.queue.positives),
+    ])} />
+    <Prose>The always-negative baseline has {roles.inspection.records - roles.inspection.positives}/{roles.inspection.records} = {num(100 * study.baselineAccuracy)}% accuracy, recall 0 and cost {study.baselineCost}. Its precision is undefined. At threshold .5, the original fitted model makes {originalRow.atHalf.fp} false alarm and detects {originalRow.atHalf.tp === 0 ? 'none' : originalRow.atHalf.tp}, for cost {costOf(originalRow.atHalf, study.costFalsePositive, study.costFalseNegative)}; the tuned threshold improves its realized cost to {costOfRow(originalRow)}. The SMOTE procedure&rsquo;s tuned result has cost {costOfRow(smoteRow)} rather than its default-threshold cost {costOf(smoteRow.atHalf, study.costFalsePositive, study.costFalseNegative)}. Threshold selection and resampling have played different roles.</Prose>
+    <OutcomesFigure />
+    <Prose>{bestCost.method.label} has the lowest realized tuned cost among these five; {bestAp.method.label.toLowerCase()} has the highest AP; {topTenWinners.map(row => row.method.label.toLowerCase()).join(', ')} find {bestTopTen} positives in their top ten, while the other two find {smallest(outcomes.map(row => row.queue.positives))}. Those are different questions with different winners. Neither the AP ranking nor the cost ranking certifies a universally best method. With only {roles.inspection.positives} inspection positives, a single additional detection changes recall by 1/{roles.inspection.positives} &asymp; {num(1 / roles.inspection.positives)}. The method/settings were not changed after seeing this table, and the {roles.reserve.records} reserved proteins remain unscored.</Prose>
+    <Prose>The original model&rsquo;s inspection Brier score, mean(<Math>{'q-y'}</Math>)&sup2;, is {num(Number(originalRow.method.brierScore.toFixed(6)))}; balanced weighting gives {num(Number(weightedRow.method.brierScore.toFixed(6)))} and SMOTE {num(Number(smoteRow.method.brierScore.toFixed(6)))}. The smaller original value does not prove perfect calibration: Brier also reflects resolution and the event prevalence. It does show why a larger rare-class score or better chosen action rule is not automatically a better original-population probability estimate. The later <a href="/learn/path/full-curriculum/calibration-conformal-prediction?module=classical-ml">Calibration &amp; Conformal Prediction</a> develops probability assessment and calibration in full.</Prose>
+    <TuningQueueLab />
+    <Checkpoint prompt={`SMOTE reaches the lowest realised cost, ${costOfRow(bestCost)}, while random oversampling reaches the highest average precision, ${num(Number(bestAp.method.averagePrecision.toFixed(6)))}. A colleague proposes reporting average precision as the headline result, because it is the measure on which their favoured method wins. What has changed about the comparison if you agree?`}>
+      <Prose>The objective was declared before the fits: minimum realized cost at {study.costFalsePositive} per false alarm and {study.costFalseNegative} per missed positive. Choosing a different objective <em>after</em> reading the outcome table is a new selection step performed with knowledge of the results, so the inspection partition is no longer an untouched assessment of that newly chosen rule. The honest report names the declared objective, gives all three columns, and says that the three questions disagree. If average precision is genuinely the right objective for the task, that has to be settled before the assessment, and a fresh protocol is needed before presenting the newly selected procedure as independently assessed. The {roles.reserve.records} reserved proteins exist precisely so that such a protocol remains possible; they stay unscored here.</Prose>
+    </Checkpoint>
+    <Prose>For an API-oriented implementation, a training-only sampler can be composed as below. Save as <Code>{imbalanceExamples.pipeline.file}</Code> beside the prior files. This additionally requires <Code>imbalanced-learn</Code>. The current documentation was inspected during writing, and <strong>the content phase deliberately did not execute this optional package program</strong>; this implementation installed imbalanced-learn 0.14.2 and ran it, so the output below is real. It is a separate threefold development-CV illustration with sklearn&rsquo;s stated <Code>C=1</Code> convention, not a reproduction of the custom <Math>{'\\lambda'}</Math>-normalized five-model table.</Prose>
+    <Program example={imbalanceExamples.pipeline}>
+      <Prose>Every fold&rsquo;s scaler and sampler fit anew inside that fold. A shared random seed does not make its synthesized rows identical to our from-scratch routine: random draw order, neighbor ties and algorithm conventions can differ. That is why none of these three fold scores coincides with any inspection AP in the table above, and none should: the protocol, the penalty convention and the evaluated records are all different. Validate the learning procedure and synthetic geometry rather than expecting matching stdout.</Prose>
+    </Program>
+
+    <H2>{headings[7]}</H2>
+    <Prose>The core workflow is already usable: define the decision, protect assessment data, compare a baseline with justified alternatives, and inspect counts at the intended operating point. The branches below explain what changes when ordinary interpolation or a single class weight is insufficient. They are further study, not prerequisites for the first-pass exercises.</Prose>
+
+    <H3>Where should synthetic points be placed?</H3>
+    <Prose>Ordinary SMOTE chooses neighbors within the minority class. It does not inspect majority labels when drawing a point on the chosen segment. This is why moving the majority point in the SMOTE investigation changes the apparent conflict while leaving the synthetic coordinates unchanged. The algorithm&rsquo;s construction and our judgment of that construction are different operations.</Prose>
+    <Prose><strong>Borderline-SMOTE</strong> first identifies minority observations in mixed-class neighborhoods and directs synthesis toward that boundary region. It can concentrate effort where a classifier is uncertain, but a mixed neighborhood can also contain mislabeled observations or genuine class overlap. A boundary is not automatically missing positive coverage.</Prose>
+    <Prose><strong>ADASYN</strong> assigns more synthetic examples near minority observations whose neighborhoods contain a larger proportion of other-class observations. In a simplified binary description, let <Math>{'r_i'}</Math> be that fraction for minority observation <Math>{'i'}</Math>. Normalize these fractions and allocate an intended synthetic budget <Math>{'G'}</Math> roughly as <Math>{'g_i=G r_i/\\sum_j r_j'}</Math>, then use minority neighbors for interpolation. Integer allocation and implementation rules mean the final count need not hit exact parity. If every <Math>{'r_i=0'}</Math>, the normalization is undefined; this is a case to handle explicitly, not evidence that an algorithm has learned how to create useful examples there. Giving difficult regions more points can amplify label noise as well as useful boundary information.</Prose>
+    <Prose><strong>KMeans-SMOTE</strong> uses a clustering step to restrict and allocate synthesis across suitable clusters. The cluster count and geometry become additional assumptions. <strong>SVM-SMOTE</strong> uses a fitted support-vector boundary to guide candidates. Its behavior depends on that boundary model. These methods replace one geometric assumption with a richer one; they do not eliminate the need to check whether the resulting features and labels represent possible observations. Compare a variant only when its mechanism addresses a visible failure of the simpler procedure.</Prose>
+
+    <H3>When removing data is useful &mdash; and what is actually removed</H3>
+    <Prose>Random undersampling reduces the number of majority observations used in a fit. In our study it retained only {study.fittingPositives} of {study.fittingNegatives} fitting negatives. That speeds some fits and changes the empirical class contribution, but may discard a rare <em>negative</em> subtype that is crucial for avoiding false alarms.</Prose>
+    <Prose>Distance-based undersampling makes that choice depend on geometry. The NearMiss variants are distinct:</Prose>
+    <LessonTable caption="Three different retention rules, not three phrasings of one" headers={['Rule', 'Majority observations preferentially retained']} rows={[
+      ['NearMiss-1', 'Smallest average distance to a specified number of nearest minority observations'],
+      ['NearMiss-2', 'Smallest average distance to a specified number of farthest minority observations'],
+      ['NearMiss-3', 'First collect a specified number of nearest majority candidates around each minority observation; from these, favor the largest average distances to a specified number of nearest minority observations'],
+    ]} />
+    <Prose>These are rules for retaining observations, not interchangeable descriptions of &ldquo;remove points near the boundary.&rdquo; Scaling and outliers affect the choices. An implementation&rsquo;s neighbor counts and sampling strategy are part of the algorithm specification.</Prose>
+    <Prose>Cleaning methods answer another question: which local configurations should be deleted? A <strong>Tomek link</strong> is an opposite-class pair whose members are each other&rsquo;s nearest neighbor, subject to a tie convention. A common policy removes the majority member; an explicit all-class policy may remove both. <strong>Edited nearest neighbors</strong> deletes selected observations whose labels disagree with a specified neighbor vote. The vote may require unanimity or a majority, and the classes eligible for removal must be stated. Disagreement is observable; an incorrect label is not established by disagreement alone.</Prose>
+    <Prose>SMOTE followed by Tomek or neighbor cleaning can first add coverage and then remove selected overlap. Cleaning changes the class counts again, so the result need not remain balanced. Inspect the retained/deleted identities and the decision cost. A tidier scatterplot is not a validation criterion.</Prose>
+
+    <H3>Ensembles can distribute the discarded information</H3>
+    <Prose>The <a href="/learn/path/full-curriculum/decision-trees-random-forests?module=classical-ml">decision-trees and random-forests lesson</a> showed how multiple fitted models can reduce dependence on one sample. In a balanced ensemble, each learner can receive a different resampled training subset. Across learners, more majority observations may participate than in a single undersampled fit. This can preserve useful variety while limiting the imbalance seen by each learner.</Prose>
+    <Prose>Balanced bagging and balanced random forests apply such sampling around individual learners or trees. EasyEnsemble combines ensembles fitted on different undersampled subsets; RUSBoost combines random undersampling with boosting. Their voting/averaging rules, sampling replacement, per-learner counts and loss remain substantive choices. Different learners seeing a point does not create a new independent protein, and the entire ensemble must stay within each training fold. Use the earlier ensemble mechanisms to reason about these procedures rather than memorizing a league table of sampler names.</Prose>
+
+    <H3>Focal loss changes which examples dominate an update</H3>
+    <Prose>A large training set can contain many correctly classified, easy negatives. Even small individual losses may add up. <strong>Focal loss</strong> was introduced for dense object detection, where a detector evaluates many potential object locations and most are background. That setting gives a concrete reason to reduce the influence of already-easy cases.</Prose>
+    <Prose>For a binary example, let <Math>{'p_t=q'}</Math> when its true label is 1 and <Math>{'p_t=1-q'}</Math> when its true label is 0. With a class-specific positive factor <Math>{'\\alpha_t'}</Math>, focal loss is</Prose>
+    <MathBlock>{'\\begin{gathered}L_{\\mathrm{focal}}=-\\alpha_t(1-p_t)^\\gamma\\log p_t,\\\\[4pt]\\gamma\\ge0.\\end{gathered}'}</MathBlock>
+    <Prose>At <Math>{'\\gamma=0'}</Math>, this is weighted cross-entropy. For an easy example with <Math>{'p_t=.9'}</Math>, <Math>{'\\gamma=2'}</Math> multiplies its cross-entropy loss by {num(focal.rows[0].modulator)}; for a difficult example with <Math>{'p_t=.2'}</Math>, the multiplier is {num(focal.rows[1].modulator)}. With <Math>{'\\alpha_t=1'}</Math>, ten thousand easy examples contribute about {num(Number(focal.rows[0].crossEntropyTotal.toFixed(2)))} total cross-entropy versus {num(Number(focal.rows[1].crossEntropyTotal.toFixed(2)))} from ten difficult examples. Under focal loss those totals become about {num(Number(focal.rows[0].focalTotal.toFixed(2)))} and {num(Number(focal.rows[1].focalTotal.toFixed(2)))}. The balancing comes from the current prediction difficulty, not just the class label. These totals are a constructed loss calculation, not a training benchmark.</Prose>
+    <LossMassFigure />
+    <Prose>Differentiating the focal objective also differentiates the factor <Math>{'(1-p_t)^\\gamma'}</Math>. For a positive example,</Prose>
+    <MathBlock>{'\\begin{gathered}\\frac{dL}{dp_t}=\\alpha_t\\gamma(1-p_t)^{\\gamma-1}\\log p_t\\\\[4pt]-\\alpha_t\\frac{(1-p_t)^\\gamma}{p_t}.\\end{gathered}'}</MathBlock>
+    <Prose>The derivative with respect to a model&rsquo;s logit additionally multiplies by <Math>{'p_t(1-p_t)'}</Math>. A claim that the training gradient is simply cross-entropy&rsquo;s gradient times {num(focal.rows[0].modulator)} would miss the first term. Difficult examples can include annotation errors; emphasizing them is not always beneficial. Focal loss is a changed objective and does not generally retain ordinary log loss&rsquo;s original-posterior optimum. The later <a href="/learn/path/full-curriculum/loss-functions-ce-mse-focal-contrastive-triplet?module=deep-learning-fundamentals">loss-functions lesson</a> develops network losses, gradients and training comparisons. It is not needed to use the cost-sensitive logistic workflow above.</Prose>
+
+    <H3>A changed prior has an exact correction under a specific assumption</H3>
+    <Prose>Suppose sampling changes only the positive-class proportion from a deployment value <Math>{'\\pi'}</Math> to a training value <Math>{'\\rho'}</Math>, while preserving both class-conditional feature distributions. Let <Math>{'q(x)'}</Math> be the true posterior in that sampled population. Bayes&rsquo; rule gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\frac{p(x)}{1-p(x)}\\\\[6pt]=\\frac{q(x)}{1-q(x)}\\cdot\\frac{\\pi/(1-\\pi)}{\\rho/(1-\\rho)}.\\end{gathered}'}</MathBlock>
+    <Prose>To see why, write each posterior odds as the same likelihood ratio <Math>{'f(x\\mid Y=1)/f(x\\mid Y=0)'}</Math> times its population&rsquo;s prior odds, then divide. This is a prior-shift calculation, not a universal repair of a model score. It requires nondegenerate priors and the unchanged-conditional-distribution assumption; the displayed finite-odds calculation also assumes scores strictly between 0 and 1, with endpoints handled by limits where meaningful.</Prose>
+    <Prose>If a balanced sample has <Math>{'\\rho=.5'}</Math>, deployment has <Math>{'\\pi=.01'}</Math>, and its posterior is <Math>{'q=.8'}</Math>, the sampled odds are {num(prior.sampledOdds)}. Multiply by 1/99 to obtain deployment odds 4/99, hence <Math>{'p=4/103'}</Math> &asymp; {num(prior.posterior)}. A sample-posterior value of .8 can correspond to less than 4% deployment probability. That is a change of population, not a contradiction.</Prose>
+    <Prose>Random case-control sampling can plausibly preserve class-conditionals when sampling is independent of features within each class. Ordinary SMOTE alters the minority feature distribution by interpolation. Its change is therefore not, in general, just a prior change. A finite regularized classifier can also be misspecified. Use representative held-out probability assessment and an appropriate calibration protocol when decisions require probabilities; do not apply an odds correction and declare the problem solved. Calibration and threshold selection have different roles even when both use development data.</Prose>
+    <Prose>This distinction is useful beyond fraud or diagnosis. In a materials screening experiment, scientists may deliberately measure many more promising candidates than their natural prevalence would provide. A score describing that enriched sample is not automatically the probability that a randomly chosen candidate will succeed. In industrial fault monitoring, the deployment class-conditionals themselves may change with a new sensor or operating regime, so a prior-only correction may be insufficient.</Prose>
+
+    <H3>More rows do not create more independent evidence</H3>
+    <Prose>{roles.inspection.positives} inspection positives leave very limited information about sensitivity. Stratification can place positives in each fold, but the same positive observed across repeated splits is still one underlying observation. Repeated folds measure a procedure&rsquo;s sensitivity to particular resplits; their standard deviation is not automatically a confidence interval for future recall. Use uncertainty methods suited to the sampling design, keeping repeated subjects or related units together. Exact duplicate removal in this study addresses one concrete leakage route; it does not reveal unknown protein families or guarantee transfer to a new organism.</Prose>
+    <Prose>A multiclass problem introduces multiple class-specific errors and possibly a full action-cost matrix. A macro-average weights classes equally; a frequency-weighted average answers a different question. Resampling every class to the largest count is a candidate training design, not a universal target. In a multi-label problem the full label vector and missing-label status remain attached to each observation, as the conflicting-label example in section 5 demonstrated. If rare positives are unlabelled rather than confirmed negative, the task also requires a label-observation model; class balancing cannot turn unknown truth into negative truth.</Prose>
+
+    <H3>Budget the actual operations</H3>
+    <Prose>For <Math>{'m'}</Math> minority observations in <Math>{'d'}</Math> dimensions, our explicit all-pairs neighbor calculation needs <Math>{'O(m^2d)'}</Math> arithmetic and <Math>{'O(m^2)'}</Math> stored distances. Sorting every distance row costs <Math>{'O(m^2\\log m)'}</Math>; more specialized selection/search structures can change that work, with effectiveness depending on dimension and geometry. Producing <Math>{'G'}</Math> interpolated vectors then costs <Math>{'O(Gd)'}</Math>, plus storage for the generated data. The neighbor search is over the minority points here, not automatically every point in the dataset.</Prose>
+    <Prose>If the majority count is <Math>{'M\\ge m'}</Math>, balancing by adding minority rows changes total rows from <Math>{'M+m'}</Math> to <Math>{'2M'}</Math>. The expansion factor is <Math>{'2M/(M+m)'}</Math>, below 2. A 99-to-1 dataset becomes {expansion.oversampledRows} rows from {expansion.originalRows}, a factor of {num(expansion.factor)}, not a hundred times larger. Balancing by undersampling leaves <Math>{'2m'}</Math> rows. Class weights avoid materializing duplicate feature rows, although they can change conditioning, convergence and the training path. There is no zero-overhead or equal-runtime guarantee.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Try each question before opening its hint or solution. Questions 1&ndash;7 use the first-pass route. Questions 8&ndash;10 transfer the deeper ideas. A calculator or a short script is welcome; the target is a defensible explanation, not mental arithmetic speed.</Prose>
+
+    <Practice title="1. What can 99% accuracy hide?"
+      question="There are 1,200 observations, 12 positive. Construct two confusion matrices with 99% accuracy: one with recall 0 and another with recall 1. Explain how the same accuracy can describe both."
+      hint="Both matrices need 1,188 correct predictions and 12 errors. Assign those errors to different cells.">
+      <Prose>Always predicting negative gives TP 0, FP 0, FN 12, TN 1,188. Detecting all positives while making 12 false alarms gives TP 12, FP 12, FN 0, TN 1,176. Both have 1,188/1,200 accuracy. Their recalls are 0 and 1. Accuracy reports a particular equal-error-cost aggregate; the aggregate alone does not identify which errors occurred.</Prose>
+    </Practice>
+
+    <Practice title="2. Ties are whole score groups"
+      question={<>Four records have scores <Code>[.95, .8, .8, .4]</Code> and labels <Code>[0, 1, 0, 1]</Code>. With selection rule score&ge;threshold, compute precision and recall at threshold .8. If the review budget permits exactly two records, why is &ldquo;take everything at least .8&rdquo; not the same policy?</>}
+      hint="The threshold includes both records tied at .8. For an exact budget, state how the tie is broken before inspecting its labels.">
+      <Prose>At .8, TP 1, FP 2, FN 1, TN 0, so precision 1/3 and recall 1/2. The threshold selects three records. Taking exactly two must select the .95 record and one of the tied records. A fixed record-ID ordering or a predeclared random tie rule can do that; choosing the positive because its held-out truth is known leaks the outcome into the policy. The resulting top-two precision can differ depending on the legitimate tie rule. The &ldquo;Practice 2&rdquo; setup in the score-queue investigation above loads exactly these four records.</Prose>
+    </Practice>
+
+    <Practice title="3. Choose by expected cost"
+      question={<>A false alarm costs 2 units and a missed positive costs 7. Correct decisions cost 0. A well-specified posterior gives <Math>{'p=.2'}</Math>. Which action has lower expected cost? Derive the cutoff rather than applying .5 automatically.</>}
+      hint={<>Compare <Math>{'2(1-p)'}</Math> with <Math>{'7p'}</Math>.</>}>
+      <Prose>Selecting costs {num(practiceRisk.selectRisk)} in expectation and skipping costs {num(practiceRisk.skipRisk)}, so skip. Selection is better when <Math>{'2(1-p)<7p'}</Math>, or <Math>{'p>2/9'}</Math> &asymp; {num(practiceRisk.cutoff)}. At exactly 2/9 the actions tie under this cost model. The answer depends on a probability for the relevant population and on the stated costs; rarity alone did not decide it.</Prose>
+    </Practice>
+
+    <Practice title="4. What does the weighted score mean?"
+      question="At a feature value, the population positive probability is .2. Train unrestricted weighted binary log loss with positive weight 4 and negative weight 1. Find the population-optimal score, then invert it back to the original probability. What happens to the optimum if both weights are multiplied by 3?"
+      hint="Insert the values into the optimum derived in section 4. The ratio of weights controls that optimum.">
+      <Prose>The optimum is <Math>{'q=(4\\times.2)/(4\\times.2+1\\times.8)='}</Math>{num(practiceOptimum.optimum)}. Inverting gives <Math>{'p=w_-q/[w_+(1-q)+w_-q]='}</Math>{num(inverseWeightedOptimum(practiceOptimum.optimum, 4, 1))}. A weighted score .5 is not a claim that the original event probability is .5. Multiplying both weights by 3 leaves this population optimum unchanged; it scales the unnormalized expected loss. Our normalized finite-sample objective also cancels a common weight factor, while an objective normalized differently can change its effective regularization.</Prose>
+    </Practice>
+
+    <Practice title="5. Interpolate a vector, then question its label"
+      question={<>A minority anchor is <Math>{'(1,2)'}</Math>, its chosen minority neighbor is <Math>{'(5,4)'}</Math>, and <Math>{'u=.25'}</Math>. Calculate the SMOTE point. If the training fold contains only three minority observations, can the usual &ldquo;five other minority neighbors&rdquo; setting be used? Finally, explain why a majority point near the generated location matters even though it did not enter the interpolation formula.</>}
+      hint="Use the same scalar fraction for both coordinates. Count neighbors after excluding the anchor itself.">
+      <Prose>The point is <Math>{'(1,2)+.25(4,2)=(2,2.5)'}</Math>. There are at most two other minority observations, so five-neighbor SMOTE is undefined in that fold; choose a justified smaller setting or a different procedure before evaluation. A nearby majority observation suggests overlap or an implausible minority-label assumption. Ordinary SMOTE does not resolve that conflict merely by creating the point. The &ldquo;Practice 5&rdquo; setup in the SMOTE investigation loads this geometry; the investigation refuses <Math>{'k=5'}</Math> with three minority points rather than silently reducing it.</Prose>
+    </Practice>
+
+    <Practice title="6. Preserve the whole observation"
+      question={<>Two training observations have feature values 0 and 4 and known label vectors <Code>(A=1, B=0, C=1)</Code> and <Code>(A=1, B=1, C=0)</Code>. You interpolate feature 2 while balancing label A. A colleague proposes assigning the midpoint label <Code>(1, 1, 1)</Code> because all three labels occur among the endpoints. Is that label established by the input? Give one coherent alternative that does not invent a label.</>}
+      hint="The feature interpolation establishes no rule for how B and C behave between endpoints.">
+      <Prose>No. The endpoints do not establish B or C at feature 2, and the proposed label combination was observed at neither endpoint. A domain-supported label-generation model could justify a new observation, but it must be stated and checked. Alternatively, oversample an entire existing row with its unchanged complete label vector, or use a fitting weight with an explicitly defined multi-label loss. Independent per-label synthetic matrices cannot be silently joined into one aligned dataset.</Prose>
+    </Practice>
+
+    <Practice title="7. Choose the question before the winner"
+      question="Using the observed Yeast table, identify the method with lowest declared inspection cost, the one with highest AP, and all methods with the most positives in their top ten. Would replacing the declared goal with AP after seeing these results preserve an untouched comparison? What does one additional detected positive change in recall?"
+      hint={`Read three different columns. The inspection partition contains ${roles.inspection.positives} positives.`}>
+      <Prose>{bestCost.method.label} has cost {costOfRow(bestCost)}; {bestAp.method.label.toLowerCase()} has AP {num(Number(bestAp.method.averagePrecision.toFixed(6)))}; {topTenWinners.map(row => row.method.label.toLowerCase()).join(', ')} each find {bestTopTen} positives in their top ten. Changing the goal after inspecting outcomes is a new exploratory decision, not the original locked assessment. A new evaluation protocol is needed before presenting a newly selected procedure as independently assessed. One additional detection changes recall by 1/{roles.inspection.positives} &asymp; {num(1 / roles.inspection.positives)}. None of the three result columns removes that small-positive-count uncertainty.</Prose>
+    </Practice>
+
+    <Practice title="8. Correct the sampling odds — deeper"
+      question="Assume unchanged class-conditional feature distributions. A sampled population has positive prevalence .2, deployment prevalence is .02, and the sampled-population posterior is .5. Compute the deployment posterior. Explain why the same calculation is not automatically justified for SMOTE scores."
+      hint="The sampled posterior odds are 1. Multiply by deployment prior odds divided by sampling prior odds.">
+      <Prose>The odds multiplier is <Math>{'(.02/.98)/(.2/.8)=4/49'}</Math> &asymp; {num(practicePrior.multiplier)}. Thus deployment odds are 4/49 and probability is <Math>{'4/53'}</Math> &asymp; {num(practicePrior.posterior)}. SMOTE alters the distribution of minority features, and a fitted score may not equal the sampled population&rsquo;s true posterior. Those issues violate steps used in the derivation; knowing the two class proportions is insufficient.</Prose>
+    </Practice>
+
+    <Practice title="9. Count storage and information separately — deeper"
+      question="A fitting set has 960 majority and 40 minority observations. How many rows result from random oversampling to parity? From random undersampling to parity? Does the first procedure provide 960 independent minority examples?"
+      hint="Keep the original count of unique minority observations separate from the materialized row count.">
+      <Prose>Oversampling gives {practiceExpansion.oversampledRows.toLocaleString('en-US')} rows, a {num(practiceExpansion.factor)}-fold expansion from {practiceExpansion.originalRows.toLocaleString('en-US')}. Undersampling gives {practiceExpansion.undersampledRows} rows. The duplicated minority rows still come from {practiceExpansion.independentMinorityObservations} underlying observations, so treating them as 960 independent events for an uncertainty calculation would exaggerate the evidence. The larger training matrix may change an optimization procedure while leaving the number of independently observed proteins unchanged.</Prose>
+    </Practice>
+
+    <Practice title="10. Design a review queue under changing conditions — deeper"
+      question="A factory can investigate ten sensor alerts per shift. One false alarm takes the same review time as one real fault. The classifier was trained on deliberately fault-enriched data, and next month a new sensor model will be installed. Describe a defensible development/evaluation plan. Explain where class weights, prior correction and a top-ten policy each fit, and name information that the prompt does not supply."
+      hint="Separate fitting, probability interpretation, resource allocation and transfer to the new sensor. A prior adjustment assumes more than knowing the fault percentage."
+      revealLabel="Assessment and example conclusion">
+      <Prose>Keep related machine histories and time boundaries intact; fit preprocessing and any sampler within the training role. Compare a baseline with justified weights or resampling using representative development data. Select a review policy there, with a label-independent tie rule and an explicit response when fewer than ten alerts have worthwhile expected value. A top-ten score policy enforces capacity; probability/cost thresholds answer an additional question about whether reviewing a candidate is worthwhile. Prior correction could apply if enrichment preserved class-conditionals and the fitted probabilities represent that enriched population. A new sensor can change feature distributions within each class, so collect or otherwise justify representative new-sensor assessment rather than assuming that correction suffices. Reserve a final future/group-separated assessment for the selected full procedure. The prompt leaves fault costs, enrichment mechanism, annotation completeness, sensor compatibility and population prevalence unspecified; identify these as design inputs, not arbitrary defaults. Weighted fitting alone does not supply them.</Prose>
+    </Practice>
+
+    <H2>{headings[9]}</H2>
+    <Prose>You are ready to continue when you can construct a confusion table, explain why an accurate model can miss every rare event, derive an action cutoff from stated costs, distinguish a weighted score from an original-population probability, generate and question a SMOTE point, and place sampling and threshold choice on the correct side of the assessment boundary. Questions 1&ndash;7 check those skills. The advanced branches let you reason about richer samplers, changed priors and resource constraints when a task requires them.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['Read a confusion table and say which quantity is undefined and why', 'Section 1, figure 1, practice 1'],
+      ['Move a gate through a ranking and explain a falling precision', 'Section 2, the score-queue investigation, practice 2'],
+      ['Compute average precision as grouped recall increments, ties included', 'Section 2, the score-queue investigation'],
+      ['Say what changes and what does not when prevalence moves', 'Section 2, figure 2'],
+      ['Derive an action cutoff from two stated costs, and know when it is undefined', 'Section 3, the cost investigation, practice 3'],
+      ['Follow a weighted residual into two gradient sums', 'Section 4, figure 3'],
+      ['Turn a weighted score back into the probability it came from', 'Section 4, the weighted-score investigation, practice 4'],
+      ['Generate a SMOTE point and say what its rule never looked at', 'Section 5, the SMOTE investigation, practice 5'],
+      ['Refuse an unsupported synthetic label on a multi-label row', 'Section 5, practice 6'],
+      ['Put the sampler on the fitting branch and keep assessment observed', 'Section 6, figure 4'],
+      ['Read a real comparison in which three questions have three winners', 'Section 7, figure 5, practice 7'],
+      ['Tune a threshold on tuning records without touching an inspection result', 'Section 7, the tuning-queue investigation'],
+      ['Correct a posterior for a changed prior, and say when you may not', 'Section 8, practice 8'],
+      ['Separate materialized rows from independent evidence', 'Section 8, practice 9'],
+    ]} />
+    <Prose>The next module topic is <a href="/learn/path/full-curriculum/automl-neural-architecture-search-nas?module=classical-ml">AutoML &amp; Neural Architecture Search</a>. We will let a procedure search over modeling choices. That only helps if the search is asked the right question: the objective, fold ownership, data geometry and decision cost you specified here must travel with it. Automating a leaky or irrelevant comparison makes it easier to repeat the same mistake at scale.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://imbalanced-learn.org/stable/auto_examples/over-sampling/plot_comparison_over_sampling.html">imbalanced-learn &mdash; comparison of oversampling methods</a>. Actual input clouds, generated samples and fitted decision boundaries for duplication, SMOTE, ADASYN and variants, plus mixed and all-categorical examples. Use the pictures to compare geometric assumptions; they are examples, not a universal performance ranking.</li>
+      <li><a href="https://arxiv.org/pdf/1106.1813">Chawla et al. &mdash; SMOTE: Synthetic Minority Over-sampling Technique</a>, especially &sect;4&rsquo;s construction and &sect;6&rsquo;s categorical discussion. The paper motivates interpolated minority features and also reports limits, including an unfavorable Adult-dataset case. Its pseudocode&rsquo;s placement of the random gap can be read coordinate-wise; this lesson explicitly uses one scalar fraction for a whole vector, and checks that in its implementation.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/classification_threshold.html">scikit-learn &mdash; tuning the decision threshold</a>. Separates score fitting from threshold tuning and illustrates CV-based threshold selection and fixed-threshold use. Its APIs are an alternative to our explicit threshold sweep; choose the score/cost objective appropriate to the task.</li>
+    </ul></>}>
+      <li><a href="https://imbalanced-learn.org/stable/over_sampling.html">imbalanced-learn &mdash; oversampling</a>, <a href="https://imbalanced-learn.org/stable/under_sampling.html">undersampling</a>, <a href="https://imbalanced-learn.org/stable/combine.html">combined samplers</a> and <a href="https://imbalanced-learn.org/stable/ensemble.html">balanced ensembles</a> &mdash; which observations are generated, retained or removed. Consult the exact sampler and version before treating two API names as equivalent.</li>
+      <li><a href="https://imbalanced-learn.org/stable/common_pitfalls.html">imbalanced-learn &mdash; common pitfalls</a> &mdash; why preprocessing and sampling belong within each training split, and how resampling before a split changes the evaluated population.</li>
+      <li><a href="https://cseweb.ucsd.edu/~elkan/rescale.pdf">Elkan &mdash; The Foundations of Cost-Sensitive Learning</a>, &sect;&sect;1&ndash;3 &mdash; cost-based decisions and the assumptions behind class-prior rescaling. Read after the two-action derivation here; finite, constrained learners need not behave like unrestricted population-optimal rules.</li>
+      <li><a href="https://mark.goadrich.com/articles/davisgoadrichpr.pdf">Davis and Goadrich &mdash; The Relationship Between Precision-Recall and ROC Curves</a> &mdash; their fixed-population relationship and why PR interpolation needs care. For the exact noninterpolated score used in our table, consult <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.average_precision_score.html">average_precision_score</a>.</li>
+      <li><a href="https://arxiv.org/pdf/1708.02002">Lin et al. &mdash; Focal Loss for Dense Object Detection</a>, &sect;3 and its loss plots &mdash; the many-background-locations motivation and the modulating factor. The inspected mechanism supports our loss calculation; its detection benchmarks were not reproduced here.</li>
+      <li><a href={provenance.page}>UCI &mdash; Yeast</a>, {provenance.creator}, <a href={provenance.doi}>{provenance.doi}</a>, licensed <a href={provenance.licenseUrl}>{provenance.license}</a> &mdash; the actual observations. This page serves <a href={provenance.file} download>its own unchanged copy</a>, {provenance.bytes.toLocaleString('en-US')} bytes, SHA-256 <Code>{provenance.sha256}</Code>, beside its <a href={provenance.attribution}>attribution</a>, which records the class definition, the exact-duplicate repair and the fitting/assessment ownership.</li>
+    </Sources>
+    <Prose>The 1,000-case confusion table, the three-record score queue, the two population flows, the two action costs, the single weighted gradient step, the weighted-loss optimum, the small SMOTE geometry, the focal loss-mass totals and every practice matrix are explicitly <strong>constructed calculations</strong>, not measurements. The decision costs of {study.costFalsePositive} and {study.costFalseNegative} units are a declared teaching assumption, not a laboratory price. The Yeast results are calculations on the identified real dataset under one declared row-level protocol, with the {roles.reserve.records} reserved proteins never predicted or scored. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>,
 };
 
 export default imbalancedLearningContent;

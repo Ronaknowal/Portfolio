@@ -4,3 +4,5 @@
 @media(max-width:720px){.optimizer-pair{grid-template-columns:1fr}.optimizer-pipeline{grid-template-columns:repeat(2,minmax(0,1fr))}.optimizer-plot{max-width:370px}.optimizer-lab,.optimizer-inline{padding:.85rem}.optimizer-controls{gap:.8rem}.optimizer-label{font-size:16px}.optimizer-steps{gap:.5rem}}
 @media(max-width:360px){.optimizer-controls{grid-template-columns:1fr}.optimizer-observations label{min-width:105px}.optimizer-weight-strip{gap:.4rem}.optimizer-steps button{padding:.55rem}.optimizer-pipeline{gap:.8rem}.optimizer-lab,.optimizer-inline{padding:.7rem}.optimizer-weight-strip small{font-size:.72rem}}
 @media(max-width:500px){.optimizer-controls{grid-template-columns:1fr}}
+
+@media (max-width:720px) { .optimizer-tick { font-size:16px; } }

@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-13",
+  "phase": "content author checks only",
+  "source_sha256": "d17566f43c90d83fbb24f0bb9ba51f6779a930a6b6cac366279a00d68fbdbcf5",
+  "source_lines": 1025,
+  "inline_code_parity_maximum_errors": {
+    "17": 0.0,
+    "41": 0.0
+  },
+  "unique_feature_rows": 5620,
+  "disjoint_training_roles": {
+    "memory": 200,
+    "fit_queries": 800,
+    "validation": 300
+  },
+  "class_counts_balanced": true,
+  "archive_finite": true,
+  "confusion_counts_reconciled": true,
+  "exercise_binary_change": {
+    "sweep": 1,
+    "coordinate": 3,
+    "field": 0.75,
+    "state": [
+      1.0,
+      -1.0,
+      1.0,
+      -1.0
+    ],
+    "energy": -1.5
+  },
+  "exercise_continuous_reads": [
+    -0.2913126124515909,
+    -0.2833424931628013
+  ],
+  "exercise_gap": {
+    "competitor_factor": 0.49787068367863946,
+    "target_lower_bound": 0.6676143747897432,
+    "distance_upper_bound": 0.6647712504205137
+  },
+  "class_mass_gradient_maximum_error": 9.71445146547012e-17,
+  "figure_count": 21,
+  "investigation_count": 4,
+  "closed_practice_disclosures": 20,
+  "verified_local_route_ids": [
+    "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "interleaved-cross-attention-architectures",
+    "neural-ode-continuous-depth-models",
+    "self-attention-multi-head-attention",
+    "spectral-normalization-gradient-penalty",
+    "xlstm-extended-lstm"
+  ],
+  "verified_relative_downloads": [
+    "digit_memory.py",
+    "optdigits.tra",
+    "optdigits.tes",
+    "optdigits.names",
+    "data-provenance.md",
+    "associative_memory.py",
+    "data-provenance.md"
+  ],
+  "memory_bytes": 256000000,
+  "memory_MiB": 244.140625,
+  "execution": "Executed current inline code and saved-model reads; no re-fit or browser review."
+}

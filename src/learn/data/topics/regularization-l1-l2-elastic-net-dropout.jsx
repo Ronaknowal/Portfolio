@@ -1,986 +1,393 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Callout, H2, H3, Prose, Code, CodeBlock } from '../../components/content';
+import { Math, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro, LessonTable, Checkpoint, Sources } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { ThresholdLab, CoordinateLab, AirfoilTraceLab, DropoutLab } from '../../components/lesson-labs/RegularizationLabs.jsx';
+import {
+  ObjectiveSumFigure, ConstraintGeometryFigure, DuplicateFigure, PathFigure,
+  DirectionsFigure, FactorFigure, SmoothnessFigure, ComplexityFigure,
+} from '../../components/lesson-labs/RegularizationFigures.jsx';
+import { regularizationExamples } from '../regularization-examples.js';
+import { candidates, baselineMeanMse, olsMeanMse, provenance, inferenceFixture } from '../regularization-data.js';
+import { criteria, scalarSolution, smoothnessComparison, factorOptimum, ridgeFilter } from '../regularization-models.js';
+
+/** Print a computed number with a typographic minus sign and no float dust. */
+const num = value => String(Number(value.toFixed(9))).replace('-', '−');
+const scalarRow = (z, strength) => [
+  num(z),
+  num(scalarSolution(z, strength, 0).coefficient),
+  num(scalarSolution(z, strength, 1).coefficient),
+  z === 3 ? '5/3' : num(scalarSolution(z, strength, 0.5).coefficient),
+];
+const mse = (family, strength) => candidates.find(row => row[0] === family && row[1] === strength)[2].toFixed(6);
+const smaller = criteria(-150, 3, 100);
+const larger = criteria(-146, 5, 100);
+const shifted = smoothnessComparison([3, 5, 3], 1);
+
+const headings = [
+  '1. What preference are we adding?',
+  '2. Why L2 shrinks and L1 can select',
+  '3. From one coefficient to a complete fit',
+  '4. Correlated features: prediction and attribution are different questions',
+  '5. A real comparison: predicting airfoil sound measurements',
+  '6. Dropout: change what the learner sees during training',
+  '7. Deeper branch: directions, paths and computation',
+  '8. Deeper branch: a penalty encodes a representation',
+  '9. Deeper branch: AIC, BIC and description length',
+  '10. Practice: change the problem, then explain the answer',
+  '11. Readiness and the next question',
+];
+const headingId = heading => heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+function Program({ example, children }) {
+  return <section><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example}>{children}</RunnableExample></section>;
+}
+function Practice({ title, question, hint, children }) {
+  return <section className="rg-practice"><H3>{title}</H3><Prose>{question}</Prose>{hint && <details><summary>Get a hint</summary><Prose>{hint}</Prose></details>}<details><summary>Show the explained solution</summary>{children}</details></section>;
+}
 
 const regularizationContent = {
-  title: "Regularization (L1, L2, Elastic Net, Dropout)",
-  readTime: "~50 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        Every statistical model faces the same tension. Make it flexible enough to capture real signal in the training data, and it starts capturing noise too — patterns that are specific to this particular sample and do not generalize. Make it rigid enough to avoid memorizing noise, and it fails to find the real structure. This tension is the bias-variance tradeoff, and regularization is the technical machinery for navigating it without changing the model's fundamental architecture.
-      </Prose>
-
-      <Prose>
-        The intellectual origin traces to 1943, when the Soviet mathematician Andrey Nikolayevich Tikhonov published "On the stability of inverse problems" in Doklady Akademii Nauk SSSR (volume 39, no. 5, pp. 195–198). Tikhonov was not thinking about machine learning — the field did not exist. He was thinking about ill-posed problems in mathematical physics: problems where a small perturbation in the input (noisy data) causes a catastrophically large change in the solution. His remedy was to add a penalty term to the objective that enforced smoothness on the solution, effectively trading some bias for massive reductions in variance. The technique he formalized became known as Tikhonov regularization. In regression, it is called ridge regression.
-      </Prose>
-
-      <Prose>
-        The machine learning adoption came in 1970. Arthur E. Hoerl and Robert W. Kennard published "Ridge Regression: Biased Estimation for Nonorthogonal Problems" in Technometrics, volume 12(1), pages 55–67. Their motivating problem was practical and concrete: when predictor variables are nearly collinear, the ordinary least squares estimator becomes wildly unstable — small changes in the data produce enormous swings in the coefficients. Adding a small positive constant to the diagonal of <Code>XᵀX</Code> before inverting it stabilizes the solution at the cost of introducing a small bias. Hoerl and Kennard showed this trade was almost always worth making and gave the method its modern name. Their paper introduced the ridge trace — the plot of coefficient values as a function of regularization strength — which remains a standard diagnostic today.
-      </Prose>
-
-      <Prose>
-        Ridge shrinks all coefficients toward zero but never eliminates them. In problems with hundreds or thousands of features, this is unsatisfying: you want the model to tell you which features matter and which do not. The solution came in 1996. Robert Tibshirani published "Regression Shrinkage and Selection via the Lasso" in the Journal of the Royal Statistical Society, Series B, volume 58(1), pages 267–288. The LASSO (Least Absolute Shrinkage and Selection Operator) replaces ridge's squared penalty on weights with an absolute value penalty. The geometric consequence is that the constraint region has corners at the axes, and the optimal solution lands at a corner — meaning some weights are exactly zero. LASSO simultaneously shrinks and selects, acting as a continuous alternative to stepwise feature selection with much better statistical properties.
-      </Prose>
-
-      <Prose>
-        LASSO has one weakness: when features are correlated, it tends to select one arbitrarily and discard the others, even if the true model uses all of them. The fix came in 2005. Hui Zou and Trevor Hastie published "Regularization and Variable Selection via the Elastic Net" in JRSS-B, volume 67(2), pages 301–320. Elastic Net linearly interpolates between L1 and L2 penalties: it can shrink, select, and handle correlated features by grouping them. It became the default choice for high-dimensional regression whenever both sparsity and correlation are present.
-      </Prose>
-
-      <Prose>
-        Dropout arrived from a completely different direction. Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdinov published "Dropout: A Simple Way to Prevent Neural Networks from Overfitting" in the Journal of Machine Learning Research, volume 15, pages 1929–1958, in 2014. The idea is disarmingly simple: during training, randomly zero out neurons with probability <Code>p</Code> at each forward pass. This forces the network to learn redundant representations — no single neuron can rely on any other neuron being present — and acts as an implicit regularizer. Wang and Manning (ICML 2013, "Fast dropout training") showed that dropout's expected behavior is approximately equivalent to Gaussian noise injection and has connections to L2 regularization. In practice, dropout is now one of the most widely deployed regularization techniques for deep neural networks.
-      </Prose>
-
-      <Callout type="insight">
-        All four methods answer the same question — how to control model capacity without changing the algorithm's structure — but from different angles. L2 shrinks smoothly. L1 creates sparsity. Elastic Net does both. Dropout regularizes stochastically by destroying information during training. Together they cover the full spectrum of modern regularization practice.
-      </Callout>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
-
-      <Prose>
-        Regularization adds a penalty to the training objective that discourages large or numerous weights. The character of the penalty determines the character of the solution.
-      </Prose>
-
-      <H3>2.1 L2 (Ridge): smooth shrinkage</H3>
-
-      <Prose>
-        L2 regularization adds <Code>{"λ‖w‖²"}</Code> to the loss — the sum of squared weights. This penalizes large weights quadratically: a weight of 2 contributes 4 to the penalty; a weight of 4 contributes 16. The gradient of the penalty is <Code>2λw</Code>, which means every gradient descent step includes a small pull toward zero proportional to the current weight magnitude. Large weights get pulled harder; small weights get pulled gently. The result is that all weights shrink toward zero, but none reach exactly zero unless the data provides zero signal for that feature. L2 is analogous to a Bayesian prior: placing a Gaussian prior <Code>{"N(0, 1/(2λ))"}</Code> on each weight and taking the MAP estimate recovers the ridge solution exactly.
-      </Prose>
-
-      <H3>2.2 L1 (LASSO): sparse selection</H3>
-
-      <Prose>
-        L1 regularization adds <Code>{"λ‖w‖₁"}</Code> — the sum of absolute values of weights. The penalty is linear in each weight's magnitude, not quadratic. This creates a qualitatively different behavior: the subgradient of the L1 penalty at <Code>w=0</Code> is the interval <Code>[-λ, λ]</Code>, not a single value. A weight reaches zero and stays there whenever the data signal for that feature (the OLS gradient) is smaller than <Code>λ</Code> in magnitude. Small irrelevant features — where the gradient is noise — get zeroed out completely. Large relevant features are shrunk but survive. The practical consequence is automatic feature selection: fit LASSO with a good <Code>λ</Code> and the non-zero weights tell you which features matter.
-      </Prose>
-
-      <Prose>
-        The geometric picture makes this concrete. The OLS objective is an ellipse (in 2D, at minimum when the contours touch a point). The L2 constraint region is a circle; the L1 constraint region is a diamond. The constrained optimum is where the ellipse first touches the constraint region. For a circle, touching can happen anywhere on the boundary — the optimum is on the circle but not at a corner, so neither weight is zero. For a diamond, the corners point along the axes; an ellipse from almost any direction will touch a corner first, meaning one weight is forced to zero. This is why L1 induces sparsity and L2 does not.
-      </Prose>
-
-      <H3>2.3 Elastic Net: the best of both</H3>
-
-      <Prose>
-        Elastic Net combines both penalties: <Code>{"λ·(α‖w‖₁ + (1−α)·‖w‖²/2)"}</Code>. The parameter <Code>α ∈ [0, 1]</Code> interpolates between pure L2 (<Code>α=0</Code>) and pure L1 (<Code>α=1</Code>). When <Code>0 {"<"} α {"<"} 1</Code>, the constraint region is a rounded diamond — corners exist but are softened. The sparsity property is preserved (some weights hit zero) but the grouping property is added: correlated features tend to be selected or discarded together, rather than one being arbitrarily chosen. Elastic Net is the standard choice when you have correlated predictors and want both sparse and stable solutions.
-      </Prose>
-
-      <H3>2.4 Dropout: stochastic regularization</H3>
-
-      <Prose>
-        Dropout is qualitatively different. It does not add a penalty term to the loss. Instead, at each training step, it randomly zeroes out a random fraction of activations. A neuron that is dropped contributes nothing to the forward pass and receives no gradient in the backward pass. Because different random subsets are dropped at each step, no neuron can co-adapt with specific other neurons — it must learn features useful in the context of many different subnetworks. At test time, all neurons are active, but their outputs are scaled by the keep probability to match the expected activation during training (inverted dropout scales during training instead, making test time a simple pass-through). The connection to L2: Wang and Manning (2013) showed that dropout's expected gradient update is approximately the gradient of an L2-regularized objective with a strength proportional to <Code>p(1-p)</Code>.
-      </Prose>
-
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
-
-      <H3>3.1 Ridge: closed-form solution</H3>
-
-      <Prose>
-        Ordinary least squares minimizes <Code>{"‖y − Xw‖²"}</Code>. Ridge adds a squared weight penalty:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}_{\\text{ridge}}(w) = \\|y - Xw\\|^2 + \\lambda \\|w\\|^2"}
-      </MathBlock>
-
-      <Prose>
-        Taking the gradient and setting to zero:
-      </Prose>
-
-      <MathBlock>
-        {"-2X^\\top(y - Xw) + 2\\lambda w = 0 \\quad \\Rightarrow \\quad (X^\\top X + \\lambda I)w = X^\\top y"}
-      </MathBlock>
-
-      <Prose>
-        The ridge solution is:
-      </Prose>
-
-      <MathBlock>
-        {"w^*_{\\text{ridge}} = (X^\\top X + \\lambda I)^{-1} X^\\top y"}
-      </MathBlock>
-
-      <Prose>
-        Two critical properties fall out immediately. First, <Code>{"(XᵀX + λI)"}</Code> is always invertible for <Code>{"λ > 0"}</Code>, even when <Code>{"XᵀX"}</Code> is singular (i.e., when <Code>{"d > n"}</Code> or features are perfectly collinear). Ridge fixes the underdetermined problem. Second, as <Code>{"λ → ∞"}</Code>, <Code>{"w* → 0"}</Code>; as <Code>{"λ → 0"}</Code>, <Code>{"w* → w_OLS"}</Code>. The parameter <Code>{"λ"}</Code> continuously interpolates between full shrinkage and no regularization.
-      </Prose>
-
-      <Prose>
-        The Bayesian interpretation: placing a zero-mean Gaussian prior <Code>{"w ~ N(0, (1/λ)I)"}</Code> on the weights and computing the MAP estimate recovers the ridge solution exactly. The prior variance <Code>{"1/λ"}</Code> encodes our belief about typical weight magnitudes. This connection is why ridge is sometimes called Gaussian regularization.
-      </Prose>
-
-      <H3>3.2 LASSO: coordinate descent and soft-thresholding</H3>
-
-      <Prose>
-        LASSO minimizes:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}_{\\text{lasso}}(w) = \\frac{1}{2n}\\|y - Xw\\|^2 + \\lambda \\|w\\|_1"}
-      </MathBlock>
-
-      <Prose>
-        There is no closed form because the L1 norm is not differentiable at zero. The standard solver is coordinate descent: cycle through each weight <Code>{"w_j"}</Code>, holding others fixed, and compute the optimal <Code>{"w_j"}</Code> analytically. The partial residual — what the model cannot explain using all other features — is:
-      </Prose>
-
-      <MathBlock>
-        {"r_j = y - X_{-j}w_{-j} = y - Xw + X_{:,j}\\,w_j"}
-      </MathBlock>
-
-      <Prose>
-        The one-dimensional LASSO problem for <Code>{"w_j"}</Code> given <Code>{"r_j"}</Code> has a closed-form solution via soft-thresholding:
-      </Prose>
-
-      <MathBlock>
-        {"w_j^* = S\\!\\left(\\frac{X_{:,j}^\\top r_j}{\\|X_{:,j}\\|^2},\\; \\frac{\\lambda}{\\|X_{:,j}\\|^2}\\right) \\quad \\text{where} \\quad S(z, \\gamma) = \\text{sign}(z)\\cdot\\max(|z| - \\gamma,\\, 0)"}
-      </MathBlock>
-
-      <Prose>
-        Soft-thresholding is the proximal operator of the L1 norm. It zeroes out values with magnitude below <Code>{"γ"}</Code> and shifts others toward zero by <Code>{"γ"}</Code>. This is why coordinate descent produces exact zeros: whenever the signal <Code>{"X_{:,j}ᵀr_j"}</Code> is smaller than <Code>{"λ"}</Code> in magnitude, the soft-threshold maps it to zero and it stays there.
-      </Prose>
-
-      <Prose>
-        The Bayesian interpretation: LASSO corresponds to placing a Laplace (double-exponential) prior <Code>{"w_j ~ Laplace(0, 1/λ)"}</Code> on each weight. The Laplace prior has a sharp peak at zero and heavier tails than Gaussian — it encourages exactly-zero weights while allowing a few large ones. The MAP estimate under this prior is the LASSO solution.
-      </Prose>
-
-      <H3>3.3 Elastic Net: hybrid penalty</H3>
-
-      <Prose>
-        Elastic Net combines both:
-      </Prose>
-
-      <MathBlock>
-        {"\\mathcal{L}_{\\text{EN}}(w) = \\frac{1}{2n}\\|y - Xw\\|^2 + \\lambda\\left(\\alpha\\|w\\|_1 + \\frac{1-\\alpha}{2}\\|w\\|^2\\right)"}
-      </MathBlock>
-
-      <Prose>
-        The mixed penalty can be solved via proximal gradient descent: take a gradient step on the smooth part (data loss + L2 penalty), then apply soft-thresholding for the L1 part. For coordinate descent, the update for each <Code>{"w_j"}</Code> is:
-      </Prose>
-
-      <MathBlock>
-        {"w_j^* = \\frac{S\\!\\left(X_{:,j}^\\top r_j / n,\\; \\lambda\\alpha\\right)}{\\|X_{:,j}\\|^2/n + \\lambda(1-\\alpha)}"}
-      </MathBlock>
-
-      <Prose>
-        The L2 term in the denominator <em>groups</em> correlated features — if <Code>{"x_i"}</Code> and <Code>{"x_j"}</Code> are highly correlated, both tend to receive similar coefficients rather than one being arbitrarily zeroed. This is the "encourages grouping effect" described by Zou and Hastie (2005). Pure L1 breaks this: it picks one correlated feature and discards the rest.
-      </Prose>
-
-      <H3>3.4 Dropout: ensemble averaging and L2 connection</H3>
-
-      <Prose>
-        Let <Code>{"p"}</Code> be the probability of keeping a neuron (keep probability). At each training step, a Bernoulli mask <Code>{"m ~ Bernoulli(p)"}</Code> is drawn and applied element-wise to the activations. The effective network at step <Code>{"t"}</Code> is a subnetwork defined by the mask. Over many training steps, the model learns across an exponential ensemble of <Code>{"2^n"}</Code> different subnetworks (where <Code>{"n"}</Code> is the number of neurons). At test time, using all neurons with activations scaled by <Code>{"p"}</Code> approximates averaging over all <Code>{"2^n"}</Code> networks — an exponential ensemble for the cost of one forward pass.
-      </Prose>
-
-      <Prose>
-        The L2 connection: Wang and Manning (2013) showed that dropout applied to a linear model is equivalent to optimizing a quadratic lower bound on the expected loss, which has the form of an L2-regularized objective. The effective regularization strength is <Code>{"p(1-p)σ²x"}</Code>, where <Code>{"σ²x"}</Code> is the input variance. Features with high variance are regularized more strongly — dropout implicitly adapts to the data's structure. Inverted dropout (the standard implementation) scales activations by <Code>{"1/p"}</Code> during training so that the expected activation at test time is unchanged, eliminating the need to scale at inference.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below runs on a single synthetic dataset: <Code>n=100</Code> samples, <Code>d=10</Code> features, true weights with exactly 4 zeros to test sparsity recovery. NumPy only — no scikit-learn. Every output shown is verbatim stdout.
-      </Prose>
-
-      <H3>4a. Ridge regression — closed form</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-
-np.random.seed(42)
-n, d = 100, 10
-X = np.random.randn(n, d)
-true_w = np.array([3.0, -2.0, 1.5, 0.0, 0.0, 0.0, 0.8, 0.0, 0.0, -1.0])
-y = X @ true_w + np.random.randn(n) * 0.5
-
-# Ridge closed form: w* = (X^T X + lambda I)^{-1} X^T y
-# np.linalg.solve is numerically stabler than explicit matrix inverse
-lam = 1.0
-w_ridge = np.linalg.solve(X.T @ X + lam * np.eye(d), X.T @ y)
-print("=== Ridge (lambda=1.0) ===")
-print("Weights:", np.round(w_ridge, 4))
-print("True   :", true_w)
-mse_ridge = np.mean((y - X @ w_ridge) ** 2)
-print(f"Train MSE: {mse_ridge:.4f}")
-# Output:
-# === Ridge (lambda=1.0) ===
-# Weights: [ 2.921  -2.0038  1.4686  0.0193 -0.0618  0.0392  0.6956  0.0002  0.0322 -1.0117]
-# True   : [ 3.  -2.   1.5  0.   0.   0.   0.8  0.   0.  -1. ]
-# Train MSE: 0.2157`}
-      </CodeBlock>
-
-      <Prose>
-        Ridge recovers all four signal features well (weights 0, 1, 2, 6, 9) but leaves the four zero features (3, 4, 5, 7, 8) with small non-zero values around 0.02–0.06. It shrinks everything toward zero but cannot produce exact zeros. As <Code>{"λ"}</Code> increases, all weights shrink further; but they approach zero asymptotically, never reaching it.
-      </Prose>
-
-      <H3>4b. LASSO — coordinate descent with soft-thresholding</H3>
-
-      <CodeBlock language="python">
-{`def soft_threshold(x, lam):
-    return np.sign(x) * np.maximum(np.abs(x) - lam, 0.0)
-
-def lasso_coordinate_descent(X, y, lam=0.1, n_iter=200, tol=1e-6):
-    n, d = X.shape
-    w = np.zeros(d)
-    col_norms_sq = np.sum(X ** 2, axis=0)   # ||X[:,j]||^2 for each feature
-    for it in range(n_iter):
-        w_old = w.copy()
-        for j in range(d):
-            # Partial residual: what the model can't explain without feature j
-            r_j = y - X @ w + X[:, j] * w[j]
-            rho_j = X[:, j] @ r_j          # X[:,j]^T r_j
-            # Soft-threshold: zero out if |rho_j| < lambda
-            w[j] = soft_threshold(rho_j / col_norms_sq[j],
-                                   lam / col_norms_sq[j])
-        if np.max(np.abs(w - w_old)) < tol:
-            break
-    return w
-
-print("=== LASSO at different lambda values ===")
-for lam_val in [0.01, 0.10, 0.50, 1.00]:
-    w_l = lasso_coordinate_descent(X, y, lam=lam_val, n_iter=500)
-    zeros = np.sum(np.abs(w_l) < 1e-6)
-    print(f"lambda={lam_val:.2f}  zeros={zeros}/{d}  w={np.round(w_l, 3)}")
-# Output:
-# lambda=0.01  zeros=0/10  w=[ 2.955 -2.026  1.484  0.022 -0.061  0.032  0.699  0.002  0.024 -1.028]
-# lambda=0.10  zeros=0/10  w=[ 2.955 -2.026  1.482  0.022 -0.06   0.031  0.698  0.     0.023 -1.027]
-# lambda=0.50  zeros=1/10  w=[ 2.951 -2.023  1.477  0.019 -0.056  0.028  0.695  0.     0.019 -1.022]
-# lambda=1.00  zeros=1/10  w=[ 2.947 -2.019  1.47   0.015 -0.052  0.023  0.691  0.     0.015 -1.016]`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>{"λ=0.5"}</Code>, weight 7 (true value 0) is exactly zeroed. As <Code>{"λ"}</Code> increases, more weights hit zero. The signal weights (0, 1, 2, 6, 9) are shrunk but survive. At <Code>{"λ=1.0"}</Code>, the LASSO still finds only 1 exact zero — this dataset has low noise (σ=0.5) and well-separated features, so the algorithm needs a larger <Code>{"λ"}</Code> to zero out the remaining three near-zero weights (3, 4, 5, 8).
-      </Prose>
-
-      <H3>4c. Elastic Net — proximal gradient descent</H3>
-
-      <CodeBlock language="python">
-{`def elastic_net_proximal(X, y, lam=0.2, alpha=0.5, lr=0.01, n_iter=2000, tol=1e-6):
-    """
-    Elastic Net: min (1/2n)||y-Xw||^2 + lam*(alpha*||w||_1 + (1-alpha)*0.5*||w||^2)
-    Proximal gradient: gradient step on smooth part, soft-threshold for L1.
-    """
-    n, d = X.shape
-    w = np.zeros(d)
-    for it in range(n_iter):
-        w_old = w.copy()
-        # Gradient of smooth part: data loss + L2 penalty
-        grad = (1 / n) * X.T @ (X @ w - y) + lam * (1 - alpha) * w
-        w_half = w - lr * grad
-        # Proximal step: soft-threshold for L1 part
-        w = soft_threshold(w_half, lr * lam * alpha)
-        if np.max(np.abs(w - w_old)) < tol:
-            break
-    return w
-
-print("=== Elastic Net: alpha interpolates L2 -> L1 ===")
-for alpha_val in [0.0, 0.5, 1.0]:
-    w_en = elastic_net_proximal(X, y, lam=0.2, alpha=alpha_val, lr=0.01)
-    zeros = np.sum(np.abs(w_en) < 1e-6)
-    print(f"alpha={alpha_val:.1f}  zeros={zeros}/{d}  w={np.round(w_en, 3)}")
-# Output:
-# alpha=0.0  zeros=0/10  w=[ 2.394 -1.665  1.227 -0.01  -0.072  0.13   0.628 -0.015  0.13  -0.774]
-# alpha=0.5  zeros=4/10  w=[ 2.568 -1.76   1.222  0.    -0.     0.011  0.582 -0.     0.    -0.783]
-# alpha=1.0  zeros=5/10  w=[ 2.759 -1.827  1.235  0.    -0.     0.     0.525 -0.     0.    -0.771]`}
-      </CodeBlock>
-
-      <Prose>
-        At <Code>{"alpha=0.0"}</Code> (pure Ridge), no zeros — all weights survive. At <Code>{"alpha=0.5"}</Code>, 4 zeros appear: the grouping + sparsity combination correctly identifies 4 of the true zero features. At <Code>{"alpha=1.0"}</Code> (pure LASSO), 5 zeros — LASSO overshoots slightly and zeroes out one small-but-real feature due to the L1 penalty's harsher treatment of correlated predictors.
-      </Prose>
-
-      <H3>4d. Dropout — 2-layer network with inverted dropout</H3>
-
-      <CodeBlock language="python">
-{`def relu(x):
-    return np.maximum(0, x)
-
-def dropout_mask(shape, p_keep):
-    """Inverted dropout: scale by 1/p_keep so test time needs no correction."""
-    return (np.random.rand(*shape) < p_keep) / p_keep
-
-class TwoLayerDropoutNet:
-    def __init__(self, input_dim, hidden_dim, output_dim, p_keep=0.5):
-        self.W1 = np.random.randn(input_dim, hidden_dim) * 0.1
-        self.b1 = np.zeros(hidden_dim)
-        self.W2 = np.random.randn(hidden_dim, output_dim) * 0.1
-        self.b2 = np.zeros(output_dim)
-        self.p_keep = p_keep
-
-    def forward(self, X, training=True):
-        self.X = X
-        self.z1 = X @ self.W1 + self.b1
-        self.h1 = relu(self.z1)
-        if training:
-            self.mask = dropout_mask(self.h1.shape, self.p_keep)
-            self.h1_drop = self.h1 * self.mask
-        else:
-            self.mask = np.ones_like(self.h1)
-            self.h1_drop = self.h1   # no scaling needed at test time
-        self.out = self.h1_drop @ self.W2 + self.b2
-        return self.out
-
-    def backward(self, y, lr=0.005):
-        n = len(y)
-        loss = np.mean((self.out.ravel() - y) ** 2)
-        d_out = (2 / n) * (self.out.ravel() - y).reshape(-1, 1)
-        dW2 = self.h1_drop.T @ d_out
-        db2 = d_out.sum(axis=0)
-        d_h1_drop = d_out @ self.W2.T
-        d_h1 = d_h1_drop * self.mask    # backprop through dropout
-        d_z1 = d_h1 * (self.z1 > 0)    # backprop through ReLU
-        dW1 = self.X.T @ d_z1
-        db1 = d_z1.sum(axis=0)
-        self.W1 -= lr * dW1
-        self.b1 -= lr * db1
-        self.W2 -= lr * dW2
-        self.b2 -= lr * db2
-        return loss
-
-np.random.seed(0)
-true_w = np.array([1.0, -2.0, 0.5, 0.0, 0.0])
-X_data = np.random.randn(200, 5)
-y_data = X_data @ true_w + 0.1 * np.random.randn(200)
-
-net = TwoLayerDropoutNet(input_dim=5, hidden_dim=16, output_dim=1, p_keep=0.5)
-print("=== 2-Layer Net with Dropout (p_keep=0.5) ===")
-for epoch in range(300):
-    out = net.forward(X_data, training=True)
-    loss = net.backward(y_data, lr=0.005)
-    if epoch in [0, 9, 49, 99, 199, 299]:
-        print(f"Epoch {epoch+1:>3}  train MSE (stochastic): {loss:.4f}")
-
-out_test = net.forward(X_data, training=False)
-test_mse = np.mean((out_test.ravel() - y_data) ** 2)
-print(f"Test MSE (dropout off): {test_mse:.4f}")
-# Output:
-# === 2-Layer Net with Dropout (p_keep=0.5) ===
-# Epoch   1  train MSE (stochastic): 4.9473
-# Epoch  10  train MSE (stochastic): 4.8492
-# Epoch  50  train MSE (stochastic): 4.5863
-# Epoch 100  train MSE (stochastic): 3.9825
-# Epoch 200  train MSE (stochastic): 1.4686
-# Epoch 300  train MSE (stochastic): 0.7592
-# Test MSE (dropout off): 0.2949`}
-      </CodeBlock>
-
-      <Prose>
-        Training MSE is intentionally noisier and higher than test MSE — dropout degrades performance during training by design. At test time with dropout disabled, the test MSE (0.29) is much lower than the stochastic training MSE (0.76), confirming the network generalized well. The gap between stochastic training loss and clean test loss is a normal feature of dropout, not a sign of overfitting.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5a. sklearn linear models</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.linear_model import (
-    Ridge, Lasso, ElasticNet,
-    RidgeCV, LassoCV, ElasticNetCV,
-    LogisticRegression
-)
-from sklearn.preprocessing import StandardScaler
-
-np.random.seed(42)
-n, d = 100, 10
-X = np.random.randn(n, d)
-true_w = np.array([3.0, -2.0, 1.5, 0.0, 0.0, 0.0, 0.8, 0.0, 0.0, -1.0])
-y = X @ true_w + np.random.randn(n) * 0.5
-
-# CRITICAL: always standardize before regularization
-# Features with large variance dominate the penalty without scaling
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-# --- Ridge ---
-ridge = Ridge(alpha=1.0)
-ridge.fit(X_scaled, y)
-print(f"Ridge (alpha=1):   coef={np.round(ridge.coef_, 3)}")
-print(f"  zeros={np.sum(np.abs(ridge.coef_)<1e-6)}/{d}")
-# Output: Ridge (alpha=1):   coef=[ 2.605 -2.085  1.504  0.01  -0.07   0.041  0.667 -0.004  0.03  -1.03 ]
-#   zeros=0/10
-
-# --- Lasso ---
-lasso = Lasso(alpha=0.05)
-lasso.fit(X_scaled, y)
-print(f"Lasso (alpha=0.05): coef={np.round(lasso.coef_, 3)}")
-print(f"  zeros={np.sum(np.abs(lasso.coef_)<1e-6)}/{d}")
-# Output: Lasso (alpha=0.05): coef=[ 2.596 -2.066  1.449  0.    -0.022  0.     0.633 -0.     0.    -0.985]
-#   zeros=4/10
-
-# --- ElasticNet ---
-en = ElasticNet(alpha=0.1, l1_ratio=0.5)
-en.fit(X_scaled, y)
-print(f"ElasticNet (alpha=0.1, l1_ratio=0.5): coef={np.round(en.coef_, 3)}")
-print(f"  zeros={np.sum(np.abs(en.coef_)<1e-6)}/{d}")
-# Output: ElasticNet (alpha=0.1, l1_ratio=0.5): coef=[ 2.486 -1.949  1.369  0.    -0.025  0.025  0.622 -0.     0.013 -0.906]
-#   zeros=2/10
-
-# --- CV versions: automatic lambda selection ---
-lasso_cv = LassoCV(cv=5, random_state=42)
-lasso_cv.fit(X_scaled, y)
-print(f"LassoCV  best_alpha={lasso_cv.alpha_:.4f}  zeros={np.sum(np.abs(lasso_cv.coef_)<1e-6)}/{d}")
-# Output: LassoCV  best_alpha=0.0364  zeros=3/10
-
-en_cv = ElasticNetCV(cv=5, l1_ratio=[0.1, 0.5, 0.9, 1.0], random_state=42)
-en_cv.fit(X_scaled, y)
-print(f"ElasticNetCV  best_alpha={en_cv.alpha_:.4f}  best_l1_ratio={en_cv.l1_ratio_:.1f}")
-# Output: ElasticNetCV  best_alpha=0.0364  best_l1_ratio=1.0`}
-      </CodeBlock>
-
-      <Callout type="info" title="sklearn API notes">
-        In Ridge and Lasso, <Code>alpha</Code> is the regularization strength (what the math calls <Code>{"λ"}</Code>). In LogisticRegression, the convention is flipped: <Code>C = 1/λ</Code> so smaller <Code>C</Code> means stronger regularization. <Code>l1_ratio</Code> in ElasticNet is the <Code>{"α"}</Code> parameter from the math (0 = pure L2, 1 = pure L1). Use <Code>LassoCV</Code> and <Code>ElasticNetCV</Code> instead of manual grid search — they use the warm-start regularization path and are much faster than cross-validating independently for each <Code>alpha</Code>.
-      </Callout>
-
-      <H3>5b. Logistic regression with L1/L2/Elastic Net</H3>
-
-      <CodeBlock language="python">
-{`from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import StandardScaler
-
-X_clf, y_clf = make_classification(
-    n_samples=500, n_features=20, n_informative=5,
-    n_redundant=5, random_state=42
-)
-X_tr, X_te, y_tr, y_te = train_test_split(X_clf, y_clf, test_size=0.2, random_state=42)
-scaler = StandardScaler()
-X_tr = scaler.fit_transform(X_tr)
-X_te = scaler.transform(X_te)
-
-# lbfgs: L2 (default), fast, no L1
-clf_l2 = LogisticRegression(solver="lbfgs", C=1.0, max_iter=500)
-clf_l2.fit(X_tr, y_tr)
-print(f"lbfgs  L2  C=1.0  -> acc={accuracy_score(y_te, clf_l2.predict(X_te)):.4f}  zeros={np.sum(clf_l2.coef_[0]==0)}/20")
-
-# saga: L1, scales to large sparse data
-clf_l1 = LogisticRegression(solver="saga", penalty="l1", C=0.5, max_iter=2000, random_state=42)
-clf_l1.fit(X_tr, y_tr)
-print(f"saga   L1  C=0.5  -> acc={accuracy_score(y_te, clf_l1.predict(X_te)):.4f}  zeros={np.sum(clf_l1.coef_[0]==0)}/20")
-
-# saga: Elastic Net (penalty='elasticnet' + l1_ratio)
-clf_en = LogisticRegression(
-    solver="saga", penalty="elasticnet", C=0.5, l1_ratio=0.5,
-    max_iter=2000, random_state=42
-)
-clf_en.fit(X_tr, y_tr)
-print(f"saga   EN  C=0.5  -> acc={accuracy_score(y_te, clf_en.predict(X_te)):.4f}  zeros={np.sum(clf_en.coef_[0]==0)}/20")`}
-      </CodeBlock>
-
-      <H3>5c. PyTorch Dropout — training vs eval mode</H3>
-
-      <CodeBlock language="python">
-{`import torch
-import torch.nn as nn
-
-torch.manual_seed(42)
-
-class SimpleNet(nn.Module):
-    def __init__(self, p_drop=0.5):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.Linear(10, 64),
-            nn.ReLU(),
-            nn.Dropout(p=p_drop),    # p is DROP probability (1 - p_keep)
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Dropout(p=p_drop),
-            nn.Linear(32, 1),
-        )
-    def forward(self, x):
-        return self.net(x)
-
-model = SimpleNet(p_drop=0.5)
-X_t = torch.randn(5, 10)
-
-# Training mode: dropout is ACTIVE — different output each call
-model.train()
-out1 = model(X_t).detach().numpy().ravel().round(4)
-out2 = model(X_t).detach().numpy().ravel().round(4)
-print(f"[train] pass 1: {out1}")
-print(f"[train] pass 2: {out2}")
-print("^ Stochastic: outputs differ because dropout masks are resampled each pass")
-
-# Eval mode: dropout is DISABLED — deterministic
-model.eval()
-with torch.no_grad():
-    out3 = model(X_t).numpy().ravel().round(4)
-    out4 = model(X_t).numpy().ravel().round(4)
-print(f"[eval]  pass 1: {out3}")
-print(f"[eval]  pass 2: {out4}")
-print("^ Deterministic: identical outputs, no dropout")
-
-# Weight decay in the optimizer = L2 regularization on all parameters
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-4)
-print(f"\\nAdam weight_decay=1e-4 adds L2 penalty: ||w||^2 * weight_decay")
-print("Use weight_decay on top of Dropout for double regularization in deep nets")`}
-      </CodeBlock>
-
-      <Callout type="info" title="Dropout API gotcha">
-        <Code>nn.Dropout(p=0.5)</Code> — <Code>p</Code> is the <em>drop</em> probability, not the keep probability. So <Code>p=0.5</Code> keeps 50% of neurons. Always call <Code>model.train()</Code> before training and <Code>model.eval()</Code> before inference. PyTorch uses inverted dropout internally: during training it scales activations by <Code>{"1/(1-p)"}</Code> so test-time inference requires no correction. Forgetting <Code>model.eval()</Code> at inference time is one of the most common Dropout bugs — your predictions will be noisy and unpredictable.
-      </Callout>
-
-      <H3>5d. Tree regularization in XGBoost/LightGBM</H3>
-
-      <CodeBlock language="python">
-{`import xgboost as xgb
-import lightgbm as lgb
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-
-X, y = make_regression(n_samples=500, n_features=10, noise=20, random_state=42)
-X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# XGBoost: reg_alpha (L1 on leaf weights), reg_lambda (L2 on leaf weights)
-xgb_model = xgb.XGBRegressor(
-    n_estimators=100, max_depth=4,
-    reg_alpha=0.1,    # L1: pushes leaf weights toward zero, creates sparse trees
-    reg_lambda=1.0,   # L2: shrinks leaf weights (default=1)
-    tree_method="hist", random_state=42, eval_metric="rmse",
-    early_stopping_rounds=10, verbosity=0
-)
-xgb_model.fit(X_tr, y_tr, eval_set=[(X_te, y_te)], verbose=False)
-print(f"XGBoost  reg_alpha=0.1  reg_lambda=1.0  -> best_iter={xgb_model.best_iteration}")
-
-# LightGBM: lambda_l1, lambda_l2
-lgb_model = lgb.LGBMRegressor(
-    n_estimators=100, num_leaves=31,
-    reg_alpha=0.1,    # L1 (lambda_l1)
-    reg_lambda=1.0,   # L2 (lambda_l2)
-    random_state=42, verbose=-1
-)
-lgb_model.fit(
-    X_tr, y_tr,
-    eval_set=[(X_te, y_te)],
-    callbacks=[lgb.early_stopping(10, verbose=False), lgb.log_evaluation(-1)]
-)
-print(f"LightGBM reg_alpha=0.1  reg_lambda=1.0  -> best_iter={lgb_model.best_iteration_}")`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Regularization path: weight trajectories vs lambda</H3>
-
-      <Prose>
-        As <Code>{"λ"}</Code> increases from near-zero to large, the weight on feature 0 (true value 3.0) shrinks differently under each method. Ridge shrinks smoothly but never reaches zero. LASSO shrinks more aggressively and eventually hits exactly zero. Elastic Net (<Code>{"α=0.5"}</Code>) lies between the two.
-      </Prose>
-
-      <Plot
-        label="Regularization path — weight on feature 0 vs lambda (true value = 3.0)"
-        xLabel="Regularization strength (lambda)"
-        yLabel="Weight value"
-        series={[
-          {
-            name: "Ridge (L2)",
-            color: colors.gold,
-            points: [
-              [0.001, 2.629], [0.01, 2.628], [0.05, 2.628], [0.1, 2.626],
-              [0.3, 2.622], [0.5, 2.617], [1.0, 2.605], [2.0, 2.582],
-              [5.0, 2.516], [10.0, 2.413],
-            ],
-          },
-          {
-            name: "LASSO (L1)",
-            color: colors.green,
-            points: [
-              [0.001, 2.628], [0.01, 2.622], [0.05, 2.596], [0.1, 2.558],
-              [0.3, 2.407], [0.5, 2.255], [1.0, 1.851], [2.0, 0.950],
-              [5.0, 0.0], [10.0, 0.0],
-            ],
-          },
-          {
-            name: "Elastic Net (alpha=0.5)",
-            color: "#c084fc",
-            points: [
-              [0.001, 2.627], [0.01, 2.614], [0.05, 2.556], [0.1, 2.486],
-              [0.3, 2.231], [0.5, 2.005], [1.0, 1.552], [2.0, 0.949],
-              [5.0, 0.130], [10.0, 0.0],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6b. Validation error U-curve vs lambda</H3>
-
-      <Prose>
-        Cross-validated MSE follows a U-shaped curve. Too small a <Code>{"λ"}</Code> overfits (training noise is memorized). Too large a <Code>{"λ"}</Code> underfits (all weights are shrunk to zero). The sweet spot is the minimum of the CV curve, which <Code>RidgeCV</Code> and <Code>LassoCV</Code> find automatically.
-      </Prose>
-
-      <Plot
-        label="Ridge 5-fold CV MSE vs lambda — U-curve showing optimal regularization"
-        xLabel="Lambda"
-        yLabel="5-fold CV MSE"
-        series={[
-          {
-            name: "CV MSE (mean)",
-            color: colors.gold,
-            points: [
-              [0.001, 0.277], [0.01, 0.277], [0.05, 0.277], [0.1, 0.277],
-              [0.3, 0.277], [0.5, 0.277], [1.0, 0.279], [2.0, 0.288],
-              [5.0, 0.343], [10.0, 0.510],
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        This dataset is low-noise, so the optimal <Code>{"λ"}</Code> is small (around 0.1–0.5) and the curve is flat on the left before rising sharply. In noisy real-world datasets, the U-shape is more pronounced and the left side rises earlier, making the sweet spot easier to identify.
-      </Prose>
-
-      <H3>6c. Sparsity: LASSO zeros vs lambda</H3>
-
-      <Heatmap
-        label="LASSO weight magnitude at different lambda (10 features, 4 true zeros)"
-        rowLabels={["lam=0.01", "lam=0.10", "lam=0.50", "lam=1.00"]}
-        colLabels={["w0", "w1", "w2", "w3", "w4", "w5", "w6", "w7", "w8", "w9"]}
-        matrix={[
-          [2.955, 2.026, 1.484, 0.022, 0.061, 0.032, 0.699, 0.002, 0.024, 1.028],
-          [2.955, 2.026, 1.482, 0.022, 0.06,  0.031, 0.698, 0.0,   0.023, 1.027],
-          [2.951, 2.023, 1.477, 0.019, 0.056, 0.028, 0.695, 0.0,   0.019, 1.022],
-          [2.947, 2.019, 1.47,  0.015, 0.052, 0.023, 0.691, 0.0,   0.015, 1.016],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        Weight 7 (true value 0) goes to zero earliest, at <Code>{"λ=0.1"}</Code>. Weights 3, 4, 5, 8 (all true zeros) require larger <Code>{"λ"}</Code> because they have small but non-negligible OLS estimates on this finite sample. The signal weights (0, 1, 2, 6, 9) survive across all tested <Code>{"λ"}</Code> values, shrinking slowly.
-      </Prose>
-
-      <H3>6d. Coordinate descent trace for LASSO</H3>
-
-      <Prose>
-        The following trace shows 5 full sweeps of coordinate descent for LASSO at <Code>{"λ=0.5"}</Code>. Each sweep updates all 10 weights once. Weight 7 reaches zero and stays there from iteration 4 onward.
-      </Prose>
-
-      <StepTrace
-        label="LASSO coordinate descent — 5 sweeps at lambda=0.5"
-        steps={[
-          {
-            label: "Iter 1 — first sweep",
-            render: () => (
-              <Prose>
-                w = [3.312, -1.791, 1.270, 0.001, -0.184, 0.021, 0.755, -0.164, 0.068, -0.891]. All 10 weights non-zero. Loss = 4.432. First sweep uses OLS-like estimates as starting point — some weights overshoot before soft-thresholding brings them back on subsequent iterations. Weight 7 is at -0.164 (still non-zero).
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 2 — large initial oscillations dampen",
-            render: () => (
-              <Prose>
-                w = [3.005, -1.941, 1.470, -0.016, -0.066, 0.052, 0.724, -0.020, 0.045, -0.988]. Loss = 4.276. Rapid convergence on the major weights (0, 1, 2, 9). Weight 7 shrinks from -0.164 to -0.020. Weight 3 flips sign (from 0.001 to -0.016) — coordinate descent can oscillate for near-zero features before settling.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 3 — near-zero weights tighten",
-            render: () => (
-              <Prose>
-                w = [2.957, -2.003, 1.476, 0.003, -0.058, 0.035, 0.702, -0.000, 0.028, -1.013]. Loss = 4.246. Weight 7 is now -0.000 — effectively zero but not yet pinned. The algorithm has found the true structure: weights 0, 1, 2, 6, 9 are strong, the rest are near zero.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 4 — weight 7 pinned to zero",
-            render: () => (
-              <Prose>
-                w = [2.952, -2.018, 1.477, 0.014, -0.057, 0.029, 0.697, -0.000, 0.022, -1.020]. Loss = 4.250. Weight 7 = 0.000 exactly — soft-thresholding clips it precisely to zero. Once at zero, coordinate descent will not move it unless the partial residual exceeds the threshold (it never does here). The solution is stabilizing.
-              </Prose>
-            ),
-          },
-          {
-            label: "Iter 5 — convergence",
-            render: () => (
-              <Prose>
-                w = [2.951, -2.022, 1.477, 0.017, -0.056, 0.028, 0.696, 0.000, 0.020, -1.021]. Loss = 4.252. Weights change by less than 0.005 from iteration 4. The algorithm converges within 11 total sweeps. Final result: 1 exact zero (weight 7), 9 non-zero weights. Weights 3, 4, 5, 8 remain non-zero because their OLS estimates are still above the soft-threshold level at {"λ=0.5"}.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        Choosing the right regularization method depends on the model type, feature structure, dataset size, and what you need the solution to do.
-      </Prose>
-
-      <StepTrace
-        label="which regularization to use"
-        steps={[
-          {
-            label: "L2 (Ridge) — the safe default",
-            render: () => (
-              <Prose>
-                Use L2 when: you want to add regularization without thinking hard about it. Ridge is the right default for linear and logistic regression in nearly every setting. It is numerically stable, has a closed form, always has a unique solution (even when {"d > n"}), and its bias is mild unless <Code>{"α"}</Code> (sklearn's <Code>alpha</Code>) is very large. If features are correlated, Ridge still works — it shrinks all correlated features equally rather than arbitrarily eliminating some. Use <Code>RidgeCV</Code> to select <Code>alpha</Code> automatically via efficient leave-one-out cross-validation (it costs the same as fitting Ridge once). When NOT to use: when you need sparse solutions or automatic feature selection — Ridge will never zero out a weight.
-              </Prose>
-            ),
-          },
-          {
-            label: "L1 (LASSO) — when sparsity is the goal",
-            render: () => (
-              <Prose>
-                Use L1 when: you believe many features are irrelevant and want automatic feature selection. LASSO is the standard choice for genomics ({"p > 10,000"} features, few are causal), NLP bag-of-words with large vocabularies, and any setting where interpretability requires a small number of non-zero coefficients. Use <Code>LassoCV</Code> to find <Code>alpha</Code> — it fits the entire regularization path using warm starts and is faster than grid search. When NOT to use: when features are highly correlated. LASSO will pick one from a correlated group and zero the rest, which is statistically arbitrary and makes the solution unstable — small data changes cause different features to be selected. Use Elastic Net instead.
-              </Prose>
-            ),
-          },
-          {
-            label: "Elastic Net — correlated features + sparsity",
-            render: () => (
-              <Prose>
-                Use Elastic Net when: you want sparsity but your features are correlated. The L2 component groups correlated features (gives them similar coefficients) while the L1 component allows the group to be zeroed out together. This is the right choice for: gene expression data with correlated gene clusters, financial features with correlated time series, text features with synonyms. The default <Code>l1_ratio=0.5</Code> is a reasonable starting point; use <Code>ElasticNetCV</Code> to search over <Code>l1_ratio=[0.1, 0.5, 0.9, 1.0]</Code> and <Code>alpha</Code> jointly. When <Code>l1_ratio=1</Code>, ElasticNet reduces to LASSO; when <Code>l1_ratio=0</Code>, it reduces to Ridge. In practice, <Code>l1_ratio</Code> between 0.5 and 0.9 works well for most correlated-feature settings.
-              </Prose>
-            ),
-          },
-          {
-            label: "Dropout — deep neural networks",
-            render: () => (
-              <Prose>
-                Use Dropout when: training a deep neural network (MLP, CNN, Transformer) and the model is overfitting. The standard placement is after the activation of each dense layer; for modern Transformers, Dropout is placed after attention and feedforward layers. Standard <Code>p=0.5</Code> (50% drop rate) is the default for hidden layers; <Code>p=0.1</Code>–<Code>0.2</Code> is common for input layers and large pre-trained models. Do NOT use Dropout on its own for regularization in classical ML (linear models, trees) — L1/L2 is more principled there. Combine Dropout with weight decay (<Code>weight_decay</Code> in the optimizer) for double regularization in deep nets. Remove Dropout for recurrent layers (use Recurrent Dropout instead, which drops along the time dimension).
-              </Prose>
-            ),
-          },
-          {
-            label: "Early stopping — implicit regularization for iterative methods",
-            render: () => (
-              <Prose>
-                Early stopping is not a penalty-based method but functions as implicit regularization for gradient boosting and neural networks. Stopping gradient descent before convergence is equivalent to Ridge regularization in linear models (the connection is made precise by the bias-variance analysis of iterative solvers). For gradient boosting (XGBoost, LightGBM), early stopping with a proper validation set is the primary regularization mechanism — always use it. For neural nets, early stopping combined with Dropout provides defense in depth. For linear models, prefer explicit L1/L2 — they are convex and coordinate descent converges to the true solution, so early stopping adds no benefit.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 Computational complexity</H3>
-
-      <Prose>
-        Ridge via the closed form requires inverting a <Code>{"d × d"}</Code> matrix, costing <Code>{"O(nd² + d³)"}</Code>. For <Code>{"n=10,000"}</Code> and <Code>{"d=1,000"}</Code> this is feasible; for <Code>{"d=100,000"}</Code> the <Code>{"d³"}</Code> term makes it prohibitive. Ridge via the Gram matrix trick computes <Code>{"(XX⊤ + λI)⁻¹"}</Code> instead — an <Code>{"n × n"}</Code> matrix costing <Code>{"O(n²d + n³)"}</Code> — which is faster when <Code>{"n ≪ d"}</Code>. The optimal switch-over is at <Code>{"n = d"}</Code>. SVD-based Ridge costs <Code>{"O(nd · min(n,d))"}</Code> and is numerically the most stable; sklearn's <Code>RidgeCV</Code> uses SVD internally.
-      </Prose>
-
-      <Prose>
-        LASSO via coordinate descent costs <Code>{"O(nd)"}</Code> per sweep, with typically 10–200 sweeps to convergence. For sparse feature matrices (e.g., text bag-of-words), coordinate descent exploits sparsity: if <Code>{"X[:,j]"}</Code> has only <Code>{"k"}</Code> non-zeros, updating <Code>{"w_j"}</Code> costs <Code>{"O(k)"}</Code> instead of <Code>{"O(n)"}</Code>. This makes LASSO via coordinate descent practical for <Code>{"d = 1,000,000"}</Code> with sparse inputs. The SAGA solver in sklearn scales to millions of samples with sparse features by using stochastic variance-reduced gradient estimates — each step costs <Code>{"O(d)"}</Code> and the algorithm converges in <Code>{"O(1/k)"}</Code> steps with optimal constants.
-      </Prose>
-
-      <Prose>
-        Dropout adds essentially zero computational overhead per parameter — it is a Bernoulli sample and element-wise multiply, both O(hidden_dim) per layer. The cost is in the training dynamics: dropout requires more iterations to converge because the effective gradient is noisier. In practice, networks with dropout need 2–3x more epochs than without. At inference time, dropout is free — it is simply disabled.
-      </Prose>
-
-      <H3>8.2 The {"d > n"} regime</H3>
-
-      <Prose>
-        When features outnumber samples, OLS has infinitely many solutions (the system is underdetermined) and the standard normal equations break down. Ridge fixes this completely: <Code>{"(XᵀX + λI)"}</Code> is full-rank and invertible for any <Code>{"λ > 0"}</Code>, giving a unique solution regardless of the ratio of <Code>{"d"}</Code> to <Code>{"n"}</Code>. This is why Ridge is used in genomics (<Code>{"d ≈ 20,000"}</Code> genes, <Code>{"n ≈ 200"}</Code> patients) and in situations where you have more features than observations. LASSO also handles <Code>{"d > n"}</Code> well, but there is a theoretical limit: LASSO can select at most <Code>{"n"}</Code> non-zero features (it cannot identify more signals than it has data points). For <Code>{"d ≫ n"}</Code> with many truly relevant features, LASSO will miss some; Elastic Net reduces this problem by grouping correlated signals.
-      </Prose>
-
-      <H3>8.3 Distributed regularization</H3>
-
-      <Prose>
-        For distributed settings where the dataset does not fit on one machine, Ridge and LASSO are solved differently. Ridge decomposes naturally: compute <Code>{"X_iᵀX_i"}</Code> and <Code>{"X_iᵀy_i"}</Code> on each shard, sum them across shards, then solve once. The full problem reduces to a single matrix inversion of size <Code>{"d × d"}</Code> — feasible as long as <Code>{"d"}</Code> is manageable. LASSO does not decompose as cleanly because coordinate descent requires access to all residuals. ADMM (Alternating Direction Method of Multipliers) is the standard distributed LASSO solver: it maintains a consensus variable and solves per-shard subproblems in parallel, communicating only the consensus variable at each round. Scikit-learn's <Code>saga</Code> solver can be distributed via Dask for large-scale sparse logistic regression.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Forgetting to standardize features</H3>
-
-      <Prose>
-        This is the single most common regularization mistake. The L1 and L2 penalties are applied to the raw weight values, which means they penalize features with large natural scales more than features with small scales. A feature measuring income in dollars (range: 20,000–200,000) will have a small coefficient after regularization not because it is unimportant but because a small coefficient times a large value produces a large prediction. A feature measuring age in years (range: 20–80) will survive regularization at a larger coefficient for the same predictive power. The result: regularization distorts the feature selection by conflating weight magnitude with feature scale. Always apply <Code>StandardScaler</Code> before Ridge, LASSO, or Elastic Net. Fit the scaler on training data only and apply the transform to test data.
-      </Prose>
-
-      <H3>9.2 Choosing lambda on the test set</H3>
-
-      <Prose>
-        If you evaluate multiple values of <Code>{"λ"}</Code> on the test set and pick the best one, you have used the test set for hyperparameter selection — it is no longer an unbiased estimate of generalization error. This inflates apparent performance. The correct procedure: use <Code>k</Code>-fold cross-validation on the training set to select <Code>{"λ"}</Code>, then evaluate the model with that <Code>{"λ"}</Code> on the held-out test set exactly once. <Code>RidgeCV</Code>, <Code>LassoCV</Code>, and <Code>ElasticNetCV</Code> automate this correctly. Never look at the test set until your model is fully specified.
-      </Prose>
-
-      <H3>9.3 LASSO instability with correlated features</H3>
-
-      <Prose>
-        When two features <Code>{"x_i"}</Code> and <Code>{"x_j"}</Code> are highly correlated, LASSO's solution is unstable: small changes in the data determine which feature is selected and which is zeroed. Both selections have nearly the same training loss, but they lead to very different models. In cross-validation, different folds may select different features, leading to high variance in the feature selection. The symptom is that different random seeds or data splits produce dramatically different non-zero sets. The fix is Elastic Net, which groups correlated features by the L2 penalty — both get similar (non-zero) coefficients and the selection becomes stable.
-      </Prose>
-
-      <H3>9.4 Ridge penalizes the intercept (sometimes)</H3>
-
-      <Prose>
-        By default, sklearn's <Code>Ridge</Code> does not penalize the intercept term (bias). This is correct behavior and matches the math: the regularization should shrink slope parameters, not the overall mean of the predictions. Some from-scratch implementations accidentally include the bias column in the design matrix and apply the penalty to it, which distorts the solution. Always verify that the intercept is excluded from the penalty when implementing regularization manually. In sklearn, this is handled correctly by default; in PyTorch, weight decay applied via the optimizer penalizes all parameters including biases — you may want to exclude them using parameter groups.
-      </Prose>
-
-      <H3>9.5 Dropout at test time without model.eval()</H3>
-
-      <Prose>
-        Leaving dropout active at inference time is one of the most common PyTorch bugs. The symptoms are subtle: predictions are correct on average but have high variance across runs, and the model appears to underperform benchmarks by a few percentage points. The fix is always calling <Code>model.eval()</Code> before inference and <Code>model.train()</Code> before resuming training. A related issue: Monte Carlo Dropout, used for uncertainty estimation, intentionally keeps dropout active at test time and averages many stochastic passes. If you intend deterministic inference, always call <Code>model.eval()</Code>.
-      </Prose>
-
-      <H3>9.6 Numerical instability for tiny lambda</H3>
-
-      <Prose>
-        Ridge with <Code>{"λ → 0"}</Code> approaches OLS. If <Code>{"XᵀX"}</Code> is nearly singular (due to collinear features), the solution becomes numerically unstable — tiny floating-point differences produce huge swings in the coefficients. This is visible as coefficients with magnitude <Code>{"10⁶"}</Code> paired with low training loss but catastrophic test predictions. The fix is to ensure <Code>{"λ"}</Code> is at least on the order of the smallest eigenvalue of <Code>{"XᵀX"}</Code>. A practical heuristic: if the condition number of <Code>{"XᵀX"}</Code> exceeds <Code>{"10⁶"}</Code>, use Ridge with at minimum <Code>{"λ = 1e-3 · trace(XᵀX) / d"}</Code>. Using <Code>np.linalg.solve</Code> instead of explicit matrix inversion mitigates (but does not eliminate) this issue.
-      </Prose>
-
-      <H3>9.7 Dropout with batch normalization</H3>
-
-      <Prose>
-        Dropout and batch normalization interact in a subtle and often harmful way when placed in the wrong order. Batch normalization uses batch statistics (mean, variance) during training and running averages at test time. If Dropout precedes BatchNorm, the effective batch statistics change between training and test time — the dropout changes which neurons contribute to the mean and variance, creating a statistical mismatch. The standard recommendation (supported empirically and theoretically in the "Understanding the Disharmony between Dropout and Batch Normalization by Variance Shift" paper) is to not use Dropout before BatchNorm layers, or to place Dropout only after the final BatchNorm in the network. In modern architectures (ResNets, EfficientNets), BatchNorm and Dropout are rarely used together — choose one or the other.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations verified via WebSearch against their primary publication venues. Read in order for the intellectual lineage.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Tikhonov 1943 — Origin of regularization theory",
-            render: () => (
-              <Prose>
-                Tikhonov, A.N. (1943). "On the stability of inverse problems." <em>Doklady Akademii Nauk SSSR</em>, 39(5):195–198. The founding paper of regularization theory, written in Russian during World War II. Tikhonov's problem was ill-posed inverse problems in mathematical physics, not statistics. The key insight — add a smoothness penalty to the objective to stabilize a solution — is the same insight that underlies L2 regularization in machine learning. Tikhonov later developed the method extensively in his 1963 paper "Solution of incorrectly formulated problems and the regularization method" (Dokl. Akad. Nauk SSSR, 151(3):501–504), which gave the method the more general "Tikhonov regularization" name used in the inverse problems literature.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hoerl & Kennard 1970 — Ridge regression",
-            render: () => (
-              <Prose>
-                Hoerl, A.E. and Kennard, R.W. (1970). "Ridge Regression: Biased Estimation for Nonorthogonal Problems." <em>Technometrics</em>, 12(1):55–67. DOI: 10.1080/00401706.1970.10488634. Available via Taylor & Francis. This paper introduced ridge regression as a practical tool for statisticians dealing with collinear predictors, showed that the biased ridge estimator has uniformly lower mean squared error than OLS under near-collinearity, and introduced the ridge trace as a diagnostic. A companion paper in the same issue (pages 69–82) gave application examples. Both are still cited in regression textbooks.
-              </Prose>
-            ),
-          },
-          {
-            label: "Tibshirani 1996 — LASSO",
-            render: () => (
-              <Prose>
-                Tibshirani, R. (1996). "Regression Shrinkage and Selection via the Lasso." <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, 58(1):267–288. DOI: 10.1111/j.2517-6161.1996.tb02080.x. Available via Oxford Academic (open access via JRSS). This paper introduced the LASSO, showed its geometric connection to the L1 ball, derived the soft-thresholding solution for orthonormal design, and demonstrated via simulation that LASSO dominates ridge when the true model is sparse and subset selection when features are correlated. The name "LASSO" has become standard in statistics, machine learning, signal processing, and econometrics. Tibshirani's 2011 retrospective (JRSS-B 73(3):273–282) is worth reading for the history of the idea and subsequent developments.
-              </Prose>
-            ),
-          },
-          {
-            label: "Zou & Hastie 2005 — Elastic Net",
-            render: () => (
-              <Prose>
-                Zou, H. and Hastie, T. (2005). "Regularization and Variable Selection via the Elastic Net." <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em>, 67(2):301–320. DOI: 10.1111/j.1467-9868.2005.00503.x. Available via Oxford Academic. This paper proved that LASSO's solution is non-unique when features are correlated (infinitely many weight vectors achieve the same L1-penalized loss), identified the grouping property as desirable and absent in LASSO, introduced the elastic net as the convex combination of L1 and L2 penalties, and showed both theoretically and empirically that elastic net outperforms LASSO in the correlated-features regime. The LARS (Least Angle Regression) algorithm of Efron et al. (2004, Annals of Statistics) is the standard way to compute the elastic net regularization path efficiently and is implemented in sklearn's <Code>LassoLars</Code>.
-              </Prose>
-            ),
-          },
-          {
-            label: "Srivastava et al. 2014 — Dropout",
-            render: () => (
-              <Prose>
-                Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., and Salakhutdinov, R. (2014). "Dropout: A Simple Way to Prevent Neural Networks from Overfitting." <em>Journal of Machine Learning Research</em>, 15:1929–1958. Available at jmlr.org/papers/v15/srivastava14a.html. The foundational dropout paper. Shows dropout prevents co-adaptation of neurons, demonstrates state-of-the-art results on vision, speech, text, and computational biology benchmarks, analyzes the connection to model averaging, and shows that the naive scaling approximation (multiply by keep probability at test time) is exact for linear networks and a good approximation for nonlinear ones. The inverted dropout implementation (scale by 1/p during training, no scaling at test) was not in the original paper but became standard for engineering convenience.
-              </Prose>
-            ),
-          },
-          {
-            label: "Wang & Manning 2013 — Fast Dropout and L2 connection",
-            render: () => (
-              <Prose>
-                Wang, S. and Manning, C. (2013). "Fast dropout training." <em>Proceedings of the 30th International Conference on Machine Learning (ICML)</em>, PMLR 28(2):118–126. Available at proceedings.mlr.press/v28/wang13a.html. This paper shows that the expected gradient update under dropout is approximately the gradient of an L2-regularized quadratic objective — making precise the connection between dropout and weight decay. The effective regularization strength is proportional to <Code>{"p(1-p) · σ²_input"}</Code>, explaining why features with high input variance receive stronger dropout regularization. The paper also introduces a Gaussian approximation to dropout that is faster to compute (no sampling) and gives similar empirical results. This theoretical grounding justifies using dropout as principled regularization, not just an engineering trick.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through each exercise before reading the answer. These test recall, derivation, debugging, and applied judgment — the same mix you encounter in interviews and production debugging.
-      </Prose>
-
-      <H3>Exercise 1 (recall)</H3>
-      <Prose>
-        Write the ridge regression objective and its closed-form solution. Why does adding <Code>{"λI"}</Code> to <Code>{"XᵀX"}</Code> before inverting always produce a unique solution, even when <Code>{"d > n"}</Code>?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        {"Ridge objective: L(w) = ‖y − Xw‖² + λ‖w‖²."} Solution: {"w* = (XᵀX + λI)⁻¹ Xᵀy."}
-        The matrix {"XᵀX"} is positive semi-definite — all eigenvalues are ≥ 0. When d {">"} n (more features than samples), {"XᵀX"} has at least d − n zero eigenvalues, making it singular (non-invertible). Adding {"λI"} shifts all eigenvalues up by λ: the eigenvalues of {"(XᵀX + λI)"} are {"‌(σᵢ² + λ)"}, all strictly positive for any λ {">"} 0. A matrix with all positive eigenvalues is positive definite, hence invertible. This is why ridge always has a unique solution regardless of the n-vs-d relationship.
-      </Callout>
-
-      <H3>Exercise 2 (derivation)</H3>
-      <Prose>
-        Explain geometrically why L1 regularization produces sparse solutions but L2 does not. Use the constraint-region framing — where is the constrained optimum for each penalty?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        The constrained form of regularization asks: minimize the OLS loss subject to {"‖w‖_p ≤ t"} for some budget t. The OLS loss forms elliptical contours around the unconstrained optimum. The constraint region for L2 is a circle (sphere in high dimensions) — a smooth, curved surface with no corners. The elliptical contours can be tangent to the circle at any point, and that point will generally not lie on any axis. So L2 solutions are generically non-zero in all dimensions.
-        The constraint region for L1 is a diamond (cross-polytope) — a non-smooth surface with corners that point along coordinate axes. The elliptical contours are pulled toward the closest corner of the diamond because the corners project furthest in all directions. When the contours first touch the diamond, they almost always touch a corner, which sits exactly on a coordinate axis — forcing one or more weights to be exactly zero. The more corners there are (higher dimension), the more likely the optimum lands on a corner, and the sparser the solution.
-      </Callout>
-
-      <H3>Exercise 3 (applied)</H3>
-      <Prose>
-        You are fitting logistic regression on a gene expression dataset with 5,000 samples and 20,000 features. You believe about 50 genes are truly predictive. You want the final model to show which genes matter. What regularization method do you choose, what sklearn solver, and what hyperparameter do you tune?
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        Use LASSO (L1) regularization — you want sparse solutions, and LASSO is designed to zero out irrelevant features, ideally leaving only the ~50 predictive genes with non-zero coefficients. In sklearn: {"LogisticRegression(solver='saga', penalty='l1', C=..., max_iter=2000)"}. Solver: saga is the only sklearn logistic regression solver that supports L1 and scales to large sparse datasets efficiently. Hyperparameter: tune C (the inverse regularization strength — smaller C means stronger regularization, more zeros). Use LogisticRegressionCV with cv=5 and a logarithmic grid of C values: {"C=[0.001, 0.01, 0.1, 1.0, 10.0]"}. Since gene expression features may be correlated (co-regulated gene modules), you should also try Elastic Net ({"penalty='elasticnet'"}, {"l1_ratio=[0.5, 0.9, 1.0]"}) and compare sparsity vs. CV accuracy. Always standardize the features with StandardScaler before fitting — gene expression values have very different scales across genes.
-      </Callout>
-
-      <H3>Exercise 4 (debugging)</H3>
-      <Prose>
-        Your PyTorch network achieves 95% validation accuracy during training but 72% when deployed. The only code difference between training and deployment is that your training loop calls <Code>{"forward(X)"}</Code> and your deployment server calls <Code>{"model(X)"}</Code> after loading the checkpoint. What is the most likely bug and how do you fix it?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        The model is in training mode at deployment — dropout (and batch normalization's training statistics) are still active. When you load a checkpoint with torch.load and call model(X), the model defaults to training mode unless you explicitly call model.eval(). In training mode, dropout randomly zeros neurons at every forward pass, making predictions stochastic and on average incorrect (neurons are scaled by 1/p_keep during training so the raw activations are inflated relative to what test expects without dropout). The fix: add {"model.eval()"} immediately after loading the checkpoint in the deployment server: {"model.load_state_dict(checkpoint); model.eval()"}. If you also use torch.no_grad() (which you should, to save memory and speed up inference), ensure it wraps the forward call: {"with torch.no_grad(): out = model(X)"}. Always test your deployment pipeline end-to-end with a known input to catch this class of bug.
-      </Callout>
-
-      <H3>Exercise 5 (conceptual)</H3>
-      <Prose>
-        A colleague claims: "Elastic Net is strictly better than both LASSO and Ridge, so we should always use it." Is this claim correct? Give one scenario where Ridge strictly outperforms Elastic Net and one where LASSO does.
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        The claim is incorrect. Elastic Net has more hyperparameters (both alpha and l1_ratio must be tuned), is slower to fit than Ridge (no closed form), and when the optimal l1_ratio is 0 or 1, it reduces to Ridge or LASSO respectively — adding unnecessary search cost.
-        Ridge strictly outperforms Elastic Net when: all features are truly relevant (no true zeros in the generating model) AND features are uncorrelated. In this "dense signal" setting, L1 penalties shrink relevant features too aggressively — the optimal solution has no zeros, so adding any L1 component wastes bias on features that should be kept. Ridge gives the lowest MSE.
-        LASSO strictly outperforms Elastic Net when: features are independent (zero correlation) AND the true model is sparse. With independent features, the grouping property of Elastic Net is irrelevant — you do not need the L2 component to stabilize the solution. LASSO with a perfectly tuned alpha achieves the same sparsity as Elastic Net with lower bias (because it does not add the L2 shrinkage to the non-zero features). In this regime, Elastic Net's l1_ratio search just wastes compute converging to l1_ratio=1.0 anyway.
-      </Callout>
-
-      <H3>Exercise 6 (math)</H3>
-      <Prose>
-        Derive the soft-thresholding operator from first principles. Given a 1D LASSO problem: {"min_w  (1/2)(z − w)² + λ|w|"} where <Code>{"z"}</Code> is a constant, show that the optimal <Code>{"w*"}</Code> is {"S(z, λ) = sign(z) · max(|z| − λ, 0)"}. Consider the three cases: <Code>{"z > λ"}</Code>, <Code>{"z < −λ"}</Code>, and <Code>{"|z| ≤ λ"}</Code>.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        {"The objective f(w) = (1/2)(z − w)² + λ|w| is convex but non-smooth at w=0. We use subgradient optimality: w* minimizes f iff 0 ∈ ∂f(w*)."}
-        {"∂f(w) = −(z − w) + λ∂|w| = (w − z) + λ∂|w|."}
-        {"∂|w| = {1} if w > 0; {−1} if w < 0; [−1, +1] if w = 0."}
-        Case 1 (z {">"} λ): Try w* = z − λ {">"} 0. Then ∂f(w*) = (w* − z) + λ·1 = (z − λ − z) + λ = 0. Optimality holds. ✓
-        Case 2 (z {"<"} −λ): Try w* = z + λ {"<"} 0. Then ∂f(w*) = (w* − z) + λ·(−1) = (z + λ − z) − λ = 0. Optimality holds. ✓
-        {"Case 3 (|z| ≤ λ): Try w* = 0. Then ∂f(0) = (0 − z) + λ[−1, +1] = {−z + s : s ∈ [−λ, λ]}. For 0 ∈ ∂f(0) we need −z + s = 0 for some s ∈ [−λ, λ], i.e., s = z, which holds iff |z| ≤ λ. Optimality holds. ✓"}
-        {"Combining: w* = sign(z) · max(|z| − λ, 0). This is the soft-thresholding operator S(z, λ). Note: hard thresholding (keep z if |z| > λ, else 0) sets w* = z·1{|z|>λ} — no shrinkage of large values, no subgradient proof."}
-      </Callout>
-
-    </div>
-  ),
+  title: 'Regularization (L1, L2, Elastic Net, Dropout)',
+  readTime: '~65 min first pass · ~120 min complete read + 70–110 min code and practice',
+  hasIntegratedGuide: true,
+  content: () => <div className="lesson-pilot rg-lesson">
+    <LessonIntro prerequisites={<>A weighted sum, squared error, means, and the fit/validation distinction from the preceding <a href="/learn/path/full-curriculum/cross-validation-hyperparameter-tuning?module=classical-ml">Cross-Validation &amp; Hyperparameter Tuning</a> lesson. <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a> supplies the fit/transform mechanics used inside every fold here. The extra notation is introduced as it becomes useful.</>} sections={headings.map(heading => [headingId(heading), heading.replace(/^\d+\. /, '')])}>
+      A model can explain the observations you collected in several different ways. Learn to state the preference you are adding, calculate a soft-threshold and a shrinkage by hand, fit four constructed rows one coordinate at a time, separate prediction from coefficient attribution on duplicate sensors, read a real regularization path on 1,503 aeroacoustic measurements including its unhelpful end, and derive exactly why a mean-preserving dropout mask still raises the expected loss. Every investigation asks for a prediction before it shows an answer, and retires that prediction the moment an input changes.
+    </LessonIntro>
+    <Prose className="rg-route"><strong>First pass.</strong> Follow sections 1–6 to understand the objectives, work a tiny fit, compare real observations and explain dropout&rsquo;s train/evaluation distinction. Try practice 1–6. Sections 7–9 deepen the connection to linear algebra, Bayesian priors, parameterization and model-selection criteria; you can return to those branches after the core route.</Prose>
+
+    <Prose>A model can explain the observations you collected in several different ways. Some explanations depend on large, finely balanced coefficients: increase one contribution and almost cancel it with another. A small change in the measurements may then change those coefficients dramatically. Other explanations use many weak contributions that might be real signal, or might just fit the particular sample.</Prose>
+    <Prose><strong>Regularization adds a preference to fitting.</strong> It can favor smaller coefficients, fewer nonzero coefficients, smoother neighboring values, or predictions that remain useful when some intermediate inputs are randomly withheld. The preference changes the problem being solved. Whether it improves future predictions is something to assess using the data boundaries from the previous lesson.</Prose>
+
+    <H2>{headings[0]}</H2>
+    <Prose>Suppose a prediction is</Prose>
+    <MathBlock>{'\\hat y_i=b+x_{i1}w_1+\\cdots+x_{id}w_d.'}</MathBlock>
+    <Prose>There are <Math>{'n'}</Math> observed cases and <Math>{'d'}</Math> input features. The coefficient vector <Math>{'w'}</Math> tells us how each feature contributes; the intercept <Math>{'b'}</Math> provides a common offset. Ordinary least squares chooses these values to minimize the sum of squared residuals, where a residual is observed minus predicted value.</Prose>
+    <Prose>We will use <strong>half the mean squared error</strong>, plus a penalty:</Prose>
+    <MathBlock>{'\\begin{gathered}J(b,w)=\\frac1{2n}\\sum_{i=1}^{n}(y_i-b-x_i^\\top w)^2\\\\[4pt] +\\lambda\\left[\\rho\\sum_j|w_j|+\\frac{1-\\rho}{2}\\sum_jw_j^2\\right].\\end{gathered}'}</MathBlock>
+    <Prose>The factor one-half simplifies derivatives; averaging by <Math>{'n'}</Math> keeps the data term on a per-case scale. <Math>{'\\lambda'}</Math> is the nonnegative penalty strength. The mixing fraction <Math>{'\\rho'}</Math> lies between zero and one. The intercept is excluded from this penalty. This convention governs the main regression calculations; a deeper denoising example will explicitly declare its unaveraged objective:</Prose>
+    <LessonTable caption="Three names, one objective" headers={['Choice', 'Penalty in this convention', 'What it encourages']} rows={[
+      ['Ridge, or L2', <><Math>{'\\lambda\\sum_j w_j^2/2'}</Math>, using ρ=0</>, 'Smaller coefficient norm; stable treatment of weakly determined directions'],
+      ['Lasso, or L1', <><Math>{'\\lambda\\sum_j|w_j|'}</Math>, using ρ=1</>, 'Shrinkage with the possibility of exact zero coefficients'],
+      ['Elastic net', 'Both terms, using 0<ρ<1', 'Sparse fits with an additional strictly convex preference'],
+    ]} />
+    <Prose>The vertical bars mean absolute value: both +3 and −3 contribute 3 to an L1 penalty and 9 to a squared L2 penalty. “L1” and “L2” name norms, or ways to measure a vector&rsquo;s size. Neither name identifies which observations are allowed to influence fitting; preprocessing and penalty selection still belong inside the training/validation protocol.</Prose>
+    <Prose>A numerical comparison makes the tradeoff visible. In a one-coefficient problem, suppose the data term is <Math>{'\\frac12(w-3)^2'}</Math>. With ridge strength λ=1, w=3 gives perfect data fit but total cost 4.5. At w=1.5, data cost is 1.125 and penalty is 1.125, totaling 2.25. A worse fit to these observed data is preferable under the new objective. That does <strong>not</strong> by itself establish that w=1.5 predicts future cases better.</Prose>
+    <ObjectiveSumFigure />
+
+    <H3>Units change the meaning of a penalty</H3>
+    <Prose>If a feature measured in meters is replaced by the same values in centimeters, its numeric values multiply by 100. Dividing its coefficient by 100 preserves every prediction, but its L1 cost divides by 100 and its squared L2 cost divides by 10,000. A raw coefficient penalty therefore favors that larger numerical feature scale for the same predictive contribution.</Prose>
+    <Prose>Standardizing a numeric column using its training mean and standard deviation is one useful way to make the preference refer to a one-standard-deviation change. It is not an instruction to erase meaningful physical units in every problem. A domain-specific penalty can deliberately assign different costs to different coefficients. Sparse indicator columns also need a considered convention: scaling a rare binary feature to unit variance changes the cost of its effect.</Prose>
+    <Prose>The preceding <a href="/learn/path/full-curriculum/feature-scaling-encoding-imputation?module=classical-ml">Feature Scaling, Encoding &amp; Imputation</a> supplies the fit/transform mechanics. Here the important question is: <strong>what change in the original input does one unit of this coefficient represent?</strong> Changing target units also changes the numerical balance between squared error, L1 and L2; a λ value is meaningful only with its objective and scaling convention.</Prose>
+    <Prose>The unpenalized intercept has a useful consequence. If every training target increases by seven, the fitted intercept can increase by seven while slopes stay the same. There is no reason to shrink that common offset toward zero merely because the measurement origin changed. Penalizing an intercept can be a deliberate modeling choice, but it should not happen accidentally because a column of ones was included in <Math>{'w'}</Math>.</Prose>
+
+    <H2>{headings[1]}</H2>
+    <H3>One coefficient, with the arithmetic exposed</H3>
+    <Prose>Start with</Prose>
+    <MathBlock>{'\\frac12(w-z)^2+\\frac\\lambda2w^2.'}</MathBlock>
+    <Prose>Here <Math>{'z'}</Math> is the coefficient preferred by the data alone in this simple normalized problem. The derivative is <Math>{'(w-z)+\\lambda w'}</Math>. Setting it to zero gives</Prose>
+    <MathBlock>{'w_{\\text{ridge}}=\\frac{z}{1+\\lambda}.'}</MathBlock>
+    <Prose>At z=3 and λ=1, the answer is 1.5. At z=0.4, it is 0.2. Both are pulled toward zero. In this scalar example a nonzero <Math>{'z'}</Math> does not become exactly zero at finite λ. In a multi-feature problem, an individual ridge coefficient can equal zero because of the data geometry; ridge simply has no threshold region that systematically creates sparsity.</Prose>
+    <Prose>Replace the squared penalty by <Math>{'\\lambda|w|'}</Math>. For positive <Math>{'w'}</Math>, the derivative of the objective is <Math>{'w-z+\\lambda'}</Math>, giving w=z−λ if that answer is positive. For negative <Math>{'w'}</Math>, the derivative is <Math>{'w-z-\\lambda'}</Math>, giving w=z+λ if negative. If neither case is valid, the minimum is at zero. Combining the cases:</Prose>
+    <MathBlock>{'S(z,\\lambda)=\\operatorname{sign}(z)\\max(|z|-\\lambda,0).'}</MathBlock>
+    <Prose>This is <strong>soft-thresholding</strong>. It removes the central interval [−λ, λ] and shrinks surviving values toward zero. It differs from hard thresholding, which would keep a surviving <Math>{'z'}</Math> unchanged.</Prose>
+    <LessonTable caption="Three data preferences at λ = 1, under three penalties" headers={['Data preference z, with λ=1', 'Ridge', 'Lasso', 'Elastic net, ρ=0.5']} rows={[
+      scalarRow(3, 1), scalarRow(0.4, 1), scalarRow(-2, 1),
+    ]} />
+    <Prose>For elastic net the same calculation gives <Math>{'S(z,\\lambda\\rho)/[1+\\lambda(1-\\rho)]'}</Math>. Its L1 part sets the threshold and its L2 part changes the denominator. Elastic net is a family of preferences, not a guarantee that its answer or prediction error lies between those of separately tuned ridge and lasso.</Prose>
+    <ThresholdLab />
+
+    <H3>The two-dimensional geometry, without an exaggerated claim</H3>
+    <Prose>A constrained version asks for the smallest data loss among coefficients inside a fixed penalty budget. In two dimensions, an L2-norm budget forms a disk and an L1-norm budget forms a diamond. The first data-loss contour that meets the allowed region identifies a constrained optimum. Diamond corners and faces make exact zero coordinates possible over a range of data preferences.</Prose>
+    <Prose>They do not force every optimum to a corner. With independent normalized coordinates, z=(3,0.4) and lasso λ=0.1, the answer is (2.9,0.3): both coordinates survive. At λ=1 the answer becomes (2,0). The elastic-net budget still has nonsmooth behavior where a coordinate crosses zero; its curved edges do not remove that threshold.</Prose>
+    <ConstraintGeometryFigure />
+
+    <H2>{headings[2]}</H2>
+    <H3>Separate the offset, then write the matrix equation</H3>
+    <Prose>Let <Math>{'X'}</Math> contain the <Math>{'n'}</Math> rows of features, and let <Math>{'y'}</Math> contain the <Math>{'n'}</Math> targets. Subtract each training feature mean and the training target mean. Write the centered arrays as <Math>{'Z'}</Math> and <Math>{'t'}</Math>. After fitting slopes <Math>{'w'}</Math>, recover the intercept as <Math>{'b=\\bar y-\\bar x^\\top w'}</Math>.</Prose>
+    <Prose>For ridge, differentiation gives</Prose>
+    <MathBlock>{'(Z^\\top Z+n\\lambda I)w=Z^\\top t.'}</MathBlock>
+    <Prose><Math>{'I'}</Math> is an identity matrix. The <Math>{'n\\lambda'}</Math> appears because our data term is averaged by <Math>{'n'}</Math>. For λ&gt;0, any nonzero vector <Math>{'v'}</Math> satisfies</Prose>
+    <MathBlock>{'\\begin{gathered}v^\\top(Z^\\top Z+n\\lambda I)v\\\\[4pt] =\\|Zv\\|^2+n\\lambda\\|v\\|^2>0.\\end{gathered}'}</MathBlock>
+    <Prose>Thus the matrix is positive definite and the centered ridge slopes are unique, even if columns repeat or d&gt;n. In code, solve the linear system instead of explicitly forming its inverse. For poorly conditioned problems, an SVD-based solver avoids forming the squared condition number of the normal equations; positive λ helps mathematically but does not excuse careless numerics.</Prose>
+
+    <H3>Coordinate descent: let each feature explain the remaining residual</H3>
+    <Prose>Lasso and elastic net can update one coefficient at a time. Temporarily remove feature <Math>{'j'}</Math>&rsquo;s current contribution from the prediction. The partial residual is</Prose>
+    <MathBlock>{'r_j=t-Zw+Z_{:,j}w_j.'}</MathBlock>
+    <Prose>Define a data curvature and a residual association:</Prose>
+    <MathBlock>{'\\begin{gathered}a_j=\\frac{Z_{:,j}^\\top Z_{:,j}}n,\\\\[4pt] c_j=\\frac{Z_{:,j}^\\top r_j}n.\\end{gathered}'}</MathBlock>
+    <Prose>The exact coordinate minimizer is</Prose>
+    <MathBlock>{'w_j\\leftarrow\\frac{S(c_j,\\lambda\\rho)}{a_j+\\lambda(1-\\rho)}.'}</MathBlock>
+    <Prose>Each update uses the current values of the other coefficients. A full pass through all coordinates is a <strong>sweep</strong>. With correlated columns, changing one coefficient changes the residual available to the next, so several sweeps can be needed. A coefficient that is zero during one sweep can become nonzero later; the partial residual can change.</Prose>
+    <Prose>For pure lasso, a zero coefficient at an optimum permits absolute residual association <Math>{'|Z_{:,j}^\\top(t-Zw)/n|'}</Math> at most λ. A nonzero coefficient requires equality to λ, with the association&rsquo;s sign matching the coefficient. Strict inequality therefore forces zero; equality alone can occur with a zero or nonzero coefficient. These are optimality conditions involving the <strong>current full residual</strong>, not a one-time test of the ordinary-least-squares coefficient or proof that a feature is irrelevant to the world.</Prose>
+
+    <H3>Four rows we can calculate by hand</H3>
+    <Prose>Use the following constructed input:</Prose>
+    <LessonTable caption="Four constructed rows with orthogonal centered columns" headers={['Row', 'First feature', 'Second feature', 'Target']} rows={[
+      ['0', '1', '1', '3.4'], ['1', '1', '−1', '2.6'], ['2', '−1', '1', '−2.6'], ['3', '−1', '−1', '−3.4'],
+    ]} />
+    <Prose>The means are zero, <Math>{'Z^\\top Z/n=I'}</Math> and <Math>{'Z^\\top t/n=(3,0.4)'}</Math>. These columns are orthogonal: after accounting for one, the residual association of the other stays the same. At λ=1, one coordinate sweep therefore gives ridge (1.5,0.2), lasso (2,0), or elastic net with ρ=0.5 equal to (5/3,0). Their total objective values are 2.29, 2.58 and approximately 2.496667, respectively. These costs come from <strong>different penalty functions</strong>, so the smallest of those numbers is not a valid way to choose which family predicts best.</Prose>
+    <CoordinateLab />
+    <Checkpoint prompt="Changing row 0's target from 3.4 to 7.4 gives lasso slopes (3, 0.4) and intercept 1 at λ = 1. Adding seven to every original target instead changes only the intercept, to seven. Why do two edits of the same size behave so differently?">
+      <Prose>The first edit is not a common shift: it raises one row only, which changes the centered target and therefore the residual association of both columns. The second edit adds the same constant to every row, so every centered target is unchanged and only the unpenalized intercept absorbs it. Both are reproducible in the investigation above through its two presets.</Prose>
+    </Checkpoint>
+
+    <H3>A complete small implementation</H3>
+    <Prose>The following NumPy program implements the common objective, including an unpenalized intercept and residual updates. It checks the optimality conditions rather than stopping just because the last coefficient movement looks small. For nonzero <Math>{'w_j'}</Math>, the smooth gradient plus <Math>{'\\lambda\\rho\\operatorname{sign}(w_j)'}</Math> should be zero. For a zero coordinate, the smooth gradient may lie anywhere within [−λρ, λρ]. The maximum violation is reported as a residual, not as a test-set error.</Prose>
+    <Prose>Use Python with NumPy 2.3.5 (<Code>python -m pip install numpy==2.3.5</Code> in a new environment). Save as <Code>coordinate_regularization.py</Code> and run it.</Prose>
+    <Program example={regularizationExamples.coordinateFit}>
+      <Prose>A constant centered feature has a=0 and no residual association. Setting its coefficient to zero is appropriate; when its objective is completely flat it is a declared representative solution. This instructional solver does not implement sparse storage, screening or optimized paths. Current library implementations use additional numerical machinery and diagnostics; the <a href="https://scikit-learn.org/stable/modules/linear_model.html#lasso">scikit-learn linear-model guide</a> documents coordinate descent and its optimality-gap approach.</Prose>
+      <Prose>The third line is padded by NumPy&rsquo;s own array formatting, which aligns the two entries; the values are 1.666667 and exactly 0.</Prose>
+    </Program>
+
+    <H2>{headings[3]}</H2>
+    <Prose>Imagine two sensors report exactly the same centered value <Math>{'x'}</Math>. The model&rsquo;s prediction depends only on the sum <Math>{'s=w_1+w_2'}</Math>, because <Math>{'xw_1+xw_2=xs'}</Math>. If the target is 2x, no amount of fitting those duplicate measurements can reveal which sensor “caused” the signal.</Prose>
+    <Prose>Use two rows x=−1 and x=1, with targets −2 and 2. Our data loss is <Math>{'\\frac12(s-2)^2'}</Math>. With lasso λ=1, the optimal sum is s=1. Every nonnegative pair with that sum has the same data cost and the same L1 penalty: (1,0), (0.5,0.5), and (0,1) all minimize the objective. A coordinate solver starting from zero may return (1,0) because it visits the first column first. A different order can return the other endpoint. That algorithmic choice is not evidence about the sensors&rsquo; scientific importance.</Prose>
+    <Prose>The squared L2 penalty prefers balanced coefficients because, for fixed <Math>{'s'}</Math>,</Prose>
+    <MathBlock>{'w_1^2+w_2^2=\\frac{s^2}{2}+\\frac{(w_1-w_2)^2}{2}.'}</MathBlock>
+    <Prose>The difference term is smallest when both weights equal s/2. With ridge λ=1, the optimum is (2/3,2/3). With elastic net λ=1 and ρ=0.5, it is (0.6,0.6). These methods also change the best sum; they do not merely redistribute the lasso answer.</Prose>
+    <DuplicateFigure />
+    <Prose>For nearly identical columns the conclusion becomes a tendency, with conditions, rather than exact equality. The elastic-net L2 term supplies strict convexity and encourages similar coefficients for similarly scaled, strongly positively correlated columns. It does not promise that every correlated group will always be selected together or that feature selection will be perfectly stable. Full-column-rank lasso is unique even when its columns are correlated; correlation alone is not a proof of nonuniqueness. <a href="https://hastie.su.domains/Papers/B67.2%20%282005%29%20301-320%20Zou%20%26%20Hastie.pdf">Zou and Hastie&rsquo;s primary analysis</a> develops grouping, and <a href="https://arxiv.org/pdf/1206.0313">Tibshirani&rsquo;s uniqueness paper</a> states the more precise solution conditions.</Prose>
+    <Prose>This distinction matters in applications such as correlated chemical measurements or groups of gene-expression features. A sparse predictor may be cheaper to measure and easier to inspect. Its nonzero list is still a property of this fitted model, its feature representation and its penalty. Prediction, stable selection and causal explanation require different evidence. The next lesson on feature importance will make those questions explicit.</Prose>
+
+    <H2>{headings[4]}</H2>
+    <Prose>The Airfoil Self-Noise collection contains 1,503 observations from aeroacoustic experiments. Each row gives frequency in hertz, angle of attack in degrees, chord length in meters, free-stream speed in meters per second and suction-side displacement thickness in meters. The target is scaled sound-pressure level in decibels. These are physical observations, not points drawn to guarantee that one regularizer wins. <a href="https://archive.ics.uci.edu/dataset/291/airfoil+self+noise">UCI&rsquo;s dataset description</a> supplies the measurement context and <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license; this page serves <a href="/learn-assets/regularization/airfoil-self-noise.dat" download>the unchanged data file</a> ({provenance.bytes.toLocaleString('en-US')} bytes, tab separated with six columns) and its attribution beside it. Nothing is downloaded when the program runs.</Prose>
+    <Prose>The task is numeric prediction for held-out rows under the declared row-level experiment. Related experimental settings occur in the collection, and independent run IDs are not available here. This assessment does not establish performance on an entirely new airfoil or experimental run.</Prose>
+    <Prose>We use a predeclared development set of {provenance.developmentRows.toLocaleString('en-US')} rows and reserve {provenance.reservedRows} rows, split with seed {provenance.splitSeed}. The reserved rows receive no prediction or score in this lesson. Within development, three shuffled folds with seed {provenance.foldSeed} compare fitting choices. This is a <strong>development comparison and selection record</strong>. Its selected scores are not newly independent performance claims. The later <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">learning-curves lesson</a> reuses the input with a different protocol; its numbers should not be read as a direct contest against these fits.</Prose>
+
+    <H3>Let a linear model express curved relationships</H3>
+    <Prose>For this comparison, transform the five raw inputs into their five original terms, five squared terms and ten pairwise products: twenty features total. A term such as frequency × chord can represent an interaction between measurements. The model remains linear in the twenty fitted coefficients, although its prediction is nonlinear in the original inputs.</Prose>
+    <Prose>Fit a scaler to those twenty columns inside each training fold, then fit the model. The polynomial recipe itself is fixed, but scaling learns from data and must stay within the fold. All three families use λ values <Code>[0.001,0.01,0.1,1,10,100]</Code>; elastic net fixes ρ=0.5 for this comparison. We also compute a training-mean baseline and unpenalized least squares with the same twenty-feature representation. Mean squared error has units of squared decibels.</Prose>
+
+    <H3>Library names do not define the objective</H3>
+    <Prose>For scikit-learn&rsquo;s <Code>Ridge</Code>, the documented objective is summed squared error plus <Code>alpha</Code> times squared coefficient norm. For <Code>Lasso</Code> and <Code>ElasticNet</Code>, the data term is half the <strong>mean</strong> squared error. Therefore, to fit our common convention on <Code>n_fit</Code> rows:</Prose>
+    <LessonTable caption="Matching each estimator to this manuscript's objective" headers={['Estimator', 'Settings matching this manuscript']} rows={[
+      [<Code>Ridge</Code>, <Code>alpha = n_fit * strength</Code>],
+      [<Code>Lasso</Code>, <Code>alpha = strength</Code>],
+      [<Code>ElasticNet</Code>, <><Code>alpha = strength</Code>, <Code>l1_ratio = ratio</Code></>],
+    ]} />
+    <Prose>At the same numeric <Code>alpha</Code>, ridge and lasso do not have the same normalized penalty strength. For logistic regression the inverse-strength parameter <Code>C</Code> also needs its estimator&rsquo;s documented loss normalization; “C=1/λ” without specifying that loss can miss a sample-count factor. The <a href="https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression-and-classification">current objectives</a> are the reference, rather than a shared parameter name.</Prose>
+
+    <H3>Complete offline program</H3>
+    <Prose>Save as <Code>airfoil_regularization.py</Code> beside <Code>airfoil-self-noise.dat</Code>. In a new environment use <Code>python -m pip install numpy==2.3.5 scikit-learn==1.9.1</Code>. The program performs 54 candidate fits, three OLS fits and three selected refits; baseline means require no estimator fit. It does not train a neural network or download data, and it ran with no warnings.</Prose>
+    <Program example={regularizationExamples.airfoilComparison}>
+      <Prose>The file is tab separated with CRLF line endings, which is the whitespace layout <Code>np.loadtxt</Code> reads by default, so the six columns arrive in source order with no parsing options.</Prose>
+    </Program>
+    <LessonTable caption="Recorded development results, rounded to six decimals" headers={['λ', 'Ridge MSE', 'Lasso MSE', 'Elastic-net MSE']} rows={[0.001, 0.01, 0.1, 1, 10, 100].map(strength => [
+      String(strength), mse('ridge', strength), mse('lasso', strength), mse('elastic_net', strength),
+    ])} />
+    <Prose>Every number in this section, and in the figure and investigation below it, is bit-exact in the pinned environment named above; another NumPy or scikit-learn version can move the last digits. The mean baseline is {baselineMeanMse.toFixed(6)} and unpenalized OLS is {olsMeanMse.toFixed(6)}. All three searches select the smallest λ in this predeclared grid, 0.001. Their selected differences are small; this experiment does not justify a strong ranking of families or claim a universal interior “sweet spot.” In a real development project, a boundary selection can motivate another declared search, with the assessment boundary still protected.</Prose>
+    <Prose>Lasso at λ=0.1 leaves nine nonzero coefficients in each of the three folds. At λ=10 it leaves none and predicts the training mean, matching the baseline exactly. The λ=0.001 final lasso refit on all development rows keeps all twenty terms, even though two individual folds kept nineteen. L1 can create sparsity; the selection objective and sample do not guarantee that the chosen fit will be sparse.</Prose>
+    <PathFigure />
+    <AirfoilTraceLab />
+    <Prose>The starting measurements are 1,250 Hz, 17.4 degrees, chord 0.0254 m, speed 31.7 m/s and displacement thickness 0.0176631 m, and that row&rsquo;s recorded prediction is approximately {inferenceFixture.basePrediction.toFixed(6)} dB. Keeping the other four values fixed and changing frequency to 1,750 Hz gives approximately {inferenceFixture.changedPrediction.toFixed(6)} dB, a decrease of {(inferenceFixture.basePrediction - inferenceFixture.changedPrediction).toFixed(6)} dB. This is a deterministic scenario under the fitted model, not evidence that physically changing frequency causes that exact change in a new experiment.</Prose>
+
+    <H3>Selecting λ without leaking the scaler</H3>
+    <Prose>An efficient regularization-path estimator such as <Code>LassoCV</Code> can reuse nearby solutions. But <Code>Pipeline(StandardScaler(), LassoCV(...))</Code> fits that outer scaler on all data supplied to the pipeline <strong>before</strong> the estimator runs its internal folds. Those inner validation rows then influenced scaling. The same issue arises if you compute <Code>X_scaled</Code> once and pass it to an internal CV estimator.</Prose>
+    <Prose>Our explicit loop fits the whole pipeline within each fold. A <Code>GridSearchCV</Code> wrapped around a complete pipeline is another clear option when its parameter convention matches the intended objective. Path efficiency is useful, but it does not move preprocessing inside folds automatically. After selection, refitting preprocessing and the chosen model on all development rows is appropriate; those final fitted transformations must travel with the model for inference.</Prose>
+
+    <H2>{headings[5]}</H2>
+    <Prose>The first three methods add an explicit parameter cost. <strong>Dropout randomly withholds selected input or intermediate values during fitting.</strong> A later neural-network lesson will build layers in detail. For now, a hidden unit is simply a learned weighted sum followed by an activation function, and an activation is the value it passes onward. A dropout mask multiplies selected values by zero while leaving other paths available.</Prose>
+    <Prose>Use <Math>{'q'}</Math> for the <strong>keep probability</strong>, so the drop probability is 1−q. With inverted dropout, an activation <Math>{'a'}</Math> becomes</Prose>
+    <MathBlock>{'\\begin{gathered}\\tilde a=\\frac{m}{q}a,\\\\[4pt] m\\sim\\operatorname{Bernoulli}(q),\\quad0<q\\le1.\\end{gathered}'}</MathBlock>
+    <Prose>A Bernoulli variable equals one with probability <Math>{'q'}</Math> and zero otherwise. Dividing retained values by <Math>{'q'}</Math> gives <Math>{'\\mathbb E[\\tilde a]=a'}</Math>. For q=0.5, a value 2 becomes either zero or four, each with probability one-half. At ordinary deterministic evaluation, the dropout operation is the identity: it passes the original activation through.</Prose>
+
+    <H3>An exact connection to a penalty</H3>
+    <Prose>Consider a linear prediction <Math>{'\\tilde y=\\sum_j w_jx_jm_j/q'}</Math> with independent masks and a fixed target <Math>{'y'}</Math>. The mean prediction is <Math>{'w^\\top x'}</Math>, but squared loss also responds to variation around that mean. Expanding the square gives</Prose>
+    <MathBlock>{'\\begin{gathered}\\mathbb E_m\\!\\left[\\frac12(y-\\tilde y)^2\\right]\\\\[4pt] =\\frac12(y-w^\\top x)^2\\\\[4pt] +\\frac{1-q}{2q}\\sum_j w_j^2x_j^2.\\end{gathered}'}</MathBlock>
+    <Prose>The cross terms from independent centered mask noise vanish. Each retained/rescaled input has variance <Math>{'x_j^2(1-q)/q'}</Math>. Averaging over training rows therefore produces a data-dependent diagonal quadratic penalty. This is exact for this linear, squared-loss, independent-mask setup. Other losses and nonlinear networks require different analysis or approximations; dropout is not universally the same as adding a fixed L2 penalty. <a href="https://nlp.stanford.edu/pubs/wager2013dropout.pdf">Wager, Wang and Liang</a> develop the more general feature-noising connection.</Prose>
+    <Prose>For x=(2,1), w=(1,−1), y=1 and q=0.5, the deterministic prediction is one and its half-squared loss is zero. Enumerate all four masks:</Prose>
+    <LessonTable caption="Every mask, with its actual probability" headers={['Mask', 'Noisy prediction', 'Half-squared loss', 'Probability']} rows={[
+      ['(0,0)', '0', '0.5', '1/4'], ['(0,1)', '−2', '4.5', '1/4'], ['(1,0)', '4', '4.5', '1/4'], ['(1,1)', '2', '0.5', '1/4'],
+    ]} />
+    <Prose>The mean prediction is one but expected loss is 2.5. The penalty formula gives <Math>{'(1-q)/(2q)\\,(4+1)=2.5'}</Math>, exactly matching the enumeration. This is why matching an average activation does not make a noisy training objective identical to a clean evaluation loss.</Prose>
+    <DropoutLab />
+    <Prose>A complete exact enumeration uses only Python:</Prose>
+    <Program example={regularizationExamples.dropoutMasks}>
+      <Prose>Keep must be positive; at q=1 the zero-probability branches simply contribute nothing. Complete dropout-network training is owned by the later <a href="/learn/path/full-curriculum/dropout-droppath-stochastic-depth?module=deep-learning-fundamentals">Dropout, DropPath &amp; Stochastic Depth</a> lesson rather than a second unexplained network here.</Prose>
+    </Program>
+
+    <H3>What changes when the rest of the network is nonlinear?</H3>
+    <Prose>An average input passed through a nonlinear operation need not equal the average of that operation&rsquo;s outputs. For a small example, let a noisy value be zero or two equally often, and pass it through <Math>{'f(u)=\\max(0,u-1)'}</Math>. The mean of <Math>{'f'}</Math> is 0.5. Passing the mean input one through <Math>{'f'}</Math> gives zero. Consequently, ordinary dropout-off inference is not generally an exact average of every masked nonlinear network. The <a href="https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf">original dropout paper</a> motivates and investigates the approximation; its benchmark outcomes are not universal guarantees.</Prose>
+    <Prose>In PyTorch, <Code>nn.Dropout(p=...)</Code> uses <strong>drop probability</strong>, and ordinary evaluation uses <Code>model.eval()</Code>. Disabling gradient recording with <Code>no_grad()</Code> or <Code>inference_mode()</Code> is a separate operation; it does not itself switch dropout into evaluation behavior. Intentional Monte Carlo dropout is another inference procedure, not an automatic uncertainty guarantee. The <a href="https://docs.pytorch.org/docs/main/generated/torch.nn.Dropout.html">API contract</a> specifies element masking and inverted scaling. The later deep lesson owns mask placement, residual paths and normalization interactions.</Prose>
+    <Callout title="Comparing models under a declared evaluation mode">
+      Compare models on the same held-out cases using a clearly declared evaluation mode. A lower dropout-off loss on the <strong>training rows</strong> is still a training-data result; a gap between noisy training loss and clean loss does not prove generalization. Dropout rates, placement and combination with weight penalties require validation. There is no universal best rate, fixed extra-epoch multiplier or rule that adding more regularizers must improve a model.
+    </Callout>
+
+    <H2>{headings[6]}</H2>
+    <H3>Ridge shrinks directions of information</H3>
+    <Prose>Write a singular value decomposition of the centered design as <Math>{'Z=U\\Sigma V^\\top'}</Math>. The columns of <Math>{'V'}</Math> describe orthogonal directions in coefficient space; a singular value <Math>{'\\sigma_j'}</Math> tells us how strongly changing that direction changes the fitted observations. Along a positive-singular-value direction, ridge uses</Prose>
+    <MathBlock>{'w_\\lambda=\\sum_j\\frac{\\sigma_j}{\\sigma_j^2+n\\lambda}(u_j^\\top t)v_j.'}</MathBlock>
+    <Prose>The corresponding fitted-data component is multiplied by <Math>{'\\sigma_j^2/(\\sigma_j^2+n\\lambda)'}</Math>. A large singular value retains more of its unpenalized fit. A small singular value is attenuated more, preventing division by a tiny number from producing a huge coefficient response. Components in the null space are set to zero by positive ridge regularization.</Prose>
+    <Prose>For example, with nλ=1, singular values 4 and 0.5 give fitted-component multipliers 16/17≈{ridgeFilter(4, 1).dataMultiplier.toFixed(4)} and 0.25/1.25={ridgeFilter(0.5, 1).dataMultiplier}. With nλ=4 they become {ridgeFilter(4, 4).dataMultiplier} and approximately {ridgeFilter(0.5, 4).dataMultiplier.toFixed(5)}. The weakly identified direction receives much stronger relative shrinkage. This is a more accurate explanation of stabilization than saying every original feature coefficient is multiplied by the same number.</Prose>
+    <Prose>As λ decreases to zero, ridge approaches the minimum-Euclidean-norm least-squares solution. When the design is full column rank, that is the usual unique OLS solution. As λ grows, the slopes approach zero and the unpenalized intercept leaves the training mean prediction. Individual coefficients can move non-monotonically or cross zero in correlated designs; the scalar shrinkage formula does not describe each original coordinate independently.</Prose>
+    <DirectionsFigure />
+
+    <H3>What an L1 path tells you</H3>
+    <Prose>For centered data and pure lasso, the all-zero slope vector satisfies the optimality conditions when</Prose>
+    <MathBlock>{'\\begin{gathered}\\lambda\\ge\\lambda_{\\max}\\\\[4pt] =\\max_j|Z_{:,j}^\\top t|/n.\\end{gathered}'}</MathBlock>
+    <Prose>For the four-row example, λ<sub>max</sub>=3. This gives a principled starting point for a path from a zero-slope fit toward less penalization. Nearby λ values can use the previous solution as a warm start. In general correlated designs, coordinates may enter, leave or change sign along the path; the number of selected features is not guaranteed to move monotonically at every path point.</Prose>
+    <Prose>When a lasso solution is nonunique, every minimizer has the same fitted values on the training design, although coefficient allocations can differ. There exists a sparse representative with a limited active set; under common general-position uniqueness conditions the number of nonzero coefficients is at most the design rank. This is more precise than asserting that <strong>every</strong> solution always has at most <Math>{'n'}</Math> nonzeros. In the duplicate-column example, one can distribute an optimal positive sum over many identical columns without changing fit or L1 cost. Prediction away from the observed design can differ if those columns no longer remain identical. The <a href="https://arxiv.org/pdf/1206.0313">uniqueness analysis</a> is the reference for these distinctions.</Prose>
+
+    <H3>Choose a solver for the matrix you actually have</H3>
+    <Prose>For dense n×d data with n≥d, forming the normal-equation matrix costs order nd² and a dense solve order d³; storing that matrix costs order d². If d is much larger than n, the identity</Prose>
+    <MathBlock>{'w=Z^\\top(ZZ^\\top+n\\lambda I)^{-1}t'}</MathBlock>
+    <Prose>offers an n×n system instead. Use a solve here too. These dimensions suggest alternatives; they do not establish an exact practical crossover at n=d. Conditioning, sparsity, factorization reuse and available memory matter. Iterative least-squares or matrix-vector methods can avoid either dense Gram matrix.</Prose>
+    <Prose>The residual-maintaining coordinate implementation costs order nd per dense sweep. Recomputing the entire prediction <Math>{'Zw'}</Math> separately for every coordinate would introduce unnecessary extra work. Sparse column storage can make an update depend on its nonzero entries; specialized solvers add screening, active sets and warm starts. The number of sweeps depends on tolerance and conditioning, so a universal “10–200 sweeps” promise is inappropriate. Check convergence warnings and optimality diagnostics before interpreting a fit.</Prose>
+    <Prose>For distributed ridge with manageable d, sums of local <Math>{'Z_i^\\top Z_i'}</Math> and <Math>{'Z_i^\\top t_i'}</Math> can recover the corresponding global sufficient statistics, provided centering, weights and normalization are handled consistently. The d² communication/storage requirement remains. Consensus optimization can distribute lasso-type objectives, but it needs its own convergence and communication design. A local solver does not become a distributed algorithm merely by putting its call in a task scheduler.</Prose>
+
+    <H3>Early stopping and weight decay are related, but have precise contracts</H3>
+    <Prose>Under ordinary gradient descent on the unpenalized centered mean-square objective, initialized at zero, a direction whose Gram eigenvalue is a&gt;0 has fitted-component factor <Math>{'1-(1-\\eta a)^t'}</Math> after <Math>{'t'}</Math> steps with step size <Math>{'\\eta'}</Math>. Ridge&rsquo;s factor is <Math>{'a/(a+\\lambda)'}</Math>. Both can suppress weakly learned directions, but they are different filters. For one step, η=0.1 and a values 1 and 4 give factors 0.1 and 0.4. Matching those with ridge would require λ values 9 and 6 respectively; one common λ does not reproduce both. Appropriate step-size conditions are also needed for the iteration to remain stable.</Prose>
+    <Prose>Likewise, a gradient step on a loss plus <Math>{'\\lambda\\|w\\|^2/2'}</Math> is</Prose>
+    <MathBlock>{'w^+=(1-\\eta\\lambda)w-\\eta\\nabla L(w).'}</MathBlock>
+    <Prose>For this ordinary update, a multiplicative decay with factor <Math>{'1-\\eta\\lambda'}</Math> is equivalent. In an adaptive optimizer, adding λw to a gradient sends it through the optimizer&rsquo;s gradient transformation; decaying weights separately generally does not. That is the distinction behind AdamW. Inspect the optimizer&rsquo;s actual convention and parameter groups, including whether biases and normalization parameters are included. The <a href="https://arxiv.org/pdf/1711.05101">decoupled-weight-decay paper</a> derives the difference. Detailed optimizer dynamics belong to the optimization lessons; a <Code>weight_decay</Code> argument is not a universal mathematical identity.</Prose>
+
+    <H2>{headings[7]}</H2>
+    <H3>Bayesian priors: track the noise scale</H3>
+    <Prose>Assume <Math>{'y\\mid b,w,X'}</Math> has independent Gaussian errors with known variance <Math>{'\\sigma^2'}</Math>. Ignoring constants, the negative log likelihood is <Math>{'\\|y-b\\mathbf1-Xw\\|^2/(2\\sigma^2)'}</Math>. A Gaussian prior <Math>{'w_j\\sim N(0,\\tau^2)'}</Math> contributes <Math>{'\\|w\\|^2/(2\\tau^2)'}</Math>. Multiplying the combined negative log posterior by <Math>{'\\sigma^2/n'}</Math> gives our ridge objective with</Prose>
+    <MathBlock>{'\\lambda=\\frac{\\sigma^2}{n\\tau^2}.'}</MathBlock>
+    <Prose>An independent Laplace prior with density proportional to <Math>{'\\exp(-|w_j|/s)'}</Math> instead gives lasso strength <Math>{'\\lambda=\\sigma^2/(ns)'}</Math>. The intercept can receive a separate prior or be treated as unpenalized. These are <strong>maximum a posteriori</strong>, or MAP, fits: the most favored parameter value under the stated likelihood/prior combination.</Prose>
+    <Prose>The factors matter. Writing “Gaussian variance 1/λ” without the likelihood and normalization can be wrong for the objective being used. If a prior and noise scale are held fixed while <Math>{'n'}</Math> changes, our normalized λ changes inversely with <Math>{'n'}</Math>. Holding λ fixed over different training sizes is a different convention, useful for a controlled regularization comparison but not the same fixed-prior experiment.</Prose>
+    <Prose>A Laplace prior is continuous; it assigns probability zero to any exact singleton w<sub>j</sub>=0, as do other continuous densities. Its posterior mode can be exactly zero because of the density&rsquo;s kink. That does not give a posterior probability that a feature is absent. A full Bayesian analysis includes uncertainty and integrates predictions over parameter values; replacing it by one penalized fit discards that information. The <a href="https://hastie.su.domains/Papers/B67.2%20%282005%29%20301-320%20Zou%20%26%20Hastie.pdf">elastic-net paper&rsquo;s Bayesian section</a> connects the priors, while this local derivation specifies our factors explicitly.</Prose>
+
+    <H3>Same predictor, different parameter penalty</H3>
+    <Prose>Suppose a one-dimensional model is written with two factors, predicting abx, and the data cost is <Math>{'\\frac12(ab-1)^2'}</Math>. Every pair with ab=1 has zero data cost. But adding <Math>{'\\lambda(a^2+b^2)'}</Math> gives different costs along that same-prediction curve: (1,1) costs 2λ, while (2,0.5) costs 4.25λ.</Prose>
+    <Prose>Balancing the factors minimizes the penalty <strong>among zero-data-loss pairs</strong>, but the full regularized optimum can prefer nonzero data loss. Let p=ab. Since <Math>{'a^2+b^2\\ge2|ab|=2|p|'}</Math>, with equality attainable by equal-magnitude factors, the full problem reduces to</Prose>
+    <MathBlock>{'\\min_p\\frac12(p-1)^2+2\\lambda|p|.'}</MathBlock>
+    <Prose>Soft-thresholding gives <Math>{'p^*=\\max(1-2\\lambda,0)'}</Math>. At λ=0.25, the optimal product is {factorOptimum(0.25).product}, achieved by a=b=√0.5 or both negative. The data cost is {factorOptimum(0.25).data} and penalty {factorOptimum(0.25).penalty}, totaling {factorOptimum(0.25).total}; balanced zero-data-loss factors would total {factorOptimum(0.25).balancedZeroLoss.total}. At λ≥0.5, both optimal factors are zero. At λ=0, every ab=1 pair minimizes the unpenalized problem.</Prose>
+    <Prose>This is a concrete example of a parameterization changing what a familiar L2 penalty means for the represented function. It is not evidence that balancing arbitrary neural layers universally improves prediction. The learning point is to inspect the <strong>whole objective</strong>, not only a symmetry of its data-loss term.</Prose>
+    <FactorFigure />
+
+    <H3>Sometimes smoothness is a better preference than small values</H3>
+    <Prose>If <Math>{'w'}</Math> represents values at neighboring positions, penalizing differences can be more meaningful than pulling every value toward zero. Let <Math>{'L'}</Math> compute neighboring differences and minimize</Prose>
+    <MathBlock>{'\\frac12\\|y-w\\|^2+\\frac\\lambda2\\|Lw\\|^2.'}</MathBlock>
+    <Prose>For three positions, take <Math>{'Lw=(w_2-w_1,w_3-w_2)'}</Math>. With y=(0,2,0) and λ=1, solve <Math>{'(I+L^\\top L)w=y'}</Math> to obtain (0.5,1,0.5). Ordinary identity-based ridge with the same unaveraged convention gives (0,1,0). Both reduce the middle spike, but the difference penalty spreads it across neighboring positions. Adding a constant to every input shifts the difference-penalty solution by the same constant because <Math>{'L'}</Math> annihilates a constant vector.</Prose>
+    <Prose>This is a small instance of <strong>generalized Tikhonov regularization</strong>, where <Math>{'\\|Lw\\|^2'}</Math> expresses which patterns are expensive. A difference operator encourages smoothness; another <Math>{'L'}</Math> can encode a different scientifically justified relation. It is useful in inverse problems, where measurements are indirect and many latent signals could explain them. The condition for a unique generalized quadratic fit is that no nonzero direction lies in both the data operator&rsquo;s null space and <Math>{'L'}</Math>&rsquo;s null space. A difference penalty alone does not necessarily remove every ambiguity.</Prose>
+    <SmoothnessFigure />
+    <Prose>Other useful penalties encode other structures. An L1 penalty on differences, often called total-variation or fused regularization in appropriate settings, can favor piecewise-constant regions rather than smooth variation. A group-lasso penalty sums Euclidean norms of predeclared coefficient groups, allowing an entire group to become zero. A multi-task penalty can select the same input across several prediction outputs. These are different assumptions about where sparsity belongs: individual coefficients, neighboring changes, predefined groups or shared tasks. They are not interchangeable names for elastic net&rsquo;s tendency to balance correlated individual coefficients.</Prose>
+    <Prose>An engaging further example is reconstructing an image from a few line projections. The unknown pixel values form <Math>{'w'}</Math>, and a known projection operator maps them to measurements. If the image is sparse in the chosen representation, L1 regularization can express that prior structure. Most natural images are not sparse as raw pixels, so the representation is part of the scientific claim. The inspected <a href="https://scikit-learn.org/stable/auto_examples/applications/plot_tomography_l1_reconstruction.html">tomography reconstruction example</a> shows the actual operator, synthetic image and comparison; its particularly favorable sparse image is not a guarantee of exact recovery for arbitrary scans.</Prose>
+
+    <H2>{headings[8]}</H2>
+    <Prose>Coefficient penalties are not the only way to control fitting flexibility. Suppose we compare candidate probability models, each fitted by maximum likelihood on the same observations. A more flexible model often has a larger training likelihood simply because it had more freedom. AIC, BIC and minimum description length account for complexity for different reasons. They do not turn a development-selected score into a fresh test result.</Prose>
+
+    <H3>AIC: correct optimism when estimating predictive fit</H3>
+    <Prose>Let <Math>{'\\ell(\\hat\\theta)'}</Math> be the maximized natural-log likelihood and <Math>{'k'}</Math> the number of freely fitted parameters in a regular parametric model. The familiar formula is</Prose>
+    <MathBlock>{'\\operatorname{AIC}=-2\\ell(\\hat\\theta)+2k.'}</MathBlock>
+    <Prose>The negative likelihood term measures fit; smaller is better. The correction reflects that parameters were chosen on the data being scored. Under the usual regular, correctly specified parametric assumptions, it estimates expected predictive log-loss, up to a constant shared by candidates. The 2k correction is an asymptotic result, not a universal fee for every parameter in every algorithm; model misspecification can require a different optimism correction.</Prose>
+    <Prose>For a Gaussian regression with unknown noise variance estimated by maximum likelihood, substitution gives a data-dependent term <Math>{'n\\log(\\mathrm{RSS}/n)'}</Math> plus constants, followed by 2k. Count an estimated variance parameter and intercept consistently. Known-variance formulas differ. Small-sample corrections such as AICc have model-specific assumptions; they are not a universal replacement for checking sample size, dependence or misspecification.</Prose>
+    <Prose>For shrinkage estimators, the effective flexibility can differ from the raw number of stored coefficients. The later <a href="/learn/path/full-curriculum/bias-variance-tradeoff-learning-curves?module=classical-ml">Bias–Variance &amp; Learning Curves</a> derives the fixed-linear-smoother optimism correction and its trace-based degrees of freedom. Counting twenty stored ridge coefficients as twenty freely fitted OLS coefficients would miss that shrinkage. Information-criterion implementations for lasso use additional model and variance-estimation assumptions; inspect those rather than attaching 2k to an arbitrary penalized training objective. The <a href="https://scikit-learn.org/stable/modules/linear_model.html#aic-and-bic-criteria">scikit-learn criterion derivation</a> specifies its actual Gaussian convention.</Prose>
+
+    <H3>BIC: a large-sample evidence approximation</H3>
+    <Prose>For the same kind of regular, fixed-dimensional model,</Prose>
+    <MathBlock>{'\\operatorname{BIC}=-2\\ell(\\hat\\theta)+k\\log n.'}</MathBlock>
+    <Prose>The evidence for a model integrates likelihood over its parameter prior, rather than evaluating only the best point. A local quadratic approximation around the maximum makes each well-identified parameter direction contribute a width of order <Math>{'n^{-1/2}'}</Math>. Multiplying <Math>{'k'}</Math> such widths contributes <Math>{'n^{-k/2}'}</Math>; taking −2 times the log gives the <Math>{'k\\log n'}</Math> term. Prior densities and local curvature contribute terms that the basic large-n expression suppresses.</Prose>
+    <Prose>This argument needs an identifiable, regular interior solution and suitable priors, with dimension held fixed as <Math>{'n'}</Math> grows. In a correctly specified collection satisfying the needed conditions, BIC can consistently favor the correct model dimension. That is a different goal from minimizing predictive loss at a finite sample size. Neural networks, mixture singularities, growing dimensions and boundary parameters do not automatically satisfy this derivation. BIC values are not exact posterior probabilities. <a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">Grünwald&rsquo;s technical discussion</a>, sections 2.6.3 and 2.9.2, develops the evidence approximation and its limits.</Prose>
+    <Prose>Take two constructed fitted-model records on n=100 observations:</Prose>
+    <LessonTable caption="Two constructed records, and two criteria that disagree" headers={['Model', 'Maximized log likelihood', 'k', 'AIC', 'BIC']} rows={[
+      ['Smaller', '−150', '3', String(smaller.aic), smaller.bic.toFixed(4)],
+      ['Larger', '−146', '5', String(larger.aic), larger.bic.toFixed(4)],
+    ]} />
+    <Prose>The larger model improves −2 log likelihood by eight. AIC charges four for its two added parameters, while BIC charges about {(larger.bicPenalty - smaller.bicPenalty).toFixed(4)}. They choose differently because they use different justified approximations and goals. These are hand records for arithmetic, not empirical evidence that one criterion is better. Compare only compatible likelihoods on the same observations, with constants and target transformations treated consistently.</Prose>
+
+    <H3>MDL: pay to describe the explanation as well as its errors</H3>
+    <Prose>Minimum description length asks how compactly a declared coding scheme can describe the observed data. In a simple two-part version, pay for a model/parameter description and then for the data given that description:</Prose>
+    <MathBlock>{'\\begin{gathered}L(\\text{explanation})\\\\[4pt] +\\,L(\\text{data}\\mid\\text{explanation}).\\end{gathered}'}</MathBlock>
+    <Prose>Here <Math>{'L'}</Math> denotes code length, not the regression loss notation used earlier. A pattern that perfectly fits the observations is not free: the receiver must be told which pattern or parameter values were selected. For a discrete probability model, ideal data-code length is <Math>{'-\\log_2 P(\\text{data}\\mid\\text{model})'}</Math>. Continuous measurements additionally need a declared precision or corresponding density-based construction.</Prose>
+    <Prose>A tiny fully specified code makes this concrete. Both parties know the message contains sixteen bits. Two modes are allowed:</Prose>
+    <ul>
+      <li>Mode 0: send a zero flag followed by all sixteen literal bits, for seventeen bits total.</li>
+      <li>Mode 1: send a one flag followed by a four-bit pattern; the receiver repeats that pattern four times, for five bits total.</li>
+    </ul>
+    <Prose>For <Code>0101010101010101</Code>, mode 1 sends the flag and <Code>0101</Code>: five bits. The chosen pattern was learned from the data, and its four bits were paid for. For <Code>0101010001010101</Code>, no four-bit pattern repeated four times reproduces the message, so this scheme uses the seventeen-bit literal mode. These codes are unambiguous because the first flag identifies the remaining length. The scheme is intentionally limited; another declared code might exploit a different pattern. We are not claiming to compute the shortest possible program for every message.</Prose>
+    <ComplexityFigure />
+    <Prose>Modern MDL includes refined universal codes, not only a hand-selected parameter code. For a finite discrete model class with a finite normalizer, normalized maximum likelihood assigns</Prose>
+    <MathBlock>{'P_{\\mathrm{NML}}(D)=\\frac{P(D\\mid\\hat\\theta_D)}{\\sum_{D\'}P(D\'\\mid\\hat\\theta_{D\'})}.'}</MathBlock>
+    <Prose>The denominator accounts for all datasets of the stated size that the model family can fit well. Its logarithm supplies a complexity cost and makes the expression a probability distribution. Some model classes have an infinite normalizer and require another construction. Under specific fixed-dimensional regular asymptotics, an MDL expression can share BIC&rsquo;s leading complexity term; <strong>MDL and BIC are not identical in general</strong>. The inspected <a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">MDL tutorial</a> provides both the basic coding view and the refined distinction.</Prose>
+    <Prose>These criteria extend the same habit as regularization: state the preference, its units and assumptions, then distinguish the quantity optimized from the outcome ultimately needed. Cross-validation remains useful when it matches the intended future use and encompasses the whole selection recipe; analytic or coding criteria are useful when their assumptions and purpose fit the problem.</Prose>
+
+    <H2>{headings[9]}</H2>
+    <Prose>Try the first six without the deeper branches. Hints and solutions are optional so you can work independently before checking.</Prose>
+
+    <Practice title="1. Shrinkage with a different sign"
+      question={<>For <Math>{'\\frac12(w+2.4)^2'}</Math> and λ=0.6, find ridge, lasso and elastic-net ρ=0.5 coefficients. Explain why a zero answer is not appropriate here.</>}
+      hint="The data preference z is −2.4. Apply the threshold before the elastic-net denominator.">
+      <Prose>Ridge is −2.4/1.6={num(scalarSolution(-2.4, 0.6, 0).coefficient)}. Lasso is {num(scalarSolution(-2.4, 0.6, 1).coefficient)}. Elastic net is (−2.4+0.3)/1.3=−21/13≈{num(Number(scalarSolution(-2.4, 0.6, 0.5).coefficient.toFixed(6)))}. The absolute data preference exceeds each relevant threshold.</Prose>
+    </Practice>
+
+    <Practice title="2. What changes under a different measurement origin?"
+      question="In the four-row example, fit lasso with λ=0.5, then increase every target by three. Give both sets of slopes and intercepts. Would penalizing the intercept necessarily preserve this result?">
+      <Prose>The slopes are (2.5,0) in both fits. The original intercept is zero and the shifted intercept is three. Excluding the intercept allows an exact translation without changing the slope objective. An intercept penalty introduces an extra cost for that translation and can change the result.</Prose>
+    </Practice>
+
+    <Practice title="3. A missing sample-count factor"
+      question={<>You want our ridge objective with λ=0.2 on eighty training rows. Which <Code>Ridge(alpha=...)</Code> matches it? Which <Code>Lasso(alpha=...)</Code> matches pure L1 at the same λ convention? What happens to ridge&rsquo;s native alpha on a sixty-row fold?</>}>
+      <Prose>Ridge needs alpha=16 on eighty rows and alpha=12 on sixty rows. Lasso uses alpha=0.2 in either case. This follows from multiplying our ridge objective by 2n, not from treating the two parameter names as equivalent. It does not say that matching numerical λ gives the two penalty shapes identical effects.</Prose>
+    </Practice>
+
+    <Practice title="4. Duplicate sensors"
+      question="The duplicate-feature example now has target 3x and lasso λ=0.5. Give the optimal coefficient sum and two different minimizers. What extra fact would you need before calling one sensor causally important?">
+      <Prose>The optimal sum is 2.5. Pairs (2.5,0) and (1.25,1.25) both minimize the objective, as do other nonnegative allocations of that sum. The observational duplicate design does not identify which sensor is causally relevant; that requires an appropriate causal question, assumptions and evidence beyond this fit.</Prose>
+    </Practice>
+
+    <Practice title="5. Exact dropout without uniform mask probabilities"
+      question="Let x=(1,2), w=(2,0), y=1 and keep probability q=0.75. Compute the clean prediction, expected noisy prediction, clean half-squared loss and expected noisy half-squared loss. Why does the second mask not affect the answer?"
+      hint="Only the first coordinate contributes. Its noisy prediction is zero with probability 1/4 and 8/3 with probability 3/4.">
+      <Prose>Both clean and expected predictions are two. Clean half-squared loss is 1/2. Expected noisy loss is <Math>{'(1/4)(1/2)+(3/4)(25/18)=7/6'}</Math>. The difference is 2/3, matching <Math>{'(1-q)/(2q)\\,4'}</Math>. The second coefficient is zero, so changing that mask cannot change the weighted sum. The dropout investigation loads this exact fixture from its practice preset.</Prose>
+    </Practice>
+
+    <Practice title="6. Read the actual experiment"
+      question="A learner sees the λ=0.001 lasso result and says: “Lasso always selects fewer inputs than ridge, and the smallest score proves this family will win on a new airfoil.” Identify two separate errors. What does the λ=10 result legitimately demonstrate?">
+      <Prose>The final selected lasso fit keeps all twenty terms, so L1 does not guarantee sparsity at the selected setting. These are development selection scores in a row-level design, not independent evidence about a new airfoil/run or a decisive family ranking. At λ=10 all lasso slopes are zero in the three folds, and the unpenalized intercept reproduces the corresponding mean baseline.</Prose>
+    </Practice>
+
+    <Practice title="7. A changed factor penalty — deeper"
+      question={<>Minimize <Math>{'\\frac12(ab-1)^2+0.1(a^2+b^2)'}</Math>. Give the optimal product and balanced factors. Compare its total cost with the balanced zero-data-loss pair (1,1).</>}>
+      <Prose>The product is {factorOptimum(0.1).product} and equal-sign factors have magnitude √0.8≈{factorOptimum(0.1).magnitude.toFixed(6)}. Data cost is {factorOptimum(0.1).data.toFixed(2)}, penalty is {factorOptimum(0.1).penalty.toFixed(2)} and total is {factorOptimum(0.1).total.toFixed(2)}, below the {factorOptimum(0.1).balancedZeroLoss.total.toFixed(1)} of (1,1). Minimizing the penalty while insisting on zero data loss misses the actual full optimum.</Prose>
+    </Practice>
+
+    <Practice title="8. A code has to pay for its chosen pattern — deeper"
+      question={<>Using the declared sixteen-bit code, encode <Code>1110111011101110</Code>. Give the mode, payload and total length. If someone chooses a different four-bit pattern after seeing the data but charges only the flag, what is missing?</>}>
+      <Prose>Mode 1, payload 1110, total five bits. The receiver must learn which of sixteen possible patterns was selected, so the four-bit pattern description cannot be omitted. The receiver already knows the total message length and the repeat rule under this declared code.</Prose>
+    </Practice>
+
+    <Practice title="9. Criteria can disagree — deeper"
+      question="On n=50 observations, a smaller model has log likelihood −80 and k=2. A larger model has log likelihood −77 and k=4. Compute AIC and BIC for both. Does disagreement imply a calculation error?">
+      <Prose>AIC values are {criteria(-80, 2, 50).aic} and {criteria(-77, 4, 50).aic}, favoring the larger model. BIC values are <Math>{'160+2\\log50\\approx'}</Math>{criteria(-80, 2, 50).bic.toFixed(4)} and <Math>{'154+4\\log50\\approx'}</Math>{criteria(-77, 4, 50).bic.toFixed(4)}, favoring the smaller. The different penalties reflect different goals and assumptions; disagreement alone is not an error. These formulas still require compatible regular likelihood models and correctly counted parameters.</Prose>
+    </Practice>
+
+    <Practice title="10. A smoothness-preserving shift — deeper"
+      question="Change the difference-penalty input from (0,2,0) to (3,5,3), keeping λ=1 and the unaveraged objective. Predict the solution without solving another matrix system. Would identity-based ridge make the same shift?">
+      <Prose>The difference-penalty solution becomes ({shifted.difference.map(num).join(', ')}), because adding a constant lies in L&rsquo;s null space. Identity-based ridge gives ({shifted.identity.map(num).join(', ')}), so its output shift is only 1.5. The penalties express different preferences.</Prose>
+    </Practice>
+
+    <H2>{headings[10]}</H2>
+    <Prose>You are ready to move on when you can state the fitted objective and its normalization, calculate a shrinkage/threshold update, distinguish prediction from coefficient attribution, fit preprocessing within each validation fold, and explain why mean-preserving dropout still changes expected loss. You should also be able to read the real comparison without forcing a U shape or treating a development-selected score as independent evidence.</Prose>
+    <LessonTable caption="Readiness check" headers={['you should be able to', 'where it was taught']} rows={[
+      ['State the objective, its 1/2n normalization and the unpenalized intercept', 'Section 1, figure 1'],
+      ['Calculate a soft-threshold and a shrinkage, and say when the answer is exactly zero', 'Section 2, the threshold investigation, practice 1'],
+      ['Run one coordinate sweep from partial residuals and recover the intercept', 'Section 3, the coordinate investigation, practices 2 and 3'],
+      ['Give two coefficient vectors with the same fitted prediction', 'Section 4, figure 3, practice 4'],
+      ['Read the recorded airfoil path, including λ=10 and the non-sparse selection', 'Section 5, figure 4, practice 6'],
+      ['Explain why a mean-preserving mask still raises expected loss', 'Section 6, the mask investigation, practice 5'],
+      ['Separate ridge directions, factor penalties and complexity criteria', 'Sections 7 to 9, practices 7 to 10'],
+    ]} />
+    <Prose>Next is <a href="/learn/path/full-curriculum/feature-selection-importance-shap-permutation-mutual-info?module=classical-ml">Feature Selection &amp; Importance: SHAP, Permutation &amp; Mutual Information</a>. A zero or large coefficient is only one kind of statement. We will ask which features are useful to a fitted predictor, how removing or perturbing a feature changes its performance, what information exists before fitting, and why none of those questions automatically identifies causes.</Prose>
+
+    <Sources alternatives={<><Prose>Use these after the core route. The lesson is self-contained; these offer a second explanation or a fuller reference.</Prose><ul>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/applications/plot_tomography_l1_reconstruction.html">Compressive sensing: tomography reconstruction with an L1 prior</a>: a visual and code learning route from projections to an image. Read the synthetic image&rsquo;s sparsity assumption and operator construction before interpreting the favorable comparison.</li>
+      <li><a href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_model_selection.html">Lasso model selection: AIC, BIC and cross-validation</a>: an inspected criterion/path visualization and executable example. It illustrates estimator choices; when adapting its internally cross-validated estimator, keep learned preprocessing inside the folds as explained here.</li>
+      <li><a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">Grünwald, A Tutorial Introduction to the Minimum Description Length Principle</a>: start with chapter 1&rsquo;s coding explanation, then use sections 2.5.3, 2.6.3 and 2.9.2 for normalized maximum likelihood, Bayesian evidence and the distinction from BIC. The extra branches are optional further study rather than prerequisites for the core regularization workflow.</li>
+    </ul></>}>
+      <li><a href="https://scikit-learn.org/stable/modules/linear_model.html">Scikit-learn linear models</a> — inspect the actual ridge/lasso/elastic-net objectives, coordinate updates, path diagnostics, multi-task penalties and information-criterion assumptions. Compare each equation with its parameter names before copying a strength value between estimators.</li>
+      <li><a href="https://hastie.su.domains/Papers/B67.2%20%282005%29%20301-320%20Zou%20%26%20Hastie.pdf">Zou and Hastie, Regularization and Variable Selection via the Elastic Net</a> — sections 2–3 explain grouping and the original paper&rsquo;s distinction between a mixed-penalty estimate and its historical rescaled variant. Current <Code>ElasticNet</Code> follows its documented mixed objective; do not add the paper&rsquo;s extra rescaling to a library prediction automatically.</li>
+      <li><a href="https://arxiv.org/pdf/1206.0313">Tibshirani, The Lasso Problem and Uniqueness</a> — the KKT conditions, equal fitted-value property and uniqueness assumptions correct the oversimplified claim that correlation always makes lasso nonunique.</li>
+      <li><a href="https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf">Srivastava and colleagues, Dropout</a> — the mask/network diagrams, training procedure and empirical model-averaging discussion. Its particular architecture/rate findings are observations from its experiments, not universal placement rules.</li>
+      <li><a href="https://nlp.stanford.edu/pubs/wager2013dropout.pdf">Wager, Wang and Liang, Dropout Training as Adaptive Regularization</a> — deeper analysis of noising under generalized linear losses. Our exact two-input square-loss derivation is the preparation for its data-dependent penalties.</li>
+      <li><a href="https://arxiv.org/pdf/1711.05101">Loshchilov and Hutter, Decoupled Weight Decay Regularization</a> — the update equations explain why adaptive-optimizer weight decay needs a precise convention.</li>
+      <li><a href="https://archive.ics.uci.edu/dataset/291/airfoil+self+noise">Airfoil Self-Noise at UCI</a>, {provenance.authors}, <a href={provenance.doi}>{provenance.doi}</a>, licensed <a href={provenance.licenseUrl}>{provenance.license}</a> — measurement definitions, attribution and data license. This page serves the unchanged numeric file, SHA-256 <Code>{provenance.sha256}</Code>, with the exact development/fold protocol for offline reproduction.</li>
+    </Sources>
+    <Prose>The scalar shrinkage examples, the four-row and duplicate designs, the dropout mask enumeration, the singular-value filters, the two-factor optimum, the three-position smoothness system, the fitted-likelihood records and the bit-code examples are explicitly <strong>constructed calculations</strong>, not observed measurements. The airfoil results are calculations on the identified real dataset under one declared row-level split and one predeclared grid, with no reserved row predicted or scored. None of them is a benchmark or a claim about any future dataset.</Prose>
+  </div>,
 };
 
 export default regularizationContent;

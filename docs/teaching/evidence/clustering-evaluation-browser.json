@@ -1,17 +1,17 @@
 {
-  "startedAt": "2026-09-12T03:57:08.045Z",
-  "completedAt": "2026-09-12T03:57:27.295Z",
+  "startedAt": "2026-09-14T06:02:59.594Z",
+  "completedAt": "2026-09-14T06:03:19.595Z",
   "topicId": "clustering-evaluation-validation-silhouette-ari-nmi",
   "status": "passed",
-  "browser": "152.0.4191.66",
+  "browser": "153.0.4234.32",
   "distDir": "dist",
-  "buildManifestHash": "df03f6fce8ae834cc95e684c730c42e04469b086f510ecf7b0b9d811ebc6d47d",
+  "buildManifestHash": "10404f01682dc98eb65b71fa452e936cb5e229e893247295f094a1b424b16a5b",
   "sourceHashes": {
     "src/learn/data/topics/clustering-evaluation-validation-silhouette-ari-nmi.jsx": "7030b810c96280027569f8b3a93f50a7f40981057dd8c891c88d82c5a59e60ac",
     "src/learn/data/clustering-evaluation-models.js": "efd46924ee804a0b28c61bb605a013f9b2b60122aac3307afc091f32a496a95e",
     "src/learn/data/clustering-evaluation-data.js": "e0568b62afc3f72ea2f1ca587db59554ccecec45769484222a2138bb14c51b07",
     "src/learn/data/clustering-evaluation-examples.js": "b068474e41d0befab400dc751797e2046964af1463927813bf7ea85e5537b2f1",
-    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "25e0fa7be1179ec58cad947b3e21acc17eac6f53bb36aa222f65e281a1519173",
+    "src/learn/components/lesson-labs/ClusteringEvaluationLabs.jsx": "1ec16771da4357c07c81f42134d2e0f5925d820aeaa44ec42fd02b9d49e0be14",
     "src/learn/components/lesson-labs/ClusteringEvaluationFigures.jsx": "c67d8127b522428b91a7ab4c3808ee4e34488bbabb105e3aa10a39eca0117e5c",
     "src/learn/components/lesson-labs/clustering-evaluation-labs.css": "b9f1a76d7109f1e8f4ada1bc09457651bb8e4d40cfb7904ae3038aeeb3aaac15",
     "src/learn/data/curriculum/blueprints/clustering-evaluation-validation-silhouette-ari-nmi.js": "bc58927e0091123a854906b1ece87e81a0097ff0452c5dd4332fabf0d68cfaba",
@@ -29,6 +29,9 @@
       "case": "Pair lab: rename leaves ARI fixed, cross gives −1/6, refinement gives 4/11, stale invalidation, 28 selectable pair tiles, reset"
     },
     {
+      "case": "Chance regression: immutable compared prediction, constant-candidate table alignment, edited-reference exact copy, highlighted overlap agrees with the null definition"
+    },
+    {
       "case": "Chance lab: negative AMI at overlap 2, unbalanced margins recompute 56 assignments, constant candidate reports a degenerate null, reset"
     },
     {
@@ -40,18 +43,18 @@
     {
       "case": "Fresh route requests only the selected lesson and its shared closure",
       "requestedScripts": [
-        "assets/index-wO7kyNDk.js",
-        "assets/Reader-BMk1S6fe.js",
-        "assets/LevelBadge-BuQpStge.js",
-        "assets/clustering-evaluation-validation-silhouette-ari-nmi-B_RfA-JY.js",
-        "assets/Code-uFE04jfF.js",
-        "assets/Callout-B3pojflc.js",
-        "assets/Math-BnzqGcaK.js",
-        "assets/LessonElements-DJ21T8SY.js",
-        "assets/RunnableExample-y_hqhtM6.js"
+        "assets/index-03zTBAzH.js",
+        "assets/Reader-CQopfa2p.js",
+        "assets/LevelBadge-BgcLx-TO.js",
+        "assets/clustering-evaluation-validation-silhouette-ari-nmi-Ckdsszpd.js",
+        "assets/Code-C1Tr28rl.js",
+        "assets/Callout-v_gWLvPh.js",
+        "assets/Math-B2UtUvHB.js",
+        "assets/LessonElements-Cv19UP9u.js",
+        "assets/RunnableExample-BWRWCoj9.js"
       ],
-      "rawScriptBytes": 1456762,
-      "gzipEstimateBytes": 326940,
+      "rawScriptBytes": 1457520,
+      "gzipEstimateBytes": 327049,
       "interpretation": "Built requested file sizes; gzip estimate is not measured network compression or latency."
     },
     {

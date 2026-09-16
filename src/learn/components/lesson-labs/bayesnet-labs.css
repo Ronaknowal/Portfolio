@@ -1,0 +1,221 @@
+/* Bayesian-networks lesson: investigations, graph diagrams and their tables.
+   Calm dark ground with the site's gold accent. Every encoding that carries
+   meaning also carries a shape, a ring, a word or a printed value, so nothing
+   here depends on colour alone.
+
+   Two rules below are deliberate and have each been shipped wrong before.
+
+   1. `.bn-lesson svg text` is scoped at the LESSON ROOT, not at a figure class.
+      A class-scoped rule misses any diagram sitting inside an investigation
+      stage wrapper; such a diagram then renders at the browser default 16px
+      inside a ~300-unit viewBox and scales to illegible. It also uses font
+      LONGHANDS, because the `font` shorthand silently resets every font-size
+      set on a descendant.
+   2. No blanket `fill` is set on shapes. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how an outline rectangle once vanished
+      while every assertion passed. Each shape class states its own fill, and
+      outline-only shapes state `fill: none` in CSS rather than relying on the
+      attribute. */
+
+.bn-lesson svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.bn-lesson svg text {
+  fill: #cfd7d2;
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.bn-lesson svg text.bn-node-name { font-size: 13px; font-weight: 600; fill: #f0e6c8; }
+.bn-lesson svg text.bn-node-tag { font-size: 9px; fill: #8eb9a5; }
+.bn-lesson svg text.bn-small { font-size: 10px; }
+.bn-lesson svg text.bn-strong { font-weight: 600; fill: #e7e2d4; }
+.bn-lesson svg text.bn-muted { fill: #a3aeaa; }
+
+/* Graph drawing. Node circles, arrowheads, observation rings and path trails
+   each carry one fact, and each states its own fill explicitly. */
+.bn-lesson svg .bn-node circle { fill: #141a1b; stroke: #6f7b76; stroke-width: 1.4; }
+.bn-lesson svg .bn-node.is-observed circle { stroke: #8eb9a5; stroke-width: 2; }
+.bn-lesson svg .bn-node circle.bn-observed-ring { fill: none; stroke: #8eb9a5; stroke-width: 1; }
+.bn-lesson svg .bn-endpoint-badge { fill: none; stroke: #e7b94a; stroke-width: 1.3; stroke-dasharray: 3 2; }
+.bn-lesson svg .bn-edge path { fill: none; stroke: #93a09a; stroke-width: 1.5; }
+.bn-lesson svg .bn-edge polygon { fill: #93a09a; stroke: none; }
+.bn-lesson svg .bn-edge.is-dimmed path { stroke: #4a5650; stroke-dasharray: 4 3; }
+.bn-lesson svg .bn-edge.is-dimmed polygon { fill: #4a5650; }
+.bn-lesson svg .bn-trail {
+  fill: none; stroke: #e7b94a; stroke-width: 6; stroke-opacity: .35;
+  stroke-linejoin: round; stroke-linecap: round;
+}
+.bn-lesson svg .bn-trail.is-blocked { stroke: #7f8a85; stroke-dasharray: 9 6; }
+/* The trail before a verdict exists: visible as a highlight, but not wearing
+   either answer's colour. */
+.bn-lesson svg .bn-trail.is-undecided { stroke: #6f7b76; stroke-dasharray: none; stroke-opacity: .45; }
+.bn-lesson svg .bn-axis { stroke: #6f7b76; stroke-width: 1.2; fill: none; }
+.bn-lesson svg .bn-cell { fill: #141a1b; stroke: #4a5650; stroke-width: 1; }
+.bn-lesson svg .bn-cell.is-used { fill: #1d2119; stroke: #9a8347; stroke-width: 1.6; }
+.bn-lesson svg .bn-cell.is-summed { fill: #16201c; stroke: #8eb9a5; stroke-width: 1.4; }
+
+.bn-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.bn-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.bn-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.bn-investigation button,
+.bn-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.bn-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.bn-investigation button:disabled, .bn-figure button:disabled { opacity: .4; cursor: default; }
+.bn-investigation button.is-selected { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.bn-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.bn-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+
+.bn-question, .bn-caption, .bn-note, .bn-pending { font-size: .92rem; line-height: 1.75; }
+.bn-caption { color: #b5bfbb; margin: .5rem 0; }
+.bn-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.bn-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.bn-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.bn-role.is-exploratory { border-left-color: #da9c86; color: #e3c1b4; }
+.bn-role.is-constructed { border-left-color: #9a8347; color: #e0d3ae; }
+.bn-undefined { color: #da9c86; }
+
+/* Controls */
+.bn-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.bn-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.bn-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.bn-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.bn-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.bn-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.bn-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.bn-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.bn-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.bn-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.bn-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+
+.bn-state-choice { display: flex; flex-direction: column; gap: .4rem; font-size: .9rem; min-width: 0; }
+.bn-state-label { color: #d0ddd5; }
+.bn-state-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.bn-state-options label {
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 40px;
+  padding: .2rem .55rem; border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+}
+.bn-state-options input { accent-color: #e7b94a; }
+
+.bn-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.bn-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.bn-prediction legend { padding: 0; font-weight: 600; }
+.bn-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.bn-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.bn-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.bn-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.bn-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.bn-verdict.is-miss { border-left-color: #da9c86; }
+.bn-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.bn-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.bn-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.bn-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables. The caption is a sibling paragraph, never a <caption> inside the
+   scroll box: below the narrow breakpoint the table blockifies and a caption
+   inside it collapses to the width of its longest word. */
+.bn-table { margin: 1.1rem 0; }
+.bn-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.bn-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.bn-table-scroll :is(th, td) { padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right; white-space: nowrap; }
+.bn-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.bn-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.bn-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+.bn-table-scroll tr.is-leading td, .bn-table-scroll tr.is-leading th { background: #151c18; }
+.bn-table-scroll tr.is-blocked td, .bn-table-scroll tr.is-blocked th { color: #9fa9a4; }
+
+/* Figures */
+.bn-figure { margin: 1.6rem 0; padding: 0; }
+.bn-figure figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; color: #dce4e0; }
+.bn-figure-row { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.bn-figure-row > * { flex: 1 1 260px; min-width: 0; }
+
+.bn-distribution { margin: 1rem 0; }
+.bn-distribution dl { margin: 0; display: grid; grid-template-columns: minmax(6.5rem, auto) 1fr; gap: .35rem .8rem; }
+.bn-distribution dt { color: #cfd7d2; font: .84rem/1.6 var(--font-mono, monospace); }
+.bn-distribution dd { margin: 0; display: flex; align-items: center; gap: .6rem; min-width: 0; }
+.bn-bar-row { display: contents; }
+.bn-bar-row.is-leading dt { color: #e7b94a; }
+.bn-bar-track { flex: 1 1 auto; height: 12px; background: #161c1b; border: 1px solid #2f3735; border-radius: 2px; min-width: 40px; }
+.bn-bar-fill { display: block; height: 100%; background: #8eb9a5; }
+.bn-bar-row.is-leading .bn-bar-fill { background: #e7b94a; }
+.bn-bar-value { font: .8rem/1.5 var(--font-mono, monospace); color: #d8dcd9; white-space: nowrap; }
+
+.bn-lane { margin: 1rem 0; }
+.bn-lane-track { display: flex; height: 30px; border: 1px solid #2f3735; border-radius: 2px; overflow: hidden; }
+.bn-lane-part { display: flex; align-items: center; justify-content: center; min-width: 0; }
+.bn-lane-part.is-load-0 { background: #24352e; }
+.bn-lane-part.is-load-1 { background: #4a5f54; }
+.bn-lane-key { overflow-wrap: anywhere; font-family: var(--font-mono, monospace); }
+
+.bn-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.bn-strip-cell {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2; min-width: 0;
+}
+.bn-strip-cell.is-used { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.bn-strip-cell b { display: block; color: #e7b94a; font-weight: 600; }
+.bn-bin { color: #8eb9a5; }
+
+.bn-path-list { margin: 1rem 0; padding: 0; list-style: none; display: grid; gap: .5rem; }
+.bn-path-list li {
+  padding: .5rem .7rem; border: 1px solid #2f3735; border-radius: 3px; background: #101615;
+  font-size: .88rem; line-height: 1.7;
+}
+.bn-path-list li.is-active { border-color: #9a8347; }
+.bn-path-list li.is-blocked { border-color: #46524d; color: #b5bfbb; }
+.bn-path-name { font-family: var(--font-mono, monospace); color: #f0e6c8; margin-right: .5rem; }
+.bn-path-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+
+.bn-specimen-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .7rem; margin: 1rem 0; }
+.bn-specimen-card { border: 1px solid #3c4643; border-radius: 3px; padding: .55rem .65rem; background: #121816; font-size: .85rem; line-height: 1.6; }
+.bn-specimen-card.is-hidden-value { border-style: dashed; border-color: #5d6862; color: #9fa9a4; }
+.bn-specimen-card.is-edited { border-color: #da9c86; }
+.bn-specimen-card b { display: block; color: #e7b94a; font-family: var(--font-mono, monospace); }
+.bn-specimen-card .bn-bin { color: #8eb9a5; }
+
+.bn-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+
+/* The provenance prints a 64-character SHA-256 inline. That is a single
+   unbreakable word, and at 768 px and below it pushed the whole page sideways
+   by sixteen pixels. Inline code in this lesson may break anywhere. */
+.bn-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+@media (max-width: 560px) {
+  .bn-table-scroll table, .bn-table-scroll thead, .bn-table-scroll tbody,
+  .bn-table-scroll tr, .bn-table-scroll th, .bn-table-scroll td { display: block; }
+  .bn-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .bn-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .bn-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .bn-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .bn-distribution dl { grid-template-columns: 1fr; }
+  .bn-figure-row > * { flex: 1 1 100%; }
+}
+
+/* The fill arcs of figure 3. Stated here as an outline with an explicit
+   `fill: none`, because a CSS fill rule would beat a presentation attribute and
+   turn an arc into a filled blob. */
+.bn-lesson svg .bn-fill-arc { fill: none; stroke: #9a8347; stroke-width: 1.4; stroke-dasharray: 4 3; }

@@ -33,7 +33,7 @@ export function ProjectionShadowFigure() {
           return <path d={`M${fx + s * d[0]},${fy - s * d[1]} L${fx + s * d[0] + s * r[0]},${fy - s * d[1] - s * r[1]} L${fx + s * r[0]},${fy - s * r[1]}`} fill="none" stroke="#da9c86" strokeWidth="1" />;
         })()}
         {(() => { const [mx, my] = project(state.mean); return <g><circle className="pca-mean" cx={mx} cy={my} r="6" /><text x={mx + 9} y={my + 14}>mean (3, 2)</text></g>; })()}
-        {(() => { const [fx, fy] = project(state.projections[0]); return <text x={fx - 10} y={fy + 16} textAnchor="end">Â = (1.5, 0.5)</text>; })()}
+        {(() => { const [fx, fy] = project(state.projections[0]); return <text x={fx + 14} y={fy + 8}>Â</text>; })()}
       </>}
     </SquarePlot>
     <ScoreStrip scores={state.scores} names={names} caption="Each observation's score is its signed distance along the ruler from the mean. A and B share a score; so do C and D." />
@@ -56,7 +56,7 @@ export function ConservationFigure() {
           {(() => { const scale = 20; const project = point => [80 + scale * point[0], 80 - scale * point[1]]; const d = state.direction; const [x1, y1] = project([-3 * d[0], -3 * d[1]]), [x2, y2] = project([3 * d[0], 3 * d[1]]);
             return <>
               <line className="pca-line" x1={x1} y1={y1} x2={x2} y2={y2} />
-              {state.centered.map((point, which) => { const [px, py] = project(point); const foot = [state.scores[which] * d[0], state.scores[which] * d[1]]; const [fx, fy] = project(foot); return <g key={which}><line className="pca-residual" x1={px} y1={py} x2={fx} y2={fy} /><circle className="pca-foot" cx={fx} cy={fy} r="2.5" /><circle className="pca-point" cx={px} cy={py} r="3.5" /><text x={px + 5} y={py - 4}>{names[which]}</text></g>; })}
+              {state.centered.map((point, which) => { const [px, py] = project(point); const foot = [state.scores[which] * d[0], state.scores[which] * d[1]]; const [fx, fy] = project(foot); return <g key={which}><line className="pca-residual" x1={px} y1={py} x2={fx} y2={fy} /><circle className="pca-foot" cx={fx} cy={fy} r="2.5" /><circle className="pca-point" cx={px} cy={py} r="3.5" /><text x={px + (point[0] < 0 ? -7 : 7)} y={py + (point[1] < 0 ? 15 : -7)} textAnchor={point[0] < 0 ? 'end' : 'start'}>{names[which]}</text></g>; })}
             </>; })()}
         </svg>
       </figure>)}
@@ -199,7 +199,7 @@ export function ResidualAlarmFigure() {
         <line className="pca-residual" x1={x(entry.point[0])} y1={y(entry.point[1])} x2={x(entry.foot[0])} y2={y(entry.foot[1])} />
         <circle className="pca-foot" cx={x(entry.foot[0])} cy={y(entry.foot[1])} r="3" />
         <circle className="pca-point is-selected" cx={x(entry.point[0])} cy={y(entry.point[1])} r="5" />
-        <text x={x(entry.point[0]) + 8} y={y(entry.point[1]) - 6}>{entry.name} ({entry.point.join(', ')})</text>
+        <text x={x(entry.point[0]) + 8} y={y(entry.point[1]) + 19}>{entry.name} ({entry.point.join(', ')})</text>
       </g>)}
       <text x="150" y="228" textAnchor="middle">band: usual readings · line: fixed direction (1, 1)/√2</text>
     </svg>

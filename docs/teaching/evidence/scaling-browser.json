@@ -1,0 +1,153 @@
+{
+  "startedAt": "2026-09-16T16:04:39.603Z",
+  "completedAt": "2026-09-16T16:05:52.529Z",
+  "topicId": "feature-scaling-encoding-imputation",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "73c1cd69022ea61e2bbea986f58a3bea017f705587efdac78de0a77e1fc73fcf",
+  "sourceHashes": {
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "22b7fc178c0664a7d87d881d42997f908470c67dffbd25eb3e62f5db8cc43dcb",
+    "src/learn/data/scaling-models.js": "2016b0426dad0a3c76da8a04dd88ccee56a78c9f75bf81b029007552d56c9d2c",
+    "src/learn/data/scaling-data.js": "1f0bc9e1ae81883aa0bccbd0ee3daa1140ce9f87b5847203f1da82efdbf93c04",
+    "src/learn/data/scaling-examples.js": "0ef4de579fe7b3a38a15d10dbc8e6f8265081d6f13a82894cd5d91140aefd2ef",
+    "src/learn/components/lesson-labs/ScalingShared.jsx": "1bf1c4ad6bced33d90ec3c6136ef03ef79311dccf0bce8f7949fcc0c445e8af3",
+    "src/learn/components/lesson-labs/ScalingLabs.jsx": "9ae5d49c4eb0a73d720e19c2dda3dfec0bc76e41348acf2d9362bb46a03ba9be",
+    "src/learn/components/lesson-labs/ScalingFigures.jsx": "c4ba8c21fb3d9f90c0f7e9db6d73db2844023138193ffacc5e4eba4b55cccb19",
+    "src/learn/components/lesson-labs/scaling-labs.css": "aa9ad22ed790347b211c38f8690416dc91c02afc82e5fc686786abce835b6a22",
+    "src/learn/data/curriculum/blueprints/feature-scaling-encoding-imputation.js": "8b87cdc8f5f49cdd7036c63f7f56016e97dabfd2006413e77151010b061310b6",
+    "public/learn-assets/feature-scaling/penguins.csv": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93"
+  },
+  "moduleTopicCount": 39,
+  "dataset": {
+    "name": "Palmer Penguins",
+    "sha256": "f204db2c753b0937caac3cb35258562c14f073e4bbc76be24b4c51ce22767a93",
+    "rows": 344,
+    "licence": "CC0"
+  },
+  "split": {
+    "training": 258,
+    "heldOut": 86
+  },
+  "correctCounts": {
+    "majority": 38,
+    "raw": 67,
+    "standard": 84,
+    "minmax": 85,
+    "robust": 85
+  },
+  "records": [
+    {
+      "case": "Complete visible code and output for two programs, eleven route anchors, nine figures, nine practice tasks, every recorded count and fitted statistic, the served CSV with its checkpointed hash, current metadata and module sequence"
+    },
+    {
+      "case": "Ruler lab: unset prediction, the 10,001 versus 10 raw totals, the 2 versus 9.0001 flip, the 4,400 g contrast giving 17, the doubled-divisor null at 0.5 and 2.250025, a translation null, a retired choice and a kept previous trial"
+    },
+    {
+      "case": "The ungraded calculate path is open before a commit and closed after one in all four investigations, so a graded verdict cannot be silently replaced"
+    },
+    {
+      "case": "Donor lab: the 7.5 / 3 / 12 overlap distances giving 200, the removed-target contrast at 300, the moved-target contrast at 220, an unselected-donor null, the labelled no-overlap fallback 300 and the refusal to invent a value for an entirely absent target column"
+    },
+    {
+      "case": "Pipeline lab: source row 309 giving 1.3091367505, the deleted mass taking the fitted median 4000 and -0.2367563058, an unchanged bill-length null, all three category states including an unknown all-zero block, and frozen fitted statistics across a record change"
+    },
+    {
+      "case": "Target-encoding graph: three dashed prior edges and one solid numerator edge, so tracing the drawing reproduces the 1/3 prior the arithmetic states"
+    },
+    {
+      "case": "Target-encoding lab: the 5/9 base value with its 1/3 fold prior, the own-target null against the row 1 contrast, practice 7 moving row 0 to 7/9 while row 3 stays at 4/9, a refused empty fold and the declared zero-smoothing prior fallback"
+    },
+    {
+      "case": "Sequential review: translation respects both measurement bounds; coincident points paint zero bars; rounded repeating donor means and inclusive half-unit boundaries grade correctly; all eight pipeline input endpoints are answerable with fixed prediction bounds; target-encoding ±0.005 boundaries pass and ±0.0051 fail; Figure 1 preserves recorded female when only mass is absent"
+    },
+    {
+      "case": "Direction and emphasis survive the stylesheet: a shared arrowhead is defined and referenced by every flow, and the observation identifiers keep the weight and colour their own rule declares"
+    },
+    {
+      "case": "Figures carry their required content: the magnified ruler inset with 48.5 kept on the full line, the labelled category schematic beside a true coordinate plane, the zero-origin comparison axis, the rank null against the log contrast, and the pooled 16/3 with its separate standard error"
+    },
+    {
+      "case": "Label/line geometry and document width clear at 1366, 1024, 768, 390 and 320 px"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-CWeKZwRe.js",
+        "assets/Reader-zvsUmx3R.js",
+        "assets/LevelBadge-B_jhcgwN.js",
+        "assets/feature-scaling-encoding-imputation-DgjbdIwC.js",
+        "assets/Code-DgTJ3chq.js",
+        "assets/Math-Cs61lg9E.js",
+        "assets/LessonElements-d6zMwszm.js",
+        "assets/RunnableExample-gBCKcwHx.js"
+      ],
+      "rawScriptBytes": 1477024,
+      "gzipEstimateBytes": 330527,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping, contained tables and every deeper branch rendered",
+      "figureTextNodes": 178,
+      "smallestRenderedPx": 11.55,
+      "below9px": 0,
+      "below8px": 0,
+      "interpretation": "Rendered size is the computed font-size scaled by the SVG width over its viewBox width; these are measurements, not a target."
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping, contained tables and every deeper branch rendered",
+      "figureTextNodes": 178,
+      "smallestRenderedPx": 9.37,
+      "below9px": 0,
+      "below8px": 0,
+      "interpretation": "Rendered size is the computed font-size scaled by the SVG width over its viewBox width; these are measurements, not a target."
+    },
+    {
+      "case": "Enlarged root text leaves every figure label separated"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\scaling-ruler-raw-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-ruler-scaled-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-removed-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-fallback-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-empty-column-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-pipeline-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-pipeline-imputed-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-pipeline-category-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-encoding-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-encoding-null-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-encoding-empty-fold-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-repeating-mean-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-pipeline-large-coordinate-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-encoding-inclusive-boundary-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-1-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-2-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-3-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-4-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-5-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-6-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-7-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-8-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-figure-9-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-record-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-ruler-figure-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-category-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-ruler-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-pipeline-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-boundary-320.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-donor-320.png",
+    "docs\\teaching\\evidence\\screenshots\\scaling-boundary-enlarged-text.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: matched and missed predictions, the two donor contrasts and both fixture cases, an imputed coordinate, an unknown category block, an empty internal fold, every inline figure, and mobile captures at 390 and 320 px. They require separate visual inspection."
+}

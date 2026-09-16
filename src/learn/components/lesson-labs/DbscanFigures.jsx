@@ -13,7 +13,7 @@ function trailPixel(x) { return 40 + (x + 2.5) * (560 / 7); }
 function TrailStrip({ y, fit, selected, eps }) {
   return <g>
     <line x1={trailPixel(-2.5)} x2={trailPixel(4.5)} y1={y} y2={y} className="db-grid" />
-    {[-2, -1, 0, 1, 2, 3, 4].map(v => <g key={v}><line x1={trailPixel(v)} x2={trailPixel(v)} y1={y - 4} y2={y + 4} className="db-grid" /><text x={trailPixel(v)} y={y + 30} textAnchor="middle">{v}</text></g>)}
+    {[-2, -1, 0, 1, 2, 3, 4].map(v => <g key={v}><line x1={trailPixel(v)} x2={trailPixel(v)} y1={y - 4} y2={y + 4} className="db-grid" /><text x={trailPixel(v)} y={y + 43} textAnchor="middle">{v}</text></g>)}
     <rect x={trailPixel(trailX[selected] - eps)} y={y - 12} width={2 * eps * 80} height="24" fill="#e7b94a" fillOpacity=".12" />
     <line x1={trailPixel(trailX[selected] - eps)} x2={trailPixel(trailX[selected] + eps)} y1={y - 12} y2={y - 12} stroke="#e7b94a" />
     <circle cx={trailPixel(trailX[selected] - eps)} cy={y - 12} r="3" fill="#e7b94a" /><circle cx={trailPixel(trailX[selected] + eps)} cy={y - 12} r="3" fill="#e7b94a" />
@@ -75,12 +75,13 @@ export function CoreRadiusFigure() {
   return <figure className="db-figure">
     <figcaption><strong>Counts and radii are inverse views</strong> · D's sorted distances, then every row's fourth-nearest distance c₄ in ascending order</figcaption>
     <Table caption="D's distances to all ten rows including itself, sorted; the fourth entry is c₄(D)" headings={['rank', 'row', 'distance (m)']} rows={roster.map((entry, k) => [k + 1, names[entry.index], number(entry.distance)])} highlight={index => index === 3} />
-    <div className="db-scroll"><svg className="db-svg-mid" viewBox="0 0 340 236" role="img" aria-label={`Sorted fourth-neighbour distances for the ten trail rows: ${sorted.map(number).join(', ')}. A line at ε = 1 lies above eight of them, so eight rows are core at ε = 1.`}>
+    <div className="db-scroll"><svg className="db-svg-mid" viewBox="0 0 340 236" role="img" aria-label={`Sorted fourth-neighbour distances for the ten trail rows: ${sorted.map(value => number(value)).join(', ')}. A line at ε = 1 lies above eight of them, so eight rows are core at ε = 1.`}>
       {[0, 1, 2, 3].map(v => <g key={v}><line x1="34" x2="320" y1={y(v)} y2={y(v)} className="db-grid" /><text x="28" y={y(v) + 4} textAnchor="end">{v}</text></g>)}
-      <line x1="34" x2="320" y1={y(1)} y2={y(1)} stroke="#e7b94a" strokeDasharray="5 4" /><text x="318" y={y(1) - 5} textAnchor="end" fill="#e7b94a">ε = 1: 8 rows are core</text>
-      {sorted.map((value, k) => <g key={k}><circle cx={x(k + 1)} cy={y(value)} r="4.5" fill={value <= 1 ? '#e7b94a' : '#da9c86'} /><text x={x(k + 1)} y={y(value) - 9} textAnchor="middle">{number(value)}</text><text x={x(k + 1)} y="216" textAnchor="middle">{k + 1}</text></g>)}
+      <line x1="34" x2="320" y1={y(1)} y2={y(1)} stroke="#e7b94a" strokeDasharray="5 4" />
+      {sorted.map((value, k) => <g key={k}><circle cx={x(k + 1)} cy={y(value)} r="4.5" fill={value <= 1 ? '#e7b94a' : '#da9c86'} /><text x={x(k + 1)} y={y(value) + (value > 1 ? -9 : 18)} textAnchor="middle">{number(value)}</text><text x={x(k + 1)} y="216" textAnchor="middle">{k + 1}</text></g>)}
       <text x="180" y="232" textAnchor="middle">rank of c₄ · distance in meters (vertical)</text>
     </svg></div>
+    <p className="db-legend">Dashed gold line: ε = 1 meter. Eight rows have c₄ ≤ 1 and are core.</p>
     <p>A row is core at radius ε exactly when its fourth-smallest distance, counting itself, is at most ε. Reading the sorted curve against the ε = 1 line gives the same eight core rows as counting neighbourhoods; the two views are one test seen from opposite directions. The steps at 0.5, 0.75 and 1.25 are individual rows with tied values, not a smooth elbow, and J's 2.75 stays on the same truthful axis.</p>
   </figure>;
 }
@@ -118,7 +119,7 @@ export function OpticsOrderingFigure() {
   const x = k => 40 + k * 30, y = v => 170 - 80 * v;
   return <figure className="db-figure">
     <figcaption><strong>High bars can start clusters</strong> · OPTICS ordering of the trail, m = 4, max_eps = 2, read at a cut of ε = 1</figcaption>
-    <div className="db-scroll"><svg className="db-svg-mid" viewBox="0 0 340 200" role="img" aria-label={`Ordered rows ${ordering.map(i => names[i]).join(', ')} with reachability ${orderedReachability.map(number).join(', ')} and core distances ${ordering.map(i => number(coreDistances[i])).join(', ')}. A and E start clusters at ε = 1; J cannot start because its core distance is undefined within max_eps 2.`}>
+    <div className="db-scroll"><svg className="db-svg-mid" viewBox="0 0 340 200" role="img" aria-label={`Ordered rows ${ordering.map(i => names[i]).join(', ')} with reachability ${orderedReachability.map(value => number(value)).join(', ')} and core distances ${ordering.map(i => number(coreDistances[i])).join(', ')}. A and E start clusters at ε = 1; J cannot start because its core distance is undefined within max_eps 2.`}>
       {[0, 0.5, 1, 1.5].map(v => <g key={v}><line x1="34" x2="330" y1={y(v)} y2={y(v)} className="db-grid" /><text x="28" y={y(v) + 4} textAnchor="end">{v}</text></g>)}
       <line x1="34" x2="330" y1={y(1)} y2={y(1)} stroke="#e7b94a" strokeDasharray="5 4" /><text x="328" y={y(1) - 5} textAnchor="end" fill="#e7b94a">cut ε = 1</text>
       {ordering.map((rowIndex, k) => {
@@ -127,8 +128,8 @@ export function OpticsOrderingFigure() {
         return <g key={k}>
           {reach === null ? <text x={x(k)} y={y(1.5) - 6} textAnchor="middle" fill="#8a9590">restart</text> : <rect x={x(k) - 9} y={y(reach)} width="18" height={y(0) - y(reach)} fill={reach <= 1 ? '#91aecf' : '#da9c86'} />}
           {core !== null && <line x1={x(k) - 12} x2={x(k) + 12} y1={y(core)} y2={y(core)} stroke="#f2e7ca" strokeWidth="2" />}
-          {starts && <text x={x(k)} y={y(1.5) + 10} textAnchor="middle" fill="#8eb9a5">core start</text>}
-          {rowIndex === 9 && <text x={x(k)} y={y(1.5) + 10} textAnchor="middle" fill="#da9c86">no start</text>}
+          {starts && <text x={x(k)} y="20" textAnchor={k === 0 ? 'start' : 'middle'} fill="#8eb9a5">core start</text>}
+          {rowIndex === 9 && <text x={x(k)} y="20" textAnchor="end" fill="#da9c86">no start</text>}
           <text x={x(k)} y="188" textAnchor="middle">{names[rowIndex]}</text>
         </g>;
       })}
@@ -141,26 +142,29 @@ export function OpticsOrderingFigure() {
 /** F6: stability is lifetime area with a selection constraint. */
 export function StabilityTreeFigure() {
   const y = lambda => 180 - 25 * lambda;
-  const scenario = (exit, offsetX, title) => {
+  const scenario = exit => {
     const children = 2 * 3 * (exit - 3), parent = 6 * (3 - 1);
-    return <g transform={`translate(${offsetX} 0)`}>
-      <text x="70" y="14" textAnchor="middle">{title}</text>
-      <rect x="10" y={y(3)} width="120" height={y(1) - y(3)} fill="#e7b94a" fillOpacity={parent >= children ? 0.45 : 0.15} stroke="#e7b94a" />
-      <text x="70" y={(y(1) + y(3)) / 2 + 4} textAnchor="middle">parent area 12</text>
-      <rect x="10" y={y(exit)} width="55" height={y(3) - y(exit)} fill="#8eb9a5" fillOpacity={children > parent ? 0.5 : 0.15} stroke="#8eb9a5" />
-      <rect x="75" y={y(exit)} width="55" height={y(3) - y(exit)} fill="#8eb9a5" fillOpacity={children > parent ? 0.5 : 0.15} stroke="#8eb9a5" />
-      <text x="70" y={y(exit) - 6} textAnchor="middle">children area {children}</text>
-      <text x="70" y={y(1) + 22} textAnchor="middle" fill={children > parent ? '#8eb9a5' : '#e7b94a'}>select {children > parent ? 'both children' : 'the parent'}</text>
-    </g>;
+    return <div key={exit}>
+      <p><strong>Children persist to λ = {exit}</strong></p>
+      <svg data-stability-exit={exit} viewBox="0 0 220 194" role="img"
+        aria-label={`Children persist to λ = ${exit}. The parent has six rows from λ = 1 to 3, with stability 12. Each child has three rows from λ = 3 to ${exit}, with combined stability ${children}. Select ${children > parent ? 'both children' : 'the parent'}. Both scenarios use the same row-count width and density-level height scales.`}>
+        {[1, 3, 4, 6].map(lambda => <g key={lambda}>
+          <line x1="45" x2="210" y1={y(lambda)} y2={y(lambda)} className="db-grid" />
+          <text x="4" y={y(lambda) - 2}>λ = {lambda}</text>
+        </g>)}
+        <rect data-branch="parent" x="65" y={y(3)} width="120" height={y(1) - y(3)} fill="#e7b94a" fillOpacity={parent >= children ? 0.45 : 0.15} stroke="#e7b94a" />
+        <text x="125" y={(y(1) + y(3)) / 2 + 4} textAnchor="middle">parent area 12</text>
+        <rect data-branch="child" x="60" y={y(exit)} width="60" height={y(3) - y(exit)} fill="#8eb9a5" fillOpacity={children > parent ? 0.5 : 0.15} stroke="#8eb9a5" />
+        <rect data-branch="child" x="130" y={y(exit)} width="60" height={y(3) - y(exit)} fill="#8eb9a5" fillOpacity={children > parent ? 0.5 : 0.15} stroke="#8eb9a5" />
+        <text x="125" y={y(exit) - 6} textAnchor="middle">children area {children}</text>
+        <text x="125" y={y(1) + 22} textAnchor="middle" fill={children > parent ? '#8eb9a5' : '#e7b94a'}>select {children > parent ? 'both children' : 'the parent'}</text>
+      </svg>
+      <p className="db-legend">Parent: 6 × (3 − 1) = 12. Children: 2 × 3 × ({exit} − 3) = {children}. Select {children > parent ? 'both children' : 'the parent'}.</p>
+    </div>;
   };
   return <figure className="db-figure">
     <figcaption><strong>Stability is lifetime area with a selection constraint</strong> · an abstract condensed tree: six rows born at λ = 1 split into two children of three at λ = 3</figcaption>
-    <div className="db-scroll"><svg className="db-svg-mid" viewBox="0 0 320 226" role="img" aria-label="Two scenarios. Left: children persist to λ = 6, combined area 18 exceeds the parent's 12, so both children are selected. Right: children persist only to λ = 4, combined area 6, so the parent is selected. Width is row count, height is density level λ = 1/ε.">
-      {[1, 3, 4, 6].map(l => <g key={l}><line x1="0" x2="320" y1={y(l)} y2={y(l)} className="db-grid" /><text x="4" y={y(l) - 2}>λ = {l}</text></g>)}
-      {scenario(6, 10, 'children exit at λ = 6')}
-      {scenario(4, 170, 'children exit at λ = 4')}
-    </svg></div>
-    <p className="db-legend">Left: parent 6 rows × (3 − 1) = 12; children 2 × 3 × (6 − 3) = 18, so both children are selected. Right: parent 12; children 2 × 3 × (4 − 3) = 6, so the parent is selected.</p>
+    <div className="db-figure-pair">{scenario(6)}{scenario(4)}</div>
     <p>Width is retained row count, the vertical axis is λ = 1/ε, and a branch's stability is its area: rows × how long they persist. Selecting the parent and its children together is inadmissible because they contain the same rows; the excess-of-mass rule takes whichever disjoint choice has the larger total. At an exit of λ = 5 the two totals tie at 12 and a library must declare a tie rule. These lifetimes are declared for the illustration, not fitted to the trail or to Iris.</p>
   </figure>;
 }

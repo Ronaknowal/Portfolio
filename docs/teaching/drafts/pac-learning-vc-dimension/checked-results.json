@@ -1,0 +1,3247 @@
+{
+  "growth": [
+    {
+      "n": 1,
+      "thresholds": 2,
+      "intervals": 2,
+      "all_binary": 2,
+      "sauer_d2": 2
+    },
+    {
+      "n": 2,
+      "thresholds": 3,
+      "intervals": 4,
+      "all_binary": 4,
+      "sauer_d2": 4
+    },
+    {
+      "n": 3,
+      "thresholds": 4,
+      "intervals": 7,
+      "all_binary": 8,
+      "sauer_d2": 7
+    },
+    {
+      "n": 4,
+      "thresholds": 5,
+      "intervals": 11,
+      "all_binary": 16,
+      "sauer_d2": 11
+    },
+    {
+      "n": 5,
+      "thresholds": 6,
+      "intervals": 16,
+      "all_binary": 32,
+      "sauer_d2": 16
+    },
+    {
+      "n": 6,
+      "thresholds": 7,
+      "intervals": 22,
+      "all_binary": 64,
+      "sauer_d2": 22
+    },
+    {
+      "n": 7,
+      "thresholds": 8,
+      "intervals": 29,
+      "all_binary": 128,
+      "sauer_d2": 29
+    },
+    {
+      "n": 8,
+      "thresholds": 9,
+      "intervals": 37,
+      "all_binary": 256,
+      "sauer_d2": 37
+    },
+    {
+      "n": 9,
+      "thresholds": 10,
+      "intervals": 46,
+      "all_binary": 512,
+      "sauer_d2": 46
+    },
+    {
+      "n": 10,
+      "thresholds": 11,
+      "intervals": 56,
+      "all_binary": 1024,
+      "sauer_d2": 56
+    }
+  ],
+  "geometry": {
+    "triangle": {
+      "points": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "realized": [
+        {
+          "labels": [
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1
+          ],
+          "w": [
+            -0.0,
+            2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            0
+          ],
+          "w": [
+            2.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1
+          ],
+          "w": [
+            2.0,
+            2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0
+          ],
+          "w": [
+            -2.0,
+            -2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            1
+          ],
+          "w": [
+            -2.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0
+          ],
+          "w": [
+            -0.0,
+            -2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            1
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        }
+      ],
+      "infeasible": [],
+      "count": 8
+    },
+    "square": {
+      "points": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "realized": [
+        {
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "w": [
+            -2.0,
+            2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "w": [
+            2.0,
+            2.0
+          ],
+          "b": -3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "w": [
+            0.0,
+            2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "w": [
+            2.0,
+            -2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "w": [
+            2.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "w": [
+            2.0,
+            2.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -2.0,
+            -2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "w": [
+            -2.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "w": [
+            -2.0,
+            2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "w": [
+            0.0,
+            -2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "w": [
+            -2.0,
+            -2.0
+          ],
+          "b": 3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            1,
+            0
+          ],
+          "w": [
+            2.0,
+            -2.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        }
+      ],
+      "infeasible": [
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ]
+      ],
+      "count": 14
+    },
+    "collinear": {
+      "points": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ]
+      ],
+      "realized": [
+        {
+          "labels": [
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -0.0,
+            0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1
+          ],
+          "w": [
+            2.0,
+            0.0
+          ],
+          "b": -3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1
+          ],
+          "w": [
+            2.0,
+            0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0
+          ],
+          "w": [
+            -2.0,
+            0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0
+          ],
+          "w": [
+            -2.0,
+            0.0
+          ],
+          "b": 3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            1
+          ],
+          "w": [
+            -0.0,
+            0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        }
+      ],
+      "infeasible": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "count": 6
+    },
+    "interior": {
+      "points": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.0
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      "realized": [
+        {
+          "labels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "w": [
+            -1.0,
+            1.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "w": [
+            0.0,
+            4.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "w": [
+            1.0,
+            -1.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            0,
+            1
+          ],
+          "w": [
+            4.0,
+            -0.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "w": [
+            2.0,
+            2.0
+          ],
+          "b": -3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "w": [
+            3.0,
+            1.0
+          ],
+          "b": -1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "w": [
+            -3.0,
+            -1.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "w": [
+            -2.0,
+            -2.0
+          ],
+          "b": 3.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "w": [
+            -4.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "w": [
+            -1.0,
+            1.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "w": [
+            0.0,
+            -4.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "w": [
+            1.0,
+            -1.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        },
+        {
+          "labels": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "w": [
+            -0.0,
+            -0.0
+          ],
+          "b": 1.0,
+          "minimum_signed_margin": 1.0
+        }
+      ],
+      "infeasible": [
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "count": 14
+    }
+  },
+  "intervals": {
+    "base": {
+      "feasible": true,
+      "interval": [
+        0.35,
+        0.65
+      ],
+      "predicted": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        0.1,
+        0.2,
+        0.35,
+        0.55,
+        0.65,
+        0.9
+      ],
+      "labels": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.09999999999999987
+    },
+    "closer_edges": {
+      "feasible": true,
+      "interval": [
+        0.31,
+        0.69
+      ],
+      "predicted": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        0.1,
+        0.2,
+        0.31,
+        0.35,
+        0.55,
+        0.65,
+        0.69,
+        0.9
+      ],
+      "labels": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.020000000000000018
+    },
+    "negative_only_null": {
+      "feasible": true,
+      "interval": [
+        0.35,
+        0.65
+      ],
+      "predicted": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "points": [
+        0.01,
+        0.1,
+        0.2,
+        0.35,
+        0.55,
+        0.65,
+        0.9,
+        0.99
+      ],
+      "labels": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.09999999999999987
+    },
+    "no_positives": {
+      "feasible": true,
+      "interval": null,
+      "predicted": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "points": [
+        0.1,
+        0.2,
+        0.8,
+        0.9
+      ],
+      "labels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.39999999999999997
+    },
+    "inconsistent": {
+      "feasible": false,
+      "interval": [
+        0.2,
+        0.8
+      ],
+      "predicted": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "finite_family": {
+    "k25_n500_delta005": 0.0831129068134555,
+    "single_n500_delta005": 0.060736146190830516,
+    "k25_n2000_delta005": 0.04155645340672775,
+    "realizable_k32_eps005_delta001": 162
+  },
+  "bounds": [
+    {
+      "d": 1,
+      "n": 100,
+      "delta": 0.05,
+      "uniform_radius_raw": 1.8487049738644115
+    },
+    {
+      "d": 1,
+      "n": 1000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.6445570036970437
+    },
+    {
+      "d": 1,
+      "n": 10000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.2211642950366809
+    },
+    {
+      "d": 1,
+      "n": 100000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.07502127544680441
+    },
+    {
+      "d": 2,
+      "n": 100,
+      "delta": 0.05,
+      "uniform_radius_raw": 2.1835178827636925
+    },
+    {
+      "d": 2,
+      "n": 1000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.7900256200823507
+    },
+    {
+      "d": 2,
+      "n": 10000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.277759955057982
+    },
+    {
+      "d": 2,
+      "n": 100000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.09585777862488472
+    },
+    {
+      "d": 10,
+      "n": 100,
+      "delta": 0.05,
+      "uniform_radius_raw": 3.4917514113200796
+    },
+    {
+      "d": 10,
+      "n": 1000,
+      "delta": 0.05,
+      "uniform_radius_raw": 1.3985921569934787
+    },
+    {
+      "d": 10,
+      "n": 10000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.5189303663654466
+    },
+    {
+      "d": 10,
+      "n": 100000,
+      "delta": 0.05,
+      "uniform_radius_raw": 0.18519488332888304
+    }
+  ],
+  "realizable_sample_bounds": [
+    {
+      "d": 1,
+      "epsilon": 0.2,
+      "delta": 0.05,
+      "sufficient_n": 241
+    },
+    {
+      "d": 1,
+      "epsilon": 0.1,
+      "delta": 0.05,
+      "sufficient_n": 562
+    },
+    {
+      "d": 1,
+      "epsilon": 0.05,
+      "delta": 0.05,
+      "sufficient_n": 1284
+    },
+    {
+      "d": 2,
+      "epsilon": 0.2,
+      "delta": 0.05,
+      "sufficient_n": 482
+    },
+    {
+      "d": 2,
+      "epsilon": 0.1,
+      "delta": 0.05,
+      "sufficient_n": 1124
+    },
+    {
+      "d": 2,
+      "epsilon": 0.05,
+      "delta": 0.05,
+      "sufficient_n": 2568
+    },
+    {
+      "d": 10,
+      "epsilon": 0.2,
+      "delta": 0.05,
+      "sufficient_n": 2409
+    },
+    {
+      "d": 10,
+      "epsilon": 0.1,
+      "delta": 0.05,
+      "sufficient_n": 5618
+    },
+    {
+      "d": 10,
+      "epsilon": 0.05,
+      "delta": 0.05,
+      "sufficient_n": 12836
+    }
+  ],
+  "sauer_n100_d5": 79375496,
+  "sine_four_labels": [
+    {
+      "labels": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "61/64",
+      "theta_approx": 5.988660995905543,
+      "fractional_cycles": [
+        "61/64",
+        "29/32",
+        "13/16",
+        "5/8"
+      ],
+      "predicted": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "labels": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "57/64",
+      "theta_approx": 5.595961914206819,
+      "fractional_cycles": [
+        "57/64",
+        "25/32",
+        "9/16",
+        "1/8"
+      ],
+      "predicted": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "labels": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "53/64",
+      "theta_approx": 5.203262832508095,
+      "fractional_cycles": [
+        "53/64",
+        "21/32",
+        "5/16",
+        "5/8"
+      ],
+      "predicted": [
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "labels": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "49/64",
+      "theta_approx": 4.81056375080937,
+      "fractional_cycles": [
+        "49/64",
+        "17/32",
+        "1/16",
+        "1/8"
+      ],
+      "predicted": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "labels": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "45/64",
+      "theta_approx": 4.417864669110647,
+      "fractional_cycles": [
+        "45/64",
+        "13/32",
+        "13/16",
+        "5/8"
+      ],
+      "predicted": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "labels": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "41/64",
+      "theta_approx": 4.025165587411922,
+      "fractional_cycles": [
+        "41/64",
+        "9/32",
+        "9/16",
+        "1/8"
+      ],
+      "predicted": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "labels": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "37/64",
+      "theta_approx": 3.6324665057131984,
+      "fractional_cycles": [
+        "37/64",
+        "5/32",
+        "5/16",
+        "5/8"
+      ],
+      "predicted": [
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "labels": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "33/64",
+      "theta_approx": 3.2397674240144743,
+      "fractional_cycles": [
+        "33/64",
+        "1/32",
+        "1/16",
+        "1/8"
+      ],
+      "predicted": [
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "labels": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "29/64",
+      "theta_approx": 2.84706834231575,
+      "fractional_cycles": [
+        "29/64",
+        "29/32",
+        "13/16",
+        "5/8"
+      ],
+      "predicted": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "labels": [
+        1,
+        0,
+        0,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "25/64",
+      "theta_approx": 2.454369260617026,
+      "fractional_cycles": [
+        "25/64",
+        "25/32",
+        "9/16",
+        "1/8"
+      ],
+      "predicted": [
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "labels": [
+        1,
+        0,
+        1,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "21/64",
+      "theta_approx": 2.061670178918302,
+      "fractional_cycles": [
+        "21/64",
+        "21/32",
+        "5/16",
+        "5/8"
+      ],
+      "predicted": [
+        1,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "labels": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "17/64",
+      "theta_approx": 1.6689710972195777,
+      "fractional_cycles": [
+        "17/64",
+        "17/32",
+        "1/16",
+        "1/8"
+      ],
+      "predicted": [
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "labels": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "13/64",
+      "theta_approx": 1.2762720155208536,
+      "fractional_cycles": [
+        "13/64",
+        "13/32",
+        "13/16",
+        "5/8"
+      ],
+      "predicted": [
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "labels": [
+        1,
+        1,
+        0,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "9/64",
+      "theta_approx": 0.8835729338221293,
+      "fractional_cycles": [
+        "9/64",
+        "9/32",
+        "9/16",
+        "1/8"
+      ],
+      "predicted": [
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "labels": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "5/64",
+      "theta_approx": 0.4908738521234052,
+      "fractional_cycles": [
+        "5/64",
+        "5/32",
+        "5/16",
+        "5/8"
+      ],
+      "predicted": [
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "labels": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "points": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "r_fraction": "1/64",
+      "theta_approx": 0.09817477042468103,
+      "fractional_cycles": [
+        "1/64",
+        "1/32",
+        "1/16",
+        "1/8"
+      ],
+      "predicted": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "finite_world": [
+    {
+      "n": 1,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 0.5,
+      "failure_fraction_exact": "1/2",
+      "bound_raw": 12.460812529142478,
+      "bound_clipped": 1.0,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/4",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/4",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/4",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/4",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 0.25,
+      "failure_fraction_exact": "1/4",
+      "bound_raw": 9.704490555402135,
+      "bound_clipped": 1.0,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/16",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/16",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            0,
+            1
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/16",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            2
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            2
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/16",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            3
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            3
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            2,
+            3
+          ],
+          "probability": "1/8",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 0.0625,
+      "failure_fraction_exact": "1/16",
+      "bound_raw": 5.886071058743077,
+      "bound_clipped": 1.0,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/256",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/256",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            0,
+            1
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/256",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            2
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            2
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2
+          ],
+          "probability": "9/64",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/256",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            3
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            3
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            3
+          ],
+          "probability": "9/64",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            2,
+            3
+          ],
+          "probability": "7/128",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            2,
+            3
+          ],
+          "probability": "9/64",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            1,
+            2,
+            3
+          ],
+          "probability": "9/64",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "probability": "3/32",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 0.00390625,
+      "failure_fraction_exact": "1/256",
+      "bound_raw": 2.1653645317858032,
+      "bound_clipped": 1.0,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/65536",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/65536",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            0,
+            1
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/65536",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            2
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            2
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2
+          ],
+          "probability": "1449/16384",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/65536",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            3
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            3
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            3
+          ],
+          "probability": "1449/16384",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            2,
+            3
+          ],
+          "probability": "127/32768",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            2,
+            3
+          ],
+          "probability": "1449/16384",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            1,
+            2,
+            3
+          ],
+          "probability": "1449/16384",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "probability": "5103/8192",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        }
+      ]
+    },
+    {
+      "n": 16,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 1.52587890625e-05,
+      "failure_fraction_exact": "1/65536",
+      "bound_raw": 0.29305022221974686,
+      "bound_clipped": 0.29305022221974686,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/4294967296",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/4294967296",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            0,
+            1
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/4294967296",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            2
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            2
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2
+          ],
+          "probability": "10712529/1073741824",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/4294967296",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            3
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            3
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            3
+          ],
+          "probability": "10712529/1073741824",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            2,
+            3
+          ],
+          "probability": "32767/2147483648",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            2,
+            3
+          ],
+          "probability": "10712529/1073741824",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            1,
+            2,
+            3
+          ],
+          "probability": "10712529/1073741824",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "probability": "515396703/536870912",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        }
+      ]
+    },
+    {
+      "n": 24,
+      "epsilon": 0.25,
+      "target": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "failure_probability": 5.960464477539063e-08,
+      "failure_fraction_exact": "1/16777216",
+      "bound_raw": 0.039660034826661736,
+      "bound_clipped": 0.039660034826661736,
+      "states": [
+        {
+          "seen": [
+            0
+          ],
+          "probability": "1/281474976710656",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            1
+          ],
+          "probability": "1/281474976710656",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            0,
+            1
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "true_risk": 0.5
+        },
+        {
+          "seen": [
+            2
+          ],
+          "probability": "1/281474976710656",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            2
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            2
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2
+          ],
+          "probability": "70594801209/70368744177664",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            3
+          ],
+          "probability": "1/281474976710656",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            3
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            1,
+            3
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            0,
+            1,
+            3
+          ],
+          "probability": "70594801209/70368744177664",
+          "selected_hypothesis": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "true_risk": 0.25
+        },
+        {
+          "seen": [
+            2,
+            3
+          ],
+          "probability": "8388607/140737488355328",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            2,
+            3
+          ],
+          "probability": "70594801209/70368744177664",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            1,
+            2,
+            3
+          ],
+          "probability": "70594801209/70368744177664",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        },
+        {
+          "seen": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "probability": "35043169903503/35184372088832",
+          "selected_hypothesis": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "true_risk": 0.0
+        }
+      ]
+    }
+  ],
+  "finite_world_zero_target_null": {
+    "n": 4,
+    "epsilon": 0.25,
+    "target": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "failure_probability": 0.0,
+    "failure_fraction_exact": "0",
+    "bound_raw": 5.886071058743077,
+    "bound_clipped": 1.0,
+    "states": [
+      {
+        "seen": [
+          0
+        ],
+        "probability": "1/256",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          1
+        ],
+        "probability": "1/256",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          1
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          2
+        ],
+        "probability": "1/256",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          2
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          1,
+          2
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          1,
+          2
+        ],
+        "probability": "9/64",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          3
+        ],
+        "probability": "1/256",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          3
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          1,
+          3
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          1,
+          3
+        ],
+        "probability": "9/64",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          2,
+          3
+        ],
+        "probability": "7/128",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          2,
+          3
+        ],
+        "probability": "9/64",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          1,
+          2,
+          3
+        ],
+        "probability": "9/64",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      },
+      {
+        "seen": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "probability": "3/32",
+        "selected_hypothesis": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "true_risk": 0.0
+      }
+    ]
+  },
+  "simulation": {
+    "seed": 41,
+    "target": [
+      0.3,
+      0.7
+    ],
+    "distribution": "Uniform[0,1]",
+    "rows": [
+      {
+        "n": 10,
+        "repetitions": 1000,
+        "epsilon": 0.1,
+        "failure_count": 743,
+        "failure_fraction": 0.743,
+        "mean_true_error": 0.17794783285460192,
+        "minimum_true_error": 0.0013830617874266427,
+        "maximum_true_error": 0.39999999999999997,
+        "risk_quantiles": [
+          0.0429138293669209,
+          0.1594170439480722,
+          0.39755217877027177
+        ],
+        "distribution_specific_failure_bound": 1.0,
+        "uniform_vc_radius_raw_delta005": 5.73942147331301,
+        "sample_true_errors": [
+          0.11702951229302183,
+          0.14364305199170269,
+          0.1647747629399321,
+          0.1554646423142685,
+          0.17069086111519005,
+          0.3789480578686158,
+          0.30567389510448545,
+          0.10776814317951411,
+          0.2107619162605383,
+          0.24476040609985317,
+          0.2093486576943091,
+          0.23091680758769484,
+          0.19096734310183838,
+          0.23652394883876982,
+          0.14213740419846732,
+          0.050057420111111695,
+          0.1785417893240382,
+          0.22000102660289533,
+          0.23741371655272214,
+          0.29207165380318645
+        ]
+      },
+      {
+        "n": 20,
+        "repetitions": 1000,
+        "epsilon": 0.1,
+        "failure_count": 368,
+        "failure_fraction": 0.368,
+        "mean_true_error": 0.09221184525811307,
+        "minimum_true_error": 0.0016664570460276362,
+        "maximum_true_error": 0.3699928577290755,
+        "risk_quantiles": [
+          0.017995293179410475,
+          0.08002019753423018,
+          0.20256206676655858
+        ],
+        "distribution_specific_failure_bound": 0.7169718448170838,
+        "uniform_vc_radius_raw_delta005": 4.323025607367492,
+        "sample_true_errors": [
+          0.08497789505635,
+          0.09807490450627476,
+          0.132536125908161,
+          0.15577648066282146,
+          0.11920679966012981,
+          0.09215804387905524,
+          0.13453670858879097,
+          0.07603333007897595,
+          0.09395721382933475,
+          0.053309878784046694,
+          0.08981398865320522,
+          0.03504544755363548,
+          0.07656631042895734,
+          0.07943258103344508,
+          0.040351547770847596,
+          0.041996228653756296,
+          0.03483956912336805,
+          0.06430771991177608,
+          0.014771603738104488,
+          0.13615893212880237
+        ]
+      },
+      {
+        "n": 50,
+        "repetitions": 1000,
+        "epsilon": 0.1,
+        "failure_count": 46,
+        "failure_fraction": 0.046,
+        "mean_true_error": 0.03948615822371106,
+        "minimum_true_error": 0.0007840287088565212,
+        "maximum_true_error": 0.1909403025201215,
+        "risk_quantiles": [
+          0.007319083054036335,
+          0.03199220674908465,
+          0.09712794758043292
+        ],
+        "distribution_specific_failure_bound": 0.1538899505534263,
+        "uniform_vc_radius_raw_delta005": 2.940794501079759,
+        "sample_true_errors": [
+          0.02879651430460828,
+          0.017494334805002287,
+          0.0338545986123151,
+          0.013365823958105372,
+          0.020105367042660083,
+          0.05608556270186282,
+          0.03248187120515844,
+          0.05130963878015504,
+          0.07108992697042815,
+          0.01574007113475595,
+          0.11902699577270992,
+          0.0657256454794366,
+          0.03523230694076607,
+          0.05904375181057753,
+          0.024322787065925278,
+          0.009999983973493887,
+          0.023677967732359306,
+          0.055909435182078804,
+          0.012075264985435652,
+          0.028790041870666805
+        ]
+      },
+      {
+        "n": 100,
+        "repetitions": 1000,
+        "epsilon": 0.1,
+        "failure_count": 1,
+        "failure_fraction": 0.001,
+        "mean_true_error": 0.019713287706267506,
+        "minimum_true_error": 0.00022770111916847746,
+        "maximum_true_error": 0.10405280039051035,
+        "risk_quantiles": [
+          0.0035820838509172948,
+          0.016268779521218968,
+          0.04704627970000189
+        ],
+        "distribution_specific_failure_bound": 0.011841058440667995,
+        "uniform_vc_radius_raw_delta005": 2.1835178827636925,
+        "sample_true_errors": [
+          0.022373901247027428,
+          0.02601919128872998,
+          0.018117233234070218,
+          0.013239824958688029,
+          0.015359306074388623,
+          0.0037134148518882526,
+          0.0108941842216832,
+          0.030630863926826235,
+          0.04005669612566898,
+          0.006270791815689014,
+          0.03254816916935832,
+          0.009182748476068259,
+          0.02180474854859349,
+          0.007652674324476694,
+          0.054623980262373806,
+          0.012192563366736353,
+          0.023147586482767935,
+          0.008650778178024732,
+          0.005667304878822721,
+          0.008608776169996446
+        ]
+      },
+      {
+        "n": 200,
+        "repetitions": 1000,
+        "epsilon": 0.1,
+        "failure_count": 0,
+        "failure_fraction": 0.0,
+        "mean_true_error": 0.009839118238094873,
+        "minimum_true_error": 0.0002364552563431932,
+        "maximum_true_error": 0.057315829697185405,
+        "risk_quantiles": [
+          0.0019966033215475187,
+          0.008281578982086701,
+          0.02354244326427961
+        ],
+        "distribution_specific_failure_bound": 7.01053324976574e-05,
+        "uniform_vc_radius_raw_delta005": 1.6142125851180822,
+        "sample_true_errors": [
+          0.009214588762609832,
+          0.0065084329173141775,
+          0.0030796419431058375,
+          0.010422223352875681,
+          0.013554586666264301,
+          0.011228981166831575,
+          0.00590218229221362,
+          0.009992475249789967,
+          0.003844895705933604,
+          0.011670249897316243,
+          0.009456359660063418,
+          0.007315989302193682,
+          0.011935220167208271,
+          0.009421942104181236,
+          0.008332844629798108,
+          0.0038060655751284145,
+          0.0056478342479915344,
+          0.012140275725010197,
+          0.007233851798039703,
+          0.002515205460624781
+        ]
+      }
+    ]
+  },
+  "practice": {
+    "k12_n800_delta002": 0.06656799548101218,
+    "interval_patterns_n4": [
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "sauer_n6_d2": 22,
+    "uniform_bound_n2000_d2": 0.5781444023521888,
+    "changed_target_interval": {
+      "feasible": true,
+      "interval": [
+        0.3,
+        0.7
+      ],
+      "predicted": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        0.05,
+        0.3,
+        0.4,
+        0.7,
+        0.95
+      ],
+      "labels": [
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.09999999999999998
+    },
+    "changed_target_positive": {
+      "feasible": true,
+      "interval": [
+        0.26,
+        0.7
+      ],
+      "predicted": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "points": [
+        0.05,
+        0.26,
+        0.3,
+        0.4,
+        0.7,
+        0.95
+      ],
+      "labels": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.06000000000000005
+    },
+    "changed_target_negative_null": {
+      "feasible": true,
+      "interval": [
+        0.3,
+        0.7
+      ],
+      "predicted": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "points": [
+        0.05,
+        0.3,
+        0.4,
+        0.7,
+        0.95,
+        0.99
+      ],
+      "labels": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "empirical_error": 0.0,
+      "true_error": 0.09999999999999998
+    }
+  }
+}

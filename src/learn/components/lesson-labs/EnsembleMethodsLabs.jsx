@@ -95,7 +95,7 @@ export function ErrorCancellationLab() {
             <text x="8" y={40 + index * 31} fill={color}>{label}</text>
             <line x1="150" x2={150 + value * 30} y1={35 + index * 31} y2={35 + index * 31} stroke={color} strokeWidth="3" />
             <circle cx={150 + value * 30} cy={35 + index * 31} r="4" fill={color} />
-            <text x={150 + value * 30} y={54 + index * 31} textAnchor="middle" fill={color}>{number(value, 2)}</text>
+            <text x={150 + value * 30 + (Math.abs(value) < 1e-8 ? 9 : 0)} y={54 + index * 31} textAnchor={Math.abs(value) < 1e-8 ? 'start' : 'middle'} fill={color}>{number(value, 2)}</text>
           </g>)}
         </svg>
       </figure>)}
@@ -112,7 +112,7 @@ function BootstrapFitPlot({
   const px = value => 35 + value * 52;
   const py = value => 207 - value * 20;
   const thresholdX = fit.threshold === null ? 321 : px(fit.threshold);
-  return <svg viewBox="0 0 330 250" role="img" aria-label="Actual regression stump fitted to the displayed bootstrap sample">
+  return <svg viewBox="0 0 330 276" role="img" aria-label="Actual regression stump fitted to the displayed bootstrap sample">
     {[0, 2, 4, 6, 8].map(value => <g key={value}><line x1="35" x2="309" y1={py(value)} y2={py(value)} className="ensemble-grid" /><text x="27" y={py(value) + 5} textAnchor="end">{value}</text></g>)}
     <path d="M35,24V207H309" className="ensemble-axis" />
     <path d={`M35,${py(fit.leftMean)}H${Math.min(thresholdX, 309)}${fit.threshold === null ? '' : `V${py(fit.rightMean)}H309`}`} stroke={colors.blend} fill="none" strokeWidth="3" />
@@ -121,7 +121,7 @@ function BootstrapFitPlot({
       <circle cx={px(row.x)} cy={py(row.y)} r={fit.counts[index] ? 5 * Math.sqrt(fit.counts[index]) : 5} fill={fit.counts[index] ? colors.a : '#12181b'} stroke={inspectedRow === index ? colors.blend : colors.muted} strokeWidth={inspectedRow === index ? 3 : 1} />
       <text x={px(row.x)} y="229" textAnchor="middle">{row.id}</text>
     </g>)}
-    <text x="13" y="16">hours</text><text x="170" y="247" textAnchor="middle">row / input x = 0…5</text>
+    <text x="13" y="16">hours</text><text x="170" y="269" textAnchor="middle">row / input x = 0…5</text>
   </svg>;
 }
 export function BootstrapOwnershipLab() {
@@ -294,7 +294,7 @@ export function EnsemblePredictionLab() {
         {predictionMap.testPoints.map((point, position) => <circle key={position} cx={px(point.x)} cy={py(point.y)} r="3.8" fill={point.label ? colors.blend : '#101719'} stroke={point.label ? '#181a15' : '#e8eff0'} strokeWidth="1.2" />)}
         <path d={`M${px(coordinates[horizontal]) - 7},${py(coordinates[vertical])}h14 M${px(coordinates[horizontal])},${py(coordinates[vertical]) - 7}v14`} stroke="#fff" strokeWidth="2.5" />
         <path d="M49,24V300H325" className="ensemble-axis" />
-        {[-1.5, 0, 1.5].map(value => <g key={value}><text x={px(value)} y="322" textAnchor="middle">{value}</text><text x="41" y={py(value) + 6} textAnchor="end">{value}</text></g>)}
+        {[-1.5, 0, 1.5].map(value => <g key={value}><text x={px(value)} y="324" textAnchor={value === -1.5 ? 'start' : value === 1.5 ? 'end' : 'middle'}>{value}</text><text x="41" y={py(value) + 6} textAnchor="end">{value}</text></g>)}
         <text x="187" y="347" textAnchor="middle">horizontal feature x₁</text>
         <text x="49" y="17">vertical feature x₂</text>
       </svg>

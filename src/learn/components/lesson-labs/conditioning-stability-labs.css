@@ -82,3 +82,5 @@
 .conditioning-reference-branches > div { display: flex; flex-direction: column; gap: .65rem; padding-top: .85rem; border-top: 1px solid #666953; }
 .conditioning-reference-branches strong { color: #e8b45b; }
 @media(max-width:620px) { .conditioning-reference-branches { grid-template-columns: 1fr; } }
+
+.conditioning-lab .conditioning-axis-label { margin: .5rem 0; color: #d7d8cc; font-size: .9rem; line-height: 1.6; overflow-wrap: anywhere; }

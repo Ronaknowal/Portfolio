@@ -1,0 +1,24 @@
+{
+  "source_sha256": "eb481258c4aaf13bd9f1a3d697802190174b7e1f55c6ff62b47f825255fd5e36",
+  "data_sha256": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+  "training_program_sha256": "0b006def11a1bac2a8f30b5ed43da3f31b1f06dbd0cba95cb267fc89e76dc05a",
+  "full_program_bound": true,
+  "saved_model_displayed_code_output": [
+    "lactated True"
+  ],
+  "source_extract_exact_copies": true,
+  "six_final_metric_rows_reconciled": true,
+  "query_schedule_and_probability_invariants": true,
+  "closed_practice_hint_solution_blocks": 16,
+  "fresh_local_excluded_score_null": true,
+  "local_settings_checked": 90,
+  "all_masked_rejected": true,
+  "pointer_outputs_reconstructed": true,
+  "practice1_context": [
+    0.21194155761708544,
+    1.3641753271487436
+  ],
+  "maximum_native_numpy_probability_error": 2.2999024451575423e-07,
+  "fit_count_this_packet": 6,
+  "phase_two_review_or_browser_performed": false
+}

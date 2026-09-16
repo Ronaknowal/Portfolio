@@ -68,7 +68,7 @@ function CalculusPlot({
     <defs><clipPath id={clipId}><rect x={left} y={top} width={right - left} height={bottom - top} /></clipPath></defs>
     <text x={left} y="18" className="axis-title">{yLabel}</text>
     {yTicks.map(tick => <g key={tick}><line className="grid" x1={left} x2={right} y1={y(tick)} y2={y(tick)} /><text x={left - 7} y={y(tick) + 5} textAnchor="end">{number(tick, 2)}</text></g>)}
-    {xTicks.map(tick => <g key={tick}><line className="grid" x1={x(tick)} x2={x(tick)} y1={top} y2={bottom} /><text x={x(tick)} y={bottom + 22} textAnchor="middle">{number(tick, 2)}</text></g>)}
+    {xTicks.map((tick, index) => <g key={tick}><line className="grid" x1={x(tick)} x2={x(tick)} y1={top} y2={bottom} /><text x={x(tick)} y={bottom + 22} textAnchor={index === 0 ? "start" : index === 2 ? "end" : "middle"}>{number(tick, 2)}</text></g>)}
     <path className="axis" d={`M${left},${top}V${bottom}H${right}`} />
     <text x={(left + right) / 2} y="268" textAnchor="middle" className="axis-title">{xLabel}</text>
     <g clipPath={`url(#${clipId})`}>

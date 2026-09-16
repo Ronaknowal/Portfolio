@@ -102,6 +102,27 @@ const ownedFiles = [sourcePath, 'src/learn/data/pca-models.js', 'src/learn/data/
     await checkText(projection.locator('.pca-readout'), /Mean \(3, 2\)/);
     records.push({ case: 'Projection workbench: hidden residual until comparison, correct SSE feedback, stale invalidation, fit-best-direction, point editing with Back, translation and reset' });
 
+    // Complementary regression: changed data must fit at full precision, and
+    // undo must restore the selected point as well as the point collection.
+    await projection.getByRole('button', { name: 'Add a point at the mean' }).click();
+    assert.equal(await projection.getByLabel('Selected observation', { exact: false }).inputValue(), '4');
+    await projection.getByRole('button', { name: 'Back', exact: true }).click();
+    assert.equal(await projection.getByLabel('Selected observation', { exact: false }).locator('option').count(), 4);
+    assert.equal(await projection.getByLabel('Selected observation', { exact: false }).inputValue(), '0');
+    assert.equal(await projection.getByLabel('A first reading', { exact: false }).inputValue(), '1');
+    await projection.getByLabel('Selected observation', { exact: false }).selectOption('3');
+    await projection.getByLabel('D second reading', { exact: false }).fill('2.5');
+    await projection.getByRole('button', { name: 'Fit best direction' }).click();
+    assert.ok(Math.abs(Number(await proposedAngle.inputValue()) - 43.339262118326985) < 1e-9, 'Fitted angle retains the exact direction rather than whole-degree rounding');
+    await projection.getByLabel('Predict first', { exact: false }).selectOption('less');
+    await projection.getByRole('button', { name: 'Compare prediction' }).click();
+    await checkText(projection.locator('.pca-feedback'), /proposed direction loses 2\.582 units²/);
+    assert.ok(await projection.getByLabel('Predict first', { exact: false }).isDisabled(), 'Compared prediction is frozen');
+    await projection.getByLabel('D second reading', { exact: false }).fill('3');
+    assert.ok(await projection.getByLabel('Predict first', { exact: false }).isEnabled(), 'Changed data permits a new prediction');
+    await projection.getByRole('button', { name: 'Reset', exact: true }).click();
+    records.push({ case: 'Projection regression: Add→Back restores selection, noninteger fitted optimum retains precision, compared prediction freezes and changed inputs release it' });
+
     const metric = page.locator('.pca-investigation').nth(1);
     await checkText(metric.locator('.pca-readout'), /Apply your settings/);
     await metric.getByLabel('Same multiplier, typed', { exact: false }).fill('10');
@@ -123,6 +144,21 @@ const ownedFiles = [sourcePath, 'src/learn/data/pca-models.js', 'src/learn/data/
     await metric.getByRole('button', { name: 'Reset', exact: true }).click();
     records.push({ case: 'Metric lab: pending versus applied state, second-axis flip at m = 10 with 96.15%, exact tie at m = a/b, standardized tie at every multiplier, reset' });
 
+    await metric.getByLabel('Rectangle half-height b', { exact: false }).fill('4');
+    await metric.getByLabel('Same multiplier, typed', { exact: false }).fill('10');
+    await metric.getByLabel('Predict first', { exact: false }).selectOption('second');
+    await metric.getByRole('button', { name: 'Apply and compare' }).click();
+    await checkText(metric.locator('.pca-feedback'), /Your prediction matches: The second axis/);
+    await checkText(metric.locator('.pca-readout'), /Axis variances 5\.3333 and 2133\.3333/);
+    await checkText(metric.locator('.pca-readout'), /retaining 99\.75%/);
+    assert.ok(await metric.getByLabel('Predict first', { exact: false }).isDisabled());
+    await metric.getByLabel('Coordinate geometry').selectOption('standardized');
+    await metric.getByLabel('Predict first', { exact: false }).selectOption('tie');
+    await metric.getByRole('button', { name: 'Apply and compare' }).click();
+    await checkText(metric.locator('.pca-feedback'), /Your prediction matches: No preferred axis/);
+    await metric.getByRole('button', { name: 'Reset', exact: true }).click();
+    records.push({ case: 'Metric regression: legal b=4, multiplier=10 renders and applies raw ±40 coordinates; independent axis variances and 99.75% agree; standardized alternative ties' });
+
     const budget = page.locator('.pca-investigation').nth(2);
     assert.equal(await budget.locator('.pca-hidden-curve').count(), 1, 'Curve hidden before commitment');
     await budget.getByLabel('Predict first', { exact: false }).selectOption('8');
@@ -130,8 +166,12 @@ const ownedFiles = [sourcePath, 'src/learn/data/pca-models.js', 'src/learn/data/
     await checkText(budget.locator('.pca-feedback'), /Your prediction matches: 8 components/);
     await checkText(budget.locator('.pca-feedback'), /7 components leave 0\.1265/);
     assert.equal(await budget.locator('.pca-curve').count(), 1);
+    assert.ok(await budget.getByLabel('Predict first', { exact: false }).isDisabled(), 'Revealed budget prediction is frozen');
     await budget.getByLabel('Same budget, typed').fill('0.06');
     await checkText(budget.locator('.pca-feedback'), /inputs changed/);
+    assert.equal(await budget.locator('.pca-curve').count(), 0, 'Changing the budget hides the newly computed crossing until another commitment');
+    assert.equal(await budget.locator('.pca-hidden-curve').count(), 1);
+    assert.ok(await budget.getByLabel('Predict first', { exact: false }).isEnabled());
     await budget.getByLabel('Predict first', { exact: false }).selectOption('10');
     await budget.getByRole('button', { name: 'Reveal the crossing' }).click();
     await checkText(budget.locator('.pca-feedback'), /Your prediction matches: 10 components/);
@@ -160,6 +200,15 @@ const ownedFiles = [sourcePath, 'src/learn/data/pca-models.js', 'src/learn/data/
     await checkText(labels.locator('.pca-feedback'), /Your prediction matches: No/);
     await labels.getByRole('button', { name: 'Reset', exact: true }).click();
     records.push({ case: 'Label lab: PC1 collision at 99.01%, label-rule switch reverses usefulness without changing the fit, PC2 collision for x labels, reset' });
+
+    await labels.getByLabel('Retained components').selectOption('pc2');
+    await labels.getByLabel('Predict first', { exact: false }).selectOption('distinct');
+    await labels.getByRole('button', { name: 'Check', exact: true }).click();
+    await checkText(labels.locator('.pca-feedback'), /The 2 retained locations each contain only one class/);
+    await checkText(labels.locator('.pca-readout'), /Labels remain distinguishable/);
+    assert.ok(await labels.getByLabel('Predict first', { exact: false }).isDisabled());
+    await labels.getByRole('button', { name: 'Reset', exact: true }).click();
+    records.push({ case: 'Class-information regression: PC2 and y labels produce two class-pure locations, not four distinct observations, with a frozen checked prediction' });
 
     const firstHint = page.locator('.pca-practice').first().getByText('Get a hint', { exact: true });
     await firstHint.focus();

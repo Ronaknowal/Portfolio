@@ -2,6 +2,17 @@
 
 Canonical topic ID: calibration-conformal-prediction
 
+## Current disposition — 12 September 2026
+
+All four proposals below are **accepted and addressed in prepared content**. Their original observations are retained as history; the earlier open statuses do not indicate outstanding authoring work. Production implementation and independent verification remain separate.
+
+- Conditioning, plot direction and finite-bin uncertainty: [prepared lesson](../drafts/calibration-conformal-prediction/lesson.md), sections 1–2 and 8, with an exact confidence-versus-class-probability counterexample.
+- Decision information: section 1 preserves the two population groups, both calibrated forecasts, and the exact cost and Brier comparisons.
+- Naive Bayes score interface: sections 3–4 distinguish decision scores from probability inputs, sigmoid family changes, class decisions and separate fit roles. Section 7 executes a four-role SVC example; it does not relabel it as a GaussianNB replication.
+- SVC migration and complete-procedure validation: section 4 uses the current API and explains frozen estimators, fold-specific ensembles, transformations inside folds, and selection boundaries; the actual scikit-learn 1.9.1 program is retained.
+
+The [design and research record](../drafts/calibration-conformal-prediction/design.md), [visual contracts](../drafts/calibration-conformal-prediction/visual-specifications.md), and [provenance](../drafts/calibration-conformal-prediction/data-provenance.md) identify the source claims, executed author checks and remaining phase-two work. No production topic or navigation was changed.
+
 ## 2026-09-10 — Preserve conditioning populations and correct plot direction
 
 - Status: open

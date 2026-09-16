@@ -1,0 +1,104 @@
+{
+  "startedAt": "2026-09-14T08:48:30.417Z",
+  "completedAt": "2026-09-14T08:49:10.185Z",
+  "topicId": "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+  "status": "passed",
+  "browser": "153.0.4234.32",
+  "distDir": "dist",
+  "buildManifestHash": "50dda5410941ce26fb4930ec4cb627a4634b871ed238adbe90a29370f2f3f5b7",
+  "sourceHashes": {
+    "src/learn/data/topics/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.jsx": "c6ef41d5727c1587f1e4f6e28f08dc30b7a42b19bad33c2a53cbd24d3cf7c932",
+    "src/learn/data/anomaly-detection-models.js": "7d8a2dd0225426f507a2e57ff7d8dcf2c1f3e6233c7097b0b6e9d7bafa782d67",
+    "src/learn/data/anomaly-temperature-data.js": "750d462024c0321687bd1b98c8f0755616351f60d5b9465d1f6dfc59d53625d4",
+    "src/learn/data/anomaly-detection-examples.js": "472d6bfbc707a848fb77795444ab6f0666639e44c75d009797c8ef781a8066b2",
+    "src/learn/components/lesson-labs/AnomalyDetectionLabs.jsx": "05d159bd96239d7a193cf15de1e796db6a856107df42ca2cc352b481a82ef676",
+    "src/learn/components/lesson-labs/AnomalyTemperatureLab.jsx": "8196d9141e801a2460f861f93b7749ab36c1fafefb9701a49fce493dbc439b82",
+    "src/learn/components/lesson-labs/AnomalyDetectionShared.jsx": "d4ee3844348a6e29870e5360b1e49080af89d96dce8516f6e29fedf753cb97bd",
+    "src/learn/components/lesson-labs/AnomalyDetectionFigures.jsx": "0a171ecf655d23c712af7e1a70a8310ae34e3ea655a3bae7052c5e88db6a7884",
+    "src/learn/components/lesson-labs/anomaly-detection-labs.css": "4f066dc8dad28ce9921e36f1085555514f10066a35b156d739fe1f3d5f86b164",
+    "src/learn/data/curriculum/blueprints/anomaly-outlier-detection-isolation-forest-one-class-svm-lof.js": "82ad9dc1d288ea831868aa682a386c5e36ab3e8e2d4722c8daad5985f63e51d8",
+    "public/learn-assets/anomaly-detection/machine_temperature_system_failure.csv": "92bf5b87fc7f9bba8ca0b7ec63ccaac8cb4a1371a258e8c29a10ae9c018d82a4",
+    "public/learn-assets/anomaly-detection/nab-event-windows.json": "1e1fbc4601321aad8d0f8b3784c8134299379f68f6c1f7777565f8ffd57ab6b1",
+    "public/learn-assets/anomaly-detection/NAB-LICENSE.txt": "0a0b4d0b10cb1f7ed9ab2993ef93defc03447e6eba9daca1315dd32dae4877e3"
+  },
+  "moduleTopicCount": 39,
+  "seriesRows": 22671,
+  "records": [
+    {
+      "case": "Complete visible code and output for five programs, thirteen route anchors, four figures, ten practice tasks, the three offline source files, current metadata and module sequence"
+    },
+    {
+      "case": "Isolation lab: exact 77/30 normalizer and 841/660 expectation, stale invalidation on an edited position, the symmetric tie, the identical-record case where every score is one half, and one followed cut sequence"
+    },
+    {
+      "case": "LOF lab: the closer query taking the higher factor with 35/24 against 35/32, the second prediction on the live query, staleness when k changes, and the refused duplicate coordinate"
+    },
+    {
+      "case": "Fitting-mode lab: 4/3 for the reference row against 7/8 for a new query at the same coordinate, retired when the coordinate changes"
+    },
+    {
+      "case": "Kernel lab: the midpoint outside at gamma 1 with a disconnected accepted region, inside at gamma 0.1 with one interval, and a reference anchor exactly on the boundary at both"
+    },
+    {
+      "case": "Review-queue lab: 1,079 alerts at 7.4143% precision, precision rising with prevalence alone, and an undefined precision when nobody is flagged"
+    },
+    {
+      "case": "Temperature lab: the 0.975 isolation threshold with 4,263 unmatched alerts and four window hits, the baseline at 1,036, a typed threshold snapped to a precomputed level, window paging against the annotation timestamps, and the published eight-row table"
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure",
+      "requestedScripts": [
+        "assets/index-D_PhhhTk.js",
+        "assets/Reader-BzvpuOZD.js",
+        "assets/LevelBadge-iqFUaCGh.js",
+        "assets/anomaly-outlier-detection-isolation-forest-one-class-svm-lof-D4lvhywb.js",
+        "assets/Code-DfDBBZwh.js",
+        "assets/Callout-R9JvahHh.js",
+        "assets/Math-BcjjO3Ka.js",
+        "assets/LessonElements-CDSbg__y.js",
+        "assets/RunnableExample-B-FTL0k1.js"
+      ],
+      "rawScriptBytes": 1703966,
+      "gzipEstimateBytes": 428456,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "Narrow 390px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Narrow 320px layout, readable formula grouping and every deeper branch rendered"
+    },
+    {
+      "case": "Completion persists under the stable ID without auto-advance; Next opens the actual successor"
+    },
+    {
+      "case": "import failure keeps completion disabled and recovers with an explicit reload"
+    },
+    {
+      "case": "render failure keeps completion disabled and recovers with an explicit reload"
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\screenshots\\anomaly-lof-tie-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-temperature-uncommitted-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-isolation-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-lof-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-kernel-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-queue-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-temperature-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-provenance-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-first-cut-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-reach-floor-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-threshold-ruler-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-fitting-mode-desktop.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-fitting-mode-revealed-320.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-provenance-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-isolation-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-lof-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-first-cut-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-threshold-ruler-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-temperature-mobile.png",
+    "docs\\teaching\\evidence\\screenshots\\anomaly-kernel-mobile.png"
+  ],
+  "visualInterpretation": "The intended Space Grotesk font loaded before the checks. Screenshots capture informative states: a revealed isolation expectation, a missed LOF prediction, the disconnected kernel region, the review queue and the real-series threshold with its window bands. They require separate visual inspection."
+}

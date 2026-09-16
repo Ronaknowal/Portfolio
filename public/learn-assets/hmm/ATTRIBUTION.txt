@@ -1,0 +1,49 @@
+Universal Dependencies English Web Treebank (UD_English-EWT), release r2.16, published May 2025.
+https://universaldependencies.org/treebanks/en_ewt/index.html
+https://github.com/UniversalDependencies/UD_English-EWT/tree/r2.16
+
+Citation: Natalia Silveira, Timothy Dozat, Marie-Catherine de Marneffe, Samuel Bowman, Miriam
+Connor, John Bauer and Christopher D. Manning, "A Gold Standard Dependency Corpus for English",
+LREC 2014.
+
+Licence: the annotations and database rights are distributed under CC BY-SA 4.0,
+https://creativecommons.org/licenses/by-sa/4.0/ . Stanford annotation copyright 2013-2021.
+Rights and notices in the underlying text remain applicable, including Google 2012, Yahoo 2011,
+University of Pennsylvania 2012, and the original authors or public-domain material where that
+applies. Retain this attribution, the release identifier, the licence link and the identification
+of this extract and its coarse-label transformation when redistributing the file.
+This project does not claim ownership of the underlying text.
+
+ewt-sequences.json is the extract this lesson serves: 89597 bytes,
+SHA-256 e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d.
+It is a JSON list of 200 records, each holding a split name, the original EWT sentence id, the
+sentence's tokens and their original UPOS tags. Extraction kept integer-id syntactic word rows and
+excluded multiword range rows and decimal empty nodes. It took the first 120, 40 and 40 sentences of
+length 3 to 15 from the official r2.16 train, dev and test files, giving 1188, 341 and 370 tokens.
+All 200 sentence ids are distinct. Selecting short sentences first is deliberately biased: this is an
+instructional extract, not a representative benchmark sample.
+
+The source files this extract came from, with the SHA-256 of each as retrieved:
+  en_ewt-ud-train.conllu  3fb78e2b55482c8ee00caa653af436c88c9e5bc9a73ce26e4ae3ddc79d2b7e7b
+  en_ewt-ud-dev.conllu    531a54ff90d6ab12201c5a50c3e78e6ddac4de69abc4bce5d275d3cd29efe2b6
+  en_ewt-ud-test.conllu   e266e515a0a7547657ed3d90d9ba46487d6bd251f27ad4269d4e8a427c8555cd
+  https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/r2.16/<name>
+
+What this lesson does with it, and does not do to it: the served file is unchanged, and every
+original UPOS tag is preserved in it. The lesson additionally defines a deliberately coarse
+three-way teaching task - NOUN and PROPN become Noun, VERB and AUX become Verb, and every other
+original tag becomes Other - and fits a supervised categorical HMM by counting on the 120 training
+sentences only. That coarse mapping is lossy and is a teaching simplification, not a linguistic
+claim and not full part-of-speech tagging. Development words never change the vocabulary. The 40
+reserved sentences are not scored anywhere in this lesson; educational reuse elsewhere does not make
+them a fresh research holdout.
+
+hmm-experiments.py (15364 bytes, SHA-256
+25e7e4016c5420b7aae33a21e869275564d6951bc22865fd173f566c1d7b2f77) is the complete offline NumPy
+program the lesson displays and describes. Run it beside ewt-sequences.json.
+hmmlearn-examples.py (2640 bytes, SHA-256
+991ccca13385eb983d1364fb736bc4a5ac2640a05ef375bab5dae257fb8f033e) is the optional hmmlearn 0.3.3
+program. Both are served here so the lesson's code and its data stay together.
+
+This lesson serves its own copy of every file above, so that no other lesson's asset change can move
+what this page teaches.

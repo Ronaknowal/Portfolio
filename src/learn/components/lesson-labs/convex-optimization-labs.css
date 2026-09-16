@@ -11,7 +11,7 @@
 .convex-lab :is(button, select, input, summary):focus-visible { outline: 2px solid var(--convex-gold); outline-offset: 4px; }
 .convex-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
 .convex-graph { display: block; width: 100%; max-width: 520px; height: auto; margin: 12px auto; overflow: visible; }
-.convex-graph text { fill: #cbd2de; font: 12px system-ui, sans-serif; }
+.convex-lab .convex-graph text, .convex-inline .convex-graph text { fill: #cbd2de; font: 16px system-ui, sans-serif; }
 .convex-graph :is(polyline, path, line, polygon, ellipse, circle) { vector-effect: non-scaling-stroke; }
 .convex-grid { stroke: #303946; stroke-width: 0.7; }
 .convex-axis { stroke: #8d97a6; stroke-width: 1; }
