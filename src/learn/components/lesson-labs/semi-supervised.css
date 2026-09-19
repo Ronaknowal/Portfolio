@@ -1,0 +1,64 @@
+.ssl-lesson { --ssl-muted: #bac4cc; --ssl-border: #34414a; }
+.ssl-lesson .ssl-figure, .ssl-lesson .ssl-lab { margin: 2rem 0; border: 1px solid var(--ssl-border); background: #0b1013; border-radius: 6px; padding: clamp(12px, 3vw, 24px); color: #dce4e9; }
+.ssl-lesson .ssl-figure { margin-inline: 0; }
+.ssl-lesson .ssl-figure h4, .ssl-lesson .ssl-lab h3, .ssl-lesson .ssl-lab h4 { margin-top: 0; color: #f0e8d8; line-height: 1.5; }
+.ssl-lesson .ssl-figure p, .ssl-lesson .ssl-lab p { line-height: 1.65; }
+.ssl-lesson .ssl-caption, .ssl-lesson figcaption, .ssl-lesson .ssl-lab small { color: var(--ssl-muted); font-size: 13px; line-height: 1.65; }
+.ssl-lesson figcaption { margin-top: 14px; }
+.ssl-lesson .ssl-split-ledger, .ssl-lesson .ssl-two-panels, .ssl-lesson .ssl-audit-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 18px; }
+.ssl-lesson .ssl-split-ledger section, .ssl-lesson .ssl-flow section { padding: 10px; border-left: 2px solid #667883; min-width: 0; }
+.ssl-lesson .ssl-observed { display: inline-block; padding: 5px 8px; border: 2px solid #72cbb0; }
+.ssl-lesson .ssl-pseudo { display: inline-block; padding: 5px 8px; border: 1px dashed #e2b55a; }
+.ssl-lesson svg { display: block; width: 100%; height: auto; max-height: 350px; overflow: visible; }
+.ssl-lesson .ssl-graph-picture { max-width: 520px; margin-inline: auto; }
+.ssl-lesson .ssl-edge-key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; }
+.ssl-lesson .ssl-table { width: 100%; max-width: 100%; overflow-x: auto; margin: 16px 0; background: transparent; }
+.ssl-lesson .ssl-table table { border-collapse: collapse; width: 100%; font-size: 13px; line-height: 1.6; }
+.ssl-lesson .ssl-table caption { text-align: left; padding: 0 0 10px; color: #c6d2da; }
+.ssl-lesson .ssl-table th, .ssl-lesson .ssl-table td { border-bottom: 1px solid #34414a; padding: 8px; text-align: left; overflow-wrap: anywhere; vertical-align: top; }
+.ssl-lesson .ssl-table th { font-weight: 600; }
+.ssl-lesson [data-ssl-lab="graph"] .ssl-table td:nth-child(2) { white-space: nowrap; }
+.ssl-lesson .ssl-evidence-row { display: grid; grid-template-columns: 18px 1fr 1fr; gap: 14px; align-items: center; margin: 14px 0; }
+.ssl-lesson .ssl-evidence-row small, .ssl-lesson .ssl-evidence-row span { font-size: 12px; }
+.ssl-lesson .ssl-bar-frame { width: 100%; height: 14px; display: flex; margin: 7px 0; background: #17232c; }
+.ssl-lesson .ssl-segment { height: 100%; flex-shrink: 0; }
+.ssl-lesson .ssl-class-0 { background: #72cbb0; }
+.ssl-lesson .ssl-class-1 { background: #e2b55a; }
+.ssl-lesson .ssl-error { background: #df8f9f; }
+.ssl-lesson .ssl-flow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.ssl-lesson .ssl-flow section { flex: 1 1 150px; }
+.ssl-lesson .ssl-flow > span { color: #e2b55a; font-size: 22px; }
+.ssl-lesson .ssl-count-row { display: grid; grid-template-columns: 24px minmax(0, 1fr) 30px; gap: 8px; align-items: center; margin: 10px 0; font-size: 12px; }
+.ssl-lesson .ssl-count-track { height: 17px; background: #17232c; display: flex; }
+.ssl-lesson .ssl-count-track span { display: block; height: 17px; }
+.ssl-lesson .ssl-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 16px 0; }
+.ssl-lesson .ssl-controls > label { flex: 1 1 140px; }
+.ssl-lesson .ssl-lab label { display: block; color: #dce4e9; font-size: 13px; line-height: 1.6; }
+.ssl-lesson .ssl-lab textarea, .ssl-lesson .ssl-lab input:not([type=range]), .ssl-lesson .ssl-lab select { display: block; width: 100%; box-sizing: border-box; background: #080d11; color: #eff3f5; border: 1px solid #70828d; border-radius: 3px; padding: 9px; font: inherit; margin-top: 4px; }
+.ssl-lesson .ssl-lab textarea { min-height: 110px; resize: vertical; font-family: monospace; }
+.ssl-lesson .ssl-lab input[type=range] { display: block; width: 100%; accent-color: #e2b55a; }
+.ssl-lesson .ssl-lab button { min-height: 40px; background: #171d20; border: 1px solid #8999a4; border-radius: 3px; padding: 8px 12px; color: #f4e4c0; font: inherit; font-size: 13px; cursor: pointer; white-space: normal; }
+.ssl-lesson .ssl-lab button:disabled { opacity: .5; cursor: not-allowed; }
+.ssl-lesson :is(button, input, textarea, select, summary, [tabindex]):focus-visible { outline: 2px solid #e2b55a; outline-offset: 3px; }
+.ssl-lesson .ssl-result { border-left: 3px solid #e2b55a; padding: 12px; background: #131b21; margin-top: 18px; }
+.ssl-lesson .ssl-feedback { border-top: 1px solid #50606b; margin-top: 14px; padding-top: 12px; }
+.ssl-lesson .ssl-input-error { color: #ffc0c0; }
+.ssl-lesson .ssl-lab details { border-top: 1px solid #34414a; padding: 12px 0; margin-top: 15px; }
+.ssl-lesson summary { cursor: pointer; line-height: 1.6; color: #e2b55a; padding: 6px 0; }
+.ssl-lesson .ssl-lesson-table { margin: 20px 0; }
+.ssl-lesson .ssl-equation { overflow-x: auto; max-width: 100%; }
+.ssl-lesson .ssl-offer { padding: 12px; border-left: 2px dashed #e2b55a; margin: 10px 0; line-height: 1.65; }
+.ssl-lesson .ssl-point-editor { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; }
+.ssl-lesson .ssl-rule-board { border: 1px solid #40525d; padding: 12px; }
+.ssl-lesson .ssl-rule-board p { margin: 6px 0; }
+.ssl-lesson .ssl-coordinate-ticks { position: relative; height: 1.6em; font-size: 13px; }
+.ssl-lesson .ssl-coordinate-ticks span { position: absolute; transform: translateX(-50%); }
+.ssl-lesson .ssl-prose-list { color: #c6ced4; line-height: 1.8; padding-left: 24px; }
+.ssl-lesson .ssl-prose-list li { margin: 10px 0; }
+@media (max-width: 500px) {
+  .ssl-lesson .ssl-evidence-row { grid-template-columns: 18px 1fr; }
+  .ssl-lesson .ssl-evidence-row > div:last-child { grid-column: 2; }
+  .ssl-lesson .ssl-flow { display: block; }
+  .ssl-lesson .ssl-flow > span { display: block; transform: rotate(90deg); width: 24px; margin: 4px auto; }
+  .ssl-lesson .ssl-table th, .ssl-lesson .ssl-table td { padding: 6px 4px; font-size: 12px; }
+}

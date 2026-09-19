@@ -551,6 +551,14 @@ a:focus-visible {
   font-size: 9px;
 }
 
+.topic-result-coverage {
+  flex-basis: 100%;
+  color: #a3a3a3;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .topic-result-meta {
   flex-shrink: 0;
 }

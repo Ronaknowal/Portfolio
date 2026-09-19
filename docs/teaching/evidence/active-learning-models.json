@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-19T10:06:15.621Z",
+  "comparisons": 552,
+  "scope": [
+    "Weighted query expectations by possible-world averaging",
+    "Committee entropy difference by mean KL",
+    "Coverage by exhaustive squared-distance matrix and small exact optimum",
+    "Specified contrasts, nulls, contradictions and invalid inputs",
+    "Complete generated prose structure and runtime-string escaping"
+  ],
+  "sourceHashes": {
+    "src/learn/data/active-learning-models.js": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+    "src/learn/data/topics/active-learning.jsx": "8b9625ede081ede0346d115c7a663e73bfff7546d48e146b388e0b3de67a2354",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "13da1373decb1d6a906efc75ac96e61625743f87ab848b391954167f26782926",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "c4e12b49b2889ebd17dfd6b79b48f81f67c66ecc29f393200485934e9b57dc7d"
+  }
+}

@@ -1,0 +1,599 @@
+{
+  "status": "passed",
+  "checked": "2026-09-16T21:00:25.545Z",
+  "base": "http://127.0.0.1:4183",
+  "browser": "Microsoft Edge / Playwright",
+  "widths": [
+    1440,
+    390
+  ],
+  "results": [
+    {
+      "width": 1440,
+      "check": "named concept search with module filter",
+      "query": "HyperLogLog",
+      "topic": "hyperloglog-hll-approximate-distinct-counting"
+    },
+    {
+      "width": 1440,
+      "check": "named concept search with module filter",
+      "query": "Snowflake",
+      "topic": "distributed-ids-ordering-uniqueness-guarantees"
+    },
+    {
+      "width": 1440,
+      "check": "named concept search with module filter",
+      "query": "t digest",
+      "topic": "streaming-quantiles-kll-t-digest-reservoir-sampling"
+    },
+    {
+      "width": 1440,
+      "check": "named concept search with module filter",
+      "query": "Newey West",
+      "topic": "financial-inference-hac-errors-bootstrap-multiple-testing"
+    },
+    {
+      "width": 1440,
+      "check": "named concept search with module filter",
+      "query": "SABR",
+      "topic": "local-volatility-stochastic-volatility-jumps-rough-models"
+    },
+    {
+      "width": 1440,
+      "check": "resolved path counts",
+      "path": "quant-trading"
+    },
+    {
+      "width": 1440,
+      "check": "resolved path counts",
+      "path": "system-design-engineer"
+    },
+    {
+      "width": 1440,
+      "check": "resolved path counts",
+      "path": "full-curriculum"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "bloom-cuckoo-xor-filters-approximate-membership"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "hyperloglog-hll-approximate-distinct-counting"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "count-min-sketch-count-sketch-streaming-heavy-hitters"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "streaming-quantiles-kll-t-digest-reservoir-sampling"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "merkle-trees-content-addressing-data-integrity"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "design-studio-experimentation-platforms-assignment-metric-integrity"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "stochastic-control-hjb-equations-optimal-stopping-in-finance"
+    },
+    {
+      "width": 1440,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "rfq-markets-dealer-pricing-electronic-otc-trading"
+    },
+    {
+      "width": 1440,
+      "check": "complete module outline in syllabus order",
+      "module": "quantitative-finance"
+    },
+    {
+      "width": 1440,
+      "check": "complete module outline in syllabus order",
+      "module": "system-design"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Markets, Institutions & Financial Accounting",
+      "topic": "professional-trading-participants-desks-the-trade-lifecycle"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Instruments, Financing & Asset-Class Mechanics",
+      "topic": "equities-corporate-actions-indices-etf-mechanics"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Quantitative Foundations & Financial Econometrics",
+      "topic": "decision-theory-utility-betting-under-uncertainty"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Market Microstructure, Execution & Market Making",
+      "topic": "order-types-matching-rules-auctions-queue-priority"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Financial Data & Reproducible Research Infrastructure",
+      "topic": "security-masters-identifiers-calendars-corporate-action-data"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Forecasting, Research Design & Backtest Validation",
+      "topic": "financial-labels-event-sampling-overlapping-outcomes"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Portfolio Construction, Risk & Capital Allocation",
+      "topic": "covariance-estimation-shrinkage-multi-factor-risk-models"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Derivative Pricing, Numerical Methods & Hedging",
+      "topic": "no-arbitrage-pricing-numeraires-risk-neutral-measures"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Alpha Strategies & Investment Hypotheses",
+      "topic": "equity-factors-cross-sectional-signals-neutralization"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "HFT, Exchange Connectivity & Low-Latency Engineering",
+      "topic": "market-making-risk-markouts-cross-instrument-hedging"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Production Trading, Controls & Fund Operations",
+      "topic": "oms-ems-portfolio-state-real-time-risk-architecture"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Professional Practice, Interviews & Integrated Capstones",
+      "topic": "quant-research-communication-replication-investment-memos"
+    },
+    {
+      "width": 1440,
+      "check": "module navigation, planned state and lazy outline loading",
+      "module": "quantitative-finance"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Design Foundations, Requirements & Tradeoffs",
+      "topic": "system-design-requirements-constraints-architecture-decisions"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Operating Systems, Networking & Request Transport",
+      "topic": "operating-system-mechanisms-for-service-design"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "APIs, Application State & Service Contracts",
+      "topic": "api-design-rest-rpc-graphql-compatibility"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Storage Engines, Data Models & Transactions",
+      "topic": "data-modeling-invariants-schema-evolution"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Distributed Correctness, Replication & Coordination",
+      "topic": "distributed-failure-models-time-impossibility-boundaries"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Caching, Messaging & Durable Workflows",
+      "topic": "caching-strategies-invalidation-stampede-control"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Data Platforms, Analytics & ML System Interfaces",
+      "topic": "batch-data-platforms-warehouses-lakes-lakehouses"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Reliability, Observability & Performance Engineering",
+      "topic": "slis-slos-error-budgets-availability-modeling"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Security, Privacy & Multi-Tenant Isolation",
+      "topic": "system-threat-modeling-trust-boundaries-secure-defaults"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Cloud Infrastructure, Deployment & Architecture Evolution",
+      "topic": "virtual-machines-containers-isolation-runtime-resources"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "End-to-End Product & Infrastructure Design Studios",
+      "topic": "design-studio-url-shortener-redirects-abuse-controls"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Advanced Systems & Production Capstones",
+      "topic": "peer-to-peer-systems-byzantine-faults-trustless-coordination"
+    },
+    {
+      "width": 1440,
+      "check": "module navigation, planned state and lazy outline loading",
+      "module": "system-design"
+    },
+    {
+      "width": 1440,
+      "check": "retained and shared progress identities"
+    },
+    {
+      "width": 390,
+      "check": "named concept search with module filter",
+      "query": "HyperLogLog",
+      "topic": "hyperloglog-hll-approximate-distinct-counting"
+    },
+    {
+      "width": 390,
+      "check": "named concept search with module filter",
+      "query": "Snowflake",
+      "topic": "distributed-ids-ordering-uniqueness-guarantees"
+    },
+    {
+      "width": 390,
+      "check": "named concept search with module filter",
+      "query": "t digest",
+      "topic": "streaming-quantiles-kll-t-digest-reservoir-sampling"
+    },
+    {
+      "width": 390,
+      "check": "named concept search with module filter",
+      "query": "Newey West",
+      "topic": "financial-inference-hac-errors-bootstrap-multiple-testing"
+    },
+    {
+      "width": 390,
+      "check": "named concept search with module filter",
+      "query": "SABR",
+      "topic": "local-volatility-stochastic-volatility-jumps-rough-models"
+    },
+    {
+      "width": 390,
+      "check": "resolved path counts",
+      "path": "quant-trading"
+    },
+    {
+      "width": 390,
+      "check": "resolved path counts",
+      "path": "system-design-engineer"
+    },
+    {
+      "width": 390,
+      "check": "resolved path counts",
+      "path": "full-curriculum"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "bloom-cuckoo-xor-filters-approximate-membership"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "hyperloglog-hll-approximate-distinct-counting"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "count-min-sketch-count-sketch-streaming-heavy-hitters"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "streaming-quantiles-kll-t-digest-reservoir-sampling"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "merkle-trees-content-addressing-data-integrity"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "design-studio-experimentation-platforms-assignment-metric-integrity"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "stochastic-control-hjb-equations-optimal-stopping-in-finance"
+    },
+    {
+      "width": 390,
+      "check": "new topic concept scope, sequence, planned state and responsive layout",
+      "topic": "rfq-markets-dealer-pricing-electronic-otc-trading"
+    },
+    {
+      "width": 390,
+      "check": "complete module outline in syllabus order",
+      "module": "quantitative-finance"
+    },
+    {
+      "width": 390,
+      "check": "complete module outline in syllabus order",
+      "module": "system-design"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Markets, Institutions & Financial Accounting",
+      "topic": "professional-trading-participants-desks-the-trade-lifecycle"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Instruments, Financing & Asset-Class Mechanics",
+      "topic": "equities-corporate-actions-indices-etf-mechanics"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Quantitative Foundations & Financial Econometrics",
+      "topic": "decision-theory-utility-betting-under-uncertainty"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Market Microstructure, Execution & Market Making",
+      "topic": "order-types-matching-rules-auctions-queue-priority"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Financial Data & Reproducible Research Infrastructure",
+      "topic": "security-masters-identifiers-calendars-corporate-action-data"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Forecasting, Research Design & Backtest Validation",
+      "topic": "financial-labels-event-sampling-overlapping-outcomes"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Portfolio Construction, Risk & Capital Allocation",
+      "topic": "covariance-estimation-shrinkage-multi-factor-risk-models"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Derivative Pricing, Numerical Methods & Hedging",
+      "topic": "no-arbitrage-pricing-numeraires-risk-neutral-measures"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Alpha Strategies & Investment Hypotheses",
+      "topic": "equity-factors-cross-sectional-signals-neutralization"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "HFT, Exchange Connectivity & Low-Latency Engineering",
+      "topic": "market-making-risk-markouts-cross-instrument-hedging"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Production Trading, Controls & Fund Operations",
+      "topic": "oms-ems-portfolio-state-real-time-risk-architecture"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "quantitative-finance",
+      "section": "Professional Practice, Interviews & Integrated Capstones",
+      "topic": "quant-research-communication-replication-investment-memos"
+    },
+    {
+      "width": 390,
+      "check": "module navigation, planned state and lazy outline loading",
+      "module": "quantitative-finance"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Design Foundations, Requirements & Tradeoffs",
+      "topic": "system-design-requirements-constraints-architecture-decisions"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Operating Systems, Networking & Request Transport",
+      "topic": "operating-system-mechanisms-for-service-design"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "APIs, Application State & Service Contracts",
+      "topic": "api-design-rest-rpc-graphql-compatibility"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Storage Engines, Data Models & Transactions",
+      "topic": "data-modeling-invariants-schema-evolution"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Distributed Correctness, Replication & Coordination",
+      "topic": "distributed-failure-models-time-impossibility-boundaries"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Caching, Messaging & Durable Workflows",
+      "topic": "caching-strategies-invalidation-stampede-control"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Data Platforms, Analytics & ML System Interfaces",
+      "topic": "batch-data-platforms-warehouses-lakes-lakehouses"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Reliability, Observability & Performance Engineering",
+      "topic": "slis-slos-error-budgets-availability-modeling"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Security, Privacy & Multi-Tenant Isolation",
+      "topic": "system-threat-modeling-trust-boundaries-secure-defaults"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Cloud Infrastructure, Deployment & Architecture Evolution",
+      "topic": "virtual-machines-containers-isolation-runtime-resources"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "End-to-End Product & Infrastructure Design Studios",
+      "topic": "design-studio-url-shortener-redirects-abuse-controls"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive layout",
+      "module": "system-design",
+      "section": "Advanced Systems & Production Capstones",
+      "topic": "peer-to-peer-systems-byzantine-faults-trustless-coordination"
+    },
+    {
+      "width": 390,
+      "check": "module navigation, planned state and lazy outline loading",
+      "module": "system-design"
+    },
+    {
+      "width": 390,
+      "check": "retained and shared progress identities"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "scratch/professional-curriculum-review/hyperloglog-1440.png",
+      "sha256": "6f023acdbcb0e9f5a939b56e6fe015183cb10322c4a69f75c16bf560d66e3d79",
+      "bytes": 124887
+    },
+    {
+      "path": "scratch/professional-curriculum-review/quantitative-finance-1440.png",
+      "sha256": "edf1d24e6c77b812e49609cc5f00d05fcf8be9b83d8312f452eebd65cb9cec2c",
+      "bytes": 131794
+    },
+    {
+      "path": "scratch/professional-curriculum-review/system-design-1440.png",
+      "sha256": "dee5802e4e38b86930810eb9fcede47eb06ec03997b2d6680d3b3d761003f50f",
+      "bytes": 133279
+    },
+    {
+      "path": "scratch/professional-curriculum-review/hyperloglog-390.png",
+      "sha256": "fd494897a1e91312754c86cda57ccc8c42ba14d9e81c5b6fff0055dd1765b41d",
+      "bytes": 61240
+    },
+    {
+      "path": "scratch/professional-curriculum-review/quantitative-finance-390.png",
+      "sha256": "841db7f45c6f0e6511f651ad7e227bc0dc8681ecefc666abaeffb226d93e5424",
+      "bytes": 66830
+    },
+    {
+      "path": "scratch/professional-curriculum-review/system-design-390.png",
+      "sha256": "8572933a992514ce7b549f06548d5608a42678146d57f530aaf9495f9f9fc853",
+      "bytes": 69357
+    }
+  ],
+  "pageErrors": []
+}

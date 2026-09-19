@@ -89,7 +89,7 @@ export default function TopicContent({ topic, context, track, currentModule, pre
             })
           ) : <Content />
         ) : (
-          <PlaceholderContent title={topic.title} blueprint={resource} prerequisiteIds={topic.prerequisiteIds} />
+          <PlaceholderContent title={topic.title} blueprint={resource} prerequisiteIds={topic.prerequisiteIds} subtopics={topic.subtopics} />
         )}</LessonBoundary>}
       </div>
 

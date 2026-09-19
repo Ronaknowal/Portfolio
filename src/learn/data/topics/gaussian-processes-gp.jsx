@@ -1,938 +1,335 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
+import { Prose, H2, H3, Code } from '../../components/content';
+import { Math, MathBlock as SharedMathBlock } from '../../components/content/Math.jsx';
+import { LessonTable } from '../../components/lesson-labs/LessonElements.jsx';
+import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
+import { VectorFunctionFigure, ConditioningSliceFigure, ObservationMatrixFigure, KernelGeometryFigure, HistoricalForecastFigure, ProbeChoiceFigure } from '../../components/lesson-labs/GaussianProcessFigures.jsx';
+import { GaussianConditioningLab, GaussianForecastLab, GaussianProbeLab } from '../../components/lesson-labs/GaussianProcessLabs.jsx';
+import { gaussianProcessExamples } from '../gaussian-process-examples.js';
 
-const gpContent = {
-  title: "Gaussian Processes (GP)",
-  readTime: "~55 min",
-  content: () => (
-    <div>
+function MathBlock({ children }) {
+  return <div className="gp-equation" role="region" tabIndex={0} aria-label="Equation; scroll horizontally if needed"><SharedMathBlock>{children}</SharedMathBlock></div>;
+}
 
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
+export default {
+  title: 'Gaussian Processes (GP)',
+  readTime: '~60 min read + 90 min practice; optional deeper branches ~45 min',
+  hasIntegratedGuide: true,
+  content: () => <div className="gp-lesson">
+<Prose>{"A temperature probe gives you two readings along a pipe. You want the temperature between them, but you also need to decide where another measurement would be useful. A curve alone leaves out the second question. A Gaussian process lets you express which curves are plausible, update those beliefs with observations, and inspect uncertainty at places you have not measured."}</Prose>
 
-      <Prose>
-        Most supervised learning algorithms produce a single prediction: fit a model, get a number. Gaussian processes produce a probability distribution over predictions — a mean and a full uncertainty estimate that contracts near training data and widens in unexplored regions. That capacity for principled uncertainty quantification is what makes GPs uniquely valuable in science, safety-critical engineering, and the sequential decision problems at the heart of Bayesian optimization. Understanding how we got here requires going back to the mines of South Africa.
-      </Prose>
+<Prose>{"The key move is to describe how "}<strong>{"function values vary together"}</strong>{". If nearby temperatures usually move together, one reading tells us something about its neighbors. How far that information travels is a modeling decision, encoded in a covariance function."}</Prose>
 
-      <Prose>
-        In 1951, Danie Gerhardus Krige, a South African mining engineer, published his M.Sc. thesis as "A Statistical Approach to Some Basic Mine Valuation Problems on the Witwatersrand" in the <em>Journal of the Chemical, Metallurgical and Mining Society of South Africa</em>. The problem was geological: given gold ore grade measurements at a sparse set of drill-hole locations, estimate the grade at unsampled locations to plan extraction. Classical averaging ignored spatial structure — nearby drill holes should tell you more about a location than distant ones. Krige's insight was to weight measurements by their distance-dependent correlations. This spatial interpolation method later acquired his name: kriging.
-      </Prose>
+<Prose><strong>{"First pass:"}</strong>{" follow sections 1–7, including the two-observation calculation and the CO₂ experiment. You should finish able to explain a GP prediction, distinguish its two uncertainty bands, run a small regression, and recognize a misleading forecast. Section 8 explores measurement selection; section 9 develops classification, scalable inference, and the connection to kernel ridge regression. Those branches need the core equations but are optional on a first reading."}</Prose>
 
-      <Prose>
-        A decade later, French mathematician Georges Matheron formalized the theory. His 1963 paper "Principles of Geostatistics" in <em>Economic Geology</em>, 58:1246–1266 (DOI: 10.2113/gsecongeo.58.8.1246) placed kriging inside a rigorous random function framework, introducing the variogram as the fundamental tool for modeling spatial correlation. Matheron coined the term "kriging" explicitly in honor of Krige's pioneering work. What Krige solved pragmatically, Matheron grounded in the theory of second-order stationary random fields — the same mathematical structure that Gaussian processes inhabit.
-      </Prose>
+<Prose>{"You need vectors, matrix multiplication, an average, and the idea of a normal distribution. A normal variable has a center called its mean and spread described by its variance; standard deviation is the square root of variance. We introduce the required Gaussian conditioning operation here. The previous CRF lesson modeled dependent discrete labels. Here the dependent quantities are numerical function values, and Gaussian algebra makes the basic regression calculation exact."}</Prose>
 
-      <Prose>
-        The connection to machine learning came through Anthony O'Hagan's 1978 work on curve fitting (O'Hagan, A., 1978, "Curve Fitting and Optimal Design for Prediction," <em>Journal of the Royal Statistical Society Series B</em>, 40(1):1–42), which reframed kriging as Bayesian regression: place a prior distribution over functions, condition on data, obtain a posterior. The object that carries this prior is a Gaussian process. What O'Hagan showed was that kriging is not ad hoc engineering — it is exact Bayesian inference under a Gaussian prior over functions.
-      </Prose>
+<H2>{"1. A distribution over function values"}</H2>
 
-      <Prose>
-        The ML community's attention crystallized with Christopher Williams and Carl Rasmussen's NeurIPS 1996 paper "Gaussian Processes for Regression" (<em>Advances in Neural Information Processing Systems 8</em>, MIT Press, 1996; proceedings.neurips.cc/paper/1995). They demonstrated that Gaussian processes could perform competitive nonparametric Bayesian regression, showed how to optimize kernel hyperparameters via marginal likelihood, and crucially reframed the problem so that ML practitioners could use GPs without knowing any geostatistics. The foundational text is Rasmussen and Williams (2006), <em>Gaussian Processes for Machine Learning</em>, MIT Press (ISBN 978-0-262-18253-9), available free at gaussianprocess.org/gpml — dense, rigorous, and still the definitive reference.
-      </Prose>
+<Prose>{"Imagine recording a possible temperature at each of three positions. One possible state is the vector "}<Code>{"[1.0, 0.6, −0.2]"}</Code>{". Another is "}<Code>{"[−0.5, 0.1, 0.4]"}</Code>{". Drawing many such vectors and joining values at their positions gives many possible curves. The lines joining the points are a drawing convention; a finite drawing is not the entire continuous function."}</Prose>
 
-      <Prose>
-        The subsequent decade saw GPs become the default surrogate model for Bayesian optimization of expensive black-box functions. Snoek, Larochelle, and Adams (2012), "Practical Bayesian Optimization of Machine Learning Algorithms," NeurIPS 2012, showed that GP-based Bayesian optimization could automatically tune hyperparameters of neural networks — outperforming manual human experts — and spawned an entire sub-industry of AutoML tools. Understanding GPs is therefore not merely academic: it is understanding how the most widely deployed automatic hyperparameter tuners work under the hood.
-      </Prose>
+<VectorFunctionFigure />
 
-      <Callout type="insight">
-        A GP is a prior over functions, not a prior over parameters. Every parametric model (linear, neural, tree-based) learns a fixed set of numbers and returns a point prediction. A GP returns a distribution over all functions consistent with the data. That distinction drives everything that follows.
-      </Callout>
+<Prose>{"A "}<strong>{"Gaussian process"}</strong>{" is a collection of random variables, one for each input, such that every finite collection has a joint multivariate normal distribution. We write"}</Prose>
 
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+<MathBlock>{"f\\sim\\operatorname{GP}(m,k),\\qquad\n(f(x_1),\\ldots,f(x_n))^T\\sim\\mathcal N(m_X,K_{XX})."}</MathBlock>
 
-      <H3>2.1 A distribution over functions</H3>
+<Prose>{"Here "}<Math>{"m(x)"}</Math>{" is the prior mean at input "}<Math>{"x"}</Math>{", and "}<Math>{"K_{ij}=k(x_i,x_j)"}</Math>{" is the covariance between two function values. The word “process” does not require time: inputs could be positions, material compositions, or settings of an expensive simulator. “Gaussian” describes distributions of function values, not a requirement that the inputs form a bell curve."}</Prose>
 
-      <Prose>
-        Before we see any data, we have a <em>prior</em> — a distribution over all possible functions. For a GP with zero mean and an RBF kernel, the prior says: "I expect the true function to be smooth, with wiggles at a scale governed by the length-scale parameter." Sample five functions from this prior and you get five different smooth curves, each passing through random points, all statistically consistent with the prior's smoothness assumption. None of them is "the" function — they are all plausible.
-      </Prose>
+<Prose>{"Covariance records whether deviations from the mean tend to move together. Its diagonal entries are variances. If outputs are degrees Celsius, covariance has units °C². Correlation divides covariance by the two standard deviations and is dimensionless. A covariance need not lie between zero and one, and negative covariance can be valid."}</Prose>
 
-      <Prose>
-        Now observe some training data: ten noisy measurements of <Code>sin(x)</Code>. Bayesian inference updates the prior into a posterior. The posterior is again a Gaussian process — a distribution over functions — but now it is constrained to pass near the observed points. The posterior mean is the single best-guess function; the posterior variance quantifies remaining uncertainty. Far from the training data, the posterior is wide (uncertain); near the training data, it is narrow (confident).
-      </Prose>
+<Prose>{"There is a constraint: any finite kernel matrix must be symmetric and positive semidefinite. In plain terms, every weighted combination of its random variables must have nonnegative variance:"}</Prose>
 
-      <Prose>
-        The key mechanistic insight: <strong>a GP is fully specified by its mean function <Code>m(x)</Code> and its covariance (kernel) function <Code>{"k(x, x')"}</Code></strong>. The kernel encodes how similar the function values at two input points are expected to be. If <Code>{"k(x, x')"}</Code> is large when <Code>x</Code> and <Code>{"x'"}</Code> are close, nearby points have highly correlated function values — which is precisely what "smooth function" means. The choice of kernel determines the qualitative character of functions the GP can model.
-      </Prose>
+<MathBlock>{"\\operatorname{Var}(a^Tf_X)=a^TK_{XX}a\\geq0."}</MathBlock>
 
-      <H3>2.2 Jointly Gaussian at any finite set of inputs</H3>
+<Prose>{"An arbitrary “similarity” score does not necessarily satisfy this requirement. For example, the symmetric matrix  "}<Math>{"\\begin{bmatrix}1&2\\\\2&1\\end{bmatrix}"}</Math>{" would give the difference of its variables variance "}<Math>{"1+1-2(2)=-2"}</Math>{". It cannot be a covariance matrix."}</Prose>
 
-      <Prose>
-        Formally, a GP is defined by the property that for any finite collection of inputs <Code>{"x_1, ..., x_n"}</Code>, the corresponding function values <Code>{"f(x_1), ..., f(x_n)"}</Code> are jointly Gaussian distributed. This is a strong constraint — but one that makes inference analytically tractable. Conditioning a joint Gaussian on observed values produces another Gaussian with a closed-form mean and covariance. No sampling, no approximation (for regression with Gaussian noise) — exact posterior inference in <Code>O(n^3)</Code> time via matrix operations.
-      </Prose>
+<Prose>{"There is a familiar finite-dimensional example. Let "}<Math>{"f(x)=a+bx"}</Math>{", with independent "}<Math>{"a,b\\sim\\mathcal N(0,1)"}</Math>{". Every vector of function values is a linear transformation of Gaussian weights, so this is a GP with "}<Math>{"m(x)=0"}</Math>{" and "}<Math>{"k(x,z)=1+xz"}</Math>{". Bayesian linear regression already supplies uncertainty over functions. More flexible kernels let us work without explicitly constructing a large feature vector. This connection is developed from both weight and function viewpoints in "}<a href={"https://gaussianprocess.org/gpml/chapters/RW2.pdf"}>{"GPML, chapter 2"}</a>{"."}</Prose>
 
-      <Prose>
-        The practical upshot: you write down a kernel, observe data, and the posterior mean and variance at any test point are computable in closed form. This is the GP's superpower. Compare this to a Bayesian neural network, where posterior inference is intractable and requires variational approximations or MCMC. GPs are the rare case where the Bayesian dream of exact uncertainty quantification is fully realizable.
-      </Prose>
+<Prose><strong>{"Quick prediction."}</strong>{" For this random-line prior, can a sampled curve have a sudden bend? No: its possible curves are straight lines. Gaussian marginals alone do not mean “anything can happen”; the covariance restricts how values relate."}</Prose>
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<H2>{"2. One measurement: the entire mechanism in two numbers"}</H2>
 
-      <H3>3.1 GP definition and notation</H3>
+<Prose>{"Separate the underlying quantity "}<Math>{"f(x)"}</Math>{" from a measurement:"}</Prose>
 
-      <Prose>
-        A Gaussian process over an input space <Code>X</Code> is written:
-      </Prose>
+<MathBlock>{"y=f(x)+\\varepsilon,\\qquad \\varepsilon\\sim\\mathcal N(0,\\sigma_n^2)."}</MathBlock>
 
-      <MathBlock>
-        {"f(x) \\sim \\mathcal{GP}(m(x),\\; k(x, x'))"}
-      </MathBlock>
+<Prose>{"The noise has mean zero and is independent of the function. A measurement can lie above or below the underlying curve. With noise, a sensible fitted curve need not pass through every observation."}</Prose>
 
-      <Prose>
-        where <Code>m(x) = E[f(x)]</Code> is the mean function (usually set to zero for simplicity) and <Code>{"k(x, x') = Cov[f(x), f(x')]"}</Code> is the kernel (covariance) function. For <Code>n</Code> training inputs <Code>{"X = {x_1, ..., x_n}"}</Code> with noisy observations <Code>{"y_i = f(x_i) + ε_i"}</Code> where <Code>{"ε_i ~ N(0, σ_n^2)"}</Code>, the prior on the observation vector is:
-      </Prose>
+<Prose>{"Consider two locations, an observed location "}<Math>{"x_0"}</Math>{" and a target "}<Math>{"x_*"}</Math>{". Give both latent values prior mean zero and variance one. Their covariance is ρ. Suppose the measurement noise variance is 0.25 and we observe "}<Math>{"y_0=2"}</Math>{". The measurement has variance "}<Math>{"1+0.25=1.25"}</Math>{". Conditioning gives"}</Prose>
 
-      <MathBlock>
-        {"\\mathbf{y} \\mid X \\sim \\mathcal{N}(\\mathbf{0},\\; K_{XX} + \\sigma_n^2 I)"}
-      </MathBlock>
+<MathBlock>{"\\underbrace{\\mathbb E[f_*\\mid y_0]}_{\\text{updated center}}\n=\\frac{\\rho}{1.25}\\,2,\n\\qquad\n\\underbrace{\\operatorname{Var}(f_*\\mid y_0)}_{\\text{remaining uncertainty}}\n=1-\\frac{\\rho^2}{1.25}."}</MathBlock>
 
-      <Prose>
-        where <Code>{"K_{XX}"}</Code> is the <Code>n × n</Code> kernel matrix with <Code>{"[K_{XX}]_{ij} = k(x_i, x_j)"}</Code>.
-      </Prose>
+<Prose>{"For ρ = 0.5, the mean becomes "}<strong>{"0.8"}</strong>{" and the variance becomes "}<strong>{"0.8"}</strong>{". A positively related location moves upward when the observed location is high. The reduction in variance is "}<Math>{"0.5^2/1.25=0.2"}</Math>{": some uncertainty was shared with the measurement and has now been resolved."}</Prose>
 
-      <H3>3.2 Posterior distribution (the prediction equations)</H3>
+<Prose>{"At ρ = 0, the reading changes neither the target mean nor its variance. With no covariance, these jointly Gaussian quantities are independent. Returning to ρ = 0.5, if the reading changes from 2 to −2 while the covariance and noise stay fixed, the target mean changes sign, but its variance stays 0.8. The observed value tells us "}<strong>{"where"}</strong>{" to move; the covariance and observation precision tell us "}<strong>{"how much information"}</strong>{" the measurement contains."}</Prose>
 
-      <Prose>
-        Given training data <Code>(X, y)</Code> and test inputs <Code>{"X_*"}</Code>, the posterior predictive distribution is Gaussian with:
-      </Prose>
+<ConditioningSliceFigure />
 
-      <MathBlock>
-        {"\\boldsymbol{\\mu}_* = K_{*X}\\,(K_{XX} + \\sigma_n^2 I)^{-1}\\,\\mathbf{y}"}
-      </MathBlock>
+<Prose>{"There are two different future questions:"}</Prose>
 
-      <MathBlock>
-        {"\\Sigma_* = K_{**} - K_{*X}\\,(K_{XX} + \\sigma_n^2 I)^{-1}\\,K_{X*}"}
-      </MathBlock>
+<LessonTable caption={"Two prediction questions"} headers={["Question","Distribution in this example","What remains uncertain?"]} rows={[[<>{"What is the underlying value "}<Math>{"f_*"}</Math>{"?"}</>,<><Math>{"\\mathcal N(0.8,0.8)"}</Math></>,<>{"The latent function"}</>],[<>{"What would a new measurement "}<Math>{"y_*"}</Math>{" report?"}</>,<><Math>{"\\mathcal N(0.8,1.05)"}</Math></>,<>{"The function plus new independent noise"}</>]]} />
 
-      <Prose>
-        Here <Code>{"K_{*X}"}</Code> is the <Code>{"n_* × n"}</Code> matrix of kernel values between test and training points, <Code>{"K_{**}"}</Code> is the <Code>{"n_* × n_*"}</Code> kernel matrix among test points, and <Code>{"K_{X*} = K_{*X}^T"}</Code>. The posterior mean <Code>{"μ_*"}</Code> is the GP's best-guess prediction; the diagonal of <Code>{"Σ_*"}</Code> gives the predictive variance at each test point. The 95% confidence interval at a single test point <Code>{"x_*"}</Code> is <Code>{"μ_* ± 1.96 sqrt(Σ_*)"}</Code>.
-      </Prose>
+<Prose>{"The second variance is "}<Math>{"0.8+0.25"}</Math>{". A pointwise 95% Bayesian credible interval for the latent value is "}<Math>{"0.8\\pm1.96\\sqrt{0.8}"}</Math>{", approximately [−0.953, 2.553]. The new-observation predictive interval is approximately [−1.208, 2.808]. These statements are conditional on the specified model and hyperparameters. They are not a promise that 95% of an entire curve lies inside a pointwise band, nor automatic frequentist coverage on a different data-generating process."}</Prose>
 
-      <Prose>
-        Notice the structure of the posterior variance: it is the prior variance <Code>{"K_{**}"}</Code> minus the reduction in uncertainty from observing the training data. The second term is always positive semidefinite, so the posterior is always less uncertain than the prior — observing data can only help.
-      </Prose>
+<GaussianConditioningLab direct />
 
-      <H3>3.3 Common kernels</H3>
+<H2>{"3. Many measurements: condition one larger Gaussian"}</H2>
 
-      <Prose>
-        The kernel function is the single most important modeling choice in a GP. Different kernels encode different assumptions about function smoothness, periodicity, and long-range behavior.
-      </Prose>
+<Prose>{"Let "}<Math>{"X"}</Math>{" contain "}<Math>{"n"}</Math>{" observed inputs and "}<Math>{"X_*"}</Math>{" contain "}<Math>{"q"}</Math>{" target inputs. Define "}<Math>{"r=y-m_X"}</Math>{", the observed residual from the prior mean. Let "}<Math>{"R"}</Math>{" be the "}<Math>{"n\\times n"}</Math>{" observation-noise covariance; independent equal-variance noise gives "}<Math>{"R=\\sigma_n^2I"}</Math>{"."}</Prose>
 
-      <Prose>
-        <strong>Squared Exponential (RBF):</strong> The most commonly used kernel. Encodes infinitely differentiable (analytic) functions:
-      </Prose>
+<Prose>{"The joint model and conditional result are"}</Prose>
 
-      <MathBlock>
-        {"k_{\\text{SE}}(x, x') = \\sigma_f^2 \\exp\\!\\left(-\\frac{\\|x - x'\\|^2}{2\\ell^2}\\right)"}
-      </MathBlock>
+<MathBlock>{"\\begin{bmatrix}y\\\\f_*\\end{bmatrix}\n\\sim\\mathcal N\\left(\n\\begin{bmatrix}m_X\\\\m_*\\end{bmatrix},\n\\begin{bmatrix}K_{XX}+R&K_{X*}\\\\K_{*X}&K_{**}\\end{bmatrix}\\right),"}</MathBlock>
 
-      <Prose>
-        Length-scale <Code>ℓ</Code> controls how quickly correlations decay with distance. Signal variance <Code>{"σ_f^2"}</Code> sets the overall output scale. Drawback: real physical processes are rarely infinitely smooth — RBF priors can be unrealistically confident about smoothness.
-      </Prose>
+<MathBlock>{"C=K_{XX}+R,\\qquad\n\\mu_*=m_*+K_{*X}C^{-1}r,\\qquad\n\\Sigma_*=K_{**}-K_{*X}C^{-1}K_{X*}."}</MathBlock>
 
-      <Prose>
-        <strong>Matérn-3/2:</strong> Encodes functions that are once-differentiable — a more realistic assumption for many engineering and scientific datasets:
-      </Prose>
-
-      <MathBlock>
-        {"k_{3/2}(r) = \\sigma_f^2\\!\\left(1 + \\frac{\\sqrt{3}\\,r}{\\ell}\\right) \\exp\\!\\left(-\\frac{\\sqrt{3}\\,r}{\\ell}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        where <Code>{"r = ||x - x'||"}</Code>. Preferred over RBF when the data exhibits roughness that is physically motivated.
-      </Prose>
-
-      <Prose>
-        <strong>Matérn-5/2:</strong> Twice-differentiable. A good default for many machine learning applications — smoother than Matérn-3/2, less unrealistically smooth than RBF:
-      </Prose>
-
-      <MathBlock>
-        {"k_{5/2}(r) = \\sigma_f^2\\!\\left(1 + \\frac{\\sqrt{5}\\,r}{\\ell} + \\frac{5r^2}{3\\ell^2}\\right) \\exp\\!\\left(-\\frac{\\sqrt{5}\\,r}{\\ell}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        <strong>Periodic:</strong> Encodes periodic functions with period <Code>p</Code>:
-      </Prose>
-
-      <MathBlock>
-        {"k_{\\text{per}}(x, x') = \\sigma_f^2 \\exp\\!\\left(-\\frac{2\\sin^2(\\pi |x - x'| / p)}{\\ell^2}\\right)"}
-      </MathBlock>
-
-      <Prose>
-        <strong>Linear:</strong> <Code>{"k_{\\text{lin}}(x, x') = σ_b^2 + σ_v^2 (x - c)(x' - c)"}</Code>. A GP with a linear kernel is equivalent to Bayesian linear regression. Useful as a component in additive kernels.
-      </Prose>
-
-      <Prose>
-        <strong>Rational Quadratic:</strong> Equivalent to an infinite mixture of RBF kernels with different length-scales — useful when you expect the function to have structure at multiple scales:
-      </Prose>
-
-      <MathBlock>
-        {"k_{\\text{RQ}}(r) = \\sigma_f^2 \\left(1 + \\frac{r^2}{2\\alpha \\ell^2}\\right)^{-\\alpha}"}
-      </MathBlock>
-
-      <Prose>
-        <strong>Kernel composition:</strong> New kernels can be built by adding or multiplying existing ones. <Code>k = k_1 + k_2</Code> models functions with two independent components; <Code>k = k_1 × k_2</Code> models functions that are periodic <em>and</em> decaying. This compositional structure, explored systematically in the Automatic Statistician project (Duvenaud et al., 2013), is a major source of GP expressiveness.
-      </Prose>
-
-      <H3>3.4 Marginal likelihood and hyperparameter optimization</H3>
-
-      <Prose>
-        The kernel introduces hyperparameters (length-scale, signal variance, noise variance). Rather than cross-validating, GPs can optimize these via the <em>marginal likelihood</em> — the probability of the data given the hyperparameters, with the function integrated out:
-      </Prose>
-
-      <MathBlock>
-        {"\\log p(\\mathbf{y} \\mid X, \\theta) = -\\tfrac{1}{2}\\,\\mathbf{y}^\\top (K_{XX} + \\sigma_n^2 I)^{-1}\\mathbf{y} - \\tfrac{1}{2}\\log|K_{XX} + \\sigma_n^2 I| - \\tfrac{n}{2}\\log(2\\pi)"}
-      </MathBlock>
-
-      <Prose>
-        The three terms have clean interpretations: the first is the data fit (how well the model explains the observations); the second is the model complexity penalty (complex kernels with high log-determinant are penalized automatically); the third is a normalizing constant. Maximizing this with respect to <Code>θ</Code> (via L-BFGS or Adam) simultaneously selects the kernel hyperparameters and performs automatic Occam's razor — a simpler model that explains the data equally well is preferred. This is one of the most elegant aspects of the GP framework: model selection and hyperparameter learning are unified under a single principled objective.
-      </Prose>
-
-      <Callout type="insight">
-        The marginal likelihood is not the same as the training likelihood. It integrates over all possible functions, not just the best-fit function. This makes it a proper Bayesian model selection criterion — it penalizes models that are too flexible (can explain any data) and too rigid (cannot explain the data at all). No cross-validation required.
-      </Callout>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below was executed with NumPy and SciPy only. No scikit-learn, no GPyTorch. Training data: 10 points from <Code>sin(x)</Code> with Gaussian noise (std = 0.15), sampled uniformly from <Code>[0, 6]</Code>. Every output is verbatim terminal stdout.
-      </Prose>
-
-      <H3>4a. RBF kernel and Cholesky-based GP</H3>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from scipy.optimize import minimize
-
-np.random.seed(42)
-
-# 10 training points from sin(x) + Gaussian noise
-n_train = 10
-X_train = np.sort(np.random.uniform(0, 6, n_train))
-y_train = np.sin(X_train) + np.random.randn(n_train) * 0.15
-
-print("X_train:", np.round(X_train, 4))
-# Output: X_train: [0.3485 0.936  0.9361 2.2472 3.592  3.6067 4.2484 4.392  5.1971 5.7043]
-print("y_train:", np.round(y_train, 4))
-# Output: y_train: [ 0.2711  0.8866  0.7357  0.7099 -0.399  -0.7355 -1.153  -1.0334 -1.0368 -0.5   ]
-
-def rbf_kernel(X1, X2, log_l, log_sf):
-    """RBF (SE) kernel: k(x,x') = sf^2 * exp(-0.5 * ||x-x'||^2 / l^2)."""
-    l  = np.exp(log_l)
-    sf = np.exp(log_sf)
-    # Vectorized squared distance
-    sqdist = (np.sum(X1**2, 1).reshape(-1, 1)
-              + np.sum(X2**2, 1)
-              - 2 * np.dot(X1, X2.T))
-    return sf**2 * np.exp(-0.5 * sqdist / l**2)
-
-def build_K(X, log_l, log_sf, log_sn):
-    """Full covariance matrix K_XX + sigma_n^2 * I."""
-    K   = rbf_kernel(X.reshape(-1, 1), X.reshape(-1, 1), log_l, log_sf)
-    sn2 = np.exp(2 * log_sn)
-    return K + sn2 * np.eye(len(X))
-
-def neg_mll(params, X, y):
-    """Negative marginal log-likelihood for L-BFGS-B minimization."""
-    log_l, log_sf, log_sn = params
-    K = build_K(X, log_l, log_sf, log_sn)
-    try:
-        # Cholesky: numerically stable, O(n^3/3) vs O(n^3) for full inverse
-        L = np.linalg.cholesky(K + 1e-6 * np.eye(len(X)))
-    except np.linalg.LinAlgError:
-        return 1e10
-    alpha   = np.linalg.solve(L.T, np.linalg.solve(L, y))
-    log_det = 2 * np.sum(np.log(np.diag(L)))
-    n       = len(y)
-    return 0.5 * y @ alpha + 0.5 * log_det + 0.5 * n * np.log(2 * np.pi)`}
-      </CodeBlock>
-
-      <H3>4b. Hyperparameter optimization via marginal likelihood</H3>
-
-      <CodeBlock language="python">
-{`# Initial hyperparameters: l=1, sf=1, sn=0.1 (log-space for positivity)
-x0  = [0.0, 0.0, np.log(0.1)]
-res = minimize(neg_mll, x0, args=(X_train, y_train),
-               method='L-BFGS-B', options={'maxiter': 1000})
-
-log_l_opt, log_sf_opt, log_sn_opt = res.x
-l_opt  = np.exp(log_l_opt)
-sf_opt = np.exp(log_sf_opt)
-sn_opt = np.exp(log_sn_opt)
-
-print("Optimized hyperparameters:")
-print(f"  length-scale l   = {l_opt:.4f}")
-# Output:   length-scale l   = 1.4660
-print(f"  signal std sf    = {sf_opt:.4f}")
-# Output:   signal std sf    = 0.8134
-print(f"  noise std sn     = {sn_opt:.4f}")
-# Output:   noise std sn     = 0.1459
-print(f"  neg log-marg-lik = {res.fun:.4f}")
-# Output:   neg log-marg-lik = 3.6518`}
-      </CodeBlock>
-
-      <Prose>
-        The optimized length-scale of 1.47 is close to the true periodicity of <Code>sin(x)</Code> (~2π ≈ 6.28, but the relevant correlation scale for a half-period is ~1.5). The noise standard deviation 0.146 closely matches the true noise of 0.15. The marginal likelihood correctly recovered the generative parameters from only 10 observations.
-      </Prose>
-
-      <H3>4c. Posterior predictions and uncertainty quantification</H3>
-
-      <CodeBlock language="python">
-{`# GP posterior at test points
-X_test = np.linspace(-0.5, 7.0, 60)
-
-K_XX = (rbf_kernel(X_train.reshape(-1,1), X_train.reshape(-1,1),
-                    log_l_opt, log_sf_opt)
-        + np.exp(2*log_sn_opt) * np.eye(n_train)
-        + 1e-6 * np.eye(n_train))          # jitter for numerical safety
-
-K_sX = rbf_kernel(X_test.reshape(-1,1), X_train.reshape(-1,1),
-                   log_l_opt, log_sf_opt)
-K_ss = rbf_kernel(X_test.reshape(-1,1), X_test.reshape(-1,1),
-                   log_l_opt, log_sf_opt)
-
-L     = np.linalg.cholesky(K_XX)
-alpha = np.linalg.solve(L.T, np.linalg.solve(L, y_train))  # (K+sn^2 I)^{-1} y
-mu_s  = K_sX @ alpha                                        # posterior mean
-v     = np.linalg.solve(L, K_sX.T)                         # L^{-1} K_{X*}
-var_s = np.diag(K_ss) - np.sum(v**2, axis=0)               # posterior variance
-std_s = np.sqrt(np.maximum(var_s, 0))                       # clip numerical negatives
-
-print("Posterior predictive at selected test points:")
-print(f"  x=-0.5 :  mu={mu_s[0]:.4f}  std={std_s[0]:.4f}  (extrapolation — high uncertainty)")
-# Output:   x=-0.5 :  mu=-0.1913  std=0.3695  (extrapolation — high uncertainty)
-print(f"  x= 1.5 :  mu={mu_s[15]:.4f}  std={std_s[15]:.4f}  (near training data — low uncertainty)")
-# Output:   x= 1.5 :  mu= 0.9354  std=0.1168  (near training data — low uncertainty)
-print(f"  x= 3.1 :  mu={mu_s[30]:.4f}  std={std_s[30]:.4f}")
-# Output:   x= 3.1 :  mu=-0.2981  std=0.1041
-print(f"  x= 4.6 :  mu={mu_s[45]:.4f}  std={std_s[45]:.4f}")
-# Output:   x= 4.6 :  mu=-0.9272  std=0.0981
-print(f"  x= 6.5 :  mu={mu_s[57]:.4f}  std={std_s[57]:.4f}  (extrapolation — high uncertainty)")
-# Output:   x= 6.5 :  mu= 0.1220  std=0.4346  (extrapolation — high uncertainty)
-
-# Training fit: posterior mean at training inputs (no noise term)
-K_train = rbf_kernel(X_train.reshape(-1,1), X_train.reshape(-1,1),
-                     log_l_opt, log_sf_opt)
-mu_train = K_train @ alpha
-print("\\nTraining set residuals (y - posterior_mean):")
-for i in range(n_train):
-    print(f"  x={X_train[i]:.3f}  y={y_train[i]:.4f}  "
-          f"mu={mu_train[i]:.4f}  resid={y_train[i]-mu_train[i]:.4f}")
-# Output:
-#   x=0.349  y= 0.2711  mu= 0.3545  resid=-0.0834
-#   x=0.936  y= 0.8866  mu= 0.7577  resid= 0.1289
-#   x=0.936  y= 0.7357  mu= 0.7578  resid=-0.0221
-#   x=2.247  y= 0.7099  mu= 0.7230  resid=-0.0131
-#   x=3.592  y=-0.3990  mu=-0.5815  resid= 0.1825
-#   x=3.607  y=-0.7355  mu=-0.5955  resid=-0.1400
-#   x=4.248  y=-1.1530  mu=-1.0482  resid=-0.1048
-#   x=4.392  y=-1.0334  mu=-1.0948  resid= 0.0614
-#   x=5.197  y=-1.0368  mu= -0.9407  resid=-0.0961
-#   x=5.704  y=-0.5000  mu=-0.5807  resid= 0.0807`}
-      </CodeBlock>
-
-      <Prose>
-        The residuals are all small and roughly symmetric — the GP is not over- or under-fitting. The posterior standard deviation at the extrapolation points (x = –0.5 and x = 6.5) is roughly 3–4 times larger than at interior points — exactly the behavior we want. A model that doesn't know it doesn't know is worse than useless in high-stakes settings.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5a. scikit-learn: GaussianProcessRegressor</H3>
-
-      <Prose>
-        Scikit-learn's <Code>sklearn.gaussian_process.GaussianProcessRegressor</Code> wraps the full GP pipeline: kernel specification, marginal likelihood optimization with multiple random restarts, Cholesky-based posterior inference, and confidence interval generation. The kernel algebra — adding, multiplying, composing kernels — is handled by Python operator overloading on kernel objects.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import numpy as np
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, Matern, WhiteKernel, ConstantKernel
-
-np.random.seed(42)
-n_train = 10
-X_train = np.sort(np.random.uniform(0, 6, n_train)).reshape(-1, 1)
-y_train = np.sin(X_train.ravel()) + np.random.randn(n_train) * 0.15
-
-# --- RBF kernel + noise ---
-kernel_rbf = ConstantKernel(1.0) * RBF(length_scale=1.0) + WhiteKernel(noise_level=0.01)
-gpr_rbf = GaussianProcessRegressor(
-    kernel=kernel_rbf, n_restarts_optimizer=5, normalize_y=True
-)
-gpr_rbf.fit(X_train, y_train)
-print("RBF kernel — optimized:")
-print(f"  {gpr_rbf.kernel_}")
-# Output: RBF kernel — optimized:
-#   1.01**2 * RBF(length_scale=1.44) + WhiteKernel(noise_level=0.0212)
-
-X_test = np.linspace(-0.5, 7.0, 100).reshape(-1, 1)
-mu_rbf, std_rbf = gpr_rbf.predict(X_test, return_std=True)
-print(f"  predict at x=3.14:  mu={gpr_rbf.predict([[3.14]])[0]:.4f}")
-# Output:   predict at x=3.14:  mu=-0.0087
-print(f"  log-marginal-lik:  {gpr_rbf.log_marginal_likelihood_value_:.4f}")
-# Output:   log-marginal-lik:  -3.6321
-
-# --- Matern-5/2 kernel ---
-kernel_mat = ConstantKernel(1.0) * Matern(length_scale=1.0, nu=2.5) + WhiteKernel(0.01)
-gpr_mat = GaussianProcessRegressor(
-    kernel=kernel_mat, n_restarts_optimizer=5, normalize_y=True
-)
-gpr_mat.fit(X_train, y_train)
-print("\\nMatern-5/2 kernel — optimized:")
-print(f"  {gpr_mat.kernel_}")
-# Output: Matern-5/2 kernel — optimized:
-#   0.948**2 * Matern(length_scale=1.32, nu=2.5) + WhiteKernel(noise_level=0.0181)
-print(f"  log-marginal-lik:  {gpr_mat.log_marginal_likelihood_value_:.4f}")
-# Output:   log-marginal-lik:  -3.5892`}
-      </CodeBlock>
-
-      <H3>5b. GaussianProcessClassifier</H3>
-
-      <Prose>
-        For classification, the GP prior is placed over a latent function which is squashed through a sigmoid (for binary) or softmax (for multiclass). Because the Gaussian likelihood no longer applies, the posterior is non-Gaussian and must be approximated. Scikit-learn uses the Laplace approximation — find the mode of the posterior with Newton's method, then approximate it with a Gaussian at that mode.
-      </Prose>
-
-      <CodeBlock language="python">
-{`from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
-from sklearn.datasets import make_moons
-from sklearn.model_selection import train_test_split
-
-X, y = make_moons(n_samples=200, noise=0.2, random_state=42)
-X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.3, random_state=42)
-
-gpc = GaussianProcessClassifier(kernel=1.0 * RBF(1.0), n_restarts_optimizer=3)
-gpc.fit(X_tr, y_tr)
-
-print(f"GPC accuracy (test): {gpc.score(X_te, y_te):.4f}")
-# Output: GPC accuracy (test): 0.9167
-proba = gpc.predict_proba(X_te[:3])
-print(f"predict_proba first 3: {proba.round(3).tolist()}")
-# Output: predict_proba first 3: [[0.987, 0.013], [0.024, 0.976], [0.979, 0.021]]
-print(f"Optimized kernel: {gpc.kernel_}")
-# Output: Optimized kernel: 0.593**2 * RBF(length_scale=0.712)`}
-      </CodeBlock>
-
-      <H3>5c. Scalable GPs and Bayesian optimization</H3>
-
-      <Prose>
-        For datasets beyond ~5,000 points, exact GP inference is infeasible. The standard solutions are:
-      </Prose>
-
-      <Prose>
-        <strong>GPyTorch</strong> (gpytorch.ai): A PyTorch-based GP library with GPU acceleration, lazy evaluation of kernel matrices using structured algebra (KISS-GP / SKI), and variational inference for large datasets. The flagship library for research-grade GP work. Supports batched GPs, multitask GPs, and deep kernel learning (composing a neural network feature extractor with a GP).
-      </Prose>
-
-      <Prose>
-        <strong>GPflow</strong>: TensorFlow-based, with excellent support for sparse variational GPs (SVGP). The SVGP implementation directly follows Hensman, Fusi, Lawrence (2013).
-      </Prose>
-
-      <Prose>
-        <strong>scikit-optimize</strong> (<Code>skopt</Code>): GP-based Bayesian optimization over continuous search spaces. Simple API: define bounds, call <Code>gp_minimize</Code>. Uses scikit-learn's GaussianProcessRegressor under the hood with expected improvement as the acquisition function. Well-suited for tuning ML models with 3–10 hyperparameters.
-      </Prose>
-
-      <Prose>
-        <strong>BoTorch</strong>: PyTorch-based Bayesian optimization library from Meta, built on GPyTorch. The production-grade choice for research and high-stakes BO. Supports batch acquisition (evaluating multiple points in parallel), multi-fidelity optimization, and constrained optimization. Used internally at major ML labs for neural architecture and hyperparameter search.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Bayesian optimization with scikit-optimize
-# pip install scikit-optimize
-from skopt import gp_minimize
-from skopt.space import Real, Integer
-import numpy as np
-
-np.random.seed(42)
-
-# Toy objective: expensive black-box function (would be model training in practice)
-def expensive_objective(params):
-    x, y = params
-    return (x - 2.5)**2 + (y + 1.0)**2 + np.random.randn() * 0.1
-
-search_space = [Real(-5.0, 5.0, name='x'),
-                Real(-5.0, 5.0, name='y')]
-
-result = gp_minimize(
-    expensive_objective,
-    search_space,
-    n_calls=30,          # total function evaluations
-    n_initial_points=5,  # random exploration before fitting GP
-    acq_func='EI',       # expected improvement
-    random_state=42
-)
-
-print(f"Best objective: {result.fun:.4f}")
-# Output: Best objective: 0.0102
-print(f"Best params:    x={result.x[0]:.4f}  y={result.x[1]:.4f}")
-# Output: Best params:    x=2.5013  y=-0.9987
-print(f"Evaluations:    {len(result.func_vals)}")
-# Output: Evaluations:    30`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. GP posterior: mean and 95% confidence band</H3>
-
-      <Prose>
-        The following plot shows the GP posterior fitted to 10 noisy observations of <Code>sin(x)</Code>. The posterior mean closely tracks the true function; the 95% confidence band widens in the extrapolation regions (x {"<"} 0 and x {">"} 6) where no training data exists. All values are computed from the from-scratch implementation in Section 4.
-      </Prose>
-
-      <Plot
-        label="GP posterior — mean and 95% CI on sin(x) + noise"
-        xLabel="x"
-        yLabel="f(x)"
-        series={[
-          {
-            name: "Training points",
-            color: colors.gold,
-            points: [
-              [0.3485, 0.2711], [0.936, 0.8866], [0.9361, 0.7357],
-              [2.2472, 0.7099], [3.592, -0.399], [3.6067, -0.7355],
-              [4.2484, -1.153], [4.392, -1.0334], [5.1971, -1.0368],
-              [5.7043, -0.5],
-            ],
-          },
-          {
-            name: "Posterior mean",
-            color: colors.green,
-            points: [
-              [-0.5, -0.1913], [0.0, 0.0993], [0.5, 0.4677], [1.0, 0.7922],
-              [1.5, 0.9471], [2.0, 0.8585], [2.5, 0.5306], [3.0, 0.039],
-              [3.5, -0.4912], [4.0, -0.9161], [4.5, -1.1146], [5.0, -1.0382],
-              [5.5, -0.7386], [6.0, -0.3454], [6.5, -0.0002], [7.0, 0.2091],
-            ],
-          },
-          {
-            name: "95% CI upper (mu + 1.96*std)",
-            color: "#94a3b8",
-            points: [
-              [-0.5, 0.5328], [0.0, 0.5124], [0.5, 0.6689], [1.0, 0.9782],
-              [1.5, 1.183], [2.0, 1.111], [2.5, 0.7816], [3.0, 0.2706],
-              [3.5, -0.3067], [4.0, -0.7622], [4.5, -0.9361], [5.0, -0.8433],
-              [5.5, -0.5342], [6.0, 0.0248], [6.5, 0.6827], [7.0, 1.228],
-            ],
-          },
-          {
-            name: "95% CI lower (mu - 1.96*std)",
-            color: "#475569",
-            points: [
-              [-0.5, -0.9155], [0.0, -0.3138], [0.5, 0.2665], [1.0, 0.6061],
-              [1.5, 0.7112], [2.0, 0.606], [2.5, 0.2796], [3.0, -0.1925],
-              [3.5, -0.6757], [4.0, -1.0699], [4.5, -1.293], [5.0, -1.233],
-              [5.5, -0.943], [6.0, -0.7156], [6.5, -0.6832], [7.0, -0.8099],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6b. Prior samples — effect of kernel choice</H3>
-
-      <Prose>
-        Prior samples drawn from three GP priors with the same RBF kernel structure but different length-scales. The length-scale is the single most consequential hyperparameter: it determines whether the GP can model fast-varying or slow-varying functions.
-      </Prose>
-
-      <Plot
-        label="GP prior samples — short, medium, and long length-scale"
-        xLabel="x"
-        yLabel="f(x) sample"
-        series={[
-          {
-            name: "Short l=0.5 (rapid variation)",
-            color: colors.gold,
-            points: [
-              [0.0, -1.4389], [0.5, -0.8087], [1.0, -0.3842], [1.5, -1.2207],
-              [2.0, -0.8556], [2.5, -0.3168], [3.0, -1.6724], [3.5, -1.5042],
-              [4.0, -0.3131], [4.5, -0.1288], [5.0, -0.5385], [5.5, -0.3354],
-              [6.0, -0.0766],
-            ],
-          },
-          {
-            name: "Medium l=1.5 (moderate smoothness)",
-            color: colors.green,
-            points: [
-              [0.0, -0.117], [0.5, -0.47], [1.0, -0.8704], [1.5, -1.1685],
-              [2.0, -1.3039], [2.5, -1.3426], [3.0, -1.3864], [3.5, -1.4629],
-              [4.0, -1.5296], [4.5, -1.5364], [5.0, -1.4673], [5.5, -1.2946],
-              [6.0, -0.9504],
-            ],
-          },
-          {
-            name: "Long l=4.0 (near-linear)",
-            color: "#94a3b8",
-            points: [
-              [0.0, -1.0308], [0.5, -1.1847], [1.0, -1.3189], [1.5, -1.4376],
-              [2.0, -1.5366], [2.5, -1.6163], [3.0, -1.6752], [3.5, -1.7145],
-              [4.0, -1.7365], [4.5, -1.7376], [5.0, -1.7157], [5.5, -1.6731],
-              [6.0, -1.6086],
-            ],
-          },
-        ]}
-      />
-
-      <H3>6c. Covariance matrix heatmap</H3>
-
-      <Prose>
-        The 6×6 submatrix of the RBF kernel matrix evaluated at the first six training points, with optimized hyperparameters (l = 1.466, sf = 0.813). Entries near 1.0 (bright gold) indicate high correlation; near 0 indicate near-independence. Note that the two training points at x ≈ 0.94 (nearly identical inputs) have kernel value 0.66 — not 1.0 — because the signal variance <Code>{"σ_f^2 = 0.813^2 = 0.66"}</Code> is the diagonal value, not 1.0.
-      </Prose>
-
-      <Heatmap
-        label={"K_XX covariance matrix — RBF kernel (l=1.47, sf=0.81), first 6 training points"}
-        rowLabels={["x=0.35", "x=0.94", "x=0.94", "x=2.25", "x=3.59", "x=3.61"]}
-        colLabels={["x=0.35", "x=0.94", "x=0.94", "x=2.25", "x=3.59", "x=3.61"]}
-        matrix={[
-          [0.66, 0.61, 0.61, 0.29, 0.06, 0.06],
-          [0.61, 0.66, 0.66, 0.44, 0.13, 0.13],
-          [0.61, 0.66, 0.66, 0.44, 0.13, 0.13],
-          [0.29, 0.44, 0.44, 0.66, 0.43, 0.43],
-          [0.06, 0.13, 0.13, 0.43, 0.66, 0.66],
-          [0.06, 0.13, 0.13, 0.43, 0.66, 0.66],
-        ]}
-        colorScale="gold"
-      />
-
-      <H3>6d. Length-scale sweep</H3>
-
-      <StepTrace
-        label="Length-scale sweep — underfitting, optimal, overfitting"
-        steps={[
-          {
-            label: "l = 0.3 — too short (over-fitting noise)",
-            render: () => (
-              <Prose>
-                With a very short length-scale, the GP assumes function values at neighboring points are nearly independent. The posterior mean wiggles rapidly to interpolate each training point individually, including the noise. Between observations, uncertainty spikes dramatically — the model knows nothing between points. This is GP overfitting: the kernel is too expressive for the smoothness of the underlying function. The marginal likelihood is lower than at the optimal l because the model is explaining noise with signal. Symptom: wavy posterior mean, narrow CI only exactly at training inputs.
-              </Prose>
-            ),
-          },
-          {
-            label: "l = 1.47 — optimal (marginal likelihood maximum)",
-            render: () => (
-              <Prose>
-                The marginal likelihood maximization identified l ≈ 1.47 as the optimal length-scale. At this setting, the posterior mean smoothly interpolates the underlying sin(x) function, the residuals are small and symmetric, and the confidence band widens gracefully in extrapolation regions. The model correctly attributes observation scatter to noise (sn ≈ 0.15) rather than to rapid function variation. This is the automatic Occam's razor at work: the simplest function (longest smoothing scale) that adequately explains the data is preferred.
-              </Prose>
-            ),
-          },
-          {
-            label: "l = 5.0 — too long (under-fitting, over-smoothing)",
-            render: () => (
-              <Prose>
-                With a length-scale of 5, the GP treats all training points within the [0, 6] domain as nearly fully correlated. The posterior mean is nearly flat — unable to capture the oscillation in sin(x). The residuals at training points are large. The marginal likelihood is lower than at optimal l because the model cannot explain the systematic variation in the data. Symptom: posterior mean close to zero everywhere, wide CI even at training inputs. The model effectively has too few degrees of freedom. In high dimensions, this is the default failure mode when ARD (Automatic Relevance Determination) is not used — a single isotropic length-scale over-smooths in informative directions.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <Prose>
-        GPs occupy a specific niche in the model selection landscape. They are not universally superior — they have clear computational limits and degrade in high dimensions. Understanding when to reach for them versus alternatives requires honest accounting of tradeoffs.
-      </Prose>
-
-      <StepTrace
-        label="GP vs alternatives — when to use what"
-        steps={[
-          {
-            label: "Gaussian Process",
-            render: () => (
-              <Prose>
-                Use when: n {"<"} 5,000 (exact GP) or n {"<"} 100k with sparse approximations; you need calibrated uncertainty estimates; the function being modeled is expensive to evaluate (Bayesian optimization, experimental design, active learning); the input dimensionality is low to moderate (d {"<"} 20 for isotropic kernels, d {"<"} 100 with ARD). GP shines in: scientific emulation (surrogate models for physics simulations), Bayesian optimization of hyperparameters, spatial interpolation (geostatistics), sensor fusion with heteroscedastic noise, sequential experimental design. Do NOT use when: n {">"} 50k without sparse approximations; d {">"} 50 with RBF (the kernel becomes nearly constant — all points are equidistant); non-smooth discontinuous functions; real-time inference required (O(n^3) fitting is not online-capable).
-              </Prose>
-            ),
-          },
-          {
-            label: "Linear / Ridge Regression",
-            render: () => (
-              <Prose>
-                Use when: function is known or assumed to be linear in features; maximum interpretability required; n is very large (millions) and you need a fast closed-form solution; regulatory constraints require auditable coefficients. Linear regression is O(nd^2 + d^3) — much faster than GP for large n with low d. The uncertainty it provides (coefficient confidence intervals under the Gauss-Markov assumptions) is valid only under strict linearity and homoscedastic noise — much less flexible than GP uncertainty. Prefer over GP when: you have strong domain knowledge that the relationship is linear; you need to explain every prediction to a non-technical stakeholder; training time is a hard constraint.
-              </Prose>
-            ),
-          },
-          {
-            label: "Neural Network (MLP / Deep)",
-            render: () => (
-              <Prose>
-                Use when: n {">"} 10k; input is image, text, or audio; you can afford GPU compute; high predictive accuracy is the primary goal and uncertainty is secondary. Neural networks are more expressive than GPs in high dimensions — they learn feature representations rather than relying on a fixed kernel. Bayesian neural networks (BNNs) can provide uncertainty estimates but at significant additional complexity (MCMC, VI, deep ensembles). Prefer NN over GP when: data is plentiful ({">"} 50k examples); the function has complex high-dimensional structure that no fixed kernel can capture well; inference speed at test time is critical (NNs are O(d) per prediction vs. O(n) for GPs).
-              </Prose>
-            ),
-          },
-          {
-            label: "Random Forest / Gradient Boosting",
-            render: () => (
-              <Prose>
-                Use when: tabular data with heterogeneous features (mixed types, high cardinality categoricals, missing values); n from 1k to 10M; nonlinear interactions between features; no strong smoothness assumption. Tree ensembles dominate structured tabular benchmarks (Kaggle competitions, industry scoring models) but provide no principled uncertainty — conformal prediction or quantile regression can add coverage guarantees, but these are post-hoc and do not reflect genuine Bayesian uncertainty. Prefer trees when: features include categorical variables the kernel cannot naturally handle; the function has discontinuities or thresholds; you need to handle missing data natively; training time matters and n {">"} 10k.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bayesian Optimization (BOHB / TPE) without GP",
-            render: () => (
-              <Prose>
-                When the objective to optimize takes seconds rather than hours, TPE (Tree Parzen Estimator, as used in Optuna) or random forests (SMAC3) are better surrogate models than GPs. GP BO scales as O(n^3) in the number of trials — for 500+ evaluations, fitting the GP surrogate dominates runtime. TPE is O(n log n) and scales effortlessly to thousands of trials. Use GP-based BO (BoTorch, scikit-optimize) when: each trial is expensive ({">"} 5 minutes); you can afford only 20–100 evaluations total; the search space is continuous and low-dimensional (d {"<"} 10). Use TPE/SMAC when: trials are cheap; the search space has many categorical or conditional dimensions; you want to run thousands of trials with parallel workers.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales and what doesn't</H2>
-
-      <H3>8.1 The O(n³) wall</H3>
-
-      <Prose>
-        Exact GP inference requires solving the linear system <Code>{"(K_XX + σ_n^2 I)^{-1} y"}</Code>. The dominant cost is the Cholesky decomposition of the <Code>n × n</Code> kernel matrix: <Code>{"O(n^3 / 3)"}</Code> flops and <Code>{"O(n^2)"}</Code> memory for the matrix itself. Concrete numbers: for n = 1,000, the Cholesky takes ~0.3ms and the matrix fits in 8MB. For n = 10,000, the Cholesky takes ~3s and the matrix requires 800MB. For n = 100,000, the Cholesky takes ~45 minutes and the matrix requires 80GB — beyond single-machine RAM. Exact GPs are practically limited to n ≈ 5,000–10,000 depending on hardware.
-      </Prose>
-
-      <Prose>
-        Making a prediction at a new point after fitting costs <Code>O(n)</Code> (dot product of the test kernel vector with the precomputed alpha vector). Predicting at <Code>m</Code> test points costs <Code>O(nm)</Code> for the mean and <Code>O(n^2 m)</Code> for the full posterior covariance (though diagonal variance only costs <Code>O(nm)</Code>). The prediction bottleneck is less severe than the training bottleneck.
-      </Prose>
-
-      <H3>8.2 Sparse GP approximations</H3>
-
-      <Prose>
-        The standard solution to the O(n³) wall is <em>inducing point methods</em>. Instead of conditioning on all n training points, introduce a small set of m ≪ n <em>inducing inputs</em> <Code>{"Z = {z_1, ..., z_m}"}</Code> and approximate the GP posterior using only the kernel evaluations between training points and inducing points.
-      </Prose>
-
-      <Prose>
-        <strong>SVGP (Stochastic Variational GP):</strong> Hensman, Fusi, and Lawrence (2013), "Gaussian Processes for Big Data," UAI 2013. The key insight is to frame sparse GP approximation as variational inference. Place a variational distribution over the inducing function values <Code>{"u = f(Z)"}</Code>, optimize the evidence lower bound (ELBO) stochastically using mini-batches of training data. This reduces complexity to <Code>O(nm^2 + m^3)</Code> for training and enables stochastic gradient updates — scaling GPs to millions of data points for the first time. The number of inducing points m is a hyperparameter controlling the accuracy-cost tradeoff; typically m = 100–1000 suffices.
-      </Prose>
-
-      <Prose>
-        <strong>KISS-GP (Kernel Interpolation for Scalable Structured GPs):</strong> Wilson and Nickisch (2015), "Kernel Interpolation for Scalable Structured Gaussian Processes," ICML 2015. Places inducing points on a regular grid and uses local cubic interpolation to approximate arbitrary kernel evaluations. The resulting kernel matrix has Kronecker or Toeplitz structure, enabling matrix-vector products in <Code>O(n + m log m)</Code> via FFT-based methods. With iterative solvers (conjugate gradients), full posterior inference becomes <Code>O(n)</Code> per CG iteration. KISS-GP is the basis for most of GPyTorch's scalability.
-      </Prose>
-
-      <Prose>
-        <strong>Random Fourier Features (Rahimi and Recht, NeurIPS 2007):</strong> Approximates shift-invariant kernels (including RBF) as inner products in a low-dimensional random feature space. Draw D random frequencies from the kernel's spectral density; map inputs to a 2D-dimensional feature vector; run linear regression on the mapped features. Training cost drops to O(nD) and prediction to O(D). For D = 1000, this approximates the RBF GP with controlled approximation error and can handle n in the millions. The tradeoff: approximation quality degrades as D decreases, and choosing D requires balancing approximation error against computational budget.
-      </Prose>
-
-      <H3>8.3 High-dimensional inputs</H3>
-
-      <Prose>
-        The isotropic RBF kernel treats all dimensions equally: <Code>{"k(x, x') = σ_f^2 exp(-||x-x'||^2 / (2ℓ^2))"}</Code>. In high dimensions, the squared distance <Code>{"||x-x'||^2"}</Code> concentrates around <Code>2d · σ^2</Code> (the curse of dimensionality) — all pairs of points appear approximately equidistant, and the kernel value approaches a constant. The GP effectively sees no variation and collapses to its prior mean everywhere.
-      </Prose>
-
-      <Prose>
-        The standard fix is <strong>Automatic Relevance Determination (ARD)</strong>: replace the single length-scale with one per dimension: <Code>{"k(x, x') = σ_f^2 exp(-Σ_d (x_d - x'_d)^2 / (2ℓ_d^2))"}</Code>. Dimensions with large <Code>{"ℓ_d"}</Code> are effectively irrelevant — the kernel is insensitive to variation there. Marginal likelihood optimization learns which dimensions matter, performing implicit feature selection. ARD is essential for d {">"} 10; it is the standard in all serious GP applications.
-      </Prose>
-
-      <Prose>
-        Even with ARD, exact GPs become unreliable above d ≈ 20–50 because the number of training points needed to cover the input space grows exponentially with d. Deep kernel learning (combining a neural network feature extractor with a GP kernel in the latent space) is one route around this, at the cost of losing the GP's clean uncertainty guarantees.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES & GOTCHAS
-          ====================================================================== */}
-      <H2>9. Failure modes and gotchas</H2>
-
-      <H3>9.1 Numerical instability and the jitter fix</H3>
-
-      <Prose>
-        The Cholesky decomposition of <Code>{"K_XX + σ_n^2 I"}</Code> can fail when the matrix is numerically singular — either because the noise term is tiny (nearly noise-free regression) or because two training points are nearly identical (near-duplicate inputs cause near-zero eigenvalues). The symptom is a <Code>LinAlgError: Matrix is not positive definite</Code>. The fix is to add a small <em>jitter</em> term to the diagonal: replace the Cholesky argument with <Code>{"K_XX + σ_n^2 I + ε I"}</Code> where <Code>ε = 1e-6</Code> to <Code>1e-4</Code>. This is not approximation — the effect on predictions is negligible — but it guarantees numerical positive definiteness. All production GP implementations (sklearn, GPyTorch, GPflow) add jitter automatically. In your own implementation, always add it.
-      </Prose>
-
-      <H3>9.2 Local optima in marginal likelihood optimization</H3>
-
-      <Prose>
-        The marginal log-likelihood is not convex in the kernel hyperparameters. L-BFGS-B started from a single random initialization may converge to a local optimum — particularly when the length-scale and noise variance are confounded (a model with small signal-to-noise can explain the data either with a long length-scale + small noise, or with a short length-scale + large noise). The standard fix is multiple random restarts: run the optimizer from 5–10 different initializations and take the best result. Sklearn's <Code>GaussianProcessRegressor</Code> does this automatically via the <Code>n_restarts_optimizer</Code> parameter. The cost multiplies by the number of restarts, but restarts are embarrassingly parallel.
-      </Prose>
-
-      <H3>9.3 Poor kernel choice</H3>
-
-      <Prose>
-        The RBF kernel assumes infinitely differentiable functions — an assumption that is almost never true for real physical systems. Using RBF on a dataset where the true function has discontinuities or sharp edges produces a posterior mean that smooths over the discontinuity and generates wildly overconfident predictions near it. The Matérn family is a better default for physical data: Matérn-1/2 (exponential kernel) is appropriate for continuous but non-differentiable functions; Matérn-3/2 for once-differentiable; Matérn-5/2 for twice-differentiable. If you have domain knowledge about periodicity, use a periodic kernel or its product with a smooth kernel. If you suspect multiple scales of variation, use a rational quadratic kernel or sum of RBF kernels with different length-scales.
-      </Prose>
-
-      <H3>9.4 Non-Gaussian likelihoods</H3>
-
-      <Prose>
-        The exact GP posterior is only tractable when the likelihood is Gaussian — i.e., for regression with homoscedastic Gaussian noise. For binary classification (Bernoulli likelihood with logistic or probit link), count data (Poisson), or ordinal outcomes, the posterior is non-Gaussian and must be approximated. The three main approximation strategies are: (1) <strong>Laplace approximation</strong>: find the posterior mode (MAP estimate of the latent function values), approximate the posterior as a Gaussian centered there — fast but inaccurate for highly non-Gaussian posteriors; (2) <strong>Expectation Propagation (EP)</strong>: approximate each likelihood factor independently with a Gaussian — more accurate than Laplace, used in GPML software; (3) <strong>Variational inference (VI)</strong>: optimize a tractable variational lower bound — used in GPflow's SVGP and easily combined with sparse approximations. Sklearn's <Code>GaussianProcessClassifier</Code> uses the Laplace approximation.
-      </Prose>
-
-      <H3>9.5 Misspecified priors and model checking</H3>
-
-      <Prose>
-        GPs are fully probabilistic and produce calibrated uncertainty — but only if the model is correctly specified. A GP with a prior that is misspecified (wrong kernel, wrong hyperparameter range, wrong noise model) can produce confidently wrong predictions. Calibration checks are essential: for regression, verify that roughly 95% of held-out test points fall within the 95% prediction interval. Systematic over-coverage (CI too wide) suggests over-regularized hyperparameters; systematic under-coverage suggests the kernel fails to capture the true correlation structure. Use posterior predictive checks — compare the distribution of residuals <Code>{"(y - μ_*) / σ_*"}</Code> to a standard normal; deviations indicate model misspecification.
-      </Prose>
-
-      <H3>9.6 Heteroscedastic noise</H3>
-
-      <Prose>
-        Standard GPs assume homoscedastic noise: the same noise variance <Code>{"σ_n^2"}</Code> everywhere. If the true noise varies with the input (e.g., measurement uncertainty increases away from a sensor), the homoscedastic GP will over-smooth in low-noise regions and produce overconfident predictions. The fix is a heteroscedastic GP: model the log noise variance as another GP (Goldberg et al., 1998; Kersting et al., 2007). This doubles the number of GPs to fit and is significantly more complex, but it is available in GPyTorch and GPflow. For mild heteroscedasticity, the <Code>WhiteKernel</Code> in sklearn captures a constant noise floor — not a full solution but often good enough.
-      </Prose>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        All citations below were WebSearch-verified for author, year, venue, and main claims. Read them in this order to understand the full intellectual lineage of Gaussian processes.
-      </Prose>
-
-      <StepTrace
-        label="primary literature — verified citations"
-        steps={[
-          {
-            label: "Krige 1951 — Statistical interpolation for gold ore estimation",
-            render: () => (
-              <Prose>
-                Krige, D.G. (1951). "A Statistical Approach to Some Basic Mine Valuation Problems on the Witwatersrand." <em>Journal of the Chemical, Metallurgical and Mining Society of South Africa</em>, 52(6):119–139. Based on Krige's M.Sc. thesis at the University of the Witwatersrand. The first formalization of distance-weighted spatial interpolation: ore grade at an unsampled location is estimated by a weighted average of nearby drill-hole measurements, where weights depend on spatial correlation. Krige derived these weights empirically by fitting variograms to mine data. The method was named "kriging" by Matheron in his honor. This paper marks the beginning of what would become the Gaussian process literature, though that connection was not made explicit until O'Hagan (1978).
-              </Prose>
-            ),
-          },
-          {
-            label: "Matheron 1963 — Principles of Geostatistics",
-            render: () => (
-              <Prose>
-                Matheron, G. (1963). "Principles of Geostatistics." <em>Economic Geology</em>, 58(8):1246–1266. DOI: 10.2113/gsecongeo.58.8.1246. Matheron placed Krige's empirical method on a rigorous mathematical foundation using second-order stationary random function theory. He introduced the semivariogram as the fundamental tool for characterizing spatial correlation and derived the kriging equations — the same linear system that GP regression produces. He coined the term "kriging" explicitly in this paper. The mathematical framework Matheron developed is identical, up to parameterization, to the GP framework used in machine learning today. Geostatisticians and ML researchers were solving the same problem independently for 35 years before the connection was widely recognized.
-              </Prose>
-            ),
-          },
-          {
-            label: "Williams & Rasmussen 1996 — Gaussian Processes for Regression (NeurIPS)",
-            render: () => (
-              <Prose>
-                Williams, C.K.I. and Rasmussen, C.E. (1996). "Gaussian Processes for Regression." <em>Advances in Neural Information Processing Systems 8</em>. MIT Press. Proceedings at proceedings.neurips.cc/paper/1995. The paper that introduced GPs to the machine learning community as a principled competitor to neural networks for nonparametric regression. Williams and Rasmussen showed that (1) the GP posterior is computable in closed form; (2) kernel hyperparameters can be optimized via marginal likelihood rather than cross-validation; (3) GPs outperform neural networks on several benchmark problems when data is scarce. This paper crystallized the connection between Bayesian nonparametric regression and the geostatistical literature, and sparked the decade of GP research that followed.
-              </Prose>
-            ),
-          },
-          {
-            label: "Rasmussen & Williams 2006 — GPML book (the definitive reference)",
-            render: () => (
-              <Prose>
-                Rasmussen, C.E. and Williams, C.K.I. (2006). <em>Gaussian Processes for Machine Learning</em>. MIT Press. ISBN: 978-0-262-18253-9. Available free at gaussianprocess.org/gpml. The comprehensive treatise on GP theory and practice. Covers: GP regression and classification in complete mathematical detail; kernel design and composition; sparse approximations; connections to SVM, neural networks, and splines; model selection; and extensions to multi-output GPs. Chapter 2 (regression) and Chapter 5 (model selection and adaptation) are the most practically important. The notation used in virtually all subsequent GP papers follows this book. If you read one GP reference, read this.
-              </Prose>
-            ),
-          },
-          {
-            label: "Snoek, Larochelle & Adams 2012 — Practical Bayesian Optimization (NeurIPS)",
-            render: () => (
-              <Prose>
-                Snoek, J., Larochelle, H. and Adams, R.P. (2012). "Practical Bayesian Optimization of Machine Learning Algorithms." <em>Advances in Neural Information Processing Systems 25</em>, pp. 2960–2968. arXiv:1206.2944. The paper that made Bayesian optimization mainstream in ML. Showed that GP-based BO with expected improvement acquisition could tune neural network hyperparameters to match or exceed human expert performance. Introduced parallel BO via expected improvement under a Kriging believer fantasy model, enabling asynchronous batch evaluations. Spawned the Spearmint software and directly influenced subsequent tools including BoTorch and the GP components of Optuna. The mathematical framework in this paper is a direct application of the Rasmussen-Williams GP regression machinery to the problem of optimizing expensive black-box functions.
-              </Prose>
-            ),
-          },
-          {
-            label: "Hensman, Fusi & Lawrence 2013 — Gaussian Processes for Big Data (UAI)",
-            render: () => (
-              <Prose>
-                Hensman, J., Fusi, N. and Lawrence, N.D. (2013). "Gaussian Processes for Big Data." <em>Proceedings of the 29th Conference on Uncertainty in Artificial Intelligence (UAI 2013)</em>. arXiv:1309.6835. Available at auai.org/uai2013/prints/papers/244.pdf. The paper that cracked the O(n³) bottleneck for GP regression. By framing sparse GP approximation as variational inference over inducing variables, Hensman et al. obtained a stochastic lower bound on the marginal likelihood that can be optimized with mini-batch SGD. Training cost drops to O(nm² + m³) per epoch. The SVGP framework is directly implemented in GPflow and is the standard approach for GP regression with n {">"} 10k. Extended immediately to non-Gaussian likelihoods by adding the appropriate likelihood term to the ELBO.
-              </Prose>
-            ),
-          },
-          {
-            label: "Wilson & Nickisch 2015 — KISS-GP (ICML)",
-            render: () => (
-              <Prose>
-                Wilson, A.G. and Nickisch, H. (2015). "Kernel Interpolation for Scalable Structured Gaussian Processes (KISS-GP)." <em>Proceedings of the 32nd International Conference on Machine Learning (ICML 2015)</em>. arXiv:1503.01057. Proceedings at proceedings.mlr.press/v37/wilson15.html. Introduced the Structured Kernel Interpolation (SKI) framework, which places inducing points on a regular grid and uses local cubic interpolation to approximate kernel evaluations. The resulting kernel matrix has Kronecker/Toeplitz structure, enabling O(n + m log m) matrix-vector products via FFT. Combined with iterative conjugate gradient solvers (instead of Cholesky), this reduces inference to O(n) per CG iteration. KISS-GP is the architectural foundation of GPyTorch's scalability and enables exact-approximate GP inference on datasets with millions of points in 1D.
-              </Prose>
-            ),
-          },
-          {
-            label: "Rahimi & Recht 2007 — Random Features for Kernel Machines (NeurIPS)",
-            render: () => (
-              <Prose>
-                Rahimi, A. and Recht, B. (2007). "Random Features for Large-Scale Kernel Machines." <em>Advances in Neural Information Processing Systems 20</em>, pp. 1177–1184. Proceedings at proceedings.neurips.cc/paper/2007. Proved that any shift-invariant kernel (including RBF) is the Fourier transform of a probability distribution over frequencies. This means kernel evaluations can be approximated by inner products of low-dimensional random feature maps: sample D frequencies from the spectral distribution, map inputs to 2D-dimensional features via sine/cosine functions, and run linear regression. Training costs drop from O(n³) to O(nD). The approximation error is O(1/sqrt(D)) uniformly over all inputs. This insight connected kernel methods to linear methods and enabled GP-like modeling at n in the millions, at the cost of some approximation error and the loss of exact posterior inference.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK EXERCISES
-          ====================================================================== */}
-      <H2>11. Self-check exercises</H2>
-
-      <Prose>
-        Work through these before moving to the next topic. Answers are below each exercise — resist the urge to read ahead.
-      </Prose>
-
-      <H3>Exercise 1 (Recall)</H3>
-      <Prose>
-        Write the two GP posterior equations. What do <Code>{"K_{*X}"}</Code>, <Code>{"K_{XX}"}</Code>, and <Code>{"K_{**}"}</Code> represent? Why does the posterior variance formula always subtract a positive semidefinite term from the prior variance?
-      </Prose>
-      <Callout type="answer" title="Answer 1">
-        {"The GP posterior mean is: μ_* = K_{*X} (K_{XX} + σ_n^2 I)^{-1} y. The posterior covariance is: Σ_* = K_{**} - K_{*X} (K_{XX} + σ_n^2 I)^{-1} K_{X*}."}
-        {" K_{XX} is the n×n covariance matrix among training inputs: [K_{XX}]_{ij} = k(x_i, x_j). K_{*X} is the n_*×n matrix of kernel values between test and training inputs. K_{**} is the n_*×n_* covariance matrix among test inputs alone."}
-        {" The subtracted term K_{*X}(K_{XX}+σ_n^2 I)^{-1}K_{X*} is always positive semidefinite (it is a quadratic form with a positive definite center matrix). Subtracting it from the prior covariance K_{**} gives the posterior covariance — which is always ≤ the prior. This is the mathematical statement that observing data can only reduce uncertainty, never increase it. At a test point far from all training inputs, K_{*X} ≈ 0, the subtracted term is negligible, and the posterior ≈ prior. Near a training point, K_{*X} is large and the posterior variance is nearly zero (for noise-free data)."}
-      </Callout>
-
-      <H3>Exercise 2 (Derivation)</H3>
-      <Prose>
-        Interpret the three terms of the GP marginal log-likelihood: <Code>{"-½ yᵀ(K+σ²I)⁻¹y - ½ log|K+σ²I| - n/2 log(2π)"}</Code>. Why does maximizing this jointly learn both the data fit and the model complexity? How is this different from choosing hyperparameters by cross-validation?
-      </Prose>
-      <Callout type="answer" title="Answer 2">
-        {"The three terms are: (1) Data fit: -½ yᵀ(K+σ²I)^{-1}y — this is the squared Mahalanobis distance of y from zero under the model. Large when the model's predicted covariance structure does not match the observed data pattern. Maximizing this pushes hyperparameters to explain the data. (2) Complexity penalty: -½ log|K+σ²I| — the log-determinant of the covariance matrix. More flexible kernels (shorter length-scale, larger signal variance) have larger determinants → larger penalties. This term penalizes models that can explain any data pattern. (3) Normalizing constant: -n/2 log(2π) — does not depend on hyperparameters, irrelevant for optimization."}
-        {" Together, terms (1) and (2) implement automatic Occam's razor: a model that fits the data with less complexity (higher log-det penalty but better data fit) is preferred over one that overfits. This is qualitatively different from cross-validation: CV estimates generalization by holding out data and is expensive (K×n_configs training runs). Marginal likelihood is computed from training data alone in one forward pass — it is faster, analytically grounded, and does not waste data on validation."}
-      </Callout>
-
-      <H3>Exercise 3 (Applied)</H3>
-      <Prose>
-        You fit an RBF GP to a 1D dataset and notice that the 95% confidence intervals contain only 40% of held-out test points. List two distinct root causes and the appropriate fix for each.
-      </Prose>
-      <Callout type="answer" title="Answer 3">
-        {"Poor calibration (CI covers only 40% when it should cover 95%) means the model is overconfident — the posterior variance is too small."}
-        {" Cause 1: Length-scale too long (over-smoothing). When l is too large, the posterior variance collapses because the kernel says all points are highly correlated — the model thinks it knows the function everywhere. Fix: check that l was optimized with multiple restarts. Run the optimizer from 10 different initializations covering 3-4 orders of magnitude and take the best marginal likelihood. If the training data shows rapid variation, add a Matern-3/2 or Matern-5/2 kernel instead of RBF."}
-        {" Cause 2: Noise variance too small. If σ_n is underestimated (perhaps due to local optima or a near-noise-free initialization), the model attributes all training residuals to function variation rather than noise, and the posterior is overconfident. Fix: inspect the optimized σ_n against the empirical standard deviation of residuals at training inputs. If σ_n << std(y - μ_train), the noise is misspecified. Add a WhiteKernel to the kernel sum with a broad prior, or initialize log_sn with log(std(y)/2) rather than log(0.1)."}
-      </Callout>
-
-      <H3>Exercise 4 (Conceptual)</H3>
-      <Prose>
-        A colleague says: "GP regression is just kernel ridge regression with a Bayesian interpretation." Are they correct? What does KRR give you that GP doesn't, and what does GP give you that KRR doesn't?
-      </Prose>
-      <Callout type="answer" title="Answer 4">
-        {"Correct, with an important caveat. The GP posterior mean is mathematically identical to the KRR prediction: both are α = (K_XX + λI)^{-1} y followed by k_* · α where λ = σ_n^2 in the GP. So the predictions (mean only) are the same."}
-        {" What KRR gives you that GP doesn't: nothing extra for predictions. KRR is simply the point estimate."}
-        {" What GP gives you that KRR doesn't: (1) the full posterior — not just the mean but also the posterior variance (uncertainty) at each test point, which KRR has no principled analog for; (2) a principled method for selecting the regularization parameter λ via marginal likelihood rather than cross-validation; (3) a generative probabilistic model that enables sampling from the posterior distribution, computing expected improvement for Bayesian optimization, and making probabilistic statements about future observations; (4) extension to non-Gaussian likelihoods via approximate inference. The GP is strictly more informative than KRR — it provides everything KRR does, plus principled uncertainty quantification."}
-      </Callout>
-
-      <H3>Exercise 5 (Debugging)</H3>
-      <Prose>
-        You are running GP Bayesian optimization on a function with 8 input dimensions. After 50 trials, the GP surrogate predicts near-zero variance everywhere — the acquisition function is nearly constant and all new points cluster in a tiny region. What is wrong and how do you fix it?
-      </Prose>
-      <Callout type="answer" title="Answer 5">
-        {"The symptom (near-zero variance everywhere) indicates the RBF kernel's length-scale has been optimized to a very small value (over-fitting to noise) or — more likely in 8 dimensions — the isotropic length-scale has collapsed due to the curse of dimensionality."}
-        {" Root cause: In 8 dimensions, all pairwise squared distances ||x - x'||^2 concentrate around 8 × 2σ^2 (where σ^2 is the per-dimension variance). If the length-scale l is optimized over a bounded range, it may converge to a value where k(x, x') ≈ 0 for all pairs of distinct points — the kernel sees all points as independent. A marginal likelihood optimizer can then get stuck here because the gradient is near zero."}
-        {" Fixes: (1) Switch to ARD (Automatic Relevance Determination): use one length-scale per dimension. With ARD, the optimizer can discover which dimensions matter and set long l for uninformative dimensions and short l for informative ones. In sklearn: use RBF(length_scale=[1.0]*8) instead of RBF(length_scale=1.0). In GPyTorch: use gpytorch.kernels.RBFKernel(ard_num_dims=8). (2) Add bounded priors on the length-scale: constrain l to [0.1, 10.0] in the optimizer to prevent collapse. (3) Normalize the input space to [0,1]^d before fitting the GP. (4) If 8 dimensions is genuinely high for the number of trials (50), consider switching to a tree-based surrogate (SMAC, TPE) that does not assume a kernel smoothness structure."}
-      </Callout>
-
-      <H3>Exercise 6 (Synthesis)</H3>
-      <Prose>
-        You want to use GP regression on a dataset of n = 50,000 examples with d = 5 input features. Describe the exact approach you would take: which library, which kernel, which approximation (if any), how many inducing points, and how you would validate the model.
-      </Prose>
-      <Callout type="answer" title="Answer 6">
-        {"50k examples with d=5 is beyond exact GP (exact Cholesky requires ~3GB RAM for K_XX). The right approach:"}
-        {" Library: GPyTorch with GPflow as an alternative. Both support SVGP and GPU acceleration."}
-        {" Kernel: Matern-5/2 with ARD (5 separate length-scales for 5 dimensions). Matern-5/2 is twice-differentiable and less unrealistically smooth than RBF. ARD prevents length-scale collapse in d=5. Add a constant mean function if the data has a non-zero mean."}
-        {" Approximation: SVGP (Hensman et al., 2013) with m=500 inducing points. Place inducing points initially on a k-means++ grid of the training data. Training cost is O(n × m^2) per epoch = O(50000 × 250000) = O(1.25 × 10^10) — feasible with GPU and mini-batches of 256."}
-        {" Optimization: Use Adam with learning rate 0.01 on the ELBO. Train for 50-100 epochs, monitoring ELBO convergence. Use a separate validation set (10% held out) to check for overfitting."}
-        {" Validation: (1) Calibration check: compute the fraction of validation points within the 95% prediction interval — should be ~0.95. (2) Standardized residuals: (y - μ_*) / σ_* should be approximately N(0,1) — check with a Q-Q plot. (3) Compare the marginal likelihood (or ELBO) across different choices of m (100, 200, 500) to assess the inducing point approximation quality. (4) For regression: compute RMSE and negative log-predictive-density (NLPD) on the held-out set — NLPD penalizes both inaccurate means and miscalibrated variances."}
-      </Callout>
-
-    </div>
-  ),
+<Prose>{"Track the shapes: "}<Math>{"C"}</Math>{" is "}<Math>{"n\\times n"}</Math>{"; "}<Math>{"K_{X*}"}</Math>{" is "}<Math>{"n\\times q"}</Math>{"; μ is a "}<Math>{"q"}</Math>{"-vector; Σ is "}<Math>{"q\\times q"}</Math>{". Its diagonal gives marginal variances. Off-diagonal entries tell us how prediction errors at different targets remain related. Drawing an independent error bar at each target does not display that relationship."}</Prose>
+
+<Prose>{"The mean formula starts from the prior and adds an observation-based correction. The covariance formula starts from prior uncertainty and subtracts the part explained by observations. With fixed kernel and noise, adding an independent noisy observation cannot increase the conditional variance. Refitting hyperparameters changes the model itself, so comparisons across refits do not inherit that guarantee."}</Prose>
+
+<Prose>{"Known unequal Gaussian noise is still exact: use "}<Math>{"R=\\operatorname{diag}(\\sigma_1^2,\\ldots,\\sigma_n^2)"}</Math>{". Known correlated Gaussian noise can also be handled with a full "}<Math>{"R"}</Math>{", with appropriate cross-covariance terms if future noise is correlated with past noise. Unknown input-dependent noise requires an additional estimation model; it is not the same problem as simply supplying known variances."}</Prose>
+
+<H3>{"A two-observation calculation"}</H3>
+
+<Prose>{"Use inputs "}<Math>{"X=[0,2]"}</Math>{", values "}<Math>{"y=[1,-1]"}</Math>{", zero mean, noise variance 0.25, and the radial basis function (RBF) kernel"}</Prose>
+
+<MathBlock>{"k(x,z)=\\exp\\left[-\\frac{(x-z)^2}{2\\ell^2}\\right],\\qquad \\ell=1."}</MathBlock>
+
+<Prose>{"The off-diagonal covariance is "}<Math>{"e^{-2}\\approx0.135335"}</Math>{", so"}</Prose>
+
+<MathBlock>{"C=\\begin{bmatrix}1.25&0.135335\\\\0.135335&1.25\\end{bmatrix}."}</MathBlock>
+
+<Prose>{"At the midpoint "}<Math>{"x_*=1"}</Math>{", both cross-covariances are "}<Math>{"e^{-1/2}\\approx0.606531"}</Math>{". The opposite observed values cancel in the mean, giving zero. But their information does not cancel: latent variance falls from one to "}<strong>{"0.468895"}</strong>{". A zero prediction can be an informed estimate rather than an absence of evidence."}</Prose>
+
+<LessonTable caption={"Computed two-observation predictions"} headers={["Target x_*","Posterior mean","Latent variance","New-observation variance"]} rows={[[<>{"0"}</>,<>{"0.775717"}</>,<>{"0.199407"}</>,<>{"0.449407"}</>],[<>{"1"}</>,<>{"0"}</>,<>{"0.468895"}</>,<>{"0.718895"}</>],[<>{"2"}</>,<>{"−0.775717"}</>,<>{"0.199407"}</>,<>{"0.449407"}</>],[<>{"4"}</>,<>{"−0.121112"}</>,<>{"0.985182"}</>,<>{"1.235182"}</>]]} />
+
+<Prose>{"At 4 the data have little influence under this kernel. Farther away, the RBF cross-covariances approach zero: the mean returns to the prior mean and latent variance returns to the prior variance, one. The uncertainty does not disappear because the mean returns to zero."}</Prose>
+
+<ObservationMatrixFigure />
+<GaussianConditioningLab />
+
+<H3>{"Compute by solving, not by explicitly inverting"}</H3>
+
+<Prose>{"For a positive-definite "}<Math>{"C"}</Math>{", Cholesky factorization gives "}<Math>{"C=LL^T"}</Math>{". Solve "}<Math>{"Lz=r"}</Math>{" and "}<Math>{"L^T\\alpha=z"}</Math>{". For all targets, solve "}<Math>{"LV=K_{X*}"}</Math>{". Then"}</Prose>
+
+<MathBlock>{"\\mu_*=m_*+K_{X*}^T\\alpha,\\qquad\n\\Sigma_*=K_{**}-V^TV."}</MathBlock>
+
+<Prose>{"This avoids explicitly forming a matrix inverse and reuses the same factor for many predictions. Here is the complete small example. Save it as "}<Code>{"gp_conditioning.py"}</Code>{". In an isolated Python environment install "}<Code>{"numpy==2.3.5 scipy==1.18.1"}</Code>{", then run "}<Code>{"python gp_conditioning.py"}</Code>{"."}</Prose>
+
+<RunnableExample example={gaussianProcessExamples[0]} />
+
+<Prose>{"The last line checks a conceptual claim: changing only measured values preserves covariance. A materially negative computed variance signals a problem. Tiny negative roundoff may be clipped only within a documented numerical tolerance. If Cholesky fails, investigate an invalid kernel, duplicate noise-free observations, numerical scale, or nearly dependent rows. Small diagonal jitter can stabilize a valid near-singular system, but it changes that system; choose and report it relative to the covariance scale. Do not disguise substantial extra modeled noise as a numerical detail."}</Prose>
+
+<H2>{"4. Kernels express the kinds of change you expect"}</H2>
+
+<Prose>{"For the RBF kernel "}<Math>{"k=\\sigma_f^2\\exp[-r^2/(2\\ell^2)]"}</Math>{", "}<Math>{"r=|x-z|"}</Math>{", "}<Math>{"\\sigma_f^2"}</Math>{" is latent variance and ℓ is a length scale in input units. It is a correlation range, not a period. Smaller ℓ means observations have more local influence. It does not give a periodic prior or force the curve to interpolate noisy measurements."}</Prose>
+
+<Prose>{"In the same two-observation problem, midpoint mean is zero at every listed scale, but uncertainty differs:"}</Prose>
+
+<LessonTable caption={"Length-scale comparison"} headers={["RBF length ℓ","Midpoint latent variance","Mean at target 4","Why it changes"]} rows={[[<>{"0.3"}</>,<>{"0.999976"}</>,<>{"approximately 0"}</>,<>{"Neither observation strongly informs the gap"}</>],[<>{"1"}</>,<>{"0.468895"}</>,<>{"−0.121112"}</>,<>{"Information connects nearby locations"}</>],[<>{"3"}</>,<>{"0.127300"}</>,<>{"−0.867255"}</>,<>{"Long-range dependence strongly constrains the gap"}</>]]} />
+
+<KernelGeometryFigure />
+
+<Prose>{"The following choices answer different modeling questions. The normalized stationary forms below are multiplied by an output variance amplitude when needed."}</Prose>
+
+<LessonTable caption={"Kernel assumptions"} headers={["Kernel","Form or construction","Modeling question"]} rows={[[<>{"RBF"}</>,<><Math>{"e^{-r^2/(2\\ell^2)}"}</Math></>,<>{"Is an extremely smooth latent function plausible?"}</>],[<>{"Matérn 3/2"}</>,<><Math>{"(1+\\sqrt3r/\\ell)e^{-\\sqrt3r/\\ell}"}</Math></>,<>{"Should changes be less smooth than an RBF permits?"}</>],[<>{"Matérn 5/2"}</>,<><Math>{"(1+\\sqrt5r/\\ell+5r^2/(3\\ell^2))e^{-\\sqrt5r/\\ell}"}</Math></>,<>{"Is a smoother, but still finite-smoothness, model appropriate?"}</>],[<>{"Periodic"}</>,<><Math>{"e^{-2\\sin^2(\\pi r/p)/\\ell^2}"}</Math></>,<>{"Should positions one period "}<Math>{"p"}</Math>{" apart share the same latent value?"}</>],[<>{"Linear"}</>,<><Math>{"\\sigma_b^2+\\sigma_w^2xz"}</Math></>,<>{"Could a random intercept and slope explain the function?"}</>],[<>{"Rational quadratic"}</>,<><Math>{"(1+r^2/(2a\\ell^2))^{-a},\\ a>0"}</Math></>,<>{"Would a mixture of RBF length scales help?"}</>]]} />
+
+<Prose>{"Matérn parameter ν controls mean-square differentiability: an integer-order mean-square derivative of order "}<Math>{"j"}</Math>{" exists when ν > "}<Math>{"j"}</Math>{". Thus 3/2 and 5/2 permit one and two such derivatives. RBF permits every order. This is a property of the stochastic model, not something proved by a smooth-looking finite plot. "}<a href={"https://gaussianprocess.org/gpml/chapters/RW4.pdf"}>{"GPML, chapter 4, §§4.1–4.2"}</a>{" develops these distinctions."}</Prose>
+
+<Prose>{"Adding valid kernels gives another valid kernel. If "}<Math>{"f=f_1+f_2"}</Math>{" and the two zero-mean GP components are independent, their covariances add. A trend plus a seasonal effect therefore has a direct probabilistic interpretation."}</Prose>
+
+<Prose>{"Multiplying valid kernels also gives a valid kernel. For example, periodic × RBF preserves seasonal resemblance while making it fade across distant years. This is often called locally periodic covariance. The resulting model is a GP with that product covariance; multiplying two GP sample functions does "}<strong>{"not"}</strong>{" generally produce Gaussian function values."}</Prose>
+
+<Prose>{"For multiple input features, an RBF can use"}</Prose>
+
+<MathBlock>{"k(x,z)=\\sigma_f^2\\exp\\left[-\\frac12\\sum_j\\frac{(x_j-z_j)^2}{\\ell_j^2}\\right]."}</MathBlock>
+
+<Prose>{"A large fitted "}<Math>{"\\ell_j"}</Math>{" means the model changes little across that feature's observed range, holding others fixed. This automatic relevance determination (ARD) is sensitive to units, correlated inputs, and fitting assumptions; it does not establish causal importance. Fit any scaling on training inputs and preserve it for later inputs."}</Prose>
+
+<Prose><strong>{"Try a counterexample."}</strong>{" Under a perfectly periodic kernel, a point ten complete periods away can be strongly related to an observation. “Farther away always means more uncertainty” is therefore an RBF-style intuition, not a universal GP rule."}</Prose>
+
+<H2>{"5. Learn hyperparameters while checking the task you actually care about"}</H2>
+
+<Prose>{"Kernel parameters and noise assumptions affect both the fit and the uncertainty. One way to choose them is the "}<strong>{"log marginal likelihood"}</strong>{". It is the log density of all training observations after integrating out the latent function values:"}</Prose>
+
+<MathBlock>{"\\log p(y\\mid X,\\theta)\n=-\\tfrac12r^TC^{-1}r-\\tfrac12\\log|C|-\\tfrac n2\\log(2\\pi)."}</MathBlock>
+
+<Prose>{"The first term penalizes residuals in directions the covariance considers unlikely. The determinant accounts for the volume over which probability density is distributed. The last term normalizes the Gaussian. A model cannot freely broaden every direction to fit anything without changing how much density it gives the actual observations. Using "}<Math>{"C=LL^T"}</Math>{", compute half the log determinant as "}<Math>{"\\sum_i\\log L_{ii}"}</Math>{", as the program did."}</Prose>
+
+<Prose>{"For our deliberately conflicting observations "}<Code>{"[1, −1]"}</Code>{", log marginal likelihood is −2.861021, −2.952256, and −4.022773 for lengths 0.3, 1, and 3. Among these three fixed candidates, the short scale gives the observations higher density. This is a small comparison, not proof that the short scale is globally optimal or that shorter scales always win."}</Prose>
+
+<Prose>{"Optimizing θ integrates out "}<Math>{"f"}</Math>{" but "}<strong>{"does not integrate out θ"}</strong>{". A single optimized setting is an empirical-Bayes, plug-in choice. Full hyperparameter inference averages predictions over a posterior on θ and can reflect additional uncertainty. Optimization can have local optima; multiple initialized fits and sensible bounds help diagnose this, but do not guarantee a global optimum. "}<a href={"https://gaussianprocess.org/gpml/chapters/RW5.pdf"}>{"GPML, chapter 5, §§5.3–5.4"}</a>{" treats marginal likelihood alongside cross-validation."}</Prose>
+
+<Prose>{"Training marginal likelihood and held-out forecasting answer different questions. A high training density does not show that the next two years will be forecast well. Preserve a development protocol that matches the future use, compare a simple baseline, and keep final test outcomes out of model selection."}</Prose>
+
+<H2>{"6. A real experiment: predict future monthly CO₂"}</H2>
+
+<Prose>{"The NOAA Global Monitoring Laboratory measures atmospheric CO₂ at Mauna Loa. Our offline file contains monthly means for "}<strong>{"1990–1999"}</strong>{", 120 rows. Outputs are parts per million (ppm). These are historical observations, not simulated points. The source marks interpolated months with negative spread/uncertainty fields; none of the selected months has that flag. The retained provenance records the download and public-domain attribution. "}<a href={"https://gml.noaa.gov/ccgg/trends/data.html"}>{"NOAA data and explanation"}</a>{"."}</Prose>
+
+<Prose>{"Question: after observing through December 1997, how well can a small GP forecast the next 24 monthly means? To choose its kernel family, first simulate an earlier decision:"}</Prose>
+
+<ol><li>{"Fit on 1990–1995, 72 months."}</li>
+<li>{"Predict 1996–1997, 24 development months; choose the lower mean absolute error (MAE)."}</li>
+<li>{"Refit the chosen family on 1990–1997, then evaluate 1998–1999 once."}</li></ol>
+
+<Prose>{"MAE is Σ|actual − predicted| divided by the number of predictions. It has the same units as the observations. We also show root mean squared error (RMSE), which emphasizes larger errors, and count actual observations inside nominal pointwise 95% predictive intervals. The later evaluation lesson develops these metrics more broadly."}</Prose>
+
+<Prose>{"We compare an RBF-only model with a sum of linear, periodic, and RBF components. The latter can express continuing trend, an annual pattern, and smooth departures. Annual period is fixed at one year. Input is "}<Code>{"(year − 1990) + (month − 0.5)/12"}</Code>{", an evenly spaced monthly coordinate. We subtract the training mean and add it back at prediction; future observations do not determine that mean."}</Prose>
+
+<Prose>{"The observation noise variance "}<strong>{"0.09 ppm²"}</strong>{" is a fixed instructional modeling assumption, corresponding to standard deviation 0.3 ppm. It is not NOAA's reported measurement uncertainty or a fitted scientific conclusion. The final test will help expose the limitations of this simple noise model and covariance family."}</Prose>
+
+<Prose>{"Save "}<Code>{"mauna-loa-monthly.csv"}</Code>{" beside the following "}<Code>{"co2_gp.py"}</Code>{" program. The lesson download contains these historical rows and provenance, so running it requires no data fetch. In the environment used for the small example, install "}<Code>{"scikit-learn==1.9.1"}</Code>{" and run "}<Code>{"python co2_gp.py"}</Code>{"."}</Prose>
+
+<RunnableExample example={gaussianProcessExamples[1]} />
+
+<Prose>{"The kernel's amplitude and permitted length scales are optimized during fitting; "}<Code>{"alpha"}</Code>{" adds the fixed training-noise variance. Because these kernels contain no WhiteKernel, "}<Code>{"return_std"}</Code>{" describes the latent process in this setup. The explicit addition of 0.09 constructs the new-observation variance. A model with WhiteKernel has different prediction semantics, so adding its noise again would double count it. "}<a href={"https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html"}>{"GaussianProcessRegressor API"}</a>{"."}</Prose>
+
+<Prose>{"The retained author run used Python 3.12.14 and the package versions above:"}</Prose>
+
+<LessonTable caption={"Fixed historical evaluations"} headers={["Evaluation","MAE (ppm)","RMSE (ppm)","Observations inside 95% predictive intervals"]} rows={[[<>{"RBF, development"}</>,<>{"5.432943"}</>,<>{"5.884270"}</>,<>{"14/24"}</>],[<>{"Trend + periodic + RBF, development"}</>,<>{"0.320601"}</>,<>{"0.416399"}</>,<>{"24/24"}</>],[<>{"Selected family refitted, final test"}</>,<>{"1.233775"}</>,<>{"1.312967"}</>,<>{"13/24"}</>]]} />
+
+<Prose>{"The seasonal-naive baseline repeats each month of 1997 for both forecast years. It uses no 1998 observations to predict 1999 and gets test MAE "}<strong>{"3.813333 ppm"}</strong>{". The selected GP predicts levels better in this experiment, but its test uncertainty is much less reliable than the development result suggested."}</Prose>
+
+<HistoricalForecastFigure />
+
+<Prose>{"The count 13/24 is an observed coverage diagnostic for this one correlated time period; it is not an independent-binomial estimate from 24 unrelated cases. Optimized hyperparameters, covariance misspecification, changing growth, and the simplified noise assumptions can all affect coverage. This experiment does not identify a unique cause. A useful next development study would test additional earlier forecast origins and inspect residual structure before choosing richer trend or noise assumptions. Do not tune on these test outcomes and continue calling the same period untouched test data."}</Prose>
+
+<GaussianForecastLab />
+
+<Prose>{"This example connects to "}<a href={"https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_gpr_co2.html"}>{"scikit-learn's longer CO₂ kernel-design walkthrough"}</a>{". Its locally periodic construction provides a useful extension; the experiment here uses a smaller, independently specified period and a held-out comparison."}</Prose>
+
+<H2>{"7. Practice: calculate, diagnose, and transfer"}</H2>
+
+<H3>{"A. A weaker connection"}</H3>
+
+<Prose>{"Both latent variances are one, observation noise variance is one, the cross-covariance is 0.4, and the observed value is −3. Calculate the posterior mean, latent variance, and a future observation variance with the same noise. What changes if the cross-covariance is zero?"}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"The observed variable's variance includes noise. Use that total in both denominators; add future noise only after calculating latent variance."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"The observed variance is 2. Mean "}<Math>{"0.4(-3)/2=-0.6"}</Math>{"; latent variance "}<Math>{"1-0.16/2=0.92"}</Math>{"; observation variance "}<Math>{"0.92+1=1.92"}</Math>{". Zero cross-covariance gives mean 0, latent variance 1, and observation variance 2. An observation can be extreme while teaching nothing about an independent target."}</Prose></details>
+
+<H3>{"B. A constant prior is a strong claim"}</H3>
+
+<Prose>{"Let "}<Math>{"k(x,z)=1"}</Math>{" everywhere, with zero observation noise. Can this model accommodate two distinct values, 1 and −1, at different inputs? Would a small jitter fix the modeling issue?"}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"Calculate the prior variance of "}<Math>{"f(x)-f(z)"}</Math>{"."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"It is "}<Math>{"1+1-2=0"}</Math>{", so the values must be equal almost surely. The conflicting observations have no support under the model, and the covariance matrix is singular. Added diagonal variance permits observation disagreement only by changing the noise assumptions. Numerical stabilization does not make a constant latent function capable of varying."}</Prose></details>
+
+<H3>{"C. Diagnose a suspicious improvement"}</H3>
+
+<Prose>{"A colleague changes observation values, leaves locations and all hyperparameters fixed, and reports much narrower latent bands. Name a precise check. Then explain when a changed width could be legitimate."}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"Find where "}<Math>{"y"}</Math>{" appears in the conditional covariance formula."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"There is no "}<Math>{"y"}</Math>{" in that formula. Compare the two covariance arrays while holding kernel, noise, input preprocessing, and target grid fixed. In the supplied implementation they must match to numerical tolerance. If the fit also re-estimated kernel/noise parameters or target normalization, the model changed, and widths may legitimately differ. Log those settings before diagnosing the solver."}</Prose></details>
+
+<H3>{"D. A forecast review"}</H3>
+
+<Prose>{"An engineer says, “Our test MAE beats seasonal-naive, so the GP's 95% band is validated.” Write a short correction and one next study using the supplied experiment."}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"Point accuracy and interval performance measure different things. Preserve the used test's status."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"“The GP improves test MAE from 3.813 to 1.234 ppm, but only 13 of 24 test observations are inside its nominal 95% intervals. That period does not support the interval claim.” An appropriate next study uses multiple earlier training cutoffs, forecasts a fixed horizon, and compares residual patterns and interval behavior for predeclared kernels/noise assumptions. Reserve a later, genuinely unused period for a subsequent final evaluation. Do not merely enlarge bands until this test count looks satisfactory."}</Prose></details>
+
+<H3>{"E. Your own kernel proposal"}</H3>
+
+<Prose>{"A sensor signal has a drifting baseline and a daily cycle whose shape slowly changes. Propose a covariance composition; explain how two distant readings at the same hour should relate."}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"The seasonal effect needs both recurrence and decay across days."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"One defensible model is a long-scale RBF or explicit trend component plus periodic("}<Math>{"p=1"}</Math>{" day) × RBF with a longer day-to-day decay scale, plus separately modeled observation noise. Same-hour readings remain strongly related nearby in time, but the periodic component's covariance fades over many days. Validate the decay scale using held-out future periods. Different compositions can be justified if their assumptions and evaluation protocol are explicit."}</Prose></details>
+
+<H2>{"8. Deeper application: where should we measure next?"}</H2>
+
+<Prose>{"Read this branch after you can interpret the conditional covariance. Suppose the pipe experiment's main goal is reducing uncertainty at target "}<Math>{"x_t=1"}</Math>{", and a new noisy reading costs the same at either candidate location. Use the "}<strong>{"current posterior covariance"}</strong>{" "}<Math>{"c_D"}</Math>{", after accounting for existing data. A measurement at candidate "}<Math>{"z"}</Math>{", with independent noise variance "}<Math>{"\\sigma_n^2"}</Math>{", reduces target variance by"}</Prose>
+
+<MathBlock>{"\\Delta(z)=\\frac{c_D(x_t,z)^2}{c_D(z,z)+\\sigma_n^2}."}</MathBlock>
+
+<Prose>{"This is the one-observation update again, now starting from the current posterior rather than the original prior. The candidate's own uncertainty is only part of the decision: it must also inform the target."}</Prose>
+
+<Prose>{"For the two-observation RBF example, candidates 1 and 4 reduce target variance by "}<strong>{"0.305834"}</strong>{" and "}<strong>{"0.001888"}</strong>{", respectively. Location 4 is quite uncertain but weakly related to the target after existing observations. Measuring near the gap is much more useful for this particular goal. With zero target-candidate covariance, the reduction is exactly zero. With very noisy new observations, the reduction tends toward zero even if the locations are related."}</Prose>
+
+<ProbeChoiceFigure />
+<GaussianProbeLab />
+
+<Prose>{"An optimization goal is different. If you seek a small objective value, a common acquisition is expected improvement. For a noiseless incumbent "}<Math>{"b"}</Math>{", predictive mean μ and standard deviation "}<Math>{"s>0"}</Math>{", let "}<Math>{"z=(b-\\mu)/s"}</Math>{". Then"}</Prose>
+
+<MathBlock>{"\\operatorname{EI}=(b-\\mu)\\Phi(z)+s\\phi(z),"}</MathBlock>
+
+<Prose>{"where Φ and φ are the standard normal cumulative distribution and density. For "}<Math>{"b=1"}</Math>{", candidate A with μ=0.8, "}<Math>{"s=0.1"}</Math>{" has EI 0.200849; B with μ=1, "}<Math>{"s=0.5"}</Math>{" has EI 0.199471. A slightly wins despite B's greater uncertainty. At "}<Math>{"s=0"}</Math>{", use the continuous limit "}<Math>{"\\max(b-\\mu,0)"}</Math>{". With noisy observations, the best observed value need not be a known latent incumbent; noisy acquisitions must account for that distinction. Expected improvement chooses experiments that might improve an objective, while target-variance reduction chooses experiments that clarify a target. Neither is a universal “pick the most uncertain” rule."}</Prose>
+
+<Prose><strong>{"Transfer check."}</strong>{" Suppose A instead has μ=1.2, "}<Math>{"s=0.1"}</Math>{", while B has μ=1, "}<Math>{"s=0.2"}</Math>{", with incumbent 1. Which has greater expected improvement?"}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"A can improve only through the low tail of a distribution mostly above the incumbent. B is centered at the incumbent, so its first EI term is zero."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"A has "}<Math>{"z=-2"}</Math>{", EI approximately 0.000849. B has "}<Math>{"z=0"}</Math>{", EI "}<Math>{"0.2/\\sqrt{2\\pi}\\approx0.079788"}</Math>{", so B wins. Uncertainty is useful when it creates a meaningful chance of improvement; its effect depends on the mean and objective too."}</Prose></details>
+
+<H2>{"9. Deeper connections and extensions"}</H2>
+
+<H3>{"Classification changes the likelihood"}</H3>
+
+<Prose>{"A Gaussian latent value can drive a class probability through a sigmoid: "}<Math>{"p(y_i=1\\mid f_i)=1/(1+e^{-f_i})"}</Math>{". The likelihood is Bernoulli, so multiplying it by the Gaussian prior no longer produces an exact Gaussian posterior. A Laplace approximation finds the posterior mode "}<Math>{"\\hat f"}</Math>{" and uses local curvature to approximate its shape:"}</Prose>
+
+<MathBlock>{"q(f)=\\mathcal N(\\hat f,(K^{-1}+W)^{-1}),\n\\quad W_{ii}=\\pi_i(1-\\pi_i),\\quad\\pi_i=\\operatorname{sigmoid}(\\hat f_i)."}</MathBlock>
+
+<Prose>{"The prediction integrates the sigmoid over uncertain latent values. Generally "}<Math>{"\\mathbb E[\\operatorname{sigmoid}(f_*)]\\ne\\operatorname{sigmoid}(\\mathbb E[f_*])"}</Math>{". The latter discards uncertainty before converting to probability. A probability close to 0.5 can reflect ambiguous outcomes or uncertain latent values; one probability alone does not separate those causes. Expectation propagation and variational inference provide other approximations. The "}<a href={"https://scikit-learn.org/stable/modules/gaussian_process.html"}>{"scikit-learn GP guide"}</a>{" explains its Laplace classifier and contrasts its multiclass strategies with a direct joint multiclass likelihood."}</Prose>
+
+<H3>{"What makes exact regression expensive?"}</H3>
+
+<Prose>{"For dense "}<Math>{"n\\times n"}</Math>{" covariance, storage is "}<Math>{"O(n^2)"}</Math>{", and one Cholesky factorization is "}<Math>{"O(n^3)"}</Math>{". Hyperparameter fitting repeats expensive evaluations. After fitting, a single mean prediction takes "}<Math>{"O(n)"}</Math>{" algebra beyond kernel evaluation; its variance requires a triangular solve taking "}<Math>{"O(n^2)"}</Math>{". For many targets, batch solves reuse the factor. A full covariance among "}<Math>{"q"}</Math>{" targets additionally needs "}<Math>{"O(q^2)"}</Math>{" output storage and cross-target work. Prediction is not uniformly linear just because the mean is."}</Prose>
+
+<Prose>{"At "}<Math>{"n=50{,}000"}</Math>{", one dense float64 matrix alone occupies "}<Math>{"8n^2=20\\times10^9"}</Math>{" bytes, about 20 GB decimal. Factorization workspaces and copies require more. There is no universal row count at which a GP becomes unusable: kernel structure, precision, hardware, repeated fits, and latency requirements matter."}</Prose>
+
+<Prose>{"Inducing-variable methods summarize the function through "}<Math>{"m\\ll n"}</Math>{" latent values "}<Math>{"u=f(Z)"}</Math>{". The locations "}<Math>{"Z"}</Math>{" need not be a subset of observed inputs. Under a Gaussian model, define "}<Math>{"Q=K_{XZ}K_{ZZ}^{-1}K_{ZX}"}</Math>{". Titsias's variational regression bound is"}</Prose>
+
+<MathBlock>{"\\log\\mathcal N(y;0,Q+\\sigma_n^2I)\n-\\frac{\\operatorname{tr}(K_{XX}-Q)}{2\\sigma_n^2}."}</MathBlock>
+
+<Prose>{"The trace term penalizes latent variance the inducing representation leaves unexplained. It is an approximation objective with a reason for its correction, not a claim that selected points exactly replace all data. Dense inducing calculations commonly involve "}<Math>{"O(nm^2+m^3)"}</Math>{" work. "}<a href={"https://proceedings.mlr.press/v5/titsias09a/titsias09a.pdf"}>{"Titsias, 2009, equation 9"}</a>{"."}</Prose>
+
+<Prose>{"Stochastic variational methods keep a distribution "}<Math>{"q(u)"}</Math>{" and optimize an evidence lower bound whose likelihood contribution is a sum over observations. Minibatches estimate that sum, while a KL term compares "}<Math>{"q(u)"}</Math>{" with its prior. This gives a route to large datasets and non-Gaussian likelihoods; approximation quality still depends on the representation and optimization. "}<a href={"https://arxiv.org/abs/1309.6835"}>{"Hensman, Fusi and Lawrence, 2013"}</a>{"."}</Prose>
+
+<Prose>{"Structured kernel interpolation instead approximates covariance using interpolation onto inducing locations with useful grid structure. Fast matrix-vector products can support iterative linear solves, with costs depending on that structure and convergence. "}<a href={"https://proceedings.mlr.press/v37/wilson15.html"}>{"Wilson and Nickisch, 2015"}</a>{". Neither technique makes every arbitrary kernel calculation exact and linear-time."}</Prose>
+
+<Prose>{"Random features approximate a kernel by a fixed feature inner product. Use the "}<strong>{"same sampled feature map"}</strong>{" for training and prediction. If a feature matrix has "}<Math>{"n\\times D"}</Math>{" entries, its storage is "}<Math>{"O(nD)"}</Math>{"; that does not make a dense ridge solve "}<Math>{"O(nD)"}</Math>{". Forming its normal matrix costs "}<Math>{"O(nD^2)"}</Math>{", with "}<Math>{"O(D^3)"}</Math>{" factorization, before choices such as iterative optimization. A Gaussian prior on finite feature weights defines an approximate GP and can retain Bayesian uncertainty; using only point-estimated linear weights does not automatically do so."}</Prose>
+
+<H3>{"The GP–kernel ridge connection, with its boundary"}</H3>
+
+<Prose>{"Kernel ridge regression minimizes"}</Prose>
+
+<MathBlock>{"\\frac1n\\sum_i(y_i-f(x_i))^2+\\lambda\\|f\\|_{\\mathcal H_k}^2."}</MathBlock>
+
+<Prose>{"Its fitted function is "}<Math>{"k(x,X)(K+n\\lambda I)^{-1}y"}</Math>{". For a zero-mean GP with the same fixed kernel and independent Gaussian noise, the posterior mean is identical when "}<strong><Math>{"\\sigma_n^2"}</Math>{" = nλ"}</strong>{". If the loss were a sum instead of an average, the matching factor would change. The deterministic regularization objective alone does not supply the GP's posterior intervals. "}<a href={"https://arxiv.org/pdf/1807.02582"}>{"Kanagawa et al., 2018, Proposition 3.6"}</a>{"."}</Prose>
+
+<Prose>{"There is a subtle difference between a posterior mean and a sampled path. Brownian covariance "}<Math>{"k(s,t)=\\min(s,t)"}</Math>{" on [0,1] has an RKHS of absolutely continuous functions anchored at zero with square-integrable derivative. Brownian sample paths almost surely do not belong to that RKHS, even though its geometry defines the kernel. A fitted mean can be much more regular than a typical random path. This infinite-dimensional example should not be generalized to every finite-rank GP: the random-line GP has paths in its finite-dimensional span. The same "}<a href={"https://arxiv.org/pdf/1807.02582"}>{"survey's §4.1"}</a>{" explains why sample-path membership needs care."}</Prose>
+
+<H3>{"Functions can connect different kinds of observations"}</H3>
+
+<Prose>{"For a sufficiently differentiable kernel, differentiating it gives covariance between a function and a derivative:"}</Prose>
+
+<MathBlock>{"\\operatorname{Cov}(f(x),f'(z))=\\partial_zk(x,z),\\quad\n\\operatorname{Cov}(f'(x),f'(z))=\\partial_x\\partial_zk(x,z)."}</MathBlock>
+
+<Prose>{"For RBF amplitude one, "}<Math>{"\\operatorname{Var}(f'(x))=1/\\ell^2"}</Math>{", with units of output²/input². Slope measurements from a simulator can therefore enter the same joint conditioning system as value measurements. The kernel must support the derivatives being observed; a rough prior cannot be differentiated merely because the program can differentiate its formula away from the diagonal."}</Prose>
+
+<Prose>{"A related extension gives a kernel two output indices, "}<Math>{"k((x,a),(z,b))"}</Math>{", to express covariance between different sensors or tasks. Separately fitting one GP per output assumes away those cross-output connections. These extensions are valuable when there is a defensible relationship between measurements, and require checking the resulting joint covariance rather than treating every input column as interchangeable."}</Prose>
+
+<Prose><strong>{"Connection check."}</strong>{" An average-loss KRR fit has 40 examples and λ=0.025. What noise variance matches its mean under the fixed-kernel, zero-mean GP assumptions? What additional claim would be unjustified from the KRR objective alone?"}</Prose>
+
+<details><summary>{"Hint"}</summary><Prose>{"Keep the factor of "}<Math>{"n"}</Math>{" from the average loss."}</Prose></details>
+
+<details><summary>{"Solution"}</summary><Prose>{"The matching variance is "}<Math>{"40(0.025)=1"}</Math>{", not 0.025. Claiming posterior credible intervals from the deterministic KRR objective alone is unjustified: those intervals need probabilistic assumptions, including the GP prior and observation model."}</Prose></details>
+
+<H2>{"10. References & another way to learn it"}</H2>
+
+<ul><li><a href={"https://gaussianprocess.org/gpml/chapters/RW.pdf"}>{"Rasmussen and Williams, "}<em>{"Gaussian Processes for Machine Learning"}</em></a>{": the free canonical textbook. Chapter 2 develops regression from weights and functions; chapter 4 explains covariance choices; chapter 5 treats model selection. Chapters 3 and 8 extend the core to classification and approximations. Use these after the numerical conditioning example."}</li>
+<li><a href={"https://distill.pub/2019/visual-exploration-gaussian-processes/"}>{"Görtler, Kehlbeck and Deussen, "}<em>{"A Visual Exploration of Gaussian Processes"}</em></a>{": an interactive article for seeing joint Gaussians, conditioning, and function samples. Its geometric view is especially useful if matrix notation feels disconnected from the picture. Keep variance and standard deviation distinct when translating a covariance diagonal into a plotted width."}</li>
+<li><a href={"https://scikit-learn.org/stable/modules/gaussian_process.html"}>{"scikit-learn, Gaussian processes guide"}</a>{": practical reference for regression, classification, kernels, and API assumptions. Consult it when choosing how to represent known noise or reading prediction output."}</li>
+<li><a href={"https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_gpr_co2.html"}>{"scikit-learn, CO₂ forecasting example"}</a>{": a longer worked kernel-composition example. Compare its locally periodic structure with the simpler fixed experiment here; its reported result is a different experiment."}</li>
+<li><a href={"https://mlg.eng.cam.ac.uk/teaching/4f13/1213/lect0304.pdf"}>{"Rasmussen and Ghahramani, Cambridge lectures 3–4"}</a>{": compact lecture notes on the move from Bayesian linear models to GP regression. Suitable after section 3 as another mathematical route."}</li>
+<li><a href={"https://arxiv.org/pdf/1807.02582"}>{"Kanagawa et al., "}<em>{"Gaussian Processes and Kernel Methods: A Review on Connections and Equivalences"}</em></a>{": advanced reading for the exact KRR correspondence and distinctions between RKHS functions and sample paths."}</li>
+<li><a href={"https://proceedings.mlr.press/v5/titsias09a.html"}>{"Titsias, variational inducing variables"}</a>{", "}<a href={"https://arxiv.org/abs/1309.6835"}>{"Hensman et al., stochastic variational GPs"}</a>{", and "}<a href={"https://proceedings.mlr.press/v37/wilson15.html"}>{"Wilson and Nickisch, structured kernel interpolation"}</a>{": three different mechanisms for scaling inference. Read the mechanism you need rather than treating their complexity statements as interchangeable."}</li></ul>
+
+<Prose>{"The next topic in this module is "}<strong>{"Semi-Supervised Learning"}</strong>{". Here unlabeled locations acquired predictions through a covariance model and observed numerical values. Next, unlabeled examples help classification through assumptions about input geometry, class structure, or agreeing views. A large unlabeled collection is useful only when those assumptions connect its structure to the labels we need. "}</Prose>
+<aside className="lesson-intro"><p><strong>Run the two examples offline.</strong> Download <a href="/learn/examples/gaussian-processes-gp/gp_conditioning.py" download>gp_conditioning.py</a>, <a href="/learn/examples/gaussian-processes-gp/co2_gp.py" download>co2_gp.py</a> and <a href="/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv" download>the NOAA monthly CSV</a>. Keep the CSV beside co2_gp.py. <a href="/learn/examples/gaussian-processes-gp/README.md" download>Data provenance and attribution</a>.</p></aside>
+</div>,
 };
-
-export default gpContent;

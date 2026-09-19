@@ -57,6 +57,7 @@ const allTopicsOrdered = Object.values(topicCatalogue).map((topic, order) => {
   }
   return {
     id: topic.id, title: lesson?.title ?? topic.title, category: topic.trackId,
+    ...(topic.subtopics?.length ? { subtopics: topic.subtopics } : {}),
     trackId: topic.trackId, trackIds: topic.trackIds, level: topic.level || "foundation",
     section: topic.section, readTime: lesson?.readTime ?? "Syllabus outline",
     prerequisiteIds: topic.prerequisiteIds, designStatus: topic.designStatus,

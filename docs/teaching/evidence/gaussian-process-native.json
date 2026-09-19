@@ -1,0 +1,19 @@
+{
+  "programsExecuted": [
+    "gp_conditioning.py",
+    "co2_gp.py"
+  ],
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "scipy": "1.18.1",
+  "sklearn": "1.9.1",
+  "packetResultsReproduced": true,
+  "files": {
+    "src/learn/data/gaussian-process-data.js": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f",
+    "src/learn/data/gaussian-process-examples.js": "e2effc3ffb00e2091ff7c5d03e3cf24681f317bd037891988b753af3c84cf178",
+    "public/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv": "2cfdb2e70ae5dd23b866dae81bae495d3f2906c1450019dae046b474a9301309",
+    "public/learn/examples/gaussian-processes-gp/README.md": "978aede94ae17ff46a3292e06d6ea025a5aef9f6ca80a080a65316f41db5aefb",
+    "public/learn/examples/gaussian-processes-gp/gp_conditioning.py": "d658370c8a8b85cc342e50a86f5548e586eea52bc987a42e4d4dcd82ee2f54c2",
+    "public/learn/examples/gaussian-processes-gp/co2_gp.py": "2f03a685a4cc846befccd8d90a7167ea01d70e6e0236a5fde44da55558a394ad"
+  }
+}

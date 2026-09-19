@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "checks": [
+    "Harmonic chain, exact equilibrium and synchronous trace against NumPy packet",
+    "Shortcut reverses B; severed chain separates anchors",
+    "Soft solutions, raw/normalized quantities and intermediate states against independent NumPy",
+    "Unanchored islands, degree-zero nodes and no-anchor null",
+    "Single class, contradictory anchors, exact tie and high-alpha convergence",
+    "Graph parser accepts arbitrary named edits and rejects malformed/duplicate/invalid rows",
+    "Prototype default and edited contrast, including final refit",
+    "Prototype null, duplicates, empty pool, equality, stable softmax and reversed classes",
+    "Changed practice calculations independently derived in manuscript",
+    "Categorical transfer trace agrees with complete independent Python algorithm",
+    "Changed bridge, duplicate view, no anchors and broken-bridge transfer",
+    "Conflicting category abstains, observed labels persist and row permutation preserves batch semantics"
+  ],
+  "sourceHashes": {
+    "src/learn/data/semi-supervised-models.js": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+    "docs/teaching/drafts/semi-supervised-learning-label-propagation-self-training-co-training/checked-results.json": "157fb035d1148b52d7d75496c87540527f8de1546230d4a5d5a5567e545c2adf",
+    "scripts/verify-semi-supervised-models.mjs": "46605aad63b852edbd7e33d1ea0e0b74c154f0969d4bf87c9808120b591552de"
+  },
+  "limits": "Deterministic tiny teaching models; banknote library fitting verified separately. Numerical comparisons do not establish visual or independent pedagogical review."
+}

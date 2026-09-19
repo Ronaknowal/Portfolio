@@ -1,0 +1,4021 @@
+{
+  "recorded": "2026-09-17T20:21:53.908Z",
+  "topicIds": [
+    "vectors-matrices-tensor-operations",
+    "matrix-decompositions-svd-qr-cholesky-lu",
+    "eigenvalues-eigenvectors",
+    "matrix-calculus-jacobians",
+    "tensor-algebra-einsum-notation",
+    "randomized-linear-algebra",
+    "multivariate-calculus-gradients",
+    "convex-optimization",
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars",
+    "learning-rate-schedules-cosine-warmup-onecyclelr",
+    "convex-duality-lagrangian-methods-kkt-conditions",
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+    "non-convex-optimization-landscape",
+    "constrained-multi-objective-optimization",
+    "probability-distributions-bayes-theorem",
+    "maximum-likelihood-map-estimation",
+    "hypothesis-testing-confidence-intervals",
+    "bayesian-inference-conjugate-priors",
+    "concentration-inequalities-hoeffding-bernstein-chernoff",
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts",
+    "variational-inference",
+    "exponential-families-sufficient-statistics",
+    "measure-theory-probability-spaces",
+    "optimal-transport-wasserstein-distance-sinkhorn",
+    "causal-inference-do-calculus",
+    "entropy-cross-entropy-kl-divergence",
+    "mutual-information-information-bottleneck",
+    "rate-distortion-theory",
+    "f-divergences-integral-probability-metrics",
+    "graph-fundamentals-adjacency-laplacian-connectivity",
+    "spectral-graph-theory",
+    "combinatorial-optimization-approximation-algorithms",
+    "stochastic-processes-markov-chains-brownian-motion-poisson",
+    "random-matrix-theory",
+    "queueing-theory-m-m-1-m-g-1-little-s-law",
+    "dynamical-systems-theory-chaos",
+    "it-calculus-stochastic-differential-equations",
+    "numerical-methods-finite-differences-quadrature-root-finding",
+    "functional-analysis-rkhs",
+    "topology-topological-data-analysis-tda",
+    "category-theory-emerging-use-in-ml",
+    "differential-geometry-riemannian-manifolds",
+    "algebra-functions-exponentials-logarithms",
+    "sets-logic-relations-proof-techniques",
+    "geometry-trigonometry-coordinate-reasoning",
+    "counting-combinatorics-mathematical-induction",
+    "single-variable-calculus-limits-derivatives-integrals",
+    "random-variables-expectation-covariance",
+    "sampling-measurement-experimental-design",
+    "ordinary-differential-equations-linear-systems",
+    "complex-numbers-fourier-laplace-transforms",
+    "conditioning-stability-numerical-analysis",
+    "decision-theory-risk-cost-sensitive-decisions",
+    "real-analysis-sequences-modes-of-convergence",
+    "abstract-algebra-groups-symmetry-actions",
+    "partial-differential-equations-conservation-boundary-conditions",
+    "numerical-pdes-grids-finite-elements-stability",
+    "linear-logistic-regression",
+    "decision-trees-random-forests",
+    "k-nearest-neighbors-knn",
+    "gradient-boosted-trees-xgboost-lightgbm-catboost",
+    "support-vector-machines-svm",
+    "naive-bayes-probabilistic-classifiers",
+    "ensemble-methods-stacking",
+    "recommender-systems-collaborative-filtering-matrix-factorization",
+    "multi-label-multi-output-learning",
+    "survival-analysis-cox-regression-kaplan-meier-hazard-models",
+    "k-means-hierarchical-clustering",
+    "pca-dimensionality-reduction",
+    "clustering-evaluation-validation-silhouette-ari-nmi",
+    "dbscan-density-based-clustering",
+    "anomaly-outlier-detection-isolation-forest-one-class-svm-lof",
+    "gaussian-mixture-models-gmm-em-algorithm",
+    "t-sne-umap-manifold-learning",
+    "independent-component-analysis-ica",
+    "non-negative-matrix-factorization-nmf",
+    "feature-scaling-encoding-imputation",
+    "cross-validation-hyperparameter-tuning",
+    "regularization-l1-l2-elastic-net-dropout",
+    "feature-selection-importance-shap-permutation-mutual-info",
+    "bias-variance-tradeoff-learning-curves",
+    "imbalanced-learning-smote-cost-sensitive-learning",
+    "automl-neural-architecture-search-nas",
+    "hidden-markov-models-hmm",
+    "bayesian-networks-causal-graphical-models",
+    "conditional-random-fields-crf",
+    "gaussian-processes-gp",
+    "semi-supervised-learning-label-propagation-self-training-co-training",
+    "active-learning",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "pac-learning-vc-dimension",
+    "calibration-conformal-prediction",
+    "rademacher-complexity-generalization-bounds",
+    "ml-problem-formulation-baselines-data-leakage",
+    "time-series-validation-forecasting-baselines",
+    "end-to-end-supervised-learning-error-analysis",
+    "perceptrons-neurons-activation-functions",
+    "backpropagation-automatic-differentiation",
+    "loss-functions-ce-mse-focal-contrastive-triplet",
+    "batch-layer-group-rms-normalization",
+    "transfer-learning-fine-tuning-strategies",
+    "weight-initialization-xavier-kaiming-p",
+    "residual-connections-skip-connections",
+    "dropout-droppath-stochastic-depth",
+    "convolution-pooling-receptive-fields",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "depthwise-separable-dilated-convolutions",
+    "convnext-modern-cnn-designs",
+    "capsule-networks",
+    "rnns-lstms-grus",
+    "sequence-to-sequence-encoder-decoder",
+    "attention-mechanism-bahdanau-luong",
+    "long-context-sequence-models-transformer-xl-griffin-perceiver",
+    "state-space-models-s4-mamba-mamba-2",
+    "rwkv-linear-attention-models",
+    "self-attention-multi-head-attention",
+    "transformer-block-architecture",
+    "positional-encodings-sinusoidal-learned-rope-alibi",
+    "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "multi-head-latent-attention-mla",
+    "sparse-linear-attention-variants",
+    "vision-transformers-vit-deit-swin-dinov2",
+    "mixture-of-experts-transformers-moe",
+    "interleaved-cross-attention-architectures",
+    "message-passing-graph-convolutions-gcn-gat-graphsage",
+    "graph-transformers-geometric-deep-learning",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "spectral-normalization-gradient-penalty",
+    "modern-hopfield-networks",
+    "xlstm-extended-lstm",
+    "hyena-long-convolution-models",
+    "ring-attention-sequence-parallelism",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+    "neural-ode-continuous-depth-models",
+    "hybrid-ssm-transformer-architectures-jamba",
+    "titans-multi-memory-architecture",
+    "mini-batches-training-loops-gradient-accumulation",
+    "neural-training-diagnostics-reproducible-experiments",
+    "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+    "byte-level-tokenization-token-free-models",
+    "vocabulary-design-multilingual-tokenization",
+    "multimodal-tokenization-visual-audio-video",
+    "dynamic-tokenization-adat-boundlessbpe-litetoken",
+    "causal-language-modeling-next-token-prediction",
+    "masked-language-modeling-bert-style",
+    "data-curation-deduplication-minhash-bloom-filters",
+    "scaling-laws-kaplan-chinchilla-beyond",
+    "curriculum-learning-data-mixing-strategies",
+    "fp8-training-low-precision-pre-training",
+    "moe-training-expert-load-balancing",
+    "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+    "data-curation-pipelines-curator-models-quality-filtering",
+    "synthetic-data-generation-for-pre-training",
+    "supervised-fine-tuning-sft",
+    "rlhf-reinforcement-learning-from-human-feedback",
+    "dpo-direct-preference-optimization",
+    "simpo-simple-preference-optimization",
+    "p-tuning-soft-prompt-methods",
+    "grpo-rloo-kto-advanced-preference-methods",
+    "constitutional-ai-cai",
+    "process-reward-models-prm-vs-outcome-reward-models-orm",
+    "rlaif-ipo-orpo-emerging-alignment-methods",
+    "rlvr-reinforcement-learning-with-verifiable-rewards",
+    "dapo-dynamic-adaptive-policy-optimization",
+    "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+    "rl-for-reasoning-deepseek-r1-style",
+    "kv-cache-memory-management",
+    "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+    "structured-output-constrained-decoding-outlines-xgrammar",
+    "continuous-batching-pagedattention",
+    "queueing-theory-for-llm-serving",
+    "speculative-decoding",
+    "prefix-caching-prompt-caching",
+    "inference-cost-economics-compute-scaling",
+    "test-time-compute-scaling",
+    "inference-engines-serving",
+    "inference-system-architecture-end-to-end",
+    "request-routing-load-balancing",
+    "autoscaling-gpu-resource-management",
+    "disaggregated-prefill-decode",
+    "caching-strategies-semantic-exact-kv-cache-sharing",
+    "multi-model-serving-model-routing",
+    "rate-limiting-quota-management-fairness",
+    "guardrails-input-output-filtering-safety-layers",
+    "observability-llm-monitoring",
+    "streaming-server-sent-events-sse",
+    "cost-optimization-tco-analysis",
+    "edge-on-premise-deployment-architectures",
+    "multi-region-global-inference-infrastructure",
+    "context-window-extension-rope-scaling-yarn-ntk-aware",
+    "retrieval-augmented-generation-rag",
+    "embedding-models-vector-databases",
+    "graphrag-agentic-rag",
+    "model-merging-ties-dare-model-soups-slerp",
+    "hybrid-search-dense-sparse-reranking",
+    "language-model-batches-attention-masks-loss-alignment",
+    "pretraining-corpus-provenance-rights-dataset-governance",
+    "train-evaluate-document-a-small-language-model",
+    "rag-corpus-ingestion-citation-lineage-freshness",
+    "mdps-bellman-equations-dynamic-programming",
+    "value-iteration-policy-iteration",
+    "monte-carlo-temporal-difference-td-methods",
+    "on-policy-off-policy-importance-sampling",
+    "q-learning-sarsa",
+    "exploration-vs-exploitation-greedy-ucb-thompson-sampling",
+    "dqn-rainbow-extensions",
+    "policy-gradient-methods-reinforce-a2c",
+    "policy-gradients-baselines-generalized-advantage-estimation-gae",
+    "ppo-proximal-policy-optimization",
+    "trpo-trust-region-policy-optimization",
+    "representation-learning-for-rl-curl-drq-data-augmentation",
+    "a3c-impala-scalable-distributed-rl",
+    "r2d2-agent57-atari-scale-rl",
+    "sac-soft-actor-critic-maximum-entropy-rl",
+    "ddpg-td3-continuous-action-spaces",
+    "distributional-rl-c51-qr-dqn-iqn",
+    "model-based-rl-dreamer-muzero-world-models",
+    "landmark-rl-systems-alphago-alphazero-muzero",
+    "hierarchical-rl-options-goal-conditioned-ham",
+    "multi-agent-rl-marl",
+    "offline-rl-conservative-q-learning-cql",
+    "decision-transformer-sequence-modeling-for-rl",
+    "iql-implicit-q-learning",
+    "inverse-rl-imitation-learning-gail-dagger-bc",
+    "reward-shaping-intrinsic-motivation-curiosity-rnd",
+    "sim-to-real-transfer-domain-randomization",
+    "safe-rl-constrained-mdps",
+    "reward-modeling-rlhf-for-llms",
+    "self-play-population-based-training",
+    "simulation-environments",
+    "rl-environment-contracts-termination-evaluation",
+    "partial-observability-belief-states-recurrent-policies",
+    "generative-adversarial-networks-gan-fundamentals",
+    "gan-variants-dcgan-wgan-stylegan-cyclegan-pix2pix",
+    "mode-collapse-training-stability",
+    "vae-elbo",
+    "vq-vae-discrete-latent-spaces",
+    "hierarchical-conditional-vaes",
+    "denoising-diffusion-probabilistic-models-ddpm",
+    "diffusion-forward-reverse-processes-ddim-sampling",
+    "score-based-models-sdes",
+    "latent-diffusion-stable-diffusion",
+    "classifier-free-guidance-cfg",
+    "rectified-flow-flow-matching",
+    "consistency-models-distillation",
+    "controllable-generation-controlnet-ip-adapter-t2i-adapter",
+    "dit-diffusion-transformers",
+    "evaluation-metrics-for-generative-models-fid-is-clip-score",
+    "image-video-editing-with-generative-models-inpainting-instructpix2pix",
+    "normalizing-flows-realnvp-glow-neural-ode",
+    "autoregressive-image-models-pixelcnn-imagegpt-var",
+    "energy-based-models-ebms",
+    "3d-generation-text-to-3d-score-distillation-sampling",
+    "video-generation-architectures-training",
+    "generative-modelling-density-likelihood-sampling",
+    "diffusion-sampler-error-schedules-numerical-solvers",
+    "text-classification-ner-sequence-labeling",
+    "text-preprocessing-cleaning-tokenization-normalization-deduplication",
+    "machine-translation-cross-lingual-transfer",
+    "question-answering-reading-comprehension",
+    "text-summarization-extractive-abstractive",
+    "multilingual-cross-lingual-nlp-xlm-r-mbert-low-resource-transfer",
+    "entity-linking-coreference-resolution-pipelines",
+    "relation-extraction-open-information-extraction",
+    "speech-recognition-asr-text-to-speech-tts",
+    "information-extraction-knowledge-graphs",
+    "structured-prediction-document-ai-layoutlm-donut",
+    "word-embeddings-word2vec-glove-fasttext",
+    "sentence-transformers-dense-retrieval-e5-gte-bge",
+    "contextual-embeddings-elmo-bert-variants",
+    "syntactic-parsing-coreference-resolution",
+    "dialogue-systems-conversational-ai",
+    "image-classification",
+    "camera-geometry-calibration-stereo-vision",
+    "object-detection-yolo-detr-rt-detr",
+    "semantic-instance-panoptic-segmentation",
+    "pose-estimation-action-recognition",
+    "3d-vision-nerf-3d-gaussian-splatting-depth-estimation",
+    "visual-slam-visual-odometry",
+    "depth-estimation-monocular-3d-understanding",
+    "self-supervised-visual-learning-mae-dino-simclr-clip",
+    "optical-flow-video-understanding",
+    "ocr-document-understanding",
+    "super-resolution-image-restoration",
+    "medical-imaging-segmentation-detection-classification",
+    "foundation-models-for-segmentation-sam-sam-2",
+    "synthetic-data-generation-for-training",
+    "vision-language-models-clip-siglip-blip-2",
+    "multimodal-llms-gpt-4v-gemini-llava-qwen-vl",
+    "text-to-image-generation-dall-e-stable-diffusion-flux-midjourney",
+    "video-generation-sora-runway-gen-3-kling-wan",
+    "audio-music-generation-audiolm-musicgen-udio-suno",
+    "early-fusion-multimodality-llama-4",
+    "any-to-any-models-unified-multimodal-generation",
+    "speaker-diarization-verification",
+    "speech-emotion-recognition-paralinguistics",
+    "audio-classification-sound-event-detection",
+    "music-information-retrieval-beat-tracking-chord-recognition-genre",
+    "voice-cloning-speaker-adaptation-vall-e-openvoice-xtts",
+    "source-separation-audio-denoising-demucs-band-split-rnn",
+    "audio-synthesis-fundamentals-vocoders-wavenet-neural-audio-codecs",
+    "spatial-audio-3d-sound-processing",
+    "digital-images-sampling-color-geometric-transforms",
+    "audio-sampling-spectrograms-speech-data-pipelines",
+    "multimodal-dataset-alignment-missing-modalities-evaluation",
+    "professional-trading-participants-desks-the-trade-lifecycle",
+    "market-instruments-returns-cash-flow-accounting",
+    "market-efficiency-behavioral-finance-sources-of-trading-returns",
+    "financial-statements-valuation-fundamental-research",
+    "interest-rates-compounding-discounting-market-conventions",
+    "trading-p-l-positions-cost-basis-performance-accounting",
+    "macroeconomics-monetary-policy-cross-asset-transmission",
+    "hedge-fund-structures-mandates-fees-prime-brokerage",
+    "equities-corporate-actions-indices-etf-mechanics",
+    "bonds-yield-curves-duration-convexity-credit-spreads",
+    "futures-forwards-basis-carry-contract-rolls",
+    "foreign-exchange-cross-currency-basis-fx-forwards",
+    "commodities-storage-seasonality-physical-delivery",
+    "options-contracts-payoffs-exercise-assignment",
+    "securities-lending-short-selling-repo-funding-liquidity",
+    "swaps-credit-derivatives-structured-products",
+    "digital-asset-market-structure-custody-perpetual-futures",
+    "credit-mortgages-prepayment-securitized-product-risk",
+    "probability-theory-for-quant-finance-martingales-stopping-times-random-walks",
+    "linear-algebra-for-finance-covariance-matrices-pca-factor-decomposition",
+    "python-for-quantitative-research-numpy-pandas-vectorized-backtesting",
+    "econometrics-cointegration-granger-causality-vecm-unit-roots",
+    "convex-optimization-dynamic-programming-for-finance-cvxpy-bellman-equations",
+    "bayesian-statistics-inference-for-finance-signal-combination-hierarchical-models",
+    "stochastic-calculus-for-finance-it-calculus-sdes",
+    "arima-garch-classical-time-series",
+    "decision-theory-utility-betting-under-uncertainty",
+    "financial-inference-hac-errors-bootstrap-multiple-testing",
+    "regime-detection-hidden-markov-models-for-markets",
+    "state-space-filtering-change-points-online-financial-estimation",
+    "point-processes-hawkes-models-high-frequency-econometrics",
+    "stochastic-control-hjb-equations-optimal-stopping-in-finance",
+    "market-microstructure-order-book-modeling",
+    "order-types-matching-rules-auctions-queue-priority",
+    "rfq-markets-dealer-pricing-electronic-otc-trading",
+    "price-discovery-adverse-selection-order-flow-information",
+    "transaction-cost-analysis-slippage-modeling-market-impact-cost-aware-optimization",
+    "execution-algorithms-optimal-execution-twap-vwap-almgren-chriss",
+    "smart-order-routing-venue-selection-liquidity-fragmentation",
+    "market-making-liquidity-provision-avellaneda-stoikov-inventory-management",
+    "queue-position-fill-probability-limit-order-placement",
+    "multi-agent-rl-market-simulation",
+    "financial-data-pitfalls-survivorship-bias-look-ahead-bias-point-in-time-data",
+    "security-masters-identifiers-calendars-corporate-action-data",
+    "tick-data-order-book-reconstruction-feed-quality",
+    "financial-time-series-storage-columnar-files-kdb-streaming-data",
+    "alternative-data-sources-satellite-web-traffic-social",
+    "alternative-data-due-diligence-entitlements-research-lineage",
+    "reproducible-quant-experiments-research-compute-gpu-acceleration",
+    "feature-engineering-alpha-research-methodology-ic-ir-decay-turnover",
+    "backtesting-frameworks-avoiding-overfitting",
+    "financial-labels-event-sampling-overlapping-outcomes",
+    "walk-forward-testing-purging-embargoes-nested-model-selection",
+    "backtest-overfitting-deflated-sharpe-research-trial-accounting",
+    "backtest-selection-bias-execution-reconciliation",
+    "event-driven-backtesting-fill-models-paper-to-live-gaps",
+    "classical-forecasting-prophet-n-beats-n-hits",
+    "temporal-fusion-transformers-neural-forecasting",
+    "foundation-models-for-time-series-timesfm-chronos-moirai",
+    "financial-ml-nonstationarity-calibration-economic-evaluation",
+    "portfolio-optimization-markowitz-black-litterman-risk-parity",
+    "covariance-estimation-shrinkage-multi-factor-risk-models",
+    "constrained-portfolios-turnover-liquidity-capacity",
+    "position-sizing-kelly-criteria-drawdown-constrained-allocation",
+    "risk-models-tail-risk-var-cvar-stress-testing-extreme-value-theory",
+    "stress-testing-liquidity-spirals-crowded-trade-unwinds",
+    "counterparty-risk-collateral-margin-valuation-adjustments",
+    "performance-attribution-skill-evaluation-manager-selection",
+    "multi-strategy-allocation-risk-budgets-portfolio-governance",
+    "options-pricing-derivatives-black-scholes-monte-carlo-neural-sdes",
+    "no-arbitrage-pricing-numeraires-risk-neutral-measures",
+    "greeks-dynamic-hedging-options-p-l-attribution",
+    "volatility-surfaces-calibration-static-arbitrage",
+    "local-volatility-stochastic-volatility-jumps-rough-models",
+    "pricing-trees-pde-solvers-early-exercise-boundaries",
+    "monte-carlo-pricing-variance-reduction-adjoint-greeks",
+    "interest-rate-curve-construction-multi-curve-derivatives",
+    "financial-calibration-fourier-pricing-numerical-sensitivity",
+    "exotic-options-credit-models-model-risk-validation",
+    "deep-hedging-rl-for-trading",
+    "alpha-signal-generation-factor-models",
+    "equity-factors-cross-sectional-signals-neutralization",
+    "trend-following-time-series-momentum-managed-futures",
+    "statistical-arbitrage-pairs-trading-cointegration-ornstein-uhlenbeck",
+    "carry-value-cross-asset-risk-premia",
+    "event-driven-trading-merger-arbitrage-index-reconstitutions",
+    "fixed-income-relative-value-curve-trades-basis-strategies",
+    "volatility-trading-dispersion-variance-risk-premia",
+    "sentiment-analysis-nlp-for-finance-finbert",
+    "graph-neural-networks-for-financial-markets-sector-rotation-systemic-risk",
+    "llms-for-financial-analysis",
+    "crypto-defi-quantitative-strategies-amm-mev-on-chain-analytics",
+    "high-frequency-trading-low-latency-infrastructure",
+    "market-making-risk-markouts-cross-instrument-hedging",
+    "low-latency-systems-c-for-quant-lock-free-fpga-co-location",
+    "fix-sessions-binary-protocols-order-gateway-state",
+    "market-data-feed-handlers-multicast-gap-recovery",
+    "low-latency-c-memory-layout-atomics-lock-free-queues",
+    "kernel-bypass-nic-queues-numa-network-hot-paths",
+    "clock-synchronization-hardware-timestamping-latency-metrology",
+    "fpga-trading-pipelines-hardware-offload-verification",
+    "colocation-exchange-certification-capacity-engineering",
+    "oms-ems-portfolio-state-real-time-risk-architecture",
+    "pre-trade-limits-kill-switches-fat-finger-protection",
+    "ml-model-lifecycle-in-production-trading-drift-monitoring-feature-stores",
+    "trading-releases-shadow-runs-incident-response-recovery",
+    "clearing-settlement-reconciliation-treasury-operations",
+    "trading-regulation-market-conduct-surveillance",
+    "explainable-ai-model-governance-in-finance-shap-sr-11-7",
+    "credit-scoring-fraud-detection",
+    "trading-security-access-controls-business-continuity",
+    "quant-interview-mathematics-brainteasers-expected-value-game-theory",
+    "quant-research-communication-replication-investment-memos",
+    "quant-developer-trader-interviews-coding-markets-design",
+    "quant-capstone-reproducible-cross-asset-research-portfolio",
+    "quant-capstone-exchange-replay-market-maker-risk-gateway",
+    "quant-capstone-derivatives-library-independent-model-validation",
+    "neurons-synapses-neural-signaling",
+    "plasticity-sensory-systems-motor-systems",
+    "internally-generated-states-neural-correlates-of-behavior",
+    "hodgkin-huxley-leaky-integrate-and-fire-models",
+    "brian2-nengo-neural-simulation-workflows",
+    "spike-trains-local-field-potentials-neural-population-activity",
+    "dimensionality-reduction-manifold-analysis-for-neural-data",
+    "neural-population-dynamics-latent-state-models",
+    "movement-speech-sensory-state-decoding",
+    "multi-dimensional-output-prediction-closed-loop-decoding",
+    "human-fmri-experimental-design-preprocessing-glm",
+    "functional-connectivity-representational-similarity-analysis",
+    "in-vivo-awake-behaving-electrophysiology",
+    "non-human-primate-electrophysiology",
+    "closed-loop-brain-computer-interfaces",
+    "neural-population-coding-tuning-curves",
+    "spiking-neural-networks-snns",
+    "biologically-plausible-learning-rules-feedback-alignment-equilibrium-propagation",
+    "hebbian-learning-synaptic-plasticity",
+    "predictive-coding-free-energy-principle",
+    "computational-models-of-memory-working-episodic-semantic",
+    "neural-decoding-representation-similarity-analysis-rsa",
+    "neural-oscillations-attention-in-the-brain",
+    "brain-computer-interfaces-bci",
+    "neuromorphic-computing",
+    "whole-brain-emulation-connectomics",
+    "neural-engineering-from-biological-questions-to-engineered-systems",
+    "functional-neuroanatomy-brain-spinal-cord-and-peripheral-pathways",
+    "neural-cell-biology-glia-myelin-metabolism-and-the-blood-brain-barrier",
+    "physical-units-and-circuit-foundations-for-neural-engineering",
+    "membrane-biophysics-ion-gradients-reversal-potentials-and-conductance",
+    "cable-theory-and-multicompartment-neuron-models",
+    "neural-development-injury-and-repair-as-engineering-constraints",
+    "neurovascular-coupling-and-indirect-measures-of-neural-activity",
+    "comparative-neural-systems-model-organisms-and-translation",
+    "psychophysics-and-signal-detection-for-neural-engineering",
+    "signals-and-systems-for-neuroengineering",
+    "sampling-aliasing-and-quantization-in-neural-recordings",
+    "spectral-and-time-frequency-analysis-of-neural-signals",
+    "state-estimation-and-system-identification-for-neural-dynamics",
+    "neuroscience-experimental-design-pseudoreplication-and-statistical-power",
+    "neural-information-measures-and-communication-metrics",
+    "electrode-tissue-interfaces-impedance-and-electrochemistry",
+    "neural-interface-materials-mechanics-and-foreign-body-response",
+    "biopotential-amplifiers-analog-front-ends-and-adc-design",
+    "neural-recording-noise-referencing-grounding-and-interference",
+    "embedded-processing-fpga-pipelines-and-real-time-neural-firmware",
+    "wireless-neural-telemetry-power-budgets-and-thermal-constraints",
+    "neural-device-packaging-reliability-and-design-verification",
+    "chemical-neural-sensing-biosensors-and-targeted-delivery-concepts",
+    "neural-tissue-engineering-organoids-and-biohybrid-interfaces",
+    "intracellular-electrophysiology-current-clamp-voltage-clamp-and-model-validation",
+    "eeg-event-related-potentials-and-meg-measurement",
+    "eeg-and-meg-forward-models-source-localization-and-uncertainty",
+    "intracranial-recording-ecog-depth-electrodes-and-high-density-probes",
+    "emg-peripheral-nerve-recordings-and-motor-unit-signals",
+    "calcium-and-voltage-imaging-indicators-optics-and-measurement-limits",
+    "fnirs-and-wearable-hemodynamic-neuroimaging",
+    "structural-mri-diffusion-imaging-and-multimodal-neural-measurement",
+    "optogenetics-chemogenetics-and-cell-type-specific-perturbation",
+    "neural-data-synchronization-event-timing-and-lab-streaming-layer",
+    "neural-preprocessing-artifact-rejection-and-leakage-safe-pipelines",
+    "spike-sorting-unit-quality-drift-and-ground-truth-validation",
+    "calcium-imaging-pipelines-motion-segmentation-neuropil-and-deconvolution",
+    "nwb-bids-and-neural-metadata-interoperable-data-by-design",
+    "open-neural-data-reproducibility-and-dataset-provenance",
+    "behavioral-tracking-stimulus-annotation-and-neural-behavior-alignment",
+    "neural-encoding-models-glms-point-processes-and-receptive-fields",
+    "neural-decoding-evaluation-subject-splits-leakage-and-operational-metrics",
+    "nonstationarity-decoder-recalibration-and-longitudinal-adaptation",
+    "causal-neural-inference-confounding-and-perturbation-evidence",
+    "neuroai-and-foundation-models-for-neural-data",
+    "neuromorphic-neural-interfaces-event-processing-and-deployment-tradeoffs",
+    "electrical-neural-stimulation-recruitment-charge-and-model-limits",
+    "noninvasive-neuromodulation-tms-electrical-and-ultrasound-concepts",
+    "dbs-and-responsive-neuromodulation-biomarkers-and-adaptive-control",
+    "peripheral-spinal-and-functional-electrical-stimulation-systems",
+    "sensory-neuroprostheses-hearing-vision-and-somatosensory-feedback",
+    "communication-bcis-speech-language-priors-and-user-intent",
+    "closed-loop-bci-stability-shared-control-and-failure-recovery",
+    "neurofeedback-rehabilitation-learning-and-evidence-of-transfer",
+    "clinical-evidence-for-neurotechnology-endpoints-trials-and-generalization",
+    "neurotechnology-risk-management-regulation-and-quality-systems",
+    "neural-data-privacy-consent-agency-and-long-term-stewardship",
+    "accessible-neurotechnology-participatory-design-and-human-factors",
+    "responsible-animal-human-tissue-and-preclinical-neural-research",
+    "neural-device-cybersecurity-software-lifecycle-and-postmarket-support",
+    "neural-engineering-capstone-auditable-eeg-analysis",
+    "neural-engineering-capstone-longitudinal-decoder-and-closed-loop-simulator",
+    "neural-engineering-capstone-simulated-acquisition-chain-and-verification-file",
+    "neural-engineering-capstone-multimodal-neural-dataset-and-model-comparison",
+    "neural-engineering-capstone-translation-and-participatory-design-dossier",
+    "black-box-optimization-budgets-constraints-benchmarking",
+    "genetic-algorithms-ga",
+    "evolution-strategies-es-cma-es-openai-es",
+    "differential-evolution-de",
+    "particle-swarm-optimization-pso-swarm-intelligence",
+    "ant-colony-optimization-aco",
+    "estimation-of-distribution-algorithms-eda-umda-boa",
+    "neuroevolution-neat-hyperneat-weight-agnostic-networks",
+    "quality-diversity-map-elites-cma-me",
+    "genetic-programming-symbolic-regression",
+    "multi-objective-evolutionary-optimization-nsga-ii-moea-d",
+    "coevolution-competitive-dynamics",
+    "evolutionary-combinatorial-optimization-scheduling-routing-packing",
+    "memetic-algorithms-hybrid-ea-local-search",
+    "poet-open-ended-evolution",
+    "llm-guided-evolution-funsearch",
+    "artificial-life-open-ended-search",
+    "c-c-foundations-for-gpu-programming",
+    "cmake-linking-reproducible-native-builds",
+    "parallel-algorithm-design-work-span-decomposition",
+    "gpu-toolchains-drivers-compatibility",
+    "cpu-gpu-work-partitioning-acceleration-economics",
+    "floating-point-representation-numerical-error",
+    "cpu-architecture-cores-caches-simd-pipelining",
+    "gpu-architecture-sms-warps-threads-memory-hierarchy",
+    "memory-hierarchy-hbm-l2-sram-registers-bandwidth",
+    "tensor-cores-specialized-ai-hardware",
+    "interconnects-network-topology-nvlink-infiniband-nvswitch",
+    "cuda-programming-model",
+    "triton-gpu-kernel-dsl",
+    "cuda-libraries-cublas-cudnn-cufft-nccl-thrust-cub",
+    "memory-coalescing-bank-conflicts-shared-memory-tiling",
+    "warp-level-primitives-cooperative-groups",
+    "custom-cuda-kernel-writing-for-ml-ops",
+    "flash-attention-implementation",
+    "operator-fusion-torch-compile",
+    "ring-allreduce-communication-primitives",
+    "compiler-graph-optimization-xla-torchinductor-mlir",
+    "data-parallelism-ddp",
+    "fsdp-fully-sharded-data-parallelism",
+    "tensor-parallelism-tp",
+    "pipeline-parallelism-pp",
+    "expert-parallelism-all-to-all-communication",
+    "3d-parallelism-hybrid-strategies",
+    "gradient-checkpointing-activation-recomputation",
+    "zero-optimization-stages-1-2-3",
+    "networking-communication-optimization-rdma-gpudirect-sharp",
+    "gpu-profiling-roofline-analysis",
+    "flop-utilization-mfu-training-efficiency",
+    "google-tpus-tensor-processing-units",
+    "cerebras-wafer-scale-engine",
+    "groq-lpu-language-processing-unit",
+    "other-ai-accelerators-graphcore-ipu-intel-gaudi-apple-neural-engine",
+    "amd-rocm-mi300-mi350-ecosystem",
+    "power-cooling-energy-constraints-for-ai-clusters",
+    "gpu-indexing-shapes-strides-boundary-handling",
+    "gpu-atomics-memory-ordering-visibility",
+    "gpu-synchronization-barriers-deadlock",
+    "cuda-streams-events-asynchronous-execution",
+    "host-device-transfers-pinned-memory-buffer-lifetimes",
+    "unified-memory-address-spaces-oversubscription",
+    "gpu-debugging-compute-sanitizer",
+    "reliable-gpu-benchmarking-experimental-design",
+    "nsight-systems-end-to-end-timeline-diagnosis",
+    "nsight-compute-counters-stalls-kernel-diagnosis",
+    "occupancy-register-pressure-latency-hiding",
+    "gpu-cache-behavior-data-layout-locality",
+    "parallel-reductions-stable-softmax",
+    "parallel-scan-compaction-segmented-operations",
+    "histograms-scatter-gather-atomic-contention",
+    "gemm-from-scalar-loops-to-hierarchical-tiling",
+    "gpu-stencils-convolution-boundary-conditions",
+    "sparse-gpu-formats-sparse-matrix-kernels",
+    "gpu-sorting-selection-top-k",
+    "irregular-gpu-algorithms-graph-traversal",
+    "gpu-random-number-generation-monte-carlo",
+    "low-precision-gpu-arithmetic-error-budgets",
+    "gpu-ffts-spectral-methods-signal-pipelines",
+    "gpu-linear-solvers-iterative-refinement",
+    "tensor-core-matrix-instructions-fragment-layouts",
+    "asynchronous-copy-tma-pipeline-staging",
+    "thread-block-clusters-distributed-shared-memory",
+    "persistent-kernels-warp-specialization-work-queues",
+    "cutlass-cute-layout-algebra",
+    "advanced-triton-layouts-pipelines-persistent-kernels",
+    "gpu-kernel-autotuning-dispatch-design",
+    "ptx-sass-gpu-instruction-analysis",
+    "cuda-runtime-driver-api-device-code-linking",
+    "framework-gpu-operators-autograd-interoperability",
+    "gpu-memory-pools-virtual-memory-allocation-strategy",
+    "cuda-graphs-capture-dynamic-workloads",
+    "multi-gpu-topology-peer-access-numa-placement",
+    "nccl-collectives-correctness-tuning-diagnosis",
+    "communication-compute-overlap-distributed-critical-paths",
+    "cuda-aware-mpi-nvshmem-gpu-initiated-communication",
+    "distributed-gpu-checkpointing-failure-recovery",
+    "gpu-containers-packaging-deployment-compatibility",
+    "gpu-scheduling-slurm-kubernetes-mig-mps",
+    "gpu-health-ecc-xid-errors-reliability-diagnosis",
+    "gpu-correctness-ci-performance-regression-testing",
+    "gpu-capacity-planning-energy-measurement-cost",
+    "gpu-multi-tenancy-isolation-secure-operations",
+    "gpu-input-pipelines-storage-data-movement-bottlenecks",
+    "portable-gpu-kernels-with-hip-rocm",
+    "amd-gpu-profiling-architecture-aware-tuning",
+    "sycl-openmp-offload-openacc",
+    "webgpu-compute-wgsl",
+    "graphics-pipelines-compute-shaders-gpu-interoperability",
+    "gpu-scientific-simulation-domain-decomposition",
+    "gpu-architecture-modeling-simulator-validation",
+    "gpu-rtl-design-verification-hardware-tradeoffs",
+    "gpu-engineering-capstone-verified-kernel-library",
+    "gpu-engineering-capstone-multi-gpu-application",
+    "gpu-engineering-capstone-profiled-inference-engine",
+    "post-training-quantization-ptq",
+    "mixed-precision-training-fp16-bf16-tf32",
+    "quantization-aware-training-qat",
+    "weight-only-vs-weight-activation-quantization",
+    "gptq-awq-advanced-ptq-methods-for-llms",
+    "activation-aware-quantization-outlier-handling-smoothquant-llm-int8",
+    "sub-4-bit-1-bit-quantization-bitnet-aqlm",
+    "lora-low-rank-adaptation",
+    "qlora",
+    "adapters-prefix-tuning-prompt-tuning-ia3",
+    "dora-rslora-advanced-lora-variants",
+    "multi-lora-serving-lora-merging-s-lora-punica",
+    "knowledge-distillation",
+    "structured-unstructured-pruning",
+    "layer-pruning-depth-reduction",
+    "neural-architecture-search-nas",
+    "sparse-models-activation-sparsity-mixture-of-depths",
+    "token-merging-reduction-tome-dynamic-token-pruning",
+    "onnx-model-export",
+    "edge-inference-tensorrt-coreml-tflite",
+    "on-device-slms-small-language-models",
+    "speculative-decoding-variants-medusa-eagle-self-speculative",
+    "compression-validation-deployment-regression-testing",
+    "networking-foundations-packets-transport-dns-sockets",
+    "experiment-tracking-logging",
+    "hyperparameter-optimization",
+    "data-versioning-pipeline-management",
+    "ml-pipeline-orchestration-airflow-prefect-dagster-kubeflow",
+    "data-quality-observability-great-expectations-monte-carlo-soda",
+    "model-serving-api-frameworks",
+    "containerization-orchestration",
+    "llmops-prompt-versioning-token-cost-management-llm-monitoring",
+    "feature-stores",
+    "model-monitoring-drift-detection",
+    "ci-cd-for-ml-pipelines",
+    "a-b-testing-canary-deployments-for-ml-models",
+    "gpu-cloud-training-platforms",
+    "hugging-face-ecosystem",
+    "cost-management-finops-for-ai-spot-instances-reserved-capacity",
+    "task-taxonomy-model-selection-framework",
+    "build-vs-fine-tune-vs-prompt-vs-api",
+    "model-sizing-latency-quality-tradeoffs",
+    "designing-for-classification-tasks",
+    "designing-for-conversational-ai-chatbots",
+    "designing-for-information-extraction-ner-re-ie",
+    "designing-for-search-retrieval-systems",
+    "designing-for-code-generation-analysis",
+    "designing-for-reasoning-mathematical-tasks",
+    "designing-for-multi-modal-pipelines",
+    "designing-for-real-time-streaming-applications",
+    "designing-for-agentic-workflows",
+    "microservices-vs-monolithic-ai-systems",
+    "request-response-vs-batch-vs-streaming-architectures",
+    "rag-system-architecture-production-grade",
+    "model-cascade-router-architectures",
+    "human-in-the-loop-system-design",
+    "fallback-graceful-degradation",
+    "data-flywheel-continuous-learning-architectures",
+    "evaluation-driven-development-for-ai-systems",
+    "compliance-audit-trails-explainability-in-production",
+    "agentops-agent-monitoring-trace-debugging-multi-step-evaluation",
+    "recommendation-system-design-candidate-generation-ranking-re-ranking",
+    "search-ranking-learning-to-rank-bm25-neural-ranking-ndcg",
+    "fraud-detection-system-design-real-time-feature-stores-rules-ml",
+    "ads-prediction-click-through-rate-modeling",
+    "content-moderation-trust-safety-systems",
+    "notification-feed-ranking-systems",
+    "large-scale-ml-system-architecture-netflix-uber-spotify-case-studies",
+    "networked-services-http-contracts-identity-boundaries",
+    "distributed-failure-semantics-retries-idempotency",
+    "data-contracts-lineage-training-serving-consistency",
+    "rlhf-dpo-preference-learning",
+    "constitutional-ai-rule-based-rewards-rbrm",
+    "debate-recursive-reward-modeling-iterated-amplification",
+    "scalable-oversight-process-supervision-verification-hierarchies",
+    "superalignment-weak-to-strong-generalization",
+    "attention-visualization-probing",
+    "mechanistic-interpretability",
+    "sparse-autoencoders-sae-for-feature-discovery",
+    "circuit-analysis-causal-tracing",
+    "logit-bias-output-level-steering",
+    "prompt-based-steering-vs-activation-based-steering",
+    "activation-steering-steering-vectors",
+    "contrastive-activation-addition-caa",
+    "inference-time-intervention-iti",
+    "representation-engineering-repe",
+    "classifier-free-guidance-for-llms-cfg",
+    "controlled-decoding-pplm-gedi-fudge",
+    "refusal-direction-refusal-ablation",
+    "sae-based-steering-feature-clamping",
+    "function-vectors-task-vectors-in-activation-space",
+    "task-vectors-in-weight-space",
+    "activation-patching-causal-interventions",
+    "persona-steering-character-control",
+    "concept-erasure-unlearning",
+    "model-editing-rome-memit-mend",
+    "knowledge-editing-belief-revision",
+    "steering-for-safety-honesty-capability-elicitation",
+    "steering-composition-interference",
+    "red-teaming-adversarial-testing",
+    "jailbreak-taxonomies-defense-mechanisms",
+    "hallucination-detection-mitigation",
+    "sycophancy-reward-hacking",
+    "adversarial-robustness-certified-defenses",
+    "fairness-bias-responsible-ai",
+    "ai-control-containment-monitoring-tripwires-untrusted-model-protocols",
+    "faithful-chain-of-thought-reasoning-transparency",
+    "llm-benchmarks-mmlu-hellaswag-humaneval-gsm8k-math",
+    "llm-as-judge-arena-style-evaluation",
+    "contamination-detection-evaluation-integrity",
+    "elicitation-dangerous-capability-evaluation",
+    "deceptive-alignment-mesa-optimization",
+    "goodhart-s-law-in-rlhf-reward-overoptimization",
+    "specification-gaming-reward-misspecification",
+    "sleeper-agents-backdoor-attacks",
+    "lottery-ticket-hypothesis-sparse-subnetworks",
+    "ai-generated-content-watermarking",
+    "deepfake-detection",
+    "copyright-training-data-legality-data-rights",
+    "environmental-impact-of-training",
+    "existential-risk-ai-governance-frameworks",
+    "model-welfare-digital-minds",
+    "ai-threat-modelling-trust-boundaries-defense-in-depth",
+    "safety-cases-residual-risk-deployment-decisions",
+    "prompt-design-fundamentals-zero-few-shot-system-prompts",
+    "chain-of-thought-cot-step-by-step-reasoning",
+    "self-consistency-majority-voting",
+    "tree-of-thought-graph-of-thought-search-based-prompting",
+    "prompt-optimization-dspy",
+    "function-calling-tool-use",
+    "react-reasoning-acting",
+    "plan-and-execute-workflows-task-decomposition",
+    "reflection-self-critique-recovery-loops",
+    "agentic-frameworks",
+    "agent-orchestration-patterns-sequential-parallel-hierarchical-handoff",
+    "multi-agent-systems-agent-communication",
+    "retrieval-context-management-for-agents",
+    "human-agent-interaction-design-approval-flows-escalation",
+    "agent-memory-architectures",
+    "code-generation-agents-computer-use",
+    "model-context-protocol-mcp",
+    "agent-evaluation-benchmarks-swe-bench-webarena-gaia",
+    "agent-safety-sandboxing-permission-systems-action-boundaries",
+    "agentic-rag-deep-research-multi-step-retrieval",
+    "long-horizon-agents-planning-reliable-execution",
+    "agent-to-agent-communication-protocols-a2a-mcp-extensions",
+    "structured-output-json-mode-outlines-grammar-constraints",
+    "grounding-factuality-verification",
+    "agent-state-machines-durable-execution-recovery",
+    "agent-evidence-untrusted-inputs-permission-enforcement",
+    "federated-learning-privacy-preserving-ml",
+    "differential-privacy-in-ml",
+    "neuro-symbolic-ai",
+    "dataset-distillation-data-centric-ai",
+    "model-merging-weight-space-methods",
+    "in-context-learning-theory",
+    "world-models-predictive-learning",
+    "causal-representation-learning",
+    "continual-lifelong-learning",
+    "grokking-delayed-generalization",
+    "emergent-abilities-phase-transitions",
+    "synthetic-data-self-improvement-loops",
+    "test-time-training-ttt-adaptive-inference",
+    "reasoning-scaling-extended-thinking",
+    "neural-scaling-laws-beyond-chinchilla",
+    "geometric-topological-deep-learning",
+    "memory-augmented-architectures-titans-memorizing-transformers",
+    "mechanistic-interpretability-at-scale-full-model-maps-feature-universality",
+    "tokenizer-free-byte-level-models-megabyte-spacebyte",
+    "mixture-of-agents-collective-intelligence",
+    "protein-structure-prediction-alphafold-esmfold",
+    "drug-discovery-molecular-generation",
+    "physics-informed-neural-networks-pinns",
+    "neural-operators-fno-deeponet",
+    "ai-driven-materials-discovery-gnome-autonomous-labs",
+    "biological-sequence-modeling-esm-3-rna-genomics-foundation-models",
+    "weather-climate-prediction-graphcast-pangu-weather-gencast",
+    "ai-for-mathematics-alphaproof-funsearch",
+    "autonomous-scientific-laboratories",
+    "robot-perception-lidar-depth-sensing-sensor-fusion",
+    "motion-planning-path-planning-rrt-a-trajectory-optimization",
+    "control-theory-for-robotics-pid-mpc-adaptive-control",
+    "slam-simultaneous-localization-and-mapping",
+    "robot-manipulation-grasping-dexterous-hands-contact-rich",
+    "imitation-learning-learning-from-demonstrations",
+    "sim-to-real-transfer-domain-randomization-for-robotics",
+    "vision-language-action-models-rt-2-octo",
+    "humanoid-robotics-whole-body-control",
+    "research-reproduction-ablations-evidence-quality",
+    "scientific-surrogates-conservation-laws-out-of-distribution-validation",
+    "ssl-augmentations-invariance-representation-evaluation",
+    "ssl-pretext-tasks-historical-methods-jigsaw-rotation-colorization",
+    "contrastive-learning-simclr-moco-infonce-loss",
+    "barlow-twins-vicreg-redundancy-reduction-methods",
+    "self-distillation-byol-dino-dinov2",
+    "masked-autoencoders-mae-beit-data2vec",
+    "clip-language-supervised-visual-learning",
+    "joint-embedding-predictive-architectures-jepa",
+    "v-jepa-extensions-cross-modal-jepa",
+    "self-supervised-learning-for-video-videomae-v-jepa-2",
+    "ssl-for-audio-speech-wav2vec-2-0-hubert-audiomae",
+    "theoretical-foundations-of-ssl-lejepa-information-theory",
+    "meta-learning-problem-formulation",
+    "few-shot-learning-n-way-k-shot-setup",
+    "episodic-training",
+    "meta-train-meta-test-split",
+    "maml-model-agnostic-meta-learning",
+    "reptile",
+    "anil-almost-no-inner-loop-meta-sgd",
+    "implicit-maml-imaml",
+    "warped-gradient-descent-task-specific-parameterization",
+    "siamese-networks",
+    "prototypical-networks",
+    "matching-networks",
+    "relation-networks",
+    "graph-neural-network-based-meta-learning",
+    "memory-augmented-neural-networks-mann",
+    "neural-turing-machines-differentiable-memory",
+    "meta-networks-metanet-hypernetworks-for-meta-learning",
+    "conditional-neural-processes-cnp-neural-processes",
+    "meta-reinforcement-learning",
+    "task-agnostic-unsupervised-meta-learning",
+    "bayesian-meta-learning-bmaml-versa",
+    "learned-optimizers-learning-to-optimize",
+    "automl-as-meta-learning",
+    "in-context-learning-as-meta-learning",
+    "foundation-models-as-few-shot-learners",
+    "meta-learning-for-continual-learning",
+    "recurrent-meta-learners-rl-snail",
+    "transformer-based-meta-learners-tnp-in-context-learners",
+    "fast-weight-programmers",
+    "few-shot-object-detection-segmentation",
+    "meta-rl-pearl-varibad-context-based-adaptation",
+    "meta-learning-for-drug-discovery-molecular-properties",
+    "meta-learning-for-nlp-cross-lingual-transfer-prompt-learning",
+    "darts-meta-learned-architectures",
+    "meta-learned-data-augmentation-curriculum",
+    "leo-cavia-latent-space-meta-learning",
+    "meta-learned-loss-functions-regularizers",
+    "pac-bayes-bounds-for-meta-learning",
+    "meta-overfitting-when-meta-learning-helps",
+    "transfer-learning-vs-meta-learning",
+    "compositional-meta-learning",
+    "meta-learning-at-scale-scaling-laws",
+    "task-vectors-gradient-descent-in-transformers",
+    "meta-learning-benchmarks",
+    "meta-learning-libraries",
+    "meta-learning-evaluation-task-shift-adaptation-baselines",
+    "complex-amplitudes-tensor-products-quantum-experiment-accounting",
+    "qubits-superposition-entanglement",
+    "quantum-gates-circuits",
+    "measurement-born-rule",
+    "no-cloning-theorem-quantum-teleportation",
+    "quantum-state-spaces-hilbert-space",
+    "density-matrices-mixed-states",
+    "quantum-complexity-theory-bqp",
+    "quantum-annealing-adiabatic-quantum-computing",
+    "grover-s-search-algorithm",
+    "shor-s-factoring-algorithm",
+    "quantum-fourier-transform-qft",
+    "variational-quantum-eigensolver-vqe",
+    "quantum-walks",
+    "quantum-approximate-optimization-algorithm-qaoa",
+    "quantum-phase-estimation-qpe",
+    "hhl-algorithm-quantum-linear-systems",
+    "quantum-simulation-hamiltonian-simulation",
+    "variational-quantum-circuits-vqc-parameterized-quantum-circuits",
+    "quantum-kernel-methods",
+    "quantum-data-encoding-amplitude-angle-basis-encoding",
+    "quantum-neural-networks-qnn-hybrid-models",
+    "barren-plateaus-trainability",
+    "quantum-generative-models-qgan-quantum-boltzmann-machines",
+    "quantum-reinforcement-learning",
+    "quantum-transfer-learning",
+    "quantum-reservoir-computing",
+    "quantum-monte-carlo-methods",
+    "quantum-portfolio-optimization-risk-analysis",
+    "combinatorial-optimization-on-quantum-hardware-maxcut-tsp-via-qaoa",
+    "quantum-chemistry-materials-science-applications",
+    "quantum-information-theory-von-neumann-entropy-fidelity-tomography",
+    "quantum-natural-language-processing-qnlp",
+    "quantum-foundation-models-advantage-benchmarks",
+    "classical-ml-for-quantum-alphaqubit-ml-assisted-error-decoding",
+    "post-quantum-cryptography-ml-security-implications",
+    "tensor-networks-mps-peps-mera",
+    "quantum-inspired-optimization-simulated-annealing-dmrg-inspired",
+    "dequantization-classical-simulation-of-quantum-ml",
+    "nisq-noisy-intermediate-scale-quantum-devices",
+    "quantum-hardware-technologies-superconducting-trapped-ion-photonic-neutral-atom",
+    "quantum-error-correction-surface-codes-logical-qubits",
+    "quantum-error-mitigation",
+    "fault-tolerant-quantum-computing",
+    "quantum-advantage-for-ml-status-outlook",
+    "quantum-programming-frameworks",
+    "quantum-circuit-languages-additional-tools",
+    "quantum-simulators",
+    "model-papers-model-cards-comparative-evidence",
+    "deepseek-r1",
+    "deepseek-v3",
+    "meta-llama-4-scout-maverick",
+    "openai-o-series-o1-o3-o4-mini",
+    "claude-4-6-opus-sonnet",
+    "google-gemini-1-5-pro-2-0-2-5",
+    "mistral-mixtral",
+    "qwen-series-qwen-2-5-qwen3",
+    "stable-diffusion-3-flux",
+    "sora",
+    "mamba-mamba-2",
+    "gpt-series-gpt-1-gpt-4o",
+    "phi-series-phi-1-phi-4",
+    "grok-series-grok-1-grok-2-grok-3",
+    "command-r-command-r",
+    "gpt-5-gpt-5-3-codex",
+    "gemma-series-gemma-2-gemma-3",
+    "alphafold-3",
+    "nvidia-cosmos",
+    "bert-t5-encoder-encoder-decoder-landmarks",
+    "dall-e-series-1-2-3",
+    "pytorch",
+    "jax",
+    "tensorflow-keras",
+    "experiment-tracking-tools-weights-biases-mlflow-neptune",
+    "training-acceleration",
+    "llm-fine-tuning-platforms",
+    "data-processing-loading",
+    "data-annotation-labeling",
+    "nlp-libraries",
+    "computer-vision-libraries",
+    "visualization",
+    "gpu-accelerated-computing",
+    "vector-databases",
+    "data-annotation-labeling-extended",
+    "llm-serving-frameworks-vllm-tgi-sglang-tensorrt-llm",
+    "llm-application-frameworks-langchain-llamaindex-haystack",
+    "agent-workflow-frameworks-crewai-autogen-langgraph",
+    "tensor-shapes-autograd-graphs-device-boundaries",
+    "dataset-loaders-checkpoints-exact-resume-contracts",
+    "arithmetic-intensity",
+    "flop-utilization-mfu",
+    "scaling-laws",
+    "chinchilla-optimal",
+    "emergent-abilities",
+    "grokking",
+    "mode-collapse",
+    "reward-hacking",
+    "sycophancy",
+    "catastrophic-forgetting",
+    "kv-cache",
+    "perplexity",
+    "overparameterized",
+    "double-descent",
+    "mixture-of-experts-moe",
+    "token",
+    "inference-time-compute",
+    "rlhf",
+    "dpo",
+    "lora",
+    "flash-attention",
+    "activation-checkpointing",
+    "rope",
+    "swiglu",
+    "rmsnorm",
+    "attention-sink",
+    "hallucination",
+    "distillation",
+    "data-contamination",
+    "alignment-tax",
+    "loss-spike",
+    "p-maximal-update-parameterization",
+    "auxiliary-loss",
+    "soft-labels",
+    "few-shot-learning",
+    "maml",
+    "qubit",
+    "superposition",
+    "entanglement",
+    "nisq",
+    "barren-plateau",
+    "variational-quantum-circuit",
+    "quantum-advantage",
+    "hypernetwork",
+    "goodhart-s-law-in-rlhf",
+    "lottery-ticket-hypothesis",
+    "representational-collapse",
+    "loss-landscape-geometry",
+    "pac-learning",
+    "vc-dimension",
+    "deceptive-alignment",
+    "mesa-optimization",
+    "model-merging",
+    "conformal-prediction",
+    "federated-learning",
+    "no-cloning-theorem",
+    "quantum-annealing",
+    "qnlp",
+    "little-s-law",
+    "ttft-tbt",
+    "disaggregated-serving",
+    "model-cascade",
+    "data-flywheel",
+    "prefill-vs-decode",
+    "activation-steering",
+    "steering-vector",
+    "refusal-direction",
+    "activation-patching",
+    "model-editing",
+    "function-vector",
+    "concept-erasure",
+    "rlvr",
+    "dapo",
+    "world-model",
+    "faithful-chain-of-thought",
+    "curator-model",
+    "model-collapse",
+    "slm-small-language-model",
+    "flow-matching",
+    "agentic-rag",
+    "optimal-transport",
+    "attention-head",
+    "embedding",
+    "latent-space",
+    "tokenizer",
+    "gradient-accumulation",
+    "evaluation-questions-units-of-analysis-sampling-plans",
+    "evaluation-artifact-provenance-reproducible-scoring",
+    "llm-as-judge-paradigm-core-methodology",
+    "pointwise-vs-pairwise-vs-listwise-evaluation",
+    "cost-performance-analysis-of-llm-judges",
+    "judge-biases-position-verbosity-self-enhancement-style",
+    "prometheus-open-source-judge-models",
+    "structured-judging-templates-chain-of-thought-scoring",
+    "reference-free-vs-reference-based-evaluation",
+    "reasoning-traces-structured-output-for-judges",
+    "self-consistency-council-of-judges",
+    "judge-calibration-platt-scaling-isotonic-regression-anchors",
+    "agent-as-a-judge-multi-agent-debate-protocols",
+    "classical-test-theory-ctt",
+    "item-response-theory-irt-1pl-2pl-3pl-models",
+    "reliability-coefficients-cronbach-s-alpha-cohen-s-fleiss-kappa-krippendorff-s-alpha",
+    "validity-frameworks-construct-criterion-content",
+    "standard-setting-methods-angoff-bookmark-modified-angoff",
+    "differential-item-functioning-dif-test-bias",
+    "computer-adaptive-testing-cat",
+    "assessment-security-item-exposure-control",
+    "emotional-intelligence-evaluation-eq-bench",
+    "adaptive-precise-boolean-rubrics",
+    "llm-metacognition-self-knowledge-evaluation",
+    "significance-testing-for-llm-outputs-paired-bootstrap-permutation-tests",
+    "effect-sizes-cohen-s-d-hedges-g",
+    "multiple-comparisons-bonferroni-holm-bonferroni-benjamini-hochberg-fdr",
+    "power-analysis-for-model-evaluation",
+    "bootstrap-confidence-intervals-bca",
+    "bradley-terry-models-for-llm-ranking",
+    "elo-rating-systems-bootstrap-stability",
+    "bayesian-model-comparison-bayes-factors-credible-intervals",
+    "conformal-prediction-for-llm-uncertainty",
+    "uncertainty-quantification-semantic-entropy-lm-polygraph",
+    "variance-decomposition-for-llm-evaluation-runs",
+    "algorithmic-fairness-definitions-impossibility-results",
+    "group-fairness-vs-individual-fairness",
+    "counterfactual-fairness-paraphrase-testing",
+    "weird-bias-in-llm-evaluation",
+    "ai-to-ai-bias-self-preference-in-judging",
+    "observable-vs-unobservable-attributes-in-llm-assessment",
+    "cross-dimensional-bias-trade-offs",
+    "multi-agent-cultural-bias-evaluation-cebiasbench",
+    "intersectional-bias-analysis",
+    "evaluator-audit-methodology-paired-testing-parity-testing-calibration",
+    "retrieval-evaluation-dense-sparse-hybrid",
+    "re-ranking-strategies-cross-encoders-vs-bi-encoders",
+    "retrieval-metrics-recall-k-mrr-ndcg",
+    "rag-specific-evaluation-context-relevance-faithfulness-groundedness",
+    "ragas-trulens-evaluation-frameworks",
+    "chunking-strategies-context-length-management-for-eval",
+    "end-to-end-rag-pipeline-evaluation",
+    "rubric-retrieval-judges",
+    "rag-contradiction-detection",
+    "rag-rewardbench",
+    "sft-for-judge-models",
+    "preference-optimization-for-judges-dpo-kto-orpo",
+    "lora-qlora-for-judge-fine-tuning",
+    "distillation-quality-evaluation",
+    "reward-modeling-reward-hacking-in-evaluation",
+    "process-reward-models-prms-vs-outcome-reward-models-orms",
+    "rewardbench-rewardbench-2",
+    "constitutional-ai-evaluation-constitution-design",
+    "preference-data-quality-inter-annotator-agreement",
+    "preference-proxy-evaluations-ppe",
+    "evaluation-observability-logging",
+    "caching-idempotency-reproducibility-for-judge-systems",
+    "online-vs-offline-evaluation",
+    "evaluation-as-ci-cd-unit-test-style-evals-deepeval",
+    "llm-observability-tools-langfuse-langsmith-arize",
+    "drift-detection-for-evaluators-population-concept-model",
+    "cost-quality-latency-pareto-optimization",
+    "quality-aware-model-routing-score-framework",
+    "shadow-deployment-canary-rollouts-for-evaluators",
+    "a-b-testing-sequential-analysis-at-scale",
+    "tiered-evaluator-architectures-cost-vs-quality-routing",
+    "slas-rate-limiting-degradation-strategies",
+    "rubric-decomposition-sub-criteria-design",
+    "ordinal-scale-design-anchor-descriptions",
+    "exemplar-curation-few-shot-selection-for-judges",
+    "prompt-structure-for-llm-judges",
+    "rubric-refinement-loops-agreement-tracking",
+    "ifeval-verifiable-instruction-following-rubrics",
+    "evaluation-report-writing-stakeholder-communication",
+    "clinical-domain-specific-rubrics-clever-r-idea",
+    "evaluation-driven-development-with-dspy",
+    "benchmark-families-helm-big-bench-mt-bench-chatbot-arena",
+    "frontier-math-benchmarks-aime-frontiermath",
+    "humanity-s-last-exam-hle",
+    "gpqa-diamond-for-scientific-reasoning",
+    "benchmark-contamination-detection-methods",
+    "arc-agi-2-arc-agi-3-for-abstract-reasoning",
+    "chatbot-arena-lmarena-methodology",
+    "livecodebench-for-contamination-free-code-eval",
+    "bfcl-v4-for-tool-use-function-calling-evaluation",
+    "swe-bench-verified-swe-bench-live",
+    "dynamic-private-evaluations",
+    "benchmark-saturation-when-benchmarks-stop-being-useful",
+    "canary-items-eval-set-versioning",
+    "regression-acceptance-testing-for-evaluators",
+    "mle-bench-for-ml-engineering-agent-evaluation",
+    "prompt-injection-against-judges",
+    "prompt-sensitivity-brittleness-evaluation-promptbench",
+    "gaming-detection-counter-gaming-strategies",
+    "self-contradictory-reasoning-detection",
+    "leaderboard-integrity-vote-rigging-detection",
+    "data-poisoning-for-evaluator-systems",
+    "integrity-signals-cheating-detection-in-assessment",
+    "code-evaluation-dimensions-correctness-efficiency-style-robustness",
+    "ai-assisted-coding-evaluation-rubric-design",
+    "coding-benchmarks-humaneval-mbpp-swe-bench-livecodebench",
+    "bigcodebench-iclr-2025",
+    "agentic-repository-level-code-evaluation",
+    "code-generation-failure-pattern-analysis",
+    "paper-reading-research-methodology-for-eval",
+    "experiment-tracking-ablation-design",
+    "writing-research-memos-evaluation-reports",
+    "evaluation-for-scientific-discovery-scientist-bench",
+    "chain-of-thought-monitorability-faithfulness",
+    "cot-controllability-evaluation",
+    "test-time-compute-scaling-evaluation",
+    "evaluating-reasoning-vs-memorization",
+    "truthfulqa-simpleqa-factuality-suites",
+    "hallucination-rate-benchmarking-hallulens",
+    "metaqa-metamorphic-testing-for-hallucination-detection",
+    "cross-layer-attention-probing-clap-for-real-time-detection",
+    "selective-prediction-abstention-conformal-methods",
+    "needlebench-multi-needle-retrieval-reasoning",
+    "multimodal-needle-in-a-haystack-mmneedle",
+    "video-mme-for-video-understanding-evaluation",
+    "longgenbench-for-long-form-generation",
+    "mfcl-vision-tool-use-in-multimodal-models",
+    "ai-agent-index-capability-taxonomy",
+    "gaia-general-ai-assistant-benchmark",
+    "clear-framework-for-enterprise-agent-evaluation",
+    "evaluating-agent-tool-selection-multi-step-coherence",
+    "levels-of-ai-autonomy-risk-assessment",
+    "owasp-genai-red-teaming-guide",
+    "eu-ai-act-compliance-evaluation",
+    "nist-ai-rmf-tevv-process",
+    "metr-dangerous-capability-evaluations",
+    "responsible-scaling-policy-evaluation-anthropic-rsp",
+    "automated-red-teaming-at-scale",
+    "mmlu-prox-multilingual-advanced-evaluation",
+    "m-ifeval-multilingual-instruction-following",
+    "multilingual-consistency-mlc-mother-tongue-effect-mte",
+    "legal-llm-evaluation-lawbench",
+    "healthbench-medical-ai-evaluation",
+    "medthink-bench-clinical-reasoning-evaluation",
+    "eleutherai-lm-evaluation-harness",
+    "opencompass-evaluation-platform",
+    "model-cards-ai-transparency-documentation",
+    "ai-generated-text-detection-watermarking-synthid",
+    "synthetic-data-quality-evaluation-fidelity-utility-privacy",
+    "model-collapse-detection-prevention",
+    "human-llm-collaborative-annotation",
+    "rocketeval-scalable-automated-evaluation",
+    "annotation-quality-verification-lapras-framework",
+    "python-basics-types-control-flow-functions-modules",
+    "object-oriented-programming-in-python",
+    "iterators-iterables-generators",
+    "decorators-context-managers",
+    "testing-debugging-dependency-management",
+    "numpy-arrays-broadcasting-vectorization",
+    "scientific-file-formats-schemas-reliable-data-i-o",
+    "sql-relational-data-transactions-for-ml",
+    "pandas-data-wrangling-joins-grouping",
+    "matplotlib-scientific-plotting",
+    "reproducible-notebooks-experiment-structure",
+    "code-documentation-type-hints-api-design",
+    "git-github-collaborative-version-control",
+    "linux-basics-filesystems-processes",
+    "bash-scripting-command-line-automation",
+    "os-processes-virtual-memory-isolation",
+    "threads-concurrency-locks-deadlocks",
+    "arrays-strings-hash-maps",
+    "linked-lists-stacks-queues",
+    "trees-binary-search-trees",
+    "heaps-priority-queues-tries",
+    "graphs-representations-bfs-dfs",
+    "disjoint-sets-union-find",
+    "complexity-analysis-recursion",
+    "binary-search-sorting-two-pointer-patterns",
+    "backtracking-divide-and-conquer",
+    "greedy-algorithms-exchange-arguments",
+    "dynamic-programming-states-transitions-optimization",
+    "segment-trees-fenwick-trees-range-queries",
+    "algorithm-correctness-loop-invariants-termination",
+    "hashing-collision-resolution-amortized-analysis",
+    "shortest-paths-spanning-trees-topological-ordering",
+    "string-matching-prefix-functions-rolling-hashes",
+    "reductions-p-np-computational-intractability",
+    "randomized-algorithms-sampling-error-guarantees",
+    "network-flow-minimum-cuts-bipartite-matching",
+    "computational-geometry-robust-predicates-convex-hulls",
+    "persistent-data-structures-structural-sharing-versioned-queries",
+    "external-memory-algorithms-b-trees-i-o-complexity",
+    "jax-arrays-pure-functions-functional-state",
+    "jit-compilation-with-jit",
+    "automatic-differentiation-with-grad",
+    "vectorization-with-vmap",
+    "parallelism-with-pmap-pjit-sharding",
+    "flax-equinox-pytree-based-model-design",
+    "optax-optimizers-training-loops",
+    "implement-an-mlp-cnn-in-jax",
+    "implement-a-transformer-in-jax",
+    "implement-ppo-in-jax",
+    "implement-a-diffusion-model-in-jax",
+    "jax-prng-keys-pytrees-reproducible-state",
+    "jax-tracing-shape-constraints-honest-benchmarking",
+    "coordinate-frames-transformations-robot-state",
+    "forward-inverse-kinematics",
+    "robot-dynamics-state-space-models",
+    "pid-control-kalman-filters-state-estimation",
+    "model-predictive-control-cem-latent-planning",
+    "gymnasium-api-reinforcement-learning-environments",
+    "mujoco-isaac-sim-isaac-lab",
+    "navigation-manipulation-locomotion",
+    "vision-language-action-models-robot-foundation-models",
+    "robot-sensor-calibration-units-time-synchronization",
+    "robot-actuators-transmission-limits-saturation",
+    "robot-jacobians-singularities-differential-kinematics",
+    "bayesian-robot-localization-sensor-fusion-observability",
+    "graph-based-slam-data-association-loop-closure",
+    "configuration-space-collision-checking-feasible-trajectories",
+    "contact-mechanics-force-control-grasp-stability",
+    "ros-2-nodes-messages-transforms-lifecycle",
+    "robot-integration-safety-cases-hardware-in-the-loop-validation",
+    "nonlinear-control-lyapunov-stability-regions-of-attraction",
+    "robust-control-disturbance-rejection-uncertainty-models",
+    "legged-locomotion-hybrid-dynamics-contact-transitions",
+    "tactile-sensing-slip-detection-contact-state-estimation",
+    "autonomous-navigation-driving-closed-loop-evaluation",
+    "drosophila-biology-nervous-system-biomechanics",
+    "neuromechfly-flygym-flybody",
+    "mujoco-gymnasium-based-fly-environments",
+    "virtual-terrains-tasks-compelling-demonstrations",
+    "walking-turning-escape-sensory-guided-behaviour",
+    "motor-control-sensory-feedback-closed-loop-behaviour",
+    "biomechanical-constraints-comparing-simulated-with-real-behaviour",
+    "experiment-logging-configuration-reproducible-workflows",
+    "scientific-visualization-video-rendering-behavioural-trajectories",
+    "from-fly-embodiment-to-virtual-mouse-systems",
+    "fly-model-calibration-system-identification-validation",
+    "neural-to-mechanical-coupling-closed-loop-fly-experiments",
+    "system-design-requirements-constraints-architecture-decisions",
+    "capacity-estimation-workload-models-performance-budgets",
+    "architecture-styles-modular-monoliths-services-event-driven-systems",
+    "domain-modeling-bounded-contexts-service-ownership",
+    "architecture-documentation-adrs-technical-design-reviews",
+    "system-design-interviews-clarification-estimation-deep-dives",
+    "low-level-design-interfaces-composition-dependency-boundaries",
+    "design-patterns-state-machines-maintainable-service-code",
+    "operating-system-mechanisms-for-service-design",
+    "concurrency-memory-models-synchronization-for-services",
+    "tcp-udp-quic-tls-connection-lifecycle-design",
+    "dns-anycast-service-discovery-traffic-steering",
+    "load-balancers-reverse-proxies-api-gateways",
+    "cdns-edge-caching-geographic-content-delivery",
+    "api-design-rest-rpc-graphql-compatibility",
+    "timeouts-deadlines-retries-exponential-backoff",
+    "idempotency-keys-deduplication-exactly-once-effects",
+    "sessions-stateless-services-distributed-application-state",
+    "websockets-server-sent-events-webhooks-realtime-apis",
+    "rate-limiting-quotas-admission-control",
+    "distributed-ids-ordering-uniqueness-guarantees",
+    "client-architecture-rendering-state-offline-data-api-boundaries",
+    "user-perceived-performance-accessibility-internationalization",
+    "data-modeling-invariants-schema-evolution",
+    "database-indexes-b-trees-hash-indexes-query-planning",
+    "storage-internals-pages-wal-lsm-trees-compaction",
+    "probabilistic-data-structures-bloom-filters-sketches-approximate-counts",
+    "bloom-cuckoo-xor-filters-approximate-membership",
+    "hyperloglog-hll-approximate-distinct-counting",
+    "count-min-sketch-count-sketch-streaming-heavy-hitters",
+    "streaming-quantiles-kll-t-digest-reservoir-sampling",
+    "transactions-isolation-levels-concurrency-anomalies",
+    "relational-document-key-value-wide-column-graph-databases",
+    "object-storage-filesystems-block-storage-erasure-coding",
+    "merkle-trees-content-addressing-data-integrity",
+    "time-series-databases-search-indexes-specialized-retrieval",
+    "database-operations-connections-vacuum-backups-restore",
+    "distributed-failure-models-time-impossibility-boundaries",
+    "distributed-consistency-linearizability-causal-guarantees",
+    "replication-quorums-failover-semantics",
+    "consensus-raft-paxos-replicated-state-machines",
+    "leader-election-leases-distributed-locks-fencing-tokens",
+    "sharding-consistent-hashing-hot-keys-rebalancing",
+    "distributed-transactions-two-phase-commit-atomic-commit",
+    "crdts-conflict-resolution-offline-first-synchronization",
+    "multi-region-architecture-data-residency-disaster-recovery",
+    "distributed-sql-logical-timestamps-externally-consistent-transactions",
+    "membership-changes-snapshots-gossip-anti-entropy",
+    "caching-strategies-invalidation-stampede-control",
+    "message-queues-publish-subscribe-delivery-semantics",
+    "partitioned-logs-consumer-groups-event-ordering",
+    "backpressure-bounded-queues-stream-flow-control",
+    "transactional-outbox-inbox-change-data-capture",
+    "sagas-compensation-durable-workflow-engines",
+    "event-sourcing-cqrs-projection-evolution",
+    "job-scheduling-timers-distributed-task-execution",
+    "batch-data-platforms-warehouses-lakes-lakehouses",
+    "distributed-query-engines-joins-shuffles-analytical-execution",
+    "stream-processing-event-time-watermarks-windowing",
+    "data-contracts-schema-registries-pipeline-quality",
+    "search-system-architecture-crawling-indexing-retrieval",
+    "ml-serving-architecture-feature-freshness-model-rollouts",
+    "vector-search-rag-ai-application-system-boundaries",
+    "slis-slos-error-budgets-availability-modeling",
+    "observability-metrics-logs-traces-profiling",
+    "tail-latency-queueing-fanout-performance-diagnosis",
+    "circuit-breakers-bulkheads-load-shedding-graceful-degradation",
+    "load-testing-benchmark-validity-capacity-experiments",
+    "incident-management-on-call-runbooks-blameless-reviews",
+    "fault-injection-chaos-experiments-resilience-validation",
+    "correctness-testing-model-checking-deterministic-simulation",
+    "system-threat-modeling-trust-boundaries-secure-defaults",
+    "authentication-oauth-openid-connect-session-security",
+    "authorization-rbac-abac-relationship-based-permissions",
+    "encryption-key-management-secrets-certificate-rotation",
+    "multi-tenant-architecture-noisy-neighbors-isolation",
+    "privacy-retention-deletion-audit-evidence",
+    "abuse-prevention-ddos-fraud-software-supply-chain-security",
+    "virtual-machines-containers-isolation-runtime-resources",
+    "kubernetes-architecture-scheduling-service-operation",
+    "serverless-managed-services-build-versus-buy-decisions",
+    "infrastructure-as-code-configuration-environment-reproducibility",
+    "cloud-networks-service-meshes-control-plane-separation",
+    "ci-cd-canary-releases-feature-flags-safe-rollback",
+    "schema-migrations-backfills-zero-downtime-evolution",
+    "monolith-decomposition-legacy-integration-strangler-migrations",
+    "finops-capacity-planning-sustainability-engineering-economics",
+    "design-studio-url-shortener-redirects-abuse-controls",
+    "design-studio-chat-presence-multi-device-messaging",
+    "design-studio-social-feeds-fanout-notification-delivery",
+    "design-studio-payments-ledgers-financial-reconciliation",
+    "design-studio-inventory-ticketing-reservation-contention",
+    "design-studio-file-sync-collaboration-version-conflicts",
+    "design-studio-video-streaming-transcoding-live-delivery",
+    "design-studio-maps-geospatial-search-ride-dispatch",
+    "design-studio-metrics-logs-high-cardinality-telemetry",
+    "design-studio-cloud-object-store-metadata-service",
+    "design-studio-workflow-platform-ci-runners-build-cache",
+    "design-studio-iot-ingestion-device-control-edge-operation",
+    "design-studio-experimentation-platforms-assignment-metric-integrity",
+    "peer-to-peer-systems-byzantine-faults-trustless-coordination",
+    "real-time-embedded-system-design-deadlines-safety-control-boundaries",
+    "high-performance-systems-zero-copy-rdma-hardware-aware-design",
+    "system-design-capstone-evolve-a-service-from-one-node-to-multiple-regions",
+    "system-design-capstone-build-verify-a-replicated-key-value-service",
+    "system-design-capstone-secure-multi-tenant-event-platform"
+  ],
+  "modules": [
+    {
+      "id": "math-foundations",
+      "title": "Mathematical & Statistical Foundations",
+      "sections": [
+        {
+          "name": "Linear Algebra",
+          "titles": [
+            "Vectors, Matrices & Tensor Operations",
+            "Matrix Decompositions (SVD, QR, Cholesky, LU)",
+            "Eigenvalues & Eigenvectors",
+            "Matrix Calculus & Jacobians",
+            "Tensor Algebra & Einsum Notation",
+            "Randomized Linear Algebra"
+          ]
+        },
+        {
+          "name": "Calculus & Optimization",
+          "titles": [
+            "Multivariate Calculus & Gradients",
+            "Convex Optimization",
+            "Gradient Descent Variants (SGD, Adam, AdaGrad, RMSProp, LAMB, LARS)",
+            "Learning Rate Schedules (Cosine, Warmup, OneCycleLR)",
+            "Convex Duality & Lagrangian Methods (KKT Conditions)",
+            "Second-Order Methods (L-BFGS, K-FAC, Shampoo, Natural Gradient)",
+            "Non-Convex Optimization Landscape",
+            "Constrained & Multi-Objective Optimization"
+          ]
+        },
+        {
+          "name": "Probability & Statistics",
+          "titles": [
+            "Probability Distributions & Bayes' Theorem",
+            "Maximum Likelihood & MAP Estimation",
+            "Hypothesis Testing & Confidence Intervals",
+            "Bayesian Inference & Conjugate Priors",
+            "Concentration Inequalities (Hoeffding, Bernstein, Chernoff)",
+            "Monte Carlo Methods & MCMC (Metropolis-Hastings, HMC, NUTS)",
+            "Variational Inference",
+            "Exponential Families & Sufficient Statistics",
+            "Measure Theory & Probability Spaces",
+            "Optimal Transport (Wasserstein Distance, Sinkhorn)",
+            "Causal Inference & Do-Calculus"
+          ]
+        },
+        {
+          "name": "Information Theory",
+          "titles": [
+            "Entropy, Cross-Entropy & KL Divergence",
+            "Mutual Information & Information Bottleneck",
+            "Rate-Distortion Theory",
+            "f-Divergences & Integral Probability Metrics"
+          ]
+        },
+        {
+          "name": "Graph Theory & Discrete Math",
+          "titles": [
+            "Graph Fundamentals (Adjacency, Laplacian, Connectivity)",
+            "Spectral Graph Theory",
+            "Combinatorial Optimization & Approximation Algorithms"
+          ]
+        },
+        {
+          "name": "Stochastic Processes & Dynamical Systems",
+          "titles": [
+            "Stochastic Processes (Markov Chains, Brownian Motion, Poisson)",
+            "Random Matrix Theory",
+            "Queueing Theory (M/M/1, M/G/1, Little's Law)",
+            "Dynamical Systems Theory & Chaos",
+            "Itô Calculus & Stochastic Differential Equations"
+          ]
+        },
+        {
+          "name": "Advanced Mathematical Structures",
+          "titles": [
+            "Numerical Methods (Finite Differences, Quadrature, Root Finding)",
+            "Functional Analysis & RKHS",
+            "Topology & Topological Data Analysis (TDA)",
+            "Category Theory (Emerging Use in ML)",
+            "Differential Geometry & Riemannian Manifolds"
+          ]
+        },
+        {
+          "name": "Bridges: Mathematical Language, Proof & Measurement",
+          "titles": [
+            "Algebra, Functions, Exponentials & Logarithms",
+            "Sets, Logic, Relations & Proof Techniques",
+            "Geometry, Trigonometry & Coordinate Reasoning",
+            "Counting, Combinatorics & Mathematical Induction",
+            "Single-Variable Calculus: Limits, Derivatives & Integrals",
+            "Random Variables, Expectation & Covariance",
+            "Sampling, Measurement & Experimental Design",
+            "Ordinary Differential Equations & Linear Systems",
+            "Complex Numbers, Fourier & Laplace Transforms",
+            "Conditioning, Stability & Numerical Analysis",
+            "Decision Theory, Risk & Cost-Sensitive Decisions"
+          ]
+        },
+        {
+          "name": "Analysis, Symmetry & Spatial Differential Models",
+          "titles": [
+            "Real Analysis, Sequences & Modes of Convergence",
+            "Abstract Algebra, Groups & Symmetry Actions",
+            "Partial Differential Equations, Conservation & Boundary Conditions",
+            "Numerical PDEs: Grids, Finite Elements & Stability"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classical-ml",
+      "title": "Classical Machine Learning",
+      "sections": [
+        {
+          "name": "Supervised Learning",
+          "titles": [
+            "Linear & Logistic Regression",
+            "Decision Trees & Random Forests",
+            "K-Nearest Neighbors (KNN)",
+            "Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)",
+            "Support Vector Machines (SVM)",
+            "Naive Bayes & Probabilistic Classifiers",
+            "Ensemble Methods & Stacking",
+            "Recommender Systems (Collaborative Filtering, Matrix Factorization)",
+            "Multi-Label & Multi-Output Learning",
+            "Survival Analysis (Cox Regression, Kaplan-Meier, Hazard Models)"
+          ]
+        },
+        {
+          "name": "Unsupervised Learning",
+          "titles": [
+            "K-Means & Hierarchical Clustering",
+            "PCA & Dimensionality Reduction",
+            "Clustering Evaluation & Validation (Silhouette, ARI, NMI)",
+            "DBSCAN & Density-Based Clustering",
+            "Anomaly & Outlier Detection (Isolation Forest, One-Class SVM, LOF)",
+            "Gaussian Mixture Models (GMM) & EM Algorithm",
+            "t-SNE, UMAP & Manifold Learning",
+            "Independent Component Analysis (ICA)",
+            "Non-Negative Matrix Factorization (NMF)"
+          ]
+        },
+        {
+          "name": "Feature Engineering & Model Selection",
+          "titles": [
+            "Feature Scaling, Encoding & Imputation",
+            "Cross-Validation & Hyperparameter Tuning",
+            "Regularization (L1, L2, Elastic Net, Dropout)",
+            "Feature Selection & Importance (SHAP, Permutation, Mutual Info)",
+            "Bias-Variance Tradeoff & Learning Curves",
+            "Imbalanced Learning (SMOTE, Cost-Sensitive Learning)",
+            "AutoML & Neural Architecture Search (NAS)"
+          ]
+        },
+        {
+          "name": "Probabilistic & Graphical Models",
+          "titles": [
+            "Hidden Markov Models (HMM)",
+            "Bayesian Networks & Causal Graphical Models",
+            "Conditional Random Fields (CRF)",
+            "Gaussian Processes (GP)"
+          ]
+        },
+        {
+          "name": "Semi-Supervised & Self-Training",
+          "titles": [
+            "Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training)",
+            "Active Learning"
+          ]
+        },
+        {
+          "name": "Learning Theory & Evaluation",
+          "titles": [
+            "Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)",
+            "PAC Learning & VC Dimension",
+            "Calibration & Conformal Prediction",
+            "Rademacher Complexity & Generalization Bounds"
+          ]
+        },
+        {
+          "name": "From a Question to a Valid Experiment",
+          "titles": [
+            "ML Problem Formulation, Baselines & Data Leakage",
+            "Time-Series Validation & Forecasting Baselines",
+            "End-to-End Supervised Learning & Error Analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deep-learning-fundamentals",
+      "title": "Deep Learning Fundamentals & Architectures",
+      "sections": [
+        {
+          "name": "Core Concepts",
+          "titles": [
+            "Perceptrons, Neurons & Activation Functions",
+            "Backpropagation & Automatic Differentiation",
+            "Loss Functions (CE, MSE, Focal, Contrastive, Triplet)",
+            "Batch/Layer/Group/RMS Normalization",
+            "Transfer Learning & Fine-Tuning Strategies",
+            "Weight Initialization (Xavier, Kaiming, μP)",
+            "Residual Connections & Skip Connections",
+            "Dropout, DropPath & Stochastic Depth"
+          ]
+        },
+        {
+          "name": "Convolutional Neural Networks (CNNs)",
+          "titles": [
+            "Convolution, Pooling & Receptive Fields",
+            "Landmark Architectures (LeNet → AlexNet → VGG → ResNet → EfficientNet)",
+            "Depthwise Separable & Dilated Convolutions",
+            "ConvNeXt & Modern CNN Designs",
+            "Capsule Networks"
+          ]
+        },
+        {
+          "name": "Recurrent & Sequence Models",
+          "titles": [
+            "RNNs, LSTMs & GRUs",
+            "Sequence-to-Sequence & Encoder-Decoder",
+            "Attention Mechanism (Bahdanau, Luong)",
+            "Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver)",
+            "State Space Models (S4, Mamba, Mamba-2)",
+            "RWKV & Linear Attention Models"
+          ]
+        },
+        {
+          "name": "Transformers",
+          "titles": [
+            "Self-Attention & Multi-Head Attention",
+            "Transformer Block Architecture",
+            "Positional Encodings (Sinusoidal, Learned, RoPE, ALiBi)",
+            "Grouped-Query Attention (GQA) & Multi-Query Attention (MQA)",
+            "Multi-Head Latent Attention (MLA)",
+            "Sparse & Linear Attention Variants",
+            "Vision Transformers (ViT, DeiT, Swin, DiNOv2)",
+            "Mixture-of-Experts Transformers (MoE)",
+            "Interleaved / Cross-Attention Architectures"
+          ]
+        },
+        {
+          "name": "Graph Neural Networks",
+          "titles": [
+            "Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)",
+            "Graph Transformers & Geometric Deep Learning"
+          ]
+        },
+        {
+          "name": "Alternative Architectures & Historical Models",
+          "titles": [
+            "Boltzmann Machines & Restricted Boltzmann Machines (RBM)",
+            "Spectral Normalization & Gradient Penalty",
+            "Modern Hopfield Networks",
+            "xLSTM (Extended LSTM)",
+            "Hyena & Long Convolution Models",
+            "Ring Attention & Sequence Parallelism",
+            "Advanced Optimizers (Lion, Sophia, Prodigy, Schedule-Free)",
+            "Neural ODE & Continuous-Depth Models",
+            "Hybrid SSM-Transformer Architectures (Jamba)",
+            "Titans (Multi-Memory Architecture)"
+          ]
+        },
+        {
+          "name": "Training Mechanics & Diagnosis",
+          "titles": [
+            "Mini-Batches, Training Loops & Gradient Accumulation",
+            "Neural Training Diagnostics & Reproducible Experiments"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "large-language-models",
+      "title": "Large Language Models — Architecture, Training & Inference",
+      "sections": [
+        {
+          "name": "Tokenization & Input Processing",
+          "titles": [
+            "Byte-Pair Encoding (BPE), WordPiece, SentencePiece, Unigram",
+            "Byte-Level Tokenization & Token-Free Models",
+            "Vocabulary Design & Multilingual Tokenization",
+            "Multimodal Tokenization (Visual, Audio, Video)",
+            "Dynamic Tokenization (ADAT, BoundlessBPE, LiteToken)"
+          ]
+        },
+        {
+          "name": "Pre-Training",
+          "titles": [
+            "Causal Language Modeling (Next-Token Prediction)",
+            "Masked Language Modeling (BERT-style)",
+            "Data Curation & Deduplication (MinHash, Bloom Filters)",
+            "Scaling Laws (Kaplan, Chinchilla, Beyond)",
+            "Curriculum Learning & Data Mixing Strategies",
+            "FP8 Training & Low-Precision Pre-Training",
+            "MoE Training & Expert Load Balancing",
+            "Multimodal Pre-Training (Vision Encoders, Cross-Modal Alignment)",
+            "Data Curation Pipelines (Curator Models, Quality Filtering)",
+            "Synthetic Data Generation for Pre-Training"
+          ]
+        },
+        {
+          "name": "Post-Training & Alignment",
+          "titles": [
+            "Supervised Fine-Tuning (SFT)",
+            "RLHF (Reinforcement Learning from Human Feedback)",
+            "DPO (Direct Preference Optimization)",
+            "SimPO (Simple Preference Optimization)",
+            "P-Tuning & Soft Prompt Methods",
+            "GRPO, RLOO, KTO & Advanced Preference Methods",
+            "Constitutional AI (CAI)",
+            "Process Reward Models (PRM) vs Outcome Reward Models (ORM)",
+            "RLAIF, IPO, ORPO & Emerging Alignment Methods",
+            "RLVR (Reinforcement Learning with Verifiable Rewards)",
+            "DAPO (Dynamic Adaptive Policy Optimization)",
+            "Knowledge Distillation for LLMs (DeepSeek-R1-Distill, CoT Distillation)",
+            "RL for Reasoning (DeepSeek-R1 Style)"
+          ]
+        },
+        {
+          "name": "Inference Optimization",
+          "titles": [
+            "KV-Cache & Memory Management",
+            "Decoding Strategies (Greedy, Beam, Top-k, Top-p, Temperature)",
+            "Structured Output & Constrained Decoding (Outlines, XGrammar)",
+            "Continuous Batching & PagedAttention",
+            "Queueing Theory for LLM Serving",
+            "Speculative Decoding",
+            "Prefix Caching & Prompt Caching",
+            "Inference Cost Economics & Compute Scaling",
+            "Test-Time Compute Scaling",
+            "Inference Engines & Serving"
+          ]
+        },
+        {
+          "name": "AI Inference System Design & Architecture",
+          "titles": [
+            "Inference System Architecture (End-to-End)",
+            "Request Routing & Load Balancing",
+            "Autoscaling & GPU Resource Management",
+            "Disaggregated Prefill & Decode",
+            "Caching Strategies (Semantic, Exact, KV-Cache Sharing)",
+            "Multi-Model Serving & Model Routing",
+            "Rate Limiting, Quota Management & Fairness",
+            "Guardrails, Input/Output Filtering & Safety Layers",
+            "Observability & LLM Monitoring",
+            "Streaming & Server-Sent Events (SSE)",
+            "Cost Optimization & TCO Analysis",
+            "Edge & On-Premise Deployment Architectures",
+            "Multi-Region & Global Inference Infrastructure"
+          ]
+        },
+        {
+          "name": "Long Context & Retrieval",
+          "titles": [
+            "Context Window Extension (RoPE Scaling, YaRN, NTK-Aware)",
+            "Retrieval-Augmented Generation (RAG)",
+            "Embedding Models & Vector Databases",
+            "GraphRAG & Agentic RAG",
+            "Model Merging (TIES, DARE, Model Soups, SLERP)",
+            "Hybrid Search (Dense + Sparse + Reranking)"
+          ]
+        },
+        {
+          "name": "Language-Model Data, Objectives & Complete Workflows",
+          "titles": [
+            "Language-Model Batches, Attention Masks & Loss Alignment",
+            "Pretraining Corpus Provenance, Rights & Dataset Governance",
+            "Train, Evaluate & Document a Small Language Model",
+            "RAG Corpus Ingestion, Citation Lineage & Freshness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reinforcement-learning",
+      "title": "Reinforcement Learning",
+      "sections": [
+        {
+          "name": "Foundations",
+          "titles": [
+            "MDPs, Bellman Equations & Dynamic Programming",
+            "Value Iteration & Policy Iteration",
+            "Monte Carlo & Temporal Difference (TD) Methods",
+            "On-Policy, Off-Policy & Importance Sampling",
+            "Q-Learning & SARSA",
+            "Exploration vs Exploitation (ε-greedy, UCB, Thompson Sampling)"
+          ]
+        },
+        {
+          "name": "Deep RL",
+          "titles": [
+            "DQN & Rainbow Extensions",
+            "Policy Gradient Methods (REINFORCE, A2C)",
+            "Policy Gradients, Baselines & Generalized Advantage Estimation (GAE)",
+            "PPO (Proximal Policy Optimization)",
+            "TRPO (Trust Region Policy Optimization)",
+            "Representation Learning for RL (CURL, DrQ, Data Augmentation)",
+            "A3C, IMPALA & Scalable Distributed RL",
+            "R2D2, Agent57 & Atari-Scale RL",
+            "SAC (Soft Actor-Critic) & Maximum Entropy RL",
+            "DDPG, TD3 & Continuous Action Spaces",
+            "Distributional RL (C51, QR-DQN, IQN)"
+          ]
+        },
+        {
+          "name": "Advanced RL",
+          "titles": [
+            "Model-Based RL (Dreamer, MuZero, World Models)",
+            "Landmark RL Systems (AlphaGo, AlphaZero & MuZero)",
+            "Hierarchical RL (Options, Goal-Conditioned, HAM)",
+            "Multi-Agent RL (MARL)",
+            "Offline RL & Conservative Q-Learning (CQL)",
+            "Decision Transformer & Sequence Modeling for RL",
+            "IQL (Implicit Q-Learning)",
+            "Inverse RL & Imitation Learning (GAIL, DAgger, BC)",
+            "Reward Shaping & Intrinsic Motivation (Curiosity, RND)",
+            "Sim-to-Real Transfer & Domain Randomization",
+            "Safe RL & Constrained MDPs",
+            "Reward Modeling & RLHF for LLMs",
+            "Self-Play & Population-Based Training"
+          ]
+        },
+        {
+          "name": "RL Environments & Tools",
+          "titles": [
+            "Simulation Environments"
+          ]
+        },
+        {
+          "name": "Environment Semantics & Reliable RL Evidence",
+          "titles": [
+            "RL Environment Contracts, Termination & Evaluation",
+            "Partial Observability, Belief States & Recurrent Policies"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generative-models",
+      "title": "Generative Models",
+      "sections": [
+        {
+          "name": "GANs",
+          "titles": [
+            "Generative Adversarial Networks (GAN Fundamentals)",
+            "GAN Variants (DCGAN, WGAN, StyleGAN, CycleGAN, Pix2Pix)",
+            "Mode Collapse & Training Stability"
+          ]
+        },
+        {
+          "name": "Variational Autoencoders",
+          "titles": [
+            "VAE & ELBO",
+            "VQ-VAE & Discrete Latent Spaces",
+            "Hierarchical & Conditional VAEs"
+          ]
+        },
+        {
+          "name": "Diffusion Models",
+          "titles": [
+            "Denoising Diffusion Probabilistic Models (DDPM)",
+            "Diffusion Forward/Reverse Processes & DDIM Sampling",
+            "Score-Based Models & SDEs",
+            "Latent Diffusion & Stable Diffusion",
+            "Classifier-Free Guidance (CFG)",
+            "Rectified Flow & Flow Matching",
+            "Consistency Models & Distillation",
+            "Controllable Generation (ControlNet, IP-Adapter, T2I-Adapter)",
+            "DiT (Diffusion Transformers)"
+          ]
+        },
+        {
+          "name": "Other Generative Approaches",
+          "titles": [
+            "Evaluation Metrics for Generative Models (FID, IS, CLIP Score)",
+            "Image & Video Editing with Generative Models (Inpainting, InstructPix2Pix)",
+            "Normalizing Flows (RealNVP, Glow, Neural ODE)",
+            "Autoregressive Image Models (PixelCNN, ImageGPT, VAR)",
+            "Energy-Based Models (EBMs)",
+            "3D Generation (Text-to-3D, Score Distillation Sampling)",
+            "Video Generation Architectures & Training"
+          ]
+        },
+        {
+          "name": "Generative Objectives & Sampling Foundations",
+          "titles": [
+            "Generative Modelling: Density, Likelihood & Sampling",
+            "Diffusion Sampler Error, Schedules & Numerical Solvers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nlp-cv-multimodal",
+      "title": "NLP, Computer Vision & Multimodal AI",
+      "sections": [
+        {
+          "name": "Natural Language Processing",
+          "titles": [
+            "Text Classification, NER & Sequence Labeling",
+            "Text Preprocessing & Cleaning (Tokenization, Normalization, Deduplication)",
+            "Machine Translation & Cross-Lingual Transfer",
+            "Question Answering & Reading Comprehension",
+            "Text Summarization (Extractive & Abstractive)",
+            "Multilingual & Cross-Lingual NLP (XLM-R, mBERT, Low-Resource Transfer)",
+            "Entity Linking & Coreference Resolution Pipelines",
+            "Relation Extraction & Open Information Extraction",
+            "Speech Recognition (ASR) & Text-to-Speech (TTS)",
+            "Information Extraction & Knowledge Graphs",
+            "Structured Prediction & Document AI (LayoutLM, Donut)"
+          ]
+        },
+        {
+          "name": "Classic NLP & Embeddings",
+          "titles": [
+            "Word Embeddings (Word2Vec, GloVe, FastText)",
+            "Sentence Transformers & Dense Retrieval (E5, GTE, BGE)",
+            "Contextual Embeddings (ELMo, BERT Variants)",
+            "Syntactic Parsing & Coreference Resolution",
+            "Dialogue Systems & Conversational AI"
+          ]
+        },
+        {
+          "name": "Computer Vision",
+          "titles": [
+            "Image Classification",
+            "Camera Geometry, Calibration & Stereo Vision",
+            "Object Detection (YOLO, DETR, RT-DETR)",
+            "Semantic, Instance & Panoptic Segmentation",
+            "Pose Estimation & Action Recognition",
+            "3D Vision (NeRF, 3D Gaussian Splatting, Depth Estimation)",
+            "Visual SLAM & Visual Odometry",
+            "Depth Estimation & Monocular 3D Understanding",
+            "Self-Supervised Visual Learning (MAE, DINO, SimCLR, CLIP)",
+            "Optical Flow & Video Understanding",
+            "OCR & Document Understanding",
+            "Super-Resolution & Image Restoration",
+            "Medical Imaging (Segmentation, Detection, Classification)",
+            "Foundation Models for Segmentation (SAM, SAM 2)",
+            "Synthetic Data Generation for Training"
+          ]
+        },
+        {
+          "name": "Multimodal AI",
+          "titles": [
+            "Vision-Language Models (CLIP, SigLIP, BLIP-2)",
+            "Multimodal LLMs (GPT-4V, Gemini, LLaVA, Qwen-VL)",
+            "Text-to-Image Generation (DALL-E, Stable Diffusion, Flux, Midjourney)",
+            "Video Generation (Sora, Runway Gen-3, Kling, Wan)",
+            "Audio/Music Generation (AudioLM, MusicGen, Udio, Suno)",
+            "Early Fusion Multimodality (Llama 4)",
+            "Any-to-Any Models (Unified Multimodal Generation)"
+          ]
+        },
+        {
+          "name": "Speech & Audio (Extended)",
+          "titles": [
+            "Speaker Diarization & Verification",
+            "Speech Emotion Recognition & Paralinguistics",
+            "Audio Classification & Sound Event Detection",
+            "Music Information Retrieval (Beat Tracking, Chord Recognition, Genre)",
+            "Voice Cloning & Speaker Adaptation (VALL-E, OpenVoice, XTTS)",
+            "Source Separation & Audio Denoising (Demucs, Band-Split RNN)",
+            "Audio Synthesis Fundamentals (Vocoders, WaveNet, Neural Audio Codecs)",
+            "Spatial Audio & 3D Sound Processing"
+          ]
+        },
+        {
+          "name": "Signals, Labels & Multimodal Data Foundations",
+          "titles": [
+            "Digital Images, Sampling, Color & Geometric Transforms",
+            "Audio Sampling, Spectrograms & Speech Data Pipelines",
+            "Multimodal Dataset Alignment, Missing Modalities & Evaluation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quantitative-finance",
+      "title": "Quantitative Trading, Financial Markets & Investment Engineering",
+      "sections": [
+        {
+          "name": "Markets, Institutions & Financial Accounting",
+          "titles": [
+            "Professional Trading: Participants, Desks & the Trade Lifecycle",
+            "Market Instruments, Returns & Cash-Flow Accounting",
+            "Market Efficiency, Behavioral Finance & Sources of Trading Returns",
+            "Financial Statements, Valuation & Fundamental Research",
+            "Interest Rates, Compounding, Discounting & Market Conventions",
+            "Trading P&L, Positions, Cost Basis & Performance Accounting",
+            "Macroeconomics, Monetary Policy & Cross-Asset Transmission",
+            "Hedge Fund Structures, Mandates, Fees & Prime Brokerage"
+          ]
+        },
+        {
+          "name": "Instruments, Financing & Asset-Class Mechanics",
+          "titles": [
+            "Equities, Corporate Actions, Indices & ETF Mechanics",
+            "Bonds, Yield Curves, Duration, Convexity & Credit Spreads",
+            "Futures, Forwards, Basis, Carry & Contract Rolls",
+            "Foreign Exchange, Cross-Currency Basis & FX Forwards",
+            "Commodities, Storage, Seasonality & Physical Delivery",
+            "Options Contracts, Payoffs, Exercise & Assignment",
+            "Securities Lending, Short Selling, Repo & Funding Liquidity",
+            "Swaps, Credit Derivatives & Structured Products",
+            "Digital-Asset Market Structure, Custody & Perpetual Futures",
+            "Credit, Mortgages, Prepayment & Securitized-Product Risk"
+          ]
+        },
+        {
+          "name": "Quantitative Foundations & Financial Econometrics",
+          "titles": [
+            "Probability Theory for Quant Finance (Martingales, Stopping Times, Random Walks)",
+            "Linear Algebra for Finance (Covariance Matrices, PCA, Factor Decomposition)",
+            "Python for Quantitative Research (NumPy, Pandas, Vectorized Backtesting)",
+            "Econometrics (Cointegration, Granger Causality, VECM, Unit Roots)",
+            "Convex Optimization & Dynamic Programming for Finance (CVXPY, Bellman Equations)",
+            "Bayesian Statistics & Inference for Finance (Signal Combination, Hierarchical Models)",
+            "Stochastic Calculus for Finance (Itô Calculus, SDEs)",
+            "ARIMA, GARCH & Classical Time-Series",
+            "Decision Theory, Utility & Betting Under Uncertainty",
+            "Financial Inference: HAC Errors, Bootstrap & Multiple Testing",
+            "Regime Detection & Hidden Markov Models for Markets",
+            "State-Space Filtering, Change Points & Online Financial Estimation",
+            "Point Processes, Hawkes Models & High-Frequency Econometrics",
+            "Stochastic Control, HJB Equations & Optimal Stopping in Finance"
+          ]
+        },
+        {
+          "name": "Market Microstructure, Execution & Market Making",
+          "titles": [
+            "Market Microstructure & Order Book Modeling",
+            "Order Types, Matching Rules, Auctions & Queue Priority",
+            "RFQ Markets, Dealer Pricing & Electronic OTC Trading",
+            "Price Discovery, Adverse Selection & Order-Flow Information",
+            "Transaction Cost Analysis & Slippage Modeling (Market Impact, Cost-Aware Optimization)",
+            "Execution Algorithms & Optimal Execution (TWAP, VWAP, Almgren-Chriss)",
+            "Smart Order Routing, Venue Selection & Liquidity Fragmentation",
+            "Market-Making & Liquidity Provision (Avellaneda-Stoikov, Inventory Management)",
+            "Queue Position, Fill Probability & Limit-Order Placement",
+            "Multi-Agent RL & Market Simulation"
+          ]
+        },
+        {
+          "name": "Financial Data & Reproducible Research Infrastructure",
+          "titles": [
+            "Financial Data Pitfalls (Survivorship Bias, Look-Ahead Bias, Point-in-Time Data)",
+            "Security Masters, Identifiers, Calendars & Corporate-Action Data",
+            "Tick Data, Order-Book Reconstruction & Feed Quality",
+            "Financial Time-Series Storage: Columnar Files, kdb+ & Streaming Data",
+            "Alternative Data Sources (Satellite, Web Traffic, Social)",
+            "Alternative-Data Due Diligence, Entitlements & Research Lineage",
+            "Reproducible Quant Experiments, Research Compute & GPU Acceleration"
+          ]
+        },
+        {
+          "name": "Forecasting, Research Design & Backtest Validation",
+          "titles": [
+            "Feature Engineering & Alpha Research Methodology (IC, IR, Decay, Turnover)",
+            "Backtesting Frameworks & Avoiding Overfitting",
+            "Financial Labels, Event Sampling & Overlapping Outcomes",
+            "Walk-Forward Testing, Purging, Embargoes & Nested Model Selection",
+            "Backtest Overfitting, Deflated Sharpe & Research Trial Accounting",
+            "Backtest Selection Bias & Execution Reconciliation",
+            "Event-Driven Backtesting, Fill Models & Paper-to-Live Gaps",
+            "Classical Forecasting (Prophet, N-BEATS, N-HiTS)",
+            "Temporal Fusion Transformers & Neural Forecasting",
+            "Foundation Models for Time-Series (TimesFM, Chronos, Moirai)",
+            "Financial ML: Nonstationarity, Calibration & Economic Evaluation"
+          ]
+        },
+        {
+          "name": "Portfolio Construction, Risk & Capital Allocation",
+          "titles": [
+            "Portfolio Optimization (Markowitz, Black-Litterman, Risk Parity)",
+            "Covariance Estimation, Shrinkage & Multi-Factor Risk Models",
+            "Constrained Portfolios, Turnover, Liquidity & Capacity",
+            "Position Sizing, Kelly Criteria & Drawdown-Constrained Allocation",
+            "Risk Models & Tail Risk (VaR, CVaR, Stress Testing, Extreme Value Theory)",
+            "Stress Testing, Liquidity Spirals & Crowded-Trade Unwinds",
+            "Counterparty Risk, Collateral, Margin & Valuation Adjustments",
+            "Performance Attribution, Skill Evaluation & Manager Selection",
+            "Multi-Strategy Allocation, Risk Budgets & Portfolio Governance"
+          ]
+        },
+        {
+          "name": "Derivative Pricing, Numerical Methods & Hedging",
+          "titles": [
+            "Options Pricing & Derivatives (Black-Scholes, Monte Carlo, Neural SDEs)",
+            "No-Arbitrage Pricing, Numeraires & Risk-Neutral Measures",
+            "Greeks, Dynamic Hedging & Options P&L Attribution",
+            "Volatility Surfaces, Calibration & Static Arbitrage",
+            "Local Volatility, Stochastic Volatility, Jumps & Rough Models",
+            "Pricing Trees, PDE Solvers & Early-Exercise Boundaries",
+            "Monte Carlo Pricing, Variance Reduction & Adjoint Greeks",
+            "Interest-Rate Curve Construction & Multi-Curve Derivatives",
+            "Financial Calibration, Fourier Pricing & Numerical Sensitivity",
+            "Exotic Options, Credit Models & Model Risk Validation",
+            "Deep Hedging & RL for Trading"
+          ]
+        },
+        {
+          "name": "Alpha Strategies & Investment Hypotheses",
+          "titles": [
+            "Alpha Signal Generation & Factor Models",
+            "Equity Factors, Cross-Sectional Signals & Neutralization",
+            "Trend Following, Time-Series Momentum & Managed Futures",
+            "Statistical Arbitrage & Pairs Trading (Cointegration, Ornstein-Uhlenbeck)",
+            "Carry, Value & Cross-Asset Risk Premia",
+            "Event-Driven Trading, Merger Arbitrage & Index Reconstitutions",
+            "Fixed-Income Relative Value, Curve Trades & Basis Strategies",
+            "Volatility Trading, Dispersion & Variance Risk Premia",
+            "Sentiment Analysis & NLP for Finance (FinBERT)",
+            "Graph Neural Networks for Financial Markets (Sector Rotation, Systemic Risk)",
+            "LLMs for Financial Analysis",
+            "Crypto & DeFi Quantitative Strategies (AMM, MEV, On-Chain Analytics)"
+          ]
+        },
+        {
+          "name": "HFT, Exchange Connectivity & Low-Latency Engineering",
+          "titles": [
+            "High-Frequency Trading & Low-Latency Infrastructure",
+            "Market-Making Risk, Markouts & Cross-Instrument Hedging",
+            "Low-Latency Systems & C++ for Quant (Lock-Free, FPGA, Co-Location)",
+            "FIX Sessions, Binary Protocols & Order Gateway State",
+            "Market-Data Feed Handlers, Multicast & Gap Recovery",
+            "Low-Latency C++: Memory Layout, Atomics & Lock-Free Queues",
+            "Kernel Bypass, NIC Queues, NUMA & Network Hot Paths",
+            "Clock Synchronization, Hardware Timestamping & Latency Metrology",
+            "FPGA Trading Pipelines, Hardware Offload & Verification",
+            "Colocation, Exchange Certification & Capacity Engineering"
+          ]
+        },
+        {
+          "name": "Production Trading, Controls & Fund Operations",
+          "titles": [
+            "OMS, EMS, Portfolio State & Real-Time Risk Architecture",
+            "Pre-Trade Limits, Kill Switches & Fat-Finger Protection",
+            "ML Model Lifecycle in Production Trading (Drift, Monitoring, Feature Stores)",
+            "Trading Releases, Shadow Runs, Incident Response & Recovery",
+            "Clearing, Settlement, Reconciliation & Treasury Operations",
+            "Trading Regulation, Market Conduct & Surveillance",
+            "Explainable AI & Model Governance in Finance (SHAP, SR 11-7)",
+            "Credit Scoring & Fraud Detection",
+            "Trading Security, Access Controls & Business Continuity"
+          ]
+        },
+        {
+          "name": "Professional Practice, Interviews & Integrated Capstones",
+          "titles": [
+            "Quant Interview Mathematics (Brainteasers, Expected Value, Game Theory)",
+            "Quant Research Communication, Replication & Investment Memos",
+            "Quant Developer & Trader Interviews: Coding, Markets & Design",
+            "Quant Capstone: Reproducible Cross-Asset Research & Portfolio",
+            "Quant Capstone: Exchange Replay, Market Maker & Risk Gateway",
+            "Quant Capstone: Derivatives Library & Independent Model Validation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "computational-neuroscience",
+      "title": "Neural Engineering & Computational Neuroscience",
+      "sections": [
+        {
+          "name": "Neuroscience Foundations",
+          "titles": [
+            "Neurons, Synapses & Neural Signaling",
+            "Plasticity, Sensory Systems & Motor Systems",
+            "Internally Generated States & Neural Correlates of Behavior"
+          ]
+        },
+        {
+          "name": "Neural Data Analysis & Decoding",
+          "titles": [
+            "Hodgkin-Huxley & Leaky Integrate-and-Fire Models",
+            "Brian2, Nengo & Neural Simulation Workflows",
+            "Spike Trains, Local Field Potentials & Neural Population Activity",
+            "Dimensionality Reduction & Manifold Analysis for Neural Data",
+            "Neural Population Dynamics & Latent-State Models",
+            "Movement, Speech & Sensory-State Decoding",
+            "Multi-Dimensional Output Prediction & Closed-Loop Decoding"
+          ]
+        },
+        {
+          "name": "Neuroimaging, Electrophysiology & BCI",
+          "titles": [
+            "Human fMRI: Experimental Design, Preprocessing & GLM",
+            "Functional Connectivity & Representational Similarity Analysis",
+            "In-Vivo & Awake-Behaving Electrophysiology",
+            "Non-Human Primate Electrophysiology",
+            "Closed-Loop Brain-Computer Interfaces"
+          ]
+        },
+        {
+          "name": "Neural Computation",
+          "titles": [
+            "Neural Population Coding & Tuning Curves",
+            "Spiking Neural Networks (SNNs)",
+            "Biologically Plausible Learning Rules (Feedback Alignment, Equilibrium Propagation)",
+            "Hebbian Learning & Synaptic Plasticity",
+            "Predictive Coding & Free Energy Principle",
+            "Computational Models of Memory (Working, Episodic, Semantic)",
+            "Neural Decoding & Representation Similarity Analysis (RSA)",
+            "Neural Oscillations & Attention in the Brain",
+            "Brain-Computer Interfaces (BCI)",
+            "Neuromorphic Computing",
+            "Whole-Brain Emulation & Connectomics"
+          ]
+        },
+        {
+          "name": "Neural Engineering: Biological and Physical Foundations",
+          "titles": [
+            "Neural Engineering: From Biological Questions to Engineered Systems",
+            "Functional Neuroanatomy: Brain, Spinal Cord and Peripheral Pathways",
+            "Neural Cell Biology: Glia, Myelin, Metabolism and the Blood-Brain Barrier",
+            "Physical Units and Circuit Foundations for Neural Engineering",
+            "Membrane Biophysics: Ion Gradients, Reversal Potentials and Conductance",
+            "Cable Theory and Multicompartment Neuron Models",
+            "Neural Development, Injury and Repair as Engineering Constraints",
+            "Neurovascular Coupling and Indirect Measures of Neural Activity",
+            "Comparative Neural Systems, Model Organisms and Translation"
+          ]
+        },
+        {
+          "name": "Neural Signals, Inference and Experimental Reasoning",
+          "titles": [
+            "Psychophysics and Signal Detection for Neural Engineering",
+            "Signals and Systems for Neuroengineering",
+            "Sampling, Aliasing and Quantization in Neural Recordings",
+            "Spectral and Time-Frequency Analysis of Neural Signals",
+            "State Estimation and System Identification for Neural Dynamics",
+            "Neuroscience Experimental Design, Pseudoreplication and Statistical Power",
+            "Neural Information Measures and Communication Metrics"
+          ]
+        },
+        {
+          "name": "Neural Instrumentation, Interfaces and Device Engineering",
+          "titles": [
+            "Electrode-Tissue Interfaces, Impedance and Electrochemistry",
+            "Neural Interface Materials, Mechanics and Foreign-Body Response",
+            "Biopotential Amplifiers, Analog Front Ends and ADC Design",
+            "Neural Recording Noise, Referencing, Grounding and Interference",
+            "Embedded Processing, FPGA Pipelines and Real-Time Neural Firmware",
+            "Wireless Neural Telemetry, Power Budgets and Thermal Constraints",
+            "Neural Device Packaging, Reliability and Design Verification",
+            "Chemical Neural Sensing, Biosensors and Targeted Delivery Concepts",
+            "Neural Tissue Engineering, Organoids and Biohybrid Interfaces"
+          ]
+        },
+        {
+          "name": "Neural Recording and Imaging Modalities",
+          "titles": [
+            "Intracellular Electrophysiology: Current Clamp, Voltage Clamp and Model Validation",
+            "EEG, Event-Related Potentials and MEG Measurement",
+            "EEG and MEG Forward Models, Source Localization and Uncertainty",
+            "Intracranial Recording: ECoG, Depth Electrodes and High-Density Probes",
+            "EMG, Peripheral Nerve Recordings and Motor-Unit Signals",
+            "Calcium and Voltage Imaging: Indicators, Optics and Measurement Limits",
+            "fNIRS and Wearable Hemodynamic Neuroimaging",
+            "Structural MRI, Diffusion Imaging and Multimodal Neural Measurement",
+            "Optogenetics, Chemogenetics and Cell-Type-Specific Perturbation"
+          ]
+        },
+        {
+          "name": "Reproducible Neural Data Pipelines",
+          "titles": [
+            "Neural Data Synchronization, Event Timing and Lab Streaming Layer",
+            "Neural Preprocessing, Artifact Rejection and Leakage-Safe Pipelines",
+            "Spike Sorting, Unit Quality, Drift and Ground-Truth Validation",
+            "Calcium Imaging Pipelines: Motion, Segmentation, Neuropil and Deconvolution",
+            "NWB, BIDS and Neural Metadata: Interoperable Data by Design",
+            "Open Neural Data, Reproducibility and Dataset Provenance",
+            "Behavioral Tracking, Stimulus Annotation and Neural-Behavior Alignment"
+          ]
+        },
+        {
+          "name": "Neural Models, Decoders and NeuroAI",
+          "titles": [
+            "Neural Encoding Models: GLMs, Point Processes and Receptive Fields",
+            "Neural Decoding Evaluation: Subject Splits, Leakage and Operational Metrics",
+            "Nonstationarity, Decoder Recalibration and Longitudinal Adaptation",
+            "Causal Neural Inference, Confounding and Perturbation Evidence",
+            "NeuroAI and Foundation Models for Neural Data",
+            "Neuromorphic Neural Interfaces: Event Processing and Deployment Tradeoffs"
+          ]
+        },
+        {
+          "name": "Closed-Loop Neurotechnology, Prostheses and Rehabilitation",
+          "titles": [
+            "Electrical Neural Stimulation: Recruitment, Charge and Model Limits",
+            "Noninvasive Neuromodulation: TMS, Electrical and Ultrasound Concepts",
+            "DBS and Responsive Neuromodulation: Biomarkers and Adaptive Control",
+            "Peripheral, Spinal and Functional Electrical Stimulation Systems",
+            "Sensory Neuroprostheses: Hearing, Vision and Somatosensory Feedback",
+            "Communication BCIs: Speech, Language Priors and User Intent",
+            "Closed-Loop BCI Stability, Shared Control and Failure Recovery",
+            "Neurofeedback, Rehabilitation Learning and Evidence of Transfer"
+          ]
+        },
+        {
+          "name": "Responsible Neurotechnology and Translation",
+          "titles": [
+            "Clinical Evidence for Neurotechnology: Endpoints, Trials and Generalization",
+            "Neurotechnology Risk Management, Regulation and Quality Systems",
+            "Neural Data Privacy, Consent, Agency and Long-Term Stewardship",
+            "Accessible Neurotechnology, Participatory Design and Human Factors",
+            "Responsible Animal, Human-Tissue and Preclinical Neural Research",
+            "Neural Device Cybersecurity, Software Lifecycle and Postmarket Support"
+          ]
+        },
+        {
+          "name": "Neural Engineering Integration Projects",
+          "titles": [
+            "Neural Engineering Capstone: Auditable EEG Analysis",
+            "Neural Engineering Capstone: Longitudinal Decoder and Closed-Loop Simulator",
+            "Neural Engineering Capstone: Simulated Acquisition Chain and Verification File",
+            "Neural Engineering Capstone: Multimodal Neural Dataset and Model Comparison",
+            "Neural Engineering Capstone: Translation and Participatory Design Dossier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evolutionary-algorithms",
+      "title": "Evolutionary & Bio-Inspired Algorithms",
+      "sections": [
+        {
+          "name": "Fair Search Experiments",
+          "titles": [
+            "Black-Box Optimization Budgets, Constraints & Benchmarking"
+          ]
+        },
+        {
+          "name": "Core Evolutionary Methods",
+          "titles": [
+            "Genetic Algorithms (GA)",
+            "Evolution Strategies (ES, CMA-ES, OpenAI-ES)",
+            "Differential Evolution (DE)",
+            "Particle Swarm Optimization (PSO) & Swarm Intelligence",
+            "Ant Colony Optimization (ACO)",
+            "Estimation of Distribution Algorithms (EDA, UMDA, BOA)",
+            "Neuroevolution (NEAT, HyperNEAT, Weight Agnostic Networks)",
+            "Quality-Diversity (MAP-Elites, CMA-ME)",
+            "Genetic Programming & Symbolic Regression",
+            "Multi-Objective Evolutionary Optimization (NSGA-II, MOEA/D)",
+            "Coevolution & Competitive Dynamics",
+            "Evolutionary Combinatorial Optimization (Scheduling, Routing, Packing)",
+            "Memetic Algorithms (Hybrid EA + Local Search)",
+            "POET & Open-Ended Evolution",
+            "LLM-Guided Evolution & FunSearch",
+            "Artificial Life & Open-Ended Search"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hardware-systems",
+      "title": "GPU Engineering, CUDA & Large-Scale Systems",
+      "sections": [
+        {
+          "name": "GPU Engineering Readiness",
+          "titles": [
+            "C & C++ Foundations for GPU Programming",
+            "CMake, Linking & Reproducible Native Builds",
+            "Parallel Algorithm Design: Work, Span & Decomposition",
+            "GPU Toolchains, Drivers & Compatibility",
+            "CPU–GPU Work Partitioning & Acceleration Economics",
+            "Floating-Point Representation & Numerical Error"
+          ]
+        },
+        {
+          "name": "Hardware Fundamentals",
+          "titles": [
+            "CPU Architecture (Cores, Caches, SIMD, Pipelining)",
+            "GPU Architecture (SMs, Warps, Threads, Memory Hierarchy)",
+            "Memory Hierarchy (HBM, L2, SRAM, Registers, Bandwidth)",
+            "Tensor Cores & Specialized AI Hardware",
+            "Interconnects & Network Topology (NVLink, InfiniBand, NVSwitch)"
+          ]
+        },
+        {
+          "name": "CUDA & Kernel Programming",
+          "titles": [
+            "CUDA Programming Model",
+            "Triton (GPU Kernel DSL)",
+            "CUDA Libraries (cuBLAS, cuDNN, cuFFT, NCCL, Thrust, CUB)",
+            "Memory Coalescing, Bank Conflicts & Shared Memory Tiling",
+            "Warp-Level Primitives & Cooperative Groups",
+            "Custom CUDA Kernel Writing for ML Ops",
+            "Flash Attention Implementation",
+            "Operator Fusion & Torch Compile",
+            "Ring-AllReduce & Communication Primitives",
+            "Compiler & Graph Optimization (XLA, TorchInductor, MLIR)"
+          ]
+        },
+        {
+          "name": "Distributed Training",
+          "titles": [
+            "Data Parallelism (DDP)",
+            "FSDP (Fully Sharded Data Parallelism)",
+            "Tensor Parallelism (TP)",
+            "Pipeline Parallelism (PP)",
+            "Expert Parallelism & All-to-All Communication",
+            "3D Parallelism & Hybrid Strategies",
+            "Gradient Checkpointing (Activation Recomputation)",
+            "ZeRO Optimization Stages (1, 2, 3)",
+            "Networking & Communication Optimization (RDMA, GPUDirect, SHARP)"
+          ]
+        },
+        {
+          "name": "Profiling & Performance",
+          "titles": [
+            "GPU Profiling & Roofline Analysis",
+            "FLOP Utilization (MFU) & Training Efficiency"
+          ]
+        },
+        {
+          "name": "Custom AI Hardware",
+          "titles": [
+            "Google TPUs (Tensor Processing Units)",
+            "Cerebras Wafer-Scale Engine",
+            "Groq LPU (Language Processing Unit)",
+            "Other AI Accelerators (Graphcore IPU, Intel Gaudi, Apple Neural Engine)",
+            "AMD ROCm & MI300/MI350 Ecosystem",
+            "Power, Cooling & Energy Constraints for AI Clusters"
+          ]
+        },
+        {
+          "name": "GPU Correctness and Execution",
+          "titles": [
+            "GPU Indexing, Shapes, Strides & Boundary Handling",
+            "GPU Atomics, Memory Ordering & Visibility",
+            "GPU Synchronization, Barriers & Deadlock",
+            "CUDA Streams, Events & Asynchronous Execution",
+            "Host–Device Transfers, Pinned Memory & Buffer Lifetimes",
+            "Unified Memory, Address Spaces & Oversubscription",
+            "GPU Debugging & Compute Sanitizer"
+          ]
+        },
+        {
+          "name": "GPU Measurement and Diagnosis",
+          "titles": [
+            "Reliable GPU Benchmarking & Experimental Design",
+            "Nsight Systems: End-to-End Timeline Diagnosis",
+            "Nsight Compute: Counters, Stalls & Kernel Diagnosis",
+            "Occupancy, Register Pressure & Latency Hiding",
+            "GPU Cache Behavior, Data Layout & Locality"
+          ]
+        },
+        {
+          "name": "GPU Algorithm and Numerical Patterns",
+          "titles": [
+            "Parallel Reductions & Stable Softmax",
+            "Parallel Scan, Compaction & Segmented Operations",
+            "Histograms, Scatter–Gather & Atomic Contention",
+            "GEMM from Scalar Loops to Hierarchical Tiling",
+            "GPU Stencils, Convolution & Boundary Conditions",
+            "Sparse GPU Formats & Sparse Matrix Kernels",
+            "GPU Sorting, Selection & Top-k",
+            "Irregular GPU Algorithms & Graph Traversal",
+            "GPU Random Number Generation & Monte Carlo",
+            "Low-Precision GPU Arithmetic & Error Budgets",
+            "GPU FFTs, Spectral Methods & Signal Pipelines",
+            "GPU Linear Solvers & Iterative Refinement"
+          ]
+        },
+        {
+          "name": "Advanced GPU Kernel Construction",
+          "titles": [
+            "Tensor-Core Matrix Instructions & Fragment Layouts",
+            "Asynchronous Copy, TMA & Pipeline Staging",
+            "Thread-Block Clusters & Distributed Shared Memory",
+            "Persistent Kernels, Warp Specialization & Work Queues",
+            "CUTLASS & CuTe Layout Algebra",
+            "Advanced Triton: Layouts, Pipelines & Persistent Kernels",
+            "GPU Kernel Autotuning & Dispatch Design"
+          ]
+        },
+        {
+          "name": "GPU Compilers, Runtimes and Framework Integration",
+          "titles": [
+            "PTX, SASS & GPU Instruction Analysis",
+            "CUDA Runtime, Driver API & Device Code Linking",
+            "Framework GPU Operators, Autograd & Interoperability",
+            "GPU Memory Pools, Virtual Memory & Allocation Strategy",
+            "CUDA Graphs, Capture & Dynamic Workloads"
+          ]
+        },
+        {
+          "name": "Multi-GPU Communication and Recovery",
+          "titles": [
+            "Multi-GPU Topology, Peer Access & NUMA Placement",
+            "NCCL Collectives: Correctness, Tuning & Diagnosis",
+            "Communication–Compute Overlap & Distributed Critical Paths",
+            "CUDA-Aware MPI, NVSHMEM & GPU-Initiated Communication",
+            "Distributed GPU Checkpointing & Failure Recovery"
+          ]
+        },
+        {
+          "name": "GPU Production Engineering",
+          "titles": [
+            "GPU Containers, Packaging & Deployment Compatibility",
+            "GPU Scheduling, Slurm, Kubernetes, MIG & MPS",
+            "GPU Health, ECC, Xid Errors & Reliability Diagnosis",
+            "GPU Correctness CI & Performance Regression Testing",
+            "GPU Capacity Planning, Energy Measurement & Cost",
+            "GPU Multi-Tenancy, Isolation & Secure Operations",
+            "GPU Input Pipelines, Storage & Data-Movement Bottlenecks"
+          ]
+        },
+        {
+          "name": "Portable GPUs, Applications and Hardware Design",
+          "titles": [
+            "Portable GPU Kernels with HIP & ROCm",
+            "AMD GPU Profiling & Architecture-Aware Tuning",
+            "SYCL, OpenMP Offload & OpenACC",
+            "WebGPU Compute & WGSL",
+            "Graphics Pipelines, Compute Shaders & GPU Interoperability",
+            "GPU Scientific Simulation & Domain Decomposition",
+            "GPU Architecture Modeling & Simulator Validation",
+            "GPU RTL Design, Verification & Hardware Tradeoffs"
+          ]
+        },
+        {
+          "name": "GPU Engineering Capstones",
+          "titles": [
+            "GPU Engineering Capstone: Verified Kernel Library",
+            "GPU Engineering Capstone: Multi-GPU Application",
+            "GPU Engineering Capstone: Profiled Inference Engine"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model-optimization",
+      "title": "Model Optimization & Efficiency",
+      "sections": [
+        {
+          "name": "Quantization",
+          "titles": [
+            "Post-Training Quantization (PTQ)",
+            "Mixed Precision Training (FP16, BF16, TF32)",
+            "Quantization-Aware Training (QAT)",
+            "Weight-Only vs. Weight-Activation Quantization",
+            "GPTQ, AWQ & Advanced PTQ Methods for LLMs",
+            "Activation-Aware Quantization & Outlier Handling (SmoothQuant, LLM.int8())",
+            "Sub-4-Bit & 1-Bit Quantization (BitNet, AQLM)"
+          ]
+        },
+        {
+          "name": "Parameter-Efficient Fine-Tuning (PEFT)",
+          "titles": [
+            "LoRA (Low-Rank Adaptation)",
+            "QLoRA",
+            "Adapters, Prefix Tuning, Prompt Tuning & IA3",
+            "DoRA, rsLoRA & Advanced LoRA Variants",
+            "Multi-LoRA Serving & LoRA Merging (S-LoRA, Punica)"
+          ]
+        },
+        {
+          "name": "Pruning & Distillation",
+          "titles": [
+            "Knowledge Distillation",
+            "Structured & Unstructured Pruning",
+            "Layer Pruning & Depth Reduction",
+            "Neural Architecture Search (NAS)",
+            "Sparse Models & Activation Sparsity (Mixture-of-Depths)",
+            "Token Merging & Reduction (ToMe, Dynamic Token Pruning)"
+          ]
+        },
+        {
+          "name": "On-Device & Edge Deployment",
+          "titles": [
+            "ONNX & Model Export",
+            "Edge Inference (TensorRT, CoreML, TFLite)",
+            "On-Device SLMs (Small Language Models)",
+            "Speculative Decoding Variants (Medusa, EAGLE, Self-Speculative)"
+          ]
+        },
+        {
+          "name": "Optimization Evidence & Deployment Contracts",
+          "titles": [
+            "Compression Validation & Deployment Regression Testing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mlops-infrastructure",
+      "title": "MLOps & Infrastructure",
+      "sections": [
+        {
+          "name": "Networking Mechanisms Before Distributed Services",
+          "titles": [
+            "Networking Foundations: Packets, Transport, DNS & Sockets"
+          ]
+        },
+        {
+          "name": "Experiment Management",
+          "titles": [
+            "Experiment Tracking & Logging",
+            "Hyperparameter Optimization",
+            "Data Versioning & Pipeline Management",
+            "ML Pipeline Orchestration (Airflow, Prefect, Dagster, Kubeflow)",
+            "Data Quality & Observability (Great Expectations, Monte Carlo, Soda)"
+          ]
+        },
+        {
+          "name": "Model Serving & Deployment",
+          "titles": [
+            "Model Serving & API Frameworks",
+            "Containerization & Orchestration",
+            "LLMOps (Prompt Versioning, Token Cost Management, LLM Monitoring)",
+            "Feature Stores",
+            "Model Monitoring & Drift Detection",
+            "CI/CD for ML Pipelines",
+            "A/B Testing & Canary Deployments for ML Models"
+          ]
+        },
+        {
+          "name": "Cloud & Compute",
+          "titles": [
+            "GPU Cloud & Training Platforms",
+            "Hugging Face Ecosystem",
+            "Cost Management & FinOps for AI (Spot Instances, Reserved Capacity)"
+          ]
+        },
+        {
+          "name": "Model Selection & Task-Specific Design",
+          "titles": [
+            "Task Taxonomy & Model Selection Framework",
+            "Build vs. Fine-Tune vs. Prompt vs. API",
+            "Model Sizing & Latency-Quality Tradeoffs",
+            "Designing for Classification Tasks",
+            "Designing for Conversational AI & Chatbots",
+            "Designing for Information Extraction (NER, RE, IE)",
+            "Designing for Search & Retrieval Systems",
+            "Designing for Code Generation & Analysis",
+            "Designing for Reasoning & Mathematical Tasks",
+            "Designing for Multi-Modal Pipelines",
+            "Designing for Real-Time & Streaming Applications",
+            "Designing for Agentic Workflows"
+          ]
+        },
+        {
+          "name": "System Design Patterns for AI Applications",
+          "titles": [
+            "Microservices vs. Monolithic AI Systems",
+            "Request-Response vs. Batch vs. Streaming Architectures",
+            "RAG System Architecture (Production-Grade)",
+            "Model Cascade & Router Architectures",
+            "Human-in-the-Loop System Design",
+            "Fallback & Graceful Degradation",
+            "Data Flywheel & Continuous Learning Architectures",
+            "Evaluation-Driven Development for AI Systems",
+            "Compliance, Audit Trails & Explainability in Production",
+            "AgentOps (Agent Monitoring, Trace Debugging, Multi-Step Evaluation)"
+          ]
+        },
+        {
+          "name": "ML System Design (Interview & Production)",
+          "titles": [
+            "Recommendation System Design (Candidate Generation, Ranking, Re-Ranking)",
+            "Search Ranking & Learning to Rank (BM25, Neural Ranking, NDCG)",
+            "Fraud Detection System Design (Real-Time, Feature Stores, Rules + ML)",
+            "Ads Prediction & Click-Through Rate Modeling",
+            "Content Moderation & Trust & Safety Systems",
+            "Notification & Feed Ranking Systems",
+            "Large-Scale ML System Architecture (Netflix, Uber, Spotify Case Studies)"
+          ]
+        },
+        {
+          "name": "Service, Data & Reliability Foundations",
+          "titles": [
+            "Networked Services, HTTP Contracts & Identity Boundaries",
+            "Distributed Failure Semantics, Retries & Idempotency",
+            "Data Contracts, Lineage & Training-Serving Consistency"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-safety-alignment",
+      "title": "AI Safety, Alignment & Evaluation",
+      "sections": [
+        {
+          "name": "Alignment Techniques",
+          "titles": [
+            "RLHF, DPO & Preference Learning",
+            "Constitutional AI & Rule-Based Rewards (RBRM)",
+            "Debate, Recursive Reward Modeling & Iterated Amplification",
+            "Scalable Oversight (Process Supervision, Verification Hierarchies)",
+            "Superalignment & Weak-to-Strong Generalization"
+          ]
+        },
+        {
+          "name": "Interpretability",
+          "titles": [
+            "Attention Visualization & Probing",
+            "Mechanistic Interpretability",
+            "Sparse Autoencoders (SAE) for Feature Discovery",
+            "Circuit Analysis & Causal Tracing"
+          ]
+        },
+        {
+          "name": "Model Steering & Activation-Level Control",
+          "titles": [
+            "Logit Bias & Output-Level Steering",
+            "Prompt-Based Steering vs. Activation-Based Steering",
+            "Activation Steering & Steering Vectors",
+            "Contrastive Activation Addition (CAA)",
+            "Inference-Time Intervention (ITI)",
+            "Representation Engineering (RepE)",
+            "Classifier-Free Guidance for LLMs (CFG)",
+            "Controlled Decoding (PPLM, GeDi, FUDGE)",
+            "Refusal Direction & Refusal Ablation",
+            "SAE-Based Steering & Feature Clamping",
+            "Function Vectors & Task Vectors in Activation Space",
+            "Task Vectors in Weight Space",
+            "Activation Patching & Causal Interventions",
+            "Persona Steering & Character Control",
+            "Concept Erasure & Unlearning",
+            "Model Editing (ROME, MEMIT, MEND)",
+            "Knowledge Editing & Belief Revision",
+            "Steering for Safety, Honesty & Capability Elicitation",
+            "Steering Composition & Interference"
+          ]
+        },
+        {
+          "name": "Safety & Robustness",
+          "titles": [
+            "Red-Teaming & Adversarial Testing",
+            "Jailbreak Taxonomies & Defense Mechanisms",
+            "Hallucination Detection & Mitigation",
+            "Sycophancy & Reward Hacking",
+            "Adversarial Robustness & Certified Defenses",
+            "Fairness, Bias & Responsible AI",
+            "AI Control & Containment (Monitoring, Tripwires, Untrusted Model Protocols)",
+            "Faithful Chain-of-Thought & Reasoning Transparency"
+          ]
+        },
+        {
+          "name": "Evaluation & Benchmarks",
+          "titles": [
+            "LLM Benchmarks (MMLU, HellaSwag, HumanEval, GSM8K, MATH)",
+            "LLM-as-Judge & Arena-Style Evaluation",
+            "Contamination Detection & Evaluation Integrity",
+            "Elicitation & Dangerous Capability Evaluation"
+          ]
+        },
+        {
+          "name": "Advanced Alignment Theory",
+          "titles": [
+            "Deceptive Alignment & Mesa-Optimization",
+            "Goodhart's Law in RLHF & Reward Overoptimization",
+            "Specification Gaming & Reward Misspecification",
+            "Sleeper Agents & Backdoor Attacks",
+            "Lottery Ticket Hypothesis & Sparse Subnetworks"
+          ]
+        },
+        {
+          "name": "Governance, Ethics & Societal Impact",
+          "titles": [
+            "AI-Generated Content Watermarking",
+            "Deepfake Detection",
+            "Copyright, Training Data Legality & Data Rights",
+            "Environmental Impact of Training",
+            "Existential Risk & AI Governance Frameworks",
+            "Model Welfare & Digital Minds"
+          ]
+        },
+        {
+          "name": "Risk & Evaluation Foundations",
+          "titles": [
+            "AI Threat Modelling, Trust Boundaries & Defense in Depth",
+            "Safety Cases, Residual Risk & Deployment Decisions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agents-tool-use",
+      "title": "Agentic AI & Tool-Using Systems",
+      "sections": [
+        {
+          "name": "Prompt Engineering",
+          "titles": [
+            "Prompt Design Fundamentals (Zero/Few-Shot, System Prompts)",
+            "Chain-of-Thought (CoT) & Step-by-Step Reasoning",
+            "Self-Consistency & Majority Voting",
+            "Tree-of-Thought, Graph-of-Thought & Search-Based Prompting",
+            "Prompt Optimization & DSPy"
+          ]
+        },
+        {
+          "name": "Agentic Systems",
+          "titles": [
+            "Function Calling & Tool Use",
+            "ReAct (Reasoning + Acting)",
+            "Plan-and-Execute Workflows & Task Decomposition",
+            "Reflection, Self-Critique & Recovery Loops",
+            "Agentic Frameworks",
+            "Agent Orchestration Patterns (Sequential, Parallel, Hierarchical, Handoff)",
+            "Multi-Agent Systems & Agent Communication",
+            "Retrieval & Context Management for Agents",
+            "Human-Agent Interaction Design (Approval Flows, Escalation)",
+            "Agent Memory Architectures",
+            "Code Generation Agents & Computer Use",
+            "Model Context Protocol (MCP)",
+            "Agent Evaluation & Benchmarks (SWE-bench, WebArena, GAIA)",
+            "Agent Safety & Sandboxing (Permission Systems, Action Boundaries)",
+            "Agentic RAG & Deep Research (Multi-Step Retrieval)",
+            "Long-Horizon Agents, Planning & Reliable Execution",
+            "Agent-to-Agent Communication Protocols (A2A, MCP Extensions)"
+          ]
+        },
+        {
+          "name": "Structured Output & Grounding",
+          "titles": [
+            "Structured Output (JSON Mode, Outlines, Grammar Constraints)",
+            "Grounding & Factuality Verification"
+          ]
+        },
+        {
+          "name": "Reliable Tool Execution & Evidence",
+          "titles": [
+            "Agent State Machines, Durable Execution & Recovery",
+            "Agent Evidence, Untrusted Inputs & Permission Enforcement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "frontier-research",
+      "title": "Frontier Research Areas",
+      "sections": [
+        {
+          "name": "Emerging Paradigms",
+          "titles": [
+            "Federated Learning & Privacy-Preserving ML",
+            "Differential Privacy in ML",
+            "Neuro-Symbolic AI",
+            "Dataset Distillation & Data-Centric AI",
+            "Model Merging & Weight Space Methods",
+            "In-Context Learning Theory",
+            "World Models & Predictive Learning",
+            "Causal Representation Learning",
+            "Continual / Lifelong Learning",
+            "Grokking & Delayed Generalization",
+            "Emergent Abilities & Phase Transitions",
+            "Synthetic Data & Self-Improvement Loops",
+            "Test-Time Training (TTT) & Adaptive Inference",
+            "Reasoning Scaling & Extended Thinking",
+            "Neural Scaling Laws Beyond Chinchilla",
+            "Geometric & Topological Deep Learning",
+            "Memory-Augmented Architectures (Titans, Memorizing Transformers)",
+            "Mechanistic Interpretability at Scale (Full-Model Maps, Feature Universality)",
+            "Tokenizer-Free & Byte-Level Models (MegaByte, SpaceByte)",
+            "Mixture-of-Agents & Collective Intelligence"
+          ]
+        },
+        {
+          "name": "AI for Science",
+          "titles": [
+            "Protein Structure Prediction (AlphaFold, ESMFold)",
+            "Drug Discovery & Molecular Generation",
+            "Physics-Informed Neural Networks (PINNs)",
+            "Neural Operators (FNO, DeepONet)",
+            "AI-Driven Materials Discovery (GNoME, Autonomous Labs)",
+            "Biological Sequence Modeling (ESM-3, RNA, Genomics Foundation Models)",
+            "Weather & Climate Prediction (GraphCast, Pangu-Weather, GenCast)",
+            "AI for Mathematics (AlphaProof, FunSearch)",
+            "Autonomous Scientific Laboratories"
+          ]
+        },
+        {
+          "name": "Robotics & Embodied Intelligence",
+          "titles": [
+            "Robot Perception (LiDAR, Depth Sensing, Sensor Fusion)",
+            "Motion Planning & Path Planning (RRT, A*, Trajectory Optimization)",
+            "Control Theory for Robotics (PID, MPC, Adaptive Control)",
+            "SLAM (Simultaneous Localization and Mapping)",
+            "Robot Manipulation & Grasping (Dexterous Hands, Contact-Rich)",
+            "Imitation Learning & Learning from Demonstrations",
+            "Sim-to-Real Transfer & Domain Randomization for Robotics",
+            "Vision-Language-Action Models (RT-2, Octo, π₀)",
+            "Humanoid Robotics & Whole-Body Control"
+          ]
+        },
+        {
+          "name": "Scientific Claims & Model Validation",
+          "titles": [
+            "Research Reproduction, Ablations & Evidence Quality",
+            "Scientific Surrogates, Conservation Laws & Out-of-Distribution Validation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "self-supervised-learning",
+      "title": "Self-Supervised & Contrastive Learning",
+      "sections": [
+        {
+          "name": "Representation Learning Problem Setup",
+          "titles": [
+            "SSL Augmentations, Invariance & Representation Evaluation"
+          ]
+        },
+        {
+          "name": "Methods",
+          "titles": [
+            "SSL Pretext Tasks & Historical Methods (Jigsaw, Rotation, Colorization)",
+            "Contrastive Learning (SimCLR, MoCo, InfoNCE Loss)",
+            "Barlow Twins & VICReg (Redundancy Reduction Methods)",
+            "Self-Distillation (BYOL, DINO, DINOv2)",
+            "Masked Autoencoders (MAE, BEiT, data2vec)",
+            "CLIP & Language-Supervised Visual Learning",
+            "Joint Embedding Predictive Architectures (JEPA)",
+            "V-JEPA Extensions & Cross-Modal JEPA",
+            "Self-Supervised Learning for Video (VideoMAE, V-JEPA 2)",
+            "SSL for Audio & Speech (wav2vec 2.0, HuBERT, AudioMAE)",
+            "Theoretical Foundations of SSL (LeJEPA, Information Theory)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-learning",
+      "title": "Meta-Learning (Learning to Learn)",
+      "sections": [
+        {
+          "name": "Foundations & Problem Setup",
+          "titles": [
+            "Meta-Learning Problem Formulation",
+            "Few-Shot Learning & N-Way K-Shot Setup",
+            "Episodic Training",
+            "Meta-Train / Meta-Test Split"
+          ]
+        },
+        {
+          "name": "Optimization-Based Meta-Learning",
+          "titles": [
+            "MAML (Model-Agnostic Meta-Learning)",
+            "Reptile",
+            "ANIL (Almost No Inner Loop) & Meta-SGD",
+            "Implicit MAML & iMAML",
+            "Warped Gradient Descent & Task-Specific Parameterization"
+          ]
+        },
+        {
+          "name": "Metric-Based Meta-Learning",
+          "titles": [
+            "Siamese Networks",
+            "Prototypical Networks",
+            "Matching Networks",
+            "Relation Networks",
+            "Graph Neural Network-Based Meta-Learning"
+          ]
+        },
+        {
+          "name": "Model-Based (Memory-Augmented) Meta-Learning",
+          "titles": [
+            "Memory-Augmented Neural Networks (MANN)",
+            "Neural Turing Machines & Differentiable Memory",
+            "Meta-Networks (MetaNet) & Hypernetworks for Meta-Learning",
+            "Conditional Neural Processes (CNP) & Neural Processes"
+          ]
+        },
+        {
+          "name": "Advanced Meta-Learning",
+          "titles": [
+            "Meta-Reinforcement Learning",
+            "Task-Agnostic & Unsupervised Meta-Learning",
+            "Bayesian Meta-Learning (BMAML, VERSA)",
+            "Learned Optimizers & Learning to Optimize",
+            "AutoML as Meta-Learning",
+            "In-Context Learning as Meta-Learning",
+            "Foundation Models as Few-Shot Learners",
+            "Meta-Learning for Continual Learning"
+          ]
+        },
+        {
+          "name": "Black-Box & Amortized Meta-Learning",
+          "titles": [
+            "Recurrent Meta-Learners (RL², SNAIL)",
+            "Transformer-Based Meta-Learners (TNP, In-Context Learners)",
+            "Fast-Weight Programmers"
+          ]
+        },
+        {
+          "name": "Meta-Learning for Specific Domains",
+          "titles": [
+            "Few-Shot Object Detection & Segmentation",
+            "Meta-RL: PEARL, VariBAD & Context-Based Adaptation",
+            "Meta-Learning for Drug Discovery & Molecular Properties",
+            "Meta-Learning for NLP (Cross-Lingual Transfer, Prompt Learning)"
+          ]
+        },
+        {
+          "name": "Meta-Learning + AutoML & Curriculum",
+          "titles": [
+            "DARTS & Meta-Learned Architectures",
+            "Meta-Learned Data Augmentation & Curriculum",
+            "LEO, CAVIA & Latent Space Meta-Learning",
+            "Meta-Learned Loss Functions & Regularizers"
+          ]
+        },
+        {
+          "name": "Theoretical Foundations & Connections",
+          "titles": [
+            "PAC-Bayes Bounds for Meta-Learning",
+            "Meta-Overfitting & When Meta-Learning Helps",
+            "Transfer Learning vs. Meta-Learning",
+            "Compositional Meta-Learning",
+            "Meta-Learning at Scale & Scaling Laws",
+            "Task Vectors & Gradient Descent in Transformers"
+          ]
+        },
+        {
+          "name": "Benchmarks & Tools",
+          "titles": [
+            "Meta-Learning Benchmarks",
+            "Meta-Learning Libraries"
+          ]
+        },
+        {
+          "name": "Adaptation Evidence & Baselines",
+          "titles": [
+            "Meta-Learning Evaluation, Task Shift & Adaptation Baselines"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quantum-ai",
+      "title": "Quantum AI & Quantum Computing for ML",
+      "sections": [
+        {
+          "name": "Quantum Mathematical & Experimental Bridges",
+          "titles": [
+            "Complex Amplitudes, Tensor Products & Quantum Experiment Accounting"
+          ]
+        },
+        {
+          "name": "Quantum Computing Fundamentals",
+          "titles": [
+            "Qubits, Superposition & Entanglement",
+            "Quantum Gates & Circuits",
+            "Measurement & Born Rule",
+            "No-Cloning Theorem & Quantum Teleportation",
+            "Quantum State Spaces & Hilbert Space",
+            "Density Matrices & Mixed States",
+            "Quantum Complexity Theory & BQP",
+            "Quantum Annealing & Adiabatic Quantum Computing"
+          ]
+        },
+        {
+          "name": "Quantum Algorithms",
+          "titles": [
+            "Grover's Search Algorithm",
+            "Shor's Factoring Algorithm",
+            "Quantum Fourier Transform (QFT)",
+            "Variational Quantum Eigensolver (VQE)",
+            "Quantum Walks",
+            "Quantum Approximate Optimization Algorithm (QAOA)",
+            "Quantum Phase Estimation (QPE)",
+            "HHL Algorithm (Quantum Linear Systems)",
+            "Quantum Simulation (Hamiltonian Simulation)"
+          ]
+        },
+        {
+          "name": "Quantum Machine Learning",
+          "titles": [
+            "Variational Quantum Circuits (VQC) / Parameterized Quantum Circuits",
+            "Quantum Kernel Methods",
+            "Quantum Data Encoding (Amplitude, Angle, Basis Encoding)",
+            "Quantum Neural Networks (QNN) & Hybrid Models",
+            "Barren Plateaus & Trainability",
+            "Quantum Generative Models (QGAN, Quantum Boltzmann Machines)",
+            "Quantum Reinforcement Learning",
+            "Quantum Transfer Learning",
+            "Quantum Reservoir Computing"
+          ]
+        },
+        {
+          "name": "Quantum for Optimization & Finance",
+          "titles": [
+            "Quantum Monte Carlo Methods",
+            "Quantum Portfolio Optimization & Risk Analysis",
+            "Combinatorial Optimization on Quantum Hardware (MaxCut, TSP via QAOA)",
+            "Quantum Chemistry & Materials Science Applications"
+          ]
+        },
+        {
+          "name": "Quantum Information Theory & Frontier Research",
+          "titles": [
+            "Quantum Information Theory (von Neumann Entropy, Fidelity, Tomography)",
+            "Quantum Natural Language Processing (QNLP)",
+            "Quantum Foundation Models & Advantage Benchmarks",
+            "Classical ML for Quantum (AlphaQubit, ML-Assisted Error Decoding)",
+            "Post-Quantum Cryptography & ML Security Implications"
+          ]
+        },
+        {
+          "name": "Quantum-Inspired Classical Methods",
+          "titles": [
+            "Tensor Networks (MPS, PEPS, MERA)",
+            "Quantum-Inspired Optimization (Simulated Annealing, DMRG-Inspired)",
+            "Dequantization & Classical Simulation of Quantum ML"
+          ]
+        },
+        {
+          "name": "Hardware & NISQ Era",
+          "titles": [
+            "NISQ (Noisy Intermediate-Scale Quantum) Devices",
+            "Quantum Hardware Technologies (Superconducting, Trapped Ion, Photonic, Neutral Atom)",
+            "Quantum Error Correction (Surface Codes, Logical Qubits)",
+            "Quantum Error Mitigation",
+            "Fault-Tolerant Quantum Computing",
+            "Quantum Advantage for ML — Status & Outlook"
+          ]
+        },
+        {
+          "name": "Quantum Computing Frameworks",
+          "titles": [
+            "Quantum Programming Frameworks",
+            "Quantum Circuit Languages & Additional Tools",
+            "Quantum Simulators"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "landmark-models",
+      "title": "Landmark Models & What Makes Them Notable",
+      "sections": [
+        {
+          "name": "How to Read a Model Landmark",
+          "titles": [
+            "Model Papers, Model Cards & Comparative Evidence"
+          ]
+        },
+        {
+          "name": "Notable Models",
+          "titles": [
+            "DeepSeek-R1",
+            "DeepSeek-V3",
+            "Meta Llama 4 (Scout & Maverick)",
+            "OpenAI o-Series (o1, o3, o4-mini)",
+            "Claude 4.6 (Opus, Sonnet)",
+            "Google Gemini (1.5 Pro, 2.0, 2.5)",
+            "Mistral & Mixtral",
+            "Qwen Series (Qwen 2.5, Qwen3)",
+            "Stable Diffusion 3 / Flux",
+            "Sora",
+            "Mamba / Mamba-2",
+            "GPT Series (GPT-1 → GPT-4o)",
+            "Phi Series (Phi-1 → Phi-4)",
+            "Grok Series (Grok-1, Grok-2, Grok-3)",
+            "Command R & Command R+",
+            "GPT-5 / GPT-5.3 Codex",
+            "Gemma Series (Gemma 2, Gemma 3)",
+            "AlphaFold 3",
+            "NVIDIA Cosmos",
+            "BERT & T5 (Encoder & Encoder-Decoder Landmarks)",
+            "DALL-E Series (1, 2, 3)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-frameworks",
+      "title": "Core Frameworks & Tool Ecosystem",
+      "sections": [
+        {
+          "name": "Deep Learning Frameworks",
+          "titles": [
+            "PyTorch",
+            "JAX",
+            "TensorFlow & Keras"
+          ]
+        },
+        {
+          "name": "Training & Optimization Libraries",
+          "titles": [
+            "Experiment Tracking Tools (Weights & Biases, MLflow, Neptune)",
+            "Training Acceleration",
+            "LLM Fine-Tuning Platforms"
+          ]
+        },
+        {
+          "name": "Data & Annotation",
+          "titles": [
+            "Data Processing & Loading",
+            "Data Annotation & Labeling"
+          ]
+        },
+        {
+          "name": "NLP, Vision & Data Libraries",
+          "titles": [
+            "NLP Libraries",
+            "Computer Vision Libraries",
+            "Visualization",
+            "GPU-Accelerated Computing"
+          ]
+        },
+        {
+          "name": "Vector Databases & Annotation",
+          "titles": [
+            "Vector Databases",
+            "Data Annotation & Labeling (Extended)"
+          ]
+        },
+        {
+          "name": "LLM Serving & Inference",
+          "titles": [
+            "LLM Serving Frameworks (vLLM, TGI, SGLang, TensorRT-LLM)"
+          ]
+        },
+        {
+          "name": "LLM Application & Agent Frameworks",
+          "titles": [
+            "LLM Application Frameworks (LangChain, LlamaIndex, Haystack)",
+            "Agent & Workflow Frameworks (CrewAI, AutoGen, LangGraph)"
+          ]
+        },
+        {
+          "name": "Framework Mechanics & Reproducible Artifacts",
+          "titles": [
+            "Tensor Shapes, Autograd Graphs & Device Boundaries",
+            "Dataset Loaders, Checkpoints & Exact Resume Contracts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terminology-glossary",
+      "title": "Key Terminology Glossary",
+      "sections": [
+        {
+          "name": "Glossary Terms",
+          "titles": [
+            "Arithmetic Intensity",
+            "FLOP Utilization (MFU)",
+            "Scaling Laws",
+            "Chinchilla-Optimal",
+            "Emergent Abilities",
+            "Grokking",
+            "Mode Collapse",
+            "Reward Hacking",
+            "Sycophancy",
+            "Catastrophic Forgetting",
+            "KV-Cache",
+            "Perplexity",
+            "Overparameterized",
+            "Double Descent",
+            "Mixture-of-Experts (MoE)",
+            "Token",
+            "Inference-Time Compute",
+            "RLHF",
+            "DPO",
+            "LoRA",
+            "Flash Attention",
+            "Speculative Decoding",
+            "Activation Checkpointing",
+            "RoPE",
+            "SwiGLU",
+            "RMSNorm",
+            "Attention Sink",
+            "Hallucination",
+            "Distillation",
+            "Data Contamination",
+            "Alignment Tax",
+            "Loss Spike",
+            "μP (Maximal Update Parameterization)",
+            "Auxiliary Loss",
+            "Soft Labels",
+            "Few-Shot Learning",
+            "MAML",
+            "Episodic Training",
+            "Qubit",
+            "Superposition",
+            "Entanglement",
+            "NISQ",
+            "Barren Plateau",
+            "Variational Quantum Circuit",
+            "Quantum Advantage",
+            "Hypernetwork",
+            "Goodhart's Law (in RLHF)",
+            "Lottery Ticket Hypothesis",
+            "Representational Collapse",
+            "Loss Landscape Geometry",
+            "PAC Learning",
+            "VC Dimension",
+            "Deceptive Alignment",
+            "Mesa-Optimization",
+            "Model Merging",
+            "Conformal Prediction",
+            "Federated Learning",
+            "No-Cloning Theorem",
+            "Quantum Annealing",
+            "QNLP",
+            "Little's Law",
+            "TTFT / TBT",
+            "Disaggregated Serving",
+            "Model Cascade",
+            "Data Flywheel",
+            "Prefill vs Decode",
+            "Activation Steering",
+            "Steering Vector",
+            "Refusal Direction",
+            "Representation Engineering (RepE)",
+            "Activation Patching",
+            "Model Editing",
+            "Function Vector",
+            "Concept Erasure",
+            "RLVR",
+            "DAPO",
+            "World Model",
+            "Faithful Chain-of-Thought",
+            "Curator Model",
+            "Model Collapse",
+            "SLM (Small Language Model)",
+            "Flow Matching",
+            "Agentic RAG",
+            "Optimal Transport",
+            "Attention Head",
+            "Embedding",
+            "Latent Space",
+            "Tokenizer",
+            "Gradient Accumulation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "llm-evaluation",
+      "title": "LLM Evaluation & Assessment",
+      "sections": [
+        {
+          "name": "Evaluation Problem Setup & Evidence Contracts",
+          "titles": [
+            "Evaluation Questions, Units of Analysis & Sampling Plans",
+            "Evaluation Artifact Provenance & Reproducible Scoring"
+          ]
+        },
+        {
+          "name": "LLM-as-Judge: Methodology & Limits",
+          "titles": [
+            "LLM-as-Judge Paradigm & Core Methodology",
+            "Pointwise vs Pairwise vs Listwise Evaluation",
+            "Cost-Performance Analysis of LLM Judges",
+            "Judge Biases (Position, Verbosity, Self-Enhancement, Style)",
+            "Prometheus & Open-Source Judge Models",
+            "Structured Judging Templates & Chain-of-Thought Scoring",
+            "Reference-Free vs Reference-Based Evaluation",
+            "Reasoning Traces & Structured Output for Judges",
+            "Self-Consistency & Council-of-Judges",
+            "Judge Calibration (Platt Scaling, Isotonic Regression, Anchors)",
+            "Agent-as-a-Judge & Multi-Agent Debate Protocols"
+          ]
+        },
+        {
+          "name": "Psychometrics & Educational Assessment",
+          "titles": [
+            "Classical Test Theory (CTT)",
+            "Item Response Theory (IRT): 1PL, 2PL, 3PL Models",
+            "Reliability Coefficients (Cronbach's Alpha, Cohen's & Fleiss' Kappa, Krippendorff's Alpha)",
+            "Validity Frameworks (Construct, Criterion, Content)",
+            "Standard Setting Methods (Angoff, Bookmark, Modified Angoff)",
+            "Differential Item Functioning (DIF) & Test Bias",
+            "Computer-Adaptive Testing (CAT)",
+            "Assessment Security & Item Exposure Control",
+            "Emotional Intelligence Evaluation (EQ-Bench)",
+            "Adaptive Precise Boolean Rubrics",
+            "LLM Metacognition & Self-Knowledge Evaluation"
+          ]
+        },
+        {
+          "name": "Statistics for LLM Evaluation",
+          "titles": [
+            "Significance Testing for LLM Outputs (Paired Bootstrap, Permutation Tests)",
+            "Effect Sizes (Cohen's d, Hedges' g)",
+            "Multiple Comparisons (Bonferroni, Holm-Bonferroni, Benjamini-Hochberg FDR)",
+            "Power Analysis for Model Evaluation",
+            "Bootstrap Confidence Intervals (BCa)",
+            "Bradley-Terry Models for LLM Ranking",
+            "Elo Rating Systems & Bootstrap Stability",
+            "Bayesian Model Comparison (Bayes Factors, Credible Intervals)",
+            "Conformal Prediction for LLM Uncertainty",
+            "Uncertainty Quantification (Semantic Entropy, LM-Polygraph)",
+            "Variance Decomposition for LLM Evaluation Runs"
+          ]
+        },
+        {
+          "name": "Fairness, Bias & Evaluator Auditing",
+          "titles": [
+            "Algorithmic Fairness Definitions & Impossibility Results",
+            "Group Fairness vs Individual Fairness",
+            "Counterfactual Fairness & Paraphrase Testing",
+            "WEIRD Bias in LLM Evaluation",
+            "AI-to-AI Bias (Self-Preference in Judging)",
+            "Observable vs Unobservable Attributes in LLM Assessment",
+            "Cross-Dimensional Bias Trade-offs",
+            "Multi-Agent Cultural Bias Evaluation (CEBiasBench)",
+            "Intersectional Bias Analysis",
+            "Evaluator Audit Methodology (Paired Testing, Parity Testing, Calibration)"
+          ]
+        },
+        {
+          "name": "RAG Evaluation",
+          "titles": [
+            "Retrieval Evaluation (Dense, Sparse & Hybrid)",
+            "Re-Ranking Strategies (Cross-Encoders vs Bi-Encoders)",
+            "Retrieval Metrics (Recall@K, MRR, nDCG)",
+            "RAG-Specific Evaluation (Context Relevance, Faithfulness, Groundedness)",
+            "RAGAS & TruLens Evaluation Frameworks",
+            "Chunking Strategies & Context Length Management for Eval",
+            "End-to-End RAG Pipeline Evaluation",
+            "Rubric-Retrieval Judges",
+            "RAG Contradiction Detection",
+            "RAG-RewardBench"
+          ]
+        },
+        {
+          "name": "Fine-Tuning & Alignment for Judge Models",
+          "titles": [
+            "SFT for Judge Models",
+            "Preference Optimization for Judges (DPO, KTO, ORPO)",
+            "LoRA & QLoRA for Judge Fine-Tuning",
+            "Distillation Quality Evaluation",
+            "Reward Modeling & Reward Hacking in Evaluation",
+            "Process Reward Models (PRMs) vs Outcome Reward Models (ORMs)",
+            "RewardBench & RewardBench 2",
+            "Constitutional AI Evaluation & Constitution Design",
+            "Preference Data Quality & Inter-Annotator Agreement",
+            "Preference Proxy Evaluations (PPE)"
+          ]
+        },
+        {
+          "name": "Production Evaluation Systems",
+          "titles": [
+            "Evaluation Observability & Logging",
+            "Caching, Idempotency & Reproducibility for Judge Systems",
+            "Online vs Offline Evaluation",
+            "Evaluation as CI/CD (Unit-Test-Style Evals, DeepEval)",
+            "LLM Observability Tools (Langfuse, LangSmith, Arize)",
+            "Drift Detection for Evaluators (Population, Concept, Model)",
+            "Cost-Quality-Latency Pareto Optimization",
+            "Quality-Aware Model Routing (SCORE Framework)",
+            "Shadow Deployment & Canary Rollouts for Evaluators",
+            "A/B Testing & Sequential Analysis at Scale",
+            "Tiered Evaluator Architectures (Cost vs Quality Routing)",
+            "SLAs, Rate Limiting & Degradation Strategies"
+          ]
+        },
+        {
+          "name": "Rubric Design & Prompt Engineering for Judges",
+          "titles": [
+            "Rubric Decomposition & Sub-Criteria Design",
+            "Ordinal Scale Design & Anchor Descriptions",
+            "Exemplar Curation & Few-Shot Selection for Judges",
+            "Prompt Structure for LLM Judges",
+            "Rubric Refinement Loops & Agreement Tracking",
+            "IFEval: Verifiable Instruction-Following Rubrics",
+            "Evaluation Report Writing & Stakeholder Communication",
+            "Clinical & Domain-Specific Rubrics (CLEVER, R-IDEA)",
+            "Evaluation-Driven Development with DSPy"
+          ]
+        },
+        {
+          "name": "Benchmarking Infrastructure",
+          "titles": [
+            "Benchmark Families (HELM, BIG-Bench, MT-Bench, Chatbot Arena)",
+            "Frontier Math Benchmarks (AIME, FrontierMath)",
+            "Humanity's Last Exam (HLE)",
+            "GPQA Diamond for Scientific Reasoning",
+            "Benchmark Contamination & Detection Methods",
+            "ARC-AGI-2 & ARC-AGI-3 for Abstract Reasoning",
+            "Chatbot Arena / LMArena Methodology",
+            "LiveCodeBench for Contamination-Free Code Eval",
+            "BFCL v4 for Tool Use & Function Calling Evaluation",
+            "SWE-bench Verified & SWE-bench-Live",
+            "Dynamic & Private Evaluations",
+            "Benchmark Saturation & When Benchmarks Stop Being Useful",
+            "Canary Items & Eval Set Versioning",
+            "Regression & Acceptance Testing for Evaluators",
+            "MLE-bench for ML Engineering Agent Evaluation"
+          ]
+        },
+        {
+          "name": "Adversarial Robustness & Integrity",
+          "titles": [
+            "Prompt Injection Against Judges",
+            "Prompt Sensitivity & Brittleness Evaluation (PromptBench)",
+            "Gaming Detection & Counter-Gaming Strategies",
+            "Self-Contradictory Reasoning Detection",
+            "Leaderboard Integrity & Vote Rigging Detection",
+            "Data Poisoning for Evaluator Systems",
+            "Integrity Signals & Cheating Detection in Assessment"
+          ]
+        },
+        {
+          "name": "Coding Assessment Evaluation",
+          "titles": [
+            "Code Evaluation Dimensions (Correctness, Efficiency, Style, Robustness)",
+            "AI-Assisted Coding Evaluation & Rubric Design",
+            "Coding Benchmarks (HumanEval, MBPP, SWE-bench, LiveCodeBench)",
+            "BigCodeBench (ICLR 2025)",
+            "Agentic & Repository-Level Code Evaluation",
+            "Code Generation Failure Pattern Analysis"
+          ]
+        },
+        {
+          "name": "Research Skills for Evaluation",
+          "titles": [
+            "Paper Reading & Research Methodology for Eval",
+            "Experiment Tracking & Ablation Design",
+            "Writing Research Memos & Evaluation Reports",
+            "Evaluation for Scientific Discovery (Scientist-Bench)"
+          ]
+        },
+        {
+          "name": "Evaluating Reasoning Models",
+          "titles": [
+            "Chain-of-Thought Monitorability & Faithfulness",
+            "CoT Controllability Evaluation",
+            "Test-Time Compute Scaling Evaluation",
+            "Evaluating Reasoning vs. Memorization"
+          ]
+        },
+        {
+          "name": "Hallucination & Factuality Evaluation",
+          "titles": [
+            "TruthfulQA & SimpleQA Factuality Suites",
+            "Hallucination Rate Benchmarking (HalluLens)",
+            "MetaQA: Metamorphic Testing for Hallucination Detection",
+            "Cross-Layer Attention Probing (CLAP) for Real-Time Detection",
+            "Selective Prediction & Abstention (Conformal Methods)"
+          ]
+        },
+        {
+          "name": "Multimodal & Long-Context Evaluation",
+          "titles": [
+            "NeedleBench: Multi-Needle Retrieval & Reasoning",
+            "Multimodal Needle in a Haystack (MMNeedle)",
+            "Video-MME for Video Understanding Evaluation",
+            "LongGenBench for Long-Form Generation",
+            "MFCL Vision: Tool Use in Multimodal Models"
+          ]
+        },
+        {
+          "name": "Agentic Systems Evaluation",
+          "titles": [
+            "AI Agent Index & Capability Taxonomy",
+            "GAIA: General AI Assistant Benchmark",
+            "CLEAR Framework for Enterprise Agent Evaluation",
+            "Evaluating Agent Tool Selection & Multi-Step Coherence"
+          ]
+        },
+        {
+          "name": "Safety, Red Teaming & Compliance Evaluation",
+          "titles": [
+            "Levels of AI Autonomy & Risk Assessment",
+            "OWASP GenAI Red Teaming Guide",
+            "EU AI Act Compliance Evaluation",
+            "NIST AI RMF & TEVV Process",
+            "METR Dangerous Capability Evaluations",
+            "Responsible Scaling Policy Evaluation (Anthropic RSP)",
+            "Automated Red Teaming at Scale"
+          ]
+        },
+        {
+          "name": "Multilingual & Cross-Cultural Evaluation",
+          "titles": [
+            "MMLU-ProX: Multilingual Advanced Evaluation",
+            "M-IFEval: Multilingual Instruction Following",
+            "Multilingual Consistency (MLC) & Mother-Tongue Effect (MTE)"
+          ]
+        },
+        {
+          "name": "Domain-Specific Evaluation",
+          "titles": [
+            "Legal LLM Evaluation (LawBench)",
+            "HealthBench: Medical AI Evaluation",
+            "MedThink-Bench: Clinical Reasoning Evaluation"
+          ]
+        },
+        {
+          "name": "Evaluation Infrastructure & Tools",
+          "titles": [
+            "EleutherAI LM Evaluation Harness",
+            "OpenCompass Evaluation Platform",
+            "Model Cards & AI Transparency Documentation",
+            "AI-Generated Text Detection & Watermarking (SynthID)"
+          ]
+        },
+        {
+          "name": "Synthetic Data & Data Quality Evaluation",
+          "titles": [
+            "Synthetic Data Quality Evaluation (Fidelity, Utility, Privacy)",
+            "Model Collapse Detection & Prevention"
+          ]
+        },
+        {
+          "name": "Human Evaluation Methodology",
+          "titles": [
+            "Human-LLM Collaborative Annotation",
+            "RocketEval: Scalable Automated Evaluation",
+            "Annotation Quality Verification (Lapras Framework)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "programming-scientific-computing",
+      "title": "Programming & Scientific Computing",
+      "sections": [
+        {
+          "name": "Python Foundations",
+          "titles": [
+            "Python Basics: Types, Control Flow, Functions & Modules",
+            "Object-Oriented Programming in Python",
+            "Iterators, Iterables & Generators",
+            "Decorators & Context Managers",
+            "Testing, Debugging & Dependency Management"
+          ]
+        },
+        {
+          "name": "Scientific Python & Data Workflows",
+          "titles": [
+            "NumPy: Arrays, Broadcasting & Vectorization",
+            "Scientific File Formats, Schemas & Reliable Data I/O",
+            "SQL, Relational Data & Transactions for ML",
+            "Pandas: Data Wrangling, Joins & Grouping",
+            "Matplotlib & Scientific Plotting",
+            "Reproducible Notebooks & Experiment Structure",
+            "Code Documentation, Type Hints & API Design"
+          ]
+        },
+        {
+          "name": "Developer Workflow",
+          "titles": [
+            "Git, GitHub & Collaborative Version Control",
+            "Linux Basics, Filesystems & Processes",
+            "Bash Scripting & Command-Line Automation"
+          ]
+        },
+        {
+          "name": "Operating-System & Concurrent Programming Foundations",
+          "titles": [
+            "OS Processes, Virtual Memory & Isolation",
+            "Threads, Concurrency, Locks & Deadlocks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-structures-algorithms",
+      "title": "Data Structures & Algorithms",
+      "sections": [
+        {
+          "name": "Core Data Structures",
+          "titles": [
+            "Arrays, Strings & Hash Maps",
+            "Linked Lists, Stacks & Queues",
+            "Trees & Binary Search Trees",
+            "Heaps, Priority Queues & Tries",
+            "Graphs: Representations, BFS & DFS",
+            "Disjoint Sets & Union-Find"
+          ]
+        },
+        {
+          "name": "Algorithmic Patterns",
+          "titles": [
+            "Complexity Analysis & Recursion",
+            "Binary Search, Sorting & Two-Pointer Patterns",
+            "Backtracking & Divide-and-Conquer",
+            "Greedy Algorithms & Exchange Arguments",
+            "Dynamic Programming: States, Transitions & Optimization",
+            "Segment Trees, Fenwick Trees & Range Queries"
+          ]
+        },
+        {
+          "name": "Correctness & Missing Algorithmic Foundations",
+          "titles": [
+            "Algorithm Correctness, Loop Invariants & Termination",
+            "Hashing, Collision Resolution & Amortized Analysis",
+            "Shortest Paths, Spanning Trees & Topological Ordering",
+            "String Matching, Prefix Functions & Rolling Hashes",
+            "Reductions, P, NP & Computational Intractability",
+            "Randomized Algorithms, Sampling & Error Guarantees"
+          ]
+        },
+        {
+          "name": "Flow, Geometry & Large Data Structures",
+          "titles": [
+            "Network Flow, Minimum Cuts & Bipartite Matching",
+            "Computational Geometry, Robust Predicates & Convex Hulls",
+            "Persistent Data Structures, Structural Sharing & Versioned Queries",
+            "External-Memory Algorithms, B-Trees & I/O Complexity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jax-ecosystem",
+      "title": "JAX & Functional ML",
+      "sections": [
+        {
+          "name": "JAX Fundamentals",
+          "titles": [
+            "JAX Arrays, Pure Functions & Functional State",
+            "JIT Compilation with jit",
+            "Automatic Differentiation with grad",
+            "Vectorization with vmap",
+            "Parallelism with pmap, pjit & Sharding"
+          ]
+        },
+        {
+          "name": "Ecosystem & Projects",
+          "titles": [
+            "Flax, Equinox & PyTree-Based Model Design",
+            "Optax Optimizers & Training Loops",
+            "Implement an MLP & CNN in JAX",
+            "Implement a Transformer in JAX",
+            "Implement PPO in JAX",
+            "Implement a Diffusion Model in JAX"
+          ]
+        },
+        {
+          "name": "Explicit Randomness & Transformation Debugging",
+          "titles": [
+            "JAX PRNG Keys, PyTrees & Reproducible State",
+            "JAX Tracing, Shape Constraints & Honest Benchmarking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "robotics-embodied-ai",
+      "title": "Robotics, Embodied AI & Simulation",
+      "sections": [
+        {
+          "name": "Robotics Math & Control",
+          "titles": [
+            "Coordinate Frames, Transformations & Robot State",
+            "Forward & Inverse Kinematics",
+            "Robot Dynamics & State-Space Models",
+            "PID Control, Kalman Filters & State Estimation",
+            "Model Predictive Control, CEM & Latent Planning"
+          ]
+        },
+        {
+          "name": "Simulation & Embodied Learning",
+          "titles": [
+            "Gymnasium API & Reinforcement Learning Environments",
+            "MuJoCo, Isaac Sim & Isaac Lab",
+            "Navigation, Manipulation & Locomotion",
+            "Sim-to-Real Transfer & Domain Randomization",
+            "Vision-Language-Action Models & Robot Foundation Models"
+          ]
+        },
+        {
+          "name": "Sensing, Actuation & Geometric Foundations",
+          "titles": [
+            "Robot Sensor Calibration, Units & Time Synchronization",
+            "Robot Actuators, Transmission, Limits & Saturation",
+            "Robot Jacobians, Singularities & Differential Kinematics",
+            "Bayesian Robot Localization, Sensor Fusion & Observability"
+          ]
+        },
+        {
+          "name": "Planning, Middleware & Robot Integration",
+          "titles": [
+            "Graph-Based SLAM, Data Association & Loop Closure",
+            "Configuration Space, Collision Checking & Feasible Trajectories",
+            "Contact Mechanics, Force Control & Grasp Stability",
+            "ROS 2 Nodes, Messages, Transforms & Lifecycle",
+            "Robot Integration, Safety Cases & Hardware-in-the-Loop Validation"
+          ]
+        },
+        {
+          "name": "Nonlinear, Contact-Rich & Autonomous Robotics",
+          "titles": [
+            "Nonlinear Control, Lyapunov Stability & Regions of Attraction",
+            "Robust Control, Disturbance Rejection & Uncertainty Models",
+            "Legged Locomotion, Hybrid Dynamics & Contact Transitions",
+            "Tactile Sensing, Slip Detection & Contact-State Estimation",
+            "Autonomous Navigation & Driving: Closed-Loop Evaluation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "drosophila-fly-embodiment",
+      "title": "Drosophila & Fly Embodiment",
+      "sections": [
+        {
+          "name": "Fly Simulation Foundations",
+          "titles": [
+            "Drosophila Biology, Nervous System & Biomechanics",
+            "NeuroMechFly, FlyGym & Flybody",
+            "MuJoCo & Gymnasium-Based Fly Environments"
+          ]
+        },
+        {
+          "name": "Virtual Behaviour & Biological Plausibility",
+          "titles": [
+            "Virtual Terrains, Tasks & Compelling Demonstrations",
+            "Walking, Turning, Escape & Sensory-Guided Behaviour",
+            "Motor Control, Sensory Feedback & Closed-Loop Behaviour",
+            "Biomechanical Constraints & Comparing Simulated with Real Behaviour"
+          ]
+        },
+        {
+          "name": "Reproducible Science & Extensions",
+          "titles": [
+            "Experiment Logging, Configuration & Reproducible Workflows",
+            "Scientific Visualization, Video Rendering & Behavioural Trajectories",
+            "From Fly Embodiment to Virtual Mouse Systems"
+          ]
+        },
+        {
+          "name": "Mechanistic Validation & Controller Coupling",
+          "titles": [
+            "Fly Model Calibration, System Identification & Validation",
+            "Neural-to-Mechanical Coupling & Closed-Loop Fly Experiments"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "system-design",
+      "title": "System Design & Distributed Systems Engineering",
+      "sections": [
+        {
+          "name": "Design Foundations, Requirements & Tradeoffs",
+          "titles": [
+            "System Design: Requirements, Constraints & Architecture Decisions",
+            "Capacity Estimation, Workload Models & Performance Budgets",
+            "Architecture Styles: Modular Monoliths, Services & Event-Driven Systems",
+            "Domain Modeling, Bounded Contexts & Service Ownership",
+            "Architecture Documentation, ADRs & Technical Design Reviews",
+            "System Design Interviews: Clarification, Estimation & Deep Dives",
+            "Low-Level Design: Interfaces, Composition & Dependency Boundaries",
+            "Design Patterns, State Machines & Maintainable Service Code"
+          ]
+        },
+        {
+          "name": "Operating Systems, Networking & Request Transport",
+          "titles": [
+            "Networking Foundations: Packets, Transport, DNS & Sockets",
+            "Operating-System Mechanisms for Service Design",
+            "Concurrency, Memory Models & Synchronization for Services",
+            "TCP, UDP, QUIC, TLS & Connection Lifecycle Design",
+            "DNS, Anycast, Service Discovery & Traffic Steering",
+            "Networked Services, HTTP Contracts & Identity Boundaries",
+            "Load Balancers, Reverse Proxies & API Gateways",
+            "CDNs, Edge Caching & Geographic Content Delivery"
+          ]
+        },
+        {
+          "name": "APIs, Application State & Service Contracts",
+          "titles": [
+            "API Design: REST, RPC, GraphQL & Compatibility",
+            "Distributed Failure Semantics, Retries & Idempotency",
+            "Timeouts, Deadlines, Retries & Exponential Backoff",
+            "Idempotency Keys, Deduplication & Exactly-Once Effects",
+            "Sessions, Stateless Services & Distributed Application State",
+            "WebSockets, Server-Sent Events, Webhooks & Realtime APIs",
+            "Rate Limiting, Quotas & Admission Control",
+            "Distributed IDs, Ordering & Uniqueness Guarantees",
+            "Client Architecture: Rendering, State, Offline Data & API Boundaries",
+            "User-Perceived Performance, Accessibility & Internationalization"
+          ]
+        },
+        {
+          "name": "Storage Engines, Data Models & Transactions",
+          "titles": [
+            "Data Modeling, Invariants & Schema Evolution",
+            "Database Indexes, B-Trees, Hash Indexes & Query Planning",
+            "Storage Internals: Pages, WAL, LSM Trees & Compaction",
+            "Probabilistic Data Structures: Bloom Filters, Sketches & Approximate Counts",
+            "Bloom, Cuckoo & XOR Filters: Approximate Membership",
+            "HyperLogLog & HLL++: Approximate Distinct Counting",
+            "Count-Min Sketch, Count Sketch & Streaming Heavy Hitters",
+            "Streaming Quantiles, KLL, t-Digest & Reservoir Sampling",
+            "Transactions, Isolation Levels & Concurrency Anomalies",
+            "Relational, Document, Key-Value, Wide-Column & Graph Databases",
+            "Object Storage, Filesystems, Block Storage & Erasure Coding",
+            "Merkle Trees, Content Addressing & Data Integrity",
+            "Time-Series Databases, Search Indexes & Specialized Retrieval",
+            "Database Operations: Connections, Vacuum, Backups & Restore"
+          ]
+        },
+        {
+          "name": "Distributed Correctness, Replication & Coordination",
+          "titles": [
+            "Distributed Failure Models, Time & Impossibility Boundaries",
+            "Distributed Consistency, Linearizability & Causal Guarantees",
+            "Replication, Quorums & Failover Semantics",
+            "Consensus, Raft, Paxos & Replicated State Machines",
+            "Leader Election, Leases, Distributed Locks & Fencing Tokens",
+            "Sharding, Consistent Hashing, Hot Keys & Rebalancing",
+            "Distributed Transactions, Two-Phase Commit & Atomic Commit",
+            "CRDTs, Conflict Resolution & Offline-First Synchronization",
+            "Multi-Region Architecture, Data Residency & Disaster Recovery",
+            "Distributed SQL, Logical Timestamps & Externally Consistent Transactions",
+            "Membership Changes, Snapshots, Gossip & Anti-Entropy"
+          ]
+        },
+        {
+          "name": "Caching, Messaging & Durable Workflows",
+          "titles": [
+            "Caching Strategies, Invalidation & Stampede Control",
+            "Message Queues, Publish-Subscribe & Delivery Semantics",
+            "Partitioned Logs, Consumer Groups & Event Ordering",
+            "Backpressure, Bounded Queues & Stream Flow Control",
+            "Transactional Outbox, Inbox & Change Data Capture",
+            "Sagas, Compensation & Durable Workflow Engines",
+            "Event Sourcing, CQRS & Projection Evolution",
+            "Job Scheduling, Timers & Distributed Task Execution"
+          ]
+        },
+        {
+          "name": "Data Platforms, Analytics & ML System Interfaces",
+          "titles": [
+            "Batch Data Platforms, Warehouses, Lakes & Lakehouses",
+            "Distributed Query Engines, Joins, Shuffles & Analytical Execution",
+            "Stream Processing, Event Time, Watermarks & Windowing",
+            "Data Contracts, Schema Registries & Pipeline Quality",
+            "Search System Architecture: Crawling, Indexing & Retrieval",
+            "ML Serving Architecture, Feature Freshness & Model Rollouts",
+            "Vector Search, RAG & AI Application System Boundaries"
+          ]
+        },
+        {
+          "name": "Reliability, Observability & Performance Engineering",
+          "titles": [
+            "SLIs, SLOs, Error Budgets & Availability Modeling",
+            "Observability: Metrics, Logs, Traces & Profiling",
+            "Tail Latency, Queueing, Fanout & Performance Diagnosis",
+            "Circuit Breakers, Bulkheads, Load Shedding & Graceful Degradation",
+            "Load Testing, Benchmark Validity & Capacity Experiments",
+            "Incident Management, On-Call, Runbooks & Blameless Reviews",
+            "Fault Injection, Chaos Experiments & Resilience Validation",
+            "Correctness Testing, Model Checking & Deterministic Simulation"
+          ]
+        },
+        {
+          "name": "Security, Privacy & Multi-Tenant Isolation",
+          "titles": [
+            "System Threat Modeling, Trust Boundaries & Secure Defaults",
+            "Authentication, OAuth, OpenID Connect & Session Security",
+            "Authorization, RBAC, ABAC & Relationship-Based Permissions",
+            "Encryption, Key Management, Secrets & Certificate Rotation",
+            "Multi-Tenant Architecture, Noisy Neighbors & Isolation",
+            "Privacy, Retention, Deletion & Audit Evidence",
+            "Abuse Prevention, DDoS, Fraud & Software Supply-Chain Security"
+          ]
+        },
+        {
+          "name": "Cloud Infrastructure, Deployment & Architecture Evolution",
+          "titles": [
+            "Virtual Machines, Containers, Isolation & Runtime Resources",
+            "Kubernetes Architecture, Scheduling & Service Operation",
+            "Serverless, Managed Services & Build-versus-Buy Decisions",
+            "Infrastructure as Code, Configuration & Environment Reproducibility",
+            "Cloud Networks, Service Meshes & Control-Plane Separation",
+            "CI/CD, Canary Releases, Feature Flags & Safe Rollback",
+            "Schema Migrations, Backfills & Zero-Downtime Evolution",
+            "Monolith Decomposition, Legacy Integration & Strangler Migrations",
+            "FinOps, Capacity Planning, Sustainability & Engineering Economics"
+          ]
+        },
+        {
+          "name": "End-to-End Product & Infrastructure Design Studios",
+          "titles": [
+            "Design Studio: URL Shortener, Redirects & Abuse Controls",
+            "Design Studio: Chat, Presence & Multi-Device Messaging",
+            "Design Studio: Social Feeds, Fanout & Notification Delivery",
+            "Design Studio: Payments, Ledgers & Financial Reconciliation",
+            "Design Studio: Inventory, Ticketing & Reservation Contention",
+            "Design Studio: File Sync, Collaboration & Version Conflicts",
+            "Design Studio: Video Streaming, Transcoding & Live Delivery",
+            "Design Studio: Maps, Geospatial Search & Ride Dispatch",
+            "Design Studio: Metrics, Logs & High-Cardinality Telemetry",
+            "Design Studio: Cloud Object Store & Metadata Service",
+            "Design Studio: Workflow Platform, CI Runners & Build Cache",
+            "Design Studio: IoT Ingestion, Device Control & Edge Operation",
+            "Design Studio: Experimentation Platforms, Assignment & Metric Integrity"
+          ]
+        },
+        {
+          "name": "Advanced Systems & Production Capstones",
+          "titles": [
+            "Peer-to-Peer Systems, Byzantine Faults & Trustless Coordination",
+            "Real-Time & Embedded System Design: Deadlines, Safety & Control Boundaries",
+            "High-Performance Systems: Zero Copy, RDMA & Hardware-Aware Design",
+            "System Design Capstone: Evolve a Service from One Node to Multiple Regions",
+            "System Design Capstone: Build & Verify a Replicated Key-Value Service",
+            "System Design Capstone: Secure Multi-Tenant Event Platform"
+          ]
+        }
+      ]
+    }
+  ],
+  "unchangedFiles": {
+    "src/learn/data/lesson-manifest.json": "693988ad047880f380114053ffd3238e3b1656cac0f189b35cbe3f39e0cf3b13",
+    "docs/teaching/lesson-delivery-progress.json": "c35e8d03b75854a9c851478a2a60de03a1fa969f5e51194bbdc8325f07c23c28"
+  }
+}

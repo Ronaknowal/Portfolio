@@ -30,8 +30,9 @@ export const trackGroups = [
   {
     id: "systems",
     label: "03 / Make systems work at scale",
-    description: "JAX, GPU kernels, optimisation, infrastructure, agents, and evaluation.",
+    description: "System design, distributed services, GPU kernels, infrastructure, agents, and evaluation.",
     trackIds: [
+      "system-design",
       "jax-ecosystem",
       "hardware-systems",
       "model-optimization",
@@ -51,13 +52,18 @@ export const trackGroups = [
       "drosophila-fly-embodiment",
       "frontier-research",
       "evolutionary-algorithms",
-      "quantitative-finance",
     ],
   },
   {
+    id: "professional-finance",
+    label: "05 / Research and engineer financial markets",
+    description: "Institutional trading, portfolios, derivatives, execution, HFT and financial operations.",
+    trackIds: ["quantitative-finance"],
+  },
+  {
     id: "reference",
-    label: "05 / Reference and frontier material",
-    description: "Terminology, quantum methods, and specialist material for deliberate review.",
+    label: "06 / Reference and frontier material",
+    description: "Quantum computing and information engineering, plus terminology for deliberate review.",
     trackIds: ["terminology-glossary", "quantum-ai"],
   },
 ];
@@ -153,6 +159,36 @@ export const learningPaths = [
     ],
   },
   {
+    id: "quant-trading",
+    focusTrackIds: ["quantitative-finance"],
+    backgroundMode: "prerequisites",
+    eyebrow: "RESEARCH AND TRADE MARKETS",
+    title: "Quantitative Trading",
+    description: "Professional quantitative research, portfolio construction, derivatives, execution, HFT infrastructure and trading operations, with shared prerequisites and specialist branches.",
+    milestones: ["Markets, instruments and accounting", "Quantitative methods, point-in-time data and valid research", "Risk, pricing, strategies and execution", "HFT connectivity, production controls and operations", "Independent research and engineering capstones"],
+    trackIds: ["programming-scientific-computing", "data-structures-algorithms", "math-foundations", "classical-ml", "hardware-systems", "mlops-infrastructure", "quantitative-finance"],
+  },
+  {
+    id: "system-design-engineer",
+    focusTrackIds: ["system-design"],
+    backgroundMode: "prerequisites",
+    eyebrow: "DESIGN RELIABLE SYSTEMS",
+    title: "System Design",
+    description: "From requirements and a single service to storage, distributed correctness, security, reliable operations and complete production design studies.",
+    milestones: ["Requirements, workloads and service contracts", "Storage, transactions and distributed correctness", "Messaging, data platforms and security", "Reliability, infrastructure and architecture evolution", "Design studios and verified engineering capstones"],
+    trackIds: ["programming-scientific-computing", "data-structures-algorithms", "math-foundations", "mlops-infrastructure", "system-design"],
+  },
+  {
+    id: "quantum-computing",
+    focusTrackIds: ["quantum-ai"],
+    backgroundMode: "prerequisites",
+    eyebrow: "COMPUTE WITH QUANTUM INFORMATION",
+    title: "Quantum Computing",
+    description: "From states and measurement to algorithms, software, hardware, fault tolerance, quantum networks and applications, with shared foundations and explicit evidence limits.",
+    milestones: ["States, measurement and quantum information", "Circuits, algorithms and classical simulation", "Applications, physical hardware and noise", "Error correction and physical resource budgets", "Communication, sensing and reproducible capstones"],
+    trackIds: ["programming-scientific-computing", "data-structures-algorithms", "math-foundations", "classical-ml", "deep-learning-fundamentals", "reinforcement-learning", "quantitative-finance", "quantum-ai"],
+  },
+  {
     id: "full-curriculum",
     eyebrow: "READ EVERYTHING",
     title: "Complete Curriculum",
@@ -160,4 +196,3 @@ export const learningPaths = [
     trackIds: trackGroups.flatMap((group) => group.trackIds),
   },
 ];
-

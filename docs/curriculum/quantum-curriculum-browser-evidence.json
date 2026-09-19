@@ -1,0 +1,296 @@
+{
+  "status": "passed",
+  "checked": "2026-09-17T20:45:00.112Z",
+  "base": "http://127.0.0.1:4183",
+  "browser": "Microsoft Edge / Playwright",
+  "widths": [
+    1440,
+    390
+  ],
+  "path": {
+    "id": "quantum-computing",
+    "modules": 7,
+    "topics": 125
+  },
+  "results": [
+    {
+      "width": 1440,
+      "check": "resolved path counts",
+      "path": "quantum-computing"
+    },
+    {
+      "width": 1440,
+      "check": "resolved path counts",
+      "path": "full-curriculum"
+    },
+    {
+      "width": 1440,
+      "check": "complete module order and section counts"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "QSVT",
+      "topic": "block-encodings-quantum-signal-processing-qsvt"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "GKP",
+      "topic": "bosonic-quantum-codes-cat-binomial-gkp-encodings"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "ML KEM",
+      "topic": "post-quantum-cryptography-ml-security-implications"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "Rydberg",
+      "topic": "neutral-atom-qubits-optical-tweezers-rydberg-blockade"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "Kraus",
+      "topic": "quantum-channels-kraus-operators-complete-positivity"
+    },
+    {
+      "width": 1440,
+      "check": "named subtopic search",
+      "query": "QIR",
+      "topic": "quantum-circuit-languages-additional-tools"
+    },
+    {
+      "width": 1440,
+      "check": "full quantum path sequence and lazy selected-outline loading"
+    },
+    {
+      "width": 1440,
+      "check": "previous/next respects module sequence and settled heading"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Foundations, States & Quantum Reasoning",
+      "topic": "quantum-computing-problems-models-evidence"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Quantum Information, Measurement & Protocols",
+      "topic": "no-cloning-theorem-quantum-teleportation"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Circuit Construction & Quantum Software Engineering",
+      "topic": "quantum-programming-frameworks"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Core Algorithms, Complexity & Classical Simulation",
+      "topic": "quantum-complexity-theory-bqp"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Advanced Algorithm Design, Simulation & Chemistry",
+      "topic": "quantum-simulation-hamiltonian-simulation"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Variational Algorithms, Optimization & Quantum Learning",
+      "topic": "quantum-data-encoding-amplitude-angle-basis-encoding"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Applied Quantum Learning, Finance & Evidence Limits",
+      "topic": "quantum-reinforcement-learning"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Physical Qubits, Hardware & Control Engineering",
+      "topic": "nisq-noisy-intermediate-scale-quantum-devices"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Noise, Characterization, Benchmarking & Mitigation",
+      "topic": "decoherence-relaxation-leakage-quantum-noise-models"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Error Correction, Fault Tolerance & Resource Engineering",
+      "topic": "quantum-error-correction-surface-codes-logical-qubits"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Quantum Communication, Cryptography & Sensing",
+      "topic": "quantum-key-distribution-bb84-e91-security-assumptions"
+    },
+    {
+      "width": 1440,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Professional Practice, Reproducibility & Integrated Capstones",
+      "topic": "reading-quantum-research-reproducing-advantage-claims"
+    },
+    {
+      "width": 1440,
+      "check": "retained stable identity and stored progress"
+    },
+    {
+      "width": 390,
+      "check": "resolved path counts",
+      "path": "quantum-computing"
+    },
+    {
+      "width": 390,
+      "check": "resolved path counts",
+      "path": "full-curriculum"
+    },
+    {
+      "width": 390,
+      "check": "complete module order and section counts"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "QSVT",
+      "topic": "block-encodings-quantum-signal-processing-qsvt"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "GKP",
+      "topic": "bosonic-quantum-codes-cat-binomial-gkp-encodings"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "ML KEM",
+      "topic": "post-quantum-cryptography-ml-security-implications"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "Rydberg",
+      "topic": "neutral-atom-qubits-optical-tweezers-rydberg-blockade"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "Kraus",
+      "topic": "quantum-channels-kraus-operators-complete-positivity"
+    },
+    {
+      "width": 390,
+      "check": "named subtopic search",
+      "query": "QIR",
+      "topic": "quantum-circuit-languages-additional-tools"
+    },
+    {
+      "width": 390,
+      "check": "full quantum path sequence and lazy selected-outline loading"
+    },
+    {
+      "width": 390,
+      "check": "previous/next respects module sequence and settled heading"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Foundations, States & Quantum Reasoning",
+      "topic": "quantum-computing-problems-models-evidence"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Quantum Information, Measurement & Protocols",
+      "topic": "no-cloning-theorem-quantum-teleportation"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Circuit Construction & Quantum Software Engineering",
+      "topic": "quantum-programming-frameworks"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Core Algorithms, Complexity & Classical Simulation",
+      "topic": "quantum-complexity-theory-bqp"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Advanced Algorithm Design, Simulation & Chemistry",
+      "topic": "quantum-simulation-hamiltonian-simulation"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Variational Algorithms, Optimization & Quantum Learning",
+      "topic": "quantum-data-encoding-amplitude-angle-basis-encoding"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Applied Quantum Learning, Finance & Evidence Limits",
+      "topic": "quantum-reinforcement-learning"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Physical Qubits, Hardware & Control Engineering",
+      "topic": "nisq-noisy-intermediate-scale-quantum-devices"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Noise, Characterization, Benchmarking & Mitigation",
+      "topic": "decoherence-relaxation-leakage-quantum-noise-models"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Error Correction, Fault Tolerance & Resource Engineering",
+      "topic": "quantum-error-correction-surface-codes-logical-qubits"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Quantum Communication, Cryptography & Sensing",
+      "topic": "quantum-key-distribution-bb84-e91-security-assumptions"
+    },
+    {
+      "width": 390,
+      "check": "planned scope, prerequisites and responsive page",
+      "section": "Professional Practice, Reproducibility & Integrated Capstones",
+      "topic": "reading-quantum-research-reproducing-advantage-claims"
+    },
+    {
+      "width": 390,
+      "check": "retained stable identity and stored progress"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "scratch/quantum-curriculum-review/quantum-computing-1440.png",
+      "sha256": "e3696c3ca8e051cf70772bd0257306e1d564daf184e1cc3148cdfb0091160595"
+    },
+    {
+      "path": "scratch/quantum-curriculum-review/quantum-computing-390.png",
+      "sha256": "ce7dae7b170cc12ca83394be9137537a33c2ca7fa645d9638af82d006ab681f9"
+    }
+  ],
+  "pageErrors": []
+}

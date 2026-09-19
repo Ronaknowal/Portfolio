@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "scope": "Exact complete native program, independent direct path enumeration, and all 40 development records versus prepared calculations",
+  "enumeratedCases": 24,
+  "environment": {
+    "Python": "3.12.14",
+    "NumPy": "2.3.5",
+    "SciPy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "stdout": "30.0\n[[0.9      0.1     ]\n [0.133333 0.866667]]\n[0, 1]\nindependent True [0.788856 0.275   ]\nchain True [0.824047 0.3     ]\nselected chain [0.791892 0.175   ]\n",
+  "optimizerIterations": {
+    "independent": 25,
+    "chain": 34
+  },
+  "testConfusionTrueRows": [
+    [
+      49,
+      1,
+      26
+    ],
+    [
+      8,
+      42,
+      23
+    ],
+    [
+      17,
+      2,
+      202
+    ]
+  ],
+  "files": {
+    "public/learn-assets/crf/crf_example.py": "ac67ed789be5a60dc4e31eafe92cf2aa629cc2aba0665f95a183b73808166608",
+    "public/learn-assets/crf/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "scripts/verify-crf-native.py": "0939d805df18386c350d115947cbd0182b87dde52ab7ccf91914dbeb5cdd53a4"
+  },
+  "optionalReferences": "PyTorch and CRFsuite are annotated external alternatives; neither optional program is embedded, executed or claimed as this result."
+}

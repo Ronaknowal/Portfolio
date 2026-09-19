@@ -1,3 +1,9 @@
+.reader-article :where(a[href], a[href]:visited) {
+  color: #e2b55a;
+  text-underline-offset: .2em;
+}
+.reader-article a:where([href]):hover { color: #ffe0a0; }
+
 .reader-prerequisites { margin: 0 0 24px; color: #aaa89e; font-size: 14px; line-height: 1.7; }
 .reader-prerequisites summary { cursor: pointer; color: #c8bc9a; }
 .reader-prerequisites a { color: #d8bc7c; }

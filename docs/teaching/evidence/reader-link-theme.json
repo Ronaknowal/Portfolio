@@ -1,0 +1,158 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-19T10:31:01.468Z",
+  "buildManifestSha256": "e939deee00901380c2dbe37cbb3d3cc373cec1d94b60d250d4fb2a5369fcba3b",
+  "sourceHashes": {
+    "src/learn/components/topic-content.css": "d5b746ad782c110a492c904c7340337a6464cc77f178fc627b69d516ca3ec51b"
+  },
+  "records": [
+    {
+      "id": "conditional-random-fields-crf",
+      "width": 1366,
+      "links": 33,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "width": 1366,
+      "links": 25,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "width": 1366,
+      "links": 31,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "active-learning",
+      "width": 1366,
+      "links": 37,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "width": 1366,
+      "links": 35,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "linux-basics-filesystems-processes",
+      "legacyLinkColor": "gold"
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "width": 390,
+      "links": 33,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "width": 390,
+      "links": 25,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "width": 390,
+      "links": 31,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "active-learning",
+      "width": 390,
+      "links": 37,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "width": 390,
+      "links": 35,
+      "normal": "gold",
+      "hover": "light gold",
+      "keyboardFocus": {
+        "visible": true,
+        "style": "solid",
+        "color": "rgb(226, 181, 90)",
+        "width": "2px"
+      },
+      "visited": "Shared :visited rule explicitly uses gold; computed browser-history verification is restricted by privacy."
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/evidence/reader-links-1366.png",
+    "docs/teaching/evidence/reader-links-390.png"
+  ]
+}

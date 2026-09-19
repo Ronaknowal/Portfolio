@@ -1,6 +1,12 @@
 // Shared authoring strategies. These do not masquerade as bespoke topic plans.
 // Detailed methods: docs/teaching/DOMAIN-PLAYBOOK.md.
 const strategies = {
+  quantum: {
+    flow: ["State the task, input access and observable output", "Define a tiny state, basis and register convention", "Trace amplitudes, operations and measurement with an exact reference", "Compare finite-shot and noisy execution with assumptions visible", "Account for preparation, control, classical processing and resources", "Test a changed case and distinguish proof, simulation, hardware evidence and open claims"],
+    visuals: ["Linked phase, amplitude and measurement views", "Circuit/register traces and device mappings", "Syndrome histories, error budgets and quantum-network timelines"],
+    practice: "Hand-traced states, independently checked small simulations, finite-shot diagnosis, changed assumptions and reproducible resource or experimental reports; adapt to theory, software, hardware or applications.",
+    verification: "Check normalization, phase and basis order, unitarity or channel validity, measurement/update semantics, exact references, statistical uncertainty and noise assumptions. Bound quantum/classical comparisons by matched input access, error and total resources; date hardware and advantage claims.",
+  },
   mathematics: {
     flow: ["Pose a concrete question and identify known/unknown quantities", "Link a small numerical case, a representation and defined notation", "Derive the mechanism with justified intermediate steps", "Interpret a complete worked result", "Test a changed case, assumption and counterexample", "Connect to a formal or applied deeper branch"],
     visuals: ["Linked geometric and symbolic views", "Labeled distributions and repeated samples", "Stepwise derivation with exact-value inspection"],
@@ -88,8 +94,9 @@ const modules = {
   "llm-evaluation": ["evaluation", "A decision-relevant assessment from construct and sample through scoring, uncertainty and an audit."],
   "ai-safety-alignment": ["evaluation", "Test a precise behavioral/safety claim, compare interventions and state evidence limits."],
   "evolutionary-algorithms": ["models", "Compare optimization on an inspectable landscape using equal evaluation budgets, seeds and constraints."],
-  "quantitative-finance": ["research", "A temporally separated financial experiment with costs, risk, data provenance and leakage checks."],
-  "quantum-ai": ["research", "A tiny circuit/state example separates ideal calculation, noisy execution and claims of advantage."],
+  "quantitative-finance": ["research", "A dated market decision traced from contract and point-in-time data through forecast, orders, fills, financing, risk and reconciliation. Use the professional curriculum plan for research, pricing, execution and HFT adaptations; never infer profitability from a toy backtest."],
+  "system-design": ["systems", "A concrete user workflow with explicit invariants, workload and failure assumptions, traced through API, state, storage and recovery. Compare alternatives using correctness histories, fault injection, measured capacity, security boundaries and operating cost."],
+  "quantum-ai": ["quantum", "A task traced from state preparation through coherent evolution, measurement and classical interpretation. Use docs/curriculum/QUANTUM-COMPUTING-PLAN.md for theory, software, hardware, fault-tolerance, networking and application branches; a planned scope is not completed research or hardware evidence."],
   "frontier-research": ["research", "Reconstruct one narrow claim with a baseline and distinguish published evidence from speculation."],
   "landmark-models": ["research", "Explain the architectural change against its predecessor and inspect the original experimental evidence."],
   "core-frameworks": ["reference", "One complete task from setup and data to output, with concepts mapped to tested APIs."],

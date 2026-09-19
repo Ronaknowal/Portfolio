@@ -1,5 +1,7 @@
 # Domain teaching playbook
 
+For quantum authoring, use the [Quantum Computing, Information & Engineering plan](../curriculum/QUANTUM-COMPUTING-PLAN.md#teaching-contract-for-future-authors) alongside this playbook. Trace a tiny state and its measurable output with explicit phase, basis/register order and units. Choose amplitude views, circuit traces, physical control diagrams, syndrome histories or network timelines for the mechanism; no uniform lab quota. Separate ideal calculations, finite-shot estimates, noisy simulations and hardware evidence. Budget preparation, oracle access, readout, classical processing and fault-tolerance resources before claiming advantage. Assess every named subtopic and any scope note returned by preflight. Quantum-inspired classical methods, QKD and post-quantum cryptography must remain distinct. A curriculum plan is neither a manuscript nor an implemented lesson.
+
 Reviewed 10 September 2026. This document implements the [teaching standard](../../LESSON-TEACHING-STANDARD.md). Use its strategies selectively. The common contract is understandable mechanism, meaningful representation, complete example, independent practice, explicit assumptions and a next step. Page structure, lab count, examples and depth differ by topic.
 
 ## Match the representation to the question
@@ -96,6 +98,8 @@ For finance, quantum AI, evolutionary methods, fly embodiment and other applicat
 A research lesson asks a precise question, reconstructs the method, locates the evidence, attempts a scaled reproduction and identifies what remains unsettled. Date claims and compare an appropriate alternative. A framework reference teaches one coherent workflow, links concepts to APIs and records the tested release. A glossary gives plain meaning, disambiguation, a miniature example and a link to the full explanation; it should not be inflated into a fake full course.
 
 ## Choosing depth and changing a stored plan
+
+For professional quantitative trading and system design, also read the scoped adaptations in [the professional curriculum plan](../curriculum/PROFESSIONAL-TRADING-SYSTEM-DESIGN-PLAN.md#how-future-authors-should-teach-these-topics). Finance requires explicit instrument/cash-flow conventions, information timing, realistic execution, risk and reproducible evidence. Systems require workload and invariant contracts, observable failure histories, recovery and measured tradeoffs. Choose topic-specific representations; the catalogue's proposed investigation is neither a fixed template nor a one-lab quota. These planning briefs do not constitute completed content-first packets.
 
 The first pass must achieve a scoped useful outcome. Intermediate material introduces realistic variation and diagnosis; advanced branches supply formal justification, difficult edge cases and alternatives. A topic may be split when independent prerequisite chains or different practices would overload one page. Preserve links and compatibility when splitting a bundled topic.
 

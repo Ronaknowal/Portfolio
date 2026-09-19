@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "recorded": "2026-09-16T20:29:34.615Z",
+  "scope": "Curriculum planning and browser integration only; no lessons authored or published",
+  "catalogue": {
+    "modules": 29,
+    "topics": 1394,
+    "baselineTopicsPreserved": 1218,
+    "newTopics": 176,
+    "financeTopics": 115,
+    "systemDesignTopics": 103,
+    "sharedSystemTopics": 3
+  },
+  "checks": [
+    "verify-curriculum.mjs",
+    "verify-professional-curriculum.mjs --check-planning-boundary --write-syllabi",
+    "build-curriculum-inventory.mjs",
+    "generate-learning-artifacts.mjs --check",
+    "vite production build",
+    "64 scoped desktop/mobile browser checks",
+    "git diff --check"
+  ],
+  "unchangedFiles": {
+    "src/learn/data/lesson-manifest.json": "693988ad047880f380114053ffd3238e3b1656cac0f189b35cbe3f39e0cf3b13",
+    "docs/teaching/lesson-delivery-progress.json": "c35e8d03b75854a9c851478a2a60de03a1fa969f5e51194bbdc8325f07c23c28"
+  },
+  "reviewedFiles": {
+    "src/learn/data/track-definitions.js": "bf74fb4fcb00aff52889f611d30af6d382fab115a9f3e7bd54a83ddb7bf8c7b0",
+    "src/learn/data/curriculum/quantitative-trading.js": "be4ad531c3f2b6d22ad4b1e861d5b07c11ffd6e758f8bc5920d3597f38f23f0c",
+    "src/learn/data/curriculum/system-design.js": "0b3b4ab58132cd7ff2f0ceb2731ad853986a573ca388933ba75b12f7eeb5006c",
+    "src/learn/data/curriculum/professional-topic-plan.js": "5ca42ffc03b835818e77056b86c80cd10940f32451a9b1ab066fd4bd1dfd5187",
+    "src/learn/data/curriculum/professional-curriculum-sources.js": "444af7817f488c776984cdbcb321c4be31dcc202a737bd7e97045c5f03094280",
+    "src/learn/data/curriculum/learning-paths.js": "95a9a76f8931a0f6b9ab230845e2e2c965612c9953a18f67185ec10598e53028",
+    "src/learn/data/curriculum/domain-guidance.js": "daedc5ca8a596fad6de62b83667f2e1d8147d6013304943be29ccd792aa8228a",
+    "src/learn/data/generated/navigation.js": "1463b9230dea6d98ddaebb118deca7c17711cbcdda5115134d5e5b6c4770459b",
+    "scripts/verify-professional-curriculum.mjs": "a7c0e8922e51ee89bfd878775bacc077f8bd817d9df9797e47a7779bcfcc5672",
+    "scripts/review-professional-curriculum.cjs": "fca0f85d4bce0c556e71462e48fa147c52f0cd9187faf6c06de8a26794c4a6aa"
+  },
+  "browserEvidence": {
+    "path": "docs/curriculum/professional-curriculum-browser-evidence.json",
+    "sha256": "5ed461f08a82c37d12d5ba898a513fa1a61e51ae56a8b5c57a101652450faef0",
+    "checks": 64
+  },
+  "buildManifestSha256": "faeca060f2e653a1121dd59fbf4084dec11485ebba0a6bff6f6cc3f36eca6406",
+  "outlinePayloads": [
+    {
+      "id": "professional-trading-participants-desks-the-trade-lifecycle",
+      "rawBytes": 1241,
+      "gzipBytes": 552,
+      "dynamic": true
+    },
+    {
+      "id": "system-design-requirements-constraints-architecture-decisions",
+      "rawBytes": 1098,
+      "gzipBytes": 513,
+      "dynamic": true
+    }
+  ],
+  "limitations": [
+    "Compact topic briefs are not completed research/write packets",
+    "Retained finance topics without individual briefs still need detailed design before rewriting",
+    "Scope research does not establish exhaustive knowledge, trading profitability, interview success or regulatory qualification",
+    "Browser checks sample one new planned lesson per section at each width, not every lesson body"
+  ]
+}

@@ -1,0 +1,121 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const crypto = require('node:crypto');
+const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'C:/Users/ronak/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+let comparisons = 0;
+const close = (a, b) => { comparisons++; assert.ok(Math.abs(a - b) < 1e-10, `${a} versus ${b}`); };
+(async () => {
+  const model = await import('../src/learn/data/active-learning-models.js');
+  const checks = [], screenshots = [];
+  // H(member index) + H(class) - H(index,class) independently expresses
+  // committee disagreement as mutual information; exercise multiclass support.
+  for (let fixture = 0; fixture < 30; fixture++) {
+    const members = 2 + fixture % 5, classes = 2 + fixture % 3;
+    const rows = Array.from({ length: members }, (_, m) => {
+      const weights = Array.from({ length: classes }, (_, c) => (fixture * 3 + m * 7 + c * 5) % 11);
+      const total = weights.reduce((a, b) => a + b, 0); return weights.map(value => value / total);
+    });
+    const information = values => -values.reduce((sum, p) => sum + (p ? p * Math.log(p) : 0), 0);
+    const joint = rows.flatMap(row => row.map(p => p / members));
+    const marginals = rows[0].map((_, c) => rows.reduce((sum, row) => sum + row[c] / members, 0));
+    close(model.committeeDecomposition(rows).disagreement, Math.log(members) + information(marginals) - information(joint));
+    close(model.committeeDecomposition(rows.map(row => [...row].reverse()).reverse()).disagreement, model.committeeDecomposition(rows).disagreement);
+  }
+  checks.push('30 multiclass committees: joint-entropy identity and member/class permutation invariance');
+  // Multiple fixed centers, exact finite optimum, and geometrical isometries.
+  const radius = (centers, points, selected) => Math.sqrt(Math.max(...points.map(point => Math.min(...[...centers, ...points.filter(p => selected.includes(p.id))].map(center => (point.x - center.x) ** 2 + (point.y - center.y) ** 2)))));
+  const subsets = (rows, size) => size === 0 ? [[]] : rows.flatMap((row, i) => subsets(rows.slice(i + 1), size - 1).map(tail => [row, ...tail]));
+  for (let fixture = 0; fixture < 12; fixture++) {
+    const centers = [{ id: 'L1', x: -4, y: 0 }, { id: 'L2', x: 4, y: 1 }];
+    const points = Array.from({ length: 6 }, (_, i) => ({ id: String(i), x: ((fixture + 3 * i) % 13) - 6, y: ((fixture * 3 + i * 5) % 11) - 5, probability: .5 }));
+    const result = model.farthestFirst(centers, points, 3);
+    close(result.radius, radius(centers, points, result.selected));
+    const optimum = Math.min(...subsets(points, 3).map(batch => radius(centers, points, batch.map(p => p.id))));
+    assert.ok(result.radius <= 2 * optimum + 1e-10);
+    const turn = point => ({ ...point, x: -point.y, y: point.x });
+    close(model.farthestFirst(centers.map(turn), points.map(turn), 3).radius, result.radius);
+  }
+  checks.push('12 multi-anchor batches: exhaustive three-center optimum and 90-degree rotation invariance');
+  for (const probability of [.01, .02, .03, .04, .2]) assert.deepEqual(model.entropyBatch([{ id: 'A', probability }, { id: 'B', probability: 1 - probability }], 1), ['A']);
+  checks.push('symmetric binary entropy ties select the documented first identifier');
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const folder = 'scratch/active-learning-independent-review'; fs.mkdirSync(folder, { recursive: true });
+  const errors = [];
+  try {
+    const page = await browser.newPage({ viewport: { width: 390, height: 1000 }, reducedMotion: 'reduce' });
+    page.on('pageerror', e => errors.push(e.message));
+    await page.goto(`${process.env.LEARNING_BASE_URL || 'http://127.0.0.1:4184'}/learn/path/full-curriculum/active-learning?module=classical-ml`);
+    await page.locator('.active-learning-lesson').waitFor(); await page.evaluate(() => document.fonts.ready);
+    const capture = async (locator, name) => { const file = `${folder}/${name}-390.png`; await locator.screenshot({ path: file, style: '.learn-nav { visibility: hidden !important; }' }); screenshots.push({ file, sha256: hash(file) }); };
+    const threshold = page.locator('[data-active-lab="threshold"]');
+    await threshold.getByLabel('Seed observations: x, answer').fill('-1, 0\n4, 0\n9, 1');
+    await threshold.getByRole('button', { name: 'Start run', exact: true }).click();
+    assert.equal(await threshold.getByLabel('Unused query', { exact: true }).inputValue(), '0');
+    await threshold.getByLabel('Predict survivors if answer 0', { exact: true }).fill('4');
+    await threshold.getByLabel('Predict survivors if answer 1', { exact: true }).fill('0');
+    await threshold.getByRole('button', { name: 'Record prediction', exact: true }).click();
+    assert.equal(await threshold.getByRole('alert').count(), 0);
+    await threshold.getByRole('button', { name: 'Acquire this answer', exact: true }).click();
+    assert.match(await threshold.locator('.active-result').innerText(), /Prediction matches/);
+    checks.push('seeded default query4: control and committed query both choose unused0');
+    await threshold.getByRole('button', { name: 'Edit setup', exact: true }).click();
+    await threshold.getByLabel('Seed observations: x, answer').fill('0,0\n4,0\n8,1');
+    await threshold.getByLabel('Eligible query values').fill('0 4 8');
+    await threshold.getByRole('button', { name: 'Start run', exact: true }).click();
+    assert.match(await threshold.innerText(), /No unused query remains/);
+    assert.equal(await threshold.getByRole('button', { name: 'Acquire this answer', exact: true }).count(), 0);
+    checks.push('all candidate queries already observed: explicit exhausted state without invalid acquisition');
+    await threshold.getByRole('button', { name: 'Reset run', exact: true }).click();
+    await threshold.getByLabel('Threshold, positive weight (one pair per line)').fill('-.5,1\n.5,2\n4.5,5\n7.5,8');
+    await threshold.getByLabel('Seed observations: x, answer').fill('-1,0\n9,1');
+    await threshold.getByLabel('Eligible query values').fill('0 1 4 8');
+    await threshold.getByLabel('Simulation threshold (concealed after start)', { exact: true }).fill('4.5');
+    await threshold.getByRole('button', { name: 'Start run', exact: true }).click();
+    await threshold.getByLabel('Unused query', { exact: true }).selectOption('0');
+    assert.ok(!(await threshold.innerText()).includes('2.875'));
+    await threshold.getByLabel('Predict survivors if answer 0', { exact: true }).fill('3');
+    await threshold.getByLabel('Predict survivors if answer 1', { exact: true }).fill('1');
+    await threshold.getByRole('button', { name: 'Record prediction', exact: true }).click();
+    await threshold.getByRole('button', { name: 'Acquire this answer', exact: true }).click();
+    assert.match(await threshold.locator('.active-result').innerText(), /expected survivors 2.875/);
+    await capture(threshold, 'weighted-threshold');
+    checks.push('changed weighted family: hidden expected survivors, exact15/16 versus1/16 conditioning and3/1 grading');
+    const committee = page.locator('[data-active-lab="committee"]');
+    await committee.getByLabel('Class columns', { exact: true }).selectOption('3');
+    await committee.getByRole('button', { name: 'Add member', exact: true }).click();
+    for (let m = 1; m <= 3; m++) for (let c = 0; c < 3; c++) await committee.getByLabel(`Member ${m} class ${c}`, { exact: true }).fill(c === m - 1 ? '1' : '0');
+    assert.equal(await committee.locator('.active-result').count(), 0);
+    await committee.getByLabel('Predict D relative to reference', { exact: true }).selectOption('larger');
+    await committee.getByLabel('Predict D in nats', { exact: true }).fill('1.098612');
+    const record = committee.getByRole('button', { name: 'Record prediction', exact: true }); await record.focus(); await page.keyboard.press('Enter');
+    await committee.getByRole('button', { name: 'Reveal decomposition', exact: true }).click();
+    assert.match(await committee.locator('.active-result').innerText(), /Prediction matches/);
+    assert.match(await committee.locator('.active-result').innerText(), /votes \[1, 1, 1\]/);
+    await capture(committee.locator('.active-result'), 'three-class-committee');
+    checks.push('three deterministic classes: disagreementln3, symmetric votes, keyboard commitment');
+    const batch = page.locator('[data-active-lab="batch"]');
+    for (const [id, probability] of [['A', '.01'], ['B', '.99'], ['C', '0'], ['D', '1']]) await batch.getByLabel(`${id} probability`, { exact: true }).fill(probability);
+    await batch.getByLabel('Batch budget', { exact: true }).fill('1');
+    await batch.getByRole('checkbox', { name: 'A', exact: true }).check();
+    await batch.getByLabel("Predict your batch's covering radius", { exact: true }).fill('4');
+    await batch.getByRole('button', { name: 'Record prediction', exact: true }).click();
+    await batch.getByRole('button', { name: 'Reveal batch comparison', exact: true }).click();
+    assert.match(await batch.locator('.active-result').innerText(), /Prediction matches/);
+    assert.match((await batch.locator('tbody tr').allTextContents()).join('\n'), /Highest entropyA4/);
+    await batch.getByRole('button', { name: 'Next geometric step', exact: true }).click();
+    await capture(batch.locator('.active-result'), 'symmetric-entropy-batch');
+    checks.push('editable symmetric entropy tie usesID A while farthest-first selectsC; chosen radius4 graded correctly');
+    const curve = page.locator('[data-active-figure="measured-acquisition-curves"]');
+    await curve.getByLabel('Curve view', { exact: true }).selectOption('2');
+    assert.equal(await curve.locator('svg polyline').count(), 1);
+    assert.equal((await curve.locator('svg polyline').getAttribute('points')).split(' ').length, 31);
+    await capture(curve, 'single-run-curve');
+    assert.deepEqual(errors, []);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
+    checks.push('390px informative screenshots, distinct curve run, no page overflow or runtime errors');
+  } finally { await browser.close(); }
+  const sourcePaths = [...Object.keys(JSON.parse(fs.readFileSync('docs/teaching/evidence/active-learning-author-review.json')).sourceHashes), 'scripts/review-active-learning-independent.cjs'];
+  fs.writeFileSync('docs/teaching/evidence/active-learning-independent.json', JSON.stringify({ status: 'passed', comparisons, checks, screenshots, source: Object.fromEntries(sourcePaths.map(file => [file, hash(file)])) }, null, 2) + '\n');
+  console.log(JSON.stringify({ status: 'passed', comparisons, groups: checks.length, captures: screenshots.length }));
+})().catch(error => { console.error(error); process.exitCode = 1; });

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "numericalComparisons": 1196,
+  "independentMethod": "Pivoted row elimination of augmented systems; no reuse of Cholesky or the native packet posterior helper",
+  "nativeReference": "NumPy/SciPy/sklearn executed packet fixtures, including six frozen-kernel forecasts",
+  "properties": [
+    "value-only covariance identity and factor reuse",
+    "all four change categories",
+    "prior with zero observations",
+    "duplicate noisy observations",
+    "noise-free interpolation and singular failure",
+    "invalid covariance rejection",
+    "candidate gain by conditioning the augmented system",
+    "independent-value exact null",
+    "six forecast horizon-prefix identities",
+    "future-value blindness",
+    "prefix-only centering",
+    "integer bounds and nonnegative variances",
+    "reported MAE/RMSE/coverage"
+  ],
+  "source": {
+    "src/learn/data/gaussian-process-model.js": "5af96779860ae275b9458044cda19b95e8af7017e4226832063c89a0255667bf"
+  }
+}

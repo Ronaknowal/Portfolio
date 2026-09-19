@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "reviewedAt": "2026-09-19T09:52:26.930Z",
+  "comparisons": 234,
+  "checks": [
+    "Series-resistance reference and global conductance-scale invariance, including the previously rejected 1e-14 case",
+    "Independent star-network hard/soft formulas and raw-versus-normalized distinction",
+    "Contradictory same-recipient-category offers, row/view permutations, and observed-label conservation",
+    "Prototype translation symmetry and empty/rejected-pool nulls with final refit",
+    "Rendered counterexamples, exact tick projection and stale-result invalidation at 1366px",
+    "Rendered counterexamples, exact tick projection and stale-result invalidation at 390px"
+  ],
+  "screenshots": [
+    {
+      "path": "scratch/semi-supervised-independent/prototype-1366.png",
+      "sha256": "1a694556322ff86c352f5611855a743b08af93e016c9b8372fbbde8857dff067"
+    },
+    {
+      "path": "scratch/semi-supervised-independent/prototype-390.png",
+      "sha256": "f6715446e4451f41430c37f711cf3a7be20971744b9dd89d16708520f4174545"
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/semi-supervised-models.js": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+    "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx": "f3845bbfddd3a8c143ba8620717c85d14937a9a3f9485e4a55b517d5b59228c1",
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "23fef8854a893c33f3b2159c7d8e7b53b4db2833a329d60bee385108893bfaaa",
+    "src/learn/components/lesson-labs/semi-supervised.css": "05e1b4f04cd6a4d21ac4351be6cdb560d7968096be45a11a6cc56f8ddb2c292a",
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "9e5edd57de95b0ebdf5074de2ac527fa307ea5e26942f614ed6a32f14579bfd4",
+    "scripts/review-semi-supervised-independent.mjs": "85a8a80538d8e171d4a5a1209a6b553a7ec65f57564a421b83101449522d5f54"
+  }
+}

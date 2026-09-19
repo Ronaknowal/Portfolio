@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "check": "independent complete-path BIO support and uniform constrained partition",
+      "supportCases": 3905,
+      "counts": [
+        3,
+        11,
+        41,
+        153,
+        571
+      ]
+    },
+    {
+      "check": "backward conditional-sampling product equals the complete normalized joint",
+      "paths": 81
+    },
+    {
+      "check": "large-factor near-tie uses identical relative policy for winners and predecessors",
+      "factors": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        15.999999999999,
+        15.999999999999
+      ]
+    },
+    {
+      "check": "trellis: hidden numeric result; reference/formatting/revealed-return cannot grade; fresh changed prediction; keyboard exploration; reset"
+    },
+    {
+      "check": "bias: hidden numeric result; reference/formatting/revealed-return cannot grade; fresh changed prediction; keyboard exploration; reset"
+    },
+    {
+      "check": "390px informative states: no page overflow or runtime errors; four captures for actual review"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "scratch/crf-independent-review/trellis-changed-390.png",
+      "sha256": "8041c480c547a42f97f692dcbbe84c9ff287f3e700315e759e0859845c1211d8"
+    },
+    {
+      "file": "scratch/crf-independent-review/bias-changed-390.png",
+      "sha256": "ed3b312290ad328cebf08713d0e306b6193e5937c3414bcb1f69b9915eb3f731"
+    },
+    {
+      "file": "scratch/crf-independent-review/factor-chain-390.png",
+      "sha256": "b3c527390ceae2c0a6edccee5c27f978fcb621ed51e676f3d5871b7e85398d70"
+    },
+    {
+      "file": "scratch/crf-independent-review/neural-flow-390.png",
+      "sha256": "9c0c7644996cf391eb34571f1582a80b51f31ac026d4869a1c7f37c809ce3631"
+    }
+  ],
+  "source": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "c7db23e3e58fae4ff4465e8a65ab4b651aaf3306037c1cb9fd14a997ddbdebfd",
+    "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js": "74c97bafb3347179386a5d8b9ef8dfec7787a9382f08b15bee1d916ad7944c28",
+    "src/learn/data/crf-models.js": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+    "src/learn/data/crf-examples.js": "37198f3ca86dee7a46f26b5cc521a627df3ae9abb5fdf2fbc3d6f9120381c75e",
+    "src/learn/data/crf-data.json": "c99ebcf36a52662d189050b893dd533b8295e1695d9bc499b590bc1393bccbc5",
+    "src/learn/components/lesson-labs/CrfFigures.jsx": "d83b5147298ca5bf513e272e260719d37fceee1b5726401af3693333c8741e3e",
+    "src/learn/components/lesson-labs/CrfLabs.jsx": "5e10894ba94dc24dfd87440def7345f0c7a21d252fd7dc43674f1f46fc0709f1",
+    "src/learn/components/lesson-labs/crf.css": "053bce79a5da995870141e71625ad93f477ea944173d5744d27d5bdb58eb11c6",
+    "public/learn-assets/crf/crf_example.py": "ac67ed789be5a60dc4e31eafe92cf2aa629cc2aba0665f95a183b73808166608",
+    "public/learn-assets/crf/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "public/learn-assets/crf/data-provenance.md": "3b68ef95a2010b3bd2bd7549d089c1763261e57da94acf302cca97150b3af9c9",
+    "public/learn-assets/crf/data-sources.json": "823bc17d95f6bc22a80ce857b6c53841fb6872aa04c10769feb5521c3f5a032a",
+    "scripts/verify-crf-models.mjs": "5659d91e31c89f554d7f271be507ccbf1727207a5803ce2eec641738c4aa7c25",
+    "scripts/verify-crf-native.py": "0939d805df18386c350d115947cbd0182b87dde52ab7ccf91914dbeb5cdd53a4",
+    "scripts/review-crf-browser.cjs": "7356b66d22c3a2fe895ea4d77b62ef08bfdb986c885c48224a4353ee8a41658d",
+    "scripts/review-crf-independent.cjs": "7182a3baceea7fa74754b64891c3779ee24803528c8735fdc4e4a7c98f820e99"
+  },
+  "visualInspection": "Capture inspection recorded separately in the independent review.",
+  "followUp": "Reviewed exact example/download string guard and reran model verifier; browser/native source unchanged."
+}

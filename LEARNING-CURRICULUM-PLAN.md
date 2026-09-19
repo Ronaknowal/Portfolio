@@ -1,5 +1,9 @@
 # Learning curriculum plan
 
+**18 September 2026 quantum expansion:** the [quantum computing plan](docs/curriculum/QUANTUM-COMPUTING-PLAN.md) and [ordered syllabus](docs/curriculum/QUANTUM-COMPUTING-SYLLABUS.md) broaden the existing quantum module to 106 topics in 12 sections and add a dedicated guided path. All 48 earlier quantum topics and all other catalogue topics remain. Current totals are **29 modules, 1,460 unique topics and 10 guided paths**. Named coverage includes information, algorithms, physical engineering, fault tolerance, networks, cryptography and sensing. This is catalogue planning only; earlier numerical paragraphs below are dated snapshots.
+
+**17 September 2026 expansion and coverage follow-up:** [professional trading and system design](docs/curriculum/PROFESSIONAL-TRADING-SYSTEM-DESIGN-PLAN.md) is the current specialist coverage supplement. The complete catalogue now has **29 modules, 1,402 unique topics and 9 guided paths**. Quantitative Trading expands the existing finance module to 117 topics; System Design adds one coherent 109-topic module with shared foundations. The [named-concept review](docs/curriculum/PROFESSIONAL-COVERAGE-REVIEW.md) adds dedicated algorithm depth and makes concept ownership searchable. The detailed ordered syllabi, scope research, role routes and checks are linked there. Older numeric status statements below describe their dated increments; use the generated inventory for current counts. No lesson or delivery checkpoint was completed by this expansion.
+
 Updated 10 September 2026. This is the current curriculum architecture and coverage plan. [The teaching standard](LESSON-TEACHING-STANDARD.md) owns policy; [the handoff](LESSON-AUTHORING-HANDOFF.md) owns scope and acceptance. Earlier blanket claims that areas were already strong, that there were only five paths, or that all prerequisites were known are superseded.
 
 ## Outcome and limits of coverage

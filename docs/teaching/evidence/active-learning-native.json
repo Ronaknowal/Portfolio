@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "scipy": "1.18.1",
+  "sklearn": "1.9.1",
+  "numericLeavesCompared": 5981,
+  "protocol": "Exact downloadable default program plus changed-budget development-only CLI; entire nested outputs compared, with independent small author arithmetic reexecuted.",
+  "defaultStdout": "new-query checkpoints [0, 5, 10, 20, 30]\nrandom [64.2, 70.2, 73.0, 74.8, 76.4]\nentropy [64.2, 74.0, 78.2, 78.2, 79.2]\ncommittee [64.2, 73.6, 75.2, 77.4, 78.2]\nfarthest [64.2, 74.2, 74.8, 76.0, 77.0]\nselected entropy\ntest correct out of 80 [79, 79, 79, 80, 79]\n",
+  "practiceStdout": "new-query checkpoints [0, 5, 10, 15]\nrandom [64.2, 70.2, 73.0, 73.2]\nentropy [64.2, 74.0, 78.2, 77.6]\nselected entropy\ntest correct out of 80 []\n",
+  "sourceHashes": {
+    "public/learn/downloads/active-learning/banknote-active-learning.py": "2b31d98bd4402385ca48ef588ff133da75261f31c8bb1edda632e02633221c74",
+    "public/learn/downloads/active-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "src/learn/data/active-learning-experiment.json": "3befab1a8639cdefc4a1ce025a537b34a1dfbba3edb073babc004d55967c9fa7"
+  },
+  "limitations": "Reproduction checks numerical identity under this recorded environment; it is not an independent population performance study or a universal acquisition ranking."
+}
