@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "base": "http://127.0.0.1:4184",
+  "checks": [
+    {
+      "width": 1366,
+      "case": "Graph committed prediction, synchronous trace, shortcut reversal, island, alpha-zero null, normalization, invalidation and reset"
+    },
+    {
+      "width": 1366,
+      "case": "Prototype feedback default/edited/no-acceptance cases, final refit, separate predictions, invalid input and reset"
+    },
+    {
+      "width": 1366,
+      "case": "Co-training staged recipient transfers, conflicts, changed bridge, duplicate-view/no-anchor nulls, independent arrays and reset"
+    },
+    {
+      "width": 1366,
+      "case": "Complete manuscript/code output, seven figures, closed solutions, no KaTeX error, no document overflow, reduced-motion and keyboard commit"
+    },
+    {
+      "width": 1366,
+      "case": "All topic-owned dataset, provenance and executable download links resolve"
+    },
+    {
+      "width": 390,
+      "case": "Graph committed prediction, synchronous trace, shortcut reversal, island, alpha-zero null, normalization, invalidation and reset"
+    },
+    {
+      "width": 390,
+      "case": "Prototype feedback default/edited/no-acceptance cases, final refit, separate predictions, invalid input and reset"
+    },
+    {
+      "width": 390,
+      "case": "Co-training staged recipient transfers, conflicts, changed bridge, duplicate-view/no-anchor nulls, independent arrays and reset"
+    },
+    {
+      "width": 390,
+      "case": "Complete manuscript/code output, seven figures, closed solutions, no KaTeX error, no document overflow, reduced-motion and keyboard commit"
+    },
+    {
+      "width": 320,
+      "case": "Graph committed prediction, synchronous trace, shortcut reversal, island, alpha-zero null, normalization, invalidation and reset"
+    },
+    {
+      "width": 320,
+      "case": "Prototype feedback default/edited/no-acceptance cases, final refit, separate predictions, invalid input and reset"
+    },
+    {
+      "width": 320,
+      "case": "Co-training staged recipient transfers, conflicts, changed bridge, duplicate-view/no-anchor nulls, independent arrays and reset"
+    },
+    {
+      "width": 320,
+      "case": "Complete manuscript/code output, seven figures, closed solutions, no KaTeX error, no document overflow, reduced-motion and keyboard commit"
+    }
+  ],
+  "pageErrors": [],
+  "captures": [
+    {
+      "path": "scratch/semi-supervised-review/figure-ledger.png",
+      "sha256": "5fd07ec4cddf15d05bf88ee8308f55e5181013b3513aedc36a6a4aa8825501ca"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-same-inputs.png",
+      "sha256": "6ff0ea1da1b5f0aae18b247bacaa81ee9c4c4225f94a68225c73836a3d162118"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-harmonic.png",
+      "sha256": "29d57fd27dd88f9721965a7481db601aecd59af41fda2b88991d6fcf1b0bb605"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-evidence.png",
+      "sha256": "894b377e80508e2a1797dd95068f0c483fc196a468f8af8c21a93ac0529e5289"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-provenance.png",
+      "sha256": "bbb896e7f72be3e1f5e09fc07c590b9390dc4887c322cb8cc9f6bd3ecadfca02"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-paired-views.png",
+      "sha256": "95844c85463afbfd33472c39b36e6d099a7fc0269f0c9e6b9ab1c9a444df6e49"
+    },
+    {
+      "path": "scratch/semi-supervised-review/figure-promotion-audit.png",
+      "sha256": "f644b339e695735f8c11cf6c8c164b7f69e215e335cf5e47dbd998ff1ce073e8"
+    },
+    {
+      "path": "scratch/semi-supervised-review/graph-shortcut-1366.png",
+      "sha256": "9f7064c485f6cf132e067aa5ff3603a3c6815380d47c70872b1e0554792e9024"
+    },
+    {
+      "path": "scratch/semi-supervised-review/self-training-contrast-1366.png",
+      "sha256": "cc6c7c684262e3d560f0829c8461a3d1f88dfbdfc2e2e066c5dac17016ac1183"
+    },
+    {
+      "path": "scratch/semi-supervised-review/co-training-transfer-1366.png",
+      "sha256": "a4be8ff083131b5596a66316d86ca9df3746c199bf47577435e98b69fa6466c2"
+    },
+    {
+      "path": "scratch/semi-supervised-review/graph-shortcut-390.png",
+      "sha256": "f2c094f84777380fc761d19c47931da67153f18c02b24193f2eae686033981fe"
+    },
+    {
+      "path": "scratch/semi-supervised-review/self-training-contrast-390.png",
+      "sha256": "74afbf367e97335078d577be6641e3532ca7771b7f46bb9edec4b09350fb98d8"
+    },
+    {
+      "path": "scratch/semi-supervised-review/co-training-transfer-390.png",
+      "sha256": "42e95118c93228eaec569d86404687bc2fae47e25ad6640247782d1111e5d042"
+    },
+    {
+      "path": "scratch/semi-supervised-review/graph-shortcut-320.png",
+      "sha256": "fecd8736948e28450089e6b047e4c70492cb587990d0f46a3bdb48526088ea8d"
+    },
+    {
+      "path": "scratch/semi-supervised-review/self-training-contrast-320.png",
+      "sha256": "b35e11161fb16a6baad7eab46c94c4f16ccc2bcc401c5a1db3409d6cb406cbd7"
+    },
+    {
+      "path": "scratch/semi-supervised-review/co-training-transfer-320.png",
+      "sha256": "13bb4cacb91cc6cc6428059d1debe263cc5b0c44a5a0749993cdc2225287a4f3"
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "9e5edd57de95b0ebdf5074de2ac527fa307ea5e26942f614ed6a32f14579bfd4",
+    "src/learn/data/semi-supervised-models.js": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+    "src/learn/data/semi-supervised-examples.js": "7f89fc0a0c39944c87691a1e5419073a1b53eb196fb570a9d2db301d88c46505",
+    "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx": "f3845bbfddd3a8c143ba8620717c85d14937a9a3f9485e4a55b517d5b59228c1",
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "23fef8854a893c33f3b2159c7d8e7b53b4db2833a329d60bee385108893bfaaa",
+    "src/learn/components/lesson-labs/semi-supervised.css": "05e1b4f04cd6a4d21ac4351be6cdb560d7968096be45a11a6cc56f8ddb2c292a",
+    "scripts/review-semi-supervised-learning.cjs": "ebf66c62bf6f016d06d4a96e30408bdc23253034abffd37e5921e1e692d3b175"
+  },
+  "visualInspection": "Screenshots require separate author inspection; automated checks do not establish visual quality."
+}

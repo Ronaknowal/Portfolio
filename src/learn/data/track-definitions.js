@@ -4,6 +4,11 @@ import * as gpuExpansion from "./curriculum/gpu-expansion.js";
 import * as neuralExpansion from "./curriculum/neural-expansion.js";
 import * as crossExpansion from "./curriculum/cross-domain-expansion.js";
 import { authoredBlueprints } from "./curriculum/blueprints/index.js";
+import { buildQuantitativeTradingSections } from "./curriculum/quantitative-trading.js";
+import { systemDesignDefinition } from "./curriculum/system-design.js";
+import { systemDesignCoverage } from "./curriculum/system-design-coverage.js";
+import { quantitativeTradingCoverage } from "./curriculum/quantitative-trading-coverage.js";
+import { buildQuantumComputingSections } from "./curriculum/quantum-computing.js";
 
 const baseTrackDefinitions = [
   {
@@ -1932,7 +1937,7 @@ const prerequisiteOverrides = {
   ...(neuralExpansion.neuralPrerequisites || {}),
   'Linked Lists, Stacks & Queues': ['Arrays, Strings & Hash Maps', 'Object-Oriented Programming in Python'],
 };
-export const trackDefinitions = baseTrackDefinitions.map((track) => {
+const maintainedTrackDefinitions = baseTrackDefinitions.map((track) => {
   const additions = expansionSections[track.id] || [];
   const foundations = additions.filter((section) => section.topics.every((topic) => topic.level === "foundation"));
   const branches = additions.filter((section) => !foundations.includes(section));
@@ -1962,3 +1967,48 @@ export const trackDefinitions = baseTrackDefinitions.map((track) => {
     })),
   };
 });
+
+const sharedTopicsByTitle = new Map(maintainedTrackDefinitions.flatMap(track =>
+  track.sections.flatMap(section => section.topics.map(topic => [topic.title, topic]))
+));
+
+const resolvedTrackDefinitions = [
+  ...maintainedTrackDefinitions.map(track => track.id === "quantitative-finance" ? {
+    ...track,
+    title: "Quantitative Trading, Financial Markets & Investment Engineering",
+    description: "Institutional markets, research, portfolio risk, derivatives, execution, HFT engineering, hedge fund operations and professional trading practice",
+    sections: buildQuantitativeTradingSections(track.sections),
+  } : track.id === "quantum-ai" ? {
+    ...track,
+    title: "Quantum Computing, Information & Engineering",
+    description: "Quantum states, algorithms, software, physical hardware, control, error correction, cryptography, networks, sensing and evidence-based applications",
+    sections: buildQuantumComputingSections(track.sections),
+  } : track),
+  {
+    ...systemDesignDefinition,
+    sections: systemDesignDefinition.sections.map(section => ({
+      ...section,
+      topics: section.topics.map(topic => {
+        if (!topic.sharedTitle) return topic;
+        const shared = sharedTopicsByTitle.get(topic.sharedTitle);
+        if (!shared) throw new Error(`Unknown shared system design topic: ${topic.sharedTitle}`);
+        return shared;
+      }),
+    })),
+  },
+];
+
+// Apply authored plans after all catalogue expansions. A future implemented
+// lesson must replace its starting brief even when its module was added later.
+const namedCoverage = { ...systemDesignCoverage, ...quantitativeTradingCoverage };
+export const trackDefinitions = resolvedTrackDefinitions.map(track => ({
+  ...track,
+  sections: track.sections.map(section => ({
+    ...section,
+    topics: section.topics.map(topic => ({
+      ...topic,
+      ...(authoredBlueprints[topic.title] ? { blueprint: authoredBlueprints[topic.title] } : {}),
+      ...(namedCoverage[topic.title] ? { subtopics: namedCoverage[topic.title] } : {}),
+    })),
+  })),
+}));

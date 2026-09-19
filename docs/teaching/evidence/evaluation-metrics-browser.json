@@ -1,0 +1,188 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "width": 1440,
+      "check": "complete content, nine figures/four investigations, math and route anchors"
+    },
+    {
+      "width": 1440,
+      "check": "threshold membership/denominators, changed commit, no-alert undefined, edit-return retirement, invalid/reset"
+    },
+    {
+      "width": 1440,
+      "check": "edited-score grouped step, full ranking, exposed-answer history across steps/round-trip/permutation and no-positive domain"
+    },
+    {
+      "width": 1440,
+      "check": "edited residual preference, proportional squares, unit invalidation/conversion and zero-variance R²"
+    },
+    {
+      "width": 1440,
+      "check": "keyboard stable-document movement/focus, committed changed order, gain invalidation, empty relevance and invalid grade/reset"
+    },
+    {
+      "width": 1440,
+      "check": "viewport containment, actual square geometry, informative-state captures and no runtime/math errors"
+    },
+    {
+      "width": 390,
+      "check": "complete content, nine figures/four investigations, math and route anchors"
+    },
+    {
+      "width": 390,
+      "check": "threshold membership/denominators, changed commit, no-alert undefined, edit-return retirement, invalid/reset"
+    },
+    {
+      "width": 390,
+      "check": "edited-score grouped step, full ranking, exposed-answer history across steps/round-trip/permutation and no-positive domain"
+    },
+    {
+      "width": 390,
+      "check": "edited residual preference, proportional squares, unit invalidation/conversion and zero-variance R²"
+    },
+    {
+      "width": 390,
+      "check": "keyboard stable-document movement/focus, committed changed order, gain invalidation, empty relevance and invalid grade/reset"
+    },
+    {
+      "width": 390,
+      "check": "viewport containment, actual square geometry, informative-state captures and no runtime/math errors"
+    },
+    {
+      "width": 320,
+      "check": "complete content, nine figures/four investigations, math and route anchors"
+    },
+    {
+      "width": 320,
+      "check": "threshold membership/denominators, changed commit, no-alert undefined, edit-return retirement, invalid/reset"
+    },
+    {
+      "width": 320,
+      "check": "edited-score grouped step, full ranking, exposed-answer history across steps/round-trip/permutation and no-positive domain"
+    },
+    {
+      "width": 320,
+      "check": "edited residual preference, proportional squares, unit invalidation/conversion and zero-variance R²"
+    },
+    {
+      "width": 320,
+      "check": "keyboard stable-document movement/focus, committed changed order, gain invalidation, empty relevance and invalid grade/reset"
+    },
+    {
+      "width": 320,
+      "check": "viewport containment, actual square geometry, informative-state captures and no runtime/math errors"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "path": "scratch/evaluation-metrics-implementation/gate-result-1440.png",
+      "sha256": "ccb71171b68df5e44ea763426fc3dcfaa0f020d20cfb4c5e5dc474fa02809560"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/ranking-step-1440.png",
+      "sha256": "2faaacc65637fca1223f932b14c2f9ccf2003c1a3af56c84023950ce12cd0153"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/residual-result-1440.png",
+      "sha256": "444ff1db16cd3da49d1fc1a031c26de287b778569329584115a8a7e635386676"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/retrieval-result-1440.png",
+      "sha256": "87f6ed952529924f1c3e54494b252df97031cf88d02581733f1144647113795a"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/contracts-1440.png",
+      "sha256": "256b0169872f4ea75b90739c9a33d51324bedca0a0f1e7cb320a126bde946e7c"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/threshold-1440.png",
+      "sha256": "566c83ec0950e72b43a3689bcbf04fb3f21bb58a42c908b38c64ecbad86077db"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/prevalence-1440.png",
+      "sha256": "3bb4dc96fe854e5dd493f8ad020899e0df0c541aaafa89ca994be06994839d4a"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/curves-1440.png",
+      "sha256": "b5f34d7eae7b62918dbfc1842a648474376a40a90ce546349469c98c4d08b311"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/pairs-1440.png",
+      "sha256": "6729926b61314adef564d0cb020757ffda69fa6acf03d6d69935a5ca4f18fbd5"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/probabilities-1440.png",
+      "sha256": "7d02a3ed0e0bc8b2db55e4da79939e39c3227cf1da6b433d0cf6fcd1daee48d4"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/residuals-1440.png",
+      "sha256": "f2f93e8e23a6f88cc8e96ef1dedfdb03ebfffb09f3ed6e25d279c12e1145ae6d"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/retrieval-1440.png",
+      "sha256": "ef835a8f7f480bbf7f304593422e5ff859e1220a65d85490d8a411707209bfc4"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/measured-1440.png",
+      "sha256": "d8ce2a4c3bdb58f4c05c87a9d325018336ab4ae0ead6a92d1d5a581566f8c4cb"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/gate-result-390.png",
+      "sha256": "3d2d9de253e8f3b9cd68345415e175e5353f8afac0ee334f56637eddc1154f50"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/ranking-step-390.png",
+      "sha256": "504cb76e9d511a7010a7db69153c0d5b0e3e2a988b213e382025c1fdf26f9ca0"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/residual-result-390.png",
+      "sha256": "90611a42dd4d6d11e25c3a58f2586b2470d55c6725a454957666ce893505842f"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/retrieval-result-390.png",
+      "sha256": "7bfe9ecd84f67e104512a6a4d5714a04541a8d3c181b4bb591eb8ea0c9a988ef"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/contracts-390.png",
+      "sha256": "ed713f3934d0da66314bf33a5ffd16a7faf2e186a101be7417cd92f6ccfd4657"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/threshold-390.png",
+      "sha256": "eba7faf9a8e5935acb3a1a8539ff8e218e37b98563a6208c55170b59d9e60720"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/prevalence-390.png",
+      "sha256": "95fe59a6f107044b0b5442f4fb0692e4bfbd808cc4e441390d5972a1a986bed4"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/curves-390.png",
+      "sha256": "ea8d7940b1c859f71cf216ecb2d29f0e2e7b36b700d144e14ec90cb5cf725e27"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/pairs-390.png",
+      "sha256": "b91118e941190e48baafb2633237ac777e0c8eb4fa1895b9becee81409c697e1"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/probabilities-390.png",
+      "sha256": "e3dfe328a21984c63e85fc782077527700cf262bf43a60e156fc3782822297af"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/residuals-390.png",
+      "sha256": "fd84e1af4eeb48b42e9aaedcbdafb6d2c3797bab187bd835065846aec2f70a60"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/retrieval-390.png",
+      "sha256": "058fcb914d52d1cc910ad45e30845f1538f62aa27b2e71f2b019949ff39b7f4f"
+    },
+    {
+      "path": "scratch/evaluation-metrics-implementation/measured-390.png",
+      "sha256": "f8e26f70daf6c8528d3ba90ed666566c1b3d24733096881c6f2712c7b9d267bb"
+    }
+  ],
+  "visualInspection": "Captures require separate human/agent opening; the browser assertions do not claim image inspection.",
+  "followupChecks": [
+    "Measured cost curve resized to320-unit coordinate width; effective tick text >=11.5px at1440/390/320 viewports; measured no-alert endpoint cost195 explicitly identified outside finite score axis; affected two captures refreshed."
+  ]
+}

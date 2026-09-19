@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1218 unique topics · 28 modules · 228 registered published lessons · 369 topic-specific briefs · 7 guided paths.**
+**1460 unique topics · 29 modules · 228 registered published lessons · 617 topic-specific briefs · 10 guided paths.**
 
-**849 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 396 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**843 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 725 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -13,13 +13,13 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |
 | --- | ---: | ---: | ---: | ---: |
 | Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
-| Classical Machine Learning | 39 | 36 | 31 | 32 |
+| Classical Machine Learning | 39 | 36 | 36 | 36 |
 | Deep Learning Fundamentals & Architectures | 42 | 39 | 2 | 7 |
 | Large Language Models — Architecture, Training & Inference | 61 | 57 | 4 | 6 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
 | Generative Models | 24 | 0 | 2 | 4 |
 | NLP, Computer Vision & Multimodal AI | 49 | 0 | 3 | 3 |
-| AI for Quantitative Finance | 39 | 0 | 2 | 2 |
+| Quantitative Trading, Financial Markets & Investment Engineering | 117 | 0 | 81 | 117 |
 | Neural Engineering & Computational Neuroscience | 92 | 0 | 92 | 92 |
 | Evolutionary & Bio-Inspired Algorithms | 17 | 0 | 1 | 1 |
 | GPU Engineering, CUDA & Large-Scale Systems | 97 | 0 | 97 | 97 |
@@ -30,7 +30,7 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Frontier Research Areas | 40 | 0 | 2 | 7 |
 | Self-Supervised & Contrastive Learning | 12 | 0 | 1 | 1 |
 | Meta-Learning (Learning to Learn) | 46 | 0 | 1 | 1 |
-| Quantum AI & Quantum Computing for ML | 48 | 0 | 1 | 2 |
+| Quantum Computing, Information & Engineering | 106 | 0 | 59 | 106 |
 | Landmark Models & What Makes Them Notable | 22 | 0 | 1 | 1 |
 | Core Frameworks & Tool Ecosystem | 19 | 0 | 2 | 3 |
 | Key Terminology Glossary | 89 | 1 | 0 | 0 |
@@ -40,12 +40,13 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | JAX & Functional ML | 13 | 0 | 2 | 3 |
 | Robotics, Embodied AI & Simulation | 24 | 0 | 14 | 20 |
 | Drosophila & Fly Embodiment | 12 | 0 | 2 | 2 |
+| System Design & Distributed Systems Engineering | 109 | 0 | 109 | 109 |
 
 Counts within modules may include shared topics. The headline counts each stable topic ID once.
 
 ## Delivery phases
 
-**176 current content checkpoints complete · 123 current implementations complete.**
+**176 current content checkpoints complete · 128 current implementations complete.**
 
 [The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.
 
@@ -163,11 +164,11 @@ Counts within modules may include shared topics. The headline counts each stable
 | AutoML & Neural Architecture Search (NAS) | advanced | published | brief |
 | Hidden Markov Models (HMM) | intermediate | published | brief |
 | Bayesian Networks & Causal Graphical Models | intermediate | published | brief |
-| Conditional Random Fields (CRF) | advanced | published | design needed |
-| Gaussian Processes (GP) | advanced | published | design needed |
-| Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training) | intermediate | published | design needed |
-| Active Learning | advanced | published | design needed |
-| Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE) | foundation | published | design needed |
+| Conditional Random Fields (CRF) | advanced | published | brief |
+| Gaussian Processes (GP) | advanced | published | brief |
+| Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training) | intermediate | published | brief |
+| Active Learning | advanced | published | brief |
+| Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE) | foundation | published | brief |
 | PAC Learning & VC Dimension | intermediate | published | design needed |
 | Calibration & Conformal Prediction | intermediate | published | design needed |
 | Rademacher Complexity & Generalization Bounds | advanced | published | design needed |
@@ -449,9 +450,9 @@ Counts within modules may include shared topics. The headline counts each stable
 | Audio Sampling, Spectrograms & Speech Data Pipelines | foundation | planned | brief |
 | Multimodal Dataset Alignment, Missing Modalities & Evaluation | intermediate | planned | brief |
 
-### AI for Quantitative Finance
+### Quantitative Trading, Financial Markets & Investment Engineering
 
-**Module anchor:** A temporally separated financial experiment with costs, risk, data provenance and leakage checks.
+**Module anchor:** A dated market decision traced from contract and point-in-time data through forecast, orders, fills, financing, risk and reconciliation. Use the professional curriculum plan for research, pricing, execution and HFT adaptations; never infer profitability from a toy backtest.
 
 **Teaching strategy:** Ask a precise research question and establish prerequisites → Explain the baseline and proposed mechanism → Reconstruct a small example or experiment → Locate evidence and check assumptions → Attempt a bounded reproduction and comparison → Identify uncertainty, limitations and a concrete next investigation.
 
@@ -461,45 +462,123 @@ Counts within modules may include shared topics. The headline counts each stable
 
 | Topic | Level | Content | Design |
 | --- | --- | --- | --- |
+| Professional Trading: Participants, Desks & the Trade Lifecycle | foundation | planned | brief |
+| Market Instruments, Returns & Cash-Flow Accounting | foundation | planned | brief |
+| Market Efficiency, Behavioral Finance & Sources of Trading Returns | foundation | planned | brief |
+| Financial Statements, Valuation & Fundamental Research | foundation | planned | brief |
+| Interest Rates, Compounding, Discounting & Market Conventions | foundation | planned | brief |
+| Trading P&L, Positions, Cost Basis & Performance Accounting | foundation | planned | brief |
+| Macroeconomics, Monetary Policy & Cross-Asset Transmission | foundation | planned | brief |
+| Hedge Fund Structures, Mandates, Fees & Prime Brokerage | intermediate | planned | brief |
+| Equities, Corporate Actions, Indices & ETF Mechanics | foundation | planned | brief |
+| Bonds, Yield Curves, Duration, Convexity & Credit Spreads | foundation | planned | brief |
+| Futures, Forwards, Basis, Carry & Contract Rolls | foundation | planned | brief |
+| Foreign Exchange, Cross-Currency Basis & FX Forwards | intermediate | planned | brief |
+| Commodities, Storage, Seasonality & Physical Delivery | intermediate | planned | brief |
+| Options Contracts, Payoffs, Exercise & Assignment | foundation | planned | brief |
+| Securities Lending, Short Selling, Repo & Funding Liquidity | intermediate | planned | brief |
+| Swaps, Credit Derivatives & Structured Products | advanced | planned | brief |
+| Digital-Asset Market Structure, Custody & Perpetual Futures | intermediate | planned | brief |
+| Credit, Mortgages, Prepayment & Securitized-Product Risk | advanced | planned | brief |
 | Probability Theory for Quant Finance (Martingales, Stopping Times, Random Walks) | foundation | planned | design needed |
 | Linear Algebra for Finance (Covariance Matrices, PCA, Factor Decomposition) | foundation | planned | design needed |
 | Python for Quantitative Research (NumPy, Pandas, Vectorized Backtesting) | foundation | planned | design needed |
 | Econometrics (Cointegration, Granger Causality, VECM, Unit Roots) | intermediate | planned | design needed |
 | Convex Optimization & Dynamic Programming for Finance (CVXPY, Bellman Equations) | intermediate | planned | design needed |
 | Bayesian Statistics & Inference for Finance (Signal Combination, Hierarchical Models) | intermediate | planned | design needed |
-| ARIMA, GARCH & Classical Time-Series | foundation | planned | design needed |
-| Temporal Fusion Transformers & Neural Forecasting | intermediate | planned | design needed |
-| Classical Forecasting (Prophet, N-BEATS, N-HiTS) | intermediate | planned | design needed |
-| Foundation Models for Time-Series (TimesFM, Chronos, Moirai) | advanced | planned | design needed |
-| Regime Detection & Hidden Markov Models for Markets | advanced | planned | design needed |
-| Portfolio Optimization (Markowitz, Black-Litterman, Risk Parity) | intermediate | planned | design needed |
-| Risk Models & Tail Risk (VaR, CVaR, Stress Testing, Extreme Value Theory) | intermediate | planned | design needed |
-| Transaction Cost Analysis & Slippage Modeling (Market Impact, Cost-Aware Optimization) | intermediate | planned | design needed |
-| Options Pricing & Derivatives (Black-Scholes, Monte Carlo, Neural SDEs) | intermediate | planned | design needed |
-| Deep Hedging & RL for Trading | advanced | planned | design needed |
-| Feature Engineering & Alpha Research Methodology (IC, IR, Decay, Turnover) | intermediate | planned | design needed |
-| Statistical Arbitrage & Pairs Trading (Cointegration, Ornstein-Uhlenbeck) | intermediate | planned | design needed |
-| Sentiment Analysis & NLP for Finance (FinBERT) | intermediate | planned | design needed |
-| Alpha Signal Generation & Factor Models | advanced | planned | design needed |
-| Alternative Data Sources (Satellite, Web Traffic, Social) | advanced | planned | design needed |
-| Graph Neural Networks for Financial Markets (Sector Rotation, Systemic Risk) | advanced | planned | design needed |
-| LLMs for Financial Analysis | frontier | planned | design needed |
-| Market Microstructure & Order Book Modeling | advanced | planned | design needed |
-| Execution Algorithms & Optimal Execution (TWAP, VWAP, Almgren-Chriss) | advanced | planned | design needed |
-| Market-Making & Liquidity Provision (Avellaneda-Stoikov, Inventory Management) | advanced | planned | design needed |
-| High-Frequency Trading & Low-Latency Infrastructure | advanced | planned | design needed |
-| Credit Scoring & Fraud Detection | intermediate | planned | design needed |
 | Stochastic Calculus for Finance (Itô Calculus, SDEs) | intermediate | planned | design needed |
-| Explainable AI & Model Governance in Finance (SHAP, SR 11-7) | intermediate | planned | design needed |
-| Backtesting Frameworks & Avoiding Overfitting | advanced | planned | design needed |
-| Crypto & DeFi Quantitative Strategies (AMM, MEV, On-Chain Analytics) | advanced | planned | design needed |
+| ARIMA, GARCH & Classical Time-Series | foundation | planned | design needed |
+| Decision Theory, Utility & Betting Under Uncertainty | intermediate | planned | brief |
+| Financial Inference: HAC Errors, Bootstrap & Multiple Testing | intermediate | planned | brief |
+| Regime Detection & Hidden Markov Models for Markets | advanced | planned | design needed |
+| State-Space Filtering, Change Points & Online Financial Estimation | advanced | planned | brief |
+| Point Processes, Hawkes Models & High-Frequency Econometrics | advanced | planned | brief |
+| Stochastic Control, HJB Equations & Optimal Stopping in Finance | advanced | planned | brief |
+| Market Microstructure & Order Book Modeling | advanced | planned | design needed |
+| Order Types, Matching Rules, Auctions & Queue Priority | intermediate | planned | brief |
+| RFQ Markets, Dealer Pricing & Electronic OTC Trading | intermediate | planned | brief |
+| Price Discovery, Adverse Selection & Order-Flow Information | advanced | planned | brief |
+| Transaction Cost Analysis & Slippage Modeling (Market Impact, Cost-Aware Optimization) | intermediate | planned | design needed |
+| Execution Algorithms & Optimal Execution (TWAP, VWAP, Almgren-Chriss) | advanced | planned | design needed |
+| Smart Order Routing, Venue Selection & Liquidity Fragmentation | advanced | planned | brief |
+| Market-Making & Liquidity Provision (Avellaneda-Stoikov, Inventory Management) | advanced | planned | design needed |
+| Queue Position, Fill Probability & Limit-Order Placement | advanced | planned | brief |
 | Multi-Agent RL & Market Simulation | frontier | planned | design needed |
 | Financial Data Pitfalls (Survivorship Bias, Look-Ahead Bias, Point-in-Time Data) | foundation | planned | design needed |
-| ML Model Lifecycle in Production Trading (Drift, Monitoring, Feature Stores) | intermediate | planned | design needed |
-| Low-Latency Systems & C++ for Quant (Lock-Free, FPGA, Co-Location) | advanced | planned | design needed |
-| Quant Interview Mathematics (Brainteasers, Expected Value, Game Theory) | foundation | planned | design needed |
-| Market Instruments, Returns & Cash-Flow Accounting | foundation | planned | brief |
+| Security Masters, Identifiers, Calendars & Corporate-Action Data | intermediate | planned | brief |
+| Tick Data, Order-Book Reconstruction & Feed Quality | intermediate | planned | brief |
+| Financial Time-Series Storage: Columnar Files, kdb+ & Streaming Data | intermediate | planned | brief |
+| Alternative Data Sources (Satellite, Web Traffic, Social) | advanced | planned | design needed |
+| Alternative-Data Due Diligence, Entitlements & Research Lineage | intermediate | planned | brief |
+| Reproducible Quant Experiments, Research Compute & GPU Acceleration | intermediate | planned | brief |
+| Feature Engineering & Alpha Research Methodology (IC, IR, Decay, Turnover) | intermediate | planned | design needed |
+| Backtesting Frameworks & Avoiding Overfitting | advanced | planned | design needed |
+| Financial Labels, Event Sampling & Overlapping Outcomes | intermediate | planned | brief |
+| Walk-Forward Testing, Purging, Embargoes & Nested Model Selection | intermediate | planned | brief |
+| Backtest Overfitting, Deflated Sharpe & Research Trial Accounting | advanced | planned | brief |
 | Backtest Selection Bias & Execution Reconciliation | intermediate | planned | brief |
+| Event-Driven Backtesting, Fill Models & Paper-to-Live Gaps | intermediate | planned | brief |
+| Classical Forecasting (Prophet, N-BEATS, N-HiTS) | intermediate | planned | design needed |
+| Temporal Fusion Transformers & Neural Forecasting | intermediate | planned | design needed |
+| Foundation Models for Time-Series (TimesFM, Chronos, Moirai) | advanced | planned | design needed |
+| Financial ML: Nonstationarity, Calibration & Economic Evaluation | advanced | planned | brief |
+| Portfolio Optimization (Markowitz, Black-Litterman, Risk Parity) | intermediate | planned | design needed |
+| Covariance Estimation, Shrinkage & Multi-Factor Risk Models | intermediate | planned | brief |
+| Constrained Portfolios, Turnover, Liquidity & Capacity | advanced | planned | brief |
+| Position Sizing, Kelly Criteria & Drawdown-Constrained Allocation | advanced | planned | brief |
+| Risk Models & Tail Risk (VaR, CVaR, Stress Testing, Extreme Value Theory) | intermediate | planned | design needed |
+| Stress Testing, Liquidity Spirals & Crowded-Trade Unwinds | advanced | planned | brief |
+| Counterparty Risk, Collateral, Margin & Valuation Adjustments | advanced | planned | brief |
+| Performance Attribution, Skill Evaluation & Manager Selection | intermediate | planned | brief |
+| Multi-Strategy Allocation, Risk Budgets & Portfolio Governance | advanced | planned | brief |
+| Options Pricing & Derivatives (Black-Scholes, Monte Carlo, Neural SDEs) | intermediate | planned | design needed |
+| No-Arbitrage Pricing, Numeraires & Risk-Neutral Measures | advanced | planned | brief |
+| Greeks, Dynamic Hedging & Options P&L Attribution | intermediate | planned | brief |
+| Volatility Surfaces, Calibration & Static Arbitrage | advanced | planned | brief |
+| Local Volatility, Stochastic Volatility, Jumps & Rough Models | advanced | planned | brief |
+| Pricing Trees, PDE Solvers & Early-Exercise Boundaries | advanced | planned | brief |
+| Monte Carlo Pricing, Variance Reduction & Adjoint Greeks | advanced | planned | brief |
+| Interest-Rate Curve Construction & Multi-Curve Derivatives | advanced | planned | brief |
+| Financial Calibration, Fourier Pricing & Numerical Sensitivity | advanced | planned | brief |
+| Exotic Options, Credit Models & Model Risk Validation | advanced | planned | brief |
+| Deep Hedging & RL for Trading | advanced | planned | design needed |
+| Alpha Signal Generation & Factor Models | advanced | planned | design needed |
+| Equity Factors, Cross-Sectional Signals & Neutralization | intermediate | planned | brief |
+| Trend Following, Time-Series Momentum & Managed Futures | intermediate | planned | brief |
+| Statistical Arbitrage & Pairs Trading (Cointegration, Ornstein-Uhlenbeck) | intermediate | planned | design needed |
+| Carry, Value & Cross-Asset Risk Premia | advanced | planned | brief |
+| Event-Driven Trading, Merger Arbitrage & Index Reconstitutions | advanced | planned | brief |
+| Fixed-Income Relative Value, Curve Trades & Basis Strategies | advanced | planned | brief |
+| Volatility Trading, Dispersion & Variance Risk Premia | advanced | planned | brief |
+| Sentiment Analysis & NLP for Finance (FinBERT) | intermediate | planned | design needed |
+| Graph Neural Networks for Financial Markets (Sector Rotation, Systemic Risk) | advanced | planned | design needed |
+| LLMs for Financial Analysis | frontier | planned | design needed |
+| Crypto & DeFi Quantitative Strategies (AMM, MEV, On-Chain Analytics) | advanced | planned | design needed |
+| High-Frequency Trading & Low-Latency Infrastructure | advanced | planned | design needed |
+| Market-Making Risk, Markouts & Cross-Instrument Hedging | advanced | planned | brief |
+| Low-Latency Systems & C++ for Quant (Lock-Free, FPGA, Co-Location) | advanced | planned | design needed |
+| FIX Sessions, Binary Protocols & Order Gateway State | advanced | planned | brief |
+| Market-Data Feed Handlers, Multicast & Gap Recovery | advanced | planned | brief |
+| Low-Latency C++: Memory Layout, Atomics & Lock-Free Queues | advanced | planned | brief |
+| Kernel Bypass, NIC Queues, NUMA & Network Hot Paths | advanced | planned | brief |
+| Clock Synchronization, Hardware Timestamping & Latency Metrology | advanced | planned | brief |
+| FPGA Trading Pipelines, Hardware Offload & Verification | advanced | planned | brief |
+| Colocation, Exchange Certification & Capacity Engineering | advanced | planned | brief |
+| OMS, EMS, Portfolio State & Real-Time Risk Architecture | advanced | planned | brief |
+| Pre-Trade Limits, Kill Switches & Fat-Finger Protection | advanced | planned | brief |
+| ML Model Lifecycle in Production Trading (Drift, Monitoring, Feature Stores) | intermediate | planned | design needed |
+| Trading Releases, Shadow Runs, Incident Response & Recovery | advanced | planned | brief |
+| Clearing, Settlement, Reconciliation & Treasury Operations | intermediate | planned | brief |
+| Trading Regulation, Market Conduct & Surveillance | intermediate | planned | brief |
+| Explainable AI & Model Governance in Finance (SHAP, SR 11-7) | intermediate | planned | brief |
+| Credit Scoring & Fraud Detection | intermediate | planned | design needed |
+| Trading Security, Access Controls & Business Continuity | advanced | planned | brief |
+| Quant Interview Mathematics (Brainteasers, Expected Value, Game Theory) | foundation | planned | design needed |
+| Quant Research Communication, Replication & Investment Memos | intermediate | planned | brief |
+| Quant Developer & Trader Interviews: Coding, Markets & Design | advanced | planned | brief |
+| Quant Capstone: Reproducible Cross-Asset Research & Portfolio | advanced | planned | brief |
+| Quant Capstone: Exchange Replay, Market Maker & Risk Gateway | advanced | planned | brief |
+| Quant Capstone: Derivatives Library & Independent Model Validation | advanced | planned | brief |
 
 ### Neural Engineering & Computational Neuroscience
 
@@ -1085,66 +1164,124 @@ Counts within modules may include shared topics. The headline counts each stable
 | Meta-Learning Libraries | intermediate | planned | design needed |
 | Meta-Learning Evaluation, Task Shift & Adaptation Baselines | intermediate | planned | brief |
 
-### Quantum AI & Quantum Computing for ML
+### Quantum Computing, Information & Engineering
 
-**Module anchor:** A tiny circuit/state example separates ideal calculation, noisy execution and claims of advantage.
+**Module anchor:** A task traced from state preparation through coherent evolution, measurement and classical interpretation. Use docs/curriculum/QUANTUM-COMPUTING-PLAN.md for theory, software, hardware, fault-tolerance, networking and application branches; a planned scope is not completed research or hardware evidence.
 
-**Teaching strategy:** Ask a precise research question and establish prerequisites → Explain the baseline and proposed mechanism → Reconstruct a small example or experiment → Locate evidence and check assumptions → Attempt a bounded reproduction and comparison → Identify uncertainty, limitations and a concrete next investigation.
+**Teaching strategy:** State the task, input access and observable output → Define a tiny state, basis and register convention → Trace amplitudes, operations and measurement with an exact reference → Compare finite-shot and noisy execution with assumptions visible → Account for preparation, control, classical processing and resources → Test a changed case and distinguish proof, simulation, hardware evidence and open claims.
 
-**Practice:** Reconstruct a result, evaluate an alternative explanation and produce a bounded reproducibility report.
+**Practice:** Hand-traced states, independently checked small simulations, finite-shot diagnosis, changed assumptions and reproducible resource or experimental reports; adapt to theory, software, hardware or applications.
 
-**Verification:** Use original papers/data/docs; distinguish hypothesis, demonstration, generalization and unsettled claims; date moving information.
+**Verification:** Check normalization, phase and basis order, unitarity or channel validity, measurement/update semantics, exact references, statistical uncertainty and noise assumptions. Bound quantum/classical comparisons by matched input access, error and total resources; date hardware and advantage claims.
 
 | Topic | Level | Content | Design |
 | --- | --- | --- | --- |
+| Quantum Computing: Problems, Models & Evidence | foundation | planned | brief |
 | Complex Amplitudes, Tensor Products & Quantum Experiment Accounting | foundation | planned | brief |
 | Qubits, Superposition & Entanglement | foundation | planned | design needed |
-| Quantum Gates & Circuits | foundation | planned | design needed |
 | Measurement & Born Rule | foundation | planned | design needed |
-| No-Cloning Theorem & Quantum Teleportation | foundation | planned | design needed |
+| Relative Phase, Interference & the Bloch Sphere | foundation | planned | brief |
 | Quantum State Spaces & Hilbert Space | intermediate | planned | design needed |
+| Quantum Gates & Circuits | foundation | planned | design needed |
 | Density Matrices & Mixed States | intermediate | planned | design needed |
+| Composite Quantum Systems, Partial Trace & Schmidt Decomposition | intermediate | planned | brief |
+| Observables, Hamiltonians & Quantum Dynamics | intermediate | planned | brief |
+| No-Cloning Theorem & Quantum Teleportation | foundation | planned | design needed |
+| Bell Inequalities, Nonlocal Correlations & No Signalling | intermediate | planned | brief |
+| Quantum Channels, Kraus Operators & Complete Positivity | intermediate | planned | brief |
+| Generalized Measurements, POVMs & Quantum Instruments | advanced | planned | brief |
+| Quantum Information Theory (von Neumann Entropy, Fidelity, Tomography) | advanced | planned | design needed |
+| Quantum State Tomography, Process Tomography & Classical Shadows | advanced | planned | brief |
+| Quantum Entropy, Entanglement Measures & Channel Capacities | advanced | planned | brief |
+| Quantum Distinguishability, Holevo Bounds & Resource Theories | advanced | planned | brief |
+| Quantum Programming Frameworks | foundation | planned | design needed |
+| State Preparation, Reversible Logic & Uncomputation | intermediate | planned | brief |
+| Controlled Operations, Phase Kickback & Quantum Oracles | intermediate | planned | brief |
+| Quantum Circuit Identities, Gate Synthesis & Universality | intermediate | planned | brief |
+| Quantum Circuit Languages & Additional Tools | intermediate | planned | design needed |
+| Quantum Transpilation, Qubit Routing & Scheduling | intermediate | planned | brief |
+| Dynamic Quantum Circuits, Feedforward & Hybrid Runtimes | intermediate | planned | brief |
+| Quantum Software Testing, Reproducibility & Cloud Execution | intermediate | planned | brief |
 | Quantum Complexity Theory & BQP | intermediate | planned | design needed |
-| Quantum Annealing & Adiabatic Quantum Computing | intermediate | planned | design needed |
+| Deutsch-Jozsa, Bernstein-Vazirani & Simon's Algorithms | intermediate | planned | brief |
 | Grover's Search Algorithm | intermediate | planned | design needed |
-| Shor's Factoring Algorithm | intermediate | planned | design needed |
+| Amplitude Amplification, Estimation & Quantum Counting | advanced | planned | brief |
 | Quantum Fourier Transform (QFT) | intermediate | planned | design needed |
-| Variational Quantum Eigensolver (VQE) | intermediate | planned | design needed |
-| Quantum Walks | intermediate | planned | design needed |
-| Quantum Approximate Optimization Algorithm (QAOA) | advanced | planned | design needed |
 | Quantum Phase Estimation (QPE) | advanced | planned | design needed |
-| HHL Algorithm (Quantum Linear Systems) | advanced | planned | design needed |
+| Shor's Factoring Algorithm | intermediate | planned | design needed |
+| Quantum Walks | intermediate | planned | design needed |
+| Quantum Simulators | intermediate | planned | design needed |
+| Tensor Networks (MPS, PEPS, MERA) | intermediate | planned | design needed |
+| Stabilizer Simulation, Gottesman-Knill & Simulation Boundaries | advanced | planned | brief |
 | Quantum Simulation (Hamiltonian Simulation) | advanced | planned | design needed |
-| Variational Quantum Circuits (VQC) / Parameterized Quantum Circuits | intermediate | planned | design needed |
-| Quantum Kernel Methods | intermediate | planned | design needed |
+| Hamiltonian Simulation: Product Formulas, LCU & Qubitization | advanced | planned | brief |
+| Block Encodings, Quantum Signal Processing & QSVT | advanced | planned | brief |
+| HHL Algorithm (Quantum Linear Systems) | advanced | planned | design needed |
+| Fermionic Encodings & Electronic-Structure Hamiltonians | advanced | planned | brief |
+| Quantum Chemistry & Materials Science Applications | advanced | planned | design needed |
+| Ground States, Thermal States & Many-Body Quantum Computation | advanced | planned | brief |
+| Analog Quantum Simulation, Lattice Models & Model Validation | advanced | planned | brief |
+| Quantum Sampling, Boson Sampling & Verification of Sampling Claims | advanced | planned | brief |
 | Quantum Data Encoding (Amplitude, Angle, Basis Encoding) | intermediate | planned | design needed |
-| Quantum Neural Networks (QNN) & Hybrid Models | advanced | planned | design needed |
+| Variational Quantum Circuits (VQC) / Parameterized Quantum Circuits | intermediate | planned | design needed |
+| Quantum Gradient Estimation, Parameter Shift & Stochastic Optimization | intermediate | planned | brief |
+| Variational Quantum Eigensolver (VQE) | intermediate | planned | design needed |
+| Quantum Approximate Optimization Algorithm (QAOA) | advanced | planned | design needed |
+| Quantum Annealing & Adiabatic Quantum Computing | intermediate | planned | design needed |
+| Combinatorial Optimization on Quantum Hardware (MaxCut, TSP via QAOA) | advanced | planned | design needed |
 | Barren Plateaus & Trainability | advanced | planned | design needed |
+| Quantum Kernel Methods | intermediate | planned | design needed |
+| Quantum Neural Networks (QNN) & Hybrid Models | advanced | planned | design needed |
 | Quantum Generative Models (QGAN, Quantum Boltzmann Machines) | advanced | planned | design needed |
+| Quantum-Inspired Optimization (Simulated Annealing, DMRG-Inspired) | advanced | planned | design needed |
 | Quantum Reinforcement Learning | advanced | planned | design needed |
 | Quantum Transfer Learning | advanced | planned | design needed |
 | Quantum Reservoir Computing | advanced | planned | design needed |
+| Quantum Natural Language Processing (QNLP) | frontier | planned | design needed |
 | Quantum Monte Carlo Methods | advanced | planned | design needed |
 | Quantum Portfolio Optimization & Risk Analysis | advanced | planned | design needed |
-| Combinatorial Optimization on Quantum Hardware (MaxCut, TSP via QAOA) | advanced | planned | design needed |
-| Quantum Chemistry & Materials Science Applications | advanced | planned | design needed |
-| Quantum Information Theory (von Neumann Entropy, Fidelity, Tomography) | advanced | planned | design needed |
-| Quantum Natural Language Processing (QNLP) | frontier | planned | design needed |
-| Quantum Foundation Models & Advantage Benchmarks | frontier | planned | design needed |
-| Classical ML for Quantum (AlphaQubit, ML-Assisted Error Decoding) | frontier | planned | design needed |
-| Post-Quantum Cryptography & ML Security Implications | advanced | planned | design needed |
-| Tensor Networks (MPS, PEPS, MERA) | intermediate | planned | design needed |
-| Quantum-Inspired Optimization (Simulated Annealing, DMRG-Inspired) | advanced | planned | design needed |
 | Dequantization & Classical Simulation of Quantum ML | advanced | planned | design needed |
+| Quantum Foundation Models & Advantage Benchmarks | frontier | planned | design needed |
+| Quantum Advantage for ML — Status & Outlook | frontier | planned | design needed |
 | NISQ (Noisy Intermediate-Scale Quantum) Devices | intermediate | planned | design needed |
 | Quantum Hardware Technologies (Superconducting, Trapped Ion, Photonic, Neutral Atom) | intermediate | planned | design needed |
-| Quantum Error Correction (Surface Codes, Logical Qubits) | advanced | planned | design needed |
+| Superconducting Qubits, Circuit QED & Cryogenic Systems | advanced | planned | brief |
+| Trapped-Ion Qubits, Motional Modes & Entangling Gates | advanced | planned | brief |
+| Neutral-Atom Qubits, Optical Tweezers & Rydberg Blockade | advanced | planned | brief |
+| Photonic Quantum Computing & Continuous-Variable Systems | advanced | planned | brief |
+| Semiconductor Spin Qubits, Defects & Solid-State Quantum Devices | advanced | planned | brief |
+| Topological Qubits, Anyons & Majorana Evidence | frontier | planned | brief |
+| Quantum Control, Pulse Calibration & Readout Engineering | advanced | planned | brief |
+| Decoherence, Relaxation, Leakage & Quantum Noise Models | intermediate | planned | brief |
+| Quantum Noise Characterization, Randomized Benchmarking & Gate-Set Tomography | advanced | planned | brief |
+| Quantum Hardware Benchmarks, Throughput & Application Performance | intermediate | planned | brief |
 | Quantum Error Mitigation | advanced | planned | design needed |
+| Zero-Noise Extrapolation, Error Cancellation & Verification Tradeoffs | advanced | planned | brief |
+| Dynamical Decoupling, Noise Tailoring & Leakage Suppression | advanced | planned | brief |
+| Open Quantum Systems, Lindblad Dynamics & Quantum Trajectories | advanced | planned | brief |
+| Quantum Error Correction (Surface Codes, Logical Qubits) | advanced | planned | design needed |
+| Stabilizer Codes, CSS Construction & Syndrome Extraction | advanced | planned | brief |
+| Surface Codes, Repeated Syndromes & Quantum Error Decoders | advanced | planned | brief |
+| Quantum LDPC Codes, Subsystem Codes & Connectivity Tradeoffs | advanced | planned | brief |
+| Bosonic Quantum Codes: Cat, Binomial & GKP Encodings | advanced | planned | brief |
 | Fault-Tolerant Quantum Computing | frontier | planned | design needed |
-| Quantum Advantage for ML — Status & Outlook | frontier | planned | design needed |
-| Quantum Programming Frameworks | foundation | planned | design needed |
-| Quantum Circuit Languages & Additional Tools | intermediate | planned | design needed |
-| Quantum Simulators | intermediate | planned | design needed |
+| Logical Gates, Magic-State Distillation & Lattice Surgery | advanced | planned | brief |
+| Classical ML for Quantum (AlphaQubit, ML-Assisted Error Decoding) | frontier | planned | design needed |
+| Fault-Tolerant Resource Estimation: Logical to Physical Costs | advanced | planned | brief |
+| Quantum Key Distribution: BB84, E91 & Security Assumptions | advanced | planned | brief |
+| Post-Quantum Cryptography & ML Security Implications | advanced | planned | design needed |
+| Quantum Networks, Repeaters & Entanglement Distribution | advanced | planned | brief |
+| Distributed Quantum Computing & Modular Architectures | advanced | planned | brief |
+| Blind and Verifiable Delegated Quantum Computing | frontier | planned | brief |
+| Quantum Sensing, Metrology & Quantum Fisher Information | advanced | planned | brief |
+| Measurement-Based Quantum Computing & Cluster States | advanced | planned | brief |
+| Quantum Randomness, Device Independence & Certification | advanced | planned | brief |
+| Reading Quantum Research & Reproducing Advantage Claims | advanced | planned | brief |
+| Quantum Algorithm Capstone: End-to-End Accuracy & Resource Budgets | advanced | planned | brief |
+| Quantum Error-Correction Capstone: Logical Memory & Decoder Evaluation | advanced | planned | brief |
+| Quantum Chemistry Capstone: Molecular Energy with Independent Baselines | advanced | planned | brief |
+| Quantum Network Capstone: Entanglement Distribution under Loss | advanced | planned | brief |
+| Quantum Engineering Roles, Research Roadmaps & Technical Communication | intermediate | planned | brief |
 
 ### Landmark Models & What Makes Them Notable
 
@@ -1638,4 +1775,126 @@ Counts within modules may include shared topics. The headline counts each stable
 | From Fly Embodiment to Virtual Mouse Systems | frontier | planned | design needed |
 | Fly Model Calibration, System Identification & Validation | intermediate | planned | brief |
 | Neural-to-Mechanical Coupling & Closed-Loop Fly Experiments | intermediate | planned | brief |
+
+### System Design & Distributed Systems Engineering
+
+**Module anchor:** A concrete user workflow with explicit invariants, workload and failure assumptions, traced through API, state, storage and recovery. Compare alternatives using correctness histories, fault injection, measured capacity, security boundaries and operating cost.
+
+**Teaching strategy:** Define a computation or service contract → Map components, state and resource boundaries → Trace the normal request/work/data flow → Explain coordination and the relevant failure mode → Measure correctness and a diagnosed bottleneck → Repair, compare and validate under a changed workload.
+
+**Practice:** Independent reference computation, fault diagnosis, measured optimization and a reproducible engineering report.
+
+**Verification:** Separate output correctness, memory/concurrency safety, numerical tolerance, performance and platform support.
+
+| Topic | Level | Content | Design |
+| --- | --- | --- | --- |
+| System Design: Requirements, Constraints & Architecture Decisions | foundation | planned | brief |
+| Capacity Estimation, Workload Models & Performance Budgets | foundation | planned | brief |
+| Architecture Styles: Modular Monoliths, Services & Event-Driven Systems | foundation | planned | brief |
+| Domain Modeling, Bounded Contexts & Service Ownership | intermediate | planned | brief |
+| Architecture Documentation, ADRs & Technical Design Reviews | foundation | planned | brief |
+| System Design Interviews: Clarification, Estimation & Deep Dives | intermediate | planned | brief |
+| Low-Level Design: Interfaces, Composition & Dependency Boundaries | intermediate | planned | brief |
+| Design Patterns, State Machines & Maintainable Service Code | intermediate | planned | brief |
+| Networking Foundations: Packets, Transport, DNS & Sockets | foundation | planned | brief |
+| Operating-System Mechanisms for Service Design | foundation | planned | brief |
+| Concurrency, Memory Models & Synchronization for Services | intermediate | planned | brief |
+| TCP, UDP, QUIC, TLS & Connection Lifecycle Design | intermediate | planned | brief |
+| DNS, Anycast, Service Discovery & Traffic Steering | intermediate | planned | brief |
+| Networked Services, HTTP Contracts & Identity Boundaries | foundation | planned | brief |
+| Load Balancers, Reverse Proxies & API Gateways | intermediate | planned | brief |
+| CDNs, Edge Caching & Geographic Content Delivery | intermediate | planned | brief |
+| API Design: REST, RPC, GraphQL & Compatibility | intermediate | planned | brief |
+| Distributed Failure Semantics, Retries & Idempotency | intermediate | planned | brief |
+| Timeouts, Deadlines, Retries & Exponential Backoff | intermediate | planned | brief |
+| Idempotency Keys, Deduplication & Exactly-Once Effects | intermediate | planned | brief |
+| Sessions, Stateless Services & Distributed Application State | intermediate | planned | brief |
+| WebSockets, Server-Sent Events, Webhooks & Realtime APIs | intermediate | planned | brief |
+| Rate Limiting, Quotas & Admission Control | intermediate | planned | brief |
+| Distributed IDs, Ordering & Uniqueness Guarantees | intermediate | planned | brief |
+| Client Architecture: Rendering, State, Offline Data & API Boundaries | intermediate | planned | brief |
+| User-Perceived Performance, Accessibility & Internationalization | intermediate | planned | brief |
+| Data Modeling, Invariants & Schema Evolution | foundation | planned | brief |
+| Database Indexes, B-Trees, Hash Indexes & Query Planning | intermediate | planned | brief |
+| Storage Internals: Pages, WAL, LSM Trees & Compaction | intermediate | planned | brief |
+| Probabilistic Data Structures: Bloom Filters, Sketches & Approximate Counts | intermediate | planned | brief |
+| Bloom, Cuckoo & XOR Filters: Approximate Membership | intermediate | planned | brief |
+| HyperLogLog & HLL++: Approximate Distinct Counting | intermediate | planned | brief |
+| Count-Min Sketch, Count Sketch & Streaming Heavy Hitters | advanced | planned | brief |
+| Streaming Quantiles, KLL, t-Digest & Reservoir Sampling | advanced | planned | brief |
+| Transactions, Isolation Levels & Concurrency Anomalies | intermediate | planned | brief |
+| Relational, Document, Key-Value, Wide-Column & Graph Databases | intermediate | planned | brief |
+| Object Storage, Filesystems, Block Storage & Erasure Coding | intermediate | planned | brief |
+| Merkle Trees, Content Addressing & Data Integrity | intermediate | planned | brief |
+| Time-Series Databases, Search Indexes & Specialized Retrieval | intermediate | planned | brief |
+| Database Operations: Connections, Vacuum, Backups & Restore | intermediate | planned | brief |
+| Distributed Failure Models, Time & Impossibility Boundaries | intermediate | planned | brief |
+| Distributed Consistency, Linearizability & Causal Guarantees | intermediate | planned | brief |
+| Replication, Quorums & Failover Semantics | intermediate | planned | brief |
+| Consensus, Raft, Paxos & Replicated State Machines | advanced | planned | brief |
+| Leader Election, Leases, Distributed Locks & Fencing Tokens | advanced | planned | brief |
+| Sharding, Consistent Hashing, Hot Keys & Rebalancing | intermediate | planned | brief |
+| Distributed Transactions, Two-Phase Commit & Atomic Commit | advanced | planned | brief |
+| CRDTs, Conflict Resolution & Offline-First Synchronization | advanced | planned | brief |
+| Multi-Region Architecture, Data Residency & Disaster Recovery | advanced | planned | brief |
+| Distributed SQL, Logical Timestamps & Externally Consistent Transactions | advanced | planned | brief |
+| Membership Changes, Snapshots, Gossip & Anti-Entropy | advanced | planned | brief |
+| Caching Strategies, Invalidation & Stampede Control | intermediate | planned | brief |
+| Message Queues, Publish-Subscribe & Delivery Semantics | intermediate | planned | brief |
+| Partitioned Logs, Consumer Groups & Event Ordering | intermediate | planned | brief |
+| Backpressure, Bounded Queues & Stream Flow Control | intermediate | planned | brief |
+| Transactional Outbox, Inbox & Change Data Capture | advanced | planned | brief |
+| Sagas, Compensation & Durable Workflow Engines | advanced | planned | brief |
+| Event Sourcing, CQRS & Projection Evolution | advanced | planned | brief |
+| Job Scheduling, Timers & Distributed Task Execution | intermediate | planned | brief |
+| Batch Data Platforms, Warehouses, Lakes & Lakehouses | intermediate | planned | brief |
+| Distributed Query Engines, Joins, Shuffles & Analytical Execution | advanced | planned | brief |
+| Stream Processing, Event Time, Watermarks & Windowing | advanced | planned | brief |
+| Data Contracts, Schema Registries & Pipeline Quality | intermediate | planned | brief |
+| Search System Architecture: Crawling, Indexing & Retrieval | advanced | planned | brief |
+| ML Serving Architecture, Feature Freshness & Model Rollouts | advanced | planned | brief |
+| Vector Search, RAG & AI Application System Boundaries | advanced | planned | brief |
+| SLIs, SLOs, Error Budgets & Availability Modeling | intermediate | planned | brief |
+| Observability: Metrics, Logs, Traces & Profiling | intermediate | planned | brief |
+| Tail Latency, Queueing, Fanout & Performance Diagnosis | advanced | planned | brief |
+| Circuit Breakers, Bulkheads, Load Shedding & Graceful Degradation | intermediate | planned | brief |
+| Load Testing, Benchmark Validity & Capacity Experiments | intermediate | planned | brief |
+| Incident Management, On-Call, Runbooks & Blameless Reviews | intermediate | planned | brief |
+| Fault Injection, Chaos Experiments & Resilience Validation | advanced | planned | brief |
+| Correctness Testing, Model Checking & Deterministic Simulation | advanced | planned | brief |
+| System Threat Modeling, Trust Boundaries & Secure Defaults | foundation | planned | brief |
+| Authentication, OAuth, OpenID Connect & Session Security | intermediate | planned | brief |
+| Authorization, RBAC, ABAC & Relationship-Based Permissions | intermediate | planned | brief |
+| Encryption, Key Management, Secrets & Certificate Rotation | intermediate | planned | brief |
+| Multi-Tenant Architecture, Noisy Neighbors & Isolation | advanced | planned | brief |
+| Privacy, Retention, Deletion & Audit Evidence | intermediate | planned | brief |
+| Abuse Prevention, DDoS, Fraud & Software Supply-Chain Security | advanced | planned | brief |
+| Virtual Machines, Containers, Isolation & Runtime Resources | intermediate | planned | brief |
+| Kubernetes Architecture, Scheduling & Service Operation | advanced | planned | brief |
+| Serverless, Managed Services & Build-versus-Buy Decisions | intermediate | planned | brief |
+| Infrastructure as Code, Configuration & Environment Reproducibility | intermediate | planned | brief |
+| Cloud Networks, Service Meshes & Control-Plane Separation | advanced | planned | brief |
+| CI/CD, Canary Releases, Feature Flags & Safe Rollback | intermediate | planned | brief |
+| Schema Migrations, Backfills & Zero-Downtime Evolution | advanced | planned | brief |
+| Monolith Decomposition, Legacy Integration & Strangler Migrations | advanced | planned | brief |
+| FinOps, Capacity Planning, Sustainability & Engineering Economics | intermediate | planned | brief |
+| Design Studio: URL Shortener, Redirects & Abuse Controls | intermediate | planned | brief |
+| Design Studio: Chat, Presence & Multi-Device Messaging | advanced | planned | brief |
+| Design Studio: Social Feeds, Fanout & Notification Delivery | advanced | planned | brief |
+| Design Studio: Payments, Ledgers & Financial Reconciliation | advanced | planned | brief |
+| Design Studio: Inventory, Ticketing & Reservation Contention | advanced | planned | brief |
+| Design Studio: File Sync, Collaboration & Version Conflicts | advanced | planned | brief |
+| Design Studio: Video Streaming, Transcoding & Live Delivery | advanced | planned | brief |
+| Design Studio: Maps, Geospatial Search & Ride Dispatch | advanced | planned | brief |
+| Design Studio: Metrics, Logs & High-Cardinality Telemetry | advanced | planned | brief |
+| Design Studio: Cloud Object Store & Metadata Service | advanced | planned | brief |
+| Design Studio: Workflow Platform, CI Runners & Build Cache | advanced | planned | brief |
+| Design Studio: IoT Ingestion, Device Control & Edge Operation | advanced | planned | brief |
+| Design Studio: Experimentation Platforms, Assignment & Metric Integrity | advanced | planned | brief |
+| Peer-to-Peer Systems, Byzantine Faults & Trustless Coordination | advanced | planned | brief |
+| Real-Time & Embedded System Design: Deadlines, Safety & Control Boundaries | advanced | planned | brief |
+| High-Performance Systems: Zero Copy, RDMA & Hardware-Aware Design | advanced | planned | brief |
+| System Design Capstone: Evolve a Service from One Node to Multiple Regions | advanced | planned | brief |
+| System Design Capstone: Build & Verify a Replicated Key-Value Service | advanced | planned | brief |
+| System Design Capstone: Secure Multi-Tenant Event Platform | advanced | planned | brief |
 

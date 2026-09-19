@@ -1,0 +1,98 @@
+{
+  "reviewer": "semi_supervised_implementation",
+  "passed": true,
+  "base": "http://127.0.0.1:4184",
+  "widths": [
+    390
+  ],
+  "checks": [
+    "All four investigations initially hide response content",
+    "Tied B and C occupy identical quantitative score positions",
+    "Threshold ruler positions and dashed gate use the declared common scale",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Full reveal prevents grading later exposed steps",
+    "Edit and restore retains knowledge that the full ranking was exposed",
+    "Restoring inputs does not resurrect an old response",
+    "Display-only row permutation cannot restore grading after full reveal",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Changed threshold inside an empty interval moves no items",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Numerical tie policy remains invariant under minutes-to-seconds conversion",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Perfect constant predictions retain zero error and undefined R2 explanation",
+    "Changed-input prediction accepted with mechanism feedback",
+    "Swapping equally judged documents preserves all four reported metrics",
+    "Changed-input prediction accepted with mechanism feedback",
+    "No-relevance state distinguishes zero decision measures from undefined normalized scores",
+    "ROC selected tie point uses shared quantitative axes",
+    "ROC initial and final endpoints match zero and one axes",
+    "No page overflow in complementary changed-input states",
+    "No runtime errors in complementary browser scenarios"
+  ],
+  "source": {
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "b20c6ee6bb8b6835b2740e0b45afe00082b4f4e71a457e5dacc70cb37e5f3c6a",
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "af3c4d7f49b28e2122400e758a3d149ac21352ef6b80bee1dc6d6f9daa6149b8",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "bf37b492e5defe85653274abb8ed27ae5c302f271ecf3d461bc50e17f1ff9aaa",
+    "src/learn/components/lesson-labs/evaluation-metrics.css": "3d21c8c2b8d0284733a24bdf51c1b5ae6c40eefc24d131ecbf3092651bd7c8a5",
+    "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "src/learn/data/evaluation-metrics-data.json": "881aabf459fa106a9e768dcc32a442179b39b2fea3c551a0a16ff122e404d7ef",
+    "scripts/review-evaluation-metrics-independent.cjs": "631158e3262bb86ccc4039d147c8596ccd99f1cc0d84a52de721064df0c7eb51"
+  },
+  "screenshots": [
+    {
+      "file": "scratch/evaluation-metrics-independent/ranking-exposure-memory-390.png",
+      "sha256": "0d1b7233b8472e3fbfa1e1cba35950aac18ff0b9ce12eec54ea8248978acbd87",
+      "bytes": 124688
+    },
+    {
+      "file": "scratch/evaluation-metrics-independent/constant-target-result-390.png",
+      "sha256": "4136442288b29f134e5d3e4e1688a55b950ac3546f84d4bb4e44a853e5721077",
+      "bytes": 88341
+    },
+    {
+      "file": "scratch/evaluation-metrics-independent/no-relevance-result-390.png",
+      "sha256": "90145fc074f997631fe2d901b25af55f01151df94a3d6e77065249f69a88dbd7",
+      "bytes": 64606
+    },
+    {
+      "file": "scratch/evaluation-metrics-independent/measured-followup-390.png",
+      "sha256": "f8e26f70daf6c8528d3ba90ed666566c1b3d24733096881c6f2712c7b9d267bb",
+      "bytes": 67871
+    }
+  ],
+  "errors": [],
+  "followupChecks": [
+    {
+      "reason": "Only measured-cost SVG coordinates/readable tick size/caption and related CSS changed; all behavior sources unchanged.",
+      "previousSource": {
+        "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "b20c6ee6bb8b6835b2740e0b45afe00082b4f4e71a457e5dacc70cb37e5f3c6a",
+        "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "975707e8aceb8ec5bad0fa9aaa980529f30543f94c4703a404293f3b49248995",
+        "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "bf37b492e5defe85653274abb8ed27ae5c302f271ecf3d461bc50e17f1ff9aaa",
+        "src/learn/components/lesson-labs/evaluation-metrics.css": "893aeeec73d3afce839266348a3c36ef7ebac0745d26462f4ec6686366e9436f",
+        "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+        "src/learn/data/evaluation-metrics-data.json": "881aabf459fa106a9e768dcc32a442179b39b2fea3c551a0a16ff122e404d7ef",
+        "scripts/review-evaluation-metrics-independent.cjs": "e9c101d8417e4eda5358408266e19eda808ae79366d1fc39abee34889e5d42fc"
+      },
+      "checks": [
+        "1440: measured cost ticks are readable at painted scale",
+        "1440: measured tick labels remain inside SVG",
+        "1440: selected threshold uses the new common x mapping",
+        "1440: finite curve explicitly excludes no-alert cost195",
+        "1440: updated measured figure retains page containment",
+        "390: measured cost ticks are readable at painted scale",
+        "390: measured tick labels remain inside SVG",
+        "390: selected threshold uses the new common x mapping",
+        "390: finite curve explicitly excludes no-alert cost195",
+        "390: updated measured figure retains page containment",
+        "320: measured cost ticks are readable at painted scale",
+        "320: measured tick labels remain inside SVG",
+        "320: selected threshold uses the new common x mapping",
+        "320: finite curve explicitly excludes no-alert cost195",
+        "320: updated measured figure retains page containment",
+        "No runtime errors in measured-figure follow-up"
+      ],
+      "errors": []
+    }
+  ]
+}

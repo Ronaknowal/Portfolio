@@ -24,6 +24,11 @@ import imbalancedLearningBlueprint from './imbalanced-learning-smote-cost-sensit
 import automlNasBlueprint from './automl-neural-architecture-search-nas.js';
 import bayesNetBlueprint from './bayesian-networks-causal-graphical-models.js';
 import hmmBlueprint from './hidden-markov-models-hmm.js';
+import crfBlueprint from './conditional-random-fields-crf.js';
+import gaussianProcessesBlueprint from './gaussian-processes-gp.js';
+import activeLearningBlueprint from './active-learning.js';
+import evaluationMetricsBlueprint from './evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.js';
+import semiSupervisedBlueprint from './semi-supervised-learning-label-propagation-self-training-co-training.js';
 import manifoldBlueprint from './t-sne-umap-manifold-learning.js';
 import knnBlueprint from './k-nearest-neighbors-knn.js';
 import numericalPdesBlueprint from './numerical-pdes-grids-finite-elements-stability.js';
@@ -153,6 +158,11 @@ export const authoredBlueprints = {
   'AutoML & Neural Architecture Search (NAS)': automlNasBlueprint,
   'Bayesian Networks & Causal Graphical Models': bayesNetBlueprint,
   'Hidden Markov Models (HMM)': hmmBlueprint,
+  'Conditional Random Fields (CRF)': crfBlueprint,
+  'Gaussian Processes (GP)': gaussianProcessesBlueprint,
+  'Active Learning': activeLearningBlueprint,
+  'Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE)': evaluationMetricsBlueprint,
+  'Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training)': semiSupervisedBlueprint,
   't-SNE, UMAP & Manifold Learning': manifoldBlueprint,
   'K-Nearest Neighbors (KNN)': knnBlueprint,
   "Arrays, Strings & Hash Maps": arraysStringsHashMapsBlueprint,

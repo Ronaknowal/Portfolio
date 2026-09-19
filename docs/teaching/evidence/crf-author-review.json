@@ -1,0 +1,55 @@
+{
+  "status": "author-verified",
+  "topicId": "conditional-random-fields-crf",
+  "recordedAt": "2026-09-19T10:05:58.106911+00:00",
+  "record": "docs/teaching/drafts/conditional-random-fields-crf/implementation.md",
+  "reviewedFiles": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "c7db23e3e58fae4ff4465e8a65ab4b651aaf3306037c1cb9fd14a997ddbdebfd",
+    "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js": "74c97bafb3347179386a5d8b9ef8dfec7787a9382f08b15bee1d916ad7944c28",
+    "src/learn/data/crf-models.js": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+    "src/learn/data/crf-examples.js": "37198f3ca86dee7a46f26b5cc521a627df3ae9abb5fdf2fbc3d6f9120381c75e",
+    "src/learn/data/crf-data.json": "c99ebcf36a52662d189050b893dd533b8295e1695d9bc499b590bc1393bccbc5",
+    "src/learn/components/lesson-labs/CrfFigures.jsx": "d83b5147298ca5bf513e272e260719d37fceee1b5726401af3693333c8741e3e",
+    "src/learn/components/lesson-labs/CrfLabs.jsx": "5e10894ba94dc24dfd87440def7345f0c7a21d252fd7dc43674f1f46fc0709f1",
+    "src/learn/components/lesson-labs/crf.css": "053bce79a5da995870141e71625ad93f477ea944173d5744d27d5bdb58eb11c6",
+    "public/learn-assets/crf/crf_example.py": "ac67ed789be5a60dc4e31eafe92cf2aa629cc2aba0665f95a183b73808166608",
+    "public/learn-assets/crf/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "public/learn-assets/crf/data-provenance.md": "3b68ef95a2010b3bd2bd7549d089c1763261e57da94acf302cca97150b3af9c9",
+    "public/learn-assets/crf/data-sources.json": "823bc17d95f6bc22a80ce857b6c53841fb6872aa04c10769feb5521c3f5a032a",
+    "scripts/verify-crf-models.mjs": "5659d91e31c89f554d7f271be507ccbf1727207a5803ce2eec641738c4aa7c25",
+    "scripts/verify-crf-native.py": "0939d805df18386c350d115947cbd0182b87dde52ab7ccf91914dbeb5cdd53a4",
+    "scripts/review-crf-browser.cjs": "7356b66d22c3a2fe895ea4d77b62ef08bfdb986c885c48224a4353ee8a41658d"
+  },
+  "evidence": [
+    "docs/teaching/evidence/crf-models.json",
+    "docs/teaching/evidence/crf-native.json",
+    "docs/teaching/evidence/crf-browser.json"
+  ],
+  "visualInspection": {
+    "status": "complete",
+    "viewports": [
+      1440,
+      390
+    ],
+    "figures": [
+      "factor-chain",
+      "path-mass ledger/trellis contrast",
+      "messages",
+      "observed/expected counts",
+      "BIO rules",
+      "real errors",
+      "local/global normalizers",
+      "neural flow"
+    ],
+    "finding": "Pair connectors were aligned to output-label circles and checked again; capture-only fixed-navigation overlay removed. No remaining material author layout finding."
+  },
+  "independentReview": "pending with parent",
+  "productionIntegration": "pending with parent",
+  "limitations": [
+    "No actual beginner study; learning-experience checklist is author heuristic assessment.",
+    "Optional external PyTorch and CRFsuite programs not executed or claimed as lesson results.",
+    "Current browser evidence uses the dev reader; production loading/build checks belong to parent."
+  ],
+  "independentClosure": "docs/teaching/CRF-INDEPENDENT-REVIEW.md",
+  "authorConcurrence": "Read and accepted all three bounded repairs; verified source-string/download equality and final mathematical guard. Unchanged native execution reused."
+}

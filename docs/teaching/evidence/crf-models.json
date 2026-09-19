@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "name": "Initial",
+      "partition": 30,
+      "winners": [
+        "AB"
+      ]
+    },
+    {
+      "name": "Pair reverses the choice",
+      "partition": 50,
+      "winners": [
+        "AB"
+      ]
+    },
+    {
+      "name": "Strong input wins",
+      "partition": 74,
+      "winners": [
+        "AA"
+      ]
+    },
+    {
+      "name": "No interactions",
+      "partition": 32,
+      "winners": [
+        "AA"
+      ]
+    },
+    {
+      "name": "Four-way tie",
+      "partition": 4,
+      "winners": [
+        "AA",
+        "AB",
+        "BA",
+        "BB"
+      ]
+    }
+  ],
+  "mathExpressions": 94,
+  "checks": [
+    "independent log-space recurrence versus direct products",
+    "normalization, marginal sums, contrasting and null presets",
+    "full tie-set comparison",
+    "global factor-scale invariance",
+    "logZ and gold-log-likelihood finite differences",
+    "label-bias reverse/equal/changed-prior/transfer",
+    "all 30 BIO predecessor edges, impossible and legal masked partition",
+    "invalid inputs rejected",
+    "actual parsed JSX math strings render without errors"
+  ],
+  "files": {
+    "src/learn/data/crf-models.js": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "c7db23e3e58fae4ff4465e8a65ab4b651aaf3306037c1cb9fd14a997ddbdebfd",
+    "scripts/verify-crf-models.mjs": "5659d91e31c89f554d7f271be507ccbf1727207a5803ce2eec641738c4aa7c25"
+  }
+}

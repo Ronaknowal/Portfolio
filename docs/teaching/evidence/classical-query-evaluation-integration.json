@@ -1,0 +1,226 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-19T10:31:30.079Z",
+  "base": "http://127.0.0.1:4188",
+  "scope": [
+    "conditional-random-fields-crf",
+    "gaussian-processes-gp",
+    "semi-supervised-learning-label-propagation-self-training-co-training",
+    "active-learning",
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae"
+  ],
+  "catalogueCount": 1460,
+  "publicationCount": 228,
+  "moduleCount": 29,
+  "moduleTopics": 39,
+  "buildManifestSha256": "e939deee00901380c2dbe37cbb3d3cc373cec1d94b60d250d4fb2a5369fcba3b",
+  "sourceHashes": {
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "c7db23e3e58fae4ff4465e8a65ab4b651aaf3306037c1cb9fd14a997ddbdebfd",
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "9fcb1beae5e2261240b3f43b60a334ba60633f33fab83ee65fbe4924647a3446",
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "9e5edd57de95b0ebdf5074de2ac527fa307ea5e26942f614ed6a32f14579bfd4",
+    "src/learn/data/topics/active-learning.jsx": "8b9625ede081ede0346d115c7a663e73bfff7546d48e146b388e0b3de67a2354",
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "b20c6ee6bb8b6835b2740e0b45afe00082b4f4e71a457e5dacc70cb37e5f3c6a",
+    "src/learn/components/topic-content.css": "d5b746ad782c110a492c904c7340337a6464cc77f178fc627b69d516ca3ec51b",
+    "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js": "74c97bafb3347179386a5d8b9ef8dfec7787a9382f08b15bee1d916ad7944c28",
+    "src/learn/data/crf-models.js": "2537b99a5a9776ce2d9f70e14a99e8581281e6de8d3179ca7a9411df6cc82db9",
+    "src/learn/data/crf-examples.js": "37198f3ca86dee7a46f26b5cc521a627df3ae9abb5fdf2fbc3d6f9120381c75e",
+    "src/learn/data/crf-data.json": "c99ebcf36a52662d189050b893dd533b8295e1695d9bc499b590bc1393bccbc5",
+    "src/learn/components/lesson-labs/CrfFigures.jsx": "d83b5147298ca5bf513e272e260719d37fceee1b5726401af3693333c8741e3e",
+    "src/learn/components/lesson-labs/CrfLabs.jsx": "5e10894ba94dc24dfd87440def7345f0c7a21d252fd7dc43674f1f46fc0709f1",
+    "src/learn/components/lesson-labs/crf.css": "053bce79a5da995870141e71625ad93f477ea944173d5744d27d5bdb58eb11c6",
+    "public/learn-assets/crf/crf_example.py": "ac67ed789be5a60dc4e31eafe92cf2aa629cc2aba0665f95a183b73808166608",
+    "public/learn-assets/crf/ewt-sequences.json": "e801e665c4e2a6fa002e04ebb52b00b4fbc1421c7f029494565c0ecbaa016a4d",
+    "public/learn-assets/crf/data-provenance.md": "3b68ef95a2010b3bd2bd7549d089c1763261e57da94acf302cca97150b3af9c9",
+    "public/learn-assets/crf/data-sources.json": "823bc17d95f6bc22a80ce857b6c53841fb6872aa04c10769feb5521c3f5a032a",
+    "src/learn/data/gaussian-process-model.js": "5af96779860ae275b9458044cda19b95e8af7017e4226832063c89a0255667bf",
+    "src/learn/data/gaussian-process-data.js": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f",
+    "src/learn/data/gaussian-process-examples.js": "e2effc3ffb00e2091ff7c5d03e3cf24681f317bd037891988b753af3c84cf178",
+    "src/learn/components/lesson-labs/GaussianProcessFigures.jsx": "6c746b14b9ed32ab73b81f0c69710ac32a37f979b2149f591127be04c6632b4d",
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "eaf567f102f8fcdd380adc9b1fd6cf6fab02c1430d1bad1842c33bc6d5e4d7df",
+    "src/learn/components/lesson-labs/gaussian-process.css": "e31c28a6a18a9971eaa9a9a4a74383d8b9d49cc5c24f5606b3f34a5d6361a0db",
+    "src/learn/data/curriculum/blueprints/gaussian-processes-gp.js": "c5fe7e03eeb8561b490a4781c5446d4e99bca7a275d7560cfacf54aa86d592ce",
+    "public/learn/examples/gaussian-processes-gp/gp_conditioning.py": "d658370c8a8b85cc342e50a86f5548e586eea52bc987a42e4d4dcd82ee2f54c2",
+    "public/learn/examples/gaussian-processes-gp/co2_gp.py": "2f03a685a4cc846befccd8d90a7167ea01d70e6e0236a5fde44da55558a394ad",
+    "public/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv": "2cfdb2e70ae5dd23b866dae81bae495d3f2906c1450019dae046b474a9301309",
+    "public/learn/examples/gaussian-processes-gp/README.md": "978aede94ae17ff46a3292e06d6ea025a5aef9f6ca80a080a65316f41db5aefb",
+    "src/learn/data/curriculum/blueprints/semi-supervised-learning-label-propagation-self-training-co-training.js": "15caeef40b92fb9f3dafab4b01fba0463e41dddbc357fa05738cb13282234d1a",
+    "src/learn/data/semi-supervised-models.js": "fa464536ac4079aa6869bafcf3862d52c4bc7ddf588605f8b06c6108b35bc2bb",
+    "src/learn/data/semi-supervised-examples.js": "7f89fc0a0c39944c87691a1e5419073a1b53eb196fb570a9d2db301d88c46505",
+    "src/learn/components/lesson-labs/SemiSupervisedFigures.jsx": "f3845bbfddd3a8c143ba8620717c85d14937a9a3f9485e4a55b517d5b59228c1",
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "23fef8854a893c33f3b2159c7d8e7b53b4db2833a329d60bee385108893bfaaa",
+    "src/learn/components/lesson-labs/semi-supervised.css": "05e1b4f04cd6a4d21ac4351be6cdb560d7968096be45a11a6cc56f8ddb2c292a",
+    "public/learn-assets/semi-supervised-learning/graph-solutions.py": "97b1947eaf22fcba2ec4652e7b5838fe0e72802890a9a3388dea536ef67ca014",
+    "public/learn-assets/semi-supervised-learning/cotrain-categories.py": "6756e540fabe7b7e020d3c3c515ee4d628c8d81bb393f85bc4f515623367c322",
+    "public/learn-assets/semi-supervised-learning/banknote-experiment.py": "36f4da5f6f3f8c16ee0ae6ceda14fa14860fa5b4da93b3c77c1b7ade2b25b8a3",
+    "public/learn-assets/semi-supervised-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/semi-supervised-learning/data-provenance.md": "d4db5ef557ab7ebaf4b654520b3c8940708fe63738945b9a7330a607fb23fe24",
+    "src/learn/data/active-learning-models.js": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+    "src/learn/data/active-learning-experiment.json": "3befab1a8639cdefc4a1ce025a537b34a1dfbba3edb073babc004d55967c9fa7",
+    "src/learn/data/active-learning-examples.js": "beb5cfce5537faf2635442410d35eefb5cfa88168fbc63081e626f4bc63d3717",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "13da1373decb1d6a906efc75ac96e61625743f87ab848b391954167f26782926",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "c4e12b49b2889ebd17dfd6b79b48f81f67c66ecc29f393200485934e9b57dc7d",
+    "src/learn/components/lesson-labs/active-learning.css": "38ab68e14876fa820c23c7e52e0f7bafae1a11abd5ac98f4028b7265a4b999be",
+    "src/learn/data/curriculum/blueprints/active-learning.js": "79678ef5fcaa210993bef9c3867f51033acfc9d260babbcf388dcf663b0ae425",
+    "public/learn/downloads/active-learning/banknote-active-learning.py": "2b31d98bd4402385ca48ef588ff133da75261f31c8bb1edda632e02633221c74",
+    "public/learn/downloads/active-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn/downloads/active-learning/data-provenance.md": "55c3c10542818a6f608d2eb5d6563d288f584c39a211343dc5a290a9a9cd7d10",
+    "src/learn/data/curriculum/blueprints/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.js": "d0a93a3cce0087e19ab6b9b38a0dfef42cc1afefe9e5416a7729868962496be8",
+    "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "src/learn/data/evaluation-metrics-data.json": "881aabf459fa106a9e768dcc32a442179b39b2fea3c551a0a16ff122e404d7ef",
+    "src/learn/data/evaluation-metrics-examples.js": "ce05459062544fa56ae0bdbe41d75661c6cc52ff72a0cc7bfc226af840eff11f",
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "af3c4d7f49b28e2122400e758a3d149ac21352ef6b80bee1dc6d6f9daa6149b8",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "bf37b492e5defe85653274abb8ed27ae5c302f271ecf3d461bc50e17f1ff9aaa",
+    "src/learn/components/lesson-labs/evaluation-metrics.css": "3d21c8c2b8d0284733a24bdf51c1b5ae6c40eefc24d131ecbf3092651bd7c8a5",
+    "public/learn-assets/evaluation-metrics/banknote-evaluation-results.json": "01a04fea2fa91b177bc353a9f3ca2164e240b827eef83e9f911009662bf2c3b2",
+    "public/learn-assets/evaluation-metrics/banknote-evaluation.py": "2c35728c8f62cfeb9eca0c3cae3b540d32776c6752d1b9b32566981a2512e009",
+    "public/learn-assets/evaluation-metrics/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/evaluation-metrics/data-provenance.md": "80a205aeff12ce3b0ac633e0205ff7e3a24b36f49befccf661384d3a315f9bfe",
+    "public/learn-assets/evaluation-metrics/data-source.json": "6317c8fbf52bfaa03b76eade0c73d759e3b0c5763ca20ea897db8ca4408f66fb",
+    "public/learn-assets/evaluation-metrics/metric-fixtures.json": "2cbf72070f7c9ae29d1ccc534610b20e783a7db3bf6f670f42c770788e120cb6",
+    "public/learn-assets/evaluation-metrics/metrics-calculations.py": "72fa9caf94359b1051db3586c33bda624b5ee67dab2d9288c745d962f34e4205"
+  },
+  "records": [
+    {
+      "check": "Hub loads no lesson body or outline",
+      "lessonBodies": [],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/LearnHub-Ln9uhKm0.js",
+        "assets/LevelBadge-BTGuwqzg.js"
+      ],
+      "decodedJsBytes": 1169839,
+      "gzipJsEstimate": 217491
+    },
+    {
+      "check": "Selected body only, full ordered module, compact completion count and correct adjacent lessons",
+      "id": "conditional-random-fields-crf",
+      "lessonBodies": [
+        "assets/conditional-random-fields-crf-bmP6-8Mc.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/conditional-random-fields-crf-bmP6-8Mc.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js",
+        "assets/RunnableExample-DeStqVt-.js"
+      ],
+      "decodedJsBytes": 1698107,
+      "gzipJsEstimate": 368325
+    },
+    {
+      "check": "Completion persists under unchanged stable ID without auto-advancing"
+    },
+    {
+      "check": "Selected body only, full ordered module, compact completion count and correct adjacent lessons",
+      "id": "gaussian-processes-gp",
+      "lessonBodies": [
+        "assets/gaussian-processes-gp-CthhY6xg.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/gaussian-processes-gp-CthhY6xg.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js",
+        "assets/RunnableExample-DeStqVt-.js"
+      ],
+      "decodedJsBytes": 1707894,
+      "gzipJsEstimate": 372194
+    },
+    {
+      "check": "Selected body only, full ordered module, compact completion count and correct adjacent lessons",
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "lessonBodies": [
+        "assets/semi-supervised-learning-label-propagation-self-training-co-training--oYaC1UE.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/semi-supervised-learning-label-propagation-self-training-co-training--oYaC1UE.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js",
+        "assets/RunnableExample-DeStqVt-.js"
+      ],
+      "decodedJsBytes": 1695411,
+      "gzipJsEstimate": 364807
+    },
+    {
+      "check": "Selected body only, full ordered module, compact completion count and correct adjacent lessons",
+      "id": "active-learning",
+      "lessonBodies": [
+        "assets/active-learning-CfxHGpQ7.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/active-learning-CfxHGpQ7.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js"
+      ],
+      "decodedJsBytes": 1773921,
+      "gzipJsEstimate": 383999
+    },
+    {
+      "check": "Selected body only, full ordered module, compact completion count and correct adjacent lessons",
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "lessonBodies": [
+        "assets/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae-Y3lpgHxo.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae-Y3lpgHxo.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js",
+        "assets/RunnableExample-DeStqVt-.js"
+      ],
+      "decodedJsBytes": 1720797,
+      "gzipJsEstimate": 372681
+    },
+    {
+      "check": "Next/Back preserves sequence and reuses already imported body",
+      "lessonBodies": [
+        "assets/conditional-random-fields-crf-bmP6-8Mc.js",
+        "assets/gaussian-processes-gp-CthhY6xg.js"
+      ],
+      "scripts": [
+        "assets/index-BcDKfDjR.js",
+        "assets/Reader-1QzGFHy4.js",
+        "assets/LevelBadge-BTGuwqzg.js",
+        "assets/conditional-random-fields-crf-bmP6-8Mc.js",
+        "assets/Code-Cpul-uQt.js",
+        "assets/Math-BjNd_qfx.js",
+        "assets/LessonElements-CNbniB2Y.js",
+        "assets/RunnableExample-DeStqVt-.js",
+        "assets/gaussian-processes-gp-CthhY6xg.js"
+      ],
+      "decodedJsBytes": 1816834,
+      "gzipJsEstimate": 409672
+    },
+    {
+      "check": "Slow import leaves shell usable and cannot replace the newer destination"
+    },
+    {
+      "check": "import failure recovery keeps shell and completion guard",
+      "attempts": 2,
+      "reloadRequired": true
+    },
+    {
+      "check": "render failure recovery keeps shell and completion guard",
+      "attempts": 2,
+      "reloadRequired": true
+    }
+  ],
+  "byteMeaning": "Actual requested production JS files; decoded file bytes and gzip estimates, not measured wire compression or latency."
+}

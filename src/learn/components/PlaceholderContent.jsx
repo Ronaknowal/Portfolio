@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { topicMap as topicCatalogue } from "../data/catalogue.js";
 
-export default function PlaceholderContent({ title, blueprint, prerequisiteIds = [] }) {
+export default function PlaceholderContent({ title, blueprint, prerequisiteIds = [], subtopics = [] }) {
   return (
     <section className="planned-lesson" aria-label="Planned lesson">
       <p className="planned-lesson__eyebrow">SYLLABUS ENTRY · NOT YET PUBLISHED</p>
@@ -10,6 +10,12 @@ export default function PlaceholderContent({ title, blueprint, prerequisiteIds =
         {blueprint ? blueprint.summary : "This topic is part of the syllabus. Its full teaching plan and lesson are still to come."}
       </p>
       {blueprint && <p className="planned-lesson__notice">The outline below describes the planned lesson. The explanations, interactive activities and worked solutions are not yet published.</p>}
+      {subtopics.length > 0 && (
+        <div className="syllabus-block">
+          <h3>Planned concept coverage</h3>
+          <ul className="syllabus-subtopics">{subtopics.map(label => <li key={label}>{label}</li>)}</ul>
+        </div>
+      )}
       {prerequisiteIds.length > 0 && (
         <div className="syllabus-block">
           <h3>Build on these ideas</h3>

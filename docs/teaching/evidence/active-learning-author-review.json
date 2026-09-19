@@ -1,0 +1,19 @@
+{
+  "status": "author-complete",
+  "reviewedAt": "2026-09-19T10:07:38.045Z",
+  "record": "docs/teaching/drafts/active-learning/implementation.md",
+  "sourceHashes": {
+    "src/learn/data/topics/active-learning.jsx": "8b9625ede081ede0346d115c7a663e73bfff7546d48e146b388e0b3de67a2354",
+    "src/learn/data/active-learning-models.js": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77",
+    "src/learn/data/active-learning-experiment.json": "3befab1a8639cdefc4a1ce025a537b34a1dfbba3edb073babc004d55967c9fa7",
+    "src/learn/data/active-learning-examples.js": "beb5cfce5537faf2635442410d35eefb5cfa88168fbc63081e626f4bc63d3717",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "13da1373decb1d6a906efc75ac96e61625743f87ab848b391954167f26782926",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "c4e12b49b2889ebd17dfd6b79b48f81f67c66ecc29f393200485934e9b57dc7d",
+    "src/learn/components/lesson-labs/active-learning.css": "38ab68e14876fa820c23c7e52e0f7bafae1a11abd5ac98f4028b7265a4b999be",
+    "src/learn/data/curriculum/blueprints/active-learning.js": "79678ef5fcaa210993bef9c3867f51033acfc9d260babbcf388dcf663b0ae425",
+    "public/learn/downloads/active-learning/banknote-active-learning.py": "2b31d98bd4402385ca48ef588ff133da75261f31c8bb1edda632e02633221c74",
+    "public/learn/downloads/active-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn/downloads/active-learning/data-provenance.md": "55c3c10542818a6f608d2eb5d6563d288f584c39a211343dc5a290a9a9cd7d10"
+  },
+  "independentReview": "docs/teaching/ACTIVE-LEARNING-INDEPENDENT-REVIEW.md"
+}

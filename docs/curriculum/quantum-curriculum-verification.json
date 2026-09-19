@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "recorded": "2026-09-17T20:50:14.430Z",
+  "scope": "Quantum curriculum planning and catalogue integration only; no lesson publication or phase completion",
+  "catalogue": {
+    "topics": 1460,
+    "modules": 29,
+    "guidedPaths": 10,
+    "earlierIdsPreserved": 1402
+  },
+  "quantum": {
+    "moduleId": "quantum-ai",
+    "topics": 106,
+    "retained": 48,
+    "added": 58,
+    "sections": 12,
+    "namedConceptLabels": 550,
+    "newStartingBriefs": 58,
+    "existingStartingBriefsPreserved": 1,
+    "retainedTopicsRequiringIndividualDesign": 47
+  },
+  "path": {
+    "id": "quantum-computing",
+    "modules": 7,
+    "topics": 125
+  },
+  "checks": [
+    {
+      "command": "node scripts/verify-quantum-curriculum.mjs --check-planning-boundary --write-syllabus",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/verify-curriculum.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/build-curriculum-inventory.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-learning-artifacts.mjs --check",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/verify-topic-search.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node node_modules/vite/bin/vite.js build --logLevel error",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/review-quantum-curriculum.cjs",
+      "status": "passed",
+      "passed": 48
+    }
+  ],
+  "unchangedFiles": {
+    "src/learn/data/lesson-manifest.json": {
+      "sha256": "693988ad047880f380114053ffd3238e3b1656cac0f189b35cbe3f39e0cf3b13",
+      "unchanged": true
+    },
+    "docs/teaching/lesson-delivery-progress.json": {
+      "sha256": "c35e8d03b75854a9c851478a2a60de03a1fa969f5e51194bbdc8325f07c23c28",
+      "unchanged": true
+    }
+  },
+  "sourceHashes": {
+    "src/learn/data/curriculum/quantum-computing.js": "104dd9979b1c8e9e9531e53787f9ef6b73df13fd5f60cf6d6242680288c8c58d",
+    "src/learn/data/curriculum/quantum-curriculum-sources.js": "f379db34f1015785f4565dc095833e1bf5f9e62b1ee2a25b547cf30bdcfd8333",
+    "src/learn/data/track-definitions.js": "e8fdf1ed01d69781adaf224725ca28936d4b4589491398ac31d2601da9ce7c35",
+    "src/learn/data/curriculum/learning-paths.js": "465da1f87923f06b6cc207d0445d5b1b9d9eb44d2ae4eb779f0e45950846900a",
+    "src/learn/data/curriculum/domain-guidance.js": "52d3cc09eb64bf53d5175ef2e727b7999223e5ae837e3c5d7c7c29d84380032a",
+    "src/learn/data/generated/navigation.js": "842f94b124f0f99b7b45fbe24fee16cefdea439d9de9bf89f5887f1f1f1e8dc6",
+    "scripts/verify-quantum-curriculum.mjs": "9fd03b018b368811e8b8f01f9bba92c7bcdbbe7479f34609dd522be3813ad98c",
+    "scripts/review-quantum-curriculum.cjs": "aaf7e0e89fac2c73de7362f5fd3b894b56afe0d19c18ee122a012ac47071f687",
+    "docs/curriculum/QUANTUM-COMPUTING-PLAN.md": "fb3275312ab54f7c2f36f6cd7af98986e19db3155130cb2c4a7d6bcce955ced1",
+    "docs/curriculum/QUANTUM-COMPUTING-SYLLABUS.md": "4a04a7ffbb6613ed7e98bca5f4fa8a6ea86c8fa00b0175781febaf75d9fa8436",
+    "docs/curriculum/quantum-curriculum-baseline.json": "63bbf424f86d89714db24ce08db043d87d8937cfb4b198879c26eaf7262f7e7c",
+    "AGENTS.md": "2b4821180a3fbdbef5cafebb71407af0f4919e145d3205ab7d98ea80c61bd5b4",
+    "LESSON-AUTHORING-HANDOFF.md": "e3c9b03f8f10e2b5205f363deb91e2b1accbeded57bb4daa9af6ae6c9abce635",
+    "LEARNING-CURRICULUM-PLAN.md": "4174abd5108a6f5d6abdeb00f7973fb8f97d34a83dd7c069b9a38e06e8b0ba36",
+    "docs/teaching/DOMAIN-PLAYBOOK.md": "04ec92131221040340db028988426cb3d2739452946b752176f8f2f68b1f6d6a"
+  },
+  "browser": {
+    "path": "docs/curriculum/quantum-curriculum-browser-evidence.json",
+    "sha256": "dd096168cdc9ee4baf8ff1ef841a401cbccb98a1721697483fdc5a8c0639eb45",
+    "widths": [
+      1440,
+      390
+    ],
+    "checks": 48,
+    "pageErrors": [],
+    "screenshots": [
+      {
+        "path": "scratch/quantum-curriculum-review/quantum-computing-1440.png",
+        "sha256": "e3696c3ca8e051cf70772bd0257306e1d564daf184e1cc3148cdfb0091160595",
+        "visuallyInspected": true
+      },
+      {
+        "path": "scratch/quantum-curriculum-review/quantum-computing-390.png",
+        "sha256": "ce7dae7b170cc12ca83394be9137537a33c2ca7fa645d9638af82d006ab681f9",
+        "visuallyInspected": true
+      }
+    ]
+  },
+  "build": {
+    "manifest": "dist/.vite/manifest.json",
+    "sha256": "1eeb3d904488922b9a5ba8aba94b7e0ca367a948a7b817cd10161f40ca82669a",
+    "sampledOutlineChunks": [
+      {
+        "source": "src/learn/data/generated/outlines/quantum-channels-kraus-operators-complete-positivity.json",
+        "file": "dist/assets/quantum-channels-kraus-operators-complete-positivity-UCE_XdKs.js",
+        "dynamicEntry": true,
+        "sha256": "0fe5f3a0ba80a56b9053420d175f2c1cb01a46627cd9e326acaabb2ad3368dbc",
+        "bytes": 1040,
+        "gzipBytes": 498
+      },
+      {
+        "source": "src/learn/data/generated/outlines/quantum-computing-problems-models-evidence.json",
+        "file": "dist/assets/quantum-computing-problems-models-evidence-tcWSgE1e.js",
+        "dynamicEntry": true,
+        "sha256": "be4d2657d6a58a8b0b66c2616a573bb7ca353e4c8229a426c841f605f2060e4d",
+        "bytes": 1175,
+        "gzipBytes": 546
+      },
+      {
+        "source": "src/learn/data/generated/outlines/surface-codes-repeated-syndromes-quantum-error-decoders.json",
+        "file": "dist/assets/surface-codes-repeated-syndromes-quantum-error-decoders-BrGeOxKN.js",
+        "dynamicEntry": true,
+        "sha256": "7c1000d452b811ae05000418f1d446025001d67730e17e9456ec76a2f1817afa",
+        "bytes": 1144,
+        "gzipBytes": 531
+      }
+    ]
+  },
+  "limitations": [
+    "These are planned topics and starting briefs, not completed lessons or research/write checkpoints.",
+    "Scope sources and their inspection limits are documented in the plan; lesson claims and examples require individual research and verification.",
+    "Browser checks sample planned entries across the 12 sections, while title/order checks cover the full module; only the two saved introductory-page captures received manual visual inspection.",
+    "No quantum hardware jobs, lesson simulations or laboratory exercises were executed.",
+    "Historical planning-boundary hashes must not prevent future separately authorized lesson work."
+  ]
+}

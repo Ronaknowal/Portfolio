@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "python": "3.12.14",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-semi-supervised-native.py",
+  "programs": [
+    {
+      "file": "graph-solutions.py",
+      "stdout": "hard B,C: [0.333333 0.666667]\nsoft class-1 readout A,B,C,D: [0.197531 0.37037  0.62963  0.802469]\nhas evidence: [True, True, True, True]"
+    },
+    {
+      "file": "cotrain-categories.py",
+      "stdout": "round 1 offers [(2, 1, 2, 0), (4, 2, 1, 1)] conflicts [6]\nround 2 offers [(2, 2, 1, 0), (3, 2, 1, 0), (4, 1, 2, 1), (5, 1, 2, 1)] conflicts [6]\nround 3 offers [(3, 1, 2, 0), (5, 2, 1, 1)] conflicts [6]\nround 4 offers [] conflicts [6]\nrules [{'red': 0, 'blue': 1, 'green': 0, 'orange': 1}, {'round': 0, 'square': 1, 'triangle': 0, 'hexagon': 1}]\nduplicate-view unresolved [3, 4, 5]"
+    },
+    {
+      "file": "banknote-experiment.py",
+      "stdout": "supervised_lr 72 / 80\nsupervised_knn 63 / 80\nspreading_0.25 61 / 80\nspreading_1.0 59 / 80\nspreading_4.0 65 / 80\nself_0.8 59 / 80\nself_0.95 72 / 80\nselected supervised_lr test 72 / 80\nthreshold 0.8 accepted [48, 106, 60, 18, 11, 6, 3, 0]\nwrong in offline audit [0, 12, 28, 14, 10, 6, 3, 0]\nthreshold 0.95 accepted [0]\nwrong in offline audit [0]"
+    }
+  ],
+  "sourceHashes": {
+    "public/learn-assets/semi-supervised-learning/graph-solutions.py": "97b1947eaf22fcba2ec4652e7b5838fe0e72802890a9a3388dea536ef67ca014",
+    "public/learn-assets/semi-supervised-learning/cotrain-categories.py": "6756e540fabe7b7e020d3c3c515ee4d628c8d81bb393f85bc4f515623367c322",
+    "public/learn-assets/semi-supervised-learning/banknote-experiment.py": "36f4da5f6f3f8c16ee0ae6ceda14fa14860fa5b4da93b3c77c1b7ade2b25b8a3",
+    "public/learn-assets/semi-supervised-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/semi-supervised-learning/data-provenance.md": "d4db5ef557ab7ebaf4b654520b3c8940708fe63738945b9a7330a607fb23fe24"
+  },
+  "limits": "One retained banknote subset and seed policy; optional deep methods were not trained. No external dataset was fetched."
+}

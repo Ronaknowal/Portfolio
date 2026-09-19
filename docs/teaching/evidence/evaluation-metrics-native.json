@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "sklearn": "1.9.1",
+  "checks": [
+    "Both exact downloadable programs executed",
+    "All prepared fixtures and real prediction arrays reproduced recursively at 1e-10 relative tolerance",
+    "Library agreement assertions in complete calculation program passed",
+    "480 source IDs disjoint across data roles",
+    "Selected policy test cost 26, fixed 0.5 test cost 24"
+  ],
+  "stdout": {
+    "metrics-calculations.py": "core ROC-AUC 0.78125 AP 0.7708333333333333\ntrapezoidal PR area 0.79375\nAUC/AP counterexample {'A': {'labels_in_descending_order': [0, 1, 1, 0, 1, 0, 0, 0], 'auc': 0.7333333333333333, 'ap': 0.5888888888888888}, 'B': {'labels_in_descending_order': [1, 1, 0, 0, 0, 0, 0, 1], 'auc': 0.6666666666666666, 'ap': 0.7916666666666666}}\nregression {'A': {'mae': 1.2, 'rmse': 2.6832815729997477, 'r2': 0.28}, 'B': {'mae': 2.0, 'rmse': 2.0, 'r2': 0.6}, 'evaluation_mean': {'mae': 2.4, 'rmse': 3.1622776601683795, 'r2': 0.0}, 'training_mean3': {'mae': 2.2, 'rmse': 3.3166247903554, 'r2': -0.10000000000000009}, 'perfect': {'mae': 0.0, 'rmse': 0.0, 'r2': 1.0}, 'constant_target': {'mae': 0.0, 'rmse': 0.0, 'r2': None}}\nretrieval {'original': {'relevance': [0.0, 3.0, 1.0, 2.0, 0.0], 'gain': [0.0, 7.0, 1.0, 3.0, 0.0], 'discount': [1.0, 0.6309297535714575, 0.5, 0.43067655807339306, 0.38685280723454163], 'dcg': 4.9165082750002025, 'ideal_dcg': 9.392789260714373, 'ndcg': 0.5234343216411389, 'precision_at_k': 0.6666666666666666, 'recall_at_k': 0.6666666666666666, 'reciprocal_rank': 0.5, 'ap': 0.6388888888888888}, 'changed_order': {'relevance': [3.0, 0.0, 1.0, 2.0, 0.0], 'gain': [7.0, 0.0, 1.0, 3.0, 0.0], 'discount': [1.0, 0.6309297535714575, 0.5, 0.43067655807339306, 0.38685280723454163], 'dcg': 7.5, 'ideal_dcg': 9.392789260714373, 'ndcg': 0.7984848580994974, 'precision_at_k': 0.6666666666666666, 'recall_at_k': 0.6666666666666666, 'reciprocal_rank': 1.0, 'ap': 0.8055555555555555}, 'all_zero': {'relevance': [0.0, 0.0, 0.0, 0.0, 0.0], 'gain': [0.0, 0.0, 0.0, 0.0, 0.0], 'discount': [1.0, 0.6309297535714575, 0.5, 0.43067655807339306, 0.38685280723454163], 'dcg': 0.0, 'ideal_dcg': 0.0, 'ndcg': None, 'precision_at_k': 0.0, 'recall_at_k': None, 'reciprocal_rank': 0.0, 'ap': None}, 'sklearn_linear_gain': 0.5024905201686705, 'sklearn_exponential_gain': 0.5234343216411387}\n",
+    "banknote-evaluation.py": "selected development threshold {'threshold': 0.12013000807724628, 'tp': 39, 'fp': 18, 'fn': 0, 'tn': 23, 'cost_fp1_fn5': 18}\n{\n  \"fixed_0.5\": {\n    \"tn\": 47,\n    \"fp\": 4,\n    \"fn\": 4,\n    \"tp\": 25,\n    \"accuracy\": 0.9,\n    \"precision\": 0.8620689655172413,\n    \"recall\": 0.8620689655172413,\n    \"f1\": 0.8620689655172413,\n    \"cost_fp1_fn5\": 24,\n    \"roc_auc\": 0.9567275185936444,\n    \"ap\": 0.945488519055701,\n    \"log_loss\": 0.2521388207421492,\n    \"brier\": 0.07391466005855914\n  },\n  \"development_selected\": {\n    \"tn\": 30,\n    \"fp\": 21,\n    \"fn\": 1,\n    \"tp\": 28,\n    \"accuracy\": 0.725,\n    \"precision\": 0.5714285714285714,\n    \"recall\": 0.9655172413793104,\n    \"f1\": 0.717948717948718,\n    \"cost_fp1_fn5\": 26,\n    \"roc_auc\": 0.9567275185936444,\n    \"ap\": 0.945488519055701,\n    \"log_loss\": 0.2521388207421492,\n    \"brier\": 0.07391466005855914\n  },\n  \"training_prior_0.5\": {\n    \"tn\": 51,\n    \"fp\": 0,\n    \"fn\": 29,\n    \"tp\": 0,\n    \"accuracy\": 0.6375,\n    \"precision\": null,\n    \"recall\": 0.0,\n    \"f1\": 0.0,\n    \"cost_fp1_fn5\": 145,\n    \"roc_auc\": 0.5,\n    \"ap\": 0.3625,\n    \"log_loss\": 0.6637804877446711,\n    \"brier\": 0.235400390625\n  },\n  \"training_prior_cost_rule\": {\n    \"tn\": 0,\n    \"fp\": 51,\n    \"fn\": 0,\n    \"tp\": 29,\n    \"accuracy\": 0.3625,\n    \"precision\": 0.3625,\n    \"recall\": 1.0,\n    \"f1\": 0.5321100917431193,\n    \"cost_fp1_fn5\": 51,\n    \"roc_auc\": 0.5,\n    \"ap\": 0.3625,\n    \"log_loss\": 0.6637804877446711,\n    \"brier\": 0.235400390625\n  }\n}\n"
+  },
+  "inputHashes": {
+    "metrics-calculations.py": "72fa9caf94359b1051db3586c33bda624b5ee67dab2d9288c745d962f34e4205",
+    "banknote-evaluation.py": "2c35728c8f62cfeb9eca0c3cae3b540d32776c6752d1b9b32566981a2512e009",
+    "banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a"
+  }
+}

@@ -4,9 +4,11 @@ import { colors, fonts, levelColors, levelLabels } from "../styles";
 import { allTopicsOrdered, categories } from "../data/catalogue";
 import { topicMap as topicCatalogue } from "../data/catalogue.js";
 import LevelBadge from "./LevelBadge";
+import { createTopicSearchIndex, findTopicMatch, normalizeTopicQuery } from "../data/topic-search.js";
 
 const LEVELS = ["foundation", "intermediate", "advanced", "frontier"];
 const RESULTS_PER_PAGE = 100;
+const searchIndex = createTopicSearchIndex(allTopicsOrdered);
 
 export default function TopicList({ isComplete }) {
   const [query, setQuery] = useState("");
@@ -17,9 +19,9 @@ export default function TopicList({ isComplete }) {
   const navigate = useNavigate();
 
   const filtered = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = normalizeTopicQuery(query);
     return allTopicsOrdered.filter((topic) => {
-      const matchesQuery = !normalizedQuery || topic.title.toLowerCase().includes(normalizedQuery);
+      const matchesQuery = findTopicMatch(searchIndex.get(topic.id), normalizedQuery).matches;
       const matchesCategory = activeCategory === "all" || topicCatalogue[topic.id]?.trackIds.includes(activeCategory);
       const matchesLevel = activeLevel === "all" || topic.level === activeLevel;
       const matchesStatus = activeStatus === "all" || topic.status === activeStatus;
@@ -42,7 +44,7 @@ export default function TopicList({ isComplete }) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search topics, e.g. Kalman, JAX, backprop..."
+          placeholder="Search topics or subtopics, e.g. HyperLogLog, Snowflake..."
           className="catalogue-search"
         />
 
@@ -96,6 +98,7 @@ export default function TopicList({ isComplete }) {
       <ul className="topic-results">
         {visibleTopics.map((topic) => {
           const done = isComplete(topic.id);
+          const matchedSubtopic = findTopicMatch(searchIndex.get(topic.id), normalizeTopicQuery(query)).subtopic;
           return (
             <li key={topic.id}>
               <button
@@ -109,6 +112,7 @@ export default function TopicList({ isComplete }) {
                   <span className="topic-result-title">{topic.title}</span>
                   <span className={`topic-status topic-status--${topic.status}`}>{topic.status}</span>
                   <span className="topic-result-time">{topic.readTime}</span>
+                  {matchedSubtopic && <span className="topic-result-coverage">Curriculum scope: {matchedSubtopic}</span>}
                 </span>
                 <span className="topic-result-meta">
                   <LevelBadge level={topic.level} />

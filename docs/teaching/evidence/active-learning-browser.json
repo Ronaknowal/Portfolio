@@ -1,0 +1,182 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-19T10:06:46.895Z",
+  "base": "http://127.0.0.1:4184",
+  "browser": "Microsoft Edge / Playwright",
+  "results": [
+    {
+      "width": 1440,
+      "check": "full reader structure, math, route and page bounds"
+    },
+    {
+      "width": 1440,
+      "check": "threshold keyboard acquisition, sequential state, null, contradiction and reset"
+    },
+    {
+      "width": 1440,
+      "check": "committee contrast and null grading, invalidation, normalized row and member reset"
+    },
+    {
+      "width": 1440,
+      "check": "geometric entity edits, chosen-batch grading, full step trace, coincident null and reset"
+    },
+    {
+      "width": 1440,
+      "check": "measured trace selection, oracle replay boundary and post-state bounds"
+    },
+    {
+      "width": 780,
+      "check": "full reader structure, math, route and page bounds"
+    },
+    {
+      "width": 780,
+      "check": "threshold keyboard acquisition, sequential state, null, contradiction and reset"
+    },
+    {
+      "width": 780,
+      "check": "committee contrast and null grading, invalidation, normalized row and member reset"
+    },
+    {
+      "width": 780,
+      "check": "geometric entity edits, chosen-batch grading, full step trace, coincident null and reset"
+    },
+    {
+      "width": 780,
+      "check": "measured trace selection, oracle replay boundary and post-state bounds"
+    },
+    {
+      "width": 780,
+      "check": "increased text size at intermediate width"
+    },
+    {
+      "width": 390,
+      "check": "full reader structure, math, route and page bounds"
+    },
+    {
+      "width": 390,
+      "check": "threshold keyboard acquisition, sequential state, null, contradiction and reset"
+    },
+    {
+      "width": 390,
+      "check": "committee contrast and null grading, invalidation, normalized row and member reset"
+    },
+    {
+      "width": 390,
+      "check": "geometric entity edits, chosen-batch grading, full step trace, coincident null and reset"
+    },
+    {
+      "width": 390,
+      "check": "measured trace selection, oracle replay boundary and post-state bounds"
+    },
+    {
+      "width": 320,
+      "check": "full reader structure, math, route and page bounds"
+    },
+    {
+      "width": 320,
+      "check": "threshold keyboard acquisition, sequential state, null, contradiction and reset"
+    },
+    {
+      "width": 320,
+      "check": "committee contrast and null grading, invalidation, normalized row and member reset"
+    },
+    {
+      "width": 320,
+      "check": "geometric entity edits, chosen-batch grading, full step trace, coincident null and reset"
+    },
+    {
+      "width": 320,
+      "check": "measured trace selection, oracle replay boundary and post-state bounds"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "path": "scratch/active-learning-review/1440-annotation-data-boundary.png",
+      "sha256": "10cd8eda5f228ba187715941039afb74a5884c4f292060d883612f654b815ab3"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-threshold-version-space.png",
+      "sha256": "5130fb7f6d2099a4c4d05772abdf95c77da6786a2ebb21e9c34a44267e4c0116"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-multiclass-uncertainty-strips.png",
+      "sha256": "e4f45f0b6597335b1494e93d0998b112dc16a0c53ec536b56fdc7102b7e277b1"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-committee-entropy-decomposition.png",
+      "sha256": "4d3c01750572459f7bd7a86bf32c274b9b6d542816bad655d2c3b4d25b909615"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-geometric-covering-radius.png",
+      "sha256": "c3fc375370f7007d52bd2195dc112d7f01dc00ad352f1e652227e1536bcf7f01"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-measured-acquisition-curves.png",
+      "sha256": "e7694ee603d88763f840d829b92d9dd04aa092034fde766c288aec6bd5465d65"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-annotation-record-timeline.png",
+      "sha256": "17b19c568930c76f977fbd29d3ab3601a1e9fd3ee946a5be024df75817ae15d2"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-threshold-informed.png",
+      "sha256": "3c49daac763e979c5c4bfb9ad59e6f581a570bad616b1ea40e8d0b5ecb7366ca"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-committee-null.png",
+      "sha256": "6dac741ecf12b82014e93343f7373e4d2a23e385e0bd1897457258ed7ad76066"
+    },
+    {
+      "path": "scratch/active-learning-review/1440-batch-complete.png",
+      "sha256": "74e64c07f9b42cabe7f3f21cfb06f6dd94dd1360a7af305fe8fe1518b779565a"
+    },
+    {
+      "path": "scratch/active-learning-review/390-annotation-data-boundary.png",
+      "sha256": "27c2003a498f5957f5e21ea26317e4c269ea7d18b7c083347f0650b166660116"
+    },
+    {
+      "path": "scratch/active-learning-review/390-threshold-version-space.png",
+      "sha256": "ca07d38438f2418d4f7d124b9e4280dc2112d5075a09eb665a4a64d7e7149145"
+    },
+    {
+      "path": "scratch/active-learning-review/390-multiclass-uncertainty-strips.png",
+      "sha256": "4eef7b5adc058bf36934b27a4a48b72af8c30aa9aaecdde725b1d3e95da8a8f6"
+    },
+    {
+      "path": "scratch/active-learning-review/390-committee-entropy-decomposition.png",
+      "sha256": "195a94b5a9ed09353f82ee01cb31bd187fa920962f11ee513a8a9d2f279d490a"
+    },
+    {
+      "path": "scratch/active-learning-review/390-geometric-covering-radius.png",
+      "sha256": "9b55459e37a54a6bdc910fcb3bb2126d56656edbe70a81d45b6c5c9d6328647e"
+    },
+    {
+      "path": "scratch/active-learning-review/390-measured-acquisition-curves.png",
+      "sha256": "890312fb1234aa91bfda00f1d52a7c39c16fd3104a6b667b9fac5042875e6c1e"
+    },
+    {
+      "path": "scratch/active-learning-review/390-annotation-record-timeline.png",
+      "sha256": "9946e674b8c5f6fcd9d3e57fbe00b458c550419724bb7c0072b1daea8c78df13"
+    },
+    {
+      "path": "scratch/active-learning-review/390-threshold-informed.png",
+      "sha256": "d082446e7cc41983a6c8290315eb10ad676f783e2120b789de5ff69381ff188b"
+    },
+    {
+      "path": "scratch/active-learning-review/390-committee-null.png",
+      "sha256": "3528854e70450f9d4d5a88b2ddd26ff3b4067a5d84bae22730279ed6cc981a56"
+    },
+    {
+      "path": "scratch/active-learning-review/390-batch-complete.png",
+      "sha256": "87e78010a948acb3fe971de5de842012e3bff0437c149cafff527467f17215fb"
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/active-learning.jsx": "8b9625ede081ede0346d115c7a663e73bfff7546d48e146b388e0b3de67a2354",
+    "src/learn/components/lesson-labs/ActiveLearningFigures.jsx": "13da1373decb1d6a906efc75ac96e61625743f87ab848b391954167f26782926",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "c4e12b49b2889ebd17dfd6b79b48f81f67c66ecc29f393200485934e9b57dc7d",
+    "src/learn/components/lesson-labs/active-learning.css": "38ab68e14876fa820c23c7e52e0f7bafae1a11abd5ac98f4028b7265a4b999be",
+    "src/learn/data/active-learning-models.js": "c81e43283416988c407902a82b44ae00abfa6a57c0e10e9ddd2071e10d243b77"
+  }
+}

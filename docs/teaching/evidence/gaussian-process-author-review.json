@@ -1,0 +1,49 @@
+{
+  "status": "author-verified; independent review and integration pending",
+  "record": "docs/teaching/drafts/gaussian-processes-gp/implementation.md",
+  "source": {
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "9fcb1beae5e2261240b3f43b60a334ba60633f33fab83ee65fbe4924647a3446",
+    "src/learn/data/gaussian-process-model.js": "5af96779860ae275b9458044cda19b95e8af7017e4226832063c89a0255667bf",
+    "src/learn/data/gaussian-process-data.js": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f",
+    "src/learn/data/gaussian-process-examples.js": "e2effc3ffb00e2091ff7c5d03e3cf24681f317bd037891988b753af3c84cf178",
+    "src/learn/components/lesson-labs/GaussianProcessFigures.jsx": "6c746b14b9ed32ab73b81f0c69710ac32a37f979b2149f591127be04c6632b4d",
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "eaf567f102f8fcdd380adc9b1fd6cf6fab02c1430d1bad1842c33bc6d5e4d7df",
+    "src/learn/components/lesson-labs/gaussian-process.css": "e31c28a6a18a9971eaa9a9a4a74383d8b9d49cc5c24f5606b3f34a5d6361a0db",
+    "src/learn/data/curriculum/blueprints/gaussian-processes-gp.js": "c5fe7e03eeb8561b490a4781c5446d4e99bca7a275d7560cfacf54aa86d592ce",
+    "scripts/prepare-gaussian-process-data.py": "0f8f914ed2182b7ec3ece090e6c16a5e259d95a712cff1a9742ea6873333f07e",
+    "scripts/verify-gaussian-process-model.mjs": "025bce641c3a8473d98f205d0733fa10fac35eb31006ec116763e0568e35d52b",
+    "scripts/verify-gaussian-process-content.mjs": "0f28a2e68442ca8188b42391bc74bade7510f995e23a81e6315e300214717fbd",
+    "scripts/verify-gaussian-process-browser.cjs": "0138920d5ac8792c685bca6af6264a1975bf445bc2f33237f08c48bd28f06086",
+    "public/learn/examples/gaussian-processes-gp/gp_conditioning.py": "d658370c8a8b85cc342e50a86f5548e586eea52bc987a42e4d4dcd82ee2f54c2",
+    "public/learn/examples/gaussian-processes-gp/co2_gp.py": "2f03a685a4cc846befccd8d90a7167ea01d70e6e0236a5fde44da55558a394ad",
+    "public/learn/examples/gaussian-processes-gp/mauna-loa-monthly.csv": "2cfdb2e70ae5dd23b866dae81bae495d3f2906c1450019dae046b474a9301309",
+    "public/learn/examples/gaussian-processes-gp/README.md": "978aede94ae17ff46a3292e06d6ea025a5aef9f6ca80a080a65316f41db5aefb",
+    "docs/teaching/drafts/gaussian-processes-gp/implementation.md": "c339b9d63bb2803e3fd353d1f5468fcacd43fe03e91c821a42f5e3cf590784ff"
+  },
+  "checks": {
+    "native": "docs/teaching/evidence/gaussian-process-native.json",
+    "model": "docs/teaching/evidence/gaussian-process-model.json",
+    "content": "docs/teaching/evidence/gaussian-process-content.json",
+    "browser": "docs/teaching/evidence/gaussian-process-browser.json"
+  },
+  "visualInspection": {
+    "widths": [
+      1366,
+      390
+    ],
+    "figures": [
+      "vector",
+      "slice",
+      "matrix",
+      "kernels",
+      "forecast",
+      "probes"
+    ],
+    "informativeStates": [
+      "mean-only edited readings",
+      "held-out test misses",
+      "moved-target probe choice"
+    ],
+    "limitations": "Heuristic author review, no novice user study. 320 px geometry and interactions automated."
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/r2.16/en_ewt-ud-train.conllu",
+    "sha256": "3fb78e2b55482c8ee00caa653af436c88c9e5bc9a73ce26e4ae3ddc79d2b7e7b"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/r2.16/en_ewt-ud-dev.conllu",
+    "sha256": "531a54ff90d6ab12201c5a50c3e78e6ddac4de69abc4bce5d275d3cd29efe2b6"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/r2.16/en_ewt-ud-test.conllu",
+    "sha256": "e266e515a0a7547657ed3d90d9ba46487d6bd251f27ad4269d4e8a427c8555cd"
+  }
+]

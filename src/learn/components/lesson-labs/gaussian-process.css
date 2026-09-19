@@ -1,0 +1,56 @@
+.gp-lesson { min-width: 0; }
+.gp-equation { max-width: 100%; overflow-x: auto; padding: .3rem 0; }
+.gp-equation:focus-visible { outline: 2px solid #f5ce70; outline-offset: 2px; }
+.gp-equation .katex-display { width: max-content; min-width: 100%; }
+.gp-figure, .gp-lab { margin: 1.8rem 0; padding: clamp(12px, 2vw, 22px); border: 1px solid #384440; background: #0b1113; border-radius: 6px; color: #d5ddd9; min-width: 0; }
+.gp-figure figcaption { font-size: .96rem; line-height: 1.65; margin: 0 0 .8rem; }
+.gp-figure figcaption:last-child { margin: .9rem 0 0; }
+.gp-figure h4, .gp-lab h4 { font-size: 1rem; margin: 1rem 0 .5rem; }
+.gp-figure p, .gp-lab p { font-size: .97rem; line-height: 1.65; margin: .75rem 0; }
+.gp-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.5rem; }
+.gp-chart-wrap { max-width: 470px; width: 100%; margin: .7rem auto; min-width: 0; }
+.gp-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.gp-chart text { fill: #d8e0de; font-size: 18px; font-family: ui-monospace, monospace; }
+.gp-grid { stroke: #48524f; stroke-width: 1; fill: none; }
+.gp-band { fill: #477c80; fill-opacity: .38; stroke: none; }
+.gp-observation-band { fill: none; stroke: #b1c9c9; stroke-width: 1.5; stroke-dasharray: 5 4; }
+.gp-boundary { fill: none; stroke: #8c9994; stroke-width: 1.5; stroke-dasharray: 4 4; }
+.gp-slice-line { fill: none; stroke: #f5ce70; stroke-width: 2; stroke-dasharray: 4 3; }
+.gp-axis-title { font-size: .85rem !important; margin: .2rem 0 !important; color: #aabbb5; }
+.gp-x-label { text-align: center; }
+.gp-key { display: flex; flex-wrap: wrap; gap: .35rem 1rem; font-size: .83rem !important; }
+.gp-key span { white-space: nowrap; }
+.gp-vector { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: .6rem; margin: 1rem 0; }
+.gp-vector > div { border-left: 3px solid #77c8d0; padding: .5rem .8rem; background: #141d1e; display: flex; flex-direction: column; gap: .4rem; font-size: .85rem; }
+.gp-vector strong { font-size: 1.1rem; color: #f5ce70; }
+.gp-kernel-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-bottom: 1px solid #384440; padding: 1rem 0; }
+.gp-matrix-wrap { min-width: 0; overflow-x: auto; }
+.gp-covariance { border-collapse: collapse; font: .8rem ui-monospace, monospace; }
+.gp-covariance th, .gp-covariance td { padding: .45rem; border: 1px solid #384440; text-align: center; }
+.gp-covariance caption { padding: .6rem 0; text-align: left; }
+.gp-lab h3 { font-size: 1.25rem; margin: 0 0 .8rem; }
+.gp-lab label, .gp-figure label { display: flex; flex-direction: column; gap: .35rem; font-size: .94rem; }
+.gp-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: .8rem; margin: 1rem 0; }
+.gp-lab input, .gp-lab select, .gp-lab textarea, .gp-figure select { max-width: 100%; min-width: 0; width: 100%; border: 1px solid #58635f; background: #080c0e; color: #edf0ee; padding: .6rem; border-radius: 3px; font: inherit; box-sizing: border-box; }
+.gp-lab input[type=radio] { width: auto; }
+.gp-lab button { padding: .6rem .8rem; border: 1px solid #8b7b50; border-radius: 3px; color: #f5ce70; background: #141818; font: inherit; cursor: pointer; }
+.gp-lab button:disabled { color: #84908b; cursor: default; border-color: #384440; }
+.gp-lab :focus-visible, .gp-figure :focus-visible { outline: 2px solid #f5ce70; outline-offset: 3px; }
+.gp-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin: .8rem 0; }
+.gp-observation-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: .6rem; align-items: end; margin: .6rem 0; }
+.gp-commit { border-top: 1px solid #384440; padding-top: 1rem; margin-top: 1rem; }
+.gp-commit fieldset { border: 0; padding: 0; }
+.gp-commit legend { margin-bottom: .5rem; font-weight: 600; }
+.gp-commit .gp-choice { display: flex; flex-direction: row; align-items: center; gap: .6rem; margin: .5rem 0; }
+.gp-feedback { border-left: 3px solid #77c8d0; padding: .3rem .8rem; margin: 1rem 0; }
+.gp-error { color: #ffb1a1; }
+.gp-probe-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 1rem; }
+.gp-probe-result { padding: .75rem; background: #141d1e; }
+.gp-gain-track { height: 12px; background: #293330; }
+.gp-gain-track > div { height: 100%; background: #77c8d0; }
+.gp-lab details, .gp-figure details { margin: 1rem 0; }
+.gp-lesson details > summary { cursor: pointer; padding: .65rem 0; }
+.gp-lesson .lesson-table-wrap { background: none; }
+.gp-lesson .lesson-table-wrap::before, .gp-lesson .lesson-table-wrap::after { display: none; }
+@media (max-width: 620px) { .gp-kernel-row { grid-template-columns: 1fr; } .gp-panels { grid-template-columns: 1fr; } }
+@media (max-width: 380px) { .gp-chart text { font-size: 21px; } .gp-observation-row { grid-template-columns: 1fr 1fr; } .gp-observation-row button { grid-column: 1 / -1; } }

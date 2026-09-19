@@ -1,0 +1,203 @@
+{
+  "base": "http://127.0.0.1:4184",
+  "passed": true,
+  "widths": [
+    1366,
+    390,
+    320
+  ],
+  "checks": [
+    "1366: full lesson and all six inline figures",
+    "1366: all four investigation mounts",
+    "1366: no formula render errors",
+    "1366: no result shown before commitment",
+    "1366: changed-practice solutions closed",
+    "1366: two complete native stdout blocks",
+    "1366: offline source CSV downloadable",
+    "1366: latent band actually painted",
+    "1366: SVG labels neither collide nor clip",
+    "1366: foreground paths avoid chart labels",
+    "1366: no page-level horizontal overflow",
+    "1366: direct rho-null comparison correctly graded",
+    "1366: value edit clears previous result and choice",
+    "1366: zero-covariance changed-value null correctly graded",
+    "1366: keyboard advances to observed-value field",
+    "1366: edited readings produce expected mean and fixed variance",
+    "1366: symmetric length edit changes variance alone",
+    "1366: invalid numeric input shows error with no stale result",
+    "1366: zero-reading prior remains usable",
+    "1366: future numerical scores not leaked before commitment",
+    "1366: development result revealed and test still concealed",
+    "1366: test failure remains visible",
+    "1366: editable forecast performs fresh conditioning",
+    "1366: horizon edit invalidates estimate result",
+    "1366: reset returns to unsolved reported protocol",
+    "1366: candidate gains hidden initially",
+    "1366: target-specific candidate gain",
+    "1366: moving target changes the selected candidate",
+    "1366: all-zero-gain tie accepts either candidate",
+    "1366: no page overflow after informative states",
+    "390: full lesson and all six inline figures",
+    "390: all four investigation mounts",
+    "390: no formula render errors",
+    "390: no result shown before commitment",
+    "390: changed-practice solutions closed",
+    "390: two complete native stdout blocks",
+    "390: offline source CSV downloadable",
+    "390: latent band actually painted",
+    "390: SVG labels neither collide nor clip",
+    "390: foreground paths avoid chart labels",
+    "390: no page-level horizontal overflow",
+    "390: direct rho-null comparison correctly graded",
+    "390: value edit clears previous result and choice",
+    "390: zero-covariance changed-value null correctly graded",
+    "390: keyboard advances to observed-value field",
+    "390: edited readings produce expected mean and fixed variance",
+    "390: symmetric length edit changes variance alone",
+    "390: invalid numeric input shows error with no stale result",
+    "390: zero-reading prior remains usable",
+    "390: future numerical scores not leaked before commitment",
+    "390: development result revealed and test still concealed",
+    "390: test failure remains visible",
+    "390: editable forecast performs fresh conditioning",
+    "390: horizon edit invalidates estimate result",
+    "390: reset returns to unsolved reported protocol",
+    "390: candidate gains hidden initially",
+    "390: target-specific candidate gain",
+    "390: moving target changes the selected candidate",
+    "390: all-zero-gain tie accepts either candidate",
+    "390: no page overflow after informative states",
+    "320: full lesson and all six inline figures",
+    "320: all four investigation mounts",
+    "320: no formula render errors",
+    "320: no result shown before commitment",
+    "320: changed-practice solutions closed",
+    "320: two complete native stdout blocks",
+    "320: offline source CSV downloadable",
+    "320: latent band actually painted",
+    "320: SVG labels neither collide nor clip",
+    "320: foreground paths avoid chart labels",
+    "320: no page-level horizontal overflow",
+    "320: direct rho-null comparison correctly graded",
+    "320: value edit clears previous result and choice",
+    "320: zero-covariance changed-value null correctly graded",
+    "320: keyboard advances to observed-value field",
+    "320: edited readings produce expected mean and fixed variance",
+    "320: symmetric length edit changes variance alone",
+    "320: invalid numeric input shows error with no stale result",
+    "320: zero-reading prior remains usable",
+    "320: future numerical scores not leaked before commitment",
+    "320: development result revealed and test still concealed",
+    "320: test failure remains visible",
+    "320: editable forecast performs fresh conditioning",
+    "320: horizon edit invalidates estimate result",
+    "320: reset returns to unsolved reported protocol",
+    "320: candidate gains hidden initially",
+    "320: target-specific candidate gain",
+    "320: moving target changes the selected candidate",
+    "320: all-zero-gain tie accepts either candidate",
+    "320: no page overflow after informative states",
+    "No browser runtime errors"
+  ],
+  "screenshots": [
+    {
+      "file": "scratch/gaussian-process-implementation/vector-1366.png",
+      "sha256": "993bae26d918e6f4006fa8740fd679add2a99161bfd9a344978fb331457ab0a4",
+      "bytes": 27523
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/slice-1366.png",
+      "sha256": "e111963d33c188aec151f348aafe7a4799a5741350a52e0bbd358a1be8259e11",
+      "bytes": 52360
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/matrix-1366.png",
+      "sha256": "2821a90d7ba1624fcf32cbc552d9c455630a60f33203fd2249a4490c002e80ea",
+      "bytes": 36779
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/kernels-1366.png",
+      "sha256": "254d0d645a83a78a96e44f90afae02aec9375ab07043d920d199d427e7345dc2",
+      "bytes": 108621
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/forecast-1366.png",
+      "sha256": "6d8a14f7bfd2c5ec0a26b44c5d33569a8d0f495bfa655b939cc4374f03792df7",
+      "bytes": 116586
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/probes-1366.png",
+      "sha256": "b1784277741ce3bd628b204fc571c04672c195db4b4224662b11fe5e11e0f060",
+      "bytes": 67461
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/conditioning-result-1366.png",
+      "sha256": "d3acda664d03800e4470f431263c418eaa9f1ffb38e187d9c1f5ff76c01d8779",
+      "bytes": 185546
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/forecast-test-1366.png",
+      "sha256": "edb48fd63479cedd4cefde5757c651e684008549ad116dd2d5789a3e155f2002",
+      "bytes": 79835
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/probe-result-1366.png",
+      "sha256": "d1564fc204393826a233f1091210e3ec0a83721fda79287677818c8e2db60b4f",
+      "bytes": 160193
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/vector-390.png",
+      "sha256": "505eb250faa93d9b06008e5e9c444e31e73872dd26f766f951d90181b6ee1584",
+      "bytes": 23011
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/slice-390.png",
+      "sha256": "3ab8c1e64a9ecebea063d4183a6d6d29221ba9eec430ca36fede94c7983dd076",
+      "bytes": 60474
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/matrix-390.png",
+      "sha256": "5d3aafe42b67688843e1251bd9a3f384c14e7bf33e9812b4284902b9f5842c38",
+      "bytes": 35294
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/kernels-390.png",
+      "sha256": "64d75299d0f9e0ee6cf11a65ce6279e03daef701fa7fa05fcf103cdcc550932e",
+      "bytes": 96791
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/forecast-390.png",
+      "sha256": "315bfb64be2aea9191fbc1c84c69a4695482c7c52775194b7211e222f0d3a816",
+      "bytes": 119098
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/probes-390.png",
+      "sha256": "c9ab932586919c90c47c79a8cb4c7d301993601be4c1368c3f02de2d4bf8ac1d",
+      "bytes": 49867
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/conditioning-result-390.png",
+      "sha256": "3ba24115818a0b4ccb409cab572d39d21b9ac3635267a2bdb5a3669bed1077b4",
+      "bytes": 176277
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/forecast-test-390.png",
+      "sha256": "bc77e5bd21ec763deec6f86bb9c265c6352b5448a164027a52b03b34f9d648ff",
+      "bytes": 61115
+    },
+    {
+      "file": "scratch/gaussian-process-implementation/probe-result-390.png",
+      "sha256": "858a3462c07bc528d29c8dcd493eff779006cd6ca5eb3667188caf765f42e608",
+      "bytes": 178076
+    }
+  ],
+  "pageErrors": [],
+  "source": {
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "9fcb1beae5e2261240b3f43b60a334ba60633f33fab83ee65fbe4924647a3446",
+    "src/learn/components/lesson-labs/GaussianProcessFigures.jsx": "0fe3a4a8070896e867caef77f0cd869e5ad95b1a2cbc1d6ba073ddbd69ba2492",
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "eaf567f102f8fcdd380adc9b1fd6cf6fab02c1430d1bad1842c33bc6d5e4d7df",
+    "src/learn/components/lesson-labs/gaussian-process.css": "e31c28a6a18a9971eaa9a9a4a74383d8b9d49cc5c24f5606b3f34a5d6361a0db",
+    "src/learn/data/gaussian-process-model.js": "5af96779860ae275b9458044cda19b95e8af7017e4226832063c89a0255667bf",
+    "src/learn/data/gaussian-process-data.js": "c144e5d09b730b480aed9fb454bdeda58de63a7ab4df2da3d548227b5a2a9b7f"
+  }
+}

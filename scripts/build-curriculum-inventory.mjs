@@ -91,6 +91,9 @@ if (selected !== -1) {
   const topic = topics.find((item) => item.id === query || item.title === query || item.id === slugify(query || ""));
   if (!topic) throw new Error(`Topic not found: ${query}`);
   if (requestedWork !== -1) assertDeliveryRequest(process.argv[requestedWork + 1], topic.delivery);
+  // Named concepts are authoring obligations even when an older published body
+  // or a compact starting brief does not yet contain their explanations.
+  if (topic.subtopics?.length) topic.coverageInstruction = "Assess every named subtopic during design and writing. Teach its mechanism, assumptions, useful application and failure boundaries at appropriate depth, or explicitly record a justified ownership change. Search labels alone are not coverage evidence. Preserve the user's delivery-phase boundary.";
   console.log(JSON.stringify({ topic, requestedWork: requestedWork === -1 ? undefined : process.argv[requestedWork + 1], deliveryLedger: deliveryLedgerPath, domainGuidance: getDomainGuidance(topic.trackId), authoringNotes: readTopicAuthoringNotes(root, topic.id), authoringContract: "Read LESSON-AUTHORING-HANDOFF.md, the teaching standard's delivery modes, docs/teaching/TOPIC-DESIGN-BRIEF.md and the returned authoringNotes. Follow the user's full/content-first/finish scope and topic.delivery; finishing requires a current complete content checkpoint. Revisit coverage/title and useful applications while writing. A brief, published old body or completed draft does not certify the new implementation." }, null, 2));
 } else {
   const out = path.join(root, "docs/curriculum");

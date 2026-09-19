@@ -1,0 +1,102 @@
+{
+  "status": "passed",
+  "recorded": "2026-09-16T21:02:02.533Z",
+  "scope": "Named-concept curriculum coverage and browser discovery; no lesson authoring or publication",
+  "catalogue": {
+    "uniqueTopics": 1402,
+    "modules": 29,
+    "membershipsReviewed": 226,
+    "conceptLabels": 1150,
+    "selectedModules": [
+      {
+        "id": "quantitative-finance",
+        "topics": 117,
+        "sections": 12
+      },
+      {
+        "id": "system-design",
+        "topics": 109,
+        "sections": 12
+      }
+    ]
+  },
+  "checks": [
+    "verify-curriculum.mjs",
+    "verify-professional-curriculum.mjs --check-planning-boundary --write-syllabi",
+    "build-curriculum-inventory.mjs",
+    "generate-learning-artifacts.mjs --check",
+    "verify-topic-search.mjs: 10 search cases and all-topic metadata parity",
+    "vite production build",
+    "90 scoped browser checks at 1440 and 390 pixels",
+    "git diff --check"
+  ],
+  "unchangedFiles": {
+    "src/learn/data/lesson-manifest.json": "693988ad047880f380114053ffd3238e3b1656cac0f189b35cbe3f39e0cf3b13",
+    "docs/teaching/lesson-delivery-progress.json": "c35e8d03b75854a9c851478a2a60de03a1fa969f5e51194bbdc8325f07c23c28"
+  },
+  "reviewedFiles": {
+    "src/learn/data/track-definitions.js": "ecb5347f0ad112f8472c52bffcb06f02f900d6f08c6909dd930018f0cd2d8bfc",
+    "src/learn/data/curriculum/system-design.js": "d41b075808bf1375f4c85b51ebd2f7fc6b23c5153a244f62f15064f086a4335a",
+    "src/learn/data/curriculum/quantitative-trading.js": "32d4a3f73dfeebf2321803458ca85519836817ba3237661e5b86accfc8f32d6b",
+    "src/learn/data/curriculum/system-design-coverage.js": "bff8cfd347080f5068d5eba08edb95ea570bdf2a2a03c6f25f01640bd867c0e6",
+    "src/learn/data/curriculum/quantitative-trading-coverage.js": "e9e3cffc356661c63223c57e8b6af86cc9d83f92b9ef9394af8891ab2e10842b",
+    "src/learn/data/curriculum/professional-curriculum-sources.js": "8f4600f0d388213dc5b3a0697ae80dc1e4c9a4ad1925695db5d7aaa9daacbe77",
+    "src/learn/data/topic-search.js": "3a97eadf744886f85792784056e1b95abaf193e8e1ac5eafb1d2fd52e6530c3c",
+    "src/learn/data/generated/navigation.js": "8d86ac04220f3506a2153a05c097595d8122d5b9c40b5ae6f813e498085391c2",
+    "src/learn/components/TopicList.jsx": "16df8b41830d03c61c2866985aea3d5cadee3e44f669971f3ff0ec095b42799e",
+    "src/learn/components/PlaceholderContent.jsx": "abb8af4dcf456c78a250cb578c9e8a893bf3b25f68a20b2bf7b3c52c7ad58870",
+    "src/learn/components/TopicContent.jsx": "cd1ff2a425af7db9a3f3a2c45626fbd1fe0059d81d8389df95ff9bd28b7f2925",
+    "src/index.css": "fda1350802780d0dfafdb5b173264fb6c09e510105b6356f490b019b57d92458",
+    "scripts/generate-learning-artifacts.mjs": "58284b330fb404af590c19e729f733b8c7b87f576d160de47cd03c8644e7714b",
+    "scripts/build-curriculum-inventory.mjs": "65f460b0ce295a28258555db22521a749e81bd5d1e6e3ba3815f01d38ba09875",
+    "scripts/verify-topic-search.mjs": "ac786aae122d602bb79462e70f149da9cfe892e5c7bbd4b3afd93910d653c4bb",
+    "scripts/verify-professional-curriculum.mjs": "289bc7004be1fa281328aa1cdb2a41195380c28f224b72fd6b4ac57d03bd43fb",
+    "scripts/review-professional-curriculum.cjs": "a8e9a17e76839598e8b5bf19065ade0484805590ad8b012dfefcc8da48db1c48",
+    "docs/curriculum/PROFESSIONAL-COVERAGE-REVIEW.md": "8ba701ffee8955d7361545100a3494e1941c0053c45ad1b075d4db314c76b1c4",
+    "docs/curriculum/SYSTEM-DESIGN-SYLLABUS.md": "dfb100b16901e753719fc6ec2247c6b72fc756afff442bd13988892d9d2f0ed1",
+    "docs/curriculum/QUANTITATIVE-TRADING-SYLLABUS.md": "cc8730640f2149aec3e78a1f26c183d7d702dbd8ff1d1af8cdb29a45ba5c91d1"
+  },
+  "browser": {
+    "path": "docs/curriculum/professional-curriculum-browser-evidence.json",
+    "sha256": "615875fccc80d940dcb3912e30fab6258538ff003ef4a9b8415ba1379764f805",
+    "checks": 90,
+    "pageErrors": [],
+    "visuallyInspected": [
+      "hyperloglog-1440.png",
+      "hyperloglog-390.png"
+    ]
+  },
+  "buildManifestSha256": "6f407bcb82f687e52f399777003ba4baa165a95562b9523955ef86fa0ea5b254",
+  "outlinePayloads": [
+    {
+      "id": "hyperloglog-hll-approximate-distinct-counting",
+      "bytes": 1465,
+      "gzipBytes": 659,
+      "dynamic": true
+    },
+    {
+      "id": "professional-trading-participants-desks-the-trade-lifecycle",
+      "bytes": 1241,
+      "gzipBytes": 552,
+      "dynamic": true
+    },
+    {
+      "id": "system-design-requirements-constraints-architecture-decisions",
+      "bytes": 1098,
+      "gzipBytes": 513,
+      "dynamic": true
+    }
+  ],
+  "navigationMetadata": {
+    "bytes": 874952,
+    "gzipBytes": 116394,
+    "conceptLabelGzipDifferenceBytes": 12165,
+    "comparison": "Same current navigation with versus without subtopics arrays; not a pre-change whole-build comparison"
+  },
+  "limitations": [
+    "Named labels are scope obligations, not evidence of completed lesson teaching",
+    "This finite catalogue cannot guarantee every specialist or future topic",
+    "References anchor curriculum scope; full method, version and jurisdiction checks remain lesson research",
+    "Browser verification covers discovery and planned-page integration, not all published lesson bodies"
+  ]
+}
