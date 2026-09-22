@@ -1,0 +1,7 @@
+# NumPy: explicit coordinates and efficient array operations
+
+22 September 2026. This focused revision adds the `loopReference` example in `src/learn/data/numpy-foundations-examples.js`, its explanation in section 5 of the topic body, and a changed-gain implementation exercise. The loops expose broadcast operand selection and reduction; the shape-general `calibrate_sensor_means` function supplies the idiomatic vectorized route with finite/shape contracts and nonmutating output. Time is O(TS), with O(TS) corrected output and O(S) means. Extreme magnitudes and summation-order differences are bounded explicitly; no speed benchmark or universal optimality is claimed.
+
+The [foundation audit](FOUNDATIONS.md) records the inspected coverage and remaining limits. Author execution is in `numpy-repair.json`. The independent integration owner replayed the full displayed program and checked scalar-coordinate/fsum oracles, changed non-square shapes, no aliasing and joint translation invariance; see `../evidence/implementation-depth-numpy-independent.json`. Final desktop/390px/320px rendering is in `../evidence/implementation-depth-browser.json`.
+
+This is a complete focused repair, not a new certification of all NumPy internals. The existing reference/array workflows remain. Future numerical lessons should link the coordinate and vectorization explanation rather than reimplement an array engine.

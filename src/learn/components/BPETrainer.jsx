@@ -1,107 +1,57 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { colors, fonts } from "../styles";
 import TokenStream from "./viz/TokenStream";
-
-const DEFAULT_CORPUS = "low low low low low lower lower newest newest newest newest newest newest widest widest widest";
-
-function tokenizeCorpus(corpus) {
-  const words = corpus.trim().split(/\s+/);
-  const freq = {};
-  for (const w of words) freq[w] = (freq[w] || 0) + 1;
-  return freq;
-}
-
-function initSymbols(freq) {
-  const result = {};
-  for (const [w, count] of Object.entries(freq)) {
-    result[w] = { symbols: [...w, "</w>"], count };
-  }
-  return result;
-}
-
-function countPairs(state) {
-  const pairs = {};
-  for (const { symbols, count } of Object.values(state)) {
-    for (let i = 0; i < symbols.length - 1; i++) {
-      const key = `${symbols[i]} ${symbols[i + 1]}`;
-      pairs[key] = (pairs[key] || 0) + count;
-    }
-  }
-  return pairs;
-}
-
-function bestPair(pairs) {
-  let best = null, bestCount = 0;
-  for (const [k, v] of Object.entries(pairs)) {
-    if (v > bestCount) { best = k; bestCount = v; }
-  }
-  return best ? { pair: best.split(" "), count: bestCount } : null;
-}
-
-function mergePair(state, [a, b]) {
-  const merged = a + b;
-  const next = {};
-  for (const [w, { symbols, count }] of Object.entries(state)) {
-    const out = [];
-    let i = 0;
-    while (i < symbols.length) {
-      if (i < symbols.length - 1 && symbols[i] === a && symbols[i + 1] === b) {
-        out.push(merged);
-        i += 2;
-      } else {
-        out.push(symbols[i]);
-        i += 1;
-      }
-    }
-    next[w] = { symbols: out, count };
-  }
-  return { next, merged };
-}
+import { BPE_MERGE_LIMIT, DEFAULT_BPE_CORPUS, learnedBpeVocabulary, mergeBpePair, nextBpePair, prepareBpeCorpus } from "../data/bpe-trainer-model.js";
 
 export default function BPETrainer() {
-  const [corpus, setCorpus] = useState(DEFAULT_CORPUS);
-  const [state, setState] = useState(() => initSymbols(tokenizeCorpus(DEFAULT_CORPUS)));
+  const corpusId = useId();
+  const [corpus, setCorpus] = useState(DEFAULT_BPE_CORPUS);
+  const prepared = useMemo(() => prepareBpeCorpus(corpus), [corpus]);
+  const [state, setState] = useState(() => prepareBpeCorpus(DEFAULT_BPE_CORPUS).state);
   const [merges, setMerges] = useState([]);
-
-  const vocab = useMemo(() => {
-    const s = new Set();
-    for (const { symbols } of Object.values(state)) symbols.forEach((x) => s.add(x));
-    return Array.from(s).sort();
-  }, [state]);
-
-  const pairs = useMemo(() => countPairs(state), [state]);
-  const nextBest = bestPair(pairs);
+  const vocab = useMemo(() => learnedBpeVocabulary(prepared.alphabet || [], merges), [prepared, merges]);
+  const nextBest = useMemo(() => nextBpePair(state), [state]);
+  const canStep = !prepared.error && nextBest && merges.length < BPE_MERGE_LIMIT;
 
   function doStep() {
-    if (!nextBest) return;
-    const { next, merged } = mergePair(state, nextBest.pair);
+    if (!canStep) return;
+    const { next, merged } = mergeBpePair(state, nextBest.pair);
     setState(next);
-    setMerges((m) => [...m, { pair: nextBest.pair, merged, count: nextBest.count }]);
+    setMerges(previous => [...previous, { pair: nextBest.pair, merged, count: nextBest.count }]);
   }
 
   function reset(newCorpus = corpus) {
-    setState(initSymbols(tokenizeCorpus(newCorpus)));
+    setCorpus(newCorpus);
+    setState(prepareBpeCorpus(newCorpus).state || {});
     setMerges([]);
   }
 
   return (
-    <div style={{
+    <div data-bpe-trainer="true" style={{
       border: `1px solid ${colors.border}`,
       borderRadius: 6,
       padding: 16,
       margin: "20px 0",
       background: colors.cardBg,
     }}>
-      <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 10, letterSpacing: 1 }}>
+      <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textSecondary, marginBottom: 10, letterSpacing: 1 }}>
         INTERACTIVE · BPE TRAINER
       </div>
 
-      <label style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, display: "block", marginBottom: 4 }}>
+      <p id={`${corpusId}-help`} style={{ color: colors.textSecondary, fontSize: 13, lineHeight: 1.6, marginBottom: 12 }}>
+        Edit the corpus to restart its segmentation immediately, then merge one pair at a time.
+        This character-level teaching model splits words on whitespace and appends a word-end marker.
+        Frequency ties follow the displayed word order. Each step merges non-overlapping occurrences from left to right.
+      </p>
+      <label htmlFor={corpusId} style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary, display: "block", marginBottom: 4 }}>
         Corpus
       </label>
       <textarea
+        id={corpusId}
+        aria-describedby={`${corpusId}-help ${corpusId}-status`}
+        aria-invalid={Boolean(prepared.error)}
         value={corpus}
-        onChange={(e) => setCorpus(e.target.value)}
+        onChange={(e) => reset(e.target.value)}
         rows={2}
         style={{
           width: "100%",
@@ -117,24 +67,29 @@ export default function BPETrainer() {
         }}
       />
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
-        <button onClick={doStep} disabled={!nextBest} style={btn(!nextBest ? colors.textDark : colors.gold)}>
+      <p id={`${corpusId}-status`} role="status" style={{ fontSize: 13, color: colors.textSecondary, marginBottom: 12 }}>
+        {prepared.error || (merges.length >= BPE_MERGE_LIMIT ? 'Reached the 64-step teaching limit. Restart merges or edit the corpus.' : !nextBest ? 'Every word is a single symbol. No adjacent pair remains.' : `Next pair occurs ${nextBest.count} times, counting word frequency.`)}
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
+        <button onClick={doStep} disabled={!canStep} style={btn(!canStep ? colors.textDark : colors.gold)}>
           Train Step {nextBest ? `(${nextBest.pair.join(" + ")})` : ""}
         </button>
-        <button onClick={() => reset(corpus)} style={btn(colors.textMuted)}>Reset</button>
+        <button onClick={() => reset(corpus)} disabled={Boolean(prepared.error)} style={btn(colors.gold)}>Restart merges</button>
+        <button onClick={() => reset(DEFAULT_BPE_CORPUS)} style={btn(colors.gold)}>Restore example</button>
       </div>
 
-      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, marginBottom: 6 }}>
-        Vocabulary ({vocab.length} tokens)
+      {!prepared.error && <>
+      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary, marginBottom: 6 }}>
+        Learned vocabulary ({vocab.length} tokens): original symbols plus all learned merges
       </div>
       <TokenStream tokens={vocab} />
 
-      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, marginTop: 14, marginBottom: 6 }}>
+      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary, marginTop: 14, marginBottom: 6 }}>
         Merges so far ({merges.length})
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
         {merges.length === 0 && (
-          <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textDim }}>No merges yet.</div>
+          <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary }}>No merges yet.</div>
         )}
         {merges.map((m, i) => (
           <div key={i} style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary }}>
@@ -143,19 +98,20 @@ export default function BPETrainer() {
         ))}
       </div>
 
-      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, marginTop: 14, marginBottom: 6 }}>
+      <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary, marginTop: 14, marginBottom: 6 }}>
         Current word segmentations
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {Object.entries(state).map(([w, { symbols, count }]) => (
-          <div key={w} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted, minWidth: 80 }}>
-              {w} <span style={{ color: colors.textDark }}>(×{count})</span>
+          <div key={w} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, minWidth: 0 }}>
+            <span style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary, minWidth: 80, overflowWrap: "anywhere", maxWidth: "100%" }}>
+              {w} <span style={{ color: colors.textSecondary }}>(×{count})</span>
             </span>
             <TokenStream tokens={symbols} />
           </div>
         ))}
       </div>
+      </>}
     </div>
   );
 }

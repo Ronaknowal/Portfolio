@@ -1,5 +1,14 @@
 # Visual specifications — Anomaly & Outlier Detection
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit positions, depth cap, reference rows, k, query, gamma, anchor, prevalence, sensitivity, false-positive rate and review budget to follow paths, densities, scores and workloads live. On the real series change method, calibration quantile or threshold and inspect the synchronized timeline, annotated windows and review counts; keep fit, calibration and held-out time roles intact.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Content revision 1; stages 1–2 only. No visual, lab or browser state in this file is implemented or visually verified. Read [lesson.md](lesson.md), [design/research](../../ANOMALY-DETECTION-LESSON-DESIGN.md) and [data provenance](dataset-provenance.md) before implementation. Preserve the catalogue identity and module sequence.
 
 The representations below are chosen for distinct conceptual hurdles. Implementation may improve their form with a recorded reason, but must preserve or strengthen the learning action and numerical contract. Ordinary explanatory figures and genuinely unsolved investigations serve different purposes.

@@ -1,15 +1,6 @@
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './regularization-labs.css';
 
-/** Shared controls for the regularization investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always computed from the
- * draft at the moment of committing, so a prediction is graded against the
- * inputs it was recorded with and never against whatever is on screen later.
- * Any relevant edit retires the recorded prediction and hides its feedback.
- */
-
 /** Every printed number uses a typographic minus sign, matching the prose. */
 const sign = text => text.replace('-', '−');
 export const round = (value, digits = 6) => {
@@ -34,7 +25,7 @@ export const coefficientText = (value, digits = 6) => (value === 0 ? 'exactly 0'
 
 export function Investigation({ title, question, note, children, onReset }) {
   const id = useId();
-  return <section className="rg-investigation" aria-labelledby={id}>
+  return <section className="rg-investigation" aria-labelledby={id} data-live-exploration>
     <header><h3 id={id}>{title}</h3><button type="button" onClick={onReset}>Reset</button></header>
     {question && <p className="rg-question">{question}</p>}
     {note && <p className="rg-note">{note}</p>}
@@ -74,7 +65,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
     }
     return null;
   })();
-  return <Field label={label} error={problem} value={suffix}>
+  return <div><Field label={label} error={problem} value={suffix}>
     <input type="number" inputMode="decimal" min={min} max={max} step={step} value={shown} disabled={disabled}
       onChange={event => {
         setDraft(event.target.value);
@@ -85,7 +76,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
         }
       }}
       onBlur={() => setDraft(null)} aria-invalid={Boolean(problem)} />
-  </Field>;
+  </Field>{/Data preference|Strength|Mixing fraction|Keep probability/i.test(label) && Number.isFinite(value) && Number.isFinite(min) && Number.isFinite(max) && <input type="range" aria-label={label + ' slider'} min={min} max={max} step={step} value={value} disabled={disabled} style={{width:'100%',accentColor:'var(--accent, #e7b94a)'}} onChange={event => {setDraft(null);onChange(Number(event.target.value));}} />}</div>;
 }
 
 export function Table({ caption, headings, rows, rowClass = () => undefined, scroll = false }) {
@@ -98,103 +89,12 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </div>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together.
- *
- * `key` turns the active inputs into a string, so a recorded result can never
- * be shown beside inputs it was not computed from. */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
+export function useInvestigation(initial) {
   const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const pending = describeKey(draft) !== describeKey(active);
-  const retire = () => { setResult(null); setChoice(''); setGuess(''); };
-  return {
-    draft, active, choice, setChoice, guess, setGuess, reason, setReason, result, pending,
-    /** Any relevant edit retires the commitment and conceals stale feedback. */
-    edit: update => { setDraft(previous => ({ ...previous, ...update })); retire(); },
-    /** Commit the draft and record the prediction against it. */
-    check: answerFor => {
-      setActive(draft);
-      setResult({ key: describeKey(draft), choice, guess, reason, answer: answerFor(draft) });
-    },
-    reset: () => { setDraft(initial); setActive(initial); setChoice(''); setGuess(''); setReason(''); setResult(null); },
-    /** Replace the whole declared setup, which also retires the prediction. */
-    load: inputs => { setDraft(inputs); setActive(inputs); setChoice(''); setGuess(''); setReason(''); setResult(null); },
+  return { draft, active: draft,
+    edit: update => setDraft(current => ({ ...current, ...update })),
+    reset: () => setDraft(initial), load: inputs => setDraft(inputs),
   };
-}
-
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="rg-field rg-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
-
-/** A radio group that starts with nothing selected, optionally a second numeric
- * commitment, and one action that commits both.
- *
- * There is deliberately no way to reach the answer without recording a
- * prediction: the binding contract requires one before Apply, and grants relief
- * only to explanatory figures. Presets fill inputs, never the outcome. */
-export function Prediction({
-  prompt, options, state, answerFor, describe, numeric,
-  applyLabel = 'Check prediction',
-}) {
-  const name = useId();
-  const numericId = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown && shown.choice === shown.answer.outcome;
-  const guessed = shown && numeric && shown.guess !== ''
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= numeric.tolerance
-      + 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value))
-    : null;
-  const ready = state.choice !== ''
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  return <div className="rg-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="rg-choices">
-        {options.map(([value, text]) => (
-          <label className="rg-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-      {numeric && <label className="rg-field rg-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span className="rg-caption">Answers within {numeric.tolerance} are accepted.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="rg-pending" role="status">
-      Inputs changed; record a new prediction. The calculation below will use the values now in the fields.
-    </p>}
-    <div className="rg-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)} onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once a prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {shown?.reason && <p className="rg-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <p className={`rg-verdict ${correct ? '' : 'is-miss'}`} role="status">
-      <span className="rg-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-      {correct
-        ? `Your prediction matches: ${label(shown.answer.outcome)}.`
-        : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer.outcome)}.`}
-      {numeric && shown.guess !== '' && ` You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? `within ${numeric.tolerance}` : `outside ${numeric.tolerance}`}.`}
-      {describe ? ` ${describe}` : ''}
-    </p>}
-  </div>;
 }
 
 /** A framed plot with one shared scale for everything drawn on it. */

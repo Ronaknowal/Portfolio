@@ -1,0 +1,1043 @@
+{
+  "topics": {
+    "trees-binary-search-trees": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/trees-binary-search-trees/ordered_set_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/trees-binary-search-trees-320.png",
+          "sha256": "634d9f08ce3f3e4149a722e2f845fb23fa798ee750a603f16cfea01602038c63"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/trees-binary-search-trees/ordered_set_library.py": "8d02abdc6a518343fd74131634c7379f550d78c65eeaad4b1949a2b17044b16c",
+        "src/learn/data/topics/trees-binary-search-trees.jsx": "e99de1e5ec78d05c4f28f4907904536a4c479cfd8f35ec67a01c24ae58a15443",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "graphs-representations-bfs-dfs": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/graphs-representations-bfs-dfs/graph_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/graphs-representations-bfs-dfs-320.png",
+          "sha256": "0e810a5b3c0bc6bdb2800e24eed23692a0b5201851f977d0953bcf5243ef2e09"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/graphs-representations-bfs-dfs/graph_library.py": "6040f9a74aff935e5fea4771f8b0f250ad8f44023e1b4f1f864e37c375c9ef91",
+        "src/learn/data/topics/graphs-representations-bfs-dfs.jsx": "08c959bc0453e0a0e00287712c07f0da0734522e3da3ba510813dae05158f5ba",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "segment-trees-fenwick-trees-range-queries": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/segment-trees-fenwick-trees-range-queries/range_library.cpp: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/segment-trees-fenwick-trees-range-queries-320.png",
+          "sha256": "2a9484cc170516f5632b8fdfcb1aa6daf20eee69aac7eb718be8eeada1b951de"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/segment-trees-fenwick-trees-range-queries/range_library.cpp": "e827ece695f15a55e021e1ac1c958f3fb4cb2777efa967e472683a35bf64c139",
+        "src/learn/data/topics/segment-trees-fenwick-trees-range-queries.jsx": "6466ca9179125054f9a40032e713f76644bbd60ec1b95322a00b744943fde55e",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "shortest-paths-spanning-trees-topological-ordering": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/shortest-paths-spanning-trees-topological-ordering-320.png",
+          "sha256": "ce434acdd467c273b395a365a0cfd93f0a5b7224a189ed767ef98c6c9b130e33"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/shortest-paths-spanning-trees-topological-ordering/weighted_graph_library.py": "f9ff45ae5d48f27f51b59fdf8e18e606acde6e62cdb6be881d7e7fdce763ca30",
+        "src/learn/data/topics/shortest-paths-spanning-trees-topological-ordering.jsx": "066454a3225ca983ecaba013f69eb6eebc6bce2e63063278fe40960984136183",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "string-matching-prefix-functions-rolling-hashes": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/string-matching-prefix-functions-rolling-hashes-320.png",
+          "sha256": "0bdeab8a8b28100243278e3636fec503d0ccfdc36e618ac479922e1011c8f4d1"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/string-matching-prefix-functions-rolling-hashes/string_search_library.py": "0c699e1f85bbb02e72a08a3e5da16700e50482cc8e88a87685f8ab130c49e961",
+        "src/learn/data/topics/string-matching-prefix-functions-rolling-hashes.jsx": "94e4d34decb509cb6bb4365d3e2b14172cf2db6444283b9c8c09064c49512d56",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "randomized-algorithms-sampling-error-guarantees": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/randomized-algorithms-sampling-error-guarantees/sampling_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/randomized-algorithms-sampling-error-guarantees-320.png",
+          "sha256": "883f48876d9cb7b568b7badc300b06ac7dad3e2c304aa7af0db3a4a2760c5be8"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/randomized-algorithms-sampling-error-guarantees/sampling_library.py": "ea3dac902e442d6af24940539006f3e176f61369dfcca5c403557b8c98f90fc2",
+        "src/learn/data/topics/randomized-algorithms-sampling-error-guarantees.jsx": "ff789e86d876ac09f42e5fa840665cc01bb28b04e91ee08b2646731331e89b11",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "network-flow-minimum-cuts-bipartite-matching": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/network-flow-minimum-cuts-bipartite-matching/flow_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/network-flow-minimum-cuts-bipartite-matching-320.png",
+          "sha256": "2a3bd335553d6213e7933957eb761911f259b3c964b38102baef42a32a9dcbcf"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/network-flow-minimum-cuts-bipartite-matching/flow_library.py": "97363f87f128fe8b1c9270d8a395fcc637dafff55a95a0b8c64e572793c9e141",
+        "src/learn/data/topics/network-flow-minimum-cuts-bipartite-matching.jsx": "f3547370e4cd1d89e4d0926704d699dac98c2eba3e9d39cd2579880c84a66b71",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "computational-geometry-robust-predicates-convex-hulls": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/computational-geometry-robust-predicates-convex-hulls/hull_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/computational-geometry-robust-predicates-convex-hulls-320.png",
+          "sha256": "d1eb18b3f87bc19213d7bacab5fd5c392e02f69398b4ece2e38c1730401a865e"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/computational-geometry-robust-predicates-convex-hulls/hull_library.py": "06d7d6ecff699a53dc642b9b679ea2e28c1ee6c553bd5424ff4fff94a884f3c5",
+        "src/learn/data/topics/computational-geometry-robust-predicates-convex-hulls.jsx": "22a850dcad87fb773e662c0de2b2ccce7ce6a6520cd3eb6fb73f9096c7f5f44a",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "persistent-data-structures-structural-sharing-versioned-queries": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/persistent-data-structures-structural-sharing-versioned-queries/persistent_map_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/persistent-data-structures-structural-sharing-versioned-queries-320.png",
+          "sha256": "66f0769bb00832a828ef95be715146ad7909de63ba3338fbc82f5650a577c984"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/persistent-data-structures-structural-sharing-versioned-queries/persistent_map_library.py": "24280cbd3c8f3d26ab2c589c27b11eb0dc94ef31b47274b5827152f4cf0e5eee",
+        "src/learn/data/topics/persistent-data-structures-structural-sharing-versioned-queries.jsx": "c8ebd85dcb94e132ecef7373a933dd8db11231fe4e8ca012a13438d7b4d4ea92",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "external-memory-algorithms-b-trees-i-o-complexity": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_sort_stream.py: lazy request, keyboard open/close, canonical display/download",
+        "/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/sqlite_index_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px 1: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px 1: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px 1: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/external-memory-algorithms-b-trees-i-o-complexity-320.png",
+          "sha256": "c7d2c2fa89d61ffccb7f01bc0cba09c1d528ba572837a4c08a89e18fb4169628"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/external_sort_stream.py": "545310f36b438387bc0f337c20e767474f68167400e53d70af989391bdfcb633",
+        "public/learn-assets/external-memory-algorithms-b-trees-i-o-complexity/sqlite_index_library.py": "832a557411fd722d3f7645a1981613019e6e8691f513eac6e60f2f968475b6f8",
+        "src/learn/data/topics/external-memory-algorithms-b-trees-i-o-complexity.jsx": "e634650a43ad66479c1f299b2f1b6ddaf3444c5b5ae5c4a26e55be7c8c122c3a",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "matrix-calculus-jacobians": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/matrix-calculus/derivative-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/matrix-calculus-jacobians-320.png",
+          "sha256": "11b2f28464d97afbf47caa353f99df763f507457dc5e03bd642404f30947a772"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/matrix-calculus/derivative-library-bridge.py": "127b2e711ed5b0197009bf8a59513f5e697289e41b61c6409503565b8fda2af4",
+        "src/learn/data/topics/matrix-calculus-jacobians.jsx": "feda34dbaaafa255d3a357961e8e786111a457525e2d4c59b2df1e35d9824edb",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "randomized-linear-algebra": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/randomized-linear-algebra/randomized_svd_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/randomized-linear-algebra-320.png",
+          "sha256": "6b3d999b7cfb27f9f9a074716ac83376d24ec3c1bfaae71d3d76a71526d35bc7"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py": "2ac9db0a41b6cd70a978cb1f7eba45db1b163a8f46fb526e12a44e9ef5d4a622",
+        "src/learn/data/topics/randomized-linear-algebra.jsx": "e186d90ad3e497bd674f2165392ed3226a7036fec3ab23d0f2119aefa52772fd",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "multivariate-calculus-gradients": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/multivariate-calculus-gradients-320.png",
+          "sha256": "7dc8b7dfcac8e46a8b38e63c3a7788e3592a70931682d26898ca302292036f3b"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "src/learn/data/topics/multivariate-calculus-gradients.jsx": "6e2210b169f65c3bb6c5c9005cb564bfcdf991baad536c236470ab5df0b184fa",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/gradient-variants/optimizer_library_bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars-320.png",
+          "sha256": "d1ee0ba8b3ab263205ad3d48907b7d08940a69eef2e772dfc0d5bd3dc2393dbd"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/gradient-variants/optimizer_library_bridge.py": "f91e933ca3b6574cac574055388b73f2a2a47030550534482aed0ef6f916c02b",
+        "src/learn/data/topics/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.jsx": "1d68e94f0a5cd13f20eac582cddb098e48060365597b3ee2c5a670f167ea70f9",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient-320.png",
+          "sha256": "068a662401577f8691cc5b1ee300a403ad331b074dece970d3c9c15f726f4345"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "39d64f62fa27e436eb7cb25b595ac60e83178d579fde23a5097302ae14f9c7e9",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "constrained-multi-objective-optimization": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/constrained-optimization/simplex-solver-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/constrained-multi-objective-optimization-320.png",
+          "sha256": "2817df0816112510551af31b798060d61257949980cb3673b9f8e6e36447bd4c"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/constrained-optimization/simplex-solver-bridge.py": "0306bdddd4c9e4f8e9750459bae27a6027fa7ceab12f003511dcd59e8271f0c3",
+        "src/learn/data/topics/constrained-multi-objective-optimization.jsx": "d17dfbfdee3fcba8da47ba947161c419bebe48baeb8729cc003b644bae3f3e4e",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/monte-carlo-mcmc/pymc_posterior.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts-320.png",
+          "sha256": "12d8667ea1be869c8a78ea4bb706d6a8bd43fd2266fe1a7785cb79ba6e949f9c"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/monte-carlo-mcmc/pymc_posterior.py": "8b8dc278204a48ce66652309bc6c47c3c1f71ecf74b81130b89bf4462727bcd8",
+        "src/learn/data/topics/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.jsx": "f703e255d7dd83678c879c9d825437d5e97ea4a10705d4c6e587d2235f808313",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "variational-inference": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/variational-inference/pymc_variational.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/variational-inference-320.png",
+          "sha256": "08d558d6e7920d5b649de2d4ca7e2ca74134c6b003a9cf139f93ca2675d7ce7e"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/variational-inference/pymc_variational.py": "4c95fdbd03e20c2e68a38a24aeac5b1d060abd5188a006fc05419a11e4e280c4",
+        "src/learn/data/topics/variational-inference.jsx": "cf020ff6ba6e924f3c9b3c64c69eaabcdac652e6448bb46c9de8d883b2d3c032",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "optimal-transport-wasserstein-distance-sinkhorn": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/optimal-transport/sinkhorn-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/optimal-transport-wasserstein-distance-sinkhorn-320.png",
+          "sha256": "04a8db4d1c450624316c1aae4c1b513ce8eee906eafc4d0e1e8edf849938fe60"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py": "8d2232d4913b1ee35ab4441e67d011c5991c332a1147733dbc48b84fb2c57e20",
+        "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": "725260ea66c5f4c73a8d2720bf597febe1bc4571f7726a14a02449fa3124062e",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "causal-inference-do-calculus": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/causal-inference/causal-estimation-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/causal-inference-do-calculus-320.png",
+          "sha256": "f2e863f5d5c9a1def9236dd9d0e54e5616fa1ee958ae1b2f72647ed384296c82"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/causal-inference/causal-estimation-bridge.py": "eab865b0ec6c7276fb3cae7363e1546b610fbc0208d3b1f31a346492b6f7d093",
+        "src/learn/data/topics/causal-inference-do-calculus.jsx": "8b3217b607046d9199e978b5f957d77f68fe247290746cd0428c0bcd54368a75",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "mutual-information-information-bottleneck": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/mutual-information/mutual-information-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/mutual-information-information-bottleneck-320.png",
+          "sha256": "6cd69463296cc7dffa2920e897463ceb54631b2c54cbfd989b66c49cbcc1b687"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/mutual-information/mutual-information-library-bridge.py": "3a931191ff2d9729f5a8e5d970b537e825580cf36b364380325b9838a4e8fea2",
+        "src/learn/data/topics/mutual-information-information-bottleneck.jsx": "626d1e5b2ac2edfa7725adb278fac3db0472f2e1f963fa2cff633987f170cb5f",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "f-divergences-integral-probability-metrics": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/divergences/mmd-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/f-divergences-integral-probability-metrics-320.png",
+          "sha256": "1b3e6b12a8b02fe478bdf0f9314c6c009d8e23894155cc994e967ddbcab1943b"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/divergences/mmd-library-bridge.py": "708274444dc59476c4ebc6d4b334c94d60a7a65f31ecad1d777415e894fac08f",
+        "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx": "5e255b375e1160607cf5ec3bc450e1bdba6a97a684721162aee6c19877a43759",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "graph-fundamentals-adjacency-laplacian-connectivity": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/graph-fundamentals/laplacian-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/graph-fundamentals-adjacency-laplacian-connectivity-320.png",
+          "sha256": "ab775ef6386d939d4efcd83fcf9748f659ee3d55588ee3eb0d98011de3ff7a67"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py": "596707e3205c23a4992e3731197f4d14f5f6e912021ba666964a3334f88ad331",
+        "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "2d26e274c9376cbcc1ff21ee4c4810fb2dfefc7a9c1921a4bd5eeb846b352871",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "spectral-graph-theory": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/spectral-graph/spectral_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/spectral-graph-theory-320.png",
+          "sha256": "371eef2cd508dc9f582712182f1b50f40f8aed467c437b084e9c7653c6143793"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/spectral-graph/spectral_library.py": "5f5f2b64466a71c91eaca7eca324a306be8eea93aa1a64e6e741aa3f475ac0fd",
+        "src/learn/data/topics/spectral-graph-theory.jsx": "0164a3eef7a350bfa6253c01ef9f7bbc77b2d86991e9d93b9ed6befdb63ef4f4",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "stochastic-processes-markov-chains-brownian-motion-poisson": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/stochastic-processes-markov-chains-brownian-motion-poisson-320.png",
+          "sha256": "ee024234513f9373dd1f324db729f8fefc648cfc1802830336e232689a41ae0e"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": "2e1016dad6be18049be2c354f1232feaba8047c485a981e1945e48b65b8832db",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "queueing-theory-m-m-1-m-g-1-little-s-law": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/queueing/fcfs-simpy-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/queueing-theory-m-m-1-m-g-1-little-s-law-320.png",
+          "sha256": "e67ee86c70237c188ca2635cdebb79e199e67f40eee59ed7e2de8e7e97298a23"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/queueing/fcfs-simpy-bridge.py": "c27d41a0dc73a7a5d396526fd33e7b8a6379d65abd25f5cd793dcb92849d6a9f",
+        "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": "92d9cda59aca55ac3bd6f704ee005034e8d49ed716c109fbaa30e1abd835d4b4",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "it-calculus-stochastic-differential-equations": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/ito-calculus/sde-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/it-calculus-stochastic-differential-equations-320.png",
+          "sha256": "eee5a873e9c7d69752c8fb4df3cb8152e74e745c466b7994afc667c5c8eaad4e"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/ito-calculus/sde-library-bridge.py": "f294f4003beeec1068aa2a3f746b895738101f4f76c8e128ae106c911c21e13f",
+        "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx": "9d7dad6095992a068bc73483c0c9b4e9b6aa955d503b7b10ca66eeb00f7f8f2d",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "functional-analysis-rkhs": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/functional-analysis/kernel_ridge_library.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/functional-analysis-rkhs-320.png",
+          "sha256": "a37da1cedf279ba7d989bfa556a2ba8617d045d2723e1b1fe7c8d93b81f8a5f0"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/functional-analysis/kernel_ridge_library.py": "f064ca3e2f0b481311393be1c5c9fb957e7bd04b8c1c349ae4b17fcc1d450d89",
+        "src/learn/data/topics/functional-analysis-rkhs.jsx": "63c997a0cc9186f76072397a353161efd7395d84f457ed67a45eff89e8deb037",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "topology-topological-data-analysis-tda": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/topology-tda/gudhi_rips.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/topology-topological-data-analysis-tda-320.png",
+          "sha256": "6fdaaaa0661303dbf2f621b44cfd767f55e189fa79d15927e4e8cb785903c5bd"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/topology-tda/gudhi_rips.py": "232817770fde234b3114e53f848d7bd85d9809ef111ecfcaa99654cf120619ea",
+        "src/learn/data/topics/topology-topological-data-analysis-tda.jsx": "e9ad236088fa069503894951ab582319f30bcd56233938ecfa33e2183746ba9d",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "numerical-pdes-grids-finite-elements-stability": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/numerical-pdes/finite-element-banded-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/numerical-pdes-grids-finite-elements-stability-320.png",
+          "sha256": "a410b9c9dce54c1059d7eb83d96a57ae1fb416bffe151aada58906e1e7218059"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py": "11688cc94e0ff503ed0055ddcf00a3b1a083b160daf50d3ca47f79afcfca2774",
+        "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "19f006bc9cfd2d5d58e2c9e5c75d3d29d8249c14dbe7696aeac30868b4085661",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "t-sne-umap-manifold-learning": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/manifold-learning/umap-mechanism.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/t-sne-umap-manifold-learning-320.png",
+          "sha256": "6af4cf378ac9f40f144916566902974c1c869ec7b1cf565dd6ab1c4a2a0489a0"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/manifold-learning/umap-mechanism.py": "e110b22641eb8872a0e7c5b25175d8b215843c868f50889bfe6659ddf2c9e2ad",
+        "src/learn/data/topics/t-sne-umap-manifold-learning.jsx": "7eb0c2dcef57eea5eb21659f36cf8a9028747e3bac0901fa892746db26409163",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "conditional-random-fields-crf": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/crf/crfsuite-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/conditional-random-fields-crf-320.png",
+          "sha256": "c0ab85edb74dcb2d2c6d4d84950af35beec2b59d1603f3ded4fd22729d64d212"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/crf/crfsuite-bridge.py": "a50f5f2059ad1884678faebc839a749c400884434dc4cc1562db02b632a056a4",
+        "src/learn/data/topics/conditional-random-fields-crf.jsx": "1fa159f68bd3f2ccadd782124e7212cd8601f7792247ac80290ec79f579a3ab9",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "active-learning": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/active-learning/query-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/active-learning-320.png",
+          "sha256": "65300ef74a63f45f33ee65fc663a6d89541bda51f2d7bd6fe8850aef37b8892a"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/active-learning/query-library-bridge.py": "25623ae120cf18f2ca02096e4779848b66cb5d0fd8e30bdb485fe6b6e060a716",
+        "src/learn/data/topics/active-learning.jsx": "b1948a929b1849d06d3247fb6708a1eaf0dab7502c7602d313718e8be766138d",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "linear-logistic-regression": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/linear-logistic-regression-320.png",
+          "sha256": "bba9b326d471c211439ad168ac295907efd14211926f6eb428e9a44a978dc6ac"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "src/learn/data/topics/linear-logistic-regression.jsx": "59d6edc419c418d4f60b36212b0866c8fcbe259801d69bfe43f1b86464476112",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "gaussian-processes-gp": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/gaussian-processes-gp-320.png",
+          "sha256": "857332801a0c96e60350522412c6b3434a384b29af9eb90413d392ffb3b933f7"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "src/learn/data/topics/gaussian-processes-gp.jsx": "3d706687fecee8f1357fe926b0d342ee126c31546d2d39ec5e14b0aaf702ece7",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "perceptrons-neurons-activation-functions": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/perceptrons/activation-mechanisms.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/perceptrons-neurons-activation-functions-320.png",
+          "sha256": "cd32dfec465d6fb6a7f397f7febd049fe304a957d8d52f424aac2b3e6ebd46c0"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/perceptrons/activation-mechanisms.py": "4a02fd8b1d880073544de07b39fca1037ae5be011b627977a6148db05add7503",
+        "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "9067f78f977aca06115b2e78d2356445c4074f15202805c8548ad8a4a2bec079",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "backpropagation-automatic-differentiation": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/backpropagation/engine-library-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px 0: ArrowRight moved the focused code region",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/backpropagation-automatic-differentiation-320.png",
+          "sha256": "6dc5ad6ed91084ab0ed0754f0442c36f1d627a135591f0e451d3eb11247349e7"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/backpropagation/engine-library-bridge.py": "e97186c84d18f00764dfdcd9eadca54a3c4002cbddde3c89caa229f3fcef88a8",
+        "src/learn/data/topics/backprop.jsx": "e3bea186bcef1126c50fd6275545a2cf685fd9c0dc3960aab6bdcb8311e7097c",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    },
+    "transfer-learning-fine-tuning-strategies": {
+      "status": "passed",
+      "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+      "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+      "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+      "checks": [
+        "/learn-assets/transfer-learning/lora-mechanism-bridge.py: lazy request, keyboard open/close, canonical display/download",
+        "1366px: page containment, math/runtime render, all new program scroll regions and links",
+        "390px 0: ArrowRight moved the focused code region",
+        "390px: page containment, math/runtime render, all new program scroll regions and links",
+        "320px 0: ArrowRight moved the focused code region",
+        "320px: page containment, math/runtime render, all new program scroll regions and links"
+      ],
+      "captures": [
+        {
+          "file": "docs/teaching/evidence/screenshots/depth-remediation/transfer-learning-fine-tuning-strategies-320.png",
+          "sha256": "2ce3371b5fa28410125cf33a46546f91df6fffa9e5d701a0c24af14d65ebbb07"
+        }
+      ],
+      "errors": [],
+      "sourceHashes": {
+        "public/learn-assets/transfer-learning/lora-mechanism-bridge.py": "3cea9775c20696ab1be05e8a601c2212b761b1748ebc1b79f56af56b7ca598bd",
+        "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "bc493e546514cd5b8fa4b60468e03f73b277e0db60774c56170d435f98dbdb73",
+        "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+        "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+      }
+    }
+  },
+  "status": "passed",
+  "checkedAt": "2026-09-21T19:59:47.584Z",
+  "manifestHash": "0f269e73b8944f8fd035315ca32163f3ab42641b884f768c4a5e99fd4ada2635",
+  "verifierHash": "d3fc21b1d697b7a3280417e79a7c8a039f55e9d9fab9a308851907cd6f2a864d",
+  "expectationsHash": "61328c878313024b9580e266067017a240db5653a42fc2f4b9d320d44aa4d2a1",
+  "missingTopics": []
+}

@@ -13,7 +13,7 @@ function Lab({
   children
 }) {
   const id = useId();
-  return <section className="svm-lab" data-svm-lab={name} aria-labelledby={id}><h3 id={id}>{title}</h3>{children}</section>;
+  return <section className="svm-lab" data-svm-lab={name} aria-labelledby={id} data-live-exploration><h3 id={id}>{title}</h3>{children}</section>;
 }
 function Range({
   label,

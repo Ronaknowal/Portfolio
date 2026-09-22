@@ -436,7 +436,7 @@ The data were sampled without replacement from a fixed source corpus. That finit
 
 The program also estimates the **unit-ball** empirical score complexity on the fixed fit vectors: .0720833 with 2,048 sign draws. Its conservative one-sided Monte Carlo endpoint is .105220, while the analytic feature-energy upper bound is .0799496. The analytic result is better here. This comparison concerns the same fixed geometry; neither number is the model's assessment error.
 
-**Visual investigation:** align each budget's training-margin distribution with its three bound components and the measured validation counts. Let learners predict what changing ρ will do before revealing the ramp contributions. Display the raw sum above 1 and the trivial ceiling 1, rather than clipping away the reason the bound is uninformative. Keep assessment initially hidden while the learner commits a selection under the supplied validation rule.
+**Visual investigation:** align each budget's training-margin distribution with its three bound components and the measured validation counts. Changing ρ updates the ramp contributions and bound terms immediately. Display the raw sum above 1 and the trivial ceiling 1, rather than clipping away the reason the bound is uninformative. Apply the declared validation selection live. A separate action opens the frozen assessment report without asking for an answer; exposure remains recorded across reset.
 
 ## 9. Optional deeper routes
 

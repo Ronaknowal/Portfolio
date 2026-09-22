@@ -64,7 +64,7 @@ Binning creates two competing problems: wide bins hide variation, while small bi
 
 For our two-bin sample, replacing .2 and .8 with the observed fractions .4 and .6 gives zero **in-sample** ECE. Brier loss falls from .28 to .24; ROC AUC remains .6 because the ordering is unchanged. This is a useful calculation, but fitting and judging the repair on the same ten outcomes would not establish generalization.
 
-**Investigation: make an aggregate error disappear.** Edit the individual forecast/outcome cards, choose boundaries, and record where the dots will move and whether ECE will rise or fall. Reveal only after committing the prediction. First merge the two bins without changing any observations. Then change one forecast or outcome instead. Finally reorder the cards: the result should stay the same. The evidence behind every plotted dot remains visible as a count and a list of its contributing observations.
+**Investigation: make an aggregate error disappear.** Edit the individual forecast/outcome cards and boundaries to see the dots, counts and ECE update together. First merge the two bins without changing any observations. Then change one forecast or outcome instead. Finally reorder the cards: the result should stay the same. The evidence behind every plotted dot remains visible as a count and a list of its contributing observations.
 
 The complete `reliability` function in [calibration_calculations.py](calibration_calculations.py) handles empty bins and includes p=1 in the final bin. Excluding forecasts exactly equal to 1 silently loses observations, often the most consequential ones.
 

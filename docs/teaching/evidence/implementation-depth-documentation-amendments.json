@@ -1,0 +1,145 @@
+{
+  "status": "reviewed",
+  "reviewer": "root integration owner",
+  "scope": "Completion/status documentation only; no algorithm, native result or runtime source altered",
+  "files": [
+    {
+      "file": "AGENTS.md",
+      "before": null,
+      "after": "099027b6dca791e23a2191deb762c47165b5842388f7eda38ce30fede2fc8939",
+      "reason": "Current completion documentation; original byte hash not retained"
+    },
+    {
+      "file": "LESSON-AUTHORING-HANDOFF.md",
+      "before": null,
+      "after": "0af9a0d38bc42b490f22a00cdbf8bdf84bfccf8d57852907c5878a2387ed9417",
+      "reason": "Current completion documentation; original byte hash not retained"
+    },
+    {
+      "file": "docs/teaching/IMPLEMENTATION-DEPTH-REVIEW.md",
+      "before": null,
+      "after": "a0fea56ebc23be0c96bd13e746f8702d4a7df6af5e7fd3f1094d66b039c8fcd7",
+      "reason": "Current completion documentation; original byte hash not retained"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/FOUNDATIONS.md",
+      "before": "a16b79e41535c01b2ca18be9346d3573d8b10de202c9c66133560ffd4ce91675",
+      "after": "5fab64d44c31064aca63376eee92099a5bab708fbb1e6e4ec150fc5910fc0bd8",
+      "reason": "Supersede dated triage with reviewed completion"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/CLASSICAL-ML.md",
+      "before": "0dee944a8ad97316d527ecec93cbacd123c4ed8662d1821088bf88562640972d",
+      "after": "fef411b44910d1ca4f4722e6d1d654e3a51f8c734344c95816b627863be4e634",
+      "reason": "Supersede dated triage with reviewed completion"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/DSA-REMEDIATION.md",
+      "before": "e9d931335d5af63a0a6dd68afa3afb217aaefec23e565e398f8166bc9f2f89da",
+      "after": "eeb72d15cdf2c3f08209190f755273658ea5bb0af0d661d928583630c4f758ce",
+      "reason": "Close author integration handoff; native evidence preserved"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/MATH-LIBRARY-REMEDIATION.md",
+      "before": "ea591ddf3d08b0165f47a02549e46ea20c6cbe56d5bf86829030960357fe574c",
+      "after": "de0c77cfa7177853b4698c7d79183926085fd7d609a0edc12565b64d64208f90",
+      "reason": "Close author integration handoff; native evidence preserved"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/MATH-DEPTH-REMEDIATION.md",
+      "before": "639706c6cf9b96148c07a6600dd40a313b723889816019b19b1fa2d09a5d5ff0",
+      "after": "74a3063db4ab2e69b32294601a02281c23a6891bc4037b9010c905e892f0926a",
+      "reason": "Close author integration handoff; native evidence preserved"
+    },
+    {
+      "file": "docs/teaching/implementation-depth/CLASSICAL-REMEDIATION.md",
+      "before": "0c17e1f8cc0016e25b2eb1b14c7a18ab2654fa8896fc0e288e1eeffd8580b73e",
+      "after": "7157b210ac4c94737058333e660c167fd35573fe96cb0e6d7b17b15eb8d17a4a",
+      "reason": "Close author integration handoff; native evidence preserved"
+    },
+    {
+      "file": "docs/teaching/topic-notes/randomized-linear-algebra.md",
+      "before": "5340b5dcd63419773879e736f7403d2a7d3d90bbf51eff6e39e4dd1a43650ef3",
+      "after": "3ec97845ba54204e0a3e09f67435a40a3246a093aa40ef23b7bd861d34e55dce",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars.md",
+      "before": "6c8e4eca1c62f7a8c0bf66d0b9a50211fd7f1ffcfcec4e71d12012854538c94d",
+      "after": "feb8fde66ae31b14f320d4f7e69c04813a3eb3958398fb76353c77e2a237e55d",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/monte-carlo-methods-mcmc-metropolis-hastings-hmc-nuts.md",
+      "before": "eb6ad9a04d2abc23fa9ecc455783c89029368bba208cb05be6e51d7ca872d23d",
+      "after": "acc2fa3a0ac09f1646ff1257e59b180ac567e8aa54aabc7cfc51b2404e2ea153",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/variational-inference.md",
+      "before": "5d4e45819f09784d80586e8eade97f023accda55362be177c4d0a6491cf31953",
+      "after": "c97c37b8c15d7d35445d1df3f2b0a747554b7c64d9562330259971cfae7a3ec1",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/spectral-graph-theory.md",
+      "before": "5eb1fd47c3770a5a4435121894b0fdd01e8ef2efe06974b785ad9ee2217da792",
+      "after": "31906fefa22a6f101110c8ebfc99dbf2753af2b55443f9fdbf2d0505d14d5667",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/functional-analysis-rkhs.md",
+      "before": "99a33f3e4adcefa5883d514bb127a117a6a39fac07246b9c9a41a642cd2bad69",
+      "after": "4dbe983b390c872b1e956d7f1170ad270fd23dca70cb27d3e0d738e86df73300",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/topology-topological-data-analysis-tda.md",
+      "before": "3950f3580753d1e353a374ae7f17d5a7a198adea397e7af56aab707a00d9d8c1",
+      "after": "b62cad4bedb5e97db359283846e1d678bea6fc66201e4b7900b55af05bea4c7f",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/graphs-representations-bfs-dfs.md",
+      "before": "02b4d1a9409160f7e3ba22c961e6dd627ff5202a0487903fb367c6bbbaf725ef",
+      "after": "674d5b31feb69bf4a8d71b3ae66f6447830d056a1aa9dfa53293636b43a4b7cd",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/shortest-paths-spanning-trees-topological-ordering.md",
+      "before": "3a36b0d4f3b2d817dff5d91d128ba89c501efa900213242d56d27bf06c6fae35",
+      "after": "5deea14c062a846741d1d4561206f0fb0ac9c423b279738a8c99f1741da0eb38",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/network-flow-minimum-cuts-bipartite-matching.md",
+      "before": "60c5c8d26f5a1ef274e4310326d6f8b0446c905625b7cca093aca87ea1f3264a",
+      "after": "f045a41e65714e3c84d8d4e5e8664c307870912a7c2fe61be8781282485a5340",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/computational-geometry-robust-predicates-convex-hulls.md",
+      "before": "7302106172ad0d8ae807ce7d0cedec2df3b86c7c13fece2138f491f99b85404a",
+      "after": "464e2b4cb6cb28544035df87e9b7b4fff79ee9d91d154eafd86d189545397f4d",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/t-sne-umap-manifold-learning.md",
+      "before": "65a40293482bb5832801808841b036ca6bd90674825e4d56c726b638589fd16d",
+      "after": "739fb412405f00cad8505eae98e5384f74c7d367256f13c1647bddef3f37978f",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/conditional-random-fields-crf.md",
+      "before": "ca4452f0dd0e19450d65a4c8bc5c2a0981c5f6ae7c0cf7dcd386ab72945f4e60",
+      "after": "035f31eaa94dec9b86abc28f12da0e31f38def9d9e72c27d9c5f559ccd71a551",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    },
+    {
+      "file": "docs/teaching/topic-notes/active-learning.md",
+      "before": "0b191caf85313ed1042a6c65744f27302ca209aa9b224b774bcf25ccc148e0b2",
+      "after": "ee29aeccaed02d4d9fa9020df5a29327dd3a2447119b422bebd52de124e73853",
+      "reason": "Resolve scoped implementation-depth note; preserve earlier proposals and unrelated notes"
+    }
+  ]
+}

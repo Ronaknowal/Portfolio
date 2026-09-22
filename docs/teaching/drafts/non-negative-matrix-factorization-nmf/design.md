@@ -1,5 +1,14 @@
 # NMF content design and continuation
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit activation amounts and pattern cells and follow every multiplicative term and reconstructed feature live, with an explicitly saved comparison reference. Edit X and initial H to restart a bounded update trace, then step H and W phases separately and step back. Select a reserved image, toggle fitted contributions and inspect image error and pixel changes immediately against the all-components reference.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Stable ID `non-negative-matrix-factorization-nmf`; Classical ML position19, authorized batch position1. Author `/root/classical_feature_content`, 12 September 2026. **Research/write only.** The central phase ledger owns current status; this packet supplies the written checkpoint and continuation instructions. No production code, publication, browser or formal independent review is completed here.
 
 ## Scope, learner and conservation

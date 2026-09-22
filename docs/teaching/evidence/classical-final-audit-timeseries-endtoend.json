@@ -1,0 +1,532 @@
+{
+  "date": "2026-09-21",
+  "reviewer": "Independent final-audit agent",
+  "topics": {
+    "timeseries": {
+      "id": "time-series-validation-forecasting-baselines",
+      "status": "complete"
+    },
+    "endtoend": {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "status": "complete"
+    }
+  },
+  "baselineHashes": {
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-provenance.md": "f8650c5640f9e24472364b354021da22c574746d37edcb3aa4e979757ee1496f",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-source.json": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/design.md": "56fc95fe343fe4e63eab5139289d7ba198b62867267ac25fd8ed0b779c0de5fa",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/author-calculations.py": "58672e87049de672355affff3f1f3568af060ddb9964727120facc0f2bdb446d",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/calculated-inputs.json": "24fb758fe088b6afd4baec315429bf9554cc3936e6bff474bf4d188e2ed90688",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/data-provenance.md": "4b35d16df631bb69edc021f2f2b638b02397ee2b524c6f8ad167e6b5e40352e7",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/design.md": "dfd5793199ef5f2dd6639c96f0ddb750bbb9ca1788ff98336971094061258747",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md": "0b25eaad5fe45232c97f756222805e9222bb91659aeec08835c7a88e5e5338e0",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/visual-specifications.md": "7cd2388454c9060062886b8c0f8818684190266ccefbe5cd503454718fc2c3a3",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "src/learn/components/lesson-labs/endtoend-labs.css": "d9eb9abd61c9fd59433d6a9ac6f01a52952d599693fa30d4b5f201bbb523a8f3",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "d64cdda9661a3d8336520ac146520cecfdcb7bac9306c842b82335b9bd1a7063",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "95e87750838ebcfcb3ecebf189e91db961702fdaac5140afc2b34182f3f20aac",
+    "src/learn/components/lesson-labs/timeseries-labs.css": "c54a6fe11d21324dcb0efab9d4cefcb76bba403532696d656f723e540301deba",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "d210325b42524007a19c8524318512f4e33b6f7bfbb2ae8ee2317f9374279c4f",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "30afccba71a94bb0e51603dd1547d6d9781476fc68b94c9b41e6a206600c0271",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "b94116e2cd1b099d93a942cfd8c778cf67295797c759366f1bc12b8e74ce3da6",
+    "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "8cafe786f2fee809b1fd4fad84e14bf051fff3d6383ace91aaa0c631e4eab675",
+    "src/learn/data/endtoend-data.js": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+    "src/learn/data/endtoend-examples.js": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "src/learn/data/endtoend-models.js": "fbf1d7bf371380dc2630d84f226d1a7f23f539cd5c596bd82978be10d95863ad",
+    "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "016b5710687c6844b382dbe7230fbc0ad47b5ff8f853b5df645ef7616d48bea5",
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "882b361f075140d99d787e6911e53fa98297d05fc8125fc2764bddadd7e0fc37",
+    "public/learn-assets/time-series-validation/ATTRIBUTION.txt": "2b9db071a8cd0a84e2c457d500a31aa2243a2b4aba319f0f2e0d710bd6f0df03",
+    "public/learn-assets/time-series-validation/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "public/learn-assets/time-series-validation/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "public/learn-assets/end-to-end/ATTRIBUTION.txt": "03704a5fab646d98eac72b95e44b39103367565d3b7a9495104a2733f574941e",
+    "public/learn-assets/end-to-end/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "public/learn-assets/end-to-end/wine_study.py": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc"
+  },
+  "currentHashes": {
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-provenance.md": "f8650c5640f9e24472364b354021da22c574746d37edcb3aa4e979757ee1496f",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-source.json": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/design.md": "56fc95fe343fe4e63eab5139289d7ba198b62867267ac25fd8ed0b779c0de5fa",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/source-description.txt": "b92c8628622948bf0828c43a1b315d1517c3d7fd63654730d0dea379b8e88175",
+    "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/author-calculations.py": "58672e87049de672355affff3f1f3568af060ddb9964727120facc0f2bdb446d",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/calculated-inputs.json": "24fb758fe088b6afd4baec315429bf9554cc3936e6bff474bf4d188e2ed90688",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/data-provenance.md": "4b35d16df631bb69edc021f2f2b638b02397ee2b524c6f8ad167e6b5e40352e7",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/design.md": "dfd5793199ef5f2dd6639c96f0ddb750bbb9ca1788ff98336971094061258747",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md": "0b25eaad5fe45232c97f756222805e9222bb91659aeec08835c7a88e5e5338e0",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/visual-specifications.md": "7cd2388454c9060062886b8c0f8818684190266ccefbe5cd503454718fc2c3a3",
+    "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "src/learn/components/lesson-labs/endtoend-labs.css": "b421dc0a035c0dfbd8ae6bc20a8a35e420d6a1cf8a4039da51d181aca16e1242",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "2bc3c3389eae63997769379cd9cdd7cb6007fcc2ff9a777b12f3611077c0188c",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "b9a590129c4ba46b2c878fef9bb080eb5b749ded15678696f618043b14cd086f",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "95e87750838ebcfcb3ecebf189e91db961702fdaac5140afc2b34182f3f20aac",
+    "src/learn/components/lesson-labs/timeseries-labs.css": "c54a6fe11d21324dcb0efab9d4cefcb76bba403532696d656f723e540301deba",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "5dd72400f07b12b078bda3ef254b764208dad85b7da425d81c9c556f7f21058e",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "29012d6be65cef405b0f77054e9f4e06843380855d303c258116ab106830e5ba",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "b94116e2cd1b099d93a942cfd8c778cf67295797c759366f1bc12b8e74ce3da6",
+    "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "8cafe786f2fee809b1fd4fad84e14bf051fff3d6383ace91aaa0c631e4eab675",
+    "src/learn/data/endtoend-data.js": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+    "src/learn/data/endtoend-examples.js": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "src/learn/data/endtoend-models.js": "d35048d9057747786c5bef5960055ff05643c11c9f9449e1989fc954a12d15c4",
+    "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "b581068c09db7cee090646b6acc8e6babc49164ca4983ea5d455b21f45e3e4cc",
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "b371b3569679548e6c51910c4fd24a03b0156e0785588ee042e0dd06ce374840",
+    "public/learn-assets/time-series-validation/ATTRIBUTION.txt": "2b9db071a8cd0a84e2c457d500a31aa2243a2b4aba319f0f2e0d710bd6f0df03",
+    "public/learn-assets/time-series-validation/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "public/learn-assets/time-series-validation/forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "public/learn-assets/end-to-end/ATTRIBUTION.txt": "03704a5fab646d98eac72b95e44b39103367565d3b7a9495104a2733f574941e",
+    "public/learn-assets/end-to-end/wine.csv": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+    "public/learn-assets/end-to-end/wine_study.py": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc"
+  },
+  "changedFiles": [
+    "src/learn/components/lesson-labs/endtoend-labs.css",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx",
+    "src/learn/data/endtoend-models.js",
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx",
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx"
+  ],
+  "timeseries": {
+    "browserReceipt": "docs/teaching/evidence/classical-final-timeseries-browser.json",
+    "browserReceiptSha256": "1db234e04bc03d4814c0d8e2e3bc8191f70217986dbee03d3ae915844627a807",
+    "reusedEvidence": [
+      {
+        "path": "docs/teaching/evidence/timeseries-models.json",
+        "sha256": "7002bacf14c0da739992e959482649beacb5484b437c17f07633d657bf406435",
+        "passed": true,
+        "sources": {
+          "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+          "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+          "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+          "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+          "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "d210325b42524007a19c8524318512f4e33b6f7bfbb2ae8ee2317f9374279c4f",
+          "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "30afccba71a94bb0e51603dd1547d6d9781476fc68b94c9b41e6a206600c0271",
+          "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "882b361f075140d99d787e6911e53fa98297d05fc8125fc2764bddadd7e0fc37",
+          "public/learn-assets/time-series-validation/bike-sharing-daily.csv": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+          "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+          "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6"
+        }
+      },
+      {
+        "path": "docs/teaching/evidence/timeseries-data.json",
+        "sha256": "97ccdc3c1c64900e8f501c1c2dd1124bf042a9ac37fc7f0fbb4c05df496df144",
+        "passed": true,
+        "sources": {
+          "path": "src/learn/data/timeseries-data.js",
+          "sha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+          "regeneration": "byte-identical"
+        },
+        "frozenSources": {
+          "calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+          "data-source.json": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+          "forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+          "lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+          "visual-specifications.md": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008"
+        },
+        "servedDataset": {
+          "path": "/learn-assets/time-series-validation/bike-sharing-daily.csv",
+          "sha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+          "bytes": 57569,
+          "rows": 731,
+          "byteIdenticalToPacketMember": true
+        }
+      },
+      {
+        "path": "docs/teaching/evidence/timeseries-native.json",
+        "sha256": "3e12922c6817e3e306adc81e2f0ef217ff59bc47ce9855a3084ad2f37f7d1a75",
+        "passed": true,
+        "sources": {
+          "path": "src/learn/data/timeseries-examples.js",
+          "sha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+          "regeneration": "byte-identical"
+        },
+        "frozenSources": {
+          "forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+          "lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+          "calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844"
+        },
+        "servedDataset": {
+          "path": "/learn-assets/time-series-validation/bike-sharing-daily.csv",
+          "sha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "node scripts/build-curriculum-inventory.mjs --topic time-series-validation-forecasting-baselines --work finish",
+        "result": "Published, content complete, implementation complete"
+      },
+      {
+        "command": "PLAYWRIGHT_PACKAGE=<installed Playwright> node scripts/verify-timeseries-final-audit.cjs",
+        "result": "PASS11 complementary groups;27 screenshots; later8 tall captures cleaned with screenshot-only nav hiding"
+      },
+      {
+        "command": "node scripts/verify-timeseries-render.cjs --no-evidence",
+        "result": "PASS35 checks"
+      },
+      {
+        "command": "scratch/lesson-tools/Scripts/python.exe scripts/verify-timeseries-sources.py --no-evidence",
+        "result": "PASS113 checks;12 parsed files"
+      }
+    ],
+    "research": [
+      {
+        "url": "https://otexts.com/fpp3/tscv.html",
+        "reviewed": "Full primary section including4-step diagram and1-to8-step executable example; corrected live annotation"
+      }
+    ],
+    "reuseReconciliation": [
+      {
+        "path": "docs/teaching/evidence/timeseries-native.json",
+        "sha256": "3e12922c6817e3e306adc81e2f0ef217ff59bc47ce9855a3084ad2f37f7d1a75",
+        "scope": "Unchanged program/data/manuscript calculation evidence only",
+        "pins": [
+          {
+            "path": "src/learn/data/timeseries-examples.js",
+            "expectedSha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+            "currentSha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/time-series-validation/bike-sharing-daily.csv",
+            "expectedSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "currentSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py",
+            "expectedSha256": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+            "currentSha256": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md",
+            "expectedSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "currentSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json",
+            "expectedSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "currentSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "matches": true
+          }
+        ]
+      },
+      {
+        "path": "docs/teaching/evidence/timeseries-data.json",
+        "sha256": "97ccdc3c1c64900e8f501c1c2dd1124bf042a9ac37fc7f0fbb4c05df496df144",
+        "scope": "Unchanged program/data/manuscript calculation evidence only",
+        "pins": [
+          {
+            "path": "src/learn/data/timeseries-data.js",
+            "expectedSha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+            "currentSha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/time-series-validation/bike-sharing-daily.csv",
+            "expectedSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "currentSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json",
+            "expectedSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "currentSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/data-source.json",
+            "expectedSha256": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+            "currentSha256": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/forecast-experiments.py",
+            "expectedSha256": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+            "currentSha256": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md",
+            "expectedSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "currentSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/visual-specifications.md",
+            "expectedSha256": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008",
+            "currentSha256": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008",
+            "matches": true
+          }
+        ]
+      },
+      {
+        "path": "docs/teaching/evidence/timeseries-models.json",
+        "sha256": "7002bacf14c0da739992e959482649beacb5484b437c17f07633d657bf406435",
+        "scope": "Unchanged arithmetic model/data/example/shared and frozen sources; changed lesson/Labs/Figures are covered by this follow-up, not this old receipt",
+        "pins": [
+          {
+            "path": "src/learn/data/timeseries-models.js",
+            "expectedSha256": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+            "currentSha256": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+            "matches": true
+          },
+          {
+            "path": "src/learn/data/timeseries-data.js",
+            "expectedSha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+            "currentSha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+            "matches": true
+          },
+          {
+            "path": "src/learn/data/timeseries-examples.js",
+            "expectedSha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+            "currentSha256": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+            "matches": true
+          },
+          {
+            "path": "src/learn/components/lesson-labs/TimeSeriesShared.jsx",
+            "expectedSha256": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+            "currentSha256": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/time-series-validation/bike-sharing-daily.csv",
+            "expectedSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "currentSha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/calculated-inputs.json",
+            "expectedSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "currentSha256": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+            "matches": true
+          },
+          {
+            "path": "docs/teaching/drafts/time-series-validation-forecasting-baselines/lesson.md",
+            "expectedSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "currentSha256": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+            "matches": true
+          }
+        ],
+        "changedPaths": [
+          "src/learn/components/lesson-labs/TimeSeriesFigures.jsx",
+          "src/learn/components/lesson-labs/TimeSeriesLabs.jsx",
+          "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx"
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "severity": "P1",
+        "finding": "Source future outcomes copied into editor before issue/reveal",
+        "fix": "Independent zero replacement; direct3294 counterfactual preset"
+      },
+      {
+        "severity": "P2",
+        "finding": "Uniform add5 silently saturated at100",
+        "fix": "Uniform arithmetic and boundary refusal above95"
+      },
+      {
+        "severity": "P2",
+        "finding": "Request reset left saved-ridge evidence open",
+        "fix": "Reset closes optional ridge panel"
+      },
+      {
+        "severity": "P3",
+        "finding": "Caption direction and FPP3 reference description inaccurate",
+        "fix": "Top chain and one/multi-step example annotation"
+      }
+    ],
+    "screenshotCount": 27
+  },
+  "limits": [
+    "No build or source-mutating falsification harness run by this reviewer; root owns final integration",
+    "Browser dev-server review; no observed learner study",
+    "E2E source checker skipped because it invokes harness recovery/heartbeat/liveness probes; read-only parse/control-byte check and actual browser used instead.",
+    "No claim of new native refits: matching older native/data receipts reused exactly at their documented scopes.",
+    "Time-Series was closed before substantive E2E audit; screenshots later re-saved only to remove fixed-navigation capture artifacts."
+  ],
+  "finalizedAt": "2026-09-21T13:09:46.850Z",
+  "preparedPacketsUnchanged": true,
+  "endtoend": {
+    "commands": [
+      {
+        "command": "node scripts/build-curriculum-inventory.mjs --topic end-to-end-supervised-learning-error-analysis --work finish",
+        "result": "Published, content complete, implementation complete"
+      },
+      {
+        "command": "node scripts/verify-endtoend-models.mjs --no-evidence",
+        "result": "PASS284 grouped checks in53 groups after final geometry fix;44832 slice comparisons,55692 acceptance ledgers,48 selection settings,16 pairings"
+      },
+      {
+        "command": "PLAYWRIGHT_PACKAGE=<installed Playwright> node scripts/verify-endtoend-final-audit.cjs",
+        "result": "PASS11 complementary groups;31 screenshots"
+      },
+      {
+        "command": "node + esbuild.transform (read-only syntax parsing) and raw-control scan",
+        "result": "PASS10 topic source/verifier files; no build/source mutation"
+      }
+    ],
+    "reuseReconciliation": [
+      {
+        "path": "docs/teaching/evidence/endtoend-native.json",
+        "sha256": "5b99a1555f99b0e7cf31dd399ea34d9da965bfe66c02acbd2991bc7cd406eb07",
+        "scope": "Unchanged full program/native stdout and isolated dependency execution",
+        "pins": [
+          {
+            "path": "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md",
+            "expectedSha256": "0b25eaad5fe45232c97f756222805e9222bb91659aeec08835c7a88e5e5338e0",
+            "currentSha256": "0b25eaad5fe45232c97f756222805e9222bb91659aeec08835c7a88e5e5338e0",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/end-to-end/wine_study.py",
+            "expectedSha256": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc",
+            "currentSha256": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/end-to-end/wine.csv",
+            "expectedSha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+            "currentSha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+            "matches": true
+          },
+          {
+            "path": "src/learn/data/endtoend-examples.js",
+            "expectedSha256": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+            "currentSha256": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+            "matches": true
+          }
+        ]
+      },
+      {
+        "path": "docs/teaching/evidence/endtoend-data.json",
+        "sha256": "8e0a9424948467a4e02b06aee2a92e5f16382cac6e9ec8d33f62136ad5bab4ad",
+        "scope": "Unchanged data trust root, generated module and frozen packet calculations",
+        "pins": [
+          {
+            "path": "docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/calculated-inputs.json",
+            "expectedSha256": "24fb758fe088b6afd4baec315429bf9554cc3936e6bff474bf4d188e2ed90688",
+            "currentSha256": "24fb758fe088b6afd4baec315429bf9554cc3936e6bff474bf4d188e2ed90688",
+            "matches": true
+          },
+          {
+            "path": "public/learn-assets/end-to-end/wine.csv",
+            "expectedSha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+            "currentSha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be",
+            "matches": true
+          },
+          {
+            "path": "src/learn/data/endtoend-data.js",
+            "expectedSha256": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+            "currentSha256": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "olderModelAndBrowserEvidence": "Preserved as historical. Current changed model/geometry is checked by fresh model + complementary browser runs; no claim that the older receipts bind changed sources.",
+    "diagnosticEvidence": [
+      {
+        "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-before-slice.png",
+        "sha256": "e5c2815af788671735b64cff1240e0a30fe5f95c1e49a2ba8d4dd43cb1512013",
+        "scope": "Pre-repair browser confirmation against baseline source hashes"
+      },
+      {
+        "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-before-empty.png",
+        "sha256": "cb0a6222372145b510379602aad00fa0b563668c768fd86f88bf2d0dd7a87d5e",
+        "scope": "Pre-repair browser confirmation against baseline source hashes"
+      }
+    ],
+    "findings": [
+      {
+        "severity": "P1",
+        "finding": "Held-out count revealed in prose before freeze",
+        "fix": "Removed its one error disclosure; verified exact hidden/displayed output gates"
+      },
+      {
+        "severity": "P2",
+        "finding": "Required prediction mismatch marks absent from scatter after comparison",
+        "fix": "Reference/candidate rings and exact IDs after commitment only"
+      },
+      {
+        "severity": "P2",
+        "finding": "Empty slice renders blank counts and null difference",
+        "fix": "No numerical comparison table on empty slices; ungradable explanation remains"
+      },
+      {
+        "severity": "P2",
+        "finding": "Edited equal/nearby confidence scores overpaint case tiles",
+        "fix": "Stable vertical collision rows; score x positions unchanged; rendered overlap checks"
+      },
+      {
+        "severity": "P3",
+        "finding": "Close specimens said impossible to separate at any size",
+        "fix": "Qualify compact plot scale in caption/comment"
+      },
+      {
+        "severity": "P3",
+        "finding": "Fit/generalisation gap footnote reverses subtraction order",
+        "fix": "Validation subtracted from training, agreeing with expression; direct wording/expression assertions only"
+      }
+    ],
+    "postBrowserCopyCorrection": {
+      "at": "2026-09-21T13:07:05.301Z",
+      "path": "src/learn/components/lesson-labs/EndToEndFigures.jsx",
+      "runSourceSha256": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+      "currentSha256": "2bc3c3389eae63997769379cd9cdd7cb6007fcc2ff9a777b12f3611077c0188c",
+      "change": "Training-minus-validation footnote now describes the subtraction in the correct order",
+      "validation": "Direct expression/wording assertions pass; numerical logic and screenshots unchanged; no rerun claimed"
+    },
+    "browserReceipt": "docs/teaching/evidence/classical-final-endtoend-browser.json",
+    "browserReceiptSha256": "f762e7c06c6b4c88f433cd61632f0c64955433658b004a348fa8e5bb081293ac",
+    "screenshotCount": 31
+  },
+  "verifierHashes": {
+    "scripts/verify-timeseries-final-audit.cjs": "1ba134ae1e9b51d11390deea053d780254111baf1339d28e59591c14cfd91269",
+    "scripts/verify-endtoend-final-audit.cjs": "0b17e77a225a9e81d9cf98fba6e65bf21529c8d82ec9ca59e5d3d1360248b765",
+    "scripts/verify-endtoend-models.mjs": "fafeb88964a488fe674ec919e04b404a72e9d1081237e18168e18c8224c8322f",
+    "scripts/verify-timeseries-render.cjs": "6e3c17606b5ab858550e6b92ab347813aa7fe292f7d88d7dceec7f90f16ed223",
+    "scripts/verify-timeseries-sources.py": "a50d8a0a1fc3de259f9c3cb1394acd9e769101900af53c8bf18c804646658057"
+  },
+  "reviewedReferences": {
+    "LESSON-TEACHING-STANDARD.md": "eefb98e88c841e9c769d95141357c2bfc5f89b6b899fb867b324771de4515ece",
+    "docs/engineering/LEARNING-CODE-STANDARD.md": "a41b3891090b8b2f70d5364b8a678d5f7151ae092576c57eaf6f10ee74322cf1",
+    "docs/teaching/DOMAIN-PLAYBOOK.md": "04ec92131221040340db028988426cb3d2739452946b752176f8f2f68b1f6d6a",
+    "docs/teaching/TOPIC-DESIGN-BRIEF.md": "ce8a2b1e5ef8c59fccb9283f575a86759245e96c5e64f9d7fed7c2aa42f76603",
+    "docs/teaching/TIME-SERIES-INDEPENDENT-REVIEW.md": "fc932e495899ac749bb1c5f2ea5e79851c9757655e87b68215d2e833d819dd23",
+    "docs/teaching/END-TO-END-INDEPENDENT-REVIEW.md": "dde307af21a5b095999266d6fbda15111ed6aafbda4c3eed151c52217c9cfaa1"
+  },
+  "auditReport": {
+    "path": "docs/teaching/CLASSICAL-FINAL-TIMESERIES-ENDTOEND-AUDIT.md",
+    "sha256": "053f81f48b05ec964306127e5497c68f06a56fd46736ac59a56e77422ddd87cd"
+  },
+  "retention": {
+    "temporaryFolder": "scratch/classical-final-timeseries-endtoend",
+    "status": "Retained: automatic approval review rejected recursive cleanup",
+    "reason": "Potentially useful untracked baseline/evidence and lack of explicit irreversible-cleanup authorization",
+    "retried": false,
+    "protected": "58 final captures,2 pre-repair captures,2 reusable verifiers,baseline/current hashes,all packets and prior evidence"
+  }
+}

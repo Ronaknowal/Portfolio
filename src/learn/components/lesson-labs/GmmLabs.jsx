@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import {
-  correlationGeometry, emCycle, expectation, limits, maximization, mixtureAt, planeComparison, planeDensity, responsibilityCrossings,
-} from '../../data/gmm-models';
-import { Field, Investigation, NumberField, Plot, Prediction, Reason, Table, curve, fixed, percent, round, signed, useInvestigation } from './GmmShared.jsx';
+import { correlationGeometry, expectation, limits, maximization, mixtureAt, planeComparison, planeDensity, responsibilityCrossings } from '../../data/gmm-models';
+import { Field, Investigation, NumberField, Plot, Table, curve, percent, round, signed, useInvestigation } from './GmmShared.jsx';
 import './gmm-labs.css';
 
 const componentNames = ['A', 'B'];
@@ -28,11 +26,7 @@ export function ResponsibilityLab() {
   const active = state.active;
   const components = build(active);
   const evaluated = mixtureAt(components, active.x);
-  const answerFor = inputs => {
-    const state_ = mixtureAt(build(inputs), inputs.x);
-    return Math.abs(state_.components[0].logWeighted - state_.components[1].logWeighted) <= 1e-10
-      ? 'equal' : state_.responsibilities[0] > state_.responsibilities[1] ? 'A' : 'B';
-  };
+  
   const identical = active.means[0] === active.means[1] && active.variance === 1;
   const crossings = responsibilityCrossings(components);
   const boundaries = crossings.roots.filter(root => root >= limits.location.minimum && root <= limits.location.maximum);
@@ -48,7 +42,7 @@ export function ResponsibilityLab() {
   const load = preset => { state.load(responsibilityPresets[preset]); setSaved([]); };
   return <Investigation
     title="Which component, and how much density?"
-    question="Two components sit at fixed means with mixing weights that must sum to 1. Choose a measurement, record which component you think will take the larger share, then compare that share with the total density at the same place."
+    question="Two components sit at fixed means with mixing weights that must sum to 1. Choose a measurement, watch each component’s share change, and compare the allocation with the total density at the same place."
     note="A responsibility compares the components with one another. A density compares locations under the whole model. Neither is a species probability."
     onReset={() => { state.reset(); setSaved([]); }}>
     <div className="gm-controls">
@@ -83,22 +77,16 @@ export function ResponsibilityLab() {
       {boundaries.map((boundary, index) => <button key={index} type="button" disabled={state.pending}
         onClick={() => state.edit({ x: boundary })}>Use tie {index + 1} as measurement</button>)}
     </div>
-    <Prediction
-      prompt={`At x = ${round(state.draft.x)}, which component takes the greater responsibility?`}
-      options={[['A', 'Component A'], ['B', 'Component B'], ['equal', 'They are equal']]}
-      state={state} answerFor={answerFor}
-      describe={identical
-        ? `The two components are identical here, so their densities cancel in the ratio and the responsibilities are exactly the mixing weights ${round(active.weight)} and ${round(1 - active.weight)} at every measurement.`
-        : `A contributes ${round(evaluated.components[0].weighted)} and B contributes ${round(evaluated.components[1].weighted)}. Dividing by their sum ${round(evaluated.density)} gives ${round(evaluated.responsibilities[0])} and ${round(evaluated.responsibilities[1])}.`} />
+    <p className="lesson-live-note">{identical ? `The two components are identical here, so their densities cancel in the ratio and the responsibilities are exactly the mixing weights ${round(active.weight)} and ${round(1 - active.weight)} at every measurement.` : `A contributes ${round(evaluated.components[0].weighted)} and B contributes ${round(evaluated.components[1].weighted)}. Dividing by their sum ${round(evaluated.density)} gives ${round(evaluated.responsibilities[0])} and ${round(evaluated.responsibilities[1])}.`}</p>
 
     <Plot caption="The weighted component curves, their sum, and the measurement"
       height={190} domain={span} range={[0, peak * 1.15]}
-      describe={`Component A is centred at ${round(active.means[0])} with variance ${round(active.variance)} and weight ${round(active.weight)}; component B at ${round(active.means[1])} with variance 1 and weight ${round(1 - active.weight)}. The solid curve is their sum.${state.result ? ` At x = ${round(active.x)} the mixture density is ${round(evaluated.density)} and the responsibilities are ${round(evaluated.responsibilities[0])} and ${round(evaluated.responsibilities[1])}.` : ' Record a prediction or calculate to reveal the selected measurement’s exact allocation.'}`}>
+      describe={`Component A is centred at ${round(active.means[0])} with variance ${round(active.variance)} and weight ${round(active.weight)}; component B at ${round(active.means[1])} with variance 1 and weight ${round(1 - active.weight)}. The solid curve is their sum.${` At x = ${round(active.x)} the mixture density is ${round(evaluated.density)} and the responsibilities are ${round(evaluated.responsibilities[0])} and ${round(evaluated.responsibilities[1])}.`}`}>
       {(scaleX, scaleY) => <>
         <polyline className="gm-curve is-left" points={curve(scaleX, scaleY, span, value => components[0].weight * Math.exp(-0.5 * ((value - components[0].mean) ** 2 / components[0].variance + Math.log(2 * Math.PI * components[0].variance))))} />
         <polyline className="gm-curve is-right" points={curve(scaleX, scaleY, span, value => components[1].weight * Math.exp(-0.5 * ((value - components[1].mean) ** 2 / components[1].variance + Math.log(2 * Math.PI * components[1].variance))))} />
         <polyline className="gm-curve is-mixture" points={curve(scaleX, scaleY, span, value => mixtureAt(components, value).density)} />
-        {state.result && <>
+        {<>
           <line className="gm-stem is-left" x1={scaleX(active.x) - 3} x2={scaleX(active.x) - 3} y1={scaleY(0)} y2={scaleY(evaluated.components[0].weighted)} />
           <line className="gm-stem is-right" x1={scaleX(active.x) + 3} x2={scaleX(active.x) + 3} y1={scaleY(0)} y2={scaleY(evaluated.components[1].weighted)} />
         </>}
@@ -111,25 +99,22 @@ export function ResponsibilityLab() {
       </>}
     </Plot>
 
-    {state.result && <>
+    {<>
       <div className="gm-bars" role="img" aria-label={`Normalized allocation at x equals ${round(active.x)}: component A ${round(evaluated.responsibilities[0])}, component B ${round(evaluated.responsibilities[1])}.`}>
         <div className="gm-bar-row">
           <span>allocation</span>
           <span className="gm-bar-track">
-            <span className="gm-bar-left" style={{ width: `${100 * evaluated.responsibilities[0]}%` }} />
-            <span className="gm-bar-right" style={{ width: `${100 * evaluated.responsibilities[1]}%` }} />
+            <span className="gm-bar-left" style={{
+          width: `${100 * evaluated.responsibilities[0]}%`
+        }} />
+            <span className="gm-bar-right" style={{
+          width: `${100 * evaluated.responsibilities[1]}%`
+        }} />
           </span>
           <span className="gm-bar-value">A {percent(evaluated.responsibilities[0], 2)} · B {percent(evaluated.responsibilities[1], 2)}</span>
         </div>
       </div>
-      <Table caption="The two weighted densities, their sum, and what the sum is used for"
-        headings={['quantity', 'component A', 'component B', 'together']}
-        rows={[
-          ['weight', round(components[0].weight), round(components[1].weight), '1'],
-          ['density at x', round(evaluated.components[0].density), round(evaluated.components[1].density), '—'],
-          ['weighted density', round(evaluated.components[0].weighted), round(evaluated.components[1].weighted), round(evaluated.density)],
-          ['responsibility', round(evaluated.responsibilities[0]), round(evaluated.responsibilities[1]), '1'],
-        ]} />
+      <Table caption="The two weighted densities, their sum, and what the sum is used for" headings={['quantity', 'component A', 'component B', 'together']} rows={[['weight', round(components[0].weight), round(components[1].weight), '1'], ['density at x', round(evaluated.components[0].density), round(evaluated.components[1].density), '—'], ['weighted density', round(evaluated.components[0].weighted), round(evaluated.components[1].weighted), round(evaluated.density)], ['responsibility', round(evaluated.responsibilities[0]), round(evaluated.responsibilities[1]), '1']]} />
       <p className="gm-readout" aria-live="polite">
         Mixture density {round(evaluated.density)} per measurement unit. Log-density {round(evaluated.logDensity)};
         negative log-density {round(evaluated.negativeLogDensity)}. The density says how ordinary this location is under the whole model;
@@ -137,12 +122,15 @@ export function ResponsibilityLab() {
       </p>
       <div className="gm-buttons">
         <button type="button" onClick={() => setSaved(previous => {
-          const kept = previous.filter(point => point.model === modelKey(active));
-          return [...kept.slice(-1), {
-            model: modelKey(active), x: active.x, density: evaluated.density,
-            responsibility: evaluated.responsibilities[1], negativeLogDensity: evaluated.negativeLogDensity,
-          }];
-        })}>Save this point for the comparison</button>
+      const kept = previous.filter(point => point.model === modelKey(active));
+      return [...kept.slice(-1), {
+        model: modelKey(active),
+        x: active.x,
+        density: evaluated.density,
+        responsibility: evaluated.responsibilities[1],
+        negativeLogDensity: evaluated.negativeLogDensity
+      }];
+    })}>Save this point for the comparison</button>
         <span>{pair.length} of 2 saved on this model</span>
       </div>
     </>}
@@ -171,9 +159,7 @@ export function EmStepLab() {
   const [setup, setSetup] = useState(emPresets.standard);
   const [draft, setDraft] = useState(emPresets.standard);
   const [run, setRun] = useState(null);
-  const [choice, setChoice] = useState('');
-  const [reason, setReason] = useState('');
-  const [recorded, setRecorded] = useState(null);
+
   const [problem, setProblem] = useState(null);
 
   const startComponents = current => current.means.map((mean, index) => ({ weight: 0.5, mean, variance: current.variances[index] }));
@@ -181,7 +167,7 @@ export function EmStepLab() {
     const components = startComponents(current);
     const step = expectation(current.observations, components);
     return {
-      // The opening allocation is shown, not withheld: the prediction is about
+      
       // the direction of the objective, so the responsibilities give nothing away.
       iteration: 0, phase: 'ready', components, responsibilities: step.responsibilities, opening: true,
       logLikelihood: step.logLikelihood, history: [{ iteration: 0, logLikelihood: step.logLikelihood }], past: [],
@@ -191,9 +177,9 @@ export function EmStepLab() {
   const pending = JSON.stringify(draft) !== JSON.stringify(setup);
 
   const apply = next => {
-    setSetup(next); setDraft(next); setRun(startState(next)); setChoice(''); setReason(''); setRecorded(null); setProblem(null);
+    setSetup(next); setDraft(next); setRun(startState(next));    setProblem(null);
   };
-  const editDraft = update => { setDraft(previous => ({ ...previous, ...update })); setChoice(''); setReason(''); setRecorded(null); };
+  const editDraft = update => apply({...draft,...update});
 
   const snapshot = () => ({ ...current, past: undefined });
   const computeExpectation = () => {
@@ -215,14 +201,9 @@ export function EmStepLab() {
         past: [...current.past, snapshot()],
         justUpdated: { before: current.components, gain: after.logLikelihood - current.logLikelihood, counts: updated.map(part => part.count) },
       });
-      if (recorded && recorded.iteration === current.iteration) {
-        const rise = after.logLikelihood - current.logLikelihood;
-        setRecorded({ ...recorded, outcome: Math.abs(rise) < 1e-9 ? 'same' : 'rises', gain: rise,
-          identical: current.components[0].mean === current.components[1].mean && current.components[0].variance === current.components[1].variance });
-      }
+      
       // The next iteration asks a new question, so it starts with nothing chosen.
-      setChoice('');
-      setReason('');
+
       setProblem(null);
     } catch (failure) {
       setProblem(failure.message);
@@ -233,7 +214,7 @@ export function EmStepLab() {
     const previous = current.past[current.past.length - 1];
     setRun({ ...previous, past: current.past.slice(0, -1) });
     // A verdict describes a cycle that has now been undone, so it goes with it.
-    if (recorded && recorded.iteration >= previous.iteration) setRecorded(null);
+    
     setProblem(null);
   };
 
@@ -242,12 +223,12 @@ export function EmStepLab() {
   const peak = Math.max(...components.map(component => component.weight / Math.sqrt(2 * Math.PI * component.variance))) * 1.25;
   const lowest = Math.min(...current.history.map(point => point.logLikelihood));
   const highest = Math.max(...current.history.map(point => point.logLikelihood));
-  const graded = recorded?.outcome !== undefined;
+  
   const atLimit = current.iteration >= 50;
 
   return <Investigation
     title="Step one exact EM cycle from your own start"
-    question={`Four measurements, two components, and a variance floor that is part of the model rather than a nudge: ${round(setup.floor)} in the setup now applied. Edit the setup, apply it, record what the next full cycle will do to the log-likelihood, then run the two half-steps separately.`}
+    question={`Four measurements, two components, and a variance floor that is part of the model rather than a nudge: ${round(setup.floor)} in the setup now applied. Edit the setup to restart the visible trace, then run its E-step and M-step separately and watch their different effects on log-likelihood.`}
     note="The E-step leaves the parameters, and therefore the observed log-likelihood, exactly where they were: only the allocations are recomputed. The M-step is where the objective can move."
     onReset={() => apply(emPresets.standard)}>
     <div className="gm-controls">
@@ -274,41 +255,13 @@ export function EmStepLab() {
     </div>
     {pending && <p className="gm-pending" role="status">Edited values are not in the model yet. Apply the setup to use them.</p>}
 
-    <div className="gm-prediction">
-      <fieldset>
-        <legend>Record a prediction first.</legend>
-        <p>Starting from iteration {current.iteration}, what will one complete E-step and M-step do to the total log-likelihood?</p>
-        <div className="gm-choices">
-          {[['rises', 'It rises'], ['same', 'It stays the same to within 1e-9']].map(([value, text]) => (
-            <label className="gm-choice" key={value}>
-              <input type="radio" name="em-prediction" value={value} checked={choice === value}
-              onChange={() => setChoice(value)} disabled={current.phase !== 'ready' || pending || atLimit || recorded?.iteration === current.iteration} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <Reason value={reason} onChange={setReason} disabled={recorded?.iteration === current.iteration} />
-      <div className="gm-buttons">
-        <button type="button" disabled={choice === '' || pending || atLimit || current.phase !== 'ready' || (recorded?.iteration === current.iteration)}
-          onClick={() => setRecorded({ iteration: current.iteration, choice, reason, from: current.logLikelihood })}>Record it</button>
-        <button type="button" className="is-primary" disabled={pending || atLimit || current.phase !== 'ready'} onClick={computeExpectation}>Compute E-step</button>
-        <button type="button" className="is-primary" disabled={pending || atLimit || current.phase !== 'expected'} onClick={applyMaximization}>Apply M-step</button>
-        <button type="button" disabled={current.past.length === 0} onClick={back}>Back one half-step</button>
-      </div>
-      {graded && recorded.reason && <p className="gm-caption">Your reason, kept as you wrote it: “{recorded.reason}”</p>}
-      {graded && <p className={`gm-verdict ${recorded.choice === recorded.outcome ? '' : 'is-miss'}`} role="status">
-        <span className="gm-verdict-mark" aria-hidden="true">{recorded.choice === recorded.outcome ? '=' : '≠'}</span>
-        The cycle from iteration {recorded.iteration} moved the log-likelihood by {signed(recorded.gain, 9)}, so it {recorded.outcome === 'same' ? 'stayed the same to within 1e-9' : 'rose'}.
-        {recorded.outcome === 'same'
-          ? recorded.identical
-            ? ' Identical components give every row the same allocation, and repeating an identical operation cannot break that symmetry. An unchanged objective does not identify a useful solution.'
-            : ' This cycle is on a numerical plateau: the change is below the stated tolerance even though the components differ. A small change alone does not establish a global optimum.'
-          : ' The bound touched the old objective at the E-step, and the M-step lifted it.'}
-      </p>}
-      {problem && <p className="gm-note" role="status">{problem}</p>}
-      {atLimit && <p className="gm-note" role="status">This investigation keeps at most 50 cycles. Inspect the history, step back or reset to try another setup.</p>}
-    </div>
+    <div className="gm-buttons">
+  <button type="button" disabled={pending || atLimit || current.phase !== 'ready'} onClick={computeExpectation}>Compute E-step</button>
+  <button type="button" disabled={pending || atLimit || current.phase !== 'expected'} onClick={applyMaximization}>Apply M-step</button>
+  <button type="button" disabled={current.past.length === 0} onClick={back}>Back one half-step</button>
+  {problem && <p role="status">{problem}</p>}
+  {atLimit && <p>This trace keeps at most 50 cycles. Step back or reset to explore another start.</p>}
+</div>
 
     <p className="gm-readout" aria-live="polite">
       Iteration {current.iteration}, {current.phase === 'expected' ? 'responsibilities recomputed and waiting for the M-step' : 'parameters applied'}.
@@ -397,10 +350,6 @@ export function CovarianceLab() {
   const active = state.active;
   const comparison = planeComparison(active.first, active.second, active.rho);
   const nullComparison = planeComparison(active.first, active.second, 0);
-  const answerFor = inputs => {
-    const order = planeComparison(inputs.first, inputs.second, inputs.rho).order;
-    return order === 'equal' ? 'equal' : order === 'first' ? 'P' : 'Q';
-  };
 
   // The viewBox is close to the rendered width, so 13 user units of type land
   // near 14 px at a phone width instead of being scaled down to nine.
@@ -428,7 +377,7 @@ export function CovarianceLab() {
     return <div className="gm-panel" key={title}>
       <h4>{title}</h4>
       <svg className="gm-dense" viewBox={`0 0 260 ${size}`} role="img"
-        aria-label={`Correlation ${round(rho, 2)}. The unit contour has semiaxes ${round(geometry.axes[0].semiaxis, 4)} along (1, 1) and ${round(geometry.axes[1].semiaxis, 4)} along (1, −1). P is at ${active.first.join(', ')}; Q is at ${active.second.join(', ')}.${state.result ? ` Squared distances are ${round(left.squared, 6)} and ${round(right.squared, 6)}; densities ${round(left.density)} and ${round(right.density)}.` : ' Predict the density ordering before revealing the quadratic forms.'}`}>
+        aria-label={`Correlation ${round(rho, 2)}. The unit contour has semiaxes ${round(geometry.axes[0].semiaxis, 4)} along (1, 1) and ${round(geometry.axes[1].semiaxis, 4)} along (1, −1). P is at ${active.first.join(', ')}; Q is at ${active.second.join(', ')}.${` Squared distances are ${round(left.squared, 6)} and ${round(right.squared, 6)}; densities ${round(left.density)} and ${round(right.density)}.`}`}>
         <line className="gm-grid" x1={place(low)} x2={place(high)} y1={lift(0)} y2={lift(0)} />
         <line className="gm-grid" x1={place(0)} x2={place(0)} y1={lift(low)} y2={lift(high)} />
         {[-3, 3].map(value => <g key={value}>
@@ -442,15 +391,15 @@ export function CovarianceLab() {
             x1={place(-axis.semiaxis * axis.direction[0])} y1={lift(-axis.semiaxis * axis.direction[1])}
             x2={place(axis.semiaxis * axis.direction[0])} y2={lift(axis.semiaxis * axis.direction[1])} />
         ))}
-        {state.result && geometry.axes.map(axis => {
-          const point = projectionPoint === 'P' ? active.first : active.second;
-          const coordinate = point[0] * axis.direction[0] + point[1] * axis.direction[1];
-          const foot = axis.direction.map(value => coordinate * value);
-          return <g key={`projection-${axis.label}`}>
+        {geometry.axes.map(axis => {
+  const point = projectionPoint === 'P' ? active.first : active.second;
+  const coordinate = point[0] * axis.direction[0] + point[1] * axis.direction[1];
+  const foot = axis.direction.map(value => coordinate * value);
+  return <g key={`projection-${axis.label}`}>
             <line className="gm-eigen" strokeDasharray="3 3" x1={place(point[0])} y1={lift(point[1])} x2={place(foot[0])} y2={lift(foot[1])} />
             <circle className="gm-observation" cx={place(foot[0])} cy={lift(foot[1])} r="3" />
           </g>;
-        })}
+})}
         <circle className="gm-mark" cx={place(active.first[0])} cy={lift(active.first[1])} r="5.5" />
         <text className="gm-point-id" x={place(active.first[0]) + 10} y={lift(active.first[1]) - 8}>P</text>
         <rect className="gm-mark is-hollow" x={place(active.second[0]) - 5} y={lift(active.second[1]) - 5} width="10" height="10" />
@@ -458,7 +407,7 @@ export function CovarianceLab() {
         <circle className="gm-observation" cx={place(0)} cy={lift(0)} r="3" />
         <text x={place(0) + 12} y={lift(0) + 5}>mean</text>
       </svg>
-      {state.result && <p>
+      {<p>
         D²(P) = {round(left.squared, 6)}, D²(Q) = {round(right.squared, 6)}, determinant {round(geometry.determinant, 6)}.
         Densities {round(left.density)} and {round(right.density)}.
       </p>}
@@ -467,7 +416,7 @@ export function CovarianceLab() {
 
   return <Investigation
     title="Same distance from the centre, different plausibility"
-    question="One Gaussian with mean (0, 0) and both marginal variances fixed at 1, so the correlation alone changes its shape. Move either point, record which one you think the component finds more plausible, then compare the two quadratic forms."
+    question="One Gaussian with mean (0, 0) and both marginal variances fixed at 1, so the correlation alone changes its shape. Move either point, and compare the two quadratic forms and densities as they change."
     note="This compares two locations under one declared density. Nothing here is fitted, and no responsibility is being normalised."
     onReset={state.reset}>
     <div className="gm-controls">
@@ -482,33 +431,20 @@ export function CovarianceLab() {
       <NumberField label="Q vertical" value={state.draft.second[1]} min={limits.point.minimum} max={limits.point.maximum}
         step="0.25" decimals={2} onChange={value => state.edit({ second: [state.draft.second[0], value] })} />
     </div>
-    <Prediction
-      prompt={`With ρ = ${round(state.draft.rho, 2)}, which point has the higher density: P at (${state.draft.first.map(value => round(value, 2)).join(', ')}) or Q at (${state.draft.second.map(value => round(value, 2)).join(', ')})?`}
-      options={[['P', 'P has the higher density'], ['Q', 'Q has the higher density'], ['equal', 'They are equal']]}
-      state={state} answerFor={answerFor}
-      describe={`Squared Mahalanobis distances are ${round(comparison.left.squared, 6)} and ${round(comparison.right.squared, 6)}. Both points share the determinant ${round(comparison.geometry.determinant, 6)} inside this panel, so the quadratic forms alone decide the order.`} />
+    <p className="lesson-live-note">{`Squared Mahalanobis distances are ${round(comparison.left.squared, 6)} and ${round(comparison.right.squared, 6)}. Both points share the determinant ${round(comparison.geometry.determinant, 6)} inside this panel, so the quadratic forms alone decide the order.`}</p>
     <div className="gm-panels is-stacked">
       {panel(active.rho, `Correlation ${round(active.rho, 2)}`)}
       {panel(0, 'The same two points at correlation 0')}
     </div>
-    {state.result && <>
+    {<>
     <Field label="Inspect projections of"><select value={projectionPoint} onChange={event => setProjectionPoint(event.target.value)}><option>P</option><option>Q</option></select></Field>
-    <Table caption="Resolve the selected point along the covariance axes"
-      headings={['axis', 'coordinate along axis', 'eigenvalue', 'squared coordinate / eigenvalue']}
-      rows={comparison.geometry.axes.map(axis => {
-        const point = projectionPoint === 'P' ? active.first : active.second;
-        const coordinate = point[0] * axis.direction[0] + point[1] * axis.direction[1];
-        return [axis.label, round(coordinate, 6), round(axis.value, 6), round(coordinate ** 2 / axis.value, 6)];
-      })} />
+    <Table caption="Resolve the selected point along the covariance axes" headings={['axis', 'coordinate along axis', 'eigenvalue', 'squared coordinate / eigenvalue']} rows={comparison.geometry.axes.map(axis => {
+    const point = projectionPoint === 'P' ? active.first : active.second;
+    const coordinate = point[0] * axis.direction[0] + point[1] * axis.direction[1];
+    return [axis.label, round(coordinate, 6), round(axis.value, 6), round(coordinate ** 2 / axis.value, 6)];
+  })} />
     <p className="gm-caption">The dotted segments show the selected point’s perpendicular projections. Add the two squared-coordinate contributions to get its squared Mahalanobis distance; a smaller eigenvalue charges more for the same displacement.</p>
-    <Table caption="Both panels, exactly"
-      headings={['model', 'D²(P)', 'D²(Q)', 'determinant', 'density at P', 'density at Q']}
-      rows={[
-        [`ρ = ${round(active.rho, 2)}`, round(comparison.left.squared, 6), round(comparison.right.squared, 6),
-          round(comparison.geometry.determinant, 6), round(comparison.left.density), round(comparison.right.density)],
-        ['ρ = 0', round(nullComparison.left.squared, 6), round(nullComparison.right.squared, 6), '1',
-          round(nullComparison.left.density), round(nullComparison.right.density)],
-      ]} />
+    <Table caption="Both panels, exactly" headings={['model', 'D²(P)', 'D²(Q)', 'determinant', 'density at P', 'density at Q']} rows={[[`ρ = ${round(active.rho, 2)}`, round(comparison.left.squared, 6), round(comparison.right.squared, 6), round(comparison.geometry.determinant, 6), round(comparison.left.density), round(comparison.right.density)], ['ρ = 0', round(nullComparison.left.squared, 6), round(nullComparison.right.squared, 6), '1', round(nullComparison.left.density), round(nullComparison.right.density)]]} />
     </>}
     <p className="gm-caption">
       The inner ellipse is the contour where the squared Mahalanobis distance is 1, and the dashed one where it is 4.
@@ -521,7 +457,7 @@ export function CovarianceLab() {
       <p className="gm-caption">
         First, find a pair of points whose order reverses when you change the sign of ρ, and say which squared projection changed its weighting.
         Second, find two points away from the original diagonal that have equal density under the active model.
-        Record a prediction for each before you check it; the comparison above is exact to 10⁻¹⁰, so a near miss is a miss.
+        Compare the quadratic forms and densities for each setup, including cases where the two densities agree.
       </p>
     </details>
   </Investigation>;

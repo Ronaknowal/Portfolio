@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Visual contracts: End-to-End Supervised Learning & Error Analysis
 
 Content-first specification, 12 September 2026. No visual, browser model or React implementation exists for this packet. Read [lesson.md](lesson.md) and [design.md](design.md). Values come from [calculated-inputs.json](calculated-inputs.json), [wine.csv](wine.csv), and the stated exact formulas. `author-calculations.py` creates the numerical handoff. Author calculations are distinct from formal model/native/browser verification.

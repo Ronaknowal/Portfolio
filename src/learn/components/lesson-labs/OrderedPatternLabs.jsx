@@ -48,7 +48,7 @@ export function BoundarySearchLab() {
   return <section className="lesson-lab ordered-lab" aria-label="Boundary search investigation">
     <p className="lesson-eyebrow">BINARY SEARCH · LOCATE A GAP</p>
     <h3>Which boundary still might be the answer?</h3>
-    <p>Predict the next low and high before advancing. Values outside the unresolved interval have a proved relation to the target. The answer is one of the gaps 0 through n.</p>
+    <p>Inspect the next low and high before advancing. Values outside the unresolved interval have a proved relation to the target. The answer is one of the gaps 0 through n.</p>
     <form className="lesson-controls" onSubmit={apply}>
       <label>Sorted integers<input aria-label="Boundary sorted values" value={draft} onChange={event => setDraft(event.target.value)} /></label>
       <button type="submit">Apply array</button>
@@ -167,10 +167,12 @@ export function IntervalUnionFigure() {
   const rows = [['input', 1, 4], ['input', 2, 3], ['input', 4, 5], ['union', 1, 5], ['separate', 6, 8]];
   return <figure className="ordered-inline" aria-label="Closed interval union from one through five; six through eight is separate">
     <figcaption>Closed endpoints: [1,4] touches [4,5], so both share the point 4.</figcaption>
+    <div className="ordered-scroll" tabIndex={0} role="region" aria-label="Closed intervals on a common axis; scroll horizontally to inspect every endpoint">
     <svg className="ordered-interval-svg" viewBox="0 0 360 220" role="img" aria-label="Exact closed intervals and merged coverage on a common 0 to 9 axis">
       {Array.from({ length: 10 }, (_, index) => <g key={index}><line x1={65 + index * 31} x2={65 + index * 31} y1="20" y2="185" stroke="#494237" /><text x={65 + index * 31} y="210" textAnchor="middle" fill="currentColor">{index}</text></g>)}
       {rows.map(([label, start, stop], index) => <g key={index}><text x="0" y={36 + index * 34} fill="currentColor">{label}</text><line x1={65 + start * 31} x2={65 + stop * 31} y1={30 + index * 34} y2={30 + index * 34} stroke={label === 'union' ? '#9fc6a3' : '#e2ba68'} strokeWidth={label === 'union' ? 7 : 4} /><circle cx={65 + start * 31} cy={30 + index * 34} r="5" fill="#e2ba68" /><circle cx={65 + stop * 31} cy={30 + index * 34} r="5" fill="#e2ba68" /></g>)}
     </svg>
+    </div>
     <p>Nested [2,3] adds no new coverage. A start at 6 leaves a gap after 5. These are continuous coordinates, so [1,5] and [6,8] do not touch merely because 5 and 6 are consecutive integers.</p>
   </figure>;
 }
@@ -185,7 +187,7 @@ export function MovingWindowLab() {
   return <section className="lesson-lab ordered-lab" aria-label="Moving window investigation">
     <p className="lesson-eyebrow">WINDOW · GROW, QUALIFY, SHRINK</p>
     <h3>Why can the left boundary keep moving forward?</h3>
-    <p>Find a shortest nonempty interval whose sum reaches the target. Predict whether the next event adds a value, records a qualifying interval, or removes a value. Every value here is nonnegative.</p>
+    <p>Find a shortest nonempty interval whose sum reaches the target. Inspect whether the next event adds a value, records a qualifying interval, or removes a value. Every value here is nonnegative.</p>
     <div className="lesson-controls">
       <label>Window input<select aria-label="Window input" value={preset} onChange={event => { setPreset(event.target.value); setStep(0); }}><option value="positive">[2,1,3,2,4]</option><option value="zeros">[0,0,5]</option><option value="empty">Empty []</option></select></label>
       <label>Required sum: {target}<input aria-label="Window target" type="range" min="1" max="15" value={target} onChange={event => { setTarget(Number(event.target.value)); setStep(0); }} /></label>
@@ -221,7 +223,7 @@ export function FeasibleRateLab() {
   return <section className="lesson-lab ordered-lab" aria-label="Feasible rate investigation">
     <p className="lesson-eyebrow">ANSWER SEARCH · TEST A CANDIDATE</p>
     <h3>Find the first rate that fits the work budget</h3>
-    <p>Jobs contain 3, 6 and 7 units. One time slot works on one job at up to the chosen rate; unused room in its final slot cannot be shared with the next job. Before choosing a rate, predict its total slots.</p>
+    <p>Jobs contain 3, 6 and 7 units. One time slot works on one job at up to the chosen rate; unused room in its final slot cannot be shared with the next job. Choose a rate to compare its total slots with the available budget.</p>
     <div className="lesson-controls"><label>Available slots: {budget}<input aria-label="Rate budget" type="range" min="2" max="10" value={budget} onChange={event => setBudget(Number(event.target.value))} /></label><button onClick={() => { setSpeed(3); setBudget(6); }}>Reset rates</button></div>
     <div className="ordered-rate-options" aria-label="Rate feasibility choices">{search.options.map(option => <button key={option.speed} aria-pressed={speed === option.speed} onClick={() => setSpeed(option.speed)}><strong>{option.speed} / slot</strong><span>{option.feasible ? 'fits' : 'too slow'}</span></button>)}</div>
     <div className="ordered-rate-jobs">{rateJobs.map((job, index) => <div key={index}><strong>Job {index + 1}: {job} units</strong><div>{Array.from({ length: state.slots[index] }, (_, slot) => <span key={slot}><strong>{Math.min(speed, job - slot * speed)}</strong><small>of {speed}</small></span>)}</div><span>{state.slots[index]} {state.slots[index] === 1 ? 'slot' : 'slots'}</span></div>)}</div>

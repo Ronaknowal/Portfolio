@@ -1,5 +1,14 @@
 # DBSCAN & Density-Based Clustering — content-first design
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit trail coordinates, radius, neighbourhood count or traversal order and follow core/border/noise changes immediately; multiply axes and radius and inspect neighbourhood preservation; vary Iris settings and save comparison snapshots on common rows; edit group spacing and test a radius against the analytic interval. Species are a separately requested diagnostic, never a guess-to-unlock reward.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 **Visual-layout follow-up, 14 September 2026:** [the expanded diagram review](LESSON-VISUAL-LAYOUT-REVIEW.md) separates trail/dense-strip row labels, sorted core-distance annotations and the OPTICS starting labels; the cutoff explanation now reflows outside the SVG. Data and algorithm behavior are unchanged. Desktop and narrow scrolling views were inspected and the [browser suite](evidence/dbscan-browser.json) passes 12 cases. This later record supersedes earlier screenshots for the affected figures; the prepared packet is retained.
 
 Final content editing by the parent: replaced the optional ring comparison's author-history opening with a direct learner-facing explanation, and restored compact figure/lab identifiers after the prose-spacing pass. These edits change no code, numbers or model contract; the author calculations remain applicable. The shared delivery ledger binds the final manuscript bytes.

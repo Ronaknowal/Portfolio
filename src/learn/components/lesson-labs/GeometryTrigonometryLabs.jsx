@@ -67,7 +67,7 @@ export function AngleArcLab() {
   const ex = 160 + r * state.cosine;
   const ey = 160 - r * state.sine;
   const arc = `M${160 + r} 160A${r} ${r} 0 ${degrees > 180 ? 1 : 0} 0 ${ex} ${ey}`;
-  return <section className="geometry-lab" aria-label="Angle and arc investigation"><h3>Keep the angle; change the circle</h3><p>Predict: if the radius doubles, does the angle double? Does the sector area double? The drawing keeps a fixed scale while you change the radius.</p>
+  return <section className="geometry-lab" aria-label="Angle and arc investigation"><h3>Keep the angle; change the circle</h3><p>Inspect: if the radius doubles, does the angle double? Does the sector area double? The drawing keeps a fixed scale while you change the radius.</p>
     <div className="geometry-controls"><Slider label="Radius" value={radius} min={1} max={3} step={0.5} onChange={setRadius} /><Slider label="Sweep" value={degrees} min={15} max={330} step={15} onChange={setDegrees} suffix="°" /></div>
     <svg viewBox="0 0 330 330" role="img" aria-label={`${degrees} degree counterclockwise sector on radius ${radius}`}>
       <circle cx="160" cy="160" r={r} className="axis" />
@@ -90,7 +90,7 @@ export function TriangleSimilarityLab() {
   const state = similarityState(shape, scale);
   const drawScale = 230 / (Math.max(state.adjacent, state.opposite) * Math.max(1, scale));
   const triangle = factor => `45,275 ${45 + state.adjacent * drawScale * factor},275 ${45 + state.adjacent * drawScale * factor},${275 - state.opposite * drawScale * factor}`;
-  return <section className="geometry-lab" aria-label="Similar triangles investigation"><h3>Change the size, preserve the shape</h3><p>Predict which changes: side lengths, opposite/hypotenuse, or area. The marked angle sits at the shared left corner. Both triangles use one scale inside this drawing; the view fits their combined size.</p>
+  return <section className="geometry-lab" aria-label="Similar triangles investigation"><h3>Change the size, preserve the shape</h3><p>Inspect which changes: side lengths, opposite/hypotenuse, or area. The marked angle sits at the shared left corner. Both triangles use one scale inside this drawing; the view fits their combined size.</p>
     <div className="geometry-controls"><label>Triangle shape<select aria-label="Triangle shape" value={shape} onChange={event => setShape(event.target.value)}><option value="3-4-5">3–4–5</option><option value="5-12-13">5–12–13</option><option value="equal-legs">Equal legs</option></select></label><Slider label="Positive scale" value={scale} min={0.5} max={3} step={0.25} onChange={setScale} /></div>
     <svg viewBox="0 0 330 325" role="img" aria-label={`Original and ${scale} times scaled ${shape} similar triangles`}>
       <polygon points={triangle(scale)} className="gold" /><polygon points={triangle(1)} className="blue dashed" />
@@ -158,7 +158,7 @@ export function BearingLab() {
       setError(problem.message);
     }
   }
-  return <section className="geometry-lab" aria-label="Bearing investigation"><h3>Recover a direction without losing its quadrant</h3><p>Predict the failure of atan(y/x) for (−3, 4). Both signs are needed. The direction convention here is greater than −180° and at most 180°.</p>
+  return <section className="geometry-lab" aria-label="Bearing investigation"><h3>Recover a direction without losing its quadrant</h3><p>Inspect the failure of atan(y/x) for (−3, 4). Both signs are needed. The direction convention here is greater than −180° and at most 180°.</p>
     <div className="geometry-controls">{['x', 'y'].map((name, index) => <label key={name}>{name}<input aria-label={`Bearing ${name}`} value={draft[index]} onChange={event => setDraft(draft.map((value, i) => i === index ? event.target.value : value))} inputMode="numeric" /></label>)}<button onClick={() => apply()}>Apply coordinates</button></div>
     <div className="geometry-buttons">{[[3, 4], [-3, 4], [-3, -4], [3, -4], [-4, 0], [0, 4], [0, 0]].map(pair => <button key={pair.join()} onClick={() => apply(pair.map(String))}>({pair.join(', ')})</button>)}</div>
     {error && <p role="alert">{error} The last valid point is retained.</p>}
@@ -204,7 +204,7 @@ export function CoordinateFrameLab() {
       [name]: value
     }));
   }
-  return <section className="geometry-lab" aria-label="Coordinate frame investigation"><h3>Move the description—or move the point</h3><p>In passive mode, turn the frame while watching world point P. In active mode, the same positive angle turns the point about O. Predict what a 90° turn does before moving the angle slider.</p>
+  return <section className="geometry-lab" aria-label="Coordinate frame investigation"><h3>Move the description—or move the point</h3><p>In passive mode, turn the frame while watching world point P. In active mode, the same positive angle turns the point about O. Inspect what a 90° turn does while moving the angle slider.</p>
     <div className="geometry-controls"><label>Interpretation<select aria-label="Interpretation" value={inputs.mode} onChange={event => update('mode', event.target.value)}><option value="passive">Passive: change coordinates</option><option value="active">Active: rotate point</option></select></label><Slider label="Rotation angle" value={inputs.degrees} min={-180} max={180} step={15} suffix="°" onChange={value => update('degrees', value)} /></div>
     <div className="geometry-controls">{[['px', 'Point x', -4, 4], ['py', 'Point y', -4, 4], ['ox', 'Origin x', -2, 2], ['oy', 'Origin y', -2, 2]].map(([name, label, low, high]) => <Slider key={name} label={label} value={inputs[name]} min={low} max={high} onChange={value => update(name, value)} />)}</div>
     <Plane extent={10} label={`${state.mode} rotation; world point ${state.point.join(',')}, origin ${state.origin.join(',')}`}>

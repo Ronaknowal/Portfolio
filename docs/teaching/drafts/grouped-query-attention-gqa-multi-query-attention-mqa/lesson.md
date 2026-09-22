@@ -1,5 +1,8 @@
 # Grouped-Query Attention and Multi-Query Attention
 
+**Explore as you read.** Edit Q/K/V, query-to-KV grouping, cache dimensions, offset masks and supported causal input prefixes. Show each reader, shared K/V record, weighted sum, exact byte/MAC budgets and compact cache outputs immediately. Compare equal-head versus unequal-head regrouping. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose grouping by memory and functional tradeoffs, keeping payload arithmetic separate from measured latency and model quality.
+
+
 A model predicting the next word repeatedly reads what it has already seen. Several attention heads can ask different questions about that history. Must each head keep its own separate description of every earlier token?
 
 Grouped-query attention lets several query heads read the same keys and values. Multi-query attention shares one key/value head across all query heads. The important distinction is between **how many different reads we perform** and **how many different representations we store**. Sharing the stored representation can reduce the growing inference cache while retaining several distinct attention distributions.
@@ -127,13 +130,13 @@ Performing the same calculation for the other queries gives:
 
 The two readers of group 0 plainly have different answers. Their shared memory did not force their attention weights to coincide.
 
-### Predict which outputs an edit can affect
+### Edit a head and inspect which outputs change
 
 Change the first value of group 0 from `[2,0]` to `[3,−1]`. No score changes because scores use Q and K. The two group-0 outputs change by their respective weight on that position times `[1,−1]`. Heads 2 and 3 are unchanged because they read another group.
 
 Now instead change group 0's first key from `[1,0]` to `[2,0]`. Query 0's first score increases. Query 1's score does **not** change in this special fixture: its query has zero x component. A shared key edit can influence every reader in its group, but it need not do so for every particular query. This controlled null is more informative than an animation that always lights up all arrows as “affected.”
 
-**Investigation — edit a shared memory.** Change any query, key or value coordinate. Before revealing, identify which heads' weights and outputs can change, and explain why. Linked numeric distributions and vector-sum diagrams show the actual result. A second action relabels the two KV groups and updates their connections together; this preserves every output. Changing only the connections generally does not.
+**Investigation — edit a shared memory.** Change any query, key or value coordinate; show identify which heads' weights and outputs can change, and explain why. Linked numeric distributions and vector-sum diagrams show the actual result. A second action relabels the two KV groups and updates their connections together; this preserves every output. Changing only the connections generally does not.
 
 ### Repeat is one implementation, not the definition
 
@@ -326,6 +329,12 @@ SDPA also applies dropout according to the `dropout_p` argument. Setting a surro
 
 The [maintained Llama source](https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama/modeling_llama.py) provides a useful production reading exercise: inspect smaller K/V projections, native-head RoPE, compact cache update, then attention-backend dispatch. Its eager `repeat_kv` helper is a readable reference; it is not proof that an expand-plus-reshape path always avoids allocation. Inspect the actual storage and backend when that distinction matters.
 
+### Make sharing visible to the optimizer
+
+The complete `mechanism-calculations.py` also checks the derivative that sharing creates: reshape per-reader value gradients into `[B,Hkv,readers,S,dv]` and sum the readers axis. That result must equal the compact shared V gradient. This is the bridge from a storage choice to actual fitting, not a claim that averaging separately updated MHA weights implements the same update.
+
+For an independent variation, use six query heads and two KV heads, with value width different from key width. Change the group reshape and output merge consistently; keep the true Q/K scale. **Hint:** each KV parameter now receives contributions from three readers. **Solution:** SDPA and the direct grouped operator should agree, and three per-reader gradients sum into each shared gradient. The real forecast program already owns projection, optimizer, conversion/uptraining and full-versus-cached state. Reuse it for this extension; do not rebuild the attention derivation or compare unrelated random fits.
+
 ## 6. Convert a trained model and observe what survives
 
 ### Mean pooling is an initialization, not function preservation
@@ -358,7 +367,7 @@ Take scalar queries 1 and 2. Head 0 has keys `[2,0]`, values `[1,3]`; head 1 has
 
 The averaged parameters have not preserved either original output, nor their average. No random numerical accident is needed to demonstrate the issue. Conversely, if the original K and V parameters inside each group are already identical and the positional/masking conventions agree, conversion preserves the function exactly. This tied-head case is a useful null control.
 
-**Investigation — merge two learned descriptions.** Edit small original projection/key/value entries, inspect their mean, predict the output change and reveal both old and converted attention distributions. A tied-head control produces exact agreement. Keep a distance-to-parameters display separate from a prediction-error display; one cannot stand in for the other.
+**Investigation — merge two learned descriptions.** Edit small original projection/key/value entries and inspect their mean, the live output change, and the linked old and converted attention distributions. A tied-head control produces exact agreement. Keep a distance-to-parameters display separate from a prediction-error display; one cannot stand in for the other.
 
 Further training lets the model adapt to the new structure. The original GQA study calls this **uptraining**. Its T5 experiment continued the pretraining recipe after conversion, then evaluated downstream tasks. It did not establish that every checkpoint can be converted losslessly with a fixed number of updates. Use the original optimization/data recipe when reproducing a reported result; our local study deliberately uses a much smaller and different task.
 
@@ -544,7 +553,7 @@ Finally, the [next topic, Multi-Head Latent Attention](/learn/path/full-curricul
 
 ## 8. Practice: reason about new inputs and constraints
 
-Try each question before opening its hint or solution. Exercises 1–5 check the first-pass route; 6–9 use deeper reasoning. The downloadable programs can verify your calculations, but write a prediction first.
+Try each question before opening its hint or solution. Exercises 1–5 check the first-pass route; 6–9 use deeper reasoning. The downloadable programs can verify your calculations, but calculate or explain the mechanism.
 
 ### 1. Count readers and stored representations
 

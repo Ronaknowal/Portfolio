@@ -6,7 +6,7 @@ import {
 } from '../../data/imbalance-models';
 import { inspectionRecords, methods, roles, study, tuningRecords } from '../../data/imbalance-data';
 import {
-  CountStrip, Investigation, NumberField, Plot, Prediction, Select, SliderField, Table,
+  CountStrip, Investigation, NumberField, Plot, LiveResult, Select, SliderField, Table,
   asFraction, curve, polyline, round, steps, Undefined, useInvestigation,
 } from './ImbalanceShared.jsx';
 import './imbalance-labs.css';
@@ -123,12 +123,9 @@ export function ScoreQueueLab() {
   const ladder = thresholdLadder(state.active.records);
   const ap = averagePrecisionOf(state.active.records);
   const revealed = Boolean(state.result);
-  // The verdict grades the move from the applied start gate to the applied
-  // target gate, so the recall sentence beside it must describe that same pair.
-  // Comparing the previously applied target with the current one instead
-  // reported a different move from the one being graded.
+  // The recall sentence and comparison must describe the same applied start/target gates.
   const comparison = revealed ? queueComparison(state.active.records, state.active.start, state.active.target) : null;
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const result = queueComparison(proposed.records, proposed.start, proposed.target);
     // Precision at the new gate can be genuinely undefined — that is the state
     // the "above every score" setup exists to reach. It is passed through as
@@ -142,8 +139,8 @@ export function ScoreQueueLab() {
   const prPoints = precisionRecallPoints(state.active.records);
   return <Investigation
     title="Move the gate through actual scored records"
-    question={`A fixed ranking of named records, each with a score and a known truth. The gate selects every record whose score is at least the threshold, so it always takes a tied group whole. Starting from the gate at ${round(draft.start, 2)}, record what happens to precision when only scores of at least ${round(draft.target, 2)} are selected — before any count appears.`}
-    note="Nothing below the prediction is computed until you apply. Raising the gate can only shrink the selected set, so recall cannot rise; precision has no such guarantee, because the records that leave may be positive or negative."
+    question={`A fixed ranking of named records, each with a score and a known truth. The gate selects every record whose score is at least the threshold, so it always takes a tied group whole. Starting from the gate at ${round(draft.start, 2)}, observe what happens to precision when only scores of at least ${round(draft.target, 2)} are selected and watch the counts update.`}
+    note="The selected records and metrics update as you move the controls. Raising the gate can only shrink the selected set, so recall cannot rise; precision has no such guarantee, because the records that leave may be positive or negative."
     onReset={state.reset}>
 
     <fieldset className="imb-row-group" style={{ '--imb-row-columns': 2 }}>
@@ -188,19 +185,16 @@ export function ScoreQueueLab() {
     </p>
     <BinnedRail point={target} revealed={revealed} order={draft.records.map(row => row.id)} />
 
-    <Prediction
-      prompt={`Moving the gate from ≥ ${round(draft.start, 2)} to ≥ ${round(draft.target, 2)} on these records, what happens to precision?`}
-      options={[['decrease', 'It falls'], ['unchanged', 'Exactly unchanged'], ['increase', 'It rises'], ['undefined', 'It becomes undefined']]}
-      state={state} answerFor={answerFor}
-      numeric={{
-        label: 'Optional: precision at the new gate', name: 'the new precision', tolerance: 1e-6, digits: 6,
-        undefinedNote: 'nothing is selected at that gate, so TP + FP is zero and precision has no value',
-      }}
-      committed={shown => `records ${JSON.parse(shown.key).records.map(row => `${row.id}(${row.score}, ${row.truth})`).join(' ')}, gate ${JSON.parse(shown.key).start} → ${JSON.parse(shown.key).target}`}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={comparison
         ? `Recall moved ${comparison.recall}, from ${comparison.before.recall === null ? 'undefined' : round(comparison.before.recall, 6)} to ${comparison.after.recall === null ? 'undefined' : round(comparison.after.recall, 6)}.`
         : undefined}
-      historyLabel="Compared with your previous gate" />
+       />
 
     {revealed && <>
       <CountStrip counts={applied} />
@@ -283,7 +277,7 @@ export function CostCrossingLab() {
   const draft = state.draft;
   const applied = actionRisks(state.active.posterior, state.active.costFP, state.active.costFN);
   const revealed = Boolean(state.result);
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const result = actionRisks(proposed.posterior, proposed.costFP, proposed.costFN);
     return { outcome: result.tie ? 'tie' : result.action, value: result.selectRisk };
   };
@@ -312,19 +306,16 @@ export function CostCrossingLab() {
       <span className={state.pending ? 'is-draft' : undefined}>draft: p <b>{round(draft.posterior, 2)}</b>, c_FP <b>{round(draft.costFP, 1)}</b>, c_FN <b>{round(draft.costFN, 1)}</b></span>
     </p>
 
-    <Prediction
-      prompt={`With p = ${round(draft.posterior, 2)}, a false alarm costing ${round(draft.costFP, 1)} and a missed positive costing ${round(draft.costFN, 1)}, which action has the lower expected cost?`}
-      options={[['select', 'Selecting'], ['skip', 'Skipping'], ['tie', 'They are exactly equal']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the expected cost of selecting', name: 'the selecting risk', tolerance: 1e-6, digits: 6 }}
-      committed={shown => {
-        const inputs = JSON.parse(shown.key);
-        return `p = ${inputs.posterior}, c_FP = ${inputs.costFP}, c_FN = ${inputs.costFN}`;
-      }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={revealed
         ? `Selecting costs ${round(applied.selectRisk, 6)}; skipping costs ${round(applied.skipRisk, 6)}.`
         : undefined}
-      historyLabel="Compared with your previous cost setting" />
+       />
 
     {revealed && <>
       <p className="imb-counts">
@@ -412,7 +403,7 @@ export function WeightedScoreLab() {
   const previousOptimum = revealed
     ? weightedOptimum(populationFor(state.previous), state.previous.positiveWeight, state.previous.negativeWeight)
     : null;
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     if (proposed.mode === 'inverse') {
       const value = inverseWeightedOptimum(proposed.weightedScore, proposed.positiveWeight, proposed.negativeWeight);
       return { outcome: value < 0.5 - 1e-12 ? 'below' : value > 0.5 + 1e-12 ? 'above' : 'equal', value };
@@ -467,24 +458,14 @@ export function WeightedScoreLab() {
       <span className={state.pending ? 'is-draft' : undefined}>draft: {draft.mode}, {draft.mode === 'forward' ? <>p <b>{round(draft.probability, 2)}</b></> : <>q* <b>{round(draft.weightedScore, 2)}</b></>}, w₊ <b>{round(draft.positiveWeight, 1)}</b>, w₋ <b>{round(draft.negativeWeight, 1)}</b></span>
     </p>
 
-    <Prediction
-      prompt={draft.mode === 'forward'
-        ? `With p = ${round(draft.probability, 2)}, w₊ = ${round(draft.positiveWeight, 1)} and w₋ = ${round(draft.negativeWeight, 1)}, where does the weighted-loss optimum q* sit?`
-        : `With q* = ${round(draft.weightedScore, 2)}, w₊ = ${round(draft.positiveWeight, 1)} and w₋ = ${round(draft.negativeWeight, 1)}, where does the recovered population probability p sit?`}
-      options={[['below', 'Below one half'], ['equal', 'Exactly one half'], ['above', 'Above one half']]}
-      state={state} answerFor={answerFor}
-      numeric={{
-        label: draft.mode === 'forward' ? 'Optional: the exact q*' : 'Optional: the exact p',
-        name: draft.mode === 'forward' ? 'q*' : 'p', tolerance: 1e-6, digits: 6,
-      }}
-      committed={shown => {
-        const inputs = JSON.parse(shown.key);
-        return inputs.mode === 'forward'
-          ? `${inputs.mode}, p = ${inputs.probability}, w₊ = ${inputs.positiveWeight}, w₋ = ${inputs.negativeWeight}`
-          : `${inputs.mode}, q* = ${inputs.weightedScore}, w₊ = ${inputs.positiveWeight}, w₋ = ${inputs.negativeWeight}`;
-      }}
-      historyLabel="Compared with your previous weighting"
-      sameQuestion={(before, after) => JSON.parse(before).mode === JSON.parse(after).mode} />
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
+      
+       />
 
     {revealed && <>
       <div className="imb-panels is-pair">
@@ -642,7 +623,7 @@ function Scatter({ construction, revealed }) {
     return { dx: unit.x * distance * sign, dy: unit.y * distance * sign };
   };
   return <svg viewBox={`0 0 ${width} ${height}`} role="img"
-    aria-label={`A scatter in the original feature units. ${construction.minority.map(point => `Minority ${point.id} at (${round(point.x, 2)}, ${round(point.y, 2)})`).join('; ')}. ${construction.majority.map(point => `Majority ${point.id} at (${round(point.x, 2)}, ${round(point.y, 2)})`).join('; ')}. ${revealed ? `The chosen segment runs from ${construction.anchor.id} to ${construction.neighbour.id}, and the generated point sits at (${round(construction.generated.x, 4)}, ${round(construction.generated.y, 4)})${construction.collidesWithMajority ? `, exactly on majority point ${construction.collisionIds.filter(id => id !== construction.anchor.id).join(' and ')}` : ''}.` : 'The generated point is not shown until you apply.'}`}>
+    aria-label={`A scatter in the original feature units. ${construction.minority.map(point => `Minority ${point.id} at (${round(point.x, 2)}, ${round(point.y, 2)})`).join('; ')}. ${construction.majority.map(point => `Majority ${point.id} at (${round(point.x, 2)}, ${round(point.y, 2)})`).join('; ')}. ${revealed ? `The chosen segment runs from ${construction.anchor.id} to ${construction.neighbour.id}, and the generated point sits at (${round(construction.generated.x, 4)}, ${round(construction.generated.y, 4)})${construction.collidesWithMajority ? `, exactly on majority point ${construction.collisionIds.filter(id => id !== construction.anchor.id).join(' and ')}` : ''}.` : 'The generated point is available once the inputs form a valid construction.'}`}>
     <title>The minority points, the majority points and the chosen segment</title>
     {ticks.map((value, index) => <g key={value}>
       <line className="imb-grid" x1={place(value)} x2={place(value)} y1={12} y2={height - 34} />
@@ -726,7 +707,7 @@ export function SmoteGeometryLab() {
   const preview = previewBuild.construction;
   const blocked = previewBuild.problem ?? appliedBuild.problem;
   const revealed = Boolean(state.result) && Boolean(applied);
-  const answerFor = (proposed, current) => {
+  const calculateInputs = (proposed, current) => {
     const after = smoteConstruction(repairCloud(proposed));
     const before = smoteConstruction(repairCloud(current));
     if (proposed.question === 'majorityMove') {
@@ -824,27 +805,16 @@ export function SmoteGeometryLab() {
 
     {(revealed ? applied : preview) && <Scatter construction={revealed ? applied : preview} revealed={revealed} />}
 
-    {!blocked && <Prediction
-      prompt={questionText[draft.question]}
-      options={optionsFor[draft.question]}
-      state={state} answerFor={answerFor}
-      requireChange={draft.question === 'collision' ? undefined : (proposed, current) => {
-        if (proposed.question === 'majorityMove') {
-          const majority = cloud => JSON.stringify(cloud.points.filter(point => point.cls === 'majority'));
-          return majority(proposed) !== majority(current);
-        }
-        return proposed.scaleX !== current.scaleX || proposed.scaleY !== current.scaleY;
-      }}
-      pendingHint={draft.question === 'majorityMove'
-        ? 'This question compares the construction before and after a move, so it needs a move to compare. Edit a majority point’s coordinates, or load the exact-null setup above, before applying.'
-        : 'This question compares the neighbour chosen before and after a change of metric, so it needs that change. Edit a scale divisor, or load the geometric-contrast setup above, before applying.'}
-      numeric={{ label: 'Optional: the generated x coordinate', name: 'the generated x', tolerance: 1e-6, digits: 6 }}
-      committed={shown => {
-        const inputs = JSON.parse(shown.key);
-        return `anchor ${inputs.anchorId}, k ${inputs.k}, rank ${inputs.neighbourRank + 1}, u ${inputs.fraction}, divisors ${inputs.scaleX} / ${inputs.scaleY}, points ${inputs.points.map(point => `${point.id}${point.cls === 'minority' ? '+' : '−'}(${point.x}, ${point.y})`).join(' ')}`;
-      }}
-      historyLabel="Compared with your previous geometry"
-      sameQuestion={(before, after) => JSON.parse(before).question === JSON.parse(after).question} />}
+    {!blocked && <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
+      
+      
+      
+       />}
 
     {revealed && <>
       <Table caption="The minority distance row from the anchor, under the declared divisors, with the anchor itself excluded"
@@ -915,11 +885,7 @@ const tuningBaseline = {
   costFP: study.costFalsePositive,
   costFN: study.costFalseNegative,
   exploratory: false,
-  /* Two different quantities can be predicted here, and keeping them apart is
-     the whole point of the cost-scaling null. Doubling both costs doubles the
-     TOTAL declared cost — so on the cost question that null is false — while
-     leaving the cost-optimal SELECTED GATE exactly where it was. Grading the
-     total and calling it a null marked correct reasoning wrong. */
+  
   question: 'cost',
 };
 const tuningSetups = [
@@ -944,7 +910,7 @@ const tuningQuestions = {
 
 export function TuningQueueLab() {
   const state = useInvestigation(tuningBaseline);
-  const [showTruth, setShowTruth] = useState(false);
+  const [showTruth, setShowTruth] = useState(true);
   const draft = state.draft;
   const active = state.active;
   const method = methods.find(entry => entry.name === active.method) ?? methods[0];
@@ -954,13 +920,13 @@ export function TuningQueueLab() {
   const sweep = thresholdSweep(tuningRecords.labels, method.tuningScores, active.costFP, active.costFN);
   const declaredSweep = thresholdSweep(tuningRecords.labels, method.tuningScores,
     study.costFalsePositive, study.costFalseNegative);
-  const answerFor = (proposed, current) => {
+  const calculateInputs = (proposed, current) => {
     const nextMethod = methods.find(entry => entry.name === proposed.method) ?? methods[0];
     const previousMethod = methods.find(entry => entry.name === current.method) ?? methods[0];
     if (proposed.question === 'gate') {
       // The cost-optimal gate over the discrete candidate set. Scaling both
       // costs scales every candidate's cost by the same factor, so the argmin
-      // cannot move: this is the genuine invariance, and now it is the graded one.
+      // cannot move: this is a genuine invariance of the cost-optimal gate.
       const afterGate = thresholdSweep(tuningRecords.labels, nextMethod.tuningScores,
         proposed.costFP, proposed.costFN).chosen;
       const beforeGate = thresholdSweep(tuningRecords.labels, previousMethod.tuningScores,
@@ -987,7 +953,7 @@ export function TuningQueueLab() {
   const inspectionCounts = countsAt(inspectionRecords.labels, method.inspectionScores, method.chosenThreshold);
   return <Investigation
     title="Change an actual tuning policy and inspect the selected records"
-    question={`The ${roles.tuning.records} tuning proteins, with the saved scores of one fitted procedure. A threshold is a development decision made on these records. Two quantities can be predicted here and they behave differently: the total declared cost at a trial gate, and the gate the cost sweep selects. Choose which one you are predicting, and record it before any count appears.`}
+    question={`The ${roles.tuning.records} tuning proteins, with the saved scores of one fitted procedure. A threshold is a development decision made on these records. Two quantities can be inspected here and they behave differently: the total declared cost at a trial gate, and the gate the cost sweep selects. Choose which quantity to inspect, and compare its live behavior.`}
     role={{
       kind: active.exploratory ? 'exploratory' : 'locked',
       text: active.exploratory
@@ -995,7 +961,7 @@ export function TuningQueueLab() {
         : `Role: tuning. These ${roles.tuning.records} proteins are the ones the protocol allows a threshold to be chosen on. The locked inspection result below was fixed before it was read, and the ${roles.reserve.records} reserved proteins are never scored anywhere in this lesson.`,
     }}
     note="Nothing here refits a classifier or chooses a model setting. The five score sets were fitted differently, so switching procedure changes the whole ranking — that is not one threshold moving."
-    onReset={() => { state.reset(); setShowTruth(false); }}>
+    onReset={() => { state.reset(); setShowTruth(true); }}>
 
     <div className="imb-controls is-wide">
       <Select label="Fitted procedure whose saved scores you are thresholding" value={draft.method}
@@ -1009,7 +975,7 @@ export function TuningQueueLab() {
       <SliderField label="Hypothetical cost of a missed positive" value={draft.costFN}
         min={limits.cost.minimum} max={limits.cost.maximum} step={0.1} decimals={1}
         onChange={costFN => state.edit({ costFN })} />
-      <Select label="Quantity to predict" value={draft.question}
+      <Select label="Quantity to inspect" value={draft.question}
         options={[['cost', 'The total declared cost at the trial gate'], ['gate', 'The gate the cost sweep selects']]}
         hint="Scaling both costs changes one of these and not the other; that is the distinction the null is about."
         onChange={question => state.edit({ question })} />
@@ -1029,24 +995,19 @@ export function TuningQueueLab() {
       <span className={state.pending ? 'is-draft' : undefined}>draft: <b>{(methods.find(entry => entry.name === draft.method) ?? methods[0]).label}</b>, gate <b>≥ {round(draft.trial, 2)}</b>, costs <b>{round(draft.costFP, 1)} / {round(draft.costFN, 1)}</b></span>
     </p>
 
-    <Prediction
-      prompt={draft.question === 'gate'
-        ? `Applying this draft would price a false alarm at ${round(draft.costFP, 1)} and a missed positive at ${round(draft.costFN, 1)} on ${(methods.find(entry => entry.name === draft.method) ?? methods[0]).label}'s saved tuning scores. Against the state currently applied, does the cost-optimal gate — the one the sweep selects — move?`
-        : `Applying this draft would threshold ${(methods.find(entry => entry.name === draft.method) ?? methods[0]).label}'s saved tuning scores at ≥ ${round(draft.trial, 2)}, with a false alarm costing ${round(draft.costFP, 1)} and a missed positive ${round(draft.costFN, 1)}. Against the state currently applied, what happens to the total declared cost on these ${roles.tuning.records} records?`}
-      options={tuningQuestions[draft.question].options}
-      state={state} answerFor={answerFor}
-      numeric={tuningQuestions[draft.question].numeric}
-      committed={shown => {
-        const inputs = JSON.parse(shown.key);
-        return `${inputs.question === 'gate' ? 'selected gate' : 'total cost'}, ${inputs.method}, gate ≥ ${inputs.trial}, costs ${inputs.costFP} and ${inputs.costFN}`;
-      }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={revealed
         ? (active.question === 'gate'
           ? `The sweep selects ${sweep.chosen.isNoAlert ? 'the no-alert policy' : round(sweep.chosen.threshold, 9)} under these costs, at a total of ${round(sweep.chosen.cost, 2)} units. Scaling both costs by a common factor scales every candidate's cost by that factor, so the candidate that minimises it cannot change.`
           : `At the applied gate the counts are TP ${trialCounts.tp}, FP ${trialCounts.fp}, FN ${trialCounts.fn}, TN ${trialCounts.tn}, for a total of ${round(trialCost, 2)} units.`)
         : undefined}
-      historyLabel="Compared with your previous tuning policy"
-      sameQuestion={(before, after) => JSON.parse(before).question === JSON.parse(after).question} />
+      
+       />
 
     {revealed && <>
       <CountStrip counts={trialCounts} />
@@ -1060,8 +1021,8 @@ export function TuningQueueLab() {
           {showTruth ? 'Hide the actual labels in the queue' : 'Show the actual labels in the queue'}
         </button>
         <span className="imb-caption">
-          The labels are hidden by default so that reading the queue before predicting cannot answer the question for
-          you. Showing them changes nothing about the analysed set.
+          Labels are shown alongside the selected records. You can hide them to reduce visual detail;
+          this display choice changes nothing about the analysed set.
         </span>
       </div>
       <Table caption={`The ${roles.tuning.records} tuning proteins in saved score order, with the applied gate marking each as selected or not`}

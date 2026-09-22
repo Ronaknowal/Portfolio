@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-09-21T23:50:01.327Z",
+  "base": "http://127.0.0.1:4194",
+  "status": "passed",
+  "checks": [
+    "Eight current-output investigations, valid math, no eager program request",
+    "All integrated route anchors resolve",
+    "Gradient update, p1 null, deterministic reset and invalid edit preserve valid result",
+    "Probability-weighted outcomes, scaling contrast and keyboard slider",
+    "Broadcast grouping, editable bits and changed-input geometry",
+    "Residual lane preserved across changed input and lost by whole-sum masking",
+    "Schedule conventions, conditional call counter and L1 boundary",
+    "no_grad leaves train buffers active; ordinary/MC evaluation preserve buffers",
+    "Recorded fit reversal, matched null comparison and real MC prefix boundaries",
+    "Canonical source is loaded only when its disclosure opens",
+    "Desktop/390/320 bounds and neutral/amber control surfaces",
+    "No page errors; screenshots retained for independent visual inspection"
+  ]
+}

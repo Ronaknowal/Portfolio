@@ -2,7 +2,9 @@
 
 For quantum authoring, use the [Quantum Computing, Information & Engineering plan](../curriculum/QUANTUM-COMPUTING-PLAN.md#teaching-contract-for-future-authors) alongside this playbook. Trace a tiny state and its measurable output with explicit phase, basis/register order and units. Choose amplitude views, circuit traces, physical control diagrams, syndrome histories or network timelines for the mechanism; no uniform lab quota. Separate ideal calculations, finite-shot estimates, noisy simulations and hardware evidence. Budget preparation, oracle access, readout, classical processing and fault-tolerance resources before claiming advantage. Assess every named subtopic and any scope note returned by preflight. Quantum-inspired classical methods, QKD and post-quantum cryptography must remain distinct. A curriculum plan is neither a manuscript nor an implemented lesson.
 
-Reviewed 10 September 2026. This document implements the [teaching standard](../../LESSON-TEACHING-STANDARD.md). Use its strategies selectively. The common contract is understandable mechanism, meaningful representation, complete example, independent practice, explicit assumptions and a next step. Page structure, lab count, examples and depth differ by topic.
+Updated 21 September 2026 for live exploration. This document implements the [teaching standard](../../LESSON-TEACHING-STANDARD.md). Use its strategies selectively. The common contract is understandable mechanism, meaningful representation, complete example, independent practice, explicit assumptions and a next step. Page structure, lab count, examples and depth differ by topic.
+
+Across every domain, labs open with useful outputs already visible. Let the learner change meaningful inputs and see the mechanism, intermediate state and final consequence update together. Connect the observation to a practical decision, with baseline comparison and reset where useful. Do not include prediction entry, commitment, prediction grading or answer-unlock controls, even optionally. Algorithm stepping and play/pause expose genuine process evolution; costly bounded runs identify the active inputs rather than pretending they update continuously. Independent written practice remains separate. Choose the interaction for the subject: movable vectors and shaded areas; editable graph nodes and frontiers; object references and execution traces; linked tensor cells and contribution maps; timing/resource budgets; physical signals and feedback trajectories. Preserve mathematical/model predictions and mechanisms called gates or masks as subject matter.
 
 ## Match the representation to the question
 
@@ -21,6 +23,8 @@ Keep accurate text, code and tables when those are the clearest representation o
 
 ## Mathematics, probability and statistics
 
+The standard's scratch/library contract is domain-sensitive. For an estimator or numerical method, derive and implement its core, then compare with the appropriate numerical/statistical API, including assumptions and tolerances. For a proof, teach the construction and justification; numerical experiments illustrate rather than prove it. Reuse established linear algebra and sampling implementations with explicit links instead of rebuilding them on every page.
+
 Begin with a question that a learner can state without symbols. Identify objects, units and what is known versus unknown. Move between a tiny numerical case, a diagram and symbolic notation, naming the correspondence each time. Derive the result in justified steps; explain what each operation preserves. Only then generalize. Offer a formal proof or deeper derivation when it is an outcome, with an accessible route through its key idea.
 
 Use geometric transformations for linear algebra; local change and accumulation for calculus; sample spaces, repeated samples and shaded areas for probability; explicit data-generating models for inference. A matrix picture should connect cells to the operation; a distribution needs labeled axes and a distinction between density and probability. When a topic includes both sampling variation and a decision rule, use separate views for those different mechanisms.
@@ -28,6 +32,8 @@ Use geometric transformations for linear algebra; local change and accumulation 
 Practice moves from reading a representation to a hand calculation, a changed problem, a mistaken derivation to repair, and an assumption/counterexample check. A statistics solution interprets effect size and uncertainty in context. Distinguish a theorem from a heuristic, an estimator from its realized estimate, confidence from posterior probability, and correlation from intervention. Do not claim the three original pilots already cover every conceptual hurdle.
 
 ## Data structures, algorithms and discrete reasoning
+
+Implement the defining data structure/algorithm directly and prove the relevant invariant; show the usual standard-library facility when one exists (`deque`, `heapq`, `bisect`, sorting, hashing), including ordering and complexity contracts. Explain when a custom implementation is needed. An application algorithm using a heap can reuse the heap lesson rather than recopy its implementation. A package call cannot replace implementing the algorithm under study.
 
 Start with an actual operation: maintain the smallest pending job, find a route, update a range, or match a string. Show a simple correct method and the reason it becomes expensive. Give concrete state, then expose how the new representation changes permitted operations. Trace a small input with a cursor/frontier, data structure and output visible together.
 
@@ -39,15 +45,19 @@ Every DSA lesson also curates official LeetCode practice following [DSA-PRACTICE
 
 ## Programming and scientific computing
 
+Teach the hidden operation at the useful level: an explicit loop before vectorization, an iterator protocol before convenience helpers, a manual join on a tiny dataset before the dataframe API. Reuse language/runtime primitives unless their implementation is the lesson's subject. Operational topics teach a reproducible workflow and state model; they do not require writing a shell, database or plotting engine merely to qualify as from scratch.
+
 Begin with inputs and the desired result. Introduce language entities before syntax: a name versus an object, an iterator versus a collection, a row versus an index label, or a shell versus the operating system. Trace execution beside state and output. Give line-by-line commentary only where a line changes the learner's model; avoid paraphrasing obvious syntax throughout.
 
 The approved Linux lesson is the reference for exposing mechanisms and pacing. For Python, arrows between names and objects teach sharing and mutation. For NumPy, align dimensions and highlight the actual operands of one output cell. For Pandas, trace source records through a join and explain multiplicity before summarizing the result. For plotting, connect a scientific question to axes, scales and uncertainty; visual attractiveness does not validate a result.
 
 Use compact inline diagrams at the point of explanation as well as larger investigations. Examples to consider when they resolve a real hurdle: two names reaching one object versus an independent copy; one reusable collection supplying two independent cursors versus two names sharing one cursor; input shapes aligned with an output cell; quoted versus unquoted shell arguments shown as distinct received strings; notebook document, live kernel and saved output shown as separate states. Keep the example values and relationships visible instead of replacing the picture with boxes of descriptive prose. Follow with a lab when changing input, stepping execution or exploring a failure adds understanding. These are options to assess, not required diagrams or a shared template for every programming lesson.
 
-Provide runnable setup, imports, data, commands and expected results, including explained warnings or failures. Verify against the actual language/library. Browser simulations need explicit supported cases. Exercises progress from prediction through repair to an independent small task; require a changed-input result to avoid recipe copying. Treat numerical stability, units, dtype, indexing, randomness and reproducibility as reasoning, not footnotes.
+Provide runnable setup, imports, data, commands and expected results, including explained warnings or failures. Verify against the actual language/library. Browser simulations need explicit supported cases. Move from a visible trace through live edits and diagnosis to an independent small task; use changed inputs to avoid recipe copying. Treat numerical stability, units, dtype, indexing, randomness and reproducibility as reasoning, not footnotes.
 
 ## Classical ML, deep learning and generative models
+
+Implement the owned objective, update, inference or architectural block using stated lower-level primitives, then show the idiomatic estimator/module and a same-state bridge. Match parameter orientation, reduction, initialization, RNG, epsilon and train/eval semantics before claiming parity. A scalar autograd engine belongs to Backpropagation; subsequent losses/layers reuse it or framework differentiation and expose their new operation. Manual derivatives or custom backward code belong where they teach a new dependency or are an explicit outcome, not as mandatory duplicated engines. Cover fitting and learned state when they are part of the method, plus an extension exercise and the limits of the small reference. Real-data library experiments complement this mechanism route.
 
 Start with the prediction/generation question and the unit of data. Establish a baseline and split protocol before model complexity. Trace a single example through representations, tensor shapes, computation, objective and parameter update. Separate training behavior from inference. Translate losses into what errors the system is encouraged to change.
 

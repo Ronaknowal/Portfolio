@@ -1,0 +1,111 @@
+{
+  "research": {
+    "passed": true,
+    "checks": [
+      "exact encoding",
+      "variable-candidate masking",
+      "analytic CE gradient",
+      "one model parameter update",
+      "reliability accounting",
+      "review cost/tie/null risk"
+    ]
+  },
+  "adapter": {
+    "passed": true,
+    "torch_version": "2.14.0+cpu",
+    "transformers_version": "4.57.6",
+    "scope": "Offline random tiny BERT and local WordLevel tokenizer; no pretrained weights downloaded or fine-tuned.",
+    "marker_embedding_gradient_norm": 1.3308305740356445,
+    "checks": [
+      "marker registration and embedding resize",
+      "marker gather alignment",
+      "variable candidates and padding",
+      "full-encoder gradients",
+      "optimizer step",
+      "exact local tokenizer/model/head save-load parity",
+      "frozen encoder and trainable head",
+      "reserved marker and length rejection"
+    ]
+  },
+  "offline_training_flow": {
+    "full": {
+      "steps": 3,
+      "train_nll": [
+        {
+          "step": 1,
+          "train_nll": 1.1847928762435913
+        },
+        {
+          "step": 3,
+          "train_nll": 1.1275428533554077
+        }
+      ],
+      "saved_reload_prediction": {
+        "choice": "delivery",
+        "decision": "review",
+        "probabilities": {
+          "billing": 0.3316916525363922,
+          "access": 0.3337286114692688,
+          "delivery": 0.3345796465873718
+        },
+        "estimated_act_cost": 6.654203534126282,
+        "temperature": 20.085536923187668
+      },
+      "scope": "Offline execution smoke test, not evidence of useful training."
+    },
+    "frozen": {
+      "steps": 3,
+      "train_nll": [
+        {
+          "step": 1,
+          "train_nll": 1.1847928762435913
+        },
+        {
+          "step": 3,
+          "train_nll": 1.2127203941345215
+        }
+      ],
+      "saved_reload_prediction": {
+        "choice": "access",
+        "decision": "review",
+        "probabilities": {
+          "billing": 0.33105412125587463,
+          "access": 0.33914488554000854,
+          "delivery": 0.3298009932041168
+        },
+        "estimated_act_cost": 6.6085511445999146,
+        "temperature": 20.085536923187668
+      },
+      "scope": "Offline execution smoke test, not evidence of useful training."
+    }
+  },
+  "modernbert": {
+    "scope": "Offline random tiny ModernBERT; no pretrained checkpoint.",
+    "loss": 0.8958797454833984,
+    "candidate_mask": [
+      [
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false
+      ]
+    ],
+    "passed": [
+      "AutoModel construction",
+      "marker resize",
+      "variable candidates",
+      "forward and finite encoder/head gradients"
+    ]
+  },
+  "source_sha256": {
+    "typed_decision.py": "edaf1c9e3c7b867a0e982e70b13970be615e180fce7693872ca6d373ad4d779b",
+    "research_tools.py": "e704f4bb3c760246f7ac434ec55b675812ccf8ea338bdc4217a4eb4b1de582a9",
+    "pretrained_decision.py": "6e677db8db66f3ec0ce19902c39d4a2e6484bcd60fe1ede1cbc2affada550571",
+    "trace-fixture.json": "ccd37d28242e2a356cdac38b8f022bd931ec641935195292bc49aeac5f8766c6"
+  },
+  "scope": "Actual bounded native execution. No remote checkpoint, pretrained quality claim, GPU, service or latency guarantee."
+}

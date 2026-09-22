@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:47:34.174Z",
+  "groups": [
+    "Actual shifted target tracks distinguish current target, previous prefix and ignored storage",
+    "Scalar joint derivatives match saved autograd and numerical perturbations over changed parameters",
+    "Probability tree paths normalize and frontier agrees with independent saved histories",
+    "Complete saved source/prefix/context traces match independent double-precision NumPy states and probabilities",
+    "Replay, context identity, forced-prefix temporal boundary and explicit cap nulls",
+    "Candidate-owned beams agree with 27 actual native width1/2/3 runs and preserve source model bytes",
+    "Owned JSX parses and preserves all section/practice/math and deferred resource contracts"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/sequence-to-sequence-encoder-decoder.jsx": "89233695226e731c169a13c12a6f066103e0d5260f1495e317466c2220b3c004",
+    "src/learn/components/lesson-labs/Seq2SeqLabs.jsx": "5bc5cfdf7fb81ee7a145bdbeae3c8ac21fefcd2e99cee88dadc94a2cf4333f02",
+    "src/learn/components/lesson-labs/seq2seq-labs.css": "3c88e1f45b5d218c736caaaa9701cf660cc5a8e3a3241eabb88c2ea84e37dc78",
+    "src/learn/data/seq2seq-models.js": "65ba6497a54757796d1f81c47efb3d1a4edf06fd1d9130f394c879f20bf8ab14",
+    "src/learn/data/seq2seq-measurements.json": "fa28cf2a91c4b19c88a4284809c19260e0e3b22f51e2e105f423c5dc764ceeb1",
+    "src/learn/data/curriculum/blueprints/sequence-to-sequence-encoder-decoder.js": "89eb4cf12bd984e23c7e25682f1bb75c00c35ada0a19305cd9e8f27931f9d18f",
+    "scripts/generate-seq2seq-lesson.mjs": "ce2598f6c4cee1cf287a3a1c75edbb173c11a0d54c2c5b5f7a7bfc1addba2f5e",
+    "scripts/verify-seq2seq-models.mjs": "0502f74772b65b93a7e3c1707a46fd6f16810f7d2cde0f6078a2c00b91523a0b"
+  },
+  "maximumManualProbabilityDifference": 2.0539125955565396e-15,
+  "nativeBeamComparisonMilliseconds": 146.76170000000002
+}

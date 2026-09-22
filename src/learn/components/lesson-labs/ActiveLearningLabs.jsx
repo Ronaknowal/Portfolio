@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { LessonTable } from './LessonElements.jsx';
 import { CoveragePlane, EntropyBars, ProbabilityStrip, ThresholdRulers, formatActiveValue } from './ActiveLearningFigures.jsx';
 import { activeLearningFixtures as fixtures, committeeDecomposition, compareNumbers, coveringDistances,
@@ -14,9 +14,7 @@ function ErrorMessage({ message }) {
   return message ? <p role="alert" className="active-error">{message}</p> : null;
 }
 
-function PredictionNotice({ committed, result }) {
-  return <p className="active-small">{result ? 'Result shown for the committed inputs. Editing an input clears this result.' : committed ? 'Prediction recorded. Reveal when you are ready.' : 'Choose your inputs and record a prediction. The computed answer stays concealed until reveal.'}</p>;
-}
+
 
 export function ThresholdInvestigation() {
   const [thresholdText, setThresholdText] = useState(fixtures.hypotheses.map(row => `${row.threshold}, ${row.weight}`).join('\n'));
@@ -28,14 +26,11 @@ export function ThresholdInvestigation() {
   const [configuration, setConfiguration] = useState(null);
   const [history, setHistory] = useState([]);
   const [query, setQuery] = useState('4');
-  const [predictionZero, setPredictionZero] = useState('');
-  const [predictionOne, setPredictionOne] = useState('');
-  const [committed, setCommitted] = useState(null);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
-  const clearPrediction = () => { setPredictionZero(''); setPredictionOne(''); setCommitted(null); setResult(null); setError(''); };
-  const editSetup = setter => event => { setter(event.target.value); setConfiguration(null); setHistory([]); clearPrediction(); };
+  const clearAcquisition = () => { setResult(null); setError(''); };
+  const editSetup = setter => event => { setter(event.target.value); setConfiguration(null); setHistory([]); clearAcquisition(); };
   const begin = () => {
     try {
       const hypotheses = parseNumericRows(thresholdText, 2, 'Threshold/weight').map(([threshold, weight]) => ({ threshold, weight })).sort((left, right) => left.threshold - right.threshold);
@@ -49,34 +44,28 @@ export function ThresholdInvestigation() {
       setHistory([]);
       const unusedQueries = queries.filter(value => !observations.some(row => row.x === value));
       setQuery(unusedQueries.length ? String(unusedQueries.includes(4) ? 4 : unusedQueries[0]) : '');
-      clearPrediction();
+      clearAcquisition();
     } catch (cause) { setError(cause.message); }
   };
   const observations = configuration ? [...configuration.observations, ...history.map(row => ({ x: row.query, label: row.answer }))] : [];
   const remaining = configuration ? thresholdState(configuration.hypotheses, observations) : [];
   const eligible = configuration?.queries.filter(value => !observations.some(row => row.x === value)) ?? [];
-  const record = () => {
-    try {
-      if (!configuration || !remaining.length || !eligible.includes(Number(query))) throw new Error('Start a consistent run and choose an unused query.');
-      const predictions = [numberInput(predictionZero), numberInput(predictionOne)];
-      if (predictions.some(value => !Number.isInteger(value) || value < 0 || value > remaining.length)) throw new Error(`Predict an integer from 0 to ${remaining.length} for each possible answer.`);
-      setCommitted({ query: Number(query), predictions }); setError('');
-    } catch (cause) { setError(cause.message); }
-  };
   const acquire = () => {
-    if (!committed) return;
-    const score = thresholdQuestion(configuration.hypotheses, observations, committed.query);
-    const answer = configuration.oracleMode === 'manual' ? Number(manualAnswer) : Number(committed.query >= configuration.trueThreshold);
-    const entry = { query: committed.query, answer, before: remaining.map(row => row.threshold), after: score.groups[answer].map(row => row.threshold) };
+    if (!configuration || !remaining.length || !eligible.includes(Number(query))) return;
+    const score = thresholdQuestion(configuration.hypotheses, observations, Number(query));
+    const answer = configuration.oracleMode === 'manual' ? Number(manualAnswer) : Number(Number(query) >= configuration.trueThreshold);
+    const entry = { query: Number(query), answer, before: remaining.map(row => row.threshold), after: score.groups[answer].map(row => row.threshold) };
     setHistory([...history, entry]);
-    setResult({ ...score, answer, matched: committed.predictions.every((value, index) => value === score.counts[index]), predictions: committed.predictions, query: committed.query });
-    setCommitted(null);
+    setResult({ ...score, answer, query: Number(query) });
+    
   };
+  const preview = configuration && remaining.length && eligible.includes(Number(query))
+    ? thresholdQuestion(configuration.hypotheses, observations, Number(query)) : null;
   const nextQuestion = () => {
     const available = configuration.queries.filter(value => !observations.some(row => row.x === value));
-    setQuery(available.length ? String(available[0]) : ''); clearPrediction();
+    setQuery(available.length ? String(available[0]) : ''); clearAcquisition();
   };
-  const reset = () => { setConfiguration(null); setHistory([]); clearPrediction(); };
+  const reset = () => { setConfiguration(null); setHistory([]); clearAcquisition(); };
   const normalizeWeights = () => {
     try {
       const rows = parseNumericRows(thresholdText, 2, 'Threshold/weight');
@@ -84,7 +73,7 @@ export function ThresholdInvestigation() {
       const largest = Math.max(...rows.map(row => row[1]));
       const total = rows.reduce((sum, row) => sum + row[1] / largest, 0);
       setThresholdText(rows.map(([value, weight]) => `${value}, ${(weight / largest) / total}`).join('\n'));
-      setConfiguration(null); setHistory([]); clearPrediction();
+      setConfiguration(null); setHistory([]); clearAcquisition();
     } catch (cause) { setError(cause.message); }
   };
   const preset = name => {
@@ -92,9 +81,9 @@ export function ThresholdInvestigation() {
     setObservationText('-1, 0\n9, 1'); setQueryText(name === 'uneven' ? '1 3 8' : '0 1 2 3 4 5 6 7 8');
     setOracleThreshold(name === 'uneven' ? '4.5' : '5.5'); setOracleMode('simulated'); reset();
   };
-  return <section className="active-investigation" aria-labelledby="threshold-investigation-title" data-active-lab="threshold">
+  return <section className="active-investigation" aria-labelledby="threshold-investigation-title" data-live-exploration="active-learning" data-active-lab="threshold">
     <h3 id="threshold-investigation-title">Investigation · spend a label on a useful question</h3>
-    <p>Change the candidate rules, then predict how many would survive each answer. A ruler's solid region predicts 1; its dashed query line marks the proposed input.</p>
+    <p>Change the candidate rules and inspect how many would survive each answer. A ruler's solid region predicts 1; its dashed query line marks the proposed input.</p>
     <div className="active-controls"><button onClick={() => preset('default')}>Eight-threshold preset</button><button onClick={() => preset('uneven')}>Uneven-family preset</button><button onClick={reset}>Reset run</button></div>
     {!configuration && <><div className="active-input-grid">
       <label>Threshold, positive weight (one pair per line)<textarea value={thresholdText} onChange={editSetup(setThresholdText)} /></label>
@@ -107,17 +96,18 @@ export function ThresholdInvestigation() {
     {configuration && <>
       <p>Labels: {configuration.observations.length} seed + {history.length} newly acquired = {observations.length} total. {remaining.length} hypotheses remain.</p>
       <p className="active-small">Observed answers: {observations.map(row => `(${row.x}, ${row.label})`).join('; ') || 'none'}.</p>
-      <ThresholdRulers hypotheses={configuration.hypotheses} query={Number(query) || 0} survivors={remaining} showPredictions={Boolean(result)} />
+      <ThresholdRulers hypotheses={configuration.hypotheses} query={Number(query) || 0} survivors={remaining} showPredictions />
+      {preview && <p role="status">For query {query}, answer 0 would retain {preview.counts[0]} candidates; answer 1 would retain {preview.counts[1]}. Expected survivors: {formatActiveValue(preview.expectedCount)}. Changing the query updates this comparison before you acquire a label.</p>}
       {remaining.length === 0 ? <p role="status" className="active-error">No listed threshold is consistent. The observed answers above conflict with the candidate family; edit the setup or reset before acquiring again.</p> : eligible.length === 0 && !result ? <p>No unused query remains. Reset or edit the setup to investigate another family.</p> : <>
-        {!result && <div className="active-controls"><label>Unused query<select aria-label="Unused query" value={query} onChange={event => { setQuery(event.target.value); clearPrediction(); }}>{eligible.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
-          {configuration.oracleMode === 'manual' && <label>Manual oracle answer<select aria-label="Manual oracle answer" value={manualAnswer} onChange={event => { setManualAnswer(event.target.value); clearPrediction(); }}><option value="0">0</option><option value="1">1</option></select></label>}
-          <label>Predict survivors if answer 0<input value={predictionZero} type="number" min="0" max={remaining.length} step="1" onChange={event => { setPredictionZero(event.target.value); setCommitted(null); }} /></label>
-          <label>Predict survivors if answer 1<input value={predictionOne} type="number" min="0" max={remaining.length} step="1" onChange={event => { setPredictionOne(event.target.value); setCommitted(null); }} /></label>
+        {!result && <div className="active-controls"><label>Unused query<select aria-label="Unused query" value={query} onChange={event => { setQuery(event.target.value); clearAcquisition(); }}>{eligible.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
+          {configuration.oracleMode === 'manual' && <label>Manual oracle answer<select aria-label="Manual oracle answer" value={manualAnswer} onChange={event => { setManualAnswer(event.target.value); clearAcquisition(); }}><option value="0">0</option><option value="1">1</option></select></label>}
+          
+          
         </div>}
-        <PredictionNotice committed={committed} result={result} />
-        <div className="active-controls"><button disabled={Boolean(result) || eligible.length === 0} onClick={record}>Record prediction</button><button disabled={!committed} onClick={acquire}>Acquire this answer</button>{result && <button disabled={!eligible.length} onClick={nextQuestion}>Choose another question</button>}<button onClick={reset}>Edit setup</button></div>
+        
+        <div className="active-controls"><button disabled={!remaining.length || !eligible.includes(Number(query))} onClick={acquire}>Acquire this answer</button>{result && <button disabled={!eligible.length} onClick={nextQuestion}>Choose another question</button>}<button onClick={reset}>Edit setup</button></div>
       </>}
-      {result && <div className="active-result" role="status"><strong>{result.matched ? 'Prediction matches.' : 'Compare your prediction.'}</strong> At x={result.query}, your counts were {result.predictions.join(' / ')}; computed counts for answers 0 / 1 are {result.counts.join(' / ')}. The acquired answer is {result.answer}.
+      {result && <div className="active-result" role="status"> At x={result.query}, computed counts for answers 0 / 1 are {result.counts.join(' / ')}. The acquired answer is {result.answer}.
         <p>Under the current hypothesis weights: P(0)={formatActiveValue(result.probabilities[0])}, P(1)={formatActiveValue(result.probabilities[1])}; expected survivors {formatActiveValue(result.expectedCount)}. This expectation is over the hypotheses; the actual retained count follows the acquired answer.</p>
         <p>{result.counts[result.answer] === result.remaining.length ? 'This legal query eliminated no hypothesis.' : result.counts[result.answer] === 0 ? 'The answer contradicts every remaining candidate; it identifies a problem with the assumptions or annotation.' : 'The crossed-out rules disagree with the newly observed answer.'}</p>
       </div>}
@@ -129,12 +119,9 @@ export function ThresholdInvestigation() {
 
 export function CommitteeInvestigation() {
   const [rows, setRows] = useState(copy(fixtures.opposing));
-  const [relation, setRelation] = useState('');
-  const [estimate, setEstimate] = useState('');
-  const [committed, setCommitted] = useState(null);
-  const [result, setResult] = useState(null);
+
   const [error, setError] = useState('');
-  const clear = () => { setRelation(''); setEstimate(''); setCommitted(null); setResult(null); setError(''); };
+  const clear = () => { setError(''); };
   const changeRows = next => { setRows(next); clear(); };
   const edit = (member, column, value) => changeRows(rows.map((row, index) => index === member ? row.map((cell, position) => position === column ? numberInput(value) : cell) : row));
   const normalize = member => {
@@ -143,36 +130,30 @@ export function CommitteeInvestigation() {
     if (row.some(value => !Number.isFinite(value) || value < 0) || total <= 0) { setError('Enter finite nonnegative cells with a positive total before normalizing.'); return; }
     changeRows(rows.map((values, index) => index === member ? values.map(value => value / total) : values));
   };
-  const record = () => {
-    try {
-      committeeDecomposition(rows);
-      const numericEstimate = numberInput(estimate);
-      if (!relation || !Number.isFinite(numericEstimate) || numericEstimate < 0 || numericEstimate > Math.log(rows[0].length)) throw new Error('Choose a comparison and a numeric D between 0 and ln(number of classes).');
-      setCommitted({ relation, estimate: numericEstimate }); setError('');
-    } catch (cause) { setError(cause.message); }
-  };
-  const reveal = () => {
-    if (!committed) return;
-    const decomposition = committeeDecomposition(rows);
-    const reference = committeeDecomposition(fixtures.opposing).disagreement;
-    setResult({ ...decomposition, actualRelation: compareNumbers(decomposition.disagreement, reference), prediction: committed });
-  };
-  return <section className="active-investigation" aria-labelledby="committee-investigation-title" data-active-lab="committee">
+  const calculation = useMemo(() => {
+    try { const decomposition = committeeDecomposition(rows); return { result: { ...decomposition, actualRelation: compareNumbers(decomposition.disagreement, committeeDecomposition(fixtures.opposing).disagreement) } }; }
+    catch (cause) { return { error: cause.message }; }
+  }, [rows]);
+  const result = calculation.result;
+  return <section className="active-investigation" aria-labelledby="committee-investigation-title" data-live-exploration="active-learning" data-active-lab="committee">
     <h3 id="committee-investigation-title">Investigation · agreement can hide inside uncertainty</h3>
-    <p>Compare your edited committee with the fixed two-member reference [0.95,0.05] and [0.05,0.95]. Predict how the disagreement D changes, and estimate its value in nats (accepted within 0.005).</p>
+    <p>Compare your edited committee with the fixed two-member reference [0.95,0.05] and [0.05,0.95]. Change member distributions to see how disagreement D and its entropy terms change in nats.</p>
     <div className="active-controls"><button onClick={() => changeRows(copy(fixtures.opposing))}>Opposing reference</button><button onClick={() => changeRows(copy(fixtures.shared))}>Shared ambiguity</button><button onClick={() => changeRows(copy(fixtures.identical))}>Identical confident members</button><button onClick={() => changeRows(copy(fixtures.opposing))}>Reset committee</button></div>
     <div className="active-controls"><label>Class columns<select aria-label="Class columns" value={rows[0].length} onChange={event => changeRows(rows.map(row => Array.from({ length: Number(event.target.value) }, (_, index) => row[index] ?? 0)))}>{[2, 3, 4].map(count => <option key={count}>{count}</option>)}</select></label><button disabled={rows.length >= 6} onClick={() => changeRows([...rows, rows[0].map(() => 1 / rows[0].length)])}>Add member</button></div>
-    {rows.map((row, member) => <div className="active-editor-member" key={member}><strong>Member {member + 1}</strong>
+    {rows.map((row, member) => <div className="active-editor-member" key={member}><strong>Member {member + 1}</strong><label>Redistribute probability toward class 0<input aria-label={`Member ${member + 1} class 0 probability slider`} type="range" min="0" max="1" step="0.01" value={Number.isFinite(row[0]) ? row[0] : 0} onChange={event => {
+        const first = Number(event.target.value), rest = row.slice(1).map(value => Number.isFinite(value) && value >= 0 ? value : 0), total = rest.reduce((sum, value) => sum + value, 0);
+        changeRows(rows.map((values, index) => index === member ? [first, ...rest.map(value => (1 - first) * (total > 0 ? value / total : 1 / rest.length))] : values));
+      }} /></label>
       <div className="active-controls">{row.map((value, column) => <label key={column}>Class {column}<input aria-label={`Member ${member + 1} class ${column}`} type="number" min="0" max="1" step="any" value={Number.isFinite(value) ? value : ''} onChange={event => edit(member, column, event.target.value)} /></label>)}
         <button onClick={() => normalize(member)}>Normalize member {member + 1}</button><button disabled={rows.length <= 2} onClick={() => changeRows(rows.filter((_, index) => index !== member))}>Remove member {member + 1}</button></div>
       {row.every(value => Number.isFinite(value) && value >= 0 && value <= 1) && Math.abs(row.reduce((sum, value) => sum + value, 0) - 1) <= 1e-9 && <ProbabilityStrip values={row} label={`Entered member ${member + 1}`} />}
     </div>)}
-    <div className="active-controls"><label>Predict D relative to reference<select aria-label="Predict D relative to reference" value={relation} onChange={event => { setRelation(event.target.value); setCommitted(null); setResult(null); }}><option value="">Choose a prediction</option>{['smaller', 'same', 'larger'].map(value => <option key={value}>{value}</option>)}</select></label>
-      <label>Predict D in nats<input type="number" min="0" step="any" value={estimate} onChange={event => { setEstimate(event.target.value); setCommitted(null); setResult(null); }} /></label></div>
-    <PredictionNotice committed={committed} result={result} />
-    <div className="active-controls"><button onClick={record}>Record prediction</button><button disabled={!committed} onClick={reveal}>Reveal decomposition</button></div>
-    <ErrorMessage message={error} />
-    {result && <div className="active-result" role="status"><strong>{result.actualRelation === result.prediction.relation && near(result.disagreement, result.prediction.estimate) ? 'Prediction matches.' : 'Compare your prediction.'}</strong> D is {result.actualRelation} than the reference. Your estimate was {result.prediction.estimate}; calculated D is {formatActiveValue(result.disagreement)} nats.
+    <div className="active-controls">
+      </div>
+    
+    <div className="active-controls"></div>
+    <ErrorMessage message={error || calculation.error} />
+    {result && <div className="active-result" role="status"> D is {result.actualRelation} than the reference. Calculated D is {formatActiveValue(result.disagreement)} nats.
       <ProbabilityStrip values={result.mean} label="Computed committee mean" /><EntropyBars result={result} classes={rows[0].length} />
       <LessonTable caption="Member entropies used in the average" headers={['Member', 'Entropy, nats']} rows={result.memberEntropies.map((value, index) => [index + 1, formatActiveValue(value)])} />
       <p className="active-small">Vote entropy: {formatActiveValue(result.voteEntropy)} nats; votes [{result.votes.join(', ')}]. Exact argmax ties vote for the lowest class index. All member weights are equal. These supplied distributions are not trained posterior samples.</p>
@@ -185,12 +166,10 @@ export function BatchInvestigation() {
   const [candidates, setCandidates] = useState(copy(fixtures.candidates));
   const [budget, setBudget] = useState(2);
   const [chosen, setChosen] = useState([]);
-  const [estimate, setEstimate] = useState('');
-  const [committed, setCommitted] = useState(null);
-  const [result, setResult] = useState(null);
+
   const [step, setStep] = useState(0);
   const [error, setError] = useState('');
-  const clear = () => { setChosen([]); setEstimate(''); setCommitted(null); setResult(null); setStep(0); setError(''); };
+  const clear = () => { setChosen([]); setStep(0); setError(''); };
   const edit = (collection, id, field, value) => {
     const next = (collection === 'anchor' ? anchors : candidates).map(point => point.id === id ? { ...point, [field]: numberInput(value) } : point);
     (collection === 'anchor' ? setAnchors : setCandidates)(next); clear();
@@ -211,26 +190,19 @@ export function BatchInvestigation() {
   const remove = (collection, id) => {
     (collection === 'anchor' ? setAnchors : setCandidates)((collection === 'anchor' ? anchors : candidates).filter(point => point.id !== id)); clear();
   };
-  const record = () => {
+  const calculation = useMemo(() => {
     try {
       validateGeometry(anchors, candidates, budget);
-      const value = numberInput(estimate);
-      if (chosen.length !== budget || !Number.isFinite(value) || value < 0) throw new Error(`Select exactly ${budget} distinct candidates and enter a nonnegative radius prediction.`);
-      setCommitted({ ids: [...chosen], estimate: value }); setError('');
-    } catch (cause) { setError(cause.message); }
-  };
-  const reveal = () => {
-    if (!committed) return;
-    const geometric = farthestFirst(anchors, candidates, budget);
-    const uncertain = entropyBatch(candidates, budget);
-    setResult({ prediction: committed, user: coveringDistances(anchors, candidates, committed.ids), geometric, uncertain, entropyRadius: coveringDistances(anchors, candidates, uncertain).radius });
-    setStep(0);
-  };
+      const geometric = farthestFirst(anchors, candidates, budget), uncertain = entropyBatch(candidates, budget);
+      return { result: { selectedIds: chosen, user: coveringDistances(anchors, candidates, chosen), geometric, uncertain, entropyRadius: coveringDistances(anchors, candidates, uncertain).radius } };
+    } catch (cause) { return { error: cause.message }; }
+  }, [anchors, candidates, budget, chosen]);
+  const result = calculation.result;
   const validCoordinates = [...anchors, ...candidates].every(point => [point.x, point.y].every(value => Number.isFinite(value) && Math.abs(value) <= 10));
   const selectedAtStep = result ? step === 0 ? [] : result.geometric.steps[step - 1].selected : [];
-  return <section className="active-investigation" aria-labelledby="batch-investigation-title" data-active-lab="batch">
+  return <section className="active-investigation" aria-labelledby="batch-investigation-title" data-live-exploration="active-learning" data-active-lab="batch">
     <h3 id="batch-investigation-title">Investigation · buy coverage, not duplicate locations</h3>
-    <p>Edit the coordinates or supplied probabilities. Choose your batch and predict its covering radius, within 0.005 coordinate units. Geometry keeps the same scale on both axes.</p>
+    <p>Edit the coordinates or supplied probabilities. Select a batch and watch its covering radius change live. Compare batches of the same size with the budgeted alternatives. Geometry keeps the same scale on both axes.</p>
     <div className="active-controls"><button onClick={() => preset('default')}>Original geometry</button><button onClick={() => preset('changed')}>Move C nearer</button><button onClick={() => preset('coincident')}>Coincident null case</button><button onClick={() => preset('default')}>Reset batch</button></div>
     <h4>Existing anchors</h4>{anchors.map(point => <div className="active-edit-row" key={point.id}><strong>{point.id}</strong>{['x', 'y'].map(field => <label key={field}>{field}<input aria-label={`${point.id} ${field}`} type="number" min="-10" max="10" step="any" value={Number.isFinite(point[field]) ? point[field] : ''} onChange={event => edit('anchor', point.id, field, event.target.value)} /></label>)}<button disabled={anchors.length === 1} onClick={() => remove('anchor', point.id)}>Remove {point.id}</button></div>)}
     <div className="active-controls"><button disabled={anchors.length >= 4} onClick={() => add('anchor')}>Add anchor</button></div>
@@ -238,12 +210,12 @@ export function BatchInvestigation() {
     <p className="active-small">Entropy differences within 10⁻¹² nats count as numerical ties; identifier order breaks them.</p>
     <div className="active-controls"><button disabled={candidates.length >= 24} onClick={() => add('candidate')}>Add candidate</button><label>Batch budget<input type="number" min="1" max={Math.min(6, candidates.length)} step="1" value={Number.isFinite(budget) ? budget : ''} onChange={event => { setBudget(numberInput(event.target.value)); clear(); }} /></label></div>
     {validCoordinates && <CoveragePlane anchors={anchors} candidates={candidates} selected={selectedAtStep} showDistances={Boolean(result)} />}
-    <fieldset><legend>Choose the distinct IDs you would label</legend><div className="active-controls">{candidates.map(point => <label key={point.id}><span><input type="checkbox" checked={chosen.includes(point.id)} onChange={event => { setChosen(event.target.checked ? [...chosen, point.id] : chosen.filter(id => id !== point.id)); setCommitted(null); setResult(null); }} /> {point.id}</span></label>)}</div></fieldset>
-    <div className="active-controls"><label>Predict your batch's covering radius<input type="number" min="0" step="any" value={estimate} onChange={event => { setEstimate(event.target.value); setCommitted(null); setResult(null); }} /></label></div>
-    <PredictionNotice committed={committed} result={result} /><div className="active-controls"><button onClick={record}>Record prediction</button><button disabled={!committed} onClick={reveal}>Reveal batch comparison</button></div><ErrorMessage message={error} />
-    {result && <div className="active-result" role="status"><strong>{near(result.user.radius, result.prediction.estimate) ? 'Prediction matches.' : 'Compare your prediction.'}</strong> Your [{result.prediction.ids.join(', ')}] radius is {formatActiveValue(result.user.radius)}; you predicted {result.prediction.estimate}.
+    <fieldset><legend>Choose the distinct IDs you would label</legend><div className="active-controls">{candidates.map(point => <label key={point.id}><span><input type="checkbox" checked={chosen.includes(point.id)} onChange={event => { setChosen(event.target.checked ? [...chosen, point.id] : chosen.filter(id => id !== point.id)); }} /> {point.id}</span></label>)}</div></fieldset>
+    <div className="active-controls"></div>
+    <div className="active-controls"></div><ErrorMessage message={error || calculation.error} />
+    {result && <div className="active-result" role="status"> Your [{result.selectedIds.join(', ')}] radius is {formatActiveValue(result.user.radius)}.
       <LessonTable caption="Same inputs and budget; different batch objectives" headers={['Method', 'Selected IDs', 'Covering radius']} rows={[
-        ['Your batch', result.prediction.ids.join(', '), formatActiveValue(result.user.radius)],
+        ['Your batch', result.selectedIds.join(', '), formatActiveValue(result.user.radius)],
         ['Highest entropy', result.uncertain.join(', '), formatActiveValue(result.entropyRadius)],
         ['Farthest first', result.geometric.selected.join(', '), formatActiveValue(result.geometric.radius)],
       ]} />

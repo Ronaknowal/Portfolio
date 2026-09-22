@@ -1,0 +1,56 @@
+Wine
+Stefan Aeberhard and M. Forina. UCI Machine Learning Repository.
+Repository citation 1992; the repository records the donation in 1991.
+https://doi.org/10.24432/C5PC7J
+Licensed CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+Use the DOI above as the canonical link. The repository's direct /dataset/109/wine route
+failed during the research turn that prepared this packet, while its numeric-ID alternate
+returned the Wine page; that alternate suffix is misleading and is not reproduced here.
+
+wine.csv holds the unchanged bytes of the offline extract prepared for this curriculum,
+12100 bytes, SHA-256 34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be.
+
+What the data are: chemical analyses of 178 wine specimens grown by three cultivars in the
+same region of Italy. The task in this lesson is recognising the recorded cultivar of a
+specimen from its measurements. It is not taste scoring, quality grading or clinical data,
+and the class codes are names rather than an ordering.
+
+Offline source: the bundled data of scikit-learn 1.9.1 `load_wine()`, documented at
+https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_wine.html
+No UCI archive was downloaded successfully while this packet was prepared, so no byte
+comparison against the original archive is claimed.
+
+Changes made to produce this file: the numeric measurements were written with %.8g
+formatting; the source row order was kept; a one-based specimen_id column was added;
+scikit-learn's feature names were used as column headings; and its zero-based class labels
+were stored as cultivar = 0, 1, 2, corresponding to UCI's labels 1, 2 and 3. No row was
+filtered, no value was imputed, no scaling was written into the file, and no missing value
+was introduced. specimen_id and cultivar are never model features.
+
+Comma separated, CRLF line endings, a header row and 178 data rows of fifteen columns:
+specimen_id, then the thirteen measurements alcohol, malic_acid, ash, alcalinity_of_ash,
+magnesium, total_phenols, flavanoids, nonflavanoid_phenols, proanthocyanins,
+color_intensity, hue, od280/od315_of_diluted_wines and proline, then cultivar. All 178
+specimen_id values are distinct and every measurement is finite. The three cultivar codes
+hold 59, 71 and 48 specimens. The inspected UCI table does not state a unit for each
+measurement, so this lesson names none and its figures use the recorded source scale.
+
+What this lesson does with it: a stratified holdout of 36 specimens is taken first with
+random_state 21, then a stratified validation set of 36 is taken from the remaining 142 with
+random_state 22, leaving 106 training specimens. The three splits are disjoint and together
+cover all 178 rows. Their cultivar counts are 35/43/28 for training and 12/14/10 for each of
+validation and test. All four candidate models are fitted on the 106 training rows only. The
+selected already-fitted model is evaluated once on the 36 test rows without refitting, and
+the interactive development explorer on this page is restricted to the 36 validation rows.
+
+Three other lessons in this curriculum serve wine measurements under
+public/learn-assets/bayesian-networks/, public/learn-assets/pca/ and
+public/learn-assets/feature-selection/. This lesson serves its own copy so that no other
+lesson's asset edit can change what this page teaches, and it never references theirs. The
+bayesian-networks copy is byte-identical to this one today; that is a fact about today, not
+a dependency.
+
+Also served here, as a download the lesson links rather than a dataset:
+  wine_study.py   the complete study program the lesson displays, byte for byte the program
+                  in docs/teaching/drafts/end-to-end-supervised-learning-error-analysis/lesson.md

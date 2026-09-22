@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-21T23:47:47.459Z",
+  "reviewer": "/root/residual_implementation",
+  "status": "passed-source-and-native-review-browser-pending",
+  "findings": 4,
+  "closedFindings": 4,
+  "review": "docs/teaching/DROPOUT-INDEPENDENT-REVIEW.md",
+  "authorEvidence": "docs/teaching/evidence/dropout-implementation/author.json",
+  "independentEvidence": [
+    "docs/teaching/evidence/dropout-implementation/independent-native.json",
+    "docs/teaching/evidence/dropout-implementation/independent-model.json"
+  ],
+  "sourceHashes": {
+    "docs/teaching/drafts/dropout-droppath-stochastic-depth/lesson.md": "5b83faa534659c454fa82d1d09be628e2146bda851209cde0500bfb599cd4744",
+    "docs/teaching/drafts/dropout-droppath-stochastic-depth/visual-specifications.md": "953b3af3887194b2017e6cd81da58f0b0e2e9962e012ac78f96eb1d20e1a5de9",
+    "src/learn/data/topics/dropout-droppath-stochastic-depth.jsx": "2682ec74891f93458ee9a8a822ce20eecc6474fcd672e7d0c640a40517012863",
+    "src/learn/components/lesson-labs/DropoutLabs.jsx": "bad2f76c92bd1afdb5f973ba49bef0585687fe200876b044609da754c26f6201",
+    "src/learn/components/lesson-labs/dropout-labs.css": "5c9eae805b67a8f2ac98f685ea7397f4fcc727f9b4cbd23b259957e2f8e75973",
+    "src/learn/data/dropout-models.js": "e822e7f17cd3a3f5b77a0e967983e40fc1d113a1ddb976e1bfe37877d0234884",
+    "src/learn/data/dropout-measurements.json": "9577eb052bcf1cfa929b27b6ac357704774cd17f61686954c06f041be06ffe3d",
+    "src/learn/data/curriculum/blueprints/dropout-droppath-stochastic-depth.js": "611b30ea77f5d9c181176c4c7a354a09b84e67e55f4f81e134410362c75adf5b",
+    "public/learn-assets/dropout-droppath-stochastic-depth/dropout-experiments.py": "6fc8bd08e4b237298eab787fe28b195ac2e113d9e06873a8f464cecfc3091afd",
+    "public/learn-assets/dropout-droppath-stochastic-depth/dropout-library-checks.py": "071d7803f1e3572d76d77a77af63b39a4d6becfae3e696e303519edf2e91c696",
+    "public/learn-assets/dropout-droppath-stochastic-depth/calculated-inputs.json": "b1ff6e1ea82a409f5e211faab688c4e6f2c418246c8df94ad247b038607933c2",
+    "public/learn-assets/dropout-droppath-stochastic-depth/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/dropout-droppath-stochastic-depth/data-provenance.md": "724c75b70de507a23ebfd51828635cfc8e59f8f682f3e9dadbe589521f639529",
+    "scripts/render-dropout-lesson.mjs": "293fb7050dbe9a0351e86e8a0e90f7c810f2e8b53295b9a7cdf25b5381557034",
+    "scripts/verify-dropout-independent.py": "51ea5d0705bd8446084925b64ab7ff9e13e6faf3efcf91b946973050637d9a88",
+    "scripts/verify-dropout-independent.mjs": "7e7cc43cffff8f6f51fc730f5685aa5d443f30f647e43329c6af252af5135b46"
+  },
+  "limits": [
+    "No repeated27fit campaign",
+    "No browser or screenshot review by this reviewer",
+    "Parent owns final integration, browser closure and ledger"
+  ]
+}

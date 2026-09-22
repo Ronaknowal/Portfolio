@@ -114,7 +114,7 @@ export function CausalPathLab() {
   }
   return <section className="causal-lab" aria-label="Causal path investigation" data-causal-lab="paths">
     <header><span className="causal-eyebrow">Follow the path</span><h3>What does conditioning open or close?</h3>
-      <p>Predict the effect of selecting the middle node—or its descendant—before checking a box. Conditioning adds a ring; it does not delete a causal arrow.</p></header>
+      <p>Inspect the effect of selecting the middle node—or its descendant—before checking a box. Conditioning adds a ring; it does not delete a causal arrow.</p></header>
     <div className="causal-controls"><label>Path structure<select aria-label="Path structure" value={presetName} onChange={event => selectPreset(event.target.value)}>
       {Object.entries(CAUSAL_PATH_PRESETS).map(([key, preset]) => <option key={key} value={key}>{preset.title}</option>)}
     </select></label><fieldset><legend>Condition on</legend>{graph.allowed.map(node => <label className="causal-check" key={node}>
@@ -159,7 +159,7 @@ export function CausalAdjustmentLab() {
   }
   return <section className="causal-lab" aria-label="Population adjustment investigation" data-causal-lab="adjustment">
     <header><span className="causal-eyebrow">Compare the same population</span><h3>Change who receives the offer</h3>
-      <p>The outcome mechanisms stay fixed: low-activity conversion risks are .1/.2 without/with the offer; high-activity risks are .3/.4. Predict which comparisons change when assignment changes.</p></header>
+      <p>The outcome mechanisms stay fixed: low-activity conversion risks are .1/.2 without/with the offer; high-activity risks are .3/.4. Inspect which comparisons change when assignment changes.</p></header>
     <div className="causal-controls">
       <Range label="High-activity population share" value={highShare} onChange={setHighShare} />
       <Range label="Offer probability in low group" value={lowAssignment} onChange={setLowAssignment} />
@@ -222,7 +222,7 @@ export function DoCalculusLab() {
   const right = preset.rule === 2 ? query(preset.X, [...preset.Z, ...preset.W]) : query(preset.X, preset.W);
   return <section className="causal-lab" aria-label="Do-calculus graph investigation" data-causal-lab="rules">
     <header><span className="causal-eyebrow">Check the modified graph</span><h3>Which equality does this graph justify?</h3>
-      <p>Choose a rule and its contrasting case. Predict which arrows the rule asks you to cut, then inspect the Y–Z separation test. These are conditions for a rule, not a complete automatic identification algorithm.</p></header>
+      <p>Choose a rule and its contrasting case. Inspect which arrows the rule asks you to cut, then inspect the Y–Z separation test. These are conditions for a rule, not a complete automatic identification algorithm.</p></header>
     <label className="causal-wide-control">Rule and causal story<select aria-label="Rule and causal story" value={presetName} onChange={event => setPresetName(event.target.value)}>
       {Object.keys(CAUSAL_RULE_PRESETS).map(key => <option key={key} value={key}>{optionLabels[key]}</option>)}
     </select></label>
@@ -268,7 +268,7 @@ export function FrontdoorLab() {
   }
   return <section className="causal-lab" aria-label="Frontdoor identification investigation" data-causal-lab="frontdoor">
     <header><span className="causal-eyebrow">An observed intermediate mechanism</span><h3>Can M carry the identifying information?</h3>
-      <p>U is hidden. The model has P(U=1)=.5 and P(X=1|U)=.2/.8. Without a direct path, Y's risk is .1+.5M+.2U. Predict the failure before adding X directly to the outcome mechanism.</p></header>
+      <p>U is hidden. The model has P(U=1)=.5 and P(X=1|U)=.2/.8. Without a direct path, Y's risk is .1+.5M+.2U. Inspect the failure before adding X directly to the outcome mechanism.</p></header>
     <div className="causal-controls"><Range label="P(M=1 | X=0)" value={mediatorLow} onChange={setMediatorLow} />
       <Range label="P(M=1 | X=1)" value={mediatorHigh} onChange={setMediatorHigh} />
       <label className="causal-check"><input type="checkbox" checked={hasDirectPath} onChange={event => setHasDirectPath(event.target.checked)} />Add direct X→Y effect of .1</label>

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "reviewer": "root; separate from topic author convnext_finish",
+  "groups": [
+    "Changed three-channel and constant-group LayerNorm native references",
+    "Signed and zero-response GRN native references; changed-state Jacobian",
+    "Six native parameter counts and exact zero-projection residual identities",
+    "Three signed/zero-gamma full 25-position eval BatchNorm branch references"
+  ],
+  "maximumError": 2.842170943040401e-14,
+  "sourceHashes": {
+    "src/learn/data/convnext-models.js": "c19b8aa44bcb736828ae978e8f1efb8904571d2a854e8ae3621400491be9642b",
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "bfedbb1e54cd1397ef1b0c27c05c671787f86d6d7579ac837e5facd4924a8e73",
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx": "2f9ff9755b0d3e9c3ef645be6ed67c83b3d5cc9dad0c5e48b09b9c9d37d0792c",
+    "src/learn/components/lesson-labs/convnext.css": "befbaa5b4d07c0da12cc17ceb7adfe8f94be7986564de61dcc85307def107ce2",
+    "scripts/verify-convnext-independent.mjs": "ab534e06357d46719757d627a176fc38712d98defaaaa55f8d6e1954e186f55a"
+  },
+  "limits": "Numerical source review; browser/layout evidence is separate. No fits or published benchmark claims remeasured."
+}

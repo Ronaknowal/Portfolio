@@ -77,7 +77,7 @@ export function WeightedColumnProbeLab() {
   return <section className="rla-lab" aria-label="Weighted column probe investigation">
     <p className="rla-eyebrow">A RANDOM PROBE IS A COLUMN COMBINATION</p>
     <h3>What does one probe reveal—or hide?</h3>
-    <p>The matrix columns are [3, 0], [0, 1] and [3, 1]. Choose weights and follow the three colored contributions from tail to tip. Predict what happens with weights [1, 1, −1].</p>
+    <p>The matrix columns are [3, 0], [0, 1] and [3, 1]. Choose weights and follow the three colored contributions from tail to tip. Inspect what happens with weights [1, 1, −1].</p>
     <div className="rla-controls">{weights.map((value, index) => <label key={index}>Column {index + 1} weight
       <select value={value} onChange={event => setWeights(previous => previous.map((weight, position) => position === index ? Number(event.target.value) : weight))}>
         {[-2, -1, 0, 1, 2].map(weight => <option key={weight} value={weight}>{weight}</option>)}

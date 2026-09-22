@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # AutoML & NAS — figures and investigation contracts
 
 Content-only specification, 12 September 2026. Stable identity: `automl-neural-architecture-search-nas`. Read with the full `lesson.md`, `design.md`, `data-provenance.md`, and `calculated-inputs.json`. These are implementation instructions, not claims that the widgets, browser code, or phase-two checks already exist.

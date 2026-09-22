@@ -76,7 +76,7 @@ export function EigenDirectionLab() {
   return <section className="eigen-lab" aria-label="Preserved direction investigation">
     <p className="eigen-eyebrow">KEEP A LINE · NOT NECESSARILY ITS ORIENTATION</p>
     <h3>Which inputs stay on their own line?</h3>
-    <p>Move the unit input toward 45°, then 135°. Predict the signed scale before reading the result. The green ring marks the along-line part of the output; its dotted connector to the gold tip is the perpendicular remainder. A new preset applies immediately; angles are measured counterclockwise from the horizontal axis.</p>
+    <p>Move the unit input toward 45°, then 135°. Inspect the signed scale alongside the result. The green ring marks the along-line part of the output; its dotted connector to the gold tip is the perpendicular remainder. A new preset applies immediately; angles are measured counterclockwise from the horizontal axis.</p>
     <div className="eigen-controls"><label>Transformation<select value={preset} onChange={event => setPreset(event.target.value)}>{Object.entries(eigenDirectionPresets).map(([key, item]) => <option key={key} value={key}>{item.title}</option>)}</select></label><AngleControl label="Input direction" value={angle} onChange={setAngle} /><button onClick={reset}>Reset direction</button></div>
     <div className="eigen-columns"><CoordinatePlot title="Input and transformed direction" description="The reference line passes through the input. A green ring marks the along-line projection of the output; the dotted connector to the gold tip is its perpendicular remainder. A zero output stays at the origin." points={[{ value: state.along, label: 'Along-line projection', projected: true }]} segments={[[state.along, state.output]]} vectors={[{
         value: state.output,
@@ -141,7 +141,7 @@ export function RepeatedMapLab() {
       }]} trail={trace.states.slice(0, step + 1).map(item => item.vector)} /><NormHistory states={trace.states} selected={step} /></div>
     <div className="eigen-columns"><MatrixValues matrix={trace.matrix} /><div className="eigen-feedback" aria-live="polite"><p>x<sub>{step}</sub> = {pair(state.vector)}</p><p>Length = {number(state.norm)}; eigenvalues: {trace.eigenvalues}.</p></div></div>
     <details><summary>All computed states and interpretation</summary><p>{trace.conclusion}</p><table className="eigen-data"><caption>Unnormalized recurrence; k=0 is the starting vector</caption><thead><tr><th>k</th><th>xₖ</th><th>‖xₖ‖</th></tr></thead><tbody>{trace.states.map(item => <tr key={item.step}><th>{item.step}</th><td>{pair(item.vector)}</td><td>{number(item.norm)}</td></tr>)}</tbody></table></details>
-    <p className="eigen-caption">Twelve calculated updates, not empirical observations or an asymptotic proof. The length plot includes the full trace for prediction; the selected gold point matches the left state. Coordinates use equal scales, and are not normalized to hide growth.</p>
+    <p className="eigen-caption">Twelve calculated updates, not empirical observations or an asymptotic proof. The length plot includes the full trace for comparison; the selected gold point matches the left state. Coordinates use equal scales, and are not normalized to hide growth.</p>
   </section>;
 }
 export function PcaDirectionLab() {

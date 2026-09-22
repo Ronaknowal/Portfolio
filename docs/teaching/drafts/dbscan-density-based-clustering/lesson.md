@@ -1,5 +1,7 @@
 # DBSCAN & Density-Based Clustering
 
+> Current lab UX, 21 September 2026: controls show live calculations and topic-specific visuals without learner prediction entry, grading or guess-to-reveal screens. Genuine algorithm steps, separate practice and data-role boundaries remain. See [the current migration record](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md).
+
 Suppose you mark where a survey found flowers along a winding trail. You want groups of nearby observations, including groups that bend with the trail, and you want to leave isolated observations ungrouped. Choosing two centers answers a different question: which center is closest to each observation? DBSCAN instead asks whether observations can be linked through sufficiently crowded neighborhoods.
 
 Later we will return to real flower measurements: the 150-row Iris dataset used in the preceding clustering-evaluation lesson. Can a local-density rule recover useful groups from the four measurements, and how much of the dataset does it leave out? The trail below is an invented hand-calculation example; Iris is measured data. They have different jobs.
@@ -62,7 +64,7 @@ Core, border and noise **types** depend on distances and counts. They stay the s
 
 A border row shared by several core components is different. Ordinary DBSCAN assigns it to the first component that reaches it. With A visited first, I joins the left group; with H visited first, I joins the right group. The row remains border in both runs. Neither assignment is a mathematical claim that one side is more probable.
 
-> **Investigation L1 — can one row join two groups together?** Record a prediction, initially unanswered, about I's type and number of core components. Move I to a position you choose, or edit a trail coordinate, then apply the change. Inspect the neighbor roster, core graph and final attachments. Reverse the starting order separately. Feedback names the decisive neighbors and distinguishes a genuine component change from a renamed label. The answer for every editable position is not prewritten beside the control.
+> **Investigation L1 — can one row join two groups together?** Move I to a position you choose or edit a trail coordinate, and follow its type and the core-component count immediately. Inspect the neighbor roster, core graph and final attachments. Reverse the starting order separately. The readout names the decisive neighbors and distinguishes a genuine component change from a renamed label. The current calculation is visible beside its controls.
 
 ## 3. Reachability: why the arrows matter
 
@@ -214,7 +216,7 @@ Multiplying feature j by√w_j turns ordinary Euclidean distance in the transfor
 
 A concrete geometry check uses four corners `(0,0),(1,0),(0,2),(1,2)`, ε=1,m=2. Initially there are two horizontal pairs. Multiply only y by .5, keeping ε=1: every point can reach its horizontal and vertical neighbors, so the radius graph becomes one component. Transform both axes by the same positive factor and ε by that factor: the original result returns. This null distinguishes a change of units from a change of metric.
 
-> **Investigation L2 — change units or change the question?** Record predicted component count, then choose an unsolved feature multiplier/weight and radius. Show actual transformed points with equal-axis scales, the selected row's neighborhood shape and exact distances. Offer a paired unit-conversion action that also converts ε; compare its unchanged graph with one-axis weighting. Reset preserves no committed prediction.
+> **Investigation L2 — change units or change the question?** Choose a feature multiplier/weight and radius and inspect the recalculated component count immediately. Show actual transformed points with equal-axis scales, the selected row's neighborhood shape and exact distances. Offer a paired unit-conversion action that also converts ε; compare its unchanged graph with one-axis weighting. Reset restores the complete original geometry.
 
 For geographic positions, raw latitude/longitude degrees are not uniform meter coordinates. With a spherical Earth approximation, sklearn's haversine metric takes `[latitude,longitude]` in radians and returns an angle. A 2 km radius corresponds to `2/6371 ≈ .000313922` radians if you explicitly choose Earth radius 6371 km. A suitable local projected coordinate system can instead supply meter coordinates. Geography determines that choice; standardizing latitude and longitude does not fix the distance model.
 
@@ -290,7 +292,7 @@ The three-cluster result at .3 retains only 30 flowers. Its cluster count matchi
 
 The silhouette compares average distances to the same cluster and the nearest alternative cluster; it is not a centroid calculation. Its conditional rows change between these runs. ARI compares two partitions through pair agreement and adjusts for chance. Passing all labels into ARI explicitly makes the noise rows one predicted group. If you exclude noise, publish the retained IDs and coverage; if comparing two excluded-noise scores, also examine the intersection of retained IDs. These are the reporting conventions from the preceding lesson, applied to a method that can abstain.
 
-> **Investigation L3 — a better score for fewer flowers?** Before revealing species, record whether a learner-chosen radius/count will raise coverage and how many groups they expect. Apply it, inspect the four-feature report and a clearly labeled two-feature projection with the same row IDs. Reveal species only after recording a parameter decision. Then compare conditional scores with coverage, including common-row comparison. The plotting projection is not the space used by the four-feature fit.
+> **Investigation L3 — a better score for fewer flowers?** Choose a radius/count and follow coverage and group count live; inspect the four-feature report and a clearly labeled two-feature projection with the same row IDs. Inspect species as a separate diagnostic after choosing parameters from the geometry. Then compare conditional scores with coverage, including common-row comparison. The plotting projection is not the space used by the four-feature fit.
 
 ## 8. Know when a single radius is the wrong tool
 
@@ -306,7 +308,7 @@ At ε=.25, the first two groups are separate core components and all four right-
 
 Now change only the right group to `[5,5.125,5.25,5.375]`. At ε=.25 all three groups appear. This equal-density null shows exactly what caused the earlier conflict.
 
-> **Inline figure F4 and investigation L4 — incompatible intervals.** Three aligned groups share a true-distance axis; below them show “keep left/middle separate: ε<.375” and “make right group viable: ε≥.75.” Their acceptable intervals do not overlap. Learners commit a prediction, edit the right-group spacing or middle-group offset, then seek an overlapping interval and test a chosen radius. A parameter table must accompany the geometry; no axis break may disguise an actual gap.
+> **Inline figure F4 and investigation L4 — incompatible intervals.** Three aligned groups share a true-distance axis; below them show “keep left/middle separate: ε<.375” and “make right group viable: ε≥.75.” Their acceptable intervals do not overlap. Learners edit the right-group spacing or middle-group offset, follow the interval endpoints immediately, then seek an overlapping interval and test a chosen radius. A parameter table must accompany the geometry; no axis break may disguise an actual gap.
 
 Use this decision table once you have counted neighborhoods:
 

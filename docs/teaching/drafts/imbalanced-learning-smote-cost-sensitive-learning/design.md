@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Imbalanced Learning — content design and continuation
 
 Stable ID `imbalanced-learning-smote-cost-sensitive-learning`. Author `/root/classical_feature_content`,12 September2026. Current delivery is **research and writing only**. Manuscript, visual/investigation contracts, observed input, provenance and bounded calculations are the content packet. Implementation, displayed-program execution as a published artifact, independent phase-two review, browser/accessibility/performance checks and integration are pending. Root owns the central source-bound checkpoint.

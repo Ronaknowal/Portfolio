@@ -1,0 +1,604 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:02:58.054Z",
+  "baseUrl": "http://127.0.0.1:4191",
+  "topicCount": 17,
+  "controlChanges": 55,
+  "scope": "Actual controls and current diagrams/tables at desktop; phone document overflow; retained exact font fixtures. Unchanged outputs can be legitimate nulls. Not a fresh numerical audit of unchanged model implementations.",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/LiveInvestigationState.js": "6ab50dd99db7c00d09a0a36057f584f516e93958b5d935b0bcdada076b60dd16",
+    "src/learn/components/lesson-labs/SelectionLabs.jsx": "c520f9a294b6fb8f90a36c868cbb967b1423cf698d4fb77b0581cc02276102c2",
+    "src/learn/components/lesson-labs/SelectionShared.jsx": "a55e68432bb1fb8ea0b85383b70526531a2575d22b4b5e482354f48a1e16b9d5",
+    "src/learn/components/lesson-labs/BiasVarianceLabs.jsx": "36e138f87ce071ccd35b6b84b457299b2a6d5e16f7c75736931ccd84d3ecb47b",
+    "src/learn/components/lesson-labs/BiasVarianceShared.jsx": "cb8c4a80d6718635a813b65d663f5b7d202f2cf918c6539197a4af837b71e87c",
+    "src/learn/components/lesson-labs/ImbalanceLabs.jsx": "ea0f6d3e0800313eea5821e3c501542c00fc99a9bdb1fbf7b4eab06d37185ce3",
+    "src/learn/components/lesson-labs/ImbalanceShared.jsx": "b007fb975e6869a55d0868967a8cee67c0366e7d5a6f12ec70f2440ca8b7f4d4",
+    "src/learn/components/lesson-labs/AutomlLabs.jsx": "c3522d2987c3a9a88d07ce44f9c9757b36dc905cfa3345ce9ef92ab6ac32ce9a",
+    "src/learn/components/lesson-labs/AutomlShared.jsx": "df0ef8b508da372ca0fb5116ff20e68a2a07b7aa4a35ac1da5b397c058583549",
+    "src/learn/components/lesson-labs/HmmLabs.jsx": "405df356438e0dcc418bcbdf6f7bb7811851f37afab433b36837a5c9650cd561",
+    "src/learn/components/lesson-labs/HmmShared.jsx": "6abd0d8fc78049a612a122ec76b5ef7105512e8bcdd1c3838921f85cacdcab90",
+    "src/learn/components/lesson-labs/BayesNetLabs.jsx": "66f09ace559d47e6a3ccff3f13c720bf51e271f64c0b79d72c261201255c23d6",
+    "src/learn/components/lesson-labs/BayesNetShared.jsx": "21c117adc146e85ea437db32569d492c184cf1e5d29ad7a0a18a9d0bc7eaca17",
+    "src/learn/components/lesson-labs/CrfLabs.jsx": "a4f707d04da3c1b7a091f4147f421ad91f31c75bf9982f00b2433a5113fd3251",
+    "src/learn/components/lesson-labs/GaussianProcessLabs.jsx": "c1d11cc9a95b0bc7f9050d69bcedadb6aca8e6d26495a92f734dd28f31c5e2c6",
+    "src/learn/components/lesson-labs/SemiSupervisedLabs.jsx": "e9e0fef7a0b7b5fcaccf52a94cb1cb3e2def9bb3e53f4c9bc399a12716608277",
+    "src/learn/components/lesson-labs/ActiveLearningLabs.jsx": "6f8461b3afdf19a410357a02b51a56b779e8cc0ccd508ae170975cf739b34cec",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "e3eac4376aa4807d16af85031c4f4671995b10b0b7ee76bc5d33ced28d029363",
+    "src/learn/components/lesson-labs/PacLabs.jsx": "cb4ff157b14ff14fbb4ee2f9ddc3a93033329a4b3004919e25c48872d988894e",
+    "src/learn/components/lesson-labs/PacShared.jsx": "5f7b6ea64e8982a67889082fa8cc4775fdc1b31a435856dc3654c7afbb2170e8",
+    "src/learn/components/lesson-labs/CalibrationLabs.jsx": "08ccec0a08106b2ff8b453c84b357918f33f6e0b059d9c2b19ac15703ffde9f8",
+    "src/learn/components/lesson-labs/CalibrationShared.jsx": "250440cd73ef11217f4beb3e84f5cdb21f3acd5162dc3d0d412df5ada9275495",
+    "src/learn/components/lesson-labs/RademacherLabs.jsx": "7c06d70cd9d3f826ac5f8a8a25d1a79ac416bd7d180a7f33f4dc54deed8730db",
+    "src/learn/components/lesson-labs/RademacherShared.jsx": "e9c55b341c0f75404069bd64354cc1af753804b03f07b092a4a642ca4228102a",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx": "fbfc267aac60cd3d2defdeb1b7ef3a7c268c0346d4bb2f7e1ad88bd8be4d5154",
+    "src/learn/components/lesson-labs/FormulationShared.jsx": "6dfe486e4cea07c4850445f297166531b296253d9961f1df7a74117811029757",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "5ee25fe3937620fb989e5a8ff62d2b74aecdbc4735aa4e4437c611834344da06",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "e721b5a007d3c784f5cf892734cb60695321e231988afeb9d165a8529f068874",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "3301bc83d4ade95dbb583b44f2f51ae760a9eadc4def2f5e7847cef86fd5b0d3",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "4ba3e558db96846e73fb098946afd543e6d8f94efc99fc35337c0a44e1678acf",
+    "src/learn/data/topics/feature-selection-importance-shap-permutation-mutual-info.jsx": "f4dc76a9627e6e3d08cea91db76a7ef57af4620aa8d9f7f96fcea50070b6736f",
+    "src/learn/data/topics/bias-variance-tradeoff-learning-curves.jsx": "f3a3f9d346854c1f74a924a7afa2d4b2660571aa84bb3de73b883c6cd91ab6ac",
+    "src/learn/data/topics/imbalanced-learning-smote-cost-sensitive-learning.jsx": "67a535c943b30422a2bb00bf30c6fa5a7f45f1eae6b5d9a750f6b73020c130fd",
+    "src/learn/data/topics/automl-neural-architecture-search-nas.jsx": "f7b8ac03ed1a570da32394a32d00db67aa457ca02989ff80b20f17c2483d4fec",
+    "src/learn/data/topics/hidden-markov-models-hmm.jsx": "466789ee993a24f125db87cdff21ef7ce37d0f590449b1710556dcb876bde6c6",
+    "src/learn/data/topics/bayesian-networks-causal-graphical-models.jsx": "dd29d027674b1cb44a5ec03865ed89e729073e8b66d78b4d9c23dea666490863",
+    "src/learn/data/topics/conditional-random-fields-crf.jsx": "58a16118eb35361bee81c5d9b89050d93245362bb749d17861cca6dff1a23b9d",
+    "src/learn/data/topics/gaussian-processes-gp.jsx": "bdfb3e16df7155ed8a0e7dee791dfdd89452f9620f56192063be42931855ff6c",
+    "src/learn/data/topics/semi-supervised-learning-label-propagation-self-training-co-training.jsx": "0f7a82d8118b913b1a56af5bb9afc342f4806e9068642374088147a267ebeee8",
+    "src/learn/data/topics/active-learning.jsx": "4e99e9f30065621cfc3210d91117365dd45dc3da9dde880de2da4428e190d885",
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "0c32edd2ba458d85326257782a7913738445bccedf3599a8d5566eeafae43aca",
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx": "da38d2948fbf58e8d8e4b839784668006eb71c78f539bf149f6095a40a12be67",
+    "src/learn/data/topics/calibration-conformal-prediction.jsx": "521655f0ebc8c55a318d8a49b3a34112252e38d1746776bc2714c3e551343c27",
+    "src/learn/data/topics/rademacher-complexity-generalization-bounds.jsx": "ea6e7d1901099e4610589eeea9333e81d2e9ef8fd496069c4c6d222a722c747e",
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "6e7f2dac2eb1c150a7b5ae87f6fc716e4db9a49f89a35aa66da2730c0e2fd4d3",
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "c15cbfaa4793ca9b2e7bd7c2f28b569d9cec72d59e001f424fa4889a6f3b6abb",
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "65a796cab0e398249d50c8ae1b546f740c1a47fc6257fd8a89923e3b3286dda5",
+    "src/learn/data/curriculum/blueprints/feature-selection-importance-shap-permutation-mutual-info.js": "f9fd348ffd13740cbc43bd5ae6f837ad210a85162d789947f64f0905dcb9bd74",
+    "src/learn/data/curriculum/blueprints/bias-variance-tradeoff-learning-curves.js": "3fbe5c6878bb97c3c72a9fc37232b32b8d0caa9b41c28202dd865b44fdc7cd8d",
+    "src/learn/data/curriculum/blueprints/imbalanced-learning-smote-cost-sensitive-learning.js": "3f8f8db2ade8deb1368016ce5a2ad3dbe5e517e4239caac621f75c7991965685",
+    "src/learn/data/curriculum/blueprints/automl-neural-architecture-search-nas.js": "13c7d5a320187626a97c1f698b99f04f954597d71eeac145f58e4076af7d16a6",
+    "src/learn/data/curriculum/blueprints/hidden-markov-models-hmm.js": "177ddd8759537032dd38fa76fc46c6d2aae3bfd8b3dc25b3361bb95a4b0e497d",
+    "src/learn/data/curriculum/blueprints/bayesian-networks-causal-graphical-models.js": "d71c9508deeaca3f225df250af9eca3e72a06f39f1af2390cab85f5109a684fa",
+    "src/learn/data/curriculum/blueprints/conditional-random-fields-crf.js": "01c610a488810be567f888dd867eae63b510c4347902fe3f0b0a39a93d9a7069",
+    "src/learn/data/curriculum/blueprints/gaussian-processes-gp.js": "2e1d4972ee89a95993fd9dfe47780485e18fe795e6e4d2bbfba745b820dfa031",
+    "src/learn/data/curriculum/blueprints/semi-supervised-learning-label-propagation-self-training-co-training.js": "c7e5e05450d5af5a8d87a4473282d4b0abe3578ad55b9763902156513e3440e5",
+    "src/learn/data/curriculum/blueprints/active-learning.js": "01615b621c34fdabc5cf1be2b6b622f8d91fc8a6dc2736ffb8c2741613142732",
+    "src/learn/data/curriculum/blueprints/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.js": "0c3349984ccbb4c2ec8051df74189f38a4ed27d4de03a134bb1b94142567eebf",
+    "src/learn/data/curriculum/blueprints/pac-learning-vc-dimension.js": "8dbcbe769c622bcf1b12f5ad6541d0b5bf85f4aa9fa11010f0649fce94b4c597",
+    "src/learn/data/curriculum/blueprints/calibration-conformal-prediction.js": "81165e5d137fbeaccd8f9dc125839ad7ebc6a40abc34774b8fdc933402029913",
+    "src/learn/data/curriculum/blueprints/rademacher-complexity-generalization-bounds.js": "4bdd077ea9d8f927f1ba1ceb584816ed746c2912f47a94099ba69a640acf6743",
+    "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "ece214b372f1d160251231682390a10fa8fe572b989ed26a0959c73b6363650e",
+    "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "fcd55e8c5f41c574ba6c9e463f083b686c72e18dd88ebcd283cd6f0395c13554",
+    "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "d49616e0ab430023eafe36d375b9a2455ee195afb66caed714f6d3df4d59514c"
+  },
+  "verifierHash": "b792d97aa6e030be47dc14925d639b4d2474dcec2226ece21492844a60609dae",
+  "topics": [
+    {
+      "id": "feature-selection-importance-shap-permutation-mutual-info",
+      "records": [
+        {
+          "lab": "Change a count, change the information",
+          "control": "X=0, Y=0",
+          "before": "3",
+          "after": "4",
+          "changed": true
+        },
+        {
+          "lab": "Traverse the subset lattice",
+          "control": "Target for A=0, B=0",
+          "before": "0",
+          "after": "1",
+          "changed": true
+        },
+        {
+          "lab": "Follow the donor rows",
+          "control": "row 0 sensor 1",
+          "before": "-1",
+          "after": "-0.5",
+          "changed": true
+        },
+        {
+          "lab": "Rebuild a coalition from its donor inputs",
+          "control": "Explained a",
+          "before": "2",
+          "after": "2.5",
+          "changed": true
+        },
+        {
+          "lab": "A changed sample takes a different tree path",
+          "control": "alcohol (raw source scale)",
+          "before": "12.51",
+          "after": "12.52",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "bias-variance-tradeoff-learning-curves",
+      "records": [
+        {
+          "lab": "Move one prediction; watch which term moves",
+          "control": "Prediction D1",
+          "before": "8",
+          "after": "8.25",
+          "changed": true
+        },
+        {
+          "lab": "Enumerate every possible tiny training set",
+          "control": "True curvature c",
+          "before": "1",
+          "after": "1.05",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "imbalanced-learning-smote-cost-sensitive-learning",
+      "records": [
+        {
+          "lab": "Move the gate through actual scored records",
+          "control": "A — score",
+          "before": "0.9",
+          "after": "0.91",
+          "changed": true
+        },
+        {
+          "lab": "Two action costs cross",
+          "control": "Posterior p for this case — exact value",
+          "before": "0.1",
+          "after": "0.11",
+          "changed": true
+        },
+        {
+          "lab": "A score of one half can mean another probability",
+          "control": "Population probability p — exact value",
+          "before": "0.1",
+          "after": "0.11",
+          "changed": true
+        },
+        {
+          "lab": "Move the endpoints and inspect what the rule ignores",
+          "control": "A — x",
+          "before": "0",
+          "after": "0.1",
+          "changed": true
+        },
+        {
+          "lab": "Change an actual tuning policy and inspect the selected records",
+          "control": "Trial gate on the tuning scores — exact value",
+          "before": "0.5",
+          "after": "0.51",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "automl-neural-architecture-search-nas",
+      "records": [
+        {
+          "lab": "Assemble a valid experiment, then count it",
+          "control": "select",
+          "before": "0",
+          "after": "1",
+          "changed": true
+        },
+        {
+          "lab": "Shade the improvement worth buying",
+          "control": "Incumbent best loss b",
+          "before": "0.4",
+          "after": "0.45",
+          "changed": true
+        },
+        {
+          "lab": "Follow the survivors, then inspect the evidence you never bought",
+          "control": "A at 1 unit",
+          "before": "0.1",
+          "after": "0.11",
+          "changed": true
+        },
+        {
+          "lab": "Replay a finite search without borrowing evidence you never bought",
+          "control": "Budget: candidates revealed",
+          "before": "3",
+          "after": "4",
+          "changed": true
+        },
+        {
+          "lab": "Choose under a hard constraint, not a soft preference",
+          "control": "Latency cap (ms)",
+          "before": "5",
+          "after": "5.5",
+          "changed": true
+        },
+        {
+          "lab": "Mix the operations, then commit to one",
+          "control": "Input x",
+          "before": "2",
+          "after": "2.5",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "hidden-markov-models-hmm",
+      "records": [
+        {
+          "lab": "Follow one complete story through the model",
+          "control": "select",
+          "before": "0",
+          "after": "1",
+          "changed": true
+        },
+        {
+          "lab": "Change the future; watch which belief moves and which cannot",
+          "control": "Which time the two questions are asked about",
+          "before": "1",
+          "after": "2",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "bayesian-networks-causal-graphical-models",
+      "records": [
+        {
+          "lab": "Investigation 1 — which clue changes the explanation?",
+          "control": "P(B = 1) — burglary prior\nType it; a coarse slider could not reach .001.",
+          "before": "0.001",
+          "after": "0.0011",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 2 — open every route, or block them all",
+          "control": "select",
+          "before": "B",
+          "after": "A",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 3 — purchase a measurement",
+          "control": "edit alcohol",
+          "before": "",
+          "after": "0.01",
+          "changed": false
+        },
+        {
+          "lab": "Investigation 4 — change who receives the procedure",
+          "control": "P(procedure | low load)",
+          "before": "0.2",
+          "after": "0.201",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "conditional-random-fields-crf",
+      "records": [
+        {
+          "lab": "Investigate: can a pair preference reverse a local choice?",
+          "control": "Position 1 · A",
+          "before": "3",
+          "after": "4",
+          "changed": true
+        },
+        {
+          "lab": "Investigate: where does the later evidence disappear?",
+          "control": "First-branch probability p",
+          "before": ".5",
+          "after": "0.5",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [
+        "Invalid factor suppresses result; valid recovery and reset restore trellis; conditional explanation renders as prose."
+      ],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "gaussian-processes-gp",
+      "records": [
+        {
+          "lab": "One reading: change the connection",
+          "control": "Covariance ρ",
+          "before": "0.5",
+          "after": "-0.5",
+          "changed": true
+        },
+        {
+          "lab": "Move the measurements; inspect the information",
+          "control": "Reading 1 position",
+          "before": "0",
+          "after": "1",
+          "changed": true
+        },
+        {
+          "lab": "A forecast is a decision made before future readings",
+          "control": "select",
+          "before": "reported",
+          "after": "explore",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [
+        "Keyboard range control changes a real GP input without a prediction field; matching calculation remains available."
+      ],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "semi-supervised-learning-label-propagation-self-training-co-training",
+      "records": [
+        {
+          "lab": "Investigation · repair the neighborhood",
+          "control": "select",
+          "before": "hard",
+          "after": "soft",
+          "changed": true
+        },
+        {
+          "lab": "Investigation · a guess changes the next guess",
+          "control": "Acceptance threshold",
+          "before": "0.8",
+          "after": "0.81",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "active-learning",
+      "records": [
+        {
+          "lab": "Investigation · spend a label on a useful question",
+          "control": "select",
+          "before": "4",
+          "after": "0",
+          "changed": true
+        },
+        {
+          "lab": "Investigation · agreement can hide inside uncertainty",
+          "control": "Member 1 class 0",
+          "before": "0.95",
+          "after": "0.5",
+          "changed": true
+        },
+        {
+          "lab": "Investigation · buy coverage, not duplicate locations",
+          "control": "L1 x",
+          "before": "0",
+          "after": "1",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+      "records": [
+        {
+          "lab": "Investigation · move a decision gate",
+          "control": "Current threshold",
+          "before": "0.8",
+          "after": "1.8",
+          "changed": true
+        },
+        {
+          "lab": "Investigation · admit one score block",
+          "control": "A score",
+          "before": "0.95",
+          "after": "1.95",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "pac-learning-vc-dimension",
+      "records": [
+        {
+          "lab": "Investigation 1 · which observations remove the uncertainty?",
+          "control": "ε, the population-error target\nRisk exactly equal to ε counts as meeting it: the comparison is ≤, not <.",
+          "before": "0.25",
+          "after": "0.275",
+          "changed": false
+        },
+        {
+          "lab": "Investigation 2 · build the witness, or name the obstruction",
+          "control": "A coordinate",
+          "before": "0.2",
+          "after": "1.2",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 3 · explore what one more observation can change",
+          "control": "target left endpoint",
+          "before": "0.3",
+          "after": "0.5",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "calibration-conformal-prediction",
+      "records": [
+        {
+          "lab": "Investigation 1 — make an aggregate error disappear",
+          "control": "forecast for class 1",
+          "before": "0.2",
+          "after": "0.201",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 2 — pool the adjacent violators, one merge at a time",
+          "control": "score",
+          "before": "-2",
+          "after": "-1.999",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 3 — reserve a rank for the answer you have not seen",
+          "control": "alpha — one minus the coverage target\nTyped, not a slider: the rank is a step function of alpha and some steps are one thousandth wide.",
+          "before": "0.2",
+          "after": "0.201",
+          "changed": false
+        },
+        {
+          "lab": "Investigation 4 — turn a residual scale into a physical interval",
+          "control": "alpha",
+          "before": "0.2",
+          "after": "0.201",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "rademacher-complexity-generalization-bounds",
+      "records": [
+        {
+          "lab": "Investigation 1 — choose the best row, then average. Never the other way round.",
+          "control": "f1 at x1",
+          "before": "-1",
+          "after": "0",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 2 — align a bounded coefficient with the noise",
+          "control": "x1 coordinate 1",
+          "before": "1",
+          "after": "2",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 3 — assemble a margin bound, term by term",
+          "control": "x1",
+          "before": "-0.2",
+          "after": "0.8",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 4 — a real budget sweep, and two different best answers",
+          "control": "w for variance",
+          "before": "0",
+          "after": "1",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [
+        "Live validation selection does not expose assessment; explicit inspection opens it without a guess; exposure persists after reset."
+      ],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "ml-problem-formulation-baselines-data-leakage",
+      "records": [
+        {
+          "lab": "Investigation 1 · move the arrival, keep the event",
+          "control": "prediction cutoff\nThe moment the prediction has to be ready. Nothing that arrives later may be used.",
+          "before": "5",
+          "after": "6",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 2 · a score becomes a limited action set",
+          "control": "calling capacity\nHow many of the ranked opportunities are actually called.",
+          "before": "50",
+          "after": "51",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "time-series-validation-forecasting-baselines",
+      "records": [
+        {
+          "lab": "Investigation 1 — which observation feeds this forecast?",
+          "control": "history 1",
+          "before": "10",
+          "after": "11",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 2 — which rows may this fit contain?",
+          "control": "cutoff day\nThe moment the fit is performed.",
+          "before": "12",
+          "after": "13",
+          "changed": true
+        },
+        {
+          "lab": "Investigation 3 — compare a real forecast with its outcomes",
+          "control": "with this count",
+          "before": "754",
+          "after": "755",
+          "changed": false
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    },
+    {
+      "id": "end-to-end-supervised-learning-error-analysis",
+      "records": [
+        {
+          "lab": "Investigation B · follow specimens, not just scores",
+          "control": "Colour-intensity cutoff\nAny value from 0 to 14, to two decimals. The boundary belongs to the upper side: a specimen at exactly the cutoff is in ≥, not in <.",
+          "before": "4",
+          "after": "4.01",
+          "changed": true
+        },
+        {
+          "lab": "Investigation D · freeze a decision, then open the test once",
+          "control": "select",
+          "before": "validationBalancedAccuracy",
+          "after": "validationAccuracy",
+          "changed": true
+        },
+        {
+          "lab": "Investigation C · allocate the cases the system does not answer",
+          "control": "Proposed acceptance threshold\nA case is answered when its score is at or above the threshold. 1.01 accepts nothing.",
+          "before": "0.8",
+          "after": "0.81",
+          "changed": true
+        }
+      ],
+      "focusedChecks": [],
+      "errors": [],
+      "phonePageOverflow": 0
+    }
+  ]
+}

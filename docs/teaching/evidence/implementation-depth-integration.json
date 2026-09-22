@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T18:52:04.274Z",
+  "changed": [
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "revision": 3,
+      "contentFiles": 13,
+      "reviewedFiles": 26
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "revision": 3,
+      "contentFiles": 25,
+      "reviewedFiles": 33
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "revision": 3,
+      "contentFiles": 17,
+      "reviewedFiles": 30
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "revision": 3,
+      "contentFiles": 17,
+      "reviewedFiles": 30
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "revision": 3,
+      "contentFiles": 11,
+      "reviewedFiles": 24
+    },
+    {
+      "id": "numpy-arrays-broadcasting-vectorization",
+      "revision": 3,
+      "contentFiles": 6,
+      "reviewedFiles": 20
+    },
+    {
+      "id": "feature-scaling-encoding-imputation",
+      "revision": 3,
+      "contentFiles": 8,
+      "reviewedFiles": 20
+    }
+  ],
+  "unchangedOtherRows": 170,
+  "manifestHash": "82d36413aeb679ba6587f97795573f4edeea26aec90c68a7d3875c2d9be4c407",
+  "productionManifestHash": "abb4a3ebe2ddb7c9c5e7ee7727e28383b5669cae74c99baeac7fa7f145cc422c",
+  "evidence": {
+    "docs/teaching/evidence/implementation-depth-browser.json": "683a82d5636b965a07127f46d58634f964373ad90f913ca301c25e61c2eda15e",
+    "docs/teaching/evidence/neuron-implementation-depth-browser.json": "55707b3d7eb3570d8f14865ed93ff8d632bc5127d78d578285436dabeb3b87dd",
+    "docs/teaching/evidence/implementation-depth-numpy-independent.json": "ba42c5a2a607813ac47964a37acf9fcbcc46ad48cd49b164758530a48d128d2a",
+    "docs/teaching/evidence/implementation-depth-scaling-independent.json": "bb7386be21904a9e9e14290a48691539fcdf13dc401ab0baeb7a4ec95af6f3b0",
+    "docs/teaching/evidence/neuron-implementation-depth-independent.json": "7dbae1f5c94fa69a9acf83465d923fb68ab99f46825dff8d613a38ac15afec32",
+    "docs/teaching/implementation-depth/loss-normalization-independent.json": "060d42a536e15612417168498b1e969e287f691b3b0b1e3ab4f5532063fc7f16"
+  },
+  "published": 231,
+  "contentComplete": 177,
+  "implementationComplete": 140,
+  "buildLog": "scratch/implementation-depth-build.txt"
+}

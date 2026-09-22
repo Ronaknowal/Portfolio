@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T15:38:10.261Z",
+  "base": "http://127.0.0.1:4193",
+  "topic": "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+  "sourceHashes": {
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx": "b4d666361862bc12957d0ef7fec75c7b79bb1f19537716a276ed14d6cec3f6b8",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx": "31e55e965ad7cdf960222c9db406ba0505c8f37dd6112564c7da6e766787a180",
+    "src/learn/components/lesson-labs/evaluation-metrics.css": "6aa6b119a81c306c0351789beeb7a773f848199ea92c8d46b9ccf97a57763563",
+    "src/learn/data/evaluation-metrics-models.js": "97549ac98d40ddf268973a1b0f77324ea2b3e5df995d9f8209e4a89db5b464d8",
+    "src/learn/data/topics/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae.jsx": "0c32edd2ba458d85326257782a7913738445bccedf3599a8d5566eeafae43aca",
+    "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/live-exploration.md": "5e724d3809da097b1a6245487f0cae6efea39f453b433bd6b1fc15314239beed",
+    "docs/teaching/drafts/evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae/visual-specifications.md": "3c3feece87b07ab360e460578f57c4f8e6f8b3768101296b0f8e98e9ce79aa28",
+    "scripts/verify-residual-ruler-controls.cjs": "681234a8672dc00c896d867b584f29e925694fd3fd638e7a74ab9c17227088f8"
+  },
+  "checks": [
+    "desktop pointer coordinates/grab offset, A/B independence, fixed scales, linked exact errors/areas/metrics",
+    "keyboard arrows/Page/Home/End, boundary clamping/focus, exact zero null, reset and physical-duration warning",
+    "390px pointer and actual touch gestures; 320px pointer; responsive coordinate agreement and no page overflow",
+    "full lab pointer/numeric synchronization, seconds conversion, invalid-input suppression/recovery, constant-target undefined R² and reset"
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/residual-ruler-desktop-edited.png",
+      "sha256": "57d8954aba8d3928095b89127643c8b46821ad63412022e236d54d6703687c46"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/residual-ruler-phone-edited.png",
+      "sha256": "9226a30ef6a0275e3a439313ef112111e58a17595f22ed3726f56f7327ff46a3"
+    }
+  ],
+  "targetDimensions": [
+    {
+      "viewport": 320,
+      "width": 26.225845336914062,
+      "height": 26.225830078125
+    },
+    {
+      "viewport": 390,
+      "width": 36.49249267578125,
+      "height": 36.492523193359375
+    },
+    {
+      "viewport": 1366,
+      "width": 40.805419921875,
+      "height": 40.8046875
+    }
+  ],
+  "browserErrors": [],
+  "limitations": "This receipt covers residual ruler controls and linked results; it is not a new whole-topic numerical/data audit."
+}

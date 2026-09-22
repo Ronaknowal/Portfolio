@@ -27,7 +27,7 @@ export default {
   visual: {
     type: 'Metric route and straightened strip; identity-matched false/missing neighbors; Gaussian normalization bars; signed pair forces; directed memberships and fuzzy union; real image maps and measured retention; double centering; local reconstruction; square and projected Rips complexes',
     question: 'Which relationship will survive this edit, and what can be measured in the input space to check the claim?',
-    interaction: 'Four distinct investigations: edit graph geometry and trace a route; edit distances and bandwidth; build a fuzzy edge and inspect an ideal pair cost; select an actual digit image and predict retained neighbors before revealing identity-matched lists.'
+    interaction: 'Four distinct live investigations: edit graph geometry and trace the updated shortest route; edit distances and bandwidth and follow conditional probabilities and perplexity; build a fuzzy edge and inspect its ideal pair cost; select an actual digit and compare retained neighbor identities across maps immediately. Invalid drafts display an explanation beside the last valid geometry; reset and undo remain available.'
   },
   practice: {
     task: 'Seven changed problems on a sparse corridor, entropy after merging events, repairing an incorrect metric interpretation, a changed fuzzy union, MDS and LLE on a new line, a broken deployment pipeline and an independent real-image audit.',

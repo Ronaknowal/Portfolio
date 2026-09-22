@@ -1,5 +1,8 @@
 # Backpropagation & Automatic Differentiation
 
+**Explore as you read.** Edit the two-example fit, learning rate, repeated-path coefficient and finite-difference step/offset. Show fitted line, residuals, derivative contributions and before/after loss immediately; step the backward accumulation without hiding the current total. The finite-difference panel displays both errors and the analytic derivative. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish a correct gradient from a useful step size, and truncation/cancellation from a faulty derivative.
+
+
 The previous lesson built a network that turns inputs into predictions. Training needs the reverse question: **which adjustable numbers contributed to the error, and how would a small change in each affect it?** Backpropagation answers that question by combining local sensitivities through the computation you already performed.
 
 It computes derivatives. The optimizer then uses those derivatives to change parameters. Keeping these two jobs separate explains why a correct backward pass can accompany an overly large, harmful update—and why a decreasing loss does not certify a correct backward pass.
@@ -46,7 +49,7 @@ The gradient with respect to the input is meaningful too: it describes how loss 
 
 A gradient-descent update with learning rate0.1 gives $w=2.2,b=-1.4$. At the same input the new score is3, so the new loss is2. We did not recompute gradients halfway through the simultaneous update: both changes used the same old model.
 
-**InvestigationA — predict, then change the step.** First trace the single neuron. Then use a two-example line fit with $x=(1,2)$, targets(1,3), $w=1,b=0$ and mean squared error. Predict whether one update will reduce loss before revealing its result. Edit the learning rate yourself. At0.1, loss falls from0.5 to0.17; at1, it rises to12.5. At0, nothing changes. Correct derivatives supply a direction locally, not a safe step length automatically.
+**Investigation A — change the step.** First trace the single neuron. Then edit the learning rate in the two-example line fit with $x=(1,2)$, targets (1,3), $w=1,b=0$ and mean squared error. The updated line and loss move together: at 0.1, loss falls from 0.5 to 0.17; at 1 it rises to 12.5; at 0 it stays fixed. Correct derivatives supply a local direction, not an automatically safe step length.
 
 ## 2. Shared computations need a sum of contributions
 
@@ -68,7 +71,7 @@ There are **two different reasons to add** here. The intermediate $u$ has two co
 
 [VisualB: a fork after $u$, and two distinct input edges from $x$ into the multiply node. Each reverse edge carries its contribution; a small accumulator at $u$ shows1+2, and at $x$ shows9+9.]
 
-**InvestigationB — edit a reused branch.** Change the second branch coefficient from2 to a number you choose. Commit a predicted gradient at $x=3$ before revealing. With coefficient−1, the two branches cancel: forward loss and derivative are both0. With coefficient0, the result is $x^2$, with derivative6. Turning one coefficient down does not necessarily make the gradient smaller in absolute value if it crosses a sign change.
+**Investigation B — edit a reused branch.** Change the second branch coefficient from 2 and watch both path contributions to the gradient at $x=3$. At coefficient −1 the branches cancel: forward loss and derivative are both 0. At coefficient 0 the result is $x^2$, with derivative 6. Crossing a sign change explains why lowering a coefficient need not reduce the gradient magnitude.
 
 The general reverse rule is
 
@@ -229,7 +232,7 @@ Our binary64 calculation gave:
 
 The second function's mathematical derivative is1 everywhere. At $h=10^{-5}$ both evaluated values round to the same large number, so their difference is0. This does not disprove the derivative; it exposes an unsuitable numerical check. Adding a constant can leave a derivative unchanged while damaging the finite-difference estimate.
 
-**InvestigationF — choose a check you can interpret.** Edit the evaluation point, perturbation and optional large additive offset. Predict whether the smaller perturbation will improve agreement before revealing the actual evaluated pair and derivative estimate. Compare an ordinary sine example with an offset linear function, and a zero-derivative quadratic case. Read the absolute error when the correct derivative is0; relative error with a zero denominator is undefined.
+**Investigation F — choose a check you can interpret.** Edit the evaluation point, perturbation and optional large additive offset. Watch the evaluated pair, derivative estimate and error change together. Compare an ordinary sine example with an offset linear function and a zero-derivative quadratic case. When the correct derivative is 0, use absolute error: relative error has an undefined denominator.
 
 At ReLU0, the symmetric finite difference is0.5 while our derivative convention is0. There is no ordinary derivative there to certify. For a smooth network check, use double precision, fixed input and parameter copies, deterministic state, and perturbations that do not cross a relevant corner. If randomness or running statistics change between the plus and minus evaluations, the calculation compares different functions.
 

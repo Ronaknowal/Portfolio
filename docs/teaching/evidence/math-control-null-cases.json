@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "at": "2026-09-21T16:17:08.446Z",
+  "records": [
+    {
+      "label": "Transition preset",
+      "validOptionsExercised": 6,
+      "explanation": "An action selector returns to its disabled placeholder after applying the preset; unchanged select value is intentional."
+    },
+    {
+      "label": "Arrival rate preset",
+      "validOptionsExercised": 4,
+      "explanation": "An action selector returns to its disabled placeholder after applying the preset; unchanged select value is intentional."
+    },
+    {
+      "label": "Metropolis warmup",
+      "explanation": "Affects retained occupancy/count after transitions exist. At selected transition1 with warmup40 or100 both correctly retain0."
+    },
+    {
+      "label": "NUTS depth",
+      "explanation": "Depthcapaffectsfinalconstruction;raisingcapbeyondanearlierturnneednotchangefirstexpansion."
+    }
+  ],
+  "errors": []
+}

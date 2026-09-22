@@ -1,0 +1,68 @@
+{
+  "date": "2026-09-22",
+  "records": {
+    "inline": {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "gaussian-processes-gp",
+          "result": "actual original + appended JSX code passed",
+          "appendedSha256": "df80066dda02f66e10b1da5f57342be31c57e6b459526cc94c82967855e4caa4",
+          "originalSha256": "87f9a277aa3627e7cf5a3efd1563625ef14c5a832ae14738d94e68a568feaa9f",
+          "originalOutput": "[ 0.775717  0.       -0.775717 -0.121112]\n[0.199407 0.468895 0.199407 0.985182]\n-2.952256\nTrue\n"
+        },
+        {
+          "id": "linear-logistic-regression",
+          "result": "actual original + appended JSX code passed",
+          "appendedSha256": "026c89df858531a514a9e30843542444b0d973a9c4905603e9f49fe51c8c6fe8",
+          "originalSha256": "72d05f710dcd8a80d06ae1b3d9ded35bd52f4166fb4c633178070972966f50b1",
+          "originalOutput": "GD coefficients: [0.0, 0.55696]\npenalized objective=0.625482\nindependent BFGS agreement: True\nprobabilities at -2, 0, 2: [0.247141, 0.5, 0.752859]\nextreme wrong-label losses: [1000.0, 1000.0]\n"
+        }
+      ],
+      "sourceHashes": {
+        "src/learn/data/topics/gaussian-processes-gp.jsx": "3d706687fecee8f1357fe926b0d342ee126c31546d2d39ec5e14b0aaf702ece7",
+        "src/learn/data/topics/linear-logistic-regression.jsx": "59d6edc419c418d4f60b36212b0866c8fcbe259801d69bfe43f1b86464476112",
+        "src/learn/data/gaussian-process-examples.js": "e2effc3ffb00e2091ff7c5d03e3cf24681f317bd037891988b753af3c84cf178",
+        "src/learn/data/linear-logistic-examples.js": "f1e553c31e937f12cbc6e9ef62cfee6e322c8275b4288343cc8724cc2c8872e3",
+        "scripts/verify-classical-library-review.py": "d9baab7c4f6c337942f743dbc65664595c0c6fc4ee96fada8f8e8bcdb8ae83c4"
+      }
+    },
+    "manifold": {
+      "status": "passed",
+      "checks": [
+        "k=3/4 graph changes; uniform distance scaling preserves graph within search precision",
+        "hand-derived clipped negative update; only positive tail and head move; input copy preserved",
+        "self-negative ID skipped",
+        "squared-distance overflow, float32 conversion overflow and lost positive distance reject with rescaling guidance"
+      ],
+      "sourceHashes": {
+        "public/learn-assets/manifold-learning/umap-mechanism.py": "e110b22641eb8872a0e7c5b25175d8b215843c868f50889bfe6659ddf2c9e2ad",
+        "scratch/manifold-learning-runtime/Lib/site-packages/umap/layouts.py": "8952720e64d31cd41ff88fc1b718e88e53baf542f96b442d1e4789aa7af68263",
+        "scripts/verify-classical-library-review.py": "d9baab7c4f6c337942f743dbc65664595c0c6fc4ee96fada8f8e8bcdb8ae83c4"
+      }
+    },
+    "crf": {
+      "status": "passed",
+      "checks": [
+        "large common per-token score offsets preserve normalized marginals/Viterbi and shift logZ by their sum",
+        "finite log-space inference and normalized rows under those offsets"
+      ],
+      "sourceHashes": {
+        "public/learn-assets/crf/crfsuite-bridge.py": "a50f5f2059ad1884678faebc839a749c400884434dc4cc1562db02b632a056a4",
+        "scripts/verify-classical-library-review.py": "d9baab7c4f6c337942f743dbc65664595c0c6fc4ee96fada8f8e8bcdb8ae83c4"
+      }
+    },
+    "active": {
+      "status": "passed",
+      "checks": [
+        "oracle sees exactly one still-unlabeled original ID per acquisition; IDs never repeated",
+        "input label vector unchanged; returned vector has exactly one new label",
+        "actual post-query classifier equals independent fit on acquired labels, including final acquisition"
+      ],
+      "sourceHashes": {
+        "public/learn-assets/active-learning/query-library-bridge.py": "25623ae120cf18f2ca02096e4779848b66cb5d0fd8e30bdb485fe6b6e060a716",
+        "scripts/verify-classical-library-review.py": "d9baab7c4f6c337942f743dbc65664595c0c6fc4ee96fada8f8e8bcdb8ae83c4"
+      }
+    }
+  }
+}

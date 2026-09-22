@@ -1,5 +1,8 @@
 # Interleaved / Cross-Attention Architectures
 
+**Explore as you read.** Edit rectangular Q/K/V cells, shape assignments, input order/availability, compressor entries and gate parameters. Show current read contributions, dependency legality, compression collisions and gradient routes. Saved image/question selectors reveal the actual retained outputs immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a cross-attention arrangement from what can be read, when it is available and what compression removes.
+
+
 An image can contain a bicycle, a person and a road. “What is the person holding?” and “What surface is the bicycle on?” require different uses of the same image. A useful model needs more than one fixed sentence describing everything: it needs a way for its current question or partially written answer to read relevant information from the image.
 
 **Cross-attention is a learned, question-dependent read from a separate collection of representations.** The reader supplies queries; the collection supplies keys and values. The result contains one updated vector per query, however many items were in the collection. In a visual-language model, that collection might contain image patches. In translation it contains source-language states. The two sides need not be different modalities.
@@ -41,7 +44,7 @@ The scores are \(QK^T/\sqrt2\). Their first row is \((\log2,0,0)\), so exponenti
 
 The second query instead gives weights \((1/4,1/2,1/4)\) and output \((1,2.5)\). This is the complete selection-and-read mechanism, before adding projections, heads or a language model.
 
-**Predict, then edit.** Suppose the first query cannot read slot three. Record its new two output coordinates before revealing them. Softmax must renormalize the remaining weights: they become \((2/3,1/3,0)\), and the output becomes \((4/3,4/3)\). Now change the forbidden slot’s value to \((100,-100)\). The first output stays unchanged. The second query, for which the slot is still allowed, changes to \((25.5,-23)\). A mask is a structural restriction on access, not simply a visual dimming of a column.
+**Edit a memory boundary.** Prevent the first query from reading slot three. Its live weights renormalize to $(2/3,1/3,0)$ and output becomes $(4/3,4/3)$. Change the forbidden slot's value to $(100,-100)$: the first output remains fixed, while the second query, which may still read it, changes to $(25.5,-23)$. A mask restricts information access; it is more than a dimmed column.
 
 Masking every slot leaves no probability distribution to normalize. A robust implementation needs an explicit convention, such as a valid empty-context token or a skipped residual update. It must not quietly show a row of NaNs or fabricate an alignment.
 
@@ -71,7 +74,7 @@ Cross-attention leaves the memory unchanged within this operation. Updating it r
 
 **A useful invariance.** Reordering key/value pairs together does not change the weighted sum if all associated masks and positional information travel with their slots. It only reorders the intermediate columns. Reordering values without their keys changes the associations and generally changes the result. A position encoding deliberately lets the model distinguish “left” and “right”; this invariance does not imply a model ignores physical position.
 
-**Visual: shape assembly.** Build one head from rectangular matrix tiles; join three head outputs into one reader-width tile. Let the learner set T=2 and S=5, then swap them. Require an output-shape prediction before revealing which axis follows the reader. A separate key/value pairing exercise makes a mistaken permutation visible through changed numeric outputs.
+**Visual: shape assembly.** Build one head from rectangular matrix tiles; join three head outputs into one reader-width tile. Let the learner set T=2 and S=5, then swap them. Show current outputs with each valid input change. A separate key/value pairing exercise makes a mistaken permutation visible through changed numeric outputs.
 
 ## 3. Three choices that are easy to confuse
 
@@ -152,7 +155,7 @@ At zero, the adapter-weight gradient through this branch is zero, but the gate g
 
 For a hand calculation, set X=1, F=2 and L=½(Y−3)². At α=0, Y=1 and ∂L/∂α=−4. A gradient step with rate .1 gives α=.4 and Y≈1.7599 before changing F. The loss falls from 2 to about.7690. Setting F=0 instead makes the first gate gradient zero. The distinction is visible without inventing a characteristic 50-step delay for all gated models.
 
-**Visual: residual and gradient routes.** Show the unchanged X rail and a gated F rail. Let learners choose F and α, record a predicted gradient and take one exact step. Highlight parameter gradients separately from output values. The unchanged-output case should be as informative as the changing one.
+**Visual: residual and gradient routes.** Show the unchanged X rail and a gated F rail. Let learners choose F and α, inspect the current gradient and take one exact step. Highlight parameter gradients separately from output values. The unchanged-output case should be as informative as the changing one.
 
 ### Frozen parameters still transmit gradients
 
@@ -187,7 +190,7 @@ Represent each question by a learned 24-dimensional vector. Split the 8×8 image
 
 We compare an ordinary flat image-plus-question MLP, the cross-attention classifier and a version with a zero-initialized scalar gate. All train from scratch. They have different parameter counts and inductive biases. The gated version isolates a mechanism; it is not a frozen pretrained Flamingo model. The flat model is a useful baseline because a more elaborate architecture is not automatically better on 8×8 digits.
 
-Before running, record two expectations: will either question be answerable well without the image, and will a zero gate prevent all learning forever? Each assessment set has eight images per digit. A question-only model guessing one digit and always one parity gets 8+40=48 of 160 questions correct, or 30%. This baseline does not require fitting the images.
+Compare image-present and image-absent behavior, then inspect how the zero gate opens during learning. Each assessment set has eight images per digit. A question-only model guessing one digit and always one parity gets 8+40=48 of 160 questions correct, or 30%. This baseline does not require fitting the images.
 
 The full [program](cross-attention-study.py) reads the CSV, constructs every tensor, trains all nine fits (three models × three seeds), evaluates both question types, deliberately mismatches images and questions, and writes the actual evidence to [calculated-inputs.json](calculated-inputs.json). It uses CPU PyTorch and NumPy, one CPU thread, fixed 160-epoch budgets, AdamW at.003, and no dropout. Development scores are recorded but do not choose epochs or hyperparameters. The displayed assessment is now inspected evidence; a future design decision needs new evaluation data.
 
@@ -372,7 +375,7 @@ The stronger image-mismatch diagnostic shuffles whole assessment images with a f
 
 For selected actual cases the program retains all three heads’16 patch weights, the source ID, question, target and predicted class. Show those weights next to the actual 8×8 image and a4×4 patch grid. No hand-labeled “person region” or “semantic latent” is inferred. A high weight says the value was strongly mixed in this read; residual pathways, value directions and the classifier also affect the answer.
 
-**Investigation: which input matters?** Choose a recorded case, predict whether changing the question will preserve the numeric class, then compare the paired recorded output for that same image. Next compare aggregate correct/count for matched and mismatched images across all seeds. Use the exact small attention editor for arbitrary values; the recorded neural results do not pretend to recompute a trained model for unsupported edits.
+**Investigation: which input matters?** Choose a recorded case, observe whether changing the question will preserve the numeric class, then compare the paired recorded output for that same image. Next compare aggregate correct/count for matched and mismatched images across all seeds. Use the exact small attention editor for arbitrary values; the recorded neural results do not pretend to recompute a trained model for unsupported edits.
 
 ## 7. Count the work and the cache you actually keep
 
@@ -402,7 +405,19 @@ where S′ may be a compressed latent count. Raw encoder features might also be 
 
 Take a constructed serving configuration: Bₛ=1, P=32, J=8, S=576, S′=64, dₖᵥ=d′ₖᵥ=1024, b=2. Prefix visual K/V occupies 75,497,472 bytes, or 72 MiB. Cross visual K/V occupies 2,097,152 bytes, or 2 MiB. If both use 576 visual positions, the cross cache instead occupies 18 MiB. The difference combines layer count and token compression, not only attention type. These numbers exclude text K/V, weights, activations, temporary kernels and any raw-feature cache. Different GQA or MLA conventions change dₖᵥ and may require additional positional state; use their earlier lessons rather than assuming model width equals cached width.
 
-**Visual: an explicit memory budget.** Let learners enter P, J, S, S′, key/value width and bytes. A stacked bar labels every declared tensor and its formula. A “cache projected K/V / recompute” choice changes storage and flags the extra operation, without inventing milliseconds. Ask for a predicted byte difference first. Use binary MiB consistently, with raw bytes available.
+**Visual: an explicit memory budget.** Let learners enter P, J, S, S′, key/value width and bytes. A stacked bar labels every declared tensor and its formula. A “cache projected K/V / recompute” choice immediately changes storage and flags the extra operation, without inventing milliseconds. Show the current byte difference alongside the two configurations. Use binary MiB consistently, with raw bytes available.
+
+### Cache the memory projections without caching the answer
+
+The [complete cross-attention cache program](cross_attention_cache.py) separates the persistent memory from the new question. It projects one five-entry memory into K/V once; three successive queries still produce their own Q, scores and mixtures. The same `nn.MultiheadAttention` parameters provide a full-call reference. A query-dependent availability mask allows two, then four, then five memory entries. This is the cross-attention information boundary, not the language decoder's self-attention triangle.
+
+Run `python cross_attention_cache.py` with PyTorch. The bounded Torch 2.14.0 CPU author probe reproduced the complete library call and streamed queries to 5.56e-17. Editing the final memory entry leaves the first two outputs unchanged because that entry is unavailable to them; the final output changes. A cache identity contains both the source/preprocessing identity and parameter revision. The caller must advance that identity whenever either changes; it is an explicit version contract, not automatic hashing of tensors. Presenting the new identity with old projected K/V raises an error in this supplied program.
+
+This is inference caching under `no_grad()`. It does not replace the existing training experiment, where gradients must reach the intended projections and adapter. Cache storage is O(B H S (d_k+d_v)); each new question still reads its allowed S entries. Sharing image features across layers does not share projected K/V when layer projection weights differ, and sharing K/V does not share the question-specific answer.
+
+The deeper causal-encoder note has the same dependency test. If memory entry j is produced by a causal encoder, it can depend only on the encoder prefix through j; a bidirectional encoder can depend on later inputs too. Sharing those entries across decoder layers is valid only under the stated architecture, model version and availability relation. The [Long-Context/Perceiver prepared owner](../long-context-sequence-models-transformer-xl-griffin-perceiver/lesson.md) owns latent compression/repeated reads; this lesson owns source-versus-query roles and cache lifetime. Named systems' selective replay or shared index optimizations are separate engineering choices, not consequences of the generic cache identity proved here.
+
+**Take control.** Reverse the memory storage order and reverse the mask columns with it. Then reverse only the memory. **Hint:** availability belongs to memory identity, not an accidental array slot. **Solution:** the consistent permutation leaves all outputs unchanged; changing only the memory can change which observations a query can access. Keep this test alongside full-versus-streamed equality whenever adding a new batching or cache layout.
 
 ## 8. Choose a design through its failure cases
 

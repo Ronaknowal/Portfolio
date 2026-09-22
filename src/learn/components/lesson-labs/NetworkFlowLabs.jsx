@@ -72,7 +72,7 @@ export function FlowConservationLab() {
   return <section className="nf-lab" aria-label="Flow conservation investigation">
     <p className="nf-eyebrow">INVESTIGATE · CAN THIS ALLOCATION EXIST?</p>
     <h3>Every internal vertex must balance</h3>
-    <p>Predict what breaks if S sends one unit to A and A sends nothing onward. Each number is a proposed flow; capacities stay fixed at 1. Edits take effect immediately.</p>
+    <p>Inspect what breaks if S sends one unit to A and A sends nothing onward. Each number is a proposed flow; capacities stay fixed at 1. Edits take effect immediately.</p>
     <div className="nf-buttons">
       <button onClick={() => setFlows([1, 0, 1, 0, 0, 1, 0])}>One balanced route</button>
       <button onClick={() => setFlows([1, 0, 0, 0, 0, 0, 0])}>Stranded at A</button>
@@ -173,7 +173,7 @@ export function AugmentingFlowLab() {
   return <section className="nf-lab" aria-label="Residual augmentation investigation">
     <p className="nf-eyebrow">INVESTIGATE · REROUTE AN EARLIER CHOICE</p>
     <h3>A reverse arc releases an earlier allocation</h3>
-    <p>First preview the residual route, predict its bottleneck, then send that amount. The default second augmentation cancels flow on A → C. BFS visits residual arcs in original-edge order; it minimizes hop count.</p>
+    <p>Preview the residual route and inspect its bottleneck, then send that amount. The default second augmentation cancels flow on A → C. BFS visits residual arcs in original-edge order; it minimizes hop count.</p>
     <details>
       <summary>Edit original capacities</summary>
       <div className="nf-capacity-fields">{edges.map((edge, i) => <label key={i}>e{i} · {pairName(edge)}<input aria-label={`Capacity ${pairName(edge)}`} type="text" inputMode="numeric" maxLength={8} value={draft[i]} onChange={event => setDraft(previous => previous.map((value, j) => j === i ? event.target.value : value))} /></label>)}</div>

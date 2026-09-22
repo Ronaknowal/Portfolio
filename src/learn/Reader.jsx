@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom";
-import { colors, fonts, navLinkStyle } from "./styles";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { fonts } from "./styles";
+import LearningNav from "./components/LearningNav.jsx";
 import { topicMap } from "./data/catalogue";
 import { tracks } from "./data/tracks";
 import { getLearningRoute, getTracks, learningPaths, trackGroups } from "./data/curriculum";
@@ -15,15 +16,6 @@ export default function Reader() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { isComplete, toggleComplete, trackProgress } = useProgress();
-
-  useEffect(() => {
-    if (!document.querySelector('link[href*="JetBrains+Mono"]')) {
-      const link = document.createElement("link");
-      link.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap";
-      link.rel = "stylesheet";
-      document.head.appendChild(link);
-    }
-  }, []);
 
   const track = trackId ? tracks.find((item) => item.id === trackId) : null;
   const path = pathId ? learningPaths.find((item) => item.id === pathId) : null;
@@ -69,15 +61,7 @@ export default function Reader() {
 
   return (
     <div className="learn-shell" style={{ fontFamily: fonts.sans }}>
-      <nav className="learn-nav" aria-label="Primary navigation">
-        <Link to="/" style={{ fontFamily: fonts.mono, fontSize: 13, color: colors.gold, fontWeight: 600, letterSpacing: 1, textDecoration: "none" }}>
-          ronak.ai
-        </Link>
-        <div className="learn-nav__links">
-          <Link to="/" style={navLinkStyle}>portfolio</Link>
-          <Link to="/learn" style={{ ...navLinkStyle, color: colors.gold }}>learn</Link>
-        </div>
-      </nav>
+      <LearningNav active={path ? "paths" : "explore"} />
 
       <div className="reader-layout">
         <ReaderSidebar

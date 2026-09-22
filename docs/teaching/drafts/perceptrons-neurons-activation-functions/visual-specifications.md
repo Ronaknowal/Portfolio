@@ -1,12 +1,28 @@
 # Perceptrons: visual and investigation specifications
 
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Move a point and its weighted evidence.** Edit input coordinates, weights, bias and common scale; move the activation operating point and incoming weight; edit XOR hidden bias and output coefficient.
+**See the consequence.** Synchronize contribution bars, boundary distance, hard/smooth outputs, activation value/slope and all four XOR rows. Compare a shared coefficient rescaling with a moved input, and a repaired corner with the remaining corners.
+**Decision connection.** Choose whether the decision boundary, smooth confidence or local sensitivity needs to change; a one-row repair need not solve the whole task.
+
+
 Content-only handoff; no UI, model, SVG or publication implemented. Place each object at its marker in lesson.md. Source values: author-calculations.py and calculated-inputs.json, with licensed input in digits-400.csv. These are specification identifiers, not shared component names.
 
 ## Shared behavior for the three investigations
 
-Each opens with the example visible but the requested outcome hidden. Prediction inputs are initially unset. Commit binds the actual choices/numeric answer to an immutable snapshot of the editable mathematical inputs and question. Reveal computes from that snapshot, grades against its actual result and explains the contributing terms. A changed input invalidates any prior grade, hides the result and requires a new commitment; never leave “correct” attached to a changed model. A separate read-only worked trace may reveal its known numbers without pretending to assess the learner.
+Each investigation follows the live exploration contract above: current results are visible immediately, valid entity edits update all linked views, and comparisons explain the mechanism. Reset restores the declared inputs and recomputes their result. No prediction or answer-submission state is retained.
 
-All meaningful entity edits have labeled numeric inputs as well as optional drag controls; presets are conveniences. Invalid/nonfinite values show a nearby error and disable commit, without clamping silently. Apply edits atomically so graph, table and feedback refer to one model. Reset returns original entity values, question and unset prediction. No automatic animation or ongoing timers. Keyboard access, visible focus, sufficient contrast, shapes/labels as well as color, and concise live feedback are required. Use native controls, with text/table equivalents available beside each drawing. On a phone, stack related stages vertically and retain the same labels; never shrink mathematical labels into unreadable diagrams.
+All meaningful entity edits have labeled numeric inputs as well as optional drag controls; presets are conveniences. Invalid/nonfinite values show a nearby error and keep the last valid result clearly identified, without silently clamping. Apply valid edits atomically so graph, table and feedback describe one model. Reset restores the original entities and their computed outputs. Use keyboard-accessible native controls, visible focus, labels/shapes as well as color and exact text/table alternatives. On a phone, stack the stages without shrinking mathematical labels. No ongoing timer is necessary.
 
 Author fixture calculations are complete. Browser models, full numeric implementation tests, rendering, screen-reader operation and phone/desktop readability are deferred to phase2. Until rendered, no claim is made that a plotted contrast is already visibly clear at a particular size.
 
@@ -18,11 +34,11 @@ Author fixture calculations are complete. Browser models, full numeric implement
 
 **Investigation state:** learner edits x1,x2,w1,w2,b in[−4,4], step.25, and a positive common scale c in[.25,3], step.25. The score may exceed the visual domain; expand or clip with explicit off-screen indications, never clip the value. Compare original and c-scaled coefficients at the same point.
 
-**Prediction:** three independent initially unset choices: hard output same/changed; signed distance same/changed/undefined; sigmoid same/increased/decreased. Show the current action “multiply all weights and bias by c” before commitment. Grade exact hard output and distance status, numerical differences with1e−10 tolerance, and explain the ratio/canceling scale. For c=1, equality is expected for every defined quantity. Negative scale is excluded because it reverses orientation and adds a different question.
+**Live observation:** display the hard output, signed distance (or undefined status), sigmoid value and their differences from the unscaled coefficients. The common-scale control multiplies all weights and bias by c. Explain the cancellation in the distance ratio using 1e−10 comparison tolerance. For c=1 every defined quantity is unchanged. Negative scale is excluded because it reverses orientation and poses a different question.
 
 **Checked contrasts/nulls:** calculated-inputs.investigationFixtures.geometry: worked→scaled score4→8, distance1.6→1.6, hard1→1, sigmoid.982014→.999665. Tie x=(1,1),w=(1,−1),b0 and its scale2 both score0, distance0, hard0,sigmoid.5. Move x2 .5→1.5 with x1=1 changes score+.5→−.5 and hard1→0. Zero w=(0,0),b1 has no unique boundary and distance=null; show a constant-output plane and textual explanation, never NaN or an artificial line.
 
-**Transfer:** x=(1,1),w=(1,−1),b0; move only x2 to cross the boundary. Prediction asks new hard output0/1; grade from score>0, including tie0. It is an unsolved entity move, not choosing a named answer preset.
+**Transfer:** x=(1,1),w=(1,−1),b0; move only x2 to cross the boundary. The live readout shows new hard output0/1; compute from score>0, including tie0. It is an unsolved entity move, not choosing a named answer preset.
 
 **Accessibility:** a table lists coefficients, products, score,norm,distance and outputs. Plane text describes which side and distance, with “distance undefined: zero weight vector” in the degenerate case. Mobile shows contribution strip before plane, never overlays labels on handles.
 
@@ -30,17 +46,17 @@ Author fixture calculations are complete. Browser models, full numeric implement
 
 **Question/home:** §3: what hidden coordinates let the final combination do? Show four input-square points with distinct labels00,01,10,11; two hidden coordinate columns; signed output contributions; four predicted/target rows. Selecting a row is a read-only correspondence aid. No inference that a ramp is a Boolean OR.
 
-**Worked state:** h1=ReLU(x1+x2), h2=ReLU(x1+x2−1), q=h1−2h2. All four exact outputs and hidden values come from calculated-inputs.xor. A separate stepped walkthrough highlights sums, activations, products then output; Prev/Next changes only reveal stage, not the model.
+**Worked state:** h1=ReLU(x1+x2), h2=ReLU(x1+x2−1), q=h1−2h2. All four exact outputs and hidden values come from calculated-inputs.xor. A separate stepped walkthrough highlights sums, activations, products then output; Prev/Next changes only the highlighted process stage, not the model. Current outputs remain visible.
 
-**Investigation initial state:** second output coefficient v=−1, second hidden bias b2=−1; fixed first output coefficient1 and first bias0. All four binary inputs remain in the table; output cells are masked before reveal. Edit v∈[−4,2], b2∈[−3,0], step.25; an optional numeric exact-entry permits −4/3 for the changed problem. Fixed targets(0,1,1,0) are never editable.
+**Investigation initial state:** second output coefficient v=−1, second hidden bias b2=−1; fixed first output coefficient 1 and first bias 0. All four binary inputs and their current outputs remain visible. Edit v∈[−4,2], b2∈[−3,0], step .25; exact numeric entry also permits −4/3. Targets (0,1,1,0) stay fixed. Each edit recomputes hidden features, output contributions and all four rows.
 
-**Prediction and grading:** first commit numeric q for selected input11 (absolute tolerance1e−8), then reveal the entire truth-table result. The independent repair asks the learner to edit v, predict whether *all* rows match and commit. Grade each row with1e−8 tolerance and the all-rows decision, showing the offending contribution if incorrect. Do not auto-set v=−2 after the first reveal. b2 edits invalidate every old row/result and prediction.
+**Live outputs and comparison:** display q for every row, highlight the selected input 11 and show its contributing terms. Editing v or b2 updates the entire truth table immediately. Compare each output with its target using tolerance 1e−8 and expose the residual, without grading a learner answer. Do not auto-repair v to −2: let the learner see how their chosen coefficient affects every row.
 
 **Checked fixtures:** b2=−1,v=−1 gives outputs(0,1,1,1); v=−2 repairs(0,1,1,0). b2=−.5,v0 gives(0,1,1,2); v=−4/3 gives(0,1/3,1/3,0), so repairing11 alone breaks01/10. Null: b2=−3 makes h2 zero for all corners; changing v−1→−2 leaves outputs(0,1,1,2). These exact states were calculated and retained; never promise every control edit moves every output.
 
-**Feedback:** identify whether a hidden value is zero, a coefficient multiplies an active feature, or all-row constraints conflict. A final optional text response explains the conflict using equations at sums1 and2; show the manuscript solution only on request. No automatic semantic grade for free prose.
+**Feedback:** explain whether a hidden feature is zero, a coefficient multiplies an active feature, or the all-row constraints conflict. Link the separate written practice solution for the equations at sums 1 and 2; the lab needs no text-answer field or semantic grade.
 
-**Rendering:** desktop supports input→hidden→output lanes; mobile vertically ordered lanes and a compact table preserve correspondence. Draw signed contributions with a zero baseline. Rounded screen labels must not drive grading. Do not animate weights as if trained: these are manual representation edits.
+**Rendering:** desktop supports input→hidden→output lanes; mobile vertically ordered lanes and a compact table preserve correspondence. Draw signed contributions with a zero baseline. Rounded screen labels must not drive result checks. Do not animate weights as if trained: these are manual representation edits.
 
 ## C. Activation values and local sensitivities
 
@@ -50,7 +66,7 @@ Author fixture calculations are complete. Browser models, full numeric implement
 
 **Inputs:** z∈[−6,6], step.1; scalar weight w∈[−4,4], step.25. z is edited as the current operating point; a compatible bias may hold it fixed while examining another weight. This is local sensitivity, not a complete trained chain, distribution, convergence or gradient-norm experiment.
 
-**Prediction:** initially unset negative / zero / positive below1 / at least1 for s=wφ'(z). Classify using negative<−1e−10, zero absolute≤1e−10, and positive thresholds with explicit tolerance. In addition show signed numeric value after reveal; “at least1” is not absolute magnitude. Contrast−2 and+2 and a changed weight; no default choice.
+**Live observation:** immediately computed negative / zero / positive below1 / at least1 for s=wφ'(z). Classify using negative<−1e−10, zero absolute≤1e−10, and positive thresholds with explicit tolerance. In addition show signed numeric value in the current live view; “at least1” is not absolute magnitude. Contrast−2 and+2 and a changed weight; Show the current output.
 
 **Checked fixtures:** ReLU z2,w.5 gives slope1,s.5; leakyReLU same gives identical null. At z−2,w.5,ReLU slope0,s0; leaky slope.1,s.05. Sigmoid z0,w4 gives slope.25,s1. SiLU z−2,w1 gives s≈−.090784. ReLU z0 follows recorded convention0. All in investigationFixtures.localSensitivity. Separate saved sampled curves in activations document values/slopes at−5,−2,−1,0,1,2,5; phase2 must test dense browser calculations against the definitions, not interpolate sparse checkpoints as the true curve.
 
@@ -60,7 +76,7 @@ Author fixture calculations are complete. Browser models, full numeric implement
 
 ## D. Actual image ↔ input tensor
 
-§5 before training code. Select ten actual retained specimens, the first retained source_id for each label, with explicit labels and source IDs. Pixels are row-major pixel_0…pixel_63, displayed8×8 with fixed0–16 grayscale. Show one image's row0 mapped into first8 flattened entries and then into input-feature cells. Source is digits-400.csv, not generated artwork. Caption attribution links data-provenance.md and UCI. Alt text identifies digit/source and supplies numeric8×8 table; no claim of accessibility from grayscale alone. Phone keeps one selected image and a wrapping table. Static image selection is inspection, not a graded investigation.
+§5 before training code. Select ten actual retained specimens, the first retained source_id for each label, with explicit labels and source IDs. Pixels are row-major pixel_0…pixel_63, displayed8×8 with fixed0–16 grayscale. Show one image's row0 mapped into first8 flattened entries and then into input-feature cells. Source is digits-400.csv, not generated artwork. Caption attribution links data-provenance.md and UCI. Alt text identifies digit/source and supplies numeric8×8 table; no claim of accessibility from grayscale alone. Phone keeps one selected image and a wrapping table. Static image selection is inspection, not a live investigation.
 
 ## E. Measured activation comparison
 

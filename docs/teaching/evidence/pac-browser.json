@@ -1,0 +1,313 @@
+{
+  "startedAt": "2026-09-20T07:28:48.306Z",
+  "finishedAt": "2026-09-20T07:29:19.324Z",
+  "status": "passed",
+  "route": "http://127.0.0.1:4192/learn/path/full-curriculum/pac-learning-vc-dimension?module=classical-ml",
+  "distDir": "dist-pac",
+  "buildManifestSha256": "382498c49d89c6facfd370ee29f4f0727939323d4c9ba76625fdf185cbc711c6",
+  "sourceHashes": {
+    "src/learn/data/topics/pac-learning-vc-dimension.jsx": "0fb33c185a7a339c339c99c4fc98f8bbcff609e041728eaae732ab15c2a415f7",
+    "src/learn/data/pac-models.js": "36d80a2f5b2960a57543b3f0aba2f26801fadeb8669bd11fe0ee265a967ffa9c",
+    "src/learn/data/pac-data.js": "8754a2d5228e6f5a391df5d7bc9ca385aac4c6083ba2e6b497106d33b3131285",
+    "src/learn/data/pac-examples.js": "2ad31dd00134354d3de0a6176bf4d4fae16cc6c39cc8ab47db3c1b72c429d05a",
+    "src/learn/components/lesson-labs/PacShared.jsx": "eb7ccc0b50835d8452f7f809708a1bcc8a77113efeaa00c49fb55cedcc88161b",
+    "src/learn/components/lesson-labs/PacLabs.jsx": "aeb72989938671c0936248ef43ed9c7585cd33825f0c87b4fe448e77f2f42674",
+    "src/learn/components/lesson-labs/PacFigures.jsx": "21c0fff8b50e896920948588109a9e1a3cde8db4854fd6585535fc5f45f37420",
+    "src/learn/components/lesson-labs/pac-labs.css": "2943d4850ec64d73571e4ff31694affc9b4c39c90abf4d20d814af6ab3858d28",
+    "src/learn/data/curriculum/blueprints/pac-learning-vc-dimension.js": "e55c9aed4e11698a80bce0fb602faae8aa4bc3565e11a30f6672f5e24f0717b7",
+    "public/learn-assets/pac-learning/banknote-subset.csv": "d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a",
+    "public/learn-assets/pac-learning/ATTRIBUTION.txt": "e94c1d385dfc94ef9a961c75d08f9279f41cfda9fee163ed0d58cc79b91a35be"
+  },
+  "verifierSha256": "026e36e63067e2a630e319f268446a3d7ab714c1acd8af114a57cfc6337597b8",
+  "records": [
+    {
+      "case": "Complete visible code and output for three programs, twelve route anchors, eleven figures, nine practice tasks, every measured count, the served dataset with its hash and attribution, both downloadable programs, and current metadata and module sequence"
+    },
+    {
+      "case": "All three investigations open with nothing selected, no verdict, no reveal and a disabled check"
+    },
+    {
+      "case": "The graded quantity of every investigation is absent from its rendered text before commitment and present after, pinned to the exact six-decimal value computed independently in this process",
+      "leakChecks": [
+        {
+          "investigation": 1,
+          "pinnedValue": "0.500000",
+          "absentBefore": true,
+          "presentAfter": true
+        },
+        {
+          "investigation": 2,
+          "pinnedValue": "7 of 8",
+          "absentBefore": true,
+          "presentAfter": true
+        },
+        {
+          "investigation": 3,
+          "pinnedValue": "0.020000",
+          "absentBefore": true,
+          "presentAfter": true
+        }
+      ]
+    },
+    {
+      "case": "Two exterior negative observations are graded as an exact null, with the tolerance named and the risk unchanged to the last digit — and the same null still holds when the preset is chosen after an uncommitted edit to the target"
+    },
+    {
+      "case": "Editing an input retires the verdict, its reveal and the recorded prediction, and holds the earlier attempt back until the next commitment"
+    },
+    {
+      "case": "Two coincident coordinates are refused by name and block grading rather than being squeezed into a verdict"
+    },
+    {
+      "case": "Every inline figure captured at desktop width, plus the informative states: figure 3 before and after the selection is revealed and with the crossed-out K = 3 band, figure 2 fully eliminated, figure 10 on a second procedure, and figure 9 with its twenty retained risks shown"
+    },
+    {
+      "case": "No label leaves its own SVG, overlaps another label, is crossed by a straight foreground line, or is run through by a curve, at five widths; and every presentation attribute survives the stylesheet",
+      "curveSamplingNote": "Curves are sampled along their own geometry and tested against every label box, because the shared inspector reads straight lines only. No label on this page carries an opaque backplate, so no crossing is permitted at all."
+    },
+    {
+      "case": "No table clips a column at desktop width, and every caption sits outside its scroll box"
+    },
+    {
+      "case": "Every square-root radical on the page paints with real width and height, with the practice solutions opened",
+      "radicalsMeasured": 3,
+      "smallestRadical": 20
+    },
+    {
+      "case": "Fresh route requests only the selected lesson and its shared closure, and never another lesson's dataset",
+      "requestedScripts": [
+        "assets/index-DcqgTT5L.js",
+        "assets/Reader-B2dkN0G_.js",
+        "assets/LevelBadge-D-EY-UH6.js",
+        "assets/pac-learning-vc-dimension-7-_LkFqv.js",
+        "assets/Code-6zmhVW73.js",
+        "assets/Callout-CfYuOeUE.js",
+        "assets/Math-D8EzE_mV.js",
+        "assets/LessonElements-BC7C2ZWE.js",
+        "assets/RunnableExample-BaJ4EO6h.js"
+      ],
+      "rawScriptBytes": 1766289,
+      "gzipEstimateBytes": 388733,
+      "interpretation": "Built requested file sizes; the gzip estimate is not measured network compression or latency."
+    },
+    {
+      "case": "No document or formula overflow at 390 and 320 px, wide tables stack rather than clip, and the informative investigation and figure states are captured at both narrow widths"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-finite-world-initial-desktop.png",
+      "digest": "d514827bf362f05bf7858fac1360721d9fbfde1ae6525b8789cdbcb783f64d21",
+      "bytes": 179334
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-finite-world-committed-desktop.png",
+      "digest": "ed909b7312d63359bdf42c3b823954b857a6415034a802f20b8c70c1bda8cb37",
+      "bytes": 313492
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-witness-initial-desktop.png",
+      "digest": "03e7d915e612c03ad527206d3cb63a9a9b5f19171f9820fb59d77180da372d8a",
+      "bytes": 138869
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-witness-obstruction-desktop.png",
+      "digest": "d1bdc785c6d636e2caca3bf8ffcbd71cddde41f6484edf5bc06dcdedd5ef8bbe",
+      "bytes": 206355
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-interval-initial-desktop.png",
+      "digest": "94324e2602165b12fa8d520456188f09e72dbe998f9f5b99c7ba16ad0db64e38",
+      "bytes": 218951
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-interval-falls-desktop.png",
+      "digest": "3c00ff08a40439e04a36afdd398a3bdf95b5ee25cfe744ce6667a9309f73a833",
+      "bytes": 271057
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-interval-exact-null-desktop.png",
+      "digest": "deb7143b7a78bbc6a521524c9001600744ad86bdfc47aef2032a3f1450182d00",
+      "bytes": 278793
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-interval-preset-discards-edit-desktop.png",
+      "digest": "238ded738f5a7af609ccc843725378c2c4cc7a8e4278d57305196e93038d1e1b",
+      "bytes": 231049
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-witness-refused-desktop.png",
+      "digest": "b66e5a33d3c1ca4d6685ace31e3974894e51344ffcbe2ca08d7fc679f85bef5e",
+      "bytes": 169524
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-1-desktop.png",
+      "digest": "898a39b6ac102403da81e3d934a838e21270dd0da68f1840acdb71a689fec208",
+      "bytes": 59458
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-2-desktop.png",
+      "digest": "c596333cdcfae7bfc0ee096d0b571721f76fa743540879356ed4de97cb612302",
+      "bytes": 114403
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-3-desktop.png",
+      "digest": "40cbceac953f88cbee9bc64ee92dc4cc832541bdb1c8778192d3301afaf5b942",
+      "bytes": 80368
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-4-desktop.png",
+      "digest": "2f409b2b0f4db22635dcd4b3d1fe6de7aa2ad18c3fdd10f17fae17eecc5695fd",
+      "bytes": 98762
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-5-desktop.png",
+      "digest": "77719abfc3e7d754b24502eb8c43b7e57854e6e681e9e85b44c2f0e4ea7677f7",
+      "bytes": 71257
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-6-desktop.png",
+      "digest": "144a255951111d0365a92996becb061ef7cdba2ca235a3676ca36bc11ef52a24",
+      "bytes": 73230
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-7-desktop.png",
+      "digest": "667f5628ccaf8d5722ad2664cae073fa4861e2db5d2be2c0a252cce01ed1d680",
+      "bytes": 105169
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-8-desktop.png",
+      "digest": "0b37164b9424f1d132a385c56854d906517ab6a6b820bfb2b9971ad2542cc346",
+      "bytes": 82052
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-9-desktop.png",
+      "digest": "9c0d2bc80c210e7084949e6ace67a38f49837092acb28f2fe0daefb52ebfb01b",
+      "bytes": 77522
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-10-desktop.png",
+      "digest": "e227d85a892db9993da2a233ed5661b1dbc7661b44d76c230c1fef64ef0fb1e5",
+      "bytes": 155166
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-11-desktop.png",
+      "digest": "a03a4637df2cf8d43054adb0f9fabe1fc8f8e44e9e455a5483a534735431856a",
+      "bytes": 78714
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-3-selected-desktop.png",
+      "digest": "05686fe2cd81c267763a06ba2c8e3e4be82e20cf7b1859ee7f35d14879f7bf20",
+      "bytes": 80384
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-3-shrunk-desktop.png",
+      "digest": "b5a50ef3febdf1d8f5c5a344a558a565942eec5533a67bd8b25ffd57a6914a5d",
+      "bytes": 103462
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-2-eliminated-desktop.png",
+      "digest": "9fe5d2fea14a3fdd65b67fb4b6f5e9cde95b05147e108d698b9ff3fdce1ebd7b",
+      "bytes": 116061
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-10-tree-desktop.png",
+      "digest": "9e29395c058574a624e3bb7cf77473b74445675aa04fa685584e7d6df8359d95",
+      "bytes": 130958
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-9-preview-desktop.png",
+      "digest": "af2b95178c7acdc866f68923b3a43613e95dd50c9619971bb3e2b181fb376892",
+      "bytes": 101487
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-witness-390.png",
+      "digest": "b44827c9fdd891d1701a26132805c0b5878c2f860315a419bb12a3df9dd198c9",
+      "bytes": 144906
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-interval-390.png",
+      "digest": "66821a68a5b3ea09e43e37457e1e4c54f1589f41d54dc1ebf981ee3ce3708ed9",
+      "bytes": 290726
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-1-390.png",
+      "digest": "6f7fbcee8a067eef71b79c87258d3c916139f0d1dba10d5585a7e285ed0b2362",
+      "bytes": 50758
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-3-390.png",
+      "digest": "2f371d4a132e543c393bdbe3369e0a9e34fb155479128c11d8f6bd4da2db3a0c",
+      "bytes": 97507
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-5-390.png",
+      "digest": "e6dd661d733622fe8daf2768b883601e2f639cb7fa8a0e798859c3bbeabb2602",
+      "bytes": 102363
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-9-390.png",
+      "digest": "5ec189a28bde67cd7c2f92ed4c9a6f6d55be28daed3664fc524e38f4632f3a6e",
+      "bytes": 120713
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-10-390.png",
+      "digest": "31a7d12b2d8f9a080b950ab32a796623876a0ea4afcca376aebb59c94bb8ec68",
+      "bytes": 206083
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-11-390.png",
+      "digest": "ae4c651b11c7303b72ddaa195dbfcc62082b277075c971feabfc47a28b2f3577",
+      "bytes": 80545
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-formula-9-320.png",
+      "digest": "316070c2229171a549488f9a82193667fb2ee2b79f15e36946e6e4ae157c3299",
+      "bytes": 10287
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-formula-13-320.png",
+      "digest": "930ebe1c1355675507f41ea5bf69a7940d4280078517699166e01ab99d8ce799",
+      "bytes": 11916
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-formula-11-320.png",
+      "digest": "1238eb6a03efe933f57cadc56c232eb0c6ab5ca9099700adc83f1b5c8e47a228",
+      "bytes": 4888
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-formula-10-320.png",
+      "digest": "fa5a6d23167a3696c5147a8e52353e9998b5fe09504f6a8a4ab489103de1e36b",
+      "bytes": 6624
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-formula-12-320.png",
+      "digest": "1fc3a285887257cb63dd991ddc52caef4a23ae2d233a83b5ca8e65b62708e488",
+      "bytes": 5030
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-finite-world-320.png",
+      "digest": "8e5f99917f11585b3901c8a24aed169ccbaf9a98e7a338d66d98321cb8e5012a",
+      "bytes": 248460
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-4-320.png",
+      "digest": "4a8740ce3304eab87e15d23fefb71d51c99e03c32c844657cc2fd1b8c15ce814",
+      "bytes": 102578
+    },
+    {
+      "file": "docs\\teaching\\evidence\\screenshots\\pac-figure-7-320.png",
+      "digest": "0e1a42056734b565bbc46d8daacd8afe8256fdec3bb118519318fba3b53f2a2e",
+      "bytes": 144816
+    }
+  ],
+  "screenshotCount": 41,
+  "visualInterpretation": "Screenshots capture informative states, not defaults only: each investigation before any commitment and after one, the exact null, the refused coincident coordinates, figure 3 before and after the selection is revealed and with the crossed-out K = 3 band, figure 2 fully eliminated, figure 9 with its retained risks, figure 10 on a second procedure, and every inline figure at desktop plus a selection at 390 and 320 px. They require separate visual inspection; a recorded digest proves identity, not legibility.",
+  "limitations": [
+    "A passing run is not a reading of the page. The captures above must be opened and looked at.",
+    "The painted-against-declared check catches a stylesheet overriding an attribute, and a shape painting black with no stroke. It does NOT catch a shape that is painted correctly and then COVERED by a later sibling. That is how figure 11's two half-discs were invisible -- the dial ring carried a solid fill and is painted after them -- and it was found by looking at the image, not by any check here. A general occlusion check is not attempted; the figure-by-figure visual pass is what covers it.",
+    "The shared layout inspector allows a two-pixel overlap, which is why two coordinate labels eleven units apart could merge and still pass it. That class is now covered in the model layer by labelCollisions rather than here.",
+    "Model correctness is checked by scripts/verify-pac-models.mjs, data regeneration by scripts/verify-pac-data.py and program execution by scripts/verify-pac-examples.py.",
+    "Screen-reader behaviour is not simulated here; roles, labels and descriptions are asserted structurally."
+  ]
+}

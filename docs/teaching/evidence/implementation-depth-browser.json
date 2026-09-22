@@ -1,0 +1,136 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T18:48:31.010Z",
+  "checks": [
+    "loss-functions-ce-mse-focal-contrastive-triplet: lazy code, exact download/display, close unmount",
+    "loss-functions-ce-mse-focal-contrastive-triplet: 1366px contained and rendered",
+    "loss-functions-ce-mse-focal-contrastive-triplet: 390px contained and rendered",
+    "loss-functions-ce-mse-focal-contrastive-triplet: 320px contained and rendered",
+    "loss-functions-ce-mse-focal-contrastive-triplet: open phone code is keyboard-focusable and locally contained",
+    "batch-layer-group-rms-normalization: lazy code, exact download/display, close unmount",
+    "batch-layer-group-rms-normalization: 1366px contained and rendered",
+    "batch-layer-group-rms-normalization: 390px contained and rendered",
+    "batch-layer-group-rms-normalization: 320px contained and rendered",
+    "batch-layer-group-rms-normalization: open phone code is keyboard-focusable and locally contained",
+    "numpy-arrays-broadcasting-vectorization: loop and vectorized code visible",
+    "numpy-arrays-broadcasting-vectorization: 1366px contained and rendered",
+    "numpy-arrays-broadcasting-vectorization: 390px contained and rendered",
+    "numpy-arrays-broadcasting-vectorization: 320px contained and rendered",
+    "feature-scaling-encoding-imputation: loop and vectorized code visible",
+    "feature-scaling-encoding-imputation: 1366px contained and rendered",
+    "feature-scaling-encoding-imputation: 390px contained and rendered",
+    "feature-scaling-encoding-imputation: 320px contained and rendered",
+    "perceptrons-neurons-activation-functions: lazy code, exact download/display, close unmount",
+    "perceptrons-neurons-activation-functions: 1366px contained and rendered",
+    "perceptrons-neurons-activation-functions: 390px contained and rendered",
+    "perceptrons-neurons-activation-functions: 320px contained and rendered",
+    "perceptrons-neurons-activation-functions: open phone code is keyboard-focusable and locally contained",
+    "backpropagation-automatic-differentiation: lazy code, exact download/display, close unmount",
+    "backpropagation-automatic-differentiation: 1366px contained and rendered",
+    "backpropagation-automatic-differentiation: 390px contained and rendered",
+    "backpropagation-automatic-differentiation: 320px contained and rendered",
+    "backpropagation-automatic-differentiation: open phone code is keyboard-focusable and locally contained",
+    "transfer-learning-fine-tuning-strategies: lazy code, exact download/display, close unmount",
+    "transfer-learning-fine-tuning-strategies: 1366px contained and rendered",
+    "transfer-learning-fine-tuning-strategies: 390px contained and rendered",
+    "transfer-learning-fine-tuning-strategies: 320px contained and rendered",
+    "transfer-learning-fine-tuning-strategies: open phone code is keyboard-focusable and locally contained"
+  ],
+  "captures": [
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/loss-functions-ce-mse-focal-contrastive-triplet-1366.png",
+      "sha256": "89ac56187168e2afea5c681cc96302e3518f73f86a61d63431ad54e090b49a04"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/loss-functions-ce-mse-focal-contrastive-triplet-390.png",
+      "sha256": "453f17dc6aee5d8f021a345494a9211aadd5b1f3d48421ced621f9979e538c67"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/loss-functions-ce-mse-focal-contrastive-triplet-320.png",
+      "sha256": "0f0b6decff51ba9988586276a1f1c02b079a894951b74b44d9b74245639241ed"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/batch-layer-group-rms-normalization-1366.png",
+      "sha256": "98a543e441338f4090c8f9132239bf2c644acf49f6def7287a8306c38836c989"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/batch-layer-group-rms-normalization-390.png",
+      "sha256": "eec6221496329066345ad5a27cc7d630901e2172a844cae35f98f658f9376533"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/batch-layer-group-rms-normalization-320.png",
+      "sha256": "df0253bf8b3cb5aaa1e4f23fbb099dcf1ff53aa92e6df4f3c0f59195172e9af6"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/numpy-arrays-broadcasting-vectorization-1366.png",
+      "sha256": "a4b8198cd93199bddce0a31e3c7f71a67743ea43ef3d6c9c6f28edae4ad3ad80"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/numpy-arrays-broadcasting-vectorization-390.png",
+      "sha256": "80f304c0048ba7bf1e644b22f93dc86f486caacfc45d51b1b545296dae3c001a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/numpy-arrays-broadcasting-vectorization-320.png",
+      "sha256": "ff7d1b1ffcab9c31d5b19a61baa0b73e5ebc7a35c01ad7bba2dee85be264da4a"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/feature-scaling-encoding-imputation-1366.png",
+      "sha256": "7340c68e954e785b57e6a718768f82d5a51caae8d905f55e42a300dd61c13bef"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/feature-scaling-encoding-imputation-390.png",
+      "sha256": "c1708b90c57d98a817a03247624a1faafaac5f4065a8a9a41e751c5238dc4e76"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/feature-scaling-encoding-imputation-320.png",
+      "sha256": "1c1739595de84f2d38f1e9d2ffbac342a876fce340fd4b530361c7ba04f52303"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/perceptrons-neurons-activation-functions-1366.png",
+      "sha256": "b15d3b5cd8d0fe3042c8b47220e644590d2e1679041ff711c2401440cb0dbf40"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/perceptrons-neurons-activation-functions-390.png",
+      "sha256": "910830319f544afd7f3c159ae65a4f484cdd7510f4b461e8b51e4cc9eb421698"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/perceptrons-neurons-activation-functions-320.png",
+      "sha256": "40cbaaa6bfa5a55cc8efbbc95a9cee8d4916877fd91144ddfee6866b909148cf"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/backpropagation-automatic-differentiation-1366.png",
+      "sha256": "577f80ec2acf32e46602bd827ca9a8791d325798437f2ff98ceca8e18419daa1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/backpropagation-automatic-differentiation-390.png",
+      "sha256": "4f602fd7f6e67369205d06e49f9e83ff8bb5ef47b9f70ed7475105258a7e6806"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/backpropagation-automatic-differentiation-320.png",
+      "sha256": "2d56bb115c24421ef98756d2a5cb6f6c0d77011290931e837e16dc0fe361076f"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/transfer-learning-fine-tuning-strategies-1366.png",
+      "sha256": "4aa247181fbb9c026e8b034ebbd11cf8150d4f9a383c570a7a16a170c12db3fe"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/transfer-learning-fine-tuning-strategies-390.png",
+      "sha256": "d7fbb4a95a3b34069c8ce1267725a1b920fc3cbb0dcf5762559b10bb29691485"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/implementation-depth/transfer-learning-fine-tuning-strategies-320.png",
+      "sha256": "eb95bfb56c6bc827f3b8b2c48d4256bfefea6a5a59de3b54517b2e5141237c3d"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/learn/data/topics/loss-functions-ce-mse-focal-contrastive-triplet.jsx": "acf4c04da936c4354dfc6b4022d48e72496889b4c967cde3aa0cbb99901e1a75",
+    "src/learn/data/topics/batch-layer-group-rms-normalization.jsx": "79c51ddfda4b14b140d73ef11063c31120ef31256cd6abe4c0ccbe9ac68a254a",
+    "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx": "568dced21a2eecb5a4e4379f1e915a89cd6acd7f6e5cf73ae225e3424e0cdeaf",
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "2bfac10d285285dde822f13e2017e1e572a8aa4fd17147e6b5195b7e40de5a4c",
+    "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "9067f78f977aca06115b2e78d2356445c4074f15202805c8548ad8a4a2bec079",
+    "src/learn/data/topics/backprop.jsx": "e3bea186bcef1126c50fd6275545a2cf685fd9c0dc3960aab6bdcb8311e7097c",
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "bc493e546514cd5b8fa4b60468e03f73b277e0db60774c56170d435f98dbdb73"
+  },
+  "manifestHash": "abb4a3ebe2ddb7c9c5e7ee7727e28383b5669cae74c99baeac7fa7f145cc422c"
+}

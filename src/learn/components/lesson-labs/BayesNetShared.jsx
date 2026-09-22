@@ -1,27 +1,9 @@
+import { useLiveInvestigation, useLiveResult, useLiveStages } from './LiveInvestigationState.js';
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './bayesnet-labs.css';
 import { graphRoutes, layeredLayout, pathPolyline } from '../../data/bayesnet-models.js';
 
-/** Shared controls and drawings for the Bayesian-networks investigations.
- *
- * The contract every investigation on this page keeps: the learner edits a
- * draft, records a prediction, and commits both together. The result is
- * computed from the draft at the moment of committing, so a prediction is
- * always graded against the inputs it was recorded with and never against
- * whatever happens to be on screen afterwards. Any relevant edit retires the
- * recorded verdict. Nothing is revealed on first paint.
- *
- * Two things are specific to this topic.
- *
- *   * Every separation verdict in the lesson comes from one function in
- *     `bayesnet-models.js`. The drawing and the grading read the same returned
- *     object, so the rule a figure highlights is by construction the rule the
- *     lab applies. A separation question has an exact answer, and a graph lab
- *     that grades correct reasoning wrong is the easiest defect to ship here.
- *   * A retired verdict is kept as clearly labelled history rather than erased,
- *     because several tasks here ask a learner to change an input and see that
- *     the answer did *not* move. The comparison needs the earlier result.
- */
+
 
 const sign = text => String(text).replace('-', '−');
 
@@ -190,155 +172,19 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, foo
   </div>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together. */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
-  const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [previous, setPrevious] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const [history, setHistory] = useState([]);
-  const pending = describeKey(draft) !== describeKey(active);
-  const retire = () => {
-    setResult(current => {
-      if (current) setHistory(entries => [...entries.slice(-2), current]);
-      return null;
-    });
-    setChoice(''); setGuess('');
-  };
-  return {
-    draft, active, previous, choice, setChoice, guess, setGuess, reason, setReason, result, pending, history,
-    edit: update => { setDraft(previousDraft => ({ ...previousDraft, ...update })); retire(); },
-    check: answerFor => {
-      setPrevious(active);
-      setActive(draft);
-      setResult({
-        key: describeKey(draft), previousKey: describeKey(active),
-        choice, guess, reason, answer: answerFor(draft, active),
-      });
-    },
-    reset: () => {
-      setDraft(initial); setActive(initial); setPrevious(initial);
-      setChoice(''); setGuess(''); setReason(''); setResult(null); setHistory([]);
-    },
-    load: inputs => {
-      setDraft(inputs); setActive(inputs); setPrevious(inputs);
-      setChoice(''); setGuess(''); setReason(''); setResult(null);
-    },
-    suggest: inputs => { setDraft(inputs); retire(); },
-  };
-}
 
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="bn-field bn-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
+export const useInvestigation = useLiveInvestigation;
 
-/**
- * A radio group that starts with nothing selected, an optional numeric
- * commitment, and one action that commits both. There is deliberately no route
- * to the answer that skips recording a prediction, and a suggested setup fills
- * inputs only, never the outcome.
- */
-export function Prediction({
-  prompt, options, state, answerFor, describe, numeric, committed,
-  applyLabel = 'Apply and check', historyLabel, requireChange, pendingHint, sameQuestion,
-}) {
-  const name = useId();
-  const numericId = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown && shown.choice === shown.answer.outcome;
-  const answerIsNumeric = shown ? Number.isFinite(shown.answer.value) : false;
-  /* A relative tolerance is scaled by the answer's own size, so a fixed
-     fraction does not swallow a small quantity whole. */
-  const allowance = numeric && shown && answerIsNumeric
-    ? (numeric.relative
-      ? numeric.tolerance * (Math.abs(shown.answer.value) > 1e-6 ? Math.abs(shown.answer.value) : 1e-6)
-      : numeric.tolerance)
-    : null;
-  const guessed = shown && numeric && shown.guess !== '' && answerIsNumeric
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= allowance
-      + (allowance === 0 ? 0 : 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value)))
-    : null;
-  const changeMissing = requireChange ? !requireChange(state.draft, state.active) : false;
-  const ready = state.choice !== ''
-    && !changeMissing
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  const previous = state.history.at(-1);
-  const comparable = previous && shown && (!sameQuestion || sameQuestion(previous.key, shown.key));
-  const heldOutcome = comparable && previous.answer.outcome === shown.answer.outcome;
-  return <div className="bn-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="bn-choices">
-        {options.map(([value, text]) => (
-          <label className="bn-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-      {numeric && <label className="bn-field bn-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span className="bn-caption">{numeric.relative
-          ? `Tolerance: ${100 * numeric.tolerance}% of the answer's magnitude, with a minimum absolute allowance of ${numeric.tolerance * 1e-6}.`
-          : numeric.tolerance === 0 ? 'An exact answer is required.' : `Answers within ${numeric.tolerance} are accepted.`} Undefined quantities have no numeric answer.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="bn-pending" role="status">
-      Draft inputs differ from the applied ones. The calculation below will use the values now in the fields, and the
-      comparison will be against the state currently applied.
-    </p>}
-    <div className="bn-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)}
-        onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once a prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {changeMissing && !shown && <p className="bn-note" role="status">
-      {pendingHint ?? 'This question compares two states, so it needs a change to compare. Edit an input, or load one of the setups above, before applying.'}
-    </p>}
-    {committed && shown && <p className="bn-caption">Graded against the committed state: {committed(shown)}</p>}
-    {shown?.reason && <p className="bn-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <p className={`bn-verdict ${correct ? '' : 'is-miss'}`} role="status">
-      <span className="bn-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-      {correct
-        ? `Your prediction matches: ${label(shown.answer.outcome)}.`
-        : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer.outcome)}.`}
-      {numeric && shown.guess !== '' && (answerIsNumeric
-        ? ` You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? 'within' : 'outside'} ${round(allowance, 8)} of it.`
-        : ` You wrote ${shown.guess} for ${numeric.name}, but there is no number to compare it against here: ${numeric.undefinedNote ?? 'the quantity is undefined for these inputs'}. That is not a near miss, and it is not zero.`)}
-      {shown.answer.explain ? ` ${shown.answer.explain}` : ''}
-      {describe ? ` ${describe}` : ''}
-    </p>}
-    {!shown && previous && <p className="bn-history is-pending" role="status">
-      An earlier attempt is held. It stays hidden until you apply, so that it cannot answer the question now on
-      screen; the two results are then shown side by side.
-    </p>}
-    {shown && previous && (comparable
-      ? <p className="bn-history">
-        {historyLabel ?? 'Compared with your previous attempt'}: the calculation gave {label(previous.answer.outcome)}
-        {' '}then and {label(shown.answer.outcome)} now.{' '}
-        {heldOutcome
-          ? 'The response category is the same; this does not establish that the numbers or inputs stayed fixed.'
-          : 'The response category changed between attempts.'}
-      </p>
-      : <p className="bn-history">
-        Your previous attempt answered a different question, so the two results are not put side by side: comparing
-        them would compare two different quantities.
-      </p>)}
+
+
+
+
+export function LiveResult({ state, calculateInputs, blocked, describe }) {
+  const problem = useLiveResult(state, calculateInputs, blocked);
+  return <div data-live-exploration="result">
+    {problem ? <p role="status">{problem} The plots retain the last valid calculation; correct the inputs to update them.</p>
+      : <p role="status">Live calculation for the current controls. {describe}</p>}
+    <button type="button" disabled={Boolean(problem) || !state.result} onClick={state.snapshot}>Use current values as comparison baseline</button>
   </div>;
 }
 

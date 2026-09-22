@@ -21,7 +21,7 @@ export function FaithfulScatterFigure({ grouped = false }) {
     </svg>
     {grouped
       ? <p>Crosses are the two fitted centers after standardizing both columns, mapped back to minutes: about {faithfulTwoGroups.centers[0][0].toFixed(2)} min eruptions followed by {faithfulTwoGroups.centers[0][1].toFixed(1)} min waits ({faithfulTwoGroups.sizes[0]} rows) and {faithfulTwoGroups.centers[1][0].toFixed(2)} min eruptions followed by {faithfulTwoGroups.centers[1][1].toFixed(1)} min waits ({faithfulTwoGroups.sizes[1]} rows). The split is a fitted description of this geometry, not a geological classification.</p>
-      : <p>Each dot is one eruption: how long it lasted, and how long visitors then waited for the next one. Durations were recorded to the nearest second and are heavily rounded. Nothing in the file says which eruptions belong together, yet two dense regions are visible. Deciding whether that visual impression is a useful grouping is exactly the job of this lesson.</p>}
+      : <p>Each dot is one eruption: how long it lasted, and how long visitors then waited for the next one. Durations were originally recorded in seconds with substantial rounding, then stored here in minutes. Nothing in the file says which eruptions belong together, yet two dense regions are visible. Deciding whether that visual impression is a useful grouping is exactly the job of this lesson.</p>}
   </figure>;
 }
 
@@ -46,16 +46,17 @@ export function ClusteringDiagnosticsFigure() {
         </svg></div>
       <div><p>Median silhouette over the five starts (unitless)</p>
         <svg viewBox="0 0 320 255" role="img" aria-label={`Median silhouette by k: ${faithfulDiagnostics.filter(row => row.medianSilhouette !== null).map(row => `k ${row.k}, ${row.medianSilhouette.toFixed(3)}`).join('; ')}. Undefined at k equals 1. Highest at k equals 2.`}>
+          <text x="49" y="18">k = 1: undefined</text>
           {[0, 0.5, 1].map(value => <g key={value}><line x1="49" x2="300" y1={linearY(value)} y2={linearY(value)} stroke="#333" /><text x="42" y={linearY(value) + 4} textAnchor="end">{value}</text></g>)}
           <polyline points={faithfulDiagnostics.filter(row => row.medianSilhouette !== null).map(row => `${xPosition(row.k)},${linearY(row.medianSilhouette)}`).join(' ')} fill="none" stroke="#7dd3fc" strokeWidth="2" />
           {faithfulDiagnostics.map(row => <g key={row.k}>
-            {row.medianSilhouette !== null ? <circle cx={xPosition(row.k)} cy={linearY(row.medianSilhouette)} r="4" fill="#7dd3fc" /> : <text x={xPosition(row.k) + 6} y={linearY(0.5) - 8} textAnchor="start" fill="#888">undefined</text>}
+            {row.medianSilhouette !== null && <circle cx={xPosition(row.k)} cy={linearY(row.medianSilhouette)} r="4" fill="#7dd3fc" />}
             <text x={xPosition(row.k)} y="227" textAnchor="middle">{row.k}</text>
           </g>)}
           <text x="174" y="248" textAnchor="middle">k · number of centers</text>
         </svg></div>
     </div>
-    <p>Each gold dot is one start; the line follows the best of the five. The inertia axis is logarithmic so that equal vertical drops mean equal proportional improvements: one center to two removes about 85% of the error, two to three about 29%, and later steps less. The silhouette is undefined for one cluster and peaks at two. From k = 3 onward the five starts disagree, which is itself information about the objective landscape.</p>
+    <p>Each gold dot is one start; the line follows the best of the five. The inertia axis is logarithmic so that equal vertical drops mean equal proportional improvements: one center to two removes about 85% of the error, and two to three about 29%. Later improvements vary in size. The silhouette is undefined for one cluster and peaks at two. At every tested k from 3 onward, the five starts include different objective values, showing that initialization affects these fits.</p>
     <LessonTable caption="Same executed values as the graphs; six-decimal rounding" headers={['k', 'inertia: best to worst of five starts', 'median silhouette']} rows={faithfulDiagnostics.map(row => [row.k, `${Math.min(...row.inertias).toFixed(6)} to ${Math.max(...row.inertias).toFixed(6)}`, row.medianSilhouette === null ? 'undefined' : row.medianSilhouette.toFixed(6)])} />
   </figure>;
 }
@@ -96,7 +97,8 @@ export function FaithfulDendrogramFigure() {
       {order.map((id, index) => <circle key={id} cx={positions.get(id)} cy="206" r="2.6" fill={groupColors[faithfulTwoGroups.labels[faithfulSubsample[id]]]} />)}
       <text x="170" y="228" textAnchor="middle">40 leaves, colored by the two-center fit</text>
     </svg>
-    <p>Read the vertical gaps, not the leaf order. The last merge sits at height {root.height.toFixed(2)} while every earlier merge is below {faithfulWardLinkage.at(-2)[2].toFixed(2)}, so any cut in that long empty stretch gives the same two clusters, and they coincide with the two-center k-means colors on these rows. The dotted line at height {secondCut} instead yields {clustersAtSecond} clusters whose boundaries are much less stable to the cut position. Gaps like the tall one are the evidence a dendrogram offers; the horizontal placement of leaves is drawing convention.</p>
+    <p>Vertical axis: Ward height √(2ΔSSE). Right-hand numbers count clusters at the cuts: {clustersAtCut} at height {cutHeight}, and {clustersAtSecond} at height {secondCut}.</p>
+    <p>Read the vertical gaps, not the leaf order. The last merge sits at height {root.height.toFixed(2)} while the next-highest merge is at {faithfulWardLinkage.at(-2)[2].toFixed(2)}. Every cut between those heights gives the same two clusters, and they coincide with the two-center k-means colors on these rows. The dotted line at height {secondCut} instead yields {clustersAtSecond} clusters; crossing any nearby merge height changes that finer partition. The vertical gaps show how far a cut can move while preserving its partition; the horizontal placement of leaves is drawing convention.</p>
   </figure>;
 }
 

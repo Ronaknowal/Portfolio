@@ -1,5 +1,21 @@
 # Hybrid SSM–Transformer lesson: visual and investigation specifications
 
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Compare sequence memory and expert routes.** Edit record keys/values, decay, score gap, cache budget, expert probabilities/capacity and supported stroke inputs.
+**See the consequence.** Show retained state versus explicit memory read, probability mass, exact request memory and continued frozen-model outputs.
+**Decision connection.** Choose a hybrid arrangement by memory retention and routing costs; named architecture examples do not imply identical mechanisms.
+
+
 This is a content-first specification. No website components, SVGs, interactive labs or browser validation are implemented here. The complete learner manuscript is lesson.md. Place each figure and investigation where that manuscript introduces its mechanism. Internal IDs below need not appear in learner-facing titles.
 
 ## Shared teaching and rendering contract
@@ -8,9 +24,9 @@ Use different representations for different mechanisms: addressable record strip
 
 Sequence position and network depth are separate axes. A recurrent matrix, short-convolution history, attention K/V bank and model-weight shelf are distinct objects. Shared weights do not imply shared K/V. Caption quantities as exact calculations, actual small-model measurements or architectural schematics. Never invent a quality leaderboard, latency ranking or neural activation.
 
-Every investigation starts with an **unset prediction** and fresh unsolved inputs. Require an intentional answer before revealing its computed outcome. Bind the answer, result and feedback to a signature of all active inputs, model/fixture versions and operation modes. An edit invalidates them. Historical results may remain only with their original inputs and an explicit stale label.
+Each investigation follows the live exploration contract above: current results are visible immediately, valid entity edits update all linked views, and comparisons explain the mechanism. Reset restores the declared inputs and recomputes their result. No prediction or answer-submission state is retained.
 
-Provide Run/Compare, restore original inputs, and Reset. Reset restores the fresh fixture, cancels pending work, clears the prediction/result/feedback and collapses hints. Worked examples remain readable without a lab. Do not preselect the correct answer or infer a prediction from an untouched default. Reflection should ask which information path changed.
+Provide Run/Compare, restore original inputs, and Reset. Reset restores the fresh fixture, cancels pending work, clears the current result/feedback and collapses hints. Worked examples remain readable without a lab. Show the actual current result at the default; no answer choices or learner prediction state are stored. Reflection should show whether information path changed.
 
 Use semantic labels, accessible tables and textual equivalents for colour. All dragging has numerical or keyboard alternatives. Keep focus on the initiating control; announce only completed result summaries. Motion is optional, respects reduced-motion preferences and has a static/step equivalent. On narrow screens put controls above figures and results below; use a local labelled scroller or vertical table instead of shrinking text. Maintain readable equations, explicit units and the site's established target sizes.
 
@@ -51,7 +67,7 @@ Place at the end of §1. The learner should discover which information a particu
 
 Inputs: one to eight editable records; each has a categorical key A/B/C and value in −10…10. Allow adding, removing and moving rows with accessible buttons. Query choices are A/B/C/Absent. Decay λ ranges from zero to one; score gap β ranges from zero to log(100), with useful named log4/log9 presets. An empty record list is invalid because the displayed normalized read has no observations.
 
-The fresh fixture is A:3, B:8, A:1, C:5, query A, λ=.75 and β=log4. The first prediction asks which read changes if record2 is relabelled B→A: summary, attention read, both or neither. Require an answer and optionally reasoning. For subsequent free edits, ask a predicted direction or value for each output. Bind the prediction to row values/order/keys, query, λ, β and requested intervention.
+The fresh fixture is A:3, B:8, A:1, C:5, query A, λ=.75 and β=log4. The live comparison asks which read changes if record2 is relabelled B→A: summary, attention read, both or neither. Show the current computed result and its contributing terms immediately. For subsequent free edits, display the new value and signed change of each output immediately. Compute the comparison from the complete current inputs.
 
 Use hybrid_mechanisms.memory_read exactly. Start s=n=0 and update s=λs+v, n=λn+1, output s/n. Attention assigns score β to matching keys and zero otherwise, then applies softmax. An absent query produces equal scores. This is a deliberately simple categorical-score attention example, not a trained Mamba model.
 
@@ -64,15 +80,15 @@ Checked contrasting and null cases:
 - Query Absent on [2,7,4] gives13/3, not “no answer.”
 - At β=0 all attention weights are uniform; λ=0 reads the final value; λ=1 gives the ordinary average. These boundary identities were executed in packet_checks.py and must also be verified in the phase-two port.
 
-Feedback explains that this summary's update ignores keys. Repeated matches share probability; changed weights can leave constant-value outputs unchanged. The collision explanation must name this recurrence, never assert that all SSMs cannot copy. Add one initially closed hint expanding recurrence weights and one closed explanation after the prediction.
+Feedback explains that this summary's update ignores keys. Repeated matches share probability; changed weights can leave constant-value outputs unchanged. The collision explanation must name this recurrence, never assert that all SSMs cannot copy. Add one initially closed hint expanding recurrence weights and one closed explanation .
 
-The accessible table contains key, value, recurrence weight, attention weight and weighted contribution. On mobile, put row edits above two stacked views. Reset restores the fresh case, clears the answer and hides the result. Verify all fixtures, nulls, row order, prediction invalidation, keyboard editing and narrow/reduced-motion views in phase two.
+The accessible table contains key, value, recurrence weight, attention weight and weighted contribution. On mobile, put row edits above two stacked views. Reset restores the stated inputs and immediately displays their computed result. Verify all fixtures, nulls, row order, live recomputation, keyboard editing and narrow/reduced-motion views in phase two.
 
 ## Investigation JC — budget persistent request memory
 
 Place in §4 after the cache table. The purpose is to separate length-dependent K/V from fixed recurrent/convolution tensors and from model weights.
 
-Fresh configuration: batch3, depth12, attention layers3, model width512, expansion2, state width8, convolution-buffer width4, KV heads2, head width64, K/V bytes2, recurrent bytes4, convolution bytes2, context2048. First ask which components double when context becomes4096; a second optional field asks for total MiB. Both predictions start empty.
+Both compared methods display current computed outputs from the same records and settings immediately. A valid edit updates both, with exact differences and a mechanism explanation. There is no prediction input or score.
 
 Editable bounds: batch1–32; depth1–96; attention count0…depth; context0…262144; width32…8192 in multiples of32; expansion1–4; state width1–256; convolution buffer1–8; KV heads1–64; head width8…256 in multiples of8. Dtypes are bytes/scalar: K/V1,2,4; recurrent2,4; convolution1,2,4. Optional windowed mode uses W1…262144. These values keep integer byte arithmetic within JavaScript's exact integer range.
 
@@ -103,7 +119,7 @@ Place in §5. The learner should distinguish router scores, selected indices, se
 
 Four expert entities E0–E3 each have a router logit in −8…8 and an editable two-dimensional output in −10…10 per component. k ranges1…4. The default uses probabilities retained from the full softmax; a comparison switch explicitly names selected-weight renormalization.
 
-Fresh logits are [0,log3,log6,log2] and expert outputs [[1,2],[3,0],[−1,4],[2,−2]]. The prediction asks whether increasing E0's unnormalized weight from1 to2 can change the output while E0 remains unselected. Record yes/no and reasoning before showing the answer. Later questions can predict selection or a numeric vector. Bind every logit, expert output, k, mode and intervention.
+Show selected experts, retained probability mass and the actual recombined vector immediately. Changing router scores or capacity updates all three. The explanation follows contributions that survive or are dropped; a separate written exercise may ask for reasoning.
 
 Compute p=softmax(logits), select top-k, and use w=p[selected]. The comparison divides those selected weights by their sum. Declare deterministic ties by lower expert ID first and visibly label a selection-boundary tie. Do not claim this tie order is guaranteed by every GPU top-k implementation. Any tie exercise must explain the announced policy rather than invent a unique selection without it.
 
@@ -115,19 +131,19 @@ Nulls: changing only an unselected expert's output cannot change the result with
 
 Use four router bars, selected brackets, a visible selected-mass label and vector contribution arrows, with a numeric-table alternative. Keep the parameter shelf visible to avoid suggesting that unselected experts require no storage. Editable expert vectors are teaching inputs, not claimed outputs of a trained MoE. Feedback explains the full-softmax denominator before selection and distinguishes score edits from value edits.
 
-Reset restores the fresh inputs, k2, retained mode, empty prediction and hidden result. Mode changes invalidate predictions. Compute is bounded to four experts and two outputs. Full training, balancing, capacity and dispatch remain with the dedicated MoE topic.
+Reset restores the stated inputs and immediately displays their computed result. Mode changes recompute current outputs. Compute is bounded to four experts and two outputs. Full training, balancing, capacity and dispatch remain with the dedicated MoE topic.
 
 ## Investigation JB — draw a stroke and continue its actual state
 
 Place in §7 after worked source2452. This investigation must perform real small-model inference on editable coordinates, not switch between scripted transcripts.
 
-Fresh input: development source2970, original class1, coordinates[(38,100),(100,92),(88,77),(75,62),(50,46),(25,30),(12,15),(0,0)]. Model MAM-37, boundary after three points, intervention K/V reset. Initially show the trajectory, editable table and prediction question, but no model probabilities or feedback.
+Fresh input: development source2970, original class1, coordinates[(38,100),(100,92),(88,77),(75,62),(50,46),(25,30),(12,15),(0,0)]. Model MAM-37, boundary after three points, intervention K/V reset. Initially show the trajectory, editable table and live comparison, but no model probabilities or feedback.
 
 All eight points are editable integers0–100 using fields or keyboard-accessible point controls. The count stays eight because that is the trained representation. Any coordinate edit marks the input “edited; original source class1, new ground truth unassigned.” An optional all-(50,50) degenerate probe has no true digit. Do not retain the original label as a correctness judgment on a modified trace.
 
 The model selector may offer MAM-37, AMM-37, MMM-37, AAA-37 and MAM-73, loading their actual saved weights and showing counts. The flattened linear model has no streaming path; show it only in the full-trace/static comparison. Boundary is0…8. Modes: carry; recurrent reset, which clears both recurrent state and short history; K/V reset; convolution-only reset; position-offset reset.
 
-The initial two questions are independently unset: “Will K/V reset reproduce uninterrupted logits?” and “Must a changed computation change the final class?” Optionally request a predicted class/probability. Bind the answer to all coordinates, model key/weight version, boundary, fault mode and position policy. Model/input changes must never reuse another run's request state.
+Show uninterrupted and K/V-reset logits together, their maximum difference and each final class. Editing actual input or carry/reset mode recomputes both. Explain why a changed computation may retain the same argmax; class identity and numerical equality are different readouts.
 
 Port the exact selected StrokeModel. Inputs are coordinates/50−1 plus t/7,(t/7)^2 on the original grid, embedding4→16, three residual layers, learned RMS weights with epsilon1e−6, exact SiLU/softplus, selective state width4, three-tap depthwise convolution, dense SwiGLU32, final RMS and ten-logit head. Preserve biases and learned parameter arrays. Attention is one head with scale1/sqrt16 and mask j≤t.
 
@@ -153,7 +169,7 @@ Show the path, boundary marker, per-layer cache bundle, full/branch probability 
 
 Bound computation to one eight-point input, three width16 layers and a small number of branches per Run. Load the chosen roughly9K-parameter model only when needed. Do not bundle all300 validation-prefix logs or all six model states on initial page load. Use a bounded worker if needed; coordinate edits mark stale results and wait for Run rather than recomputing on every keystroke.
 
-Phase-two verification must reproduce saved worked/fresh/edited/degenerate fixtures and full/stream/chunk paths from actual arrays. Initial logit tolerance is1e−4 for a faithful port; native float32 full/stream differences are below1.26e−5. A precision-driven tolerance revision needs explanation and cannot hide a wrong operator. Verify future edits leave earlier outputs unchanged, branches/requests are isolated, boundary nulls hold, invalid coordinates are blocked, all changes invalidate predictions and mobile/keyboard operation is usable.
+Phase-two verification must reproduce saved worked/fresh/edited/degenerate fixtures and full/stream/chunk paths from actual arrays. Initial logit tolerance is1e−4 for a faithful port; native float32 full/stream differences are below1.26e−5. A precision-driven tolerance revision needs explanation and cannot hide a wrong operator. Verify future edits leave earlier outputs unchanged, branches/requests are isolated, boundary nulls hold, invalid coordinates are blocked, all changes recompute current outputs and mobile/keyboard operation is usable.
 
 ## Practice, downloads and phase-two completion
 
@@ -163,3 +179,14 @@ Make complete programs and data attribution available as deliberate downloads. T
 
 The phase-two finisher implements these topic-specific representations, ports and verifies the numerical functions, checks content integration, accessibility, responsive layout and browser performance, then updates implementation status separately. None of those delivery checks is claimed complete by this specification.
 
+
+## Precise fixture and scope details retained for implementation
+
+**Request-memory configuration.** Batch 3, depth 12, attention layers 3, model width 512, expansion 2, state width 8, convolution-buffer width 4, KV heads 2, head width 64, K/V bytes 2, recurrent bytes 4, convolution bytes 2, context 2048. Changing context to 4096 shows the components that double and the exact new MiB total immediately. Keep fixed-state and growing-cache terms separate.
+
+
+## Scratch/tool bridge presentation — 22 September 2026
+
+Tie the existing serving/cache investigation to `StrokeModel.stream`: expose request identity, offset, convolution history, recurrent state and K/V count as distinct fields. Cache-swap and position-reset are different interventions with immediate logits/state comparison. Show selected-expert routing only for the explicit route fixture; do not label the stroke model as an implemented MoE.
+
+The complete source and teaching explanation are already written in the manuscript and companion programs. Phase two implements the presentation and verifies actual behavior; it does not invent an omitted algorithm. Show code only when requested, load large code assets on demand, preserve exact source equality, and keep immediately visible numerical explanations usable without running Python in the browser. No learner-prediction entry or grading state is permitted.

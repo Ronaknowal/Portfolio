@@ -17,100 +17,34 @@ export const signedFormat = (value, places = 6) => {
 
 const copy = value => JSON.parse(JSON.stringify(value));
 
-/** Feedback must preserve differences that the numerical grader can detect. */
 export const feedbackNumber = value => Number(value.toPrecision(12)).toString().replace('-', '−');
 export const feedbackDifference = value => value === 0 ? '0' : `${value < 0 ? '−' : '+'}${feedbackNumber(Math.abs(value))}`;
 
-/** A prediction belongs to the serialized draft it was committed with.
- *  Editing any prediction-dependent input retires it, and a retired result is
- *  kept only as visibly labelled history.
- */
 export function useIcaInvestigation(initial, validate = () => null) {
-  const [draft, setDraft] = useState(() => copy(initial));
-  const [active, setActive] = useState(() => copy(initial));
-  const [prediction, setPrediction] = useState('');
-  const [committed, setCommitted] = useState(null);
-  const [result, setResult] = useState(null);
-  const [previous, setPrevious] = useState(null);
-  const [status, setStatus] = useState('Prediction not recorded.');
-  const [resetCount, setResetCount] = useState(0);
-  const key = JSON.stringify(draft);
-  // A validator returns a string for an invalid draft, or {notice} for a draft
-  // that is merely not ready yet. Both block Apply; only the first reads as an
-  // error, so a required first action is not presented as a failure.
-  const validation = validate(draft, active);
+  const [view, setView] = useState(() => ({draft:copy(initial), active:copy(initial), previous:null, resetCount:0}));
+  const validation = validate(view.draft, view.active);
   const error = typeof validation === 'string' ? validation : null;
-  const notice = validation && typeof validation === 'object' ? validation.notice : null;
-  const blocked = Boolean(error || notice);
-  const invalidate = (message = 'Draft changed. The recorded prediction was cleared; the last applied state is unchanged.') => {
-    setPrediction('');
-    setCommitted(null);
-    setResult(current => (current ? { ...current, historical: true } : null));
-    setStatus(message);
-  };
-  const edit = changes => {
-    setDraft(current => ({ ...current, ...changes }));
-    invalidate();
-  };
-  const choose = value => {
-    setPrediction(value);
-    setCommitted(null);
-    setStatus('Prediction chosen. Record it before applying the draft.');
-  };
-  const commit = () => {
-    if (blocked || prediction === '') return;
-    setCommitted({ key, inputs: copy(draft), prediction });
-    setStatus('Prediction recorded against these inputs. Apply them to reveal the result.');
-  };
-  const apply = evaluate => {
-    if (blocked || !committed || committed.key !== key) return;
-    const inputs = copy(committed.inputs);
-    const evaluation = evaluate(inputs, active, committed.prediction);
-    setPrevious({ active: copy(active), result });
-    setActive(evaluation.nextActive ? copy(evaluation.nextActive) : inputs);
-    if (evaluation.nextActive) setDraft(copy(evaluation.nextActive));
-    setResult({ inputs, key, prediction: committed.prediction, evaluation });
-    setPrediction('');
-    setCommitted(null);
-    setStatus(evaluation.status ?? 'Draft applied. Compare your recorded prediction with the result below.');
-  };
-  const reset = () => {
-    setDraft(copy(initial));
-    setActive(copy(initial));
-    setPrediction('');
-    setCommitted(null);
-    setResult(null);
-    setPrevious(null);
-    setResetCount(count => count + 1);
-    setStatus('Documented starting inputs restored. Prediction and result cleared.');
-  };
-  const undo = () => {
-    if (!previous) return;
-    setActive(copy(previous.active));
-    setDraft(copy(previous.active));
-    setResult(previous.result ? { ...previous.result, historical: true } : null);
-    setPrevious(null);
-    setPrediction('');
-    setCommitted(null);
-    setStatus('Previous applied inputs restored. Any earlier answer is history; record a new prediction.');
-  };
-  return {
-    draft, active, prediction, committed, result, previous, status, key, error, notice, blocked, resetCount,
-    currentResult: result && result.key === key && !result.historical ? result : null,
-    edit, choose, commit, apply, reset, undo, invalidate, setStatus,
-  };
+  const edit = changes => setView(current => {
+    const draft = {...current.draft,...changes};
+    const problem = validate(draft, current.active);
+    return {...current,draft,...(typeof problem === 'string' && problem ? {} : {active:copy(draft),previous:{active:current.active}})};
+  });
+  const reset = () => setView(current => ({draft:copy(initial),active:copy(initial),previous:null,resetCount:current.resetCount+1}));
+  const undo = () => setView(current => current.previous ? {...current,draft:copy(current.previous.active),active:copy(current.previous.active),previous:null} : current);
+  return {...view,key:JSON.stringify(view.draft),error,edit,reset,undo};
 }
 
 export function Investigation({ kind, title, children, state }) {
   const titleId = useId();
-  return <section className="ic-investigation" data-ica-lab={kind} aria-labelledby={titleId}>
+  return <section className="ic-investigation" data-ica-lab={kind} aria-labelledby={titleId} data-live-exploration>
     <header>
       <h3 id={titleId}>{title}</h3>
       <div className="ic-buttons">
         <button type="button" onClick={state.reset}>Reset</button>
-        <button type="button" onClick={state.undo} disabled={!state.previous}>Undo apply</button>
+        <button type="button" onClick={state.undo} disabled={!state.previous}>Undo edit</button>
       </div>
     </header>
+    {state.error && <p className="ic-error" role="status">{state.error} The last valid view is retained.</p>}
     {children}
   </section>;
 }
@@ -142,58 +76,6 @@ export function SelectField({ label, value, onChange, options }) {
       {options.map(([key, text]) => <option key={key} value={text === undefined ? key : key}>{text ?? key}</option>)}
     </select>
   </label>;
-}
-
-/** Radio or numeric prediction, unset at first render and never preselected. */
-export function Prediction({ state, prompt, choices, numeric, action, evaluate, extra }) {
-  const name = useId();
-  const inRange = value => Number.isFinite(value)
-    && (numeric.min === undefined || value >= numeric.min) && (numeric.max === undefined || value <= numeric.max);
-  const fields = numeric?.fields;
-  const numericInvalid = Boolean(numeric) && (fields
-    ? state.prediction === '' || fields.some(field => (field.required
-      ? !inRange(state.prediction[field.key])
-      : state.prediction[field.key] !== '' && state.prediction[field.key] !== undefined && !inRange(state.prediction[field.key])))
-    : state.prediction === '' || !inRange(state.prediction));
-  const invalid = choices ? state.prediction === '' : numericInvalid;
-  const announced = Boolean(state.currentResult) && !state.committed && state.prediction === '';
-  const resultParagraph = state.result && <p className={`ic-result${state.currentResult ? '' : ' is-history'}`} data-ica-result>
-    <strong>{state.currentResult ? 'Applied result. ' : 'Previous result (history, not feedback on the edited draft). '}</strong>
-    {state.result.evaluation.message}
-  </p>;
-  return <div className="ic-prediction">
-    <fieldset>
-      <legend>{prompt}</legend>
-      {choices && <div className="ic-choices">{choices.map(([value, label]) => <label key={value}>
-        <input type="radio" name={name} value={value} checked={state.prediction === value} onChange={() => state.choose(value)} />
-        {label}
-      </label>)}</div>}
-      {numeric && fields && <div className="ic-controls">{fields.map(field => <NumberField key={field.key} label={field.label}
-        value={state.prediction === '' ? '' : state.prediction[field.key] ?? ''} min={numeric.min} max={numeric.max}
-        step={numeric.step ?? 'any'}
-        onChange={value => state.choose({
-          ...(state.prediction === '' ? Object.fromEntries(fields.map(item => [item.key, ''])) : state.prediction),
-          [field.key]: value,
-        })} />)}</div>}
-      {numeric && !fields && <NumberField label={numeric.label} value={state.prediction} onChange={state.choose}
-        min={numeric.min} max={numeric.max} step={numeric.step ?? 'any'} />}
-      {extra}
-    </fieldset>
-    {state.error && <p className="ic-error" role={state.result ? 'alert' : undefined}>
-      {state.error}{state.result ? ' The last valid applied result is retained.' : ''}
-    </p>}
-    {state.notice && <p className="ic-note" data-ica-notice>{state.notice}</p>}
-    {numeric && state.prediction !== '' && numericInvalid
-      && <p className="ic-error">Enter a finite prediction between {format(numeric.min, 2)} and {format(numeric.max, 2)}.</p>}
-    <div className="ic-buttons">
-      <button type="button" disabled={state.blocked || invalid} onClick={state.commit}>Commit prediction</button>
-      <button className="is-primary" type="button" disabled={state.blocked || !state.committed}
-        onClick={() => state.apply(evaluate)}>{action}</button>
-    </div>
-    <p className="ic-status" role={announced ? undefined : 'status'} aria-live={announced ? 'off' : 'polite'} data-ica-status>{state.status}</p>
-    <div aria-live="polite" aria-atomic="true" data-ica-announcement>{state.currentResult ? resultParagraph : null}</div>
-    {!state.currentResult && resultParagraph}
-  </div>;
 }
 
 /** The caption sits outside the scroll region so a wide table never clips it.

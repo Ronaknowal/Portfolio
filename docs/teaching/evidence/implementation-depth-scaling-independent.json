@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T18:39:22.188Z",
+  "reviewer": "integration owner; not the Feature Scaling author",
+  "scope": "New fitted-state implementation and practice only",
+  "checks": [
+    "Exact displayed output replay",
+    "Training and query permutation invariance",
+    "Joint train/query translation leaves standardized output unchanged",
+    "Missingness extension has independently calculated coordinates and indicators",
+    "No transform mutates fitted state"
+  ],
+  "sourceHashes": {
+    "src/learn/data/scaling-examples.js": "c5bd20f01db2d04ef6185621a654dad09f10bd78695eb6b36dc3ee588db60287",
+    "src/learn/data/topics/feature-scaling-encoding-imputation.jsx": "2bfac10d285285dde822f13e2017e1e572a8aa4fd17147e6b5195b7e40de5a4c"
+  }
+}

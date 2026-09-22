@@ -25,7 +25,7 @@ Picture a vertical ruler at the chosen input. Put the true mean at 10, predictio
 
 The learning procedure includes the model family, preprocessing, regularization, optimization and any randomization. Bias is a property of that procedure under a specified training-sampling process, not just a label attached to “linear” or “complex.” A richer model can have bias from shrinkage or incomplete optimization. A simpler model can be unbiased at a particular input even if it misses the relationship elsewhere.
 
-Try editing the three prediction dots in the first investigation. Before revealing the calculation, record whether total expected error will rise, fall or stay unchanged. Moving one dot toward the true mean can change both the average offset and the spread; the two terms must be recalculated together.
+Try editing the three prediction dots in the first investigation. Watch the total expected error change directly. Moving one dot toward the true mean can change both the average offset and the spread; the two terms must be recalculated together.
 
 Nor does low variance mean low error. A broken program returning zero for every input can be perfectly stable.
 
@@ -147,7 +147,7 @@ for degree in (0, 1, 2):
 
 At the .5 probe, this produces the table above; at zero, the line and constant coincide, whereas the quadratic's expected error is .5. The larger retained [author calculation](author-calculations.py) checks this identity on 61 probe positions and also supplies a five-input version for investigation. It uses the same least-squares operation without clipping predictions or changing a hidden regularization parameter.
 
-In the accompanying investigation, edit curvature, noise level and the probe location. Predict whether switching from one fit to another will lower, raise or preserve expected squared error, then reveal the actual eight fitted curves, average curve and separate error contributions. A second mode adds training inputs at \(-.5,.5\), enumerating 32 possible datasets. Setting noise to zero is a useful null: a correctly specified, identified polynomial reproduces the truth in every training draw.
+In the accompanying investigation, edit curvature, noise level and the probe location. Switch between fits to inspect the actual eight fitted curves, average curve and separate error contributions, including changes that preserve expected squared error. A second mode adds training inputs at \(-.5,.5\), enumerating 32 possible datasets. Setting noise to zero is a useful null: a correctly specified, identified polynomial reproduces the truth in every training draw.
 
 ### What can a bootstrap establish?
 

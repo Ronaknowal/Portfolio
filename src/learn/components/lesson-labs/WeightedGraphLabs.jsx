@@ -128,7 +128,7 @@ export function DijkstraFrontierLab() {
   const state = trace[Math.min(step, trace.length - 1)];
   const route = state.settled[target] ? recoverRoute(state.parents, source, target) : null;
   return <section className="weighted-graph-lab" aria-label="Dijkstra priority frontier investigation">
-    <header><span className="weighted-graph-eyebrow">Investigate · tentative versus final</span><h3>One best distance, several physical entries</h3><p>Predict when B becomes final. Follow A→B10 against A→C1→B1, then continue far enough to see old entries discarded.</p></header>
+    <header><span className="weighted-graph-eyebrow">Investigate · tentative versus final</span><h3>One best distance, several physical entries</h3><p>Explore when B becomes final. Follow A→B10 against A→C1→B1, then continue far enough to see old entries discarded.</p></header>
     <div className="weighted-graph-controls"><VertexSelect title="Source" value={source} onChange={value => {
         setSource(value);
         setStep(0);
@@ -152,7 +152,7 @@ export function DijkstraFrontierLab() {
       setSource(0);
       setTarget(4);
     }} />
-    <details><summary>Try a changed contract</summary><p>Make A→B cost 0 and predict its extraction. Choose F as source to test unreachable vertices. Then attempt a negative edge: input validation rejects a theorem the model can no longer promise.</p></details>
+    <details><summary>Try a changed contract</summary><p>Make A→B cost 0 and follow its extraction. Choose F as source to test unreachable vertices. Then attempt a negative edge: input validation rejects a theorem the model can no longer promise.</p></details>
   </section>;
 }
 export function BellmanFordPassLab() {
@@ -162,7 +162,7 @@ export function BellmanFordPassLab() {
   const trace = useMemo(() => bellmanFordTrace(6, editor.edges, source), [editor.edges, source]);
   const state = trace[step];
   return <section className="weighted-graph-lab" aria-label="Bellman Ford edge budget investigation">
-    <header><span className="weighted-graph-eyebrow">Investigate · generations and negative cycles</span><h3>Only the previous row may supply a candidate</h3><p>B→C→B costs −3. E→F→E costs −2. Predict which cycle can affect source A, and whether downstream D belongs to the cycle itself.</p></header>
+    <header><span className="weighted-graph-eyebrow">Investigate · generations and negative cycles</span><h3>Only the previous row may supply a candidate</h3><p>B→C→B costs −3. E→F→E costs −2. Inspect which cycle can affect source A, and whether downstream D belongs to the cycle itself.</p></header>
     <VertexSelect title="Source" value={source} onChange={value => {
       setSource(value);
       setStep(0);
@@ -198,7 +198,7 @@ export function SpanningForestLab() {
   const state = trace[Math.min(step, trace.length - 1)];
   const groups = [...new Set(state.components)].map(root => GRAPH_LABELS.filter((_, vertex) => state.components[vertex] === root).join(' '));
   return <section className="weighted-graph-lab" aria-label="Minimum spanning forest investigation">
-    <header><span className="weighted-graph-eyebrow">Investigate · a cheapest connecting forest</span><h3>A global edge order or one growing boundary</h3><p>Predict why edge A—B of weight 4 may be rejected although it is cheaper than a later accepted edge of weight 5. Track the connection already present, not just the number.</p></header>
+    <header><span className="weighted-graph-eyebrow">Investigate · a cheapest connecting forest</span><h3>A global edge order or one growing boundary</h3><p>Investigate why edge A—B of weight 4 may be rejected although it is cheaper than a later accepted edge of weight 5. Track the connection already present, not just the number.</p></header>
     <label>Growth rule<select aria-label="Growth rule" value={method} onChange={event => {
         setMethod(event.target.value);
         setStep(0);

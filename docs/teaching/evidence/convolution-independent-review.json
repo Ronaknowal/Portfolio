@@ -1,0 +1,24 @@
+{
+  "reviewer": "/root/residual_implementation",
+  "date": "2026-09-22",
+  "passed": true,
+  "scope": "Full prepared packet, teaching coverage, production source, mechanism mathematics, native program and complementary independent cases. Browser/build delegated to root.",
+  "findings": 4,
+  "closedFindings": 4,
+  "nativeEvidence": "convolution-independent-native.json",
+  "modelEvidence": "convolution-independent-model.json",
+  "remaining": "Production browser visual/interaction and integration closure belongs to root.",
+  "hashes": {
+    "docs/teaching/drafts/convolution-pooling-receptive-fields/lesson.md": "686d11c9ee91d38110435d725311aada1683b89f978c08cc562646717e69bca5",
+    "docs/teaching/drafts/convolution-pooling-receptive-fields/visual-specifications.md": "a211d89b65002410d29f6ef7c1a519acee5c40fe53d5bd5bc2de8569daf6c56d",
+    "src/learn/data/topics/convolution-pooling-receptive-fields.jsx": "fee2539841af0e4d7e3256e34b234007d269c4517d0c935b92e7acff54a50b9b",
+    "src/learn/components/lesson-labs/ConvolutionLabs.jsx": "621d961c4015a7f0bd034157cd76397a4a60c997f8db0f15a0b68cec09bf5644",
+    "src/learn/components/lesson-labs/convolution-labs.css": "398e4ae8fb66bfb61082c0deec029e2d90f9af04772f187ac7dac13f025a5340",
+    "src/learn/data/convolution-models.js": "57fddf3dc09c15eb277f228196b263e6a9b5a93d7b9fb5d520fb5877df9af136",
+    "src/learn/data/curriculum/blueprints/convolution-pooling-receptive-fields.js": "71e1b32e0c24bfcc7599595dd282ad72ec7abcba2f516fbd3ff9e9a665a2a478",
+    "public/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py": "d6dec2070465e8e00dbd2fad082e84fb7386375b10b30a52c551390ae2efde2c",
+    "public/learn-code/convolution-pooling-receptive-fields/convolution_pullbacks.py": "2ec86d85e950faca0726212decc6cfe749023e77d381915ccbafed9df0a87923",
+    "public/learn-code/convolution-pooling-receptive-fields/calculated-inputs.json": "d681f19e1af034c2ec2e188cc34f720700cd23bd129ccfd8b10edfd7a4881e6c",
+    "public/learn-code/convolution-pooling-receptive-fields/data-provenance.md": "8e1900ce8ee99e9db5ca80f139adc5b1c3884d63a44018edccee29f0d50f91b8"
+  }
+}

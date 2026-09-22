@@ -33,7 +33,7 @@ Later Sparse/Linear Attention owns changes to legal positions, kernelized/recurr
 |Parameter and compute estimates|Retain exact projection count; distinguish reduced KV projection work from unchanged dense per-query-head attention arithmetic. Remove fixed whole-model percentages and universal training-memory claims|
 |Mean-head uptraining|Retain complete weight/bias conversion and continued training, derive limited Frobenius mean justification, add exact nonlinear counterexample and tied-head null. Remove false averaging-of-own-logits argument, claimed 90% recovery / 10× convergence and invented Meta conversion history|
 |Large GPU implementation and synthetic shift task|Replace unsupported stdout/speed claims and position-free shift task with a complete executed transparent NumPy operator and real causal forecasting program. Full fitting/conversion/caching depth is retained without a GPU requirement|
-|repeat/expand and gradients|Correct repeat_interleave being described as a view; preserve exact routing checks and add direct grouped einsum plus an independently checked sum-of-reader gradients|
+|repeat/expand gradients|Correct repeat_interleave being described as a view; preserve exact routing checks and add direct grouped einsum plus an independently checked sum-of-reader gradients|
 |RoPE/cache timing|Explain native-head rotation's efficiency and equivalent consistent post-repeat rotation. Remove claim that mathematically equivalent ordering inherently forces wrong or expanded cache; maintain explicit logical IDs and actual offset-mask checks|
 |SDPA/HF/FlashAttention source|Use inspected current/versioned contracts, explicit enable_gqa, dropout0, boolean-mask polarity, non-square causal alignment and actual compact cache/backend dispatch. Replace ellipsis-heavy pseudo-production block and automatic backend assertions|
 |Visuals and benchmarks|Retain head maps, step flow and code-derived cache counts. Remove nonexistent seven-point quality curve attributed to GQA Figure 5. Actual paper Table 1 is a bounded source table; real local conversion histories are separate measured data|
@@ -59,7 +59,7 @@ The current topic was published but not approved under this new teaching approac
 |---|---|---|
 |Why keep old values but not old queries?|Causal dependency and prefill/decode distinction|Write-once/read-again timeline with separate layer state|
 |Several query heads share one memory, so must outputs agree?|Exact four-query/two-memory calculation|Head wiring linked to distinct positional weight distributions and vector mixtures|
-|Every reader of an edited key must change|Orthogonal-query null plus value-path fan-out|Edit Q/K/V coordinates and predict exact affected outputs|
+|Every reader of an edited key must change|Orthogonal-query null plus value-path fan-out|Edit Q/K/V coordinates and inspect exact affected outputs|
 |Head groups and token positions are confused|Explicit Hq/Hkv/R and B, H, T, S, dk, dv axes|Wiring versus attention matrices; compact cache rails and group/position labels|
 |Eightfold cache saving must mean eightfold speedup|Payload, projection work, dense score work, reuse assumption and Amdahl model|Tensor-budget construction and separately labelled modeled timing panel|
 |A valid shape means a valid cached call|Logical IDs, API-specific non-square masks and actual native contrast|Repair an initially wrong mask/position with computed output evidence|
@@ -68,7 +68,7 @@ The current topic was published but not approved under this new teaching approac
 |Teacher forcing and generation look like the same forecast|Visible observation boundary and actual five-step feedback|Editable real trajectory, head/group trace, full/cache check and generated rollout|
 |Logical heads equal physical copies on every device|Explicit replicated eight-device scenario|Labelled device/group count inset without invented timing|
 
-I1–I5 are distinct investigations with complete inputs, prediction state, controls/nulls, feedback, accessible/mobile forms and bounded runtime. Core explanatory diagrams are not delayed until the final chapter. All first-pass readiness is supported before §7; advanced derivatives/distribution details remain optional deeper understanding, not hidden gates to MLA.
+I1–I5 are distinct investigations with complete inputs, live comparison, controls/nulls, feedback, accessible/mobile forms and bounded runtime. Core explanatory diagrams are not delayed until the final chapter. All first-pass readiness is supported before §7; advanced derivatives/distribution details remain optional deeper understanding, not hidden gates to MLA.
 
 ## Substantive research and alternative resources
 
@@ -99,7 +99,7 @@ Author learning-experience checklist:
 1. **Route:** intuition and actual prerequisite links precede terminology; the first-pass route appears immediately after the introduction. Its arithmetic, cache, conversion and interpretation readiness is taught before the optional deeper branches.
 2. **Cautions:** each consequential warning lives beside its mechanism: masks beside cache assembly, averaging beside conversion, physical allocation beside payload and teacher forcing beside rollout. No code-printed disclaimer or repeated warning wall interrupts the lesson.
 3. **Real question/data:** original licensed observations, exact duplicate handling, declared row boundary, simple baselines and actual conversion outcomes are retained. The selected input was predeclared; no forced architecture winner or unobserved benchmark curve remains.
-4. **Investigations:** five distinct investigations use genuine coordinate/shape/mask/parameter/input edits, initially unset input-bound predictions, checked contrasts and exact or approximate nulls, reset and explanatory feedback. Model changes cannot silently reuse stale cache state.
+4. **Investigations:** five distinct investigations use genuine coordinate/shape/mask/parameter/input edits, immediately computed input-bound results, checked contrasts and exact or approximate nulls, reset and explanatory feedback. Model changes cannot silently reuse stale cache state.
 5. **Perceptible figures:** wiring, value-vector mixtures, cache axes, offset masks, conversion distributions and observed/generated trajectories represent their actual mechanisms. Text/numeric counterparts, units and mobile inspection preserve the same information.
 6. **Connections/canonical coverage:** full MQA/GQA source section lists and the original lesson conservation record are reconciled. Local positional, Transformer, MLA and MoE links are explicit; serving and later sparse/linear boundaries are reasoned rather than vague omissions.
 7. **Code:** the complete displayed NumPy mechanism and native checks executed; the complete CPU study performs real training, conversion, caching and rollout. Downloaded programs contain full implementations; the short API call is honestly labelled a call-site fragment.
@@ -107,3 +107,28 @@ Author learning-experience checklist:
 9. **Screenshots and implementation:** visual contracts specify accessibility, mobile layout, numerical parity and bounded lazy loading. Screenshots, browser behavior, formal independent review and integration are explicitly deferred to phase two, not claimed as author checks.
 
 No unresolved material writing gap remains. Root owns shared content checkpoint; the next action is phase-two visual/lab implementation and its formal independent/rendered/integration checks. Retain all eleven pending packet inputs. Continue sequence with MLA without repeating this unchanged research or fit campaign.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Share memory across query heads. Edit Q/K/V, query-to-KV grouping, cache dimensions, offset masks and supported causal input prefixes. Show each reader, shared K/V record, weighted sum, exact byte/MAC budgets and compact cache outputs immediately. Compare equal-head versus unequal-head regrouping. Choose grouping by memory and functional tradeoffs, keeping payload arithmetic separate from measured latency and model quality.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Implementation ownership and completed writing — 22 September 2026
+
+**Phase: content-prepared; implementation not started.** The following map is the current scope decision under the scratch-and-library rule. Actual code and explanatory teaching are already supplied in the manuscript/packet. Finishing executes, reviews, corrects and integrates these artifacts; it is not assigned to invent the missing core mechanism. The original title, sequence, data and retained experiments are conserved.
+
+| Outcome | Scratch owner | Ordinary tool/library | Bridge | Changed-constraint practice | Scope decision |
+| --- | --- | --- | --- | --- | --- |
+| Query-to-KV grouping and compact memory | lesson §5 grouped_attention; mechanism-calculations.py | SDPA enable_gqa=True and same grouped tensors | Contiguous group map, native head count, dk scale, rectangular logical mask | Six queries/two memories with unequal value width | Local; repeated tensors are semantic oracle, not compact-memory evidence |
+| Shared gradients and MHA conversion | mechanism-calculations.py shared-value gradient; complete forecasting program in author-calculations.py | PyTorch tied projections, optimizer, copied weights and controlled uptraining | Sum per-reader gradients; mean pooling is initialization not function preservation | Top-left mask bug; pooled-head nonlinear counterexample; changed group count | Local; checkpoint conversion defined at actual parameter maps |
+| Incremental model inference | Complete forecaster full/cache path; lesson §§4/6 | Ordinary PyTorch state/projection route and SDPA operator | Compact K/V with logical IDs; changed prefix invalidates cache | Reflect an observed point, compare earlier null and later effect | Local; no assertion about fused kernel allocation or distributed replication |
+| Distributed cache and performance | lesson §7 formula/resource reasoning | Planned Tensor Parallelism owns rank partitioning; GPU kernel owner owns dispatch measurements | Logical sharing versus physical replication; byte count versus time | Explicit replica and Amdahl exercises | Later engineering owner; no implementation deferred for the local grouped operator |
+
+**Reuse status:** references to other packets in Deep Learning are prepared manuscripts, not newly published implementations. The existing published historical article at the same route does not certify the replacement code. Implemented mathematics/normalization owners are linked as prerequisites; this packet owns only its new operations. Preserve the complete prerequisite program and required file links when packaging the download.
+
+**Authoring checks and evidence:** [the writing report](../../implementation-depth/PREPARED-ATTENTION-WRITING.md) and [source-bound manifest](../../implementation-depth/prepared-attention-writing.json) distinguish source review, small new arithmetic/API probes and unexecuted optional routes. Existing fit outputs keep their original dates and evidence; no new large fit, GPU benchmark or full scientific replication is claimed.
+
+**Deferred phase-two work:** execute the supplied native code under the recorded/compatible versions, compare independent references on meaningful changed cases, review every claimed output and derivative, integrate accessible topic-specific visuals and exact matching code downloads, then perform browser/layout/performance checks. Resolve failures by updating the content checkpoint; never mark these written additions as implementation complete without that evidence.

@@ -38,7 +38,7 @@ export default {
 
     <H2>2. Navigate by path, not by guessing</H2>
     <Prose>A directory holds names of files and other directories. A <strong>path</strong> is a route through those names. Your shell has a <strong>current working directory</strong>: the starting point for a relative route. <Code>pwd</Code> prints that starting point, <Code>ls</Code> lists entries, and <Code>cd</Code> changes it. Reading a file with <Code>head</Code> does not move your shell.</Prose>
-    <Prose>A leading <Code>/</Code> starts at the root. Otherwise start where you are. A <Code>.</Code> segment stays in the same directory; <Code>..</Code> goes to its parent. Predict the destination before walking the example path below.</Prose>
+    <Prose>A leading <Code>/</Code> starts at the root. Otherwise start where you are. A <Code>.</Code> segment stays in the same directory; <Code>..</Code> goes to its parent. Change the example path below to inspect its destination or first failure, then walk through how each segment was resolved.</Prose>
     <LinuxPathLab />
     <Prose>The explorer uses a small invented project. The runnable version below creates its project in a fresh temporary directory, shown as <Code>LAB</Code> in the output. The same relative-path rules apply; the absolute prefix is different.</Prose>
     <TerminalExample example={linuxExamples.paths}><Prose>The dot-prefixed note appears because ls uses -A. After moving into data/raw, pwd identifies the location; the output substitutes LAB for the random temporary prefix. The space-containing filename remains one argument. Two parent steps return to the project root before find searches data.</Prose></TerminalExample>

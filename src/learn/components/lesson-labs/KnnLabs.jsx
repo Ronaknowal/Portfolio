@@ -1,5 +1,5 @@
 import { useId, useMemo, useState } from 'react';
-import { Investigation, Predict } from './LessonInvestigation.jsx';
+import { Investigation } from './LessonInvestigation.jsx';
 import { LessonTable } from './LessonElements.jsx';
 import { neighborRows, neighborReport, unitsReport, regressionRows, localMean, kdSearch, candidateReport, volumeReport } from '../../data/knn-models.js';
 import './knn-labs.css';
@@ -101,7 +101,7 @@ export function NeighborVotingLab() {
     setWeights('uniform');
   }
   return <Investigation id="knn-neighbors" kicker="RETRIEVE → WEIGH → DECIDE" title="A close minority can lose the count and win the weighted vote">
-    <Predict>Two C points nearly touch the query. Will five equal votes select C? Change only the weighting after predicting.</Predict>
+    <p className="lesson-live-note">Two C points nearly touch the query. Will five equal votes select C? Change only the weighting and compare the neighbour votes.</p>
     <div className="knn-controls"><Range label="Query x1" value={queryX} onChange={setQueryX} min={0} max={6} step={0.1} /><Range label="Query x2" value={queryY} onChange={setQueryY} min={0} max={6} step={0.1} /><Range label="Neighbors k" value={k} onChange={setK} min={1} max={8} /><label>Distance<select value={metric} onChange={event => setMetric(event.target.value)}><option value="euclidean">Euclidean — circle</option><option value="manhattan">Manhattan — diamond</option><option value="maximum">Maximum — square</option></select></label><label>Vote weighting<select value={weights} onChange={event => setWeights(event.target.value)}><option value="uniform">Equal weights</option><option value="distance">Inverse distance</option></select></label><button onClick={reset}>Reset</button></div>
     <NeighborMap query={[queryX, queryY]} selected={report.neighbors} radius={report.radius} metric={metric} />
     <div className="knn-votes" aria-label="Calculated class fractions">{report.votes.map(row => <div key={row.label}><span>Class {row.label}: {fixed(row.probability)}</span><span className="knn-bar"><span style={{
@@ -117,7 +117,7 @@ export function NeighborUnitsLab() {
   const [standardize, setStandardize] = useState(false);
   const report = unitsReport(standardize);
   return <Investigation id="knn-units" kicker="THE UNITS CHOOSE WHAT LOOKS CLOSE" title="Inspect which feature pays for the distance">
-    <Predict>The query is 1.2 hours and 600 Wh. Raw numbers favor a case with closer energy. Will fitting a scale on the three training rows change that?</Predict>
+    <p className="lesson-live-note">The query is 1.2 hours and 600 Wh. Raw numbers favor a case with closer energy. Will fitting a scale on the three training rows change that?</p>
     <div className="knn-controls"><label>Coordinate rule<select value={String(standardize)} onChange={event => setStandardize(event.target.value === 'true')}><option value="false">Raw hours and Wh</option><option value="true">Training standard deviations</option></select></label><button onClick={() => setStandardize(false)}>Reset</button></div>
     <p>Training scales: {fixed(report.scales[0])} hours and {fixed(report.scales[1])} Wh. The query never participates in fitting these scales.</p>
     <div className="knn-contributions">{report.rows.map(row => {
@@ -148,7 +148,7 @@ export function LocalRegressionLab() {
   const x = value => 55 + (value + 1) * 300 / 9;
   const y = value => 345 - value * 10;
   return <Investigation id="knn-regression" kicker="AVERAGE TARGETS IN A LOCAL SET" title="Move beyond the training range without inventing extrapolation">
-    <Predict>Observed targets are x² at integer x from 0 to 5. At x=8, can their nonnegative weighted average predict64?</Predict>
+    <p className="lesson-live-note">Observed targets are x² at integer x from 0 to 5. At x=8, can their nonnegative weighted average predict64?</p>
     <div className="knn-controls"><Range label="Regression query" value={query} onChange={setQuery} min={-1} max={8} step={0.5} /><Range label="Regression neighbors" value={k} onChange={setK} min={1} max={6} /><label>Regression weights<select value={weights} onChange={event => setWeights(event.target.value)}><option value="uniform">Uniform</option><option value="distance">Inverse distance</option></select></label><button onClick={() => {
         setQuery(2.5);
         setK(3);
@@ -179,7 +179,7 @@ export function KdTreeSearchLab() {
   const event = report.events[Math.min(step, report.events.length - 1)];
   const visited = report.events.slice(0, step + 1).filter(row => row.kind === 'visit').map(row => neighborRows.find(other => other.id === row.id));
   return <Investigation id="knn-kdtree" kicker="A LOWER BOUND JUSTIFIES EACH SKIP" title="Search a median tree without guessing where the winner is">
-    <Predict>A branch can contain several unseen points. What inequality makes it safe to skip all of them?</Predict>
+    <p className="lesson-live-note">A branch can contain several unseen points. What inequality makes it safe to skip all of them?</p>
     <div className="knn-controls"><label>Search query<select value={query} onChange={event => {
           setQuery(event.target.value);
           setStep(0);
@@ -197,7 +197,7 @@ export function CandidateRecallLab() {
   const [mode, setMode] = useState('all');
   const report = candidateReport(mode);
   return <Investigation id="knn-candidates" kicker="RETRIEVAL QUALITY ≠ PREDICTION QUALITY" title="An approximate search can miss the evidence that mattered">
-    <Predict>If the candidate stage drops the two nearby C cases, can exact reranking inside the remaining pool recover them?</Predict>
+    <p className="lesson-live-note">If the candidate stage drops the two nearby C cases, can exact reranking inside the remaining pool recover them?</p>
     <div className="knn-controls"><label>Candidate pool<select value={mode} onChange={event => setMode(event.target.value)}><option value="all">All eight rows</option><option value="lose-close-c">Drop both close C rows</option><option value="keep-close-c">Drop far B rows</option></select></label><button onClick={() => setMode('all')}>Reset</button></div>
     <div className="knn-candidate-columns"><div><strong>Exact three neighbors</strong>{report.exact.neighbors.map(row => <span key={row.id}>{row.id} · d={fixed(row.distance)}</span>)}<span>Inverse-weighted class {report.exact.label}</span></div><div><strong>Candidate reranking</strong>{report.candidate.neighbors.map(row => <span key={row.id}>{row.id} · d={fixed(row.distance)}</span>)}<span>Inverse-weighted class {report.candidate.label}</span></div></div>
     <p aria-live="polite">Search pool {report.candidates.length}/8 rows; recall@3 = <strong>{fixed(report.recall)}</strong>. Final class {report.candidate.label}.</p>
@@ -209,7 +209,7 @@ export function NeighborhoodVolumeLab() {
   const [fraction, setFraction] = useState(0.01);
   const report = volumeReport(dimension, fraction);
   return <Investigation id="knn-volume" kicker="A SPECIFIED VOLUME MODEL" title="A small volume can require a wide neighborhood">
-    <Predict>A cube holds1% of a uniform unit cube's mass. In ten dimensions, is its side closer to 0.1 or0.6?</Predict>
+    <p className="lesson-live-note">A cube holds1% of a uniform unit cube's mass. In ten dimensions, is its side closer to 0.1 or0.6?</p>
     <div className="knn-controls"><Range label="Dimensions" value={dimension} onChange={setDimension} min={1} max={100} /><label>Target volume fraction<select value={fraction} onChange={event => setFraction(Number(event.target.value))}><option value={0.01}>1%</option><option value={0.1}>10%</option><option value={0.5}>50%</option></select></label><button onClick={() => {
         setDimension(10);
         setFraction(0.01);

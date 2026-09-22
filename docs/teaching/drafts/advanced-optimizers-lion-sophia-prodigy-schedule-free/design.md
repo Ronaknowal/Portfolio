@@ -82,7 +82,7 @@ Learning-experience checklist, author assessment:
 
 1. First-pass route is visible; ordinary weighted averages and derivative meaning precede specialist terms.
 2. Each hard mechanism has a matching visual representation and a complete worked calculation.
-3. Five investigations edit real mathematical/data entities, require an unset prediction and recompute feedback from current inputs.
+3. Five investigations edit real mathematical/data entities, require a current comparison and recompute feedback from current inputs.
 4. Fresh/changed/null fixtures demonstrate the intended contrast; small or absent effects are retained honestly.
 5. Real data, full model state and complete runnable programs connect formulas to predictions.
 6. Nine exercises change constraints or values, with reasoning and closed hints/solutions; no fixed interview/mastery guarantee.
@@ -91,3 +91,29 @@ Learning-experience checklist, author assessment:
 9. Canonical scope, annotated alternatives, route continuity, title decision and destination ownership are recorded; no identical-lab template was imposed.
 
 This is author evidence and content reconciliation, **not independent phase-two review**, rendered accessibility verification, implementation completion or user acceptance. There is no known material writing gap. Next action: on authorized finish, consume this full packet, implement topic-specific figures/labs and complete required independent/content/model/browser/accessibility/build/integration checks. Keep current publication and unrelated proposals unchanged until that authorized work.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Make an optimizer decision visible. Edit gradient/momentum, curvature estimate, step scale, averaging state and supported real digit input for one update. Show the exact update vector and state changes for Lion, Sophia, Prodigy and Schedule-Free, including where gradients and evaluation occur. Choose a debugging question from sign, curvature, scale and averaging effects rather than extrapolating a universal optimizer ranking.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Implementation ownership and content-depth revision — 22 September 2026
+
+Delivery remains **content-first**. The complete computational teaching route is part of this prepared packet now; phase two receives written code, explanations, mapped state/settings and closed practice, rather than an instruction to invent the missing mechanism. Earlier authoring records remain dated evidence; this section supersedes their incomplete depth handoffs. The title and stable ID are retained because the new material fulfills the existing scope.
+
+| Advertised computational outcome | Scratch/source owner | Ordinary tool route | Matching bridge | Independent practice | Scope boundary |
+| --- | --- | --- | --- | --- | --- |
+| AdamW and all four named scratch update rules | optimizer_rules.py::Optimizer.step/evaluation_parameters | optimizer_library_bridge.py::make_optimizer/update/switch | Lion exact state parity; Sophia B scaling; Prodigy and Schedule-Free variant boundaries | Practice 1–6 and complete new weighted-objective/mode exercise | NumPy full paper rules vs pinned practical classes; no false all-method trajectory parity |
+| Model fitting, curvature refresh and saved continuation | optimizer_study.py::main; optimizer_library_bridge.py::main | Official pinned Lion/Sophia; prodigyopt1.1.2; schedulefree1.4.1; state_dict | same data/model state, RNG, next update and correct x/y checkpoint representation | Practice 7–9; RNG-omission diagnostic | New package execution deferred; existing measured scratch fits preserved |
+| State costs and additional optimizer comparisons | lesson.md §§8–9; optimizer_calculations.py | Actual matrix/gradient owner in earlier optimization topic | allocation counts vs peak memory; pointwise vs matrix direction | Practice 7,9 | Muon/Adafactor are scoped comparisons, not advertised full implementations here |
+
+All local source owners above were inspected at their actual function/class definitions. Full model fitting, data/provenance and existing worked results are retained. Reused actual prerequisite code is named explicitly in the manuscript; prepared owners are not described as already published updated instruction. Whole-family releases mentioned for context do not expand the promised executable outcome into every checkpoint or every GPU kernel.
+
+The teaching sequence is construct → explain the state/update → normal tool use → compare the same contract → changed-constraint practice, inserted where the relevant mechanism is explained. Original mechanism programs remain canonical; new programs depend on them only where the import is explicit. No browser program, published lesson, manifest or curriculum sequence is changed by this revision.
+
+Author checks for this revision: source/API-contract reading, Python syntax parsing, matching embedded/downloadable source and local links, and scoped arithmetic probes where recorded in the specialist-writing report. These are content-authoring checks. Earlier fit outputs remain their original evidence; new multi-process/GPU/specialist-package execution, formal independent implementation review, rendered diagrams/labs and browser/accessibility/integration checks are **deferred**, with exact targets in the current visual specifications and specialist report.
+
+Next action: after the root records the new content checkpoint, consume the full current packet for an authorized finish request, execute the relevant new programs and capture honest outputs, build the specified topic-owned views, independently check the translated models and integrate them. No core scratch/library manuscript writing is left as a finish-only TODO.

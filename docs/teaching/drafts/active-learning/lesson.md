@@ -75,7 +75,7 @@ For the initial eight candidates, the 4/4 split leaves exactly 4. The 1/7 split 
 
 ### Investigation: spend the next label yourself
 
-Before revealing an answer, choose an unused query and record how many hypotheses you think will remain for answer 0 and for answer 1. Then reveal the answer and inspect which rules were eliminated. Try the balanced route, the left-to-right route, and the legal but uninformative query x = 0.
+Choose an unused query and inspect the live survivor counts for answers 0 and 1. Acquire the oracle answer and inspect which rules were eliminated. Try the balanced route, the left-to-right route, and the legal but uninformative query x = 0.
 
 Now change the candidate threshold list and choose a new query before revealing anything. A query that was balanced for eight evenly spaced hypotheses may be poor for an uneven set. If you enter a contradictory answer, the board should show an empty version space and identify the incompatible observations. That signals a failed assumption or annotation problem, rather than successful identification of a threshold.
 
@@ -151,7 +151,7 @@ Read the formula in the order we just calculated it: uncertainty before selectin
 
 ### Investigation: keep the average fixed while changing the disagreement
 
-Enter the two opposing probability vectors and record your predicted ranking before revealing the entropy decomposition. Replace them with two [0.5, 0.5] vectors. The average stays the same and the disagreement becomes zero. Next replace both with [0.95, 0.05]; both predictive entropy and disagreement are now small or zero, respectively.
+Enter the two opposing probability vectors and inspect the live entropy decomposition. Replace them with two [0.5, 0.5] vectors. The average stays the same and the disagreement becomes zero. Next replace both with [0.95, 0.05]; both predictive entropy and disagreement are now small or zero, respectively.
 
 Add a third member with an editable probability vector and compare the result before and after it joins. The display should show each member's distribution and its contribution, not only a changing scalar. These entered probabilities are mathematical fixtures; they are not the output of a secretly trained Bayesian model.
 
@@ -188,7 +188,7 @@ Once selected, a point must be masked out of future selection even when distance
 
 ### Investigation: design a two-item labeling batch
 
-Record which two points you would buy and your predicted covering radius. Reveal their nearest-center distances, then compare with farthest-first. Move C from (0, 4) to (0, 2). The first geometric choice changes to D, then C; the final radius remains √1.01. The order changed without changing the final radius.
+Select the two points you would actually buy and inspect their covering radius and nearest-center distances immediately, then compare with farthest-first. Move C from (0, 4) to (0, 2). The first geometric choice changes to D, then C; the final radius remains √1.01. The order changed without changing the final radius.
 
 Now place every candidate on the anchor. Every radius is zero. The algorithm should still select two distinct identifiers, but it should not suggest that its geometric choice creates an advantage. Change the probability on a distant point as well: geometric coverage and uncertainty can disagree because they optimize different quantities.
 

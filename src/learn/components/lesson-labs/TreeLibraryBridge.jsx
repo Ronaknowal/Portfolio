@@ -1,0 +1,18 @@
+import { Code, H3, Prose } from '../content';
+import MechanismProgram from './MechanismProgram.jsx';
+import output from '../../data/tree-library-output.json';
+
+export default function TreeLibraryBridge() {
+  return <section id="tree-library-bridge" data-implementation-depth="tree">
+    <H3>Choose the ordered-set API for the workload</H3>
+    <Prose>The tree above explains how a search discards subtrees and how deletion preserves ownership. For a modest ordered collection with many reads and occasional edits, Python's <Code>bisect</Code> over a sorted list is another practical route. It implements the search boundary; the list implements storage. This is an array alternative with different edit costs, not a balanced-tree promise.</Prose>
+    <Prose>Map an inclusive interval to two insertion positions: <Code>bisect_left(keys, low)</Code> begins at the first eligible key; <Code>bisect_right(keys, high)</Code> stops after the last. The floor uses the position just before the upper insertion boundary, and the ceiling uses the lower boundary itself. Membership must still check equality. The program suppresses duplicate insertion to match this lesson's set contract and compares each changed state with the actual insertion/deletion routines above.</Prose>
+    <Prose>Save <a href="/learn-assets/trees-binary-search-trees/tree_mechanisms.py" download>tree_mechanisms.py</a> and the comparison in one folder; run <Code>python ordered_set_library.py</Code> with Python 3.12+. The mechanism download is derived from the earlier displayed programs, so this exercise reuses their implementation.</Prose>
+    <MechanismProgram source="/learn-assets/trees-binary-search-trees/ordered_set_library.py" title="Compare BST edits with bisect and a sorted list" output={output['ordered_set_library.py']} />
+    <Prose>For constant-cost comparisons, bisection takes O(log n), an arbitrary list insertion/removal takes O(n), and returning k interval items costs O(log n + k) including the output. Storage is O(n). The unbalanced BST still takes O(h) per search/edit and can reach h = n − 1. If frequent dynamic updates require a worst-case logarithmic guarantee, choose a balanced ordered container with that contract; a single rotation or a fast search on today's shape does not supply it. Neither route here has a measured universal speed advantage. Python's <a href="https://docs.python.org/3/library/bisect.html" target="_blank" rel="noopener noreferrer">bisect documentation</a> explains the insertion boundaries and linear insertion cost.</Prose>
+    <H3>Transfer: reserve the next free integer slot</H3>
+    <Prose>Start from free slots [2, 5, 8, 11]. Implement <Code>reserve(request)</Code>: remove and return the smallest free slot at least the request, or return None without changing the collection. Process requests [4, 5, 12, 1]. Test both representations after every operation, then release 5 twice under the set policy.</Prose>
+    <details><summary>Optional hint</summary><Prose>Find a ceiling, then delete that returned value. The request itself need not exist. Keep “no eligible slot” separate from slot 0.</Prose></details>
+    <details><summary>Solution and reasoning</summary><Prose>The reservations are [5, 8, None, 2], leaving [11]. In the list route, use bisect_left and pop only if its index is in range. In the tree route, call ceiling_key and retain the root returned by delete. Releasing 5 twice leaves [5, 11]. Check empty state, requests below/above every slot and duplicate releases; the tests should compare entire remaining sets as well as returned slots. Search is logarithmic for the sorted list, but each successful pop can still shift a linear number of entries.</Prose></details>
+  </section>;
+}

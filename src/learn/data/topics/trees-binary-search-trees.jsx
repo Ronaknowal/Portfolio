@@ -6,10 +6,11 @@ import { treeExamples } from "../tree-examples.js";
 import { DsaPractice } from "../../components/lesson-labs/DsaPractice.jsx";
 import treePractice from "../practice/trees-binary-search-trees.js";
 import ExpressionTreeFigure from "../../components/lesson-labs/ExpressionTreeFigure.jsx";
+import TreeLibraryBridge from "../../components/lesson-labs/TreeLibraryBridge.jsx";
 
 export default {
   title: "Trees & Binary Search Trees",
-  readTime: "~50 min read + 2–3 hours practice",
+  readTime: "~60 min read + 2–3 hours practice",
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot tree-lesson">
     <LessonIntro prerequisites="Python functions, classes and references; the preceding stack/queue lesson. A short recursion and cost-model bridge is included below; the later Complexity Analysis & Recursion topic develops it further."
@@ -113,6 +114,7 @@ export default {
       <Prose>Persistent trees additionally share unchanged structure between versions; B-trees organize many keys/children around storage blocks. Their detailed mechanisms belong to <a href="/learn/topic/persistent-data-structures-structural-sharing-versioned-queries">Persistent Data Structures</a> and <a href="/learn/topic/external-memory-algorithms-b-trees-i-o-complexity">External-Memory Algorithms & B-Trees</a>. Neither is simply a renamed binary search tree.</Prose>
     </details>
 
+    <TreeLibraryBridge />
     <H2>7. Use the shape to compute an answer</H2>
     <H3>An expression tree explains why parentheses matter</H3>
     <Prose>The expression (2 + 3) × (9 − 4) has multiplication at the root, with addition and subtraction as its children. Each operation needs its child answers first. Evaluating postorder gives 5 on the left, 5 on the right, then 25. This tree encodes syntactic grouping rather than sorted search keys; placing “+” left of “*” is not a key-comparison decision.</Prose>

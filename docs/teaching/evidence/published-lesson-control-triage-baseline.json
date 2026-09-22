@@ -1,0 +1,2994 @@
+{
+  "startedAt": "2026-09-21T15:57:19.334Z",
+  "scope": [
+    "attention-mechanism-bahdanau-luong",
+    "backpropagation-automatic-differentiation",
+    "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+    "byte-level-tokenization-token-free-models",
+    "vocabulary-design-multilingual-tokenization",
+    "multimodal-tokenization-visual-audio-video",
+    "dynamic-tokenization-adat-boundlessbpe-litetoken",
+    "causal-language-modeling-next-token-prediction",
+    "masked-language-modeling-bert-style",
+    "data-curation-deduplication-minhash-bloom-filters",
+    "scaling-laws-kaplan-chinchilla-beyond",
+    "curriculum-learning-data-mixing-strategies",
+    "fp8-training-low-precision-pre-training",
+    "moe-training-expert-load-balancing",
+    "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+    "data-curation-pipelines-curator-models-quality-filtering",
+    "synthetic-data-generation-for-pre-training",
+    "supervised-fine-tuning-sft",
+    "rlhf-reinforcement-learning-from-human-feedback",
+    "dpo-direct-preference-optimization",
+    "simpo-simple-preference-optimization",
+    "p-tuning-soft-prompt-methods",
+    "grpo-rloo-kto-advanced-preference-methods",
+    "constitutional-ai-cai",
+    "process-reward-models-prm-vs-outcome-reward-models-orm",
+    "rlaif-ipo-orpo-emerging-alignment-methods",
+    "rlvr-reinforcement-learning-with-verifiable-rewards",
+    "dapo-dynamic-adaptive-policy-optimization",
+    "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+    "rl-for-reasoning-deepseek-r1-style",
+    "kv-cache-memory-management",
+    "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+    "structured-output-constrained-decoding-outlines-xgrammar",
+    "continuous-batching-pagedattention",
+    "queueing-theory-for-llm-serving",
+    "speculative-decoding",
+    "prefix-caching-prompt-caching",
+    "inference-cost-economics-compute-scaling",
+    "test-time-compute-scaling",
+    "inference-engines-serving",
+    "inference-system-architecture-end-to-end",
+    "request-routing-load-balancing",
+    "autoscaling-gpu-resource-management",
+    "disaggregated-prefill-decode",
+    "caching-strategies-semantic-exact-kv-cache-sharing",
+    "multi-model-serving-model-routing",
+    "rate-limiting-quota-management-fairness",
+    "guardrails-input-output-filtering-safety-layers",
+    "observability-llm-monitoring",
+    "streaming-server-sent-events-sse",
+    "cost-optimization-tco-analysis",
+    "edge-on-premise-deployment-architectures",
+    "multi-region-global-inference-infrastructure",
+    "context-window-extension-rope-scaling-yarn-ntk-aware",
+    "retrieval-augmented-generation-rag",
+    "embedding-models-vector-databases",
+    "graphrag-agentic-rag",
+    "model-merging-ties-dare-model-soups-slerp",
+    "hybrid-search-dense-sparse-reranking",
+    "perceptrons-neurons-activation-functions",
+    "loss-functions-ce-mse-focal-contrastive-triplet",
+    "batch-layer-group-rms-normalization",
+    "dropout-droppath-stochastic-depth",
+    "transfer-learning-fine-tuning-strategies",
+    "weight-initialization-xavier-kaiming-p",
+    "residual-connections-skip-connections",
+    "convolution-pooling-receptive-fields",
+    "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+    "depthwise-separable-dilated-convolutions",
+    "convnext-modern-cnn-designs",
+    "capsule-networks",
+    "rnns-lstms-grus",
+    "sequence-to-sequence-encoder-decoder",
+    "state-space-models-s4-mamba-mamba-2",
+    "rwkv-linear-attention-models",
+    "self-attention-multi-head-attention",
+    "transformer-block-architecture",
+    "positional-encodings-sinusoidal-learned-rope-alibi",
+    "grouped-query-attention-gqa-multi-query-attention-mqa",
+    "multi-head-latent-attention-mla",
+    "sparse-linear-attention-variants",
+    "vision-transformers-vit-deit-swin-dinov2",
+    "mixture-of-experts-transformers-moe",
+    "interleaved-cross-attention-architectures",
+    "message-passing-graph-convolutions-gcn-gat-graphsage",
+    "graph-transformers-geometric-deep-learning",
+    "boltzmann-machines-restricted-boltzmann-machines-rbm",
+    "spectral-normalization-gradient-penalty",
+    "modern-hopfield-networks",
+    "xlstm-extended-lstm",
+    "hyena-long-convolution-models",
+    "ring-attention-sequence-parallelism",
+    "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+    "neural-ode-continuous-depth-models",
+    "titans-multi-memory-architecture",
+    "hybrid-ssm-transformer-architectures-jamba"
+  ],
+  "manifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79",
+  "records": [
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "attention-mechanism-bahdanau-luong",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "width": 1366,
+      "controls": 5,
+      "candidates": [
+        {
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "class": "",
+          "parent": "",
+          "issues": [
+            "missing accessible label"
+          ],
+          "size": [
+            726,
+            50
+          ],
+          "background": "rgba(0, 0, 0, 0.4)"
+        }
+      ],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "width": 390,
+      "controls": 5,
+      "candidates": [
+        {
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "class": "",
+          "parent": "",
+          "issues": [
+            "missing accessible label"
+          ],
+          "size": [
+            316,
+            50
+          ],
+          "background": "rgba(0, 0, 0, 0.4)"
+        }
+      ],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-pair-encoding-bpe-wordpiece-sentencepiece-unigram",
+      "width": 320,
+      "controls": 5,
+      "candidates": [
+        {
+          "tag": "TEXTAREA",
+          "type": "textarea",
+          "class": "",
+          "parent": "",
+          "issues": [
+            "missing accessible label"
+          ],
+          "size": [
+            246,
+            50
+          ],
+          "background": "rgba(0, 0, 0, 0.4)"
+        }
+      ],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "tiktoken.get_encoding(\"cl100k_base\").encode(\"hello world\")"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "backpropagation-automatic-differentiation",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-level-tokenization-token-free-models",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-level-tokenization-token-free-models",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "byte-level-tokenization-token-free-models",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-tokenization-visual-audio-video",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-tokenization-visual-audio-video",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-tokenization-visual-audio-video",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dynamic-tokenization-adat-boundlessbpe-litetoken",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dynamic-tokenization-adat-boundlessbpe-litetoken",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dynamic-tokenization-adat-boundlessbpe-litetoken",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vocabulary-design-multilingual-tokenization",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "causal-language-modeling-next-token-prediction",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "causal-language-modeling-next-token-prediction",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "causal-language-modeling-next-token-prediction",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vocabulary-design-multilingual-tokenization",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "masked-language-modeling-bert-style",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "masked-language-modeling-bert-style",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vocabulary-design-multilingual-tokenization",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "masked-language-modeling-bert-style",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "scaling-laws-kaplan-chinchilla-beyond",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "scaling-laws-kaplan-chinchilla-beyond",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "scaling-laws-kaplan-chinchilla-beyond",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "curriculum-learning-data-mixing-strategies",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "curriculum-learning-data-mixing-strategies",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "curriculum-learning-data-mixing-strategies",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-deduplication-minhash-bloom-filters",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "fp8-training-low-precision-pre-training",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-deduplication-minhash-bloom-filters",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "fp8-training-low-precision-pre-training",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "fp8-training-low-precision-pre-training",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-deduplication-minhash-bloom-filters",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "moe-training-expert-load-balancing",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "moe-training-expert-load-balancing",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "moe-training-expert-load-balancing",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-pipelines-curator-models-quality-filtering",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-pipelines-curator-models-quality-filtering",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "data-curation-pipelines-curator-models-quality-filtering",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "synthetic-data-generation-for-pre-training",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "synthetic-data-generation-for-pre-training",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "synthetic-data-generation-for-pre-training",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "supervised-fine-tuning-sft",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "supervised-fine-tuning-sft",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "supervised-fine-tuning-sft",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "<|end|>"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multimodal-pre-training-vision-encoders-cross-modal-alignment",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlhf-reinforcement-learning-from-human-feedback",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlhf-reinforcement-learning-from-human-feedback",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlhf-reinforcement-learning-from-human-feedback",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "simpo-simple-preference-optimization",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "simpo-simple-preference-optimization",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "simpo-simple-preference-optimization",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dpo-direct-preference-optimization",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "p-tuning-soft-prompt-methods",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "p-tuning-soft-prompt-methods",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "p-tuning-soft-prompt-methods",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dpo-direct-preference-optimization",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grpo-rloo-kto-advanced-preference-methods",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dpo-direct-preference-optimization",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grpo-rloo-kto-advanced-preference-methods",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grpo-rloo-kto-advanced-preference-methods",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "process-reward-models-prm-vs-outcome-reward-models-orm",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "process-reward-models-prm-vs-outcome-reward-models-orm",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "process-reward-models-prm-vs-outcome-reward-models-orm",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlaif-ipo-orpo-emerging-alignment-methods",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlaif-ipo-orpo-emerging-alignment-methods",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlaif-ipo-orpo-emerging-alignment-methods",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "constitutional-ai-cai",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlvr-reinforcement-learning-with-verifiable-rewards",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "constitutional-ai-cai",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlvr-reinforcement-learning-with-verifiable-rewards",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rlvr-reinforcement-learning-with-verifiable-rewards",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "constitutional-ai-cai",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dapo-dynamic-adaptive-policy-optimization",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dapo-dynamic-adaptive-policy-optimization",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dapo-dynamic-adaptive-policy-optimization",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rl-for-reasoning-deepseek-r1-style",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rl-for-reasoning-deepseek-r1-style",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rl-for-reasoning-deepseek-r1-style",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "kv-cache-memory-management",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "kv-cache-memory-management",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "kv-cache-memory-management",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "decoding-strategies-greedy-beam-top-k-top-p-temperature",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "structured-output-constrained-decoding-outlines-xgrammar",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "structured-output-constrained-decoding-outlines-xgrammar",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "structured-output-constrained-decoding-outlines-xgrammar",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "knowledge-distillation-for-llms-deepseek-r1-distill-cot-distillation",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "continuous-batching-pagedattention",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "continuous-batching-pagedattention",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "continuous-batching-pagedattention",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "speculative-decoding",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "speculative-decoding",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "speculative-decoding",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "queueing-theory-for-llm-serving",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "prefix-caching-prompt-caching",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "prefix-caching-prompt-caching",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "prefix-caching-prompt-caching",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "queueing-theory-for-llm-serving",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-cost-economics-compute-scaling",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-cost-economics-compute-scaling",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-cost-economics-compute-scaling",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "queueing-theory-for-llm-serving",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "test-time-compute-scaling",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "test-time-compute-scaling",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "test-time-compute-scaling",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-system-architecture-end-to-end",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-system-architecture-end-to-end",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-system-architecture-end-to-end",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-engines-serving",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "request-routing-load-balancing",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-engines-serving",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "request-routing-load-balancing",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "request-routing-load-balancing",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "autoscaling-gpu-resource-management",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "autoscaling-gpu-resource-management",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "autoscaling-gpu-resource-management",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "inference-engines-serving",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "disaggregated-prefill-decode",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "disaggregated-prefill-decode",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "disaggregated-prefill-decode",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "caching-strategies-semantic-exact-kv-cache-sharing",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-model-serving-model-routing",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-model-serving-model-routing",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-model-serving-model-routing",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "caching-strategies-semantic-exact-kv-cache-sharing",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rate-limiting-quota-management-fairness",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rate-limiting-quota-management-fairness",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rate-limiting-quota-management-fairness",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "caching-strategies-semantic-exact-kv-cache-sharing",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "guardrails-input-output-filtering-safety-layers",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "guardrails-input-output-filtering-safety-layers",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "guardrails-input-output-filtering-safety-layers",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "streaming-server-sent-events-sse",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "streaming-server-sent-events-sse",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "streaming-server-sent-events-sse",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "https://html.spec.whatwg.org/multipage/server-sent-events.html"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "https://platform.openai.com/docs/guides/streaming-responses"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "https://docs.anthropic.com/en/api/streaming"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "cost-optimization-tco-analysis",
+      "width": 1366,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "cost-optimization-tco-analysis",
+      "width": 390,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "cost-optimization-tco-analysis",
+      "width": 320,
+      "controls": 0,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "observability-llm-monitoring",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "observability-llm-monitoring",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "edge-on-premise-deployment-architectures",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "edge-on-premise-deployment-architectures",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "edge-on-premise-deployment-architectures",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "observability-llm-monitoring",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-region-global-inference-infrastructure",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-region-global-inference-infrastructure",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-region-global-inference-infrastructure",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "retrieval-augmented-generation-rag",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "retrieval-augmented-generation-rag",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "SYSTEM: use only the sources below. cite by number."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "[Source 2] Shipping costs: customer responsibility."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "[Source 3] Refunds processed in 5–7 business days."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "QUESTION: Can I return an intl order after 45 days?"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "retrieval-augmented-generation-rag",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "SYSTEM: use only the sources below. cite by number."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "[Source 1] Intl returns: 30 days from delivery."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "[Source 2] Shipping costs: customer responsibility."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "[Source 3] Refunds processed in 5–7 business days."
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "QUESTION: Can I return an intl order after 45 days?"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "embedding-models-vector-databases",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "embedding-models-vector-databases",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "embedding-models-vector-databases",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "context-window-extension-rope-scaling-yarn-ntk-aware",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graphrag-agentic-rag",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "context-window-extension-rope-scaling-yarn-ntk-aware",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graphrag-agentic-rag",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "Who acquired Finco and what became of its founder?"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graphrag-agentic-rag",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "Who acquired Finco and what became of its founder?"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "context-window-extension-rope-scaling-yarn-ntk-aware",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "model-merging-ties-dare-model-soups-slerp",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "model-merging-ties-dare-model-soups-slerp",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "model-merging-ties-dare-model-soups-slerp",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "perceptrons-neurons-activation-functions",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "loss-functions-ce-mse-focal-contrastive-triplet",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-search-dense-sparse-reranking",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-search-dense-sparse-reranking",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-search-dense-sparse-reranking",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "query tokens → inverted index → 100 candidates"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "batch-layer-group-rms-normalization",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "nn.SyncBatchNorm.convert_sync_batchnorm(model)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transfer-learning-fine-tuning-strategies",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "weight-initialization-xavier-kaiming-p",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "residual-connections-skip-connections",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "transformers/models/llama/modeling_llama.py"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.utils.checkpoint.checkpoint_sequential"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "dropout-droppath-stochastic-depth",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convolution-pooling-receptive-fields",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.cuda.amp.autocast(dtype=torch.bfloat16)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torchvision.models.segmentation.deeplabv3.ASPP"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.ao.quantization.fuse_modules(model, [['conv', 'bn', 'relu']])"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "width": 1366,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "width": 390,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "width": 320,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "model.to(memory_format=torch.channels_last)"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "model = model.to(memory_format=torch.channels_last); x = x.to(memory_format=torch.channels_last)"
+        },
+        {
+          "tag": "BR",
+          "class": "",
+          "text": ""
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "efficientnet_b7(weights=EfficientNet_B7_Weights.IMAGENET1K_V1)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "capsule-networks",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "capsule-networks",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "capsule-networks",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "model = model.to(memory_format=torch.channels_last)"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "efficientnet_b7(weights=EfficientNet_B7_Weights.IMAGENET1K_V1)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "state-space-models-s4-mamba-mamba-2",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "rwkv-linear-attention-models",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "self-attention-multi-head-attention",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "positional-encodings-sinusoidal-learned-rope-alibi",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transformer-block-architecture",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "grouped-query-attention-gqa-multi-query-attention-mqa",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transformer-block-architecture",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "multi-head-latent-attention-mla",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "transformer-block-architecture",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "sparse-linear-attention-variants",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "width": 1366,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-1 (Switch): x -> router -> 1 of N experts -> y"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-2 (Mixtral): x -> router -> 2 of 8 experts -> y"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-6 + shared (DeepSeek-V3): shared + 8 of 256 -> y"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "mixture-of-experts-transformers-moe",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-1 (Switch): x -> router -> 1 of N experts -> y"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-2 (Mixtral): x -> router -> 2 of 8 experts -> y"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE top-6 + shared (DeepSeek-V3): shared + 8 of 256 -> y"
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "MoE (leaked/inferred): GPT-4 class, 1T+/40-80B"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "width": 390,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "interleaved-cross-attention-architectures",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "vision-transformers-vit-deit-swin-dinov2",
+      "width": 320,
+      "controls": 8,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "model = ViTForImageClassification.from_pretrained(name, num_labels=your_K, ignore_mismatched_sizes=T"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "timm.create_model(name).default_cfg['mean']"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "message-passing-graph-convolutions-gcn-gat-graphsage",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "boltzmann-machines-restricted-boltzmann-machines-rbm",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.nn.utils.parametrizations.spectral_norm(module)"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "spectral-normalization-gradient-penalty",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.nn.utils.parametrizations.spectral_norm(module)"
+        },
+        {
+          "tag": "CODE",
+          "class": "",
+          "text": "torch.nn.utils.parametrizations.spectral_norm"
+        }
+      ],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "modern-hopfield-networks",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "graph-transformers-geometric-deep-learning",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "width": 1366,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "width": 390,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "xlstm-extended-lstm",
+      "width": 320,
+      "controls": 6,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "ring-attention-sequence-parallelism",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "advanced-optimizers-lion-sophia-prodigy-schedule-free",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hyena-long-convolution-models",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "width": 1366,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "width": 390,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "neural-ode-continuous-depth-models",
+      "width": 320,
+      "controls": 2,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "hybrid-ssm-transformer-architectures-jamba",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "width": 1366,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "width": 390,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    },
+    {
+      "id": "titans-multi-memory-architecture",
+      "width": 320,
+      "controls": 4,
+      "candidates": [],
+      "overflow": [],
+      "articleError": false,
+      "ranges": 0
+    }
+  ],
+  "errors": [],
+  "limitations": "Initial visible state at desktop/phone; controls and labels are triage candidates. This is not an exhaustive interaction, accessibility or teaching-quality certification.",
+  "completedAt": "2026-09-21T15:58:59.946Z",
+  "verifierHash": "f9c36134a3d3c0368805b6cf307e38c0ea1c314f2ce6107f1f146f7f333cfa0a"
+}

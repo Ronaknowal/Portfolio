@@ -1,0 +1,329 @@
+{
+  "scope": "Nonclassical lab-only imperative wording. Mathematical prediction outputs, code and independent exercises are unchanged.",
+  "edited": [
+    {
+      "file": "src/learn/components/lesson-labs/VectorTensorLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixDecompositionLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EigenvalueLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MatrixCalculusLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EinsumLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedLinearAlgebraLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MultivariateCalculusLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConvexOptimizationLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GradientVariantsLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LearningRateScheduleLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DualityKktLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SecondOrderMethodsLabs.jsx",
+      "wordingChanges": 6
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NonconvexLandscapeLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConstrainedMultiobjectiveLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MaximumLikelihoodLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HypothesisTestingLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MonteCarloMcmcLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/VariationalInferenceLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ExponentialFamilyLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MeasureTheoryLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CausalInferenceLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/EntropyInformationLabs.jsx",
+      "wordingChanges": 7
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MutualInformationLabs.jsx",
+      "wordingChanges": 5
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RateDistortionLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DivergenceIpmLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphFundamentalsLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SpectralGraphLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/InferenceMechanismFigures.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CombinatorialOptimizationLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StochasticProcessesLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomMatrixLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/QueueingLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DynamicalSystemsLabs.jsx",
+      "wordingChanges": 6
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ItoSdeLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NumericalMethodsLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/FunctionalAnalysisLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TopologyTdaLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DifferentialGeometryLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AlgebraFunctionsLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SetsLogicLabs.jsx",
+      "wordingChanges": 5
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GeometryTrigonometryLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/CountingCombinatoricsLabs.jsx",
+      "wordingChanges": 6
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SamplingMeasurementLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/OrdinaryDifferentialEquationsLabs.jsx",
+      "wordingChanges": 7
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComplexTransformsLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ConditioningStabilityLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RealAnalysisLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AbstractAlgebraLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PdeLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/SqlLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PandasJoinLab.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PandasFoundationsLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/PandasPivotLab.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinuxProcessLab.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BashWorkflowLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/OsFoundationsLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ThreadCoordinationLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BitwiseFoundationsLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/LinkedTraversalLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/MonotonicStackLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/TreeLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HeapTrieLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GraphTraversalLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/UnionFindLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComplexityRecursionLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/OrderedPatternLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/BacktrackingDivideLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/GreedyExchangeLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DynamicProgrammingLabs.jsx",
+      "wordingChanges": 5
+    },
+    {
+      "file": "src/learn/components/lesson-labs/DpStateFamiliesLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeQueryLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RangeDequeLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/AlgorithmCorrectnessLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/HashingAmortizedLabs.jsx",
+      "wordingChanges": 2
+    },
+    {
+      "file": "src/learn/components/lesson-labs/WeightedGraphLabs.jsx",
+      "wordingChanges": 3
+    },
+    {
+      "file": "src/learn/components/lesson-labs/StringMatchingLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/IntractabilityLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/RandomizedAlgorithmLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/NetworkFlowLabs.jsx",
+      "wordingChanges": 1
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ComputationalGeometryLabs.jsx",
+      "wordingChanges": 4
+    },
+    {
+      "file": "src/learn/components/lesson-labs/ExternalMemoryLabs.jsx",
+      "wordingChanges": 3
+    }
+  ]
+}

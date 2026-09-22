@@ -4,6 +4,8 @@ import { Checkpoint, LessonIntro, LessonTable, Sources } from '../../components/
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample';
 import { JointInformationLab, NonlinearInformationFigure, ConditionalInformationLab, ProcessingFigure, InformationBottleneckLab, BottleneckIterationLab, VariationalInformationLab, GaussianInformationFigure, InformationEstimationLab } from '../../components/lesson-labs/MutualInformationLabs.jsx';
 import { mutualInformationExamples as examples } from '../mutual-information-examples.js';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import { mechanismProgram } from '../mutual-information-mechanism-program.js';
 
 function PromptedExample({ example }) {
   return <><Prose><strong>Before running:</strong> {example.question}</Prose><RunnableExample example={example} /></>;
@@ -171,6 +173,15 @@ export default {
       ['Which validation separates fitting from evaluation?', 'A critic, feature selector or binning rule can overfit the same observations used to score it.'],
     ]} />
 
+    <section id="mutual-information-code-route" aria-label="Finite mutual information and scikit-learn">
+      <H3>Keep counts, probabilities and units distinct in the API</H3>
+      <Prose>The complete bridge computes plug-in MI from nonnegative integer counts, masking empty cells before taking logs. It compares the result with <Code>mutual_info_score(contingency=counts)</Code> and with <Code>mutual_info_classif</Code> on the expanded rows using <Code>discrete_features=True</Code>. Both library results are in nats; divide by log(2) to match the lesson's bits. Pass actual counts to the contingency API, not a normalized probability table. Install NumPy 2.3.5 and scikit-learn 1.9.1; run <Code>python mutual-information-library-bridge.py</Code>.</Prose>
+      <MechanismProgram {...mechanismProgram} title="Complete finite MI and discrete feature-estimator comparison" />
+      <Prose>The table [[30,10],[10,30]] gives .130812036 nats or .188721876 bits. Duplicating every row and relabeling categories preserve this plug-in value. A unique identifier gives one empirical bit for these balanced labels, without establishing population relevance. The dense table calculation costs O(rc) time and storage for r-by-c categories; expanding N observations is only for this small API comparison. Large sparse count tables should stay sparse.</Prose>
+      <Prose>The finite information-bottleneck iteration above already owns its self-consistent update, initialization sensitivity and objective trace. A feature-selection MI score is not an IB optimizer. For fitted-data selection, reuse <a href="/learn/topic/feature-selection-importance-shap-permutation-mutual-info">Feature Selection &amp; Importance</a>, which owns train-only selection, held-out evaluation and leakage controls. Continuous nearest-neighbor MI uses different assumptions and tuning; changing the discrete flag does not merely change storage.</Prose>
+      <details><summary>Implementation practice: preserve and destroy pairing</summary><Prose>Relabel both categories, duplicate rows, then replace the table by [[2,4],[3,6]]. Add an all-zero category. State what the estimator should do before interpreting feature relevance.</Prose><details><summary>Solution and checks</summary><Prose>Relabeling and duplication preserve the first value. The replacement factors into its row and column marginals, so MI is zero up to roundoff; adding a zero-count category changes nothing. These invariances test the implementation, while held-out relevance and estimator bias remain separate statistical questions.</Prose></details></details>
+      <Prose><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mutual_info_score.html" target="_blank" rel="noreferrer">mutual_info_score</a> and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html" target="_blank" rel="noreferrer">mutual_info_classif</a> document the units and discrete-feature contract used here.</Prose>
+    </section>
     <H2>10. Practise and connect the next question</H2>
     <Practice prompt="A joint table has rows (.45,.15) and (.10,.30). Compute both marginals, I(X;Y) and H(Y|X). Identify one negative pointwise information value." hint={<Prose>Use the new row totals (.6,.4) and column totals (.55,.45). Weight log ratios by joint probabilities.</Prose>}>
       <Prose>H(Y)=h₂(.45)≈.992774 bits. Each row, after normalization, has probabilities (.75,.25) or (.25,.75), so H(Y|X)=h₂(.25)≈.811278. MI≈.181496 bits. For cell (0,1), log₂(.15/(.6·.45))=log₂(5/9)≈−.847997 bits; its weighted contribution is about −.127200. Negative local contributions do not make the total negative.</Prose>

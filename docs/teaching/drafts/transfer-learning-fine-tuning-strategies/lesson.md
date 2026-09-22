@@ -1,5 +1,8 @@
 # Transfer Learning & Fine-Tuning: Reuse, Adapt, and Verify
 
+**Explore as you read.** Toggle parameter updates, gradient recording and module mode; edit LoRA factors/rate; change parameter budgets over saved validation candidates. Show parameters, buffers, gradients and before/after function values separately. Display eligible candidates and the validation-selected winner live; the one retained test result remains clearly identified as previously observed. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to select an adaptation strategy under a real budget and avoid confusing frozen weights with frozen behavior or repeated inspection with a fresh test.
+
+
 A model has learned to recognize handwritten digits 0–4. You now need a model for digits 5–9, with only eight labeled examples of each new digit. Can the first model help?
 
 Possibly. Its hidden layers may already respond to useful stroke patterns. They may also discard distinctions that the new task needs. **Transfer learning means reusing something learned on one problem to help with another. Whether it helps is an experimental question.**
@@ -120,7 +123,7 @@ Use \(W=I_2\), \(A=[1,-1]\), \(B=[0,0]^T\), \(s=1\), \(x=[2,1]^T\), and target \
 
 The scalar bottleneck measurement is \(Ax=1\). The gradient for \(B\) is \([2,1]^T\), while the gradient for \(A\) is zero. After one SGD step of size 0.1, \(B=[-0.2,-0.1]^T\). The output becomes \([1.8,0.9]^T\), and the loss is \(2.025\).
 
-This is why zero initial update does not have to mean zero learning. One factor starts ready to transmit a useful signal. Setting **both** factors to zero gives zero gradients for both in this example. The interactive factor editor asks you to predict which factor can change before revealing these calculations.
+This is why zero initial update does not have to mean zero learning. One factor starts ready to transmit a useful signal. Setting **both** factors to zero gives zero gradients for both in this example. The interactive factor editor asks you to inspect which factor can change while displaying these calculations.
 
 Once trained, form \(W_{\text{merged}}=W+sBA\). For a plain linear layer this is algebraically equivalent to the separate paths. Floating-point multiplication orders differ: our float64 hand example differs by about \(1.1\times10^{-16}\); the seed-1 float32 digit model differs by about \(1.9\times10^{-6}\) in validation logits. Compare with a suitable tolerance, not a promise of byte-identical outputs.
 

@@ -1,5 +1,8 @@
 # Vision Transformers (ViT, DeiT, Swin, DINOv2)
 
+**Explore as you read.** Edit patch pixels/projection coefficients, patch-position swaps, window/shift geometry, teacher/student logits and feature angles. Update patch contributions, actual frozen-model logits/maps, spatial dependency sets, teacher targets/gradients and relational loss immediately. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate image edits from position changes, direct neighbors from multi-hop reach and target sharpening from learned quality.
+
+
 A handwritten digit is an arrangement of marks. A loop near the top and a loop near the bottom can suggest an eight; the same dark pixels rearranged across the page can suggest something else. An image model needs both the appearance of small regions and their relationships.
 
 A **Vision Transformer**, or ViT, turns small image regions into vectors, lets those vectors exchange information, and uses the resulting representation to make a prediction. The Transformer machinery is familiar. The new questions are visual: how do pixels become tokens, how is location preserved, how can windows communicate, and what should a model learn before we have labels for a particular task?
@@ -65,7 +68,7 @@ print(torch.equal(explicit, convolution))
 
 Executed output is the four embeddings above and `True`. Creating two unrelated random layers and checking their output *shapes* would not establish this equality. For RGB, PyTorch `unfold` uses channel-major patch coordinates; preserve that order when reshaping a linear layer's weights.
 
-**Investigation — edit the image, inspect the token.** Predict which feature changes when you edit one pixel, then commit and apply the edit. The fresh problem uses a different patch from the worked example. You can also change projection coefficients. Try to alter a patch while leaving both output features unchanged: this exposes information loss in the projection rather than simply checking arithmetic.
+**Investigation — edit the image, inspect the token.** Edit a pixel or projection coefficient and watch its signed contributions and output features update. The fresh patch differs from the worked example. Try changing the patch while keeping both output features unchanged; the null exposes information lost by the projection.
 
 Why not always choose the smallest possible patches? Halving $P$ at fixed image size quadruples the token count. It preserves finer spatial distinctions at a higher computation and memory cost. Overlapping projections, convolutional stems and learned grouping are meaningful alternatives; nonoverlapping 16×16 patches are a design choice, not a proof that all other tokenizations are inferior. [The original ViT method](https://arxiv.org/html/2010.11929v2#S3) provides the starting architecture and a convolutional hybrid alternative.
 
@@ -200,7 +203,7 @@ where $m_{ij}=0$ for allowed pairs and $-\infty$ for blocked pairs. The learned 
 
 For a 2×2 window, query `(0,0)` and key `(1,1)` have displacement `(-1,-1)`. If content scores are all equal and that displacement's bias increases, this pair receives more weight, with the other legal weights decreasing through the shared softmax denominator. A bias table that is allocated but never added to the scores has no effect.
 
-**Investigation — open a path, repair a boundary.** The fresh task uses a 6×6 grid, editable values, window 2 and shift 1. Predict whether a source value can affect a selected destination after two steps. Move the source or destination, change a value, and compare masked versus wrapped computation. You can inspect the relative-bias table separately from the connection graph. Reset restores both the image state and the recorded prediction.
+**Investigation — open a path, repair a boundary.** The fresh task uses a 6×6 grid, editable values, window 2 and shift 1. Observe whether a source value can affect a selected destination after two steps. Move the source or destination, change a value, and compare masked versus wrapped computation. You can inspect the relative-bias table separately from the connection graph. Reset restores both the image state and the Show the current computed result and its contributing terms immediately.
 
 ### A hierarchy changes resolution and width
 
@@ -215,6 +218,14 @@ For an input 224×224 and initial width 96, stage shapes are:
 The small, medium and coarse grids can feed different parts of a detection or segmentation system. A tiny object may need finer spatial features; broader context can use coarser features. A head must still learn how to turn those features into boxes, masks or labels. A plain ViT's single-resolution features can also support dense prediction through appropriate adapters; “hierarchical features are convenient” does not mean other backbones cannot work.
 
 The source paper's [method section](https://arxiv.org/html/2103.14030v2#S3) is the reference for windows, shifting, relative bias and merging. Swin V2 changes details such as attention and normalization; do not silently combine its rules with this V1 derivation.
+
+### Carry the window and merge into torchvision
+
+The [complete library bridge](vision_library_bridge.py) reuses `ShiftedWindowAttention` and `PatchMerge` from [the supplied mechanism file](vision-mechanisms.py). It copies QKV/output projections and transposes the relative-bias table into torchvision's offset-by-head layout, then checks output, feature gradients and all parameter gradients. The merge comparison copies LayerNorm and reduction weights and includes an odd 5×7 grid. Install a matched Torch 2.14/torchvision 0.29 environment and run `python vision_library_bridge.py` beside the mechanism file. This optional torchvision route is written but **unexecuted** in this content revision; no measured result is asserted.
+
+The comparison deliberately uses divisible 6×9 dimensions for window attention. Our teaching operator excludes padded donor positions; torchvision's documented implementation pads values and uses a finite -100 boundary penalty rather than our negative-infinity mask. Therefore arbitrary padded shapes and extremely large logits are not claimed equivalent. Window size, shift, boundary policy, projection bias, relative offsets, dropout and V1/V2 normalization ordering all belong to the model. [Torchvision Swin source](https://docs.pytorch.org/vision/0.29/_modules/torchvision/models/swin_transformer.html).
+
+**Take control:** change to a 9×12 grid and compare again, then try a 5×7 grid and inspect the padding-policy difference rather than silently loosening the tolerance. **Hint:** first separate an index/layout bug from an intentionally different set of permitted keys. **Solution:** matched divisible shapes should agree; padded differences require aligning the masks if exact equivalence is the goal. The DINOv2 application in §8 separately supplies normal checkpoint feature extraction, while DeiT/DINO objectives below own their visible custom loss and teacher updates.
 
 ## 5. DeiT: use a teacher's decisions as another learning signal
 
@@ -294,7 +305,7 @@ A gradient-descent step therefore increases the first logit and decreases the ot
 
 **Inline objective diagram:** crop A and crop B remain recognizable pieces of the same image; two score strips pass through different center/temperature operations. Crossed arrows connect teacher A to student B and teacher B to student A. Beside them, a separate timeline shows parameter EMA and the running center. This avoids conflating the teacher, its prediction and its stored center.
 
-**Investigation — change a target, predict the learning direction.** Edit prototype logits, the center or a temperature in a fresh unsolved case. Commit whether a selected student logit should move up, down or stay fixed. Show the exact gradient after reveal. A constant shift added to all teacher logits leaves its softmax distribution unchanged; an edit to one prototype can change it substantially.
+**Investigation — change a target, inspect the learning direction.** Edit prototype logits, the center or a temperature. Watch the teacher target, student probability and exact signed gradient together. A common shift of all teacher logits preserves its softmax distribution; changing one prototype can move it substantially. Follow that difference to the direction of a student-logit update.
 
 ### Agreement alone is not enough
 
@@ -396,7 +407,7 @@ The saved visual examples are the first three test-file rows, chosen by order ra
 
 On the first image, change intensity `(row2,column4)` from its original value to one minus that value. The model's probability for 0 changes from 0.99787 to 0.99665. This establishes a response to that edit; it does not identify a general causal explanation of how humans recognize zero.
 
-**Investigation — pixels, positions and predictions.** Start from a fresh unsolved specimen. Predict the consequence of a specific edit, then change a pixel or swap patch contents. Compare that with moving the corresponding positional vectors together. Keep the true label visible as a dataset annotation, not as an input to the network. The model state stays frozen, so changes have an identifiable cause.
+**Investigation — pixels, positions and predictions.** Start from a fresh unsolved specimen. Inspect the consequence of a specific edit, then change a pixel or swap patch contents. Compare that with moving the corresponding positional vectors together. Keep the true label visible as a dataset annotation, not as an input to the network. The model state stays frozen, so changes have an identifiable cause.
 
 All saved models were reloaded and reproduced their recorded test predictions. An independent NumPy forward calculation agreed with the plain ViT logits on the first three images within 0.000004 and with its attention weights within 0.0000003. Those checks substantiate the written numbers and inputs; implementing and checking the browser model remains a later step.
 
@@ -591,7 +602,7 @@ The original Gram matrix is `[[1,0,−1],[0,1,0],[−1,0,1]]`. A common orthogon
 
 ### A compact capstone
 
-Use the provided study without changing its frozen test decisions. Read one successful and one failed image through patch extraction, positions, two blocks and the head. Predict one new intervention before running it. Explain whether the outcome supports a claim about projection, spatial arrangement, attention reach, or only this model's decision. Then propose a *new, separately evaluated* training experiment justified by the error analysis; do not keep tuning against the already inspected test pool.
+Use the provided study without changing its frozen test decisions. Read one successful and one failed image through patch extraction, positions, two blocks and the head. Run a new intervention and compare its result with the unchanged input. Explain whether the outcome supports a claim about projection, spatial arrangement, attention reach, or only this model's decision. Then propose a *new, separately evaluated* training experiment justified by the error analysis; do not keep tuning against the already inspected test pool.
 
 A successful explanation names the actual input, the operation being changed, what remains fixed, the output being measured and a limit. You are ready to continue when you can connect those decisions to the shapes and learning objectives, rather than only recall the four architecture names.
 

@@ -1,5 +1,5 @@
 import { useId, useMemo, useState } from 'react';
-import { Investigation, Predict } from './LessonInvestigation.jsx';
+import { Investigation } from './LessonInvestigation.jsx';
 import { LessonTable } from './LessonElements.jsx';
 import { inspectionRows, xorRows, growTree, treePrediction, leafRegions, splitCandidates, pruningReport, forestReport, ensembleVariance, permutationRows } from '../../data/decision-tree-models.js';
 import './decision-tree-labs.css';
@@ -61,7 +61,7 @@ export function TreePartitionLab() {
   }), [depth, minimum]);
   const result = treePrediction(tree, [x, y]);
   return <Investigation id="tree-partitions" kicker="QUESTION ↔ REGION ↔ LEAF" title="Follow one inspection through the same tree in two views">
-    <Predict>At x₁=4,x₂=3, where does the depth-two tree stop? Would another question change the leaf's mixed labels?</Predict>
+    <p className="lesson-live-note">At x₁=4,x₂=3, where does the depth-two tree stop? Would another question change the leaf's mixed labels?</p>
     <div className="tree-controls"><label>Maximum depth<select value={depth} onChange={event => setDepth(Number(event.target.value))}>{[0, 1, 2, 3].map(value => <option key={value} value={value}>{value}</option>)}</select></label><label>Minimum leaf rows<select value={minimum} onChange={event => setMinimum(Number(event.target.value))}>{[1, 2, 3].map(value => <option key={value} value={value}>{value}</option>)}</select></label><Slider label="Query x1" value={x} setValue={setX} min={0} max={6} /><Slider label="Query x2" value={y} setValue={setY} min={0} max={4} /><button onClick={() => {
         setDepth(2);
         setMinimum(1);
@@ -87,7 +87,7 @@ export function SplitLedgerLab() {
   const current = candidates[selected];
   const best = candidates.filter(row => row.allowed).reduce((winner, row) => !winner || row.gain > winner.gain + 1e-12 ? row : winner, null);
   return <Investigation id="tree-split-ledger" kicker="MAKE THE TRAINING CHOICE" title="Put the rows on each side before scoring a split">
-    <Predict>Is splitting off two pure positive rows better than a balanced split with mixed labels on both sides? Compute the weighted contribution.</Predict>
+    <p className="lesson-live-note">Is splitting off two pure positive rows better than a balanced split with mixed labels on both sides? Compute the weighted contribution.</p>
     <div className="tree-controls"><label>Criterion<select value={criterion} onChange={event => setCriterion(event.target.value)}><option value="gini">Gini</option><option value="entropy">Entropy (bits)</option></select></label><label>Minimum child rows<select value={minimum} onChange={event => setMinimum(Number(event.target.value))}><option value={1}>1</option><option value={3}>3</option></select></label><label>Inspect candidate<select value={selected} onChange={event => setSelected(Number(event.target.value))}>{candidates.map((row, index) => <option key={index} value={index}>x{row.feature + 1} ≤ {row.threshold}</option>)}</select></label><button onClick={() => {
         setCriterion('gini');
         setMinimum(1);
@@ -107,7 +107,7 @@ export function XorTreeLab() {
   });
   const correct = xorRows.filter(row => treePrediction(tree, row.features).label === row.label).length;
   return <Investigation id="tree-xor" kicker="CAPACITY IS NOT A SEARCH POLICY" title="A useful first question can have zero immediate gain">
-    <Predict>Both coordinates split these four corners into one label of each kind. Can two successive questions still identify every label?</Predict>
+    <p className="lesson-live-note">Both coordinates split these four corners into one label of each kind. Can two successive questions still identify every label?</p>
     <div className="tree-controls"><label>Zero-gain policy<select value={String(allowZero)} onChange={event => setAllowZero(event.target.value === 'true')}><option value="false">Stop at zero gain</option><option value="true">Allow zero gain and continue to depth 2</option></select></label><button onClick={() => setAllowZero(false)}>Reset</button></div>
     <CoordinateMap tree={tree} rows={xorRows} bounds={[-.3, 1.3, -.3, 1.3]} title="XOR: interaction and the chosen greedy stopping rule" />
     <p aria-live="polite">Correct training labels: {correct}/4. {allowZero ? 'A second question in each branch produces pure leaves.' : 'The unsplit leaf ties at p(1)=0.5 and chooses label 0.'}</p>
@@ -121,7 +121,7 @@ export function TreePruningLab() {
   const xScale = value => 50 + 320 * value / .3;
   const yScale = value => 250 - 210 * value / 1.6;
   return <Investigation id="tree-pruning" kicker="TRADE FIT AGAINST COMPLEXITY" title="Choose a subtree by its actual cost line">
-    <Predict>Must pruning remove one leaf at a time? Compare the five-leaf tree with the root-only tree as α grows.</Predict>
+    <p className="lesson-live-note">Must pruning remove one leaf at a time? Compare the five-leaf tree with the root-only tree as α grows.</p>
     <div className="tree-controls"><Slider label="Complexity cost alpha" value={alpha} setValue={setAlpha} min={0} max={.3} step={.01} /><button onClick={() => setAlpha(.04)}>Reset</button></div>
     <Plot title="Every distinct subtree cost: weighted impurity plus alpha times leaves" description="Lines are calculated from all six pruned subtrees of the displayed full tree; two share the same risk and leaf count. Gold marks the currently chosen cost line. The dashed vertical marker is α; the lowest line wins, with fewer leaves preferred at exact ties.">
       {[0, .1, .2, .3].map(value => <g key={value}><line x1={xScale(value)} x2={xScale(value)} y1="40" y2="250" className="tree-grid" /><text x={xScale(value)} y="271" textAnchor="middle">{value}</text></g>)}
@@ -148,7 +148,7 @@ export function BootstrapForestLab() {
   }), [trees, selectedRow, featureSampling]);
   const selectedMember = Math.min(member, trees - 1);
   return <Investigation id="tree-bootstrap" kicker="SAMPLED ROWS → TREES → ELIGIBLE PREDICTIONS" title="See exactly which trees may judge an omitted row">
-    <Predict>If A appears twice in a bootstrap sample, can that tree supply A's out-of-bag prediction? What if none of the current trees omit A?</Predict>
+    <p className="lesson-live-note">If A appears twice in a bootstrap sample, can that tree supply A's out-of-bag prediction? What if none of the current trees omit A?</p>
     <div className="tree-controls"><Slider label="Number of trees" value={trees} setValue={setTrees} min={1} max={12} step={1} /><label>Inspect original row<select value={selectedRow} onChange={event => setSelectedRow(Number(event.target.value))}>{inspectionRows.map((row, index) => <option key={row.id} value={index}>{row.id} — true label {row.label}</option>)}</select></label><label>Candidate features per node<select value={String(featureSampling)} onChange={event => setFeatureSampling(event.target.value === 'true')}><option value="true">One newly sampled feature</option><option value="false">Both features (bagging)</option></select></label><button onClick={() => {
         setTrees(6);
         setSelectedRow(0);
@@ -174,7 +174,7 @@ export function ForestVarianceLab() {
   const x = value => 50 + 320 * (value - 1) / 199;
   const y = value => 250 - 210 * value;
   return <Investigation id="tree-variance" kicker="A MATHEMATICAL MODEL, NOT A BENCHMARK" title="Separate averaging away noise from a shared component">
-    <Predict>With each predictor variance fixed at 1 and average pairwise correlation 0.3, can 200 trees reduce variance below 0.3?</Predict>
+    <p className="lesson-live-note">With each predictor variance fixed at 1 and average pairwise correlation 0.3, can 200 trees reduce variance below 0.3?</p>
     <div className="tree-controls"><Slider label="Predictor count B" value={trees} setValue={setTrees} min={1} max={200} step={1} /><Slider label="Average correlation rho" value={correlation} setValue={setCorrelation} min={0} max={1} step={.1} /><button onClick={() => {
         setTrees(20);
         setCorrelation(.3);
@@ -196,7 +196,7 @@ export function PermutationRelianceLab() {
   const rows = permutationRows(mode);
   const accuracy = rows.filter(row => row.label === row.predicted).length / rows.length;
   return <Investigation id="tree-permutation" kicker="ASK WHAT THIS MODEL USES" title="Shuffle a copy, a used column, or their relationship">
-    <Predict>The fixed rule predicts x₁, while x₂ is an exact copy in the observed data. Does a zero score drop for x₂ imply it contains no information?</Predict>
+    <p className="lesson-live-note">The fixed rule predicts x₁, while x₂ is an exact copy in the observed data. Does a zero score drop for x₂ imply it contains no information?</p>
     <div className="tree-controls"><label>Columns to permute together<select value={mode} onChange={event => setMode(event.target.value)}><option value="copy">Copy x₂ only</option><option value="used">Used x₁ only</option><option value="group">Both as one group</option></select></label><button onClick={() => setMode('copy')}>Reset</button></div>
     <div className="tree-permutation-rows">{rows.map(row => <div key={row.id} className={row.impossiblePair ? 'tree-permutation-row tree-off-support' : 'tree-permutation-row'}><span>Row {row.id}: [{row.original.join(', ')}]</span><span aria-label="becomes">→</span><strong>[{row.transformed.join(', ')}]</strong><span>truth {row.label}; predict {row.predicted}</span><span>{row.impossiblePair ? 'Not present in the assumed duplicate relationship' : 'Duplicate relationship preserved'}</span></div>)}</div>
     <p aria-live="polite">Original accuracy 1.000; permuted accuracy {number(accuracy)}; score drop {number(1 - accuracy)}.</p>

@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-09-21T06:19:29.490531+00:00",
+  "verifier": "scripts/verify-calibration-sources.py",
+  "verifierSha256": "5b732d23d2c55beb9b0d506147ca6517d10c386788696e3461b5d11c1ea13a98",
+  "filesAudited": 19,
+  "filesDeclared": 19,
+  "checks": 85,
+  "escapeSitesInspected": 1914,
+  "mathElementsInspected": 173,
+  "mathLiteralsInspected": 195,
+  "bytesScannedForControlBytes": 805019,
+  "stylesheetRulesParsed": 156,
+  "rawControlBytes": 0,
+  "deadConditionals": 0,
+  "displayBlocksChecked": 10,
+  "displayBlocksWithWideAccent": 1,
+  "requiredKatexSequences": 19,
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its own four verifiers and its three served programs included; the KaTeX sequences the body depends on; that every display block is wrapped, with a block carrying a wide accent required to be wrapped whatever its visible length; that no JSX conditional has two identical branches, in string or array form; and that the stylesheet sets no blanket fill or stroke-width on a bare SVG element type and scopes its text rule at the lesson root using longhands.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-calibration-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "The stylesheet check looks for bare element selectors under the lesson root. A class-scoped rule that happens to match a quantity-carrying shape is not detected here; the browser verifier compares painted values with attributes instead."
+  ],
+  "passed": true
+}

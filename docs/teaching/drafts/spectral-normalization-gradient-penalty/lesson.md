@@ -1,5 +1,8 @@
 # Spectral Normalization & Gradient Penalty
 
+**Explore as you read.** Edit matrix entries, normalization method, power-iteration steps, critic/input values, interpolation points and margin geometry. Update singular stretch, effective matrix, derivative paths, sampled gradient penalties and local decision distances live. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose or diagnose a constraint by what it actually bounds and where it was evaluated; a sampled penalty is not a global guarantee.
+
+
 A useful learning signal must respond to a meaningful change in the input. If it reacts enormously to an almost invisible change, optimization can become erratic. If it barely reacts to anything, it cannot tell another model how to improve. This lesson studies two ways to shape that sensitivity: rescale the transformations inside a network, or penalize its measured input gradients.
 
 The preceding [Boltzmann Machines & Restricted Boltzmann Machines](/learn/path/full-curriculum/boltzmann-machines-restricted-boltzmann-machines-rbm?module=deep-learning-fundamentals) lesson assigned probability through energy and a normalizing constant. Here a generator produces samples directly, and a second network supplies a learning signal by comparing generated and recorded examples. That second network makes sensitivity a practical concern.
@@ -113,7 +116,7 @@ For \(\operatorname{diag}(3,1)\), start with \(u=(1,1)/\sqrt2\). One round produ
 
 Training commonly retains the previous vectors because weights often move incrementally. A cached vector can be useful; it is not a universal accuracy guarantee. Near-equal leading singular values slow convergence, and a changed matrix can invalidate a previously good direction. For a dense \(m\times n\) matrix, one round costs \(O(mn)\) arithmetic with \(O(m+n)\) vector storage beyond the weights. Calling the arithmetic \(O(m+n)\) confuses storage with work.
 
-**Investigation: hide the strongest direction.** Edit a 2×2 matrix, choose an initial direction, and predict whether one iteration leaves a norm at most one. Compare its estimate with the exact small-matrix singular value. Rotate the initial vector slightly away from an uninformative direction and inspect the trajectory. A null comparison scales a nonzero matrix by a positive constant: exact unit normalization yields the same effective matrix.
+**Investigation: hide the strongest direction.** Edit a 2×2 matrix, choose an initial direction, and observe whether one iteration leaves a norm at most one. Compare its estimate with the exact small-matrix singular value. Rotate the initial vector slightly away from an uninformative direction and inspect the trajectory. A null comparison scales a nonzero matrix by a positive constant: exact unit normalization yields the same effective matrix.
 
 ### Deeper: why the normalization stays in the derivative graph
 
@@ -191,7 +194,7 @@ Lazy application every \(k\) updates can multiply the regularizer by \(k\) to pr
 
 Consider \(f(x)=x+4\operatorname{ReLU}(x-1)\). At sampled points −.5, 0 and .5, the derivative is one and the target-one penalty is zero. At \(x=2\), the derivative is five and the unweighted penalty is sixteen. The global Lipschitz constant is five.
 
-**Investigation: move the unobserved kink.** Edit the kink location, extra slope and actual probe coordinates. Predict the penalty before revealing it. Compare moving the kink outside all probes with moving a probe into the steep region. A second view overlays target-one, one-sided and zero-centered penalties so that a change in target can be separated from a change in sampled region.
+**Investigation: move the unobserved kink.** Edit the kink location, extra slope and actual probe coordinates. Change the probe or target slope and inspect the resulting penalty. Compare moving the kink outside all probes with moving a probe into the steep region. A second view overlays target-one, one-sided and zero-centered penalties so that a change in target can be separated from a change in sampled region.
 
 ### Per-example gradients need per-example functions
 
@@ -445,6 +448,22 @@ def main():
 if __name__=='__main__':
     main()
 ```
+
+### What you can now implement and deliberately change
+
+The two methods have different source owners. In [sensitivity-calculations.py](sensitivity-calculations.py), `power_trace` constructs repeated matrix/vector products and normalization, and the normalization-gradient calculation differentiates through the weight-dependent scale. In [critic-regularization-study.py](critic-regularization-study.py), `gradient_penalty` constructs interpolation points, input derivatives and the differentiable norm penalty; `main` composes that operation with a complete critic/generator training loop. Nothing in the penalty is delegated to an unexplained “WGAN loss” call.
+
+The ordinary spectral-normalization route is the same program's `torch.nn.utils.parametrizations.spectral_norm(layer, n_power_iterations=1)`. Its trainable original weight, computed normalized weight and power-vector buffers are distinct state. Calling a layer twice in training mode can perform two power-vector updates; the joined real/fake forward intentionally gives both groups one common effective weight. Critic evaluation mode freezes power-vector iteration during the generator step, while `requires_grad_(False)` freezes critic parameters: input derivatives still connect the generator to its objective. The export calculation in `sensitivity-calculations.py` checks that removing the parametrization with `leave_parametrized=True` preserves the current function. [Maintained API and mode semantics](https://docs.pytorch.org/docs/2.14/generated/torch.nn.utils.parametrizations.spectral_norm.html).
+
+This is the useful division of control: own the desired penalty, sample distribution and update schedule; delegate module registration, persistent buffers and serialization to the maintained parametrization. One power iteration is an estimator, not an exact largest singular value. Comparing it with an SVD on a tiny matrix diagnoses estimation error; it does not make the SVD algorithm the usual per-training-step choice. Dense power iteration costs O(mn) per iteration with O(m+n) vector state beyond the weight; an exact SVD has a different cost. Input-gradient penalties retain an extra derivative graph and require per-example critic independence for the sum trick used here.
+
+**Change the contract.** Replace the interpolated unit-target penalty by an R1 penalty on real inputs, keeping the critic objective's other terms fixed. Implement the new quantity rather than changing only its caption.
+
+<details><summary>Hint and reasoned solution</summary>
+
+Use `points = real.detach().requires_grad_(True)`, evaluate the critic, and obtain `gradients = torch.autograd.grad(values.sum(), points, create_graph=True)[0]`. With a declared coefficient λ, the zero-centered term is `λ * gradients.flatten(1).square().sum(1).mean()`. There is no subtraction of one and no fake/interpolation sampling. Some conventions write γ/2 instead of λ; map the coefficient explicitly. Preserve `create_graph=True` when updating critic parameters through this derivative. For the independent linear oracle D(x)=wᵀx, the added objective is λ‖w‖² and its weight derivative is 2λw. This is different from the existing unit-target derivative and remains meaningful when the input locations change. It is not a global Lipschitz certificate.
+
+</details>
 
 ## 8. Useful connections beyond this GAN
 

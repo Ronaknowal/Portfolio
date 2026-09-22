@@ -1,14 +1,6 @@
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './gmm-labs.css';
 
-/** Shared controls for the Gaussian mixture investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always tied to the inputs
- * it was computed from, so editing anything retires the answer instead of
- * quietly re-grading an old choice against a new model.
- */
-
 export const round = (value, digits = 6) => {
   if (value === null || value === undefined || Number.isNaN(value)) return '—';
   if (!Number.isFinite(value)) return value > 0 ? '∞' : '−∞';
@@ -31,7 +23,7 @@ export const signed = (value, digits = 6) => (value >= 0 ? `+${round(value, digi
 
 export function Investigation({ title, question, note, children, onReset }) {
   const id = useId();
-  return <section className="gm-investigation" aria-labelledby={id}>
+  return <section className="gm-investigation" aria-labelledby={id} data-live-exploration>
     <header><h3 id={id}>{title}</h3><button type="button" onClick={onReset}>Reset</button></header>
     {question && <p className="gm-question">{question}</p>}
     {note && <p className="gm-note">{note}</p>}
@@ -70,7 +62,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
     }
     return null;
   })();
-  return <Field label={label} error={problem} value={suffix}>
+  return <div><Field label={label} error={problem} value={suffix}>
     <input type="number" inputMode="decimal" min={min} max={max} step={step} value={shown}
       onChange={event => {
         setDraft(event.target.value);
@@ -81,7 +73,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
         }
       }}
       onBlur={() => setDraft(null)} aria-invalid={Boolean(problem)} />
-  </Field>;
+  </Field>{/Measurement x|weight|variance|correlation/i.test(label) && Number.isFinite(value) && Number.isFinite(min) && Number.isFinite(max) && <input type="range" aria-label={label + ' slider'} min={min} max={max} step={step} value={value} disabled={false} style={{width:'100%',accentColor:'var(--accent, #e7b94a)'}} onChange={event => {setDraft(null);onChange(Number(event.target.value));}} />}</div>;
 }
 
 export function Table({ caption, headings, rows, rowClass = () => undefined, scroll = false }) {
@@ -94,92 +86,12 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </div>;
 }
 
-/** Draft inputs, an unset prediction, and one action that commits both.
- *
- * `key` turns the active inputs into a string, so a recorded result can never
- * be shown beside inputs it was not computed from. */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
+export function useInvestigation(initial) {
   const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const pending = describeKey(draft) !== describeKey(active);
-  const edit = update => {
-    setDraft(previous => ({ ...previous, ...update }));
-    setResult(null);
-    setChoice('');
+  return { draft, active: draft,
+    edit: update => setDraft(current => ({ ...current, ...update })),
+    reset: () => setDraft(initial), load: inputs => setDraft(inputs),
   };
-  return {
-    draft, active, choice, setChoice, reason, setReason, result, pending,
-    edit,
-    // The answer is computed from the draft at the moment of committing, so a
-    // prediction is never graded against the inputs that were on screen before
-    // the learner edited them.
-    /** Commit the draft and record the prediction against it. */
-    check: answerFor => { setActive(draft); setResult({ key: describeKey(draft), choice, reason, answer: answerFor(draft), graded: true }); },
-    /** Compute the same thing without grading, for a learner who wants to look first. */
-    explore: answerFor => { setActive(draft); setResult({ key: describeKey(draft), choice: '', reason, answer: answerFor(draft), graded: false }); },
-    reset: () => { setDraft(initial); setActive(initial); setChoice(''); setReason(''); setResult(null); },
-    /** Replace the whole declared setup, which also retires the prediction. */
-    load: inputs => { setDraft(inputs); setActive(inputs); setChoice(''); setReason(''); setResult(null); },
-  };
-}
-
-/** A radio group that starts with nothing selected, plus the two commit
- * actions. The check is disabled until a choice exists. */
-export function Prediction({ prompt, options, state, answerFor, describe, exploreLabel = 'Calculate without recording a prediction' }) {
-  const name = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown?.graded && shown.choice === shown.answer;
-  return <div className="gm-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="gm-choices">
-        {options.map(([value, text]) => (
-          <label className="gm-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="gm-pending" role="status">
-      Inputs changed; record a new prediction. The calculation below will use the values now in the fields.
-    </p>}
-    <div className="gm-buttons">
-      <button type="button" className="is-primary" disabled={state.choice === '' || Boolean(shown)} onClick={() => state.check(answerFor)}>Check prediction</button>
-      <button type="button" onClick={() => state.explore(answerFor)}>{exploreLabel}</button>
-    </div>
-    {shown?.reason && <p className="gm-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && (shown.graded
-      ? <p className={`gm-verdict ${correct ? '' : 'is-miss'}`} role="status">
-        <span className="gm-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-        {correct
-          ? `Your prediction matches: ${label(shown.answer)}.`
-          : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer)}.`}
-        {describe ? ` ${describe}` : ''}
-      </p>
-      : <p className="gm-verdict is-plain" role="status">
-        <span className="gm-verdict-mark" aria-hidden="true">·</span>
-        Calculated without a recorded prediction: {label(shown.answer)}. {describe}
-      </p>)}
-  </div>;
-}
-
-/** An optional sentence saying why. It is never graded: a right answer with a
- * wrong reason is still worth inspecting, and that is the learner's to judge. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="gm-field gm-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
 }
 
 /** A framed plot with one shared scale for everything drawn on it. */

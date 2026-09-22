@@ -27,13 +27,13 @@ function Slider({
 function Investigation({
   id,
   title,
-  prediction,
+  guidance,
   reset,
   children
 }) {
   const heading = useId();
   return <section className="rate-distortion-lab lesson-lab" data-rate-distortion-lab={id} aria-labelledby={heading}>
-    <h3 id={heading}>{title}</h3><p><strong>Predict first.</strong> {prediction}</p>
+    <h3 id={heading}>{title}</h3><p>{guidance}</p>
     {children}<button type="button" className="rate-distortion-reset" onClick={reset}>Reset investigation</button>
   </section>;
 }
@@ -72,7 +72,7 @@ export function BinaryCodebookLab() {
     selected
   }), [probability, kind, selected]);
   const chosen = state.selected;
-  return <Investigation id="codebook" title="Build the actual reconstruction" prediction="With only 000 and 111 in the codebook, which three-bit inputs can be reconstructed exactly?" reset={() => {
+  return <Investigation id="codebook" title="Build the actual reconstruction" guidance="With only 000 and 111 in the codebook, which three-bit inputs can be reconstructed exactly?" reset={() => {
     setProbability(0.5);
     setKind('majority');
     setSelected(3);
@@ -143,7 +143,7 @@ export function BinaryFrontierLab() {
   const [budget, setBudget] = useState(0.1);
   const [weight, setWeight] = useState(2);
   const state = useMemo(() => binaryOptimalChannel(probability, budget), [probability, budget]);
-  return <Investigation id="binary-frontier" title="Read the limit, then inspect its probability law" prediction="Once a constant reconstruction meets the error budget, could allowing still more error require more bits?" reset={() => {
+  return <Investigation id="binary-frontier" title="Read the limit, then inspect its probability law" guidance="Once a constant reconstruction meets the error budget, could allowing still more error require more bits?" reset={() => {
     setProbability(0.5);
     setBudget(0.1);
     setWeight(2);
@@ -186,7 +186,7 @@ export function RateDistortionOptimizerLab() {
     setStep(0);
     setSelected([2, 0]);
   };
-  return <Investigation id="finite-optimizer" title="Let a reconstruction alphabet earn its probability" prediction="If missing a high source level becomes ten times as costly, which output probabilities should change?" reset={reset}>
+  return <Investigation id="finite-optimizer" title="Let a reconstruction alphabet earn its probability" guidance="If missing a high source level becomes ten times as costly, which output probabilities should change?" reset={reset}>
     <div className="rate-distortion-controls">
       <label className="rate-distortion-control">Source and distortion rule<select aria-label="Source and distortion rule" value={kind} onChange={event => {
           setKind(event.target.value);
@@ -237,7 +237,7 @@ export function GaussianAllocationLab() {
   const state = useMemo(() => gaussianAllocation(variances, fraction * total), [kind, fraction]);
   const maximum = Math.max(...variances);
   const y = value => 245 - value / maximum * 170;
-  return <Investigation id="gaussian-allocation" title="Fill the error budget across components" prediction="With variances 9 and 1 and total allowed squared error 3, should the quieter component receive more than its entire variance?" reset={() => {
+  return <Investigation id="gaussian-allocation" title="Fill the error budget across components" guidance="With variances 9 and 1 and total allowed squared error 3, should the quieter component receive more than its entire variance?" reset={() => {
     setKind('unequal');
     setFraction(0.3);
   }}>

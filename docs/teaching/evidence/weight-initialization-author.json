@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checks": [
+    "Topic and lab JSX parse; complete11section manuscript is present",
+    "Every compact empirical value is preserved from the native packet",
+    "Live moments match both native fixtures and identity/constant/null cases",
+    "Directional norm/identity/zero/gated fixtures and equal average squared gains",
+    "Symmetry gradients match native autograd; changed-input derivatives pass independent finite differences",
+    "Width formulas match native fixtures including zero-rate and exact base-width null",
+    "Recorded data split is400distinct observations with no train/validation overlap"
+  ],
+  "sources": {
+    "src/learn/data/topics/weight-initialization-xavier-kaiming-p.jsx": "df4a690ce487db087ea394ade5514767103f3681fd021a38965f2c9437f28148",
+    "src/learn/data/weight-initialization-models.js": "20bd9cafc4fe19495a2804a9e864adff5190458f8c465c08e70890fb3409688f",
+    "src/learn/data/weight-initialization-measurements.json": "5e363fcad6069ab59776512459f2a1049e98365a2f98405fb7a1471792e0eb1e",
+    "src/learn/components/lesson-labs/WeightInitializationLabs.jsx": "5120b360a3d20199195227101844b76700b6771f2d386de11c8182e86a8314b4",
+    "src/learn/components/lesson-labs/weight-initialization.css": "3eb8ac965ed1d22cd1d5af63dceeedd6d92dc138f5fcf7528261a109d86caa52",
+    "scripts/generate-weight-initialization-lesson.mjs": "d1917f90566fadb6b433ad07165b19e604d506f837a863e5d40576bdf7da4d04"
+  },
+  "limits": "Author model/native-packet/source checks; browser integration and independent review are separate."
+}

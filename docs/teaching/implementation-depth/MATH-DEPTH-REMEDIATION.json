@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-22",
+  "topics": [
+    {
+      "id": "matrix-calculus-jacobians",
+      "body": "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "matrix-calculus-code-route",
+      "changed": [
+        "src/learn/data/topics/matrix-calculus-jacobians.jsx",
+        "src/learn/data/matrix-calculus-mechanism-program.js",
+        "public/learn-assets/matrix-calculus/derivative-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/matrix-calculus/derivative-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/matrix-calculus-jacobians.jsx": "feda34dbaaafa255d3a357961e8e786111a457525e2d4c59b2df1e35d9824edb",
+        "src/learn/data/matrix-calculus-examples.js": "0a68ba25ba37933659baae3215654a4a9ba0d16959a9c7d2c99179f4e8d65810",
+        "src/learn/data/matrix-calculus-mechanism-program.js": "211e6f3ad9010b60ab63bddcf26a65d12aecb521f50bed2a8ca4c9614a9c5f67",
+        "public/learn-assets/matrix-calculus/derivative-library-bridge.py": "127b2e711ed5b0197009bf8a59513f5e697289e41b61c6409503565b8fda2af4"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "multivariate-calculus-gradients",
+      "body": "src/learn/data/topics/multivariate-calculus-gradients.jsx",
+      "status": "changed",
+      "disposition": "retained mechanism with explicit reuse/boundary",
+      "anchor": "multivariate-calculus-code-route",
+      "changed": [
+        "src/learn/data/topics/multivariate-calculus-gradients.jsx"
+      ],
+      "assets": [],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/multivariate-calculus-gradients.jsx": "6e2210b169f65c3bb6c5c9005cb564bfcdf991baad536c236470ab5df0b184fa",
+        "src/learn/data/multivariate-calculus-examples.js": "0931cecfdca0afd4d55970d17a84aace35d2780f97c2e3ed8c04f0637b1a9101"
+      },
+      "reusedProgram": "public/learn-assets/matrix-calculus/derivative-library-bridge.py"
+    },
+    {
+      "id": "second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient",
+      "body": "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx",
+      "status": "changed",
+      "disposition": "retained mechanism with explicit reuse/boundary",
+      "anchor": "second-order-code-route",
+      "changed": [
+        "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx"
+      ],
+      "assets": [],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/second-order-methods-l-bfgs-k-fac-shampoo-natural-gradient.jsx": "39d64f62fa27e436eb7cb25b595ac60e83178d579fde23a5097302ae14f9c7e9",
+        "src/learn/data/second-order-methods-examples.js": "1ef99b964aa721ded6e803c8a80708c8136b03aa9f0c58280cce603b742e5396"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "constrained-multi-objective-optimization",
+      "body": "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "constrained-code-route",
+      "changed": [
+        "src/learn/data/topics/constrained-multi-objective-optimization.jsx",
+        "src/learn/data/constrained-optimization-mechanism-program.js",
+        "public/learn-assets/constrained-optimization/simplex-solver-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/constrained-optimization/simplex-solver-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/constrained-multi-objective-optimization.jsx": "d17dfbfdee3fcba8da47ba947161c419bebe48baeb8729cc003b644bae3f3e4e",
+        "src/learn/data/constrained-multiobjective-examples.js": "c46e5c9938ceea682d11ccd57b40a8457e7bf430178b6a9f0fa16c903b11149b",
+        "src/learn/data/constrained-optimization-mechanism-program.js": "f3e5888c00ea7b21ab1957a2278c27c11c9b699447512848472b2fef31b6b893",
+        "public/learn-assets/constrained-optimization/simplex-solver-bridge.py": "0306bdddd4c9e4f8e9750459bae27a6027fa7ceab12f003511dcd59e8271f0c3"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "optimal-transport-wasserstein-distance-sinkhorn",
+      "body": "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "optimal-transport-code-route",
+      "changed": [
+        "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx",
+        "src/learn/data/optimal-transport-mechanism-program.js",
+        "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/optimal-transport-wasserstein-distance-sinkhorn.jsx": "725260ea66c5f4c73a8d2720bf597febe1bc4571f7726a14a02449fa3124062e",
+        "src/learn/data/optimal-transport-examples.js": "47fab6c1d8e3e40c68fcf0c7c7fcb990ae514f04e06ed3c7e545c2f8bba130b2",
+        "src/learn/data/optimal-transport-mechanism-program.js": "7f3e5c407929db8f80cb002b1776acbb8b09d69f89383dba2c74501c58f24420",
+        "public/learn-assets/optimal-transport/sinkhorn-library-bridge.py": "8d2232d4913b1ee35ab4441e67d011c5991c332a1147733dbc48b84fb2c57e20"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "causal-inference-do-calculus",
+      "body": "src/learn/data/topics/causal-inference-do-calculus.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "causal-inference-code-route",
+      "changed": [
+        "src/learn/data/topics/causal-inference-do-calculus.jsx",
+        "src/learn/data/causal-inference-mechanism-program.js",
+        "public/learn-assets/causal-inference/causal-estimation-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/causal-inference/causal-estimation-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/causal-inference-do-calculus.jsx": "8b3217b607046d9199e978b5f957d77f68fe247290746cd0428c0bcd54368a75",
+        "src/learn/data/causal-inference-examples.js": "37a96b8a41c67183059f1ab3a0c5aca5819cffaaa38a0d7bc650bc185de02401",
+        "src/learn/data/causal-inference-mechanism-program.js": "4c610fc8b0a4cfbf6bb509eea8c387405eb8c421f334a14f16f6c3795eefdb11",
+        "public/learn-assets/causal-inference/causal-estimation-bridge.py": "eab865b0ec6c7276fb3cae7363e1546b610fbc0208d3b1f31a346492b6f7d093"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "mutual-information-information-bottleneck",
+      "body": "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "mutual-information-code-route",
+      "changed": [
+        "src/learn/data/topics/mutual-information-information-bottleneck.jsx",
+        "src/learn/data/mutual-information-mechanism-program.js",
+        "public/learn-assets/mutual-information/mutual-information-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/mutual-information/mutual-information-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/mutual-information-information-bottleneck.jsx": "626d1e5b2ac2edfa7725adb278fac3db0472f2e1f963fa2cff633987f170cb5f",
+        "src/learn/data/mutual-information-examples.js": "29574e13ad103256ca0ebd3df5970cc72c825c2b832e92b438ad7119922aca35",
+        "src/learn/data/mutual-information-mechanism-program.js": "97410c954dd95936f6054b4a72c1fbd2e76f587131e68f9e06d22865ce48e11a",
+        "public/learn-assets/mutual-information/mutual-information-library-bridge.py": "3a931191ff2d9729f5a8e5d970b537e825580cf36b364380325b9838a4e8fea2"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "f-divergences-integral-probability-metrics",
+      "body": "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "divergences-code-route",
+      "changed": [
+        "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx",
+        "src/learn/data/divergences-mechanism-program.js",
+        "public/learn-assets/divergences/mmd-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/divergences/mmd-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/f-divergences-integral-probability-metrics.jsx": "5e255b375e1160607cf5ec3bc450e1bdba6a97a684721162aee6c19877a43759",
+        "src/learn/data/divergence-ipm-examples.js": "2e99f9317c1e13a301349a3e3450d74bd3e8a22e2a42f0cea929fc9feb824057",
+        "src/learn/data/divergences-mechanism-program.js": "7cfe381bd9046c506f566ba3299c05ffee8c5d5f539bc5e33b8e1ef84543e39e",
+        "public/learn-assets/divergences/mmd-library-bridge.py": "708274444dc59476c4ebc6d4b334c94d60a7a65f31ecad1d777415e894fac08f"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "graph-fundamentals-adjacency-laplacian-connectivity",
+      "body": "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "graph-fundamentals-code-route",
+      "changed": [
+        "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx",
+        "src/learn/data/graph-fundamentals-mechanism-program.js",
+        "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/graph-fundamentals-adjacency-laplacian-connectivity.jsx": "2d26e274c9376cbcc1ff21ee4c4810fb2dfefc7a9c1921a4bd5eeb846b352871",
+        "src/learn/data/graph-fundamentals-examples.js": "940d6038e91a4249d29849c706b869ee4f04afc9bf4c5bd2f34a2c369605a454",
+        "src/learn/data/graph-fundamentals-mechanism-program.js": "5c8a796923cd0c99fea33f14bed3cd7b6115bce8f3e71c5be7516ef293fdf17f",
+        "public/learn-assets/graph-fundamentals/laplacian-library-bridge.py": "596707e3205c23a4992e3731197f4d14f5f6e912021ba666964a3334f88ad331"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "stochastic-processes-markov-chains-brownian-motion-poisson",
+      "body": "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx",
+      "status": "changed",
+      "disposition": "retained mechanism with explicit reuse/boundary",
+      "anchor": "stochastic-processes-code-route",
+      "changed": [
+        "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx"
+      ],
+      "assets": [],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/stochastic-processes-markov-chains-brownian-motion-poisson.jsx": "2e1016dad6be18049be2c354f1232feaba8047c485a981e1945e48b65b8832db",
+        "src/learn/data/stochastic-processes-examples.js": "5582eee8b842bfbf6f4926a2b7bdd5df828e31a96d039976752bf9b6d051f482"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "queueing-theory-m-m-1-m-g-1-little-s-law",
+      "body": "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "queueing-code-route",
+      "changed": [
+        "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx",
+        "src/learn/data/queueing-mechanism-program.js",
+        "public/learn-assets/queueing/fcfs-simpy-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/queueing/fcfs-simpy-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/queueing-theory-m-m-1-m-g-1-littles-law.jsx": "92d9cda59aca55ac3bd6f704ee005034e8d49ed716c109fbaa30e1abd835d4b4",
+        "src/learn/data/queueing-examples.js": "62d095639fa892b58ad50e203fd61db232567a05024dbfec83014c5e31ed2196",
+        "src/learn/data/queueing-mechanism-program.js": "dd8491968752a9d84f95465821fa8a835c0b7f48fe0e2f0e05ad2cb67422a22a",
+        "public/learn-assets/queueing/fcfs-simpy-bridge.py": "c27d41a0dc73a7a5d396526fd33e7b8a6379d65abd25f5cd793dcb92849d6a9f"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "it-calculus-stochastic-differential-equations",
+      "body": "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "ito-calculus-code-route",
+      "changed": [
+        "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx",
+        "src/learn/data/ito-calculus-mechanism-program.js",
+        "public/learn-assets/ito-calculus/sde-library-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/ito-calculus/sde-library-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/ito-calculus-stochastic-differential-equations.jsx": "9d7dad6095992a068bc73483c0c9b4e9b6aa955d503b7b10ca66eeb00f7f8f2d",
+        "src/learn/data/ito-sde-examples.js": "17eaeecd7a1835a2f69145995f2d93befc6e8263e9af398f79d783c90d2de477",
+        "src/learn/data/ito-calculus-mechanism-program.js": "0302396d8cfe6e45cf7a12ae267c40a5b636758417958b63eb40a82264ac9730",
+        "public/learn-assets/ito-calculus/sde-library-bridge.py": "f294f4003beeec1068aa2a3f746b895738101f4f76c8e128ae106c911c21e13f"
+      },
+      "reusedProgram": null
+    },
+    {
+      "id": "numerical-pdes-grids-finite-elements-stability",
+      "body": "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+      "status": "changed",
+      "disposition": "new executable bridge",
+      "anchor": "numerical-pdes-code-route",
+      "changed": [
+        "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx",
+        "src/learn/data/numerical-pdes-mechanism-program.js",
+        "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py"
+      ],
+      "assets": [
+        "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py"
+      ],
+      "authorEvidence": [
+        "docs/teaching/evidence/math-depth-remediation-author.json"
+      ],
+      "hashes": {
+        "src/learn/data/topics/numerical-pdes-grids-finite-elements-stability.jsx": "19f006bc9cfd2d5d58e2c9e5c75d3d29d8249c14dbe7696aeac30868b4085661",
+        "src/learn/data/numerical-pde-examples.js": "c2a25964f5d2f3b18c9b242cf4897a21fe030630aaa963c84ec489d3e2e80821",
+        "src/learn/data/numerical-pdes-mechanism-program.js": "fcdd33cd2ce92b1115a4d177808afc2550b979ab85c47e1b6048da60ca7732cf",
+        "public/learn-assets/numerical-pdes/finite-element-banded-bridge.py": "11688cc94e0ff503ed0055ddcf00a3b1a083b160daf50d3ca47f79afcfca2774"
+      },
+      "reusedProgram": null
+    }
+  ],
+  "verifier": {
+    "path": "scripts/verify-math-depth-remediation.py",
+    "sha256": "b3c265917e21222a44e88f56210ced3a8b050d1cc6806ceff2e39e235c58758d"
+  },
+  "sharedUiReused": {
+    "src/learn/components/lesson-labs/MechanismProgram.jsx": "347fde8eefd4ce624c0db36597d4a421412a7c70a60e4a553a708f30f4b9d920",
+    "src/learn/components/lesson-labs/mechanism-program.css": "a2758dfc67cd54052aebf4f753b08fa66a054766da862bdb9aa6fa0c54e83316"
+  },
+  "authorEvidence": {
+    "path": "docs/teaching/evidence/math-depth-remediation-author.json",
+    "sha256": "379b9f88afb5211dfce980ade2bedaf20367a4e908ba6d86f678fd4e971c08f0"
+  },
+  "integration": {
+    "status": "complete",
+    "report": "docs/teaching/implementation-depth/REMEDIATION.md",
+    "browserEvidence": "docs/teaching/evidence/depth-remediation-browser.json"
+  },
+  "report": {
+    "path": "docs/teaching/implementation-depth/MATH-DEPTH-REMEDIATION.md",
+    "sha256": "639706c6cf9b96148c07a6600dd40a313b723889816019b19b1fa2d09a5d5ff0"
+  }
+}

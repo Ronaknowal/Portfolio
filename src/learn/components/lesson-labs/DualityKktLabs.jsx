@@ -76,7 +76,7 @@ export function ProjectionCertificateLab() {
   }
   return <section className="duality-lab" aria-label="Projection and bound investigation">
     <p className="duality-eyebrow">Investigate · a candidate and a certificate have different jobs</p><h3>Trap the best possible cost between two numbers</h3>
-    <p>Start with the feasible square at (2,2), costing 5. The price λ=1 supplies the lower bound 1.5. Predict what happens if you move the square to the blue target: its cost becomes smaller, but does it remain feasible?</p>
+    <p>Start with the feasible square at (2,2), costing 5. The price λ=1 supplies the lower bound 1.5. Inspect what happens if you move the square to the blue target: its cost becomes smaller, but does it remain feasible?</p>
     <div className="duality-controls"><Range label="Projection budget b" value={budget} setValue={setBudget} min={-2} max={10} step={0.5} /><Range label="Bound multiplier lambda" value={multiplier} setValue={setMultiplier} min={-2} max={12} step={0.5} /><Range label="Candidate x" value={candidate[0]} setValue={value => setCandidate([value, candidate[1]])} min={-3} max={8} step={0.5} /><Range label="Candidate y" value={candidate[1]} setValue={value => setCandidate([candidate[0], value])} min={-3} max={8} step={0.5} /></div>
     <div className="duality-buttons"><button type="button" onClick={() => {
         setCandidate([...state.optimum]);
@@ -129,7 +129,7 @@ export function ScalarKktLab() {
     setCandidate(Math.max(value, 0));
     setMultiplier(2 * Math.max(-value, 0));
   }
-  return <section className="duality-lab" aria-label="Four KKT conditions investigation"><p className="duality-eyebrow">Investigate · balance is only one condition</p><h3>Separate a boundary from its price</h3><p>Minimize (x−c)² subject to x≥0, written −x≤0. At c=−1 the objective prefers an infeasible negative point. Its positive derivative at x=0 is balanced by the constraint's contribution −λ. Predict which checks fail if you keep x=0 but change λ to zero.</p>
+  return <section className="duality-lab" aria-label="Four KKT conditions investigation"><p className="duality-eyebrow">Investigate · balance is only one condition</p><h3>Separate a boundary from its price</h3><p>Minimize (x−c)² subject to x≥0, written −x≤0. At c=−1 the objective prefers an infeasible negative point. Its positive derivative at x=0 is balanced by the constraint's contribution −λ. Inspect which checks fail if you keep x=0 but change λ to zero.</p>
     <div className="duality-controls"><Range label="Quadratic center c" value={center} setValue={setCenter} min={-2} max={2} /><Range label="KKT candidate x" value={candidate} setValue={setCandidate} min={-2} max={4} /><Range label="KKT multiplier lambda" value={multiplier} setValue={setMultiplier} min={-2} max={6} /></div>
     <div className="duality-buttons"><button type="button" onClick={() => preset(-1)}>Active · positive price</button><button type="button" onClick={() => preset(0)}>Active · zero price</button><button type="button" onClick={() => preset(1)}>Inactive · zero price</button><button type="button" onClick={() => {
         setCandidate(state.optimum);
@@ -165,7 +165,7 @@ export function SensitivityLab() {
     setChange(0.5);
     setChosenPrice(0.5);
   }
-  return <section className="duality-lab" aria-label="Multiplier sensitivity investigation"><p className="duality-eyebrow">Investigate · supporting price or derivative?</p><h3>Change the resource and reoptimize</h3><p>The blue curve is the exact best cost after changing the right-hand side. The amber line is the lower estimate from an optimal multiplier at the original point. Predict whether a finite change must land on that line.</p>
+  return <section className="duality-lab" aria-label="Multiplier sensitivity investigation"><p className="duality-eyebrow">Investigate · supporting price or derivative?</p><h3>Change the resource and reoptimize</h3><p>The blue curve is the exact best cost after changing the right-hand side. The amber line is the lower estimate from an optimal multiplier at the original point. Inspect whether a finite change must land on that line.</p>
     <div className="duality-controls"><label className="duality-field"><span>Value function</span><select aria-label="Value function" value={mode} onChange={event => chooseMode(event.target.value)}><option value="quadratic">Squared-distance budget</option><option value="kink">A value function with a corner</option></select></label><Range label="Original right-hand side" value={base} setValue={setBase} min={mode === 'quadratic' ? 0 : -2} max={mode === 'quadratic' ? 10 : 2} /><Range label="Right-hand-side change delta" value={change} setValue={setChange} min={-2} max={2} />{mode === 'kink' && base === 0 && <Range label="Optimal kink multiplier" value={chosenPrice} setValue={setChosenPrice} min={0} max={1} />}</div>
     <div className="duality-buttons"><button type="button" onClick={() => {
         chooseMode('quadratic');
@@ -207,7 +207,7 @@ export function ResourceDualAscentLab() {
     setInitialPrice(0);
     setStep(0);
   }
-  return <section className="duality-lab" aria-label="Resource price iteration investigation"><p className="duality-eyebrow">Investigate · local decisions, shared constraint</p><h3>Raise the price when demand exceeds the budget</h3><p>Two tasks choose their nonnegative allocations independently at the current price. Their costs are (x₁−3)² and 2(x₂−4)². The price update uses their total demand minus the budget. Predict the first price from λ=0, b=5, α=1 before stepping.</p>
+  return <section className="duality-lab" aria-label="Resource price iteration investigation"><p className="duality-eyebrow">Investigate · local decisions, shared constraint</p><h3>Raise the price when demand exceeds the budget</h3><p>Two tasks choose their nonnegative allocations independently at the current price. Their costs are (x₁−3)² and 2(x₂−4)². The price update uses their total demand minus the budget. Inspect the first price from λ=0, b=5, α=1 as you step.</p>
     <div className="duality-controls"><Range label="Shared resource budget" value={budget} setValue={value => change(setBudget, value)} min={0} max={8} /><Range label="Price step size alpha" value={rate} setValue={value => change(setRate, value)} min={0} max={4} /><Range label="Initial resource price" value={initialPrice} setValue={value => change(setInitialPrice, value)} min={0} max={20} step={0.5} /></div>
     <p className="duality-note">Changing a parameter restarts the trace at update 0. Each state solves the two local minimizations exactly; these are deterministic arithmetic models, not measured distributed timings.</p>
     <div className="duality-buttons"><button type="button" disabled={step === 0} onClick={() => setStep(step - 1)}>Previous price</button><output>State {step} of 20</output><button type="button" disabled={step === 20} onClick={() => setStep(step + 1)}>Next price</button><button type="button" onClick={() => setStep(20)}>Show state 20</button><button type="button" onClick={reset}>Reset resource</button></div>

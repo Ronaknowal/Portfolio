@@ -1,5 +1,8 @@
 # Transformer Block Architecture
 
+**Explore as you read.** Edit features, normalizer offset/scale, FFN matrices, branch multiplier, pre/post placement and supported retained trajectory inputs. Update normalization reference sets, feature writes, residual state, block output and derivative paths together. Show exact zero-branch and common-shift cases. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to reason about placement and branch scaling using their actual function and gradient effects rather than an architecture slogan.
+
+
 A hand follows a curved path. To recognize the movement, a model needs more than a list of isolated coordinates: it needs to relate different moments, combine the resulting evidence, and revise its description of the movement. The previous [self-attention lesson](/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals) supplied the communication mechanism. A **Transformer block** packages that communication with a small feature-processing network and carefully arranged update paths. Several blocks can then refine the same sequence of representations.
 
 This lesson follows one question throughout: **what changes, and what remains available, as information passes through a block?** Answering it lets you read an architecture diagram, implement the actual computation, diagnose a misleading gradient plot, and understand why two models both called Transformers need not have the same behavior.
@@ -121,7 +124,7 @@ Add five to every feature, producing `[6,7,10,13]`. LayerNorm removes the common
 
 Multiplying every feature by a positive constant leaves either normalized direction unchanged when epsilon is zero and the denominator is nonzero. With positive epsilon, that scale invariance is approximate. Negative scaling flips the normalized direction before affine offsets. A constant vector becomes zero under centered LayerNorm before its affine offset; a nonzero constant vector does not become zero under RMSNorm.
 
-**Investigation — choose the ruler.** Edit all four input features, then predict whether a common offset will change LayerNorm and RMSNorm. Record the prediction before computing. Compare the original and shifted vectors as aligned dot plots with their means and zero visible. Next construct a zero-mean vector where both methods agree; changing one feature should break that agreement. The [normalization lesson](/learn/path/full-curriculum/batch-layer-group-rms-normalization?module=deep-learning-fundamentals) develops the wider family and its derivatives.
+**Investigation — choose the ruler.** Edit all four input features, then observe whether a common offset will change LayerNorm and RMSNorm. Show the current computed result and its contributing terms immediately. Compare the original and shifted vectors as aligned dot plots with their means and zero visible. Next construct a zero-mean vector where both methods agree; changing one feature should break that agreement. The [normalization lesson](/learn/path/full-curriculum/batch-layer-group-rms-normalization?module=deep-learning-fundamentals) develops the wider family and its derivatives.
 
 For causal prediction, these axes matter. `LayerNorm(d)` on `(B,L,d)` only uses one position's features. Normalizing jointly over `(L,d)` can let future inputs change an earlier normalized state even when attention has a perfect causal mask. Similarly, padding must be excluded from any pooling over positions. An architecture name cannot repair an incorrect reduction axis.
 
@@ -156,7 +159,7 @@ For a second row `[-1,0,1,0]`, the up responses are `[-2,0,-1]`; ReLU makes all 
 
 This pointwise distinction explains a useful connection to a `1×1` convolution over channels: both can apply the same feature transformation at every spatial position without mixing neighboring positions at that step. Stacking such transformations with communication operations gives a different model from either kind alone.
 
-**Inline figure — feature responses and write directions.** Show four input feature bars, three response bars, the activation curve, and four output update bars. Clicking a response shows its explicit dot product and its row of `W_down`; negative output contributions must remain visible. A second token lane reuses the same matrix labels. The learner edits a matrix entry or a feature and predicts which lane can change.
+**Inline figure — feature responses and write directions.** Show four input feature bars, three response bars, the activation curve, and four output update bars. Clicking a response shows its explicit dot product and its row of `W_down`; negative output contributions must remain visible. A second token lane reuses the same matrix labels. The learner edits a matrix entry or a feature and inspects which lane changes.
 
 ### ReLU, GELU and a multiplicative gate
 
@@ -208,7 +211,7 @@ Follow the second position all the way through. Its attention weights on positio
 
 The first hidden response is positive because `1.330590−.453929≈.876661`; its write direction adds only to feature 1. At the first position all three FFN responses happen to be zero, so its final output equals its contextual state. Repeating the computation with the same parameters under post-norm gives second-position output approximately `[.695474,−1.720968,.632590,.392905]`. The changed result comes from the wiring, including which vectors determine attention scores, not from learning new parameters between the two calculations.
 
-**Investigation — build the block.** Select pre-norm or post-norm, edit a real input feature or either FFN matrix, and predict a chosen output feature's direction of change. Commit before revealing the calculation. The trace exposes input, normalized branch view, attention update, first addition, FFN responses, FFN update and final output. Compare the same parameter values under the other wiring. Set branch scale to zero as a separate null experiment: pre-norm must return the input, while post-norm still normalizes it. An independent FFN-only view lets you check that editing a different position cannot affect an unchanged direct FFN input.
+**Investigation — build the block.** Choose pre-norm or post-norm, edit an input feature or either FFN matrix, and watch a selected output feature change. The trace exposes input, normalized branch view, attention update, first addition, FFN responses, FFN update and final output. Compare the same parameters under the other wiring. At zero branch scale, pre-norm returns the input while post-norm still normalizes it. The independent FFN view shows why another position cannot affect an unchanged direct FFN input.
 
 The figure is useful because it displays actual vectors at named junctions. A heatmap of vaguely labeled “activation strength” would hide the difference between a normalized branch input, an update and the carried state. We can compute RMS or L2 summaries too, but their labels must say which tensor and which reduction they summarize.
 
@@ -263,11 +266,39 @@ for pre_norm in (True, False):
     expected = reference(inputs, src_mask=blocked)
     print(pre_norm, tuple(actual.shape),
           torch.allclose(actual, expected, atol=1e-12, rtol=1e-12))
+    block.zero_grad(set_to_none=True)
+    reference.zero_grad(set_to_none=True)
+    left = inputs.clone().requires_grad_()
+    right = inputs.clone().requires_grad_()
+    probe = torch.linspace(-.9, 1.1, inputs.numel(), dtype=inputs.dtype).reshape_as(inputs)
+    (block(left, blocked)*probe).sum().backward()
+    (reference(right, src_mask=blocked)*probe).sum().backward()
+    torch.testing.assert_close(left.grad, right.grad, atol=1e-10, rtol=1e-10)
+    pairs = [(block.attention, reference.self_attn),
+             (block.norm_attention, reference.norm1),
+             (block.norm_feedforward, reference.norm2),
+             (block.feedforward[0], reference.linear1),
+             (block.feedforward[2], reference.linear2)]
+    with torch.no_grad():
+        for ours, theirs in pairs:
+            for (name, parameter), (other_name, other) in zip(
+                    ours.named_parameters(), theirs.named_parameters(), strict=True):
+                assert name == other_name
+                torch.testing.assert_close(parameter.grad, other.grad, atol=1e-10, rtol=1e-10)
+                parameter.add_(parameter.grad, alpha=-.01)
+                other.add_(other.grad, alpha=-.01)
+    torch.testing.assert_close(block(inputs, blocked), reference(inputs, src_mask=blocked),
+                               atol=1e-10, rtol=1e-10)
+    print({"pre_norm": pre_norm, "gradient_and_update_checks": "passed"})
 ```
 
 The expected printed lines are `True (2, 4, 8) True` and `False (2, 4, 8) True`. The same-parameter comparisons were executed with PyTorch 2.14.0 CPU; the packet records the actual maximum differences. We are checking the complete computation against another implementation, not expecting separately initialized blocks to agree.
 
 Notice three small decisions. We calculate `Norm(X)` once and reuse it as the input to the three attention projections. The FFN receives the updated contextual state. For this `MultiheadAttention` API, boolean **True means blocked**; do not transfer that convention to an API where True means allowed. Padding masks are additionally needed for variable-length batches, and padded query outputs must be excluded from the task's loss or pooling.
+
+The extended comparison follows the input derivative and each attention, normalizer and FFN parameter through the same nonuniform output probe, then makes one equal SGD update. It reuses attention from the [prepared Self-Attention §5 owner](../self-attention-multi-head-attention/lesson.md#5-implement-the-operation-you-just-traced), and normalizer mechanisms from the [implemented Normalization lesson](/learn/path/full-curriculum/batch-layer-group-rms-normalization?module=deep-learning-fundamentals). The new operation owned here is the block's wiring, including the two placements and parameter/state correspondence.
+
+**Take control:** change both normalizers' epsilon to .001 in both routes and repeat. **Hint:** epsilon is part of the function, even with copied affine parameters. **Solution:** a matched change preserves the checks; changing epsilon on only one side generally breaks both output and derivative equality. For nonzero dropout, instead compare under identical masks or study the stochastic distributions; do not demand pointwise agreement from unrelated draws.
 
 ### Defaults and training behavior are part of the model
 
@@ -335,7 +366,7 @@ Both placements learn this small task. Post-norm has more test-correct examples 
 
 Choose source row 77, the first test example of class 4, before choosing any favorable prediction. Its source class is **anticlockwise arc**. Under the seed 101 checkpoints, the pre-norm model predicts class 7 and assigns class 4 probability about `.000211`; the post-norm model predicts class 3 and assigns class 4 probability about `.200043`. Both are wrong. The trace remains useful precisely because we can inspect an actual error instead of showing only impressive predictions.
 
-**Investigation — what did the model use?** View the recorded trajectory with start/end markers and time tags. Edit an actual point or its time tag, record a prediction about the class 4 probability or a named logit, and run the fixed model. Inspect the first and second block's branch inputs, updates and carried states for the chosen position. A difference between two stages is a computation you can trace; it is not a guarantee that one hidden coordinate has an obvious human meaning.
+**Investigation — what did the model use?** View the recorded trajectory with start/end markers and time tags. Edit an actual point or its time tag, Show the current computed result and its contributing terms immediately. Inspect the first and second block's branch inputs, updates and carried states for the chosen position. A difference between two stages is a computation you can trace; it is not a guarantee that one hidden coordinate has an obvious human meaning.
 
 Three contrasts make the mechanism concrete:
 
@@ -422,7 +453,7 @@ The packet computes stacks of 1,4 and 12 blocks at width 8, two heads and FFN wi
 
 Neither placement loses this probe's sensitivity in the measured depths. Replacing the probe with an all-ones output sum makes both input gradients effectively zero after their shared final normalizer. That contrast explains why specifying the output quantity is essential.
 
-**Investigation — choose a meaningful probe.** Edit the four-feature vector and the output-probe weights. Predict whether the input gradient is exactly zero, then reveal the analytic gradient and a finite-difference comparison. Construct one uninformative probe and one informative probe without changing the normalizer. A separate recorded depth view shows all intermediate-state norms from the actual CPU calculation; it should not extrapolate unmeasured depths or call a larger gradient automatically better.
+**Investigation — choose a meaningful probe.** Edit the four-feature vector and the output-probe weights. Observe whether the input gradient is exactly zero, and show immediately the analytic gradient and a finite-difference comparison. Construct one uninformative probe and one informative probe without changing the normalizer. A separate recorded depth view shows all intermediate-state norms from the actual CPU calculation; it should not extrapolate unmeasured depths or call a larger gradient automatically better.
 
 Xiong et al. analyze initialization with a simplified mean-field setting, including single-head attention, zero-initialized query/key matrices giving uniform weights, Gaussian input assumptions, and a loss on a prediction readout. Their analysis and experiments explain why normalization placement can affect initial gradient scale and the usefulness of learning-rate warmup. In particular, the post-norm concern includes large gradients near the output, not just a slogan about vanishing lower-layer gradients. Their result does not make every pre-norm training setup safe without warmup. [Xiong et al., §§3–4](https://proceedings.mlr.press/v119/xiong20b/xiong20b.pdf)
 

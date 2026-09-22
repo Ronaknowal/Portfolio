@@ -91,7 +91,7 @@ export function CovarianceSpectrumLab() {
     setSeed(7);
   }
   return <Investigation id="random-covariance" kicker="COMPUTED SPECTRUM · SHAPE AND PREPROCESSING" title="A noise sample still has principal directions">
-    <p>Predict what happens to the zeros when features outnumber observations. Then change the shape, keeping the entry variance at one.</p>
+    <p>Inspect what happens to the zeros when features outnumber observations. Then change the shape, keeping the entry variance at one.</p>
     <div className="rm-controls"><Select label="Matrix shape" value={shape} onChange={setShape} options={[['32,8', '32 rows × 8 features'], ['64,16', '64 rows × 16 features'], ['48,48', '48 rows × 48 features'], ['24,48', '24 rows × 48 features']]} /><Select label="Entry law" value={law} onChange={setLaw} options={[['gaussian', 'Gaussian: mean 0, variance 1'], ['sign', 'Independent signs: −1 or +1']]} /><label className="rm-check"><input type="checkbox" checked={centered} onChange={event => setCentered(event.target.checked)} />Subtract sample means</label></div>
     <SampleButtons seed={seed} setSeed={setSeed} reset={reset} /><Legend /><MassChart bins={bins} />
     <div className="rm-zero"><strong>Mass exactly at zero, shown separately</strong><p>Numerical sample: {result.zeroCount}/{columns} = {format(result.zeroCount / columns)}. Limiting atom: {format(reference.atom)}.</p><div className="rm-mass-track"><span style={{
@@ -189,7 +189,7 @@ export function WignerSpectrumLab() {
     return [value, Math.sqrt(Math.max(0, 4 - value * value)) / (2 * Math.PI)];
   });
   return <Investigation id="random-wigner" kicker="MIRRORED ENTRIES · SPECTRAL SCALE" title="Reflect the entries, then inspect the spectrum">
-    <p>Covariance multiplies a matrix by its transpose. This model instead mirrors independent entries across a diagonal. Predict whether negative eigenvalues are possible.</p>
+    <p>Covariance multiplies a matrix by its transpose. This model instead mirrors independent entries across a diagonal. Inspect whether negative eigenvalues are possible.</p>
     <div className="rm-controls"><Select label="Symmetric matrix size" value={size} onChange={value => setSize(Number(value))} options={[[12, '12 × 12'], [32, '32 × 32'], [48, '48 × 48']]} /><Select label="Symmetric entry law" value={law} onChange={setLaw} options={[['gaussian', 'GOE: Gaussian upper triangle'], ['sign', 'Signs off diagonal; zero diagonal']]} /><label className="rm-check"><input type="checkbox" checked={scaled} onChange={event => setScaled(event.target.checked)} />Divide matrix by square root of size</label></div>
     <SampleButtons seed={seed} setSeed={setSeed} reset={() => {
       setSize(32);

@@ -24,7 +24,7 @@ export function MovingMaximumLab() {
   }
   return <section className="range-lab" aria-label="Moving maximum investigation">
     <div className="range-eyebrow">Investigate · candidate lifetimes</div><h3>Expired is different from dominated</h3>
-    <p>Predict what happens to the older value 2 when another 2 arrives. Later, value 5 removes several candidates at once. Follow indices as well as values.</p>
+    <p>Inspect what happens to the older value 2 when another 2 arrives. Later, value 5 removes several candidates at once. Follow indices as well as values.</p>
     <div className="range-controls"><RangeField label="Array draft · up to 8 integers, −20…20" type="text" value={draft} onChange={setDraft} /><RangeField label="Window width · 1…8" value={width} onChange={setWidth} /><button type="button" onClick={() => {
         try {
           apply();
@@ -82,7 +82,7 @@ export function SignedShortestRangeLab() {
   }
   return <section className="range-lab" aria-label="Signed shortest range investigation">
     <div className="range-eyebrow">Investigate · ordered prefix candidates</div><h3>A later, lower prefix is a better start</h3>
-    <p>The prefix totals for [1,−1,5] are [0,1,0,5]. Predict why boundary 2 replaces both old starts before the final value arrives, then returns range [2,3).</p>
+    <p>The prefix totals for [1,−1,5] are [0,1,0,5]. Investigate why boundary 2 replaces both old starts before the final value arrives, then returns range [2,3).</p>
     <div className="range-controls"><RangeField label="Array draft · up to 8 integers, −20…20" type="text" value={draft} onChange={setDraft} /><RangeField label="Positive target · 1…100" value={target} onChange={setTarget} /><button type="button" onClick={() => {
         try {
           apply();

@@ -226,5 +226,8 @@
   "real-analysis-sequences-modes-of-convergence": "./topics/real-analysis-sequences-modes-of-convergence.jsx",
   "abstract-algebra-groups-symmetry-actions": "./topics/abstract-algebra-groups-symmetry-actions.jsx",
   "partial-differential-equations-conservation-boundary-conditions": "./topics/partial-differential-equations-conservation-boundary-conditions.jsx",
-  "numerical-pdes-grids-finite-elements-stability": "./topics/numerical-pdes-grids-finite-elements-stability.jsx"
+  "numerical-pdes-grids-finite-elements-stability": "./topics/numerical-pdes-grids-finite-elements-stability.jsx",
+  "end-to-end-supervised-learning-error-analysis": "./topics/end-to-end-supervised-learning-error-analysis.jsx",
+  "ml-problem-formulation-baselines-data-leakage": "./topics/ml-problem-formulation-baselines-data-leakage.jsx",
+  "time-series-validation-forecasting-baselines": "./topics/time-series-validation-forecasting-baselines.jsx"
 }

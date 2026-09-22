@@ -11,7 +11,7 @@ export default function PandasJoinLab() {
   const result = modelJoin(how, duplicate, validate);
   const active = result.rows[Math.min(selected, Math.max(0,result.rows.length-1))];
   return <section className="lesson-lab pandas-join-lab" aria-label="Pandas join explorer">
-    <h3>Predict how many rows survive the join</h3>
+    <h3>Explore how many rows survive the join</h3>
     <p>These are the tables in the merge example below. C9 has an order but no customer record; C3 has a customer record but no order. This illustrates join behaviour, not a full Pandas interpreter.</p>
     <div className="lesson-controls">
       <label>Join type<select aria-label="Join type" value={how} onChange={e => setHow(e.target.value)}>

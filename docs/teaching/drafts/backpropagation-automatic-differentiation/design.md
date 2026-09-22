@@ -53,7 +53,7 @@ The audit preserves broad depth without making the full engine or higher-order b
 
 | Hurdle | Local bridge and example | Evidence/representation |
 | --- | --- | --- |
-| Gradient is local, update is separate | Scalar neuron8loss/8weightgrad; MSEtwo-row large/small/no-op steps | GraphA and graded investigationA |
+| Gradient is local, update is separate | Scalar neuron8loss/8weightgrad; MSEtwo-row large/small/no-op steps | GraphA and live investigationA |
 | Branches and repeated operands accumulate | x*x,u+c*u | GraphB with both slot edges, cancellation/null |
 | Bias gradient shape differs from output | Three uses per bias entry | Broadcast figureC and changed practice |
 | Matrix derivative orientation | Indexed product derivation, row-batch table | Forward/reverse shape lanesD |
@@ -91,6 +91,58 @@ Full author reread of manuscript and specifications performed. Learning-experien
 
 ## Finishing handoff
 
-Render diagramsA–H and implement only the three specified investigations with shared input-bound grading rules. Carry downloadable teaching source, CSV and attribution; avoid executing general Python or training networks in the browser. Preserve on-demand topic ownership/loading and current module reading order. Verify per-topic numeric model/fixtures, exact programs and publication downloads, invalidation/reset, responsive/accessibility behaviors, log/zero plots, then independent review and relevant integration checks.
+Render diagramsA–H and implement only the three specified investigations with shared input-bound output consistency rules. Carry downloadable teaching source, CSV and attribution; avoid executing general Python or training networks in the browser. Preserve on-demand topic ownership/loading and current module reading order. Verify per-topic numeric model/fixtures, exact programs and publication downloads, invalidation/reset, responsive/accessibility behaviors, log/zero plots, then independent review and relevant integration checks.
 
 Only packet artifacts and own destination-note disposition changed. Temporary own __pycache__ was removed after absolute-path containment verification; author script now avoids bytecode generation. Prior packets and shared runtime are retained.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Trace credit and the effect of a step. Edit the two-example fit, learning rate, repeated-path coefficient and finite-difference step/offset. Show fitted line, residuals, derivative contributions and before/after loss immediately; step the backward accumulation without hiding the current total. The finite-difference panel displays both errors and the analytic derivative. Distinguish a correct gradient from a useful step size, and truncation/cancellation from a faulty derivative.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Prepared-content implementation — 21 September 2026 (author handoff)
+
+The authorized finish preflight passed (`scratch/deep-learning-core-implementation/backpropagation-author-preflight.json`). The complete retained packet was consumed. Stable ID, title, existing manifest destination and module position remain unchanged. This section supersedes the packet's earlier “implementation not started” statements for author work only; independent review and final production integration are separate below.
+
+### Sources and coverage
+
+| Prepared obligation | Implemented ownership |
+| --- | --- |
+| Complete §§1–8 prose, mathematics, seven standalone programs, engine excerpts, eight practice tasks with separate hints/solutions, annotated references | `src/learn/data/topics/backprop.jsx`; author-only `scripts/build-backprop-lesson.mjs` preserves the full prepared manuscript in direct JSX and maps every visual marker to its component. Runtime never imports the Markdown packet. |
+| A: scalar trace and two-example simultaneous update | `BackpropScalarFigure` in `BackpropFigures.jsx`; `BackpropFitLab` in `BackpropLabs.jsx`. Both current/updated fits, residuals, per-row gradient contributions and both losses are always visible. |
+| B: repeated operands and two shared paths | `BackpropSharedLab`: one x node with two slot edges, one u node with two consumers; complete gradient stays visible while reverse stages highlight contributions. Cancellation at c = −1 and zero-input invariance are explicit. |
+| C/D: broadcast reversal and two-layer pullback shapes | `BackpropBroadcastFigure` and `BackpropShapeFigure`: feature-column correspondence, exact 9/12 sums, input×output convention, every object/gradient shape and contracted-index explanations. Phone layouts stack correspondence blocks. |
+| E: actual training observations | `src/learn/data/backprop-training.js` copies only the retained XOR/digit observations; `BackpropTrainingFigure` preserves initial values, actual update spacing, log-scale XOR loss, full 0–120 digit count axis and exact tables. No browser training or invented per-image predictions. |
+| F: finite-difference evidence | `BackpropDifferenceLab` displays two editable checks, actual evaluated numbers, local sampled function/secant, analytic derivative and absolute/relative error; sine, large-offset linear, zero-reference square and separate ReLU corner interpretation. |
+| G/H: directional products and storage dependencies | `BackpropProductsFigure` has signed product bars, Jacobian arithmetic and duality values. `BackpropCheckpointFigure` has unique saved/regenerated slots and a full dependency-valid eight-operation schedule, with no byte or speed claims. |
+| Complete offline engine, real data, attribution, same-state checks and all displayed programs | `public/learn-assets/backpropagation/`: engine, licensed CSV, combined provenance, author calculations, saved observations and seven purpose-named complete Python files. |
+
+The pure model is `src/learn/data/backprop-models.js`. UI ownership is limited to `BackpropShared.jsx`, `BackpropLabs.jsx`, `BackpropFigures.jsx` and `backprop-labs.css` under `src/learn/components/lesson-labs/`. Native range controls preserve arbitrary valid exact values (`step="any"` with bounded arrow-key increments); explicit unique labels bind sliders and numeric editors separately. Invalid numeric buffers retain the stated last valid result. Changing model inputs preserves the shared-path inspection stage. Reset clears buffers and restores dependent state.
+
+### Author evidence actually executed
+
+- `scripts/verify-backprop-models.mjs` → `docs/teaching/evidence/backprop-models.json`: **174 assertions**, including independent finite differences of varied two-row objectives, shared-path/operand identities, both null families, broadcast sums, robust finite-difference contrasts, JVP/VJP duality, checkpoint input availability and exact recorded-data identity.
+- `scripts/verify-backprop-native.py` → `docs/teaching/evidence/backprop-native.json`: **nine complete programs and 51 assertions**, running the full engine, the full author calculation script in an isolated temporary copy, and all seven standalone examples. Python 3.12.14, NumPy 2.3.5, PyTorch 2.14.0+cpu, scikit-learn 1.9.1; one CPU thread. The previously deferred custom-operation gradcheck and checkpoint comparison both execute successfully. All six XOR and six digit observation rows reproduce; source CSV SHA256 is retained. Prepared source/data files are not mutated.
+- `scripts/verify-backprop-browser.cjs` → `docs/teaching/evidence/backprop-browser-author.json`: author **development-preview** checks at 1366/390/320 px, including immediate outputs, real pointer input, every visible slider's native endpoints/interior keyboard edits, non-preset exact input, invalid/reset, fast edits, preserved inspection stage, explicit cancellation/zero-reference cases, download responses, KaTeX, control paint and containment. Current source hashes and screenshots are in the receipt. The final production run must use a separate `backprop-browser.json` receipt.
+- Early Babel parsing succeeded for the body and all three component modules before browser review. Author checks intentionally do not run the shared application build while sibling authors edit.
+
+### Author learning-experience pass and corrections
+
+The route keeps the first-pass §§1–5 independent of the deeper engine/JVP/HVP/custom/checkpoint material. The complete manuscript and all eight changed-constraint practices are retained; no learner prediction/commit/grading feature was added. Each numerical caution has its own mechanism: local gradient versus step length, path accumulation, broadcast reduction, same-state evidence, nonsmooth convention, finite precision, and checkpoint dependency preservation. No new uncertain scientific claim or API was introduced beyond the researched packet; current runtime execution substantiates the displayed API examples.
+
+The rendered pass found and repaired a real 390 px page overflow from long display equations by containing their own scroll, without any descendant SVG sizing rule. Image review then found undersized phone SVG annotations and squeezed table headings; phone font sizes were enlarged, exact tables receive deliberate horizontal scrolling, and their visible captions reflow outside the scroll region. Screenshot capture hides only global fixed navigation/sidebar during element capture so it cannot paint over a tall diagram; ordinary control/containment checks use the unchanged page. Retained font assets are fulfilled locally and hash-recorded because the sandbox cannot reliably fetch the Google Fonts endpoints.
+
+Author evidence is not independent certification. Independent content/learning review, any resulting repairs and final production/build/loading integration remain with the designated reviewers/integration owner. The destination note's numerical obligations are implemented and checked; final closure should link the independent and production receipts. No shared manifest, registry, ledger, global stylesheet or unrelated lesson was changed by this author.
+
+### Independent-review repairs and final author freeze
+
+The designated reviewer requested readable ordinary-prose spacing, an integrated section route, meaningful table captions, reverse-pointing highlighted arrows during the shared-path backward stages, and persistent starting-case summaries in all three investigations. These are implemented. The generator protects code and mathematics while normalizing ordinary text, sets `hasIntegratedGuide: true`, and emits eight unique semantic section links. The six prose reference tables have specific captions. Active reverse arrows now point toward the graph inputs while the forward-use edges remain explicitly described. Each live lab preserves a compact baseline alongside the edited result.
+
+The affected author browser suite was rerun after these repairs: **94 assertions and 30 captures** at 1366/390/320 px, including the route, fixed baselines and active reverse-arrow markers. The source-bound result is `docs/teaching/evidence/backprop-browser-author.json`. Numerical model/native programs are unchanged, so their passing evidence is reused. The standalone stable-ID blueprint is `src/learn/data/curriculum/blueprints/backpropagation-automatic-differentiation.js`; its shared registration belongs to the integration owner. Runtime sources are frozen for final independent closure and shared production integration. The separate independent reviewer owns its report and certification.
+
+## Final production integration — 21 September 2026
+
+The author handoff above is closed by independent review and the final production browser pass. The [first-five completion record](../../DEEP-LEARNING-CORE-IMPLEMENTATION.md) links the reviewed lesson, native/model evidence, actual production checks and preserved scope baseline. Next/previous order, selected-body loading, section anchors, themed links and applicable rendered math geometry pass in the integrated build. Both delivery phases are complete; user acceptance is separate. Earlier pending integration sentences describe the historical author checkpoint, not current work.

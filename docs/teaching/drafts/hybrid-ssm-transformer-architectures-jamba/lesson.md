@@ -1,5 +1,8 @@
 # Hybrid SSM–Transformer Architectures: Jamba and Complementary Memory
 
+**Explore as you read.** Edit record keys/values, decay, score gap, cache budget, expert probabilities/capacity and supported stroke inputs. Show retained state versus explicit memory read, probability mass, exact request memory and continued frozen-model outputs. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a hybrid arrangement by memory retention and routing costs; named architecture examples do not imply identical mechanisms.
+
+
 A document assistant may need to follow a developing argument and then retrieve the exact amount beside an invoice number. A handwriting recognizer may need to follow a pen's movement and then compare the closing stroke with an earlier turn. These are related jobs, but the most convenient memory for one is not automatically the most convenient memory for the other.
 
 A **hybrid sequence model** uses more than one kind of sequence-processing operation inside a single network. In the family studied here, some layers update a compact recurrent state; others compare a query with stored keys and read the corresponding values. Jamba combines Mamba state-space layers, attention layers and, at selected feed-forward positions, sparsely chosen experts.
@@ -63,7 +66,7 @@ This is a counterexample for **this two-number summary**, not a proof that every
 
 [Figure J03: two different histories converge to an identical state node, while their retained value strips remain different. Caption identifies the recurrence and avoids a universal capacity claim.]
 
-**Investigation JA — decide what information to retain.** Use the fresh record list A:3, B:8, A:1, C:5. Before running it, predict whether changing the second label from B to A will affect the running summary, the label-A read, both or neither. Then edit a value, the recency factor or the score gap and explain which weights moved. Try the constant-value case and a query that matches no label. The latter still returns a weighted mixture; a production system needs a separate way to represent “no useful match.”
+**Investigation JA — decide what information to retain.** Use the fresh record list A:3, B:8, A:1, C:5. Before running it, observe whether changing the second label from B to A will affect the running summary, the label-A read, both or neither. Then edit a value, the recency factor or the score gap and explain which weights moved. Try the constant-value case and a query that matches no label. The latter still returns a weighted mixture; a production system needs a separate way to represent “no useful match.”
 
 ## 2. Read a hybrid stack on two axes
 
@@ -187,7 +190,7 @@ The K/V component is exactly eight times smaller in this comparison. The total c
 
 Full attention remains present, so this hybrid's cache still grows with context length. Replacing all its attention layers with a fixed-size sliding window would eventually bound the K/V count too, but would remove direct reads of keys outside that window. That is a changed computation, not a free cache optimization.
 
-**Investigation JC — build a memory budget.** Begin with the fresh 12-layer configuration: three attention layers, batch three, width 512, expanded width 1,024, two KV heads of width 64, state width eight and convolution width four. At 2,048 tokens, predict which components change when context doubles. Then change the attention count, batch size or dtypes. A second view can show a hypothetical windowed operator, with its lost direct-read range drawn explicitly.
+**Investigation JC — build a memory budget.** Begin with the fresh 12-layer configuration: three attention layers, batch three, width 512, expanded width 1,024, two KV heads of width 64, state width eight and convolution width four. At 2,048 tokens, inspect which components change when context doubles. Then change the attention count, batch size or dtypes. A second view can show a hypothetical windowed operator, with its lost direct-read range drawn explicitly.
 
 ### Optional: prefill arithmetic is different from one-token decoding
 
@@ -241,7 +244,7 @@ $$
 
 Renormalizing the selected weights would give $[4/3,1/3]$. Neither convention can be inferred merely from the phrase “top-2.”
 
-**Investigation JD — selected experts, retained mass.** Use four fresh expert outputs and edit router scores. First predict whether raising the score of an expert that remains unselected can change the output. Run the comparison and trace any change through the probability calculation. Contrast that with changing an unselected expert's output while leaving its score unchanged. Then compare retained-mass and renormalized mixing, and inspect a tie at the selection boundary.
+**Investigation JD — selected experts, retained mass.** Use four fresh expert outputs and edit router scores. First observe whether raising the score of an expert that remains unselected can change the output. Run the comparison and trace any change through the probability calculation. Contrast that with changing an unselected expert's output while leaving its score unchanged. Then compare retained-mass and renormalized mixing, and inspect a tie at the selection boundary.
 
 The broader [Mixture-of-Experts lesson](/learn/path/full-curriculum/mixture-of-experts-transformers-moe?module=deep-learning-fundamentals) develops expert specialization, balancing losses, capacity, dispatch and training gradients. Locally, remember that storing 16 experts and executing two does not make 14 experts disappear from model memory. Across a batch, different tokens may activate many different experts, requiring weight movement and possibly communication among devices.
 
@@ -392,7 +395,7 @@ Clearing K/V also changes this example's logits while preserving its final class
 
 [Figure J16: a request timeline split after point three. Draw two compact recurrent matrices, two short buffers and the growing attention bank, each connected to its own layer. Branches show correct carry and individually cleared state types, with a logit-difference strip.]
 
-**Investigation JB — continue the same request.** Start with the different validation trace at source row 2,970. Predict what will happen when only K/V is cleared after point three. Compare the entire probability vector and each prefix logit, then inspect recurrent reset, convolution reset and position-offset reset. Edit the actual coordinate points and make a fresh prediction before rerunning. A digit that still looks similar to a person may change its model representation.
+**Investigation JB — continue the same request.** Start with the different validation trace at source row 2,970. Predict what will happen when only K/V is cleared after point three. Compare the entire probability vector and each prefix logit, then inspect recurrent reset, convolution reset and position-offset reset. Edit the actual coordinate points and make a live comparison before rerunning. A digit that still looks similar to a person may change its model representation.
 
 The saved model was trained to classify after all eight points. Earlier logits reveal its computation, but are not calibrated promises that it can reliably classify every partial stroke.
 
@@ -425,6 +428,22 @@ Compare models at a constraint you actually care about: acceptable task quality 
 The optional [deployment program](deployment_example.py) shows a complete single-prompt generation path with an explicit model ID and revision, correct prompt handling and input/output token accounting. It is provided for a suitably provisioned environment; it was not executed for this lesson. The bounded author experiment uses only the small stroke models.
 
 For fine-tuning, inspect the real module names before selecting adapter targets. Attention projections, recurrent input/timestep/output projections and FFNs provide different adaptation choices. Attention-only adaptation is a valid restricted experiment, not automatically a bug; broader targets may help at additional cost. Compare on held-out tasks, including the original context-length requirements. There is no universal rule that recurrent layers require exactly twice the learning rate or a different clipping threshold.
+
+### Reuse primitives, own the composition and the cache
+
+The core implementation is [stroke_models.py](stroke_models.py). `SelectiveMixer.step` explicitly computes the positive step size, stable negative decay rates, selective writes/reads and causal convolution history. `AttentionMixer.forward` constructs masked scores; `AttentionMixer.step` extends the exact K/V cache. `Layer` composes the chosen mixer with the residual and gated channel path, and `StrokeModel` exposes both full and streamed execution. Thus the learner can build the hybrid's defining behavior without importing a ready-made Jamba block.
+
+These classes use ordinary `nn.Linear`, `nn.Conv1d`, tensor operations, parameter registration and Adam. The full study supplies fitting and `state_dict` restoration. For a released model rather than our small instructional network, [deployment_example.py](deployment_example.py) supplies the distinct Transformers tokenizer/model/generation route, with an explicit checkpoint revision and resource assumptions. Its learned projections, dimensions, routing and cache classes belong to that selected release; our tiny output is not a numerical oracle for an unrelated pretrained model. The deployment program remains unexecuted and requires appropriate CUDA, kernels and model storage.
+
+Underlying attention, SSM and expert derivations are taught in their named earlier **prepared** lessons; their new website implementations may still be pending. This packet stays self-contained for its own simplified mixers and routing calculation. It does not claim to have recreated a fused Mamba kernel or trained a full Jamba MoE checkpoint. `hybrid_mechanisms.py::route` explains the selected-expert probability contract; sparse trainable expert dispatch is owned by [the prepared MoE program](../mixture-of-experts-transformers-moe/moe_study.py), not the dense channel network used in this stroke experiment.
+
+**Control request identity.** Run two distinct trajectory prefixes, save each cache and position offset, then continue each with its own suffix. Compare with independent unsplit passes. Swap only the caches, then restore the correct pair.
+
+<details><summary>Hint and reasoned solution</summary>
+
+A request state comprises every layer's recurrent/convolution or K/V state plus its next logical position. Keep an independent cache container for each request; `stream` updates the supplied list, so a shallow alias shared by two requests is unsafe. Full and correctly carried execution should agree within the declared float32 tolerance. Swapping caches changes the past information, and restarting the position offset changes the embedding even if the past tensors were right. Winning labels can remain unchanged, so compare prefix logits and individual state arrays. Recurrent carried storage stays fixed at fixed dimensions; attention K/V storage grows with retained sequence length. The current repeated `torch.cat` in the small reference may copy the old cache; a production serving cache would preallocate or page it while preserving this identity contract.
+
+</details>
 
 ## 9. Optional branches: other ways to combine memory
 

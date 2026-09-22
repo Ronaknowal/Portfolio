@@ -21,13 +21,13 @@ function Slider({
 function Investigation({
   id,
   title,
-  prediction,
+  guidance,
   reset,
   children
 }) {
   const heading = useId();
-  return <section className="transport-lab lesson-lab" data-transport-lab={id} aria-labelledby={heading}>
-    <h3 id={heading}>{title}</h3><p><strong>Predict first.</strong> {prediction}</p>
+  return <section data-live-exploration className="transport-lab lesson-lab" data-transport-lab={id} aria-labelledby={heading}>
+    <h3 id={heading}>{title}</h3><p> {guidance}</p>
     {children}<button type="button" className="transport-reset" onClick={reset}>Reset investigation</button>
   </section>;
 }
@@ -78,7 +78,7 @@ export function TransportPlanLab() {
   }), [sourceFirst, targetFirst, fraction, costKind]);
   const i = Math.floor(selected / 2),
     j = selected % 2;
-  return <Investigation id="mass-ledger" title="Move mass without losing the ledger" prediction="If the target needs more mass at 0 than the source has there, can the source at 2 send some mass to both targets?" reset={() => {
+  return <Investigation id="mass-ledger" title="Move mass without losing the ledger" guidance="If the target needs more mass at 0 than the source has there, can the source at 2 send some mass to both targets?" reset={() => {
     setSourceFirst(0.5);
     setTargetFirst(0.5);
     setFraction(1);
@@ -113,7 +113,7 @@ export function TransportDualLab() {
   const state = useMemo(() => twoLocationTransport({
     dualPosition: potential
   }), [potential]);
-  return <Investigation id="dual-certificate" title="Prove that no cheaper plan exists" prediction="The shown plan costs 0.5. Can a feasible set of prices give a lower bound of exactly 0.5?" reset={() => setPotential(1)}>
+  return <Investigation id="dual-certificate" title="Prove that no cheaper plan exists" guidance="The shown plan costs 0.5. Can a feasible set of prices give a lower bound of exactly 0.5?" reset={() => setPotential(1)}>
     <p>Keep f₀ =0 and adjust f₁. Each gⱼ is chosen as the smaller of C₀ⱼ and C₁ⱼ − f₁, so no pair of prices exceeds that route's cost.</p>
     <Slider label="Source price f1" value={potential} setValue={setPotential} min={-1} max={3} step={0.1} />
     <LessonTable caption="Price, cost and remaining slack" headers={['Route', 'fᵢ + gⱼ', 'Cᵢⱼ', 'Slack', 'Plan mass']} rows={state.costs.flatMap((row, i) => row.map((cost, j) => [`${i * 2} → ${j}`, number(state.dual.sourcePotential[i] + state.dual.targetPotential[j]), cost, number(state.dual.slack[i][j]), state.plan[i][j]]))} />
@@ -130,7 +130,7 @@ export function CumulativeTransportLab() {
   const x = index => 42 + index * 78,
     y = value => 185 - value * 145;
   const curve = field => state.gaps.map((gap, index) => `${index ? 'L' : 'M'}${x(index)},${y(gap[field])} L${x(index + 1)},${y(gap[field])}`).join(' ') + ` L${x(3)},${y(1)}`;
-  return <Investigation id="cumulative-crossings" title="Count the mass that must cross each gap" prediction="Doubling every spacing changes no probabilities. What should it do to W₁?" reset={() => {
+  return <Investigation id="cumulative-crossings" title="Count the mass that must cross each gap" guidance="Doubling every spacing changes no probabilities. What should it do to W₁?" reset={() => {
     setScenario('nearby');
     setSpacing(1);
     setSelected(0);
@@ -165,7 +165,7 @@ export function SinkhornScalingLab() {
     source: state.source,
     target: state.target
   };
-  return <Investigation id="alternating-scaling" title="Repair one marginal, then inspect the other" prediction="After correcting the rows once, are the columns already correct?" reset={() => {
+  return <Investigation id="alternating-scaling" title="Repair one marginal, then inspect the other" guidance="After correcting the rows once, are the columns already correct?" reset={() => {
     setEpsilon(0.5);
     setStep(0);
   }}>
@@ -185,7 +185,7 @@ export function SinkhornScalingLab() {
 export function SinkhornStabilityLab() {
   const [offset, setOffset] = useState(1000);
   const state = useMemo(() => stabilityComparison(0.5, offset), [offset]);
-  return <Investigation id="log-domain" title="Change the numerical scale without changing the best plan" prediction="If every route costs an extra 1,000 units per unit mass, how much extra does every feasible probability plan cost?" reset={() => setOffset(1000)}>
+  return <Investigation id="log-domain" title="Change the numerical scale without changing the best plan" guidance="If every route costs an extra 1,000 units per unit mass, how much extra does every feasible probability plan cost?" reset={() => setOffset(1000)}>
     <Slider label="Cost added to every route" value={offset} setValue={setOffset} min={0} max={1000} step={100} />
     <LessonTable caption="Ordinary exponential kernel versus the stable plan" headers={['Route', 'Cost', 'exp(−C / 0.5)', 'Stable plan']} rows={state.costs.flatMap((row, i) => row.map((cost, j) => [`${i * 2} → ${j}`, cost, number(state.kernel[i][j]), number(state.stable.plan[i][j])]))} />
     <Metrics values={[['Kernel entries rounded to zero', state.vanishedEntries + ' of 4'], ['Stable marginal residual', number(state.stable.residual)], ['Plan difference from offset0', number(state.maximumPlanDifference)], ['Linear cost increase', number(state.stable.cost - state.reference.cost)]]} />
@@ -214,7 +214,7 @@ export function SinkhornBiasLab() {
   const [epsilon, setEpsilon] = useState(1),
     [comparison, setComparison] = useState('contracted');
   const state = useMemo(() => sinkhornComparison(epsilon, comparisonCases[comparison].shift, comparisonCases[comparison].scale), [epsilon, comparison]);
-  return <Investigation id="objective-bias" title="Give each computed number its correct name" prediction="If you compare a distribution with itself, which of the three quantities below must be zero?" reset={() => {
+  return <Investigation id="objective-bias" title="Give each computed number its correct name" guidance="If you compare a distribution with itself, which of the three quantities below must be zero?" reset={() => {
     setEpsilon(1);
     setComparison('contracted');
   }}>

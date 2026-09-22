@@ -5,10 +5,11 @@ import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import { FlowConservationLab, ResidualPairFigure, AugmentingFlowLab, MatchingCoverLab, NodeSplitFigure, BinaryCutLab } from '../../components/lesson-labs/NetworkFlowLabs.jsx';
 import { networkFlowExamples } from '../network-flow-examples.js';
 import practice from '../practice/network-flow-minimum-cuts-bipartite-matching.js';
+import FlowLibraryBridge from '../../components/lesson-labs/FlowLibraryBridge.jsx';
 
 export default {
   title: 'Network Flow, Minimum Cuts & Bipartite Matching',
-  readTime: '~80 min read + 4–5 hours practice',
+  readTime: '~90 min read + 4–5 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot network-flow-lesson">
     <LessonIntro prerequisites="Graphs' directed edges, paths, adjacency lists and BFS; Algorithm Correctness's invariants and certificates. Reductions explains changing a problem without changing its answers. The optional global-cut branch uses Randomized Algorithms' conditional probability and independent repetition. We introduce every flow and matching term locally."
@@ -137,6 +138,7 @@ export default {
       <Prose>The optimum matching size lies between 5 and 7. A cover of size 5 would certify equality immediately. Alternatively, prove no augmenting path exists; in a bipartite graph the corresponding alternating search would then reconstruct a size 5 cover. A merely maximal matching or a failed greedy attempt supplies neither conclusion.</Prose>
     </Checkpoint>
 
+    <FlowLibraryBridge />
     <H2>6. Model additional constraints</H2>
     <Prose>A reduction is useful only if its feasible answers correspond to the original rules. Before adding a graph gadget, state what it must enforce, explain both directions of the correspondence and say how to recover the original answer. The following variations alter different parts of the contract.</Prose>
     <H3>Limit the total throughput of an internal vertex</H3>

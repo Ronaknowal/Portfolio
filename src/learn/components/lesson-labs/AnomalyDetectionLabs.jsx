@@ -3,7 +3,7 @@ import {
   correction, firstCutIntervals, isolationExpectations, isolationLimits, isolationPath,
   kernelBoundary, kernelLimits, lofLimits, lofModeComparison, lofState, alarmCounts,
 } from '../../data/anomaly-detection-models';
-import { Field, Investigation, NumberField, NumberLine, Prediction, Table, integer, percent, round, usePrediction } from './AnomalyDetectionShared.jsx';
+import { Field, Investigation, NumberField, NumberLine, Table, integer, percent, round } from './AnomalyDetectionShared.jsx';
 import './anomaly-detection-labs.css';
 
 const name = id => `P${id}`;
@@ -19,19 +19,18 @@ export function IsolationLab() {
   const [depthCap, setDepthCap] = useState(3);
   const [query, setQuery] = useState(4);
   const [cuts, setCuts] = useState([6, 1.5, 0.5, 2.5, 3.5]);
-  const snapshot = JSON.stringify([values, depthCap]);
-  const prediction = usePrediction(snapshot);
+
   const expectations = isolationExpectations(values, depthCap);
   const cutIntervals = firstCutIntervals(values);
   const walk = isolationPath(values, cuts, query, depthCap);
-  const answer = expectations.tied ? 'tie' : name(expectations.shortest);
+  
   const reset = () => {
-    setValues(isolationPresets.gap.values); setDepthCap(3); setQuery(4); setCuts([6, 1.5, 0.5, 2.5, 3.5]); prediction.reset();
+    setValues(isolationPresets.gap.values); setDepthCap(3); setQuery(4); setCuts([6, 1.5, 0.5, 2.5, 3.5]); 
   };
   const setValue = (index, next) => setValues(values.map((value, position) => (position === index ? next : value)));
   return <Investigation
     title="Which position do random cuts separate first?"
-    question="A cut is drawn uniformly between the smallest and largest position, then again inside whichever side holds the query. An empty gap gives the position beyond it many chances to be separated early. Edit the positions, commit a prediction, then reveal the exact expectation over every cut sequence."
+    question="A cut is drawn uniformly between the smallest and largest position, then again inside whichever side holds the query. An empty gap gives the position beyond it many chances to be separated early. Edit the positions and watch the exact expectation over every cut sequence update."
     onReset={reset}>
     <div className="ad-controls">
       {values.map((value, index) => (
@@ -49,12 +48,7 @@ export function IsolationLab() {
         <button key={key} type="button" onClick={() => setValues(preset.values)}>{preset.label}</button>
       ))}
     </div>
-    <Prediction prompt="Which position ends up with the shortest average corrected path, so the largest score?"
-      options={[...values.map((_, index) => [name(index), `${name(index)} at ${round(values[index])}`]), ['tie', 'Two or more tie for shortest']]}
-      state={prediction} answer={answer}
-      describe={expectations.constant
-        ? 'With every position identical no cut can separate anything, so all five corrected paths equal c(5) and the scores are all 0.5. Equal scores give no ranking.'
-        : `The normalizer is c(${values.length}) = ${expectations.normalizer.toString()}.`} />
+    <p className="lesson-live-note">{expectations.constant ? 'With every position identical no cut can separate anything, so all five corrected paths equal c(5) and the scores are all 0.5. Equal scores give no ranking.' : `The normalizer is c(${values.length}) = ${expectations.normalizer.toString()}.`}</p>
     <NumberLine from={Math.min(...values) - 0.5} to={Math.max(...values) + 0.5} height={104}
       caption="The positions, with each gap a first cut can land in"
       describe={`Positions ${values.map((value, index) => `${name(index)} at ${round(value)}`).join(', ')}. ${cutIntervals.constant ? 'Every position is identical, so there is no gap to cut.' : cutIntervals.intervals.map(interval => `A cut between ${round(interval.from.toNumber())} and ${round(interval.to.toNumber())} has probability ${interval.probability.toString()}.`).join(' ')}`}>
@@ -74,22 +68,9 @@ export function IsolationLab() {
         </g>)}
       </>}
     </NumberLine>
-    {prediction.revealed && <>
-      <Table caption="Every gap a first cut can fall in, and what it would separate"
-        headings={['gap', 'width', 'probability', 'goes left', 'goes right']}
-        rows={cutIntervals.constant
-          ? [['no gap', '0', '—', 'every position', 'nothing']]
-          : cutIntervals.intervals.map(interval => [
-            `${round(interval.from.toNumber())} to ${round(interval.to.toNumber())}`,
-            interval.width.toString(), interval.probability.toString(),
-            interval.left.map(name).join(', '), interval.right.map(name).join(', '),
-          ])} />
-      <Table caption={`Expected corrected path and score, integrated exactly over every cut sequence to depth ${depthCap}`}
-        headings={['position', 'value', 'expected corrected path', 'score']}
-        rows={expectations.rows.map(row => [name(row.id), round(row.value.toNumber()),
-          `${row.meanPath.toString()} ≈ ${round(row.meanPath.toNumber())}`,
-          row.score === null ? 'undefined' : round(row.score, 6)])}
-        rowClass={index => (!expectations.constant && expectations.rows[index].id === expectations.shortest ? 'is-selected' : undefined)} />
+    {<>
+      <Table caption="Every gap a first cut can fall in, and what it would separate" headings={['gap', 'width', 'probability', 'goes left', 'goes right']} rows={cutIntervals.constant ? [['no gap', '0', '—', 'every position', 'nothing']] : cutIntervals.intervals.map(interval => [`${round(interval.from.toNumber())} to ${round(interval.to.toNumber())}`, interval.width.toString(), interval.probability.toString(), interval.left.map(name).join(', '), interval.right.map(name).join(', ')])} />
+      <Table caption={`Expected corrected path and score, integrated exactly over every cut sequence to depth ${depthCap}`} headings={['position', 'value', 'expected corrected path', 'score']} rows={expectations.rows.map(row => [name(row.id), round(row.value.toNumber()), `${row.meanPath.toString()} ≈ ${round(row.meanPath.toNumber())}`, row.score === null ? 'undefined' : round(row.score, 6)])} rowClass={index => !expectations.constant && expectations.rows[index].id === expectations.shortest ? 'is-selected' : undefined} />
       <p className="ad-caption">These are expectations over the cut construction, not the output of any finite random forest. The score rescales a path: 0.71 is not a 71% chance of a fault. A corrected path equal to the normalizer gives exactly 0.5.</p>
     </>}
     <details>
@@ -140,9 +121,7 @@ export function LofNeighbourhoodLab() {
   const [k, setK] = useState(2);
   const [query, setQuery] = useState(4);
   const [error, setError] = useState(null);
-  const pairSnapshot = JSON.stringify([references, k]);
-  const pair = usePrediction(pairSnapshot);
-  const single = usePrediction(JSON.stringify([references, k, query]));
+
   let state = null;
   let four = null;
   let seventeen = null;
@@ -160,24 +139,16 @@ export function LofNeighbourhoodLab() {
   }
   const pairAnswer = four.factor.compare(seventeen.factor) === 0 ? 'equal' : four.factor.compare(seventeen.factor) > 0 ? 'four' : 'seventeen';
   const isDefaultReference = references.every((value, index) => value === defaultReferences[index]);
-  const one = { compare: value => value.numerator === value.denominator ? 0 : value.toNumber() > 1 ? 1 : -1 };
-  const singleAnswer = current.factor === null ? 'undefined' : one.compare(current.factor) === 0 ? 'equal' : one.compare(current.factor) > 0 ? 'above' : 'below';
-  const reset = () => { setReferences(defaultReferences); setK(2); setQuery(4); setError(null); pair.reset(); single.reset(); };
+
+  const reset = () => { setReferences(defaultReferences); setK(2); setQuery(4); setError(null);   };
   return <Investigation
     title="Compare a neighbourhood with its neighbours' neighbourhoods"
     question={`Six reference rows sit in two groups with different spacing. Each neighbour contributes its own radius as a floor, so a query pressed against a tightly packed group is judged differently from one beside a loose group. Neighbours are exactly ${k} other rows, with ties broken by row order.`}
     onReset={reset}>
-    <Prediction prompt={`Query 4 sits ${four.neighbours[0].distance.toString()} units from its nearest reference; query 17 sits ${seventeen.neighbours[0].distance.toString()} units from its nearest. With k = ${k}, which one gets the higher local outlier factor?`}
-      options={[['four', 'Query 4'], ['seventeen', 'Query 17'], ['equal', 'They tie']]}
-      state={pair} answer={pairAnswer}
-      describe={pairAnswer === 'equal'
-        ? `Both give ${four.factor.toString()} with these references and k = ${k}. Their mean-neighbour-density to query-density ratios agree; equality does not require identical neighbours or identical distances.`
-        : `LOF(4) = ${four.factor.toString()} and LOF(17) = ${seventeen.factor.toString()}. Each ratio compares the selected neighbours' mean density with that query's own density. The tables below show whose radius sets each floor for these edited references.`} />
-    {pair.revealed && <>
-      <Table caption={`Query 4: its ${k} chosen neighbour${k === 1 ? '' : 's'}, each with its own radius as the floor`}
-        headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, four)} />
-      <Table caption={`Query 17: nearest-reference distance ${seventeen.neighbours[0].distance.toString()}, and a factor ${pairAnswer === 'equal' ? 'equal to' : pairAnswer === 'four' ? 'lower than' : 'higher than'} query 4`}
-        headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, seventeen)} />
+    <p className="lesson-live-note">{pairAnswer === 'equal' ? `Both give ${four.factor.toString()} with these references and k = ${k}. Their mean-neighbour-density to query-density ratios agree; equality does not require identical neighbours or identical distances.` : `LOF(4) = ${four.factor.toString()} and LOF(17) = ${seventeen.factor.toString()}. Each ratio compares the selected neighbours' mean density with that query's own density. The tables below show whose radius sets each floor for these edited references.`}</p>
+    {<>
+      <Table caption={`Query 4: its ${k} chosen neighbour${k === 1 ? '' : 's'}, each with its own radius as the floor`} headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, four)} />
+      <Table caption={`Query 17: nearest-reference distance ${seventeen.neighbours[0].distance.toString()}, and a factor ${pairAnswer === 'equal' ? 'equal to' : pairAnswer === 'four' ? 'lower than' : 'higher than'} query 4`} headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, seventeen)} />
       <p className="ad-readout">
         Query 4: mean reach {four.neighbours.map(entry => entry.reach.toString()).join(' and ')} gives lrd {four.density.toString()}, and dividing the mean neighbour density by it gives {four.factor.toString()} ≈ {round(four.factor.toNumber())}.
         Query 17: mean reach {seventeen.neighbours.map(entry => entry.reach.toString()).join(' and ')} gives lrd {seventeen.density.toString()} and factor {seventeen.factor.toString()} ≈ {round(seventeen.factor.toNumber())}.
@@ -205,10 +176,7 @@ export function LofNeighbourhoodLab() {
       ))}
     </div>
     {error && <p className="ad-note">{error}</p>}
-    <Prediction prompt={`With the query at ${round(query)} and k = ${k}, will its factor be above, equal to, or below 1?`}
-      options={[['above', 'Above 1'], ['equal', 'Exactly 1'], ['below', 'Below 1']]}
-      state={single} answer={singleAnswer}
-      describe={current.factor === null ? 'Every reach is zero here, so the density is not finite.' : `LOF = ${current.factor.toString()} ≈ ${round(current.factor.toNumber())}. A factor near 1 means the query is supported about as well as its neighbours are; values below 1 are ordinary, not impossible.`} />
+    <p className="lesson-live-note">{current.factor === null ? 'Every reach is zero here, so the density is not finite.' : `LOF = ${current.factor.toString()} ≈ ${round(current.factor.toNumber())}. A factor near 1 means the query is supported about as well as its neighbours are; values below 1 are ordinary, not impossible.`}</p>
     <NumberLine from={Math.min(...references, query) - 1.5} to={Math.max(...references, query) + 1.5} height={174} bottomPadding={42} tickSide="above"
       caption="References, the query, and the reach used for each chosen neighbour"
       describe={`References at ${references.map(round).join(', ')}; query at ${round(query)}. Chosen neighbours: ${current.neighbours.map(entry => `${name(entry.id)} at distance ${entry.distance.toString()} with radius ${entry.radius.toString()}, giving reach ${entry.reach.toString()}`).join('; ')}.`}>
@@ -238,19 +206,14 @@ export function LofNeighbourhoodLab() {
         <text className="ad-point is-query" x={project(query)} y={baseline - 10} textAnchor="middle">query</text>
       </>}
     </NumberLine>
-    {single.revealed && <>
-      <Table caption={`The query's ${k} chosen neighbour${k === 1 ? '' : 's'}, and the floor each one contributes`}
-        headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, current)} />
+    {<>
+      <Table caption={`The query's ${k} chosen neighbour${k === 1 ? '' : 's'}, and the floor each one contributes`} headings={['neighbour', 'at', 'distance d(p, o)', 'radius r(o)', 'reach = max', 'lrd(o)']} rows={lofRows(state, current)} />
       <p className="ad-readout" aria-live="polite">
         Mean reach {current.neighbours.map(entry => entry.reach.toString()).join(' + ')} over {k} gives lrd(query) = {current.density === null ? 'undefined' : current.density.toString()};
         the mean of the neighbours' densities divided by it gives LOF = {current.factor === null ? 'undefined' : current.factor.toString()}.
       </p>
-      <Table caption="Every reference row's own factor, for comparison"
-        headings={['row', 'at', 'radius', 'lrd', 'LOF']}
-        rows={state.rows.map(row => [name(row.id), round(row.value.toNumber()), row.radius.toString(), row.density.toString(), row.factor.toString()])} />
-      <p className="ad-caption">{isDefaultReference
-        ? 'For the original six references, setting k = 3 makes both query 4 and query 17 score 1. That is a fact about these coordinates, not a rule that larger k always lowers a factor.'
-        : 'You changed the reference geometry. Compare both queries again after changing k: the original two-group result need not survive these edits. Each radius and density is recomputed from the current references.'}</p>
+      <Table caption="Every reference row's own factor, for comparison" headings={['row', 'at', 'radius', 'lrd', 'LOF']} rows={state.rows.map(row => [name(row.id), round(row.value.toNumber()), row.radius.toString(), row.density.toString(), row.factor.toString()])} />
+      <p className="ad-caption">{isDefaultReference ? 'For the original six references, setting k = 3 makes both query 4 and query 17 score 1. That is a fact about these coordinates, not a rule that larger k always lowers a factor.' : 'You changed the reference geometry. Compare both queries again after changing k: the original two-group result need not survive these edits. Each radius and density is recomputed from the current references.'}</p>
     </>}
   </Investigation>;
 }
@@ -259,13 +222,13 @@ export function LofNeighbourhoodLab() {
 export function LofModeLab() {
   const [coordinate, setCoordinate] = useState(1);
   const [k, setK] = useState(2);
-  const state = usePrediction(JSON.stringify([coordinate, k]));
+  
   const comparison = lofModeComparison(defaultReferences, k, coordinate);
-  const answer = comparison.trainingRow === null ? 'nocandidate' : comparison.agree ? 'same' : 'different';
+  
   return <Investigation
     title="A reference row and a new query at the same place"
     question="A reference row leaves its own identity out of its neighbourhood. A new query has no identity here, so a reference sitting at the same coordinate is an ordinary neighbour at distance zero. That is a difference in the mathematics, not a library defect."
-    onReset={() => { setCoordinate(1); setK(2); state.reset(); }}>
+    onReset={() => { setCoordinate(1); setK(2);  }}>
     <div className="ad-controls">
       <Field label="Coordinate to compare">
         <select value={coordinate} onChange={event => setCoordinate(Number(event.target.value))}>
@@ -278,21 +241,11 @@ export function LofModeLab() {
         </select>
       </Field>
     </div>
-    <Prediction prompt={`At coordinate ${coordinate}, will the reference row's own factor equal the score a new query gets there?`}
-      options={[['same', 'The same number'], ['different', 'Different numbers']]}
-      state={state} answer={answer}
-      describe={comparison.trainingRow === null ? '' : comparison.agree
-        ? `Both give ${comparison.trainingRow.factor.toString()} here, from different neighbour sets: the reference row uses {${comparison.trainingRow.neighbours.map(entry => name(entry.id)).join(', ')}} and the query uses {${comparison.queryRow.neighbours.map(entry => name(entry.id)).join(', ')}}. Two contracts landing on one number is not the same as one contract.`
-        : `The reference row gives ${comparison.trainingRow.factor.toString()} and the new query gives ${comparison.queryRow.factor.toString()}, because the query can choose the reference standing at its own coordinate.`} />
-    {state.revealed && <>
+    <p className="lesson-live-note">{comparison.trainingRow === null ? '' : comparison.agree ? `Both give ${comparison.trainingRow.factor.toString()} here, from different neighbour sets: the reference row uses {${comparison.trainingRow.neighbours.map(entry => name(entry.id)).join(', ')}} and the query uses {${comparison.queryRow.neighbours.map(entry => name(entry.id)).join(', ')}}. Two contracts landing on one number is not the same as one contract.` : `The reference row gives ${comparison.trainingRow.factor.toString()} and the new query gives ${comparison.queryRow.factor.toString()}, because the query can choose the reference standing at its own coordinate.`}</p>
+    {<>
       <div className="ad-fitting-strips">
       <style>{'.ad-fitting-strips svg text { font-size: 17px; }'}</style>
-      {[
-        ['Reference row: exclude its own identity', comparison.trainingRow, true],
-        ['New query: the coincident reference remains available', comparison.queryRow, false],
-      ].map(([caption, target, training]) => <div key={caption}><NumberLine from={-2} to={30} height={180} tickSide="above"
-        caption={caption}
-        describe={`${caption}. Selected neighbours ${target.neighbours.map(entry => name(entry.id)).join(', ')}. ${training ? `${name(comparison.trainingRow.id)} is excluded.` : `Query Q is separate from reference ${name(comparison.trainingRow.id)}, although both sit at ${coordinate}.`}`}>
+      {[['Reference row: exclude its own identity', comparison.trainingRow, true], ['New query: the coincident reference remains available', comparison.queryRow, false]].map(([caption, target, training]) => <div key={caption}><NumberLine from={-2} to={30} height={180} tickSide="above" caption={caption} describe={`${caption}. Selected neighbours ${target.neighbours.map(entry => name(entry.id)).join(', ')}. ${training ? `${name(comparison.trainingRow.id)} is excluded.` : `Query Q is separate from reference ${name(comparison.trainingRow.id)}, although both sit at ${coordinate}.`}`}>
         {(project, baseline) => <>
           {target.neighbours.map(entry => <line key={entry.id} className="ad-reach" x1={project(coordinate)} x2={project(entry.value.toNumber())} y1={baseline - 100} y2={baseline} />)}
           {defaultReferences.map((value, id) => {
@@ -320,13 +273,9 @@ export function LofModeLab() {
       </div>)}
       </div>
       <p className="ad-caption">Reference row {name(comparison.trainingRow.id)}: its own identity is excluded.</p>
-      <Table caption="Training-row neighbours"
-        headings={['neighbour', 'distance', 'radius', 'reach', 'lrd(o)']}
-        rows={comparison.trainingRow.neighbours.map(entry => [name(entry.id), entry.distance.toString(), entry.radius.toString(), entry.reach.toString(), comparison.references[entry.id].density.toString()])} />
+      <Table caption="Training-row neighbours" headings={['neighbour', 'distance', 'radius', 'reach', 'lrd(o)']} rows={comparison.trainingRow.neighbours.map(entry => [name(entry.id), entry.distance.toString(), entry.radius.toString(), entry.reach.toString(), comparison.references[entry.id].density.toString()])} />
       <p className="ad-caption">For a new query at the same coordinate, every reference is available.</p>
-      <Table caption="New-query neighbours"
-        headings={['neighbour', 'distance', 'radius', 'reach', 'lrd(o)']}
-        rows={comparison.queryRow.neighbours.map(entry => [name(entry.id), entry.distance.toString(), entry.radius.toString(), entry.reach.toString(), comparison.references[entry.id].density.toString()])} />
+      <Table caption="New-query neighbours" headings={['neighbour', 'distance', 'radius', 'reach', 'lrd(o)']} rows={comparison.queryRow.neighbours.map(entry => [name(entry.id), entry.distance.toString(), entry.radius.toString(), entry.reach.toString(), comparison.references[entry.id].density.toString()])} />
       <p className="ad-readout" aria-live="polite">
         Reference factor {comparison.trainingRow.factor.toString()}; new-query score {comparison.queryRow.factor === null ? 'undefined' : comparison.queryRow.factor.toString()}.
         Use the fitted rows' own factors to review the reference collection, and query scores for later observations. Pooling them as if they were the same held-out measurement compares two different neighbourhood contracts.
@@ -340,7 +289,7 @@ export function KernelBoundaryLab() {
   const [anchor, setAnchor] = useState(1);
   const [gamma, setGamma] = useState(1);
   const [query, setQuery] = useState(0);
-  const state = usePrediction(JSON.stringify([anchor, gamma, query]));
+  
   const boundary = kernelBoundary(anchor, gamma, query);
   const scaleX = value => 34 + 272 * (value - kernelLimits.query.minimum) / (kernelLimits.query.maximum - kernelLimits.query.minimum);
   const top = Math.max(1, boundary.rho * 1.15, ...boundary.curve.map(point => point.sum));
@@ -352,7 +301,7 @@ export function KernelBoundaryLab() {
   return <Investigation
     title="Two reference points, a similarity sum and an offset"
     question="With two reference observations and nu = 1/2, symmetry fixes both weights at 1/2 and puts both references exactly on the boundary. That closed solution lets you watch gamma reshape the accepted region without a solver in the way."
-    onReset={() => { setAnchor(1); setGamma(1); setQuery(0); state.reset(); }}>
+    onReset={() => { setAnchor(1); setGamma(1); setQuery(0);  }}>
     <div className="ad-controls">
       <NumberField label="Reference anchors at ±a" value={anchor} min={kernelLimits.anchor.minimum} max={kernelLimits.anchor.maximum} step="0.1" decimals={2} onChange={setAnchor} />
       <NumberField label="Kernel width gamma" value={gamma} min={kernelLimits.gamma.minimum} max={kernelLimits.gamma.maximum} step="0.05" decimals={2} onChange={setGamma} />
@@ -362,11 +311,8 @@ export function KernelBoundaryLab() {
       <button type="button" onClick={() => setQuery(anchor)}>Put the query on a reference point</button>
       <button type="button" onClick={() => setQuery(0)}>Put the query at the midpoint</button>
     </div>
-    <Prediction prompt={`Is x = ${round(query)} inside the accepted region, exactly on its boundary, or outside?`}
-      options={[['inside', 'Inside: the decision is positive'], ['boundary', 'Exactly on the boundary'], ['outside', 'Outside: the decision is negative']]}
-      state={state} answer={boundary.classification}
-      describe={`g(${round(query)}) = ${round(boundary.decision, 6)}, with rho = ${round(boundary.rho, 6)}. A reference point scores exactly zero at every gamma in this symmetric solution.`} />
-    {state.revealed ? <><figure className="ad-plot">
+    <p className="lesson-live-note">{`g(${round(query)}) = ${round(boundary.decision, 6)}, with rho = ${round(boundary.rho, 6)}. A reference point scores exactly zero at every gamma in this symmetric solution.`}</p>
+    {<><figure className="ad-plot">
       <figcaption>Each reference contributes a bump; their weighted sum is compared with rho</figcaption>
       <svg viewBox="0 0 340 232" role="img" aria-label={`Two similarity bumps centred at minus ${round(anchor)} and ${round(anchor)}, their weighted sum, and the horizontal offset rho at ${round(boundary.rho, 4)}. Below, the signed decision with its zero line. ${boundary.positiveIntervals.length === 0 ? 'No strictly positive interval is resolved by this numerical scan.' : `The resolved accepted intervals run ${boundary.positiveIntervals.map(([from, to]) => `from ${round(from, 3)} to ${round(to, 3)}`).join(' and ')}.`}`}>
         <line className="ad-axis" x1="34" x2="306" y1="96" y2="96" />
@@ -382,9 +328,7 @@ export function KernelBoundaryLab() {
         <text x="34" y="12">kernel compatibility sum</text>
         <line className="ad-axis" x1="34" x2="306" y1={scaleDecision(0)} y2={scaleDecision(0)} transform="translate(0 128)" />
         <g transform="translate(0 128)">
-          {boundary.positiveIntervals.map(([from, to], index) => (
-            <rect key={index} className="ad-span is-selected" x={scaleX(from)} y="10" width={scaleX(to) - scaleX(from)} height="84" />
-          ))}
+          {boundary.positiveIntervals.map(([from, to], index) => <rect key={index} className="ad-span is-selected" x={scaleX(from)} y="10" width={scaleX(to) - scaleX(from)} height="84" />)}
           <polyline className="ad-curve" stroke="#d9d3bf" strokeWidth="2" points={boundary.curve.map(point => `${scaleX(point.x)},${scaleDecision(point.decision)}`).join(' ')} />
           <circle className="ad-point is-query" cx={scaleX(query)} cy={scaleDecision(boundary.decision)} r="5" />
           <text x="34" y="4">signed decision g(x), shaded where positive</text>
@@ -394,23 +338,8 @@ export function KernelBoundaryLab() {
     </figure>
     <p className="ad-readout" aria-live="polite">
       Contributions {round(boundary.contributions[0], 6)} and {round(boundary.contributions[1], 6)} sum to {round(boundary.sum, 6)}; subtracting rho = {round(boundary.rho, 6)} gives {round(boundary.decision, 6)}.
-      {boundary.positiveIntervals.length === 0
-        ? ' No strictly positive interval is resolved by this numerical scan. Very narrow positive intervals near the anchors can be smaller than its resolution; this is not an exact proof that every other point falls outside.'
-        : boundary.positiveIntervals.length === 1
-          ? ` The accepted region is the single interval from ${round(boundary.positiveIntervals[0][0], 4)} to ${round(boundary.positiveIntervals[0][1], 4)}.`
-          : ` The accepted region has ${boundary.positiveIntervals.length} separated pieces: ${boundary.positiveIntervals.map(([from, to]) => `${round(from, 4)} to ${round(to, 4)}`).join(', ')}. A hyperplane in the kernel's feature space need not be one blob back in the original coordinates.`}
-    </p></> : <NumberLine from={-4} to={4} height={110}
-      caption="Two reference anchors and the query, before computing the boundary"
-      describe={`Reference anchors at ${-anchor} and ${anchor}; query at ${query}. The compatibility curves, decision and accepted region appear after you commit and reveal.`}>
-      {(project, baseline) => <>
-        {[-anchor, anchor].map(value => <g key={value}>
-          <circle className="ad-point" cx={project(value)} cy={baseline} r="5" />
-          <text x={project(value)} y={baseline - 12} textAnchor="middle">{round(value)}</text>
-        </g>)}
-        <circle className="ad-point is-query" cx={project(query)} cy={baseline - 34} r="6" />
-        <text x={project(query)} y={baseline - 46} textAnchor="middle">query {round(query)}</text>
-      </>}
-    </NumberLine>}
+      {boundary.positiveIntervals.length === 0 ? ' No strictly positive interval is resolved by this numerical scan. Very narrow positive intervals near the anchors can be smaller than its resolution; this is not an exact proof that every other point falls outside.' : boundary.positiveIntervals.length === 1 ? ` The accepted region is the single interval from ${round(boundary.positiveIntervals[0][0], 4)} to ${round(boundary.positiveIntervals[0][1], 4)}.` : ` The accepted region has ${boundary.positiveIntervals.length} separated pieces: ${boundary.positiveIntervals.map(([from, to]) => `${round(from, 4)} to ${round(to, 4)}`).join(', ')}. A hyperplane in the kernel's feature space need not be one blob back in the original coordinates.`}
+    </p></>}
     <p className="ad-caption">The vertical axes are a kernel compatibility sum and a signed decision. Neither is a probability, and neither is a distance in the original coordinate. Query classification treats |g| ≤ 10⁻¹² as boundary to allow for floating-point arithmetic. Doubling the anchors while dividing gamma by four preserves corresponding decisions when the query coordinates are doubled too.</p>
   </Investigation>;
 }
@@ -422,17 +351,14 @@ export function AlertPopulationLab() {
   const [sensitivity, setSensitivity] = useState(80);
   const [falseRate, setFalseRate] = useState(1);
   const [budget, setBudget] = useState(200);
-  const snapshot = JSON.stringify([population, prevalence, sensitivity, falseRate, budget]);
-  const state = usePrediction(snapshot);
-  const budgetState = usePrediction(snapshot);
+
   const counts = alarmCounts(population, prevalence / 100, sensitivity / 100, falseRate / 100, budget);
-  const bothCommitted = state.committed !== null && budgetState.committed !== null && !state.stale && !budgetState.stale;
-  const answer = counts.precision === null ? 'none' : counts.precision > 0.5 ? 'high' : counts.precision >= 0.1 ? 'middle' : 'low';
+
   const widest = Math.max(counts.trueAlerts, counts.falseAlerts, 1);
   return <Investigation
     title="Turn two rates and a prevalence into a review queue"
     question="A detector that catches most faults and flags a small fraction of everything else can still bury a team, because the population of ordinary observations is so much larger. Enter the rates and see the queue."
-    onReset={() => { setPopulation(100000); setPrevalence(0.1); setSensitivity(80); setFalseRate(1); setBudget(200); state.reset(); budgetState.reset(); }}>
+    onReset={() => { setPopulation(100000); setPrevalence(0.1); setSensitivity(80); setFalseRate(1); setBudget(200);   }}>
     <div className="ad-controls">
       <NumberField label="Observations N" value={population} min={100} max={1000000} step="100" decimals={0} onChange={setPopulation} />
       <NumberField label="Fault prevalence (percent)" value={prevalence} min={0} max={100} step="0.05" decimals={3} onChange={setPrevalence} suffix="%" />
@@ -440,42 +366,28 @@ export function AlertPopulationLab() {
       <NumberField label="False-positive rate (percent)" value={falseRate} min={0} max={100} step="0.1" decimals={3} onChange={setFalseRate} suffix="%" />
       <NumberField label="Review budget (alerts)" value={budget} min={0} max={1000000} step="10" decimals={0} onChange={setBudget} />
     </div>
-    <Prediction prompt="What fraction of the alerts will be faults?"
-      options={[['high', 'More than half the alerts are faults'], ['middle', 'Between 10% and half'], ['low', 'Under 10%'], ['none', 'Nobody is flagged at all']]}
-      state={{ ...state, canReveal: state.canReveal && bothCommitted }} answer={answer}
-      describe={counts.precision === null
-        ? 'With these rates nothing is flagged, so precision is undefined rather than zero or one.'
-        : `Expected alerts ${round(counts.total, 2)} of which ${round(counts.trueAlerts, 2)} are faults: ${percent(counts.precision, 2)}.`} />
-    <Prediction prompt={`And will the review budget of ${integer(budget)} cover the alerts this produces?`}
-      options={[['covers', 'The budget covers every alert'], ['short', 'There are more alerts than slots']]}
-      state={{ ...budgetState, canReveal: budgetState.canReveal && bothCommitted }} answer={counts.withinBudget ? 'covers' : 'short'}
-      revealLabel="Reveal the workload"
-      describe={counts.withinBudget
-        ? `${round(counts.total, 2)} expected alerts against ${integer(budget)} slots. Spare capacity is not a reason to lower the threshold without deciding what the extra reviews are for.`
-        : `${round(counts.total, 2)} expected alerts against ${integer(budget)} slots, short by ${round(counts.budgetShortfall, 2)}. Reviewing only the top ${integer(budget)} is a different operating point, so the sensitivity above no longer applies to it.`} />
-    {!bothCommitted && <p className="ad-caption">Commit both the precision and budget predictions before revealing either calculation: the alert counts answer both questions.</p>}
-    {state.revealed && <>
+    <p className="lesson-live-note">{counts.precision === null ? 'With these rates nothing is flagged, so precision is undefined rather than zero or one.' : `Expected alerts ${round(counts.total, 2)} of which ${round(counts.trueAlerts, 2)} are faults: ${percent(counts.precision, 2)}.`}</p>
+    <p className="lesson-live-note">{counts.withinBudget ? `${round(counts.total, 2)} expected alerts against ${integer(budget)} slots. Spare capacity is not a reason to lower the threshold without deciding what the extra reviews are for.` : `${round(counts.total, 2)} expected alerts against ${integer(budget)} slots, short by ${round(counts.budgetShortfall, 2)}. Reviewing only the top ${integer(budget)} is a different operating point, so the sensitivity above no longer applies to it.`}</p>
+    {false}
+    {<>
       <div className="ad-bars" role="img" aria-label={`Population ${integer(population)}: ${round(counts.faults, 2)} faults and ${round(counts.nonFaults, 2)} others. Alerts ${round(counts.total, 2)}: ${round(counts.trueAlerts, 2)} faults flagged and ${round(counts.falseAlerts, 2)} others flagged.`}>
-        <div className="ad-bar-row"><span>faults in N</span><span className="ad-bar-track"><span className="ad-bar-fill" style={{ width: `${100 * counts.faults / population}%` }} /></span><span className="ad-bar-value">{round(counts.faults, 2)}</span></div>
-        <div className="ad-bar-row"><span>everything else</span><span className="ad-bar-track"><span className="ad-bar-fill is-quiet" style={{ width: `${100 * counts.nonFaults / population}%` }} /></span><span className="ad-bar-value">{round(counts.nonFaults, 2)}</span></div>
+        <div className="ad-bar-row"><span>faults in N</span><span className="ad-bar-track"><span className="ad-bar-fill" style={{
+          width: `${100 * counts.faults / population}%`
+        }} /></span><span className="ad-bar-value">{round(counts.faults, 2)}</span></div>
+        <div className="ad-bar-row"><span>everything else</span><span className="ad-bar-track"><span className="ad-bar-fill is-quiet" style={{
+          width: `${100 * counts.nonFaults / population}%`
+        }} /></span><span className="ad-bar-value">{round(counts.nonFaults, 2)}</span></div>
       </div>
       <p className="ad-caption">The two bars above share the population scale, so the faults are almost invisible. The two below share the alert scale instead, which is the denominator that decides precision.</p>
       <div className="ad-bars" role="img" aria-label={`Alert composition: ${round(counts.trueAlerts, 2)} faults and ${round(counts.falseAlerts, 2)} non-faults.`}>
-        <div className="ad-bar-row"><span>faults flagged</span><span className="ad-bar-track"><span className="ad-bar-fill" style={{ width: `${100 * counts.trueAlerts / widest}%` }} /></span><span className="ad-bar-value">{round(counts.trueAlerts, 2)}</span></div>
-        <div className="ad-bar-row"><span>others flagged</span><span className="ad-bar-track"><span className="ad-bar-fill is-false" style={{ width: `${100 * counts.falseAlerts / widest}%` }} /></span><span className="ad-bar-value">{round(counts.falseAlerts, 2)}</span></div>
+        <div className="ad-bar-row"><span>faults flagged</span><span className="ad-bar-track"><span className="ad-bar-fill" style={{
+          width: `${100 * counts.trueAlerts / widest}%`
+        }} /></span><span className="ad-bar-value">{round(counts.trueAlerts, 2)}</span></div>
+        <div className="ad-bar-row"><span>others flagged</span><span className="ad-bar-track"><span className="ad-bar-fill is-false" style={{
+          width: `${100 * counts.falseAlerts / widest}%`
+        }} /></span><span className="ad-bar-value">{round(counts.falseAlerts, 2)}</span></div>
       </div>
-      <Table caption="Expected counts. These are averages over the stated rates, so a fractional count is an average and not a fraction of a record."
-        headings={['quantity', 'value']}
-        rows={[
-          ['faults present', round(counts.faults, 2)],
-          ['faults flagged', round(counts.trueAlerts, 2)],
-          ['faults missed', round(counts.missedFaults, 2)],
-          ['others flagged', round(counts.falseAlerts, 2)],
-          ['total alerts', round(counts.total, 2)],
-          ['fraction of alerts that are faults', counts.precision === null ? 'undefined: no alerts' : percent(counts.precision, 4)],
-          ['review budget', integer(budget)],
-          ['over budget by', counts.withinBudget ? 'within budget' : round(counts.budgetShortfall, 2)],
-        ]} />
+      <Table caption="Expected counts. These are averages over the stated rates, so a fractional count is an average and not a fraction of a record." headings={['quantity', 'value']} rows={[['faults present', round(counts.faults, 2)], ['faults flagged', round(counts.trueAlerts, 2)], ['faults missed', round(counts.missedFaults, 2)], ['others flagged', round(counts.falseAlerts, 2)], ['total alerts', round(counts.total, 2)], ['fraction of alerts that are faults', counts.precision === null ? 'undefined: no alerts' : percent(counts.precision, 4)], ['review budget', integer(budget)], ['over budget by', counts.withinBudget ? 'within budget' : round(counts.budgetShortfall, 2)]]} />
       <p className="ad-caption">Raising prevalence while holding both conditional rates fixed raises precision without changing the detector at all. Dropping the false-positive rate to zero makes every alert a fault, and dropping sensitivity to zero as well leaves no alerts and no defined precision.</p>
     </>}
   </Investigation>;

@@ -1,5 +1,8 @@
 # Sparse & Linear Attention Variants
 
+**Explore as you read.** Edit sparse edges, feature-memory writes/evictions, random-feature settings, compression coefficients, block layout and supported real trajectories. Show removed mass, reachability, normalized summaries, approximation error, future influence and tile occupancy live under a fixed random draw. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose sparsity or approximation by accessible information, numerical error and actual block work, not a single sparsity percentage.
+
+
 A long conversation contains many earlier tokens, but the next token may need only a few of them. A stream of hand movements has the opposite possibility: many earlier observations may matter collectively, without needing to retrieve any single observation exactly. These suggest two different ways to reduce attention's work: **read fewer individual records**, or **maintain a smaller summary that can answer a particular kind of query**.
 
 The distinction matters. Removing connections, approximating a similarity function, compressing the sequence, and executing the same calculation more carefully can all reduce a resource cost. They preserve different things. This lesson gives you a way to inspect those choices rather than memorize a ranking of model names.
@@ -100,7 +103,7 @@ Alternating local and strided patterns offers another route. A layer can read a 
 
 BigBird combines local, global and random connections. With fixed numbers of each, the edge count is linear in sequence length. Its universality result is an existence theorem for sufficiently expressive networks and continuous functions on a fixed-length compact domain, using an appropriate graph containing a global star. It is not a promise that a fixed small model will equal dense attention, nor that a particular number of random edges guarantees task accuracy. The paper also studies genomics, where relevant sequence context extends beyond nearby symbols. [BigBird, §2–3 and §5](https://arxiv.org/html/2007.14062v2)
 
-**Investigation: draw a route, then test it.** Edit legal edges and choose a source and destination. Predict whether the source can affect the destination after one, two or three layers. The graph and the matrix highlight the same path. A separate value view lets you remove a key and predict the re-normalized output. Start the practice state with fresh positions and values; the worked 12-position example remains an ungraded walkthrough.
+**Investigation: draw a route, then test it.** Edit legal edges and choose a source and destination. Observe whether the source can affect the destination after one, two or three layers. The graph and the matrix highlight the same path. A separate value view lets you remove a key and inspect the re-normalized output. Start the practice state with fresh positions and values; the worked 12-position example remains an ungraded walkthrough.
 
 ### Content-based selection: find candidates without comparing every full pair
 
@@ -160,7 +163,7 @@ Check it by explicitly comparing all keys: their similarities are $[2,1,3]$, giv
 
 **Visual: an outer product being written.** Key-feature bars label the rows of a matrix; value components label its columns. Each arriving record paints its numerical contribution. The query then traces a read across those rows, alongside the separate denominator. Negative values use a diverging scale; positive weights do not imply positive stored values.
 
-**Investigation: edit a memory, not a text explanation.** Change a key-feature vector, a value vector or the query; predict which cells and output coordinates change. Compare the recurrence with explicit normalized pair weights. Remove the oldest record by subtracting its saved outer product and key features, then verify the remaining-prefix result. A constant-value control makes every legal normalized output identical even when the query changes.
+**Investigation: edit a memory, not a text explanation.** Change a key-feature vector, a value vector or the query; inspect which cells and output coordinates change. Compare the recurrence with explicit normalized pair weights. Remove the oldest record by subtracting its saved outer product and key features, then verify the remaining-prefix result. A constant-value control makes every legal normalized output identical even when the query changes.
 
 ### What “linear” does and does not mean
 
@@ -242,7 +245,7 @@ Exponentials may overflow. Multiplying all feature coordinates for one query by 
 
 For streaming exponential features, if a newly arrived key requires changing the common key scale, rescale the existing $S$ and $z$ by the same factor before adding the new write. Otherwise old and new records use different units. Padding, state reset, query/key feature scaling, and causal prefix boundaries must agree between training and inference.
 
-**Investigation: an approximation has a distribution.** Begin with a fresh editable four-record Q/K/V problem. Predict the effect of adding features or changing one key, then reveal the sampled approximation beside exact softmax. A second view shows all saved random-feature trials on an actual trained head. The learner can see seed-specific reversals, rather than a fabricated line that decreases every time.
+**Investigation: an approximation has a distribution.** Begin with a fresh editable four-record Q/K/V problem. Inspect the effect of adding features or changing one key, and show immediately the sampled approximation beside exact softmax. A second view shows all saved random-feature trials on an actual trained head. The learner can see seed-specific reversals, rather than a fabricated line that decreases every time.
 
 ## 5. Compress the sequence instead of its feature sums
 
@@ -300,7 +303,7 @@ A hardware kernel often processes tiles instead of individual matrix cells. In a
 
 An occupied tile may still contain masked cells; a fully empty tile can be skipped. Neither count alone predicts seconds. Gather overhead, head dimensions, precision, hardware, compilation and other layers matter. A dense implementation of a sparse mask still computes the dense scores if it forms `Q @ K.T` first.
 
-**Investigation: pack the same edges into different tiles.** Toggle cells in a small mask. Predict occupied-tile count before revealing it, then move edges while preserving their number. The comparison displays true edges and candidate cells separately. The fresh exercise uses a different clustered pattern than the diagonal walkthrough.
+**Investigation: pack the same edges into different tiles.** Toggle mask cells and watch occupied-tile count change. Move edges while preserving their number and compare true edges with candidate cells. The fresh clustered pattern exposes why equal token sparsity need not imply equal tile work.
 
 PyTorch's FlexAttention provides a way to express custom score modifications and block masks and compile suitable attention kernels. Its `mask_mod` receives batch, head, query index and key index and returns whether that pair is allowed. A block mask can skip fully masked blocks. This does not mean every arbitrary mask is equally fast, or that an unsupported device will execute the same compiled path. [FlexAttention introduction and examples](https://pytorch.org/blog/flexattention/), [current API](https://docs.pytorch.org/docs/main/nn.attention.flex_attention.html)
 
@@ -356,7 +359,7 @@ The window result is an exact null in this model: at final input position 31, it
 
 At this 32-point prefix, float32 numeric attention payloads are 6,144 bytes for dense K/V, 960 for window K/V, and 864 for kernel $S,z$. These exclude weights, outputs, position counters, index metadata and allocator overhead. They are not peak memory measurements. Dense and window incremental forecasts agree with their full-prefix computation to below $2.4\times10^{-7}$ maximum absolute error in transformed output coordinates. The kernel's recurrent and explicit pairwise implementations agree below $2.7\times10^{-7}$. Separate float64 checks give whole-network gradient agreement below $3.6\times10^{-15}$ for this small checked input.
 
-**Investigation: predict what an old edit can change.** The fresh gated case uses 27 points, changes the y coordinate at frame 19, and hides forecasts until you commit a prediction. Drag or numerically edit a point, predict which models can respond, then inspect actual recomputed outputs. Move the edit inside the local window to test the boundary. Reset returns the genuinely unanswered fresh problem, not the solved 32-point walkthrough.
+**Investigation: predict what an old edit can change.** The fresh gated case uses 27 points, changes the y coordinate at frame 19, and hides forecasts until you Show the current computed result and its contributing terms immediately. Drag or numerically edit a point, inspect which models can respond, then inspect actual recomputed outputs. Move the edit inside the local window to test the boundary. Reset returns the genuinely visible fresh problem, not the solved 32-point walkthrough.
 
 ### Approximate one trained dense head without retraining it
 
@@ -423,6 +426,23 @@ v = [[2], [-1], [3]]
 print(causal_feature_attention(q, k, v).ravel())
 # [2. 1. 2.]
 ```
+
+### Implement the other compression choices, not just name them
+
+The earlier program owns the trained causal dense/window/kernel comparison. The additional [sequence-compression program](attention_compression_bridges.py) opens the bidirectional Linformer and Nyström operations from §5 and supplies an actual gathered-window route. It requires only PyTorch; run `python attention_compression_bridges.py`.
+
+`linformer` owns two learned length-axis matrices E and F. It computes EK and FV first, then runs attention over those compressed slots. Its normal tool route calls SDPA on the same compressed arrays. E/F receive gradients alongside Q/K/V; a learned summary is not a fixed downsampling label. The program compares values and all five gradients under identical initial arrays. It intentionally has **no causal mask**: making a full-sequence summary and applying a later triangle cannot remove future information already mixed into the summary.
+
+`nystrom` forms segment-mean query/key landmarks. Seven positions split into three segments retain the trailing positions. It constructs the three softmax factors, uses a tolerance-controlled pseudoinverse for the small middle matrix, and multiplies from the value side: `front @ (pinv(middle) @ (back @ V))`. It never materializes the L×L approximate weight matrix. The cost includes O(L r d) pair/factor work and O(r³) pseudoinversion, with O(Lr+r²) factor storage, in addition to the feature/value widths. A pseudoinverse is a well-defined tool here; implementing SVD again would repeat [Matrix Decompositions](/learn/path/full-curriculum/matrix-decompositions-svd-qr-cholesky-lu?module=math-foundations). Near a rank threshold, derivatives can be sensitive: changing `rtol` changes which directions are retained and must be treated as a model/numerical decision.
+
+`gathered_window` only scores the keys actually in a causal window: O(L W (d_k+d_v)) arithmetic and O(W) temporary scores per query, beyond inputs and outputs. Its SDPA comparison deliberately uses a dense mask as an independent semantic reference, **not** as evidence of sparse execution. The maintained tool takes responsibility for backend selection; a genuinely sparse accelerator path needs a kernel supporting the chosen block pattern.
+
+The author ran these small CPU float64 probes: Linformer and gathered-window maximum API differences were each 1.11e-16; using every position as a Nyström landmark reproduced the dense result to 1.45e-15. Three landmarks gave maximum output error 0.25091 for this declared random fixture. That last number is a single approximation example, not a general error guarantee or a trained accuracy result. The random-feature Gaussian-marginal sampling and stabilizations remain owned by `mechanism-calculations.py`; they are different approximations from these learned/landmark summaries.
+
+**Take control.** Change sequence length to 11, use four landmarks and a window of width 1. Inspect both output and gradient checks. Then reduce `rtol` for nearly duplicate landmarks.
+
+<details><summary>Hint</summary>Width one must return each position's own V. Unequal segment lengths are allowed; the inverse problem remains small.</details>
+<details><summary>Solution and success criteria</summary>The window output equals V and has zero Q/K derivative. Linformer's manual/API equality should remain, while approximation quality is a separate measured quantity. Nyström with fewer landmarks need not improve monotonically for each input as count increases. Near duplicate landmarks, record singular values and chosen tolerance before interpreting a large gradient; smaller tolerance is not automatically a better model.</details>
 
 ## 8. Deeper connections and practical judgment
 

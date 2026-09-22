@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # AutoML & NAS — content design and handoff
 
 Stable ID: `automl-neural-architecture-search-nas`. Display title retained: **AutoML & Neural Architecture Search**. Content-only packet, 12 September 2026. No published source, runtime component, manifest, blueprint, route order or shared ledger was edited by this author. Root owns content checkpointing and shared destination-note reconciliation.

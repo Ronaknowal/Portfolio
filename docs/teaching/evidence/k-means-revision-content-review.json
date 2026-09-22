@@ -1,0 +1,143 @@
+{
+  "checkedAt": "2026-09-21T13:43:12.463Z",
+  "reviewer": "kmeans_content_review",
+  "topic": "k-means-hierarchical-clustering",
+  "status": "passed-content-and-selected-image-review",
+  "report": "docs/teaching/K-MEANS-REVISION-CONTENT-REVIEW.md",
+  "baselineBodyHash": "1f1743ffc6766e0b12f76956a0b95fe99125ddb4f9868e3fa2accb5e4925ed6f",
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "ea7f3f1c0cfe35a75793a3e9fa1b20f493f1de0de387c8d748b41fc557cbd19e",
+    "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "b8a2858e9c28d939d70ce9a387c1261a1095263b133f526d8e6d5ae25fb07a13"
+  },
+  "preservedStructure": {
+    "sections": 14,
+    "labs": 5,
+    "programs": 6,
+    "changedPracticeTasks": 10
+  },
+  "freshChecks": [
+    {
+      "check": "Complete prose, optional branches and practice read",
+      "passed": true
+    },
+    {
+      "check": "Current JSX Babel parse",
+      "passed": true
+    },
+    {
+      "check": "Scoped diff whitespace check",
+      "passed": true
+    },
+    {
+      "check": "Direct P0 squared-distance sum and seeding mass",
+      "passed": true,
+      "squaredDistances": [
+        0,
+        0.5,
+        8,
+        10.25,
+        61,
+        72.5
+      ],
+      "total": 152.25,
+      "farthestProbability": 0.47619047619047616
+    },
+    {
+      "check": "Diagnostics median and diminishing-improvement claim",
+      "passed": true,
+      "medianInertias": [
+        544,
+        79.575959,
+        56.828688,
+        46.186688,
+        35.244003,
+        27.494608,
+        24.291873,
+        22.356713
+      ]
+    },
+    {
+      "check": "Seven current actual-font informative-state image reads",
+      "passed": true
+    }
+  ],
+  "complementaryNumericalEvidence": "docs/teaching/evidence/k-means-revision-native-review.json",
+  "publicationAndLedgerEdited": false,
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-1-1366.png",
+      "sha256": "a970e6ad884f9df116421989d7759feb0adce4d162dcf92d2af501b61e14c36e",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-5-390.png",
+      "sha256": "c613807f6a1a50a96a91919429f8858111667c0e02318f64bbd75f27ff858a90",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-figure-6-390.png",
+      "sha256": "118a9e81c14867d223cee79fdcf441b191ff2366b807e77676679e1d39f06b63",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-complete-390.png",
+      "sha256": "c9a9837c06dd30ddda0ea103eae351c3f57a39a02548ba154043980be3302ffa",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-chain-enlarged-text-390.png",
+      "sha256": "9e5d862199578b09a6efab8d8e7f57bccb1e6441cfad4bdfd62fa90cac0441b4",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-seeding-probability-frequency-1366.png",
+      "sha256": "e7771304271ac28a5ec058247d672e0aa7c31646269f6569bc1fd5d477c4e519",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/k-means-revision-sky-palette-320.png",
+      "sha256": "a0ff07b839b9e28a6f1d935d67011eed89dcd5e56180a37e6ea28a1c42f3cb5e",
+      "visuallyInspected": true
+    }
+  ],
+  "limitations": [
+    "Independent heuristic learning review; no novice walkthrough.",
+    "Primary theorem statements and conditions reviewed; full proofs not reproduced.",
+    "No build, server or independent browser interaction owned by this reviewer.",
+    "Root owns browser capture generation, interactions and production integration; this reviewer opened the seven listed images."
+  ],
+  "blueprintAmendmentReviewed": "Read final configure-predict-reveal question and mechanism-specific interaction text; both match the repaired lesson and investigation contracts.",
+  "reportSha256": "35a1343d74fb70678b629bcb97cd1d7766f3eb2a4a3b875f95b4487ccee5a480",
+  "finalVisualAmendment": {
+    "checkedAt": "2026-09-21T13:55:30.800Z",
+    "sourceReviewScope": "Leaf label block spans and adjacent caption; above-plot undefined silhouette label; calculated Ward axis/cut-count key.",
+    "sourceHashes": {
+      "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "9c76709e6d5bca78ba68d085c09a482e86e20f34111deb84087e045a67b97174",
+      "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "1fa275d6dae39ace54e5be44a93342628eab44f7f8a4f0f6345140fc75c0d73a",
+      "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "ebe2e78c745cd7f7b0fed33f68aabb3869935a4319882c217b8a84155839dc85"
+    },
+    "screenshots": [
+      {
+        "path": "docs/teaching/evidence/screenshots/k-means-revision-final-chain-complete-320.png",
+        "sha256": "e697c782aae610e148ba7298301ad494806034de53a685fc7219931b76105916",
+        "visuallyInspected": true
+      },
+      {
+        "path": "docs/teaching/evidence/screenshots/k-means-revision-final-figure-6-390.png",
+        "sha256": "c0e32b295a41d8b0c44556c3ec08ee5c7097bdac1585a7606ab98f35ef2081e9",
+        "visuallyInspected": true
+      },
+      {
+        "path": "docs/teaching/evidence/screenshots/k-means-revision-final-figure-4-390.png",
+        "sha256": "9e6ace93e2ea5e1f2fe415305eadc09153310b42408016b4ba3be8b94809219c",
+        "visuallyInspected": true
+      }
+    ],
+    "visualFinding": "No remaining collision apparent in these final captures; root owns measured bounds assertions.",
+    "proseFinding": "Closed: section6 now explains observation ID above cluster number, matching the two-row leaf.",
+    "status": "passed-visual-confirmation-and-prose-sync",
+    "proseBeforeHash": "4d45abbcea38027e358bccd32473b748c5ed13db396915d4c987d5bf56bce67a",
+    "proseAfterHash": "ea7f3f1c0cfe35a75793a3e9fa1b20f493f1de0de387c8d748b41fc557cbd19e",
+    "proseParsePassed": true
+  }
+}

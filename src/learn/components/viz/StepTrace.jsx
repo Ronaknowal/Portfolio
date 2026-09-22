@@ -15,7 +15,7 @@ export default function StepTrace({ steps, label }) {
       background: colors.cardBg,
     }}>
       {label && (
-        <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textDim, marginBottom: 10, letterSpacing: 1 }}>
+        <div style={{ fontFamily: fonts.mono, fontSize: 10, color: colors.textSecondary, marginBottom: 10, letterSpacing: 1 }}>
           {label.toUpperCase()}
         </div>
       )}
@@ -32,7 +32,7 @@ export default function StepTrace({ steps, label }) {
         >
           ← Prev
         </button>
-        <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textMuted }}>
+        <div style={{ fontFamily: fonts.mono, fontSize: 11, color: colors.textSecondary }}>
           Step {i + 1} / {steps.length} {step.label ? `· ${step.label}` : ""}
         </div>
         <button

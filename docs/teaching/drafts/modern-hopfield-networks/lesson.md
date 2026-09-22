@@ -1,5 +1,8 @@
 # Modern Hopfield Networks
 
+**Explore as you read.** Flip cue bits and visit order; edit continuous memory vectors, temperature, keys/queries/values and real handwriting pixels. Show current energy, attractor steps, retrieval weights, payload and classifier/reconstruction outputs. Step iteration without hiding its current state. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to see how ambiguity, scale and address/content choices change retrieval and when classification and reconstruction objectives diverge.
+
+
 A smudged handwritten digit still contains clues: the bend of a stroke, an opening in a loop, the position of a vertical line. Suppose we keep examples of handwriting and ask a model to reconstruct something useful from those clues. The interesting question is not only which example receives the highest score. It is whether repeatedly using the retrieved information improves the cue, whether several examples should contribute, and how to recognize an incorrect reconstruction.
 
 A **Hopfield network** is an associative memory: you give it content that resembles a memory, and its dynamics attempt to complete or refine that content. A conventional database uses an address such as record 42. Associative memory uses a cue such as “the shape with a loop and this downward stroke.”
@@ -192,7 +195,7 @@ For the β = 2 example, energies at updates 0–3 are −0.285550, −0.406684, 
 
 The [Ramsauer paper](https://arxiv.org/abs/2008.02217) proves convergence properties and much stronger local retrieval results under separation assumptions. “One update” in those retrieval results means reaching a prescribed small error near an associated fixed point, not equality after one update for arbitrary memories and cues.
 
-[Investigation B: move continuous memories and the cue, predict which fixed-point region or mixture will appear, then compare β values. Inspect both positions and actual energy.]
+[Investigation B: move continuous memories and the cue, inspect which fixed-point region or mixture will appear, then compare β values. Inspect both positions and actual energy.]
 
 ### A useful sensitivity connection
 
@@ -373,7 +376,7 @@ For another image, row 3052, labeled “0,” the same occlusion retains class 0
 
 Across all test images, seed 17's mean squared reconstruction error after occlusion is 0.051198, versus 0.124713 for the damaged input. On clean images, reconstruction error is 0.029621, whereas the original clean input has zero error. Retrieval pulls handwriting toward the memory bank; it is not an identity operation and not an unconditional denoiser.
 
-[Investigation D: edit real cue pixels, record a prediction about the class and retrieved stroke, then inspect the resulting memory distribution and reconstructed image. Compare clean, occluded and blank cues.]
+[Investigation D: edit real cue pixels, Show the current computed result and its contributing terms immediately. Compare clean, occluded and blank cues.]
 
 ## 6. Build a reliable association system
 
@@ -392,6 +395,22 @@ High β approaches an argmax over scores when there is a unique maximum; it pres
 For implementation, stable softmax subtracts the largest logit. All-masked or empty banks need an explicit result policy. A common additive shift of finite logits leaves the distribution unchanged; masking every logit to negative infinity does not produce a valid distribution.
 
 These checks are useful beyond this named architecture. The earlier [Self-Attention & Multi-Head Attention](/learn/path/full-curriculum/self-attention-multi-head-attention?module=deep-learning-fundamentals) lesson develops attention's full projection and masking mechanics. The present energy interpretation adds a tool for reasoning about particular memory dynamics; it does not substitute for that entire model specification.
+
+### Keep the memory operation explicit when using a framework
+
+The complete mechanism program is [associative_memory.py](associative_memory.py): `store_binary` builds the symmetric zero-diagonal weights, `binary_recall` performs one asynchronous coordinate update at a time, and `retrieve`/`iterate` construct stable modern retrieval and its energy trace. `digit_memory.py::read_memory` then implements the practical trainable bank using ordinary PyTorch operations, with a learned `nn.Linear` projection and log-space class-mass aggregation. It learns the addressing representation; query labels are targets of the loss, never keys supplied to retrieval.
+
+There is an ordinary fused route for the softmax read itself: `scaled_dot_product_attention`. The exact call in `associative_memory.py::main` holds Q, K and V fixed and compares it with explicit `softmax(QKᵀ/√d)V`, with dropout zero. In our notation the inverse-temperature β must equal the call's score scale: the default is 1/√d, not an arbitrary β. For a different β pass `scale=beta` explicitly. When K=V are stored patterns the read can be the modern memory update; arbitrary distinct values retain the attention computation but do not inherit that energy-descent interpretation. [PyTorch attention contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html).
+
+For B queries and M stored d-dimensional patterns, an explicit read uses O(BMd) arithmetic and may materialize O(BM) scores. Query chunking bounds that intermediate without changing fixed-bank reads. Normalized log-class sums are intentionally used for a tiny ordinary bank; the optional Hopfield package is not required to expose this operation or to train it. The discrete symmetric memory uses O(d²) weight storage, a different object from an M-by-d continuous pattern bank.
+
+**Change the contract.** Give the three stored keys different two-coordinate values, set β=.7, and compare the explicit read with `scaled_dot_product_attention(query, keys, values, scale=.7, dropout_p=0.)`. Then differentiate the squared returned-value norm with respect to the same query in both routes.
+
+<details><summary>Hint and reasoned solution</summary>
+
+Use batched tensors with sequence position before the last feature dimension. Create independent cloned query leaves for the two computations, hold keys/values fixed, and use the same loss reduction before `torch.autograd.grad`. Both values and query derivatives should agree within a float64 tolerance such as 1e−11 on these small moderate logits; backend summation need not be bitwise equal. Normalizing keys in only one route or leaving the native scale at 1/√d changes the operation. After separating keys from values, do not test the fixed-pattern energy as a claimed monotonic invariant of the returned value: that invariant's assumptions no longer hold.
+
+</details>
 
 ## 7. Optional depth: what capacity and energy really promise
 

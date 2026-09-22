@@ -24,7 +24,7 @@ function Investigation({
   reset,
   children
 }) {
-  return <section className="mo-investigation" aria-label={title}><header><h3>{title}</h3><button onClick={reset}>Reset</button></header><p><strong>Predict first.</strong> {prompt}</p>{children}</section>;
+  return <section className="mo-investigation" aria-label={title} data-live-exploration><header><h3>{title}</h3><button onClick={reset}>Reset</button></header><p>{prompt}</p>{children}</section>;
 }
 export function LabelErrorLab() {
   const [prediction, setPrediction] = useState(multioutputPredictions.map(row => [...row]));

@@ -114,7 +114,7 @@ export function DivergenceRatioLab() {
     setError('');
   }
   return <Investigation name="Probability ratio investigation" title="Give the same mismatch a different penalty">
-    <p>Predict which outcome contributes most. Each row follows mass → ratio → weighted penalty. P and Q are normalized separately; labels A–D stay aligned.</p>
+    <p>Inspect which outcome contributes most. Each row follows mass → ratio → weighted penalty. P and Q are normalized separately; labels A–D stay aligned.</p>
     <form onSubmit={apply} className="divergence-controls">
       <label>P weights<input value={draftP} onChange={event => setDraftP(event.target.value)} /></label>
       <label>Q weights<input value={draftQ} onChange={event => setDraftQ(event.target.value)} /></label>
@@ -208,7 +208,7 @@ export function ObservableCriticLab() {
   const state = preset === 'spread' ? observableState(undefined, undefined, undefined, kind) : observableState([0, 1, 0, 0], [0, 0, 1, 0], undefined, kind);
   const magnitude = Math.max(1, ...state.scores.map(Math.abs));
   return <Investigation name="Observable class investigation" title="Change what the observer is allowed to do">
-    <p>The broad and narrow distributions have the same mean. Predict whether a linear score can distinguish them, then allow a different function class.</p>
+    <p>The broad and narrow distributions have the same mean. Inspect whether a linear score can distinguish them, then allow a different function class.</p>
     <div className="divergence-controls">
       <label>Distribution pair<select value={preset} onChange={event => setPreset(event.target.value)}><option value="spread">Same mean, different spread</option><option value="shift">Move a point mass from −1 to +1</option></select></label>
       <label>Allowed observer<select value={kind} onChange={event => setKind(event.target.value)}><option value="event">Any score from 0 to 1 (TV)</option><option value="linear">Linear ax, |a| ≤ 1</option><option value="lipschitz">Any 1-Lipschitz score (W1)</option></select></label>
@@ -331,7 +331,7 @@ export function KernelWitnessLab() {
     };
   }));
   return <Investigation name="Kernel witness investigation" title="See the pairs that build the discrepancy">
-    <p>Start with identical raw means and different spread. Predict what a linear kernel reports, then let the Gaussian kernel compare local neighborhoods.</p>
+    <p>Start with identical raw means and different spread. Inspect what a linear kernel reports, then let the Gaussian kernel compare local neighborhoods.</p>
     <div className="divergence-actions">{Object.entries(SAMPLE_PRESETS).map(([key, preset]) => <button type="button" onClick={() => loadPreset(key)} key={key}>{preset.label}</button>)}</div>
     <form className="divergence-controls" onSubmit={apply}>
       <label>X observations<input value={draftX} onChange={event => setDraftX(event.target.value)} /></label>

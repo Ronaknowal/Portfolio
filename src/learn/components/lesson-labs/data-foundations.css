@@ -16,8 +16,6 @@
 .data-controls label { display: grid; gap: 5px; flex: 1 1 220px; min-width: 0; font-size: 14px; }
 .data-lab[data-lab="sql-join"] .data-controls { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
 .data-aggregate-key { font-size: 13px; line-height: 1.8; }
-.data-prediction { display: grid; gap: 8px; font-size: 14px; margin: 18px 0; }
-.data-prediction input { width: 100%; }
 .data-pipeline { list-style: none; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); padding: 0; gap: 5px; margin: 20px 0; }
 .data-pipeline li { color: #a9a49b; border-bottom: 2px solid #494338; padding: 10px 4px; font-size: 13px; }
 .data-pipeline li span { display: block; font-size: 18px; }

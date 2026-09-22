@@ -1,0 +1,432 @@
+/* End-to-end supervised learning and error analysis: investigations, figures and
+   their tables. Calm dark ground with the site's gold accent. Every encoding
+   that carries meaning also carries a shape, a pattern, a word or a printed
+   value, so nothing here depends on colour alone.
+
+   Four rules below are deliberate and each has been shipped wrong before in this
+   repository.
+
+   1. The SVG layout rule is SCOPED BY CLASS, never written as a bare descendant
+      `svg` selector under the lesson root. See the long note beside it.
+   2. `.endtoend-lesson svg text` is scoped at the LESSON ROOT rather than at a
+      figure class. A class-scoped rule misses any diagram sitting inside an
+      investigation wrapper; such a diagram then renders at the browser default
+      16px inside a ~320-unit viewBox and scales to illegible. It uses font
+      LONGHANDS, because the `font` shorthand silently resets every font-size set
+      on a descendant.
+   3. No blanket `fill` is set on shapes. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how a figure's bands once became entirely
+      invisible while every offline assertion passed. Each shape class states its
+      own fill, and outline-only shapes state `fill: none` in CSS.
+   4. A table caption is a sibling paragraph, never a `<caption>`: below the
+      narrow breakpoint the table blockifies and a caption inside it collapses to
+      the width of its longest word. */
+
+/* SCOPED TO THIS LESSON'S OWN SVGs BY CLASS, not to every svg under the lesson
+   root. `.endtoend-lesson svg { width: 100%; height: auto }` also matches
+   KaTeX's radical SVGs, whose height comes from `height: inherit`; `auto` gives
+   them no intrinsic height and collapses them to zero, so every square root on
+   the page renders as a bare fraction. In another lesson that turned the radius
+   of a confidence bound into the radius SQUARED -- a different quantity -- while
+   four offline verifiers stayed green.
+
+   Tagging the ELEMENT is safe in the way tagging a CONTAINER would not be: each
+   of this lesson's SVGs carries ete-plot, ete-strip, ete-lanes, ete-rail or
+   ete-bars wherever it sits, including inside an investigation wrapper, and the
+   hygiene checker refuses an untagged one and refuses a bare `svg` selector in
+   this file. */
+.endtoend-lesson svg:is(.ete-plot, .ete-strip, .ete-lanes, .ete-rail, .ete-bars) {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.endtoend-lesson svg text {
+  fill: #cfd7d2;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.endtoend-lesson svg text.ete-small { font-size: 9px; }
+.endtoend-lesson svg text.ete-strong { font-size: 9.5px; font-weight: 600; fill: #f0e6c8; }
+.endtoend-lesson svg text.ete-muted { fill: #9fa9a4; }
+.endtoend-lesson svg text.ete-axis-title { fill: #8eb9a5; font-size: 9px; }
+
+/* Lines and marks. Each states its own fill. */
+.endtoend-lesson svg .ete-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.endtoend-lesson svg .ete-tick { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.endtoend-lesson svg .ete-grid { fill: none; stroke: #232a28; stroke-width: 1; }
+.endtoend-lesson svg .ete-cutoff {
+  fill: none;
+  stroke: #e7b94a;
+  stroke-width: 1.4;
+  stroke-dasharray: 6 3;
+}
+
+/* ------------------------------------------------- figure A, information lanes */
+.endtoend-lesson svg .ete-lane rect { fill: #1b2220; stroke: #3d5148; stroke-width: 1; }
+.endtoend-lesson svg .ete-lane.is-train rect { stroke: #8eb9a5; }
+.endtoend-lesson svg .ete-lane.is-validation rect { stroke: #e7b94a; }
+.endtoend-lesson svg .ete-lane.is-test rect { stroke: #da9c86; stroke-dasharray: 4 2; }
+.endtoend-lesson svg .ete-pipeline-box { fill: #171d1c; stroke: #6f7b76; stroke-width: 1.2; }
+.endtoend-lesson svg .ete-sink rect { fill: #1b2220; stroke: #6f7b76; stroke-width: 1; }
+.endtoend-lesson svg .ete-sink.is-report rect { stroke: #da9c86; }
+.endtoend-lesson svg .ete-gate rect { fill: #2a211c; stroke: #da9c86; stroke-width: 1.2; }
+.endtoend-lesson svg .ete-gate line { fill: none; stroke: #da9c86; stroke-width: 1.6; }
+
+.endtoend-lesson svg .ete-arrow line { fill: none; stroke-width: 1.4; }
+.endtoend-lesson svg .ete-arrow.is-fits line { stroke: #8eb9a5; }
+.endtoend-lesson svg .ete-arrow.is-applies line { stroke: #cfd7d2; stroke-dasharray: 3 2; }
+.endtoend-lesson svg .ete-arrow.is-informs line { stroke: #e7b94a; }
+.endtoend-lesson svg .ete-arrow.is-reports line { stroke: #da9c86; }
+.endtoend-lesson svg .ete-arrow.is-counterexample line { stroke: #b0524a; stroke-dasharray: 2 3; }
+.endtoend-lesson svg .ete-arrow-head { stroke: none; fill: #cfd7d2; }
+.endtoend-lesson svg .ete-arrow-head.is-fits { fill: #8eb9a5; }
+.endtoend-lesson svg .ete-arrow-head.is-informs { fill: #e7b94a; }
+.endtoend-lesson svg .ete-arrow-head.is-reports { fill: #da9c86; }
+.endtoend-lesson svg .ete-arrow-head.is-counterexample { fill: #b0524a; }
+
+/* --------------------------------------------------------- the scatter's points */
+.endtoend-lesson svg .ete-point circle,
+.endtoend-lesson svg .ete-point rect,
+.endtoend-lesson svg .ete-point polygon { stroke-width: 1.2; }
+.endtoend-lesson svg .ete-point.is-class0 circle { fill: #8eb9a5; stroke: #8eb9a5; }
+.endtoend-lesson svg .ete-point.is-class1 rect { fill: #e7b94a; stroke: #e7b94a; }
+.endtoend-lesson svg .ete-point.is-class2 polygon { fill: #b58ec0; stroke: #b58ec0; }
+.endtoend-lesson svg .ete-error-ring { fill: none; stroke-width: 1.4; }
+.endtoend-lesson svg .ete-error-ring.is-reference { stroke: #f0e6c8; stroke-dasharray: 2 2; }
+.endtoend-lesson svg .ete-error-ring.is-candidate { stroke: #da9c86; }
+.endtoend-lesson svg .ete-point.is-out circle,
+.endtoend-lesson svg .ete-point.is-out rect,
+.endtoend-lesson svg .ete-point.is-out polygon { fill: none; opacity: 0.45; }
+.endtoend-lesson svg .ete-point.is-selected circle,
+.endtoend-lesson svg .ete-point.is-selected rect,
+.endtoend-lesson svg .ete-point.is-selected polygon {
+  stroke: #f0e6c8;
+  stroke-width: 2.4;
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------ the paired strip */
+.endtoend-lesson svg .ete-mark { stroke: none; }
+.endtoend-lesson svg .ete-mark.is-right { fill: #3d5148; }
+.endtoend-lesson svg .ete-mark.is-wrong { fill: #7a3f38; }
+.endtoend-lesson svg .ete-link { fill: none; stroke-width: 1.6; }
+.endtoend-lesson svg .ete-link.is-repaired { stroke: #8eb9a5; }
+.endtoend-lesson svg .ete-link.is-new-error { stroke: #da9c86; stroke-dasharray: 3 2; }
+.endtoend-lesson svg .ete-cell.is-repaired .ete-mark.is-right { fill: #8eb9a5; }
+.endtoend-lesson svg .ete-cell.is-new-error .ete-mark.is-wrong { fill: #da9c86; }
+
+.endtoend-lesson svg .ete-strip-mark { fill: none; stroke: #8eb9a5; stroke-width: 1.4; }
+.endtoend-lesson svg .ete-strip-mark.is-selected { stroke: #f0e6c8; stroke-width: 2.6; }
+
+/* ------------------------------------------------------------------ bar charts */
+.endtoend-lesson svg .ete-bar rect { fill: #e7b94a; stroke: none; }
+.endtoend-lesson svg .ete-bar.is-baseline rect { fill: #4a5350; }
+.endtoend-lesson svg .ete-bar.is-linear_two rect { fill: #8eb9a5; }
+.endtoend-lesson svg .ete-bar.is-forest_two rect { fill: #b58ec0; }
+.endtoend-lesson svg .ete-bar.is-linear_three rect { fill: #e7b94a; }
+.endtoend-lesson svg .ete-recall-group.is-worsened .ete-bar rect { stroke: #b0524a; stroke-width: 1.4; }
+
+/* ------------------------------------------------------- the acceptance rail */
+.endtoend-lesson svg .ete-tile rect { fill: #1b2220; stroke: #6f7b76; stroke-width: 1; }
+.endtoend-lesson svg .ete-tile.is-accepted rect { fill: #2b3a34; stroke: #8eb9a5; }
+.endtoend-lesson svg .ete-tile.is-deferred rect { fill: #2a2520; stroke: #9fa9a4; stroke-dasharray: 2 2; }
+.endtoend-lesson svg .ete-tile.is-wrong rect { stroke: #b0524a; stroke-width: 1.8; }
+.endtoend-lesson svg .ete-tile.is-edited rect { stroke: #f0e6c8; }
+
+/* ================================================================ page chrome */
+
+.endtoend-lesson .ete-figure { margin: 1.1rem 0; }
+.endtoend-lesson .ete-caption {
+  color: #9fa9a4;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0.4rem 0 0;
+}
+
+.endtoend-lesson .ete-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  font-size: 0.82rem;
+  color: #9fa9a4;
+  margin: 0.3rem 0 0.6rem;
+}
+.endtoend-lesson .ete-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.endtoend-lesson .ete-swatch {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 2px;
+  background: #4a5350;
+  flex: none;
+}
+.endtoend-lesson .ete-swatch.is-class0 { background: #8eb9a5; border-radius: 50%; }
+.endtoend-lesson .ete-swatch.is-class1 { background: #e7b94a; }
+.endtoend-lesson .ete-swatch.is-class2 { background: #b58ec0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.endtoend-lesson .ete-swatch.is-in-slice { background: #cfd7d2; }
+.endtoend-lesson .ete-swatch.is-cutoff { background: repeating-linear-gradient(90deg, #e7b94a 0 3px, transparent 3px 5px); }
+.endtoend-lesson .ete-swatch.is-right { background: #3d5148; }
+.endtoend-lesson .ete-swatch.is-wrong { background: #7a3f38; }
+.endtoend-lesson .ete-swatch.is-reference-error { border: 1.4px dashed #f0e6c8; border-radius: 50%; background: none; }
+.endtoend-lesson .ete-swatch.is-candidate-error { border: 1.4px solid #da9c86; border-radius: 50%; background: none; }
+.endtoend-lesson .ete-swatch.is-repaired { background: #8eb9a5; }
+.endtoend-lesson .ete-swatch.is-new-error { background: #da9c86; }
+.endtoend-lesson .ete-swatch.is-worsened { background: #b0524a; }
+.endtoend-lesson .ete-swatch.is-accepted { background: #2b3a34; border: 1px solid #8eb9a5; }
+.endtoend-lesson .ete-swatch.is-deferred { background: #2a2520; border: 1px dashed #9fa9a4; }
+.endtoend-lesson .ete-swatch.is-fits { background: #8eb9a5; }
+.endtoend-lesson .ete-swatch.is-applies { background: repeating-linear-gradient(90deg, #cfd7d2 0 3px, transparent 3px 5px); }
+.endtoend-lesson .ete-swatch.is-informs { background: #e7b94a; }
+.endtoend-lesson .ete-swatch.is-reports { background: #da9c86; }
+.endtoend-lesson .ete-swatch.is-counterexample { background: repeating-linear-gradient(90deg, #b0524a 0 2px, transparent 2px 5px); }
+.endtoend-lesson .ete-swatch.is-linear_two { background: #8eb9a5; }
+.endtoend-lesson .ete-swatch.is-forest_two { background: #b58ec0; }
+.endtoend-lesson .ete-swatch.is-linear_three { background: #e7b94a; }
+.endtoend-lesson .ete-swatch.is-majority { background: #4a5350; }
+
+/* ---------------------------------------------------------- the score's role */
+.endtoend-lesson .ete-score {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+.endtoend-lesson .ete-score-value {
+  font-family: var(--font-mono, monospace);
+  color: #f0e6c8;
+}
+.endtoend-lesson .ete-score-role {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid #4a5350;
+  border-radius: 3px;
+  padding: 0 0.28rem;
+  color: #9fa9a4;
+}
+.endtoend-lesson .ete-score[data-role="training"] .ete-score-role { border-color: #6f7b76; color: #a7b3ad; }
+.endtoend-lesson .ete-score[data-role="validation"] .ete-score-role { border-color: #8eb9a5; color: #8eb9a5; }
+.endtoend-lesson .ete-score[data-role="selection"] .ete-score-role { border-color: #e7b94a; color: #e7b94a; }
+.endtoend-lesson .ete-score[data-role="held-out"] .ete-score-role { border-color: #da9c86; color: #da9c86; }
+
+/* ------------------------------------------------------------- investigations */
+.endtoend-lesson .ete-investigation {
+  border: 1px solid #2a3330;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1.4rem 0;
+  background: #141a19;
+}
+.endtoend-lesson .ete-investigation > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.endtoend-lesson .ete-investigation > header h3 { margin: 0; font-size: 1.02rem; }
+.endtoend-lesson .ete-investigation > header button {
+  background: transparent;
+  border: 1px solid #4a5350;
+  border-radius: 4px;
+  color: #cfd7d2;
+  padding: 0.22rem 0.7rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}
+.endtoend-lesson .ete-question { color: #cfd7d2; margin: 0.5rem 0; }
+.endtoend-lesson .ete-role {
+  font-size: 0.84rem;
+  border-left: 2px solid #6f7b76;
+  padding-left: 0.6rem;
+  color: #9fa9a4;
+  margin: 0.5rem 0;
+}
+.endtoend-lesson .ete-role.is-development { border-left-color: #8eb9a5; }
+.endtoend-lesson .ete-role.is-selection { border-left-color: #e7b94a; }
+.endtoend-lesson .ete-role.is-constructed { border-left-color: #b58ec0; }
+.endtoend-lesson .ete-note { font-size: 0.84rem; color: #9fa9a4; margin: 0.4rem 0; }
+
+.endtoend-lesson .ete-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.7rem;
+  margin: 0.8rem 0;
+}
+.endtoend-lesson .ete-score-edits { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.endtoend-lesson .ete-field { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85rem; }
+.endtoend-lesson .ete-field > span:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: #cfd7d2;
+}
+.endtoend-lesson .ete-field input,
+.endtoend-lesson .ete-field select,
+.endtoend-lesson .ete-field textarea {
+  background: #0f1413;
+  border: 1px solid #3a4441;
+  border-radius: 4px;
+  color: #e6ece9;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.88rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.endtoend-lesson .ete-field.is-invalid input { border-color: #b0524a; }
+.endtoend-lesson .ete-field-error { color: #da9c86; font-size: 0.78rem; }
+
+.endtoend-lesson .ete-checkset {
+  border: 1px solid #2a3330;
+  border-radius: 5px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.8rem 0;
+}
+.endtoend-lesson .ete-checkset legend { font-size: 0.86rem; color: #cfd7d2; padding: 0 0.3rem; }
+.endtoend-lesson .ete-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+  line-height: 1.45;
+}
+.endtoend-lesson .ete-checkbox input { margin-top: 0.22rem; flex: none; }
+.endtoend-lesson .ete-checkbox em { color: #9fa9a4; font-style: normal; }
+
+.endtoend-lesson .ete-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
+.endtoend-lesson .ete-presets button {
+  background: #1b2220;
+  border: 1px solid #3a4441;
+  border-radius: 4px;
+  color: #cfd7d2;
+  padding: 0.24rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.endtoend-lesson .ete-presets button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.endtoend-lesson .ete-prediction {
+  border-top: 1px solid #2a3330;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+}
+.endtoend-lesson .ete-prediction fieldset { border: none; padding: 0; margin: 0; }
+.endtoend-lesson .ete-prediction legend { font-weight: 600; color: #f0e6c8; font-size: 0.9rem; }
+.endtoend-lesson .ete-choices { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 0.5rem 0; }
+.endtoend-lesson .ete-choice { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.86rem; }
+.endtoend-lesson .ete-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.7rem 0;
+  font-size: 0.82rem;
+  color: #9fa9a4;
+}
+.endtoend-lesson .ete-buttons button.is-primary {
+  background: #2b3a34;
+  border: 1px solid #8eb9a5;
+  border-radius: 4px;
+  color: #e6ece9;
+  padding: 0.35rem 0.9rem;
+  font: inherit;
+  cursor: pointer;
+}
+.endtoend-lesson .ete-buttons button.is-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.endtoend-lesson .ete-verdict {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  border-left: 3px solid #8eb9a5;
+  padding: 0.45rem 0.7rem;
+  background: #16201c;
+  font-size: 0.88rem;
+  margin: 0.6rem 0;
+}
+.endtoend-lesson .ete-verdict.is-miss { border-left-color: #da9c86; background: #201a18; }
+.endtoend-lesson .ete-verdict-mark { font-family: var(--font-mono, monospace); flex: none; }
+.endtoend-lesson .ete-history { font-size: 0.82rem; color: #9fa9a4; margin: 0.4rem 0; }
+.endtoend-lesson .ete-pending,
+.endtoend-lesson .ete-blocked { font-size: 0.82rem; color: #e7b94a; margin: 0.4rem 0; }
+.endtoend-lesson .ete-reveal { margin-top: 0.8rem; }
+.endtoend-lesson .ete-heldout-step {
+  border: 1px dashed #da9c86;
+  border-radius: 5px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.9rem;
+}
+.endtoend-lesson .ete-refusal,
+.endtoend-lesson .ete-sealed {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  border-left: 3px solid #da9c86;
+  background: #1c1715;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.86rem;
+  color: #cfd7d2;
+  margin: 0.8rem 0;
+}
+.endtoend-lesson .ete-sealed-mark { color: #da9c86; flex: none; }
+
+/* -------------------------------------------------------------------- tables */
+.endtoend-lesson .ete-table { margin: 1rem 0; }
+.endtoend-lesson .ete-table-scroll { overflow-x: auto; }
+.endtoend-lesson .ete-table table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85rem;
+}
+.endtoend-lesson .ete-table th,
+.endtoend-lesson .ete-table td {
+  border: 1px solid #2a3330;
+  padding: 0.35rem 0.55rem;
+  text-align: left;
+  vertical-align: top;
+}
+.endtoend-lesson .ete-table thead th { background: #1b2220; color: #f0e6c8; font-weight: 600; }
+.endtoend-lesson .ete-table tbody tr.is-repaired th,
+.endtoend-lesson .ete-table tbody tr.is-repaired td { background: #16201c; }
+.endtoend-lesson .ete-table tbody tr.is-new-error th,
+.endtoend-lesson .ete-table tbody tr.is-new-error td { background: #201a18; }
+.endtoend-lesson .ete-table tbody tr.is-worsened th,
+.endtoend-lesson .ete-table tbody tr.is-worsened td { background: #201a18; }
+
+/* ------------------------------------------------------------------ narrow */
+@media (max-width: 560px) {
+  .endtoend-lesson .ete-table table,
+  .endtoend-lesson .ete-table thead,
+  .endtoend-lesson .ete-table tbody,
+  .endtoend-lesson .ete-table tr,
+  .endtoend-lesson .ete-table th,
+  .endtoend-lesson .ete-table td { display: block; }
+  .endtoend-lesson .ete-table thead { display: none; }
+  .endtoend-lesson .ete-table tbody tr {
+    border: 1px solid #2a3330;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .endtoend-lesson .ete-table tbody th,
+  .endtoend-lesson .ete-table tbody td { border: none; border-bottom: 1px solid #222b28; }
+  .endtoend-lesson .ete-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #8b958f;
+  }
+  .endtoend-lesson .ete-controls { grid-template-columns: 1fr; }
+  .endtoend-lesson .ete-score { flex-wrap: wrap; white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .endtoend-lesson * { transition: none !important; animation: none !important; }
+}

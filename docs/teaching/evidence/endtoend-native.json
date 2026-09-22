@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-09-20T23:34:38.811378+00:00",
+  "verifier": "scripts/verify-endtoend-examples.py",
+  "verifierSha256": "4b41237ec94f50beb090f768c30d3d8ffe209916e40da54579afea3d4b04113e",
+  "manuscriptSha256": "0b25eaad5fe45232c97f756222805e9222bb91659aeec08835c7a88e5e5338e0",
+  "displayedProgram": {
+    "source": "the manuscript's single fenced python block, extracted verbatim",
+    "extractedSha256": "e0dcd56d83d241228d0c92f5308a102fb11ba90fbc8adfec9c4bd201714beecc",
+    "extractedLines": 75,
+    "composedLines": 0,
+    "servedAt": "/learn-assets/end-to-end/wine_study.py",
+    "executed": true,
+    "stdoutSha256": "ad79c0ce1a5b9cabfc5bf25eeb7b6212a45bd9fbd3da080550ed92cd05cf5679",
+    "reproducedRecordedBlock": true,
+    "developmentLines": 12,
+    "heldOutLines": 4
+  },
+  "heldOutSeparation": {
+    "marker": "test ",
+    "developmentHalfContainsNoHeldOutQuantity": true,
+    "note": "Checked on the actual output bytes: the three held-out scores and the held-out confusion matrix appear in the held-out half and in no part of the half the page shows beside the program."
+  },
+  "isolatedRun": {
+    "environment": "scratch/endtoend-venv, built by this run and installed from the lesson's own displayed setup line",
+    "resolvedVersions": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "sklearn": "1.9.1",
+      "scipy": "1.18.1"
+    },
+    "reproducedRecordedOutput": true,
+    "stdoutSha256": "ad79c0ce1a5b9cabfc5bf25eeb7b6212a45bd9fbd3da080550ed92cd05cf5679"
+  },
+  "servedDataset": {
+    "path": "/learn-assets/end-to-end/wine.csv",
+    "sha256": "34ced17cfa0a96bf5ae5c25565da075c612145b20368fc2455e5e8f966e818be"
+  },
+  "module": {
+    "path": "src/learn/data/endtoend-examples.js",
+    "sha256": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "regeneration": "byte-identical"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "oracles": 56,
+  "notes": [
+    "The program is displayed whole, exactly as the manuscript displays it. Its printed output is split for presentation only; the split is checked to reconstruct the stdout exactly.",
+    "No network access was used by the program itself: the dataset it reads is the file served beside it.",
+    "Nothing inside the frozen packet directory was written; the directory was fingerprinted before and after the run."
+  ],
+  "limits": [
+    "Floating-point results can differ on other library versions; the resolved versions are recorded.",
+    "Without --isolated no clean-environment installation was attempted, and isolatedRun is null rather than a claim.",
+    "This verifier executes a program and compares text. What the page renders is checked by scripts/verify-endtoend-browser.cjs."
+  ],
+  "passed": true
+}

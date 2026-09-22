@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    "Numerical guard rejects incorrect, empty and nonfinite subjects",
+    "Channel and whole-specimen normalization match independent NumPy axes; changed-cell and exact shift-null fixtures",
+    "GRN denominator, signed scales, cross-channel contrast, identity and zero-input cases",
+    "Exact block totals plus144 width/expansion/kernel budget cases with spatial scaling and version differences",
+    "Independent folded kernel/bias/output fixture and nonlinear counterexample;27 signed/extreme folding cases",
+    "All1536 fresh native outputs and24 losses agree; allfour hidden edits exactly preserve reconstruction, visible contrasts change it and invalid masks reject",
+    "Allsix conserved traces fit the declared chart domain; topic metadata contains no saved weights"
+  ],
+  "maximumError": 4.0918536925449445e-7,
+  "maximumMseError": 9.676894596744035e-8,
+  "nodeInferenceMillisecondsFor24Cases": 61.33300000000001,
+  "sources": {
+    "src/learn/data/convnext-models.js": "c19b8aa44bcb736828ae978e8f1efb8904571d2a854e8ae3621400491be9642b",
+    "src/learn/data/convnext-measurements.json": "66a5da7104b7a1e140a63964658f5cdffca38547e2c773b059a7e42377ec85fb",
+    "src/learn/components/lesson-labs/ConvNeXtLabs.jsx": "2f9ff9755b0d3e9c3ef645be6ed67c83b3d5cc9dad0c5e48b09b9c9d37d0792c",
+    "src/learn/components/lesson-labs/convnext.css": "befbaa5b4d07c0da12cc17ceb7adfe8f94be7986564de61dcc85307def107ce2",
+    "src/learn/data/topics/convnext-modern-cnn-designs.jsx": "bfedbb1e54cd1397ef1b0c27c05c671787f86d6d7579ac837e5facd4924a8e73",
+    "scripts/generate-convnext-lesson.mjs": "6eb49d66b89d1bd88c179ef50fe0ab14e1dfe03af1621711d8792ae18ebfabe3",
+    "scripts/verify-convnext-models.mjs": "95a617704a914f04dd07c1222cd5c349af258062c1d6ba919c1fb5b4fc731d0a"
+  },
+  "limits": [
+    "Timing is a local Node correctness-run observation, not a browser/device benchmark",
+    "Actual browser, keyboard, responsive and final integration checks remain with the increment owner"
+  ]
+}

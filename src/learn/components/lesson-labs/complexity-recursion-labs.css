@@ -1,5 +1,6 @@
 .complexity-lab, .complexity-inline { font-family: 'Space Grotesk', sans-serif; }
 .complexity-lab .lesson-controls { align-items: end; }
+.complexity-lab .lesson-controls label, .complexity-lab .lesson-controls select { min-width: 0; max-width: 100%; }
 .complexity-lab .lesson-controls input:not([type='range']) { min-height: 44px; box-sizing: border-box; background: #141414; border: 1px solid #777; border-radius: 4px; color: #eee; padding: 8px 10px; font: inherit; }
 .complexity-lab .lesson-controls input[type='range'] { min-height: 44px; }
 .complexity-lab button:disabled { opacity: .45; cursor: default; }

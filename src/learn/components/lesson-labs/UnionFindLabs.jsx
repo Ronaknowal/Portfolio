@@ -123,7 +123,7 @@ export function UnionFindLab() {
   }
   return <section className="uf-lab" aria-labelledby={heading} data-union-find-lab="unions">
     <p className="uf-eyebrow">INVESTIGATION · LINKS BECOME GROUPS</p><h3 id={heading}>A link joins whole components</h3>
-    <p>Predict the two roots and whether the count will fall. The figure contains parent pointers, not a drawing of the input network. Compression is off here so the attachment policy is visible.</p>
+    <p>Inspect the two roots and whether the count will fall. The figure contains parent pointers, not a drawing of the input network. Compression is off here so the attachment policy is visible.</p>
     <form onSubmit={apply} className="uf-controls"><label>First element<input value={left} onChange={event => setLeft(event.target.value)} inputMode="numeric" maxLength={4} /></label><label>Second element<input value={right} onChange={event => setRight(event.target.value)} inputMode="numeric" maxLength={4} /></label><label>Attachment policy<select aria-label="Attachment policy" value={policy} onChange={event => setPolicy(event.target.value)}><option value="size">Smaller below larger</option><option value="unweighted">First root below second</option></select></label><button type="submit" disabled={step !== frames.length - 1}>Apply union</button></form>
     {error && <p role="alert" className="uf-error">{error}</p>}
     <div className="uf-controls"><button type="button" onClick={() => reset('empty')}>Reset singletons</button><button type="button" onClick={() => reset('balanced')}>Pairwise construction</button><button type="button" onClick={() => reset('chain')}>Consecutive links</button></div>
@@ -154,7 +154,7 @@ export function PathCompressionLab() {
   }
   return <section className="uf-lab" aria-labelledby={heading} data-union-find-lab="compression">
     <p className="uf-eyebrow">INVESTIGATION · A LOOKUP REPAIRS ITS ROUTE</p><h3 id={heading}>Shorten the path, preserve the group</h3>
-    <p>The seed was built by seven size-weighted unions: (0,1), (2,3), (0,2), (4,5), (6,7), (4,6), (0,4). Predict the path from 7, then watch full compression rewrite it.</p>
+    <p>The seed was built by seven size-weighted unions: (0,1), (2,3), (0,2), (4,5), (6,7), (4,6), (0,4). Inspect the path from 7, then watch full compression rewrite it.</p>
     <div className="uf-controls"><label>Find element<select aria-label="Find element" value={node} onChange={event => setNode(event.target.value)}>{seed.parent.map((_, index) => <option key={index}>{index}</option>)}</select></label><button type="button" onClick={investigate}>Trace selected find</button><button type="button" onClick={repeat} disabled={step !== trace.frames.length - 1}>Find again on result</button><button type="button" onClick={() => {
         setBase(seed);
         setNode('7');
@@ -186,7 +186,7 @@ export function IslandUnionLab() {
     let fresh = createIslandGrid();
     for (const index of [6, 7, 8, 11, 13, 16, 17, 18]) fresh = activateIslandCell(fresh, index).state;
     setState(fresh);
-    setMessage('Ring preset: one island surrounds closed cell (2, 2). Predict the count when that cell opens; all four neighbors already connect.');
+    setMessage('Ring preset: one island surrounds closed cell (2, 2). Open that cell and inspect the count; all four neighbors already connect.');
   }
   return <section className="uf-lab uf-island-lab" aria-labelledby={heading} data-union-find-lab="islands">
     <p className="uf-eyebrow">INVESTIGATION · CONNECTIONS HIDDEN IN A GRID</p><h3 id={heading}>Open land, then join its neighbors</h3>

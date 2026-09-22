@@ -1,5 +1,8 @@
 # Boltzmann Machines & Restricted Boltzmann Machines (RBM)
 
+**Explore as you read.** Edit small-model biases/interactions, data counts, transition/sampling settings and supported retained digit states. Show normalized joint/marginal probabilities, data-model statistics, exact transition mass and sampled chain trajectories simultaneously. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to distinguish energy from normalized likelihood, reconstruction from probability and finite mixing behavior from an equilibrium claim.
+
+
 Imagine learning what plausible handwritten digits look like without being told which digit each image represents. A model could assign a score to every possible image, then make images with better scores more probable. It could also use the visible half of an image to reason about the missing half.
 
 A **Boltzmann machine** does this with interacting random variables. A **restricted Boltzmann machine**, or RBM, removes particular connections so that some otherwise difficult calculations become simple. We will build a model with only three binary switches, calculate every probability, and then train a small model on real digit images. The small model is deliberately chosen so that we can check its approximate training methods against exact answers.
@@ -158,7 +161,7 @@ With learning rate 0.1, update **all parameters from the same old state**:
 
 Recomputing the complete distribution changes $\log p(11)$ from −0.69314718 to −0.65690173. The observation has become more probable. We checked every analytic gradient against scalar central differences; the largest discrepancy was below $2\times10^{-11}$. A bigger learning rate would not automatically preserve improvement.
 
-**Visual: two co-occurrence ledgers.** Display the data expectation and the model expectation beside each edge, then subtract them. A learner edits the observed state or a model weight, predicts the direction of the next update, and recomputes both columns. The model column must not remain frozen after a parameter edit.
+**Visual: two co-occurrence ledgers.** Display the data expectation and the model expectation beside each edge, then subtract them. A learner edits the observed state or a model weight and immediately sees both columns and the resulting update direction recomputed. The model column must not remain frozen after a parameter edit.
 
 ### Do we need to sample the positive hidden variables?
 
@@ -194,7 +197,7 @@ Compare that with the stationary model distribution $[0.1,0.2,0.2,0.5]$. The cha
 
 *Total variation distance is half the sum of absolute differences between matching state probabilities. These entries come from multiplying an exactly enumerated four-state transition matrix, with parameters held fixed. They are not measured frequencies of four individual samples, or a general promise that three steps suffice.
 
-**Lab: probability flow through four states.** Follow the full mass distribution as well as a single seeded particle. Change the starting state or interaction strengths, predict the next mass movement, then step. Separate “chain step” from “parameter update”; confusing the two hides what the approximation actually does.
+**Lab: probability flow through four states.** Follow the full mass distribution as well as a single seeded particle. Change the starting state or interaction strengths, inspect the next mass movement, then step. Separate “chain step” from “parameter update”; confusing the two hides what the approximation actually does.
 
 Finite-step CD is a biased approximation to the likelihood gradient. Its usual update also omits a term arising from the parameter dependence of the reconstructed distribution in the proposed CD objective. It need not be the gradient of any scalar objective in general; [Sutskever and Tieleman, 2010](https://proceedings.mlr.press/v9/sutskever10a.html) analyze that distinction. The successful tiny example above does not establish global convergence.
 
@@ -515,7 +518,7 @@ A constructed two-pixel counterexample makes the distinction sharp. Model A has 
 
 Model B has no interactions and both visible on-probabilities 0.9. Its reconstruction of 11 is $[0.9,0.9]$, with the larger MSE 0.01. But it assigns probability 0.81 to 11, giving the **better** NLL 0.210721. Reconstruction measures the return journey near an input; likelihood measures how the model divides its full probability budget.
 
-**Visual: two reconstruction arrows beside four probability bars.** The learner predicts which model wins on each measure before revealing them. Both panels use the actual model distributions. An attractive-looking arrow must not stand in for the missing normalizer.
+**Visual: two reconstruction arrows beside four probability bars.** Display both models' reconstruction and normalized likelihood together for the selected input. Their winners can differ. Both panels use actual model distributions; an attractive reconstruction arrow cannot replace a missing normalizer.
 
 Similarly, comparing free energies from different model versions requires their different normalizers. A constant downward energy shift could make every raw score look better without changing any probability. Under the same fixed model, a data-versus-development mean free-energy gap does equal the corresponding NLL gap because the one $\log Z$ cancels. That useful diagnostic does not license comparing raw free energy across epochs as if it were normalized likelihood.
 
@@ -542,7 +545,7 @@ For the three-switch example, observing $v_1=1$ gives $p(v_2=1\mid v_1=1)=0.5/(0
 
 We applied the fixed left-half mask to every assessment image. There are $80\times32=2,560$ missing pixel targets. Exact-gradient seed 11 achieved conditional-probability MSE 0.117704 versus the independent baseline's 0.132506; thresholding at 0.5 gives 2,112 versus 2,028 correct missing pixels. These are pixel-level results, not digit-classification accuracy. Other seeds and methods are retained, including PCD-1 seed 47's MSE 0.116945. A model can do well at this conditional task without winning on full-image NLL.
 
-**Lab: inspect an actual completion.** Display the observed binary pixels, a distinct missing-data mask, the conditional-probability image and the withheld true pixels in separate roles. On assessment source 186, toggle observed pixel 27 and predict whether the right-half probabilities will change. For exact-gradient seed 11 the largest missing-pixel change is approximately 0.0596011. Toggling only the placeholder at missing pixel 28 changes no conditional probability. This null case checks that the model is using the mask correctly.
+**Lab: inspect an actual completion.** Display the observed binary pixels, a distinct missing-data mask, the conditional-probability image and the withheld true pixels in separate roles. On assessment source 186, toggle observed pixel 27 and observe whether the right-half probabilities will change. For exact-gradient seed 11 the largest missing-pixel change is approximately 0.0596011. Toggling only the placeholder at missing pixel 28 changes no conditional probability. This null case checks that the model is using the mask correctly.
 
 The conditional mean can look blurry because several plausible completions disagree. It is not necessarily a plausible joint sample. To see whole alternatives, sample a hidden state from the observed-data posterior and then all missing pixels conditional on it, preserving the observed pixels exactly. Uncertainty is part of the answer.
 
@@ -583,6 +586,94 @@ Under the required support, initialization and transition assumptions, the avera
 Other training criteria answer different questions. Pseudo-likelihood uses conditionals such as $p(v_i\mid v_{-i})$ and can avoid the global normalizer. Current [scikit-learn BernoulliRBM documentation](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.BernoulliRBM.html) identifies its training as PCD/SML and its `score_samples` result as a random-bit pseudo-likelihood estimate, not exact log likelihood. Check that metric contract before plotting a library “score” beside our NLL.
 
 Likewise an autoencoder reconstruction loss, a variational lower bound and a normalized likelihood are distinct quantities. A comparison becomes meaningful only after specifying the data representation, objective, evaluation measure and computational budget.
+
+### Use a fitted library RBM without changing the probability question
+
+The scratch study owns the probability model: `free_energy`, `positive`, `exact_negative`, `gibbs` and `conditional_missing` in [rbm-study.py](rbm-study.py). Its model-weight update in `main` is simultaneous ascent from old-state statistics. Exact enumeration is the deliberately small oracle, while CD and PCD supply sampled negative statistics. We now keep those equations and inspect the model learned by the ordinary library.
+
+The [complete bridge](bernoulli_rbm_bridge.py) uses scikit-learn 1.9.1. Keep it beside `rbm-study.py` and run `python bernoulli_rbm_bridge.py` in the earlier environment with `scikit-learn==1.9.1` installed. These two filenames have an actual dependency: the bridge imports the scratch free-energy and normalization functions without launching the digit experiment. The four constructed fitting patterns have frequencies 1, 2, 2 and 5; this is a compact API demonstration, not another assessment experiment.
+
+| Equation or state | Ordinary API counterpart | Meaning that must survive |
+| --- | --- | --- |
+| W with visible rows and hidden columns | `components_.T` | The transpose is required; the library stores hidden-by-visible weights |
+| a, b | `intercept_visible_`, `intercept_hidden_` | Visible and hidden biases are not interchangeable |
+| σ(vW+b) | `transform(v)` | Hidden probabilities, not sampled binary states |
+| Alternating hidden/visible draws | `gibbs(v)` | One visible-state transition; it does not fit parameters |
+| Persistent negative statistics | `fit`'s stochastic maximum likelihood updates | Package chain initialization, minibatches and random draws need not match our scratch trajectory |
+| −F(v)−log Z | Exact tiny oracle in this bridge | `score_samples` instead estimates random-bit pseudo-likelihood |
+
+The first comparison uses **identical fitted parameters and inputs**, not independently trained models. Then the four-state transition matrix verifies that the fitted distribution is stationary under its alternating Gibbs transition. A single call to `gibbs` is random and need not resemble that distribution on four samples. The printout deliberately keeps hidden probabilities, sampled states, pseudo-likelihood and exact log probability separately named. The API contract and orientation are documented by [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.BernoulliRBM.html).
+
+```python
+"""BernoulliRBM fit/transform plus a matched, finite-state probability oracle.
+
+Authoring target: NumPy 2.3.5, SciPy 1.18.1, scikit-learn 1.9.1.
+Run beside rbm-study.py. This short constructed fit is not a new digit benchmark.
+"""
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
+import numpy as np
+from scipy.special import expit
+from sklearn.neural_network import BernoulliRBM
+
+
+def load_mechanisms():
+    # The earlier program's hyphenated download name is not a Python identifier.
+    spec = spec_from_file_location("rbm_mechanisms", Path(__file__).with_name("rbm-study.py"))
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def main():
+    scratch = load_mechanisms()
+    # Counts, not class labels: these four binary patterns form a tiny training set.
+    states = scratch.bits(2)
+    fitting = np.repeat(states, [1, 2, 2, 5], axis=0)
+    model = BernoulliRBM(n_components=1, learning_rate=.05, batch_size=5,
+                         n_iter=20, random_state=19).fit(fitting)
+    hidden = model.transform(states)
+    weights = model.components_.T.copy()       # library H x D -> lesson D x H
+    visible_bias = model.intercept_visible_.copy()
+    hidden_bias = model.intercept_hidden_.copy()
+    np.testing.assert_allclose(hidden, expit(states @ weights + hidden_bias), atol=1e-14)
+    free_energy = scratch.free_energy(states, weights, visible_bias, hidden_bias)
+    log_z = scratch.hidden_distribution(weights, visible_bias, hidden_bias)[3]
+    visible_probability = np.exp(-free_energy-log_z)
+    np.testing.assert_allclose(visible_probability.sum(), 1., atol=1e-14)
+
+    # A deterministic transition matrix sums over every hidden/visible draw.
+    h = scratch.bits(1)
+    visible_given_h = expit(h @ weights.T + visible_bias)
+    probability_v_given_h = np.prod(
+        visible_given_h[:, None, :]**states[None, :, :]
+        * (1-visible_given_h[:, None, :])**(1-states[None, :, :]), axis=2)
+    transition = np.c_[1-hidden[:, 0], hidden[:, 0]] @ probability_v_given_h
+    np.testing.assert_allclose(visible_probability @ transition, visible_probability,
+                               atol=1e-14)
+    sampled_next = model.gibbs(states)          # actual binary draws, not hidden means
+    assert set(np.unique(sampled_next)).issubset({0, 1})
+    pseudo_likelihood = model.score_samples(states)
+    print("Hidden probabilities:", hidden[:, 0])
+    print("Exact probabilities of 00,01,10,11:", visible_probability)
+    print("One sampled visible transition:", sampled_next.astype(int))
+    print("Random-bit pseudo-likelihood estimate:", pseudo_likelihood)
+    print("Exact log probability:", -free_energy-log_z)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+A small authoring probe executed these assertions with scikit-learn 1.9.1: the fitted probabilities of 00,01,10,11 were approximately [0.183992, 0.246088, 0.243343, 0.326576], and the same-parameter hidden-probability and stationary-transition checks passed. These are constructed-case author checks, not independent implementation certification or a new digit benchmark. Final source/display verification and publication checks belong to implementation. The previously reported digit results remain unchanged. At batch size B, D visible variables and H hidden variables, one conditional sweep uses O(BDH) arithmetic and O(B(D+H)+DH) working/parameter storage. The tiny probability oracle costs exponentially in H; do not expand it to hundreds of hidden units just to accompany a library fit.
+
+**Take control.** Increase only the fitted hidden bias by log 2, recompute `transform`, exact visible probabilities and the transition matrix, and inspect the changed result. Then change only the fitting seed and distinguish two claims: the matched arithmetic must still agree, but the learned parameters may differ.
+
+<details><summary>Hint and reasoned solution</summary>
+
+Changing b adds log 2 to every hidden logit, doubling each hidden on/off odds. It does not double a probability, which is bounded by one. Copy the edited `intercept_hidden_` into the scratch b before all comparisons; recompute Z after the edit. The stationary-vector check remains valid for the edited model. Comparing its newly computed free energy with the old Z is an intentionally broken normalization. A new fitting seed changes the experiment, so retain a separate model and perform its own same-parameter comparison rather than requiring two random fits to agree.
+
+</details>
 
 ## 9. Diagnose failures by the quantity that failed
 

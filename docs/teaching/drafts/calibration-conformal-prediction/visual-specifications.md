@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Calibration and conformal prediction — visual handoff
 
 Content-only preparation. No diagrams, React components, browser labs, download routes or phase-two verification are implemented. This topic needs editable forecast bins, a pooling trace, an exact rank experiment and a units-aware interval construction. Repeating a generic parameter slider would obscure these different mechanisms.

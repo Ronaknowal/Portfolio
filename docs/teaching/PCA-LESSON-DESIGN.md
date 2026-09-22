@@ -1,5 +1,14 @@
 # PCA & Dimensionality Reduction — content and delivery record
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Rotate or fit a direction on editable points and follow scores, residual segments and squared loss immediately; change units or standardization and inspect the leading direction; move an error budget and inspect the first qualifying count and individual validation wines; vary spreads and label rules and inspect retained-coordinate collisions.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 **Visual-layout follow-up, 14 September 2026:** [the expanded diagram review](LESSON-VISUAL-LAYOUT-REVIEW.md) separates the projection-foot, conservation and residual-alarm labels from data strokes. Point coordinates, scales, examples and prepared content are unchanged. The affected desktop/320px captures were inspected and the [PCA browser suite](evidence/pca-browser.json) passes 14 cases on these sources. This later record supersedes earlier screenshots for the affected figures.
 
 Stable ID: `pca-dimensionality-reduction`. Module: Classical Machine Learning, Unsupervised Learning, position 12 of 39. Requested 12 September 2026: **research and writing only**, including visual/lab specifications. Author: primary agent. No independent review is claimed.

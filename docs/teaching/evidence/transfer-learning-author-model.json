@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T17:43:09.493Z",
+  "topicId": "transfer-learning-fine-tuning-strategies",
+  "checkGroups": [
+    "Both runtime JSX modules parse",
+    "All published downloads and experiment records preserve exact packet bytes",
+    "Dataset identity, 400 unique rows, pixel domain and ten balanced digits",
+    "Complete declared candidate sets, trace endpoints and denominators",
+    "Actual selection, unfavorable test report and probability reconstruction",
+    "Budget decisions, no eligible candidates, stable null contrast and no new test metrics",
+    "LoRA default, changed input, null input and both-zero factor fixtures match PyTorch",
+    "Independent finite differences verify both factor gradients and upstream gradient at ranks 1 and 2",
+    "All bounded LoRA corners stay finite, merge correctly and reject unsafe applied steps",
+    "BatchNorm state: train/no_grad changes buffers; eval preserves them; graph and ownership are independent",
+    "Independent finite differences verify BatchNorm affine/input derivatives in both modes, including a constant batch",
+    "Exact adapter accounting, head toggles, units and validation domains",
+    "Every prepared prose paragraph and equation is retained; six independent practice hint/solution pairs",
+    "Full final CPU program rerun equals every saved result byte for byte"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/transfer-learning-fine-tuning-strategies.jsx": "78643d8a432d83b2a95a71065134ced5676adb2bffef877f14b328931cdddb5c",
+    "src/learn/components/lesson-labs/TransferLearningLabs.jsx": "32a5bc064acbc04208c15d5372d56453f2f0cb35aea64db25f57f92c735fcc9b",
+    "src/learn/data/transfer-learning-model.js": "c37ff85915e37d72314d44c8966aa1d76f53186af8530671781047c76f81082c",
+    "src/learn/data/transfer-learning-experiment.json": "67df7b34907c189d25f162963312c2feecaa815f1bbb88643427280447204829",
+    "src/learn/data/transfer-learning-specimens.json": "07bdbeded6923c9de26dad9ad78ddc6f54900046a0413ff3eec4ecf99191027c",
+    "src/learn/components/lesson-labs/transfer-learning.css": "cdcf84f6327c60d618e44e999d424df358e3fe83a6068473e493b27cf62fa3b3",
+    "src/learn/assets/transfer-learning/transfer-experiments.py": "d95578cc66da09c2f0b55e1e1d695676a64f26f5426b47caa7e190ddf13c7c28",
+    "src/learn/assets/transfer-learning/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "src/learn/assets/transfer-learning/data-provenance.md": "f78c5962d98c2eddfbf6e5b082641ddba6047289b9053b2621a366111e6fb01a"
+  },
+  "limits": "Author calculation/source checks only; independent review and final production browser integration remain separate."
+}

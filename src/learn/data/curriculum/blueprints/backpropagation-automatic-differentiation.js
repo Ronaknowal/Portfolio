@@ -1,0 +1,46 @@
+export default {
+  summary: 'Trace a loss backward through scalar and tensor computations, distinguish a correct derivative from a useful update, and interpret numerical gradient checks under their actual conditions.',
+  prerequisites: ['Perceptrons, Neurons & Activation Functions', 'Multivariate Calculus & Gradients'],
+  outcomes: [
+    'Multiply sensitivities along a path and add contributions at reused intermediates and repeated operand slots.',
+    'Undo broadcasting with the correct sums and trace all shapes in a two-layer classifier.',
+    'Execute a complete NumPy autodiff engine and reproduce its bounded XOR and real-digit experiments.',
+    'Interpret finite-difference sweeps, same-state framework comparisons, zero references and nonsmooth conventions as scoped evidence.',
+    'Use JVPs, VJPs and Hessian-vector products, and explain custom derivatives, unequal microbatch weighting and activation recomputation.',
+  ],
+  sequence: [
+    'Follow one neuron forward and backward, then compare the before/after loss of a simultaneous two-parameter update.',
+    'Accumulate two shared paths and both input slots of a multiplication, including exact cancellation.',
+    'Connect broadcast reduction, matrix pullbacks and a complete training engine to recorded outcomes.',
+    'Inspect the actual paired evaluations in a finite-difference experiment before diagnosing a backward rule.',
+    'Use framework graph/gradient contracts deliberately, then explore directional products, custom rules and memory scheduling.',
+    'Solve changed graphs, diagnose numerical mismatches and design a discriminating check for an added primitive.',
+  ],
+  visual: {
+    type: 'Shared computation graph, linked residual/update plot and paired numerical-evaluation laboratory',
+    question: 'Where did each derivative contribution come from, and what does a changed input or proposed step actually do?',
+    interaction: 'Edit line-fit parameters/targets/rate, a repeated-path coefficient and finite-difference function/point/offset/perturbations; all current computations remain visible immediately. Step graph and checkpoint dependencies while keeping complete results and starting references available.',
+  },
+  practice: {
+    task: 'Compute a changed shared-square graph and broadcast gradient; explain a harmful update and two distinct failed checks; derive JVP/HVP and microbatch weights; add and falsify a sigmoid primitive.',
+    success: 'Show intermediate contributions, correct shapes and reductions, controlled state/dtype/error reporting, and a case that detects the deliberately incorrect derivative.',
+  },
+  misconceptions: [
+    'A falling training loss certifies the backward implementation, or a harmful learning-rate step disproves it.',
+    'Visiting a node once allows one of its repeated operand contributions to be discarded.',
+    'Undoing broadcast means averaging, even after the loss already supplied its mean factor.',
+    'A smaller finite-difference perturbation always improves the check or relative error is defined at a zero reference.',
+    'retain_graph makes backward differentiable, or eval disables autograd.',
+    'A gradient-sum derivative is the Hessian diagonal, or checkpoint storage predicts total device memory.',
+  ],
+  sources: [
+    'https://jmlr.org/papers/v18/17-468.html',
+    'https://cs231n.github.io/optimization-2/',
+    'https://docs.pytorch.org/docs/2.14/notes/autograd.html',
+    'https://docs.pytorch.org/docs/2.14/generated/torch.autograd.gradcheck.gradcheck.html',
+    'https://fncbook.com/python/fd-converge/',
+    'https://docs.pytorch.org/docs/2.14/checkpoint.html',
+  ],
+  depth: 'core',
+  reviewFocus: 'Shared edges and broadcast reductions; exact forward/backward objective agreement; full program/state provenance; numerical cancellation and nonsmoothness; actual pointer/keyboard endpoints and interiors; readable diagrams, separate practice and no prediction gate.',
+};

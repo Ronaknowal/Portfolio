@@ -1,5 +1,8 @@
 # Graph Transformers & Geometric Deep Learning
 
+**Explore as you read.** Edit graph structure/coordinates, structural encodings, transformation action, message parameters and intentionally broken symmetry modes. Show invariant scalars, equivariant vectors, neighborhood membership and transformed outputs side by side. Distinguish a relabeled graph from a physically moved geometry. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose operations compatible with the required symmetry and find informative asymmetric counterexamples.
+
+
 A molecular diagram tells you which atoms are bonded. A set of three-dimensional coordinates tells you where the atoms are. These are different kinds of information. Two conformations can have the same bonds and different shapes; rotating the entire molecule changes its coordinates without changing those internal distances.
 
 This lesson asks two connected questions: **How can a node consult distant parts of a graph while retaining information about its structure? How should predictions change when we relabel nodes or transform physical coordinates?** Graph transformers address the first. Geometric deep learning provides a framework for the second, including architectures that satisfy the required transformation rule by construction.
@@ -50,7 +53,7 @@ Use the path 0—1—2 with values (1,2,4). Give receiver 0 zero content scores 
 
 Node 2 contributes immediately through global attention even though it is two graph hops away. If we mask attention to the closed one-hop neighborhood, the weights become (2/3,1/3,0) and the output becomes 4/3. If instead we retain global attention and change node 2's value from 4 to 11, the output rises by exactly 1. The mask would make this edit have no effect at receiver 0 in this layer.
 
-**Investigation: build the allowed read.** Edit the edge table, sender values and permitted set. Record a prediction about a selected output before revealing scores, normalization and contributions. A distance preference and a hard mask use different marks. Changing the graph recomputes shortest paths; simply moving nodes in the layout leaves the computation unchanged. The default numbers are constructed arithmetic, not trained attention.
+**Investigation: build the allowed read.** Edit the edge table, sender values and permitted set. Show the current computed result and its contributing terms immediately. A distance preference and a hard mask use different marks. Changing the graph recomputes shortest paths; simply moving nodes in the layout leaves the computation unchanged. The default numbers are constructed arithmetic, not trained attention.
 
 ### Graphormer and GPS make different design choices
 
@@ -88,7 +91,7 @@ Making the first nonzero entry positive does not solve the full problem. “Firs
 
 An instructive invariant is the **projector** UUᵀ for a complete orthonormal eigenspace basis U. Replacing U by UQ for an orthogonal Q gives UQQᵀUᵀ=UUᵀ. Relabeling nodes still permutes its two node axes. [SignNet and BasisNet](https://arxiv.org/html/2202.13013v4) explicitly address sign and basis symmetries; the projector calculation shows why the distinction matters. It is a conceptual route, not a claim that dense projectors are the cheapest encoding for every graph.
 
-**Investigation: change the basis without changing the graph.** Rotate the two columns of the four-cycle eigenspace through an editable angle. Display both changing columns and the unchanged projector. Predict which changes represent a new graph. A sign flip is a special case; a genuine edge edit is a separate intervention. The correct conclusion is “same subspace,” not “all encodings contain identical information.”
+**Investigation: change the basis without changing the graph.** Rotate the two columns of the four-cycle eigenspace through an editable angle. Display both changing columns and the unchanged projector. Inspect which changes represent a new graph. A sign flip is a special case; a genuine edge edit is a separate intervention. The correct conclusion is “same subspace,” not “all encodings contain identical information.”
 
 ## 4. More global access has limits
 
@@ -98,7 +101,7 @@ For example, if every value vector equals v, then every normalized attention row
 
 Graph spectra are also not complete graph fingerprints: different graphs can be cospectral. An encoding's conditions determine its expressiveness; the label “graph transformer” does not settle them. Separately measure access, distinguishability, fitting and held-out prediction.
 
-**Practice pause.** For the three-node path, replace all three values by 7. Predict the global and locally masked outputs, despite their different weights.
+**Practice pause.** For the three-node path, replace all three values by 7. Calculate the global and locally masked outputs, despite their different weights.
 
 <details><summary>Hint</summary>
 A weighted average of equal values has a simple result.
@@ -125,7 +128,7 @@ This filter commutes with quarter-turns because powers of R commute. It does not
 
 For a linear layer, WP_g=Q_gW proves the contract for every input. Averaging the eight square-symmetry conjugates of W produces a map commuting with the entire finite square group. Here it becomes (R+R⁻¹)/2, averaging the two adjacent readings. Its output on our example is (5,2.5,5,2.5). Eight discrete square symmetries do not cover all continuous planar rotations.
 
-**Investigation: two routes through the square.** The learner edits all four readings, chooses rotation or reflection, and predicts whether “filter then transform” equals “transform then filter.” Reveal both value routes and the matrix commutator. Offer the tied filter as a repair; keep the constant-input false reassurance as an explicit challenge. A calibration that genuinely depends on fixed sensor position may require different weights, so verify that the intended task actually has this symmetry.
+**Investigation: two routes through the square.** Edit all four readings and choose rotation or reflection. Both value routes and the matrix commutator update immediately, showing whether “filter then transform” equals “transform then filter.” Offer the tied filter as a repair; keep the constant-input false reassurance as an explicit challenge. A calibration that genuinely depends on fixed sensor position may require different weights, so verify that the intended task actually has this symmetry.
 
 ## 6. Move from node permutations to physical rotations
 
@@ -191,7 +194,7 @@ For point 0, the two relative vectors are (−1,0,0) and (0,−2,0), with multip
 
 Now rotate 90° around z and translate by (3,−2,1). Updating after the transform gives (3.04,−2.05,1), (3.033333,−.933333,1) and (.926667,−2.016667,1). These are the transformed original outputs. The retained double-precision calculation agrees to about 10⁻¹⁶ for this case.
 
-**Investigation: move the actual points.** Edit one point, predict its update, and inspect relative vectors, squared distances, scalar weights and the final displacement. Then apply the same rigid transformation to all points and compare both computation routes. A global rotation is a no-change test for distances, but moving just one point generally is not. An intentionally labeled Cartesian ReLU or axis-based neighbor rule supplies a failing contrast. Numeric tests check an implementation; the algebra explains the all-input guarantee.
+**Investigation: move the actual points.** Edit one point, inspect its update, and inspect relative vectors, squared distances, scalar weights and the final displacement. Then apply the same rigid transformation to all points and compare both computation routes. A global rotation is a no-change test for distances, but moving just one point generally is not. An intentionally labeled Cartesian ReLU or axis-based neighbor rule supplies a failing contrast. Numeric tests check an implementation; the algebra explains the all-input guarantee.
 
 This coordinate update is not automatically a stable physical simulator. Equivariance permits large coefficients, explosive repeated updates and inaccurate predictions. Replacing a relative vector by a norm-normalized direction preserves rigid-motion equivariance if done consistently, but does not bound unbounded learned scalars or guarantee stability. A degree normalization, residual scale or bounded gate changes numerical behavior and must be evaluated as part of the model. Applying arbitrary coordinatewise normalization can destroy the geometric contract.
 
@@ -212,7 +215,7 @@ Compare four deliberately small models:
 
 The GCN has far fewer parameters. The comparison is a small learning investigation, not a parameter-matched benchmark or a reproduction of Graphormer/GPS. All fits use 300 epochs, AdamW learning rate .003, weight decay .01 and seeds 11,29,47. We keep every run, without choosing an epoch or tuning parameters from the assessment scores. This GCN's learning rate differs from the preceding lesson's .02; compare the variants within this table, not two lessons as if they were one matched experiment.
 
-**Before running:** predict whether giving the model more structural information necessarily raises its assessment score. Then follow one node from input features to q/k/v, two residual blocks, logits, supervised loss and a parameter update.
+**Compare the actual structural variants:** inspect whether extra structural information improves the assessment score in this experiment. Follow one node from input features to q/k/v, two residual blocks, logits, supervised loss and a parameter update.
 
 ### Complete offline program
 
@@ -379,7 +382,32 @@ Always predicting one affiliation scores 9/18 on this balanced assessment. Most 
 
 The code also removes edge (0,1) after fitting, holds the original degree/clustering inputs fixed and recomputes each model's explicit graph operators. This isolates propagation, distances or return-feature paths without claiming to erase every trace of topology. The set-attention model is exactly unchanged because it receives the same feature table and no other graph input. The other changes can be small: for the seed-11 distance model, the largest assessment probability change is about .0001265. Sensitivity is not guaranteed to be large merely because a pathway exists.
 
-**Real investigation: compare an input path with an actual decision.** Inspect source IDs, label roles, two attention-head matrices and class probabilities for a selected assessment node. Predict the result of semantic relabeling, then run the retained seed-11 model with matching row/column permutations. For an edge edit, choose whether original structural features stay fixed or are recomputed, and explain which intervention the result answers. Show tiny numerical changes honestly; the earlier exact path offers a large visible contrast without inventing one for a trained model.
+**Real investigation: compare an input path with an actual decision.** Inspect source IDs, label roles, two attention-head matrices and class probabilities for a selected assessment node. Inspect the result of semantic relabeling, then run the retained seed-11 model with matching row/column permutations. For an edge edit, compare whether original structural features stay fixed or are recomputed, and explain which intervention the result answers. Show tiny numerical changes honestly; the earlier exact path offers a large visible contrast without inventing one for a trained model.
+
+### Build the local/global composition, then use GPSConv
+
+The earlier real-data study deliberately isolates distance bias and random-walk features; it is not GPS. Now compose the two routes GPS makes explicit: one local graph update and one graph-wide attention read. Reuse [Message Passing's sparse GCN and edge convention](../message-passing-graph-convolutions-gcn-gat-graphsage/lesson.md#move-the-same-layer-from-a-matrix-to-an-edge-list). That owner is prepared content at this checkpoint, not an already published replacement. Its [complete helper](../message-passing-graph-convolutions-gcn-gat-graphsage/graph_library_bridge.py) is supplied with the [GPS composition program](gps_library_bridge.py); place both files in the same directory when running them.
+
+Our comparison holds normalization and dropout off to expose composition. The two branches each carry their own residual:
+
+\[
+h=(x+\operatorname{GCN}(x))+(x+\operatorname{Attention}_{graph}(x)),\qquad y=h+\operatorname{MLP}(h).
+\]
+
+There are **two copies of x in the sum**, not one. Replacing this with `x + local + global` is a different function. `LocalGlobalBlock` writes these operations directly. Its global attention reuses the projections/mixing taught in [Self-Attention §5](../self-attention-multi-head-attention/lesson.md#5-implement-the-operation-you-just-traced); rebuilding that primitive here would obscure the new graph-level boundary. The complete paired program copies every local, attention and MLP parameter into `GPSConv(norm=None, dropout=0, heads=2, attn_type="multihead")`. [The PyG source](https://pytorch-geometric.readthedocs.io/en/2.9.0/_modules/torch_geometric/nn/conv/gps_conv.html) is the contract for this concrete composition.
+
+Each node receives three declared scalar features plus its two-step return probability. These structural scalars move with a node under relabeling. They are **not spatial vector coordinates** and need no rotation matrix. `Batch.from_data_list` offsets each graph's edge indices and supplies its node-to-graph vector. The manual block reads one graph at a time; PyG pads graphs for its global attention and masks padding. A missing batch vector would let all five nodes communicate as one graph, even though local edge indices still contain no cross-graph edge.
+
+Run `python gps_library_bridge.py` with PyTorch and `torch-geometric==2.9.0`. This new route is fully written but **unexecuted in this content revision**. The reasoned check contract is: manual and package outputs/gradients/one SGD update agree within the supplied tolerances; the three-node and two-node graph outputs agree whether evaluated separately or together; editing graph B cannot change graph A; consistently relabeling nodes, structural features and edges relabels outputs. No training quality or runtime measurement is claimed.
+
+Why disable normalization here? The package's default batch normalization shares batch statistics during training, so independently evaluating a graph and evaluating it in a batch need not produce the same answer. `norm=None` isolates the intended communication relation. Later choose per-node LayerNorm, per-graph normalization or BatchNorm deliberately and revise the corresponding invariance test. Dropout also changes the comparison unless modes and random masks match.
+
+The local route stores edges, while dense global attention still incurs pairwise work inside each graph. The manual per-graph loop avoids cross-graph N_total² storage; PyG's padded route can pay for the largest graph in a batch. Batch similarly sized graphs or choose a justified alternative attention backend when padding dominates. The small loop is a correctness composition, not an accelerator benchmark.
+
+**Take control.** Add a third graph containing one isolated node. Then intentionally omit the batch vector in the package call and compare that node's output after editing a feature in another graph.
+
+<details><summary>Hint</summary>The self-looped local update works for an isolate. Global attention needs a graph boundary independently of edge boundaries.</details>
+<details><summary>Solution and success criteria</summary>With the correct batch vector, all three separate outputs concatenate to the batched result. Without it, the global branch can read every node and the isolated graph's output can change. Restore the vector; then relabel nodes within each graph and verify output equivariance. Arbitrarily interleaving graph IDs may violate a dense-batching utility's sorted-ID contract, so group nodes by graph and keep the inverse permutation for restoring the application order.</details>
 
 ## 9. Deeper: choose outputs that match geometry and physics
 

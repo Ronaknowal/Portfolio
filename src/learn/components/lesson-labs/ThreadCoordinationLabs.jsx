@@ -21,7 +21,7 @@ export function ThreadRaceLab() {
   const [state,setState]=useState(()=>initialRace(false));
   const done=Object.values(state.workers).every(w=>w.phase===3);
   return <MechanismLab id="thread-race" title="Make two increments lose one update">
-    <p>Start with A read, B read, A compute, B compute, A write, B write. Predict the total. Reset with a lock and try the same interference.</p>
+    <p>Start with A read, B read, A compute, B compute, A write, B write. Inspect the total. Reset with a lock and try the same interference.</p>
     <label>Protocol <select value={String(state.locked)} onChange={e=>setState(initialRace(e.target.value==='true'))}><option value="false">Unprotected read → compute → write</option><option value="true">One lock covers all three steps</option></select></label>
     <ThreadRacePicture state={state} advance={id=>setState(raceStep(state,id))}/>
     <div className="wc-controls"><button type="button" onClick={()=>setState(initialRace(state.locked))}>Reset</button></div>
@@ -33,7 +33,7 @@ export function ThreadRaceLab() {
 export function ThreadConditionLab() {
   const [scenario,setScenario]=useState('empty'),[step,setStep]=useState(0),states=conditionTrace(scenario),conditionState=states[step];
   return <MechanismLab id="thread-condition" title="A notification is not an item">
-    <p>Predict whether a consumer may take an item immediately after being notified. Watch both the queue and lock owner, not just the notification.</p>
+    <p>Inspect whether a consumer may take an item immediately after being notified. Watch both the queue and lock owner, not just the notification.</p>
     <label>Scenario <select value={scenario} onChange={e=>{setScenario(e.target.value);setStep(0);}}><option value="empty">Notify while empty</option><option value="item">Publish one item</option><option value="stolen">Another consumer takes it first</option></select></label>
     <Stepper step={step} count={states.length} setStep={setStep}/>
     <div className="wc-grid"><StatePanel title="Queue / predicate"><code>{JSON.stringify(conditionState.queue)}</code><p>Has item: {String(conditionState.queue.length>0)}</p></StatePanel><StatePanel title="Condition lock owner">{conditionState.owner}</StatePanel><StatePanel title="Original consumer">{conditionState.consumer}</StatePanel></div>

@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Gaussian Processes (GP): prepared-content design and evidence
 
 Mode: **research and write only**, revision 1, 2026-09-12. Author: classical_probabilistic_content. Content packet prepared for root checkpoint; implementation not started. This is an author review record, not independent review or shipped browser evidence.

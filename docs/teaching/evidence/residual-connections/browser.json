@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T23:50:27.253Z",
+  "base": "http://127.0.0.1:4194",
+  "records": [
+    "Correction live edits, invalid last-valid result, reset and actual one-step update",
+    "Real pointer drag and keyboard Home/End update the same matrix state",
+    "Depth contraction, exact zero, sign-alternating boundary and reset",
+    "Operator relocation and actual LayerNorm common-shift invariance",
+    "Projection mismatch, changed forward/backward shape semantics and zero row",
+    "Per-feature versus scalar gate gradients and reset",
+    "Actual fit selection, measured 28/120 deletion, plain omission null and diagnostics",
+    "Euler live instability and exact identity null",
+    "Canonical source is fetched only on explicit disclosure",
+    "Readable container/plot/KaTeX geometry at 1366px; screenshots need human visual review",
+    "Readable container/plot/KaTeX geometry at 390px; screenshots need human visual review",
+    "Readable container/plot/KaTeX geometry at 320px; screenshots need human visual review"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/residual-connections-skip-connections.jsx": "baf2f3044f7a66a4185f602f57b9d5c9d0b4265f1976a34842db3635da8c10f0",
+    "src/learn/components/lesson-labs/ResidualConnectionsLabs.jsx": "61de07849ac93d7db319c153d46407e5d57d615350a4d8c509ccf841a4d95d51",
+    "src/learn/components/lesson-labs/residual-connections.css": "1e5390d4b2c19a0d7a8faec9b3915390ddbef255ec0d1025ea50069bf92f2c63",
+    "src/learn/data/residual-connections-model.js": "0cb0b8d3fef9c3b141246bb7e3ab41470008001648dd04ec8a19dd984c469bf5"
+  },
+  "screenshots": [
+    "correction-desktop.png",
+    "projection-phone.png",
+    "fits-phone.png"
+  ],
+  "visualReview": "Parent must inspect informative images; geometry checks are not a visual review."
+}

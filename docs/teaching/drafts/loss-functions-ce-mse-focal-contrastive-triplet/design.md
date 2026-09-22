@@ -45,7 +45,7 @@ Hadsell author .com PDF returned502. Author publication index confirmed metadata
 
 ## Hurdles and instructional choices
 
-Loss height versus tangent needs aligned plots, not a definition card. Regression uses an observation the learner actually edits, showing why the fit changes. Focal needs signed aggregate gradients and an independent null, not a curve alone. The real experiment separates model probabilities, decisions and ranking. Embeddings need manipulable coordinates and a distance-unit switch. Candidate learning needs a mask and probability competition, not a “contrastive” label over an unrelated generic slider. Seven specifications provide these distinct jobs, with grading, meaningful edits, reset/invalidation/accessibility and bounded states.
+Loss height versus tangent needs aligned plots, not a definition card. Regression uses an observation the learner actually edits, showing why the fit changes. Focal needs signed aggregate gradients and an independent null, not a curve alone. The real experiment separates model probabilities, decisions and ranking. Embeddings need manipulable coordinates and a distance-unit switch. Candidate learning needs a mask and probability competition, not a “contrastive” label over an unrelated generic slider. Seven specifications provide these distinct jobs, with result checks, meaningful edits, reset/invalidation/accessibility and bounded states.
 
 ## Author checks and limitations
 
@@ -54,3 +54,21 @@ Executed loss-experiments.py through nine matched CPU fits and exact mechanism o
 Full manuscript and specification author reread: checked formulas, units, targets, first-pass placement, actual-vs-derived claims, no fake superiority, masks, practice solutions, source annotations, sequence and local bridge. Compared conservation decisions against the full original. The code is a complete teaching artifact; it is not a finished browser integration. Clean-environment download replay, fuller extreme/shape/API parity tests, actual widgets, independent phase-two correctness review, accessibility/responsiveness/rendering and publication remain deferred. Root binds final packet hashes and ledger status after its scoped content review.
 
 Retention: keep manuscript, design, specs, CSV, provenance, program and calculated JSON as the pending handoff. No disposable image, downloaded pretrained weights, new environment or scratch folder created. No shared ledger, source or generated publication artifact edited.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Watch which errors receive influence. Move observations, change the loss and focal gamma, drag decision thresholds, edit pair/triplet coordinates and change InfoNCE temperature. Update loss, signed gradients, fitted location, confusion counts, eligible negatives and candidate probabilities together. Keep score-based metrics distinct from threshold decisions. Choose an objective or operating threshold from the error tradeoff rather than from a single loss number.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Prepared implementation completed — 21 September 2026
+
+The authorized first-five Deep Learning finish request consumes this complete packet. All manuscript sections, mathematics, examples, independent practice and annotated resources are preserved in the manifest-owned production body. The scoped author-time renderer replaces only explicit representation placeholders and inserts each specified visual in its explanatory context; it does not parse Markdown in the browser.
+
+Topic-specific figures and immediate-result laboratories now implement all seven visual jobs. The final independent review found and closed the spatial-observation, marker-category, reduction-table, threshold/specimen linkage, gradient-dependency and residual-path gaps relevant to these two lessons. Fractional counts now have local invalid-state feedback; shared tables keep whole numeric tokens in labelled local scrollers. Native range/number controls, finite state, exact nulls, reset, screenshots and mathematical SVG geometry were tested at desktop, 390 and 320 pixels. No learner-prediction feature exists.
+
+All measured training curves/decisions use the retained real digit experiment, never simulated benchmarks. The complete CPU program was executed beside its original CSV with Python 3.12.14, PyTorch 2.14.0+cpu and NumPy 2.3.5. The Loss nine-run and Normalization twelve-run JSON results equal their packet records. Three displayed small snippets also ran. Final source programs remain downloadable; their formatted in-page views load and mount only when opened.
+
+Independent review: [Loss/Normalization review](../../LOSS-NORMALIZATION-INDEPENDENT-REVIEW.md). Author model evidence: [114 assertions and native replay](../../evidence/loss-normalization-models.json); snippet execution: [receipt](../../evidence/loss-normalization-snippets.json). Final production: [16 browser groups](../../evidence/loss-normalization-browser-production.json) and [shared route/loading/download integration](../../evidence/deep-learning-core-production-integration.json). The [batch completion record](../../DEEP-LEARNING-CORE-IMPLEMENTATION.md) owns the final scope/counts and continuation. Both phases are complete; user acceptance is separate.

@@ -1,13 +1,7 @@
-import { useId, useState } from 'react';
-import {
-  cellTerms, contributionRows, fixtures, halfSquaredLoss, hCellDirection, limits, maskComparison,
-  maskedReconstruction, reconstruct, updateH, updateW,
-} from '../../data/nmf-models.js';
+import { useState } from 'react';
+import { cellTerms, contributionRows, fixtures, halfSquaredLoss, limits, maskComparison, maskedReconstruction, reconstruct, updateH, updateW } from '../../data/nmf-models.js';
 import { NMF_DIGITS } from '../../data/nmf-data.js';
-import {
-  ImagePanel, ImageValues, Investigation, NumberField, Plot, Prediction, Reason, ScaleKey, Strip, Table,
-  fixed, round, signed, useInvestigation,
-} from './NmfShared.jsx';
+import { ImagePanel, ImageValues, Investigation, NumberField, Plot, ScaleKey, Strip, Table, fixed, round, signed, useInvestigation } from './NmfShared.jsx';
 import './nmf-labs.css';
 
 const featureLabels = ['feature 1', 'feature 2', 'feature 3'];
@@ -25,8 +19,7 @@ const mixtureValue = (inputs, feature) => inputs.a * inputs.H[0][feature] + inpu
 export function MixtureLab() {
   const state = useInvestigation(mixturePresets.taught);
   const [history, setHistory] = useState([]);
-  // The value the graded comparison was made against. Once a prediction is
-  // committed the active inputs are the new ones, so the "before" number has to
+
   // be the state that was applied when the learner recorded the answer.
   const [priorApplied, setPriorApplied] = useState(mixturePresets.taught);
   const active = state.active;
@@ -34,21 +27,12 @@ export function MixtureLab() {
   const activeW = [[active.a, active.b]];
   const draftFeature = draft.feature;
   const previousValue = mixtureValue(active, draftFeature);
-  const answerFor = inputs => {
-    const change = mixtureValue(inputs, inputs.feature) - mixtureValue(active, inputs.feature);
-    return Math.abs(change) <= 1e-12 ? 'unchanged' : change > 0 ? 'increase' : 'decrease';
-  };
+  
   const row = reconstruct(activeW, active.H)[0];
   const weighted = contributionRows(activeW, active.H, 0);
   const terms = cellTerms(activeW, active.H, 0, active.feature);
   const stripTop = Math.max(3, ...row, ...weighted.flat());
-  const commit = inputs => {
-    setPriorApplied(active);
-    setHistory(previous => [...previous, {
-      a: inputs.a, b: inputs.b, H: inputs.H, feature: inputs.feature,
-      row: reconstruct([[inputs.a, inputs.b]], inputs.H)[0],
-    }].slice(-5));
-  };
+  
   const load = key => { state.load(mixturePresets[key]); setPriorApplied(mixturePresets[key]); setHistory([]); };
   const editPattern = (component, feature, value) => state.edit({
     H: draft.H.map((patternRow, index) => (index === component
@@ -57,7 +41,7 @@ export function MixtureLab() {
   });
   return <Investigation
     title="Build a new mixture, and say what one edit does"
-    question="Two components, three features, and one observation built entirely by you. Choose a target feature, change an amount or a pattern cell, record whether that feature's reconstructed value will rise, fall or stay put, then apply the change."
+    question="Two components, three features, and one observation built entirely by you. Choose a target feature, change an amount or a pattern cell, and watch that feature’s two contributions and reconstructed value change immediately."
     note="This is an exact reconstruction you compose. Nothing here is fitted, and no component is discovered: you are reasoning about which contributions add to which feature."
     onReset={() => { state.reset(); setPriorApplied(mixturePresets.taught); setHistory([]); }}>
     <div className="nm-controls">
@@ -85,7 +69,7 @@ export function MixtureLab() {
         ))}
       </div>
       <p className="nm-caption">
-        The value your next comparison starts from, at {featureLabels[draftFeature]}: <strong>{round(previousValue)}</strong>.
+        The current reconstructed value at {featureLabels[draftFeature]}: <strong>{round(previousValue)}</strong>.
         Amounts move in steps of {limits.amount.step} between {limits.amount.minimum} and {limits.amount.maximum};
         pattern cells in steps of {limits.patternCell.step} between {limits.patternCell.minimum} and {limits.patternCell.maximum}.
         Type a value or use the field's own arrows; nothing outside those steps is applied.
@@ -96,12 +80,8 @@ export function MixtureLab() {
         <button key={key} type="button" onClick={() => load(key)}>{preset.label}</button>
       ))}
     </div>
-    <Prediction
-      prompt={`Apply your edits. Will ${featureLabels[draftFeature]} rise, fall or stay at its currently applied ${round(previousValue)}?`}
-      options={[['increase', 'It increases'], ['decrease', 'It decreases'], ['unchanged', 'It stays the same']]}
-      state={{ ...state, check: answer => { state.check(answer); commit(draft); }, explore: answer => { state.explore(answer); commit(draft); } }}
-      answerFor={answerFor}
-      describe={`Component 1 now contributes ${round(terms.terms[0].amount)} × ${round(terms.terms[0].patternCell)} = ${round(terms.terms[0].product)} and component 2 contributes ${round(terms.terms[1].amount)} × ${round(terms.terms[1].patternCell)} = ${round(terms.terms[1].product)}, so ${featureLabels[active.feature]} is now ${round(terms.total)} against ${round(mixtureValue(priorApplied, active.feature))} before the edit.`} />
+    <p className="lesson-live-note">{`Component 1 now contributes ${round(terms.terms[0].amount)} × ${round(terms.terms[0].patternCell)} = ${round(terms.terms[0].product)} and component 2 contributes ${round(terms.terms[1].amount)} × ${round(terms.terms[1].patternCell)} = ${round(terms.terms[1].product)}, so ${featureLabels[active.feature]} is now ${round(terms.total)} against ${round(mixtureValue(priorApplied, active.feature))} in the saved reference.`}</p>
+    <button type="button" onClick={() => { setPriorApplied(active); setHistory(previous => [...previous, {a:active.a,b:active.b,H:active.H,row}].slice(-5)); }}>Save current mixture as reference</button>
     <Strip label={`Component 1 pattern × a = ${round(active.a)}`} values={weighted[0]} maximum={stripTop} highlight={[active.feature]} />
     <Strip label={`Component 2 pattern × b = ${round(active.b)}`} values={weighted[1]} maximum={stripTop} highlight={[active.feature]} />
     <Strip label="Reconstructed observation" values={row} maximum={stripTop} highlight={[active.feature]} />
@@ -143,11 +123,8 @@ export function UpdateLab() {
   const [setup, setSetup] = useState(updatePresets.taught);
   const [draft, setDraft] = useState(updatePresets.taught);
   const [run, setRun] = useState(null);
-  const [choice, setChoice] = useState('');
-  const [reason, setReason] = useState('');
-  const [recorded, setRecorded] = useState(null);
+
   const [problem, setProblem] = useState(null);
-  const predictionName = useId();
 
   const startState = current => ({
     W: current.W, H: current.H, phase: 'ready', sweeps: 0,
@@ -161,9 +138,9 @@ export function UpdateLab() {
       return;
     }
     setSetup(next); setDraft(next); setRun(startState(next));
-    setChoice(''); setReason(''); setRecorded(null); setProblem(null);
+       setProblem(null);
   };
-  const editDraft = update => { setDraft(previous => ({ ...previous, ...update })); setChoice(''); setReason(''); setRecorded(null); setProblem(null); };
+  const editDraft = update => apply({...draft,...update});
 
   const [component, column] = setup.target;
   const phase = (() => {
@@ -175,18 +152,9 @@ export function UpdateLab() {
   const doUpdateH = () => {
     try {
       const step = updateH(setup.X, current.W, current.H);
-      const before = current.H[component][column];
-      const after = step.next[component][column];
+
       setRun({ ...current, H: step.next, phase: 'afterH', past: [...current.past, snapshot()] });
-      if (recorded && recorded.sweep === current.sweeps && recorded.outcome === undefined) {
-        setRecorded({
-          ...recorded, before, after,
-          // Graded by the model's own ratio rule, which is what the verdict text
-          // explains, rather than by a second rule written here.
-          outcome: hCellDirection(setup.X, current.W, current.H, component, column),
-          ratio: step.numerator[component][column] / step.denominator[component][column],
-        });
-      }
+      
       setProblem(null);
     } catch (failure) { setProblem(failure.message); }
   };
@@ -199,20 +167,20 @@ export function UpdateLab() {
         history: [...current.history, { sweep: sweeps, loss: halfSquaredLoss(setup.X, step.next, current.H) }],
         past: [...current.past, snapshot()],
       });
-      setChoice(''); setReason(''); setProblem(null);
+        setProblem(null);
     } catch (failure) { setProblem(failure.message); }
   };
   const back = () => {
     if (current.past.length === 0) return;
     const previous = current.past[current.past.length - 1];
     setRun({ ...previous, past: current.past.slice(0, -1) });
-    if (recorded && recorded.sweep >= previous.sweeps) setRecorded(null);
+    
     setProblem(null);
   };
 
   const loss = halfSquaredLoss(setup.X, current.W, current.H);
   const atLimit = current.sweeps >= limits.sweeps.maximum;
-  const graded = recorded?.outcome !== undefined;
+  
   const positiveLosses = current.history.filter(point => point.loss > 0);
   const zeroLosses = current.history.filter(point => point.loss === 0);
   const logLow = positiveLosses.length ? Math.floor(Math.min(...positiveLosses.map(point => Math.log10(point.loss)))) : -1;
@@ -223,7 +191,7 @@ export function UpdateLab() {
 
   return <Investigation
     title="Step one alternating update, one phase at a time"
-    question={`X is fixed once you apply it. Choose the pattern cell you are watching, record whether the next H phase will grow it, shrink it or leave it alone, then run the two phases separately. The W start stays at the documented [[1, .5], [.5, 1], [1, 1]] unless a preset says otherwise.`}
+    question={`X is fixed once you apply it. Choose the pattern cell you are watching, inspect its update ratio, then run the H and W phases separately. The W start stays at the documented [[1, .5], [.5, 1], [1, 1]] unless a preset says otherwise.`}
     note="The displayed rule adds no epsilon to a denominator. Every supported state here keeps those denominators positive, and a zero pattern entry is left exactly where it is rather than evaluated as 0 / 0."
     onReset={() => apply(updatePresets.taught)}>
     <div className="nm-controls">
@@ -258,7 +226,7 @@ export function UpdateLab() {
         <button key={key} type="button" onClick={() => apply(preset)}>{preset.label}</button>
       ))}
     </div>
-    {pending && <p className="nm-pending" role="status">Edited values are not in the model yet. Applying them restarts the trace from the new initial state and clears any recorded prediction.</p>}
+    {pending && <p className="nm-pending" role="status">Edited values are not in the model yet. Applying them restarts the trace from the new initial state and starts a fresh trace.</p>}
     {problem && <p className="nm-note nm-problem" role="status">{problem}</p>}
     {setup.exact && <p className="nm-caption">
       This preset carries the exact factors from section 1, whose pattern matrix contains two zeros. The editable range for an initial pattern
@@ -266,43 +234,12 @@ export function UpdateLab() {
       leaves the exact-fit state, which is the point of the contrast.
     </p>}
 
-    <div className="nm-prediction">
-      <fieldset>
-        <legend>Record a prediction first.</legend>
-        <p>
-          Starting from sweep {current.sweeps}, H[{component + 1},{column + 1}] is currently {fixed(current.H[component][column], 9)}.
-          What will the next H phase do to it?
-        </p>
-        <div className="nm-choices">
-          {[['grows', 'It grows'], ['shrinks', 'It shrinks'], ['unchanged', 'It stays the same']].map(([value, text]) => (
-            <label className="nm-choice" key={value}>
-              <input type="radio" name={predictionName} value={value} checked={choice === value}
-                onChange={() => setChoice(value)}
-                disabled={pending || atLimit || current.phase !== 'ready' || recorded?.sweep === current.sweeps} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      <Reason value={reason} onChange={setReason} disabled={recorded?.sweep === current.sweeps} />
-      <div className="nm-buttons">
-        <button type="button" disabled={choice === '' || pending || atLimit || current.phase !== 'ready' || recorded?.sweep === current.sweeps}
-          onClick={() => setRecorded({ sweep: current.sweeps, choice, reason, target: [component, column] })}>Record it</button>
-        <button type="button" className="is-primary" disabled={pending || atLimit || current.phase !== 'ready'} onClick={doUpdateH}>Update H</button>
-        <button type="button" className="is-primary" disabled={pending || current.phase !== 'afterH'} onClick={doUpdateW}>Update W</button>
-        <button type="button" disabled={current.past.length === 0} onClick={back}>Back one phase</button>
-      </div>
-      {graded && recorded.reason && <p className="nm-caption">Your reason, kept as you wrote it: “{recorded.reason}”</p>}
-      {graded && <p className={`nm-verdict ${recorded.choice === recorded.outcome ? '' : 'is-miss'}`} role="status">
-        <span className="nm-verdict-mark" aria-hidden="true">{recorded.choice === recorded.outcome ? '=' : '≠'}</span>
-        At sweep {recorded.sweep}{recorded.sweep === current.sweeps ? '' : ', which you have since stepped past'}, the H phase moved
-        {' '}H[{recorded.target[0] + 1},{recorded.target[1] + 1}] from {fixed(recorded.before, 9)} to {fixed(recorded.after, 9)}, so it {recorded.outcome === 'unchanged' ? 'stayed the same' : recorded.outcome}.
-        {recorded.before === 0
-          ? ' A zero entry multiplied by any ratio is still zero: this is the locked case, not a statement that the move would not help.'
-          : ` The ratio at that cell was ${fixed(recorded.ratio, 9)}; a ratio above 1 grows the entry and a ratio below 1 shrinks it.`}
-      </p>}
-      {atLimit && <p className="nm-note" role="status">This investigation keeps at most {limits.sweeps.maximum} sweeps. Step back or apply a new setup.</p>}
-    </div>
+    <div className="nm-buttons">
+  <button type="button" disabled={pending || atLimit || current.phase !== 'ready'} onClick={doUpdateH}>Update H</button>
+  <button type="button" disabled={pending || current.phase !== 'afterH'} onClick={doUpdateW}>Update W</button>
+  <button type="button" disabled={current.past.length === 0} onClick={back}>Back one phase</button>
+  {atLimit && <p>This trace keeps at most {limits.sweeps.maximum} sweeps. Step back or reset to explore another start.</p>}
+</div>
 
     <p className="nm-readout" aria-live="polite">
       Sweep {current.sweeps}, {current.phase === 'afterH' ? 'H updated and waiting for the W phase' : 'both phases applied'}.
@@ -366,7 +303,7 @@ export function UpdateLab() {
     <details>
       <summary>A transfer worth recording separately</summary>
       <p className="nm-caption">
-        Change an X entry you have not touched yet, pick a different pattern cell, and predict its direction before the H phase. Then explain how the
+        Change an X entry you have not touched yet, pick a different pattern cell, and inspect its update direction during the H phase. Then explain how the
         loss can fall over a full sweep while one W entry shrinks: the objective sees products, not individual factor entries. These are short
         pedagogical updates on a bounded fixture, not production input support and not a promise that the limit is stationary.
       </p>
@@ -380,46 +317,24 @@ export function ContributionLab() {
   const fullMask = dictionary.map(() => true);
   const initial = { imageIndex: 0, mask: fullMask, pixel: null };
   const [draft, setDraft] = useState(initial);
-  const [applied, setApplied] = useState(initial);
-  const [totalChoice, setTotalChoice] = useState('');
-  const [pixelChoice, setPixelChoice] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const totalName = useId();
-  const pixelName = useId();
+  const applied = draft;
+
+  const comparison = maskComparison(test[draft.imageIndex].pixels.map(value => value / scale), activations[draft.imageIndex], dictionary, fullMask, draft.mask);
+ const result = {comparison};
 
   const observedFor = index => test[index].pixels.map(value => value / scale);
-  const pending = JSON.stringify(draft) !== JSON.stringify(applied);
+  
   const editMask = component => {
     setDraft(previous => ({ ...previous, mask: previous.mask.map((value, index) => (index === component ? !value : value)) }));
-    setResult(null); setTotalChoice(''); setPixelChoice('');
+      
   };
   const selectPixel = index => {
     setDraft(previous => ({ ...previous, pixel: previous.pixel === index ? null : index }));
-    setResult(null); setTotalChoice(''); setPixelChoice('');
+      
   };
   const changeImage = value => {
     const next = { imageIndex: value, mask: fullMask, pixel: null };
-    setDraft(next); setApplied(next); setResult(null); setTotalChoice(''); setPixelChoice(''); setReason('');
-  };
-  const commit = graded => {
-    const observed = observedFor(draft.imageIndex);
-    const comparison = maskComparison(observed, activations[draft.imageIndex], dictionary, applied.mask, draft.mask);
-    const changedComponents = draft.mask.flatMap((included, index) => included === applied.mask[index] ? [] : [index]);
-    const nullExplanation = changedComponents.length === 0
-      ? 'The mask did not change, so the reconstruction is identical.'
-      : changedComponents.every(index => activations[draft.imageIndex][index] === 0)
-        ? 'Every switched component has zero activation, so these switches contribute nothing and are exact no-ops.'
-        : 'The total error changed by no more than the stated comparison tolerance; this does not imply every contribution is zero.';
-    setApplied(draft);
-    setResult({
-      graded, reason,
-      totalChoice, pixelChoice,
-      totalAnswer: comparison.direction,
-      pixelAnswer: draft.pixel === null ? null : comparison.pixelDirection(draft.pixel),
-      pixel: draft.pixel,
-      comparison, nullExplanation,
-    });
+    setDraft(next);     
   };
 
   const observed = observedFor(applied.imageIndex);
@@ -431,12 +346,10 @@ export function ContributionLab() {
   const intensityMax = Math.max(1, ...current, ...observed);
   const residualExtent = Math.max(...currentResidual.map(Math.abs), 1e-9);
   const changeExtent = result ? Math.max(...result.comparison.squaredChange.map(Math.abs), 1e-12) : 1;
-  const totalCorrect = result?.graded && result.totalChoice === result.totalAnswer;
-  const pixelCorrect = result?.graded && result.pixelChoice !== '' && result.pixelChoice === result.pixelAnswer;
 
   return <Investigation
     title="Take a component away from an actual held-out image"
-    question="Choose one of the 60 reserved images, switch fitted contributions off, and record which way the image's mean squared error will move before you apply the change. The fitted dictionary and this row's activations are held exactly as the fit produced them; nothing is refitted in your browser."
+    question="Choose one of the 60 reserved images, switch fitted contributions off, and watch the reconstruction and mean squared error change immediately relative to the full fitted image. The fitted dictionary and this row's activations are held exactly as the fit produced them; nothing is refitted in your browser."
     note="At an exact rowwise optimum, removing a component with the others fixed cannot reduce the total squared error, because setting its coefficient to zero was already available. Individual pixels are not bound by that argument: an overpredicted pixel can improve while the total gets worse."
     onReset={() => changeImage(0)}>
     <div className="nm-controls">
@@ -451,7 +364,7 @@ export function ContributionLab() {
     </div>
     <p className="nm-caption">
       The recorded digit is a diagnostic label from the collection. It never entered the factorization and it is not what the components encode.
-      Changing the image restores every contribution and clears any recorded prediction.
+      Changing the image restores every contribution and starts a fresh trace.
     </p>
     <ul className="nm-toggles">
       {dictionary.map((_, component) => (
@@ -462,73 +375,17 @@ export function ContributionLab() {
         </li>
       ))}
     </ul>
-    <div className="nm-prediction">
-      <fieldset>
-        <legend>Record a prediction first.</legend>
-        <p>
-          {result
-            ? <>This mask is applied to source row {test[applied.imageIndex].sourceRow}, with {applied.mask.filter(Boolean).length} of 8
-              contributions and a mean squared error of {fixed(currentMse, 9)}. Switch a contribution on or off to set up the next comparison.</>
-            : <>Applying this mask to source row {test[applied.imageIndex].sourceRow} changes the reconstruction
-              from {applied.mask.filter(Boolean).length} contribution{applied.mask.filter(Boolean).length === 1 ? '' : 's'} to
-              {' '}{draft.mask.filter(Boolean).length}. The image mean squared error is now {fixed(currentMse, 9)}. Which way will it move?</>}
-        </p>
-        <div className="nm-choices">
-          {[['rises', 'It rises'], ['falls', 'It falls'], ['unchanged', 'It stays the same to within 1e−8']].map(([value, text]) => (
-            <label className="nm-choice" key={value}>
-              <input type="radio" name={totalName} value={value} checked={totalChoice === value}
-                onChange={() => setTotalChoice(value)} disabled={Boolean(result)} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-      {draft.pixel !== null && <fieldset>
-        <legend>And the selected pixel, optionally</legend>
-        <p>
-          Pixel at row {Math.floor(draft.pixel / side) + 1}, column {draft.pixel % side + 1}: observed {round(observed[draft.pixel], 4)},
-          currently reconstructed {round(current[draft.pixel], 4)}. Will <em>its</em> squared error rise or fall?
-        </p>
-        <div className="nm-choices">
-          {[['rises', 'This pixel gets worse'], ['falls', 'This pixel gets better'], ['unchanged', 'This pixel does not move']].map(([value, text]) => (
-            <label className="nm-choice" key={value}>
-              <input type="radio" name={pixelName} value={value} checked={pixelChoice === value}
-                onChange={() => setPixelChoice(value)} disabled={Boolean(result)} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>}
-      <Reason value={reason} onChange={setReason} disabled={Boolean(result)} />
-      {pending && !result && <p className="nm-pending" role="status">The mask below is a draft. Applying it will compare against the {applied.mask.filter(Boolean).length}-contribution reconstruction currently drawn.</p>}
-      <div className="nm-buttons">
-        <button type="button" className="is-primary" disabled={totalChoice === '' || Boolean(result)} onClick={() => commit(true)}>Check prediction</button>
-        <button type="button" disabled={Boolean(result)} onClick={() => commit(false)}>Apply without recording a prediction</button>
-      </div>
-      {result?.reason && <p className="nm-caption">Your reason, kept as you wrote it: “{result.reason}”</p>}
-      {result && <p className={`nm-verdict ${result.graded && !totalCorrect ? 'is-miss' : result.graded ? '' : 'is-plain'}`} role="status">
-        <span className="nm-verdict-mark" aria-hidden="true">{result.graded ? (totalCorrect ? '=' : '≠') : '·'}</span>
-        {result.graded ? '' : 'Calculated without a recorded prediction. '}
-        The image mean squared error went from {fixed(result.comparison.beforeMse, 9)} to {fixed(result.comparison.afterMse, 9)}, a change of
-        {' '}{signed(result.comparison.difference, 9)}, so it {result.totalAnswer === 'unchanged' ? 'stayed the same to within 1e−8' : result.totalAnswer}.
-        {' '}{result.comparison.improvedPixels} pixel{result.comparison.improvedPixels === 1 ? '' : 's'} improved,
-        {' '}{result.comparison.worsenedPixels} got worse and {result.comparison.unchangedPixels} did not move.
-        {result.pixel !== null && result.pixelChoice !== ''
-          ? ` Your selected pixel's squared error ${result.pixelAnswer === 'unchanged' ? 'did not move' : result.pixelAnswer} by ${signed(result.comparison.squaredChange[result.pixel], 9)}.${result.graded ? ` That second prediction ${pixelCorrect ? 'matched' : 'missed'}.` : ' This exploration was not graded.'}`
-          : ''}
-        {result.totalAnswer === 'unchanged' ? ` ${result.nullExplanation}` : ''}
-      </p>}
-    </div>
+    <p className="nm-readout" aria-live="polite">Full fitted reconstruction MSE {fixed(result.comparison.beforeMse,9)}; current mask MSE {fixed(result.comparison.afterMse,9)}; difference {signed(result.comparison.difference,9)}. {result.comparison.improvedPixels} pixels improve and {result.comparison.worsenedPixels} worsen. {draft.pixel !== null && <span>Selected pixel squared-error change: {signed(result.comparison.squaredChange[draft.pixel],9)}.</span>}</p>
 
     <div className="nm-image-grid">
       <ImagePanel title={`Observed, source row ${test[applied.imageIndex].sourceRow}`} values={observed} side={side} maximum={intensityMax}
-        note={`Click or tab to a cell to select it for the optional pixel prediction. Maximum ${round(Math.max(...observed), 4)}.`}
+        note={`Click or tab to a cell to inspect its exact contribution and error change. Maximum ${round(Math.max(...observed), 4)}.`}
         selected={draft.pixel} onSelect={selectPixel} />
       <ImagePanel title={`Reconstruction from ${applied.mask.filter(Boolean).length} of 8 contributions`} values={current} side={side} maximum={intensityMax}
         note={`Maximum ${round(Math.max(...current), 4)} on a scale to ${round(intensityMax, 4)}.`} />
       <ImagePanel title="Signed residual" values={currentResidual} side={side} tone="signed"
         note={`Mean squared error ${fixed(currentMse, 9)}.`} />
-      {result && <ImagePanel title="Change in squared error, this apply" values={result.comparison.squaredChange} side={side} tone="signed"
+      {result && <ImagePanel title="Change in squared error versus all components" values={result.comparison.squaredChange} side={side} tone="signed"
         note={changeExtent <= 1e-12
           ? 'Every pixel is unchanged: this mask change moved nothing at all, so the whole panel is the neutral colour.'
           : `Gold got worse, blue got better, on a scale to ±${round(changeExtent, 6)}.`} />}

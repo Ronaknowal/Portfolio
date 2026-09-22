@@ -46,7 +46,7 @@ Major correctness repairs: total gradient need not exceed upstream gradient; ide
 | A path ensemble implies harmless deletion | Nonlinear arithmetic counterexample and observed28/120 ablation |
 | Advanced architecture names become prerequisites | MLP core, labeled optional families and numerical application |
 
-First-pass route immediately after opening; seven answered transfer problems. Eight visual homes vary by mechanism, with graded construction concentrated in small editable entities; optional insets need not become separate mandatory labs. Direct text/numeric alternatives, prediction grading/invalidation, unsolved starts, contrasts/nulls and bounds are specified.
+First-pass route immediately after opening; seven answered transfer problems. Eight visual homes vary by mechanism, with live construction concentrated in small editable entities; optional insets need not become separate mandatory labs. Direct text/numeric alternatives, immediate recomputation, current-state labels, contrasts/nulls and bounds are specified.
 
 ## Canonical reference audit
 
@@ -85,9 +85,75 @@ Ran complete residual-experiments.py:39 fitted networks, exact/autograd fixtures
 
 Author reread covers full manuscript, visual specifications and provenance/design: local foundation and first-pass route, equation orientation, source support, original conservation, measured/derived boundaries, numerical labels, contrasts/nulls, practice transfer, scope and sequence. Root may raise scoped findings before checkpoint.
 
-Deferred to phase two: learner-page rendering and source integration, diagram/lab implementation, actual input-bound grading/reset/mobile/keyboard/reduced-motion checks, browser calculation parity, code download UI, lazy loading/performance, formal review and build. Content-only status must not be mistaken for published quality completion.
+Deferred to phase two: learner-page rendering and source integration, diagram/lab implementation, actual input-bound output consistency/reset/mobile/keyboard/reduced-motion checks, browser calculation parity, code download UI, lazy loading/performance, formal review and build. Content-only status must not be mistaken for published quality completion.
 
 
 ## Scoped practice disclosure repair — 12 September 2026
 
 Root reconciliation requested a presentation-only repair after the original author checkpoint. Every practice hint and worked solution is now in its own initially closed details block; missing hints were added as non-answer reasoning prompts. Existing questions, solution text, numerical calculations, source claims, programs, data and measured outcomes are unchanged. Verified 7 paired hint/solution disclosures, matched closing tags, no open attribute, exact preservation of all solution bodies, and unchanged lesson text outside the practice section. Root refreshes the affected content hashes; no repeated fitting or full implementation review is implied.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Follow the direct and residual paths. Edit branch weights, scalar depth/gain, normalization placement, projection entries and Euler step; inspect recorded block omissions. Show correction contributions, current output/loss, both derivative paths and shape compatibility as inputs change. Display every intermediate gain and genuine before/after ablation record. Recognize cancellation, shape mismatch and step-size instability despite the presence of an identity path.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Own the addition; reuse the layers and differentiation” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Residual routing, shape projection, first gradients | `residual-experiments.py:mechanisms, Refinement, DigitNetwork`; explicit addition/gating | Ordinary nn.Module composition and autograd; actual published Backpropagation and Normalization owners | Scalar-to-channel gate coding exercise and analytical gradient solution |
+| Scaled branches, ablation, path and ODE connections | Local exact fixtures and complete fit loop; Euler scalar mechanism explicit | Adam/model modes in same program; large ResNet use is later Landmark Architectures owner | Preserve existing cancellation, projection and changed-step practice; no full Neural ODE solver claim |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.
+
+## Prepared-content implementation — 22 September 2026
+
+Author: `/root/residual_implementation`. Authorized finish request: next five Deep Learning topics; this owner implements Residual Connections only. Parent owns shared registration, build, independent-review coordination, browser closure and final ledger checkpoint. **Author implementation and numerical checks complete; independent review and production integration are pending at this handoff.** No user-acceptance claim.
+
+### Coverage and construction
+
+The complete revision-3 manuscript is rendered in the semantic topic module, retaining all 13 sections, worked arithmetic, seven changed-input exercises with separately closed hints/solutions, and the additional scalar-to-feature-gate modification exercise. The existing stable ID, catalogue title and module position are unchanged; the explanatory subtitle is learner-facing only. All research references and alternative learning routes remain. No source packet or historical experiment was deleted.
+
+`scripts/build-residual-connections-lesson.mjs` is a topic-specific reproducible source converter. It preserves the written prose/math/tables and inserts the independently implemented mechanisms at their teaching homes; Markdown is not parsed in the browser. It replaces the now-stale “preceding initialization manuscript remains prepared” aside with a neutral link to that predecessor, fixes one prose spacing issue, and adds explicit code-to-operation explanation around the real `Refinement.forward` excerpt and optimizer loop. Those additions explain train/eval versus gradient recording and saved buffers versus optimizer parameters; the PyTorch Module API was checked on 22 September. The scratch boundary remains residual routing/gating/projection and its derivatives, using already-taught layers and autograd, not a duplicated differentiation or linear-algebra backend.
+
+The old construction/checker wording inside the visual specification is interpreted under its newer live-exploration contract: all current outcomes are immediately visible. There is no prediction input, submission, correctness gate or answer unlock. Independent practice keeps its solutions disclosed separately.
+
+| Teaching hurdle | Implemented surface |
+| --- | --- |
+| Keep versus change | Editable matrix, two value lanes, exact correction/loss and simultaneous gradient-descent preview/application |
+| Direct derivative can cancel | Signed contributions for the original fixed upstream derivative, then an editable scalar-depth builder with every intermediate gain |
+| Order matters | Movable post-ReLU/post-LN versus inside-zero-branch operation, common-shift edit, exact Jacobian and separate value differences |
+| Equal dimensions are insufficient | Two/three-coordinate projection sockets, editable third projection row, changed forward/backward fixture, explicit broadcast contrast and invalid addition state |
+| Zero output versus trainability | Last-linear/last-ReLU gradient comparison, scalar versus feature gate gradients and a clearly labeled gate-only update preview |
+| More depth may not help | Real attributed pixels, full architecture strip, all 39 saved fits, exact 0/1/25/100/250 traces, same-seed stem baseline, loss-specific diagnostics and branch displacements |
+| Deleting a path is an experiment | Exact single-block omission selector, pinned unmodified fit, observed 28/120 failure, null omission, no invented multiple deletions |
+| Algebra/application limits | Linear-path/nonlinear counterexample, zero-input contrast, explicitly hypothetical denoising, live signed Euler trajectory, memory lifetime explanation |
+
+The bounded browser calculations use a pure semantic model module. Range inputs have exact numeric twins and local last-valid-state errors; reset restores every state field. Training data is fetched as a topic-only compact JSON separate from the lesson chunk; Python is fetched only on source disclosure or explicit download. No browser fitting, GPU workload or pretrained download occurs. The plot width tracks CSS pixels, axis labels are compact, small-screen live tables become labeled rows, and CSS geometry targets only owned plot/pixel classes, never bare `svg` beneath KaTeX. All surfaces use neutral charcoal and amber; green/olive styling was not inherited from older topics.
+
+### Actual author evidence
+
+- Ran the unchanged complete `public/learn-assets/residual-connections/residual-experiments.py` beside its CSV with `scratch/lesson-tools/Scripts/python.exe -X utf8 -B`. All **39 actual CPU fits** finished; the decoded output (all fits, diagnostics, ablations, split IDs and float64/autograd fixtures) matches the prepared record exactly. PyTorch 2.14.0+cpu and NumPy 2.3.5 are recorded in that output. The complete program and CSV remain byte-identical to the packet. No synthetic dataset replaced real digits and no result was fitted in browser.
+- `node scripts/verify-residual-connections.mjs` passes **12 substantive groups**, recorded with source hashes in [the author evidence](../../evidence/residual-connections-author.json). The check parses owned source, compares native/browser fixtures, performs centered finite differences for weights and inputs at changed matrices, verifies operator/normalization/projection/gate/null cases, walks depth signs/intermediates, confirms every fit/split/baseline/parameter count/branch movement/omission, and checks rendered section/practice/component conservation.
+- The first author-check execution found a verifier lookup typo (`invalid` versus native `invalid_distributed`); the verifier was corrected. This was not a mathematical discrepancy, and no pass report was written for that failure.
+- PyTorch 2.14 Module buffer/mode docs, 2.14 checkpoint replay/non-reentrant contract, and Torchvision 0.26 ResNet source were rechecked at the exact relevant API/code sections on 22 September. The existing primary-paper review remains in the research register; no new paper-performance claim was introduced.
+- `scripts/verify-residual-connections-browser.cjs` is ready for the parent’s coordinated production preview: actual pointer/keyboard inputs, null/invalid/reset cases, recorded ablation and code-fetch behavior, desktop/390/320-pixel geometry, and informative captures. **It has not yet run at this author handoff.** Its report starts with `passed:false` and binds source hashes; captures require actual visual review in addition to geometry checks.
+
+### Ownership and integration handoff
+
+- Reader: `src/learn/data/topics/residual-connections-skip-connections.jsx`.
+- Metadata: `src/learn/data/curriculum/blueprints/residual-connections-skip-connections.js`; register under exact key `Residual Connections & Skip Connections`. Topic already has a published manifest entry; do not duplicate it.
+- Runtime mechanism model: `src/learn/data/residual-connections-model.js`; components/styles: `ResidualConnectionsLabs.jsx` / `residual-connections.css`.
+- Deferred complete program, required CSV, attribution, full actual output and compact browser record: `public/learn-assets/residual-connections/`.
+- Author checks and reproducible generator: `scripts/verify-residual-connections.mjs` / `scripts/build-residual-connections-lesson.mjs`.
+- Pending: independent whole-packet teaching/correctness review, production build/integration, actual browser/visual closure and parent ledger/handoff. User review remains separate. The optional CNN/Transformer families, DnCNN and Neural ODE remain explained connections, not trained reproductions.
+
+No disposable scratch directory was created for this topic. Canonical downloads, production source, retained packet and source-bound evidence are all needed; no unrelated file was removed.

@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Gaussian process visual and investigation specifications
 
 Status: content-only specification, not implemented. Stable owner gaussian-processes-gp. Read [lesson](lesson.md), [design](design.md), [checked values](checked-results.json), and [provenance](data-provenance.md) together. Build only when implementation is requested. Retain the numerical failure in the real experiment.

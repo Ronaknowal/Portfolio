@@ -35,13 +35,13 @@ function Select({
 }
 function Investigation({
   title,
-  prediction,
+  guidance,
   children,
   onReset,
   resetLabel
 }) {
-  return <section className="calculus-lab" aria-label={title}>
-    <h3>{title}</h3><p>{prediction}</p>{children}
+  return <section data-live-exploration className="calculus-lab" aria-label={title}>
+    <h3>{title}</h3><p>{guidance}</p>{children}
     <button type="button" onClick={onReset}>{resetLabel}</button>
   </section>;
 }
@@ -98,7 +98,7 @@ export function MotionRateLab() {
   const [baseTime, setBaseTime] = useState(2);
   const [increment, setIncrement] = useState(0.5);
   const state = motionRate(baseTime, increment);
-  return <Investigation title="Bring a second observation closer" prediction="At t=2 the object is moving backwards. Predict whether the interval slope is also negative, then shrink the interval. Next move to a turning point at t=1." onReset={() => {
+  return <Investigation title="Bring a second observation closer" guidance="At t=2 the object is moving backwards. Inspect whether the interval slope is also negative, then shrink the interval. Next move to a turning point at t=1." onReset={() => {
     setBaseTime(2);
     setIncrement(0.5);
   }} resetLabel="Reset motion rate">
@@ -147,7 +147,7 @@ export function LimitGateLab() {
   }] : [{
     fn: input => input ** 2
   }];
-  return <Investigation title="Make a promise about every nearby input" prediction="The target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?" onReset={() => {
+  return <Investigation title="Make a promise about every nearby input" guidance="The target is a limit of 4 at x=2. Choose an output tolerance, then decide how narrow the input strip must be. Does changing only the value at x=2 affect this promise?" onReset={() => {
     setKind('smooth');
     setEpsilon(0.5);
     setDelta(0.1);
@@ -190,7 +190,7 @@ export function ChainLocalChangeLab() {
   const [input, setInput] = useState(0);
   const [increment, setIncrement] = useState(0.1);
   const state = compositionChange(input, increment);
-  return <Investigation title="Follow a change through two functions" prediction="The inner function triples an input change. The outer function squares the intermediate value. Predict how their local sensitivities combine, then compare the prediction with the actual finite change." onReset={() => {
+  return <Investigation title="Follow a change through two functions" guidance="The inner function triples an input change. The outer function squares the intermediate value. Explore how their local sensitivities combine, then compare the prediction with the actual finite change." onReset={() => {
     setInput(0);
     setIncrement(0.1);
   }} resetLabel="Reset composition">
@@ -249,7 +249,7 @@ export function ExtremaCandidatesLab() {
     setDraftRight('4');
     setError('');
   };
-  return <Investigation title="Compare every candidate inside the allowed interval" prediction="The derivative can find interior candidates, but the domain decides which points are allowed. Predict what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp." onReset={reset} resetLabel="Reset extrema">
+  return <Investigation title="Compare every candidate inside the allowed interval" guidance="The derivative can find interior candidates, but the domain decides which points are allowed. Observe what happens when both turning points lie outside the interval. Then compare a stationary inflection with a cusp." onReset={reset} resetLabel="Reset extrema">
     <div className="calculus-controls">
       <Select label="Extrema function" value={kind} onChange={setKind} options={[['motion', 't(t−3)²'], ['inflection', '(t−2)³'], ['cusp', '|t−2|']]} />
       <label className="calculus-field"><span>Left endpoint</span><input aria-label="Left endpoint" value={draftLeft} onChange={event => setDraftLeft(event.target.value)} inputMode="decimal" /></label>
@@ -287,7 +287,7 @@ export function SignedAccumulationLab() {
   const [panelCount, setPanelCount] = useState(8);
   const [method, setMethod] = useState('midpoint');
   const state = motionAccumulation(upper, panelCount, method);
-  return <Investigation title="Add forward and backward contributions" prediction="From t=1 to t=3 the velocity is negative. Predict whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles." onReset={() => {
+  return <Investigation title="Add forward and backward contributions" guidance="From t=1 to t=3 the velocity is negative. Inspect whether those strips increase the displacement, the distance, both or neither. Move the endpoint before refining the rectangles." onReset={() => {
     setUpper(4);
     setPanelCount(8);
     setMethod('midpoint');
@@ -335,7 +335,7 @@ export function ExponentialRateLab() {
   const [period, setPeriod] = useState(1);
   const state = exponentialRate(rate, period);
   const upperAmount = 10 * Math.exp(Math.max(rate * 4, 0));
-  return <Investigation title="Separate a local relative rate from a period's gain" prediction="At k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent." onReset={() => {
+  return <Investigation title="Separate a local relative rate from a period's gain" guidance="At k=0.2 per time unit, will the amount gain exactly 20% over one whole unit? Shorten the period, then try a negative rate and compare the actual curve with its tangent." onReset={() => {
     setRate(0.2);
     setPeriod(1);
   }} resetLabel="Reset exponential rate">
@@ -379,7 +379,7 @@ export function TaylorErrorLab() {
     setKind(value);
     setInput(current => Math.min(value === 'exp' ? 2 : 1.5, Math.max(value === 'exp' ? -2 : -0.9, current)));
   };
-  return <Investigation title="Ask how much of the function a polynomial captures" prediction="Near zero, adding terms can improve an approximation. Predict whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them." onReset={() => {
+  return <Investigation title="Ask how much of the function a polynomial captures" guidance="Near zero, adding terms can improve an approximation. Inspect whether it must improve log(1+x) at x=1.5. Compare the computed difference with the analytic truncation bound, then consider the arithmetic used to evaluate them." onReset={() => {
     setKind('exp');
     setDegree(3);
     setInput(0.5);
@@ -422,7 +422,7 @@ export function ImproperIntegralLab() {
   const state = improperPowerIntegral(kind, power, cutoffExponent);
   const end = improperPowerIntegral(kind, power, 4);
   const yMaximum = Math.max(end.truncated, end.total || 0, 1) * 1.12;
-  return <Investigation title="Measure what a cutoff leaves out" prediction="An unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides." onReset={() => {
+  return <Investigation title="Measure what a cutoff leaves out" guidance="An unbounded height near zero can enclose finite area. A curve that tends to zero at infinity can still enclose infinite area. Change which endpoint is difficult, then test the same power on both sides." onReset={() => {
     setKind('endpoint');
     setPower(0.5);
     setCutoffExponent(2);

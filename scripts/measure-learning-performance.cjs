@@ -9,7 +9,7 @@ const base = process.env.PERFORMANCE_BASE_URL || 'http://127.0.0.1:4173';
 const repeats = Number(process.env.PERFORMANCE_REPEATS || 3);
 const routes = [
   { name: 'portfolio', path: '/', ready: 'h1' },
-  { name: 'learn-hub', path: '/learn', ready: '.path-card' },
+  { name: 'learn-hub', path: '/learn', ready: '.workspace-hero' },
   { name: 'python', path: '/learn/path/full-curriculum/python-basics-types-control-flow-functions-modules?module=programming-scientific-computing', ready: '.lesson-intro' },
   { name: 'planned-trees', path: '/learn/path/full-curriculum/trees-binary-search-trees?module=data-structures-algorithms', ready: '.planned-lesson' },
   { name: 'dsa-arrays', path: '/learn/path/full-curriculum/arrays-strings-hash-maps?module=data-structures-algorithms', ready: '.lesson-intro' },

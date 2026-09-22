@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "groups": [
+    "Actual six600-update fits, mechanics and NumPy reconstruction replay match all conserved output and source bytes",
+    "Fourteen actual float64 frozen encodes and decodes including all directional shifts, zero shift and changed pixels; batch separation and independent decoder masks",
+    "Actual displayed Python route executes and exactly matches the full ordinary Torch route for changed batch, child, parent and coordinate dimensions",
+    "Positive-temperature modification and one-parent normalization have independently calculated values",
+    "Margin objective units and exact zero/radial/tangent Torch derivatives are checked independently",
+    "Changed two-coordinate EM weighted mean and variance match direct independent sufficient-statistic arithmetic"
+  ],
+  "versions": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.5",
+    "sklearn": "1.9.1"
+  },
+  "sources": {
+    "public/learn-assets/capsule-networks/capsule-learning.py": "f559318f668fac3621ffeeb8755d423ae836d379a4db8a7f0c097dcecbe9783f",
+    "public/learn-assets/capsule-networks/capsule-mechanics.py": "6715a1a3b96696e0ab6c5665a4ccf7969a7ece7772b104c34bfc68505dba40d7",
+    "public/learn-assets/capsule-networks/author-checks.py": "6113f71a7674dae76bf6328671fe8a47e65acb2fc06931650cd6552979189de9",
+    "public/learn-assets/capsule-networks/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/capsule-networks/calculated-inputs.json": "c855aa2320a113349cddc33af15cd6b890d863edbc8bc8b894777768facc469a"
+  },
+  "limits": "CPU small-model/mechanics execution only; no full MNIST, EM-CapsNet, STAR-Caps, VB, GPU or pretrained reproduction. Browser integration and independent review are separate."
+}

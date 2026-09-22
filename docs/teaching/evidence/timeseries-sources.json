@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-09-21T00:36:11.083102+00:00",
+  "completedAt": "2026-09-21T00:36:11.406275+00:00",
+  "verifier": "scripts/verify-timeseries-sources.py",
+  "verifierSha256": "a50d8a0a1fc3de259f9c3cb1394acd9e769101900af53c8bf18c804646658057",
+  "filesAudited": 17,
+  "filesDeclared": 17,
+  "checks": 113,
+  "filesParsed": 12,
+  "displayBlocksChecked": 4,
+  "requiredKatexSequences": 19,
+  "fileHashes": {
+    "src/learn/data/timeseries-models.js": "ca43da610be05263b79a24b38509b22be81026fb4b690c1bc25afc7c0a48df18",
+    "src/learn/data/timeseries-data.js": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "src/learn/data/timeseries-examples.js": "52a67945accc52adf019c60dac7f83cd532340e00b0e42666b8d49043cd375e3",
+    "src/learn/data/topics/time-series-validation-forecasting-baselines.jsx": "882b361f075140d99d787e6911e53fa98297d05fc8125fc2764bddadd7e0fc37",
+    "src/learn/data/curriculum/blueprints/time-series-validation-forecasting-baselines.js": "8cafe786f2fee809b1fd4fad84e14bf051fff3d6383ace91aaa0c631e4eab675",
+    "src/learn/components/lesson-labs/TimeSeriesShared.jsx": "4cc4bb9a4e745af8fd277d14c21d0a97eb92838cb0344dbf8b158052dadfaee3",
+    "src/learn/components/lesson-labs/TimeSeriesLabs.jsx": "30afccba71a94bb0e51603dd1547d6d9781476fc68b94c9b41e6a206600c0271",
+    "src/learn/components/lesson-labs/TimeSeriesFigures.jsx": "d210325b42524007a19c8524318512f4e33b6f7bfbb2ae8ee2317f9374279c4f",
+    "src/learn/components/lesson-labs/timeseries-labs.css": "c54a6fe11d21324dcb0efab9d4cefcb76bba403532696d656f723e540301deba",
+    "scripts/verify-timeseries-models.mjs": "f1cb601f2f52183968c6047b1aeb0967af2053071abd4746bb258ab7069afa7e",
+    "scripts/verify-timeseries-examples.py": "892f7737914170cad234e7db4614ac2396d793402f9fafa605d2d2060ea7dc04",
+    "scripts/verify-timeseries-data.py": "8c1f0df86fe2a882ea827ed85dee1f428dd74983109065d3eb5da2aa44b6e395",
+    "scripts/verify-timeseries-browser.cjs": "bf665194a8bf1ccdf6201f53be144d67facad50f18e760c9d2dfff0436b689bc",
+    "scripts/verify-timeseries-render.cjs": "6e3c17606b5ab858550e6b92ab347813aa7fe292f7d88d7dceec7f90f16ed223",
+    "scripts/verify-timeseries-sources.py": "a50d8a0a1fc3de259f9c3cb1394acd9e769101900af53c8bf18c804646658057",
+    "scripts/falsify-timeseries.mjs": "aa82abb0456da0eb09c37e9e754c7ae575842383dd0ef693564af273b7602e9a",
+    "public/learn-assets/time-series-validation/ATTRIBUTION.txt": "2b9db071a8cd0a84e2c457d500a31aa2243a2b4aba319f0f2e0d710bd6f0df03"
+  },
+  "svgScoping": {
+    "layoutClass": "ts-diagram",
+    "filesAllowedToOpenAnSvgTag": [
+      "src/learn/components/lesson-labs/TimeSeriesShared.jsx"
+    ],
+    "svgTagsInSharedWrapper": 1,
+    "rule": "Every `svg` type selector in the stylesheet must be immediately qualified by the layout class, and only the shared wrapper may open an svg tag. Together these mean a new figure cannot omit the class and no rule here can reach KaTeX's radical SVGs."
+  },
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its own five verifiers and its falsification harness included; the KaTeX sequences the body depends on; that every display block is short or wrapped; that no JSX conditional has identical branches; that the lesson body never reaches for a member of the global Math object in a module where `Math` is the KaTeX component; that no bare `svg` selector exists and no file but the shared wrapper opens an svg tag; and that no owned file references another lesson's dataset directory or component family.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX, CSS or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-timeseries-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "The bare-selector scan reads the stylesheet as text. A rule injected from another file, or an inline style attribute, is outside its reach; the browser verifier measures the radicals themselves, which is the property that actually matters.",
+    "The CRLF question is deliberately not checked: this repository sets core.autocrlf=true and the convention is about stored bytes, so such a guard would test nothing."
+  ],
+  "passed": true
+}

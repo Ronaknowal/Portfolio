@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-21T15:42:02.673Z",
+  "revisedTopics": [
+    "evaluation-metrics-precision-recall-f1-auc-roc-ap-r-mae",
+    "calibration-conformal-prediction"
+  ],
+  "conservedOtherLedgerRows": 175,
+  "applicationSourcesChecked": 1700,
+  "changedApplicationSources": [
+    "src/learn/components/lesson-labs/calibration-labs.css",
+    "src/learn/components/lesson-labs/CalibrationFigures.jsx",
+    "src/learn/components/lesson-labs/evaluation-metrics.css",
+    "src/learn/components/lesson-labs/EvaluationMetricsFigures.jsx",
+    "src/learn/components/lesson-labs/EvaluationMetricsLabs.jsx",
+    "src/learn/components/topic-content.css",
+    "src/learn/data/calibration-models.js"
+  ],
+  "manifestHash": "0fe4f103b8a540facf3f999b333ec3756d05c99b532b9f137207cc066fd3cf79",
+  "themeRoutes": 135,
+  "evidence": [
+    "lesson-control-production-source.json",
+    "lesson-control-theme.json",
+    "control-affordance-independent-browser.json",
+    "residual-ruler-controls-browser.json",
+    "calibration-models.json"
+  ],
+  "ledgerHash": "2b547487dd4ffefed254a55d7a88df8875fdce93c1057b9db334f736a50380af"
+}

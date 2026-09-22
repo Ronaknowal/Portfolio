@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-20T23:20:25.921210+00:00",
+  "verifier": "scripts/verify-formulation-sources.py",
+  "verifierSha256": "6d8dc03247e7ca683534b71866a53174c0a818bd322002f4b9eb2284edf0401b",
+  "filesAudited": 16,
+  "filesDeclared": 16,
+  "failableAssertions": 82,
+  "scanPasses": 58,
+  "countingNote": "Assertions and scan passes are counted separately. A scan reports by appending to the problem list rather than by evaluating a condition, so it can fail the run but is not an assertion; reporting one combined total overstated what the suite asserts.",
+  "sourcesParsed": 11,
+  "displayBlocksChecked": 5,
+  "requiredKatexSequences": 12,
+  "fileHashes": {
+    "src/learn/data/formulation-models.js": "fc6fbb3436db0a44de721e3ca7412fef02fce7bc2ccefbe50dfb2ad4febc7558",
+    "src/learn/data/formulation-data.js": "72ff276251e713ef6416ed8703b00de3a74404010dc3c298cdd1792823bdc1ae",
+    "src/learn/data/formulation-examples.js": "f4ee3741cab02b659abdecc6ec312ab058a4869ea341e435523842620f8b0f43",
+    "src/learn/data/topics/ml-problem-formulation-baselines-data-leakage.jsx": "7d52eab6ece04f24699523892c9bbee8d5802b53c5501d911ea72ea4baf905d9",
+    "src/learn/data/curriculum/blueprints/ml-problem-formulation-baselines-data-leakage.js": "6f90b8dad21372d9ba27e57bab7290e2ce844eb61fe7065da22f1187fab925fa",
+    "src/learn/components/lesson-labs/FormulationShared.jsx": "29b5754fdffea19f9c1ffb6a7fbe410e870f3c9e8fbc2f6a5bd520299aefb15b",
+    "src/learn/components/lesson-labs/FormulationLabs.jsx": "e75846039f9adfcc9e80298b9bfae97f56fb3ea3f14fa4327f7609da50576033",
+    "src/learn/components/lesson-labs/FormulationFigures.jsx": "70ac1916f25678e5540e65b01c93686234a5490616f93697cd8fbaef98c821a3",
+    "src/learn/components/lesson-labs/formulation-labs.css": "83474ebe65bb9a50b317969a82e9622801da013b37351ce237219b088910915f",
+    "scripts/verify-formulation-models.mjs": "702797003df9784ac860ca2b5b6180e8f6b719d41f0359e674b590e649bc0846",
+    "scripts/verify-formulation-data.py": "9182931fdff0bb906c4c0b30f66a6ecff27a6278bb8104fb68cd1dc5ffe88e28",
+    "scripts/verify-formulation-examples.py": "e95e3d4f2998db42a9c694280362e403272439a6772e66d6b7403590fc3cbab0",
+    "scripts/verify-formulation-browser.cjs": "bab50bd4fb9c88fef6dcc1a2740f1a225305a74bdde01276b2e1d25cf21418c1",
+    "scripts/verify-formulation-sources.py": "6d8dc03247e7ca683534b71866a53174c0a818bd322002f4b9eb2284edf0401b",
+    "scripts/falsify-formulation.mjs": "bb97377d13d8b9ab0592bcf72627b13c318617e7cda3dd216f9b3e49a2a710d8",
+    "public/learn-assets/problem-formulation/ATTRIBUTION.txt": "110376a5d04c375d813a9804b7e7e4869c7443ad2ebee181d55066b46d73dae2"
+  },
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its four verifiers and its falsification harness included; the KaTeX sequences the body depends on; that every display block is short or wrapped; that no JSX conditional has identical branches; that the lesson body never reaches for a member of the global Math object in a module where `Math` is the KaTeX component; that the stylesheet contains no bare svg selector and scopes its layout rule to this lesson's own class; that no figure or lab writes an svg element of its own, so the class cannot be forgotten; that the six-decimal graded form is not used for model scores; and that no owned file references another lesson's asset directory.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-formulation-browser.cjs.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "Comments are stripped before the selector, dead-conditional and shadowed-Math scans, because each of those hazards is explained in a comment in the file it guards. A defect written inside a comment is therefore not reported, which is the right trade: a comment renders nothing."
+  ],
+  "passed": true
+}

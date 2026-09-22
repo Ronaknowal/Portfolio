@@ -36,7 +36,7 @@ Core route: sensor smoothing → state paths → continuous sampled dynamics →
 | New model supposedly wins by default | Predeclared small fits and ordered baseline | Report weaker neural outcomes without tuning them away |
 | Diagram is mistaken for measured speed | Explicit bytes and actual loss/error data | Distinguish count, equation illustration and measurement |
 
-The visual specification provides 24 inline visual entries and four distinct investigations. Each has editable native entities, a recorded initially unset prediction bound to current inputs, checked contrasting and null fixtures, reset/invalidation, numerical contracts, accessible text/mobile alternatives and bounded phase-two work. First three lab defaults differ from worked examples. The real-data exercise edits actual coordinates/order. Nine changed practice problems have eighteen initially closed hint/solution disclosures.
+The visual specification provides 24 inline visual entries and four distinct investigations. Each has editable native entities, a recorded current live comparison bound to current inputs, checked contrasting and null fixtures, reset/invalidation, numerical contracts, accessible text/mobile alternatives and bounded phase-two work. First three lab defaults differ from worked examples. The real-data exercise edits actual coordinates/order. Nine changed practice problems have eighteen initially closed hint/solution disclosures.
 
 ## Original-to-new conservation
 
@@ -98,8 +98,31 @@ Performed a full author reread of the manuscript in sequence and the complete vi
 - Worked examples progress to changed learner inputs and changed practice, not answer replay. Real-data evidence is a substantive supervised task with objective, update, baseline, split and complete program.
 - Core versus optional depth is explicit; S4/HiPPO, S5 and Mamba-3 detail is preserved without becoming a prerequisite blockade.
 - Accuracy nuances are taught where needed: initial conditions, feedthrough, exact versus reference discretization, nonlinear/time-invariant distinction, signed SSD coefficients, row-level data claims and measured versus hypothetical behavior.
-- Reset/null/contrasting inputs, meaningful predictions, shape labels, text alternatives and bounded evaluation are specified for every investigation.
+- Reset/null/contrasting inputs, meaningful live controls, shape labels, text alternatives and bounded evaluation are specified for every investigation.
 - The immediate Long-Context→SSM→RWKV route uses actual local stable-ID links; later attention and hybrid ownership links supplement rather than replace module sequence.
 - Primary papers, creator articles, source code and a verified hosted video/transcript provide alternative learning routes with honest retrieval notes.
 
-Phase two must implement/export the figures and investigations, verify exact browser forward parity and all prediction/reset/input lifecycle paths, check current optional-kernel setup if that route is included, perform independent content/code review, accessibility/responsive/performance/native integration checks, and update runtime publication/status. These tasks have not been performed or mislabeled complete. Necessary source data, learned arrays, manuscripts, specs and evidence are retained; only disposable own cache may be removed. No shared ledger, production code or curriculum files were changed.
+Phase two must implement/export the figures and investigations, verify exact browser forward parity and all live result/reset/input lifecycle paths, check current optional-kernel setup if that route is included, perform independent content/code review, accessibility/responsive/performance/native integration checks, and update runtime publication/status. These tasks have not been performed or mislabeled complete. Necessary source data, learned arrays, manuscripts, specs and evidence are retained; only disposable own cache may be removed. No shared ledger, production code or curriculum files were changed.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Change a state-space write and read. Edit tiny system coefficients, impulse inputs, selective writes, distraction sequence, chunk boundaries and supported real trajectories. Show impulse response, carried state, input-conditioned updates, SSD matrix entries and chunk equivalence live. Stepping exposes current recurrence arithmetic. Decide which information needs selection or state carry and distinguish a mathematically equal scan from a different update rule.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Connect the recurrence to the maintained scan and complete block” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| LTI discretization, recurrence/convolution and learned diagonal mixer | `state_space_mechanisms.py` and `trajectory_state_models.py:DiagonalMixer`; exact published ODE/LA reuse | SciPy expm/solve, NumPy/Torch FFT and actual Torch learning loop | Existing singular/initial/direct-state fixtures and derivatives; full S4 DPLR kernel not advertised |
+| Selective recurrence and ordinary complete Mamba blocks | `trajectory_state_models.py:SelectiveMixer`; explicit exp(ΔA), ΔBu and C readout | `state_space_library_bridge.py`; same scan values/gradients and Mamba/Mamba2 one-update workflow | Input/layout/softplus/last-state-gradient mapping; GPU route fully written but unexecuted |
+| SSD recurrence, matrix and chunk decomposition | `state_space_mechanisms.py:ssd_recurrent, decay_matrix, ssd_chunked` | Dense algebra as independent comparison; Mamba2 ordinary block is different full model | Nonzero initial-state length7/chunk1,3,8 extension and exact carry solution |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

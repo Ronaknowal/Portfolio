@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T18:39:18.329Z",
+  "reviewer": "integration owner; not the NumPy author",
+  "scope": "New loop-to-library addition only; no new full-module correctness claim",
+  "checks": [
+    "Displayed output matches native execution",
+    "Independent fsum and scalar-coordinate oracle on three shapes",
+    "Input remains unchanged and output does not alias it",
+    "Joint input/offset translation leaves corrected values unchanged"
+  ],
+  "sourceHashes": {
+    "src/learn/data/numpy-foundations-examples.js": "68bcbf0a78fd59c1cf72de5a8ff74e060d73a84a8553c609d711c3b5c60b6d4d",
+    "src/learn/data/topics/numpy-arrays-broadcasting-vectorization.jsx": "568dced21a2eecb5a4e4379f1e915a89cd6acd7f6e5cf73ae225e3424e0cdeaf"
+  }
+}

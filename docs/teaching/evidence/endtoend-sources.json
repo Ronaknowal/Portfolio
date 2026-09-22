@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-09-20T23:34:49.399845+00:00",
+  "verifier": "scripts/verify-endtoend-sources.py",
+  "verifierSha256": "9e1b5cf70c9a7cdf0c7818b1ccefae7400f7da00cbc95364be22e60e6b6033f3",
+  "filesAudited": 16,
+  "filesDeclared": 16,
+  "checks": 111,
+  "displayBlocksChecked": 4,
+  "requiredKatexSequences": 12,
+  "gatedRegionsInLessonBody": 3,
+  "harnessRecoveryGate": "exercised: --recover refused against a live heartbeat",
+  "fileHashes": {
+    "src/learn/data/endtoend-models.js": "fbf1d7bf371380dc2630d84f226d1a7f23f539cd5c596bd82978be10d95863ad",
+    "src/learn/data/endtoend-data.js": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+    "src/learn/data/endtoend-examples.js": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "016b5710687c6844b382dbe7230fbc0ad47b5ff8f853b5df645ef7616d48bea5",
+    "src/learn/data/curriculum/blueprints/end-to-end-supervised-learning-error-analysis.js": "b94116e2cd1b099d93a942cfd8c778cf67295797c759366f1bc12b8e74ce3da6",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "95e87750838ebcfcb3ecebf189e91db961702fdaac5140afc2b34182f3f20aac",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "d64cdda9661a3d8336520ac146520cecfdcb7bac9306c842b82335b9bd1a7063",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+    "src/learn/components/lesson-labs/endtoend-labs.css": "d9eb9abd61c9fd59433d6a9ac6f01a52952d599693fa30d4b5f201bbb523a8f3",
+    "scripts/verify-endtoend-models.mjs": "fafeb88964a488fe674ec919e04b404a72e9d1081237e18168e18c8224c8322f",
+    "scripts/verify-endtoend-examples.py": "4b41237ec94f50beb090f768c30d3d8ffe209916e40da54579afea3d4b04113e",
+    "scripts/verify-endtoend-data.py": "1909e53f1fd1e4b5136d01e57a4bf5f7675f104446e3d98da8d82f72fed51d45",
+    "scripts/verify-endtoend-browser.cjs": "1a933e457d26824e5db50c0907405ee65cf78e3d522112857f5c6e803acb8962",
+    "scripts/verify-endtoend-sources.py": "9e1b5cf70c9a7cdf0c7818b1ccefae7400f7da00cbc95364be22e60e6b6033f3",
+    "scripts/falsify-endtoend.mjs": "bf8675d2fd13efedfb484fd2fc857979b73a00b116d64eb59fdabda4815cb820",
+    "public/learn-assets/end-to-end/ATTRIBUTION.txt": "03704a5fab646d98eac72b95e44b39103367565d3b7a9495104a2733f574941e"
+  },
+  "scope": "Raw control bytes and undefined backslash escapes in every file this lesson owns, its five verifiers and its falsification harness included; the KaTeX sequences the body depends on; that every display block is short or wrapped; that no JSX conditional has identical branches; that the lesson body never reaches for a member of the global Math object in a module where `Math` is the KaTeX component; that no selector in this lesson's stylesheet ends in a bare `svg` compound and that every svg the lesson renders carries a layout class; that no score or held-out quantity is typed into a component rather than coming from the data module through a component that requires a role; that the held-out gate withholds its children rather than hiding them with CSS; and that no owned file references another lesson's copy of the Wine measurements.",
+  "limitations": [
+    "Text-level hygiene only. It does not parse JSX, CSS or KaTeX, and a wrapped block can still overflow: the rendered width is measured by scripts/verify-endtoend-browser.cjs.",
+    "The bare-`svg` scan splits selectors on whitespace and commas. It catches the descendant form that has caused this defect; an exotic selector written to evade it would not be caught here, and the rendered KaTeX measurement in the browser verifier is the backstop.",
+    "The escape allow-list is deliberately broad; it catches a byte a shell replaced, not every questionable escape.",
+    "The CRLF question is deliberately not checked: this repository sets core.autocrlf=true and the convention is about stored bytes, so such a guard would test nothing."
+  ],
+  "passed": true
+}

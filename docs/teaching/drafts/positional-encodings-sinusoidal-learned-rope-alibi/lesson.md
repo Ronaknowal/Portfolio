@@ -1,5 +1,8 @@
 # Positional Encodings: Sinusoidal, Learned, RoPE and ALiBi
 
+**Explore as you read.** Edit position IDs, frequencies, RoPE vectors, ALiBi slopes/scores, cache identities and supported trajectory coordinates. Synchronize phase geometry, relative-score changes, distance penalty, legal cache relations and final mixture. Show whole-record reorder and ID-only edit as different operations. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose and troubleshoot positional mechanisms by relative/absolute behavior and cache consistency; do not infer long-context quality from a toy phase plot.
+
+
 Imagine recording a hand moving around an arc. The same collection of points can describe clockwise or anticlockwise movement. To tell them apart, a model needs to know how the points are ordered—not just where the hand visited.
 
 The [previous Transformer Block lesson](/learn/path/full-curriculum/transformer-block-architecture?module=deep-learning-fundamentals) supplied that information by attaching a numerical time-slot tag to every point. This lesson studies more structured ways to supply position. Some add a position vector to the input. Some turn query and key vectors before comparing them. Some change the attention score according to distance. These choices affect what the model can represent, how cached generation works and what happens when a sequence becomes longer.
@@ -244,7 +247,7 @@ Consider a query in slot 3 and keys in slots 0–3. Suppose their scaled content
 
 Without the bias, key 0 receives 0.711235. The distance penalty weakens its advantage, but it still gets the largest weight. The model can learn content scores that counteract a fixed penalty; the penalty itself does not learn. There is no hard finite attention window in this formula.
 
-**Investigation — a competition between evidence and distance.** Edit the four content scores and move the key positions. Predict whether the farther key will outrank the recent one, then reveal the logit bars and normalized weights. Holding content equal isolates the exponential distance preference; setting slope 0 is the exact no-bias control. Showing only straight bias lines would miss this interaction.
+**Investigation — a competition between evidence and distance.** Edit the four content scores and move the key positions. Observe whether the farther key will outrank the recent one, and show immediately the logit bars and normalized weights. Holding content equal isolates the exponential distance preference; setting slope 0 is the exact no-bias control. Showing only straight bias lines would miss this interaction.
 
 ### Different slopes, different preferences
 
@@ -355,7 +358,7 @@ The actual CPU results were:
 
 Sinusoidal happens to have the highest test-correct count in this run. That does not establish a universal ranking. The models have different inductive biases, only one seed was run, the learned table changes parameter count, and the common hyperparameters need not suit all methods equally. Keep the table as an observation of this protocol. The sharper result comes from the following symmetry test.
 
-### Predict before reversing the path
+### Reverse the path and inspect what changes
 
 The displayed example is source row 77, chosen beforehand as the first held-out class 4 record in the fixed split. All five selected models classify its original version incorrectly. The example is kept because a real failure can still reveal the mechanism.
 
@@ -380,7 +383,7 @@ The sinusoidal classifier's predicted class stays 9, but its logits change subst
 
 ### A visual workspace that exposes the mechanism
 
-**Investigation — reattach a trajectory to its slots.** The main view shows the path with direction arrows, frame numbers and a linked time strip. The learner can reverse the path, jointly reorder records or drag a single point. Choosing a point reveals its actual Q/K features, rotated pair where applicable, selected query's attention weights and final 15-class probabilities. An unset prediction asks whether the **logits**, not merely the winning class, should remain unchanged. Reveal after committing the prediction, then compare the predicted change with the actual result.
+**Investigation — reattach a trajectory to its slots.** The main view shows the path with direction arrows, frame numbers and a linked time strip. The learner can reverse the path, jointly reorder records or drag a single point. Choosing a point reveals its actual Q/K features, rotated pair where applicable, selected query's attention weights and final 15-class probabilities. An current comparison asks whether the **logits**, not merely the winning class, should remain unchanged. Reveal ting the prediction, then compare the predicted change with the actual result.
 
 The coordinate edit is also real computation: reflect frame 23's x coordinate from $x$ to $1-x$. On this example it changes the maximum logit by 2.890378 in the no-position model and 3.264872 in symmetric ALiBi. Reversal invariance does not mean these models ignore the coordinates. In the ALiBi run this edit even changes the winning class 9→4; an artificially edited sample still has no newly established ground-truth label.
 
@@ -531,7 +534,17 @@ wrong query angle: [0.65852  1.291697]
 
 For the RoPE last query, the actual weights over positions 7, 8, 9 are approximately `[0.487697,0.452366,0.059937]`. With the wrong query angle they become `[0.185156,0.526635,0.288209]`. There is no shape error to warn us. Comparing the actual output with a full causal reference catches the bug.
 
-**Investigation — repair the cache timeline.** The learner receives a new query, occupied cache slots and editable logical position IDs. They must decide whether full and cached output should agree before revealing it. One branch changes an ID; another changes only the storage arrangement while moving keys, values and metadata together. A separate control shifts *every* logical ID by the same constant. The latter preserves RoPE/ALiBi local scores under fixed frequencies and the same legal relation. These controls distinguish a representation permutation, a genuine offset change and a masking bug.
+**Investigation — repair the cache timeline.** Edit the logical IDs of a new query and occupied cache slots while inspecting full versus cached outputs. Compare changing an ID with moving keys, values and metadata together in storage. Shift every logical ID by a common constant to see the RoPE/ALiBi local-score null under fixed frequencies and the same legal relation. These changes distinguish a representation permutation, genuine offset change and masking bug.
+
+### Match position geometry to the ordinary attention API
+
+The [complete position/API bridge](position_library_bridge.py) composes standard adjacent-pair RoPE and ALiBi with PyTorch SDPA. The former transforms Q/K before matching; the latter supplies a floating additive score mask containing both distance penalties and negative infinity on illegal entries. A boolean mask would express legality alone. The program compares direct and API values and gradients for two offset queries reading four cached keys, with explicit positions 7–10 and zero dropout. Run `python position_library_bridge.py` with PyTorch.
+
+Learned absolute positions take the ordinary `nn.Embedding` route. The same program checks its output against direct table indexing and shows why position ID 7 appearing twice accumulates two gradient contributions into row 7, while unused rows remain unchanged. Fixed sinusoids and prescribed ALiBi slopes have no trainable table unless we deliberately introduce one. The scratch formulas and `PositionClassifier` remain the code owners; this API bridge opens no second positional model.
+
+This mapping is for the exact conventions taught here, not blanket parity with every checkpoint's RoPE. Half-split pairing, partial rotation, changed bases and context scaling are explicit different transformations in §§3/8. For a checkpoint, use its configuration and code; a shared name does not authorize substituting adjacent-pair rotation.
+
+**Change the constraint:** add 100 to both query and key IDs, preserving their legal relation, then add 100 only to queries. **Hint:** standard RoPE and ALiBi depend on relative position within this fixed-input operator. **Solution:** the common shift leaves scores/outputs unchanged up to rounding; a query-only shift changes offsets and can change outputs. Compare the actual values, not merely whether the final argmax stays the same.
 
 ### Padding, packed records and numerical precision
 
@@ -635,7 +648,7 @@ The full mechanism therefore changes both relative phases and attention sharpnes
 
 The displayed frequency comparison uses the **paper's ramp in rotation count**. Practical checkpoint libraries can discretize the boundary indices and use a ramp over pair indices, giving a different intermediate curve. A label such as “YaRN” is not enough to reproduce every checkpoint: use its versioned implementation, parameter names, rotary width and scaling factors. [Current Transformers RoPE documentation](https://huggingface.co/docs/transformers/main/en/internal/rope_utils) distinguishes several schemes and per-layer configurations; its `main` documentation is mutable, so pin the version when reproducing a model.
 
-**Investigation — stretch a position system.** Choose original length, target factor and a pair. Overlay unchanged, PI, base-scaled and paper-ramp phases/wavelengths. Predict whether the fastest pair or an adjacent-token phase difference changes, then reveal the computed values. The no-extension $s=1$ case must return the original frequencies and unit score scale. These are geometry and score experiments, not a fabricated perplexity benchmark.
+**Investigation — stretch a position system.** Choose original length, target factor and a pair. Overlay unchanged, PI, base-scaled and paper-ramp phases/wavelengths. Observe whether the fastest pair or an adjacent-token phase difference changes, and show immediately the computed values. The no-extension $s=1$ case must return the original frequencies and unit score scale. These are geometry and score experiments, not a fabricated perplexity benchmark.
 
 ### Dynamic scaling and cached representations
 
@@ -757,7 +770,7 @@ A needs an extra $0.25\times8=2$ content-logit units to tie. With equal content 
 
 ### 4. Construct and repair a cache bug
 
-In the reference program, make the last query and all three keys have positions 0, 1, 2 instead of 7, 8, 9, retaining the same content vectors and legal order. Predict the RoPE last output, then check it. Now reset **only** the last query's rotation to 0 while retaining key rotations for 7, 8, 9. Explain why the two edits have different results. How would you separately expose a wrongly offset causal mask?
+In the three-key reference example, shift the key positions from `[7,8,9]` to `[0,1,2]` and the last query's position from 9 to 2, retaining the same content vectors and legal order. Run it and compare the last RoPE output with the original. Now return to the original key positions and reset **only** the last query's rotation to 0 while retaining key rotations for `[7,8,9]` and the original allowed-key mask. Explain why the two edits have different results. How would you separately expose a wrongly offset causal mask?
 
 <details><summary>Hint</summary>
 

@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "groups": [
+    "Both full source modules parse; all13sections and18practice disclosures preserved; draft links do not leak",
+    "All compact measurement and deferred map values equal their actual native inputs",
+    "Allthree head modes agree with explicit native arithmetic and degenerate one-position contracts",
+    "Context gates match allnative fixtures, explicit cell edits, permutations and equal shifts",
+    "Compound scaling matches every native coefficient step and reports infeasible width without clamping",
+    "Eligibility endpoints and seed invariance follow both cost constraints",
+    "Constructed signed maps match allnative cases; all80saved class scores reconstruct independently"
+  ],
+  "sources": {
+    "src/learn/data/topics/landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.jsx": "1930fb8b84725d60380bc69c54cd934c21b4c1bbf7698f55a62ea6883b878545",
+    "src/learn/components/lesson-labs/LandmarkArchitectureLabs.jsx": "f0e3747cb5067975e4a9e7bed240f842c49a9513c5418ced9cd8d66e4e174843",
+    "src/learn/components/lesson-labs/landmark-architectures.css": "dd9c6afc446e87e8520f8d4121eda867714bcf9f0269ed26b0f5de3753506674",
+    "src/learn/data/landmark-architecture-models.js": "3770bbbfb9426b2ba4870a753c6918088542114b0497bf7e16f242279723be28",
+    "src/learn/data/landmark-architecture-measurements.json": "4f2e93335ec3ce52affbf903514cda7211c37bd42f9b60d77cc86e131bc9a7dc",
+    "scripts/generate-landmark-architecture-lesson.mjs": "f18be9f2d63c86d7a51df1fa0dd1fdc4e241a12871b87fd3cdc3b4abebeb459b"
+  },
+  "limits": "Author model/content source checks. Native execution, independent review and browser integration have separate records."
+}

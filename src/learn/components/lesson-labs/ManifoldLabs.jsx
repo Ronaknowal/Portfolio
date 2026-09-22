@@ -1,18 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   U_POINTS, radiusGraph, gaussianRow, umapConnection, idealPair, queryNeighbors,
 } from '../../data/manifold-models.js';
 import { MANIFOLD_DIGITS } from '../../data/manifold-data.js';
-import {
-  DataTable, DigitLegend, DigitScatter, DigitTile, EqualPlot, Investigation, NumberField,
-  Prediction, Reflection, SelectField, comparisonValues, format, useManifoldInvestigation,
-} from './ManifoldShared.jsx';
+import { DataTable, DigitLegend, DigitScatter, DigitTile, EqualPlot, Investigation, NumberField, Reflection, SelectField, format, useManifoldInvestigation } from './ManifoldShared.jsx';
 import './manifold-labs.css';
 
 const within = (value, min, max, step = null) => typeof value === 'number' && Number.isFinite(value)
   && value >= min && value <= max && (step === null || Math.abs(value / step - Math.round(value / step)) < 1e-8);
-const changeName = (before, after) => Math.abs(after - before) <= 1e-9 ? 'same' : after > before ? 'higher' : 'lower';
-const verdict = correct => correct ? 'Your prediction matches. ' : 'Compare this with your prediction. ';
+
 const ids = U_POINTS.map(point => [point.id, point.id]);
 
 function validateGraph(draft) {
@@ -89,8 +85,9 @@ export function ManifoldGraphLab() {
   const [edgeIndex, setEdgeIndex] = useState(0);
   const { draft, active } = state;
   const graph = radiusGraph(active.points, active.radius, active.start, active.end);
+  const reference = state.previous?.active ?? active;
   const baseline = draft.start !== draft.end
-    ? radiusGraph(active.points, active.radius, draft.start, draft.end) : graph;
+    ? radiusGraph(reference.points, reference.radius, draft.start, draft.end) : graph;
   const point = draft.points.find(value => value.id === pointId);
   const changePoint = (axis, value) => state.edit({ points: draft.points.map(item => item.id === pointId ? { ...item, [axis]: value } : item) });
   const routeSet = new Set(graph.routeEdges.map(edge => [edge.source, edge.target].sort().join('')));
@@ -100,38 +97,27 @@ export function ManifoldGraphLab() {
     const old = coordinate(item.id);
     return item.x !== old.x || item.y !== old.y;
   }) : [];
-  const evaluate = (inputs, old, prediction) => {
-    const before = radiusGraph(old.points, old.radius, inputs.start, inputs.end);
-    const after = radiusGraph(inputs.points, inputs.radius, inputs.start, inputs.end);
-    const observed = before.distance === null ? (after.distance === null ? 'no' : 'yes')
-      : after.distance === null ? 'none' : changeName(before.distance, after.distance);
-    setEdgeIndex(0);
-    return { observed, before: before.distance, after: after.distance,
-      message: `${verdict(prediction === observed)}You predicted ${prediction}. ${inputs.start}–${inputs.end}: ${format(before.distance)} → ${format(after.distance)} coordinate units. ${after.distance === null ? 'The chosen edges do not join these endpoints.' : `The shortest route is ${after.path.join(' → ')}; its ${after.routeEdges.length} edge lengths sum to ${format(after.distance)}.`}` };
-  };
+  
   return <Investigation kind="graph" title="A · Build a route before flattening it" state={state}
     onReset={() => { state.reset(); setPointId('D'); setEdgeIndex(0); }}>
-    <p>Move D sideways, or choose another point and edit its coordinates. Predict what your proposed graph does to the route. Hollow points preview unapplied locations.</p>
+    <p>Move D sideways, or choose another point and edit its coordinates. The graph and shortest route update with every valid edit.</p>
     <div className="mf-controls">
       <SelectField label="Point to edit" value={pointId} onChange={setPointId} options={ids} />
       <NumberField label={`${pointId} x coordinate`} value={point.x} onChange={value => changePoint('x', value)} min={-1} max={4} step={0.25} />
       <NumberField label={`${pointId} y coordinate`} value={point.y} onChange={value => changePoint('y', value)} min={-1} max={4} step={0.25} />
-      <NumberField label="Proposed radius ε" value={draft.radius} onChange={radius => state.edit({ radius })} min={0.25} max={3} step={0.25} />
+      <NumberField label="Radius ε" value={draft.radius} onChange={radius => state.edit({ radius })} min={0.25} max={3} step={0.25} />
       <SelectField label="Start ID" value={draft.start} onChange={start => state.edit({ start })} options={ids} />
       <SelectField label="End ID" value={draft.end} onChange={end => state.edit({ end })} options={ids} />
     </div>
     <div className="mf-buttons" aria-label="Graph draft fixtures">
-      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 0.75 })}>Draft U · ε 0.75</button>
-      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 1.5 })}>Draft U · ε 1.5</button>
-      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 2 })}>Draft U · ε 2</button>
-      <button type="button" onClick={() => state.edit({ radius: 2.5 })}>Draft ε 2.5</button>
-      <button type="button" onClick={() => state.edit({ points: U_POINTS.map(item => item.id === 'D' ? { ...item, y: 3 } : item), radius: 1 })}>Draft D at (1, 3)</button>
+      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 0.75 })}>Set U · ε 0.75</button>
+      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 1.5 })}>Set U · ε 1.5</button>
+      <button type="button" onClick={() => state.edit({ points: U_POINTS, radius: 2 })}>Set U · ε 2</button>
+      <button type="button" onClick={() => state.edit({ radius: 2.5 })}>Set ε 2.5</button>
+      <button type="button" onClick={() => state.edit({ points: U_POINTS.map(item => item.id === 'D' ? { ...item, y: 3 } : item), radius: 1 })}>Set D at (1, 3)</button>
     </div>
-    <p className="mf-caption">Compare the same proposed endpoints, {draft.start} and {draft.end}, on the old graph (ε = {format(active.radius)}) and the proposed graph. Their old-graph distance is {format(baseline.distance)}.</p>
-    <Prediction state={state} prompt={baseline.distance === null ? 'Will the proposed graph have a path?' : 'How will the shortest graph path change?'}
-      choices={baseline.distance === null ? [['yes', 'A path will exist'], ['no', 'No path']]
-        : [['lower', 'Shorter'], ['same', 'Same length'], ['higher', 'Longer'], ['none', 'No path']]}
-      action="Apply graph" evaluate={evaluate} />
+    <p className="mf-caption">Compare the same proposed endpoints, {draft.start} and {draft.end}, on the previous valid graph (ε = {format(reference.radius)}) and the current graph. Their previous distance is {format(baseline.distance)}.</p>
+    
     <div className="mf-geometry-pair">
       <div>
         <EqualPlot title={`Applied graph · ε ${format(active.radius)}`} points={[...active.points, ...previews]}
@@ -150,7 +136,7 @@ export function ManifoldGraphLab() {
         </EqualPlot>
         <p className="mf-caption">Input coordinate units · endpoints {active.start}/{active.end} · solid gold: shortest route · hollow ring: draft, not applied.</p>
         <p className="mf-caption">Applied IDs: {active.points.map(item => `${item.id} (${format(item.x)}, ${format(item.y)})`).join('; ')}. Close points use separate labels with leaders; their centers stay at the entered coordinates.</p>
-        {previews.length > 0 && <p className="mf-caption">Draft locations: {previews.map(item => `${item.id} (${item.x}, ${item.y})`).join('; ')}.</p>}
+        {previews.length > 0 && <p className="mf-caption">Set locations: {previews.map(item => `${item.id} (${item.x}, ${item.y})`).join('; ')}.</p>}
       </div>
       <div>
         <p className="mf-readout" data-manifold-distance>Graph shortest path: <strong>{format(graph.distance)}</strong><br />Direct Euclidean distance: {format(graph.directDistance)}</p>
@@ -160,7 +146,7 @@ export function ManifoldGraphLab() {
           <DataTable caption="Route lengths in input coordinate units" headings={['Edge', 'Length', 'Sum']}
             rows={graph.routeEdges.map(edge => [`${edge.source}–${edge.target}`, format(edge.length), format(edge.cumulative)])} />
           {selectedEdge && <p className="mf-caption">{selectedEdge.source} = ({coordinate(selectedEdge.source).x}, {coordinate(selectedEdge.source).y}); {selectedEdge.target} = ({coordinate(selectedEdge.target).x}, {coordinate(selectedEdge.target).y}). Length = √(({format(coordinate(selectedEdge.source).x - coordinate(selectedEdge.target).x)})² + ({format(coordinate(selectedEdge.source).y - coordinate(selectedEdge.target).y)})²) = {format(selectedEdge.length)}.</p>}
-        </> : <p>No route edges to trace. Adjust the graph, then predict whether it reconnects.</p>}
+        </> : <p>No route edges to trace. Adjust the graph and watch where a route reconnects.</p>}
       </div>
     </div>
     <details><summary>All applied coordinates and edge choices</summary>
@@ -183,39 +169,26 @@ export function ManifoldProbabilityLab() {
   const { draft, active } = state;
   const row = gaussianRow(active.distances, active.sigma);
   const candidateIds = ['B', 'C', 'D'];
-  const evaluate = (inputs, old, prediction) => {
-    const before = gaussianRow(inputs.distances, old.sigma);
-    const after = gaussianRow(inputs.distances, inputs.sigma);
-    const index = candidateIds.indexOf(inputs.candidate);
-    const beforeValue = inputs.question === 'perplexity' ? before.perplexity : before.probabilities[index];
-    const afterValue = inputs.question === 'perplexity' ? after.perplexity : after.probabilities[index];
-    const observed = changeName(beforeValue, afterValue);
-    const [beforeText, afterText] = comparisonValues(beforeValue, afterValue);
-    const equal = inputs.distances.every(distance => distance === inputs.distances[0]);
-    return { observed, before: beforeValue, after: afterValue,
-      message: `${verdict(prediction === observed)}You predicted ${prediction}. ${inputs.question === 'perplexity' ? 'Perplexity' : `Candidate ${inputs.candidate} probability`}: ${beforeText} → ${afterText} at σ ${format(old.sigma)} → ${format(inputs.sigma)}, using the proposed distance row for both. ${equal ? 'Equal distances give equal weights; normalization cancels their shared scale.' : inputs.sigma === old.sigma ? 'The same row at the same bandwidth gives the same distribution.' : inputs.sigma > old.sigma ? 'Broader bandwidth makes the row more even by giving distant alternatives relatively more weight.' : 'Narrower bandwidth concentrates the row toward the nearest alternatives.'}` };
-  };
+  
   return <Investigation kind="probability" title="B · Change who receives the probability" state={state}>
     <p>These are three local distances from one query. Edit the row, choose a candidate or perplexity, and compare two bandwidths.</p>
     <div className="mf-controls">
       {candidateIds.map((id, index) => <NumberField key={id} label={`Distance to ${id}`} value={draft.distances[index]} min={0.25} max={6} step={0.25}
         onChange={value => state.edit({ distances: draft.distances.map((distance, position) => position === index ? value : distance) })} />)}
       <NumberField label="Proposed bandwidth σ" value={draft.sigma} onChange={sigma => state.edit({ sigma })} min={0.25} max={3} step={0.25} />
-      <SelectField label="Predict a quantity" value={draft.question} onChange={question => state.edit({ question })}
+      <SelectField label="Quantity to inspect" value={draft.question} onChange={question => state.edit({ question })}
         options={[["probability", 'Candidate probability'], ['perplexity', 'Row perplexity']]} />
       {draft.question === 'probability' && <SelectField label="Candidate ID" value={draft.candidate} onChange={candidate => state.edit({ candidate })} options={candidateIds.map(id => [id, id])} />}
     </div>
     <div className="mf-buttons">
-      <button type="button" onClick={() => state.edit({ distances: [1, 2, 3] })}>Draft distances 1, 2, 3</button>
-      <button type="button" onClick={() => state.edit({ distances: [2, 2, 2] })}>Draft distances 2, 2, 2</button>
-      <button type="button" onClick={() => state.edit({ sigma: 0.5 })}>Draft σ 0.5</button>
-      <button type="button" onClick={() => state.edit({ sigma: 2 })}>Draft σ 2</button>
+      <button type="button" onClick={() => state.edit({ distances: [1, 2, 3] })}>Set distances 1, 2, 3</button>
+      <button type="button" onClick={() => state.edit({ distances: [2, 2, 2] })}>Set distances 2, 2, 2</button>
+      <button type="button" onClick={() => state.edit({ sigma: 0.5 })}>Set σ 0.5</button>
+      <button type="button" onClick={() => state.edit({ sigma: 2 })}>Set σ 2</button>
     </div>
     <p className="mf-caption">Compare the proposed distance row at the old bandwidth σ = {format(active.sigma)} with that same row at proposed σ = {format(draft.sigma)}. Editing distances changes both comparison rows.</p>
     <p className="mf-caption">Readouts are rounded. Feedback adds precision when a change would otherwise be hidden; differences no greater than 10⁻⁹ count as staying the same.</p>
-    <Prediction state={state} prompt={`Will ${draft.question === 'perplexity' ? 'perplexity' : `the probability of ${draft.candidate}`} increase, decrease or stay the same?`}
-      choices={[["higher", 'Increase'], ['lower', 'Decrease'], ['same', 'Stay the same']]}
-      action="Apply bandwidth" evaluate={evaluate} />
+    
     <div className="mf-affinity-flow" aria-label="Applied distance to Gaussian weight to normalized probability">
       <div className="mf-affinity-head"><span>Candidate · distance</span><span>Gaussian weight</span><span>Probability · 0 to 1</span></div>
       {candidateIds.map((id, index) => <div className="mf-affinity-row" key={id}>
@@ -260,13 +233,7 @@ function ConnectionDrawing({ inputs, connection }) {
 
 function IdealPairLab({ weight, graphDraftKey }) {
   const state = useManifoldInvestigation({ weight, separation: 1, reflected: false }, draft => within(draft.separation, 0.1, 3) ? '' : 'Separation must be 0.1–3.');
-  const previousGraphDraft = useRef(graphDraftKey);
-  useEffect(() => {
-    if (previousGraphDraft.current !== graphDraftKey) {
-      previousGraphDraft.current = graphDraftKey;
-      state.invalidate('Graph draft changed. Pair prediction cleared; the last applied separation and graph weight are unchanged.');
-    }
-  }, [graphDraftKey]);
+
   const pair = idealPair(weight, state.active.separation);
   const samples = Array.from({ length: 121 }, (_, index) => {
     const separation = 0.1 + 2.9 * index / 120;
@@ -279,18 +246,10 @@ function IdealPairLab({ weight, graphDraftKey }) {
   return <div className="mf-ideal-pair" data-manifold-pair>
     <h4>Ideal single-pair cost</h4>
     <p>Keep the applied graph weight w = {format(weight)} fixed, with a = b = 1. Change only the pair's separation. This is a scalar analytic cost, not the sampled UMAP optimizer.</p>
-    <div className="mf-controls"><NumberField label="Proposed separation r" value={state.draft.separation} onChange={separation => state.edit({ separation })} min={0.1} max={3} step={0.1} />
+    <div className="mf-controls"><NumberField label="Separation r" value={state.draft.separation} onChange={separation => state.edit({ separation })} min={0.1} max={3} step={0.1} />
       <label className="mf-check"><input type="checkbox" checked={state.draft.reflected} onChange={event => state.edit({ reflected: event.target.checked })} />Reflect the pair's orientation</label>
     </div>
-    <Prediction state={state} prompt={`Compared with applied r = ${format(state.active.separation)}, will the ideal cost be lower, the same or higher?`}
-      choices={[["lower", 'Lower cost'], ['same', 'Same cost'], ['higher', 'Higher cost']]} action="Apply separation"
-      evaluate={(inputs, old, prediction) => {
-        const before = idealPair(weight, old.separation);
-        const after = idealPair(weight, inputs.separation);
-        const observed = changeName(before.cost, after.cost);
-        const [beforeText, afterText] = comparisonValues(before.cost, after.cost);
-        return { observed, message: `${verdict(prediction === observed)}You predicted ${prediction}. Cost ${beforeText} → ${afterText}; similarity ν = ${format(after.similarity)}. ${old.separation === inputs.separation ? 'Reflection leaves separation and cost unchanged.' : `The fixed target is w = ${format(weight)}; moving ν toward it lowers this isolated cost.`}` };
-      }} />
+    
     <figure className="mf-cost-plot"><figcaption>Ideal cost over supported separations</figcaption>
       <svg viewBox="0 0 300 194" role="img" aria-label={`Ideal pair cost. Applied r ${state.active.separation}, cost ${format(pair.cost)}.`}>
         {[0, maxCost / 2, maxCost].map(value => <g key={value}><line className="mf-grid" x1={38} x2={266} y1={sy(value)} y2={sy(value)} /><text x={31} y={sy(value) + 4} textAnchor="end">{format(value, 1)}</text></g>)}
@@ -325,17 +284,11 @@ export function ManifoldFuzzyLab() {
       <label><input type="checkbox" checked={draft.retainedJ} onChange={event => state.edit({ retainedJ: event.target.checked })} />Retain j → i</label>
     </div>
     <div className="mf-buttons">
-      <button type="button" onClick={() => state.edit({ ...fuzzyInitial })}>Draft d 2 · original scales</button>
-      <button type="button" onClick={() => state.edit({ rhoI: draft.distance, rhoJ: draft.distance })}>Draft both offsets at d</button>
-      <button type="button" onClick={() => state.edit({ retainedI: false, retainedJ: false })}>Draft neither direction retained</button>
+      <button type="button" onClick={() => state.edit({ ...fuzzyInitial })}>Set d 2 · original scales</button>
+      <button type="button" onClick={() => state.edit({ rhoI: draft.distance, rhoJ: draft.distance })}>Set both offsets at d</button>
+      <button type="button" onClick={() => state.edit({ retainedI: false, retainedJ: false })}>Set neither direction retained</button>
     </div>
-    <Prediction state={state} prompt="Estimate the proposed fuzzy union w (0–1, checked within 0.005)." maximum={1} numericStep={0.001}
-      action="Apply connection" evaluate={(inputs, old, prediction) => {
-        const computed = umapConnection(inputs);
-        // Include the stated decimal boundary despite binary floating-point dust.
-        const predictionMatches = Math.abs(computed.weight - prediction) <= 0.005 + 1e-12;
-        return { observed: computed.weight, message: `${verdict(predictionMatches)}You predicted ${format(prediction)}. Directed strengths ${format(computed.forward)} and ${format(computed.reverse)} give ${format(computed.forward)} + ${format(computed.reverse)} − ${format(computed.forward * computed.reverse)} = ${format(computed.weight)}. ${!inputs.retainedI && !inputs.retainedJ ? 'With neither direction retained, local scale changes cannot create this edge.' : computed.weight === 1 ? 'A strength of 1 in either direction saturates the union.' : 'Subtracting the product avoids counting shared membership twice.'}` };
-      }} />
+    
     <ConnectionDrawing inputs={active} connection={connection} />
     <details><summary>Explore the ideal pair cost with this applied weight</summary>
       <IdealPairLab key={`${state.resetCount}:${JSON.stringify(active)}`} weight={connection.weight} graphDraftKey={state.key} />
@@ -376,13 +329,13 @@ export function ManifoldDigitLab() {
   const selected = rows.find(row => row.sourceRow === draft.query);
   const candidate = layouts.find(layout => layout.key === draft.map);
   const pca = layouts.find(layout => layout.key === 'pca');
-  const audit = state.currentResult?.evaluation.audit;
+  const audit = queryNeighbors(rows, candidate.coordinates, draft.query, draft.k);
   const neighbors = audit ? { input: audit.input.map(item => item.sourceRow), map: audit.map.map(item => item.sourceRow) } : null;
   const metric = candidate.metrics[String(draft.k)];
   const selectQuery = query => state.edit({ query });
   return <Investigation kind="digits" title="D · Audit an image's neighbors" state={state}
     onReset={() => { state.reset(); setColorLabels(false); setDisplay('candidate'); }}>
-    <p>Choose an observed image by its original source-row ID, then choose a saved map and k. Predict how many input neighbors survive before revealing their identities.</p>
+    <p>Choose an observed image by its original source-row ID, then choose a saved map and k. Inspect which input neighbors survive and which map neighbors replace them as each choice changes.</p>
     <p className="mf-caption">Fixed collection: 300 observed digits, 30 per class. Class labels were used for balanced selection; the 64 pixels divided by 16 are the fit features. No per-pixel standardization. Every map contains these same source IDs.</p>
     <div className="mf-query-controls">
       <DigitTile row={selected} showLabel={colorLabels || Boolean(audit)} />
@@ -400,12 +353,7 @@ export function ManifoldDigitLab() {
       <label className="mf-check"><input type="checkbox" checked={colorLabels} onChange={event => setColorLabels(event.target.checked)} />Show digit labels and colors</label>
     </div>
     <p className="mf-caption">Collection average at k = {draft.k}: retained {format(metric.retention * 100, 2)}% · native trustworthiness {format(metric.trustworthiness)} · native continuity {format(metric.continuity)}. These are global scores; your query can differ.</p>
-    <Prediction state={state} prompt={`For source ${draft.query}, how many of its ${draft.k} input neighbors will ${candidate.title} retain?`}
-      maximum={draft.k} action="Reveal neighbors" evaluate={(inputs, old, prediction) => {
-        const layout = layouts.find(item => item.key === inputs.map);
-        const evaluated = queryNeighbors(rows, layout.coordinates, inputs.query, inputs.k);
-        return { audit: evaluated, message: `${verdict(prediction === evaluated.count)}You predicted ${prediction} of ${inputs.k}. Source ${inputs.query} in ${layout.title} retains ${evaluated.count} of ${inputs.k} (${format(evaluated.retention * 100, 1)}%). ${inputs.k - evaluated.count} input neighbors are missing and ${inputs.k - evaluated.count} map neighbors are replacements. Inspect their actual pixels below.` };
-      }} />
+    
     <div className="mf-map-switch" role="group" aria-label="Visible map on a narrow screen">
       <button type="button" aria-pressed={display === 'pca'} onClick={() => setDisplay('pca')}>PCA reference</button>
       <button type="button" aria-pressed={display === 'candidate'} onClick={() => setDisplay('candidate')}>Candidate map</button>
@@ -417,21 +365,21 @@ export function ManifoldDigitLab() {
         onSelect={selectQuery} colorLabels={colorLabels} neighbors={neighbors} title={candidate.title} /></div>
     </div>
     {colorLabels && <><DigitLegend /><p className="mf-caption">The image caption and source-ID selector give digit text; colored points provide an optional class overlay. Pixel intensities run from 0 (black) to 16 (white).</p></>}
-    {audit ? <>
+    {<>
       <p className="mf-readout" data-manifold-retained>{audit.count} / {draft.k} retained. Solid gold edges: retained; dashed green: input-only; dotted blue: map-only.</p>
       <div className="mf-neighbor-pair">
         <NeighborList kind="input" entries={audit.input} audit={audit} rows={rows} />
         <NeighborList kind="map" entries={audit.map} audit={audit} rows={rows} />
       </div>
       <p className="mf-caption">Retained IDs: {audit.retained.join(', ') || 'none'}. Input-only IDs: {audit.missing.join(', ') || 'none'}. Map-only IDs: {audit.falseNeighbors.join(', ') || 'none'}.</p>
-      <Reflection key={state.currentResult.key} prompt="Pick one changed neighbor. Which pixel strokes make the replacement plausible or surprising? Compare a second map, then explain whether its global ranking describes this query." />
-    </> : <p className="mf-unrevealed">Neighbor links, lists and the current query count stay hidden until you commit a prediction and reveal this draft.</p>}
+      <Reflection key={state.key} prompt="Pick one changed neighbor. Which pixel strokes make the replacement plausible or surprising? Compare a second map, then explain whether its global ranking describes this query." />
+    </>}
     <details><summary>Inspect the selected image's 64 pixel values and distance rules</summary>
       <DataTable caption={`Source ${selected.sourceRow} · raw 0–16 pixel values, row-major 8 × 8`}
         headings={Array.from({ length: 8 }, (_, index) => `c${index}`)}
         rows={Array.from({ length: 8 }, (_, index) => selected.pixels.slice(index * 8, index * 8 + 8))} />
       <p>Local lists exclude the query and break exact distance ties by ascending source-row ID. Distances use full saved coordinate precision before display rounding. Native trustworthiness and continuity use scikit-learn's own sorting convention. Source IDs identify original rows, not positions in this 300-row subset.</p>
-      <p>Input collection SHA-256: <code className="mf-hash">{hash}</code>. Every selectable setting is an actual stored fit. Changing the display tab preserves your committed prediction; changing query, k or map clears it.</p>
+      <p>Input collection SHA-256: <code className="mf-hash">{hash}</code>. Every selectable setting is an actual stored fit. Changing the display tab preserves the query; changing query, k or map immediately recomputes its neighbor comparison.</p>
     </details>
   </Investigation>;
 }

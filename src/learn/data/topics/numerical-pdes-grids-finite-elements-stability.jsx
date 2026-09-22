@@ -4,6 +4,8 @@ import { LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample.jsx';
 import { CoarseCorrectionLab, DiffusionGridLab, FluxCompatibilityLab, GodunovFaceLab, HatAssemblyLab, InterfaceFluxLab, PoissonBudgetLab, RectangleIndexLab, RefinementLab, RestrictionReconstructionFigure, TransportCellsLab, TriangleElementLab } from '../../components/lesson-labs/NumericalPdeLabs.jsx';
 import { numericalPdeExamples } from '../numerical-pde-examples.js';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram.jsx';
+import { mechanismProgram } from '../numerical-pdes-mechanism-program.js';
 function Program({
   example
 }) {
@@ -216,6 +218,15 @@ export default {
         <Prose>This local calculation explains why smoothing and a coarse space can complement one another. A full multigrid algorithm also chooses levels, boundary transfers, pre/post-smoothing and stopping criteria; a general optimal-complexity theorem needs additional assumptions. The small example is not presented as that theorem.</Prose>
       </details>
     </Section>
+    <section id="numerical-pdes-code-route" aria-label="Banded finite elements and reusable solver factors">
+      <H3>Keep the finite-element assembly banded</H3>
+      <Prose>The small dense hat matrix above reveals assembly. For a reusable one-dimensional solver, only its main and adjacent diagonals need storage. This complete program assembles those arrays directly on a nonuniform mesh, eliminates prescribed endpoint values, and uses the lesson's tridiagonal LDL mechanism. SciPy's banded Cholesky supplies the maintained factorization/solve route on exactly the same coefficients and right-hand side. Install NumPy 2.3.5 and SciPy 1.18.1; run <code>python finite-element-banded-bridge.py</code>.</Prose>
+      <MechanismProgram {...mechanismProgram} title="Complete banded P1 assembly, LDL and SciPy comparison" />
+      <Prose>For nodes (0,.1,.35,.7,1), conductivity 1, forcing 2 and endpoint values (1,2), the interior values are (1.19,1.5775,1.91). They match the quadratic solution at the nodes, while the piecewise-linear reconstruction remains inexact between nodes. A second right-hand side places a unit point load at .4; its neighboring hat weights are 6/7 and 1/7. Both solvers reuse their existing factors, giving (.06,.21,.12) at the interior nodes.</Prose>
+      <Prose>Assembly, factorization and each solve use O(N) time and storage in this one-dimensional tridiagonal setting. Positive conductivity and increasing nodes make the Dirichlet stiffness positive definite; the LDL routine rejects a nonpositive pivot. Piecewise-constant forcing is integrated exactly. General forcing needs appropriate quadrature, and two-dimensional meshes need different sparsity and geometry handling: the preceding CSR rectangle solve and local triangle assembly own those mechanisms. Neither a tiny residual nor nodal agreement removes the reconstruction and modelling terms in the whole-field certificate.</Prose>
+      <details><summary>Implementation practice: move the point load onto a node</summary><Prose>Move the unit load to .35, then double its strength. Retain the mesh, conductivity and zero endpoint values used for the point-source solve.</Prose><details><summary>Solution and checks</summary><Prose>At .35 its full unit weight enters that interior node. The nodal solution is (.065,.2275,.105); doubling strength doubles these values. Check source balance, the interior residual, the boundary values and equality with the Green-function nodal values. The factorization stays unchanged, so recomputing an inverse or refactorizing each load wastes the available structure.</Prose></details></details>
+      <Prose><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.cholesky_banded.html" target="_blank" rel="noreferrer">SciPy banded Cholesky</a> and <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.cho_solve_banded.html" target="_blank" rel="noreferrer">factor reuse</a> define the lower-band layout used here. This specialized one-dimensional bridge complements the existing sparse multidimensional workflow.</Prose>
+    </section>
     <Section id="npde-practice" title="15. Produce a changed solver report">
       <Prose>Try the tasks before opening the hints. A valid explanation should name the field or discrete object, the units or normalization, and the assumptions needed for its guarantee. The final task changes the problem rather than replaying a preset.</Prose>
       <Practice title="A. A boundary row with a different source" question="For N=4, −u″=6, u(0)=2 and u(1)=−1, write the first and last scaled rows and solve the interior values." hint="Add 2−3x to the zero-endpoint solution 3x(1−x).">

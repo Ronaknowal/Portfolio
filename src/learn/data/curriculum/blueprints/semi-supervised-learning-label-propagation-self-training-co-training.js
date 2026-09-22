@@ -24,7 +24,7 @@ export default {
   visual: {
     type: 'Label-access compartments, aligned counterexample scatterplots, editable weighted graph with exact score tables, raw-evidence/readout bars, prototype coordinate lanes, paired-category rule boards and measured promotion-count bars',
     question: 'Which input supplies new evidence, which merely recycles a guess, and when is no label supported?',
-    interaction: 'Three separate bounded labs: edit graph nodes/edges and hard/soft modes; move labeled/unlabeled coordinates and step through accepted batches; edit paired category rows and inspect synchronous donor chains. Each records predictions before calculation and invalidates outcomes when mathematical inputs change.',
+    interaction: "Edit graph edges and labels to update direct equilibrium; replay synchronous updates independently. Edit prototype coordinates/acceptance threshold and co-training views to recompute final outcomes and their replay traces. Pseudo-label provenance remains visible. Results update directly on valid edits, with reset and explicit comparison snapshots; no learner prediction inputs or grading gates.",
   },
   practice: {
     task: 'Solve changed edge weights; repair a normalization explanation; recompute a moved prototype; break a co-training bridge; interpret the banknote audit; repair the supervision budget; show a conditional unlabeled likelihood is zero; and design a development-only seed-budget experiment.',

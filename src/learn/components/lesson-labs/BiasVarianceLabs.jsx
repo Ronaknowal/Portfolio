@@ -3,7 +3,7 @@ import {
   degreeComparison, finiteExperiment, fixtures, limits, predictionSpread, spreadComparison,
 } from '../../data/bias-variance-models';
 import {
-  Field, Investigation, NumberField, Plot, Prediction, Table, Waterfall,
+  Field, Investigation, NumberField, Plot, LiveResult, Table, Waterfall,
   round, signed, useInvestigation,
 } from './BiasVarianceShared.jsx';
 import './bias-variance-labs.css';
@@ -64,7 +64,7 @@ function Ruler({ title, describe, domain, rows, marks, bracket, height }) {
   </svg>;
 }
 
-/** Move the predictions; watch which term moves. */
+
 export function SpreadLab() {
   const state = useInvestigation(spreadBaseline);
   const draft = state.draft;
@@ -73,7 +73,7 @@ export function SpreadLab() {
   const comparison = state.result
     ? spreadComparison(state.previous, state.active)
     : null;
-  const answerFor = (proposed, current) => {
+  const calculateInputs = (proposed, current) => {
     const result = spreadComparison(current, proposed);
     return { outcome: result.outcome, value: result.after.total };
   };
@@ -90,7 +90,7 @@ export function SpreadLab() {
   const termNames = { squaredBias: 'squared bias', variance: 'prediction variance', noiseVariance: 'target noise' };
   return <Investigation
     title="Move one prediction; watch which term moves"
-    question="Three equally likely fitted predictions at one input, a known target mean, and fresh outcomes at that same input. Change the dots, then record whether total expected squared error will fall, stay exactly where it is, or rise — before the calculation appears."
+    question="Three equally likely fitted predictions at one input, a known target mean, and fresh outcomes at that same input. Change the dots and inspect the resulting total expected squared error."
     note="The two rulers are different kinds of spread. The upper one holds predictions from different training samples; the lower one holds outcomes of the target at this one input. An outcome dot is never a fitted model."
     onReset={state.reset}>
 
@@ -167,14 +167,12 @@ export function SpreadLab() {
       </div>
     </div>
 
-    <Prediction
-      prompt={`Applying the draft would change the three predictions to [${draft.predictions.map(value => round(value, 2)).join(', ')}], f to ${round(draft.trueMean, 2)} and σ to ${round(draft.noiseSpread, 2)}. Against the applied state, what happens to total expected squared error? A tie means a difference no larger than 10⁻¹⁰ × max(1, |applied total|).`}
-      options={[['decrease', 'It falls'], ['unchanged', 'Unchanged within tolerance'], ['increase', 'It rises']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the new total expected squared error', name: 'the new total', tolerance: 1e-4, digits: 9 }}
-      committed={() => (comparison
-        ? `[${comparison.before.predictions.map(value => round(value, 2)).join(', ')}], f = ${round(comparison.before.trueMean, 2)}, σ = ${round(comparison.before.noiseSpread, 2)} → [${comparison.after.predictions.map(value => round(value, 2)).join(', ')}], f = ${round(comparison.after.trueMean, 2)}, σ = ${round(comparison.after.noiseSpread, 2)}`
-        : '')}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={comparison
         ? `Total moved from ${round(comparison.before.total, 9)} to ${round(comparison.after.total, 9)}, a change of ${signed(comparison.difference, 9)}.`
         : undefined} />
@@ -190,7 +188,7 @@ export function SpreadLab() {
         ]}
         totalLabel="total expected squared error" digits={9} />
 
-      <Table caption="What moved between the previous applied state and this one. Every term is nonnegative; only the total is graded."
+      <Table caption="What moved between the previous applied state and this one. Every term is nonnegative; the total is their sum."
         headings={['term', 'before', 'now', 'change']}
         rows={[
           ['average prediction m', round(comparison.before.averagePrediction, 9), round(comparison.after.averagePrediction, 9), signed(comparison.after.averagePrediction - comparison.before.averagePrediction, 9)],
@@ -317,7 +315,7 @@ export function WorldsLab() {
     Math.max(reference.valueRange[1], candidate.valueRange[1]),
   ];
   const world = Math.min(selected, reference.worldCount - 1);
-  const answerFor = proposed => {
+  const calculateInputs = proposed => {
     const result = degreeComparison({
       trainX: designs[proposed.design].trainX,
       curvature: proposed.curvature, sigma: proposed.sigma, probe: proposed.probe,
@@ -337,7 +335,7 @@ export function WorldsLab() {
   ];
   return <Investigation
     title="Enumerate every possible tiny training set"
-    question="Fixed training inputs, a true curve you choose, and outcomes that are the truth plus or minus σ at each input. Every combination of signs is one equally likely training dataset, and all of them are fitted. Record whether the candidate degree will have lower, identical or higher expected squared error at the probe before applying."
+    question="Fixed training inputs, a true curve you choose, and outcomes that are the truth plus or minus σ at each input. Every combination of signs is one equally likely training dataset, and all of them are fitted. Compare the candidate degrees and their expected squared error at the probe as you edit."
     note="This experiment varies the training outcomes while holding the design points fixed. It is not a bootstrap, not a resample of rows and not a simulation of random input locations."
     onReset={() => { state.reset(); setSelected(0); }}>
 
@@ -393,12 +391,12 @@ export function WorldsLab() {
       <span className={state.pending ? 'is-draft' : undefined}>draft: c = <b>{round(draft.curvature, 2)}</b>, σ = <b>{round(draft.sigma, 2)}</b>, x = <b>{round(draft.probe, 2)}</b>, <b>{designs[draft.design].label}</b>, reference <b>{degreeNames[draft.reference]}</b>, candidate <b>{degreeNames[draft.candidate]}</b></span>
     </p>
 
-    <Prediction
-      prompt={`With curvature ${round(draft.curvature, 2)}, noise ${round(draft.sigma, 2)} and ${2 ** designs[draft.design].trainX.length} equally likely training worlds, how will the candidate ${degreeNames[draft.candidate]}'s expected squared error at x = ${round(draft.probe, 2)} compare with the reference ${degreeNames[draft.reference]}'s? A tie means a difference no larger than 10⁻¹⁰ × max(1, |reference error|).`}
-      options={[['lower', 'Candidate lower'], ['same', 'Equal within tolerance'], ['higher', 'Candidate higher']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the candidate’s expected squared error', name: 'the candidate’s expected error', tolerance: 1e-4, digits: 9 }}
-      committed={() => `c = ${round(active.curvature, 2)}, σ = ${round(active.sigma, 2)}, x = ${round(active.probe, 2)}, ${designs[active.design].label}, ${degreeNames[active.reference]} against ${degreeNames[active.candidate]}`}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={`Reference ${round(comparison.reference.expectedError, 9)} against candidate ${round(comparison.candidate.expectedError, 9)}, a difference of ${signed(comparison.difference, 9)}.`} />
 
     {state.result && <>

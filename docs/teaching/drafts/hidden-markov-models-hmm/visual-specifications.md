@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # HMM visual and investigation specifications
 
 Content/specifications only. Read the complete manuscript and [calculated inputs](calculated-inputs.json); all toy calculations are from [hmm-experiments.py](hmm-experiments.py), all real sentences from [ewt-sequences.json](ewt-sequences.json). A graph, trellis, flow of fractional counts, duration bars and real labeled text serve different mechanisms. Do not flatten them into generic text boxes.

@@ -89,6 +89,7 @@ export function VectorCombinationFigure() {
   </figure>;
 }
 export function VectorProjectionLab() {
+  const controlsId = useId();
   const [horizontal, setHorizontal] = useState(1);
   const [vertical, setVertical] = useState(4);
   const [directionKey, setDirectionKey] = useState('diagonal');
@@ -105,10 +106,10 @@ export function VectorProjectionLab() {
     setDirectionKey('diagonal');
   };
   return <Investigation name="vector-projection" eyebrow="ALONG A DIRECTION, THEN WHAT REMAINS" title="A dot product locates a projection">
-    <p>Now start with v=(1,4), which makes the perpendicular remainder easier to see. Predict its signed contribution along u before changing it. Coordinates apply immediately. The dotted connector is v−p; set v=(3,2) to revisit the hand calculation above.</p>
+    <p>Now start with v=(1,4), which makes the perpendicular remainder easier to see. Inspect its signed contribution along u while changing it. Coordinates apply immediately. The dotted connector is v−p; set v=(3,2) to revisit the hand calculation above.</p>
     <div className="vector-controls">
-      <label>v horizontal coordinate <output>{horizontal}</output><input type="range" min="-4" max="4" step="1" value={horizontal} onChange={event => setHorizontal(Number(event.target.value))} /></label>
-      <label>v vertical coordinate <output>{vertical}</output><input type="range" min="-4" max="4" step="1" value={vertical} onChange={event => setVertical(Number(event.target.value))} /></label>
+      <label htmlFor={`${controlsId}-v-horizontal`}>v horizontal coordinate <output>{horizontal}</output><input id={`${controlsId}-v-horizontal`} aria-label="v horizontal coordinate" type="range" min="-4" max="4" step="1" value={horizontal} onChange={event => setHorizontal(Number(event.target.value))} /></label>
+      <label htmlFor={`${controlsId}-v-vertical`}>v vertical coordinate <output>{vertical}</output><input id={`${controlsId}-v-vertical`} aria-label="v vertical coordinate" type="range" min="-4" max="4" step="1" value={vertical} onChange={event => setVertical(Number(event.target.value))} /></label>
       <label>Direction u<select value={directionKey} onChange={event => setDirectionKey(event.target.value)}><option value="diagonal">u=(2,1)</option><option value="horizontal">u=(1,0)</option><option value="zero">u=(0,0): test the boundary</option></select></label>
     </div>
     <div className="vector-geometric-reading"><CoordinatePlane label={`v=${pair(vector)}, direction u=${pair(direction)}${result.projection ? `, projection p=${pair(result.projection)}, residual=${pair(result.residual)}` : ', projection undefined'}`} vectors={[{
@@ -143,6 +144,7 @@ export function VectorProjectionLab() {
   </Investigation>;
 }
 export function LinearMapLab() {
+  const controlsId = useId();
   const [preset, setPreset] = useState('shear');
   const [horizontal, setHorizontal] = useState(2);
   const [vertical, setVertical] = useState(1);
@@ -161,11 +163,11 @@ export function LinearMapLab() {
     setVertical(1);
   };
   return <Investigation name="linear-map" eyebrow="THE COLUMNS TELL YOU WHERE UNIT STEPS GO" title="Transform a whole shape using two column images">
-    <p>Predict the destination of x=(2,1) under the shear. Then try a map that collapses the square: can you still recover every original input? Each selection applies immediately; both plots use the same scale.</p>
+    <p>Inspect the destination of x=(2,1) under the shear. Then try a map that collapses the square: can you still recover every original input? Each selection applies immediately; both plots use the same scale.</p>
     <div className="vector-controls">
       <label>Linear map<select value={preset} onChange={event => setPreset(event.target.value)}>{Object.entries(linearMapPresets).map(([key, value]) => <option key={key} value={key}>{value.name}</option>)}</select></label>
-      <label>x first coordinate <output>{horizontal}</output><input type="range" min="-3" max="3" value={horizontal} onChange={event => setHorizontal(Number(event.target.value))} /></label>
-      <label>x second coordinate <output>{vertical}</output><input type="range" min="-3" max="3" value={vertical} onChange={event => setVertical(Number(event.target.value))} /></label>
+      <label htmlFor={`${controlsId}-x-first`}>x first coordinate <output>{horizontal}</output><input id={`${controlsId}-x-first`} aria-label="x first coordinate" type="range" min="-3" max="3" value={horizontal} onChange={event => setHorizontal(Number(event.target.value))} /></label>
+      <label htmlFor={`${controlsId}-x-second`}>x second coordinate <output>{vertical}</output><input id={`${controlsId}-x-second`} aria-label="x second coordinate" type="range" min="-3" max="3" value={vertical} onChange={event => setVertical(Number(event.target.value))} /></label>
     </div>
     <div className="vector-two-planes"><div><h4>Input coordinates</h4><CoordinatePlane domain={domain} label={`Unit square and input x=${pair(vector)}`} polygon={square} vectors={[{
           to: [1, 0],
@@ -280,7 +282,7 @@ export function TensorReductionLab() {
     setSelection([0, 0]);
   };
   return <Investigation name="tensor-reduction" eyebrow="HOLD THE SURVIVING INDICES FIXED" title="An average removes a named axis">
-    <p>This invented measurement array has shape (2 sessions, 2 times, 3 channels), all in the same arbitrary unit. Predict which values contribute to the highlighted output. Changing an axis or dataset applies immediately and selects the first output cell.</p>
+    <p>This invented measurement array has shape (2 sessions, 2 times, 3 channels), all in the same arbitrary unit. Inspect which values contribute to the highlighted output. Changing an axis or dataset applies immediately and selects the first output cell.</p>
     <div className="vector-controls"><label>Dataset<select value={dataset} onChange={event => {
           setDataset(event.target.value);
           setSelection([0, 0]);

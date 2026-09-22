@@ -1,7 +1,7 @@
 """Executed, offline float64 mechanism fixtures; no training or GPU benchmark.
 
 Run: python mechanism-calculations.py. Requires NumPy. The JSON includes
-author-only expected answers; a learner UI must hide these until prediction.
+calculated examples and practice answers; live lab results remain immediately visible.
 """
 from pathlib import Path
 import json

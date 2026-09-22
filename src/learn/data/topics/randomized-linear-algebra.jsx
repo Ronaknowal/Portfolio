@@ -1,4 +1,6 @@
 import { Code, H2, H3, Prose } from '../../components/content';
+import MechanismProgram from '../../components/lesson-labs/MechanismProgram';
+import libraryOutput from '../randomized-linear-algebra-library-output';
 import { MathBlock } from '../../components/content/Math.jsx';
 import { Checkpoint, LessonIntro, LessonTable, Sources } from '../../components/lesson-labs/LessonElements';
 import { RunnableExample } from '../../components/lesson-labs/RunnableExample';
@@ -120,8 +122,24 @@ export default {
     <Prose>The smoother example gives a less obvious use of trace. For a fixed linear rule ŷ=Hy, changing input yᵢ by a small amount changes its corresponding fitted output by Hᵢᵢ times that amount. Summing these diagonal sensitivities gives trace(H). Random sign products estimate that aggregate through H's action. For ordinary full-rank least-squares projection, H=QQᵀ and trace(H)=d exactly; trace estimation is useful when the operator is more complicated and the diagonal is costly to obtain.</Prose>
     <details className="lesson-deeper"><summary>Further branches and production library choices</summary>
       <Prose>Nyström methods approximate a positive-semidefinite matrix using selected columns and their intersection, preserving useful symmetry/positivity structure. Interpolative and CUR decompositions favor actual rows or columns when their identities matter more than arbitrary singular combinations. Random feature methods construct an approximate kernel through sampled features. These are related compression tools with different access models and guarantees; the SVD helper above is not an implementation of all three.</Prose>
-      <Prose>The scikit-learn <Code>randomized_svd</Code> API exposes target components, oversampling, iteration count, normalization and a random state. Its current documentation includes automatic choices that differ from this deliberately explicit teaching helper. Check the installed version's defaults and select parameters against the actual error requirement. Treat returned factors as an approximation, and preserve them in factored form when possible. The examples here execute NumPy, not scikit-learn, and make no cross-library timing claim.</Prose>
+      <Prose>The scikit-learn <Code>randomized_svd</Code> API exposes target components, oversampling, iteration count, normalization and a random state. Its current documentation includes automatic choices that differ from this deliberately explicit teaching helper. Check the installed version's defaults and select parameters against the actual error requirement. Treat returned factors as an approximation, and preserve them in factored form when possible. The paired program below executes scikit-learn with explicit settings and makes no cross-library timing claim.</Prose>
     </details>
+
+    <H3>Use the library with the same approximation contract</H3>
+    <Prose>Once the range finder makes sense, use <Code>sklearn.utils.extmath.randomized_svd</Code> for ordinary array or sparse-matrix work. Its returned arrays are U, s and Vᵀ; reconstruct with <Code>(U * s) @ Vt</Code>, or retain the factors to avoid allocating a full reconstruction. Here k=5, p=4 and q=0 or 2 mean the target rank, extra probe columns and stabilized power rounds taught above.</Prose>
+    <Prose>The complete bridge matches the random and numerical conventions: the same legacy <Code>RandomState(7)</Code> Gaussian probes, tall float64 input, QR after each multiplication, no automatic transpose and no sign postprocessing. Its compact QR variant replaces the earlier helper's rank-revealing SVD orthogonalization only for this comparison. QR may retain arbitrary extra directions on rank-deficient inputs; the final small SVD still determines the reconstruction. Individual factor columns are never the correctness test.</Prose>
+    <LessonTable caption="Translate the range finder into the API" headers={['Mechanism', 'Library setting', 'Meaning']} rows={[
+      ['Retain k directions', 'n_components=5', 'Output rank, not total probe width.'],
+      ['Draw k+p probes', 'n_oversamples=4', 'Extra columns trade workspace for capture quality.'],
+      ['Apply q power rounds', 'n_iter=0 or 2; power_iteration_normalizer="QR"', 'Fix stabilization; automatic settings may use a different scheme.'],
+      ['Fix orientation and randomness', 'transpose=False; random_state=7', 'A seed alone does not align different random generators.'],
+    ]} />
+    <MechanismProgram source="/learn-assets/randomized-linear-algebra/randomized_svd_library.py" title="Open the complete NumPy / scikit-learn comparison" output={libraryOutput} />
+    <Prose>Install/run commands are in the download; this run uses scikit-learn 1.9.1. On the fixed 100×40 geometric-spectrum matrix, q=0 gives Frobenius residual 8.683865 versus the best rank-five floor 7.551963. With q=2 it is 7.553857. Both routes agree to tolerance for each setting. Zero and exact low-rank matrices also pass; nonfinite or out-of-contract wide inputs are rejected. This establishes the declared comparison, not identical random results across versions.</Prose>
+    <Prose>With ℓ=k+p, each dense matrix–block product costs O(mnℓ); power rounds require more passes over A. Thin QR and the small SVD add work, and their bases use O((m+n)ℓ) storage beyond A. Full reconstruction and exact SVD are deliberately small-fixture checks here. For large inputs use the independent residual probes above, and reuse the earlier blocked-product implementation when data access is the constraint.</Prose>
+    <Checkpoint prompt="Keep matrix and seed fixed, but change q from 0 to 2. What else must stay fixed, and what does the recorded improvement establish?">
+      <Prose>Keep QR normalization, rank, oversampling and orientation fixed. The executed residual falls from 8.683865 to 7.553857 at the cost of four additional matrix–block products. This is evidence for this matrix and draw, not a timing benchmark or uniform guarantee. On another matrix inspect retained error and the downstream objective again; more passes may be too costly even when they improve reconstruction.</Prose>
+    </Checkpoint>
 
     <H2>8. Practise with new failures and new data</H2>
     <H3>Exercise A · a three-factor signal with noise</H3>
@@ -152,7 +170,7 @@ export default {
     </>}>
       <li><a href="https://arxiv.org/pdf/0909.4061" target="_blank" rel="noopener noreferrer">Halko, Martinsson & Tropp · Finding Structure with Randomness</a> — algorithms 4.3–4.4, the floating-point warning, the compressed SVD stage and Theorem 10.5's Gaussian range-error contract. Different sketch families in the paper have different costs.</li>
       <li><a href="https://arxiv.org/pdf/2002.01387" target="_blank" rel="noopener noreferrer">Martinsson & Tropp · Randomized Numerical Linear Algebra</a> — a broader advanced reference for trace estimation, embeddings, row sampling, least squares, range finding and later single-view/kernel branches. Relevant sections were reviewed; the entire monograph is not a prerequisite.</li>
-      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.extmath.randomized_svd.html" target="_blank" rel="noopener noreferrer">scikit-learn · randomized_svd API</a> — parameter and normalization options checked on 10 September 2026. Documentation defaults are version-specific; the complete programs above use their stated NumPy implementation.</li>
+      <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.extmath.randomized_svd.html" target="_blank" rel="noopener noreferrer">scikit-learn · randomized_svd API</a> — parameter and normalization options checked again on 22 September 2026. The new bridge executes version 1.9.1 with a matched QR range finder; earlier programs retain their NumPy implementations.</li>
     </Sources>
   </div>
 };

@@ -93,11 +93,11 @@ Show precision as **undefined: no predicted positives**, rather than adding a ti
 
 ### Investigation: move the decisions, then explain the metric
 
-Record which items will change cells and predict precision and recall before lowering t from 0.8 to 0.5. Reveal the result: TP = 3, FP = 2, FN = 1, TN = 2; precision 0.6 and recall 0.75. Then try t = 0.3: TP = 4, FP = 2, FN = 0, TN = 2; precision 2/3 and recall 1.
+Lower t from 0.8 to 0.5 and follow each item into its new cell: TP = 3, FP = 2, FN = 1, TN = 2; precision 0.6 and recall 0.75. Then try t = 0.3: TP = 4, FP = 2, FN = 0, TN = 2; precision 2/3 and recall 1.
 
 Both precision and recall increased in that second move, because the newly admitted item F was positive. Lowering a threshold cannot decrease recall on a fixed dataset, but precision can rise or fall. The common tradeoff is a tendency, not a monotonicity theorem for every empirical PR curve.
 
-Change one item's score or observed label, record a new prediction, and repeat. Also move the threshold within an interval containing no score, such as from 0.70 to 0.75. No decision changes. This null case distinguishes changing a control from changing the evaluated system's behavior.
+Change one item's score or observed label and inspect the recalculated result. Also move the threshold within an interval containing no score, such as from 0.70 to 0.75. No decision changes. This null case distinguishes changing a control from changing the evaluated system's behavior.
 
 ## 3. A threshold is a decision policy
 
@@ -207,9 +207,9 @@ A has the better ROC area; B has the better AP and the better first two results.
 
 ### Investigation: rebuild the curve from the ranked items
 
-Start with the eight cards and record the effect of admitting the tied 0.8 block before revealing the next points. Inspect the pair grid and AP contributions. Swap the display order of B and C while keeping their scores unchanged: both metrics must remain unchanged.
+Start with the eight cards and inspect the effect of admitting the tied 0.8 block on the next points. Inspect the pair grid and AP contributions. Swap the display order of B and C while keeping their scores unchanged: both metrics must remain unchanged.
 
-Then edit one score so a formerly tied positive moves below the negative, and predict which pair contributions and threshold blocks change. Finally set all scores equal. The curve should retain only the all-negative and all-positive endpoints, AUC should be 0.5, and AP should be 0.5 for this balanced fixture. If you remove all positives, the interface must explain which metrics are no longer defined instead of drawing a fabricated ROC curve.
+Then edit one score so a formerly tied positive moves below the negative, and inspect which pair contributions and threshold blocks change. Finally set all scores equal. The curve should retain only the all-negative and all-positive endpoints, AUC should be 0.5, and AP should be 0.5 for this balanced fixture. If you remove all positives, the interface must explain which metrics are no longer defined instead of drawing a fabricated ROC curve.
 
 ## 5. Evaluate probabilities without confusing them with decisions
 
@@ -297,7 +297,7 @@ If all observed targets are equal, the denominator is zero. Our teaching impleme
 
 ### Investigation: decide which error pattern your score rewards
 
-Record which predictor you expect MAE and RMSE to prefer before revealing the residual contributions. Edit one target and one prediction to create your own reversal, and explain it using lengths and squared areas. Switch the displayed unit from minutes to seconds: MAE and RMSE multiply by 60, MSE by 3,600, while R² is unchanged.
+Compare the predictors using the residual contributions to MAE and RMSE. Edit one target and one prediction to create your own reversal, and explain it using lengths and squared areas. Switch the displayed unit from minutes to seconds: MAE and RMSE multiply by 60, MSE by 3,600, while R² is unchanged.
 
 Then copy the targets exactly into the prediction column. All residuals vanish; MAE and RMSE are zero and R² is 1 for these nonconstant targets. Finally make every target and prediction 4. The errors remain zero, but raw R² becomes undefined. A successful lab should explain that denominator change rather than label the perfect constant prediction a failure.
 
@@ -341,7 +341,7 @@ Move the grade-3 document to the first position, swapping it with the first grad
 
 ### Investigation: change the list without changing the candidates
 
-Record which metric you expect to change before swapping two document cards. Reveal AP, reciprocal rank, precision at the cutoff, and NDCG contributions. Then change a relevance grade and make a fresh prediction. Swapping two equally relevant documents is a null for these relevance-based calculations: identities move but the grade sequence does not.
+Swap two document cards and follow the changes to AP, reciprocal rank, precision at the cutoff, and NDCG contributions. Then change a relevance grade and compare the updated contributions. Swapping two equally relevant documents is a null for these relevance-based calculations: identities move but the grade sequence does not.
 
 If every grade is zero, ideal DCG is zero and the ratio is undefined. An evaluation package may assign zero by convention; report the convention and query count. Do not silently drop hard queries from an average.
 

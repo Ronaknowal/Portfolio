@@ -1,5 +1,14 @@
 # t-SNE, UMAP & Manifold Learning — design and content handoff
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Existing topic-specific controls already update the actual model and visual outputs. Preserve those mechanisms and process controls; ordinary exploration guidance replaces learner prediction prompts.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 12 September 2026. Classical ML position 17 of 39, stable ID `t-sne-umap-manifold-learning`. Requested mode: **research/write only, content first**. This record owns scoped design, research, author evidence and continuation; root owns the shared delivery ledger and current handoff. No commit or publication was made by this author.
 
 | State | Current result |

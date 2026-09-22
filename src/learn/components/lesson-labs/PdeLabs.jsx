@@ -145,7 +145,7 @@ export function TransportCharacteristicLab() {
     [curvature, setCurvature] = useState(2);
   const state = useMemo(() => transportState(time, position, curvature), [time, position, curvature]);
   const trajectories = linspace(-1, 1, 9).map(start => [[Math.max(0, start), Math.max(0, -start)], [Math.min(1, start + 1), Math.min(1, 1 - start)]]);
-  return <Lab id="transport" title="Trace the observation to the data that determine it"><p>Predict which datum the highlighted point will reach when traced backward. The speed is fixed at one normalized length per time unit.</p>
+  return <Lab id="transport" title="Trace the observation to the data that determine it"><p>Inspect which datum the highlighted point will reach when traced backward. The speed is fixed at one normalized length per time unit.</p>
     <div className="pde-controls"><Range label="Transport time" value={time} onChange={setTime} min={0} max={1} /><Range label="Transport observation x" value={position} onChange={setPosition} min={0} max={1} /><Choice label="Inflow history" value={curvature} onChange={value => setCurvature(Number(value))} options={[[0, 'g(t)=1−t'], [2, 'g(t)=1−t+2t²']]} /></div>
     <div className="pde-two"><SpaceTime title="The backward characteristic" trajectories={trajectories} point={[position, time]} foot={[state.dataPosition, state.dataTime]} /><Plot title="Current transported profile" lines={[series(state.profile, 'value')]} xDomain={[0, 1]} cursor={position} /></div>
     <Values items={[["Determining data", state.fromInitial ? 'Initial profile at t=0' : 'Left inflow history'], ['Data coordinate', state.fromInitial ? `x=${format(state.dataPosition)}` : `t=${format(state.dataTime)}`], ['Observed value', format(state.value)], ['Total amount', format(state.mass)], ['Incoming minus outgoing', format(state.incoming - state.outgoing)], ['Rate of total change', format(state.massDerivative)]]} />
@@ -167,7 +167,7 @@ export function HeatBoundaryLab() {
     [position, setPosition] = useState(.5);
   const state = useMemo(() => heatBoundaryState(theta), [theta]);
   const selected = [heatValue(position, theta), heatValue(position, theta, 'neumann')];
-  return <Lab id="heat" title="The same initial heat, two different exits"><p>Both rods start at sin²(πx). Predict which mean can change. θ is normalized time αt/L²; the plotted x is x/L.</p>
+  return <Lab id="heat" title="The same initial heat, two different exits"><p>Both rods start at sin²(πx). Inspect which mean can change. θ is normalized time αt/L²; the plotted x is x/L.</p>
     <div className="pde-controls">{theta > 0 && <Range label="Positive heat time theta" value={theta} onChange={setTheta} min={.002} max={.5} step={.002} />}<Range label="Heat inspection position" value={position} onChange={setPosition} min={0} max={1} /></div>
     <div className="pde-buttons"><button onClick={() => setTheta(0)} aria-pressed={theta === 0}>Show exact initial profile</button><button onClick={() => setTheta(.05)}>Compare at θ=0.05</button></div>
     <Plot title={theta === 0 ? 'Initial data agree in both rods' : 'Two analytic boundary solutions'} lines={[series(state.profile, 'dirichlet'), series(state.profile, 'neumann'), series(state.profile, 'initial')]} xDomain={[0, 1]} yDomain={[0, 1.08]} cursor={position} /><Legend labels={['Zero endpoint values', 'Zero endpoint flux', 'Initial profile']} />
@@ -240,7 +240,7 @@ export function HarmonicInteriorLab() {
   const x = p => 47 + 240 * p,
     y = p => 269 - 240 * p;
   const cellColor = value => value >= 0 ? `rgb(${Math.round(35 + 180 * value)},${Math.round(43 + 116 * value)},${Math.round(39 + 15 * value)})` : `rgb(${Math.round(35 - 45 * value)},${Math.round(43 - 90 * value)},${Math.round(39 - 157 * value)})`;
-  return <Lab id="harmonic" title="A boundary pattern reaches into a two-dimensional field"><p>The top boundary is sin(nπx); the other three sides are zero. Predict what a higher n does to the amplitude halfway down from the top. Every view uses the same [−1,1] color scale.</p>
+  return <Lab id="harmonic" title="A boundary pattern reaches into a two-dimensional field"><p>The top boundary is sin(nπx); the other three sides are zero. Inspect what a higher n does to the amplitude halfway down from the top. Every view uses the same [−1,1] color scale.</p>
     <div className="pde-controls"><Choice label="Boundary harmonic n" value={frequency} onChange={v => setFrequency(Number(v))} options={[[1, 'n=1'], [3, 'n=3'], [5, 'n=5']]} /><Range label="Harmonic horizontal position" value={position} onChange={setPosition} min={0} max={1} /><Range label="Harmonic vertical position y" value={depth} onChange={setDepth} min={0} max={1} /></div>
     <div className="pde-two"><figure className="pde-figure"><figcaption>Analytic harmonic field on the square</figcaption><svg viewBox="0 0 320 325" role="img" aria-label={`Square harmonic field n=${frequency}, selected x=${position}, y=${depth}. Color is amplitude with fixed scale.`}>
       {state.cells.map(cell => <rect key={`${cell.row}-${cell.column}`} x={x(cell.column / 24)} y={y((cell.row + 1) / 24)} width="10.2" height="10.2" fill={cellColor(cell.value)} />)}

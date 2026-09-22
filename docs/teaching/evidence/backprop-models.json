@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-09-21T17:17:10.321Z",
+  "assertions": 174,
+  "scope": "Independent small-model calculations, numerical contrasts, source-bound training observations, checkpoint dependency schedule.",
+  "sourceHashes": {
+    "src/learn/data/backprop-models.js": "9354824fbc2611e0c4de80d6d304ce10bcca526c2d7b7711d644988c78c843a0",
+    "src/learn/data/backprop-training.js": "608160464e347ec908cec37807fce8de2466beabae6ae44cfa5fd2823820252a",
+    "scripts/verify-backprop-models.mjs": "328b080270ffdbf906d66f5751e1b255bf873887245a0812b7a18a573a6fa855"
+  }
+}

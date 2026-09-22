@@ -1,0 +1,32 @@
+{
+  "accepted": true,
+  "reviewer": "initialization_implementation (independent of recurrent author)",
+  "reviewedAt": "2026-09-22T05:48:15.7460146Z",
+  "scope": "Full content and mechanism review; production browser acceptance remains separate",
+  "report": "docs/teaching/RECURRENT-INDEPENDENT-REVIEW.md",
+  "complementaryEvidence": [
+    "docs/teaching/evidence/recurrent-independent-native.json",
+    "docs/teaching/evidence/recurrent-independent-models.json"
+  ],
+  "unresolvedFindings": [],
+  "sourceHashes": {
+    "docs/teaching/drafts/rnns-lstms-grus/lesson.md": "2626761c8592629be8a0c191234778f0b2b652032a3fcbacf3ec692152681bf2",
+    "docs/teaching/drafts/rnns-lstms-grus/visual-specifications.md": "ce2a55f4dbc71f6333523bcd12cfc1440e620410a0a0d132165eaf05ef242b7d",
+    "docs/teaching/drafts/rnns-lstms-grus/design.md": "5064983ff486f68ad242bb4227f58da36c952d7dd9c5e45ab87ce1f42d0b3de8",
+    "src/learn/data/topics/rnns-lstms-grus.jsx": "69fced28d9ee2b37c54666c10176a61caab53ac8a14c0e56fa4f3928944e93d8",
+    "src/learn/data/recurrent-models.js": "9b74f52243f47af00bd032ea403720e1a4eb06320de945320940ef6476c01226",
+    "src/learn/components/lesson-labs/RecurrentLabs.jsx": "7bfcf6adccaa26728aa52ff1d223d5ec83dba739ef4a7ed398d0398f441e9276",
+    "src/learn/components/lesson-labs/recurrent-labs.css": "78463cb6944ebd44d4d11640638fd54aa035888cfe48b443e0e8782b0b1bb2a5",
+    "src/learn/data/curriculum/blueprints/rnns-lstms-grus.js": "46c4795a36eb98f5298ceecfb63b614bed9a9cd1339ccf6397c55b47d2d0379c",
+    "scripts/render-recurrent-lesson.mjs": "5d2b9ebbe564f37bcb91c5a21bd645477122b1a0a1159df780a32d5ea78d01ff",
+    "public/learn-assets/rnns-lstms-grus/recurrent-mechanics.py": "b75b269b9e0daf8c0811a5373c2442d80ced0c584ffd980ef305aa1c7a107c80",
+    "public/learn-assets/rnns-lstms-grus/pen-sequence-learning.py": "8c7e93494612478e11136da96599084c12219da9d7bff0fcaf6e077aee4ce053",
+    "public/learn-assets/rnns-lstms-grus/data-provenance.md": "38bef483e4f68c9ae485c94be652ef38cf3b938504beedda6db7c5e86833b670",
+    "public/learn-assets/rnns-lstms-grus/pen-models.json": "725b7e38c88a0d530cb220d1f6bcc8a17591265b38f9c335a9f35557898adad6",
+    "public/learn-assets/rnns-lstms-grus/recurrent-evidence.json": "67392580677778d744975127b4905e7cecf3778136ab86cdf5102208c04af42e",
+    "public/learn-assets/rnns-lstms-grus/pen-trajectories.csv": "e9f7d82554a7704edd3d63b07f62b575572675bfa6927e8fea3c52ec879be82f",
+    "public/learn-assets/rnns-lstms-grus/calculated-inputs.json": "b1bd25234d563a878af2023b2c86a1e9569e63e878d5a3be41233f17d14d48ef",
+    "public/learn-assets/rnns-lstms-grus/mechanics-results.json": "e8ca63f2993b7adacd8476ee00d3e6524365eec8962035f548f44a846d95988b"
+  },
+  "finalScopedReview": "Reviewed maxDifference flatten-once O(n) reduction; exact previous source reconstructed. Empty/nested/mismatched-length and200,000-element comparisons checked. Parent reran author8 and complementary6 groups; outcomes unchanged. Native rerun unnecessary."
+}

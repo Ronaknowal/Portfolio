@@ -160,7 +160,7 @@ export function PrefixBorderLab() {
   return <section className="string-lab" data-lab="prefix-border" aria-labelledby="prefix-border-lab">
     <p className="lesson-eyebrow">INVESTIGATE · BORDER LENGTHS</p>
     <h3 id="prefix-border-lab">Which part can extend?</h3>
-    <p>Before a fallback, predict the next shorter candidate. Green cells show equal prefix/suffix evidence; the amber outline identifies i. Edits take effect when you apply the pattern.</p>
+    <p>Step through a fallback and follow the next shorter candidate. Green cells show equal prefix/suffix evidence; the amber outline identifies i. Edits take effect when you apply the pattern.</p>
     <form className="string-form" onSubmit={state.apply}>
       <label>Pattern<input value={state.draft} onChange={event => state.setDraft(event.target.value)} /></label>
       <button type="submit">Apply pattern</button>
@@ -186,7 +186,7 @@ export function KmpAlignmentLab() {
   return <section className="string-lab" data-lab="kmp-alignment" aria-labelledby="kmp-alignment-lab">
     <p className="lesson-eyebrow">INVESTIGATE · REUSE AFTER A MISMATCH</p>
     <h3 id="kmp-alignment-lab">Move the candidate, keep the unread symbol</h3>
-    <p>Predict whether the next step consumes text or only shortens q. Each ribbon shows the state <em>after</em> the action. Green marks retained equality; amber marks the next unread text symbol. Scroll a narrow ribbon to inspect all positions.</p>
+    <p>Inspect whether the next step consumes text or only shortens q. Each ribbon shows the state <em>after</em> the action. Green marks retained equality; amber marks the next unread text symbol. Scroll a narrow ribbon to inspect all positions.</p>
     <form className="string-form" onSubmit={state.apply}>
       <label>Text<input value={state.draft.text} onChange={event => state.setDraft({
           ...state.draft,
@@ -204,7 +204,7 @@ export function KmpAlignmentLab() {
     <p className="string-action" aria-live="polite" data-result="kmp-action">{current.action}</p>
     {current.compared && <p className="lesson-note">The completed comparison was text[{current.compared[0]}] with pattern[{current.compared[1]}]. The ribbons now show its consequence.</p>}
     <TraceControls index={state.index} setIndex={state.setIndex} count={state.trace.states.length} />
-    <p className="lesson-note">Then search aaaaa for aaa. Predict all starts before finishing. An empty pattern follows the all-boundaries contract; a longer pattern produces no occurrence.</p>
+    <p className="lesson-note">Then search aaaaa for aaa. Inspect all starts while stepping. An empty pattern follows the all-boundaries contract; a longer pattern produces no occurrence.</p>
   </section>;
 }
 export function ChunkMatcherLab() {
@@ -217,7 +217,7 @@ export function ChunkMatcherLab() {
   return <section className="string-lab" data-lab="chunk-matcher" aria-labelledby="chunk-matcher-lab">
     <p className="lesson-eyebrow">INVESTIGATE · A STREAM HAS MEMORY</p>
     <h3 id="chunk-matcher-lab">Feed a chunk without starting over</h3>
-    <p>The bars below are delivery boundaries, not separators in the searched text. Predict the first chunk that finishes aba. The optional fault clears q at each delivery; compare the missing reports.</p>
+    <p>The bars below are delivery boundaries, not separators in the searched text. Inspect the first chunk that finishes aba. The optional fault clears q at each delivery; compare the missing reports.</p>
     <form className="string-form" onSubmit={state.apply}>
       <label>Chunks separated by |<input value={state.draft.chunks} onChange={event => state.setDraft({
           ...state.draft,
@@ -255,7 +255,7 @@ export function RollingFingerprintLab() {
   return <section className="string-lab" data-lab="rolling-fingerprint" aria-labelledby="rolling-fingerprint-lab">
     <p className="lesson-eyebrow">INVESTIGATE · CANDIDATE ≠ CERTIFICATE</p>
     <h3 id="rolling-fingerprint-lab">Watch a collision survive the hash and fail the match</h3>
-    <p>Predict whether the highlighted window matches ba. The small fixed modulus makes collisions easy to see; these controls do not simulate a random hash family or claim an error rate.</p>
+    <p>Inspect whether the highlighted window matches ba. The small fixed modulus makes collisions easy to see; these controls do not simulate a random hash family or claim an error rate.</p>
     <form className="string-form" onSubmit={state.apply}>
       <label>Text<input value={state.draft.text} onChange={event => state.setDraft({
           ...state.draft,

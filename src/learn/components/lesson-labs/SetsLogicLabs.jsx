@@ -49,8 +49,8 @@ export function SetRegionsLab() {
       }[region], 123 + (index - (members.length - 1) / 2) * 24];
     });
   }
-  return <section className="sets-logic-lab" aria-label="Set membership regions investigation">
-    <h3>Select people by a condition</h3><p>Predict the intersection before editing. Bo starts in both sets. Give Ada a badge: which region will change, and why will the intersection grow?</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Set membership regions investigation">
+    <h3>Select people by a condition</h3><p>Inspect the intersection before editing. Bo starts in both sets. Give Ada a badge: which region will change, and why will the intersection grow?</p>
     <Choice label="Selection rule" value={operation} choices={setOperations} onChange={setOperation} />
     <div className="sets-logic-two"><div>
       <svg className="sets-logic-svg" viewBox="0 0 320 285" role="img" aria-label={`Roster universe with training and badge regions. Selected: ${setText(result.selected)}.`}>
@@ -119,8 +119,8 @@ export function TruthArgumentLab() {
     setPremises(argumentPresets[name].premises);
     setConclusion(argumentPresets[name].conclusion);
   }
-  return <section className="sets-logic-lab" aria-label="Truth assignments and argument validity investigation">
-    <h3>Try to keep the premises true and break the conclusion</h3><p>Read P as “the person is trained” and Q as “the person has a badge.” A countermodel is a possible truth assignment where every premise holds but the conclusion fails. Predict whether a badge alone establishes training.</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Truth assignments and argument validity investigation">
+    <h3>Try to keep the premises true and break the conclusion</h3><p>Read P as “the person is trained” and Q as “the person has a badge.” A countermodel is a possible truth assignment where every premise holds but the conclusion fails. Inspect whether a badge alone establishes training.</p>
     <Choice label="Argument to investigate" value={preset} choices={[["consequent", 'Affirming the consequent'], ['ponens', 'Modus ponens'], ['tollens', 'Modus tollens'], ['contradiction', 'Inconsistent premises'], ['equivalence', 'Equivalent contrapositive'], ['custom', 'Custom premises']]} onChange={name => {
       if (name !== 'custom') load(name);else setPreset(name);
     }} />
@@ -168,8 +168,8 @@ export function QuantifierWitnessLab() {
     setColumnCount(3);
     setMode('each');
   }
-  return <section className="sets-logic-lab" aria-label="Quantifier order and witnesses investigation">
-    <h3>Pick separately, or commit to one reviewer first?</h3><p>The diagonal starting board gives each job its own reviewer. Predict what happens when the claim demands one common reviewer. Click a cell to change the actual assignment.</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Quantifier order and witnesses investigation">
+    <h3>Pick separately, or commit to one reviewer first?</h3><p>The diagonal starting board gives each job its own reviewer. Inspect what happens when the claim demands one common reviewer. Click a cell to change the actual assignment.</p>
     <Choice label="Quantified claim" value={mode} choices={quantifierModes} onChange={setMode} /><p className="sets-logic-formula">{quantifierNotation[mode]}</p>
     <div className="sets-logic-two"><Choice label="Jobs in the domain" value={rowCount} choices={[0, 1, 2, 3].map(n => [n, String(n)])} onChange={value => setRowCount(Number(value))} /><Choice label="Reviewers in the domain" value={columnCount} choices={[0, 1, 2, 3].map(n => [n, String(n)])} onChange={value => setColumnCount(Number(value))} /></div>
     <table className="sets-logic-board"><caption>A(j,r): this job has this reviewer</caption><thead><tr><th>Job</th>{result.columns.map(column => <th key={column}>{reviewerNames[column]}</th>)}</tr></thead><tbody>{result.rows.map(row => <tr key={row}><th scope="row">{jobNames[row]}</th>{result.columns.map(column => {
@@ -246,7 +246,7 @@ export function RelationPropertiesLab() {
     });
   }
   const labelsFor = indices => setText(indices.map(index => relation.labels[index]));
-  return <section className="sets-logic-lab" aria-label="Relation properties and grouping investigation"><h3>A plausible grouping still has to satisfy its axioms</h3><p>In the starting relation, 0 is close to 1 and 1 is close to 2. Predict the missing transitivity obligation. Click a pair to change exactly that relationship; adding a reverse pair is a separate edit.</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Relation properties and grouping investigation"><h3>A plausible grouping still has to satisfy its axioms</h3><p>In the starting relation, 0 is close to 1 and 1 is close to 2. Inspect the missing transitivity obligation. Click a pair to change exactly that relationship; adding a reverse pair is a separate edit.</p>
     <Choice label="Relation preset" value={preset} choices={relationChoices} onChange={load} />
     <div className="sets-logic-matrix-scroll" tabIndex="0" role="region" aria-label="Editable relation matrix; scroll horizontally if necessary"><table className="sets-logic-board"><caption>Row x, column y: does x R y hold?</caption><thead><tr><th>x / y</th>{relation.labels.map(label => <th key={label}>{label}</th>)}</tr></thead><tbody>{relation.labels.map((label, first) => <tr key={label}><th scope="row">{label}</th>{relation.labels.map((other, second) => <td key={other}><button type="button" aria-label={`Relation ${label} to ${other}`} aria-pressed={result.matrix[first][second]} onClick={() => toggle(first, second)}>{result.matrix[first][second] ? '1' : '0'}</button></td>)}</tr>)}</tbody></table></div>
     <p className="sets-logic-note">1 means the pair is present; 0 means absent. This table may pan on a small screen. It contains every pair, including loops.</p>
@@ -269,7 +269,7 @@ export function OddSquareLab() {
   const [size, setSize] = useState(3);
   const result = oddSquareStep(size);
   const cellWidth = 272 / (size + 1);
-  return <section className="sets-logic-lab" aria-label="Induction square border investigation"><h3>One border makes the next square</h3><p>Predict the number of added tiles before moving forward. Count a row of n+1 tiles and a column of n more: the corner is counted once.</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Induction square border investigation"><h3>One border makes the next square</h3><p>Inspect the number of added tiles while moving forward. Count a row of n+1 tiles and a column of n more: the corner is counted once.</p>
     <div className="sets-logic-actions"><button type="button" disabled={size === 0} onClick={() => setSize(size - 1)}>Back</button><strong>n = {size}</strong><button type="button" disabled={size === 7} onClick={() => setSize(size + 1)}>Next square</button><button type="button" onClick={() => setSize(3)}>Reset</button></div>
     <svg className="sets-logic-svg" viewBox="0 0 320 320" role="img" aria-label={`${result.before} old tiles plus ${result.added} border tiles make ${result.after} tiles`}>
       {result.cells.map(cell => <rect key={`${cell.row}-${cell.column}`} x={24 + cell.column * cellWidth} y={18 + cell.row * cellWidth} width={cellWidth} height={cellWidth} fill={cell.added ? '#99713a' : '#2b4c63'} stroke="#c1cdd9" strokeWidth="1" />)}<text x="160" y="312" textAnchor="middle">blue: n² · amber: 2n+1</text>
@@ -279,18 +279,16 @@ export function OddSquareLab() {
 const diagonalStart = () => [[true, false, true, false], [true, false, false, false], [false, true, true, true], [true, true, false, false]];
 export function DiagonalSubsetLab() {
   const [matrix, setMatrix] = useState(diagonalStart);
-  const [revealed, setRevealed] = useState(false);
   const [selected, setSelected] = useState(0);
   const result = diagonalSubset(matrix);
   const witness = result.differences[selected];
-  return <section className="sets-logic-lab" aria-label="Diagonal missing subset investigation"><h3>Construct the subset that defeats this entire proposed list</h3><p>Row i proposes f(i), a subset of U={'{0,1,2,3}'}. The highlighted diagonal asks whether i belongs to its own proposed subset. Predict D by reversing those four answers.</p>
+  return <section data-live-exploration className="sets-logic-lab" aria-label="Diagonal missing subset investigation"><h3>Construct the subset that defeats this entire proposed list</h3><p>Row i proposes f(i), a subset of U={'{0,1,2,3}'}. The highlighted diagonal asks whether i belongs to its own proposed subset. Change a membership and watch D recompute by reversing the four diagonal entries.</p>
     <table className="sets-logic-board sets-logic-diagonal"><caption>Candidate subsets: click a membership to change it</caption><thead><tr><th>row</th>{[0, 1, 2, 3].map(index => <th key={index}>{index}</th>)}</tr></thead><tbody>{matrix.map((row, first) => <tr key={first}><th scope="row">f({first})</th>{row.map((included, second) => <td key={second}><button type="button" className={first === second ? 'sets-logic-witness' : ''} aria-label={`Element ${second} in subset f(${first})`} aria-pressed={included} onClick={() => setMatrix(matrix.map((values, index) => index === first ? values.map((value, other) => other === second ? !value : value) : values))}>{included ? '1' : '0'}</button></td>)}</tr>)}</tbody></table>
-    <div className="sets-logic-actions"><button type="button" onClick={() => setRevealed(true)}>Reveal the diagonal subset</button><button type="button" onClick={() => {
+    <div className="sets-logic-actions"><button type="button" onClick={() => {
         setMatrix(diagonalStart());
-        setRevealed(false);
         setSelected(0);
       }}>Reset</button></div>
-    {revealed && <><div className="sets-logic-constructed"><strong>D = {setText(result.members)}</strong><div>{result.subset.map((included, index) => <span key={index}>{index}: {included ? 'in' : 'out'}</span>)}</div></div><Choice label="Compare D with this row" value={selected} choices={[0, 1, 2, 3].map(index => [index, `f(${index})`])} onChange={value => setSelected(Number(value))} /><p className="sets-logic-result" role="status" aria-live="polite">At element {selected}:<br />f({selected}) says {witness.proposed ? 'in' : 'out'}, while D says {witness.constructed ? 'in' : 'out'}.<br />Therefore D ≠ f({selected}).</p></>}
+    <><div className="sets-logic-constructed"><strong>D = {setText(result.members)}</strong><div>{result.subset.map((included, index) => <span key={index}>{index}: {included ? 'in' : 'out'}</span>)}</div></div><Choice label="Compare D with this row" value={selected} choices={[0, 1, 2, 3].map(index => [index, `f(${index})`])} onChange={value => setSelected(Number(value))} /><p className="sets-logic-result" role="status" aria-live="polite">At element {selected}:<br />f({selected}) says {witness.proposed ? 'in' : 'out'}, while D says {witness.constructed ? 'in' : 'out'}.<br />Therefore D ≠ f({selected}).</p></>
     <p>Changing a diagonal entry changes D in the opposite direction. Changing any other entry cannot remove that row's diagonal disagreement. The general proof uses this same contradiction for an arbitrary index; it does not store an infinite table in the browser.</p>
   </section>;
 }

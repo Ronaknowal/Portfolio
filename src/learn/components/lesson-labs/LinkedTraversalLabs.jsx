@@ -46,7 +46,7 @@ export function LinkedCycleLab() {
   };
   return <section className="traversal-lab" data-traversal-lab="cycle" aria-label="Cycle meeting and entry investigation">
     <h3>Meet inside the loop; then find its entrance</h3>
-    <p>Predict the first positive meeting and the entry separately. The tail choice constructs the fixture; the algorithm receives only head. Node names are identities, not their stored values. Scroll the chain sideways when needed.</p>
+    <p>Inspect the first positive meeting and the entry separately. The tail choice constructs the fixture; the algorithm receives only head. Node names are identities, not their stored values. Scroll the chain sideways when needed.</p>
     <div className="traversal-controls"><label>Number of nodes: {length}<input aria-label="Cycle node count" type="range" min="0" max="9" value={length} onChange={event => preset(Number(event.target.value), Math.min(entry, Number(event.target.value) - 1))} /></label>
       <label>Tail points to<select aria-label="Cycle tail target" value={entry} onChange={event => {
           setEntry(Number(event.target.value));

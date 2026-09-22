@@ -1,5 +1,8 @@
 # Multi-Head Latent Attention: store a smaller description, read it exactly
 
+**Explore as you read.** Edit latent vectors/projections, rotation, retained rank, payload dimensions and supported frozen-model prefixes. Show expanded and absorbed paths, commutation residuals, singular-direction effects, bytes/arithmetic and resulting outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose compression by the function and input directions it preserves; distinguish a low parameter error from low task error.
+
+
 Suppose several people need different summaries of the same record. We could store every summary. Or we could store a compact description from which each person's summary can be computed. The second option is useful only if the description retains what those people actually need.
 
 Multi-head latent attention, or **MLA**, applies this idea to a Transformer's memory. Each past position keeps a learned compact vector, plus the positional information required by its attention design. Different query heads read that shared representation through different learned maps. An algebraic rearrangement lets them do so without rebuilding every past head's keys and values for each new query.
@@ -185,7 +188,7 @@ The effective query has width $d_c$, but its score is the original content dot p
 
 A generic attention call given concatenated latent and rotary features may default to $1/\sqrt{d_c+d_r}$. When $d_c\ne d_k$, that changes the logits and their concentration. It can produce valid shapes and plausible outputs while implementing the wrong model. For our real example, the intended divisor is $\sqrt6$; the accidental latent-width divisor is $\sqrt{10}$.
 
-**Investigation — two paths, one answer.** An expanded view forms per-head K/V; an absorbed view moves the two linear maps around the dot product and weighted sum. Edit actual vectors or map entries, predict agreement, then reveal both computations. Include an intentional wrong-scale switch and a nonlinear-value-map counterexample. Equivalence should follow the algebra, not a hard-coded “all views agree” label.
+**Investigation — two paths, one answer.** An expanded view forms per-head K/V; an absorbed view moves the two linear maps around the dot product and weighted sum. Edit actual vectors or map entries, predict agreement, and show immediately both computations. Include an intentional wrong-scale switch and a nonlinear-value-map counterexample. Equivalence should follow the algebra, not a hard-coded “all views agree” label.
 
 ### A complete hand example
 
@@ -357,6 +360,16 @@ projection parameters. The four terms account for input/down maps, KV up maps, q
 
 There is no universal “only a few percent more than MHA” answer. In particular, the convenient MHA expression $4D^2$ assumes the usual total head widths equal D. A configuration with $Hd_k\ne D$ does not satisfy that assumption. Count the actual maps before comparing architectures or optimizer-state memory.
 
+### Use the absorbed representation with an ordinary attention primitive
+
+The [complete SDPA bridge](mla_sdpa_bridge.py) supplies a practical tensor API route. Concatenate the absorbed query `q_content @ U_K` and positioned rotary query; concatenate each cached latent and positioned shared rotary key. Use the cached latent as the value. SDPA then returns a latent mixture, which each head's value-up map turns into its output.
+
+Pass `scale=1/sqrt(P+R)` explicitly. SDPA's default would use the concatenated width C+R, changing the function whenever C differs from P. `enable_gqa=True` makes all query heads read the one-head shared memory. The boolean mask means allowed and uses the logical positions; dropout is zero. The complete program compares direct/API output, all six input/factor gradients and one equal update. Run `python mla_sdpa_bridge.py` with PyTorch. A bounded author probe on Torch 2.14.0 CPU gave output discrepancy 4.44e-16 and largest gradient discrepancy 3.33e-16.
+
+This uses the [PyTorch SDPA contract](https://docs.pytorch.org/docs/2.14/generated/torch.nn.functional.scaled_dot_product_attention.html); it is not a specialized DeepSeek kernel. Device/backend support and physical allocation for grouped queries with unequal value width need separate measurement. The original tensor path remains a useful fallback. The whole model also has projections, latent normalization, residuals, positions and cache identity; those remain explicit in `LatentForecaster`, rather than being inferred from operator agreement.
+
+**Change the constraint:** use latent width 7 with P=3 and R=2. Change the latent and both up-projection shapes together. **Hint:** absorption changes representation width, not the intended temperature. **Solution:** preserve `1/sqrt(5)` in both routes; the equality checks should still pass. Deliberately using `1/sqrt(9)` in only one route creates a shape-valid semantic mismatch.
+
 ## 6. A real model: exact execution and a lossy intervention
 
 ### Predict the next point of an observed movement
@@ -430,7 +443,7 @@ Shift all logical positions by 100 under the same ordinary RoPE rule. Full-model
 
 The wrong scale $1/\sqrt{10}$ changes this full model's final prediction only slightly, to `[0.599745,0.263674]`. The small effect is still a changed function. Do not magnify it into a dramatic failure. For the rank-4 intervention, its latent width happens to equal the content-head width, so the accidental default equals the intended scale and gives a null result. A test that covers only equal widths can therefore miss the bug.
 
-**Investigation — inspect the compressed history.** Show the real observed trajectory with linked per-position latent coordinates, rotary keys and selected-head score contributions. Predict whether a proposed change preserves the function, then compare expanded, absorbed, full-basis and rank-reduced computations. Edit any observed coordinate or the chosen latent/map fixture; changing the input must recompute actual outputs. Separate the true next point from predictions until reveal. Inspecting one head's weights explains its local read, not a complete causal attribution of the final forecast.
+**Investigation — inspect the compressed history.** Follow the observed trajectory through linked latent coordinates, rotary keys and selected-head score contributions. Edit a coordinate or latent/map entry and compare expanded, absorbed, full-basis and rank-reduced outputs live. Display the observed next point separately as a reference; it never enters the forecast input. A head's weights explain its local read, not the complete causal origin of the final forecast.
 
 ### Reproduce the entire study
 
@@ -474,7 +487,7 @@ This objective weights matrix entries uniformly. Actual inputs need not visit ev
 
 In attention, the consequences can be even less direct: key errors alter normalized weights, value errors alter what those weights mix, and later layers transform the result. A data-aware reconstruction objective might weight directions using input covariance; a task-aware adaptation can optimize prediction loss. Neither is automatically equivalent to minimizing projection-weight distance. Our rank-4 result is a concrete example of the distinction.
 
-**Figure — discarded energy versus discarded information.** Place the two singular directions beside a real input vector. A parameter-error bar reports one objective; an output-error vector reports the effect on that input. Let the learner edit the input direction before reveal. Inputs along the retained axis supply an exact null; inputs along the discarded axis expose a potentially large effect.
+**Figure — discarded energy versus discarded information.** Place the two singular directions beside a real input vector. A parameter-error bar reports one objective; an output-error vector reports the effect on that input. Let the learner edit the input direction in the current live view. Inputs along the retained axis supply an exact null; inputs along the discarded axis expose a potentially large effect.
 
 ### Converting an existing checkpoint is possible, but not a configuration edit
 

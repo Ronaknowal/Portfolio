@@ -1,0 +1,68 @@
+{
+  "verifiedAt": "2026-09-21T00:34:44.189382+00:00",
+  "completedAt": "2026-09-21T00:34:45.213968+00:00",
+  "verifier": "scripts/verify-timeseries-data.py",
+  "verifierSha256": "8c1f0df86fe2a882ea827ed85dee1f428dd74983109065d3eb5da2aa44b6e395",
+  "stage": "trust-root re-derivation and data-module regeneration; browser, independent and integration review are separate",
+  "frozenSources": {
+    "calculated-inputs.json": "887d558d77cac477711a549f3f817c4aec151c11fee8588b6152580bb76c7844",
+    "data-source.json": "f9527e97ca6a6dec61bd661e9f789a6f2573c1ab0e77330eca9d0745ca6213fa",
+    "forecast-experiments.py": "dd2ac9ff03e226b43859524bb260f442ee1e1c87718928a30778f4d21df75ee6",
+    "lesson.md": "5e672c664079e62eaac0c33893bf95a2db90532fc1973f5128c463303e0baab6",
+    "visual-specifications.md": "d6a9f7bd89b04207bd62d394f112a643d661bf6a9ed2760578e751e837a1d008"
+  },
+  "servedDataset": {
+    "path": "/learn-assets/time-series-validation/bike-sharing-daily.csv",
+    "sha256": "a6bcf826782d3c0fbfdcbeead17cd0884185a0dafe8ff10cd48a874ee7ba18be",
+    "bytes": 57569,
+    "rows": 731,
+    "byteIdenticalToPacketMember": true
+  },
+  "trustRootCoverage": {
+    "packetLeaves": 6659,
+    "leavesDerived": 6647,
+    "leavesValidated": 12,
+    "leavesUncompared": [],
+    "percentDerived": 99.82,
+    "derivedMeans": "recomputed here from the served CSV and the declared protocol, by implementations written independently of forecast-experiments.py",
+    "validatedMeans": "a declaration rather than a calculation -- the ridge alpha and solver name, the window list, the four contract sentences and the four recorded library versions. Checked against the declared contract and the runtime that actually resolved; NOT an independent derivation.",
+    "notCoveredAtAll": [
+      "The provider archive digest b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401. The zip was deliberately not retained, so nothing here can recompute it. The retained member's own digest and byte count ARE re-derived.",
+      "That the retained CSV is what the provider served on the recorded retrieval date. That is a claim about a download, not a computable property of these bytes."
+    ]
+  },
+  "independentRoutes": {
+    "baselines": "explicit Python loops over lists; the seasonal donor stated as T - m + ((h-1) mod m) rather than as a NumPy negative slice",
+    "errorSummaries": "accumulated by hand, per-horizon profiles built column by column",
+    "ridge": "standardization written from its definition (population variance, scale one for a column that does not vary), the intercept by centring, and the NORMAL EQUATIONS solved by LU. sklearn is not called. The worst relative gap across all 616 recomputed predictions is recorded below.",
+    "calendar": "datetime, not pandas: weekday, day-of-year and elapsed days all recomputed"
+  },
+  "tolerances": {
+    "ridgePredictions": 1e-09,
+    "arithmetic": 1e-12,
+    "note": "Exact values -- dates, counts, integer indices, eligibility sets, the toy fixtures -- are compared exactly; the tolerances apply only to floating-point reductions."
+  },
+  "informationSetAudit": {
+    "claim": "No fitted window contains an observation dated later than its own origin.",
+    "fitsAudited": 616,
+    "violations": []
+  },
+  "module": {
+    "path": "src/learn/data/timeseries-data.js",
+    "sha256": "fee13a6bba9101d234993a55ddc48747460034ca1c43c002a9446dac16fd691d",
+    "regeneration": "byte-identical"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "sklearn": "1.9.1"
+  },
+  "checks": 34,
+  "limitations": [
+    "Floating-point reductions can differ in the last bits on other library versions; the resolved versions are recorded above and the tolerances are stated.",
+    "This re-derives the packet's numbers. It says nothing about whether the declared protocol is the right experiment, which is a teaching judgement, not a computation.",
+    "The final assessment is 112 forecasts from one two-year system under one update policy. Nothing here establishes a result for another city, period or schedule."
+  ],
+  "passed": true
+}

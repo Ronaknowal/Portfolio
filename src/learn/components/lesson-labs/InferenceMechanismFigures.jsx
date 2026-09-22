@@ -7,7 +7,7 @@ export function IntervalDecisionFigure() {
   const result = pairedSaving(shift);
   const x = value => 38 + (value + 1) * 40;
   return <figure className="mechanism-figure interval-decision" aria-label="Interval and practical threshold investigation">
-    <figcaption><strong>Positive and useful are two different questions.</strong> Predict whether adding 1 ms to every saving will put the whole interval beyond the planned 1 ms threshold.</figcaption>
+    <figcaption><strong>Positive and useful are two different questions.</strong> Inspect whether adding 1 ms to every saving will put the whole interval beyond the planned 1 ms threshold.</figcaption>
     <div className="mechanism-controls">
       <button type="button" aria-pressed={shift === 0} onClick={() => setShift(0)}>Original five pairs</button>
       <button type="button" aria-pressed={shift === 1} onClick={() => setShift(1)}>Add 1 ms to each saving</button>
@@ -52,7 +52,7 @@ export function LaplacianRowFigure() {
   const {center, neighbors, total} = laplacianRowExample(split);
   const positions = [[48, 65], [48, 193], [290, 130]];
   return <figure className="mechanism-figure laplacian-row" aria-label="Laplacian row disagreement investigation">
-    <figcaption><strong>Read C’s row as three weighted disagreements.</strong> Predict which term changes if the right group has value −1 instead of +1.</figcaption>
+    <figcaption><strong>Read C’s row as three weighted disagreements.</strong> Inspect which term changes if the right group has value −1 instead of +1.</figcaption>
     <div className="mechanism-controls"><button type="button" aria-pressed={!split} onClick={() => setSplit(false)}>Constant signal</button><button type="button" aria-pressed={split} onClick={() => setSplit(true)}>Two group values</button></div>
     <svg viewBox="0 0 360 250" role="img" aria-labelledby={uid}>
       <title id={uid}>C has value 1. {neighbors.map(n => `${n.name} has value ${n.value}, weight ${n.weight}, contribution ${n.contribution.toFixed(1)}.`).join(' ')} Row result {total.toFixed(1)}.</title>

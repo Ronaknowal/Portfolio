@@ -95,7 +95,7 @@ export function AttentionContractionLab() {
     setScaled(true);
   }
   return <Lab id="attention-contraction" title="From one query to a weighted value">
-    <p>These are small invented, untrained vectors. Select a query and decide which keys it may use. Predict which weights change when a key is blocked. Every row below belongs to the selected batch; no other batch contributes.</p>
+    <p>These are small invented, untrained vectors. Select a query and decide which keys it may use. Inspect which weights change when a key is blocked. Every row below belongs to the selected batch; no other batch contributes.</p>
     <div className="einsum-controls"><label>Batch<select value={batch} onChange={event => setBatch(Number(event.target.value))}><option value="0">0</option><option value="1">1</option></select></label><label>Query position<select value={query} onChange={event => setQuery(Number(event.target.value))}><option value="0">0</option><option value="1">1</option></select></label></div>
     <label className="einsum-checkbox"><input type="checkbox" checked={scaled} onChange={event => setScaled(event.target.checked)} />Divide scores by √2</label>
     <fieldset><legend>Allowed key positions</legend>{allowed.map((value, key) => <label className="einsum-checkbox" key={key}><input type="checkbox" checked={value} onChange={() => setAllowed(previous => previous.map((item, index) => index === key ? !item : item))} />Key {key}</label>)}</fieldset>
@@ -141,7 +141,7 @@ export function ContractionOrderLab() {
     setError('');
   }
   return <Lab id="contraction-order" title="Same equation, different intermediate work">
-    <p>Compute A(a,b) B(b,c) C(c,d) → result(a,d). Predict which pair to multiply first. These counts use the conventional dense algorithm: one scalar multiplication for each output entry and contracted-index value. They are not measured timings.</p>
+    <p>Compute A(a,b) B(b,c) C(c,d) → result(a,d). Inspect which pair to multiply first. These counts use the conventional dense algorithm: one scalar multiplication for each output entry and contracted-index value. They are not measured timings.</p>
     <form noValidate onSubmit={apply}><div className="einsum-controls">{['a', 'b', 'c', 'd'].map((label, index) => <label key={label}>Axis {label}<input type="number" min="1" max="100" step="1" value={draft[index]} onChange={event => setDraft(previous => previous.map((value, position) => position === index ? event.target.value : value))} /></label>)}</div><button type="submit">Compare orders</button><button type="button" onClick={reset}>Reset dimensions</button></form>
     {error && <p role="alert">{error} The last valid comparison remains below.</p>}
     <div className="einsum-order-comparison">{[['left', '(A B) C', 'A × B', 'temporary × C'], ['right', 'A (B C)', 'B × C', 'A × temporary']].map(([key, title, first, last]) => {

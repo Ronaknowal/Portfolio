@@ -81,7 +81,7 @@ export function IntervalSelectionLab() {
   return <section className="gx-lab" data-gx-lab="intervals" aria-labelledby={heading}>
       <p className="gx-eyebrow">SELECTION · KEEP A FEASIBLE SUBSET</p>
       <h3 id={heading}>Which local ordering leaves room for the most appointments?</h3>
-      <p>Predict the first choice, then compare candidate rules on the same requests. Every interval occupies [start, finish); touching endpoints are compatible. Letters identify input occurrences.</p>
+      <p>Inspect the first choice, then compare candidate rules on the same requests. Every interval occupies [start, finish); touching endpoints are compatible. Letters identify input occurrences.</p>
       <form onSubmit={apply} className="gx-form">
         <label>Intervals · start, finish, value<textarea rows="6" value={draft} onChange={event => setDraft(event.target.value)} /></label>
         <div className="gx-controls">
@@ -174,7 +174,7 @@ export function DeadlineExchangeLab() {
   const [schedule, setSchedule] = useState(() => deadlineSchedule(defaultJobs));
   const [before, setBefore] = useState(null);
   const [pair, setPair] = useState(0);
-  const [message, setMessage] = useState('Swap A and B: B has the earlier deadline. Predict which individual completion gets later.');
+  const [message, setMessage] = useState('Swap A and B: B has the earlier deadline. Compare which individual completion gets later and what happens to maximum lateness.');
   const [error, setError] = useState('');
   function update(index, key, text) {
     setDraft(draft.map((job, position) => position === index ? {
@@ -251,7 +251,7 @@ export function FractionalCapacityLab() {
   return <section className="gx-lab" data-gx-lab="capacity" aria-labelledby={heading}>
       <p className="gx-eyebrow">EXCHANGE · SAME WEIGHT, DIFFERENT BENEFIT</p>
       <h3 id={heading}>Taking part of an item changes which exchanges are legal</h3>
-      <p>Items A, B and C have weights 10, 20 and 30; full values 60, 100 and 120. Compare their value per unit of capacity: 6, 5 and 4. Predict the result at capacity 50 before changing divisibility.</p>
+      <p>Items A, B and C have weights 10, 20 and 30; full values 60, 100 and 120. Compare their value per unit of capacity: 6, 5 and 4. Inspect the result at capacity 50 before changing divisibility.</p>
       <div className="gx-controls"><label>Capacity: {capacity}<input aria-label="Capacity" type="range" min="0" max="60" value={capacity} onChange={event => setCapacity(Number(event.target.value))} /></label><label className="gx-check"><input type="checkbox" checked={divisible} onChange={event => setDivisible(event.target.checked)} />Allow fractional items</label><button onClick={() => {
         setCapacity(50);
         setDivisible(true);

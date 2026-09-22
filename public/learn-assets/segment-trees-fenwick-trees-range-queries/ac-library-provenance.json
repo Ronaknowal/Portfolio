@@ -1,0 +1,63 @@
+{
+  "release": "v1.6",
+  "repository": "https://github.com/atcoder/ac-library",
+  "license": "CC0-1.0",
+  "retrieved": "2026-09-22",
+  "files": [
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/LICENSE",
+      "sha256": "5537d4d10b76b81b6e8dfd8b644480a4b1efa332fbb0cdb61126c5be781ef7b4"
+    },
+    {
+      "path": "atcoder/segtree",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/segtree",
+      "sha256": "9b8f38b0507fcb7c2fab5540867afd2818ace320f31bb5019126dd2afaa207ff"
+    },
+    {
+      "path": "atcoder/segtree.hpp",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/segtree.hpp",
+      "sha256": "6b959283e1faeaa3de5b473eee5e774220eee60a89fe4b483ce26e652532dabb"
+    },
+    {
+      "path": "atcoder/lazysegtree",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/lazysegtree",
+      "sha256": "f8ab4f39585e8072a0e3f580ff7d70b5f1e50f366f7940d2d1397bdeff8d294d"
+    },
+    {
+      "path": "atcoder/lazysegtree.hpp",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/lazysegtree.hpp",
+      "sha256": "3685280a17ef0d8cd3c3510b1a6b494fa674debfc3c8651c87cf50c77cfe09da"
+    },
+    {
+      "path": "atcoder/fenwicktree",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/fenwicktree",
+      "sha256": "1930647b3fbf79a49e5b47f294372924b9af6ac5deb24df15428b9e042122370"
+    },
+    {
+      "path": "atcoder/fenwicktree.hpp",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/fenwicktree.hpp",
+      "sha256": "b31862994a547ef34f1f7c68136ed6bcab66bd402371390acc8a21cb24a01bb9"
+    },
+    {
+      "path": "atcoder/internal_bit",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/internal_bit",
+      "sha256": "d6f98d5e58cbb741457eeb22b82325fe21a20364d98b307fb1515d99a4b05c15"
+    },
+    {
+      "path": "atcoder/internal_bit.hpp",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/internal_bit.hpp",
+      "sha256": "50424c02770861540b977b81727af496d41805f3543e47b0dfc6d3bbb98bb81e"
+    },
+    {
+      "path": "atcoder/internal_type_traits",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/internal_type_traits",
+      "sha256": "502e0352f7710940687521f51f0b9efdded15b698c9445cb7537d080c137d405"
+    },
+    {
+      "path": "atcoder/internal_type_traits.hpp",
+      "url": "https://raw.githubusercontent.com/atcoder/ac-library/v1.6/atcoder/internal_type_traits.hpp",
+      "sha256": "52c1c0d56535043c2b8f2f776d534fd8e931cf92a511d697fb56649cd4935000"
+    }
+  ]
+}

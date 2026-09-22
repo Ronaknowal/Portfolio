@@ -1,0 +1,655 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:4194",
+  "checks": [
+    "Nine complete investigations, valid equations, deferred program/model payload",
+    "Actual numeric, keyboard and pointer changes; invalid edit and reset; zero learning rate",
+    "LSTM zero-write null, retention intervention and GRU reset equality",
+    "Actual pen drag and numeric change recompute learned states/gates/probabilities; reset restores all inputs",
+    "Carry/detach/reset and stream ownership; bidirectional padding and no-padding null",
+    "Recorded seed choice and canonical code view; all nine rows verified in native/source checks",
+    "Desktop/390/320 containment, theme and zero browser errors",
+    "Deferred model network failure reports honestly and retry restores actual inference"
+  ],
+  "geometry": [
+    {
+      "width": 1366,
+      "issues": [
+        {
+          "svgIndex": 0,
+          "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 1,
+          "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 4,
+          "description": "Loss through the measured training run. Horizontal: Optimizer updates. Vertical: Cross-entropy. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Edit the completed pen trace. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 6,
+          "description": "Hidden feature 1 across the same trace. Horizontal: Position. Vertical: Hidden value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "issues": [
+        {
+          "svgIndex": 0,
+          "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 1,
+          "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 4,
+          "description": "Loss through the measured training run. Horizontal: Optimizer updates. Vertical: Cross-entropy. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Edit the completed pen trace. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 6,
+          "description": "Hidden feature 1 across the same trace. Horizontal: Position. Vertical: Hidden value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "issues": [
+        {
+          "svgIndex": 0,
+          "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 1,
+          "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 2,
+          "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 3,
+          "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+          "labelCount": 11,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "W₁₂=-1.2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "W₂₁=1.1",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 4,
+          "description": "Loss through the measured training run. Horizontal: Optimizer updates. Vertical: Cross-entropy. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        },
+        {
+          "svgIndex": 5,
+          "description": "Edit the completed pen trace. Point numbers show order, not elapsed time. Exact coordinates follow.",
+          "labelCount": 12,
+          "issues": [
+            {
+              "type": "line-through-label",
+              "label": "1",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "2",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "3",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "4",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "5",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "6",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "7",
+              "lineClass": ""
+            },
+            {
+              "type": "line-through-label",
+              "label": "8",
+              "lineClass": ""
+            }
+          ]
+        },
+        {
+          "svgIndex": 6,
+          "description": "Hidden feature 1 across the same trace. Horizontal: Position. Vertical: Hidden value. Exact values are beside the chart.",
+          "labelCount": 6,
+          "issues": []
+        }
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/rnns-lstms-grus.jsx": "69fced28d9ee2b37c54666c10176a61caab53ac8a14c0e56fa4f3928944e93d8",
+    "src/learn/components/lesson-labs/RecurrentLabs.jsx": "7bfcf6adccaa26728aa52ff1d223d5ec83dba739ef4a7ed398d0398f441e9276",
+    "src/learn/components/lesson-labs/recurrent-labs.css": "78463cb6944ebd44d4d11640638fd54aa035888cfe48b443e0e8782b0b1bb2a5",
+    "src/learn/data/recurrent-models.js": "9b74f52243f47af00bd032ea403720e1a4eb06320de945320940ef6476c01226"
+  }
+}

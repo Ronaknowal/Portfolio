@@ -1,5 +1,8 @@
 # RWKV & Linear Attention Models
 
+**Explore as you read.** Edit keys/queries/values, decay, current-token bonus, memory write/correction inputs and real stream interruptions. Update summary matrices/denominators, present output versus stored history and chronological state together. Compare a continued stream with an explicit reset. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose the correct current-read and future-memory semantics and see what compact state cannot retain.
+
+
 A conversation can be remembered in two quite different ways. You can keep a transcript and consult individual lines. Or you can maintain a working summary: who is speaking, what they want, which facts changed, and what remains unresolved. A transcript grows. A fixed-size summary must decide what deserves its limited space.
 
 Sequence models face the same choice. An attention model can retain past keys and values and compare a new query with them. A recurrent model updates a state and carries that state forward. **Linear attention and RWKV investigate how much useful memory we can build without repeatedly searching an ever-growing list of past vectors.** Their versions differ in what they store, how they forget, and whether they can replace a particular remembered association.
@@ -80,7 +83,7 @@ After the first two writes, S=[2,8]ᵀ and z=[1,1]ᵀ. The second query produces
 
 Two summaries contain all the information this particular operator needs. They do not contain an individually recoverable copy of every original pair. If two histories have the same S and z, every future query with no intervening write receives the same answer.
 
-**Investigation — can two summaries answer the same questions as a table?** Edit positive-feature queries, keys and values, then predict the effect of changing one write or the chunk size. Compare a causal weight table with the running matrix and weight vector. Fresh starting values differ from the worked example. Try making every value equal, editing the last value, and deliberately creating a zero-total-weight query. Record your prediction before revealing the output; examine which earlier outputs remain unchanged.
+**Investigation — can two summaries answer the same questions as a table?** Edit positive-feature queries, keys and values while watching the causal weight table, running matrix and weight vector. Pin the starting case, then change a write or the chunk size. Try equal values, a changed last value and a zero-total-weight query. The live output and unchanged earlier rows expose causality, equivalence and undefined reads separately.
 
 This example also reveals a limitation: an ungated summary retains all writes. Repeating an address can accumulate conflicting values. Normalization may average them, but it does not know that a later measurement was meant to replace an earlier one.
 
@@ -217,7 +220,7 @@ Adding the same small ε to the raw and rescaled denominators does not preserve 
 
 The complete [linear_memory_mechanisms.py](linear_memory_mechanisms.py) implements direct log-weight enumeration, the stable recurrence, chunked positive-kernel attention and the later memory updates. Run `python linear_memory_mechanisms.py` with NumPy installed. It writes [mechanism-results.json](mechanism-results.json); the direct and recurrent outputs above agree, and the large key-shift test remains finite.
 
-**Investigation — which change affects today's read, and which changes tomorrow's memory?** Edit values, key strengths, retention and current bonus. Predict a chosen output and whether stored history changes. Compare read and write contributions on separate timelines; then add a common large key offset. The lab begins with an unanswered sequence, includes a constant-value case, and lets you inspect the stable state without displaying overflowing raw values as valid numbers. Its goal is to separate memory semantics from numerical representation.
+**Investigation — which change affects today's read, and which changes tomorrow's memory?** Edit values, key strengths, retention and current bonus. inspect a chosen output and whether stored history changes. Compare read and write contributions on separate timelines; then add a common large key offset. The lab begins with an visible sequence, includes a constant-value case, and lets you inspect the stable state without displaying overflowing raw values as valid numbers. Its goal is to separate memory semantics from numerical representation.
 
 
 ## 5. From one memory channel to a trainable sequence model
@@ -279,7 +282,7 @@ The gradient interpretation is real arithmetic, not a metaphor. Starting from M=
 
 Keys interfere when they are not orthogonal. Replace B's key by[.6,.8]. After the first two delta writes the memory is [5.48,4.64]. It retrieves B as7, but it no longer retrieves A as2. Updating A to 5 produces [5,4.64], after which B retrieves 6.712. A finite vector space cannot provide arbitrarily many mutually orthogonal address directions.
 
-**Investigation — can a memory update one address without damaging another?** Create or edit a sequence of key–value writes, choose a retrieval query and record a prediction. Compare additive writes, partial correction and full correction. Rotate a key toward another key, alter a repeated value, and inspect the residual and final retrieval error. The fresh starting task uses different keys, values and a partial update; a zero-update-rate case shows what “no learning” really means.
+**Investigation — can a memory update one address without damaging another?** Create or edit a sequence of key–value writes, choose a retrieval query and Show the current computed result and its contributing terms immediately. Compare additive writes, partial correction and full correction. Rotate a key toward another key, alter a repeated value, and inspect the residual and final retrieval error. The fresh starting task uses different keys, values and a partial update; a zero-update-rate case shows what “no learning” really means.
 
 ### RWKV-5 and 6: a matrix state with structured forgetting
 
@@ -476,7 +479,7 @@ The positive-kernel seed 17 model already predicts class 10 on the original row,
 
 For all four fits, a separate continuation through chunk lengths 1,12,16,16 agrees with the full-sequence features on the first five source rows within 7.7×10^−6. These are floating-point agreements, not bit-identical guarantees.
 
-**Investigation — pause a hand movement without erasing its past.** Choose a validation trajectory, move a point using numeric coordinates or the path, choose a cut point and predict whether carrying or resetting state changes the output. The plot shows the exact path, chronological direction and cut location. Compare uninterrupted, carried and intentionally reset predictions using frozen fitted weights. Include reverse-order and restore-original actions. New edited paths receive model predictions, not newly certified class labels.
+**Investigation — pause a hand movement without erasing its past.** Choose a validation trajectory, move a point using numeric coordinates or the path, choose a cut point and observe whether carrying or resetting state changes the output. The plot shows the exact path, chronological direction and cut location. Compare uninterrupted, carried and intentionally reset predictions using frozen fitted weights. Include reverse-order and restore-original actions. New edited paths receive model predictions, not newly certified class labels.
 
 For the fixed row 7 contrast, reflecting the23rd normalized x coordinate from +.249520 to−.249520 barely changes RWKV-style class 1 probability, from .753939 to .753752, while reversing the entire order changes it to .580592. The same operations affect the kernel model differently. A small visual edit need not produce a large class change; a null or weak response is informative.
 
@@ -489,6 +492,16 @@ A streamed classifier can process a long observation in pieces without retaining
 A more unusual use of the delta view is **online calibration of associations**: a compact learned state can revise a mapping when a recurring address receives a new value. The sensor A/B example makes the requirement explicit. With nonorthogonal learned keys, revisions interfere, so a practical system must assess both the new answer and answers it should have preserved. This is a mechanism-based design possibility, not a claimed deployment result from the movement dataset.
 
 For language generation, select a compatible checkpoint, tokenizer, numerical backend and state format together. A “RWKV checkpoint” does not identify a version-independent tensor layout. Prefill a prompt, pass the returned state into subsequent steps, and reset or branch state deliberately between conversations. A shared mutable state across unrelated users is both a correctness and information-isolation problem. The project's maintained inference examples are better starting points than assuming an old Transformers class supports every new RWKV variant.
+
+### Carry the same contract into a released model
+
+The small `TrajectoryMemoryClassifier` above is the ordinary trainable PyTorch route: its time state, shift state, channel state and parameters are visible. For an existing language model, use the model's own inference implementation and tokenizer instead of assuming our classroom block has its checkpoint layout. The optional [complete checkpoint-continuation program](rwkv_checkpoint_state.py) uses the official `rwkv` API on a local checkpoint. Its parameters choose generation 4 or 7, matching tokenizer and CPU float32; it requests no model download.
+
+Install the official `rwkv` package in a separate compatible environment and record its version. A World checkpoint uses the matching packaged `rwkv_vocab_v20230424`; a Pile checkpoint needs its matching local tokenizer JSON. For example: `python rwkv_checkpoint_state.py --checkpoint ./model.pth --generation 7 --tokenizer rwkv_vocab_v20230424`. Provide a checkpoint that fits available memory; this is not a promise that a large language model is economical on a CPU.
+
+The program computes final-prefix logits three ways: one full call, two chunks, and one token at a time after the split. `None` starts a fresh state; later calls carry the returned state. It deep-copies the prefix state before branching because the package may update it in place. This is the same continuation invariant used by our scratch model, but not a parameter-equivalence claim between different models. The [official API example](https://github.com/BlinkDL/ChatRWKV/blob/main/API_DEMO.py) was inspected for this interface on 22 September 2026. This optional code is **written, not executed** in the content revision; printed logits and speed results are deliberately absent.
+
+**Take control:** run a different split point, then replace the carried state with `None` for the suffix. **Hint:** chunk boundaries are an execution choice; forgetting the prefix changes available information. **Solution:** the correctly carried final logits should agree within the declared tolerance; resetting need not. Reuse a cached state only for the same token prefix, checkpoint, tokenizer and numerical configuration. A successful continuation check does not test language-model quality.
 
 ## 9. Troubleshooting by locating the broken assumption
 

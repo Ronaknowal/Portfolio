@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "updatedOn": "2026-09-22",
+  "scope": "Project build guides only; independent of lesson delivery and learner milestones.",
+  "projects": {
+    "typed-decision-model": {
+      "revision": 2,
+      "content": "complete",
+      "implementation": "complete",
+      "publication": "published-build-guide",
+      "independentReview": "complete",
+      "browserIntegration": "complete",
+      "userReview": "pending",
+      "stageIds": ["define", "data", "baseline", "architecture", "training", "calibration", "evaluation", "serving"],
+      "authorRecord": "docs/teaching/projects/typed-decision-model.md",
+      "reviewRecord": "docs/teaching/projects/typed-decision-model-depth-review.md",
+      "integrationRecord": "docs/teaching/projects/TYPED-DECISION-DEPTH-INTEGRATION.md",
+      "browserEvidence": "docs/teaching/projects/evidence/depth-revision/depth-browser.json",
+      "workspaceEvidence": "docs/teaching/projects/evidence/depth-revision/workspace-browser-review.json",
+      "nativeEvidence": "docs/teaching/projects/evidence/typed-decision-native-depth.json",
+      "companionTopic": {
+        "id": "typed-decision-models-calibrated-neural-decision-systems",
+        "status": "planned",
+        "content": "not-started",
+        "implementation": "not-started"
+      },
+      "executedScope": "Expanded eight-stage guide, four live investigations, original tiny CPU transformer, exact token/gradient trace, executable diagnostics on the retained run, and offline random-encoder adapter train/calibrate/save/reload/predict checks. The pretrained adapter is implemented; a meaningful pretrained-checkpoint experiment remains unexecuted.",
+      "extensionsNotImplemented": ["Meaningful fine-tuning/evaluation of a pretrained checkpoint", "Policy-gradient training", "Additional typed-question families", "Network service deployment", "Real support-data evaluation"],
+      "history": [
+        {
+          "revision": 1,
+          "content": "complete",
+          "implementation": "complete",
+          "independentReview": "complete",
+          "browserIntegration": "complete",
+          "userReview": "pending-at-supersession",
+          "reviewRecord": "docs/teaching/projects/typed-decision-model-review.md",
+          "integrationRecord": "docs/teaching/projects/WORKSPACE-INTEGRATION.md",
+          "browserEvidence": "docs/teaching/projects/evidence/workspace-browser-review.json",
+          "nativeEvidence": "public/learn-projects/typed-decision-model/verification.json"
+        }
+      ],
+      "nextAction": "Await user review or a separately scoped extension; do not infer a new lesson queue."
+    }
+  }
+}

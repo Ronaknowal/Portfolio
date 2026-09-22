@@ -68,7 +68,7 @@ export function OrientationLab() {
   const second = (b[1] - a[1]) * (query[0] - a[0]);
   return <section className="geometry-lab" aria-label="Orientation and signed area">
     <h3>Which side of the directed baseline?</h3>
-    <p>Predict the sign before moving C. Find a zero without making A and B coincide, then reverse the baseline.</p>
+    <p>Inspect the sign while moving C. Find a zero without making A and B coincide, then reverse the baseline.</p>
     <GridCoordinate label="Point C" value={query} onChange={setQuery} />
     <figure><GeometryPlane title="Directed triangle ABC" description={`A to B is the solid gold baseline; the filled triangle has area ${Math.abs(determinant) / 2}. C is ${determinant > 0 ? 'left' : determinant < 0 ? 'right' : 'on the line'} of A to B.`} points={[['A', a], ['B', b], ['C', query]]}>
       <path d={path([a, b, query], true)} className="geometry-fill" />
@@ -90,7 +90,7 @@ export function SegmentIntersectionLab() {
   const id = useId();
   return <section className="geometry-lab" aria-label="Closed segment intersection">
     <h3>Distinguish crossing, contact and overlap</h3>
-    <p>Choose a case, predict its classification, then move one endpoint. Every endpoint belongs to its segment.</p>
+    <p>Choose a case, then use the coordinate sliders to move one endpoint and watch the classification change. Every endpoint belongs to its segment.</p>
     <div className="geometry-actions">{Object.entries(segmentPresets).map(([name, points]) => <button key={name} onClick={() => {
         setSegments(points);
         if (name === 'crossing') setSelected(3);
@@ -113,7 +113,7 @@ export function PredicatePrecisionLab() {
   const id = useId();
   return <section className="geometry-lab geometry-precision" aria-label="Exact and floating predicate comparison">
     <h3>A one-bit decision can change the shape</h3>
-    <p>Predict whether exact input coordinates are enough to guarantee an exact determinant. Compare where the two arithmetic paths diverge.</p>
+    <p>Inspect whether exact input coordinates are enough to guarantee an exact determinant. Compare where the two arithmetic paths diverge.</p>
     <label htmlFor={id}>Failure stage<select id={id} value={scenario} onChange={event => setScenario(event.target.value)}><option value="products">Product cancellation</option><option value="input">A coordinate lost on input</option></select></label>
     {scenario === 'products' && <label>N = 2 to the power {exponent}<input aria-label="Precision exponent" type="range" min="20" max="30" step="1" value={exponent} onChange={event => setExponent(Number(event.target.value))} /></label>}
     <div className="geometry-arithmetic">{state.points.map((value, index) => <div key={index}><strong>{'ABC'[index]} intended integer</strong><span>{coordinates(value)}</span><small>Stored Number: {coordinates(state.represented[index])}</small></div>)}</div>
@@ -152,7 +152,7 @@ export function ConvexHullLab() {
   const completed = frame.phase === 'complete' || frame.phase === 'degenerate';
   return <section className="geometry-lab" aria-label="Monotone convex hull construction">
     <h3>Remove the turn that cannot stay on this chain</h3>
-    <p>Predict the next pop before stepping. The lower scan visits sorted points left to right; the upper scan reverses that order.</p>
+    <p>Inspect the next pop as you step. The lower scan visits sorted points left to right; the upper scan reverses that order.</p>
     <div className="geometry-actions">{Object.entries(hullPresets).map(([name, values]) => <button key={name} onClick={() => load(values)}>{name === 'fence' ? 'Reset fence points' : `Load ${name}`}</button>)}</div>
     <label htmlFor={id}>Point records, one x,y per line<textarea id={id} value={draft} onChange={event => setDraft(event.target.value)} rows="4" spellCheck="false" /></label>
     <button onClick={() => {
@@ -191,7 +191,7 @@ export function PolygonQueryLab() {
   const id = useId();
   return <section className="geometry-lab" aria-label="Polygon boundary and crossing parity">
     <h3>Count crossings without double-counting a vertex</h3>
-    <p>Q starts in the courtyard opening. Predict its classification, then inspect each edge touched by the horizontal ray.</p>
+    <p>Q starts in the courtyard opening. Inspect its classification, then inspect each edge touched by the horizontal ray.</p>
     <label htmlFor={id}>Simple polygon<select id={id} value={shape} onChange={event => {
         setShape(event.target.value);
         setEdgeIndex(0);

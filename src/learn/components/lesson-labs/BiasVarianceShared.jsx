@@ -1,19 +1,8 @@
+import { useLiveInvestigation, useLiveResult, useLiveStages } from './LiveInvestigationState.js';
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './bias-variance-labs.css';
 
-/** Shared controls for the bias–variance investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always computed from the
- * draft at the moment of committing, so a prediction is graded against the
- * inputs it was recorded with and never against whatever is on screen later.
- * Any relevant edit retires the recorded prediction and hides its feedback.
- *
- * One addition over the earlier lessons: the committed state keeps the state it
- * replaced. Investigation 1 grades a *direction* — will expected error fall,
- * stay put or rise — which only means anything against the previous applied
- * state, so `check` hands both to the answer function.
- */
+
 
 /** Every printed number uses a typographic minus sign, matching the prose. */
 const sign = text => text.replace('-', '−');
@@ -117,119 +106,19 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </div>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together.
- *
- * `describeKey` turns the active inputs into a string, so a recorded result can
- * never be shown beside inputs it was not computed from. `previous` is the state
- * the commit replaced, which is what a direction-of-change prediction is graded
- * against.
- */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
-  const [draft, setDraft] = useState(initial);
-  const [active, setActive] = useState(initial);
-  const [previous, setPrevious] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const pending = describeKey(draft) !== describeKey(active);
-  const retire = () => { setResult(null); setChoice(''); setGuess(''); };
-  return {
-    draft, active, previous, choice, setChoice, guess, setGuess, reason, setReason, result, pending,
-    /** Any relevant edit retires the commitment and conceals stale feedback. */
-    edit: update => { setDraft(previousDraft => ({ ...previousDraft, ...update })); retire(); },
-    /** Commit the draft and record the prediction against it. */
-    check: answerFor => {
-      setPrevious(active);
-      setActive(draft);
-      setResult({
-        key: describeKey(draft), previousKey: describeKey(active),
-        choice, guess, reason, answer: answerFor(draft, active),
-      });
-    },
-    reset: () => {
-      setDraft(initial); setActive(initial); setPrevious(initial);
-      setChoice(''); setGuess(''); setReason(''); setResult(null);
-    },
-    /** Replace the whole declared setup, which also retires the prediction. */
-    load: inputs => {
-      setDraft(inputs); setActive(inputs); setPrevious(inputs);
-      setChoice(''); setGuess(''); setReason(''); setResult(null);
-    },
-    /** Fill the draft from a suggested setup without applying or grading it. */
-    suggest: inputs => { setDraft(inputs); retire(); },
-  };
-}
 
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="bv-field bv-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
+export const useInvestigation = useLiveInvestigation;
 
-/** A radio group that starts with nothing selected, optionally a second numeric
- * commitment, and one action that commits both.
- *
- * There is deliberately no way to reach the answer without recording a
- * prediction: the contract requires one before Apply. Suggested setups fill
- * inputs, never the outcome. */
-export function Prediction({
-  prompt, options, state, answerFor, describe, numeric, committed,
-  applyLabel = 'Apply and check',
-}) {
-  const name = useId();
-  const numericId = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown && shown.choice === shown.answer.outcome;
-  const guessed = shown && numeric && shown.guess !== ''
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= numeric.tolerance + 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value))
-    : null;
-  const ready = state.choice !== ''
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  return <div className="bv-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="bv-choices">
-        {options.map(([value, text]) => (
-          <label className="bv-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-      {numeric && <label className="bv-field bv-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span>Answers within {numeric.tolerance} are accepted.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="bv-pending" role="status">
-      Draft inputs differ from the applied ones. The calculation below will use the values now in the fields, and the
-      comparison will be against the state currently applied.
-    </p>}
-    <div className="bv-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)} onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once a prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {committed && shown && <p className="bv-caption">Graded against the committed state: {committed(shown)}</p>}
-    {shown?.reason && <p className="bv-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <p className={`bv-verdict ${correct ? '' : 'is-miss'}`} role="status">
-      <span className="bv-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-      {correct
-        ? `Your prediction matches: ${label(shown.answer.outcome)}.`
-        : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer.outcome)}.`}
-      {numeric && shown.guess !== '' && ` You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? `within ${numeric.tolerance}` : `outside ${numeric.tolerance}`}.`}
-      {describe ? ` ${describe}` : ''}
-    </p>}
+
+
+
+
+export function LiveResult({ state, calculateInputs, blocked, describe }) {
+  const problem = useLiveResult(state, calculateInputs, blocked);
+  return <div data-live-exploration="result">
+    {problem ? <p role="status">{problem} The plots retain the last valid calculation; correct the inputs to update them.</p>
+      : <p role="status">Live calculation for the current controls. {describe}</p>}
+    <button type="button" disabled={Boolean(problem) || !state.result} onClick={state.snapshot}>Use current values as comparison baseline</button>
   </div>;
 }
 

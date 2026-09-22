@@ -1,22 +1,6 @@
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './validation-labs.css';
 
-/** Shared primitives for the cross-validation investigations.
- *
- * The contract every investigation in this lesson keeps:
- *
- *   edit the entities → record a prediction → commit it → apply
- *
- * Committing freezes the inputs alongside the prediction. Applying computes the
- * answer *from those committed inputs*, so a recorded prediction is graded
- * against the fold plan it was made about and never against whatever happens to
- * be in the fields afterwards. Any edit between committing and applying retires
- * the commitment rather than re-grading it.
- *
- * There is deliberately no "just show me the answer" button: this lesson is
- * about what a score was allowed to see before it was read.
- */
-
 export const round = (value, digits = 6) => {
   if (value === null || value === undefined || Number.isNaN(value)) return '—';
   if (!Number.isFinite(value)) return value > 0 ? '∞' : '−∞';
@@ -53,7 +37,7 @@ export function Legend({ kinds = ['train', 'held'], extra }) {
 
 export function Investigation({ id, title, question, note, children, onReset }) {
   const headingId = useId();
-  return <section className="cv-lab" data-cv-lab={id} aria-labelledby={headingId}>
+  return <section className="cv-lab" data-cv-lab={id} aria-labelledby={headingId} data-live-exploration>
     <header><h3 id={headingId}>{title}</h3><button type="button" onClick={onReset}>Reset</button></header>
     {question && <p className="cv-question">{question}</p>}
     {note && <p className="cv-note">{note}</p>}
@@ -141,130 +125,12 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, num
   </div>;
 }
 
-/** Draft entities, a committed prediction bound to them, and an applied result
- * computed from the committed copy. */
-export function useInvestigation(initial, describeKey = JSON.stringify) {
+export function useInvestigation(initial) {
   const [draft, setDraft] = useState(initial);
-  const [answers, setAnswers] = useState({});
-  const [reason, setReason] = useState('');
-  const [committed, setCommitted] = useState(null);
-  const [result, setResult] = useState(null);
-  const [previous, setPrevious] = useState(null);
-
-  // An edit retires the answer on screen. The retired answer is kept as a
-  // labelled comparison, because the moment a learner changes one label and
-  // re-runs is exactly the moment the earlier answer is worth looking at.
-  const retire = () => {
-    if (result) setPrevious({ inputs: result.inputs, answer: result.answer, answers: result.answers, label: result.label, questions: result.questions });
-    setCommitted(null);
-    setResult(null);
-    setAnswers({});
+  return { draft, result: {inputs:draft}, previous:null,
+    edit: update => setDraft(current => ({ ...current, ...update })),
+    reset: () => setDraft(initial), load: inputs => setDraft(inputs),
   };
-  const edit = update => { setDraft(current => ({ ...current, ...update })); retire(); };
-
-  return {
-    draft, answers, setAnswers, reason, setReason, committed, result, previous,
-    edit,
-    /** Freeze the prediction together with the inputs it is about. */
-    commit: questions => setCommitted({ key: describeKey(draft), inputs: draft, answers, reason,
-      questions: questions.map(({ key, short, options }) => ({ key, short, options: options.map(pair => [...pair]) })),
-    }),
-    /** Compute from the committed inputs, never from the live fields. */
-    apply: answerFor => {
-      if (!committed) return;
-      setResult({
-        key: committed.key, inputs: committed.inputs, answers: committed.answers,
-        reason: committed.reason, answer: answerFor(committed.inputs), label: describeKey(committed.inputs), questions: committed.questions,
-      });
-    },
-    reset: () => { setDraft(initial); setAnswers({}); setReason(''); setCommitted(null); setResult(null); setPrevious(null); },
-    /** Load a declared setup. This is an input change, so it retires the
-     * prediction and the previous comparison with it. */
-    load: inputs => { setDraft(inputs); setAnswers({}); setReason(''); setCommitted(null); setResult(null); setPrevious(null); },
-  };
-}
-
-/** An optional sentence saying why. Never graded: a right answer for a wrong
- * reason is worth noticing, and that judgement belongs to the learner. */
-export function Reason({ value, onChange, disabled = false }) {
-  const id = useId();
-  return <label className="cv-field cv-reason" htmlFor={id}>
-    <span>Why? Optional, never graded</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
-
-/** One or more questions, all of which must be answered before the prediction
- * can be committed, and an Apply action that only unlocks afterwards. */
-export function Prediction({ questions, state, answerFor, applyLabel, describe, disabled = false, disabledReason }) {
-  const name = useId();
-  const committed = state.committed;
-  const shown = state.result;
-  const answered = questions.every(question => state.answers[question.key] !== undefined && state.answers[question.key] !== '');
-  const labelOf = (question, value) => question.options.find(([key]) => String(key) === String(value))?.[1] ?? String(value);
-  const verdicts = shown ? shown.questions.map(question => ({
-    question,
-    predicted: shown.answers[question.key],
-    actual: shown.answer[question.key],
-    correct: String(shown.answers[question.key]) === String(shown.answer[question.key]),
-  })) : [];
-  const allCorrect = verdicts.length > 0 && verdicts.every(item => item.correct);
-  return <div className="cv-prediction" data-cv-prediction>
-    {questions.map(question => (
-      <fieldset key={question.key} disabled={Boolean(committed) || Boolean(shown)}>
-        <legend>{question.legend ?? 'Record a prediction first.'}</legend>
-        <p>{question.prompt}</p>
-        <div className="cv-choices">
-          {question.options.map(([value, text]) => (
-            <label className="cv-choice" key={String(value)}>
-              <input type="radio" name={`${name}-${question.key}`} value={String(value)}
-                checked={String(state.answers[question.key] ?? '') === String(value)}
-                onChange={() => state.setAnswers({ ...state.answers, [question.key]: String(value) })} />
-              <span>{text}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-    ))}
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(committed) || Boolean(shown)} />
-    {!committed && !shown && <p className="cv-caption" data-cv-status>
-      Nothing is computed yet. Commit a prediction to bind it to the inputs now in the fields.
-    </p>}
-    {committed && !shown && <p className="cv-pending" role="status" data-cv-committed>
-      Prediction recorded against these inputs. Apply to compute the answer from that same committed copy.
-    </p>}
-    <div className="cv-buttons">
-      <button type="button" disabled={!answered || Boolean(committed) || Boolean(shown) || disabled}
-        onClick={() => state.commit(questions)}>Commit prediction</button>
-      <button type="button" className="is-primary" disabled={!committed || Boolean(shown) || disabled}
-        onClick={() => state.apply(answerFor)}>{applyLabel}</button>
-    </div>
-    {disabled && disabledReason && <p className="cv-field-error" role="alert">{disabledReason}</p>}
-    {shown?.reason && <p className="cv-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <div data-cv-result>
-      {verdicts.map(item => (
-        <p key={item.question.key} className={`cv-verdict ${item.correct ? '' : 'is-miss'}`} role="status">
-          <span className="cv-verdict-mark" aria-hidden="true">{item.correct ? '=' : '≠'}</span>
-          {item.correct
-            ? `${item.question.short}: your prediction matches — ${labelOf(item.question, item.actual)}.`
-            : `${item.question.short}: you recorded ${labelOf(item.question, item.predicted)}; the calculation gives ${labelOf(item.question, item.actual)}.`}
-        </p>
-      ))}
-      {describe && <p className="cv-caption" data-cv-mechanism>{describe(shown.answer, shown.inputs, allCorrect)}</p>}
-    </div>}
-    {state.previous && <p className="cv-previous" data-cv-previous>
-      <strong>Previous trial, kept as a labelled comparison.</strong>{' '}
-      {state.previous.questions.map(question => `${question.short}: ${labelOf(question, state.previous.answer[question.key])}`).join(' · ')}.
-      That answer was computed from the inputs you have since edited, not from the ones in the fields now. Reset clears it.
-    </p>}
-  </div>;
-}
-
-/** A notice that an edit retired a recorded prediction. */
-export function RetiredNotice({ state }) {
-  if (state.committed || state.result) return null;
-  return <p className="cv-caption" data-cv-retired>Inputs are editable; any change retires a recorded prediction and its answer.</p>;
 }
 
 /** A framed plot with one shared scale. The viewBox is 360 units wide, which is

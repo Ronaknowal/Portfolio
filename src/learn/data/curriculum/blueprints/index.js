@@ -1,3 +1,19 @@
+import typedDecisionModelsBlueprint from './typed-decision-models-calibrated-neural-decision-systems.js';
+import depthwiseConvolutionsBlueprint from './depthwise-separable-dilated-convolutions.js';
+import convnextBlueprint from './convnext-modern-cnn-designs.js';
+import capsuleNetworksBlueprint from './capsule-networks.js';
+import recurrentNetworksBlueprint from './rnns-lstms-grus.js';
+import sequenceToSequenceBlueprint from './sequence-to-sequence-encoder-decoder.js';
+import weightInitializationBlueprint from './weight-initialization-xavier-kaiming-p.js';
+import residualConnectionsBlueprint from './residual-connections-skip-connections.js';
+import dropoutDepthBlueprint from './dropout-droppath-stochastic-depth.js';
+import convolutionGeometryBlueprint from './convolution-pooling-receptive-fields.js';
+import landmarkArchitecturesBlueprint from './landmark-architectures-lenet-alexnet-vgg-resnet-efficientnet.js';
+import transferLearningBlueprint from './transfer-learning-fine-tuning-strategies.js';
+import neuralNormalizationBlueprint from './batch-layer-group-rms-normalization.js';
+import neuralLossesBlueprint from './loss-functions-ce-mse-focal-contrastive-triplet.js';
+import backpropagationBlueprint from './backpropagation-automatic-differentiation.js';
+import perceptronsBlueprint from './perceptrons-neurons-activation-functions.js';
 import linearLogisticBlueprint from './linear-logistic-regression.js';
 import decisionTreesBlueprint from './decision-trees-random-forests.js';
 import gradientBoostedTreesBlueprint from './gradient-boosted-trees-xgboost-lightgbm-catboost.js';
@@ -24,6 +40,12 @@ import imbalancedLearningBlueprint from './imbalanced-learning-smote-cost-sensit
 import automlNasBlueprint from './automl-neural-architecture-search-nas.js';
 import bayesNetBlueprint from './bayesian-networks-causal-graphical-models.js';
 import hmmBlueprint from './hidden-markov-models-hmm.js';
+import pacLearningBlueprint from './pac-learning-vc-dimension.js';
+import rademacherBlueprint from './rademacher-complexity-generalization-bounds.js';
+import calibrationBlueprint from './calibration-conformal-prediction.js';
+import endToEndBlueprint from './end-to-end-supervised-learning-error-analysis.js';
+import formulationBlueprint from './ml-problem-formulation-baselines-data-leakage.js';
+import timeSeriesBlueprint from './time-series-validation-forecasting-baselines.js';
 import crfBlueprint from './conditional-random-fields-crf.js';
 import gaussianProcessesBlueprint from './gaussian-processes-gp.js';
 import activeLearningBlueprint from './active-learning.js';
@@ -132,6 +154,22 @@ import convexOptimizationBlueprint from './convex-optimization.js';
 import rangeQueriesBlueprint from './segment-trees-fenwick-trees-range-queries.js';
 
 export const authoredBlueprints = {
+  'Depthwise Separable & Dilated Convolutions': depthwiseConvolutionsBlueprint,
+  'ConvNeXt & Modern CNN Designs': convnextBlueprint,
+  'Capsule Networks': capsuleNetworksBlueprint,
+  'RNNs, LSTMs & GRUs': recurrentNetworksBlueprint,
+  'Sequence-to-Sequence & Encoder-Decoder': sequenceToSequenceBlueprint,
+  'Weight Initialization (Xavier, Kaiming, μP)': weightInitializationBlueprint,
+  'Residual Connections & Skip Connections': residualConnectionsBlueprint,
+  'Dropout, DropPath & Stochastic Depth': dropoutDepthBlueprint,
+  'Convolution, Pooling & Receptive Fields': convolutionGeometryBlueprint,
+  'Landmark Architectures (LeNet → AlexNet → VGG → ResNet → EfficientNet)': landmarkArchitecturesBlueprint,
+  "Typed Decision Models & Calibrated Neural Decision Systems": typedDecisionModelsBlueprint,
+  "Perceptrons, Neurons & Activation Functions": perceptronsBlueprint,
+  "Backpropagation & Automatic Differentiation": backpropagationBlueprint,
+  "Loss Functions (CE, MSE, Focal, Contrastive, Triplet)": neuralLossesBlueprint,
+  "Batch/Layer/Group/RMS Normalization": neuralNormalizationBlueprint,
+  "Transfer Learning & Fine-Tuning Strategies": transferLearningBlueprint,
   'Linear & Logistic Regression': linearLogisticBlueprint,
   'Decision Trees & Random Forests': decisionTreesBlueprint,
   'Gradient Boosted Trees (XGBoost, LightGBM, CatBoost)': gradientBoostedTreesBlueprint,
@@ -158,6 +196,12 @@ export const authoredBlueprints = {
   'AutoML & Neural Architecture Search (NAS)': automlNasBlueprint,
   'Bayesian Networks & Causal Graphical Models': bayesNetBlueprint,
   'Hidden Markov Models (HMM)': hmmBlueprint,
+  'PAC Learning & VC Dimension': pacLearningBlueprint,
+  'Rademacher Complexity & Generalization Bounds': rademacherBlueprint,
+  'Calibration & Conformal Prediction': calibrationBlueprint,
+  'End-to-End Supervised Learning & Error Analysis': endToEndBlueprint,
+  'ML Problem Formulation, Baselines & Data Leakage': formulationBlueprint,
+  'Time-Series Validation & Forecasting Baselines': timeSeriesBlueprint,
   'Conditional Random Fields (CRF)': crfBlueprint,
   'Gaussian Processes (GP)': gaussianProcessesBlueprint,
   'Active Learning': activeLearningBlueprint,

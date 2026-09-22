@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "scope": "Full prepared prose/equation/code/table preservation, permitting only whitespace normalization and three native-execution wording updates.",
+  "checkedParagraphs": 96,
+  "missing": [],
+  "displayEquations": 16,
+  "codeBlocks": 9,
+  "tables": 6,
+  "bodyHash": "a2d57d9ba99bae53f6fde115b371a1550811cf4e6240f6d165dc75b12135d6bd",
+  "packetHash": "588cbf3398f47f1826044a9f308c29f57ea07837e883d56d9dcd8a5fa4c16f55"
+}

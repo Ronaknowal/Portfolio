@@ -33,7 +33,7 @@ function Investigation({
   reset,
   children
 }) {
-  return <section className="npde-investigation" aria-label={title}><header><h3>{title}</h3><button onClick={reset}>Reset</button></header><p><strong>Predict first.</strong> {prompt}</p>{children}</section>;
+  return <section data-live-exploration className="npde-investigation" aria-label={title}><header><h3>{title}</h3><button onClick={reset}>Reset</button></header><p> {prompt}</p>{children}</section>;
 }
 function Legend({
   series
@@ -239,18 +239,15 @@ export function TransportCellsLab() {
   }}>
     <div className="npde-controls"><Choice label="Transport scheme" value={scheme} change={value => {
         setScheme(value);
-        setIndex(0);
       }} options={[['upwind', 'Upwind flux'], ['centered', 'Centered flux + Euler']]} /><Choice label="Velocity" value={velocity} change={value => {
         setVelocity(Number(value));
-        setIndex(0);
       }} options={[[1, '+1: right'], [-1, '−1: left']]} /><Choice label="Initial cell averages" value={profile} change={value => {
         setProfile(value);
-        setIndex(0);
       }} options={[['pulse', 'Discontinuous pulse'], ['sine', 'Smooth sine']]} /></div>
     <Range label="Courant number c" value={courant} change={value => {
       setCourant(value);
-      setIndex(0);
     }} min={0} max={1.5} step={0.25} /><Range label="Transport step" value={index} change={setIndex} min={0} max={16} />
+    <p className="npde-note">Edits keep the selected transport step. At step 0 both directions share the same initial cells; move the transport-step slider forward to compare their evolution.</p>
     <div className="npde-cell-strip" aria-label="Sixteen periodic cell averages">{frame.values.map((value, j) => <div key={j} title={`Cell ${j}: ${number(value)}`} style={{
         background: value < 0 ? '#74334a' : `rgba(232,180,74,${Math.max(0.08, Math.min(0.9, value * 0.75))})`
       }}><span>{j}</span><b>{number(value)}</b></div>)}</div>

@@ -1,0 +1,16 @@
+{
+  "source": "public/learn-assets/randomized-linear-algebra/randomized_svd_library.py",
+  "sha256": "2ac9db0a41b6cd70a978cb1f7eba45db1b163a8f46fb526e12a44e9ef5d4a622",
+  "command": "python public/learn-assets/randomized-linear-algebra/randomized_svd_library.py",
+  "environment": {
+    "numpy": "2.3.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.14.0+cpu"
+  },
+  "pytensorCache": "workspace-local; default compiler backend",
+  "exitCode": 0,
+  "seconds": 3.211,
+  "stdout": "q=0: residual 8.683865; best rank-5 7.551963; route difference 0.00e+00\nq=2: residual 7.553857; best rank-5 7.551963; route difference 0.00e+00\nMatched reconstructions, singular values, orthogonality, rank bound and edge contracts: passed\n",
+  "stderr": ""
+}

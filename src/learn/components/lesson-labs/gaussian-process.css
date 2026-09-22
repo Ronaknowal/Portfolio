@@ -30,6 +30,7 @@
 .gp-covariance caption { padding: .6rem 0; text-align: left; }
 .gp-lab h3 { font-size: 1.25rem; margin: 0 0 .8rem; }
 .gp-lab label, .gp-figure label { display: flex; flex-direction: column; gap: .35rem; font-size: .94rem; }
+.gp-numeric-field { display: flex; flex-direction: column; gap: .35rem; min-width: 0; }
 .gp-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: .8rem; margin: 1rem 0; }
 .gp-lab input, .gp-lab select, .gp-lab textarea, .gp-figure select { max-width: 100%; min-width: 0; width: 100%; border: 1px solid #58635f; background: #080c0e; color: #edf0ee; padding: .6rem; border-radius: 3px; font: inherit; box-sizing: border-box; }
 .gp-lab input[type=radio] { width: auto; }

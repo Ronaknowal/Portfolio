@@ -1,18 +1,10 @@
 import { useState } from 'react';
-import {
-  consecutiveFolds, enumerateSelection, foldPlan, futureAccuracy, nearestNeighborRun, nestedTrace,
-  scoreCandidates, successiveHalving,
-} from '../../data/validation-models';
-import {
-  Investigation, NumberField, Prediction, RetiredNotice, RoleMark, SelectField, Table, fixed, round, useInvestigation,
-} from './ValidationShared.jsx';
+import { enumerateSelection, foldPlan, futureAccuracy, nearestNeighborRun, nestedTrace, scoreCandidates, successiveHalving } from '../../data/validation-models';
+import { Investigation, NumberField, RoleMark, SelectField, Table, round, useInvestigation } from './ValidationShared.jsx';
 import './validation-labs.css';
 
 const BINARY = [[0, 'label 0'], [1, 'label 1']];
 
-/* ================================================================== *
- * I1 · §2 — build the held-out predictions
- * ================================================================== */
 const FOLD_PRESETS = {
   base: {
     label: 'Baseline: three consecutive folds',
@@ -53,12 +45,10 @@ export function FoldBuilderLab() {
   const [presetKey, setPresetKey] = useState('base');
   const draft = state.draft;
   let draftError = null;
-  try { buildFoldState(draft); } catch (error) { draftError = error.message; }
-  const applied = state.result ? buildFoldState(state.result.inputs) : null;
+  let applied = null;
+  try { applied = buildFoldState(draft); } catch (error) { draftError = error.message; }
   const inspectedFoldIndex = draft.fold[draft.inspect];
-  const preview = (() => {
-    try { return buildFoldState(draft); } catch { return null; }
-  })();
+  const preview = applied;
   const previewFold = preview?.plan.folds[inspectedFoldIndex];
   const span = (() => {
     const values = draft.x;
@@ -68,12 +58,11 @@ export function FoldBuilderLab() {
     return [low - pad, high + pad];
   })();
   const place = value => 26 + 308 * (value - span[0]) / (span[1] - span[0]);
-  const answerFor = inputs => ({ label: String(buildFoldState(inputs).run.folds
-    .flatMap(fold => fold.rows).find(row => row.row === inputs.inspect).prediction) });
+  
   const inspectedResult = applied?.run.folds.flatMap(fold => fold.rows).find(row => row.row === state.result.inputs.inspect);
 
   return <Investigation id="folds" title="Build the held-out predictions"
-    question="Seven constructed rows, three validation folds and a one-nearest-neighbour rule. Choose a row to inspect, predict the label the fit that assesses it will give it, then look at which training rows that fit was actually allowed to use."
+    question="Seven constructed rows, three validation folds and a one-nearest-neighbour rule. Choose a row and edit the fold assignment to follow its fitted label back to the training rows that were allowed to influence it."
     note="Ties in distance resolve to the smallest source row ID. A held-out row's own label never reaches the fit that predicts it; it only decides whether that prediction is counted correct."
     onReset={() => { state.reset(); setPresetKey('base'); }}>
     <div className="cv-buttons" role="group" aria-label="Declared setups">
@@ -146,21 +135,11 @@ export function FoldBuilderLab() {
       </p>
     </>}
 
-    <Prediction
-      questions={[{
-        key: 'label',
-        short: 'Predicted label',
-        prompt: `Fit ${inspectedFoldIndex + 1} assesses row ${draft.inspect}. Which label will it predict for that row?`,
-        options: BINARY.map(([value, text]) => [value, text]),
-      }]}
-      state={state} answerFor={answerFor} applyLabel="Apply the fold plan"
-      disabled={Boolean(draftError)} disabledReason={draftError ? 'Fix the fold assignment before recording a prediction.' : undefined}
-      describe={(answer, inputs) => {
-        const built = buildFoldState(inputs);
-        const row = built.run.folds.flatMap(fold => fold.rows).find(item => item.row === inputs.inspect);
-        return `Row ${inputs.inspect} sits at x = ${round(inputs.x[inputs.inspect])}. Its nearest eligible training row is ${row.neighbor} at x = ${round(row.neighborX)}, a distance of ${round(row.distance)}${row.tied.length ? `, tied with row${row.tied.length > 2 ? 's' : ''} ${row.tied.slice(1).join(' and ')} and resolved to the smallest source ID` : ''}. That neighbour carries label ${row.prediction}, so the prediction is ${row.prediction}; the true label ${row.truth} decides only whether it counts as correct.`;
-      }} />
-    <RetiredNotice state={state} />
+    {applied && <p className="lesson-live-note">{((answer, inputs) => {
+  const built = applied;
+  const row = built.run.folds.flatMap(fold => fold.rows).find(item => item.row === inputs.inspect);
+  return `Row ${inputs.inspect} sits at x = ${round(inputs.x[inputs.inspect])}. Its nearest eligible training row is ${row.neighbor} at x = ${round(row.neighborX)}, a distance of ${round(row.distance)}${row.tied.length ? `, tied with row${row.tied.length > 2 ? 's' : ''} ${row.tied.slice(1).join(' and ')} and resolved to the smallest source ID` : ''}. That neighbour carries label ${row.prediction}, so the prediction is ${row.prediction}; the true label ${row.truth} decides only whether it counts as correct.`;
+})(null, draft)}</p>}
 
     {applied && inspectedResult && <>
       <h4>What fit {state.result.inputs.fold[state.result.inputs.inspect] + 1} could see</h4>
@@ -231,9 +210,7 @@ export function SelectionLab() {
   const [presetKey, setPresetKey] = useState('base');
   const draft = state.draft;
   const candidatesOf = inputs => inputs.patterns.map((pattern, index) => ({ id: candidateName(index), pattern }));
-  const answerFor = inputs => ({
-    best: String(scoreCandidates(inputs.labels, candidatesOf(inputs)).selectedValidationAccuracy),
-  });
+  
   const applied = state.result ? {
     scored: scoreCandidates(state.result.inputs.labels, candidatesOf(state.result.inputs)),
     enumeration: enumerateSelection(candidatesOf(state.result.inputs)),
@@ -243,7 +220,7 @@ export function SelectionLab() {
     state.edit({ patterns: draft.patterns.map((pattern, index) => (index === candidate ? pattern.map((old, spot) => (spot === position ? value : old)) : pattern)) });
   };
   return <Investigation id="selection" title="Win the familiar cases"
-    question="Four validation cases whose labels are independent fair coin flips, and a list of fixed prediction rules. Predict the best validation accuracy the list will reach, then compare it with what those rules can be expected to do on fresh labels."
+    question="Four validation cases whose labels are independent fair coin flips, and a list of fixed prediction rules. Edit the rules and compare their best validation accuracy with their expected accuracy on fresh labels."
     note="The generating model is declared before the result: each validation label, and each future label, is an independent fair bit that the features carry no information about. Every rule below is therefore expected to be right half the time on fresh labels, however it was chosen."
     onReset={() => { state.reset(); setPresetKey('base'); }}>
     <div className="cv-buttons" role="group" aria-label="Declared setups">
@@ -286,19 +263,10 @@ export function SelectionLab() {
       must remain, and at most sixteen are allowed, because sixteen distinct four-bit patterns exhaust the space.
     </p>
 
-    <Prediction
-      questions={[{
-        key: 'best',
-        short: 'Best validation accuracy',
-        prompt: `With these ${draft.patterns.length} rules and these four labels, what is the best validation accuracy any rule reaches?`,
-        options: [[0, '0'], [0.25, '0.25 (1 of 4)'], [0.5, '0.5 (2 of 4)'], [0.75, '0.75 (3 of 4)'], [1, '1 (4 of 4)']],
-      }]}
-      state={state} answerFor={answerFor} applyLabel="Apply and score the rules"
-      describe={(answer, inputs) => {
-        const scored = scoreCandidates(inputs.labels, candidatesOf(inputs));
-        return `${scored.winner.id} matches ${scored.winner.correct} of the four labels, so the selected validation accuracy is ${round(scored.selectedValidationAccuracy)}. Its expected accuracy on fresh fair labels is ${round(futureAccuracy(scored.winner.pattern))}: selecting it used the validation labels, and it learned nothing about future ones.${scored.tieBrokenBy ? ` ${scored.tiedWith.length} rules tie at that score, resolved by the ${scored.tieBrokenBy}.` : ''}`;
-      }} />
-    <RetiredNotice state={state} />
+    {applied && <p className="lesson-live-note">{((answer, inputs) => {
+  const scored = applied.scored;
+  return `${scored.winner.id} matches ${scored.winner.correct} of the four labels, so the selected validation accuracy is ${round(scored.selectedValidationAccuracy)}. Its expected accuracy on fresh fair labels is ${round(futureAccuracy(scored.winner.pattern))}: selecting it used the validation labels, and it learned nothing about future ones.${scored.tieBrokenBy ? ` ${scored.tiedWith.length} rules tie at that score, resolved by the ${scored.tieBrokenBy}.` : ''}`;
+})(null, draft)}</p>}
 
     {applied && <>
       <Table id="candidate-scores" caption="Every rule against the applied validation labels, with the positions it matched. The last column is each rule's expected accuracy on fresh fair labels under the declared generating model."
@@ -387,26 +355,19 @@ export function NestedLab() {
   const [presetKey, setPresetKey] = useState('base');
   const draft = state.draft;
   let draftError = null;
-  try { nestedTrace({ x: draft.x, y: draft.y }); } catch (error) { draftError = error.message; }
-  const previewFold = (() => {
-    try { return nestedTrace({ x: draft.x, y: draft.y })[draft.outer]; } catch { return null; }
-  })();
+  let applied = null;
+  try { applied = nestedTrace({ x: draft.x, y: draft.y })[draft.outer]; } catch (error) { draftError = error.message; }
+  const previewFold = applied;
   // A protected row belongs to one outer fold, so switching folds moves the
   // target. Resolve it the same way here and in the prompt, rather than letting
   // a stale ID reach the trace.
   const protectedRowOf = inputs => (inputs.row % 2 === inputs.outer ? inputs.row : inputs.outer);
-  const answerFor = inputs => {
-    const fold = nestedTrace({ x: inputs.x, y: inputs.y })[inputs.outer];
-    return inputs.target === 'k'
-      ? { outcome: String(fold.selectedK) }
-      : { outcome: String(fold.refit.find(row => row.row === protectedRowOf(inputs)).prediction) };
-  };
-  const applied = state.result ? nestedTrace({ x: state.result.inputs.x, y: state.result.inputs.y })[state.result.inputs.outer] : null;
+  
   const protectedRows = previewFold ? previewFold.test : [];
   const targetRow = protectedRows.includes(draft.row) ? draft.row : protectedRows[0];
 
   return <Investigation id="nested" title="Open one nested fold"
-    question="Sixteen constructed rows, two outer folds by row-ID parity, two inner folds by alternating position, and two candidate neighbour counts. Predict either which count the inner comparison selects, or the label a protected row receives, then watch every fit that produced it."
+    question="Sixteen constructed rows, two outer folds by row-ID parity, two inner folds by alternating position, and two candidate neighbour counts. Inspect the selected neighbour count or a protected row’s model output, and trace every fit that produced it."
     note="Each phase is a separate step: split, compare candidates inside the outer training rows only, select, refit on all outer training rows, then predict the protected rows. Equal inner means select the smaller neighbour count."
     onReset={() => { state.reset(); setPresetKey('base'); }}>
     <div className="cv-buttons" role="group" aria-label="Declared setups">
@@ -424,11 +385,11 @@ export function NestedLab() {
           const outer = Number(next);
           state.edit({ outer, row: draft.row % 2 === outer ? draft.row : outer });
         }} />
-      <SelectField label="What to predict" value={draft.target} range="two outputs"
+      <SelectField label="Output to inspect" value={draft.target} range="two outputs"
         options={[['k', 'the selected neighbour count'], ['row', 'a protected row’s predicted label']]}
         onChange={next => state.edit({ target: next })} />
       {draft.target === 'row' && (
-        <SelectField label="Protected row to predict" value={targetRow} range={`${protectedRows.length} rows`}
+        <SelectField label="Protected row to inspect" value={targetRow} range={`${protectedRows.length} rows`}
           options={protectedRows.map(id => [id, `row ${id}`])}
           onChange={next => state.edit({ row: Number(next) })} />
       )}
@@ -462,26 +423,12 @@ export function NestedLab() {
       </p>
     </>}
 
-    <Prediction
-      questions={[{
-        key: 'outcome',
-        short: draft.target === 'k' ? 'Selected neighbour count' : `Prediction for row ${targetRow}`,
-        prompt: draft.target === 'k'
-          ? `Which neighbour count will outer fold ${draft.outer + 1}'s inner comparison select?`
-          : `What label will outer fold ${draft.outer + 1}'s refitted model give protected row ${targetRow}?`,
-        options: draft.target === 'k' ? [[1, '1 neighbour'], [3, '3 neighbours']] : BINARY,
-      }]}
-      state={state} answerFor={answerFor} applyLabel="Apply and run every fit"
-      disabled={Boolean(draftError)} disabledReason={draftError ?? undefined}
-      describe={(answer, inputs) => {
-        const fold = nestedTrace({ x: inputs.x, y: inputs.y })[inputs.outer];
-        const means = fold.candidates.map(candidate => `k=${candidate.k} averages ${round(candidate.mean, 4)}`).join(' and ');
-        const target = protectedRowOf(inputs);
-        return inputs.target === 'k'
-          ? `${means}. ${fold.tie ? 'They tie, so the declared rule takes the smaller count' : 'The higher mean wins'}: ${fold.selectedK}. That mean is selection evidence produced by outer training rows only.`
-          : `The inner comparison selected k = ${fold.selectedK} (${means}), and that candidate was refitted on all ${fold.train.length} outer training rows. Row ${target} takes the majority label of its ${fold.selectedK} nearest eligible training row${fold.selectedK > 1 ? 's' : ''}, which gives ${fold.refit.find(row => row.row === target).prediction}. Its own label never entered that fit.`;
-      }} />
-    <RetiredNotice state={state} />
+    {applied && <p className="lesson-live-note">{((answer, inputs) => {
+  const fold = applied;
+  const means = fold.candidates.map(candidate => `k=${candidate.k} averages ${round(candidate.mean, 4)}`).join(' and ');
+  const target = protectedRowOf(inputs);
+  return inputs.target === 'k' ? `${means}. ${fold.tie ? 'They tie, so the declared rule takes the smaller count' : 'The higher mean wins'}: ${fold.selectedK}. That mean is selection evidence produced by outer training rows only.` : `The inner comparison selected k = ${fold.selectedK} (${means}), and that candidate was refitted on all ${fold.train.length} outer training rows. Row ${target} takes the majority label of its ${fold.selectedK} nearest eligible training row${fold.selectedK > 1 ? 's' : ''}, which gives ${fold.refit.find(row => row.row === target).prediction}. Its own label never entered that fit.`;
+})(null, draft)}</p>}
 
     {applied && <>
       <h4>Step 2 · Compare candidates inside the outer training rows</h4>
@@ -583,12 +530,8 @@ export function HalvingLab() {
     budgets: BUDGETS, factor: inputs.factor, firstStage: inputs.firstStage,
   });
   let draftError = null;
-  try { build(draft); } catch (error) { draftError = error.message; }
-  const answerFor = inputs => {
-    const run = build(inputs);
-    return { survivor: run.survivor.id, matches: run.hindsight.matchesSurvivor ? 'yes' : 'no' };
-  };
-  const applied = state.result ? build(state.result.inputs) : null;
+  let applied = null;
+  try { applied = build(draft); } catch (error) { draftError = error.message; }
   const edit = (candidate, stage, value) => {
     setPresetKey('custom');
     setHindsight(false);
@@ -601,7 +544,7 @@ export function HalvingLab() {
   const lift = loss => 150 - 120 * loss / maxLoss;
 
   return <Investigation id="halving" title="Allocate a finite training budget"
-    question="Three or more candidates, three increasing budgets and a survival factor. Predict which candidate survives the schedule, and whether that survivor is also the best at the full budget."
+    question="Three or more candidates, three increasing budgets and a survival factor. Change the trajectories and follow which candidate survives the schedule; compare the paid-for evidence with the separately identified full-budget hindsight."
     note="Budget is an abstract cumulative training resource — rows, epochs or steps — and never seconds. You author these trajectories, so you can see all of them; the schedule reports only what it paid to observe."
     onReset={() => { state.reset(); setPresetKey('base'); setHindsight(false); }}>
     <div className="cv-buttons" role="group" aria-label="Declared setups">
@@ -642,28 +585,11 @@ export function HalvingLab() {
     </div>
     {draftError && <p className="cv-field-error" role="alert" data-cv-error>{draftError}</p>}
 
-    <Prediction
-      questions={[
-        {
-          key: 'survivor', short: 'Survivor',
-          prompt: 'Which candidate is selected among those assessed at the largest budget? Ties select the earliest candidate.',
-          options: draft.losses.map((_, index) => [HALVING_NAMES(index), `candidate ${HALVING_NAMES(index)}`]),
-        },
-        {
-          key: 'matches', short: 'Matches the full-budget best',
-          legend: 'And the second half of the prediction.',
-          prompt: 'Will that survivor also have the lowest loss at budget 90?',
-          options: [['yes', 'yes'], ['no', 'no']],
-        },
-      ]}
-      state={state} answerFor={answerFor} applyLabel="Run the schedule"
-      disabled={Boolean(draftError)} disabledReason={draftError ?? undefined}
-      describe={(answer, inputs) => {
-        const run = build(inputs);
-        const first = run.stages[0];
-        return `At budget ${first.budget} the schedule observed ${first.observed.map(row => `${row.id} ${round(row.loss, 3)}`).join(', ')} and kept ${first.keep} of ${first.assessed}. ${run.stages.at(-1).assessed} candidate(s) reached budget ${BUDGETS[BUDGETS.length - 1]}; candidate ${run.survivor.id} was selected among them. ${run.hindsight.matchesSurvivor ? 'It attains the lowest loss at the full budget, possibly tied with another candidate.' : 'It is not the lowest loss at the full budget. Which candidate is, and by how much, is information the schedule never paid for: Reveal hindsight names it.'}`;
-      }} />
-    <RetiredNotice state={state} />
+    {applied && <p className="lesson-live-note">{((answer, inputs) => {
+  const run = applied;
+  const first = run.stages[0];
+  return `At budget ${first.budget} the schedule observed ${first.observed.map(row => `${row.id} ${round(row.loss, 3)}`).join(', ')} and kept ${first.keep} of ${first.assessed}. ${run.stages.at(-1).assessed} candidate(s) reached budget ${BUDGETS[BUDGETS.length - 1]}; candidate ${run.survivor.id} was selected among them. ${run.hindsight.matchesSurvivor ? 'It attains the lowest loss at the full budget, possibly tied with another candidate.' : 'It is not the lowest loss at the full budget. Which candidate is, and by how much, is information the schedule never paid for: Reveal hindsight names it.'}`;
+})(null, draft)}</p>}
 
     {applied && <>
       <h4>What the schedule paid to observe</h4>

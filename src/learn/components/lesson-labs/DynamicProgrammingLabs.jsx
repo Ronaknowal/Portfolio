@@ -83,7 +83,7 @@ export function RewardDependencyLab() {
   }
   return <section className="dp-lab" aria-label="Reward dependency investigation">
     <h3>Follow a request; reuse an answer</h3>
-    <p>Predict which suffix will be requested twice. Arrows point from a question to its dependencies; table evaluation must run in the opposite direction.</p>
+    <p>Inspect which suffix will be requested twice. Arrows point from a question to its dependencies; table evaluation must run in the opposite direction.</p>
     <form className="lesson-controls" onSubmit={apply}><label>Session rewards<input value={draft} onChange={event => setDraft(event.target.value)} /></label><button>Apply rewards</button></form>
     <div className="lesson-controls"><label>Evaluation order<select value={method} onChange={event => {
           setMethod(event.target.value);
@@ -132,7 +132,7 @@ export function GridDependencyLab() {
   }
   return <section className="dp-lab" aria-label="Grid dependency investigation">
     <h3>Grow an answer across the actual grid</h3>
-    <p>Move only right or down; pay each visited cell, including the start. Predict the cheapest route. Activate a cell to block or reopen it; that immediately restarts evaluation.</p>
+    <p>Move only right or down; pay each visited cell, including the start. Inspect the cheapest route. Activate a cell to block or reopen it; that immediately restarts evaluation.</p>
     <div className="dp-grid" aria-label="Grid costs and minimum prefix totals">
       {defaultGrid.flatMap((row, rowIndex) => row.map((cost, columnIndex) => {
         const key = `${rowIndex},${columnIndex}`;
@@ -157,7 +157,7 @@ export function GridDependencyLab() {
         setShowPath(false);
       }}>Reset grid lab</button></div>
     {showPath && <p>Parent trail: {model.path.map(cell => `(${cell.join(',')})`).join(' → ')}. Cost {model.result}. On equal predecessor costs, choose above.</p>}
-    <p className="dp-note">Block both exits from the start. Why must the remaining cells stay unreachable even when their own cost is small? Then reopen one exit and predict the changed route.</p>
+    <p className="dp-note">Block both exits from the start. Why must the remaining cells stay unreachable even when their own cost is small? Then reopen one exit and follow the changed route.</p>
   </section>;
 }
 export function SequenceAlignmentLab() {
@@ -197,7 +197,7 @@ export function SequenceAlignmentLab() {
   }
   return <section className="dp-lab" aria-label="Sequence alignment investigation">
     <h3>Match prefixes, then walk the answer backward</h3>
-    <p>Predict the common sequence before tracing. Select a length cell to see the prefixes and the dependencies that justify it. Empty prefixes have length zero.</p>
+    <p>Inspect the common sequence before tracing. Select a length cell to see the prefixes and the dependencies that justify it. Empty prefixes have length zero.</p>
     <form onSubmit={apply} className="lesson-controls"><label>First sequence<input value={draftFirst} onChange={event => setDraftFirst(event.target.value)} /></label><label>Second sequence<input value={draftSecond} onChange={event => setDraftSecond(event.target.value)} /></label><button>Apply sequences</button></form>
     {error && <p role="alert">{error}</p>}
     <div className="dp-scroll" tabIndex={0} role="region" aria-label="LCS prefix table">
@@ -236,7 +236,7 @@ export function CapacityGenerationLab() {
   }, [step, capacity, direction]);
   return <section className="dp-lab" aria-label="Capacity generation investigation">
     <h3>Which version of this cell are you reading?</h3>
-    <p>Item 0 weighs 2 and is worth 3; item 1 weighs 3 and is worth 4. Predict whether changing direction can use an item twice. The logical row is an item prefix even when both rows share one array.</p>
+    <p>Item 0 weighs 2 and is worth 3; item 1 weighs 3 and is worth 4. Inspect whether changing direction can use an item twice. The logical row is an item prefix even when both rows share one array.</p>
     <div className="lesson-controls"><label>Capacity<select aria-label="Capacity" value={capacity} onChange={event => {
           setCapacity(Number(event.target.value));
           setStep(0);
@@ -269,7 +269,7 @@ export function SubsetEndpointLab() {
   }
   return <section className="dp-lab" aria-label="Subset endpoint investigation">
     <h3>One subset can contain several different states</h3>
-    <p>Start at A and visit selected vertices once. Toggle membership bits, then choose an endpoint. Predict the cost of continuing from B versus C when the selected set is exactly A,B,C.</p>
+    <p>Start at A and visit selected vertices once. Toggle membership bits, then choose an endpoint. Inspect the cost of continuing from B versus C when the selected set is exactly A,B,C.</p>
     <div className="dp-bits">{[3, 2, 1, 0].map(index => <button key={index} aria-pressed={Boolean(mask & 1 << index)} aria-label={`Toggle ${routeNames[index]} membership bit ${index}`} onClick={() => toggle(index)}><small>{routeNames[index]} · bit {index}</small><strong>{mask & 1 << index ? 1 : 0}</strong><span>weight {1 << index}</span></button>)}</div>
     <p>Binary {mask.toString(2).padStart(4, '0')} = {mask}. Selected set {'{'}{present.join(', ')}{'}'}. A is bit 0 on the right. Full mask 1111 = 15.</p>
     <div className="lesson-controls"><label>Endpoint<select aria-label="Endpoint" value={endpoint} onChange={event => setEndpoint(Number(event.target.value))}>{routeNames.map((name, index) => <option value={index} key={name}>{name}</option>)}</select></label><button onClick={() => {

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T00:01:29.431Z",
+  "base": "http://127.0.0.1:4195",
+  "checks": [
+    "54 loaded-font signal-label containment combinations: widths1366/390/320, seeds1/2/3, all6initialization schemes",
+    "320px rendered signal figure inspected; original font sizes and exact measured coordinates preserved",
+    "Author source/model7groups passed; native measurements unchanged"
+  ],
+  "sources": {
+    "src/learn/components/lesson-labs/WeightInitializationLabs.jsx": "5120b360a3d20199195227101844b76700b6771f2d386de11c8182e86a8314b4"
+  },
+  "limits": "Targeted development-route repair check, not final production integration."
+}

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "groups": [
+    "Nine nonzero-state native/NumPy/JS sequences and source immutability",
+    "All-cell chunk reconstruction",
+    "Four GRU reset/update limits with hidden bias",
+    "Changed-shape boundary gradients against autograd",
+    "Six-step scalar gradient finite difference and zero-rate null",
+    "Reset placement diagonal-bias counterexample"
+  ],
+  "maximumNativeDifference": 2.220446049250313e-16,
+  "maximumGradientDifference": 4.229890049334273e-11,
+  "sourceHashes": {
+    "src/learn/data/recurrent-models.js": "9b74f52243f47af00bd032ea403720e1a4eb06320de945320940ef6476c01226",
+    "scripts/verify-recurrent-independent.py": "820390aacce2fd38c68157376d8fb50e18ea44e756e4eb53d19136bf3c08ae19",
+    "scripts/verify-recurrent-independent.mjs": "aaf96f8efad279643760361ffcbc7ee2b49ab27b5518ad98a6ce338a889ab70f"
+  }
+}

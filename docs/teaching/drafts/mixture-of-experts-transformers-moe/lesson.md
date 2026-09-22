@@ -1,5 +1,8 @@
 # Mixture-of-Experts Transformers (MoE)
 
+**Explore as you read.** Edit token/router scores, expert values, capacity, grouping and budget dimensions; manipulate supported retained images. Show selected experts, discarded probability mass, overflow/drop routes, recombined outputs, balance terms and active/total resource counts together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose routing/capacity policies from missing contributions and resource tradeoffs; auxiliary balance does not establish task quality.
+
+
 Imagine having several useful ways to transform a piece of information, while paying to run only the few that are useful for this particular input. A mixture-of-experts layer makes that choice inside a neural network. It keeps several small networks, gives each input a score for each network, executes the selected ones, and combines their answers.
 
 This separates two resources that usually grow together: **how many parameters the model stores** and **how much expert computation one token uses**. The separation creates an opportunity, and also a practical problem: inputs must reach the right parameters, enough inputs must reach each expert to train it, and their results must return to the right place.
@@ -85,7 +88,7 @@ A useful algebra check is
 
 Computing full softmax, selecting and renormalizing is mathematically the same selected-normalized operator, including derivatives away from selection boundaries. It does not merely share the same final training optimum. Floating-point implementations may differ slightly.
 
-**Investigation 1 — Change the route, then explain the reunion.** Start with a new four-expert problem. Edit a score or expert output, predict which paths and output coordinates change, then reveal the computed contributions. Compare selected normalization with full-softmax weighting. A separate top-1 choice tests whether selecting one branch necessarily prevents the router from learning.
+**Investigation 1 — Change the route, then explain the reunion.** Start with a new four-expert problem. Edit a score or expert output, inspect which paths and output coordinates change, and show immediately the computed contributions. Compare selected normalization with full-softmax weighting. A separate top-1 choice tests whether selecting one branch necessarily prevents the router from learning.
 
 ## 3. How a discrete choice learns
 
@@ -223,7 +226,7 @@ Adding the same constant \(a\) to every logit leaves softmax probabilities uncha
 
 Floating-point formats also differ. BF16 has a broad exponent range resembling FP32, while FP16's range is much narrower. Treating every 16-bit format as if exponentiation overflows at the same input is incorrect. Stable formulas, parameter initialization, optimizer behavior and precision choices all contribute to numerical reliability; a finite small-model run cannot establish large-model stability.
 
-**Investigation 3 — Separate three objectives.** Edit probability rows, assignment preferences and a shared logit offset. Predict which of selected routes, count balance and z-loss changes, and explain whether that determines task quality. Compare a peaked distribution with zero z-loss and an uneven count distribution with balance loss below 1.
+**Investigation 3 — Separate three objectives.** Edit probability rows, assignment preferences and a shared logit offset. Inspect which of selected routes, count balance and z-loss changes, and explain whether that determines task quality. Compare a peaked distribution with zero z-loss and an uneven count distribution with balance loss below 1.
 
 ## 6. Count parameters, arithmetic, memory and communication separately
 
@@ -281,7 +284,7 @@ Data parallelism replicates a model over different examples; tensor parallelism 
 
 Small expert batches, uneven loads, collective startup, matrix dimensions, network bandwidth, memory bandwidth and kernel fusion all influence real latency. Prefill supplies many token assignments at once; decoding may supply relatively few, making occupancy and scheduling especially important. A model with less arithmetic can still be slower in a particular deployment.
 
-**Investigation 4 — Keep one budget fixed and move another.** Change expert count, width, selected count and remote-route fraction. Predict which resource moves. Compare coarse and fine expert sets with equal active matrix work, then inspect the different router and communication costs. The output is calculated accounting, not a synthetic timing benchmark.
+**Investigation 4 — Keep one budget fixed and move another.** Change expert count, width, selected count and remote-route fraction. Inspect which resource moves. Compare coarse and fine expert sets with equal active matrix work, then inspect the different router and communication costs. The output is calculated accounting, not a synthetic timing benchmark.
 
 For production execution, [MegaBlocks' implementation](https://github.com/databricks/megablocks) supplies concrete block-sparse and grouped-GEMM pathways. Use an actual backend and benchmark representative batch/sequence shapes before making a hardware choice.
 
@@ -358,7 +361,7 @@ Now disable expert 0 on the original image, without renormalizing surviving rout
 
 A router **temperature** \(\tau>0\) divides every score by \(\tau\) before softmax. Increasing it flattens the selected weights; a positive common divisor preserves score rankings. Doubling the temperature therefore preserves selected identities but changes mixture weights. Here class-0 probability becomes .946955 while the class remains 0 and route counts stay fixed. Unchanged labels do not mean unchanged computation.
 
-**Investigation 5 — Edit a patch, inspect the entire path.** Use a different observed digit, make an actual pixel edit and predict whether routes, mixture outputs and class probabilities change. Compare removing a selected expert with removing an unused one, and compare a temperature edit with a route-changing input edit. The model uses the edited pixels; it does not play back a prewritten response.
+**Investigation 5 — Edit a patch, inspect the entire path.** Use a different observed digit, make an actual pixel edit and observe whether routes, mixture outputs and class probabilities change. Compare removing a selected expert with removing an unused one, and compare a temperature edit with a route-changing input edit. The model uses the edited pixels; it does not play back a prewritten response.
 
 Attention in this image model is bidirectional. A changed patch can affect other patch representations before routing. That is legitimate here. A causal language decoder would require causal attention and routing conventions appropriate to its task.
 
@@ -526,6 +529,16 @@ if __name__ == "__main__":
 ~~~
 
 </details>
+
+### Find the implementation boundary before replacing the dispatcher
+
+The complete `DigitTransformer` above is both the scratch routing implementation and an ordinary PyTorch training model. The router's logits, top-2 choices, selected softmax, per-expert gather and `index_add_` combine are visible. Experts are normal registered `nn.Module` objects, so their parameters enter the optimizer and checkpoint. `moe_calculations.py::dense_reference` evaluates all experts only as an independent oracle: it compares the same output, auxiliary objective and all parameter gradients with sparse dispatch. That dense oracle is not the scalable production path.
+
+The local model is explicitly dropless. The separate `capacity` calculation in `moe_calculations.py` owns the token-order/capacity policy taught in §4: it preserves surviving original gates and can leave a token with no expert update. That is a different operator from renormalizing surviving gates or rerouting overflow. The residual still carries the token. Expert-choice balancing, auxiliary-free selection bias, distributed all-to-all and MegaBlocks are named alternatives, not hidden behavior of this model.
+
+**Take control:** in a copy of the study, replace top-2 by top-1 while keeping the selected-softmax rule. Use a single minibatch and compare task-loss router gradients before changing the auxiliary loss. **Hint:** softmax over one selected logit is exactly one. **Solution:** the task-loss route through that gate has zero local router derivative away from selection boundaries. Full-softmax selected probabilities would be a different policy. Keep the balance derivative visible separately; a nonzero total router gradient does not prove the task gate itself learned. Repeat the sparse/dense value and gradient comparison after the change.
+
+For larger expert counts, the four-expert loop's repeated selection scan becomes a real cost. Group the T×k selected assignments by expert once, gather each contiguous group, and scatter-add back with the original token/slot indices; sorting takes O(Tk log(Tk)) or a counting/bucket strategy exploits bounded integer expert IDs. Expert work depends on assigned tokens, while router scoring still touches all E experts. A maintained grouped-GEMM/distributed backend changes the execution path, not these routing equations. Its performance and overflow contract must be measured on the intended workload; neither the classroom oracle nor the package name is evidence of a speedup.
 
 ## 9. Reuse an existing model, and choose the right granularity
 

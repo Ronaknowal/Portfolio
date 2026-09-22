@@ -48,7 +48,7 @@ Previous lesson RNNs/LSTMs/GRUs supplies the cell mechanics, but this page local
 | Hidden heatmap has obvious linguistic semantics | Raw computed coordinates only | Actual source/prefix/context interventions with checked nulls |
 | Length plot proves fixed capacity | Explain confounding of spelling patterns/identity/length | Measured two-slice results, no invented hard limit |
 
-Visual design deliberately varies: token tracks/arrangement, scalar computational graph, exact tree/beam table, fitted states/probability strips, actual outcome plots. A/E exploratory figures are not falsely counted as gated investigations. Every gated task has a fresh default distinct from the immediately worked example, an initially unset input-bound prediction, actual meaningful entity edits, computed grading and null/contrast fixtures. Detailed contracts live in `visual-specifications.md`.
+Visual design deliberately varies: token tracks/arrangement, scalar computational graph, exact tree/beam table, fitted states/probability strips, actual outcome plots. A/E exploratory figures are not falsely counted as gated investigations. Every gated task has a fresh Compute the comparison from the complete current inputs. Detailed contracts live in `visual-specifications.md`.
 
 ## Canonical-reference section audit
 
@@ -123,3 +123,25 @@ Read the full final learner prose in two bounded chunks, the complete bound trai
 Executed author-checks.py: final source/data hashes, full-program binding, both displayed-code blocks (first compiled/bound to previously executed complete fits; second actually executed), closed16 practice hint/solution blocks, all final3-seed metric/denominator reconciliation, every source-batch array, source-only447-example inference parity, scalar finite-difference agreement, zero-rate and identical-context/repeated-source/cosmetic-label calculation nulls, fresh length-score pair, practice2 arithmetic and actual neighboring manifest IDs. All passed. A prior stdout code-page error affected only the first manuscript-reading command; UTF-8 output was then used to read that full chunk. It did not alter content or calculations. The concrete split-overlap correction is recorded above; there were no further model/data changes. git diff --check passed for this topic.
 
 Learning-experience checklist: clear problem/first-pass route; local state/token/shape/loss prerequisites; full mechanism and scalar update; real data with countervailing rule baseline; measured outcomes interpreted without universal claims; varied figures and fresh gated entity edits; optional advanced branches; cautions have useful homes; no invented state semantics/benchmarks; complete offline program and inference route; independently changed practice with closed non-answer hints and solutions; primary/canonical coverage plus annotated video/notes; real previous/next module links. Correctness checks do not substitute for this reread. Content is ready for root reconciliation/checkpoint; all phase-two implementation/review/browser checks remain deferred.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Explore source, prefix and decoding paths. Edit source/target shifts, bridge weights/rate, tiny probability trees, beam width and supported fitted source/prefix inputs. Show aligned timelines, dependency paths, sequence probabilities and bounded beam candidates live. Keep teacher-forced versus generated inputs explicit at every step. Distinguish model probability from a decoding decision and identify when a prefix or alignment changes the actual task.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+
+## Implementation-depth writing revision — 22 September 2026
+
+Delivery mode: **content first**. The mechanism and ordinary-tool teaching below is written now; it is not an instruction for the finishing agent to invent missing content. Existing measured experiments and their historical evidence remain unchanged unless explicitly stated. The current manuscript section “Reuse the cell; implement the encoder–decoder protocol” gives the learner route.
+
+| Computational outcome | Scratch owner and abstraction | Ordinary tool and matched comparison | Control / practice and boundary |
+| --- | --- | --- | --- |
+| Joint encoding/decoding, teacher forcing, shifted targets and learning | `sequence-mechanics.py:scalar_joint, manual_trace`; local complete protocol in inflection-seq2seq.py | nn.Embedding/GRU/CE/Adam composition; exact prepared recurrent-mechanics.py cell reuse | Batched variable EOS extension with source/state ownership solution |
+| Greedy/beam search and evaluation | `inflection-seq2seq.py:greedy, beam, summarize`; `tree_search` independent tiny case | Standard tensor/log_softmax operations; no artificial generic generation API | Beam-width1, parent gather, caps and length-score policies; existing changed-tree practice retained |
+
+All local filenames in the map are retained draft sources beside this design. A linked prepared prerequisite is not yet the improved published page: finish in module order or carry its declared source with the lesson. Already implemented autograd/loss/normalization/tensor lessons may be reused as stated; no new differentiation engine, BLAS or convolution backend is implied. Optional historical families remain explanations of a distinction unless a local implementation is explicitly named.
+
+The content packet is ready for phase-two construction after central source checkpointing. Finishing must execute the supplied comparisons on declared compatible versions, resolve any observed numerical/convention differences, expose the exact code/downloads, and verify rendering, live controls, accessibility and production loading. Unexecuted optional package/GPU/checkpoint examples remain explicitly unexecuted; do not print invented outputs or copy previous measurements onto new code.

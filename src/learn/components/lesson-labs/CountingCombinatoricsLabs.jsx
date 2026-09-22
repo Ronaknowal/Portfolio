@@ -39,7 +39,7 @@ export function ChoiceIdentityLab() {
   }
   return <section className="counting-lab" aria-label="Outcome identity and fibers investigation">
     <h3>What did forgetting order merge?</h3>
-    <p>Predict the number of descriptions for one group. Then allow repetitions: will every group still have the same size?</p>
+    <p>Inspect the number of descriptions for one group. Then allow repetitions: will every group still have the same size?</p>
     <div className="counting-controls"><Select label="Available labels" value={labelCount} choices={[0, 1, 2, 3, 4].map(value => [value, value])} onChange={value => {
         setLabelCount(Number(value));
         setIndex(0);
@@ -117,7 +117,7 @@ export function InclusionExclusionLab() {
   const [selected, setSelected] = useState(11);
   const data = overlapContributions(memberships);
   const current = data.stages[stage - 1];
-  return <section className="counting-lab" aria-label="Inclusion exclusion contribution investigation"><h3>Follow one object's overcount</h3><p>Object 12 starts in A, B and C. Predict its net contribution after adding singles, subtracting pairs, then restoring the triple overlap.</p>
+  return <section className="counting-lab" aria-label="Inclusion exclusion contribution investigation"><h3>Follow one object's overcount</h3><p>Object 12 starts in A, B and C. Inspect its net contribution after adding singles, subtracting pairs, then restoring the triple overlap.</p>
     <div className="counting-actions">{[[1, '1 · Add singles'], [2, '2 · Subtract pairs'], [3, '3 · Add triple']].map(([value, label]) => <button type="button" key={value} aria-pressed={stage === value} onClick={() => setStage(value)}>{label}</button>)}</div>
     <div className="counting-membership-roster">{memberships.map((row, index) => <button type="button" key={index} aria-label={`Inspect object ${index + 1}`} aria-pressed={selected === index} onClick={() => setSelected(index)}><strong>{index + 1}</strong><span>{row.map((present, set) => present ? 'ABC'[set] : '').join('') || 'none'}</span><small>weight {current.weights[index]}</small></button>)}</div>
     <div className="counting-selected-object"><strong>Object {selected + 1}</strong><div className="counting-actions">{[0, 1, 2].map(set => <button type="button" key={set} aria-label={`Object ${selected + 1} in set ${'ABC'[set]}`} aria-pressed={memberships[selected][set]} onClick={() => setMemberships(old => old.map((row, index) => index === selected ? row.map((value, column) => column === set ? !value : value) : row))}>{'ABC'[set]}: {memberships[selected][set] ? 'yes' : 'no'}</button>)}</div><div className="counting-contributions">{data.terms.filter(term => term.sets.length <= stage).map(term => <span key={term.sets.join('')}><small>{term.sets.map(set => 'ABC'[set]).join('∩')}</small><strong>{term.members.includes(selected + 1) ? term.sign > 0 ? '+1' : '−1' : '0'}</strong></span>)}</div></div>
@@ -146,7 +146,7 @@ export function InductionCoverageLab() {
     setEnabled(Array(inductionPresets[value].small).fill(true));
     setTarget(inductionPresets[value].lower + 20);
   }
-  return <section className="counting-lab" aria-label="Induction base coverage investigation"><h3>Does this proof chain reach a supported base?</h3><p>Remove one base certificate. Predict which targets lose support. Their arithmetic representability is checked separately.</p><div className="counting-controls"><Select label="Token values and theorem" value={presetName} choices={[["fourSeven", '4 and 7: every total at least 18'], ['threeFive', '3 and 5: every total at least 8']]} onChange={preset} /><Select label="Target total" value={target} choices={Array.from({
+  return <section className="counting-lab" aria-label="Induction base coverage investigation"><h3>Does this proof chain reach a supported base?</h3><p>Remove one base certificate. Inspect which targets lose support. Their arithmetic representability is checked separately.</p><div className="counting-controls"><Select label="Token values and theorem" value={presetName} choices={[["fourSeven", '4 and 7: every total at least 18'], ['threeFive', '3 and 5: every total at least 8']]} onChange={preset} /><Select label="Target total" value={target} choices={Array.from({
         length: 31
       }, (_, index) => data.lower + index).map(value => [value, value])} onChange={value => setTarget(Number(value))} /></div>
     <div className="counting-base-cases">{data.bases.map(([small, large], index) => <button type="button" key={index} aria-pressed={enabled[index]} aria-label={`Base ${data.lower + index} certificate`} onClick={() => setEnabled(old => old.map((value, position) => position === index ? !value : value))}><strong>{data.lower + index}</strong><span>{small}×{data.small} + {large}×{data.large}</span><small>{enabled[index] ? 'certificate present' : 'certificate removed'}</small></button>)}</div>
@@ -190,7 +190,7 @@ export function CatalanPathsLab() {
   const currentIndex = Math.min(index, Math.max(0, words.length - 1));
   const word = words[currentIndex];
   const data = word === undefined ? null : parenthesisPath(word);
-  return <section className="counting-lab" aria-label="Balanced paths and reflection investigation"><h3>Give every bad path a reversible description</h3><p>A bad word has equally many opens and closes but crosses below zero. Predict what reflecting its first offending prefix does to the endpoint. Switch to balanced words to inspect the unique first-return split.</p><div className="counting-controls"><Select label="Parenthesis pairs" value={pairs} choices={[0, 1, 2, 3, 4, 5].map(value => [value, value])} onChange={value => {
+  return <section className="counting-lab" aria-label="Balanced paths and reflection investigation"><h3>Give every bad path a reversible description</h3><p>A bad word has equally many opens and closes but crosses below zero. Inspect what reflecting its first offending prefix does to the endpoint. Switch to balanced words to inspect the unique first-return split.</p><div className="counting-controls"><Select label="Parenthesis pairs" value={pairs} choices={[0, 1, 2, 3, 4, 5].map(value => [value, value])} onChange={value => {
         setPairs(Number(value));
         setIndex(0);
         setReflected(false);
@@ -226,7 +226,7 @@ export function CoefficientConstructionLab() {
     degree: target - extra,
     count: prior[target - extra] || 0n
   })) : [];
-  return <section className="counting-lab" aria-label="Generating coefficient construction investigation"><h3>Watch a coefficient collect its contributions</h3><p>Predict how many ways the last station can contribute to total three. A coefficient counts assignments; the exponent records the total number of tokens.</p><div className="counting-controls">{capacities.map((capacity, index) => <Select key={index} label={`Station ${'ABC'[index]} capacity`} value={capacity} choices={[0, 1, 2, 3, 4].map(value => [value, value])} onChange={value => setCapacities(old => old.map((amount, position) => position === index ? Number(value) : amount))} />)}</div>
+  return <section className="counting-lab" aria-label="Generating coefficient construction investigation"><h3>Watch a coefficient collect its contributions</h3><p>Explore how many ways the last station can contribute to total three. A coefficient counts assignments; the exponent records the total number of tokens.</p><div className="counting-controls">{capacities.map((capacity, index) => <Select key={index} label={`Station ${'ABC'[index]} capacity`} value={capacity} choices={[0, 1, 2, 3, 4].map(value => [value, value])} onChange={value => setCapacities(old => old.map((amount, position) => position === index ? Number(value) : amount))} />)}</div>
     <div className="counting-controls"><Select label="Factors included" value={stage} choices={[[0, 'None: constant 1'], [1, 'A'], [2, 'A and B'], [3, 'A, B and C']]} onChange={value => setStage(Number(value))} /><Select label="Target degree" value={target} choices={Array.from({
         length: 14
       }, (_, value) => [value, value])} onChange={value => setTarget(Number(value))} /></div>
@@ -254,7 +254,7 @@ export function RotationOrbitsLab() {
   const fixing = Array.from({
     length
   }, (_, rotation) => rotation).filter(rotation => word.slice(rotation) + word.slice(0, rotation) === word);
-  return <section className="counting-lab" aria-label="Cyclic pattern symmetry investigation"><h3>Does every pattern have the same number of rotations?</h3><p>Find the alternating four-site pattern. Predict how many different images it has and which shifts leave it fixed.</p><div className="counting-controls"><Select label="Ring sites" value={length} choices={[3, 4, 5, 6].map(value => [value, value])} onChange={value => {
+  return <section className="counting-lab" aria-label="Cyclic pattern symmetry investigation"><h3>Does every pattern have the same number of rotations?</h3><p>Find the alternating four-site pattern. Explore how many different images it has and which shifts leave it fixed.</p><div className="counting-controls"><Select label="Ring sites" value={length} choices={[3, 4, 5, 6].map(value => [value, value])} onChange={value => {
         setLength(Number(value));
         setIndex(0);
         setShift(0);

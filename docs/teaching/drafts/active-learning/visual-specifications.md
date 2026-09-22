@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # Active learning — visual and investigation contracts
 
 Content prepared; implementation not started. This file specifies behavior, not delivered UI. Use the canonical `active-learning` topic ID and topic-owned imports. Keep the manuscript's alternative visual forms: an annotation queue, threshold rulers, probability strips, committee decomposition, geometric distance map, measured acquisition curves, and state timeline. Do not replace them with a repeated text-output lab. No chart is a measured benchmark unless its data are in `checked-results.json` under `banknotes`.

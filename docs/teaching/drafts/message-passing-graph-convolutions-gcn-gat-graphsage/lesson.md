@@ -1,5 +1,8 @@
 # Message Passing & Graph Convolutions (GCN, GAT, GraphSAGE)
 
+**Explore as you read.** Change directed edges/node features, aggregation/normalization, attention scores, masks and supported fitted-graph inputs. Update adjacency, degree factors, synchronized round states, reachability, information boundaries and fitted outputs together. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose aggregation and sampling from information flow, normalization and expressiveness while avoiding evaluation leakage.
+
+
 A paper’s words help identify its subject. Its citations may help too: a short ambiguous paper could cite several unmistakable robotics papers. A model that reads each paper independently misses those relationships. A graph neural network gives each paper a representation that can be updated using information from connected papers.
 
 The central operation is simple: **send information along permitted edges, combine the incoming messages, then update each node.** The same learned rule is reused across nodes. Nodes can have different numbers of neighbors, and renaming them should not change the underlying predictions.
@@ -68,7 +71,7 @@ With one round of strictly local messages, node 0 can use initial states from no
 
 The reachable set and its numerical influence are different views. An architecture diagram shows a possible dependency; a derivative or controlled edit shows an actual dependency at a specified input and parameter setting.
 
-**Investigation: move a value through two rounds.** Start on the three-node path with synchronized neighbor means. Predict which outputs change when x₂ changes from 4 to 8. Reveal round 1 and round 2 separately. Then use an intentionally asynchronous update and reorder processing to expose the difference. Reset returns to synchronized semantics. The learner should explain a path, not just press Next through an animation.
+**Investigation: move a value through two rounds.** Start on the three-node path with synchronized neighbor means. Inspect which outputs change when x₂ changes from 4 to 8. Reveal round 1 and round 2 separately. Then use an intentionally asynchronous update and reorder processing to expose the difference. Reset returns to synchronized semantics. The learner should explain a path, not just press Next through an animation.
 
 ## 3. GCN: a normalized weighted sum
 
@@ -158,7 +161,7 @@ A subtle limit: in the original additive scoring form, the receiver contributes 
 
 For example, take sender scores 1 and 2. Receiver score 0 gives preactivations (1,2); receiver score−3 gives (−2,−1), or (−.4,−.2) after a slope.2 LeakyReLU. The second sender ranks first in both cases, although the normalized weights are less unequal in the second. Changing the permitted neighbor set is another way weights can differ.
 
-**Visual: compare actual aggregation rules.** Keep one graph and one feature table fixed. GCN arrows display degree factors; GraphSAGE displays a separate self rail and neighbor mean; GAT displays scores, the local softmax denominator and weighted messages. The learner constructs a feature change and predicts which rule’s weights change. A zero attention vector gives uniform permitted weights; a forbidden sender stays absent even if its score would be large. High attention is a mixing coefficient, not proof that an edge caused a correct decision.
+**Visual: compare actual aggregation rules.** Keep one graph and one feature table fixed. GCN arrows display degree factors; GraphSAGE displays a separate self rail and neighbor mean; GAT displays scores, the local softmax denominator and weighted messages. The learner constructs a feature change and inspects which rule’s weights change. A zero attention vector gives uniform permitted weights; a forbidden sender stays absent even if its score would be large. High attention is a mixing coefficient, not proof that an edge caused a correct decision.
 
 ## 5. The data split is part of the graph model
 
@@ -184,7 +187,7 @@ Split labels once with seed 133: five fitting, three development and nine assess
 
 There is another useful baseline: start a two-column label-score matrix with one-hot values only on the fitting nodes, repeatedly average scores over closed neighborhoods, and restore those fitting labels after each step. This **label propagation** baseline explicitly carries the known training labels across edges. The neural models instead learn shared parameters from those labels and receive only the three structural features as inputs. They use graph information differently; label propagation can be an excellent choice for this particular known-graph task.
 
-**Predict before the run.** Will learned attention necessarily beat label propagation? Will removing message edges always hurt? Record your reasons before reading the actual results.
+**Compare the actual results.** Inspect learned attention beside label propagation, then remove message edges and follow the effect. Explain why neither change has a guaranteed improvement.
 
 ### Complete offline program
 
@@ -383,7 +386,32 @@ The “propagation removed” diagnostic sets adjacency to zero **while holding 
 
 The program also relabels nodes and permutes feature rows and both adjacency axes together. Predictions should permute in the same way, within floating-point tolerance. It retains all probabilities and, for seed 11, actual hidden states, parameters and GAT weights. The graph and matrix view can therefore inspect a real incorrect prediction, rather than a hand-painted “learned” heatmap.
 
-**Investigation: inspect a fitted decision.** Select an assessment node and reveal its probability, true label, available feature vector and neighbors. Predict whether a node relabeling changes its semantic prediction; run the stored-model permutation check. Compare the same node across model types without changing the dataset silently. For a feature or edge edit, use the retained seed 11 model and recompute all specified layers; label graph-derived features as fixed or recomputed, rather than mixing those two interventions. This is a bounded model on 34 nodes, not browser training on a hidden large graph.
+**Investigation: inspect a fitted decision.** Select an assessment node to inspect its probability, true label, available feature vector and neighbors immediately. Observe whether a node relabeling changes its semantic prediction; run the stored-model permutation check. Compare the same node across model types without changing the dataset silently. For a feature or edge edit, use the retained seed 11 model and recompute all specified layers; label graph-derived features as fixed or recomputed, rather than mixing those two interventions. This is a bounded model on 34 nodes, not browser training on a hidden large graph.
+
+### Move the same layer from a matrix to an edge list
+
+The dense matrices above are useful because every permitted contribution is visible. A real graph often has far fewer edges than N². Keep the same equation while storing only the edges: project each node once, gather the sending vectors, multiply by an edge coefficient, and add them into the receiving rows. This is the mechanism behind the complete [sparse implementation and PyG bridge](graph_library_bridge.py), not a second independently fitted experiment.
+
+`SparseGraphLayer` implements all three operators with tensor primitives. `index_add_` performs the sum over incoming messages. GCN builds the two endpoint-degree factors after inserting one loop per node. GraphSAGE divides each incoming contribution by the receiver's neighbor count and adds a separate self transform. GAT computes one score per edge, subtracts the receiver's maximum before exponentiating, divides by that receiver's sum, and then aggregates. Detaching the maximum in this stabilization is valid: a common additive shift cancels from the softmax, including its derivative. It does not detach the scores or learned attention parameters.
+
+The input contract is a simple unweighted graph: `edge_index[0]` names sources, `edge_index[1]` names targets, with no duplicate pairs or pre-existing loops. For an undirected edge supply both directions. A dataset with repeated edges requires an explicit multigraph/weight policy; silently leaving duplicates in an edge list while assigning a dense entry to one changes the operation. GCN/GAT insert their own loops; an isolated node therefore reads itself. A GraphSAGE isolate has zero neighbor contribution and retains its self branch. The directed example checks the stated receiving-degree convention; the symmetric spectral theorem in §7 still requires an undirected graph.
+
+| Scratch parameter | PyG parameter | Semantic choice fixed here |
+| --- | --- | --- |
+| GCN `linear.weight`, `bias` | `GCNConv.lin.weight`, `bias` | Receiving degrees, add one loop, `improved=False`, `cached=False` |
+| SAGE neighbor map, self map, bias | `SAGEConv.lin_l.weight`, `lin_r.weight`, `lin_l.bias` | Mean neighbors, no projection activation, no final L2 normalization |
+| GAT projection, sender score, receiver score | `GATConv.lin.weight`, `att_src`, `att_dst` | One head, slope .2, zero dropout, no extra residual |
+
+The file supplies the fixture, all imports and both implementations. In an environment with PyTorch, `python graph_library_bridge.py --scratch-only` compares the sparse mechanism with its dense equation. The author ran that bounded check with Torch 2.14.0 CPU: all nine graph/operator cases passed, including an isolate, a changed directed graph and an empty edge list; the largest displayed output discrepancy was about 5.56e-17. These are arithmetic fixtures, not a new accuracy benchmark.
+
+For the ordinary package route, install `torch-geometric==2.9.0` into a compatible PyTorch environment, then run `python graph_library_bridge.py`. The supplied mapping follows the [GCNConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.GCNConv.html), [SAGEConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.SAGEConv.html) and [GATConv](https://pytorch-geometric.readthedocs.io/en/2.9.0/generated/torch_geometric.nn.conv.GATConv.html) contracts. **This package route is written but has not been executed for this content revision.** Its assertions compare outputs, feature gradients, every mapped parameter gradient and an equal .03 SGD step. Expected results are agreement within the stated float64 tolerances, not invented saved output. This same layer can replace each corresponding layer in `NodeClassifier`; preserve the label mask, two nonlinear stages and training protocol when doing so.
+
+The sparse mechanism uses O(N d_in d_out + E d_out) arithmetic and O(N d_out + E d_out) working storage with the explicit gathered edge messages shown here, plus graph indices and parameters. This avoids a dense N×N attention/propagation matrix; it is not a universal speed guarantee. For very large graphs, a fused scatter/message kernel or sampled computation can reduce temporary storage. Keep `cached=False` when editing edges: cached normalizers describe the old graph.
+
+**Take control.** Remove both directions of edge 1—2, then add node 3→1 only. Run all three comparisons and inspect node 3's own output before and after the addition. Add a second GAT head by giving each head its own projection/score vectors, then decide whether to concatenate or average.
+
+<details><summary>Hint</summary>Source and target determine who changes directly. Concatenating two width-d heads produces width 2d; averaging retains d.</details>
+<details><summary>Solution and success criteria</summary>The new directed edge permits node 1 to read node 3. GraphSAGE node 3 still has no incoming neighbors and keeps its self branch. GCN also changes degree factors on affected endpoints, so message direction alone is not sufficient to enumerate every changed coefficient. Match `heads=2` and `concat` in PyG, copy each head separately, and compare each receiver's coefficients, input/parameter gradients and one update. Repeating the same head twice is a useful equality fixture but does not demonstrate independently learned heads.</details>
 
 ## 7. Why repeated propagation can blur distinctions
 
@@ -417,7 +445,7 @@ A polynomial graph filter connects the spectral view to locality. If p (S)=a₀I
 
 Without self-loops a two-node graph simply swaps its two values each round. Starting (1,0) alternates forever. The self-loop/aperiodicity assumptions matter. Disconnected graphs have a surviving component for each connected piece, and directed or signed graphs require a different analysis.
 
-**Visual: three coordinates, three modes.** Plot actual iterates for the unequal-degree path beside degree-divided iterates. A mode panel shows signed gain and magnitude separately. Let the learner predict whether the raw middle value must match the endpoints, then compare with the two-node no-loop cycle. Do not replace this calculation with a fabricated “all GNNs collapse after four layers” chart.
+**Visual: three coordinates, three modes.** Plot actual iterates for the unequal-degree path beside degree-divided iterates. A mode panel shows signed gain and magnitude separately. Show whether the raw middle value matches the endpoints as the learner edits the graph, then compare with the two-node no-loop cycle. Do not replace this calculation with a fabricated “all GNNs collapse after four layers” chart.
 
 In a trained network, **over-smoothing** refers broadly to representations losing useful node distinctions through mixing. **Over-squashing** is different: many distant influences must pass through limited-size states or narrow connectivity. A tree can collect exponentially many distant inputs into one fixed-width vector even when those inputs are not averaged to the same value. **Optimization failure** and **overfitting** are additional possibilities. Diagnose them separately using training error, held-out behavior, representation variation and a task-specific long-range intervention.
 
@@ -439,7 +467,7 @@ The states supplied to that sum must themselves preserve the distinctions needed
 
 Mean fails to count repeated copies of a multiset: (a,b) and (a,a,b,b) have the same mean. Maximum loses multiplicity even more directly. This does not make mean or maximum poor choices for every prediction task. Sometimes the intended property is an average or a presence signal, and ignoring size is helpful.
 
-**Investigation: construct a collision.** Enter two small multisets and choose sum/mean/max. Predict equality, reveal it, then try a feature map (x,x²). The task is to create a collision and explain which information disappeared. A second view compares the six-cycle and two triangles with identical inputs. Adding a supported structural feature, such as a component indicator or a correctly defined positional encoding, changes the information available; it is not a free consequence of plain GIN.
+**Investigation: construct a collision.** Enter two multisets and choose sum, mean or max. Watch the two outputs, then add a feature map $(x,x^2)$ and inspect which information becomes distinguishable. A second view compares a six-cycle and two triangles with identical inputs. A component indicator or valid positional encoding supplies additional information; plain GIN does not acquire it automatically.
 
 ## 9. Sampling, batching and useful applications
 

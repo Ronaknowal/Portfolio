@@ -64,7 +64,7 @@ export function CompletionFigure() {
 export function FunctionSpikeLab() {
   const [width, setWidth] = useState(.125);
   const state = spikeState(width);
-  return <section className="functional-lab" aria-label="Spike and evaluation investigation"><h3>Small area, unchanged reading</h3><p>Predict what happens to f(.5) when the spike narrows. The shaded graph is f², whose area is the squared L² norm; the peak remains at the same location.</p>
+  return <section className="functional-lab" aria-label="Spike and evaluation investigation"><h3>Small area, unchanged reading</h3><p>Inspect what happens to f(.5) when the spike narrows. The shaded graph is f², whose area is the squared L² norm; the peak remains at the same location.</p>
     <Slider label="Spike half-width" value={width} set={setWidth} min={.005} max={.45} step={.005} />
     <CurvePlot curves={[{
       label: 'f',
@@ -146,7 +146,7 @@ export function RepresenterGeometryLab() {
   const [amplitude, setAmplitude] = useState(.5);
   const [extra, setExtra] = useState(false);
   const state = representerState(amplitude, extra);
-  return <section className="functional-lab" aria-label="Representer geometry investigation"><h3>Move a curve where the observations cannot see</h3><p>The measured targets lie at (.5,1) and (1,0), with the fixed anchor (0,0). Add a wiggle ending before .5. Predict which sample values and which energy change.</p>
+  return <section className="functional-lab" aria-label="Representer geometry investigation"><h3>Move a curve where the observations cannot see</h3><p>The measured targets lie at (.5,1) and (1,0), with the fixed anchor (0,0). Add a wiggle ending before .5. Inspect which sample values and which energy change.</p>
     <Slider label="Wiggle amplitude" value={amplitude} set={setAmplitude} min={-1.5} max={1.5} step={.05} />
     <CurvePlot curves={[{
       label: "minimal-energy curve",

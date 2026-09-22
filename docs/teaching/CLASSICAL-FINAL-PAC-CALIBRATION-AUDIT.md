@@ -1,0 +1,74 @@
+# Classical ML final audit — PAC/VC and calibration/conformal
+
+Independent final audit, 21 September 2026. Scope is the two already-completed lessons at positions 34–35; this author created neither packet nor implementation. The prepared manuscripts/specifications remain unchanged. Root owns shared integration and the delivery ledger.
+
+## PAC Learning & VC Dimension — checkpoint complete
+
+Read the entire prepared manuscript and visual specifications against the current twelve-section lesson, three investigations, eleven figures and model layer, with the design/provenance and independent-review dispositions. The finite-family derivation, agnostic ERM comparison, geometric shattering proofs, growth/Sauer argument, ghost-sample bridge, explicit VC conventions, interval construction, measured learning curves, advanced connections and all nine changed practice tasks are preserved. The documented matrix-to-band and repeated-simulation-to-figure substitutions retain their teaching purposes. No new theorem or research claim was introduced.
+
+References: [full prepared packet](drafts/pac-learning-vc-dimension/), [manuscript](drafts/pac-learning-vc-dimension/lesson.md), [visual specifications](drafts/pac-learning-vc-dimension/visual-specifications.md), [original design and dispositions](drafts/pac-learning-vc-dimension/design.md), [previous independent review](PAC-LEARNING-INDEPENDENT-REVIEW.md). These historical records and the prepared content checkpoint were preserved.
+
+### Concrete findings and closure
+
+| Finding in supported inputs | Repair and evidence |
+| --- | --- |
+| Three `Translate +2` clicks produced coordinates 6.2/6.5/6.8 despite the stated maximum 5; Add could do the same. Add/preset buttons also exceeded the stated 24-observation limit. | Disable out-of-range translations; Add chooses an unused in-range position; all observation buttons/presets enforce the same cap. Exercised through actual controls. |
+| Manual labels at repeated coordinates threw `points x1 and x2 share the coordinate 0.1`. Repetition is allowed by the observation controls and can occur in rounded seeded draws. | Agreeing duplicate labels collapse only for feasibility analysis; conflicting labels return an impossible deterministic-rule request. The browser accepts an agreeing duplicate without an exception; independent model cases cover both. |
+| Returning from a committed manual-label request to generated labels graded “does not move” although the earlier request had no population risk. | The first generated result explicitly establishes a new baseline, with a numeric risk prediction. No direction is invented. History retains original outcome labels and does not compare different question modes. |
+| Reset preserved RNG seed 99 and the changed draw size. | Reset restores seed 7 and draw size 8 along with the investigation. |
+| Target [.1,.4], fit [.2,.3], ε=.2 produced risk .20000000000000007 and incorrectly failed the target. | A 1e−12 comparison allowance absorbs subtraction roundoff. Targeted checks accept risks .199 and .2 but reject .201, keeping adjacent supported thousandth-grid inputs distinct. |
+| ε greater than the target width still drew ε/2 strips outside the target; fixed-coordinate presets still called .01/.99 “negative” after changing the target to [0,1]. | Suppress the unnecessary strips and explain why every fitted risk is at most the target width. Preset labels now reflect the applied target; [0,1] correctly labels those additions positive and grades the risk fall .2→.02. |
+
+### Teaching and visual review
+
+The first-pass route, separate exact/theorem/measurement evidence, explained geometric obstructions, genuine prediction gates and changed-number practice remain clear. Static figure inspection covered the two probability levels; candidate bands; triangle, crossing-diagonal and interior-point cases; logarithmic growth; ghost-sample collapse; vacuous-radius region; separated target/error/coverage rows; simulation quantiles; measured procedure comparison; and sine-sign dials. Existing source-matching figure images were opened and inspected, rather than inferred from a green geometry check. Current corrected lab states were captured at 1366, 390 and 320 pixels and inspected; no horizontal overflow or page exception was found. Figure 2's elimination table remains directly understandable from its complete source and prior matching browser evidence.
+
+### Checks actually run
+
+- `node scripts/build-curriculum-inventory.mjs --topic pac-learning-vc-dimension --work finish`: complete content and implementation checkpoint found; used as read-only preflight.
+- `node scripts/verify-pac-models.mjs --no-evidence`: 525 grouped checks / 98 groups passed after the corrections.
+- `scratch/lesson-tools/Scripts/python.exe scripts/verify-pac-sources.py --no-evidence`: 98 source-hygiene checks passed after the corrections.
+- `node scripts/verify-classical-final-pac-calibration.cjs pac`: 14 targeted supported-state checks and four captures passed on the shared Vite server. Exact source hashes, assertions and image digests are in [the audit evidence](evidence/classical-final-audit-pac-calibration.json).
+- Hash comparison confirmed the retained PAC native receipt still matches every frozen program/result and the generated example module. Native/scikit-learn runs were reused, not rerun. Existing data, figure and native artifacts were not overwritten; no falsification harness ran.
+
+This is an independent expert/heuristic review, not a novice-user study. Source hashes establish identity only; the content comparison, direct reproductions and numerical boundary cases establish the conclusions. The original full-browser receipt remains historical for the pre-correction lab source. Shared production build/integration remains with root.
+
+## Calibration & Conformal Prediction — checkpoint complete
+
+Compared the complete eleven-section implementation with the full prepared manuscript, visual contracts, both runnable packet programs, data provenance and retained results; read all four investigations, their shared state/controls, twelve figure components and the complete model layer. Read the original design/independent-review findings and their final dispositions before choosing complementary checks. The intentionally separate core route (sections 1–8 and practice 1–6) and deeper section 9 remain intact.
+
+References: [full prepared packet](drafts/calibration-conformal-prediction/), [manuscript](drafts/calibration-conformal-prediction/lesson.md), [visual specifications](drafts/calibration-conformal-prediction/visual-specifications.md), [original design and dispositions](drafts/calibration-conformal-prediction/design.md), [previous independent review](CALIBRATION-INDEPENDENT-REVIEW.md). The prepared packet and its original `design.md` were not changed. In particular, the previously adjudicated last-digit SciPy/Newton difference remains recorded; neither the packet nor its measurements were rehashed to conceal it.
+
+### Coverage and technical assessment
+
+The lesson retains class-probability versus top-confidence conditioning, information/resolution and cost, finite-bin uncertainty and ECE cancellation, Brier/AUC distinctions, smoothed sigmoid and weighted tied-score PAV, temperature versus decisions, four information roles and cross-validation inference contracts. The conformal portion retains the exact finite rank and infinity convention, weak score comparison, distinct/tied rotation argument, normalized residual units, signed CQR and crossing, both real experiments with fixed roles and denominators, marginal versus calibration-conditional versus assessment coverage, group/class/selection limits, APS boundaries, full conformal/jackknife+/CV+, shift and risk-control extensions, and eight changed practice tasks with closed hints/solutions. The implementation's teaching substitutions are documented and preserve the manuscript's mechanisms. No core strand was lost in translation.
+
+The native Python one-class check is an explicit input contract (both binary classes required); it does not itself claim non-identifiability. Its code and previously executed evidence therefore remain valid. The mathematical error was added later in the browser explanation and body. For the correction I checked [Lin, Lin and Weng's primary analysis](https://www.csie.ntu.edu.tw/~htlin/paper/doc/plattprob.pdf), especially the smoothed targets and positive-definite Hessian condition, then independently evaluated the constant-target gradient and determinant for both all-positive and all-negative six-score samples.
+
+### Concrete findings and closure
+
+| Finding in supported inputs | Repair and evidence |
+| --- | --- |
+| The body and sigmoid refusal said one outcome class cannot determine slope/offset even with smoothed targets. | Explain the lab's both-class evidence policy, distinguish it from undefined AUC, and exhibit the finite optimum a=0, b=logit(t). Varying scores give positive Hessian determinant. Body, model refusal and actual overlay agree. |
+| After making every outcome 1 and merging bins, the displayed ECE was .5 but feedback said any single occupied bin has zero error. | State the absolute difference of the two overall averages; it is zero only if they agree. The browser checks the .5 case. Brier and AUC now receive their own explanation instead of unrelated ECE prose. |
+| The finished all-tied isotonic state attempted to interpolate between the first and nonexistent second knot. | Explain the one-block constant/clipped map without indexing a second knot. Actual six equal-score inputs complete and reveal correctly, including the one-class overlay. |
+| At alpha=.01, ordinary interval grading called an infinite threshold an empty set; CQR threw `the new value must be a finite number, not Infinity`. | Keep Infinity as unbounded width; add a distinct whole-line category and finite/infinite direction handling. Exercise absolute, normalized and CQR branches into infinity and back to finite ranks. Numeric guess 99 is explicitly rejected as finite while the selected category is marked correct. |
+| Interval baseline captions used the old branch, although grading recomputed the baseline under the new branch. CQR feedback explained a local-scale multiplication it never uses. | Caption and grader now select the same score branch/query. Absolute/CQR feedback names their actual construction; crossed CQR endpoints remain distinct from the whole line. Browser checks the absolute baseline width 12 and empty CQR → finite width 6. |
+| Several presets promised operations they did not perform after ordinary edits: repaired forecasts reused an opening row-position fixture; last-two residual replacement reset other residuals; the lowest-score “null” raised an applied zero to .01; fixed CQR endpoint wording assumed original endpoints/scores. | Name and restore the complete original forecast fixture; change only the last two residuals; lower the minimum to 0 (the supported rank is at least 2); restore the exact stated CQR shrinking fixture; say “set” for the query-centre action. Actual controls verify the changed cases. |
+| The rank lab ignored its model's selected-label offset and described a fixed [0,1] axis despite admitting scores to 2. The probability-layer caption reversed the reading direction. | Use the existing selected-label geometry only after reveal, describe the actual scale, and explicitly name what each probability-layer row holds fixed. No numerical or packet changes. |
+
+### Teaching and visual review
+
+The distinction among constructed population quantities, calibration-sample objects and held-out measurements is explicit throughout. The lessons teach mechanisms before abstraction: editable cards expose ECE cancellation, pooled blocks preserve counts, rank rotations explain the n+1 denominator, and interval units connect the threshold to an actionable answer. Outcome categories, numerical guesses and mechanisms now remain coherent in the corrected edge states. The richer optional branches are clearly marked; the eight practice tasks transfer the ideas rather than merely replay the default lab.
+
+Opened and inspected all sixteen retained desktop diagram captures: both conditioning views, both reliability states, pooled blocks, temperature bars, score rails, interval geometry, measured reliability and its separate calibration scores, all 120 airfoil intervals, logarithmic frequency/width, and the group mosaic. Their unchanged geometry/CSS remains reusable; the updated probability-layer caption has a new current capture. The original role-lane, cost/Brier and APS HTML content was compared against its source/specification. Seven current captures cover corrected ECE, single-knot/one-class output, the revised probability-layer block, unbounded CQR at 1366/390/320 and restored finite CQR at 320. The retained current 320-pixel states wrap legibly, preserve distinct set meanings and do not overflow. Global navigation is hidden only while capturing, preventing a fixed-header screenshot artifact from covering content. This is an expert/heuristic review; no novice study, assistive-technology session or claim of exhaustive input-state coverage is made.
+
+### Checks actually run
+
+- `node scripts/build-curriculum-inventory.mjs --topic calibration-conformal-prediction --work finish`: completed-topic read-only preflight; all destination proposals resolved.
+- `node scripts/verify-calibration-models.mjs --no-evidence`: 549 grouped checks / 72 groups passed after the corrections, including 98,200 exact-rank cases, 544 monotone fits, 11,907 CQR cases, 518,400 verdict/display pairs and 6,164 geometry checks. This is the existing bounded model suite, not the source-mutating falsification harness.
+- `scratch/lesson-tools/Scripts/python.exe scripts/verify-calibration-sources.py --no-evidence`: 85 hygiene checks over 19 files / 1,914 escape sites passed.
+- `node scripts/verify-classical-final-pac-calibration.cjs calibration`: 18 complementary checks and seven current captures passed. The last run also verifies the category/numeric distinction in the actual unbounded feedback. Exact current source and image hashes are retained in [the paired evidence](evidence/classical-final-audit-pac-calibration.json).
+- Compared every served native asset and both packet program hashes with the retained native receipt; compared generated data/examples with retained source hashes. Matching prior native/data execution was reused. No native program, dataset, measured result, old evidence file or falsification artifact was rewritten or rerun.
+
+Shared production build, full route integration and download-response byte checks belong to root and are recorded separately. The prior full-browser receipts remain historical for their named sources; these targeted current checks do not rebrand them as fresh comprehensive browser runs.

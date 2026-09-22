@@ -52,6 +52,7 @@
 .proof-check.is-false { color: #ffb7aa; }
 .proof-obligations { border-top: 1px solid #56553d; margin-top: 1.3rem; padding-top: 1rem; }
 .proof-obligations label { display: grid; gap: .4rem; }
+.proof-obligations select { min-width: 0; width: 100%; }
 .proof-obligations dl { margin: 0; }
 .proof-obligations dl > div { border-bottom: 1px solid #454839; padding: .6rem 0; }
 .proof-obligations dt { font-weight: 650; }

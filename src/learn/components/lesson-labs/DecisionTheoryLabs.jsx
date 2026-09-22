@@ -20,9 +20,9 @@ function Investigation({
   reset,
   prompt
 }) {
-  return <section className="decision-investigation" aria-label={title}>
+  return <section data-live-exploration className="decision-investigation" aria-label={title}>
     <div className="decision-investigation-heading"><h3>{title}</h3><button onClick={reset}>Reset</button></div>
-    <p className="decision-predict"><strong>Predict first.</strong> {prompt}</p>{children}
+    <p className="decision-guidance"> {prompt}</p>{children}
   </section>;
 }
 function Plot({

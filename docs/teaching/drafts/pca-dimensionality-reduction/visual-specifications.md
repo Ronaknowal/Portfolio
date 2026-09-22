@@ -1,5 +1,14 @@
 # PCA: visual and investigation specifications
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Rotate or fit a direction on editable points and follow scores, residual segments and squared loss immediately; change units or standardization and inspect the leading direction; move an error budget and inspect the first qualifying count and individual validation wines; vary spreads and label rules and inspect retained-coordinate collisions.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Content-first handoff, 12 September 2026. Read with [the manuscript](lesson.md) and [design/research record](../../PCA-LESSON-DESIGN.md). **These are specifications, not implemented or browser-verified components.** All desktop/mobile perceptibility, interaction, keyboard, runtime and performance checks below are phase-two acceptance criteria. No screenshots or rendered assets were produced in phase one.
 
 The representations have different jobs: a ruler exposes projection; a shape/operation diagram exposes array multiplication; a metric experiment exposes scaling; an empirical error curve supports a budget decision; a label strip exposes task-information loss. Do not convert them into one repeated text-output simulator. Reuse accessible controls and typography where useful.

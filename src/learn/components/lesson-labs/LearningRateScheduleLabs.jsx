@@ -53,7 +53,7 @@ function ScheduleRange({
   step = 1,
   onChange
 }) {
-  return <ScheduleField label={`${label}: ${formatValue(value)}`}>{id => <input id={id} aria-label={label} type="range" min={minimum} max={maximum} step={step} value={value} onChange={event => onChange(Number(event.target.value))} />}</ScheduleField>;
+  return <ScheduleField label={`${label}: ${formatValue(value)}`}>{id => <input id={id} aria-label={label} type="range" disabled={minimum === maximum} min={minimum} max={maximum} step={step} value={value} onChange={event => onChange(Number(event.target.value))} />}</ScheduleField>;
 }
 function ScheduleReadout({
   values
@@ -134,7 +134,7 @@ export function ScheduleShapeLab() {
   };
   return <section className="schedule-lab" data-lab="schedule-shape" aria-label="Inspect a finite schedule">
     <h3>Inspect the rates the updates will actually use</h3>
-    <p>Predict the first, peak and last used values. Change the policy, then inspect a point. Each dot is one scheduled update; connecting segments only help you follow their order.</p>
+    <p>Inspect the first, peak and last used values. Change the policy, then inspect a point. Each dot is one scheduled update; connecting segments only help you follow their order.</p>
     <div className="schedule-controls">
       <ScheduleSelect label="Rate policy" value={kind} options={kindOptions} onChange={value => {
         setKind(value);
@@ -202,7 +202,7 @@ export function ScheduleNoiseLab() {
   const upper = Math.max(lower + 1, Math.ceil(Math.max(...bothLogs.map(([, value]) => value))));
   return <section className="schedule-lab" data-lab="schedule-noise" aria-label="Investigate exact noise moments">
     <h3>A smaller rate changes both contraction and injected noise</h3>
-    <p>Predict which policy has smaller expected squared error after 24 updates. Then set noise to zero. Both start at error 3 on the same fixed quadratic; the gold policy and blue constant policy share peak η=.2.</p>
+    <p>Inspect which policy has smaller expected squared error after 24 updates. Then set noise to zero. Both start at error 3 on the same fixed quadratic; the gold policy and blue constant policy share peak η=.2.</p>
     <div className="schedule-controls">
       <ScheduleSelect label="Compared policy" value={kind} options={kindOptions.filter(([key]) => ['cosine', 'linear', 'one-cycle'].includes(key))} onChange={setKind} />
       <ScheduleRange label="Curvature h" value={curvature} minimum={.5} maximum={4} step={.5} onChange={setCurvature} />
@@ -245,19 +245,16 @@ export function ScheduleClockLab() {
   };
   return <section className="schedule-lab" data-lab="schedule-clock" aria-label="Trace schedule event clocks">
     <h3>Watch work arrive before an update is committed</h3>
-    <p>Twelve one-observation microbatches arrive. Accumulate their mean gradient in groups, optionally reject attempt two, and consume a rate only when the parameter is updated. Predict which counter should advance on the rejected attempt.</p>
+    <p>Twelve one-observation microbatches arrive. Accumulate their mean gradient in groups, optionally reject attempt two, and consume a rate only when the parameter is updated. Inspect which counter should advance on the rejected attempt.</p>
     <div className="schedule-controls">
       <ScheduleSelect label="Microbatches per attempt" value={accumulation} options={[[1, '1'], [2, '2'], [3, '3']]} onChange={value => {
         setAccumulation(Number(value));
-        setPosition(0);
       }} />
       <ScheduleSelect label="Schedule clock policy" value={policy} options={[["committed", 'Committed updates'], ['microbatch', 'Fault: microbatch index'], ['advance-first', 'Fault: advance before use']]} onChange={value => {
         setPolicy(value);
-        setPosition(0);
       }} />
       <ScheduleField label="Reject attempt two">{id => <input type="checkbox" id={id} checked={skipSecond} onChange={event => {
           setSkipSecond(event.target.checked);
-          setPosition(0);
         }} />}</ScheduleField>
     </div>
     <div className="schedule-event-lanes" role="group" aria-label="Microbatch and update lanes">
@@ -266,6 +263,14 @@ export function ScheduleClockLab() {
       <div className="schedule-lane-label">Attempt boundaries</div>
       <ol className="schedule-attempt-strip">{trace.states.slice(1).filter(state => state.microbatches % accumulation === 0).map(state => <li key={state.attempt} className={state.microbatches <= position ? 'is-past' : ''}><span>attempt {state.attempt}</span><small>after m{state.microbatches}</small><strong>{state.microbatches <= position ? state.action : 'pending'}</strong></li>)}</ol>
     </div>
+    <SchedulePlot title="Preview of parameter changes under the selected clock" description="Replay all twelve fixed microbatches with the selected accumulation and clock policy. Parameter changes occur only at successful update boundaries. The cursor marks the inspected microbatch." series={[{
+      key: 'parameter-after-microbatch',
+      dots: true,
+      values: trace.states.flatMap((state, index) => index === 0 ? [[0, state.parameter]] : [[index, trace.states[index - 1].parameter], [index, state.parameter]]),
+      color: '#f0c96d'
+    }]} xMaximum={12} yMinimum={Math.min(0, ...trace.states.map(state => state.parameter))} yMaximum={Math.max(1, ...trace.states.map(state => state.parameter)) * 1.1} selected={position} xLabel="microbatches processed" yLabel="parameter θ after microbatch" />
+    <p className="schedule-caption">Preview: the complete replay recomputes immediately; the event lanes and table still stop at your cursor. Horizontal segments hold θ between successful updates. A skipped attempt or an exhausted rate budget does not move θ. Changing settings keeps your inspection position.</p>
+    <ScheduleRange label="Inspect clock microbatch" value={position} minimum={0} maximum={12} onChange={setPosition} />
     <ScheduleStepper position={position} maximum={12} onChange={setPosition} reset={reset} noun="microbatch" />
     <ScheduleReadout values={[["Microbatches processed", position], ['Attempts / committed', `${current.attempt} / ${current.committed}`], ['Current action', current.action], ['Consumed schedule index', formatValue(current.scheduleIndex)], ['Rate used', formatValue(current.rate)], ['Parameter θ', formatValue(current.parameter)], ['Pending gradient sum', formatValue(current.pendingGradient)], ['Applied mean gradient', formatValue(current.appliedGradient ?? null)]]} />
     <p>The intended budget is {trace.updates} committed updates, with first/last rates .2/.01. A skipped attempt clears this example's accumulated gradients and uses no rate. A wrong clock can exhaust the finite list early; the model reports that error instead of silently reusing its last value.</p>
@@ -309,24 +314,21 @@ export function SchedulePlateauLab() {
   };
   return <section className="schedule-lab" data-lab="schedule-plateau" aria-label="Trace validation-triggered scheduling">
     <h3>A lower measurement may still fail the improvement test</h3>
-    <p>Here lower validation loss is better. Predict why .89 after best .90 does not improve by more than .02. Inspect the strict cutoff and the number of tolerated bad observations before a reduction.</p>
+    <p>Here lower validation loss is better. Investigate why .89 after best .90 does not improve by more than .02. Inspect the strict cutoff and the number of tolerated bad observations before a reduction.</p>
     <ScheduleField label="Validation losses (apply to use edits)">{id => <textarea id={id} value={text} onChange={event => setText(event.target.value)} rows={3} maxLength={220} />}</ScheduleField>
     <button onClick={apply}>Apply validation losses</button>{error && <p role="alert">{error} The previous valid stream is retained.</p>}
     <div className="schedule-controls">
       <ScheduleRange label="Patience" value={patience} minimum={0} maximum={3} onChange={value => {
         setPatience(value);
-        setPosition(0);
       }} />
       <ScheduleRange label="Absolute threshold δ" value={threshold} minimum={0} maximum={.1} step={.01} onChange={value => {
         setThreshold(value);
-        setPosition(0);
       }} />
       <ScheduleRange label="Cooldown observations" value={cooldown} minimum={0} maximum={3} onChange={value => {
         setCooldown(value);
-        setPosition(0);
       }} />
     </div>
-    <SchedulePlot title="Validation observations and previous-best cutoff" description="Dots are the full entered metric stream, including future observations shown for prediction. The dashed line is the current strict improvement cutoff; only observations through the cursor have affected state." series={[{
+    <SchedulePlot title="Validation observations and previous-best cutoff" description="Dots are the full entered metric stream, including future observations shown for comparison. The dashed line is the current strict improvement cutoff; only observations through the cursor have affected state." series={[{
       key: 'metrics',
       values: metrics.map((metric, index) => [index, metric]),
       color: '#8dc7e8',
@@ -338,6 +340,14 @@ export function SchedulePlateauLab() {
       dashed: true
     }])]} xMaximum={Math.max(1, metrics.length - 1)} yMaximum={maximum} yMinimum={Math.min(0, current.cutoff ?? 0)} selected={position} xLabel="validation observation" yLabel="validation loss" />
     <p className="schedule-caption">Blue dots: invented observed losses, with future entries previewed. Gold dashed: current cutoff before this observation. Improvement requires a value strictly below it; equality does not qualify.</p>
+    <SchedulePlot title="Preview of rates after every validation observation" description="The full rate sequence is recomputed from the entered validation losses and current settings. It previews later observations; the cursor and state table still inspect one observation at a time." series={[{
+      key: 'rate-after-observation',
+      dots: true,
+      values: trace.flatMap((row, index) => index === 0 ? [[0, row.rate]] : [[index, trace[index - 1].rate], [index, row.rate]]),
+      color: '#f0c96d'
+    }]} xMaximum={Math.max(1, metrics.length - 1)} yMaximum={Math.max(...trace.map(row => row.rateBefore)) * 1.1} selected={position} xLabel="validation observation" yLabel="rate after observation" />
+    <p className="schedule-caption">Preview: the complete recomputed rate policy on these same supplied losses. Horizontal segments hold the prepared rate; a vertical drop occurs at the observation that reduces it. Editing a setting keeps your inspection cursor. This is a policy replay, not a retrained model or a forecast of future validation losses.</p>
+    <ScheduleRange label="Inspect validation observation" value={position} minimum={0} maximum={metrics.length - 1} onChange={setPosition} />
     <ScheduleStepper position={position} maximum={metrics.length - 1} onChange={setPosition} reset={reset} noun="observation" />
     <ScheduleReadout values={[["Observation / metric", `${position} / ${formatValue(current.metric)}`], ['Previous best / cutoff', `${formatValue(current.bestBefore)} / ${formatValue(current.cutoff)}`], ['Significant improvement', current.improved ? 'yes' : 'no'], ['Bad count after handling', current.bad], ['Cooldown remaining', current.cooling], ['Rate before / next', `${formatValue(current.rateBefore)} / ${formatValue(current.rate)}`], ['Reduction event', current.reduced ? 'rate halved' : current.triggered ? 'triggered, but floor prevented change' : 'no reduction'], ['Best after observation', formatValue(current.best)]]} />
     <p>The first observation establishes the baseline. A reduction occurs when bad count exceeds patience; cooldown clears bad counts while still allowing a new best. The rate halves down to .025. This matches the stated PyTorch2.14 absolute-threshold configuration; validation frequency determines this clock's meaning.</p>

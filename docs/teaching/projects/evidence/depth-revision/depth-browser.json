@@ -1,0 +1,174 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "case": "Actual tokenizer, reordered target, variable candidates, unknown words and explicit rejection",
+      "passed": true
+    },
+    {
+      "case": "Attention mask, reset and interior keyboard input change visible weights and output",
+      "passed": true
+    },
+    {
+      "case": "Target-dependent gradient, real applied step, pointer drag, zero-rate null case and reset",
+      "passed": true
+    },
+    {
+      "case": "define, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "define, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "define, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "data, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "data, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "data, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "baseline, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "baseline, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "baseline, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "architecture, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "architecture, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "architecture, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "training, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "training, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "training, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "calibration, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "calibration, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "calibration, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "evaluation, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "evaluation, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "evaluation, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "serving, expanded source, 1366px",
+      "width": 1366,
+      "scroll": 1366,
+      "clipped": []
+    },
+    {
+      "case": "serving, expanded source, 390px",
+      "width": 390,
+      "scroll": 390,
+      "clipped": []
+    },
+    {
+      "case": "serving, expanded source, 320px",
+      "width": 320,
+      "scroll": 320,
+      "clipped": []
+    },
+    {
+      "case": "Every stage has relevant topic links and all canonical code excerpts load",
+      "sourceCount": 17,
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "encoding-desktop.png",
+    "attention-desktop.png",
+    "training-desktop.png",
+    "training-mobile.png"
+  ],
+  "errors": [],
+  "checkedAt": "2026-09-21T22:43:46.810Z"
+}

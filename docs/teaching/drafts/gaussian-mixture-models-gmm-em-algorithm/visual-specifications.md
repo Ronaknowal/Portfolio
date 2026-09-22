@@ -1,5 +1,14 @@
 # GMM visual and investigation specifications
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit the measurement, mixing weight and variance and follow densities and responsibility shares immediately; edit observations or initial means to restart the current EM trace, then step E and M phases separately and step back; vary correlation and point positions beside a permanent zero-correlation reference. No learner answer precedes a calculation.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](../../LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Stable ID: `gaussian-mixture-models-gmm-em-algorithm`. Complete content-first specifications, 12 September 2026. Implementation, browser inspection and independent phase-two review are **not started**. Read [lesson.md](lesson.md) in full and [the design record](../../GMM-LESSON-DESIGN.md) before building. These are teaching contracts, not a claim that a rendered graph exists.
 
 ## Shared representation and interaction contract

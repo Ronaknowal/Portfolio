@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-09-21T13:57:48.685Z",
+  "production": true,
+  "browser": "153.0.4234.48",
+  "sourceHashes": {
+    "src/learn/data/topics/k-means-hierarchical-clustering.jsx": "ea7f3f1c0cfe35a75793a3e9fa1b20f493f1de0de387c8d748b41fc557cbd19e",
+    "src/learn/data/curriculum/blueprints/k-means-hierarchical-clustering.js": "b8a2858e9c28d939d70ce9a387c1261a1095263b133f526d8e6d5ae25fb07a13",
+    "src/learn/data/k-means-hierarchical-models.js": "7cc680a3d45229732e493abd344bee4e98dfb9aefa145dbc89a5731e53f8fb99",
+    "src/learn/data/k-means-hierarchical-faithful.js": "64358723bb94ea232a9b4e5da3f61fedc6464711234690e47a390914aaa60e50",
+    "src/learn/data/k-means-hierarchical-examples.js": "36cb906138b9822b8a3d0c5a851f358d827d42edf8152cdba800d817ebd2d747",
+    "src/learn/components/lesson-labs/KMeansHierarchicalLabs.jsx": "9c76709e6d5bca78ba68d085c09a482e86e20f34111deb84087e045a67b97174",
+    "src/learn/components/lesson-labs/KMeansHierarchicalFigures.jsx": "1fa275d6dae39ace54e5be44a93342628eab44f7f8a4f0f6345140fc75c0d73a",
+    "src/learn/components/lesson-labs/k-means-hierarchical-labs.css": "ebe2e78c745cd7f7b0fed33f68aabb3869935a4319882c217b8a84155839dc85",
+    "src/learn/components/lesson-labs/k-means-hierarchical-figures.css": "263b4b3f68f5c89ab0bbbb257378d194f8c97d6c4067882c2d96225411f722c3"
+  },
+  "verifierSha256": "cd54e60d6e23a20be51fd06989d0064146ab50168e910797991c3268e1c10035",
+  "manifestHash": "89849c9be1df79e47472d3986e08adc4a799c285a56ff54a206b127ed80f3508",
+  "fontEvidence": {
+    "stylesheetUrl": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+    "files": {
+      "scratch/kmeans-revision-review/fonts/google-fonts.css": "63ab7d92430a9ff1480365211e079b9ed7a134e83dd646adb364462584f59ed3",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUUsj.ttf": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj42Vksj.ttf": "6c0346b8d297ebdc225832833e03e884a26ad99d265ecd3924d46e1ba285ea87",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj62UUsj.ttf": "2f29b31d803a928d21f96dbe7a5f8bfa5c5c98917736c2d195bc7c737bc906ba",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8L6tjPQ.ttf": "a1d92abc6b02a87faed23d98067ab1027e8e95242fd7c9978a072ea383b89d1a",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxjPQ.ttf": "3386a05f6ece969e4537de6be894170d20558e82f7d56c8c5d332972ef172160",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPQ.ttf": "44ce4a84f20d60f24539bd0cef11f79c29e38609e0f8adf18551c9794a5d9dc3",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8lqxjPQ.ttf": "62bbab00e0b0faffb38a3d111341a814f8731fd50778aa0b495d3293b8290aaf",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUUsj.ttf": "ec926d5065eaca49a48f96e312bbae0bbc5733c24215cf5dfabbdccee926fef7",
+      "scratch/kmeans-revision-review/fonts/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVksj.ttf": "3e756954468ff1cb302dae0414262e72f76a67d87bef3fa1f3226cd0fb9b2d85",
+      "scratch/kmeans-revision-review/fonts/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8FqtjPQ.ttf": "df54dbfafba61d4911eb3dab9bba2d20531fb009f01d64dd42fa96ab862584d8"
+    },
+    "method": "Unmodified existing Google Fonts assets fulfilled from retained snapshots because the browser sandbox blocks their network requests; application styles are unchanged."
+  },
+  "records": [
+    {
+      "check": "Full lesson, programs/output, current theme, formula geometry and module sequence"
+    },
+    {
+      "check": "Lloyd gate, keyboard, fixed point, changed seed optima, duplicate center and reset"
+    },
+    {
+      "check": "Geometry input-only view, exhaustive reveal, changed-unit optimum and restored metric"
+    },
+    {
+      "check": "Seeding theory versus finite frequencies, keyboard interval endpoints, sequential draws, zero-mass cases and uniform baseline"
+    },
+    {
+      "check": "Hierarchy gate, all four tied-height/count cuts, merge/undo and independent 4-plus-2 chain split"
+    },
+    {
+      "check": "Palette all three image endpoints, true lossless versus teaching cap, sealed feedback and changed request"
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 1366
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 820
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 390
+    },
+    {
+      "check": "Viewport, controls, links and math",
+      "width": 320
+    },
+    {
+      "check": "Increased text size and keyboard practice"
+    },
+    {
+      "check": "Selected production lesson and shared dependencies only",
+      "decodedJsBytes": 1758610,
+      "gzipEstimateBytes": 390227
+    },
+    {
+      "check": "Completion survives reload and Next opens the actual PCA successor"
+    },
+    {
+      "check": "Published lesson error recovers after reload",
+      "failure": "import",
+      "attempts": 2
+    },
+    {
+      "check": "Published lesson error recovers after reload",
+      "failure": "render",
+      "attempts": 2
+    }
+  ],
+  "screenshots": [],
+  "limitations": "Single Chromium-family engine; screenshots require a separate actual image review. Source-bound native checks are recorded separately."
+}

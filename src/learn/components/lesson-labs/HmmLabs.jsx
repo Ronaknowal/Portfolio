@@ -11,7 +11,7 @@ import {
 } from '../../data/hmm-data.js';
 import { DurationBars } from './HmmFigures.jsx';
 import {
-  Construction, Investigation, NumberField, Prediction, ProbabilityRow, Select, SliderField, StateKey,
+  Construction, Investigation, NumberField, LiveResult, ProbabilityRow, Select, SliderField, StateKey,
   Table, Trellis, TrellisTable, Undefined, exactly, fixed, round, useInvestigation,
 } from './HmmShared.jsx';
 import './hmm-labs.css';
@@ -40,14 +40,14 @@ export function PathProductLab() {
      here, so the verifier exercises the rule the page actually applies over all
      sixteen paths of several models rather than at the two a designer happened
      to try. */
-  const answerFor = draft => ({
+  const calculateInputs = draft => ({
     outcomes: { rank: pathRankOutcome(weather, draft.path, fixtures.reports) },
     value: jointOf(draft.path),
   });
   const applied = state.result ? jointOf(JSON.parse(state.result.key).path) : null;
   return <Investigation
     title="Follow one complete story through the model"
-    question="Choose a hidden state for each of the four times. Before anything is calculated, commit the joint probability of that whole story with its four reports — start, emit, transition, emit, transition, emit, transition, emit."
+    question="Choose a hidden state for each of the four times. Inspect the joint probability of that whole story with its four reports — start, emit, transition, emit, transition, emit, transition, emit."
     note="Sixteen stories are possible here. Multiplying follows one of them; adding over all of them is what the next section does without ever listing them."
     onReset={state.reset}>
     <StateKey names={weather.stateNames} prefix="hidden state" />
@@ -71,20 +71,11 @@ export function PathProductLab() {
         draft path: <b>{state.draft.path.map(index => weather.stateNames[index]).join(' → ')}</b>
       </span>
     </p>
-    <Prediction
-      groups={[{
-        key: 'rank', short: 'this path against the best one',
-        prompt: 'Among all sixteen complete stories, this one is:',
-        options: [
-          ['largest', 'the most probable of them'],
-          ['smaller', 'less probable than the best one'],
-          ['zero', 'impossible — probability exactly zero'],
-        ],
-      }]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: this path’s joint probability with the four reports',
-        name: 'the joint probability', tolerance: 1e-9, digits: 9 }}
-      committed={shown => JSON.parse(shown.key).path.map(index => weather.stateNames[index]).join(' → ')}
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={state.result
         ? `The largest of the sixteen is ${round(largest, 9)}, and they add to ${round(enumerated.evidence, 9)} — the probability of the four reports.`
         : undefined} />
@@ -145,7 +136,7 @@ export function EvidenceLaterLab() {
   const modelFor = draft => (draft.emissionRainy
     ? { ...weather, emission: [draft.emissionRainy, weather.emission[1]] }
     : weather);
-  const answerFor = (draft, active) => {
+  const calculateInputs = (draft, active) => {
     const moved = beliefMoveOutcomes(modelFor(active), active.observations,
       modelFor(draft), draft.observations, draft.query);
     return { ...moved, value: moved.after.smoothed };
@@ -155,9 +146,7 @@ export function EvidenceLaterLab() {
   const query = Math.min(state.draft.query, state.draft.observations.length - 1);
   const revealed = Boolean(state.result);
 
-  /* The construction task is graded by running inference on what was submitted.
-     Loading the setup that happens to solve it still has to be submitted and
-     computed; nothing is unlocked by recognising a button. */
+  
   const grade = draft => {
     const verdict = gradeSmoothedConstruction(
       { observations: draft.observations, modelEdited: draft.emissionRainy !== null },
@@ -184,7 +173,7 @@ export function EvidenceLaterLab() {
 
   return <Investigation
     title="Change the future; watch which belief moves and which cannot"
-    question={`Rainy at time ${query} has two answers: one conditioned on the reports up to time ${query}, one conditioned on all of them. Predict what each does when you change the recording — separately, because they are separate questions.`}
+    question={`Rainy at time ${query} has two answers: one conditioned on the reports up to time ${query}, one conditioned on all of them. Watch what each does when you change the recording — separately, because they are separate questions.`}
     note="Filtering at a time can only use reports up to that time, so editing anything later cannot touch it. Smoothing uses the whole recording, so editing anything at all can move it."
     onReset={() => { setFreeEdit(false); state.reset(); }}>
     <StateKey names={weather.stateNames} prefix="hidden state" />
@@ -231,32 +220,20 @@ export function EvidenceLaterLab() {
         ? (draftResult.impossible
           ? 'This recording is impossible under the model, so it has no forward masses.'
           : draftResult.filtered.map((row, time) => `At time ${time}, filtered Rainy is ${round(row[0], 6)}.`).join(' '))
-        : `The structure of the drafted recording: ${state.draft.observations.length} time steps with reports ${state.draft.observations.map(value => (value === MISSING ? 'missing' : weather.symbolNames[value])).join(', ')} and the queried time highlighted. Cell values appear once a prediction is recorded.`} />}
+        : `The structure of the drafted recording: ${state.draft.observations.length} time steps with reports ${state.draft.observations.map(value => (value === MISSING ? 'missing' : weather.symbolNames[value])).join(', ')} and the queried time highlighted. Cell values appear as the inputs change.`} />}
 
-    <Prediction
-      groups={[
-        { key: 'filtering', short: `filtering at t = ${query}`,
-          prompt: `Moving from the applied recording to the drafted one, P(Rainy at t = ${query} | reports up to t = ${query}):`,
-          options: [['rises', 'rises'], ['falls', 'falls'], ['unchanged', 'does not move'], ['undefined', 'has no value at all']] },
-        { key: 'smoothing', short: `smoothing at t = ${query}`,
-          prompt: `And P(Rainy at t = ${query} | the whole recording):`,
-          options: [['rises', 'rises'], ['falls', 'falls'], ['unchanged', 'does not move'], ['undefined', 'has no value at all']] },
-      ]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the smoothed value after your edit', name: 'the smoothed probability',
-        tolerance: 1e-6, digits: 6,
-        undefinedNote: 'this recording has zero evidence under the model, so no state has a conditional probability' }}
-      requireChange={(draft, active) => JSON.stringify(draft) !== JSON.stringify(active)}
-      pendingHint="Both questions compare two recordings, so there has to be a second one. Edit a report, or load one of the setups above, before applying."
-      sameQuestion={(left, right) => JSON.parse(left).query === JSON.parse(right).query}
-      committed={shown => {
-        const draft = JSON.parse(shown.key);
-        return `${draft.observations.map(value => (value === MISSING ? 'missing' : weather.symbolNames[value])).join(', ')}, asked about t = ${Math.min(draft.query, draft.observations.length - 1)}`;
-      }}
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
+      
+      
+      
       describe={state.result
-        ? `Filtering: ${state.result.answer.before.filtered === null ? 'no value' : fixed(state.result.answer.before.filtered, moveDigits)} → ${state.result.answer.after.filtered === null ? 'no value' : fixed(state.result.answer.after.filtered, moveDigits)}. Smoothing: ${state.result.answer.before.smoothed === null ? 'no value' : fixed(state.result.answer.before.smoothed, moveDigits)} → ${state.result.answer.after.smoothed === null ? 'no value' : fixed(state.result.answer.after.smoothed, moveDigits)}. Both are printed to ${moveDigits} places, so “does not move” is a claim you can read rather than take on trust.`
+        ? `Filtering: ${state.result.calculation.before.filtered === null ? 'no value' : fixed(state.result.calculation.before.filtered, moveDigits)} → ${state.result.calculation.after.filtered === null ? 'no value' : fixed(state.result.calculation.after.filtered, moveDigits)}. Smoothing: ${state.result.calculation.before.smoothed === null ? 'no value' : fixed(state.result.calculation.before.smoothed, moveDigits)} → ${state.result.calculation.after.smoothed === null ? 'no value' : fixed(state.result.calculation.after.smoothed, moveDigits)}. Both are printed to ${moveDigits} places, so “does not move” is a claim you can read rather than take on trust.`
         : undefined}
-      historyLabel="Compared with your previous edit" />
+       />
 
     {revealed && !draftResult.impossible && <TrellisTable model={modelFor(state.active)}
       observations={state.active.observations} mode="sum"
@@ -276,7 +253,7 @@ export function EvidenceLaterLab() {
       the posterior is <Undefined because="the model gives this sequence no probability mass to condition on" />.
     </p>}
 
-    <Construction attempts={state.attempts} onSubmit={() => state.submit(grade)} task={`Leaving the model alone and keeping Walk, Shop, Walk as the first three reports, change only the final report so that smoothed Rainy at time 1 falls below ${fixtures.smoothedTarget} while filtering at time 1 stays exactly where it was.`}
+    <Construction attempts={state.constructionAttempts} onSubmit={() => state.evaluateConstruction(grade)} task={`Leaving the model alone and keeping Walk, Shop, Walk as the first three reports, change only the final report so that smoothed Rainy at time 1 falls below ${fixtures.smoothedTarget} while filtering at time 1 stays exactly where it was.`}
       grade={grade}
       disabledNote="Model editing is disabled while this task is open, because the task is about what evidence can do, not about what parameters can do." />
 
@@ -326,7 +303,7 @@ const constrainedReports = [0, 0];
 export function LegalPathLab() {
   const state = useInvestigation({ path: [0, 0], start: [...constrained.start] });
   const modelFor = draft => withStart(constrained, draft.start);
-  const answerFor = draft => {
+  const calculateInputs = draft => {
     const model = modelFor(draft);
     const guarantee = legalPathGuarantee(model, constrainedReports);
     return {
@@ -356,7 +333,7 @@ export function LegalPathLab() {
   };
   return <Investigation
     title="Connect the most probable cells, then check whether you have a path"
-    question="Three states, two times, one symbol that every state emits with certainty. Choose a state at each time. Before anything is computed, predict whether joining the two highest-marginal cells is guaranteed to give the highest-probability legal path."
+    question="Three states, two times, one symbol that every state emits with certainty. Choose a state at each time. Compare the joined highest-marginal cells with the highest-probability legal path."
     note="Because the single symbol is certain in every state, the observations carry no information here: all of the model's content is in the initial probabilities and the four permitted edges. In the drawing a solid gold edge is the predecessor its destination stored, a dotted hairline is an edge the model forbids, and a gold outline marks a node on the decoded path."
     onReset={state.reset}>
     <StateKey names={constrained.stateNames} prefix="hidden state" />
@@ -388,23 +365,15 @@ export function LegalPathLab() {
     <Trellis model={draftModel} observations={constrainedReports} mode="max" showForbidden
       showValues={Boolean(state.result)} path={draftLegal ? state.draft.path : null}
       label="The constrained two-step graph with the drafted prior"
-      describe={`Marginals are ${draftResult.smoothed[0].map(value => round(value, 4)).join(', ')} at the first time and ${draftResult.smoothed[1].map(value => round(value, 4)).join(', ')} at the second. Dotted hairlines mark forbidden transitions.${state.result ? '' : ' Path scores appear once a prediction is recorded.'}`} />
+      describe={`Marginals are ${draftResult.smoothed[0].map(value => round(value, 4)).join(', ')} at the first time and ${draftResult.smoothed[1].map(value => round(value, 4)).join(', ')} at the second. Dotted hairlines mark forbidden transitions.${state.result ? '' : ' Path scores appear as the inputs change.'}`} />
 
-    <Prediction
-      groups={[{
-        key: 'guarantee', short: 'joining the two highest cells',
-        prompt: 'For the prior now drafted, does joining the highest-marginal cell at each time give the highest-probability legal path?',
-        options: [['yes', 'yes, it does here'], ['no', 'no — it does not, or is not even a path']],
-      }]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the joint probability of the path you selected', name: 'that joint probability',
-        tolerance: 1e-10, digits: 10 }}
-      committed={shown => {
-        const draft = JSON.parse(shown.key);
-        return `${draft.path.map(index => constrained.stateNames[index]).join(' → ')}, prior ${draft.start.map(value => round(value, 4)).join(', ')}`;
-      }}
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={state.result
-        ? `The marginal modes are ${state.result.answer.modes.map(index => constrained.stateNames[index]).join(' → ')} with joint probability ${exactly(state.result.answer.modesJoint, 6)}; the highest-probability legal path is ${state.result.answer.best.path.map(index => constrained.stateNames[index]).join(' → ')} at ${round(state.result.answer.best.joint, 6)}.`
+        ? `The marginal modes are ${state.result.calculation.modes.map(index => constrained.stateNames[index]).join(' → ')} with joint probability ${exactly(state.result.calculation.modesJoint, 6)}; the highest-probability legal path is ${state.result.calculation.best.path.map(index => constrained.stateNames[index]).join(' → ')} at ${round(state.result.calculation.best.joint, 6)}.`
         : undefined} />
 
     {state.result && <Table caption="Every two-step selection, legal or not"
@@ -421,7 +390,7 @@ export function LegalPathLab() {
       }}
       footnote="The pointwise modes can win the last column while scoring exactly zero in the one before it. Better expected position count and validity as a joint path are separate properties, and a constrained decoder that maximised the last column over legal paths would be a third rule again." />}
 
-    <Construction attempts={state.attempts} onSubmit={() => state.submit(grade)}
+    <Construction attempts={state.constructionAttempts} onSubmit={() => state.evaluateConstruction(grade)}
       task={`Select a pair of states that the model actually permits and whose joint probability is at least ${fixtures.legalPathTarget}. Editing the initial row is allowed; both conditions are computed from what you submit.`}
       grade={grade} />
   </Investigation>;
@@ -443,7 +412,7 @@ const declaredLengths = [2, 2];
 export function BoundaryCountLab() {
   const state = useInvestigation({ recordings: [[0, 1, 0, 2]] });
   const bound = (value, maximum) => (value > maximum ? 'more' : String(value));
-  const answerFor = draft => {
+  const calculateInputs = draft => {
     const totals = recordingTotals(draft.recordings);
     return {
       outcomes: {
@@ -474,7 +443,7 @@ export function BoundaryCountLab() {
   const totalReports = state.draft.recordings.reduce((total, row) => total + row.length, 0);
   return <Investigation
     title="Move the boundary and watch the event totals follow"
-    question="Predict how many starts, within-recording transitions and emissions the E-step should count, before any fractional flow appears. Then move the boundary and predict again."
+    question="Move the recording boundary and inspect how the E-step start, transition and emission counts change."
     note="Every recording contributes one start, one emission per observed report, and one transition per step inside it. A length-one recording contributes a start and an emission and no transition at all."
     onReset={state.reset}>
     {state.draft.recordings.map((recording, index) => <fieldset key={index} className="hmm-row-group"
@@ -508,21 +477,12 @@ export function BoundaryCountLab() {
       </span>
     </p>
 
-    <Prediction
-      groups={[
-        { key: 'starts', short: 'expected starts',
-          prompt: 'The expected start counts will add to:', options: wholeOptions(4) },
-        { key: 'transitions', short: 'expected transitions',
-          prompt: 'The expected transition counts will add to:', options: wholeOptions(6) },
-        { key: 'emissions', short: 'expected emissions',
-          prompt: 'The expected emission counts will add to:', options: wholeOptions(8) },
-      ]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the training log likelihood of these recordings', name: 'the log likelihood',
-        tolerance: 1e-6, digits: 6 }}
-      committed={shown => JSON.parse(shown.key).recordings
-        .map(row => `[${row.map(value => (value === MISSING ? 'missing' : weather.symbolNames[value])).join(' ')}]`).join(' ')}
-      historyLabel="Compared with your previous boundary" />
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
+       />
 
     {revealed && <>
       {/* The long list of counts is the LAST column on purpose: every other cell
@@ -562,7 +522,7 @@ export function BoundaryCountLab() {
       })()}
     </>}
 
-    <Construction attempts={state.attempts} onSubmit={() => state.submit(grade)}
+    <Construction attempts={state.constructionAttempts} onSubmit={() => state.evaluateConstruction(grade)}
       task="Two independent two-step sessions were recorded, and the four reports arrived concatenated. Restore the boundary. Both the event totals and the session structure are checked, because a one-and-three split reaches the same totals and is a different claim about what happened."
       grade={grade} />
   </Investigation>;
@@ -577,7 +537,7 @@ const durationSettings = [...new Set([...fixtures.durationContrasts, fixtures.du
 
 export function DurationLab() {
   const state = useInvestigation({ stay: fixtures.durationDefault });
-  const answerFor = draft => {
+  const calculateInputs = draft => {
     const model = durationModel(draft.stay);
     return {
       outcomes: { hazard: hazardOutcome(draft.stay, 0, 10) },
@@ -588,7 +548,7 @@ export function DurationLab() {
   const model = durationModel(state.draft.stay);
   return <Investigation
     title="A self-transition is a duration assumption you can look at"
-    question="Choose a self-transition probability and inspect the duration bars. Predict how the chance of leaving on the next step compares between a state that has just been entered and one that has already lasted ten steps."
+    question="Choose a self-transition probability and inspect the duration bars. Compare the chance of leaving on the next step between a state that has just been entered and one that has already lasted ten steps."
     note="The first eight bars need not add to one: the ninth bar holds every duration of nine or more, and that tail mass is part of the assumption rather than an inconvenience to normalise away."
     onReset={state.reset}>
     <div className="hmm-controls">
@@ -602,29 +562,22 @@ export function DurationLab() {
     </div>
     <p className="hmm-state-strip">
       <span>drafted a: <b>{round(state.draft.stay, 2)}</b></span>
-      {/* The exit probability and the mean are both graded here, so neither is
-          printed until the prediction is committed. The bars stay visible,
-          because looking at the shape is the work the question asks for. */}
-      <span>next-step exit probability: <b>{state.result ? round(model.exitProbability, 6) : 'recorded after your prediction'}</b></span>
-      <span>mean duration: <b>{state.result ? (model.absorbing ? 'no finite mean' : round(model.mean, 6)) : 'recorded after your prediction'}</b></span>
+      {}
+      <span>next-step exit probability: <b>{state.result ? round(model.exitProbability, 6) : 'recorded for the current inputs'}</b></span>
+      <span>mean duration: <b>{state.result ? (model.absorbing ? 'no finite mean' : round(model.mean, 6)) : 'recorded for the current inputs'}</b></span>
     </p>
     <DurationBars stay={state.draft.stay} label={`Duration distribution at a = ${round(state.draft.stay, 2)}`}
       describe={`Bars for durations one to eight with probabilities ${model.probabilities.map(value => round(value, 4)).join(', ')}, and a final bar of ${round(model.tailMass, 4)} for every duration of nine or more.`} />
 
-    <Prediction
-      groups={[{
-        key: 'hazard', short: 'the chance of leaving next',
-        prompt: 'Compared with a state just entered, a state that has already lasted ten steps leaves on the next step with probability:',
-        options: [['higher', 'higher'], ['lower', 'lower'], ['same', 'exactly the same'], ['undefined', 'undefined — that elapsed history is impossible']],
-      }]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the mean duration', name: 'the mean duration', tolerance: 1e-6, digits: 6,
-        undefinedNote: 'an absorbing state never leaves, so its duration has no finite mean' }}
-      committed={shown => `a = ${round(JSON.parse(shown.key).stay, 2)}`}
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={state.result
-        ? state.result.answer.afterTen === null
+        ? state.result.calculation.afterTen === null
           ? 'At a = 0 the state leaves on its first transition. Surviving ten steps has probability zero, so the conditional chance of leaving after that impossible history is undefined.'
-          : `Just after entry the exit probability is ${round(state.result.answer.afterOne, 6)}; after ten steps it is ${round(state.result.answer.afterTen, 6)}. That constant hazard, on histories with positive survival probability, is what makes this family geometric.`
+          : `Just after entry the exit probability is ${round(state.result.calculation.afterOne, 6)}; after ten steps it is ${round(state.result.calculation.afterTen, 6)}. That constant hazard, on histories with positive survival probability, is what makes this family geometric.`
         : undefined} />
 
     {state.result && <Table caption="The same assumption at the three declared settings, the value practice 7 asks for, and the absorbing end"
@@ -658,7 +611,7 @@ const configurationFor = (fitIndex, method) =>
 
 export function RealTaggingLab() {
   const state = useInvestigation({ sentence: 27, fitIndex: 1 });
-  const [reveal, setReveal] = useState(false);
+  const [reveal, setReveal] = useState(true);
   /* Both start at sentence 0, token 0, which is neither a repair nor a break.
      Defaulting them to a correct answer would hand over half the task on first
      paint, which is exactly what a construction task must not do. */
@@ -670,7 +623,7 @@ export function RealTaggingLab() {
     lexical: configurationFor(draft.fitIndex, 'lexical'),
     hmm: configurationFor(draft.fitIndex, 'hmm'),
   });
-  const answerFor = draft => {
+  const calculateInputs = draft => {
     const { lexical, hmm } = indicesFor(draft);
     const lexicalCorrect = configurations[lexical].rows[draft.sentence].correct;
     const hmmCorrect = configurations[hmm].rows[draft.sentence].correct;
@@ -724,17 +677,17 @@ export function RealTaggingLab() {
 
   return <Investigation
     title="Two decision rules, the same fitted counts, real sentences"
-    question="Choose a development sentence and a smoothing strength. Before any labels appear, predict which of the two rules gets more of that sentence's tokens right."
+    question="Choose a development sentence and a smoothing strength. Compare which of the two rules gets more of that sentence's tokens right."
     role={{ kind: 'recorded', text: 'These are recorded results read from saved predictions. Nothing here refits a tagger in your browser, and the 40 reserved sentences are never scored.' }}
     note={`Both rules read the same fitted counts. The lexical rule multiplies each word's emission probability by its state's training frequency and takes the largest; the HMM adds the learned start and transition probabilities and takes the Viterbi path. Of 341 development tokens, ${unknownDevelopmentTokens} map to the single unknown symbol.`}
-    onReset={() => { setReveal(false); setIdentified(null); setRepairGuess({ sentence: 0, position: 0 }); setBreakGuess({ sentence: 0, position: 0 }); setSpelling({ position: 0, word: '' }); state.reset(); }}>
+    onReset={() => { setReveal(true); setIdentified(null); setRepairGuess({ sentence: 0, position: 0 }); setBreakGuess({ sentence: 0, position: 0 }); setSpelling({ position: 0, word: '' }); state.reset(); }}>
     <div className="hmm-controls is-wide">
       <Select label="Development sentence" value={String(draft.sentence)}
         options={developmentSentences.map(entry => [String(entry.index),
           `${entry.index}: ${entry.tokens.slice(0, 6).join(' ')}${entry.tokens.length > 6 ? ' …' : ''}`])}
-        onChange={value => { setReveal(false); setSpelling({ position: 0, word: '' }); state.edit({ sentence: Number(value) }); }} />
+        onChange={value => { setReveal(true); setSpelling({ position: 0, word: '' }); state.edit({ sentence: Number(value) }); }} />
       <Select label="Smoothing strength, held fixed while you switch decoders" value={String(draft.fitIndex)}
-        options={smoothingChoices} onChange={value => { setReveal(false); state.edit({ fitIndex: Number(value) }); }} />
+        options={smoothingChoices} onChange={value => { setReveal(true); state.edit({ fitIndex: Number(value) }); }} />
     </div>
     <p className="hmm-state-strip">
       <span>source id: <b>{sentence.id}</b></span>
@@ -742,23 +695,15 @@ export function RealTaggingLab() {
       <span>unknown words: <b>{sentence.unknownPositions.length}</b></span>
     </p>
 
-    <Prediction
-      groups={[{
-        key: 'winner', short: 'more correct tokens on this sentence',
-        prompt: 'On this sentence, at this smoothing strength, more tokens are tagged correctly by:',
-        options: [['lexical', 'the lexical baseline'], ['hmm', 'the HMM'], ['tie', 'neither — they tie']],
-      }]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: how many more tokens the HMM gets right (negative if fewer)',
-        name: 'the difference in correct tokens', tolerance: 0, digits: 0 }}
-      committed={shown => {
-        const committedDraft = JSON.parse(shown.key);
-        return `sentence ${committedDraft.sentence}, smoothing ${smoothingLabel(fittedModels[committedDraft.fitIndex].smoothing)}`;
-      }}
+    <LiveResult
+      
+      state={state} calculateInputs={calculateInputs}
+      
+      
       describe={state.result
-        ? `The lexical rule gets ${state.result.answer.lexicalCorrect} of ${sentence.tokens.length}; the HMM gets ${state.result.answer.hmmCorrect}.`
+        ? `The lexical rule gets ${state.result.calculation.lexicalCorrect} of ${sentence.tokens.length}; the HMM gets ${state.result.calculation.hmmCorrect}.`
         : undefined}
-      historyLabel="Compared with your previous sentence or strength" />
+       />
 
     {state.result && <>
       <div className="hmm-buttons">

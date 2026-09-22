@@ -2,9 +2,9 @@
 
 Generated from the live catalogue by `node scripts/build-curriculum-inventory.mjs`. Scope review: 9 September 2026. Regenerate after catalogue changes; this is a status report, not teaching policy.
 
-**1460 unique topics · 29 modules · 228 registered published lessons · 617 topic-specific briefs · 10 guided paths.**
+**1461 unique topics · 29 modules · 231 registered published lessons · 636 topic-specific briefs · 10 guided paths.**
 
-**843 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 725 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
+**825 older topics still need individual design.** Every module has domain guidance; this does not make those older topics fully planned or fact-checked. 742 topics have recorded prerequisite reviews; the remaining edges need individual review. Linux is the user-approved teaching reference.
 
 See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring handoff](../../LESSON-AUTHORING-HANDOFF.md), and [full machine-readable inventory](curriculum-inventory.json).
 
@@ -13,9 +13,9 @@ See [the research and scope plan](../../LEARNING-CURRICULUM-PLAN.md), [authoring
 | Module | Topics | Published | Individual briefs | Prerequisite reviews recorded |
 | --- | ---: | ---: | ---: | ---: |
 | Mathematical & Statistical Foundations | 57 | 57 | 57 | 57 |
-| Classical Machine Learning | 39 | 36 | 36 | 36 |
-| Deep Learning Fundamentals & Architectures | 42 | 39 | 2 | 7 |
-| Large Language Models — Architecture, Training & Inference | 61 | 57 | 4 | 6 |
+| Classical Machine Learning | 39 | 39 | 39 | 39 |
+| Deep Learning Fundamentals & Architectures | 42 | 39 | 17 | 20 |
+| Large Language Models — Architecture, Training & Inference | 62 | 57 | 5 | 7 |
 | Reinforcement Learning | 33 | 0 | 2 | 3 |
 | Generative Models | 24 | 0 | 2 | 4 |
 | NLP, Computer Vision & Multimodal AI | 49 | 0 | 3 | 3 |
@@ -46,7 +46,7 @@ Counts within modules may include shared topics. The headline counts each stable
 
 ## Delivery phases
 
-**176 current content checkpoints complete · 128 current implementations complete.**
+**177 current content checkpoints complete · 150 current implementations complete.**
 
 [The delivery ledger](../teaching/lesson-delivery-progress.json) preserves historical completion and tracks the current revision's content and implementation separately. Source changes can make a recorded completion stale; these counts do not silently approve changed versions. Publication and user acceptance remain separate. Use the topic CLI's delivery field before continuing a phase.
 
@@ -169,12 +169,12 @@ Counts within modules may include shared topics. The headline counts each stable
 | Semi-Supervised Learning (Label Propagation, Self-Training, Co-Training) | intermediate | published | brief |
 | Active Learning | advanced | published | brief |
 | Evaluation Metrics (Precision, Recall, F1, AUC-ROC, AP, R², MAE) | foundation | published | brief |
-| PAC Learning & VC Dimension | intermediate | published | design needed |
-| Calibration & Conformal Prediction | intermediate | published | design needed |
-| Rademacher Complexity & Generalization Bounds | advanced | published | design needed |
-| ML Problem Formulation, Baselines & Data Leakage | foundation | planned | brief |
-| Time-Series Validation & Forecasting Baselines | intermediate | planned | brief |
-| End-to-End Supervised Learning & Error Analysis | intermediate | planned | brief |
+| PAC Learning & VC Dimension | intermediate | published | brief |
+| Calibration & Conformal Prediction | intermediate | published | brief |
+| Rademacher Complexity & Generalization Bounds | advanced | published | brief |
+| ML Problem Formulation, Baselines & Data Leakage | foundation | published | brief |
+| Time-Series Validation & Forecasting Baselines | intermediate | published | brief |
+| End-to-End Supervised Learning & Error Analysis | intermediate | published | brief |
 
 ### Deep Learning Fundamentals & Architectures
 
@@ -188,21 +188,21 @@ Counts within modules may include shared topics. The headline counts each stable
 
 | Topic | Level | Content | Design |
 | --- | --- | --- | --- |
-| Perceptrons, Neurons & Activation Functions | foundation | published | design needed |
-| Backpropagation & Automatic Differentiation | foundation | published | design needed |
-| Loss Functions (CE, MSE, Focal, Contrastive, Triplet) | foundation | published | design needed |
-| Batch/Layer/Group/RMS Normalization | foundation | published | design needed |
-| Transfer Learning & Fine-Tuning Strategies | foundation | published | design needed |
-| Weight Initialization (Xavier, Kaiming, μP) | intermediate | published | design needed |
-| Residual Connections & Skip Connections | intermediate | published | design needed |
-| Dropout, DropPath & Stochastic Depth | intermediate | published | design needed |
-| Convolution, Pooling & Receptive Fields | foundation | published | design needed |
-| Landmark Architectures (LeNet → AlexNet → VGG → ResNet → EfficientNet) | intermediate | published | design needed |
-| Depthwise Separable & Dilated Convolutions | intermediate | published | design needed |
-| ConvNeXt & Modern CNN Designs | advanced | published | design needed |
-| Capsule Networks | advanced | published | design needed |
-| RNNs, LSTMs & GRUs | foundation | published | design needed |
-| Sequence-to-Sequence & Encoder-Decoder | intermediate | published | design needed |
+| Perceptrons, Neurons & Activation Functions | foundation | published | brief |
+| Backpropagation & Automatic Differentiation | foundation | published | brief |
+| Loss Functions (CE, MSE, Focal, Contrastive, Triplet) | foundation | published | brief |
+| Batch/Layer/Group/RMS Normalization | foundation | published | brief |
+| Transfer Learning & Fine-Tuning Strategies | foundation | published | brief |
+| Weight Initialization (Xavier, Kaiming, μP) | intermediate | published | brief |
+| Residual Connections & Skip Connections | intermediate | published | brief |
+| Dropout, DropPath & Stochastic Depth | intermediate | published | brief |
+| Convolution, Pooling & Receptive Fields | foundation | published | brief |
+| Landmark Architectures (LeNet → AlexNet → VGG → ResNet → EfficientNet) | intermediate | published | brief |
+| Depthwise Separable & Dilated Convolutions | intermediate | published | brief |
+| ConvNeXt & Modern CNN Designs | advanced | published | brief |
+| Capsule Networks | advanced | published | brief |
+| RNNs, LSTMs & GRUs | foundation | published | brief |
+| Sequence-to-Sequence & Encoder-Decoder | intermediate | published | brief |
 | Attention Mechanism (Bahdanau, Luong) | intermediate | published | design needed |
 | Long-Context Sequence Models (Transformer-XL, Griffin, Perceiver) | advanced | planned | design needed |
 | State Space Models (S4, Mamba, Mamba-2) | advanced | published | design needed |
@@ -271,6 +271,7 @@ Counts within modules may include shared topics. The headline counts each stable
 | DAPO (Dynamic Adaptive Policy Optimization) | advanced | published | design needed |
 | Knowledge Distillation for LLMs (DeepSeek-R1-Distill, CoT Distillation) | advanced | published | design needed |
 | RL for Reasoning (DeepSeek-R1 Style) | frontier | published | design needed |
+| Typed Decision Models & Calibrated Neural Decision Systems | advanced | planned | brief |
 | KV-Cache & Memory Management | intermediate | published | design needed |
 | Decoding Strategies (Greedy, Beam, Top-k, Top-p, Temperature) | intermediate | published | design needed |
 | Structured Output & Constrained Decoding (Outlines, XGrammar) | intermediate | published | design needed |

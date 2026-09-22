@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "torch_version": "2.14.0+cpu",
+  "transformers_version": "4.57.6",
+  "scope": "Offline random tiny BERT and local WordLevel tokenizer; no pretrained weights downloaded or fine-tuned.",
+  "marker_embedding_gradient_norm": 1.3308305740356445,
+  "checks": [
+    "marker registration and embedding resize",
+    "marker gather alignment",
+    "variable candidates and padding",
+    "full-encoder gradients",
+    "optimizer step",
+    "exact local tokenizer/model/head save-load parity",
+    "frozen encoder and trainable head",
+    "reserved marker and length rejection"
+  ]
+}

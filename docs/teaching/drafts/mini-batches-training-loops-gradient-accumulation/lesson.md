@@ -1,5 +1,8 @@
 # Mini-Batches, Training Loops & Gradient Accumulation
 
+**Explore as you read.** Edit rows, microbatch boundaries, learning rate, clearing/step policy, target weights and normalization groups. Populate row model outputs/errors/gradients immediately; step backward and optimizer events with distinct clocks and buffers. Compare final policies using the same rows and initial state. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to decide when accumulation is equivalent, what receives influence and why partition-sensitive operations change the computation.
+
+
 Your model can process twelve examples at a time, but you want one update to use thirty-two. Can you run three forward/backward passes and obtain the same update as a batch of thirty-two? Yes, for an appropriate computation—but the last eight examples must receive the same per-example influence as the first twenty-four. Calling every microbatch's loss `.mean()` and averaging those three numbers gives a different objective.
 
 This lesson makes a training loop inspectable. You will follow examples, predictions, losses, gradients, parameters and optimizer memory as separate objects, then build an offline flower classifier whose full-batch and accumulated updates agree. The central question is: **which examples contribute to this update, with what weight, evaluated at which parameters?**
@@ -110,7 +113,7 @@ $$
 
 Dividing each mean by the number of chunks is the special case where all their denominators are equal. Count what the loss averages; do not assume every tensor called a batch contains the same amount of supervision.
 
-**Investigation 1 — who changed the weight?** The state explorer begins with different editable rows, not the worked answer above. Enter predictions for the weight after the first backward pass and after the group update. Edit an input or target, place a microbatch boundary, then step the actual instructions. Compare the correct boundary with deliberately clearing or stepping between chunks. Watch the separate weight, gradient and momentum lanes. Finally use one chunk: explain which mistaken boundaries become indistinguishable in that case. The explorer records each prediction against the applied input and clears the verdict when the input changes.
+**Investigation 1 — who changed the weight?** Edit a row or target and place microbatch boundaries while watching the current computed results. Step the instructions through separate weight, gradient and momentum lanes. Compare the correct update boundary with clearing or stepping between chunks. Finally use one chunk and inspect which mistaken policies become indistinguishable. Each input edit recomputes the trace; Restart begins the current case again.
 
 ## 4. Write the loop around the update boundary
 
@@ -186,7 +189,7 @@ The cross-entropy distinction and `ignore_index` semantics come from the current
 
 If a whole group has no eligible target mass, its mean is undefined. Skip that group's update and its update-based scheduler tick, or reject it as an input-construction error. Avoid evaluating an empty mean and then multiplying NaN by zero. A zero-loss sum from an all-ignored microbatch can contribute zero while other chunks make the group's denominator positive; batch-dependent layers may still change state during that forward.
 
-**Investigation 2 — choose the loss mass.** Edit the weighted target table: an input, target, inclusion mark or importance weight. Predict the global mean gradient, then compare summing numerators with equally averaging microbatch means. The display traces each row's numerator contribution and mass. Find an unequal-size case that nevertheless agrees because the two total masses match; then remove all eligible mass and explain why an update is disabled. The mathematical simulator uses the scalar squared-error model, so the weighting mechanism is visible without requiring an NLP model.
+**Investigation 2 — choose the loss mass.** Edit the weighted target table: an input, target, inclusion mark or importance weight. Inspect the global mean gradient, then compare summing numerators with equally averaging microbatch means. The display traces each row's numerator contribution and mass. Find an unequal-size case that nevertheless agrees because the two total masses match; then remove all eligible mass and explain why an update is disabled. The mathematical simulator uses the scalar squared-error model, so the weighting mechanism is visible without requiring an NLP model.
 
 The same accounting governs evaluation logs. Add detached loss numerators and their denominators over the evaluation dataset, then divide once. Averaging batch means during validation reproduces the small-batch weighting error even when no gradients are computed. Accuracies similarly use total correct divided by total eligible targets. A training loss accumulated while the model changes is an online summary across different parameter states; an evaluation pass at epoch end measures one fixed state. Label those differently.
 
@@ -246,7 +249,23 @@ The accumulated model learns useful structure on this split, and its final param
 
 Before a training epoch, call `model.train()`. For validation, call `model.eval()` and evaluate within `torch.no_grad()`. The first selects behavior for mode-sensitive layers; the second disables ordinary reverse-mode graph recording for the forward computation. Neither call updates weights. `eval()` alone still permits derivatives; `no_grad()` alone leaves dropout and batch-normalization training behavior active. The supplied model has neither layer, but spelling out both operations makes the loop's intent explicit. [no_grad reference](https://docs.pytorch.org/docs/2.14/generated/torch.no_grad.html), [BatchNorm1d reference](https://docs.pytorch.org/docs/2.14/generated/torch.nn.BatchNorm1d.html).
 
-**Try a change before reading a result:** change only `train(12)` to `train(7)`. Predict the number of forward/backward calls and whether the final parameter agreement should survive. Then run it and compare your prediction. Keep effective groups, initialization, optimizer and orders fixed. Practice 4 gives the closed reasoning and a second, stronger variation.
+**Try a direct comparison:** change only `train(12)` to `train(7)`, run it and inspect the number of forward/backward calls together with the final parameter and momentum agreement. Keep effective groups, initialization, optimizer and orders fixed. Practice 4 gives the closed reasoning and a second, stronger variation.
+
+### Own the accumulation rule; reuse the derivative and optimizer engines
+
+The mechanism here is the boundary between losses, accumulated derivatives and one update. The complete [train_iris.py](train_iris.py) owns that boundary in `train`: define actual effective-group rows, clear once, divide each chunk's summed loss by the same real group count, call backward per chunk, and step once. `trace_update.py` makes the gradient slot, parameter and momentum lifetimes visible. These are ordinary PyTorch loops, with the accumulation algorithm expressed explicitly rather than delegated to an opaque trainer.
+
+If you want to reopen the two reused engines, the **implemented** [Backpropagation lesson](/learn/path/full-curriculum/backpropagation-automatic-differentiation?module=deep-learning-fundamentals) supplies its [scratch differentiation engine](/learn-assets/backpropagation/teaching-autodiff.py) and [matched engine/library bridge](/learn-assets/backpropagation/engine-library-bridge.py). The **implemented** [Gradient Descent Variants lesson](/learn/path/full-curriculum/gradient-descent-variants-sgd-adam-adagrad-rmsprop-lamb-lars?module=math-foundations) supplies [manual_step and optimizer-state comparisons](/learn-assets/gradient-variants/optimizer_library_bridge.py). Those programs actually implement the mechanisms; a link to a bare library reference would not replace them. This topic need not recopy either engine to teach a new grouping rule.
+
+The correspondence matters: the scratch sum of per-example derivatives becomes repeated `.backward()` additions into `.grad`; the scratch momentum array becomes SGD's `momentum_buffer`; the scratch update clock becomes exactly one `optimizer.step()` per effective group. Actual state comparisons in the Iris experiment check parameters **and** momentum, so similar accuracy cannot conceal a wrong update schedule. Microbatching reduces simultaneously retained activation graphs, while parameter, gradient and optimizer storage remain. Retaining graph-connected losses until the end would lose that intended memory benefit.
+
+**Changed-constraint exercise.** Keep groups of 32 and change the physical microbatch size to seven. Inspect the final group of 24 as well, preserving all input rows. State the denominator at every backward call, including the short last physical chunk.
+
+<details><summary>Hint and reasoned solution</summary>
+
+A 32-row group has physical sizes 7,7,7,7,4, and each summed loss divides by 32. A 24-row group has sizes 7,7,7,3, and each divides by 24. Each group still advances momentum once. With the existing 120 fitting rows, one epoch has groups 32,32,32,24: nineteen physical forward/backward calls and four optimizer updates. The full-group and accumulated parameter/momentum paths should match to floating-point tolerance because the model has no cross-example operation or stochastic forward layer. An equal average of the five or four physical means changes row weights; a step after each physical chunk changes both parameters and momentum between derivatives.
+
+</details>
 
 ## 7. Deeper branch: an effective batch need not be a physical batch
 
@@ -260,7 +279,7 @@ For a downstream trainable scale $\theta$, predict $\theta z_i$ and use half-squ
 
 Running statistics also update on forwards. With initial running mean zero and update coefficient 0.1, one full forward stores 0.6. Two local forwards store $0.9(0.1)+0.1(11)=1.19$. Even when microbatches have identical means and variances, their training outputs can agree while their repeated running-statistic updates differ. PyTorch uses a population variance for the current normalization and an unbiased estimate for its running variance; the example above traces only its running mean. [BatchNorm1d semantics](https://docs.pytorch.org/docs/2.14/generated/torch.nn.BatchNorm1d.html).
 
-**Figure F and investigation 3 — move the normalization boundary.** Show the actual four activations on a number line, with full-group and local means. Then use a fresh activation table in the investigation: edit values and targets, assign groups, predict whether the downstream gradient agrees, and compare full, local and frozen-statistic computations. Freeze one shared reference set of statistics to see partition invariance return. Find a case where training outputs agree but running means differ. Frozen evaluation statistics define their own fixed computation; they are not a general replacement for training batch normalization.
+**Figure F and investigation 3 — move the normalization boundary.** Show the actual four activations on a number line, with full-group and local means. Then use a fresh activation table in the investigation: edit values and targets, assign groups, observe whether the downstream gradient agrees, and compare full, local and frozen-statistic computations. Freeze one shared reference set of statistics to see partition invariance return. Find a case where training outputs agree but running means differ. Frozen evaluation statistics define their own fixed computation; they are not a general replacement for training batch normalization.
 
 Layer normalization over features within each independent example does not couple the example axis in this way. A contrastive loss whose negatives come from other batch rows, a batchwise ranking loss, or any operation that explicitly compares examples can have the same partition problem as batch normalization. Choose an implementation that preserves the needed cross-example information; simply adding gradients is insufficient.
 

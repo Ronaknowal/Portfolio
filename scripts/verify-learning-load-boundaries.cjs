@@ -243,11 +243,11 @@ function checkDsaSourceOwnership(id) {
     {
       const { context, page, requests, errors } = await fresh();
       await page.goto(`${base}/learn`, { waitUntil: 'domcontentloaded' });
-      await page.locator('.path-card').first().waitFor(); await settled(page);
+      await page.locator('.workspace-hero').waitFor(); await settled(page);
       const network = checkRequests(requests, []);
       checkClosure(requests, ['src/learn/LearnHub.jsx']);
       checkMathRequests(requests, false);
-      assert.equal(await page.locator('.availability-note').count(), 1);
+      assert.equal(await page.locator('.workspace-availability').count(), 1);
       assert.deepEqual(errors, []);
       results.push({ case: 'hub loads metadata and no lesson bodies or outlines', ...network });
       await context.close();

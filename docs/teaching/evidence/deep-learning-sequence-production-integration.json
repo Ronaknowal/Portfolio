@@ -1,0 +1,761 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:56:51.036Z",
+  "base": "http://127.0.0.1:4194",
+  "manifestHash": "7275913e8739f0e9c54ac8876eae93a46334953b01f1055f5da5914903e96001",
+  "routes": [
+    {
+      "id": "depthwise-separable-dilated-convolutions",
+      "loaded": [
+        "depthwise-separable-dilated-convolutions"
+      ],
+      "anchors": 10,
+      "mathSvg": 2,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "convnext-modern-cnn-designs",
+      "javascriptBytes": 1695360,
+      "exactDownloads": 8,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 5,
+              "description": "Formula-derived hard-swish curve, x from minus 4 to 4; joins at minus 3 and 3; a negative lobe lies between minus 3 and zero.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 5,
+              "description": "Formula-derived hard-swish curve, x from minus 4 to 4; joins at minus 3 and 3; a negative lobe lies between minus 3 and zero.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 5,
+              "description": "Formula-derived hard-swish curve, x from minus 4 to 4; joins at minus 3 and 3; a negative lobe lies between minus 3 and zero.",
+              "labelCount": 5,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "convnext-modern-cnn-designs",
+      "loaded": [
+        "convnext-modern-cnn-designs"
+      ],
+      "anchors": 10,
+      "mathSvg": 8,
+      "colors": [
+        "rgb(228, 183, 82)"
+      ],
+      "next": "capsule-networks",
+      "javascriptBytes": 1705148,
+      "exactDownloads": 8,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 10,
+              "description": "Recorded development reconstruction error. Horizontal: Training update. Vertical: Hidden-pixel MSE. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 10,
+              "description": "Recorded development reconstruction error. Horizontal: Training update. Vertical: Hidden-pixel MSE. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 10,
+              "description": "Recorded development reconstruction error. Horizontal: Training update. Vertical: Hidden-pixel MSE. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capsule-networks",
+      "loaded": [
+        "capsule-networks"
+      ],
+      "anchors": 11,
+      "mathSvg": 6,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "rnns-lstms-grus",
+      "javascriptBytes": 1725611,
+      "exactDownloads": 8,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 3,
+              "description": "Input radius zero to six versus output score length zero to one",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Input and squashed vectors; equal axes from minus6 to6",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 6,
+              "description": "Parent A votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "Parent B votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 9,
+              "description": "Correct / 120; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 10,
+              "description": "Margin loss; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 11,
+              "description": "Predicted-mask pixel MSE; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "EM parent A; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 20,
+              "description": "EM parent B; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 3,
+              "description": "Input radius zero to six versus output score length zero to one",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Input and squashed vectors; equal axes from minus6 to6",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 6,
+              "description": "Parent A votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "Parent B votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 9,
+              "description": "Correct / 120; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 10,
+              "description": "Margin loss; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 11,
+              "description": "Predicted-mask pixel MSE; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "EM parent A; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 20,
+              "description": "EM parent B; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 3,
+              "description": "Input radius zero to six versus output score length zero to one",
+              "labelCount": 7,
+              "issues": []
+            },
+            {
+              "svgIndex": 4,
+              "description": "Input and squashed vectors; equal axes from minus6 to6",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 6,
+              "description": "Parent A votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 7,
+              "description": "Parent B votes and weighted contributions; exact values in table below",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 9,
+              "description": "Correct / 120; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 10,
+              "description": "Margin loss; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 11,
+              "description": "Predicted-mask pixel MSE; three seed pairs; solid amber trained1, neutral trained3",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 19,
+              "description": "EM parent A; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            },
+            {
+              "svgIndex": 20,
+              "description": "EM parent B; equal axes minus 10 to 10; ellipse radii are standard deviations",
+              "labelCount": 4,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rnns-lstms-grus",
+      "loaded": [
+        "rnns-lstms-grus"
+      ],
+      "anchors": 11,
+      "mathSvg": 0,
+      "colors": [
+        "rgb(228, 183, 82)"
+      ],
+      "next": "sequence-to-sequence-encoder-decoder",
+      "javascriptBytes": 1699195,
+      "exactDownloads": 7,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+              "labelCount": 12,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "1",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "8",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 1,
+              "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 3,
+              "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+              "labelCount": 12,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "1",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "8",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 1,
+              "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 3,
+              "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Numbered pen trajectory. Point numbers show order, not elapsed time. Exact coordinates follow.",
+              "labelCount": 12,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "1",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "3",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "4",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "5",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "6",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "7",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "8",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 1,
+              "description": "Retention with and without one write. Horizontal: Step. Vertical: Cell value. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 2,
+              "description": "Four mixing edges. Each source gate multiplies both outgoing contributions. Bias is added afterward.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            },
+            {
+              "svgIndex": 3,
+              "description": "Four mixing edges. Each output gate multiplies all incoming contributions and its bias.",
+              "labelCount": 11,
+              "issues": [
+                {
+                  "type": "line-through-label",
+                  "label": "W₁₂=-1.2",
+                  "lineClass": ""
+                },
+                {
+                  "type": "line-through-label",
+                  "label": "W₂₁=1.1",
+                  "lineClass": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sequence-to-sequence-encoder-decoder",
+      "loaded": [
+        "sequence-to-sequence-encoder-decoder"
+      ],
+      "anchors": 12,
+      "mathSvg": 0,
+      "colors": [
+        "rgb(226, 181, 90)"
+      ],
+      "next": "attention-mechanism-bahdanau-luong",
+      "javascriptBytes": 1690679,
+      "exactDownloads": 7,
+      "geometry": [
+        {
+          "width": 1366,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Teacher-forced NLL. Horizontal: training updates. Vertical: nats per valid target token. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Generated exact match. Horizontal: training updates. Vertical: correct / 447. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 390,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Teacher-forced NLL. Horizontal: training updates. Vertical: nats per valid target token. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Generated exact match. Horizontal: training updates. Vertical: correct / 447. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        },
+        {
+          "width": 320,
+          "findings": [
+            {
+              "svgIndex": 0,
+              "description": "Teacher-forced NLL. Horizontal: training updates. Vertical: nats per valid target token. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            },
+            {
+              "svgIndex": 1,
+              "description": "Generated exact match. Horizontal: training updates. Vertical: correct / 447. Exact values are beside the chart.",
+              "labelCount": 6,
+              "issues": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "recovery": [
+    {
+      "kind": "import",
+      "requests": 2,
+      "recovered": true
+    },
+    {
+      "kind": "render",
+      "requests": 2,
+      "recovered": true
+    }
+  ],
+  "verifierHash": "359b53e1bb14f91f77eb48528124f4ede6c417e900fa5d59dea22b9431dcdf1a"
+}

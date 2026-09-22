@@ -106,7 +106,7 @@ export function IntervalSplitLab() {
   }
   return <section className="dpf-lab" aria-label="Interval split investigation">
     <h3>Where should the final multiplication split?</h3>
-    <p>Predict which grouping avoids an expensive intermediate. Every interval answer includes the best grouping inside that interval; its boundary dimensions remain fixed.</p>
+    <p>Inspect which grouping avoids an expensive intermediate. Every interval answer includes the best grouping inside that interval; its boundary dimensions remain fixed.</p>
     <form className="dpf-controls" onSubmit={apply}><label>Matrix-chain dimensions<input value={draft} onChange={event => setDraft(event.target.value)} /></label><button>Apply dimensions</button><button type="button" onClick={reset}>Reset interval lab</button></form>
     {error && <p role="alert">{error}</p>}
     <div className="dpf-factor-row">{dimensions.slice(0, -1).map((rows, index) => <Shape key={index} rows={rows} columns={dimensions[index + 1]} label={`A${index}`} />)}</div>
@@ -237,7 +237,7 @@ export function DigitPrefixLab() {
     length: 10
   }, (_, digit) => digit).filter(digit => model.state.used & 1 << digit);
   return <section className="dpf-lab" aria-label="Digit prefix investigation">
-    <h3>Count all continuations of one prefix</h3><p>Predict the allowed final digits for prefixes 12 and 21 under bound 213. They used the same digits, but only 21 still equals the bound prefix.</p><form className="dpf-controls" onSubmit={apply}><label>Inclusive upper bound<input inputMode="numeric" value={draft} onChange={event => setDraft(event.target.value)} /></label><button>Apply digit bound</button><button type="button" onClick={reset}>Reset digit lab</button></form>{error && <p role="alert">{error}</p>}
+    <h3>Count all continuations of one prefix</h3><p>Inspect the allowed final digits for prefixes 12 and 21 under bound 213. They used the same digits, but only 21 still equals the bound prefix.</p><form className="dpf-controls" onSubmit={apply}><label>Inclusive upper bound<input inputMode="numeric" value={draft} onChange={event => setDraft(event.target.value)} /></label><button>Apply digit bound</button><button type="button" onClick={reset}>Reset digit lab</button></form>{error && <p role="alert">{error}</p>}
     <p>Active bound {bound}; positive integers with all digits distinct: <strong>{model.total}</strong>.</p><div className="dpf-prefix-strip"><span>Bound</span><div>{model.digits.map((digit, index) => <b key={index}>{digit}</b>)}</div><span>Prefix</span><div>{model.digits.map((_, index) => <b key={index} className={index < prefix.length && !model.history[index + 1].started ? 'dpf-padding' : index === prefix.length ? 'dpf-cursor' : ''}>{prefix[index] ?? '·'}</b>)}</div></div>
     <div className="dpf-prefix-facts"><span>Next position <b>{model.state.position}/{model.digits.length}</b></span><span>Bound prefix <b>{model.state.tight ? 'equal · tight' : 'smaller · loose'}</b></span><span>Number <b>{model.state.started ? 'started' : 'not started'}</b></span></div><div className="dpf-digit-tray" aria-label={`Used digit set: ${usedDigits.join(', ') || 'empty'}`}>{Array.from({
         length: 10

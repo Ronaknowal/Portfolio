@@ -1,5 +1,8 @@
 # Advanced Optimizers: Lion, Sophia, Prodigy and Schedule-Free
 
+**Explore as you read.** Edit gradient/momentum, curvature estimate, step scale, averaging state and supported real digit input for one update. Show the exact update vector and state changes for Lion, Sophia, Prodigy and Schedule-Free, including where gradients and evaluation occur. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose a debugging question from sign, curvature, scale and averaging effects rather than extrapolating a universal optimizer ranking.
+
+
 Two people can receive the same directions and make different journeys. One takes a fixed stride, another slows down on a steep slope, and another changes stride after seeing how far they have travelled. A neural-network optimizer faces a related problem: the gradient tells it how the current loss changes locally, but does not specify a safe, useful next step.
 
 An **optimizer** turns gradients and stored history into changes to model parameters. Those changes affect the next prediction. An optimizer does not add attention heads, change the labels or discover information that the input lacks. Its job is to make better use of the learning signal that the model and objective provide.
@@ -83,7 +86,7 @@ The old history wins this step. If the current gradient were negative enough to 
 
 **Figure 3 — a balance followed by a direction switch.** Put .18 and −.10 on a signed number line; their sum crosses a sign threshold at zero. Below it, show the separate .198 and −.01 memory calculation. Do not draw an arbitrary confidence meter.
 
-**Investigation: when does the new evidence win?** Begin with a different weight and history, edit the actual gradient sequence, and predict the next direction before stepping. Compare two sequences with the same signs but different magnitudes. Then set both gradient and history to zero and observe the no-decay null. The explanation should identify which blend crossed zero.
+**Investigation: when does the new evidence win?** Begin with a different weight and history, edit the actual gradient sequence, and inspect the next direction before stepping. Compare two sequences with the same signs but different magnitudes. Then set both gradient and history to zero and observe the no-decay null. The explanation should identify which blend crossed zero.
 
 ### Tuning and an interesting origin
 
@@ -135,7 +138,7 @@ This exposes the key distinction without a giant neural model. For a two-example
 
 **Figure 5 — two gradient lanes.** Real labels feed the training-gradient lane; independently sampled labels feed the curvature lane. Show the binary branches, their probabilities, squared gradients and weighted sum. A batch panel explains that squaring an average is not averaging squares.
 
-**Investigation: what does the label sampler estimate?** Edit input magnitudes and probabilities in a new two-example problem. Predict whether a real-label squared gradient equals the expected sampled-label result. Enumerate the small outcome space, then compare with the analytic curvature. A separate probe view lets you edit a symmetric two-by-two matrix and see positive and negative Hutchinson estimates. These are different estimators, not interchangeable presets.
+**Investigation: what does the label sampler estimate?** Edit input magnitudes and probabilities in a new two-example problem. Observe whether a real-label squared gradient equals the expected sampled-label result. Enumerate the small outcome space, then compare with the analytic curvature. A separate probe view lets you edit a symmetric two-by-two matrix and see positive and negative Hutchinson estimates. These are different estimators, not interchangeable presets.
 
 <details>
 <summary>Deeper: what curvature does Sophia-G actually estimate?</summary>
@@ -231,7 +234,7 @@ With equal weights, x after t updates is the average of those t post-update z va
 
 This is not the same as a momentum EMA, nor the same as applying a 1/t learning rate directly to the current gradient. Earlier gradients influence many later z values. The equations specify that influence; there is no universal “effective schedule” curve that makes every method identical.
 
-**Investigation: which model are you measuring?** Use a new target and editable perturbation sequence. Predict the training point, fast point and evaluated point after an update. Compare β=0, β=.9 and β=1 without assuming the middle choice wins on every small problem. At the exact target with zero noise, all three remain there.
+**Investigation: which model are you measuring?** Use a new target and editable perturbation sequence. Inspect the training point, fast point and evaluated point after an update. Compare β=0, β=.9 and β=1 without assuming the middle choice wins on every small problem. At the exact target with zero noise, all three remain there.
 
 ### The AdamW form and the warmup weights
 
@@ -327,11 +330,162 @@ python optimizer_study.py
 
 The program prints the twelve selected assessment records and writes all candidate histories to `study-results.json`. `fitted-optimizer-states.json` retains the selected models' full weights and optimizer state, including Schedule-Free's different iterates. The exact arithmetic/probe checker is [optimizer_calculations.py](optimizer_calculations.py); it also needs the saved study files and PyTorch. The files contain complete programs, with no missing loader, model or loss function.
 
-**Investigation: one new image, one real update.** Start from a saved model and a fresh validation image. Edit a stroke pixel, choose a target label and predict which class probabilities will increase after one diagnostic update. The actual edited pixels produce the scores and gradients. A change of label changes the gradient, while leaving the pre-update inference probabilities unchanged.
+**Investigation: one new image, one real update.** Start from a saved model and a fresh validation image. Edit a stroke pixel, choose a target label and inspect which class probabilities will increase after one diagnostic update. The actual edited pixels produce the scores and gradients. A change of label changes the gradient, while leaving the pre-update inference probabilities unchanged.
 
 This is a temporary copy of the fitted model, not an alteration of the reported experiment. For example, changing pixel 28 of source 277 from 0 to 16 and applying one AdamW update toward its original class 0 changes its class-0 probability from .97019 to .97777. That is evidence about this edited example and copied state. It does not establish improved generalization. The Sophia diagnostic can use the exact expected-label diagonal for this linear model; label it distinctly from the sampled estimator used during fitting.
 
 Cosine AdamW has already reached zero learning rate at update 400. Continuing its frozen schedule gives no parameter change at the next step. That is an informative control, not a reason to silently restart its schedule to produce a visible animation. Restoring the original snapshot must recover the same weights and predictions.
+
+### Use all four optimizer APIs, then resume the same process
+
+[optimizer_rules.py](optimizer_rules.py) owns the complete scratch update for each named method, including its persistent arrays. The real digit experiment above uses those rules. The next program provides a second capability: taking control of the ordinary optimizer objects people put into a PyTorch loop. It keeps the objective and initial weight matrix fixed across methods, but it is an eight-update API study, not a ranking of optimizer quality.
+
+Use [optimizer_library_bridge.py](optimizer_library_bridge.py) beside `optimizer_rules.py`. Its authoring targets are PyTorch 2.14.0, `prodigyopt==1.1.2` and `schedulefree==1.4.1`. Install those packages in the lesson environment. For the other two, save the original licensed author files beside the bridge: [Google's pinned Lion source](https://raw.githubusercontent.com/google/automl/b21d6ced9bc9b748e1c8ab9fdebf2c44c57e63ae/lion/lion_pytorch.py) as `lion_pytorch.py`, and [the pinned Sophia source](https://raw.githubusercontent.com/Liuhong99/Sophia/2fc52f24d4bc008658111b0237a70953ada22398/sophia.py) as `sophia.py`. Preserve their license notices. These are explicit imported dependencies, not unnamed implementations the learner has to invent. Run the program with `--method lion`, `--method sophia`, `--method prodigy`, or `--method schedule_free`.
+
+The state map explains which equivalence we can legitimately claim:
+
+| Scratch quantity | Package quantity/control | Comparison boundary |
+| --- | --- | --- |
+| Lion m and two β values | `exp_avg`, `betas=(.9,.99)` | Same gradient, initialization, decay and rate give matched parameters and momentum; the program checks every update |
+| Sophia sampled curvature EMA of B times squared mean gradient | `hessian` stores the unscaled squared-gradient EMA; `step(bs=B)` supplies B | Multiply once. `bs` counts terms in this mean cross-entropy, not the number of loader batches |
+| Prodigy d, initial weights, displacement history and moments | Group `d`, `d0`, `d_numerator`, parameter `p0`, `s`, `exp_avg`, `exp_avg_sq` | The original package has implementation conventions beyond paper Algorithm 4; matching names does not imply identical trajectories |
+| Schedule-Free training y, evaluation x and fast z | Parameter buffer changes under `optimizer.train()`/`.eval()`; z and second moment persist | `model.eval()` alone does not select x. Evaluate and save the intended iterate |
+
+For Sophia we refresh the estimate at the current parameters every second update, clear those sampled-label gradients, and calculate a fresh real-label gradient before `step`. There is no accidental reuse of curvature-probe gradients as the training gradient. The package denominator adds an epsilon; the scratch rule uses a denominator floor. The difference matters near zero and is another reason not to promise bitwise identity. The scaling and method calls come from [the original Sophia implementation](https://github.com/Liuhong99/Sophia).
+
+Prodigy settings deliberately expose bias correction, safeguard behavior, the initial distance and statistic subsampling. This route uses full statistics (`slice_p=1`) and turns the first two options off, but still identifies its output as package behavior rather than relabeling it paper-Algorithm-4 parity. [Original Prodigy implementation](https://github.com/konstmish/prodigy). Schedule-Free 1.4.1 includes the post-1.3 warmup/decay behavior; the reference paper variant is a distinct class. Weight decay is zero in this small comparison. [Author usage and release notes](https://github.com/facebookresearch/schedule_free).
+
+```python
+"""Four actual optimizer APIs on one small fixed classification problem.
+
+Targets: torch 2.14.0, prodigyopt 1.1.2, schedulefree 1.4.1; the lesson
+pins the original Lion/Sophia source files. Choose --method explicitly.
+This is an API/state demonstration, not an optimizer quality benchmark.
+"""
+import argparse
+from copy import deepcopy
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
+import numpy as np
+import torch
+from torch.nn import functional as F
+from optimizer_rules import Optimizer
+
+
+def source_class(filename, class_name):
+    path = Path(__file__).with_name(filename)
+    spec = spec_from_file_location(path.stem, path)
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return getattr(module, class_name)
+
+
+def make_optimizer(parameters, method):
+    if method == "lion":
+        return source_class("lion_pytorch.py", "Lion")(
+            parameters, lr=.01, betas=(.9, .99), weight_decay=0.)
+    if method == "sophia":
+        return source_class("sophia.py", "SophiaG")(
+            parameters, lr=.01, betas=(.965, .99), rho=.04, weight_decay=0.)
+    if method == "prodigy":
+        from prodigyopt import Prodigy
+        return Prodigy(parameters, lr=1., betas=(.9, .999), d0=1e-6,
+                       weight_decay=0., use_bias_correction=False,
+                       safeguard_warmup=False, slice_p=1)
+    if method == "schedule_free":
+        from schedulefree import AdamWScheduleFree
+        return AdamWScheduleFree(parameters, lr=.01, betas=(.9, .999),
+                                  weight_decay=0., warmup_steps=2, foreach=False)
+    raise ValueError(method)
+
+
+def switch(model, optimizer, method, training):
+    model.train(training)
+    if method == "schedule_free":
+        optimizer.train() if training else optimizer.eval()
+
+
+def update(model, optimizer, method, inputs, labels, step):
+    switch(model, optimizer, method, True)
+    optimizer.zero_grad(set_to_none=True)
+    if method == "sophia" and step % 2 == 0:
+        # Curvature and true-label gradients are evaluated at the same parameters.
+        logits = model(inputs)
+        fake_labels = torch.distributions.Categorical(logits=logits.detach()).sample()
+        F.cross_entropy(logits, fake_labels, reduction="mean").backward()
+        optimizer.update_hessian()   # EMA of squared mean gradient, not B*g^2
+        optimizer.zero_grad(set_to_none=True)
+    F.cross_entropy(model(inputs), labels, reduction="mean").backward()
+    if method == "sophia":
+        optimizer.step(bs=len(inputs))   # B is applied once, in Sophia's denominator
+    else:
+        optimizer.step()
+
+
+def build(method):
+    model = torch.nn.Linear(2, 3, bias=False, dtype=torch.float64)
+    with torch.no_grad():
+        model.weight.copy_(torch.tensor([[.1, -.2], [-.1, .2], [.05, -.05]]))
+    return model, make_optimizer(model.parameters(), method)
+
+
+def main(method):
+    torch.manual_seed(23)
+    inputs = torch.tensor([[1., 0.], [0., 1.], [1., 1.], [-1., 1.]], dtype=torch.float64)
+    labels = torch.tensor([0, 1, 2, 1])
+    model, optimizer = build(method)
+    reference = Optimizer(model.weight.detach().numpy(), "lion", .01) if method == "lion" else None
+    checkpoint = None
+    for step in range(8):
+        if reference is not None:
+            loss = F.cross_entropy(model(inputs), labels)
+            gradient = torch.autograd.grad(loss, model.weight)[0].detach().numpy()
+            reference.step(gradient)
+        update(model, optimizer, method, inputs, labels, step)
+        if reference is not None:
+            np.testing.assert_allclose(model.weight.detach().numpy(), reference.parameters,
+                                       atol=1e-12, rtol=1e-12)
+            np.testing.assert_allclose(optimizer.state[model.weight]["exp_avg"].numpy(),
+                                       reference.state["momentum"], atol=1e-12)
+        if step == 3:
+            switch(model, optimizer, method, False)
+            checkpoint = deepcopy({"model": model.state_dict(), "optimizer": optimizer.state_dict(),
+                                   "rng": torch.get_rng_state(), "next_step": step+1})
+    switch(model, optimizer, method, False)
+    with torch.no_grad():
+        expected_logits = model(inputs).clone()
+    resumed, resumed_optimizer = build(method)
+    resumed.load_state_dict(checkpoint["model"])
+    resumed_optimizer.load_state_dict(checkpoint["optimizer"])
+    torch.set_rng_state(checkpoint["rng"])
+    for step in range(checkpoint["next_step"], 8):
+        update(resumed, resumed_optimizer, method, inputs, labels, step)
+    switch(resumed, resumed_optimizer, method, False)
+    with torch.no_grad():
+        torch.testing.assert_close(resumed(inputs), expected_logits, rtol=1e-12, atol=1e-12)
+        print(method, "evaluation loss:", F.cross_entropy(expected_logits, labels).item())
+    print("State keys:", sorted(optimizer.state[model.weight]))
+    print("Uninterrupted/resumed evaluation maximum error:",
+          (resumed(inputs).detach()-expected_logits).abs().max().item())
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--method", choices=["lion", "sophia", "prodigy", "schedule_free"], required=True)
+    main(parser.parse_args().method)
+```
+
+Each run saves model state, optimizer state, the next update index and CPU random state after update four, in the evaluation representation. It resumes from those states and checks the eighth evaluation against uninterrupted execution. The call to `optimizer.train()` then restores the training representation before computing a new gradient. Sophia's sampled labels make the random state part of the process. The code uses an in-memory checkpoint to keep the mechanism visible; the final diagnostics lesson supplies actual serialization and more complex data-order/scheduler restoration. No new measured output is asserted here: full specialist-package execution and output capture remain deferred implementation checks.
+
+Updates for these dense single-model examples take O(N) optimizer arithmetic per update and method-specific O(N) persistent state, as counted next. Sophia adds a forward/backward curvature pass on refresh updates. Prodigy's adaptation adds reductions, so an equivalent distributed implementation needs globally coherent statistics. This tiny program establishes neither GPU throughput nor distributed equivalence.
+
+**Take control.** Change the constructed objective to a class-weighted mean cross-entropy. Explain why passing the row count as Sophia's `bs` is no longer automatically a valid estimator correction. Separately remove only Schedule-Free's optimizer mode switch, and locate the first semantic error even if accuracy stays the same.
+
+<details><summary>Hint and reasoned solution</summary>
+
+The B correction assumed B equally weighted independent sampled-label contributions averaged by B. Class weights alter both contributions and the denominator; reproducing the intended curvature requires deriving the estimator for that weighted objective, not substituting an arbitrary count. Keep the unweighted route as the checked baseline until that derivation is implemented. Without `optimizer.eval()`, reported logits come from y rather than x; model dropout mode is a separate switch. A checkpoint saved in the wrong representation may also resume with inconsistent optimizer metadata. Compare logits, parameter buffers and optimizer state, not only rounded accuracy. For an independent implementation exercise, add an omission flag that removes only RNG restoration in the Sophia route; the expected failure is a changed subsequent sampled-label curvature history, not an obligatory accuracy decrease.
+
+</details>
 
 ## 8. Count the resources you actually need
 

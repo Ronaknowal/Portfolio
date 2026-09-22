@@ -32,13 +32,13 @@ function Range({
 }
 function Investigation({
   title,
-  prediction,
+  guidance,
   children,
   resetLabel,
   onReset
 }) {
-  return <section className="analysis-lab" aria-label={title}>
-    <h3>{title}</h3><p>{prediction}</p>{children}
+  return <section data-live-exploration className="analysis-lab" aria-label={title}>
+    <h3>{title}</h3><p>{guidance}</p>{children}
     <button type="button" onClick={onReset}>{resetLabel}</button>
   </section>;
 }
@@ -95,7 +95,7 @@ export function SequenceTailLab() {
   const [denominator, setDenominator] = useState(10);
   const [index, setIndex] = useState(9);
   const state = sequenceTail(1, denominator, index);
-  return <Investigation title="Choose where the entire safe tail starts" prediction="The error must be strictly below the requested tolerance. Predict whether index 9 works at epsilon=1/10, then move the tail boundary." resetLabel="Reset sequence tail" onReset={() => {
+  return <Investigation title="Choose where the entire safe tail starts" guidance="The error must be strictly below the requested tolerance. Inspect whether index 9 works at epsilon=1/10, then move the tail boundary." resetLabel="Reset sequence tail" onReset={() => {
     setDenominator(10);
     setIndex(9);
   }}>
@@ -119,7 +119,7 @@ export function CompletenessBracketLab() {
   const [target, setTarget] = useState(2);
   const [steps, setSteps] = useState(3);
   const state = dyadicBracket(target, steps);
-  return <Investigation title="Keep a shrinking bracket around an unknown real number" prediction="Choose the half whose endpoint squares still enclose the target. Predict what one more step does to the guaranteed error." resetLabel="Reset exact bracket" onReset={() => {
+  return <Investigation title="Keep a shrinking bracket around an unknown real number" guidance="Choose the half whose endpoint squares still enclose the target. Observe what one more step does to the guaranteed error." resetLabel="Reset exact bracket" onReset={() => {
     setTarget(2);
     setSteps(3);
   }}>
@@ -135,7 +135,7 @@ export function CauchyBlockLab() {
   const [family, setFamily] = useState('harmonic');
   const state = cauchyBlock(n, family);
   const highest = state.terms[0].value;
-  return <Investigation title="Look beyond the next small step" prediction="Compare the next increment with the total from N+1 through 2N. Predict whether the whole block becomes arbitrarily small." resetLabel="Reset Cauchy block" onReset={() => {
+  return <Investigation title="Look beyond the next small step" guidance="Compare the next increment with the total from N+1 through 2N. Inspect whether the whole block becomes arbitrarily small." resetLabel="Reset Cauchy block" onReset={() => {
     setN(8);
     setFamily('harmonic');
   }}>
@@ -153,7 +153,7 @@ export function PowerConvergenceLab() {
   const [fixedPoint, setFixedPoint] = useState(0.5);
   const end = domain === 'compact-subinterval' ? 0.75 : 1;
   const state = powerFamily(n, domain, 0.75, Math.min(fixedPoint, end));
-  return <Investigation title="Fix one point, then let the difficult point move" prediction="A fixed input below 1 becomes easy. Predict whether one N can make every input easy on the selected domain." resetLabel="Reset power convergence" onReset={() => {
+  return <Investigation title="Fix one point, then let the difficult point move" guidance="A fixed input below 1 becomes easy. Inspect whether one N can make every input easy on the selected domain." resetLabel="Reset power convergence" onReset={() => {
     setN(8);
     setDomain('closed-unit');
     setFixedPoint(0.5);
@@ -184,7 +184,7 @@ export function MovingTriangleLab() {
   const [grid, setGrid] = useState(20);
   const state = triangleFamily(n, scaling, grid);
   const height = state.height;
-  return <Investigation title="Find the error that a coarse grid misses" prediction="A narrow triangle can fall between the sampled points. Predict its actual height and area before treating a sampled zero as a guarantee." resetLabel="Reset moving triangle" onReset={() => {
+  return <Investigation title="Find the error that a coarse grid misses" guidance="A narrow triangle can fall between the sampled points. Inspect its actual height and area instead of treating a sampled zero as a guarantee." resetLabel="Reset moving triangle" onReset={() => {
     setN(64);
     setScaling('unit-height');
     setGrid(20);
@@ -232,7 +232,7 @@ export function DerivativeConvergenceLab() {
       ...derivativeFamily(n, power, x)
     };
   }), [n, power]);
-  return <Investigation title="A small curve can retain a large slope" prediction="At x=0 the sine is zero for every n. Predict the slope there, then change the amplitude from 1/n to 1/n²." resetLabel="Reset derivative comparison" onReset={() => {
+  return <Investigation title="A small curve can retain a large slope" guidance="At x=0 the sine is zero for every n. Follow the slope there, then change the amplitude from 1/n to 1/n²." resetLabel="Reset derivative comparison" onReset={() => {
     setN(4);
     setPower(1);
     setPoint(0);
@@ -275,7 +275,7 @@ export function SeriesEndpointLab() {
   const [n, setN] = useState(32);
   const [x, setX] = useState(1);
   const state = inverseSquareSeries(n, x);
-  return <Investigation title="A function-series bound does not control its derivative" prediction="The same finite terms become larger when differentiated at x=1. Predict what changes when x moves into the interior." resetLabel="Reset series endpoint" onReset={() => {
+  return <Investigation title="A function-series bound does not control its derivative" guidance="The same finite terms become larger when differentiated at x=1. Observe what changes when x moves into the interior." resetLabel="Reset series endpoint" onReset={() => {
     setN(32);
     setX(1);
   }}>
@@ -303,7 +303,7 @@ export function BernsteinApproximationLab() {
   const shownNodes = state.nodes.filter(node => node.weight >= 0.0001);
   const omittedWeight = state.nodes.filter(node => node.weight < 0.0001).reduce((sum, node) => sum + node.weight, 0);
   const greatestWeight = Math.max(...state.nodes.map(node => node.weight));
-  return <Investigation title="Build an approximation from nearby weighted values" prediction="The target has a corner, so a Taylor expansion there is unavailable. Predict how positive weights can still build a smooth polynomial approximation." resetLabel="Reset polynomial approximation" onReset={() => {
+  return <Investigation title="Build an approximation from nearby weighted values" guidance="The target has a corner, so a Taylor expansion there is unavailable. Explore how positive weights can still build a smooth polynomial approximation." resetLabel="Reset polynomial approximation" onReset={() => {
     setN(16);
     setCorner(0.3);
     setPoint(0.4);
@@ -361,7 +361,7 @@ export function TypewriterConvergenceLab() {
   const [position, setPosition] = useState(0);
   const [observer, setObserver] = useState(0.5);
   const state = typewriterInterval(block, position, observer);
-  return <Investigation title="A shrinking chance can keep revisiting one observer" prediction="Each block sweeps across [0,1) once. Predict whether your fixed observer can eventually avoid every highlighted interval." resetLabel="Reset interval sweep" onReset={() => {
+  return <Investigation title="A shrinking chance can keep revisiting one observer" guidance="Each block sweeps across [0,1) once. Inspect whether your fixed observer can eventually avoid every highlighted interval." resetLabel="Reset interval sweep" onReset={() => {
     setBlock(2);
     setPosition(0);
     setObserver(0.5);

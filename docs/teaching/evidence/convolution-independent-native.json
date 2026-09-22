@@ -1,0 +1,820 @@
+{
+  "passed": true,
+  "reviewer": "residual_implementation reviewing convolution",
+  "scope": "4 bilinear-adjoint cases, 25 adaptive incidence-matrix cases and 48 weighted pooling cases; no fit replay",
+  "cases": [
+    {
+      "kind": "convolution_bilinear_adjoints",
+      "image": [
+        1,
+        1,
+        2,
+        4
+      ],
+      "kernel": [
+        1,
+        1,
+        1,
+        3
+      ]
+    },
+    {
+      "kind": "convolution_bilinear_adjoints",
+      "image": [
+        2,
+        2,
+        5,
+        7
+      ],
+      "kernel": [
+        3,
+        2,
+        3,
+        2
+      ]
+    },
+    {
+      "kind": "convolution_bilinear_adjoints",
+      "image": [
+        1,
+        3,
+        3,
+        4
+      ],
+      "kernel": [
+        2,
+        3,
+        3,
+        4
+      ]
+    },
+    {
+      "kind": "convolution_bilinear_adjoints",
+      "image": [
+        3,
+        1,
+        4,
+        3
+      ],
+      "kernel": [
+        2,
+        1,
+        2,
+        1
+      ]
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 1,
+      "output": 1
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 1,
+      "output": 2
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 1,
+      "output": 4
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 1,
+      "output": 7
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 1,
+      "output": 11
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 2,
+      "output": 1
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 2,
+      "output": 2
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 2,
+      "output": 4
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 2,
+      "output": 7
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 2,
+      "output": 11
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 3,
+      "output": 1
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 3,
+      "output": 2
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 3,
+      "output": 4
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 3,
+      "output": 7
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 3,
+      "output": 11
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 5,
+      "output": 1
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 5,
+      "output": 2
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 5,
+      "output": 4
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 5,
+      "output": 7
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 5,
+      "output": 11
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 9,
+      "output": 1
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 9,
+      "output": 2
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 9,
+      "output": 4
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 9,
+      "output": 7
+    },
+    {
+      "kind": "adaptive_incidence_pullback",
+      "input": 9,
+      "output": 11
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        1.0,
+        4.0,
+        3.0,
+        2.0,
+        -1.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        2.0,
+        2.0,
+        1.0,
+        2.0,
+        2.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 1,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 1,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 2,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 2,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 3,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 3,
+      "stride": 2,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 5,
+      "stride": 1,
+      "mode": "mean"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "max"
+    },
+    {
+      "kind": "weighted_pooling",
+      "values": [
+        -1.0,
+        -4.0,
+        -2.0,
+        -3.0,
+        -5.0
+      ],
+      "size": 5,
+      "stride": 2,
+      "mode": "mean"
+    }
+  ],
+  "sourceHashes": {
+    "public/learn-code/convolution-pooling-receptive-fields/convolution_pullbacks.py": "2ec86d85e950faca0726212decc6cfe749023e77d381915ccbafed9df0a87923",
+    "public/learn-code/convolution-pooling-receptive-fields/convolution-experiments.py": "d6dec2070465e8e00dbd2fad082e84fb7386375b10b30a52c551390ae2efde2c"
+  }
+}

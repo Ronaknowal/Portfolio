@@ -1,5 +1,21 @@
 # xLSTM visual and investigation specifications
 
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Inspect scalar and matrix recurrent memory.** Edit evidence gates/values, address vectors, chunk boundaries/state carry and supported digit pixels.
+**See the consequence.** Update stabilized scalar numerator/denominator, matrix-address contributions, causal chunk states and exact model outputs together.
+**Decision connection.** Distinguish a probability normalization from signed matrix addressing and identify what state must cross a chunk boundary.
+
+
 Prepared 13 September 2026. Content phase only: these are implementation contracts, not implemented components. Read the complete manuscript and design record before building. Stable topic ID `xlstm-extended-lstm`; keep all future assets and models topic-owned. Use the site's existing visual language for framing, but let scalar mass, matrix address geometry, chunk computation and image scanning determine the representations.
 
 ## Shared mathematical and interaction contract
@@ -10,11 +26,11 @@ Scalar raw recurrence: c=f c_old+i z; n=f n_old+i; h=o c/n, empty c=n=0. Exponen
 
 Exponential matrix recurrence: C=f C_old+i k vᵀ; n=f n_old+i k; raw r=Cᵀq/max(|nᵀq|,1). Stabilized uses C',n',m and floor exp(−m). Output gating and RMS normalization are additional layers in the learned model; show their location. Pure operator fixtures omit those layers deliberately. The later mLSTM_sig variant is a separate formula and must not be selected by relabeling the same checkpoint.
 
-For every investigation, initially unset prediction has no default radio choice or prefilled text. The learner edits genuine inputs, records a prediction in their own words or selects a justified direction plus a reason, and then requests the outcome. Associate it with a canonical serialization of all causally active inputs, selected model/seed, operation mode and experiment condition. Any such edit invalidates the prior prediction/outcome comparison, marks it stale and requires a fresh recorded prediction for new feedback. Do not erase the user's text silently; retain it as a previous attempt, clearly detached from the new run. Focus/step changes that merely inspect the same run need not invalidate it.
+Valid edits recompute the current state, outcome and causal explanation. A previous run may remain as an immutable labeled comparison, with its original inputs. There is no prediction, answer-submission or assessment state to invalidate.
 
-Worked presets are clearly marked and already solved. Fresh defaults below are different problems. Reset to fresh clears results, recorded prediction, cached state and history for that investigation. Restore a worked preset may show its worked output but must not count it as fresh practice. Reset execution state alone is a deliberate experiment and distinct from reset the whole interface.
+Worked presets are clearly marked and already solved. Fresh defaults below are different problems. Reset to fresh clears results, Show the current computed result and its contributing terms immediately. Restore a worked preset may show its worked output but must not count it as fresh practice. Reset execution state alone is a deliberate experiment and distinct from reset the whole interface.
 
-Before execution show inputs, field labels and the question, not the completed result diagram or outcome-revealing class label. After execution show exact selected values, predicted versus observed change, a mechanism-based explanation, and an invitation to revise one input. Do not use confetti, completion claims or correctness feedback based only on choosing a preset.
+Show current inputs, state, computed result and causal readouts from the start. Parameter edits update these together. A bounded Step/Run advances a recurrence or chunk computation and reports its current state; it does not unlock an answer. Invite a useful next edit through the mechanism shown.
 
 Keyboard operations must cover all drag/edit functions. Inputs have visible labels, units/ranges and error text. Text/table equivalents expose all quantities conveyed by color or position. Use signed diverging matrix colors with printed values; nonnegative weight bars use a separate sequential scale. Maintain readable contrast and focus. SVGs have titles/descriptions and non-hover access to cells. Motion is step-triggered; reduced-motion mode changes state instantly. No autoplay.
 
@@ -57,15 +73,15 @@ Figures X03/X05/X08 remain visible inline as worked support; the investigations 
 
 The learner should distinguish candidate content, write strength, retention, normalization and output exposure. Fresh inputs are saved in `investigation-results.json` under `scalar_independent_inputs`: candidates `[.1,−.8,.5,.3]`, writes `[1,4,2,6]`, retention `[.9,.7,.4,.8]`, output gate `.6`.
 
-Prompt before execution: “If the last write is weakened from 6 to .75 while the earlier observations stay fixed, does the final exposed estimate rise, fall or stay unchanged? Explain which surviving evidence gains influence.” No choice is selected. This problem differs from both solved scalar examples and the practice exercises.
+Prompt before execution: “If the last write is weakened from 6 to .75 while the earlier observations stay fixed, does the final exposed estimate rise, fall or stay unchanged? Explain which surviving evidence gains influence.” Show the current output. This problem differs from both solved scalar examples and the practice exercises.
 
 Allow 2–12 editable observations, candidates in [−1,1], write log-weights in [−12,12], retention in [.01,1], and output gate in [0,1]. Raw write weight and log-weight can be synchronized equivalent input controls; they represent one active field. Allow adding, removing and reordering actual observations. Local errors preserve the previous valid data. A requested zero retention is a meaningful limiting case, but is outside this finite-log control; explain that boundary rather than silently substituting .01.
 
-### Representation and prediction state
+### Representation and live state
 
 Use a time-column ledger showing each observation's original candidate and its surviving weight at the selected step. Separate signed content contributions from positive mass. Totals feed the ratio and then the output valve. A signed output trace aligns with the time columns. A raw/stabilized display toggle changes only intermediate representation. Keyboard focus exposes the same numbers as optional hover. Run computes the experiment; Step inspects the already computed trace.
 
-Bind prediction to candidates, write logs, retention, output gate, order, initial-state choice, comparison edit and common log shift. Changing any of these invalidates its feedback. Changing the selected time or raw/stabilized display does not. Reset to fresh restores the four-row default and clears prediction/results/state. Worked resets are labeled solved examples and do not count as independent practice.
+ Compute the comparison from the complete current inputs. Changing any of these invalidates its feedback. Changing the selected time or raw/stabilized display does not. Reset restores the stated inputs and immediately displays their computed result. Worked resets are labeled solved examples and do not count as independent practice.
 
 ### Checked outcomes, nulls and feedback
 
@@ -75,7 +91,7 @@ Worked reset one uses §2 candidates .2/−.6/.8, writes 1/3/9, retention .5 and
 
 Null one sets all candidates to .6 and output to .8. All outputs equal .48 for any allowed positive weights/retention. Explain agreement among the evidence, not unused gates. Null two applies a common +1,000 to all write logs of worked reset one from empty state. Stable outputs differ by at most the recorded 1.504352198367087e−14. Do not form exp(1000) in the raw display or plot Infinity. Show symbolic scale information and a local explanation that raw totals cannot be represented here. This advanced control has fixed offsets 0/1000; it is not an unrestricted log-weight input. Null three sets output gate zero: exposed outputs are zero while memory updates continue.
 
-Phase two must verify raw/stable parity, each fresh/worked/null fixture, positive mass, the convex range before output gating, the special large-log mode, add/remove/reorder and reset. Check prediction invalidation, keyboard decimal entry, readable narrow ledger scrolling inside its own region, and table/graphic agreement. No timer or continual render loop is required.
+Phase two must verify raw/stable parity, each fresh/worked/null fixture, positive mass, the convex range before output gating, the special large-log mode, add/remove/reorder and reset. Check live recomputation, keyboard decimal entry, readable narrow ledger scrolling inside its own region, and table/graphic agreement. No timer or continual render loop is required.
 
 ## XB — An address grid, not a probability chart
 
@@ -89,7 +105,7 @@ Use three writes, each with a two-dimensional key and value, and an already-scal
 | 2 | [.5,1] | [−2,1] | [0,1] | 2 | .5 |
 | 3 | [−.5,1] | [3,−1] | [.5,1] | 1 | .7 |
 
-Prompt: “Reverse only the last key to [.5,−1]. Will the first output coordinate at step three get closer to zero or farther from zero, and why might its denominator change too?” No answer or outcome appears before the learner records a prediction.
+Show the first output coordinate at step three, its distance from zero and the actual denominator. Editing the current address or gate recomputes all terms, making it visible why numerator and denominator can move together. Keep an exact baseline-to-current table.
 
 Allow 2–8 editable key/value/query rows, coordinates in [−4,4], write logs in [−4,4] and retention in [.05,1]. Keep key/value dimensions at two for this address plane. A separately labeled one-dimensional worked floor preset uses its own one-dimensional display. Key and query arrows can be dragged within labeled axes, with equivalent numeric and keyboard controls. Value vectors use editable coordinate bars. Do not clip an out-of-range vector silently.
 
@@ -97,13 +113,13 @@ Allow 2–8 editable key/value/query rows, coordinates in [−4,4], write logs i
 
 Link the address plane, outer-product grid, stored C and n, signed contribution bars and read denominator. Show both output coordinates. Output values may exceed stored value-coordinate bounds; adapt the output axis with explicit labels rather than clamp. A selected matrix cell identifies its key row and value column. Raw and stabilized views represent the same operator. The deliberately incorrect floor branch is marked as an incorrect operator, not a legitimate checkpoint variant.
 
-Prediction is bound to all keys, values, queries, gates, order, initial state and chosen comparison edit. Selecting a timestep, matrix cell or raw/scaled view only inspects the attempt. Editing values or invoking “zero query” invalidates it. Reset returns the fresh unsolved table and clears results/prediction. Worked presets remain labeled solved.
+ Compute the comparison from the complete current inputs. Selecting a timestep, matrix cell or raw/scaled view only inspects the attempt. Editing values or invoking “zero query” invalidates it. Reset restores the stated inputs and immediately displays their computed result. Worked presets remain labeled solved.
 
 ### Exact contrasts and nulls
 
 The fresh final raw state is C=[[-2.55,1.9],[.2,.4]], n=[.55,2.4], numerator=[−1.075,1.35], denominator=2.675, read=[−.4018691588785046,.5046728971962616]. Changing the last key yields C=[[.45,.9],[−5.8,2.4]], n=[1.55,.4], numerator=[−5.575,2.85], denominator=1.175, read=[−4.74468085106383,2.425531914893617]. Full traces are in `investigation-results.json`.
 
-Feedback must connect the changed signed association and denominator to the output. These coefficients are not a probability distribution. Accept a reasoned prediction without attempting to grade arbitrary free-text wording by exact string matching.
+Explain the computed comparison using the current addressing contributions and normalization. A separate written reasoning exercise can have a rubric and solution; the live lab has no free-text guess or semantic grade.
 
 All values zero gives zero C/read at every step while n remains as in the nonzero-value case. All queries zero gives zero reads and leaves C/n unchanged. An orthogonal key/query gives zero contribution for that write, while other writes may remain. Restoring exact inputs recovers the same trace within 1e−10.
 
@@ -117,7 +133,7 @@ Phase two checks orientation, query scaling once, raw/stable parity at 1e−10, 
 
 Distinguish a different execution schedule from a different history. Use the exact seven-token fixture generated in `memory_mechanisms.py`: NumPy default_rng(229), normal q/k arrays of shape 7×3, normal v of shape 7×2, then write logs uniform [−.7,.9] and forget logs uniform [−1.2,−.05], in that draw order. Phase two must save the actual generated arrays as explicit fixture data; JavaScript Math.random does not reproduce NumPy's stream.
 
-Expose the actual q/k/v coordinates and gate values in an editable table. Allow 2–12 tokens, key width three, value width two, manual coordinates [−4,4], write logs [−2,2], retention [.05,1]. An optional initial-state table accepts C and n entries in [−4,4]. Default is empty state, chunk size three, state carry enabled. No precomputed parity badge appears before prediction.
+Expose the actual q/k/v coordinates and gate values in an editable table. Allow 2–12 tokens, key width three, value width two, manual coordinates [−4,4], write logs [−2,2], retention [.05,1]. An optional initial-state table accepts C and n entries in [−4,4]. Default is empty state, chunk size three, state carry enabled. No precomputed parity badge appears .
 
 Prompt: “Will changing chunk length from three to two change the outputs if the full incoming state is preserved? Describe which evidence crosses the boundary.” An explicit reset-at-boundary experiment is a separate changed-history contrast.
 
@@ -135,13 +151,13 @@ Changing chunk boundaries while retaining full state is a null: outputs agree wi
 
 Resetting state every three tokens preserves the first chunk and changes later outputs. The checked maximum difference is 5.04953803825383. Final carried output is [−1.2892444014209963,.39571805420333844]; final reset output is [−.600058764465178,.2235330173440005]. Exact input arrays, incoming state, full carried/reset/future-edit outputs are saved in `investigation-results.json`. With empty initial C, all values zero gives zero outputs even if normalizer/gates are nonzero. With nonzero incoming C that statement no longer applies; feedback must identify the remaining old information.
 
-The worked normalization trap is old numerator/mass 2/2 plus local 3/−1: correct combined output five versus separately normalized output four. It explains the operation but is not the fresh prediction question.
+The worked normalization trap is old numerator/mass 2/2 plus local 3/−1: correct combined output five versus separately normalized output four. It explains the operation but is not the live comparison question.
 
 The authored chunk reference intentionally uses moderate unscaled inputs. At at most 12 steps, stated finite bounds and retention at most one, its float64 arithmetic is bounded. A production stable chunk algorithm requires correct scale alignment and active-floor checks. Agreement between two equally incorrect stable ports is not enough.
 
-### Prediction, reset and verification
+### Live comparison, reset and verification
 
-Bind prediction to every input vector/gate, initial state, chunk size, reset mode and comparison. Changing a boundary invalidates it because that boundary change is the intervention being predicted, even when outputs should remain equal. Selecting an output or matrix cell does not. Full Reset restores the seven fresh writes, empty state and unset prediction. “Reset state at boundary” changes the experiment and never silently replaces the data.
+ Compute the comparison from the complete current inputs. Changing a boundary immediately recomputes the comparison for that new execution grouping, even when outputs should remain equal. Selecting an output or matrix cell does not. Full Reset restores the seven fresh writes, empty state and current comparison. “Reset state at boundary” changes the experiment and never silently replaces the data.
 
 Phase two checks all chunk sizes including one, nondivisors and sizes at least T; nonzero incoming state; causal masks; exclusion of a write's own forget gate; short final chunks without padded writes; combined denominator; carry/reset and future-prefix nulls. Verify numeric tables, difference plots, keyboard controls, narrow layout and input validation. No timing benchmark loop is needed for a twelve-token investigation.
 
@@ -151,9 +167,9 @@ Phase two checks all chunk sizes including one, nondivisors and sizes at least T
 
 Use the six actual selected fits in `row-sequence-fits.npz`; no browser training. Default is scalar model seed 19 and validation index 142 (zero-based), training-file source ID 187, true label four. Worked validation index 35/source ID 3451/label one belongs to the solved inline example. Both input grids, full logits and selected state traces are in `investigation-results.json`.
 
-Show “validation example, source 187” before Run, not the true label. Prompt: “If rows six through eight are replaced by zeros, will the final class change? Which earlier prefix scores must stay the same?” The learner may edit actual pixels, row order, model/seed and boundary mode before recording a prediction. Labels are metadata for subsequent interpretation and are never model features.
+Show “validation example, source 187” alongside the current trace. Invite the learner to replace rows six through eight with zeros and inspect the final class and the earlier prefix scores that stay fixed. The learner may edit actual pixels, row order, model/seed and boundary mode; all current prefix scores update immediately with the causally unaffected earlier scores marked. Labels are metadata for subsequent interpretation and are never model features; no prediction-entry or answer-unlock control is present.
 
-The 64 pixel cells are integers 0–16. Support keyboard row/column navigation and a numeric input for the focused cell; pointer drawing is optional. Natural/reversed row order is sufficient. If explicit permutation editing is added, require each index one through eight exactly once. Named blank/last-three-zero actions edit the real cells. Restore original restores all pixels and natural order and invalidates prediction. Full Reset additionally restores the default model and clears all state/results/prediction.
+The 64 pixel cells are integers 0–16. Support keyboard row/column navigation and a numeric input for the focused cell; pointer drawing is optional. Natural/reversed row order is sufficient. If explicit permutation editing is added, require each index one through eight exactly once. Named blank/last-three-zero actions edit the real cells. Restore original restores all pixels and natural order and recompute current outputs. Full Reset restores the stated inputs and immediately displays their computed result.
 
 ### Exact model and representation
 
@@ -177,11 +193,11 @@ The matrix model's final class remains four in this fixture while its logits cha
 
 Editing only rows six through eight leaves the first five prefix logits unchanged. Splitting after row three with complete carry matches full-sequence logits within 1e−5 in author checks. Explicit reset produces the saved `reset_final_logits`; do not invent a universal class change. Restoring pixels/order/model restores outputs. Blank is not a uniform-score null: seed-19 final classes are LSTM seven, sLSTM nine, mLSTM four. Explain learned biases and state transitions without treating blank classification as recognition success.
 
-Reversing rows is not a null because it changes the causal history. A model switch invalidates prediction and cached state. An unchanged input gives deterministic results; Run is not a random resampling button.
+Reversing rows is not a null because it changes the causal history. A model switch recompute current outputs and cached state. An unchanged input gives deterministic results; Run is not a random resampling button.
 
 ### Feedback, performance and phase-two verification
 
-Bind prediction to all pixels, row order, model/seed, boundary/carry mode and the planned edit. Pure inspection of another prefix or state cell does not invalidate it. After Run, compare the predicted change with the observed result, highlight the first changed row, and show causal prefix equality. Reveal the true label then. Where argmax is unchanged despite changed logits, explain that an unchanged decision does not mean identical computation.
+After each valid edit or bounded process step, show the actual result, first changed row and preserved earlier prefix scores. Display the true label as a separate reference annotation and distinguish class correctness from unchanged causal computation.
 
 Load only the selected small model when the investigation opens; use a bounded cache if switching among models. Derive compact typed arrays from the NPZ during phase two with hashes and attribution. Keep raw source, all curves and author metadata out of initial page load. Eight steps and these small widths permit bounded CPU inference on Run/Step; do not recompute all models on every keystroke. Provide loading/error/retry states without losing edited input. Dispose of listeners and state on unmount.
 
@@ -190,3 +206,10 @@ Verify every layer and all eight prefixes against Python for both seeds and all 
 ## Deferred publication work
 
 Implement only under an authorized phase-two continuation. These author calculations are truth fixtures, not formal independent review or browser evidence. Phase two extracts compact assets, builds figures/investigations, checks affected displayed programs and numerical ports, performs independent correctness/learning review and browser/accessibility/loading/performance checks, integrates downloads and actual local links, and updates source-bound delivery status. Do not expose author-only expected answers in a fresh investigation's pre-run state. Preserve this pending packet until the later implementation and retention decision are complete.
+
+
+## Scratch/tool bridge presentation — 22 September 2026
+
+Add a per-component state inspector to the existing chunk/prefix view: h/c/n/m for scalar memory and C/n/m for matrix memory. The changed split exercises valid carry, while an explicit n-reset intervention shows the altered denominator. Label NumPy bare read versus Torch output-gate/RMS/readout stages. The moderate-log chunk boundary and extreme stabilized reference must remain visible; no fake universal stabilization claim.
+
+The complete source and teaching explanation are already written in the manuscript and companion programs. Phase two implements the presentation and verifies actual behavior; it does not invent an omitted algorithm. Show code only when requested, load large code assets on demand, preserve exact source equality, and keep immediately visible numerical explanations usable without running Python in the browser. No learner-prediction entry or grading state is permitted.

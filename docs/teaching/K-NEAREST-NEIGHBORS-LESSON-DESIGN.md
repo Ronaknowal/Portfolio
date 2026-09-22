@@ -1,5 +1,14 @@
 # K-Nearest Neighbors: lesson design
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Existing topic-specific controls already update the actual model and visual outputs. Preserve those mechanisms and process controls; ordinary exploration guidance replaces learner prediction prompts.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 Scoped design assessed 11 September 2026. Stable ID/title/order remain unchanged: Classical Machine Learning position 3, after Decision Trees & Random Forests and before Gradient Boosted Trees. The complete original was read; its bytes and hash are retained in the increment's immutable baseline. Inventory retrieval returned no individual brief or unresolved incoming note. This is a lesson rewrite, not a catalogue audit.
 
 ## Finish line and prerequisites

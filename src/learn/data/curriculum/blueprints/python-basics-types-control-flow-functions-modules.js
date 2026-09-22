@@ -21,7 +21,7 @@ export default {
   "visual": {
     "type": "Name-to-object explorer",
     "question": "Does this operation change a list or move a name?",
-    "interaction": "Predict alias/copy behavior and step append versus rebinding with reference arrows and visible list elements."
+    "interaction": "Compare alias/copy behavior and step append versus rebinding with reference arrows and visible list elements."
   },
   "visuals": [
     {

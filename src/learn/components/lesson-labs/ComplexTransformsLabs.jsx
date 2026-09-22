@@ -129,7 +129,7 @@ export function ComplexArithmeticLab() {
     }
   }, [real, imaginary, operation]);
   return <Investigation id="arithmetic" title="Move, rotate or divide the same complex number">
-    <p>Keep z=1+2i. Predict what multiplication by i will do, then set w=0+1i. The arrow lengths and angles use the actual result.</p>
+    <p>Keep z=1+2i. Inspect what multiplication by i will do, then set w=0+1i. The arrow lengths and angles use the actual result.</p>
     <div className="transform-controls"><Choice label="Complex operation" value={operation} onChange={setOperation} options={[['multiply', 'z × w'], ['add', 'z + w'], ['divide', 'z ÷ w']]} /><Range label="Real part of w" value={real} onChange={setReal} min={-3} max={3} step={.25} /><Range label="Imaginary part of w" value={imaginary} onChange={setImaginary} min={-3} max={3} step={.25} /></div>
     {state.error ? <p role="status">{state.error}</p> : <div className="transform-two"><Plane title={operation === 'add' ? 'Translate w to the tip of z' : 'One plane, equal axis scales'} vectors={operation === 'add' ? [state.result.z, state.result.w] : [state.result.z, state.result.w, state.result.result]} chain={operation === 'add'} /><div><Legend labels={['z', 'w', 'Result']} /><Values items={[['Result', complexText(state.result.result)], ['Result magnitude', format(state.result.resultPolar.magnitude)], ['Result phase', phaseText(state.result.resultPolar.phase)], ['Phase of w', phaseText(state.result.wPolar.phase)]]} /><p>Zero has no direction. A negative real multiplier turns through π; adding it shifts the real coordinate instead. In addition, the dashed origin-to-endpoint arrow is the sum.</p></div></div>}
     <button onClick={() => {

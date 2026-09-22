@@ -1,5 +1,8 @@
 # Titans: a memory that learns while a sequence arrives
 
+**Explore as you read.** Edit key/query/value cards, rate, momentum, decay, request tokens and chunk size; step bounded writes or continue/reset request state. Show weight/update state, residual and gradient terms, current query output, gated topology and anchor/current-gradient comparison. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose write timing, state isolation and chunk semantics from the outputs they can affect, rather than from the word memory alone.
+
+
 Imagine reading a long maintenance log. You need the last few entries to understand what is happening now, an impression of older recurring faults, and general knowledge about how maintenance reports are written. Keeping every entry immediately accessible costs space. Compressing everything into one small summary risks losing a detail you will need later.
 
 Titans explores a combination: attention over recent context, a small neural network whose weights change as it processes the sequence, and learned vectors that carry information shared across sequences. The unusual part is the second one. Reading this memory means running a neural network. Writing to it means taking a gradient step on that network.
@@ -72,7 +75,7 @@ You can predict this without recalculating every weight. Let \(q\) be the old qu
 
 The change is governed by the overlap \(k^\top q\). This is the same old-read difference seen in the table, reached by an algebraic route. Orthogonal keys give zero overlap; other keys may reinforce or disrupt an old answer. In a nonlinear memory, local parameter sensitivities replace this simple key-overlap calculation.
 
-**Investigation — which answer will the write disturb?** Record whether an old query's answer will increase, decrease or stay unchanged. Change the second key's coordinates and target, then make the write. Watch the key arrow, weight cells and old-query answer together. Try a key perpendicular to your chosen query as a control case. Explain the sign using the residual and the dot product, then choose a different query that gives the opposite direction of change.
+**Investigation — which answer does the write disturb?** Change the key, value or write rate and watch the old query's output and its signed change update immediately. Change the second key's coordinates and target, then make the write. Watch the key arrow, weight cells and old-query answer together. Try a key perpendicular to your chosen query as a control case. Explain the sign using the residual and the dot product, then choose a different query that gives the opposite direction of change.
 
 ## 3. Error, gradient, momentum and forgetting are different quantities
 
@@ -297,6 +300,22 @@ For a constructed scalar memory, let \(w=0\), key 1, observed target 4 and rate 
 
 The author checks perturb a later daily count and confirm that earlier forecasts stay unchanged. The first affected forecast comes after the changed count becomes available. This is a direct check of the dependency rule, rather than trusting a label such as “causal” or “test set.”
 
+### Build the write rule, then choose what stays differentiable
+
+[memory_mechanisms.py](memory_mechanisms.py) owns the explicit linear residual/outer-product gradient, momentum and decay in `linear_write`, plus the small complete gated memory/attention composition in `gated_sequence`. [neural_memory.py](neural_memory.py) is the ordinary research implementation for a nonlinear memory: `read_memory` evaluates its two-layer network from explicit parameter tensors and `write_memory` obtains the write-loss derivatives with `torch.autograd.grad`. It returns new parameter and momentum tuples rather than silently mutating a globally shared model. Autograd is the reused derivative engine; the new mechanism is the loss-driven persistent memory update.
+
+The `differentiable` switch is a learning decision. With `True`, `create_graph=True` retains the derivative graph through a write so an outer objective can learn a write rate or initializer. With `False`, the newly returned state is detached and made a new leaf for the next write; this bounds the retained history during ordinary online replay but removes earlier-write meta-gradients. `rental_memory_study.py::replay` chooses that causal online path, preserving the forecast-before-observation timeline. Both paths implement complete writes; they optimize different derivative contracts.
+
+No one-call Titans package is necessary for this route. Standard tensors, functional layer evaluation, autograd and the explicit state tuple are ordinary tools for research on changing fast weights. The linear update's outer product costs O(d_key d_value), and a nonlinear write costs a memory-network forward/backward plus parameter-sized momentum/state. Differentiating through many writes also retains their graphs; constant-sized *carried values* do not imply constant training-memory cost.
+
+**Take control.** In `memory_mechanisms.py::nonlinear_outer`, compare the derivative of the outer loss with respect to the write rate using central differences and `write_memory(..., differentiable=True)`. Then detach the new state and inspect which derivative disappears. Keep the initial weights, key, target and query fixed.
+
+<details><summary>Hint and reasoned solution</summary>
+
+Central differences must rebuild the same initial state for rates η+ε and η−ε. The differentiable path includes how changing η changes the written weights and the later query output. Detaching makes that written value an independent leaf, so the outer loss has no graph path to η through the write; asking for it may return unused/None or raise unless unused inputs are explicitly permitted. That does not mean the numerical function is insensitive to η. It means the chosen differentiation contract discarded that dependence. Restore `differentiable=True` for the meta-learning question, and use the detached mode for the intentionally bounded replay question. Compare a smaller ε to diagnose cancellation rather than assuming the smallest possible ε is best.
+
+</details>
+
 ## 8. Parallelize a declared update rule
 
 **Deeper branch.** Each online step can depend on the previous fast weights twice: directly in the weight recurrence and inside the gradient calculation. The second dependency is expensive for a nonlinear memory. Calculating a chunk's gradients at one shared starting state removes that dependency inside the chunk. Prefix sums or scans can then combine the precomputed updates.
@@ -310,7 +329,7 @@ This changes the update convention. Take a scalar memory \(M_w(1)=w\), initial w
 
 The difference is where the second gradient is evaluated. Both calculations use a running weight state; one uses a stale anchor when determining the descent direction. Chunk size 1 recovers the sequential rule, and a zero rate makes both leave the weight unchanged.
 
-**Investigation — move the gradient anchor.** Edit the two targets and learning rate, predict the ordering of the final weights, then compare the two dependency diagrams. Change chunk size from 2 to 1 and explain which edge is restored. Equal outputs on a special fixture do not make the update rules identical: create a target pair that exposes their difference.
+**Investigation — move the gradient anchor.** Edit the two targets and learning rate, inspect the ordering of the final weights, then compare the two dependency diagrams. Change chunk size from 2 to 1 and explain which edge is restored. Equal outputs on a special fixture do not make the update rules identical: create a target pair that exposes their difference.
 
 With fixed gradient inputs \(u_t\), momentum obeys an affine recurrence \(S_t=\eta_t S_{t-1}-\theta_t u_t\). Two transformations \(F_1(s)=a_1s+b_1\) and \(F_2(s)=a_2s+b_2\) compose as
 

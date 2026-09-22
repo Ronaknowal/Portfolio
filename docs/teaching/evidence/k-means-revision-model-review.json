@@ -1,0 +1,277 @@
+{
+  "checkedAt": "2026-09-21T13:32:37.930Z",
+  "status": "passed",
+  "sourceHashes": {
+    "src/learn/data/k-means-hierarchical-models.js": "7cc680a3d45229732e493abd344bee4e98dfb9aefa145dbc89a5731e53f8fb99",
+    "src/learn/data/k-means-hierarchical-faithful.js": "64358723bb94ea232a9b4e5da3f61fedc6464711234690e47a390914aaa60e50",
+    "src/learn/data/k-means-hierarchical-examples.js": "36cb906138b9822b8a3d0c5a851f358d827d42edf8152cdba800d817ebd2d747"
+  },
+  "verifierHashes": {
+    "scripts/verify-k-means-revision-models.mjs": "1ccb57df8e1231baee4df1323ef05fbf933af3cd78b19db1e3758ab42a311c56",
+    "scripts/verify-k-means-revision-native.py": "af50d2009f0023c2a34fad94a866b00e3d3c3a289f337009fb61734b4a531cff"
+  },
+  "groups": {
+    "all ordered 6-row seed pairs, including duplicate centers": 36,
+    "all ordered 4-row seed pairs, including duplicate centers": 16,
+    "all eight unit/weight settings and every partition": 8,
+    "compensated units preserve every partition, center and objective": 1,
+    "enumeration size boundaries and duplicate coordinates": 3,
+    "every nonempty selected subset: exact D² support and independent 200 draws": 63,
+    "all-duplicate D² stops before every row is chosen": 1,
+    "all-candidate hierarchy costs and every count/distinct-height cut": 8,
+    "five exact tied chain merges enter a height cut together": 1,
+    "every palette/image setting: weights, fixed point, displayed pixels and error": 22
+  },
+  "groupedCases": 159,
+  "frequencyQuestionMismatches": [
+    {
+      "selected": [
+        0,
+        2
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5579399141630901,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        1,
+        2
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5579399141630901,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        1,
+        2
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5627705627705628,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5621890547263682,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        1,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5621890547263682,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        1,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5678391959798995,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        2,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.565,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        1,
+        2,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.565,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "farthest": 5,
+      "exactProbability": 0.5707070707070707,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        0,
+        4
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5324675324675324,
+      "countOf200": 90
+    },
+    {
+      "selected": [
+        1,
+        4
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5319148936170213,
+      "countOf200": 92
+    },
+    {
+      "selected": [
+        0,
+        1,
+        4
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5555555555555556,
+      "countOf200": 97
+    },
+    {
+      "selected": [
+        0,
+        5
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5324675324675324,
+      "countOf200": 90
+    },
+    {
+      "selected": [
+        1,
+        5
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5319148936170213,
+      "countOf200": 92
+    },
+    {
+      "selected": [
+        0,
+        1,
+        5
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5555555555555556,
+      "countOf200": 97
+    },
+    {
+      "selected": [
+        0,
+        4,
+        5
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5466666666666666,
+      "countOf200": 99
+    },
+    {
+      "selected": [
+        1,
+        4,
+        5
+      ],
+      "farthest": 3,
+      "exactProbability": 0.5555555555555556,
+      "countOf200": 99
+    }
+  ],
+  "paletteSummaries": [
+    {
+      "imageId": "mosaic",
+      "maximumEntries": 6,
+      "uniqueColors": 6,
+      "pixelCount": 96,
+      "displayedSse": 0
+    },
+    {
+      "imageId": "sky",
+      "maximumEntries": 8,
+      "uniqueColors": 37,
+      "pixelCount": 160,
+      "displayedSse": 35945
+    },
+    {
+      "imageId": "gradient",
+      "maximumEntries": 8,
+      "uniqueColors": 160,
+      "pixelCount": 160,
+      "displayedSse": 165886
+    }
+  ],
+  "nativeReuse": {
+    "lloyd": {
+      "codeSha256": "18bfa86c8379ac235188886d26f6c4e6fabc0bb59f00504bb8ab40d78cb73a77",
+      "expectedSha256": "c832d2386826a969f8c09ae2c7786d8ac0322bdaaf6111b9a3bb44e31489e9f3",
+      "unchangedCode": false,
+      "execution": "Fresh complete program, stdout conserved"
+    },
+    "ward": {
+      "codeSha256": "c4fd67f544b35e7af0ff6e003759e67e7f3f775b410bcf3a5e73154406d83935",
+      "expectedSha256": "c0460fffbc17646821de5b844ba3d1e4b5e6ee2053bf394d035ddd3fa98245cb",
+      "unchangedCode": false,
+      "execution": "Fresh complete program, stdout conserved"
+    },
+    "production": {
+      "codeSha256": "704f20af562b2d6a0a9770723d77b0b9ddf625c115b4267117e0e87003b80165",
+      "expectedSha256": "3286c1f1ec15019fc084de046423a1cea3a80d8e6e2f335e385f230e31708e55",
+      "unchangedCode": true,
+      "execution": "Retained exact-code/output prior execution"
+    },
+    "scaling": {
+      "codeSha256": "311f51c92f70e7d8da89036c913ca24190c4bb7d0401930cd5fc044114d99667",
+      "expectedSha256": "54f94c8f0a28e3426b881bdd1f05e9a964ca12140d0208cfc6aeac19e0960c6b",
+      "unchangedCode": true,
+      "execution": "Retained exact-code/output prior execution"
+    },
+    "quantization": {
+      "codeSha256": "e3be003d81862e0cb62e09361700d1352b835eacc0a4a582658c20f484f4ce99",
+      "expectedSha256": "4af982726b211358c32e9887b2b1d736e90efd4b867ecb96b731fefe0a16542d",
+      "unchangedCode": true,
+      "execution": "Retained exact-code/output prior execution"
+    },
+    "capstone": {
+      "codeSha256": "67e46ba9ed26d6a4d3d916312dd61806ab81c2662f0ca0dc6d82e32c6175d661",
+      "expectedSha256": "207ab4aa30ff972f380f943c4e4728a05064c7b063036445d5cc57b91f71bd19",
+      "unchangedCode": true,
+      "execution": "Retained exact-code/output prior execution"
+    }
+  },
+  "nativeReceipt": {
+    "file": "docs/teaching/evidence/k-means-revision-native-review.json",
+    "sha256": "2ac4723265fdbc09d67cf418e413bfdf8a782e2979620131d3736d3146016a4d",
+    "checks": 27
+  },
+  "priorReceipts": [
+    {
+      "file": "docs/teaching/evidence/k-means-hierarchical-native.json",
+      "sha256": "01f646c2917193918e7f5a7dc63fd075452cb67646e9d829f06ad2006d6debba"
+    },
+    {
+      "file": "docs/teaching/evidence/k-means-hierarchical-models.json",
+      "sha256": "fd6167d4e4d5c8c7e906b7ecca1ec26e50adfcc7599a605f639a40c4ec828165"
+    }
+  ],
+  "limitations": [
+    "Only fixed teaching fixtures and documented controls are covered; this is not a general numerical-library proof.",
+    "Browser labels, prediction/reveal gates, charts and integration are owned by the root review.",
+    "The historical broad native campaign is reused for unchanged programs; only changed Lloyd/Ward and new Faithful bindings receive fresh numerical execution."
+  ],
+  "independentReview": {
+    "file": "docs/teaching/K-MEANS-REVISION-MODEL-REVIEW.md",
+    "sha256": "fcd05b8a5366d3b3dcd0de5545faa34aca0f91a569832b30d6b93ca88ee2b842",
+    "runtimeSourcesFrozen": true
+  }
+}

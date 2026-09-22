@@ -1,0 +1,57 @@
+.dropout-lesson { --dropout-amber: var(--learn-accent, #e4b752); color: #e6e6e6; }
+.dropout-lesson .neural-lab { background: #111111; border-color: #3b3b3b; }
+.dropout-lesson .neural-lab :is(input, select, button), .dropout-lesson .neural-program button { background: #191919; border-color: #666666; color: #f0cd7c; }
+.dropout-lesson .neural-lab input[type=range] { background: transparent; accent-color: var(--dropout-amber); }
+.dropout-lesson .neural-lab button[aria-pressed=true] { background: #302819; border-color: var(--dropout-amber); }
+.dropout-lesson .neural-lab :is(button, input, select):focus-visible, .dropout-lesson summary:focus-visible { outline: 2px solid var(--dropout-amber); outline-offset: 3px; }
+.dropout-lesson .neural-result { background: #1b1b1b; }
+.dropout-lesson .neural-table-scroll :is(th, td) { border-color: #3b3b3b; }
+.dropout-lesson .neural-chart text { fill: #dddddd; }
+.dropout-lesson .neural-chart > line { stroke: #888888; }
+.dropout-lesson .neural-program-source { background: #0b0b0b; border-color: #3b3b3b; color: #dddddd; }
+.dropout-lesson .neural-program { margin: 24px 0; border-block: 1px solid #3b3b3b; padding: 14px 0; }
+.dropout-lesson .neural-program summary { color: #f0cd7c; cursor: pointer; line-height: 1.6; }
+.dropout-lesson .neural-program a { overflow-wrap: anywhere; }
+.dropout-lesson .neural-lab h4 { margin: 0 0 14px; font-size: 16px; }
+.dropout-small { font-size: 13px; color: #bcbcbc; line-height: 1.65; }
+.dropout-lanes, .dropout-examples, .dropout-mc-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin: 22px 0; }
+.dropout-lanes > *, .dropout-examples > *, .dropout-mc-layout > * { min-width: 0; }
+.dropout-lane { border-top: 3px solid var(--dropout-amber); padding-top: 16px; }
+.dropout-lane.is-dropped { border-top-style: dashed; border-color: #999999; }
+.dropout-lane .neural-number { margin: 14px 0; }
+.dropout-flow { list-style: none; padding: 0; display: grid; gap: 7px; margin: 16px 0; }
+.dropout-flow li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid #3b3b3b; padding: 6px 0; }
+.dropout-outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 22px 0; }
+.dropout-outcomes > div { border: 1px solid #444444; padding: 14px; display: grid; gap: 8px; min-width: 0; }
+.dropout-outcomes strong { font-size: 21px; }
+.dropout-probability { background: #333333; height: 9px; min-width: 0; }
+.dropout-probability > span { display: block; height: 100%; background: var(--dropout-amber); }
+.dropout-nonlinear { border-left: 2px solid var(--dropout-amber); padding: 8px 16px; margin: 24px 0; }
+.dropout-channel { margin-bottom: 18px; }
+.dropout-channel > p { font-size: 13px; margin-bottom: 6px; }
+.dropout-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.dropout-grid > div { border: 1px solid #6b5b3d; background: #242017; padding: 9px; min-width: 0; }
+.dropout-grid > div[data-mask="0"] { border-style: dashed; border-color: #777777; background: #1a1a1a; }
+.dropout-grid span { display: block; font-size: 11px; color: #cccccc; margin-bottom: 4px; }
+.dropout-grid b { display: block; font-size: 13px; overflow-wrap: anywhere; }
+.dropout-circuit { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 26px 0; }
+.dropout-circuit > div { border-top: 3px solid var(--dropout-amber); padding: 15px; background: #1b1b1b; min-width: 0; }
+.dropout-circuit span, .dropout-circuit b { display: block; }
+.dropout-circuit p { margin: 9px 0 0; font-size: 13px; }
+.dropout-circuit .dropout-join { grid-column: 1 / -1; border-top: 1px solid #777777; border-left: 3px solid var(--dropout-amber); }
+.dropout-join b { font-size: 24px; margin-top: 6px; }
+.dropout-blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.dropout-blocks section { border: 1px solid #444444; padding: 14px; min-width: 0; }
+.dropout-blocks .neural-number { margin: 12px 0; }
+.dropout-blocks p { font-size: 13px; }
+.dropout-specimens { display: flex; gap: 18px; flex-wrap: wrap; margin: 24px 0; }
+.dropout-digit { margin: 0; max-width: 160px; }
+.dropout-digit figcaption { margin-top: 8px; font-size: 13px; }
+.dropout-lesson .neural-pixels { border-color: #888888; }
+.dropout-class-bars { display: grid; gap: 9px; align-content: start; }
+.dropout-class-bars > div { display: grid; grid-template-columns: 54px minmax(0, 1fr) 70px; gap: 10px; align-items: center; font-size: 12px; }
+.dropout-class-bars b { text-align: right; }
+@media(max-width: 650px) {
+  .dropout-lanes, .dropout-examples, .dropout-mc-layout, .dropout-blocks, .dropout-circuit, .dropout-outcomes { grid-template-columns: minmax(0, 1fr); }
+  .dropout-circuit .dropout-join { grid-column: auto; }
+}

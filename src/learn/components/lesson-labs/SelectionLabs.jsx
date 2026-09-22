@@ -8,7 +8,7 @@ import {
   alternativeReference, backgroundIds, backgroundRows, changedInference, explainedCases, fourFieldModel,
 } from '../../data/selection-data';
 import {
-  Field, Folded, Investigation, NumberField, Prediction, Table, TreeDiagram, Waterfall,
+  Field, Folded, Investigation, NumberField, LiveResult, Table, TreeDiagram, Waterfall,
   fixed, round, settled, signed, unsigned, useInvestigation,
 } from './SelectionShared.jsx';
 import { ScrollRegion } from './SelectionShared.jsx';
@@ -42,7 +42,7 @@ export function CountInformationLab() {
   const blocked = draftInfo === null
     ? 'These counts have a total of zero, so there are no observed proportions to compute. Raise at least one count.'
     : undefined;
-  const answerFor = inputs => {
+  const calculateInputs = inputs => {
     const answer = informationFromCounts(inputs.counts);
     const outcome = answer.independentExactly
       ? 'none'
@@ -55,7 +55,7 @@ export function CountInformationLab() {
   const side = 168;
   return <Investigation
     title="Change a count, change the information"
-    question="Four observed counts, a binary measurement X and a binary target Y. Record whether knowing X will remove all, some or none of the target's uncertainty before the entropies are computed."
+    question="Four observed counts, a binary measurement X and a binary target Y. Change the counts and observe how much target uncertainty knowing X removes."
     note="Everything below is computed from the four counts you entered. Mutual information is in bits, it is symmetric in X and Y, and it is not an accuracy percentage."
     onReset={state.reset}>
     <div className="fs-controls is-tight">
@@ -75,13 +75,13 @@ export function CountInformationLab() {
       Each count is a whole number from {limits.count.minimum} to {limits.count.maximum.toLocaleString('en-US')}; the total must be positive.
       A zero cell is kept, not treated as missing: it contributes zero by the limiting value, and no logarithm of zero is evaluated.
       The tiles below are one rectangle per cell, so the drawing does not depend on the sample size.
-      {draftInfo === null && ' The values in the fields cannot be computed yet; the last committed table is still shown below.'}
+      {draftInfo === null && ' The values in the fields cannot be computed yet; the last valid table is still shown below.'}
     </p>
-    <Prediction
-      prompt={`With counts ${state.draft.counts.flat().join(', ')}, how much of the target's uncertainty does knowing X remove?`}
-      options={[['all', 'All of it'], ['some', 'Some of it'], ['none', 'None of it']]}
-      state={state} answerFor={answerFor} blocked={blocked}
-      numeric={{ label: 'Optional: the mutual information in bits', name: 'the information', tolerance: 1e-4, digits: 9 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs} blocked={blocked}
+      
       describe={`H(Y) = ${round(info.targetEntropy, 9)} bits and H(Y | X) = ${round(info.conditionalEntropy, 9)} bits, so I(X; Y) = ${round(info.mutualInformation, 9)} bits.`} />
 
     {state.result && <>
@@ -207,7 +207,7 @@ export function SubsetSearchLab() {
   const world = search.world;
   const draftWorld = forwardSelection(state.draft.labels, state.draft.policy).world;
   const displayOrder = active.reversed ? [3, 2, 1, 0] : [0, 1, 2, 3];
-  const answerFor = inputs => {
+  const calculateInputs = inputs => {
     const answer = forwardSelection(inputs.labels, inputs.policy);
     return {
       outcome: answer.finalMask === 3 ? 'pair' : answer.finalMask === 0 ? 'empty' : 'single',
@@ -218,7 +218,7 @@ export function SubsetSearchLab() {
   const lift = mask => (mask === 0 ? 30 : mask === 3 ? 170 : 100);
   return <Investigation
     title="Traverse the subset lattice"
-    question="Four fixed input states form a complete declared world. Edit the binary target label attached to each state, choose the search policy, and record whether the search will reach both inputs before any score is revealed."
+    question="Four fixed input states form a complete declared world. Edit the binary target label attached to each state, choose the search policy, and watch whether the search reaches both inputs."
     note="Every score here is exact over all four states, because every state is known. This is a finite lookup rule, not a held-out estimate, and reusing a label is part of the defined world rather than evidence of generalization."
     onReset={state.reset}>
     <div className="fs-controls">
@@ -249,14 +249,14 @@ export function SubsetSearchLab() {
     <p className="fs-caption">
       Each target label is 0 or 1. The four input states are fixed: they are the whole declared world, so they are not editable.
       Changing a label changes the data and every score must be recomputed; changing the display order or the policy does not
-      change the data at all. Before you commit, the current subset is
+      change the data at all. The empty starting subset is
       {' '}{maskLabel(0)} with accuracy {round(draftWorld.subsets[0].accuracy, 6)}, and the two candidates it can add are A and B.
     </p>
-    <Prediction
-      prompt={`Under the ${state.draft.policy === 'strict' ? 'strictly improving' : 'two forced additions'} policy, where does the forward search finish?`}
-      options={[['empty', 'At the empty subset'], ['single', 'At one input'], ['pair', 'At both inputs']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the accuracy of the subset it finishes at', name: 'the final accuracy', tolerance: 1e-6, digits: 6 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
       describe={`The search finished at ${maskLabel(search.finalMask)} with accuracy ${round(search.finalScore, 6)}. It ${search.stopReason}.`} />
 
     {state.result && <>
@@ -391,7 +391,7 @@ export function DonorPermutationLab() {
       { name: 'average of sensors', coefficients: [0.5, 0.5] },
     ],
   });
-  const answerFor = inputs => {
+  const calculateInputs = inputs => {
     const answer = permutationExperiment({
       rows: inputs.rows, target: inputs.target, coefficients: inputs.coefficients,
       donor: inputs.donor, columns: MODE_COLUMNS[inputs.mode],
@@ -407,7 +407,7 @@ export function DonorPermutationLab() {
   });
   return <Investigation
     title="Follow the donor rows"
-    question="Four assessed rows, two sensor columns, and a FIXED linear prediction w₁x₁ + w₂x₂. Choose which column or group to shuffle, record whether the squared-error loss will rise, stay equal or fall, then watch the donor rows arrive."
+    question="Four assessed rows, two sensor columns, and a FIXED linear prediction w₁x₁ + w₂x₂. Choose which column or group to shuffle, watch the donor rows arrive and compare the squared-error loss."
     note="No fitting happens here and there is no fallback to another column. The coefficients are read, never updated: a model that never reads the second sensor cannot start reading it once the first is corrupted."
     onReset={state.reset}>
     <div className="fs-controls is-wide">
@@ -456,14 +456,14 @@ export function DonorPermutationLab() {
       so every source row is used exactly once; fixed points are allowed, and they are why a shuffle need not change every case.
       A grouped shuffle applies the <strong>same</strong> donor map to both columns, which keeps their within-row pairing while
       disturbing their relation to the target.
-      {donorProblem ? ` ${donorProblem} The last committed ordering is still shown below.` : ''}
+      {donorProblem ? ` ${donorProblem} The last valid ordering is still shown below.` : ''}
     </p>
-    <Prediction
-      prompt={`Shuffling ${MODE_NAMES[state.draft.mode]} with this donor ordering, what happens to the mean squared error?`}
-      options={[['higher', 'It increases'], ['same', 'No change within floating-point precision'], ['lower', 'It decreases']]}
-      state={state} answerFor={answerFor}
-      blocked={donorProblem ? `${donorProblem} Choose a different source row for the repeated entries; the last committed ordering is still shown.` : undefined}
-      numeric={{ label: 'Optional: the MSE increase, in squared target units', name: 'the increase', tolerance: 1e-6, digits: 9 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      blocked={donorProblem ? `${donorProblem} Choose a different source row for the repeated entries; the last valid ordering is still shown.` : undefined}
+      
       describe={`The original MSE is ${round(run.baseMse, 9)} and the shuffled MSE is ${round(run.alteredMse, 9)}, a change of ${signed(run.increase, 9)} in squared target units.`} />
 
     {state.result && <>
@@ -554,7 +554,7 @@ export function CoalitionReferenceLab() {
   });
   const dependent = dependentGames();
   const chart = waterfall(explanation.baseline, explanation.phi);
-  const answerFor = inputs => {
+  const calculateInputs = inputs => {
     const answer = explainPolynomial({ instance: inputs.instance, background: inputs.reference, gamma: inputs.gamma });
     const [first, second] = answer.phi;
     return {
@@ -613,14 +613,14 @@ export function CoalitionReferenceLab() {
     <p className="fs-caption">
       Coordinates run from {limits.coordinate.minimum} to {limits.coordinate.maximum} and γ from {limits.gamma.minimum} to
       {' '}{limits.gamma.maximum}; one to six equally weighted reference rows are allowed. These bounds constrain this lesson's
-      controls only. Contributions within 10⁻¹² are treated as tied in the prediction check. The observed-target field is deliberately excluded from this game: it explains a model <em>output</em>, so
+      controls only. Contributions within 10⁻¹² are treated as tied in the numerical comparison. The observed-target field is deliberately excluded from this game: it explains a model <em>output</em>, so
       changing a label cannot move any coalition value.
     </p>
-    <Prediction
-      prompt={`With x = (${state.draft.instance.map(value => round(value, 4)).join(', ')}), γ = ${round(state.draft.gamma, 4)} and ${state.draft.reference.length} reference row${state.draft.reference.length === 1 ? '' : 's'}, which feature receives the larger contribution?`}
-      options={[['a', 'Feature A'], ['equal', 'Equal within 10⁻¹²'], ['b', 'Feature B']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the baseline v(∅)', name: 'the baseline', tolerance: 1e-6, digits: 9 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
       describe={`φ_A = ${round(explanation.phi[0], 9)} and φ_B = ${round(explanation.phi[1], 9)}, above a baseline of ${round(explanation.baseline, 9)}. Their difference is ${round(explanation.phi[0] - explanation.phi[1], 12)}; the tie tolerance is 10⁻¹².`} />
 
     {state.result && <>
@@ -752,7 +752,7 @@ export function WineInferenceLab() {
   const flags = extrapolationFlags(active.values, fourFieldModel.fitRanges);
   const outside = flags.filter(flag => flag.outside);
   const sourceRow = explainedCases[active.source];
-  const answerFor = inputs => {
+  const calculateInputs = inputs => {
     const answer = explainTreeInstance({
       tree: TREE, instance: inputs.values, background: REFERENCES[inputs.reference].rows,
       classIndex: fourFieldModel.classIndex,
@@ -805,11 +805,11 @@ export function WineInferenceLab() {
       scale. An edit outside the observed fitting range can still be inspected; it is marked as extrapolation rather than
       presented as a measured specimen.
     </p>
-    <Prediction
-      prompt={`With these four measurements and ${REFERENCES[state.draft.reference].label}, what class-1 probability will the saved tree output?`}
-      options={[['zero', 'Exactly zero'], ['between', 'Strictly between zero and one'], ['one', 'Exactly one']]}
-      state={state} answerFor={answerFor}
-      numeric={{ label: 'Optional: the class-1 probability', name: 'the probability', tolerance: 1e-6, digits: 9 }}
+    <LiveResult
+      
+      
+      state={state} calculateInputs={calculateInputs}
+      
       describe={`The saved tree sends this sample to leaf ${explanation.decision.leaf}, whose class-1 probability is ${round(explanation.prediction, 9)}. The baseline over this reference is ${round(explanation.baseline, 9)}.`} />
 
     {state.result && <>

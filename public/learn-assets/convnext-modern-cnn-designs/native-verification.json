@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.0+cpu",
+    "torchvision": "0.29.0+cpu",
+    "numpy": "2.3.5"
+  },
+  "checks": [
+    "Programs/data/six-fit result bytes conserved; fresh author oracle and model-shape outputs equal the complete prepared records",
+    "Prepared Torchvision bridge executes: float64 output/input/all parameter gradients at original LayerScale",
+    "Two additional matched V1 comparisons use large signed channel scales so tiny initialization cannot hide a wrong branch",
+    "Dense V2 GRN input Jacobian passes finite differences and other-specimen edits have exactly zero influence",
+    "Twenty-four fresh native inference fixtures cover every saved model/specimen, hidden/visible edits, swaps and zero/one input extremes"
+  ],
+  "maximumLibraryOutputDifference": 0.0,
+  "sources": {
+    "public/learn-assets/convnext-modern-cnn-designs/convnext-blocks.py": "b60eda661e5572b5f2731c4628fdb0dbf6b472acbd208196ffe2ee30c892df4e",
+    "public/learn-assets/convnext-modern-cnn-designs/convnext_library_bridge.py": "a66031470ef8b9b223d6e7eca2f6ad7f20cbbc1efd3a974f8c0bffd08d08ad54",
+    "public/learn-assets/convnext-modern-cnn-designs/masked-reconstruction.py": "3ffa2afa8d9b71b82adde610192955ba3ef4f4e9609401f0fb6223aabd153417",
+    "public/learn-assets/convnext-modern-cnn-designs/author-checks.py": "533827c9a1e5e7ae031e5250ad31e5a6e3c94d0f4d634f965d410f1acbc05497",
+    "public/learn-assets/convnext-modern-cnn-designs/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/convnext-modern-cnn-designs/calculated-inputs.json": "ead661c7bb067947f7bd81a2e699cb446d7e7e8ddc9954b115aeef4dd7061243",
+    "public/learn-assets/convnext-modern-cnn-designs/saved-models.json": "bcfce5d210555ecea52050c1aacad564eab6d558f0b0af55e6f22e3fd2b95d9a"
+  },
+  "limits": [
+    "Six previous training fits conserved and not rerun; fresh native reconstruction and independent NumPy checks executed",
+    "Large V1/V2 families use meta shape/parameter checks, not full learned inference",
+    "Optional pretrained photograph route, ImageNet training, native sparse FCMAE and hardware timings not executed"
+  ]
+}

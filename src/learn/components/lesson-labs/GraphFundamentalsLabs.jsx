@@ -103,7 +103,7 @@ export function GraphMatrixWalkLab() {
     setSteps(2);
   };
   return <Investigation id="graph-matrix-walks" kicker="ONE RELATION · LINKED VIEWS" title="Which matrix cells describe this journey?">
-    <p>Predict the A-to-C entry of A² before inspecting the walks. The drawn weights are coupling strengths; every view below uses the same active graph.</p>
+    <p>Inspect the A-to-C entry of A² before inspecting the walks. The drawn weights are coupling strengths; every view below uses the same active graph.</p>
     <div className="gf-controls">
       <label><input type="checkbox" checked={directed} onChange={event => setDirected(event.target.checked)} /> Directed arrows, including C→B</label>
       <label><input type="checkbox" checked={bridge} onChange={event => setBridge(event.target.checked)} /> Add C–D bridge, weight 1</label>
@@ -144,7 +144,7 @@ export function LaplacianEnergyLab() {
   const result = graphEnergy(5, foundationEdges(bridge), signal);
   const maxEnergy = Math.max(1, ...result.edgeTerms.map(edge => edge.energy));
   return <Investigation id="graph-edge-energy" kicker="LOCAL DIFFERENCES · GLOBAL ENERGY" title="Where does the disagreement live?">
-    <p>Predict the signed result at B. A larger neighbor pulls its contribution one way; a smaller neighbor pulls the other. The edge energies stay nonnegative even when the signed contributions cancel.</p>
+    <p>Inspect the signed result at B. A larger neighbor pulls its contribution one way; a smaller neighbor pulls the other. The edge energies stay nonnegative even when the signed contributions cancel.</p>
     <div className="gf-linked"><Network edges={result.activeEdges} signal={signal} selected={[selected]} title="Node signal values and weighted edges for the disagreement calculation" /><div className="gf-controls gf-signal-controls">{labels.map((label, i) => <Range key={label} label={`Signal at ${label}`} value={signal[i]} setValue={value => setSignal(previous => previous.map((entry, index) => index === i ? value : entry))} />)}</div></div>
     <div className="gf-controls"><Range label="Bridge C–D weight" value={bridge} max={3} setValue={setBridge} /><label>Inspect row<select aria-label="Laplacian row" value={selected} onChange={event => setSelected(Number(event.target.value))}>{labels.map((label, i) => <option key={label} value={i}>{label}</option>)}</select></label>
       <button type="button" onClick={() => {
@@ -192,7 +192,7 @@ export function GraphNormalizationLab() {
   const values = vector === 'ones' ? [1, 1, 1, 1] : result.degrees.map(Math.sqrt);
   const action = graphMatrixVector(matrix, values);
   return <Investigation id="graph-normalization" kicker="SAME EDGES · DIFFERENT OPERATORS" title="What should happen to the isolated vertex?">
-    <p>Predict the D diagonal before selecting the naive formula. Here Hii is 1/√di when di is positive and zero otherwise. The highlighted D diagonal makes the isolated-vertex convention visible.</p>
+    <p>Inspect the D diagonal when selecting the naive formula. Here Hii is 1/√di when di is positive and zero otherwise. The highlighted D diagonal makes the isolated-vertex convention visible.</p>
     <div className="gf-controls"><label><input type="checkbox" checked={loop} onChange={event => setLoop(event.target.checked)} /> Add a unit self-loop at B</label>
       <label>Operator<select aria-label="Graph normalization operator" value={operator} onChange={event => setOperator(event.target.value)}>{Object.entries(names).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
       <label>Input signal<select aria-label="Normalization signal" value={vector} onChange={event => setVector(event.target.value)}><option value="ones">All ones</option><option value="root">Square-root degree</option></select></label>
@@ -233,7 +233,7 @@ export function GraphAveragingLab() {
   const current = result.states.at(-1);
   const summary = result.summaries.at(-1);
   return <Investigation id="graph-averaging" kicker="ACTUAL ITERATIONS · PRESERVED QUANTITIES" title="Which average survives the update?">
-    <p>This separate fixture is the unweighted path A—B—C, plus isolated D. Initial values are 6, 0, 0, 4. Predict the first two steps and which mean stays fixed.</p>
+    <p>This separate fixture is the unweighted path A—B—C, plus isolated D. Initial values are 6, 0, 0, 4. Inspect the first two steps and which mean stays fixed.</p>
     <div className="gf-controls"><label>Update rule<select aria-label="Averaging rule" value={method} onChange={event => {
           setMethod(event.target.value);
           setSteps(0);

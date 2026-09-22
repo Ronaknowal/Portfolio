@@ -1,0 +1,653 @@
+{
+  "passed": true,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu"
+  },
+  "groups": [
+    "Programs, protected split and all three final measured runs equal prepared source bytes",
+    "All source lengths and shifted batches, 37408 parameters and all three final metric denominators reconcile",
+    "Source-only native inference reproduces every one of 447 saved development token sequences",
+    "Genuine candidate-state beam1 parity and 27 width1/2/3 native fixtures for JS bridge",
+    "Complete reexecution of scalar gradient, manual GRU traces, interventions, mask/future-target/detach nulls and data slices reproduces every saved value",
+    "Standalone learner saved-inference program prints exact cap/EOS output without fitting",
+    "Batched and separate capped generation preserve source/output ownership"
+  ],
+  "beamFixtures": [
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "past"
+      },
+      "width": 1,
+      "prediction": "emoves",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.295834930933779,
+      "ranking_score": -1.295834930933779,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "past"
+      },
+      "width": 2,
+      "prediction": "emoves",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.295834930933779,
+      "ranking_score": -1.295834930933779,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "past"
+      },
+      "width": 3,
+      "prediction": "emoves",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.295834930933779,
+      "ranking_score": -1.295834930933779,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "participle"
+      },
+      "width": 1,
+      "prediction": "emomming",
+      "tokens": [
+        10,
+        18,
+        20,
+        18,
+        18,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.313098414466367,
+      "ranking_score": -1.313098414466367,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "participle"
+      },
+      "width": 2,
+      "prediction": "emoving",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.200986927608028,
+      "ranking_score": -1.200986927608028,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "participle"
+      },
+      "width": 3,
+      "prediction": "emoving",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.200986927608028,
+      "ranking_score": -1.200986927608028,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "third_person"
+      },
+      "width": 1,
+      "prediction": "emommes",
+      "tokens": [
+        10,
+        18,
+        20,
+        18,
+        18,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -2.031455065647606,
+      "ranking_score": -2.031455065647606,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "third_person"
+      },
+      "width": 2,
+      "prediction": "emommes",
+      "tokens": [
+        10,
+        18,
+        20,
+        18,
+        18,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -2.031455065647606,
+      "ranking_score": -2.031455065647606,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "emmove",
+        "feature": "third_person"
+      },
+      "width": 3,
+      "prediction": "emoves",
+      "tokens": [
+        10,
+        18,
+        20,
+        27,
+        10,
+        24,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.473999052257568,
+      "ranking_score": -1.473999052257568,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "past"
+      },
+      "width": 1,
+      "prediction": "forcued",
+      "tokens": [
+        11,
+        20,
+        23,
+        8,
+        26,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.5474108421476558,
+      "ranking_score": -1.5474108421476558,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "past"
+      },
+      "width": 2,
+      "prediction": "forcued",
+      "tokens": [
+        11,
+        20,
+        23,
+        8,
+        26,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.5474108421476558,
+      "ranking_score": -1.5474108421476558,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "past"
+      },
+      "width": 3,
+      "prediction": "forcued",
+      "tokens": [
+        11,
+        20,
+        23,
+        8,
+        26,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.5474108421476558,
+      "ranking_score": -1.5474108421476558,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "participle"
+      },
+      "width": 1,
+      "prediction": "fofcking",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        16,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -2.374754274787847,
+      "ranking_score": -2.374754274787847,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "participle"
+      },
+      "width": 2,
+      "prediction": "fofcking",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        16,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -2.374754274787847,
+      "ranking_score": -2.374754274787847,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "participle"
+      },
+      "width": 3,
+      "prediction": "fofcking",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        16,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -2.374754274787847,
+      "ranking_score": -2.374754274787847,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "third_person"
+      },
+      "width": 1,
+      "prediction": "fofcled",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        17,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.27869957475923,
+      "ranking_score": -1.27869957475923,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "third_person"
+      },
+      "width": 2,
+      "prediction": "fofcled",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        17,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.27869957475923,
+      "ranking_score": -1.27869957475923,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "offtake",
+        "feature": "third_person"
+      },
+      "width": 3,
+      "prediction": "fofcled",
+      "tokens": [
+        11,
+        20,
+        11,
+        8,
+        17,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -1.27869957475923,
+      "ranking_score": -1.27869957475923,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "past"
+      },
+      "width": 1,
+      "prediction": "seazed",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.702428826742107,
+      "ranking_score": -0.702428826742107,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "past"
+      },
+      "width": 2,
+      "prediction": "seazed",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.702428826742107,
+      "ranking_score": -0.702428826742107,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "past"
+      },
+      "width": 3,
+      "prediction": "seazed",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.702428826742107,
+      "ranking_score": -0.702428826742107,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "participle"
+      },
+      "width": 1,
+      "prediction": "seazing",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.46844653016887605,
+      "ranking_score": -0.46844653016887605,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "participle"
+      },
+      "width": 2,
+      "prediction": "seazing",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.46844653016887605,
+      "ranking_score": -0.46844653016887605,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "seaze",
+        "feature": "participle"
+      },
+      "width": 3,
+      "prediction": "seazing",
+      "tokens": [
+        24,
+        10,
+        6,
+        31,
+        14,
+        19,
+        12,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.46844653016887605,
+      "ranking_score": -0.46844653016887605,
+      "beam_width": 3,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "lactate",
+        "feature": "past"
+      },
+      "width": 1,
+      "prediction": "lactated",
+      "tokens": [
+        17,
+        6,
+        8,
+        25,
+        6,
+        25,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.11990588736080099,
+      "ranking_score": -0.11990588736080099,
+      "beam_width": 1,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "lactate",
+        "feature": "past"
+      },
+      "width": 2,
+      "prediction": "lactated",
+      "tokens": [
+        17,
+        6,
+        8,
+        25,
+        6,
+        25,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.11990588736080099,
+      "ranking_score": -0.11990588736080099,
+      "beam_width": 2,
+      "alpha": 0.0
+    },
+    {
+      "query": {
+        "lemma": "lactate",
+        "feature": "past"
+      },
+      "width": 3,
+      "prediction": "lactated",
+      "tokens": [
+        17,
+        6,
+        8,
+        25,
+        6,
+        25,
+        10,
+        9,
+        2
+      ],
+      "ended_with_eos": true,
+      "log_probability": -0.11990588736080099,
+      "ranking_score": -0.11990588736080099,
+      "beam_width": 3,
+      "alpha": 0.0
+    }
+  ],
+  "sourceHashes": {
+    "public/learn-code/sequence-to-sequence-encoder-decoder/calculated-inputs.json": "654ac6e954d8695279bdbcda457ed459722ce4c36eeefa05783666aa3237ef35",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/data-extraction.json": "01f15c41dbacbad3b68e82729fc8afa2a7d1e6c4d139c8f7156bedee949e2445",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/data-provenance.md": "4bd475ce15ed4fad13c07431b411408dc8274a6d7cfa7e38caa5024dcd938fed",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/english-inflections.csv": "eb56afb2415f267586809803c67574c4fff7998dbf02a70551fd784cf86dbe14",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/inflection-seq2seq.py": "848270224c4e1b1f275bf8ae6ee5676b43166adc8273a17190bd841386bd9fdb",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/mechanics-results.json": "f07d28f8946d422cd13abdf21959a895d93367f4183df2708395f8dc6010c59c",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/prepare-inflection-data.py": "0e7dc569d119d6b3b354ca36b3192114fa3a60f73f8014a3a0869063601cadbb",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/saved-inflection.py": "0a6fbce2aec5bac59c0b6ffd74fc3aa0290f28d7483992ac2409359be7dc1a23",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/seed-one-inference.json": "92ef3fa2876b0c5a67d409533aa415aef5ec5b628262ed15a9a2bef9dbb5cac8",
+    "public/learn-code/sequence-to-sequence-encoder-decoder/sequence-mechanics.py": "f27648f6e52eea55f4836fa8b24b5f8ea490440c62063fb15b4757500ba07749"
+  },
+  "limits": "Original final-split fits reused unchanged; current execution covers inference, protocol and differentiable mechanisms, not refitting."
+}

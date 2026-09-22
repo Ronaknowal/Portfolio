@@ -1,0 +1,319 @@
+/* PAC learning and VC dimension: investigations, number lines, plots and their
+   tables. Calm dark ground with the site's gold accent. Every encoding that
+   carries meaning also carries a shape, a pattern, a word or a printed value,
+   so nothing here depends on colour alone.
+
+   Three rules below are deliberate and each has been shipped wrong before in
+   this repository.
+
+   1. `.pac-lesson svg text` is scoped at the LESSON ROOT, not at a figure
+      class. A class-scoped rule misses any diagram sitting inside an
+      investigation stage wrapper; such a diagram then renders at the browser
+      default 16px inside a ~290-unit viewBox and scales to illegible. It also
+      uses font LONGHANDS, because the `font` shorthand silently resets every
+      font-size set on a descendant.
+   2. No blanket `fill` is set on shapes. A CSS `fill` rule beats a `fill="none"`
+      presentation attribute, which is how a figure's bands once became entirely
+      invisible while every offline assertion passed. Each shape class states its
+      own fill, and outline-only shapes state `fill: none` in CSS.
+   3. A table caption is a sibling paragraph, never a `<caption>`: below the
+      narrow breakpoint the table blockifies and a caption inside it collapses to
+      the width of its longest word. */
+
+/* SCOPED TO THIS LESSON'S OWN SVGs BY CLASS, not to every svg under the lesson
+   root. `.pac-lesson svg { width: 100%; height: auto }` also matched KaTeX's
+   radical SVGs, whose height comes from `height: inherit`; `auto` gave them no
+   intrinsic height and collapsed them to zero, so every square root on the page
+   rendered as a bare fraction. `r_K = ln(2K/delta)/(2n)` is not the radius --
+   it is the radius squared -- so this was a wrong formula, not a blemish, and
+   every offline check passed while it shipped.
+
+   Tagging the element is safe in the way tagging a CONTAINER would not be: each
+   of this lesson's SVGs carries pac-line, pac-plot or pac-panel wherever it
+   sits, including inside an investigation wrapper, and the hygiene checker
+   refuses an untagged one. */
+.pac-lesson svg:is(.pac-line, .pac-plot, .pac-panel) {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.pac-lesson svg text {
+  fill: #cfd7d2;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 400;
+  font-style: normal;
+}
+.pac-lesson svg text.pac-small { font-size: 9px; }
+.pac-lesson svg text.pac-strong { font-size: 11px; font-weight: 600; fill: #f0e6c8; }
+.pac-lesson svg text.pac-muted { fill: #9fa9a4; }
+.pac-lesson svg text.pac-axis-title { fill: #8eb9a5; font-size: 9px; }
+
+/* Lines and marks. Each states its own fill. */
+.pac-lesson svg .pac-axis { fill: none; stroke: #6f7b76; stroke-width: 1.2; }
+.pac-lesson svg .pac-tick { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.pac-lesson svg .pac-grid { fill: none; stroke: #232a28; stroke-width: 1; }
+.pac-lesson svg .pac-series-line { fill: none; stroke-width: 1.6; }
+.pac-lesson svg .pac-series-mark { stroke: none; }
+.pac-lesson svg .pac-series.is-thresholds .pac-series-line { stroke: #8eb9a5; stroke-dasharray: 5 3; }
+.pac-lesson svg .pac-series.is-thresholds .pac-series-mark { fill: #8eb9a5; }
+.pac-lesson svg .pac-series.is-intervals .pac-series-line { stroke: #e7b94a; }
+.pac-lesson svg .pac-series.is-intervals .pac-series-mark { fill: #e7b94a; }
+.pac-lesson svg .pac-series.is-sauerD2 .pac-series-line { stroke: #b58ec0; stroke-dasharray: 2 3; }
+.pac-lesson svg .pac-series.is-sauerD2 .pac-series-mark { fill: #b58ec0; }
+.pac-lesson svg .pac-series.is-allBinary .pac-series-line { stroke: #da9c86; stroke-dasharray: 9 4; }
+.pac-lesson svg .pac-series.is-allBinary .pac-series-mark { fill: #da9c86; }
+.pac-lesson svg .pac-series.is-train .pac-series-line { stroke: #8eb9a5; stroke-dasharray: 4 3; }
+.pac-lesson svg .pac-series.is-train .pac-series-mark { fill: #8eb9a5; }
+.pac-lesson svg .pac-series.is-development .pac-series-line { stroke: #e7b94a; }
+.pac-lesson svg .pac-series.is-development .pac-series-mark { fill: #e7b94a; }
+.pac-lesson svg .pac-series.is-d1 .pac-series-line { stroke: #8eb9a5; }
+.pac-lesson svg .pac-series.is-d1 .pac-series-mark { fill: #8eb9a5; }
+.pac-lesson svg .pac-series.is-d2 .pac-series-line { stroke: #e7b94a; stroke-dasharray: 6 3; }
+.pac-lesson svg .pac-series.is-d2 .pac-series-mark { fill: #e7b94a; }
+.pac-lesson svg .pac-series.is-d10 .pac-series-line { stroke: #da9c86; stroke-dasharray: 2 3; }
+.pac-lesson svg .pac-series.is-d10 .pac-series-mark { fill: #da9c86; }
+/* One colour and one dash pattern per measured procedure, for the comparison
+   view of figure 10. Named for the procedure, not for a series index. */
+.pac-lesson svg .pac-series.is-logistic_regression .pac-series-line { stroke: #8eb9a5; }
+.pac-lesson svg .pac-series.is-logistic_regression .pac-series-mark { fill: #8eb9a5; }
+.pac-lesson svg .pac-series.is-rbf_svc .pac-series-line { stroke: #e7b94a; stroke-dasharray: 6 3; }
+.pac-lesson svg .pac-series.is-rbf_svc .pac-series-mark { fill: #e7b94a; }
+.pac-lesson svg .pac-series.is-depth5_tree .pac-series-line { stroke: #b58ec0; stroke-dasharray: 2 3; }
+.pac-lesson svg .pac-series.is-depth5_tree .pac-series-mark { fill: #b58ec0; }
+
+/* Bands on the unit interval. Pattern as well as colour: the missed region is
+   hatched, the invented region is outlined, the coverage strips are stippled. */
+.pac-lesson svg .pac-band { stroke: none; }
+.pac-lesson svg .pac-band.is-target { fill: #3d5148; }
+.pac-lesson svg .pac-band.is-fitted { fill: #9a8347; }
+/* No `url(#...)` pattern fills. A pattern reference that does not resolve --
+   a duplicated id across two instances of the same figure, a defs block that
+   moved -- fails silently and leaves the band unpainted, which is exactly the
+   defect this file's rule 2 exists to prevent. Hatching is drawn as explicit
+   line elements over a solid fill instead. */
+.pac-lesson svg .pac-band.is-missed { fill: #4a2f2b; stroke: #da9c86; stroke-width: 1; }
+.pac-lesson svg .pac-band.is-invented { fill: #2b2333; stroke: #b58ec0; stroke-width: 1.4; stroke-dasharray: 3 2; }
+.pac-lesson svg .pac-band.is-coverage { fill: #1b2a24; stroke: #8eb9a5; stroke-width: .8; }
+.pac-lesson svg .pac-hatch-line { stroke-width: 1; fill: none; }
+.pac-lesson svg .pac-hatch-line.is-missed { stroke: #da9c86; }
+.pac-lesson svg .pac-hatch-line.is-invented { stroke: #b58ec0; }
+.pac-lesson svg .pac-hatch-line.is-coverage { stroke: #8eb9a5; }
+
+/* The ghost sample's marks. They get their own class rather than borrowing the
+   half-plane one: a class whose rule is `.pac-plane-point.is-negative rect`
+   matches nothing when the element carries only `.pac-plane-point`, and an SVG
+   shape with no fill rule paints solid black -- invisible on this ground. */
+.pac-lesson svg .pac-ghost-mark { fill: #121816; stroke: #93a09a; stroke-width: 1.2; }
+/* The region a radius above 1 occupies: valid and saying nothing. */
+.pac-lesson svg .pac-vacuous { fill: #241d28; stroke: #b58ec0; stroke-width: 1; stroke-dasharray: 4 3; }
+.pac-lesson svg .pac-point rect { fill: #121816; stroke: #93a09a; stroke-width: 1.2; }
+.pac-lesson svg .pac-point circle { fill: #e7b94a; stroke: none; }
+.pac-lesson svg .pac-point.is-positive circle { fill: #e7b94a; }
+
+/* Candidate bands of figure 3 */
+.pac-lesson svg .pac-interval-band { fill: none; stroke: #6f7b76; stroke-width: 1.3; }
+.pac-lesson svg .pac-interval-band.is-selected { stroke: #e7b94a; stroke-width: 2; }
+.pac-lesson svg .pac-interval-band.is-shrunk { stroke: #da9c86; stroke-dasharray: 3 2; }
+.pac-lesson svg .pac-interval-dot { fill: #cfd7d2; stroke: none; }
+.pac-lesson svg .pac-interval-dot.is-selected { fill: #e7b94a; }
+.pac-lesson svg .pac-cap { fill: none; stroke: #6f7b76; stroke-width: 1.3; }
+.pac-lesson svg .pac-cap.is-selected { stroke: #e7b94a; stroke-width: 2; }
+
+/* Half-plane fixtures */
+.pac-lesson svg .pac-separator { fill: none; stroke: #e7b94a; stroke-width: 1.5; }
+.pac-lesson svg .pac-hull { fill: none; stroke: #4a5650; stroke-width: 1; stroke-dasharray: 3 3; }
+.pac-lesson svg .pac-plane-point.is-positive circle { fill: #e7b94a; stroke: #121816; stroke-width: .8; }
+.pac-lesson svg .pac-plane-point.is-negative rect { fill: #121816; stroke: #93a09a; stroke-width: 1.4; }
+.pac-lesson svg .pac-diagonal { fill: none; stroke: #da9c86; stroke-width: 1.2; stroke-dasharray: 4 3; }
+
+/* Sine dials. The ring is OUTLINE ONLY. It is painted after the two half-discs,
+   so a solid fill on it covered both of them completely -- the halves were
+   drawn, correct and invisible, and the figure that exists to show which half
+   the sine is positive in showed neither. Paint order beat colour here, and no
+   presentation-attribute check would have caught it. */
+.pac-lesson svg .pac-dial { fill: none; stroke: #6f7b76; stroke-width: 1; }
+.pac-lesson svg .pac-dial-half.is-positive { fill: #2e4a3c; stroke: none; }
+.pac-lesson svg .pac-dial-half.is-negative { fill: #52332d; stroke: none; }
+.pac-lesson svg .pac-dial-axis { fill: none; stroke: #b5bfbb; stroke-width: 1; }
+.pac-lesson svg .pac-dial-mark { fill: none; stroke: #e7b94a; stroke-width: 1.6; }
+.pac-lesson svg .pac-dial-dot { fill: #e7b94a; stroke: none; }
+
+/* Meters of figure 1 */
+.pac-lesson svg .pac-meter-track { fill: #161c1b; stroke: #2f3735; stroke-width: 1; }
+.pac-lesson svg .pac-meter-fill { fill: #8eb9a5; stroke: none; }
+.pac-lesson svg .pac-meter-fill.is-over { fill: #da9c86; }
+.pac-lesson svg .pac-cutoff { fill: none; stroke: #e7b94a; stroke-width: 1.4; stroke-dasharray: 3 2; }
+
+.pac-investigation {
+  margin: 2.2rem 0;
+  padding: clamp(.8rem, 2vw, 1.3rem);
+  border: 1px solid #303332;
+  border-radius: 5px;
+  background: #0b0f10;
+  color: #d8dcd9;
+}
+.pac-investigation header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.pac-investigation h3 { font-size: 1.13rem; line-height: 1.5; margin: 0; }
+.pac-investigation button,
+.pac-figure button {
+  font: inherit; font-size: .9rem; min-height: 42px; padding: .5rem .8rem;
+  background: transparent; border: 1px solid #746138; border-radius: 3px; color: #e7b94a; cursor: pointer;
+}
+.pac-investigation button.is-primary { background: #1d2119; border-color: #9a8347; }
+.pac-investigation button:disabled, .pac-figure button:disabled { opacity: .4; cursor: default; }
+.pac-investigation button.is-selected { background: #1d2119; border-color: #9a8347; color: #f0e6c8; }
+.pac-investigation :is(button, input, select, summary, textarea, [tabindex]):focus-visible,
+.pac-figure :is(button, input, select, summary, textarea, [tabindex]):focus-visible { outline: 2px solid #a5c7b5; outline-offset: 3px; }
+
+.pac-question, .pac-caption, .pac-note, .pac-pending { font-size: .92rem; line-height: 1.75; }
+.pac-caption { color: #b5bfbb; margin: .5rem 0; }
+.pac-note { color: #d7c6a4; border-left: 2px solid #746138; padding-left: .8rem; }
+.pac-pending { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; }
+.pac-blocked { font-size: .92rem; line-height: 1.75; color: #e3c1b4; border-left: 2px solid #da9c86; padding-left: .8rem; margin: .6rem 0 0; }
+.pac-role { color: #d0ddd5; border-left: 2px solid #8eb9a5; padding-left: .8rem; font-size: .9rem; line-height: 1.7; }
+.pac-role.is-constructed { border-left-color: #9a8347; color: #e0d3ae; }
+.pac-role.is-measured { border-left-color: #b58ec0; color: #dcc9e2; }
+.pac-role.is-exploratory { border-left-color: #da9c86; color: #e3c1b4; }
+
+/* Controls */
+.pac-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: .9rem 1rem; margin: 1.1rem 0; }
+.pac-controls.is-wide { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.pac-field { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; min-width: 0; }
+.pac-field > span { display: flex; justify-content: space-between; gap: .6rem; color: #d0ddd5; }
+.pac-field output { color: #e7b94a; font-family: var(--font-mono, monospace); min-width: 0; overflow-wrap: anywhere; }
+.pac-field :is(input[type="number"], input[type="text"], select) {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.pac-field.is-invalid :is(input, select) { border-color: #da9c86; }
+.pac-field-error { color: #da9c86; font-size: .82rem; line-height: 1.5; }
+.pac-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.pac-buttons > span { font: .85rem/1.6 var(--font-mono, monospace); color: #bbc4bf; }
+.pac-presets { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+
+.pac-label-choice { display: flex; flex-direction: column; gap: .4rem; font-size: .9rem; min-width: 0; }
+.pac-label-name { color: #d0ddd5; }
+.pac-label-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pac-label-options label {
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 40px;
+  padding: .2rem .55rem; border: 1px solid #3c4643; border-radius: 3px; background: #121816;
+}
+.pac-label-options input { accent-color: #e7b94a; }
+
+.pac-prediction { margin: 1.1rem 0; padding: .85rem .9rem; border: 1px dashed #4a5650; border-radius: 4px; font-size: .92rem; line-height: 1.7; }
+.pac-prediction fieldset { border: 0; margin: 0; padding: 0; }
+.pac-prediction legend { padding: 0; font-weight: 600; }
+.pac-choices { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
+.pac-choice { display: flex; align-items: flex-start; gap: .5rem; min-height: 40px; padding: .25rem 0; }
+.pac-choice input { margin-top: .35rem; accent-color: #e7b94a; }
+.pac-numeric-guess input {
+  min-height: 42px; padding: .4rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit;
+}
+.pac-verdict { margin: .7rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #dce4e0; }
+.pac-verdict.is-miss { border-left-color: #da9c86; }
+.pac-verdict-mark { font-family: var(--font-mono, monospace); font-weight: 600; margin-right: .4rem; }
+.pac-history { margin: .6rem 0 0; padding-left: .9rem; border-left: 2px solid #8eb9a5; color: #c0cac5; font-size: .88rem; line-height: 1.7; }
+.pac-history.is-pending { border-left: 2px dotted #5d6862; color: #9fa9a4; font-size: .86rem; }
+.pac-reveal { margin: .8rem 0 0; padding: .6rem .75rem; border: 1px solid #3c4643; border-radius: 3px; background: #101615; font-size: .9rem; line-height: 1.75; }
+.pac-reveal dl { margin: 0; display: grid; grid-template-columns: minmax(8rem, auto) 1fr; gap: .3rem .9rem; }
+.pac-reveal dt { color: #9fa9a4; }
+.pac-reveal dd { margin: 0; color: #e7b94a; font-family: var(--font-mono, monospace); overflow-wrap: anywhere; }
+.pac-reason textarea {
+  min-height: 60px; padding: .45rem .55rem; border: 1px solid #3c4643; border-radius: 3px;
+  color: #d8dcd9; background: #121816; font: inherit; resize: vertical;
+}
+
+/* Tables */
+.pac-table { margin: 1.1rem 0; }
+.pac-table-scroll { overflow-x: auto; border: 1px solid #262b2a; border-radius: 4px; }
+.pac-table-scroll table { width: 100%; border-collapse: collapse; font: .78rem/1.65 var(--font-mono, monospace); }
+.pac-table-scroll :is(th, td) { padding: .4rem .55rem; border-bottom: 1px solid #1f2523; text-align: right; white-space: nowrap; }
+.pac-table-scroll th { color: #d0ddd5; font-weight: 600; }
+.pac-table-scroll thead th { border-bottom: 1px solid #3c4643; }
+.pac-table-scroll tbody th { text-align: left; color: #cfd7d2; }
+.pac-table-scroll tr.is-leading td, .pac-table-scroll tr.is-leading th { background: #151c18; }
+.pac-table-scroll tr.is-eliminated td, .pac-table-scroll tr.is-eliminated th { color: #7f8a85; text-decoration: line-through; }
+.pac-table-scroll tr.is-failing td, .pac-table-scroll tr.is-failing th { color: #e3c1b4; }
+
+/* Figures */
+.pac-figure { margin: 1.7rem 0; padding: 0; }
+.pac-figure figcaption { font-size: .93rem; font-weight: 600; line-height: 1.6; margin-bottom: .55rem; color: #dce4e0; }
+.pac-figure-inline { margin: .9rem 0; padding: 0; }
+.pac-figure-row { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: flex-start; }
+.pac-figure-row > * { flex: 1 1 260px; min-width: 0; }
+/* Small geometry panels sit on a grid sized to the drawing, not to a 260px
+   flex basis. Their captions are short identifiers and belong under the
+   drawing they name. */
+.pac-panel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: .7rem .8rem; margin: 1.1rem 0; }
+.pac-panel-grid.is-wide { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+/* Eight panels read as four and four. Auto-fit gave seven and one. */
+.pac-panel-grid.is-eight { grid-template-columns: repeat(4, 1fr); }
+.pac-panel-grid .pac-figure-inline { margin: 0; }
+.pac-panel-grid .pac-caption { text-align: center; margin: .35rem 0 0; font-size: .82rem; }
+.pac-legend { display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin: .5rem 0; font-size: .85rem; color: #b5bfbb; }
+.pac-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.pac-swatch { display: inline-block; width: 18px; height: 3px; border-radius: 2px; }
+.pac-swatch.is-thresholds { background: #8eb9a5; }
+.pac-swatch.is-intervals { background: #e7b94a; }
+.pac-swatch.is-sauerD2 { background: #b58ec0; }
+.pac-swatch.is-allBinary { background: #da9c86; }
+.pac-swatch.is-train { background: #8eb9a5; }
+.pac-swatch.is-development { background: #e7b94a; }
+.pac-swatch.is-d1 { background: #8eb9a5; }
+.pac-swatch.is-d2 { background: #e7b94a; }
+.pac-swatch.is-d10 { background: #da9c86; }
+/* Number-line rows. Each carries a shape or a border pattern as well as a
+   colour, because the rows are told apart by more than hue. */
+.pac-swatch.is-observed-positive { width: 9px; height: 9px; border-radius: 50%; background: #e7b94a; }
+.pac-swatch.is-observed-negative { width: 9px; height: 9px; border-radius: 0; background: #121816; border: 1px solid #93a09a; }
+.pac-swatch.is-target-row { height: 9px; background: #3d5148; }
+.pac-swatch.is-coverage-row { height: 9px; background: #1b2a24; border: 1px solid #8eb9a5; }
+.pac-swatch.is-missed-row { height: 9px; background: #4a2f2b; border: 1px solid #da9c86; }
+.pac-swatch.is-fitted-row { height: 9px; background: #9a8347; }
+.pac-swatch.is-vacuous { height: 9px; background: #241d28; border: 1px dashed #b58ec0; }
+.pac-swatch.is-logistic_regression { background: #8eb9a5; }
+.pac-swatch.is-rbf_svc { background: #e7b94a; }
+.pac-swatch.is-depth5_tree { background: #b58ec0; }
+.pac-swatch.is-sine-positive { height: 9px; background: #2e4a3c; border: 1px solid #6f8f7d; }
+.pac-swatch.is-sine-negative { height: 9px; background: #52332d; border: 1px solid #9a6a5e; }
+
+.pac-bits { display: inline-flex; gap: 2px; font-family: var(--font-mono, monospace); }
+.pac-bit {
+  display: inline-block; min-width: 1.15em; text-align: center;
+  border: 1px solid #3c4643; border-radius: 2px; background: #121816; color: #cfd7d2;
+}
+.pac-bit.is-wrong { border-color: #da9c86; color: #e3c1b4; background: #201618; }
+
+.pac-strip { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.pac-strip-cell {
+  border: 1px solid #3c4643; border-radius: 3px; padding: .4rem .6rem; background: #121816;
+  font: .78rem/1.6 var(--font-mono, monospace); color: #cfd7d2; min-width: 0;
+}
+.pac-strip-cell.is-used { border-color: #9a8347; background: #1d2119; color: #f0e6c8; }
+.pac-strip-cell b { display: block; color: #e7b94a; font-weight: 600; }
+
+.pac-route { margin: 1.4rem 0; padding: .8rem 1rem; border-left: 3px solid #9a8347; background: #10140f; }
+.pac-practice { margin: 1.6rem 0; }
+
+/* The provenance prints a 64-character SHA-256 inline. That is a single
+   unbreakable word and would push the page sideways at 320px. */
+.pac-lesson code { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+
+@media (max-width: 560px) {
+  .pac-table-scroll table, .pac-table-scroll thead, .pac-table-scroll tbody,
+  .pac-table-scroll tr, .pac-table-scroll th, .pac-table-scroll td { display: block; }
+  .pac-table-scroll thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .pac-table-scroll tr { border-bottom: 1px solid #3c4643; padding: .35rem 0; }
+  .pac-table-scroll :is(th, td) { border: 0; display: flex; justify-content: space-between; gap: 1rem; white-space: normal; text-align: right; }
+  .pac-table-scroll :is(th, td)::before { content: attr(data-label); color: #9fa9a4; text-align: left; }
+  .pac-reveal dl { grid-template-columns: 1fr; }
+  .pac-panel-grid.is-eight { grid-template-columns: repeat(2, 1fr); }
+  .pac-figure-row > * { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pac-lesson * { animation: none !important; transition: none !important; }
+}

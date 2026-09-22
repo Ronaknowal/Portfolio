@@ -1,3 +1,5 @@
+> **Current interaction amendment, 21 September 2026:** Read [live-exploration.md](live-exploration.md). Labs now update directly from valid edits and contain no learner prediction feature, including optional predictions. The older prediction/commit/reveal clauses below are historical design records; their numerical, scope, layout and evidence requirements remain applicable where unchanged.
+
 # CRF visual and investigation specifications
 
 Status: content specifications, 12 September 2026. No browser visual or lab has been built. Consume [lesson.md](lesson.md), [checked-results.json](checked-results.json) and [data provenance](data-provenance.md). Numerical inputs are exact constructed factors or recorded real-data outputs, never illustrative performance measurements. Root owns the phase checkpoint.

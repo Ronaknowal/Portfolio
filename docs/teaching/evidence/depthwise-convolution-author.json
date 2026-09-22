@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checkedAt": "2026-09-22T05:53:40.073Z",
+  "groups": [
+    "Channel arithmetic, locality, true zero null and independent numerical gradients",
+    "Two independent rank probes, noncanonical valid basis, dependent-probe limitation",
+    "Every stencil center/dilation and finite-map tap count matches independently enumerated addresses",
+    "Serial support agrees with explicit path enumeration and rate-order null",
+    "Parallel branches expose far-cell effects, mean-preserving swap and zero projection",
+    "Saved JavaScript inference matches independent native loops, edited pixels and all four retained ranks",
+    "Owned JSX parses; full practice/math and deferred source/model ownership are retained"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "e996d422c08ef8acc3ae71bc2a445743fcab42c0c56574edd89ac3ec51fef38f",
+    "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx": "191a8472e294d88d23ae8121b80c5b0aff263294173c68c154125868a504f791",
+    "src/learn/components/lesson-labs/depthwise-convolutions.css": "b91f08bbb7ff3a8f974f48f0e796e2e530dd188455e349e0967ad325228ddc2d",
+    "src/learn/data/depthwise-convolution-models.js": "3ab5780ba00a4cff9a9a6d378246ca6c2df506bd512cedac51c84595682efdee",
+    "src/learn/data/curriculum/blueprints/depthwise-separable-dilated-convolutions.js": "295a887422347d975467f94ef48f4326c8173b6d6225cd63ac4ceb663a6bd969",
+    "scripts/generate-depthwise-convolution-lesson.mjs": "93595c71bd73677d3f7484bab44371d1374309732e53d6cd1cf93d2bf45c3f95",
+    "scripts/verify-depthwise-convolution-models.mjs": "fc40758ead45859abb6bc4c536dd6e0c3b3c4acead144e5ac275528c79b1b07a"
+  },
+  "maximumDenseFloat32Difference": 0.000011512556536530383
+}

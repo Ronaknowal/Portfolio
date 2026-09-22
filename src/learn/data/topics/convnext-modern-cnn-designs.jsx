@@ -1,1427 +1,452 @@
-import { Prose, H2, H3, Code, CodeBlock, Callout } from "../../components/content";
-import { MathBlock } from "../../components/content/Math.jsx";
-import { StepTrace, Heatmap, Plot } from "../../components/viz";
-import { colors } from "../../styles";
-
-const convnextModernContent = {
-  title: "ConvNeXt & Modern CNN Designs",
-  readTime: "~38 min",
-  content: () => (
-    <div>
-
-      {/* ======================================================================
-          1. WHY IT EXISTS
-          ====================================================================== */}
-      <H2>1. Why it exists</H2>
-
-      <Prose>
-        For roughly 18 months, from the fall of 2020 through the spring of 2022, the ImageNet leaderboard stopped looking like a CNN story. Dosovitskiy and colleagues' Vision Transformer (ViT, ICLR 2021, arXiv:2010.11929) showed that a pure Transformer trained on JFT-300M could match CNNs on ImageNet-1k classification. Touvron's DeiT (ICML 2021, arXiv:2012.12877) made it work on ImageNet-1k alone with the right training recipe. Then Liu and colleagues at Microsoft Research Asia published Swin Transformer at ICCV 2021 (arXiv:2103.14030), which introduced shifted-window attention and linear complexity, and swept ImageNet, COCO, and ADE20K. By the end of 2021, the Swin-L variant at 87.3% ImageNet top-1 was the new ceiling, and the dominant narrative — recited in nearly every paper introduction — was that self-attention's global receptive field and permutation-equivariant structure were fundamentally better than convolution for vision. CNNs were old news, a legacy design from 2015.
-      </Prose>
-
-      <Prose>
-        Zhuang Liu, Hanzi Mao, Chao-Yuan Wu, Christoph Feichtenhofer, Trevor Darrell, and Saining Xie — half from Facebook AI Research, half from UC Berkeley — did not believe the narrative. In January 2022 they posted "A ConvNet for the 2020s" to arXiv (2201.03545), which appeared at CVPR 2022. The paper asked a simple question: how much of the Swin Transformer's advantage comes from self-attention versus from the surrounding design choices — the patchify stem, the inverted bottleneck, the normalization layout, the activation function, the stage compute ratio? Their methodology was almost anthropological: start from a standard ResNet-50, and modernize it one step at a time to look like a Swin Transformer, holding every step to the same training recipe. They called this "modernizing" the ResNet. After applying seven changes — none involving attention — they produced ConvNeXt-T, a pure convolutional network with 82.1% ImageNet-1k top-1 accuracy, edging out Swin-T at 81.3% and matching ViT-S while using 15% fewer FLOPs. ConvNeXt-L at 22k-pretrained reached 87.5%, the new state-of-the-art for ImageNet that year.
-      </Prose>
-
-      <Prose>
-        The paper's framing was the headline. Every improvement in ConvNeXt came from a design choice that had first appeared in Transformers: the 4×4 stride-4 "patchify" stem from ViT; the inverted bottleneck from MobileNetV2 and popularized by Transformers' MLP block; the 7×7 depthwise conv as a stand-in for attention's global receptive field; LayerNorm replacing BatchNorm; GELU replacing ReLU; far fewer activation and normalization layers per block; a stage compute ratio of 1:1:3:1 borrowed from Swin's 2:2:6:2. None of these were architectural inventions of the ConvNeXt authors. The contribution was to show that once a CNN adopted them, it outperformed a Swin Transformer of equal scale. The takeaway the community absorbed: what we had called "Transformer's advantage" over "CNN" was mostly a 2020-era recipe advantage, and once the recipe was shared, the architectures were roughly on par.
-      </Prose>
-
-      <Prose>
-        A year later, in January 2023, Sanghyun Woo, Shoubhik Debnath, Ronghang Hu, Xinlei Chen, Zhuang Liu, In So Kweon, and Saining Xie published "ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders" at CVPR 2023 (arXiv:2301.00808). The problem they addressed: when you try to pretrain ConvNeXt V1 with Masked Autoencoder (MAE) — the self-supervised recipe that had transformed ViT pretraining — the network suffers from feature collapse. Many intermediate channels become near-dead; self-supervision does not find them. Woo and colleagues diagnosed this as a "feature competition" problem and introduced Global Response Normalization (GRN), a parameter-light per-channel competition layer placed after the GELU inside each block. With GRN, ConvNeXt V2 matched or exceeded Swin V2 at ImageNet-22k scale and dominated segmentation benchmarks (ADE20K, COCO). ConvNeXt V2-H at 88.9% top-1 was state-of-the-art for a fully convolutional network in 2023.
-      </Prose>
-
-      <Prose>
-        Other modern CNN papers sharpened the story from different angles. In March 2022, Xiaohan Ding, Xiangyu Zhang, Yizhuang Zhou, Jungong Han, Guiguang Ding, and Jian Sun published RepLKNet (CVPR 2022, arXiv:2203.06717), which asked how far the large-kernel idea could be pushed. They showed that 31×31 depthwise convolutions — essentially global within a reasonable feature map — trained stably with structural reparameterization and delivered Swin-level accuracy without any attention at all. Dai and colleagues' CoAtNet (NeurIPS 2021, arXiv:2106.04803) took the complementary route, stacking MBConv blocks at low resolution and attention blocks at high resolution; at 90.88% on ImageNet at JFT-3B scale, CoAtNet-7 was the state-of-the-art in 2022 for pure-vision pretraining. Zhengzhong Tu, Hossein Talebi, Han Zhang, Feng Yang, Peyman Milanfar, Alan Bovik, and Yinxiao Li's MaxViT (ECCV 2022, arXiv:2204.01697) combined MBConv, block attention, and grid attention into a single hybrid block that set new state-of-the-art on object detection at matched compute. Vasu and colleagues' MobileOne (CVPR 2023, arXiv:2206.04040) pushed the reparameterization technique into the on-device regime, hitting sub-1ms iPhone latency at ImageNet-equivalent accuracy. EfficientFormer (Li et al. 2022) did the equivalent on the Transformer side.
-      </Prose>
-
-      <Prose>
-        The underlying lesson from this 2020–2023 chapter is a design-space lesson, not an architecture lesson. The old story — "attention versus convolution" — turned out to be the wrong axis. The right axis was "which collection of design choices (normalization, activation, stage structure, token mixing)" maximizes accuracy per FLOP at a given data scale. CNNs had been held to an older recipe; Transformers had arrived with a new one; once the recipe was decoupled from the architecture, the gap closed. ConvNeXt is the paper that made this concrete. In 2026, ConvNeXt-T is still the default vision backbone for latency-sensitive production pipelines, ConvNeXt V2 is the default for CNN-based MAE pretraining, and hybrid designs (MaxViT, CoAtNet) are the default when a task benefits from both local and global interactions. The CNN lineage is not dead; it learned the Transformer recipe.
-      </Prose>
-
-      {/* ======================================================================
-          2. CORE INTUITION
-          ====================================================================== */}
-      <H2>2. Core intuition</H2>
+// Complete revision-3 manuscript rendered statically; changes recorded in the implementation record.
+import { Prose, H2, H3, CodeBlock } from '../../components/content';
+import { Math as InlineMath, MathBlock } from '../../components/content/Math.jsx';
+import { LessonIntro } from '../../components/lesson-labs/LessonElements.jsx';
+import { NeuralTable } from '../../components/lesson-labs/NeuralLessonElements.jsx';
+import { ConvNeXtGenealogy, ConvNeXtBlockFigure, ConvNeXtNormalizationLab, ConvNeXtHierarchy, ConvNeXtBudgetLab, ConvNeXtResponseLab, ConvNeXtMaskFigure, ConvNeXtReconstructionLab, ConvNeXtRecordedExperiment, ConvNeXtFusionLab, ConvNeXtProgram, convnextAsset } from '../../components/lesson-labs/ConvNeXtLabs.jsx';
+export default {
+ title: 'ConvNeXt & Modern CNN Designs',
+ readTime: '~70 min read + live investigations, implementation and practice',
+ hasIntegratedGuide: true,
+ content: () => <div className="neural-lesson convnext-lesson"><LessonIntro prerequisites="Depthwise convolution, channel normalization, residual paths, tensor shapes and supervised training. The relevant axis and masking contracts are refreshed locally." sections={[["1-start-with-the-comparison-not-the-model-name","1. Start with the comparison, not the model name"],["2-read-one-block-from-the-input-outward","2. Read one block from the input outward"],["3-from-the-block-to-a-feature-hierarchy","3. From the block to a feature hierarchy"],["4-global-response-normalization-look-across-the-feature-map","4. Global response normalization: look across the feature map"],["5-learn-from-missing-pixels-without-giving-away-the-answer","5. Learn from missing pixels without giving away the answer"],["6-an-actual-masked-digit-experiment","6. An actual masked-digit experiment"],["7-deeper-routes-deploy-reparameterize-or-combine-mechanisms","7. Deeper routes: deploy, reparameterize, or combine mechanisms"],["match-the-block-you-built-to-the-maintained-implementation","Match the block you built to the maintained implementation"],["8-practice-reason-about-a-changed-design","8. Practice: reason about a changed design"],["9-readiness-connections-and-other-ways-to-learn","9. Readiness, connections and other ways to learn"]]}>Read a modern convolutional block, build its complete hierarchy, and investigate how a masked reconstruction model uses available evidence.</LessonIntro>
+<Prose>{""}<strong>{"Explore as you read."}</strong>{" Change stage dimensions, normalization groups, GRN feature cells, valid visible-patch selections and branch-folding coefficients. Show parameter counts, shared GRN denominator, changed feature maps, reconstruction consequences and folded-kernel equality immediately. Preserve image masking as the learning objective, not UI answer hiding. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to separate architecture from recipe, global channel context from local normalization, and valid reparameterization from a changed function."}</Prose>
 
-      <Prose>
-        The ConvNeXt paper's central claim is that the Transformer recipe — a cluster of design decisions that together yielded ViT/Swin-era performance — can be applied to a CNN without keeping attention. This means five specific moves generalize beyond attention: they are properties of good deep-learning recipes for 2D data, not properties of self-attention itself. Internalizing these five moves is the fastest way to read modern vision papers.
-      </Prose>
+<Prose>{"A visual model has two jobs inside each layer: combine nearby evidence and combine different kinds of evidence. A dark curve beside a vertical stroke is a spatial relationship. Combining “curve,” “stroke” and “enclosed region” detectors is a channel relationship. ConvNeXt organizes these jobs into a small repeated block, then asks an equally important question: how much of a model's success comes from its architecture, and how much comes from how it was trained?"}</Prose>
 
-      <Prose>
-        <strong>Move 1 — Patchify at the stem.</strong> A traditional ResNet stem uses 7×7 stride-2 conv followed by 3×3 max-pool, which produces a 56×56 feature map from a 224×224 image through two overlapping downsampling steps. ViT replaced this with a single 16×16 stride-16 conv that tokenizes the image into non-overlapping patches. ConvNeXt ports this idea with a 4×4 stride-4 "patchify" stem, which produces the same 56×56 feature map in a single non-overlapping step. The key is non-overlap: each spatial location in the stem output sees exactly one receptive region of the input. This gives the rest of the network a clean, uniform spatial grid to process. Why it matters: the stem is where the inductive bias of "what is a pixel vs a feature" is baked in; a simpler, non-overlapping stem defers this choice to the network.
-      </Prose>
+<Prose>{"The preceding "}<a href={"/learn/path/full-curriculum/depthwise-separable-dilated-convolutions?module=deep-learning-fundamentals"}>{"Depthwise Separable & Dilated Convolutions"}</a>{" lesson explained inexpensive spatial filtering and its restrictions. Here we use those operations to read a complete modern network. We will also train a small model to reconstruct hidden parts of real handwritten digits, then test what its representation makes available to a separate classifier."}</Prose>
 
-      <Prose>
-        <strong>Move 2 — Depthwise convolution as token mixer.</strong> A self-attention layer mixes information across spatial positions, keeping channels separate (each head mixes with its own query/key/value). The closest convolutional analog is a depthwise conv: each output channel is a filtered version of the same input channel, with no channel mixing. ConvNeXt replaces the 3×3 full conv in a ResNet bottleneck with a 7×7 depthwise conv. The kernel size matters: 7×7 roughly matches the effective receptive field of a Swin local window (also 7×7). At the scale of the ConvNeXt-T feature maps (56×56 at stage 1, down to 7×7 at stage 4), a 7×7 depthwise conv covers a meaningful fraction of the space. The mental model: depthwise conv is the "spatial mixer" role of attention, reshaped as a sparse, structured operation with a locality prior.
-      </Prose>
+<Prose>{""}<strong>{"First pass:"}</strong>{" follow §§1–6, run or inspect the small experiment, and attempt practice 1–5. You should be able to trace one block, identify which numbers a normalizer sees, prevent hidden-input leakage, and distinguish reconstruction from recognition. The deployment, kernel-fusion and hybrid-design branches in §7 and practice 6–8 deepen that understanding; they are not prerequisites for the next lesson."}</Prose>
 
-      <Prose>
-        <strong>Move 3 — Inverted bottleneck with 4× expansion.</strong> A ResNet bottleneck block is C → C/4 → C (contract, process, expand). A Transformer MLP block is C → 4C → C (expand, activate, contract), and the expansion ratio 4 is held constant across nearly every production Transformer. MobileNetV2 had independently discovered the inverted pattern for mobile CNNs in 2018. ConvNeXt adopts C → 4C → C inside each block, pairing it with the depthwise spatial conv at the input and two pointwise (1×1) convs for the channel work. The arithmetic benefit: most of the compute is in the expansion stage, which is where the representational capacity lives; the depthwise step is cheap; and the projection-back stage retains the skip-friendly residual channel width.
-      </Prose>
+<H2>{"1. Start with the comparison, not the model name"}</H2>
 
-      <Prose>
-        <strong>Move 4 — Fewer normalizations and activations per block.</strong> A ResNet v1.5 block has three BatchNorm layers and three ReLUs. A Swin block has two LayerNorms and one GELU in the MLP. ConvNeXt follows Swin: one LayerNorm per block (on the output of the depthwise conv), one GELU (between the two pointwise convs). The intuition: nonlinearities compound; redundant ReLUs trim negative information without adding capacity; redundant BN layers shift the effective distribution multiple times per block. Fewer, better-placed nonlinearities preserve signal. This is one of the single largest contributors to ConvNeXt's accuracy over a stock ResNet with the same compute.
-      </Prose>
+<Prose>{"Suppose one model gets more examples right than another. Before explaining the difference using their diagrams, ask whether they used the same images, labels, input resolution, training duration, augmentation, optimizer, regularization and evaluation procedure. Changing several of these changes the question."}</Prose>
 
-      <Prose>
-        <strong>Move 5 — LayerNorm replaces BatchNorm; GELU replaces ReLU.</strong> These are small, well-studied swaps individually but together they align the CNN with the modern Transformer numerics stack. BatchNorm is awkward at small batch sizes and in distributed training; LayerNorm is batch-independent. ReLU is a hard zero at negative inputs; GELU is smooth and allows small negative outputs, which matches the assumption behind tokenized pretraining losses (mean-zero, small-tailed residuals). Neither is a revolution; together they match what the Swin/ViT stack has standardized.
-      </Prose>
+<Prose>{"An "}<strong>{"architecture"}</strong>{" defines the function and its trainable parameters. A "}<strong>{"training recipe"}</strong>{" defines how those parameters are obtained. A "}<strong>{"checkpoint"}</strong>{" is one resulting set of parameter values. ConvNeXt is a useful case study because its authors first strengthened the training procedure for an existing ResNet, then changed the architecture in stages. The old and enhanced ResNet training runs reported 76.1% and 78.8% ImageNet top-1 accuracy, respectively. That improvement happened before introducing the final ConvNeXt block. "}<a href={"https://arxiv.org/pdf/2201.03545"}>{"Original study, §2.1"}</a>{""}</Prose>
 
-      <Prose>
-        <strong>Stage compute ratio — 1:1:3:1.</strong> A classical ResNet-50 allocates depths (3, 4, 6, 3) across its four stages, which corresponds to a compute ratio of roughly 1:1.3:2:1 because later stages have heavier channel counts. Swin uses (2, 2, 6, 2), giving 1:1:3:1. ConvNeXt-T uses (3, 3, 9, 3), which lands at the same 1:1:3:1 (confirmed in our from-scratch FLOPs check below). The concentration of blocks at stage 3 (14×14 resolution in a 224-input model) matches where research has consistently found mid-level features benefit most from depth. This ratio is not an architectural accident; it is a transferable prior for good vision backbones.
-      </Prose>
+<Prose>{"The recipe included longer training, AdamW, image transformations, mixed training examples and regularization. You do not need to memorize their hyperparameters to understand the evidence: a newer architecture compared with an older training recipe does not isolate the value of the architecture."}</Prose>
 
-      <Prose>
-        <strong>Large-kernel convolutions simulate global attention.</strong> RepLKNet pushed the depthwise-kernel idea to 31×31. At a 14×14 feature map, a 31×31 kernel is fully global; at 56×56 it covers more than half the spatial extent. Large kernels plus structural reparameterization (a parallel 3×3 branch that merges into the 31×31 weights at inference) train stably and deliver Swin-level accuracy. The intuition: you do not need quadratic attention to get a global receptive field. You need a wide enough kernel and a training signal that knows how to use it.
-      </Prose>
+<Prose>{"Some individual architecture steps also made the intermediate model worse. Replacing spatial convolutions with depthwise ones reduced computation but initially reduced accuracy; widening the channels recovered capacity. Moving the depthwise filter before expansion initially hurt accuracy; increasing its spatial extent helped in that resulting configuration. These are conditional experiments, not universal bonuses that can be added to any network."}</Prose>
 
-      <Callout accent="gold">
-        Mental model: the "CNN vs Transformer" debate was really a proxy for "which recipe". ConvNeXt's contribution is the recipe itself — patchify stem, depthwise token mixer, inverted bottleneck, LN, GELU, fewer activations, stage ratio 1:1:3:1. Memorize those seven moves and you can read any modern vision paper in fifteen minutes.
-      </Callout>
+<ConvNeXtGenealogy />
 
-      {/* ======================================================================
-          3. MATHEMATICAL FOUNDATION
-          ====================================================================== */}
-      <H2>3. Mathematical foundation</H2>
+<Prose>{"A practical comparison record can be short:"}</Prose>
 
-      <H3>3.1 The ConvNeXt block</H3>
+<NeuralTable caption={"1. Start with the comparison, not the model name"} headers={[<>{"Question"}</>,<>{"What must be written down"}</>]} rows={[[<>{"What is being predicted?"}</>,<>{"Label definition, unit of observation and decision metric"}</>],[<>{"What may differ?"}</>,<>{"The specific block or training change being investigated"}</>],[<>{"What is held fixed?"}</>,<>{"Data partition, preprocessing, training budget and paired seeds where possible"}</>],[<>{"What did it cost?"}</>,<>{"Parameters and defined operation counts; separately measured latency if available"}</>],[<>{"What supports the conclusion?"}</>,<>{"Counts/errors on reserved development data, variability and the actual comparison"}</>]]} />
 
-      <Prose>
-        Let <Code>{"x \\in R^{B \\times C \\times H \\times W}"}</Code> be the block input. The ConvNeXt V1 block computes:
-      </Prose>
+<Prose>{"Our small experiment will use this structure. It will not use an ImageNet result to predict an accuracy gain on digits."}</Prose>
 
-      <MathBlock>
-        {"z = \\text{DWConv}_{7 \\times 7}(x)"}
-      </MathBlock>
+<H2>{"2. Read one block from the input outward"}</H2>
 
-      <MathBlock>
-        {"z = \\text{LN}(z)"}
-      </MathBlock>
+<Prose>{"A feature tensor contains a batch of images, spatial positions and channels. Write its shape as "}<InlineMath>{"N\\times C\\times H\\times W"}</InlineMath>{": specimens, channels, rows, columns. At one location, its "}<InlineMath>{"C"}</InlineMath>{" numbers summarize different learned features. A "}<strong>{"depthwise"}</strong>{" filter looks at neighbors within each channel; a "}<strong>{"pointwise"}</strong>{" transformation mixes channels at one location."}</Prose>
 
-      <MathBlock>
-        {"z = W_2 \\cdot \\text{GELU}(W_1 \\cdot z)"}
-      </MathBlock>
+<Prose>{"ConvNeXt V1 uses the following residual branch:"}</Prose>
 
-      <MathBlock>
-        {"y = x + \\Gamma \\odot z, \\quad \\Gamma = \\text{diag}(\\gamma_1, \\ldots, \\gamma_C)"}
-      </MathBlock>
+<NeuralTable caption={"2. Read one block from the input outward"} headers={[<>{"Operation"}</>,<>{"Logical output shape"}</>,<>{"What changes"}</>]} rows={[[<>{"Input "}<InlineMath>{"x"}</InlineMath>{""}</>,<>{""}<InlineMath>{"N,C,H,W"}</InlineMath>{""}</>,<>{"Starting evidence"}</>],[<>{"Depthwise 7×7, padding 3"}</>,<>{""}<InlineMath>{"N,C,H,W"}</InlineMath>{""}</>,<>{"Each channel gathers its local spatial neighborhood"}</>],[<>{"Channel LayerNorm"}</>,<>{""}<InlineMath>{"N,H,W,C"}</InlineMath>{" in the code"}</>,<>{"The channel vector is standardized separately at each location"}</>],[<>{"Linear "}<InlineMath>{"C\\rightarrow4C"}</InlineMath>{""}</>,<>{""}<InlineMath>{"N,H,W,4C"}</InlineMath>{""}</>,<>{"Features are mixed into a wider set of combinations"}</>],[<>{"GELU"}</>,<>{""}<InlineMath>{"N,H,W,4C"}</InlineMath>{""}</>,<>{"A smooth nonlinear response changes which combinations contribute"}</>],[<>{"Linear "}<InlineMath>{"4C\\rightarrow C"}</InlineMath>{""}</>,<>{""}<InlineMath>{"N,H,W,C"}</InlineMath>{""}</>,<>{"The expanded features are projected back"}</>],[<>{"Learned channel scale, then DropPath"}</>,<>{""}<InlineMath>{"N,C,H,W"}</InlineMath>{""}</>,<>{"Branch contribution is scaled and optionally masked during training"}</>],[<>{"Add "}<InlineMath>{"x"}</InlineMath>{""}</>,<>{""}<InlineMath>{"N,C,H,W"}</InlineMath>{""}</>,<>{"Existing evidence plus the learned correction"}</>]]} />
 
-      <Prose>
-        where <Code>{"W_1 \\in R^{C \\times 4C}"}</Code> is the first pointwise (expansion) conv, <Code>{"W_2 \\in R^{4C \\times C}"}</Code> is the second pointwise (projection) conv, and <Code>Γ</Code> is the per-channel LayerScale with <Code>{"\\gamma_i"}</Code> initialized to <Code>{"10^{-6}"}</Code>. The depthwise convolution has kernel size 7×7 and <Code>groups = C</Code>, so each output channel depends only on the matching input channel. The LayerNorm operates along the channel dimension, which is why the paper's reference implementation permutes to channels-last during the block.
-      </Prose>
+<Prose>{"The two linear layers are applied independently at every spatial location with shared weights. They are equivalent to 1×1 convolutions with the same parameters. The permutation changes where the channel axis appears in the tensor interface; it does not mix information between locations."}</Prose>
 
-      <H3>3.2 Block parameter count</H3>
+<ConvNeXtBlockFigure />
 
-      <Prose>
-        The parameter count of one ConvNeXt block at width <Code>C</Code> is:
-      </Prose>
+<Prose>{"Writing the two channel transformations together, the projected vector at one location is"}</Prose>
 
-      <MathBlock>
-        {"|\\theta_{\\text{block}}| = 49 C + C + 2 C + (4 C^2 + 4 C) + (4 C^2 + C) + C = 8 C^2 + 57 C"}
-      </MathBlock>
+<div className="neural-equation"><MathBlock>{"v_j=\\sum_{k=1}^{4C} W^{(2)}_{jk}\\,\\operatorname{GELU}\n\\left(\\sum_{i=1}^{C}W^{(1)}_{ki}\\,\\widehat{x}_i+b^{(1)}_k\\right)+b^{(2)}_j."}</MathBlock></div>
 
-      <Prose>
-        Where the terms are: depthwise conv weights <Code>{"49C"}</Code> plus bias <Code>C</Code>; LayerNorm scale/shift <Code>{"2C"}</Code>; PW1 weight <Code>{"4C^2"}</Code> plus bias <Code>{"4C"}</Code>; PW2 weight <Code>{"4C^2"}</Code> plus bias <Code>C</Code>; LayerScale <Code>C</Code>. For large <Code>C</Code> the quadratic term dominates: almost all the parameters are in the two pointwise convs — which is the same locus as in a Transformer MLP.
-      </Prose>
-
-      <H3>3.3 Block FLOPs</H3>
-
-      <Prose>
-        For a block with input spatial size <Code>H × W</Code> and channel count <Code>C</Code>, the forward-pass FLOPs are:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{FLOPs}_{\\text{block}} \\approx H W \\cdot (49 C + 2C + 4 C^2 + 4C + 4 C^2) = H W \\cdot (8 C^2 + 55 C)"}
-      </MathBlock>
-
-      <Prose>
-        For large <Code>C</Code> this is <Code>{"\\approx 8 H W C^2"}</Code>. The depthwise conv contributes only <Code>{"49 H W C"}</Code> — linear in <Code>C</Code> — so even a 7×7 depthwise is cheap compared to the pointwise path. This is why ConvNeXt can afford large kernels: the kernel size multiplies the smallest compute term.
-      </Prose>
-
-      <H3>3.4 Stage compute ratio and paper variants</H3>
-
-      <Prose>
-        ConvNeXt parameterizes the model as stage depths <Code>{"(d_1, d_2, d_3, d_4)"}</Code> and stage widths <Code>{"(C_1, C_2, C_3, C_4)"}</Code>. The four reference variants from the paper are:
-      </Prose>
-
-      <MathBlock>
-        {"\\text{ConvNeXt-T: } (d, C) = ((3, 3, 9, 3),\\ (96, 192, 384, 768))"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{ConvNeXt-S: } (d, C) = ((3, 3, 27, 3),\\ (96, 192, 384, 768))"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{ConvNeXt-B: } (d, C) = ((3, 3, 27, 3),\\ (128, 256, 512, 1024))"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{ConvNeXt-L: } (d, C) = ((3, 3, 27, 3),\\ (192, 384, 768, 1536))"}
-      </MathBlock>
-
-      <Prose>
-        At 224×224 input and a 4×4 stride-4 stem followed by three stride-2 downsamples, the stage spatial sizes are 56, 28, 14, 7. Plugging into the FLOPs formula, each stage's FLOPs share matches the 1:1:3:1 pattern — verified in section 4 below (stage 2 has <Code>{"9 \\cdot 14^2 \\cdot 384^2 \\approx 3 \\times"}</Code> the FLOPs of stages 0, 1, 3).
-      </Prose>
-
-      <H3>3.5 Global Response Normalization (ConvNeXt V2)</H3>
-
-      <Prose>
-        ConvNeXt V2 adds GRN after the GELU. Given <Code>{"x \\in R^{B \\times H \\times W \\times C}"}</Code> (channels-last, 4C channels at the expansion point):
-      </Prose>
-
-      <MathBlock>
-        {"G_i = \\|x_{\\cdot, \\cdot, \\cdot, i}\\|_2 \\in R \\quad \\text{for } i = 1, \\ldots, C"}
-      </MathBlock>
-
-      <MathBlock>
-        {"N_i = G_i \\,/\\, \\left( \\tfrac{1}{C} \\sum_{j=1}^C G_j + \\varepsilon \\right)"}
-      </MathBlock>
-
-      <MathBlock>
-        {"\\text{GRN}(x)_{b, h, w, i} = \\gamma_i \\cdot (x_{b, h, w, i} \\cdot N_i) + \\beta_i + x_{b, h, w, i}"}
-      </MathBlock>
-
-      <Prose>
-        Step 1 computes the per-channel L2 norm across the spatial dimensions; step 2 normalizes each channel by the mean across channels (channels below the mean get small <Code>{"N_i"}</Code>, channels above get large <Code>{"N_i"}</Code>); step 3 applies the competitive modulation with a residual. The net effect is that channels "compete" for representational capacity — weak channels get pushed toward zero, strong channels get amplified. This breaks the feature-collapse pathology that ConvNeXt V1 exhibited under MAE pretraining, where self-supervision tends to collapse redundant channels if nothing prevents it. The parameters <Code>{"\\gamma_i, \\beta_i"}</Code> are learnable and initialized to 0 so GRN starts as the identity.
-      </Prose>
-
-      <H3>3.6 LayerScale and stochastic depth</H3>
-
-      <Prose>
-        ConvNeXt V1 uses CaiT's LayerScale (Touvron et al. 2021): the learnable per-channel scalar <Code>{"\\gamma_i"}</Code> initialized to <Code>{"10^{-6}"}</Code> multiplied onto the residual branch, so at initialization every block is approximately identity. Stochastic depth follows the standard linear schedule: at block <Code>l</Code> out of <Code>L</Code>, the drop rate is <Code>{"p_l = \\frac{l}{L-1} \\cdot p_{\\max}"}</Code>, with <Code>{"p_{\\max} \\in \\{0.1, 0.4, 0.5\\}"}</Code> for T/B/L. ConvNeXt V2 drops LayerScale in favor of GRN — the argument is that GRN's per-channel gating absorbs the stability role that LayerScale was playing.
-      </Prose>
-
-      {/* ======================================================================
-          4. FROM-SCRATCH IMPLEMENTATION
-          ====================================================================== */}
-      <H2>4. From-scratch implementation</H2>
-
-      <Prose>
-        All code below is executable PyTorch. Outputs are verbatim stdout captured from local runs on PyTorch 2.6.0.
-      </Prose>
-
-      <H3>4a. ConvNeXt block — shapes, parameters, residual behavior</H3>
-
-      <Prose>
-        Implement the block exactly as the paper describes it: depthwise 7×7, channels-last LayerNorm, pointwise expand to 4C, GELU, pointwise project back, LayerScale, residual.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn
-
-class ConvNeXtBlock(nn.Module):
-    """
-    ConvNeXt V1 block:
-      x -> DWConv 7x7 -> LN -> Linear(4C) -> GELU -> Linear(C) -> LayerScale -> + residual
-    """
-    def __init__(self, dim, layer_scale_init=1e-6, drop_path=0.0):
-        super().__init__()
-        self.dwconv  = nn.Conv2d(dim, dim, kernel_size=7, padding=3, groups=dim)
-        self.norm    = nn.LayerNorm(dim, eps=1e-6)
-        self.pwconv1 = nn.Linear(dim, 4 * dim)     # inverted bottleneck expand
-        self.act     = nn.GELU()
-        self.pwconv2 = nn.Linear(4 * dim, dim)     # project back
-        self.gamma   = nn.Parameter(layer_scale_init * torch.ones(dim)) \\
-                       if layer_scale_init > 0 else None
-        self.drop_path_rate = drop_path
-
-    def forward(self, x):
-        identity = x
-        x = self.dwconv(x)                 # [B, C, H, W]
-        x = x.permute(0, 2, 3, 1)          # -> [B, H, W, C]
-        x = self.norm(x)
-        x = self.pwconv1(x)                # expand 4x
-        x = self.act(x)
-        x = self.pwconv2(x)                # project back
-        if self.gamma is not None:
-            x = self.gamma * x             # LayerScale
-        x = x.permute(0, 3, 1, 2)          # back to [B, C, H, W]
-        return identity + x                # residual add
-
-torch.manual_seed(0)
-blk = ConvNeXtBlock(dim=96)
-x = torch.randn(2, 96, 56, 56)
-y = blk(x)
-n_params = sum(p.numel() for p in blk.parameters())
-print(f"ConvNeXt block: dim=96")
-print(f"  input  shape: {tuple(x.shape)}")
-print(f"  output shape: {tuple(y.shape)}")
-print(f"  parameters  : {n_params:,}")
-print(f"  gamma.mean  : {blk.gamma.mean().item():.2e}")
-print(f"  residual magnitude: {(y - x).abs().mean().item():.4e}")
-print(f"  input  magnitude  : {x.abs().mean().item():.4f}")
-
-# Output:
-# ConvNeXt block: dim=96
-#   input  shape: (2, 96, 56, 56)
-#   output shape: (2, 96, 56, 56)
-#   parameters  : 79,296
-#   gamma.mean  : 1.00e-06
-#   residual magnitude: 1.5825e-07
-#   input  magnitude  : 0.7983`}
-      </CodeBlock>
-
-      <Prose>
-        The block preserves shape <Code>{"[B, C, H, W]"}</Code>, contains 79,296 parameters (matching <Code>{"8 \\cdot 96^2 + 57 \\cdot 96 = 79{,}200"}</Code> plus a handful of bias terms), and produces a residual whose magnitude at initialization is roughly <Code>{"10^{-7}"}</Code> — seven orders of magnitude below the input norm. That tiny residual is LayerScale doing its job: at init the block is effectively identity; training will grow <Code>γ</Code> upward where it helps. This is the same trick that makes CaiT-S-36 and 48-layer ViTs trainable.
-      </Prose>
-
-      <H3>4b. Full ConvNeXt-Tiny vs ResNet-50 — parameters, shape, latency</H3>
-
-      <Prose>
-        Assemble ConvNeXt-T from the block above: 4×4 stride-4 patchify stem, four stages of depths (3, 3, 9, 3) at widths (96, 192, 384, 768), three 2×2 stride-2 downsampling convs between stages, final LayerNorm, global average pool, linear head.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn, time
-from torchvision.models import resnet50
-
-class LayerNorm2d(nn.Module):
-    """channels-first LayerNorm (for the stem / downsample layers)."""
-    def __init__(self, dim, eps=1e-6):
-        super().__init__()
-        self.weight = nn.Parameter(torch.ones(dim))
-        self.bias   = nn.Parameter(torch.zeros(dim))
-        self.eps    = eps
-    def forward(self, x):
-        u = x.mean(1, keepdim=True)
-        s = (x - u).pow(2).mean(1, keepdim=True)
-        x = (x - u) / (s + self.eps).sqrt()
-        return self.weight[:, None, None] * x + self.bias[:, None, None]
-
-class ConvNeXtTiny(nn.Module):
-    def __init__(self, num_classes=1000,
-                 depths=(3, 3, 9, 3),
-                 dims=(96, 192, 384, 768)):
-        super().__init__()
-        # 1. Patchify stem
-        self.stem = nn.Sequential(
-            nn.Conv2d(3, dims[0], kernel_size=4, stride=4),
-            LayerNorm2d(dims[0]),
-        )
-        # 2. Four stages + three downsamples
-        self.stages = nn.ModuleList()
-        self.downsample = nn.ModuleList([nn.Identity()])
-        for i in range(4):
-            self.stages.append(nn.Sequential(*[
-                ConvNeXtBlock(dims[i]) for _ in range(depths[i])
-            ]))
-            if i < 3:
-                self.downsample.append(nn.Sequential(
-                    LayerNorm2d(dims[i]),
-                    nn.Conv2d(dims[i], dims[i+1], kernel_size=2, stride=2),
-                ))
-        # 3. Head
-        self.norm = nn.LayerNorm(dims[-1], eps=1e-6)
-        self.head = nn.Linear(dims[-1], num_classes)
-
-    def forward(self, x):
-        x = self.stem(x)
-        for stage, ds in zip(self.stages, self.downsample):
-            x = ds(x)
-            x = stage(x)
-        x = x.mean(dim=[2, 3])
-        x = self.norm(x)
-        return self.head(x)
-
-torch.manual_seed(0)
-x = torch.randn(1, 3, 224, 224)
-cnx = ConvNeXtTiny()
-r50 = resnet50()
-with torch.no_grad():
-    y_cnx = cnx(x)
-    y_r50 = r50(x)
-
-def latency(model, runs=10, warmup=3):
-    model.eval()
-    with torch.no_grad():
-        for _ in range(warmup): model(x)
-        t0 = time.perf_counter()
-        for _ in range(runs): model(x)
-        return (time.perf_counter() - t0) / runs * 1000
-
-lat_cnx = latency(cnx)
-lat_r50 = latency(r50)
-
-print("From-scratch ConvNeXt-Tiny vs torchvision ResNet-50")
-print("=" * 58)
-print(f"  ConvNeXt-T   output shape : {tuple(y_cnx.shape)}")
-print(f"  ResNet-50    output shape : {tuple(y_r50.shape)}")
-print(f"  ConvNeXt-T   parameters   : {sum(p.numel() for p in cnx.parameters())/1e6:.2f} M")
-print(f"  ResNet-50    parameters   : {sum(p.numel() for p in r50.parameters())/1e6:.2f} M")
-print(f"  ConvNeXt-T   forward (CPU): {lat_cnx:.1f} ms")
-print(f"  ResNet-50    forward (CPU): {lat_r50:.1f} ms")
-
-# Output:
-# From-scratch ConvNeXt-Tiny vs torchvision ResNet-50
-# ==========================================================
-#   ConvNeXt-T   output shape : (1, 1000)
-#   ResNet-50    output shape : (1, 1000)
-#   ConvNeXt-T   parameters   : 28.59 M
-#   ResNet-50    parameters   : 25.56 M
-#   ConvNeXt-T   forward (CPU): 86.6 ms
-#   ResNet-50    forward (CPU): 89.1 ms`}
-      </CodeBlock>
-
-      <Prose>
-        ConvNeXt-T lands at 28.6M parameters (the paper reports 28M), ResNet-50 at 25.6M, and on this CPU latency bench they are essentially tied at 86–89 ms per forward pass at batch 1. On the A100 GPU latency is 0.9 ms and 0.8 ms respectively (not shown here — measured separately). The point: ConvNeXt is not a heavier model than ResNet; it is a redesigned one at the same cost budget. The extra 3M parameters relative to ResNet-50 correspond to the LayerNorm weights, LayerScale, and the wider expansion stage; the accuracy gain (+1.6% top-1 at 224 resolution) comes from the recipe, not the extra parameters.
-      </Prose>
-
-      <H3>4c. Parameter counts across ConvNeXt-T/S/B/L/XL</H3>
-
-      <Prose>
-        The paper reports specific parameter counts for each variant. The formula from section 3.2 plus stem/downsample/head bookkeeping reproduces them exactly.
-      </Prose>
-
-      <CodeBlock language="python">
-{`def count_block(dim):
-    dw = dim * 49 + dim            # DW conv weight + bias
-    ln = 2 * dim                   # LN gamma, beta
-    pw1 = dim * 4 * dim + 4 * dim
-    pw2 = 4 * dim * dim + dim
-    gamma = dim                    # LayerScale
-    return dw + ln + pw1 + pw2 + gamma
-
-def count_model(depths, dims, num_classes=1000):
-    stem_conv = 3 * dims[0] * 4 * 4 + dims[0]    # 4x4 stride-4 stem
-    stem_ln   = 2 * dims[0]
-    total = stem_conv + stem_ln
-    for i, (d, w) in enumerate(zip(depths, dims)):
-        total += d * count_block(w)
-        if i < 3:
-            total += 2 * w                             # LN before downsample
-            total += w * dims[i+1] * 4 + dims[i+1]      # 2x2 stride-2 conv
-    total += 2 * dims[-1]                               # final LN
-    total += dims[-1] * num_classes + num_classes      # head
-    return total
-
-variants = {
-    "ConvNeXt-T":  ((3, 3, 9,  3), (96,  192, 384,  768)),
-    "ConvNeXt-S":  ((3, 3, 27, 3), (96,  192, 384,  768)),
-    "ConvNeXt-B":  ((3, 3, 27, 3), (128, 256, 512, 1024)),
-    "ConvNeXt-L":  ((3, 3, 27, 3), (192, 384, 768, 1536)),
-    "ConvNeXt-XL": ((3, 3, 27, 3), (256, 512, 1024, 2048)),
-}
-
-print(f"{'Variant':<12}{'Depths':<16}{'Widths':<24}{'Params (M)':>12}")
-print("-" * 66)
-for name, (depths, dims) in variants.items():
-    print(f"{name:<12}{str(depths):<16}{str(dims):<24}{count_model(depths, dims)/1e6:>11.1f}")
-
-# Output:
-# Variant     Depths          Widths                    Params (M)
-# ------------------------------------------------------------------
-# ConvNeXt-T  (3, 3, 9, 3)    (96, 192, 384, 768)            28.6
-# ConvNeXt-S  (3, 3, 27, 3)   (96, 192, 384, 768)            50.2
-# ConvNeXt-B  (3, 3, 27, 3)   (128, 256, 512, 1024)          88.6
-# ConvNeXt-L  (3, 3, 27, 3)   (192, 384, 768, 1536)         197.8
-# ConvNeXt-XL (3, 3, 27, 3)   (256, 512, 1024, 2048)        350.2`}
-      </CodeBlock>
-
-      <Prose>
-        These match the paper's Table 9 to within 0.2M (the small gap is bias and boundary terms). Note the design-space structure: S, B, L, XL all share the depth pattern (3, 3, 27, 3) and differ only in width — the paper found this single axis of variation was a cleaner scaling dimension than simultaneously varying depth and width. T is the outlier, with depth (3, 3, 9, 3); it is positioned as a Swin-T replacement at 28M, which requires fewer blocks than the 27-block stage-2 used by S and up.
-      </Prose>
-
-      <H3>4d. Stage compute ratio — empirical check of 1:1:3:1</H3>
-
-      <Prose>
-        The design decision "allocate 3× more blocks to stage 2 than to any other stage" is the compute-ratio move borrowed from Swin. Verify it numerically for ConvNeXt-T:
-      </Prose>
-
-      <CodeBlock language="python">
-{`def block_flops(C, H, W):
-    dw   = H * W * C * 49
-    ln   = H * W * C * 2
-    pw1  = H * W * C * 4 * C
-    gelu = H * W * 4 * C
-    pw2  = H * W * 4 * C * C
-    return dw + ln + pw1 + gelu + pw2
-
-depths = [3, 3, 9, 3]
-dims   = [96, 192, 384, 768]
-spatials = [56, 28, 14, 7]   # at 224 input after 4x4 stem
-
-print("ConvNeXt-T stage FLOPs breakdown (input 224x224)")
-print(f"{'stage':<8}{'depth':<8}{'dim':<8}{'H=W':<8}{'FLOPs (G)':>12}{'share':>10}")
-stage_flops = []
-total = 0
-for s, (d, C, HW) in enumerate(zip(depths, dims, spatials)):
-    f = d * block_flops(C, HW, HW)
-    stage_flops.append(f); total += f
-for s, (d, C, HW, f) in enumerate(zip(depths, dims, spatials, stage_flops)):
-    print(f"  {s:<6}{d:<8}{C:<8}{HW:<8}{f/1e9:>11.2f}{f/total*100:>9.1f}%")
-
-print(f"\\ntotal block FLOPs: {total/1e9:.2f} G")
-print(f"ratio (normalized to stage 0): "
-      f"{stage_flops[0]/stage_flops[0]:.2f} : {stage_flops[1]/stage_flops[0]:.2f} : "
-      f"{stage_flops[2]/stage_flops[0]:.2f} : {stage_flops[3]/stage_flops[0]:.2f}")
-
-# Output:
-# ConvNeXt-T stage FLOPs breakdown (input 224x224)
-# stage   depth   dim     H=W        FLOPs (G)     share
-#   0     3       96      56             0.74     17.4%
-#   1     3       192     28             0.72     16.8%
-#   2     9       384     14             2.12     49.5%
-#   3     3       768     7              0.70     16.4%
-#
-# total block FLOPs: 4.28 G
-# ratio (normalized to stage 0): 1.00 : 0.97 : 2.85 : 0.94`}
-      </CodeBlock>
-
-      <Prose>
-        Stages 0, 1, 3 each consume roughly 17% of block FLOPs; stage 2 consumes about half. The actual ratio is 1.00 : 0.97 : 2.85 : 0.94 — a near-perfect 1:1:3:1. Observe the balancing act: channels double at each stage (96 → 192 → 384 → 768) so per-block FLOPs grow 4× per stage; but spatial dimensions halve (<Code>{"H \\cdot W"}</Code> drops 4× per stage), so per-block FLOPs stay roughly constant when depth is held constant. Putting 3× more blocks at stage 2 creates the "fat middle" that dominates compute.
-      </Prose>
-
-      <H3>4e. Stochastic depth schedule</H3>
-
-      <Prose>
-        ConvNeXt uses a linear stochastic-depth schedule: the <Code>l</Code>-th block (out of <Code>L</Code> total) has drop rate <Code>{"p_l = (l / (L-1)) \\cdot p_{\\max}"}</Code>. For T, <Code>{"p_{\\max} = 0.1"}</Code>. The cumulative effect is a 5% reduction in expected training compute.
-      </Prose>
-
-      <CodeBlock language="python">
-{`depths = [3, 3, 9, 3]
-L = sum(depths)                 # total blocks = 18
-p_max = 0.1                     # ConvNeXt-T default
-
-rates = [p_max * i / (L - 1) for i in range(L)]
-
-print(f"Total blocks L = {L}, p_max = {p_max}")
-print("block   stage   drop_rate")
-idx = 0
-for s, d in enumerate(depths):
-    for k in range(d):
-        print(f"  {idx:2d}      {s}       {rates[idx]:.4f}")
-        idx += 1
-
-E_active = sum(1 - r for r in rates)
-print(f"\\nExpected blocks executed per forward = {E_active:.2f} / {L}")
-print(f"Training compute saving = {(1 - E_active / L) * 100:.1f}%")
-
-# Output:
-# Total blocks L = 18, p_max = 0.1
-# block   stage   drop_rate
-#    0      0       0.0000
-#    1      0       0.0059
-#    2      0       0.0118
-#    3      1       0.0176
-#    4      1       0.0235
-#    5      1       0.0294
-#    6      2       0.0353
-#    7      2       0.0412
-#    8      2       0.0471
-#    9      2       0.0529
-#   10      2       0.0588
-#   11      2       0.0647
-#   12      2       0.0706
-#   13      2       0.0765
-#   14      2       0.0824
-#   15      3       0.0882
-#   16      3       0.0941
-#   17      3       0.1000
-#
-# Expected blocks executed per forward = 17.10 / 18
-# Training compute saving = 5.0%`}
-      </CodeBlock>
-
-      <Prose>
-        Deeper blocks get dropped more often — the early blocks are critical for all downstream computation and are essentially never dropped, while the final block can skip 10% of forward passes. For ConvNeXt-L with <Code>{"p_{\\max} = 0.5"}</Code>, the compute saving rises to ~25%; this is material at the 300-epoch training budget that ImageNet-scale models use. At inference the schedule is turned off and every block runs deterministically.
-      </Prose>
-
-      <H3>4f. ConvNeXt V2 block with GRN — feature-competition check</H3>
-
-      <Prose>
-        GRN forces channels to compete: a channel whose spatial L2 norm is below the average across channels gets multiplied by a factor less than 1; a channel above average gets multiplied by more than 1. At initialization, <Code>γ</Code> and <Code>β</Code> are 0 so GRN is the identity; training moves them.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch, torch.nn as nn
-
-class GRN(nn.Module):
-    """Global Response Normalization (channels-last)."""
-    def __init__(self, dim):
-        super().__init__()
-        self.gamma = nn.Parameter(torch.zeros(1, 1, 1, dim))
-        self.beta  = nn.Parameter(torch.zeros(1, 1, 1, dim))
-    def forward(self, x):
-        Gx = torch.norm(x, p=2, dim=(1, 2), keepdim=True)       # [B,1,1,C]
-        Nx = Gx / (Gx.mean(dim=-1, keepdim=True) + 1e-6)
-        return self.gamma * (x * Nx) + self.beta + x
-
-class ConvNeXtV2Block(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-        self.dwconv  = nn.Conv2d(dim, dim, 7, padding=3, groups=dim)
-        self.norm    = nn.LayerNorm(dim, eps=1e-6)
-        self.pwconv1 = nn.Linear(dim, 4 * dim)
-        self.act     = nn.GELU()
-        self.grn     = GRN(4 * dim)                      # <-- V2 addition
-        self.pwconv2 = nn.Linear(4 * dim, dim)
-    def forward(self, x):
-        identity = x
-        h = self.dwconv(x)
-        h = h.permute(0, 2, 3, 1)
-        h = self.norm(h)
-        h = self.pwconv1(h)
-        h = self.act(h)
-        h = self.grn(h)                                  # feature competition
-        h = self.pwconv2(h)
-        h = h.permute(0, 3, 1, 2)
-        return identity + h
-
-torch.manual_seed(0)
-x = torch.randn(2, 96, 56, 56)
-v1 = ConvNeXtBlock(dim=96, layer_scale_init=1e-6)
-v2 = ConvNeXtV2Block(dim=96)
-y1 = v1(x); y2 = v2(x)
-
-def live_channels(h, thresh=1e-3):
-    std = h.std(dim=(0, 2, 3))
-    return (std > thresh).float().mean().item() * 100
-
-print("ConvNeXt V1 vs V2 block comparison (randomly initialized)")
-print(f"  V1 params : {sum(p.numel() for p in v1.parameters()):,}")
-print(f"  V2 params : {sum(p.numel() for p in v2.parameters()):,}")
-print(f"  V1 output std (per-channel mean) : {y1.std(dim=(0,2,3)).mean().item():.4f}")
-print(f"  V2 output std (per-channel mean) : {y2.std(dim=(0,2,3)).mean().item():.4f}")
-print(f"  V1 live-channel fraction         : {live_channels(y1):.1f}%")
-print(f"  V2 live-channel fraction         : {live_channels(y2):.1f}%")
-
-# Output:
-# ConvNeXt V1 vs V2 block comparison (randomly initialized)
-#   V1 params : 79,296
-#   V2 params : 79,968
-#   V1 output std (per-channel mean) : 1.0003
-#   V2 output std (per-channel mean) : 1.0173
-#   V1 live-channel fraction         : 100.0%
-#   V2 live-channel fraction         : 100.0%`}
-      </CodeBlock>
-
-      <Prose>
-        At random init both blocks are healthy — 100% of channels have non-trivial standard deviation. The V1 vs V2 divergence only appears under MAE pretraining: after 800 epochs of self-supervision, ConvNeXt V1's live-channel fraction in the middle stages drops to ~70% (Woo et al. 2023, Figure 3); V2's stays at essentially 100%. GRN is the only architectural change that produces this behavior. Parameters-wise V2 adds 672 = 2 × 4 × 96 per block for <Code>γ, β</Code> — less than 1% overhead.
-      </Prose>
-
-      {/* ======================================================================
-          5. PRODUCTION IMPLEMENTATION
-          ====================================================================== */}
-      <H2>5. Production implementation</H2>
-
-      <H3>5.1 torchvision.models.convnext_tiny — canonical ConvNeXt-T</H3>
-
-      <Prose>
-        The torchvision implementation (since 0.12) is the reference port of Meta's original code. Weights are ImageNet-1k supervised at 82.1% top-1 (V1 pretrained).
-      </Prose>
-
-      <CodeBlock language="python">
-{`from torchvision.models import convnext_tiny, ConvNeXt_Tiny_Weights
-import torch
-
-model = convnext_tiny(weights=ConvNeXt_Tiny_Weights.IMAGENET1K_V1)
-model.eval()
-
-x = torch.randn(1, 3, 224, 224)
-with torch.no_grad():
-    y = model(x)
-print(f"output shape: {y.shape}")   # torch.Size([1, 1000])
-print(f"num params:   {sum(p.numel() for p in model.parameters()):,}")
-# num params:   28,589,128
-
-# Preprocessing is fixed in the weights metadata:
-transforms = ConvNeXt_Tiny_Weights.IMAGENET1K_V1.transforms()
-# transforms handles Resize(236) -> CenterCrop(224) -> Normalize(ImageNet mean/std)`}
-      </CodeBlock>
-
-      <H3>5.2 timm — full ConvNeXt family including V2</H3>
-
-      <Prose>
-        timm (Ross Wightman) is the canonical source for the full ConvNeXt zoo — V1 T/S/B/L/XL, V2 A/F/P/N/T/B/L/H, plus the ImageNet-22k pretrained + 1k-finetuned weights that the paper reports as state-of-the-art.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import timm
-
-# ConvNeXt V1 Tiny, ImageNet-22k pretrained, ImageNet-1k fine-tuned (84.1% top-1)
-model = timm.create_model("convnext_tiny.fb_in22k_ft_in1k", pretrained=True, num_classes=1000)
-
-# ConvNeXt V2 Base with MAE pretraining + fc-supervised fine-tune (87.0% top-1 at 384)
-v2 = timm.create_model("convnextv2_base.fcmae_ft_in22k_in1k_384", pretrained=True)
-
-# Full family and their ImageNet top-1 (from timm benchmarks):
-#   convnext_tiny.fb_in1k              82.1%
-#   convnext_small.fb_in1k             83.1%
-#   convnext_base.fb_in1k              83.8%
-#   convnext_large.fb_in1k             84.3%
-#   convnext_xlarge.fb_in22k_ft_in1k   87.0%
-#   convnextv2_base.fcmae_ft_in1k      87.7%  (at 384 resolution)
-#   convnextv2_huge.fcmae_ft_in22k_in1k_512  88.9%
-#
-# Key point: fcmae = Fully-Convolutional Masked Autoencoder pretraining, the V2 recipe
-# that is only possible because GRN prevents feature collapse during SSL.`}
-      </CodeBlock>
-
-      <H3>5.3 Feature extraction with forward hooks</H3>
-
-      <Prose>
-        For downstream use (detection, segmentation, CLIP-style contrastive heads), you often want the feature maps at every stage, not just the final logits. timm exposes <Code>features_only=True</Code> for this; otherwise a forward hook on the end of each stage is the classic approach.
-      </Prose>
-
-      <CodeBlock language="python">
-{`import timm
-import torch
-
-# Option A: timm features-only mode — returns a tuple of stage outputs
-backbone = timm.create_model("convnext_tiny", features_only=True, pretrained=True,
-                              out_indices=(0, 1, 2, 3))
-x = torch.randn(1, 3, 224, 224)
-feats = backbone(x)
-for i, f in enumerate(feats):
-    print(f"stage {i}: {tuple(f.shape)}")
-# stage 0: (1, 96, 56, 56)     # 1/4 resolution
-# stage 1: (1, 192, 28, 28)    # 1/8
-# stage 2: (1, 384, 14, 14)    # 1/16
-# stage 3: (1, 768, 7, 7)      # 1/32
-
-# Option B: hook-based (when your downstream code expects the classifier model)
-from torchvision.models import convnext_tiny
-model = convnext_tiny(pretrained=True).eval()
-stage_feats = {}
-def hook(name):
-    def _h(mod, inp, out):
-        stage_feats[name] = out.detach()
-    return _h
-for i in range(4):
-    model.features[2 * i + 1].register_forward_hook(hook(f"stage{i}"))
-
-with torch.no_grad():
-    model(x)
-for k, v in stage_feats.items():
-    print(k, v.shape)`}
-      </CodeBlock>
-
-      <H3>5.4 Training recipe — LAMB / AdamW, 300 epochs, mixup</H3>
-
-      <Prose>
-        The ConvNeXt paper's headline training recipe, closely mirroring Swin's. These hyperparameters are not optional — running ConvNeXt with a stock ResNet recipe loses ~2% top-1.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# ConvNeXt-T ImageNet-1k from-scratch recipe (Liu et al. 2022 Table 10)
-# Equivalent timm CLI:
-#   ./train.py imagenet/ --model convnext_tiny \\
-#       --opt adamw --lr 4e-3 --weight-decay 0.05 \\
-#       --epochs 300 --warmup-epochs 20 \\
-#       --batch-size 4096 --sched cosine \\
-#       --smoothing 0.1 --mixup 0.8 --cutmix 1.0 \\
-#       --aa rand-m9-mstd0.5-inc1 \\
-#       --reprob 0.25 --drop-path 0.1
-
-import torch.optim as optim
-
-def build_optimizer(model, lr=4e-3, weight_decay=0.05):
-    # Split params: apply weight decay only to multidim tensors (weights),
-    # not to 1D params (biases, LayerNorm gamma/beta, LayerScale gamma).
-    decay, no_decay = [], []
-    for n, p in model.named_parameters():
-        if p.ndim <= 1 or n.endswith(".bias") or "gamma" in n:
-            no_decay.append(p)
-        else:
-            decay.append(p)
-    return optim.AdamW([
-        {"params": decay,    "weight_decay": weight_decay},
-        {"params": no_decay, "weight_decay": 0.0},
-    ], lr=lr, betas=(0.9, 0.999), eps=1e-8)
-
-# Key training knobs (paper values for ConvNeXt-T):
-#   Optimizer:       AdamW (or LAMB for > 4096 batch)
-#   LR:              4e-3 base, 20-epoch linear warmup, cosine decay to 0
-#   Weight decay:    0.05 (not applied to LN/bias/LayerScale gamma)
-#   Batch size:      4096 across 8-32 GPUs
-#   Epochs:          300
-#   DropPath:        0.1 (linear schedule across blocks)
-#   Mixup:           0.8
-#   CutMix:          1.0
-#   Label smoothing: 0.1
-#   RandAugment:     m9-mstd0.5-inc1
-#   Random erase:    0.25
-#   EMA:             decay 0.9999
-#   Stochastic depth per block is what section 4e computes`}
-      </CodeBlock>
-
-      <Prose>
-        The most common porting mistake is to copy the Swin hyperparameters verbatim: Swin uses a slightly lower LR (1e-3) and a longer warmup (20 epochs) but the same weight decay. Swin's LN placement is slightly different, which affects the LR sensitivity. For ConvNeXt, use the paper's Table 10 values — especially the 4e-3 LR, which is higher than Swin's — and the convergence is clean.
-      </Prose>
-
-      <H3>5.5 ConvNeXt V2 MAE pretraining</H3>
-
-      <Prose>
-        ConvNeXt V2 is designed to be pretrained with FCMAE (Fully-Convolutional Masked Autoencoder). The sparsity pattern is applied at the patchified stem (4×4 patches at 56×56, so 3136 patches; mask 60% of them). The decoder is a single ConvNeXt block that reconstructs pixels.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# ConvNeXt V2 FCMAE pretraining (simplified pseudocode matching Woo et al. 2023)
-import torch
-import timm
-
-model = timm.create_model("convnextv2_base", pretrained=False)
-
-# 1. Mask 60% of stem patches (56x56 grid = 3136 patches, mask ~1882 of them)
-# 2. Run the encoder on the masked input (unmasked patches only, via sparse conv)
-# 3. Decoder reconstructs the masked pixels from encoder features
-# 4. Loss: MSE on the masked pixels only
-#
-# Training recipe:
-#   Pretraining:   800 epochs on ImageNet-1k, AdamW, lr=1.5e-4, batch 4096
-#   Fine-tuning:   100 epochs on ImageNet-1k (or 50 on 22k+), lr=5e-4, batch 1024
-#
-# GRN is only effective during and after pretraining — at init it is the identity,
-# so it doesn't affect the pretraining warmup dynamics.
-
-# Loading a pretrained V2 checkpoint (Meta's HuggingFace hub):
-from transformers import ConvNextV2ForImageClassification
-model = ConvNextV2ForImageClassification.from_pretrained(
-    "facebook/convnextv2-base-22k-384")`}
-      </CodeBlock>
-
-      <H3>5.6 Porting MobileNet, EfficientNet, RepLKNet, MaxViT</H3>
-
-      <Prose>
-        The non-ConvNeXt modern CNNs have similar timm and torchvision entry points. For a 2026 production checklist:
-      </Prose>
-
-      <CodeBlock language="python">
-{`import timm
-
-# Large-kernel CNN (31x31 depthwise, Ding et al. 2022)
-replknet = timm.create_model("replknet31_1k", pretrained=True)     # 82.3% @ 224
-
-# Hybrid conv + attention (Tu et al. 2022) — state-of-the-art for detection
-maxvit = timm.create_model("maxvit_tiny_tf_224.in1k", pretrained=True)  # 83.5%
-
-# Hybrid conv + attention scaled (Dai et al. 2021)
-coatnet = timm.create_model("coatnet_1_rw_224.sw_in1k", pretrained=True)  # 83.6%
-
-# On-device reparameterized CNN (Vasu et al. 2022) — 1.0 ms on iPhone 12
-mobileone = timm.create_model("mobileone_s4", pretrained=True)      # 79.4% @ 1ms
-
-# EfficientFormer: Transformer at MobileNet latency (Li et al. 2022)
-effformer = timm.create_model("efficientformer_l1", pretrained=True)  # 79.2% @ 1.5ms`}
-      </CodeBlock>
-
-      <Callout accent="gold">
-        Production rule-of-thumb for vision backbones in 2026: (1) latency-critical on-device → MobileOne or EfficientFormer; (2) ImageNet-1k classification or transfer → ConvNeXt-T/S/B at 224; (3) MAE-style self-supervised pretraining → ConvNeXt V2; (4) object detection or segmentation → MaxViT or ConvNeXt + FPN; (5) unlimited-data pretraining → CoAtNet or Swin-V2. There is no single winner — the decision is driven by data scale, latency budget, and task locality.
-      </Callout>
-
-      {/* ======================================================================
-          6. VISUAL WALKTHROUGH
-          ====================================================================== */}
-      <H2>6. Visual walkthrough</H2>
-
-      <H3>6a. Block comparison — ResNet bottleneck vs Swin vs ConvNeXt</H3>
-
-      <Prose>
-        The three blocks differ in six specific places: stem, spatial mixer, expansion direction, normalization type, activation count, and normalization count per block. Walk through them side by side.
-      </Prose>
-
-      <StepTrace
-        label="ResNet bottleneck vs Swin block vs ConvNeXt block"
-        steps={[
-          {
-            label: "Step 1 — ResNet-50 bottleneck block",
-            render: () => (
-              <Prose>
-                {"ResNet-50's bottleneck: 1x1 conv (contract C to C/4) -> BN -> ReLU -> 3x3 conv (C/4 to C/4) -> BN -> ReLU -> 1x1 conv (expand C/4 to C) -> BN, then add residual, then a final ReLU after the addition. Three BNs, three ReLUs, a classical bottleneck (contract-expand), and the final ReLU sits outside the residual — post-activation design from the 2015 paper."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Swin Transformer block",
-            render: () => (
-              <Prose>
-                {"Swin: LayerNorm -> Window Multi-head Self-Attention (W-MSA, 7x7 windows) -> residual add; then LayerNorm -> MLP (C -> 4C -> C with GELU in between) -> residual add. Two LNs per block, one GELU, one self-attention (quadratic in window size), inverted bottleneck (expand then project) in the MLP. Pre-norm ordering throughout. The 7x7 window is the 'local receptive field' analog of a 7x7 depthwise conv."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — ConvNeXt block",
-            render: () => (
-              <Prose>
-                {"ConvNeXt: 7x7 DW Conv -> LayerNorm -> 1x1 conv (C -> 4C) -> GELU -> 1x1 conv (4C -> C) -> LayerScale -> residual add. One LN per block, one GELU, one 7x7 depthwise spatial mixer, inverted bottleneck (expand then project) — structurally isomorphic to the Swin block with DWConv replacing W-MSA. Note: no final activation after the add (pre-activation style)."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — ConvNeXt V2 block",
-            render: () => (
-              <Prose>
-                {"ConvNeXt V2: same as V1 but LayerScale is removed and GRN (Global Response Normalization) is inserted after the GELU: 7x7 DW Conv -> LN -> PW1 (C -> 4C) -> GELU -> GRN -> PW2 (4C -> C) -> residual add. The GRN is where per-channel feature competition happens; it is the architectural fix that enables FCMAE pretraining without feature collapse."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      <H3>6b. Ablation table — ConvNeXt paper's roadmap</H3>
-
-      <Prose>
-        Table 1 of the ConvNeXt paper tracks ImageNet-1k accuracy as they modernize a ResNet-50 baseline step by step. Each row is one design choice applied on top of all previous rows; the final row is ConvNeXt-T. The heatmap below encodes the top-1 accuracy of each successive variant — you can read the contribution of each move as the darkening of the corresponding row.
-      </Prose>
-
-      <Heatmap
-        label="ConvNeXt modernization ablation — ImageNet-1k top-1 accuracy"
-        rowLabels={[
-          "ResNet-50 (stock)",
-          "+ Swin recipe",
-          "+ stage ratio 1:1:3:1",
-          "+ patchify stem",
-          "+ depthwise conv",
-          "+ inverted bottleneck",
-          "+ large kernel 7x7",
-          "+ GELU",
-          "+ fewer activations",
-          "+ fewer norms",
-          "+ LayerNorm",
-          "+ separate downsample",
-        ]}
-        colLabels={["top-1 (%)"]}
-        matrix={[
-          [76.1],
-          [78.8],
-          [79.4],
-          [79.5],
-          [79.5],
-          [80.6],
-          [80.6],
-          [80.6],
-          [81.3],
-          [81.4],
-          [81.5],
-          [82.0],
-        ]}
-        colorScale="gold"
-      />
-
-      <Prose>
-        The largest single jumps are Swin recipe (+2.7%), inverted bottleneck (+1.1%), fewer activations (+0.7%), and separate downsample (+0.5%). None of these involves attention; all are design-space tweaks. The paper's conclusion: the cumulative 6-percentage-point lift from 76.1% to 82.0% is almost entirely attributable to design choices that originated in the Transformer literature but generalize to CNNs.
-      </Prose>
-
-      <H3>6c. ImageNet accuracy vs FLOPs — CNN/Transformer curves</H3>
-
-      <Prose>
-        The Pareto frontier tells the story. At matched FLOPs, ConvNeXt sits slightly above Swin, and both are well above stock ResNet. EfficientNet is competitive at the small end but falls off at larger scales. The curves are drawn from the paper's Figure 1, their Table 9 numbers, and the Swin paper.
-      </Prose>
-
-      <Plot
-        label="ImageNet-1k top-1 vs FLOPs at 224 resolution"
-        xLabel="FLOPs (G)"
-        yLabel="top-1 accuracy (%)"
-        series={[
-          {
-            name: "ResNet family",
-            color: "#f87171",
-            points: [
-              [3.8, 76.1],    // R50 (original recipe)
-              [7.6, 77.4],    // R101
-              [11.3, 78.3],   // R152
-              [16.5, 78.9],   // R200
-            ],
-          },
-          {
-            name: "Swin Transformer",
-            color: "#60a5fa",
-            points: [
-              [4.5, 81.3],    // Swin-T
-              [8.7, 83.0],    // Swin-S
-              [15.4, 83.5],   // Swin-B
-            ],
-          },
-          {
-            name: "ConvNeXt V1",
-            color: colors.gold,
-            points: [
-              [4.5, 82.1],    // ConvNeXt-T
-              [8.7, 83.1],    // ConvNeXt-S
-              [15.4, 83.8],   // ConvNeXt-B
-              [34.4, 84.3],   // ConvNeXt-L
-            ],
-          },
-          {
-            name: "EfficientNet",
-            color: colors.green,
-            points: [
-              [0.4, 77.3],    // B0
-              [1.8, 81.3],    // B3
-              [9.9, 83.0],    // B5
-              [37.0, 84.4],   // B7
-            ],
-          },
-        ]}
-      />
-
-      <Prose>
-        Two things to notice. First, at matched FLOPs (4.5G for T-scale, 15.4G for B-scale), ConvNeXt edges Swin by 0.8% and 0.3% respectively. Second, the curves bend the same way — accuracy gains diminish past ~15G FLOPs — which is the scaling-law regime. All three modern architectures (Swin, ConvNeXt, EfficientNet) live on essentially the same Pareto frontier; the recipe matters more than the architecture.
-      </Prose>
-
-      <H3>6d. Forward pass through a ConvNeXt block — StepTrace</H3>
-
-      <StepTrace
-        label="ConvNeXt block forward pass — channels-last layout"
-        steps={[
-          {
-            label: "Step 1 — Input tensor [B, C, H, W]",
-            render: () => (
-              <Prose>
-                {"Input x arrives in channels-first [B, C, H, W] layout — the standard PyTorch convention for Conv2d. The block will keep a reference to x for the residual add at the end. Every compute step below operates on a copy; x itself is never modified."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 2 — Depthwise 7x7 conv",
-            render: () => (
-              <Prose>
-                The first operation is a depthwise Conv2d with kernel 7×7, padding 3, and groups=C. Depthwise means each output channel depends only on the matching input channel — no cross-channel mixing. Kernel size 7 gives each output position a receptive field covering 49 input positions. This is the "token mixer" — the convolutional analog of attention's spatial interaction. Parameters: <Code>{"C \\cdot 49"}</Code> — linear in C, the cheapest step.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 3 — Permute to [B, H, W, C]",
-            render: () => (
-              <Prose>
-                The tensor is permuted to channels-last layout so that LayerNorm can operate along the channel dimension. This permute is free on modern hardware (view operation); it just changes the memory interpretation. After this step the C axis is last, so LN's scale and shift parameters broadcast correctly across the spatial dims.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 4 — LayerNorm",
-            render: () => (
-              <Prose>
-                LayerNorm normalizes each spatial position independently across its C channels, then scales by <Code>γ</Code> and shifts by <Code>β</Code> (both of size C). This is the only normalization in the entire block — compare with the three BNs in a ResNet bottleneck. No running statistics, no batch-size dependence; LN is fully local to each sample.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 5 — Pointwise conv (expand C → 4C)",
-            render: () => (
-              <Prose>
-                {"A Linear layer (equivalent to a 1x1 conv) expands the channel dimension by 4x. Parameters: 4 C^2, which dominates the block's cost. This is where most of the network's representational capacity lives — the same role played by the MLP expansion in a Transformer."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 6 — GELU activation",
-            render: () => (
-              <Prose>
-                {"The GELU activation applies elementwise to the expanded tensor. GELU is Gaussian Error Linear Unit: GELU(x) = x * Phi(x), where Phi is the standard normal CDF. It is smoother than ReLU, allows small negative outputs, and aligns with the Transformer numerical stack. This is the only activation in the block."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 7 — Pointwise conv (project 4C → C)",
-            render: () => (
-              <Prose>
-                {"A second Linear projects back to C channels. Parameters: 4 C^2 again, so the block's two pointwise convs together are 8 C^2 — roughly 99% of the block's parameters for C = 96. This is the 'write back to residual stream' step."}
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 8 — LayerScale (V1 only)",
-            render: () => (
-              <Prose>
-                A learnable per-channel scalar <Code>γ</Code> is multiplied into the tensor. At initialization <Code>{"\\gamma = 10^{-6}"}</Code> per channel, so the block's contribution is negligible and the whole network is approximately identity. Training moves <Code>γ</Code> upward where the residual is useful. V2 removes this and relies on GRN instead.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 9 — Permute back to [B, C, H, W]",
-            render: () => (
-              <Prose>
-                The tensor is permuted back to channels-first so it can be added to the original input x (which was never permuted). Another free view operation.
-              </Prose>
-            ),
-          },
-          {
-            label: "Step 10 — Residual addition",
-            render: () => (
-              <Prose>
-                {"y = x + F(x). The residual path contributes the original input bit-exact; the compute path adds a small (LayerScale-scaled) correction. No activation follows — the output y is passed directly to the next block's depthwise conv. This is the pre-activation residual pattern, same as CaiT and Swin."}
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          7. DECISION MATRIX
-          ====================================================================== */}
-      <H2>7. Decision matrix</H2>
-
-      <StepTrace
-        label="when to use ConvNeXt vs Transformer vs hybrid"
-        steps={[
-          {
-            label: "ImageNet-class classification at 224 — ConvNeXt-T/S/B default",
-            render: () => (
-              <Prose>
-                For a 2023+ classification baseline at 224 resolution, ConvNeXt-T (28M, 4.5G FLOPs, 82.1% top-1) is the default. It matches Swin-T at lower FLOPs, is simpler to deploy (pure CNN, no attention kernel dependencies), and has clean torchvision/timm support. Step up to ConvNeXt-S (50M) or ConvNeXt-B (89M) when you have more compute to burn. ConvNeXt-L (198M) only pays off at ImageNet-22k or larger pretraining data; at ImageNet-1k alone the returns diminish past B.
-              </Prose>
-            ),
-          },
-          {
-            label: "Small dataset transfer (less than 50k images) — CNN wins",
-            render: () => (
-              <Prose>
-                CNNs outperform Transformers on small transfer datasets because the translation-equivariance prior acts as a strong regularizer. Dosovitskiy's original ViT paper showed ViT-B needing 14M+ images to match ResNet-50; Liu et al. 2022 showed the same for Swin vs ConvNeXt. Rule of thumb: under 50k labeled target-domain images, fine-tune ConvNeXt-T; above, consider Swin or ViT as well.
-              </Prose>
-            ),
-          },
-          {
-            label: "Inference-latency-critical — on-device or realtime",
-            render: () => (
-              <Prose>
-                For 1ms-class on-device latency (iPhone, mobile GPU, edge TPU), use MobileOne (Vasu et al. 2022) or EfficientFormer (Li et al. 2022). MobileOne-S4 at 79.4% top-1 and 1.0 ms iPhone 12 latency is the best accuracy-per-ms in the small regime. ConvNeXt-T at 28M params and pure depthwise + 1x1 convs is surprisingly fast on GPU (5–10 ms on A100 at batch 1) but heavy for mobile.
-              </Prose>
-            ),
-          },
-          {
-            label: "Very large pretraining (ImageNet-22k+ or JFT) — hybrid or Transformer",
-            render: () => (
-              <Prose>
-                At the 100M+ image scale, attention's long-range mixing and ability to absorb data consistently beat pure-CNN designs. CoAtNet-7 at 2.44B params and 90.88% top-1 on JFT-3B is the state-of-the-art pre-ViT-22B. Swin-V2 and ViT-G scale similarly. ConvNeXt V2 at ImageNet-22k is competitive (88.9% for H-variant) but the Pareto frontier shifts toward hybrids at this scale.
-              </Prose>
-            ),
-          },
-          {
-            label: "Detection / segmentation — ConvNeXt with FPN or MaxViT",
-            render: () => (
-              <Prose>
-                For COCO object detection and ADE20K segmentation, ConvNeXt + Feature Pyramid Network (FPN) is the modern default — paper-SoTA in 2022 on both benchmarks at matched compute. MaxViT and Swin-V2 are competitive. The deciding factor is input resolution: above 1024×1024 inputs, Transformers' quadratic cost becomes expensive and ConvNeXt's linear-in-pixels cost dominates. MaxViT's grid+block attention is the hybrid winner.
-              </Prose>
-            ),
-          },
-          {
-            label: "Long-range dependency tasks — Transformer wins",
-            render: () => (
-              <Prose>
-                When the task requires modeling dependencies across large spatial extents (global image-level reasoning, sequence modeling on patches), attention wins. Chart-understanding, long-document image reasoning, frame-level video understanding — these are Transformer territory. ConvNeXt's 7×7 depthwise gives a receptive field that grows linearly with depth; at stage 4 (7×7 feature map) it is already global, but for 512+ input resolutions the bottleneck shifts.
-              </Prose>
-            ),
-          },
-          {
-            label: "Self-supervised pretraining (MAE, SimCLR) — ConvNeXt V2",
-            render: () => (
-              <Prose>
-                For fully-convolutional masked autoencoder pretraining, ConvNeXt V2 (with GRN) is the only CNN design that works reliably at scale. ConvNeXt V1 suffers from feature collapse under MAE; V2's GRN fixes this. If you are building a CNN-based representation learner in 2026, start with V2.
-              </Prose>
-            ),
-          },
-          {
-            label: "Kernel regime — 7x7 vs 31x31 vs attention",
-            render: () => (
-              <Prose>
-                ConvNeXt uses 7×7 depthwise kernels. RepLKNet (Ding et al. 2022) pushes to 31×31 with structural reparameterization (merge a parallel 3×3 branch into the 31×31 weights at inference). At 31×31, the receptive field is global at 14×14 feature maps. RepLKNet matches Swin-B at fewer FLOPs. If you are optimizing for FLOPs at a fixed accuracy, 31×31 is worth trying; if you want a simpler, less hyperparameter-sensitive design, stick with 7×7.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          8. WHAT SCALES AND WHAT DOESN'T
-          ====================================================================== */}
-      <H2>8. What scales</H2>
-
-      <H3>8.1 The Transformer recipe transfers to CNNs</H3>
-
-      <Prose>
-        The central scaling claim of the ConvNeXt paper is that the training recipe — 300 epochs, AdamW at 4e-3, cosine schedule, mixup 0.8, cutmix 1.0, RandAugment, stochastic depth 0.1, label smoothing 0.1, EMA 0.9999 — contributes as much to the final accuracy as the architectural changes themselves. Bello et al. (2021, arXiv 2103.07579) made this explicit in "Revisiting ResNets": they showed that a stock ResNet-50 retrained with the ViT/Swin recipe jumps from 76.1% to 79.1% without any architectural change. ConvNeXt extended this observation by co-designing the recipe and the architecture until both converged to Swin-like choices.
-      </Prose>
-
-      <H3>8.2 ConvNeXt V2 + MAE scales further than Swin V2 at 22k</H3>
-
-      <Prose>
-        Woo et al. 2023 report that ConvNeXt V2-H (660M parameters) pretrained with FCMAE on ImageNet-22k reaches 88.9% ImageNet-1k top-1 at 512 resolution — beating Swin-V2-G (3B parameters) at 87.5% in the same regime. The difference is GRN plus MAE: ConvNeXt V1 with MAE loses 1–2% because of feature collapse; ConvNeXt V2 with MAE gains it back and more. The scaling rule is that recipe-aware architectural fixes (GRN as an MAE-specific patch) matter more than raw parameter count at the 200M+ scale.
-      </Prose>
-
-      <H3>8.3 Large kernels are a viable alternative to attention</H3>
-
-      <Prose>
-        RepLKNet-31B (Ding et al. 2022) with 31×31 depthwise convolutions reaches 83.8% ImageNet-1k at 79M params — matching Swin-B at lower FLOPs. The paper's Figure 3 shows accuracy climbing monotonically as kernel size grows from 3×3 (80.1%) to 31×31 (83.8%) at matched depth and width. The scaling cutoff is roughly the feature map spatial extent: at stage 3 (14×14 maps) a 31×31 kernel is already global, so further increases do not help. Large kernels scale well as long as training uses structural reparameterization (a small-kernel branch added during training, merged at inference).
-      </Prose>
-
-      <H3>8.4 SE and CBAM channel attention have plateaued</H3>
-
-      <Prose>
-        Squeeze-and-Excitation (Hu et al. 2018) and CBAM (Woo et al. 2018) were popular 2018–2020 additions that added ~0.5% top-1 to ResNet variants at ~1% parameter overhead. In the post-ConvNeXt world, these gains have mostly been absorbed by the recipe itself (fewer activations, LN over BN, better training). Adding SE to ConvNeXt gains less than 0.2% in the paper's ablations (it was ultimately dropped from V1). CBAM behaves similarly. The design lesson: architectural add-ons whose improvements were specific to a weak baseline stop scaling once the baseline is improved.
-      </Prose>
-
-      <H3>8.5 Scaling laws for CNNs match Transformers under the right recipe</H3>
-
-      <Prose>
-        Zhai et al. 2022 ("Scaling Vision Transformers", arXiv 2106.04560) characterized a 1/N^α accuracy-vs-params law for ViTs. Liu et al. 2022 and Woo et al. 2023 show the same curve shape for ConvNeXt and ConvNeXt V2 — the exponent α is within noise of the ViT value. Pure-CNN scaling tracks pure-Transformer scaling when the recipe is shared. The implication for 2026 practitioners: architecture choice does not fundamentally change the scaling budget; it shifts the curve by a few absolute points.
-      </Prose>
-
-      <H3>8.6 Activation memory still grows linearly with depth</H3>
-
-      <Prose>
-        ConvNeXt-XL at 350M parameters and 60 blocks requires the same activation-checkpointing treatment as large Transformers. Training at batch 256 on 224×224 inputs without checkpointing consumes ~25 GB per GPU of activations alone; <Code>torch.utils.checkpoint</Code> applied per stage cuts this to ~5 GB. The residual structure ensures gradient flow; memory is the practical bottleneck above 200M params.
-      </Prose>
-
-      {/* ======================================================================
-          9. FAILURE MODES
-          ====================================================================== */}
-      <H2>9. Failure modes</H2>
-
-      <H3>9.1 Using BatchNorm instead of LayerNorm in deep ConvNeXt</H3>
-
-      <Prose>
-        A common mistake when porting ConvNeXt to a new framework is to keep BatchNorm because "it's what CNNs use." At small batch sizes (distributed training with per-GPU batch 32 or 16) BN's running statistics become noisy and training destabilizes by epoch ~50. The paper shows a 0.4% drop from BN → LN and, more importantly, training curve stability under all batch sizes. Fix: use LayerNorm in channels-last layout, as the reference implementation does. If you need the batch-statistics effect for some legacy reason, use GroupNorm with 32 groups — it is closer to LN in behavior and works at any batch size.
-      </Prose>
-
-      <CodeBlock language="python">
-{`# Bug: ConvNeXt block with BN instead of LN (breaks at small batch)
-class BrokenBlock(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-        self.dwconv = nn.Conv2d(dim, dim, 7, padding=3, groups=dim)
-        self.bn     = nn.BatchNorm2d(dim)                # <- WRONG
-        self.pwconv1 = nn.Linear(dim, 4 * dim)
-        self.pwconv2 = nn.Linear(4 * dim, dim)
-
-# Fix: LayerNorm in channels-last layout
-class FixedBlock(nn.Module):
-    def __init__(self, dim):
-        super().__init__()
-        self.dwconv = nn.Conv2d(dim, dim, 7, padding=3, groups=dim)
-        self.norm   = nn.LayerNorm(dim, eps=1e-6)        # <- channels-last LN
-        self.pwconv1 = nn.Linear(dim, 4 * dim)
-        self.pwconv2 = nn.Linear(4 * dim, dim)
-    def forward(self, x):
-        h = self.dwconv(x)
-        h = h.permute(0, 2, 3, 1)    # <- permute for LN
-        h = self.norm(h)
-        h = self.pwconv2(nn.functional.gelu(self.pwconv1(h)))
-        return x + h.permute(0, 3, 1, 2)`}
-      </CodeBlock>
-
-      <H3>9.2 Missing LayerScale at depth greater than 36 blocks</H3>
-
-      <Prose>
-        ConvNeXt-XL has 54 blocks across its four stages. Without LayerScale (or GRN in V2), the accumulated residuals push activation norms toward <Code>{"\\sqrt{L}"}</Code> times the initial scale by block 54. This is not "LLM-style instability" in the sense of training divergence — it manifests as a ~0.8% accuracy drop and, more subtly, as sensitivity to hyperparameters (learning rate, batch size, warmup length) that the LayerScale variant absorbs. Fix: initialize LayerScale <Code>γ</Code> at <Code>{"10^{-6}"}</Code> for any ConvNeXt variant above B (54 blocks). For V2, use GRN which takes over this stability role.
-      </Prose>
-
-      <H3>9.3 Patchify stem too aggressive at low input resolution</H3>
-
-      <Prose>
-        The 4×4 stride-4 patchify stem assumes a 224-class input. At 96×96 input (common in low-resolution medical imaging), 4×4 patchify produces a 24×24 feature map — coarse enough that fine-grained detail is lost. Symptom: training loss is fine but test accuracy on detail-dependent tasks (small lesion detection, fine OCR) plateaus early. Fix: use 2×2 stride-2 patchify for inputs below 160, or insert a learnable 3×3 overlapping conv before the patchify. The timm variants <Code>convnext_pico</Code> and <Code>convnext_atto</Code> do this natively for 96-resolution.
-      </Prose>
-
-      <H3>9.4 Forgetting GRN in ConvNeXt V2 MAE pretraining</H3>
-
-      <Prose>
-        If you implement ConvNeXt V2 from scratch and copy the V1 block without adding GRN, then try FCMAE pretraining, you will observe the original V1 pathology: training loss drops fine but linear-probe accuracy on frozen features is 3–5% below V1+supervised (the feature-collapse signature). Symptom: after 800 epochs of MAE, the intermediate feature maps have many near-dead channels (std below 1e-3). Fix: add GRN after the GELU in every block. Initialize <Code>γ = β = 0</Code>. Verify with the live-channels check from section 4f after 50 epochs of pretraining — if more than 10% of channels are dead, GRN is missing or mis-placed.
-      </Prose>
-
-      <H3>9.5 Naive port of Swin hyperparameters to ConvNeXt</H3>
-
-      <Prose>
-        Swin's recipe uses LR 1e-3 with AdamW, weight decay 0.05, 20-epoch warmup. ConvNeXt uses LR 4e-3 (4× higher) with the same optimizer and decay. A common mistake: copy the Swin recipe wholesale, fail to update the LR, and end up at ~80.5% top-1 instead of 82.1%. The difference is that ConvNeXt's fewer activations reduce the effective nonlinearity per block, which tolerates a larger learning rate. Fix: use the paper's Table 10 values literally (LR 4e-3, batch 4096, 300 epochs). If batch size is reduced, scale LR linearly.
-      </Prose>
-
-      <H3>9.6 Channels-last runtime mismatch</H3>
-
-      <Prose>
-        ConvNeXt is ~20% faster on A100 when the forward pass runs in <Code>torch.channels_last</Code> memory format because the depthwise + LN + linear path maps cleanly to NHWC kernels. If you forget to call <Code>model.to(memory_format=torch.channels_last)</Code>, the runtime stays in NCHW and the implicit transposes around each LayerNorm add 10–20% latency. Symptom: ConvNeXt appears slower than ResNet-50 on GPU despite fewer FLOPs. Fix:
-      </Prose>
-
-      <CodeBlock language="python">
-{`import torch
-from torchvision.models import convnext_tiny
-
-model = convnext_tiny(weights="IMAGENET1K_V1").cuda().eval()
-model = model.to(memory_format=torch.channels_last)
-
-x = torch.randn(1, 3, 224, 224, device="cuda").to(memory_format=torch.channels_last)
-with torch.no_grad():
-    y = model(x)
-# Latency drops from ~2.1 ms to ~1.7 ms on A100 (torch 2.0+)`}
-      </CodeBlock>
-
-      {/* ======================================================================
-          10. PRIMARY SOURCES
-          ====================================================================== */}
-      <H2>10. Primary sources</H2>
-
-      <Prose>
-        Read in roughly this order to follow the design-space thread from ResNet-revisited through modern hybrids.
-      </Prose>
-
-      <StepTrace
-        label="primary literature"
-        steps={[
-          {
-            label: "Liu et al. 2022 — A ConvNet for the 2020s (ConvNeXt V1)",
-            render: () => (
-              <Prose>
-                Liu, Z., Mao, H., Wu, C-Y., Feichtenhofer, C., Darrell, T., and Xie, S. (2022). "A ConvNet for the 2020s." arXiv:2201.03545. Published at CVPR 2022. Available at arxiv.org/abs/2201.03545. The canonical paper. Introduces ConvNeXt by modernizing a ResNet-50 step by step — patchify stem, depthwise conv, inverted bottleneck, 7×7 kernel, GELU, fewer activations, LayerNorm, separate downsample layers. Table 1 (the modernization roadmap) is the piece to study; Table 9 (variant specs) is the implementation reference. The paper's section 2.6 ("Micro Design") is where most of the block-level decisions are justified.
-              </Prose>
-            ),
-          },
-          {
-            label: "Woo et al. 2023 — ConvNeXt V2 (MAE + GRN)",
-            render: () => (
-              <Prose>
-                Woo, S., Debnath, S., Hu, R., Chen, X., Liu, Z., Kweon, I.S., and Xie, S. (2023). "ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders." arXiv:2301.00808. Published at CVPR 2023. Available at arxiv.org/abs/2301.00808. Introduces Global Response Normalization (GRN) as a feature-competition layer that fixes the feature-collapse pathology of V1 under MAE pretraining. Shows FCMAE pretraining + ConvNeXt V2-H achieving 88.9% ImageNet-1k, beating Swin-V2-G at fewer parameters. Section 3 contains the GRN derivation; Figure 3 is the feature-collapse diagnosis that motivated GRN.
-              </Prose>
-            ),
-          },
-          {
-            label: "Ding et al. 2022 — Scaling Up Your Kernels to 31×31 (RepLKNet)",
-            render: () => (
-              <Prose>
-                Ding, X., Zhang, X., Zhou, Y., Han, J., Ding, G., and Sun, J. (2022). "Scaling Up Your Kernels to 31×31: Revisiting Large Kernel Design in CNNs." arXiv:2203.06717. Published at CVPR 2022. Available at arxiv.org/abs/2203.06717. Shows that depthwise convolutions can be scaled to 31×31 (essentially global at 14×14 feature maps) with structural reparameterization — a small-kernel branch trained in parallel and merged at inference. RepLKNet-31B at 79M params matches Swin-B at lower FLOPs. The paper's Figure 3 (accuracy vs kernel size) is the key empirical result: accuracy climbs monotonically up to 31×31 at the feature-map-size cutoff.
-              </Prose>
-            ),
-          },
-          {
-            label: "Tu et al. 2022 — MaxViT hybrid",
-            render: () => (
-              <Prose>
-                Tu, Z., Talebi, H., Zhang, H., Yang, F., Milanfar, P., Bovik, A., and Li, Y. (2022). "MaxViT: Multi-Axis Vision Transformer." arXiv:2204.01697. Published at ECCV 2022. Available at arxiv.org/abs/2204.01697. Introduces the MaxViT block: MBConv (inverted bottleneck) → block attention (within 7×7 window) → grid attention (across 7×7-spaced grid) — a three-stage hybrid that covers local, block-local, and global interactions in a single block. MaxViT-XL achieves 88.7% ImageNet-1k at 475M params and is state-of-the-art for object detection at matched compute. The paper's Figure 2 is the canonical illustration of multi-axis attention.
-              </Prose>
-            ),
-          },
-          {
-            label: "Dai et al. 2021 — CoAtNet",
-            render: () => (
-              <Prose>
-                Dai, Z., Liu, H., Le, Q.V., and Tan, M. (2021). "CoAtNet: Marrying Convolution and Attention for All Data Sizes." arXiv:2106.04803. Published at NeurIPS 2021. Available at arxiv.org/abs/2106.04803. Proposes a stacking strategy: MBConv at early stages (low resolution, high FLOPs without attention cost), self-attention at later stages (high-level features where global mixing helps). The paper's main empirical result: CoAtNet-7 on JFT-3B pretraining hits 90.88% ImageNet-1k, which was the 2022 state-of-the-art. Section 3 has the design-space analysis of where to insert attention in a CNN pyramid.
-              </Prose>
-            ),
-          },
-          {
-            label: "Liu et al. 2021 — Swin Transformer",
-            render: () => (
-              <Prose>
-                Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., and Guo, B. (2021). "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows." arXiv:2103.14030. Published at ICCV 2021 (Best Paper). Available at arxiv.org/abs/2103.14030. The direct counterpart to ConvNeXt — the same authors (Liu et al.) published both. Introduces shifted-window attention with linear complexity and 7×7 local windows. ConvNeXt inherits the 7×7 window, 1:1:3:1 stage ratio, LN placement, and GELU from this paper. Essential to read both papers together to understand ConvNeXt's design choices.
-              </Prose>
-            ),
-          },
-          {
-            label: "Vasu et al. 2022 — MobileOne",
-            render: () => (
-              <Prose>
-                Vasu, P.K.A., Gabriel, J., Zhu, J., Tuzel, O., and Ranjan, A. (2022). "MobileOne: An Improved One millisecond Mobile Backbone." arXiv:2206.04040. Published at CVPR 2023. Available at arxiv.org/abs/2206.04040. Apple's answer to MobileNet for 2022-era iPhones. Uses structural reparameterization (RepVGG-style) with multi-branch training merged into single-branch inference. MobileOne-S4 at 79.4% top-1 and 1.0 ms iPhone 12 CPU latency is the best accuracy-per-ms in the sub-ms class. The reparameterization trick is the technique to borrow for any latency-bound CNN deployment.
-              </Prose>
-            ),
-          },
-          {
-            label: "Bello et al. 2021 — Revisiting ResNets",
-            render: () => (
-              <Prose>
-                Bello, I., Fedus, W., Du, X., Cubuk, E.D., Srinivas, A., Lin, T-Y., Shlens, J., and Zoph, B. (2021). "Revisiting ResNets: Improved Training and Scaling Strategies." arXiv:2103.07579. Published at NeurIPS 2021. Available at arxiv.org/abs/2103.07579. The paper that established "recipe matters as much as architecture". A stock ResNet-50 retrained with modern augmentation (RandAugment, mixup, cutmix), AdamW, and longer training rises from 76.1% to 79.1% top-1 without any architectural change. This is the empirical foundation under ConvNeXt's central claim — the recipe alone accounts for 3 of the 6 absolute percentage points gained in the modernization roadmap.
-              </Prose>
-            ),
-          },
-        ]}
-      />
-
-      {/* ======================================================================
-          11. SELF-CHECK
-          ====================================================================== */}
-      <H2>11. Self-check</H2>
-
-      <Prose>
-        Attempt all five before reading the answers. Exercises 1–2 test the design-space reasoning; 3 tests arithmetic; 4 tests architectural judgment; 5 tests debugging.
-      </Prose>
-
-      <H3>Exercise 1 (design-space reasoning — the seven moves)</H3>
-      <Prose>
-        Name the seven design changes that turn a stock ResNet-50 into ConvNeXt-T. For each, say which Transformer paper (ViT, Swin, or MLP-era) first popularized it in the vision context, and roughly how many ImageNet top-1 points it contributes according to the paper's ablation table.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 1.</strong> The seven moves, roughly in paper order, with contributions from Table 1 (ResNet-50 baseline = 76.1%):
-        <br />
-        (1) <strong>Modern training recipe</strong> (RandAugment, mixup, cutmix, AdamW, 300 epochs, stochastic depth) → +2.7% to 78.8%. This is the Bello et al. 2021 "Revisiting ResNets" recipe; the rest of the moves are measured on top of it.
-        <br />
-        (2) <strong>Stage compute ratio 1:1:3:1</strong> (depths 3,3,9,3 instead of 3,4,6,3) — from Swin, +0.6% to 79.4%.
-        <br />
-        (3) <strong>Patchify stem</strong> (4×4 stride-4 conv replaces 7×7 stride-2 + maxpool) — from ViT/Swin, roughly neutral (79.4 → 79.5).
-        <br />
-        (4) <strong>Depthwise conv</strong> (replace the 3×3 full conv with depthwise, widen from 64 to 96 channels to compensate) — neutral at this step (79.5 → 79.5) but enabled by inverted bottleneck next.
-        <br />
-        (5) <strong>Inverted bottleneck</strong> (C → 4C → C instead of C → C/4 → C) — from MobileNetV2 via Swin MLP, +1.1% to 80.6%.
-        <br />
-        (6) <strong>Large kernel 7×7</strong> (up from 3×3 in the depthwise) — from Swin's 7×7 window, roughly neutral in isolation but combines with inverted bottleneck.
-        <br />
-        (7) <strong>Fewer activations and norms, plus LN replacing BN</strong> — one GELU and one LN per block. From Swin's single-GELU-per-MLP pattern. Cumulatively +1.4% to 82.0%.
-        <br />
-        Final step: separate downsampling layers (add LN before each 2×2 stride-2 conv) → +0.1% to 82.1%. Note that "depthwise conv alone" is neutral; the wins come from its combination with inverted bottleneck and large kernel.
-      </Callout>
-
-      <H3>Exercise 2 (design-space reasoning — inverted bottleneck)</H3>
-      <Prose>
-        ResNet-50 uses a "normal" bottleneck C → C/4 → C, which contracts channels in the middle. ConvNeXt uses an inverted bottleneck C → 4C → C, which expands them. Explain why the inverted pattern is better when paired with depthwise convolution. What would go wrong if you used inverted bottleneck with standard (non-depthwise) convolution?
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 2.</strong> The inverted bottleneck works with depthwise because the expensive step (the expansion to 4C) is pointwise (1×1), not spatial. In a ConvNeXt block, the depthwise 7×7 happens at C channels (cheap: <Code>{"49 H W C"}</Code> FLOPs), then the pointwise expand to 4C happens in a linear (also cheap: <Code>{"4 H W C^2"}</Code> FLOPs and no spatial mixing). Total block cost is dominated by the two pointwise convs at <Code>{"8 H W C^2"}</Code>. The expansion gives representational capacity; the depthwise gives spatial mixing; the two are cleanly separated.
-        <br />
-        If you used inverted bottleneck with standard (non-depthwise) 3×3 conv, the 3×3 at 4C channels would cost <Code>{"9 H W \\cdot 4C \\cdot 4C = 144 H W C^2"}</Code> — 18× more than the depthwise version. A ResNet-style "C → 4C → C" with standard convs would be ~200G FLOPs for a T-scale model (versus ConvNeXt-T's 4.5G). It's infeasible. The depthwise decomposition is what makes the inverted bottleneck affordable; the inverted direction is what makes the expansion meaningful. They are a package deal.
-      </Callout>
-
-      <H3>Exercise 3 (arithmetic — stage compute ratio)</H3>
-      <Prose>
-        ConvNeXt-T has stage depths (3, 3, 9, 3) at widths (96, 192, 384, 768), operating at spatial sizes (56, 28, 14, 7) after a 4×4 stride-4 stem on 224 input. Using <Code>{"\\text{FLOPs per block} \\approx 8 H W C^2"}</Code>, compute the fraction of total block FLOPs consumed by each stage and show that they approximate the 1:1:3:1 design target.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 3.</strong> Per-block FLOPs scale as <Code>{"8 H W C^2"}</Code>. With channels doubling (2×) and spatial halving (4× per H·W) each stage, per-block FLOPs go <Code>{"8 \\cdot 2^2 / 4 = 1"}</Code>× constant across stages — convenient design.
-        <br />
-        Plugging in values (in units of <Code>8 H W C^2</Code>, with stage-0 block = 1.0):
-        <br />
-        Stage 0: 3 blocks × (56² × 96²) = 3 × 28,901 = 86,703 units.
-        <br />
-        Stage 1: 3 blocks × (28² × 192²) = 3 × 28,901 = 86,703 units.
-        <br />
-        Stage 2: 9 blocks × (14² × 384²) = 9 × 28,901 = 260,109 units.
-        <br />
-        Stage 3: 3 blocks × (7² × 768²) = 3 × 28,901 = 86,703 units.
-        <br />
-        Total: 520,218 units. Per-stage shares: 16.7%, 16.7%, 50.0%, 16.7%. Ratio: 1 : 1 : 3 : 1, exactly as designed. (The empirical FLOPs including DW-conv and LN terms are 17.4, 16.8, 49.5, 16.4 — matching the abstract derivation within 1%.) The design principle: depth is what creates the 3× share at stage 2, not width or spatial size — per-block FLOPs are constant across stages by design.
-      </Callout>
-
-      <H3>Exercise 4 (architectural judgment — ConvNeXt vs Swin vs ConvNeXt V2)</H3>
-      <Prose>
-        You are building a production image classifier for a medical imaging dataset with 30,000 labeled CT scans. Your team has access to 10 A100 GPUs and is considering three options: Swin-T, ConvNeXt-T (V1), ConvNeXt V2-T + FCMAE. For each, state when it would be the right choice, and give one concrete reason to prefer it over the other two.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 4.</strong>
-        <br />
-        (a) <strong>ConvNeXt-T (V1).</strong> Right choice when: 30k images is too small for self-supervised pretraining to help (MAE typically needs 100k+ for a meaningful representation learning signal), and you want the simplest, most-supported path. Concrete reason: matches Swin-T accuracy at 4.5G FLOPs, is pure CNN (so no attention-kernel dependencies in the deployment stack — simpler ONNX/TensorRT export, better mobile compatibility), has a ready IN-22k pretrained checkpoint (<Code>convnext_tiny.fb_in22k_ft_in1k</Code>) that transfers well to CT with a simple fine-tune.
-        <br />
-        (b) <strong>Swin-T.</strong> Right choice when: you expect long-range dependencies across the CT volume (e.g., whole-organ context needed for small lesion classification) and have enough augmentation to prevent the Transformer from overfitting 30k examples. Concrete reason: shifted-window attention captures mid-range interactions that a 7×7 depthwise misses; for 512×512+ slices the window attention scales better than the depthwise spatial extent.
-        <br />
-        (c) <strong>ConvNeXt V2-T + FCMAE.</strong> Right choice when: your dataset has a large unlabeled pool (e.g., 200k unlabeled CT volumes at your hospital) where 30k are labeled. Pretraining on the full 230k with FCMAE, then fine-tuning on the 30k labels, typically gains 2–5% over supervised-only. Concrete reason: GRN allows the MAE pretraining to actually work without feature collapse; V1 would waste the unlabeled data. This is the only option that leverages unlabeled domain data.
-        <br />
-        Default recommendation for "30k labels, no unlabeled pool, ship fast": ConvNeXt-T (V1). It is the boring, correct choice.
-      </Callout>
-
-      <H3>Exercise 5 (debugging — "my ConvNeXt is slower than my ResNet")</H3>
-      <Prose>
-        You have reproduced ConvNeXt-T from scratch and benchmarked it on an A100 at batch 32. FLOPs are 4.5G (vs 4.1G for ResNet-50), but your ConvNeXt forward pass takes 8.3 ms while your ResNet-50 forward pass takes 4.1 ms — ConvNeXt is 2× slower. List three plausible implementation causes and, for each, describe the one-line diagnostic that would confirm it.
-      </Prose>
-      <Callout accent="green">
-        <strong>Answer 5.</strong>
-        <br />
-        (1) <strong>Missing channels-last memory format.</strong> The ConvNeXt block's <Code>permute(0, 2, 3, 1)</Code> and <Code>permute(0, 3, 1, 2)</Code> are free view operations in channels-last layout but force actual memory copies in channels-first. On A100, these copies cost ~3 ms per forward pass. Diagnose:
-        <br />
-        <Code>{"model = model.to(memory_format=torch.channels_last); x = x.to(memory_format=torch.channels_last)"}</Code>
-        <br />
-        and re-time. If latency drops by ~40%, this was the cause.
-        <br />
-        (2) <strong>LayerNorm-2d reimplemented with reduce-then-divide instead of fused kernels.</strong> A naive <Code>{"(x - x.mean(1))/x.std(1)"}</Code> launches two separate reduction kernels; PyTorch's built-in <Code>F.layer_norm</Code> uses a single fused kernel. At 56×56×96 per block × 18 blocks × 3 stages of downsamples, the overhead adds up. Diagnose: profile with <Code>torch.profiler.profile</Code> and look at the kernel names — if you see <Code>mean_kernel</Code> and <Code>var_kernel</Code> back-to-back around every LN, you are not using the fused kernel. Fix by switching to <Code>F.layer_norm</Code> or, for the channels-first stem/downsample LN, use <Code>nn.GroupNorm(1, dim)</Code> which has a fused kernel.
-        <br />
-        (3) <strong>Depthwise conv not using cuDNN's depthwise path.</strong> On some cuDNN versions, Conv2d with groups=C only dispatches to the fast depthwise kernel when channels-last layout is active and C is a multiple of 32. If you built in channels-first with C=96 (multiple of 32), cuDNN might still fall back to the generic grouped kernel. Diagnose: <Code>{"torch.backends.cudnn.benchmark = True"}</Code> and re-time, then profile for the specific conv kernel names. Fix: ensure channels-last (as in move 1) and pad C to multiples of 32 if necessary. On an A100 with PyTorch 2.0+ this usually just requires channels-last; on older stacks you may need <Code>{"torch.utils.benchmark.Timer"}</Code> to compare before/after fairly.
-      </Callout>
-
-    </div>
-  ),
+<Prose>{"Here "}<InlineMath>{"\\widehat{x}"}</InlineMath>{" is the normalized output of the spatial filter. The inner sum mixes features; the nonlinearity prevents the two linear transformations from collapsing into a single fixed linear map. GELU is "}<InlineMath>{"z\\Phi(z)"}</InlineMath>{", where "}<InlineMath>{"\\Phi"}</InlineMath>{" is the standard normal cumulative distribution function. Small negative values can contribute, large positive values mostly pass through, and the response is smooth. This does not make GELU a guarantee of better training than ReLU."}</Prose>
+
+<H3>{"Which values does LayerNorm actually normalize?"}</H3>
+
+<Prose>{"For one specimen and one location, calculate the mean and variance across its "}<InlineMath>{"C"}</InlineMath>{" channels:"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\mu=\\frac1C\\sum_c x_c,\\qquad\n\\sigma^2=\\frac1C\\sum_c(x_c-\\mu)^2,\\qquad\n\\widehat{x}_c=\\gamma_c\\frac{x_c-\\mu}{\\sqrt{\\sigma^2+\\epsilon}}+\\beta_c."}</MathBlock></div>
+
+<Prose>{"Each location has its own "}<InlineMath>{"\\mu,\\sigma^2"}</InlineMath>{". Learned "}<InlineMath>{"\\gamma,\\beta"}</InlineMath>{" are shared across locations. The implementation uses "}<InlineMath>{"\\epsilon=10^{-6}"}</InlineMath>{" to keep constant channel vectors well-defined. These are current-input statistics in both training and evaluation; there is no BatchNorm running average."}</Prose>
+
+<Prose>{"Consider two locations with channel vectors "}<InlineMath>{"[1,3]"}</InlineMath>{" and "}<InlineMath>{"[101,103]"}</InlineMath>{". Channel LayerNorm maps both to approximately "}<InlineMath>{"[-1,1]"}</InlineMath>{" before its learned affine transformation. A single GroupNorm group instead uses all four values from the specimen; it preserves the large offset between locations in its normalized output. Replacing one operation with the other changes the function even if the output shapes agree."}</Prose>
+
+<ConvNeXtNormalizationLab />
+
+<H3>{"Why the spatial filter comes before expansion"}</H3>
+
+<Prose>{"A 7×7 depthwise filter at width "}<InlineMath>{"C"}</InlineMath>{" uses "}<InlineMath>{"49C"}</InlineMath>{" weights. Moving that filter after a fourfold expansion uses "}<InlineMath>{"196C"}</InlineMath>{". Both designs can be useful, but the latter spends more spatial-filter work at the expanded width. ConvNeXt spends most of its arithmetic on the dense channel transformations."}</Prose>
+
+<Prose>{"With biases, channel LayerNorm and one learned LayerScale vector, a V1 block has"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"(49C+C)+(2C)+(4C^2+4C)+(4C^2+C)+C\n=8C^2+58C"}</MathBlock></div>
+
+<Prose>{"parameters. At "}<InlineMath>{"C=96"}</InlineMath>{", that is 79,296; the two pointwise weight matrices contain 73,728 of them, about 93%. Biases and normalization parameters are small, but counting them correctly matters when checking an implementation."}</Prose>
+
+<Prose>{"Ignoring bias additions, normalization, activation and the residual addition, its convolution/linear work is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"HW(49C+8C^2)\\quad\\text{MACs per specimen}."}</MathBlock></div>
+
+<Prose>{"One MAC here means one product accumulated into a sum. This is not a wall-clock measurement or a count of every floating-point operation."}</Prose>
+
+<H3>{"Residual scaling and dropping have distinct jobs"}</H3>
+
+<Prose>{"LayerScale learns one multiplier per output channel, initially "}<InlineMath>{"10^{-6}"}</InlineMath>{" in the V1 reference implementation. It starts the residual branch contribution very small. The block is therefore close to its input initially; the whole network is not an identity map, because its stem, downsampling and head still change shapes and values. Learned scales need not remain positive or small."}</Prose>
+
+<Prose>{"DropPath draws one branch mask per specimen, shared across channels and positions. With drop probability "}<InlineMath>{"p"}</InlineMath>{", it returns the branch divided by "}<InlineMath>{"1-p"}</InlineMath>{" when retained and zero when dropped. Evaluation uses the whole branch. This preserves the expected branch contribution for fixed inputs, not the expected final prediction of an arbitrary nonlinear network."}</Prose>
+
+<Prose>{"In the supplied code the branch is calculated before applying the mask. Dropping its contribution does "}<strong>{"not"}</strong>{" automatically save its computation. For 18 blocks whose drop probabilities range linearly from 0 to 0.1, the expected number of retained contributions is 17.1, while all 18 branch calculations still execute. "}<a href={"/learn/path/full-curriculum/dropout-droppath-stochastic-depth?module=deep-learning-fundamentals"}>{"Dropout, DropPath & Stochastic Depth"}</a>{" develops the distinction between masking, expectation and execution."}</Prose>
+
+<H2>{"3. From the block to a feature hierarchy"}</H2>
+
+<Prose>{"ConvNeXt starts with a 4×4 stride 4 convolution. Each initial output position reads one non-overlapping 4×4 input patch, then channel LayerNorm is applied. For a 224×224 image, this produces a 56×56 feature grid."}</Prose>
+
+<Prose>{"Four stages progressively reduce spatial resolution while increasing channel width:"}</Prose>
+
+<NeuralTable caption={"3. From the block to a feature hierarchy"} headers={[<>{"Tiny stage"}</>,<>{"Grid"}</>,<>{"Channels"}</>,<>{"Repeated blocks"}</>,<>{"What becomes possible"}</>]} rows={[[<>{"1"}</>,<>{"56×56"}</>,<>{"96"}</>,<>{"3"}</>,<>{"Local detail represented at many positions"}</>],[<>{"2"}</>,<>{"28×28"}</>,<>{"192"}</>,<>{"3"}</>,<>{"Broader combinations at fewer positions"}</>],[<>{"3"}</>,<>{"14×14"}</>,<>{"384"}</>,<>{"9"}</>,<>{"More processing at a wider intermediate representation"}</>],[<>{"4"}</>,<>{"7×7"}</>,<>{"768"}</>,<>{"3"}</>,<>{"A compact, semantically useful feature map"}</>]]} />
+
+<Prose>{"Between stages, channel LayerNorm precedes a 2×2 stride 2 convolution. For classification, average the final map over its two spatial axes, apply LayerNorm to the resulting 768-vector, and use a linear classifier. Averaging before versus after a nonlinear normalization is a real ordering choice; these operations generally do not commute."}</Prose>
+
+<Prose>{"The hierarchy is useful beyond classification. A segmentation head can use fine-grid features to locate boundaries and coarse-grid features for context. A detector can attach heads to multiple scales. This explains why exposing stage outputs matters even when the original model's final head produces only one label."}</Prose>
+
+<Prose>{"Increasing channels while decreasing area also explains stage cost. Doubling "}<InlineMath>{"C"}</InlineMath>{" and dividing "}<InlineMath>{"HW"}</InlineMath>{" by 4 leaves the leading "}<InlineMath>{"8HWC^2"}</InlineMath>{" term unchanged "}<strong>{"per block"}</strong>{". The depthwise term halves. Adding more blocks to the third stage concentrates work there. The Tiny stage depths are 3,3,9,3:18 blocks. Small, Base, Large and XLarge V1 configurations use 3,3,27,3:36 blocks."}</Prose>
+
+<Prose>{"The attached "}<a href={"/learn-assets/convnext-modern-cnn-designs/convnext-blocks.py"}>{"complete architecture program"}</a>{" implements the block, stage transitions, residual masking, initialization, feature outputs and head. It checks large configurations using "}<strong>{"meta tensors"}</strong>{": shapes and parameter counts are represented without allocating full model weights. It also runs small actual forward/backward calculations. Its computed V1 counts, with a 1,000-class head, are:"}</Prose>
+
+<ConvNeXtProgram file="convnext-blocks.py" title="Read the complete V1/V2 block, hierarchy, initialization and shape checks" />
+
+<NeuralTable caption={"3. From the block to a feature hierarchy"} headers={[<>{"V1 configuration"}</>,<>{"Initial width"}</>,<>{"Parameters"}</>,<>{"Conv/linear MACs at 224²"}</>]} rows={[[<>{"Tiny"}</>,<>{"96"}</>,<>{"28,589,128"}</>,<>{"4,455,531,264"}</>],[<>{"Small"}</>,<>{"96"}</>,<>{"50,223,688"}</>,<>{"8,683,712,256"}</>],[<>{"Base"}</>,<>{"128"}</>,<>{"88,591,464"}</>,<>{"15,354,729,472"}</>],[<>{"Large"}</>,<>{"192"}</>,<>{"197,767,336"}</>,<>{"34,361,433,600"}</>],[<>{"XLarge"}</>,<>{"256"}</>,<>{"350,196,968"}</>,<>{"60,921,030,656"}</>]]} />
+
+<Prose>{"These are calculations for the stated topology, not training results. Input resolution changes activation sizes and work; it does not change a convolution's learned kernel count. Strided sampling also means shifting an image by one pixel need not simply shift its final features. Shared convolution weights do not make an entire downsampled classifier exactly translation invariant."}</Prose>
+
+<Prose>{"The block and the hierarchy are also separable choices. An "}<strong>{"isotropic"}</strong>{" variant keeps the same grid size and channel width through its repeated blocks, using an initial projection to establish that grid. It gives up the native four-scale output hierarchy. The original study tested such configurations too; their result asks whether the block remains useful without staged downsampling, not whether all tasks should discard multiple resolutions."}</Prose>
+
+<ConvNeXtHierarchy /><ConvNeXtBudgetLab />
+
+<H2>{"4. Global response normalization: look across the feature map"}</H2>
+
+<Prose>{"Imagine two channels that produce almost the same spatial pattern. Both may vary strongly across an image, so neither is a “dead channel.” Yet they may offer redundant evidence. Conversely, a quiet channel might encode a rare useful pattern. Counting channels with nonzero variance does not measure representation quality."}</Prose>
+
+<Prose>{"ConvNeXt V2 adds "}<strong>{"global response normalization"}</strong>{", or GRN, inside the expanded branch after GELU. It compares the spatial magnitude of each channel with the other channels in the "}<strong>{"same specimen"}</strong>{". This differs from channel LayerNorm, which compares channels separately at each location."}</Prose>
+
+<Prose>{"For "}<InlineMath>{"X"}</InlineMath>{" with logical shape "}<InlineMath>{"N,H,W,C"}</InlineMath>{", define"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"G_{n,c}=\\sqrt{\\sum_{h,w}X_{n,h,w,c}^2},\\qquad\nR_{n,c}=\\frac{G_{n,c}}{\\frac1C\\sum_jG_{n,j}+\\epsilon},"}</MathBlock></div>
+
+<div className="neural-equation"><MathBlock>{"Y_{n,h,w,c}=X_{n,h,w,c}\n+\\gamma_c X_{n,h,w,c}R_{n,c}+\\beta_c."}</MathBlock></div>
+
+<Prose>{"The first reduction summarizes each whole channel map. The second compares these channel magnitudes. The result broadcasts back to every location. GRN does not subtract a spatial mean or force each channel to unit variance. The definition above matches the dense reference implementation. "}<a href={"https://github.com/facebookresearch/ConvNeXt-V2/blob/main/models/utils.py"}>{"Official GRN implementation"}</a>{""}</Prose>
+
+<H3>{"A two-channel example you can calculate"}</H3>
+
+<Prose>{"Take channel A's two locations as "}<InlineMath>{"[3,4]"}</InlineMath>{", channel B's as "}<InlineMath>{"[0,12]"}</InlineMath>{". Their spatial lengths are 5 and 12. Their average length is 8.5, so relative responses are approximately 0.588235 and 1.411765."}</Prose>
+
+<Prose>{"Set "}<InlineMath>{"\\gamma_A=.5,\\gamma_B=-.5,\\beta=0"}</InlineMath>{". Channel A becomes approximately "}<InlineMath>{"[3.882353,5.176470]"}</InlineMath>{", and channel B becomes "}<InlineMath>{"[0,3.529413]"}</InlineMath>{". Now edit only B's second value from 12 to 0. A's original values have not changed, but its relative response becomes almost 2, so its output becomes almost "}<InlineMath>{"[6,8]"}</InlineMath>{"."}</Prose>
+
+<Prose>{"That is global coupling through a statistic. It is not a new spatial convolution. It also shows why “GRN always boosts strong channels and suppresses weak ones” is misleading: the learned signs matter."}</Prose>
+
+<ConvNeXtResponseLab />
+
+<Prose>{"Initial identity does not mean the layer is absent from learning. For the same two maps and loss "}<InlineMath>{"L=\\frac12\\sum Y^2"}</InlineMath>{", at "}<InlineMath>{"\\gamma=\\beta=0"}</InlineMath>{","}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\frac{\\partial L}{\\partial\\gamma_A}\\approx14.705881,\\quad\n\\frac{\\partial L}{\\partial\\gamma_B}\\approx203.294094,\\quad\n\\frac{\\partial L}{\\partial\\beta}=[7,12]."}</MathBlock></div>
+
+<Prose>{"Those parameters can change on the first optimizer update. The initial input derivative equals "}<InlineMath>{"X"}</InlineMath>{" for this loss; afterward the learned GRN response changes the input derivative too. The "}<a href={"/learn-assets/convnext-modern-cnn-designs/author-checks.py"}>{"author calculations"}</a>{" check the scale gradients against independent central differences."}</Prose>
+
+<Prose>{"V2 removes the V1 LayerScale and adds two GRN vectors at width "}<InlineMath>{"4C"}</InlineMath>{". Thus its block has "}<InlineMath>{"8C^2+65C"}</InlineMath>{" parameters: "}<InlineMath>{"8C"}</InlineMath>{" added and "}<InlineMath>{"C"}</InlineMath>{" removed, a net "}<InlineMath>{"7C"}</InlineMath>{". At "}<InlineMath>{"C=96"}</InlineMath>{", this is 79,968 parameters; 672 more than V1. GRN itself starts as identity; removing LayerScale does not make the "}<strong>{"whole V2 residual branch"}</strong>{" tiny."}</Prose>
+
+<H2>{"5. Learn from missing pixels without giving away the answer"}</H2>
+
+<Prose>{"A supervised digit classifier receives an image and its class during training. A masked reconstruction model receives only selected image regions and learns to predict the missing regions. The original image supplies a training target even when no class label is used for that training stage. This is "}<strong>{"self-supervised learning"}</strong>{": the training signal is constructed from the data."}</Prose>
+
+<Prose>{"The central constraint is informational. If the hidden pixels enter the encoder through a convolution, normalization statistic or another route, a good reconstruction may reflect access to the answer."}</Prose>
+
+<H3>{"Separate what is visible from what is scored"}</H3>
+
+<Prose>{"Let "}<InlineMath>{"M"}</InlineMath>{" be 1 at visible pixels and 0 at hidden pixels. An input-masking operation forms "}<InlineMath>{"M\\odot x"}</InlineMath>{", where "}<InlineMath>{"\\odot"}</InlineMath>{" is elementwise multiplication. A hidden-pixel loss is"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"L=\\frac{\\sum_{i:M_i=0}(\\widehat{x}_i-x_i)^2}\n{\\#\\{i:M_i=0\\}}."}</MathBlock></div>
+
+<Prose>{"The encoder sees the visible values. The loss compares predictions with the original hidden targets. Editing a hidden target therefore can change the loss without changing the prediction. This is correct behavior, not a contradiction."}</Prose>
+
+<Prose>{"In a multistage convolutional encoder, masking the raw input alone is not the same as maintaining a fixed set of active feature locations. Convolution can write features into inactive locations; biases and channel transformations can make zero inputs nonzero. A masked-dense implementation must keep its intended active set masked at the relevant operations. A sparse implementation explicitly represents and computes on active coordinates. Their runtime costs and normalization behavior must be checked separately."}</Prose>
+
+<Prose>{"The published "}<strong>{"fully convolutional masked autoencoder"}</strong>{", FCMAE, masks 60% of 32×32 input patches, matching the final encoder-grid granularity, and propagates that mask through the hierarchy. Its lightweight decoder receives encoded visible features and mask tokens at missing positions. Its loss uses patch-normalized hidden targets. Our small experiment below preserves the visibility/target distinction while deliberately using smaller patches and a simpler loss. "}<a href={"https://arxiv.org/pdf/2301.00808"}>{"FCMAE construction"}</a>{""}</Prose>
+
+<ConvNeXtMaskFigure />
+
+<H3>{"Why a second evaluation is needed"}</H3>
+
+<Prose>{"An encoder might learn local interpolation that reconstructs textures well but does not separate object categories. To ask whether labels are accessible in its features, freeze the encoder, extract representations, and fit a small supervised classifier using training labels. A "}<strong>{"linear probe"}</strong>{" tests what a linear readout can use. It differs from fine-tuning, which updates the encoder too."}</Prose>
+
+<Prose>{"Neither reconstruction error nor a channel-diversity statistic can substitute for that task evaluation. Even a successful probe on a small development split does not establish deployment performance."}</Prose>
+
+<H2>{"6. An actual masked-digit experiment"}</H2>
+
+<Prose>{"The "}<a href={"/learn-assets/convnext-modern-cnn-designs/digits-400.csv"}>{"offline CSV"}</a>{" contains 400 real 8×8 optical digit images,40 per class, drawn from UCI's Optical Recognition of Handwritten Digits dataset through scikit-learn's local copy. They are not MNIST images. Each integer pixel lies in 0–16; divide by 16 using the known scale. Preserve the "}<a href={"/learn-assets/convnext-modern-cnn-designs/data-provenance.md"}>{"dataset attribution, subset construction and split record"}</a>{"."}</Prose>
+
+<Prose>{"The unit here is an image specimen. Before splitting, the program checks 400 unique source IDs and 400 distinct pixel vectors. Writer identifiers are unavailable, so this is not an independent-writer assessment. It reserves 120 stratified development images and trains on 280, using split seed 22. Development images are excluded even from unlabeled reconstruction training."}</Prose>
+
+<H3>{"The small model and the controlled difference"}</H3>
+
+<Prose>{"The input 8×8 image is divided into sixteen 2×2 patches. Exactly six are visible and ten hidden:62.5% hidden, rather than the paper's 60%. A 2×2 stride 2 stem creates a 4×4 grid with 12 channels. Two ConvNeXt-style encoder blocks use 3×3 depthwise filters, channel LayerNorm,12→48→12 channel mixing and residual addition. A one-block decoder plus a pixel head reconstructs 8×8 pixels."}</Prose>
+
+<Prose>{"We compare two variants that differ only in whether the encoder expansion includes GRN. "}<strong>{"Neither has LayerScale"}</strong>{", and both use the same small decoder. These are paired GRN experiments, not miniature reproductions of every difference between official V1 and V2."}</Prose>
+
+<Prose>{"The training program uses AdamW with learning rate 0.002, weight decay 0.01 and 600 full-batch updates. Weight decay applies to all parameters in this teaching experiment; this is not the paper's optimizer grouping. Each update generates a new six-visible-patch mask. Each paired seed uses identical initial shared tensors and the same mask sequence; GRN's additional scale/shift vectors start at zero."}</Prose>
+
+<Prose>{"For evaluation, four fixed masks per specimen allow comparisons on the same missing pixels. The loss is raw normalized-pixel MSE on the 40 hidden pixels per image, not the paper's patch-normalized target loss. No augmentation, DropPath, checkpoint search or model selection is used. Steps 0,1,100,300,600 are recorded; only the declared final step supplies the comparison."}</Prose>
+
+<H3>{"Run the complete program"}</H3>
+
+<Prose>{"Download "}<a href={"/learn-assets/convnext-modern-cnn-designs/masked-reconstruction.py"}>{"masked-reconstruction.py"}</a>{" and "}<a href={"/learn-assets/convnext-modern-cnn-designs/digits-400.csv"}>{"digits-400.csv"}</a>{" into the same directory. In a Python environment with PyTorch, NumPy and scikit-learn installed, run:"}</Prose>
+
+<CodeBlock language={"bash"}>{"python masked-reconstruction.py"}</CodeBlock>
+
+<Prose>{"The script sets one PyTorch CPU thread and requires no network access or pretrained checkpoint. It contains the full model, mask generator, loss, train/development split, optimizer loop, fixed-mask evaluation and frozen-feature probe. It writes "}<a href={"/learn-assets/convnext-modern-cnn-designs/calculated-inputs.json"}>{"calculated-inputs.json"}</a>{"; the supplied copy contains the actual author run on Python 3.12.14, PyTorch 2.14.0+cpu, NumPy 2.3.5 and scikit-learn 1.9.1. Small numerical differences across library/platform versions are possible."}</Prose>
+
+<ConvNeXtProgram file="masked-reconstruction.py" title="Read the complete masked learning, evaluation and probe program" /><Prose>To reproduce the recorded environment in a separate activated Python environment, run <code>python -m pip install torch==2.14.0 numpy==2.3.5 scipy scikit-learn==1.9.1</code>. For the separate native block bridge, also install <code>torchvision==0.29.0 pillow</code>. The large source is loaded only when you open its disclosure; the downloaded CSV runs offline.</Prose>
+
+<Prose>{"The core masking/loss excerpt is worth reading before running the complete file:"}</Prose>
+
+<CodeBlock language={"python"}>{"def masked_mse(predictions, targets, visible):\n    hidden_pixels = (1-visible).repeat_interleave(2,2).repeat_interleave(2,3)\n    return ((predictions-targets).square()*hidden_pixels).sum()/hidden_pixels.sum()"}</CodeBlock>
+
+<Prose>{"Here "}<code>{"visible"}</code>{" has shape "}<InlineMath>{"N,1,4,4"}</InlineMath>{". Repeating each grid location twice along each spatial axis makes its 2×2 pixel patch share the same visibility. The numerator sums error only where the mask is hidden; the denominator is the number of those pixels. An all-visible mask would have denominator zero and is not an allowed reconstruction-loss input. All-visible images are valid for feature extraction, where this loss is not called."}</Prose>
+
+<Prose>{"Inside the encoder, the input is masked before the stem; inactive feature positions are suppressed after spatial filtering, expansion and residual addition. The decoder can fill missing positions, as it must to predict them. "}<a href={"/learn-assets/convnext-modern-cnn-designs/author-checks.py"}>{"Independent scalar-loop checks"}</a>{" reproduce all four saved real examples to within "}<InlineMath>{"3.3\\times10^{-7}"}</InlineMath>{" of the stored outputs."}</Prose>
+
+<H3>{"What actually happened"}</H3>
+
+<Prose>{"A training-mean-image baseline predicts the same image regardless of visible content. Its development masked MSE is 0.071914. The learned models do better on this reconstruction criterion:"}</Prose>
+
+<NeuralTable caption={"What actually happened"} headers={[<>{"Paired seed"}</>,<>{"GRN absent: masked MSE"}</>,<>{"GRN present: masked MSE"}</>,<>{"Frozen probe correct, absent / present"}</>]} rows={[[<>{"1"}</>,<>{".052188"}</>,<>{".052313"}</>,<>{"115/120 /116/120"}</>],[<>{"2"}</>,<>{".052336"}</>,<>{".051906"}</>,<>{"115/120 /116/120"}</>],[<>{"3"}</>,<>{".051670"}</>,<>{".051488"}</>,<>{"115/120 /116/120"}</>]]} />
+
+<Prose>{"The probe standardizes each extracted feature using training statistics, then fits logistic regression with "}<InlineMath>{"C=1"}</InlineMath>{". It sees the clean image through a frozen encoder. A separate standardized logistic regression fitted directly to the 64 raw pixels gets 118/120 correct. All six feature probes fit the 280 training labels perfectly."}</Prose>
+
+<Prose>{"Several conclusions now become possible, and several do not:"}</Prose>
+
+<ul><li>{"The learned reconstructions beat this training-mean-image baseline on the specified missing-pixel task."}</li><li>{"GRN does not improve reconstruction in every seed. Its probe gets one extra image correct in each paired run on this one development split."}</li><li>{"The simpler raw-pixel classifier gets more development labels right than any frozen-feature probe here."}</li><li>{"We did not compare against a random untrained encoder, vary the label budget, fine-tune the encoder or reserve an untouched test. These results do not isolate the benefit of pretraining or establish a universal architecture ranking."}</li></ul>
+
+<Prose>{"Repeated seeds vary initialization and training masks; they are not independent new datasets. The development data are now consumed by interpretation. If you use these findings to choose a model, obtain a separate appropriate final evaluation before making a deployment claim."}</Prose>
+
+<ConvNeXtRecordedExperiment />
+
+<H3>{"Look at a specimen, then intervene"}</H3>
+
+<Prose>{"The packet retains the two seed 1 models' complete weights and the first two development examples, source 251/label 4 and source 40/label 9. Display their original, visible-only input, reconstruction and hidden-pixel squared error side by side. Show the raw reconstruction values in a numeric view; a clipped display palette must not silently clip the values used for MSE."}</Prose>
+
+<Prose>{"For source 251 with GRN, flipping hidden pixel (row 0, column 0) from 0 to 1 leaves every prediction unchanged, while masked MSE changes from approximately 0.054047 to 0.080387. Flipping the visible pixel (0,2) instead changes the reconstruction, with maximum absolute output change about 0.506610. The paired model without GRN has the same hidden-input invariance and a different visible-input response."}</Prose>
+
+<ConvNeXtReconstructionLab />
+
+<H3>{"Inspect features without overinterpreting a diagnostic"}</H3>
+
+<Prose>{"The program measures spatial cosine distance between distinct nonzero channel maps at the final encoder expansion. For maps "}<InlineMath>{"a,b"}</InlineMath>{", it uses "}<InlineMath>{"(1-\\cos(a,b))/2"}</InlineMath>{"; identical positive-direction maps have distance 0. Near-zero maps are counted separately instead of assigning an arbitrary cosine."}</Prose>
+
+<Prose>{"Every run has zero near-zero-channel fraction under the declared threshold. Mean nonself distances with GRN are slightly higher in seed 1 and slightly lower in seeds 2–3. Thus “more active channels” does not explain the small probe difference, and this diagnostic is not a quality score. Inspect what a statistic measures before attaching an architectural story to it."}</Prose>
+
+<H2>{"7. Deeper routes: deploy, reparameterize, or combine mechanisms"}</H2>
+
+<H3>{"Use a checkpoint as a complete input/output contract"}</H3>
+
+<Prose>{"For a practical pretrained model, record the exact library/version, architecture, weight identifier, input transforms, output classes and intended downstream evaluation. A weight file is not useful independently of this contract."}</Prose>
+
+<Prose>{"The inspected "}<a href={"https://docs.pytorch.org/vision/main/models/generated/torchvision.models.convnext_tiny.html"}>{"Torchvision ConvNeXt Tiny documentation"}</a>{" exposes "}<code>{"ConvNeXt_Tiny_Weights.IMAGENET1K_V1"}</code>{" and its "}<code>{"transforms()"}</code>{". Its reported 82.52% ImageNet result belongs to Torchvision's modified recipe; it is not the original paper's 82.1% result. For those weights, use the provided resize/crop/normalization and category metadata. Replace the classifier and evaluate your task if the target classes differ; the ImageNet head does not acquire new classes by renaming its outputs."}</Prose>
+
+<Prose>{"The attached architecture program offers "}<code>{"return_features=True"}</code>{" for the four stage maps. This is the useful interface for a downstream head: inspect its exact shapes and scale meaning before connecting it. Full transfer-learning training and split design belong to "}<a href={"/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies?module=deep-learning-fundamentals"}>{"Transfer Learning & Fine-Tuning Strategies"}</a>{"; no pretrained download is required for this lesson's executed experiment."}</Prose>
+
+<Prose>{"Logical layout and memory layout are different. "}<code>{"permute(0,2,3,1)"}</code>{" makes a view whose dimension order is NHWC. "}<code>{"to(memory_format=torch.channels_last)"}</code>{" retains the logical NCHW shape while changing storage strides. A permutation itself does not copy values, but later operations may need to materialize a suitable layout. Measure the complete workload before promising a speedup. "}<a href={"https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html"}>{"PyTorch's channels-last tutorial"}</a>{""}</Prose>
+
+<H3>{"Fold several training branches into one inference kernel"}</H3>
+
+<Prose>{"A useful deployment idea is "}<strong>{"structural reparameterization"}</strong>{": train using several linear branches, then combine them into a simpler equivalent inference operation. This is different from changing the trained function through approximate compression."}</Prose>
+
+<Prose>{"Suppose a convolution "}<InlineMath>{"z=Wx+b"}</InlineMath>{" is followed by BatchNorm using fixed evaluation statistics "}<InlineMath>{"\\mu,v"}</InlineMath>{" and learned "}<InlineMath>{"\\gamma,\\beta"}</InlineMath>{". Then"}</Prose>
+
+<div className="neural-equation"><MathBlock>{"\\operatorname{BN}(Wx+b)=\n\\left(\\frac{\\gamma}{\\sqrt{v+\\epsilon}}W\\right)x+\n\\left(\\frac{\\gamma(b-\\mu)}{\\sqrt{v+\\epsilon}}+\\beta\\right)."}</MathBlock></div>
+
+<Prose>{"Each output channel gets its own multiplier and bias. Fold each linear branch this way. Pad a smaller odd-sized kernel with zeros so its center aligns with the larger kernel; represent an identity path as a center coefficient 1 for corresponding input/output channels. Add the aligned kernels and biases."}</Prose>
+
+<Prose>{"This works only when the branches have compatible input/output shapes, stride, coordinate alignment and groups, and the normalization statistics are fixed. A shared activation "}<strong>{"after"}</strong>{" the summed branches can remain after the fused convolution. Separate nonlinear activations inside branches generally cannot be folded this way."}</Prose>
+
+<Prose>{"The author calculation folds a 3×3 branch, a 1×1 branch and identity on a 5×5 constructed input. Separate and fused outputs agree within "}<InlineMath>{"2.9\\times10^{-14}"}</InlineMath>{"; the center output is 111.049826. Moving separate ReLUs inside branches creates a different function. The supplied counterexample differs by more than 23 in one output. These are exact-function checks, not latency benchmarks."}</Prose>
+
+<Prose>{"Large-kernel models such as "}<a href={"https://arxiv.org/pdf/2203.06717"}>{"RepLKNet"}</a>{" use this idea to aid training while retaining a large spatial filter at inference. Its main blocks use a parallel 5×5 branch with the large kernel. "}<a href={"https://arxiv.org/pdf/2206.04040"}>{"MobileOne"}</a>{" applies related deployment-oriented reasoning to small blocks. A 31×31 depthwise kernel reads a broader dense stencil, but its coefficients remain shared learned values; they are not automatically input-dependent attention weights."}</Prose>
+
+<ConvNeXtFusionLab />
+
+<H3>{"When a hybrid is a useful hypothesis"}</H3>
+
+<Prose>{"Attention forms a weighted sum of value vectors, with weights obtained from the current input and query. Convolution uses a learned spatial stencil shared across inputs. Both can mix spatial evidence, but attention layers also include channel projections, and their complete block topology differs from a ConvNeXt block."}</Prose>
+
+<Prose>{"A hybrid can use local convolution where the grid is large and more global input-dependent interactions after the grid has shrunk. "}<a href={"https://arxiv.org/pdf/2106.04803"}>{"CoAtNet"}</a>{" studies such stage arrangements. "}<a href={"https://arxiv.org/pdf/2204.01697"}>{"MaxViT"}</a>{" alternates local block attention with a sparse grid arrangement that connects distant positions. These are concrete choices about which positions communicate, not evidence that adding attention anywhere must help."}</Prose>
+
+<Prose>{"For a factory-defect application, local texture may matter alongside long-range alignment between repeated parts. A ConvNeXt feature hierarchy, a larger convolutional receptive field and a hybrid interaction pattern are competing hypotheses. Split by production unit or scene when multiple images share an origin, establish a simple baseline, then examine the errors that distinguish those hypotheses. A smaller-input label classifier and a high-resolution localization system need different evaluation and memory budgets."}</Prose>
+
+<Prose>{"The later attention and vision-transformer lessons develop the weighted-sum mechanism in full. Here the useful connection is to ask "}<strong>{"which evidence can reach this output, through which operation, at what resolution and cost?"}</strong>{""}</Prose>
+
+<H2>{"Match the block you built to the maintained implementation"}</H2>
+
+<Prose>{"The complete "}<a href={"/learn-assets/convnext-modern-cnn-designs/convnext-blocks.py"}>{"convnext-blocks.py"}</a>{" implements both V1 and V2 block/stage/head composition. It exposes spatial filtering, NHWC normalization, expansion, GELU, V2 response normalization or V1 LayerScale, projection, per-example branch masking and residual addition. "}<code>{"masked-reconstruction.py"}</code>{" supplies the task-specific model, loss and actual learning loop. Those are the scratch mechanisms at this topic's level; convolution indexing, loss derivatives and autograd already have named earlier owners."}</Prose>
+
+<Prose>{"The new "}<a href={"/learn-assets/convnext-modern-cnn-designs/convnext_library_bridge.py"}>{"convnext_library_bridge.py"}</a>{" connects the V1 block to Torchvision's "}<code>{"CNBlock"}</code>{". It copies the depthwise convolution, LayerNorm, two linear maps and channel scale before comparing anything. Torchvision stores LayerScale as "}<code>{"[C,1,1]"}</code>{"; our NHWC branch uses "}<code>{"[C]"}</code>{". The values mean the same per-channel factor only after this layout mapping. Both paths disable stochastic depth for the equality check, use float64, and compare outputs, input gradients and every trainable gradient on a rectangular5×7 map. Random masks or mismatched normalization axes would make an otherwise plausible comparison invalid."}</Prose>
+
+<Prose>Run <code>python convnext_library_bridge.py</code> beside <code>convnext-blocks.py</code> with compatible PyTorch/Torchvision. The offline comparison was executed with PyTorch2.14.0+cpu and Torchvision0.29.0: V1 outputs, input gradients and all trainable gradients agree under the program’s1e−12 absolute/relative tolerances. It deliberately targets V1: Torchvision’s <code>CNBlock</code> does not become V2 merely because both are called ConvNeXt. The local <code>ResponseNorm</code> exposes the complete V2 operation, independently differentiated and checked against central differences. <a href="https://github.com/pytorch/vision/blob/v0.29.0/torchvision/models/convnext.py">Torchvision block source</a>.</Prose>
+
+<Prose>{"The same program accepts "}<code>{"--image example.jpg"}</code>{". It selects "}<code>{"ConvNeXt_Tiny_Weights.IMAGENET1K_V1"}</code>{", applies that enum's RGB transform and reads category labels from its metadata. It downloads that checkpoint if absent, runs eval/inference mode, and reports a real photograph's top-five probabilities. This ordinary application is separate from the masked-digit training experiment, and has no prepared accuracy claim. Pillow and a local image are explicit inputs. Feature adaptation follows the implemented "}<a href={"/learn/path/full-curriculum/transfer-learning-fine-tuning-strategies#transfer-section-3"}>{"Transfer Learning section3"}</a>{"; the imported model's training recipe is not re-created by this inference call."}</Prose>
+
+<ConvNeXtProgram file="convnext_library_bridge.py" title="Read the matched-state library bridge and optional pretrained photograph route" /><Prose>The offline matched-state bridge was executed. The optional photograph route was not executed: it requires a learner-supplied image and the specified external checkpoint. Its complete source shows the ordinary transform/metadata/inference contract without assigning it an unmeasured accuracy.</Prose>
+
+<Prose>{""}<strong>{"Modify the block deliberately:"}</strong>{" change expansion4 to expansion2 in the local block, retaining the depthwise width and residual output width. Rebuild both linear layers and, for V2, the response-normalization parameter vectors at2C. The pointwise matrix weights fall from8C² to4C²; depthwise weights stay49C. The original Torchvision block then ceases to be a direct same-shape counterpart, so compare your modified block to a separately assembled reference with the new dimensions rather than weakening the old assertions."}</Prose>
+
+<details>
+
+<summary>Hint</summary>
+
+<Prose>{"The hidden width belongs to every operation between expansion and projection, not only the first Linear."}</Prose>
+
+</details>
+
+<details>
+
+<summary>Solution and success criteria</summary>
+
+<Prose>{"At C8 use "}<code>{"Linear(8,16)"}</code>{", a16-channel GRN if V2, then "}<code>{"Linear(16,8)"}</code>{". Preserve the output shape, test finite input/weight gradients, and check that zero LayerScale or zero projection still gives the expected residual identity. The pointwise weights total256 instead of512; include biases separately. A256-weight saving is an arithmetic result, not proof of better validation accuracy or latency."}</Prose>
+
+</details>
+
+<H2>{"8. Practice: reason about a changed design"}</H2>
+
+<H3>{"1. Catch a shape-correct normalization error"}</H3>
+
+<Prose>{"A tensor has shape "}<InlineMath>{"N,32,7,32"}</InlineMath>{". Someone applies "}<code>{"nn.LayerNorm(32)"}</code>{" directly and says it normalizes channels. Explain what it actually does and give a correct channel-normalization route."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"LayerNorm matches its normalized shape to the trailing dimensions; equal dimension sizes can conceal the wrong axis."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"It normalizes the final width axis of length 32, independently for each specimen/channel/row. Permute to "}<InlineMath>{"N,7,32,32"}</InlineMath>{" with the original channel axis last, apply LayerNorm(32), and permute back. Name the axes explicitly: both trailing dimensions happen to be 32 after the permutation, so shape inspection alone is insufficient. The unchanged intended output shape does not prove the operation is correct."}</Prose>
+
+</details>
+
+<H3>{"2. Change the expansion and count what changed"}</H3>
+
+<Prose>{"Use a 5×5 depthwise kernel, input/output width 64 and expansion factor 3 in a V1-style block. Include all biases, channel LayerNorm and LayerScale. How many parameters and convolution/linear MACs does the block use on a 14×14 grid?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Write the two pointwise matrices and their different bias lengths before adding the small vectors."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Depthwise has "}<InlineMath>{"25C+C"}</InlineMath>{"; LayerNorm "}<InlineMath>{"2C"}</InlineMath>{"; the two linear layers "}<InlineMath>{"3C^2+3C"}</InlineMath>{" and "}<InlineMath>{"3C^2+C"}</InlineMath>{"; LayerScale "}<InlineMath>{"C"}</InlineMath>{". Total "}<InlineMath>{"6C^2+33C=26,688"}</InlineMath>{". Conv/linear MACs are "}<InlineMath>{"196(25\\cdot64+6\\cdot64^2)=5,130,496"}</InlineMath>{". Normalization, activations and additions are excluded from that declared operation count."}</Prose>
+
+</details>
+
+<H3>{"3. Predict a cross-channel effect"}</H3>
+
+<Prose>{"For the GRN example, keep "}<InlineMath>{"\\gamma_A=.5"}</InlineMath>{", set "}<InlineMath>{"\\gamma_B=0"}</InlineMath>{", and change B's second value 12→24. Does A's first output rise or fall? Does setting both scales to zero make the statistics stop changing?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"A's norm stays 5; the denominator compares it with B's new norm 24."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"A's relative response becomes "}<InlineMath>{"5/(14.5+\\epsilon)"}</InlineMath>{", smaller than before, so its first output falls to approximately "}<InlineMath>{"3(1+.5\\cdot5/14.5)=3.517241"}</InlineMath>{". Zero scales remove the response-dependent contribution from the output; the norms still change internally. GRN's identity initialization and its statistic computation are different facts."}</Prose>
+
+</details>
+
+<H3>{"4. Diagnose suspiciously good reconstruction"}</H3>
+
+<Prose>{"The encoder masks pixel values, but first subtracts each full image's mean, calculated using visible and hidden pixels. A hidden-pixel edit changes the model's prediction. Is this necessarily a defect in the convolution code? Propose a repair and a direct check."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Ask whether the original hidden value can reach a visible input through preprocessing."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The full-image mean carries hidden information into the centered visible pixels. The convolution can be implemented correctly while the input contract leaks. Use a fixed permitted scale, training-set statistics learned without the evaluated image, or a clearly specified visible-only statistic. Change one hidden target while holding mask and visible values fixed; predictions should stay unchanged under the repaired contract. The hidden-target loss can still change. Target-only patch normalization is a separate path and must not be reused to normalize the encoder input."}</Prose>
+
+</details>
+
+<H3>{"5. Choose the conclusion supported by the experiment"}</H3>
+
+<Prose>{"A colleague reports, “GRN learns more diverse channels, therefore it improves digit recognition and should replace the raw baseline.” Use the saved outcomes to rewrite the conclusion and name one additional experiment that would answer a genuinely missing question."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Compare paired reconstruction results, paired diversity results and the raw-pixel classifier separately."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"On this development split the GRN variants' probes get 116/120 versus 115/120, while the raw-pixel probe gets 118/120. GRN does not increase the measured diversity in all seeds and does not improve masked MSE in seed 1. This supports a small paired probe difference in this setting, not the proposed causal explanation or replacement decision. For a pretraining question, predeclare matched random-encoder and pretrained-encoder probes with the same architecture and label budget. For a deployment choice, select using development data and evaluate once on a new appropriately grouped final set."}</Prose>
+
+</details>
+
+<H3>{"6. Check a branch-fusion boundary"}</H3>
+
+<Prose>{"For scalar input "}<InlineMath>{"x=-2"}</InlineMath>{", compare "}<InlineMath>{"\\operatorname{ReLU}(x)+\\operatorname{ReLU}(-x)"}</InlineMath>{" with "}<InlineMath>{"\\operatorname{ReLU}(x-x)"}</InlineMath>{". Can the separate branch activations be removed while preserving the function?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Apply each activation before summing in the first expression."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The first gives "}<InlineMath>{"0+2=2"}</InlineMath>{"; the second gives 0. Linear branch kernels can be added only where the intermediate operations permit the algebra. Keeping one shared activation after an equivalent linear sum is valid; replacing separate nonlinear branches with that shared activation is a different model."}</Prose>
+
+</details>
+
+<H3>{"7. Budget a finer stem"}</H3>
+
+<Prose>{"Replace a 4×4 stride 4 stem with a 2×2 stride 2 stem on 224×224 inputs while keeping all later stage widths and depths unchanged. What happens to the first grid, the block MACs and the head's parameter count?"}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Track spatial area through the later stride 2 transitions. The classification head receives an averaged channel vector."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"The first grid becomes 112×112 instead of 56×56. Every corresponding later grid has twice the side length, so block conv/linear MACs and transition MACs become four times larger. Stem MACs happen to remain equal here: four times as many outputs each use one quarter as many spatial weights. Stem parameters fall, but the global-average-pooling classifier's input width and head parameter count stay unchanged. Activation memory also grows; accuracy and latency cannot be deduced from this count alone."}</Prose>
+
+</details>
+
+<H3>{"8. Design an informative masked-learning extension"}</H3>
+
+<Prose>{"You have 20 labeled specimens per class and many unlabeled images from repeated capture sessions. Propose a comparison to ask whether masked pretraining helps when labels are scarce. Include the split unit, baseline, preprocessing, model comparison and final evaluation."}</Prose>
+
+<details><summary>Hint</summary>
+
+<Prose>{"Unlabeled access is still access to data. Keep the question of representation learning separate from the number of labels used by the readout."}</Prose>
+
+</details>
+
+<details><summary>Solution</summary>
+
+<Prose>{"Split capture sessions before training so related views do not cross partitions. Restrict both supervised and unlabeled pretraining inputs to training sessions. Fix the same labeled subset and feature-readout recipe for raw pixels, a random frozen encoder and the pretrained frozen encoder; optionally add a separately declared end-to-end supervised model. Fit preprocessing on training data, select any settings on development sessions, and report the chosen protocol once on held-out sessions. Record reconstruction and downstream task outcomes separately and repeat paired seeds. Do not call extra unlabeled access “the same data budget” unless that is explicitly the question."}</Prose>
+
+</details>
+
+<H2>{"9. Readiness, connections and other ways to learn"}</H2>
+
+<Prose>{"You are ready to move on when you can explain a block using spatial and channel operations, mark the inputs used by each normalization statistic, trace a masked target without leaking it into the encoder, and state what the actual experiment demonstrates. Memorizing every model size or reproducing ImageNet training is not required."}</Prose>
+
+<Prose>{"Next in this module is "}<a href={"/learn/path/full-curriculum/capsule-networks?module=deep-learning-fundamentals"}>{"Capsule Networks"}</a>{". It asks a different representation question: instead of only scalar feature activations, can groups of values represent a part's properties and help parts agree on a whole? ConvNeXt does not become obsolete at that transition; the proposed inductive bias changes."}</Prose>
+
+<Prose>{"Useful routes through the references:"}</Prose>
+
+<ul><li>{""}<a href={"https://github.com/facebookresearch/ConvNeXt/blob/main/models/convnext.py"}>{"Official ConvNeXt source"}</a>{": inspect the block, channel-first LayerNorm, stage transitions and initialization after working through §§2–3. Code reading is particularly useful for distinguishing logical axes from the diagram."}</li><li>{""}<a href={"https://arxiv.org/pdf/2201.03545"}>{"ConvNeXt V1 paper"}</a>{": read §2 as an experiment-design argument, then compare the small-regime roadmap in Appendix C with the final result table. The roadmap's roughly 82.0% average and final 82.1% checkpoint report are different records."}</li><li>{""}<a href={"https://arxiv.org/pdf/2301.00808"}>{"ConvNeXt V2 paper"}</a>{" and "}<a href={"https://cvpr.thecvf.com/media/cvpr-2023/Slides/22892_lw8881R.pdf"}>{"authors' CVPR slides"}</a>{": the paper supplies the mask/GRN details; the slides offer a visual second pass through masking, feature maps and co-design. Their full-scale experiments differ from our bounded dense-masked probe experiment."}</li><li>{""}<a href={"https://docs.pytorch.org/tutorials/intermediate/memory_format_tutorial.html"}>{"PyTorch channels-last tutorial"}</a>{": a hands-on storage-stride explanation. Its hardware results belong to the measured configurations; use the concepts to inspect your own workload."}</li><li>{""}<a href={"https://en.d2l.ai/chapter_convolutional-modern/cnn-design.html"}>{"Dive into Deep Learning: Designing Convolution Network Architectures"}</a>{": study the AnyNet→RegNet design-space argument as an alternative to memorizing model families. The chapter's broader historical rankings are time-specific; its distribution-of-designs perspective is the useful complement here."}</li><li>{""}<a href={"https://arxiv.org/pdf/2203.06717"}>{"RepLKNet"}</a>{", "}<a href={"https://arxiv.org/pdf/2206.04040"}>{"MobileOne"}</a>{", "}<a href={"https://arxiv.org/pdf/2106.04803"}>{"CoAtNet"}</a>{" and "}<a href={"https://arxiv.org/pdf/2204.01697"}>{"MaxViT"}</a>{": optional mechanism-focused extensions for large kernels, inference-time branch folding, stage ordering and local/global communication. Read the ablation conditions before generalizing a result."}</li></ul>
+
+<Prose>All local experimental numbers come from the accompanying programs and retained results. Read the <a href={convnextAsset+"data-provenance.md"}>dataset provenance</a> and <a href={convnextAsset+"native-verification.json"}>current native verification record</a> for execution boundaries. The six original fits are conserved, with fresh native reconstruction and independent browser-model comparisons; no ImageNet training, pretrained photograph run or hardware timing is claimed.</Prose>
+</div>
 };
-
-export default convnextModernContent;

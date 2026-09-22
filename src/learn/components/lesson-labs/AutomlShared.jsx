@@ -1,18 +1,8 @@
+import { useLiveInvestigation, useLiveResult, useLiveStages } from './LiveInvestigationState.js';
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './automl-labs.css';
 
-/** Shared controls for the AutoML & NAS investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. A result is always computed from the
- * draft at the moment of committing, so a prediction is graded against the
- * inputs it was recorded with and never against whatever is on screen later.
- * Any relevant edit retires the recorded prediction and hides its feedback.
- *
- * Nothing is revealed on first paint: the answer panel of every investigation
- * is mounted only once a prediction has been committed, and a suggested setup
- * fills the input fields without applying them or selecting an outcome.
- */
+
 
 /** Every printed number uses a typographic minus sign, matching the prose. */
 const sign = text => text.replace('-', '−');
@@ -176,147 +166,26 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
   </figure>;
 }
 
-/** Draft inputs, unset commitments, and one action that commits them together.
- *
- * `describeKey` turns the active inputs into a string, so a recorded result can
- * never be shown beside inputs it was not computed from. `previous` is the state
- * the commit replaced, which is what a direction-of-change prediction is graded
- * against.
- */
-export function useInvestigation(initial, describeKey = JSON.stringify, initialDraft = initial) {
-  // `initialDraft` lets an investigation open with a proposed change already in
-  // the fields, so its first question is a real one. The replay opens with two
-  // candidates revealed and three proposed, which is the comparison the prose
-  // walks through; opening with both equal would make the first answer "nothing
-  // changes".
-  const [draft, setDraft] = useState(initialDraft);
-  const [active, setActive] = useState(initial);
-  const [previous, setPrevious] = useState(initial);
-  const [choice, setChoice] = useState('');
-  const [guess, setGuess] = useState('');
-  const [reason, setReason] = useState('');
-  const [result, setResult] = useState(null);
-  const [history, setHistory] = useState([]);
-  const pending = describeKey(draft) !== describeKey(active);
-  const retire = () => { setResult(null); setChoice(''); setGuess(''); };
-  return {
-    draft, active, previous, choice, setChoice, guess, setGuess, reason, setReason, result, pending, history,
-    /** Any relevant edit retires the commitment and conceals stale feedback. */
-    edit: update => {
-      setDraft(previousDraft => ({
-        ...previousDraft,
-        ...(typeof update === 'function' ? update(previousDraft) : update),
-      }));
-      retire();
-    },
-    /** Commit the draft and record the prediction against it. */
-    check: answerFor => {
-      const record = {
-        key: describeKey(draft), previousKey: describeKey(active),
-        choice, guess, reason, answer: answerFor(draft, active),
-      };
-      setPrevious(active);
-      setActive(draft);
-      setResult(record);
-      setHistory(entries => [...entries, { key: record.key, choice, outcome: record.answer.outcome }]);
-    },
-    reset: () => {
-      setDraft(initialDraft); setActive(initial); setPrevious(initial);
-      setChoice(''); setGuess(''); setReason(''); setResult(null); setHistory([]);
-    },
-    /** Replace the whole declared setup, which also retires the prediction. */
-    load: inputs => {
-      setDraft(inputs); setActive(inputs); setPrevious(inputs);
-      setChoice(''); setGuess(''); setReason(''); setResult(null);
-    },
-    /** Fill the draft from a suggested setup without applying or grading it. */
-    suggest: inputs => { setDraft(inputs); retire(); },
-  };
-}
 
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="am-field am-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
-}
+export const useInvestigation = useLiveInvestigation;
 
-/** A radio group that starts with nothing selected, optionally a second numeric
- * commitment, and one action that commits both.
- *
- * There is deliberately no way to reach the answer without recording a
- * prediction: the contract requires one before Apply. Suggested setups fill
- * inputs, never the outcome. */
-export function Prediction({
-  prompt, options, state, answerFor, describe, numeric, committed, blocked,
-  applyLabel = 'Apply and check',
-}) {
-  const name = useId();
-  const numericId = useId();
-  const label = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown && shown.choice === shown.answer.outcome;
-  const guessed = shown && numeric && shown.guess !== ''
-    ? Math.abs(Number(shown.guess) - shown.answer.value) <= numeric.tolerance + 4 * Number.EPSILON * Math.max(1, Math.abs(Number(shown.guess)), Math.abs(shown.answer.value))
-    : null;
-  const ready = !blocked && state.choice !== ''
-    && (!numeric?.required || (state.guess.trim() !== '' && Number.isFinite(Number(state.guess))));
-  return <div className="am-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="am-choices">
-        {options.map(([value, text]) => (
-          <label className="am-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-      {numeric && <label className="am-field am-numeric-guess" htmlFor={numericId}>
-        <span>{numeric.label}</span>
-        <span>Answers within {numeric.tolerance} are accepted.</span>
-        <input id={numericId} type="number" inputMode="decimal" step="any" value={state.guess} disabled={Boolean(shown)}
-          placeholder={numeric.placeholder ?? 'your number'} onChange={event => state.setGuess(event.target.value)} />
-      </label>}
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && !shown && <p className="am-pending" role="status">
-      Draft inputs differ from the applied ones. The calculation below will use the values now in the fields, and the
-      comparison will be against the state currently applied.
-    </p>}
-    {blocked && <p className="am-pending" role="status">{blocked}</p>}
-    <div className="am-buttons">
-      <button type="button" className="is-primary" disabled={!ready || Boolean(shown)} onClick={() => state.check(answerFor)}>{applyLabel}</button>
-      {!shown && <span>The answer appears once a prediction is recorded. Reset, or edit an input, to try another setup.</span>}
-    </div>
-    {committed && shown && <p className="am-caption">Graded against the committed state: {committed(shown)}</p>}
-    {shown?.reason && <p className="am-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && <p className={`am-verdict ${correct ? '' : 'is-miss'}`} role="status">
-      <span className="am-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-      {correct
-        ? `Your prediction matches: ${label(shown.answer.outcome)}.`
-        : `You recorded ${label(shown.choice)}; the calculation gives ${label(shown.answer.outcome)}.`}
-      {numeric && shown.guess !== '' && ` You wrote ${shown.guess} for ${numeric.name}; the calculation gives ${round(shown.answer.value, numeric.digits ?? 6)}, ${guessed ? `within ${numeric.tolerance}` : `outside ${numeric.tolerance}`}.`}
-      {describe ? ` ${describe}` : ''}
-    </p>}
+
+
+
+
+export function LiveResult({ state, calculateInputs, blocked, describe }) {
+  const problem = useLiveResult(state, calculateInputs, blocked);
+  return <div data-live-exploration="result">
+    {problem ? <p role="status">{problem} The plots retain the last valid calculation; correct the inputs to update them.</p>
+      : <p role="status">Live calculation for the current controls. {describe}</p>}
+    <button type="button" disabled={Boolean(problem) || !state.result} onClick={state.snapshot}>Use current values as comparison baseline</button>
   </div>;
 }
 
 /** Earlier attempts, kept as history and never as the answer to edited inputs. */
-export function Attempts({ entries, label = 'Earlier attempts in this session' }) {
-  if (entries.length < 2) return null;
-  return <details className="am-history">
-    <summary>{label} ({entries.length})</summary>
-    <ol>{entries.map((entry, index) => <li key={index}>
-      <code>{entry.key}</code> — you chose <b>{entry.choice}</b>, the calculation gave <b>{entry.outcome}</b>.
-    </li>)}</ol>
-    <p className="am-caption">These belong to the inputs they were recorded with. They are not answers to the inputs on screen now.</p>
-  </details>;
+export function Attempts({ entries, label = 'Saved comparison snapshots' }) {
+  if (!entries.length) return null;
+  return <details><summary>{label} ({entries.length})</summary><ol>{entries.map((entry, index) => <li key={index}><code>{entry.key}</code></li>)}</ol></details>;
 }
 
 /** A framed plot with one shared scale for everything drawn on it. */

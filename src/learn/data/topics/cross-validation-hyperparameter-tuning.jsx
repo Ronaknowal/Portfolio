@@ -55,8 +55,7 @@ const crossValidationContent = {
       A model can improve its score by learning the subject, or by becoming unusually well adapted to the examples we use to judge it. Those are
       different kinds of progress. Cross-validation gives each observation a turn as held-out evidence; hyperparameter tuning uses such evidence
       to choose a learning procedure. This lesson combines them by deciding, every time, <strong>what is being chosen, what is being assessed,
-      and which information each decision is allowed to use</strong>. Four investigations ask for a prediction before they compute anything, and
-      retire that prediction the moment an input changes.
+      and which information each decision is allowed to use</strong>. Four investigations show how each valid change reaches the fitted model, score and information flow immediately.
     </LessonIntro>
     <Prose className="cv-route">
       <strong>First pass.</strong> Read sections 1–6 and try core practice questions 1–6, doing the fold-building, candidate-selection and

@@ -82,7 +82,7 @@ export function CurvatureGeometryLab() {
     return state.rotation.map(row => row[0] * local[0] + row[1] * local[1]);
   }));
   const current = state.frames[step];
-  return <section className="second-order-lab" aria-label="Curvature and update geometry"><h3>Cross the valley, then travel along it</h3><p>Predict which coordinate will settle first. Rotate the valley: does dividing each raw coordinate by its diagonal entry still describe Newton?</p>
+  return <section className="second-order-lab" aria-label="Curvature and update geometry"><h3>Cross the valley, then travel along it</h3><p>Inspect which coordinate will settle first. Rotate the valley: does dividing each raw coordinate by its diagonal entry still describe Newton?</p>
     <div className="second-order-controls"><Range label="Steep curvature" value={curvature} minimum={2} maximum={200} step={2} onChange={value => {
         setCurvature(value);
         setStep(0);
@@ -107,7 +107,7 @@ export function NewtonSafeguardLab() {
   const [x, setX] = useState(0.2);
   const [damping, setDamping] = useState(1.2);
   const state = useMemo(() => safeguardedNewtonState(x, damping), [x, damping]);
-  return <section className="second-order-lab" aria-label="Newton direction and step acceptance"><h3>A useful direction still needs a step check</h3><p>Start at (x,.5). Damping changes the direction; backtracking changes how far to follow it. Predict why the positive-curvature near-flat example needs a shorter step.</p>
+  return <section className="second-order-lab" aria-label="Newton direction and step acceptance"><h3>A useful direction still needs a step check</h3><p>Start at (x,.5). Damping changes the direction; backtracking changes how far to follow it. Investigate why the positive-curvature near-flat example needs a shorter step.</p>
     <div className="second-order-actions"><button type="button" onClick={() => {
         setX(0.2);
         setDamping(0);
@@ -148,7 +148,7 @@ export function LimitedMemoryLab() {
   const state = useMemo(() => lbfgsHistoryTrace(memory, scaled, badPair), [memory, scaled, badPair]);
   const currentStep = Math.min(step, state.frames.length - 1);
   const current = state.frames[currentStep];
-  return <section className="second-order-lab" aria-label="L-BFGS history and two-loop recursion"><h3>Spend memory on observed changes</h3><p>These pairs came from H=[[4,1],[1,2]]. The current gradient is (3,1). Predict whether retaining only the latest direction identifies the inverse action on this different gradient.</p>
+  return <section className="second-order-lab" aria-label="L-BFGS history and two-loop recursion"><h3>Spend memory on observed changes</h3><p>These pairs came from H=[[4,1],[1,2]]. The current gradient is (3,1). Inspect whether retaining only the latest direction identifies the inverse action on this different gradient.</p>
     <Range label="Retained history budget" value={memory} minimum={0} maximum={3} onChange={value => {
       setMemory(value);
       setStep(0);
@@ -178,7 +178,7 @@ export function NaturalGradientLab() {
   const [fraction, setFraction] = useState(0.25);
   const state = useMemo(() => bernoulliGeometry(probability, 0.8, fraction), [probability, fraction]);
   const distributions = [['Before', probability], ['Direct probability update', state.directNext], ['Logit update mapped back', state.logitNext]];
-  return <section className="second-order-lab" aria-label="Natural gradient probability geometry"><h3>Same tangent, different finite endpoints</h3><p>The observations have target success fraction .8. Predict how closely the two coordinate updates agree when you shrink the step fraction.</p><div className="second-order-controls"><Range label="Starting success probability" value={probability} minimum={0.05} maximum={0.95} step={0.05} onChange={setProbability} /><Range label="Natural step fraction" value={fraction} minimum={0.01} maximum={1} step={0.01} onChange={setFraction} /></div>
+  return <section className="second-order-lab" aria-label="Natural gradient probability geometry"><h3>Same tangent, different finite endpoints</h3><p>The observations have target success fraction .8. Explore how closely the two coordinate updates agree when you shrink the step fraction.</p><div className="second-order-controls"><Range label="Starting success probability" value={probability} minimum={0.05} maximum={0.95} step={0.05} onChange={setProbability} /><Range label="Natural step fraction" value={fraction} minimum={0.01} maximum={1} step={0.01} onChange={setFraction} /></div>
     <div className="second-order-probabilities">{distributions.map(([label, value]) => <div key={label}><strong>{label}: p={formatProbability(value)}</strong><div className="second-order-probability-bar" role="img" aria-label={`${label}: success probability ${formatProbability(value)}, failure probability ${formatProbability(1 - value)}`}><span style={{
             width: `${100 * value}%`
           }} /><span style={{
@@ -208,7 +208,7 @@ export function FisherFactorLab() {
   const state = useMemo(() => kfacFactorState(strength, damping), [strength, damping]);
   const displayed = view === 'exact' ? state.exactFisher : view === 'factored' ? state.factoredFisher : state.difference;
   const maximum = Math.max(...state.exactFisher.flat().map(Math.abs), ...state.factoredFisher.flat().map(Math.abs));
-  return <section className="second-order-lab" aria-label="K-FAC expectation factorization"><h3>What changes when an expectation is split?</h3><p>Two inputs, (1,−1) and (1,2), are equally likely. The first coordinate is a bias input. At zero layer strength both outputs have probability .5 for both inputs. Predict when the factorization error vanishes.</p><div className="second-order-controls"><Range label="Layer strength" value={strength} minimum={0} maximum={2} step={0.1} onChange={setStrength} /><Range label="Full diagonal damping" value={damping} minimum={0.01} maximum={1} step={0.01} onChange={setDamping} /></div>
+  return <section className="second-order-lab" aria-label="K-FAC expectation factorization"><h3>What changes when an expectation is split?</h3><p>Two inputs, (1,−1) and (1,2), are equally likely. The first coordinate is a bias input. At zero layer strength both outputs have probability .5 for both inputs. Explore when the factorization error vanishes.</p><div className="second-order-controls"><Range label="Layer strength" value={strength} minimum={0} maximum={2} step={0.1} onChange={setStrength} /><Range label="Full diagonal damping" value={damping} minimum={0.01} maximum={1} step={0.01} onChange={setDamping} /></div>
     <div className="second-order-factor-pair"><Matrix label="A = mean input outer product" matrix={state.inputFactor} /><Matrix label="S = mean model score covariance" matrix={state.outputFactor} /></div>
     <div className="second-order-field"><label htmlFor={id}>Inspect the 4×4 block</label><select id={id} value={view} onChange={event => setView(event.target.value)}><option value="exact">Exact Fisher: mean of Kronecker products</option><option value="factored">K-FAC: Kronecker product of means</option><option value="difference">K-FAC minus exact Fisher</option></select></div>
     <Matrix label={view === 'exact' ? 'Exact F' : view === 'factored' ? 'Approximation A ⊗ S' : 'Approximation error in the same cell scale'} matrix={displayed} scaleMaximum={maximum} columnLabels={['w₁₁', 'w₂₁', 'w₁₂', 'w₂₂']} rowLabels={['w₁₁', 'w₂₁', 'w₁₂', 'w₂₂']} />
@@ -228,7 +228,7 @@ export function ShampooMatrixLab() {
   const [rotation, setRotation] = useState(0);
   const state = useMemo(() => shampooMatrixState(updates, epsilon, rotation), [updates, epsilon, rotation]);
   const current = state.current;
-  return <section className="second-order-lab" aria-label="Shampoo matrix accumulation and inverse roots"><h3>Accumulate relationships across rows and columns</h3><p>Step through three fixed gradient matrices. Predict which off-diagonal relationships survive in each accumulator. Rotating row coordinates changes the representation; it should rotate the resulting direction in the same way.</p><div className="second-order-actions"><button type="button" disabled={updates === 1} onClick={() => setUpdates(value => value - 1)}>Previous gradient</button><button type="button" disabled={updates === 3} onClick={() => setUpdates(value => value + 1)}>Accumulate next gradient</button><button type="button" onClick={() => {
+  return <section className="second-order-lab" aria-label="Shampoo matrix accumulation and inverse roots"><h3>Accumulate relationships across rows and columns</h3><p>Step through three fixed gradient matrices. Inspect which off-diagonal relationships survive in each accumulator. Rotating row coordinates changes the representation; it should rotate the resulting direction in the same way.</p><div className="second-order-actions"><button type="button" disabled={updates === 1} onClick={() => setUpdates(value => value - 1)}>Previous gradient</button><button type="button" disabled={updates === 3} onClick={() => setUpdates(value => value + 1)}>Accumulate next gradient</button><button type="button" onClick={() => {
         setUpdates(1);
         setEpsilon(0.1);
         setRotation(0);

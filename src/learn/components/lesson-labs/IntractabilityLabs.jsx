@@ -41,7 +41,7 @@ export function CertificateLab() {
   }
   return <section className="intract-lab" aria-label="Certificate checker" data-lab="certificate">
     <h3>A certificate flows through the clauses</h3>
-    <p>Predict which clauses change when x3 becomes true. Each line is an OR; the final gate requires every line. The switches change one candidate, not the formula.</p>
+    <p>Inspect which clauses change when x3 becomes true. Each line is an OR; the final gate requires every line. The switches change one candidate, not the formula.</p>
     <div className="intract-switches">{assignment.map((value, index) => <button key={index} aria-pressed={value} aria-label={`Toggle x${index + 1}`} onClick={() => setAssignment(assignment.map((old, i) => i === index ? !old : old))}><strong>x{index + 1}</strong><span>{value ? 'True' : 'False'}</span></button>)}</div>
     <div className="intract-circuit">{evaluated.rows.map((row, index) => <div className="intract-clause" key={index}>
       <span className="intract-clause-name">C{index + 1}</span>

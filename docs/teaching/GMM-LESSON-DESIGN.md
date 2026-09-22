@@ -1,5 +1,14 @@
 # Gaussian Mixture Models & EM — content design and handoff
 
+## Current live-exploration contract — 21 September 2026
+
+This dated UX amendment supersedes earlier prediction-entry, grading, commit-to-reveal and prediction-retirement requirements in this document. There is no learner prediction feature, even optional. Historical evidence below records the earlier interface and remains history; it is not the current acceptance contract.
+
+Edit the measurement, mixing weight and variance and follow densities and responsibility shares immediately; edit observations or initial means to restart the current EM trace, then step E and M phases separately and step back; vary correlation and point positions beside a permanent zero-correlation reference. No learner answer precedes a calculation.
+
+Keep separate independent practice, model predictions, scientific validity checks and training/validation/held-out information boundaries. Meaningful valid control changes must reach the visible calculation and topic-specific diagram together. Natural algorithm Step/Back/Run actions remain where they expose a process; they must never require a learner guess. Reset restores a coherent initial state. A graph or number must not silently describe obsolete inputs; invalid inputs show an error and either clear invalid outputs or explicitly retain the last valid result. See [the current migration evidence](LIVE-EXPLORATION-CLASSICAL-EARLY.md) for implemented checks and limitations.
+
+
 **Visual-layout follow-up, 14 September 2026:** the user's screenshot exposed a collision between F2's left update and right-component heading. [The repair record](LESSON-VISUAL-LAYOUT-REVIEW.md) replaces that fixed text stack with wrapping HTML stages and equal-scale before/after strips that stack on phones. All allocation shares and fitted statistics are preserved. Mean-guide and covariance-label clearance were also repaired. A final independent review caught coincident lane names in the EM identical-components preset; a wrapping color/dash key now carries both names outside the plot. The current [browser verifier](evidence/gmm-browser.json) passes 14 cases, including five allocation widths, enlarged text, and all four EM presets before/after a full cycle at desktop/320px. Actual screenshots were inspected. This presentation repair leaves the prepared manuscript/specifications, examples and model unchanged and supersedes earlier selected-image claims for the affected visuals.
 
 Updated 12 September 2026. Canonical ID `gaussian-mixture-models-gmm-em-algorithm`; Classical ML position 16 of the declared module order. Title retained: **Gaussian Mixture Models (GMM) & EM Algorithm**. No broader title is needed for conditional prediction and sampling applications of the same model.

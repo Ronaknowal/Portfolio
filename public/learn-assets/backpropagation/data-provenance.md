@@ -1,0 +1,23 @@
+# Digits source used by the autodiff example
+
+The accompanying digits-400.csv is byte-identical to the Perceptrons packet's retained fixture and full provenance (reproduced below), SHA256 `a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672`.
+
+Source: E.Alpaydin and C.Kaynak,1998, [UCI Optical Recognition of Handwritten Digits](https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+), DOI[10.24432/C50P49](https://doi.org/10.24432/C50P49), [CC BY4.0](https://creativecommons.org/licenses/by/4.0/). License, source pixel construction and loader description were inspected12September2026.
+
+Selection: first40images of each class0…9 in scikit-learn1.9.1load_digits, concatenated by class,400rows. Added source_id=originalrow+1 and column namespixel_0…63,digit. Pixels are unmodified integer counts0…16 in row-major8×8order. Data measures digit images formed by block counts from handwritten source bitmaps. source_id is an identifier, never an input feature.
+
+This is a selected subset of the historical UCI test partition; the instructional split newly uses280train/120validation, stratifylabels andrandom_state22. It is not the original writer-separated benchmark, a new independent test, or evidence of unseen-writer generalization. The program divides by known pixel bound16; there is no learned preprocessing statistic or runtime dataset download.
+
+Copying this small input into the packet makes its download self-contained. Keep attribution and selection limitations with it on publication. XOR rows, gradient fixtures and finite-difference examples are constructed mathematical examples, not observations from this dataset.
+
+
+# Digits fixture provenance
+
+- Source: E.Alpaydin and C.Kaynak,1998, [Optical Recognition of Handwritten Digits](https://archive.ics.uci.edu/dataset/80/optical+recognition+of+handwritten+), UCI, DOI[10.24432/C50P49](https://doi.org/10.24432/C50P49). Source dataset page states [CC BY4.0](https://creativecommons.org/licenses/by/4.0/) and was inspected12September2026.
+- Distribution used: scikit-learn1.9.1 `load_digits()`,1797images, explicitly the historical UCI **test** partition. Our exercise repartitions a subset; it is not the original writer-separated benchmark. [Loader documentation](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_digits.html) and local DESCR were inspected.
+- Selection: for each label0…9, take the first40positions in source order with that label; concatenate these ten groups. These are actual observed images, not synthetic digits. Balanced selection uses labels and is not a random sample of the original collection. There are400rows, no missing data.
+- `source_id` is original zero-based load_digits row position plus1, for identification only. `pixel_0`…`pixel_63` contain unmodified integer counts0…16 in row-major8×8 order. `digit` is the actual label0…9. Pixel counts originate from4×4 blocks of32×32 binary bitmaps, not the display grayscale alone.
+- Transformations: subset selection; added stable source ID and descriptive column names; integer CSV serialization. No feature fitting or pixel modification. The program divides values by the known bound16. Train/validation split uses stratify=labels,random_state22,test_size120, giving28train/12validation per class. Every source ID is retained in digits-400.csv; the program reproduces the instructional split.
+- Size61,444bytes. SHA256 `a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672`.
+- The supplied CSV lets the lesson run offline after package installation. Carry this attribution and transformation record with downloadable data. No writer IDs are present in this fixture; do not claim writer-independent transfer.
+- Constructed Boolean examples, coefficient edits and activation curves are explicitly mathematical teaching fixtures, not UCI observations. Numerical outputs retain package versions in calculated-inputs.json.

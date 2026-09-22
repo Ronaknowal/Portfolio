@@ -1,5 +1,8 @@
 # Attention: Let Each Output Read the Input It Needs
 
+**Explore as you read.** Edit queries, keys/values, scorer parameters, padding validity, local-window placement and supported real source/prefix inputs. Synchronize scores, normalized weights, weighted values, context and decoder output; keep masked rows and missing legal donors explicit. Retain saved observations as records. The labs show current results as you work; you do not enter or submit a guess. Use those comparisons to choose or diagnose a scorer/read window from the dependencies it creates, without reading attention weight as a complete causal explanation.
+
+
 Suppose a spelling model receives `<past> lactate` and must produce `lactated`. It needs the beginning of the word while writing `lac`, the end while deciding what to append, and the request that specifies which form to make. A single summary can carry that information. Another design lets the writer consult a collection of input representations at every output step.
 
 **Attention is a learned rule for combining those representations according to the current question.** The question comes from the decoder's state; the model scores the available memories, turns scores into weights, and reads their weighted combination. The decoder then uses that read to help choose its next output.
@@ -68,7 +71,7 @@ The **context vector** \(c\) is the answer returned by this read. Every coordina
 
 **Visual: three weighted contributions.** Put the values on a two-dimensional plane and draw the context inside their triangle. Alongside it, show each signed contribution before adding them. A negative value coordinate is permitted even though attention weights are nonnegative. Keep the score bars, probability bars and value coordinates on separately labeled scales.
 
-**Investigation: edit the memory, then predict the read.** Start from a fresh query, choose a key or value coordinate to change, record which quantity should change, and reveal the calculation. A value-only edit leaves the attention distribution unchanged when keys and query are held fixed. It can nevertheless move the context and the output prediction. A key edit can alter all weights because they share the softmax denominator. Try both kinds of edit; the different causal paths are the point.
+**Investigation: edit the memory, then inspect the read.** Start from a fresh query and change a key or value coordinate. Watch the attention weights, context coordinates and output probabilities update together; compare them with the labeled original to see which path your edit affects. A value-only edit leaves the attention distribution unchanged when keys and query are held fixed. It can nevertheless move the context and the output prediction. A key edit can alter all weights because they share the softmax denominator. Try both kinds of edit; the different causal paths are the point.
 
 ### A surprisingly useless attention model
 
@@ -190,7 +193,7 @@ Each source here includes a request token and EOS, so there is always a valid me
 
 Target padding has a separate role. For the reference `cared<EOS>`, teacher-forced decoder inputs are `<BOS>cared`. Cross-entropy scores each next target, ignores padded target cells, and averages over the remaining target tokens. Source EOS is a memory; target EOS is a predicted stopping decision. BOS and request tokens are not valid generated outputs in this task.
 
-**Investigation: repair a padded read.** Extend a short source with extra storage cells. At the selected output step, predict how much attention those cells should receive and whether the context changes. Compare correct masking with allowing the added zero memories into softmax. Inspect both the stolen attention mass and downstream probabilities. Then edit an actual source character: that is a real input change and should rebuild encoder memory and projected keys.
+**Investigation: repair a padded read.** Extend a short source with extra storage cells. At the selected output step, inspect how much attention those cells should receive and whether the context changes. Compare correct masking with allowing the added zero memories into softmax. Inspect both the stolen attention mass and downstream probabilities. Then edit an actual source character: that is a real input change and should rebuild encoder memory and projected keys.
 
 A source edit invalidates its cache. A decoder-prefix edit can reuse source memory but must recompute the affected decoder suffix. Renaming a display label changes neither.
 
@@ -587,9 +590,23 @@ v_1=(1,0),\quad v_2=(0,1),\quad v_3=(0.5,0.5).
 
 Both \(\alpha=(0.4,0.4,0.2)\) and \(\alpha'=(0.2,0.2,0.6)\) produce \(c=(0.5,0.5)\). Their heatmaps look different, but a downstream calculation receiving only this context and the same other inputs cannot distinguish them. These are valid softmax outcomes: scores equal to their log probabilities would produce them.
 
-**Investigation: test an alignment hypothesis.** On a fresh real spelling, record a prediction about an edited source character, a changed inflection request or a forced generated prefix. Recompute using the saved parameters and compare the actual alignment, context and next-output probabilities. Teacher-forced and generated-prefix rows must be labeled separately. A changed reference label used only for scoring must not change generation.
+**Investigation: test an alignment hypothesis.** On a fresh real spelling, Show the current computed result and its contributing terms immediately. Recompute using the saved parameters and compare the actual alignment, context and next-output probabilities. Teacher-forced and generated-prefix rows must be labeled separately. A changed reference label used only for scoring must not change generation.
 
 The masking investigation also has an instructive result: admitting extra zero memories can alter attention and probabilities while leaving the greedy word unchanged. A correct-looking word is not enough to prove the tensor computation is correct. Conversely, two different weights need not imply two different words. Inspect the quantity that your hypothesis actually concerns.
+
+## Implement the read, then compose it into ordinary training
+
+The complete [attentive-inflection.py](attentive-inflection.py) exposes additive and general scoring, source masks, normalized weighted reads and the decoder schedule. [attention-calculations.py](attention-calculations.py) opens the small numerical derivatives and local-window/copy calculations, while [attention-mechanics.py](attention-mechanics.py) reconstructs saved weights through NumPy and compares its trace with the native model. The scores, weights and context all remain learner-visible. The normal library route is this custom `nn.Module` composed with `nn.GRU`, embeddings, losses and optimizers; `nn.MultiheadAttention` is a different architecture and should not be presented as a drop-in Bahdanau decoder.
+
+The encoder's projected keys can be cached because the source and scorer parameters stay fixed during one decoding call. Cache them **after** the source mask has been paired with that source, and rebuild them after a parameter update or source edit. The decoder query changes every step. For a source of length S, target of length T and scoring width A, additive score/read work is O(TSA) up to input projection widths, with O(SA) cached projections per example. That is a useful avoided recomputation, not a claim to remove attention's source scan.
+
+For a research change, add a positive scoring temperature before masked softmax, not after the weighted sum. The same padding mask must still exclude invalid positions exactly; temperature does not legalize padding. With general scores `[0, log(3)]` and values `[2,10]`, temperature1 gives weights[0.25,0.75] and context8; temperature2 gives weights proportional to[1,√3] and context approximately7.0718. Smaller temperature sharpens competition but can make gradients and alignments less forgiving; it is not an accuracy guarantee.
+
+<details><summary>Implementation hint</summary>Divide scores by temperature, then apply the illegal-key mask before softmax. Reject a row with no legal source token.</details>
+
+<details><summary>Solution and success criteria</summary>Implement `weights = (scores / temperature).masked_fill(~valid, -inf).softmax(-1)` for strictly positive temperature. At temperature2, context is `(2 + 10*sqrt(3))/(1+sqrt(3)) ≈7.0718`. Recompute one output and its score gradient using the same saved source/query parameters in both NumPy and Torch. Append a large-valued masked source token and confirm it changes neither context nor output. Do not compare two different random fits and call that temperature-implementation parity.</details>
+
+The extended topics in the next section remain distinct: exact hard-monotonic alignment algorithms, a complete pointer-generator training system and location-sensitive speech models need their own objectives and datasets. The local copy-aggregation and normalized-window calculations are complete bounded mechanisms; they do not secretly claim those whole systems have been trained here.
 
 ## 8. Deeper branches: other reads and other tasks
 

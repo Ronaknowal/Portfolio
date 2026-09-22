@@ -62,7 +62,7 @@ export function PackedSetLab() {
   return <section className="bitwise-lab" id="packed-set-lab" aria-labelledby="packed-set-title">
     <p className="bitwise-kicker">ONE COLUMN · ONE MEMBERSHIP DECISION</p>
     <h3 id="packed-set-title">Can one integer answer a set query?</h3>
-    <p>Predict the shared members before choosing intersection. A lit cell means present; its label fixes which member it represents. Repeatedly adding a member would leave that bit at 1.</p>
+    <p>Inspect the shared members before choosing intersection. A lit cell means present; its label fixes which member it represents. Repeatedly adding a member would leave that bit at 1.</p>
     <div className="bitwise-controls">
       <label>Universe width<select aria-label="Universe width" value={width} onChange={event => {
           const nextWidth = Number(event.target.value);
@@ -99,7 +99,7 @@ export function WordInterpretationLab() {
   return <section className="bitwise-lab" id="word-interpretation-lab" aria-labelledby="word-interpretation-title">
     <p className="bitwise-kicker">SAME PATTERN · TWO VALUE CONTRACTS</p>
     <h3 id="word-interpretation-title">What does the highest bit mean?</h3>
-    <p>Toggle the highest bit. Predict how its contribution changes between unsigned and signed interpretation. Then follow each source position through a shift; “fill” means no source bit moved there.</p>
+    <p>Toggle the highest bit. Explore how its contribution changes between unsigned and signed interpretation. Then follow each source position through a shift; “fill” means no source bit moved there.</p>
     <div className="bitwise-controls">
       <label>Word width<select aria-label="Word width" value={width} onChange={event => {
           const nextWidth = Number(event.target.value);
@@ -173,7 +173,7 @@ export function XorParityLab() {
   return <section className="bitwise-lab" id="xor-parity-lab" aria-labelledby="xor-parity-title">
     <p className="bitwise-kicker">STREAM PREFIX · ODD OR EVEN CONTRIBUTIONS</p>
     <h3 id="xor-parity-title">What survives when matching events cancel?</h3>
-    <p>Predict the final accumulator before stepping. Try the triple-occurrence preset: a nonzero result alone does not prove that its value occurred exactly once.</p>
+    <p>Inspect the final accumulator as you step. Try the triple-occurrence preset: a nonzero result alone does not prove that its value occurred exactly once.</p>
     <label>Parity scenario<select aria-label="Parity scenario" value={preset} onChange={event => install(parityPresets[event.target.value], event.target.value)}>
       <option value="single">One singleton</option><option value="two">Two singletons</option>
       <option value="triple">Odd triple · no singleton</option><option value="absent">XOR result is absent</option>
@@ -206,7 +206,7 @@ export function SparseBitLab() {
   return <section className="bitwise-lab" id="sparse-bit-lab" aria-labelledby="sparse-bit-title">
     <p className="bitwise-kicker">BORROW ON SUBTRACTION · REMOVE ONE OCCUPIED PLACE</p>
     <h3 id="sparse-bit-title">Why does x AND (x − 1) remove exactly one bit?</h3>
-    <p>Build a byte, then predict which 1 disappears first. Compare subtraction with the final AND: borrowing also flips lower zeroes, but the AND prevents those new ones from surviving.</p>
+    <p>Build a byte and watch which 1 disappears at each step. Compare subtraction with the final AND: borrowing also flips lower zeroes, but the AND prevents those new ones from surviving.</p>
     <BitRow value={value} width={8} label="Start" onToggle={position => {
       setValue(toggleMember(value, 8, position));
       setStep(0);

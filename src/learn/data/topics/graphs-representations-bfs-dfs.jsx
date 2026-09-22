@@ -6,10 +6,11 @@ import GraphCloneFigure from '../../components/lesson-labs/GraphCloneFigure.jsx'
 import { graphTraversalExamples } from '../graph-traversal-examples.js';
 import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import graphPractice from '../practice/graphs-representations-bfs-dfs.js';
+import GraphTraversalLibraryBridge from '../../components/lesson-labs/GraphTraversalLibraryBridge.jsx';
 
 export default {
   title: 'Graphs: Representations, BFS & DFS',
-  readTime: '~50 min read + 2–3 hours practice',
+  readTime: '~60 min read + 2–3 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot graph-traversal-lesson">
     <LessonIntro prerequisites="Python lists, dictionaries, sets and references; queues and stacks from the earlier DSA lessons. Trees introduced branching and traversal. Set/edge notation and the needed correctness arguments are explained locally; the formal Sets, Logic, Relations & Proof Techniques topic supplies later depth."
@@ -81,11 +82,12 @@ export default {
     <Prose>For directed graphs, ordinary reachability is not symmetric. If A→B exists without B→A, B is reachable from A but A is not reachable from B. Running this undirected component-labeling routine on outgoing directed edges does not compute strongly connected components. A <strong>strongly connected component</strong> requires mutual reachability; a weak component ignores direction. State which question is intended before applying a component algorithm.</Prose>
     <Prose>For a graph that changes by adding edges and asks many “Are these vertices connected?” queries, recomputing all components after each addition can be wasteful. The next module topic, <a href="/learn/topic/disjoint-sets-union-find">Disjoint Sets & Union-Find</a>, maintains merging groups. It answers a different set of questions from recovering a BFS route or directed reachability.</Prose>
 
+    <GraphTraversalLibraryBridge />
     <H2>6. The graph can be hidden in a grid</H2>
     <H3>Vertices are cells; edges are permitted moves</H3>
     <Prose>A maze does not need a separately allocated graph node for every square. Let a vertex be an open coordinate (row, column), and let neighbors be open side-adjacent coordinates inside the grid. Four candidate coordinate changes generate the edges when needed. A wall removes a vertex from the traversable region. This model permits up, left, right and down; diagonal contact does not connect cells.</Prose>
     <GridWavefrontLab />
-    <Prose>Place or remove a wall and predict which distances change before rerunning. A detour can lengthen a route or make a cell unreachable. The numbers count moves, not straight-line distance: source (0, 0) has distance 0. Our example's target (4, 4) has shortest distance 8. Many equally short routes can exist; the parent map retains one under the declared neighbor order.</Prose>
+    <Prose>Place or remove a wall and rerun the traversal to inspect which distances change. A detour can lengthen a route or make a cell unreachable. The numbers count moves, not straight-line distance: source (0, 0) has distance 0. Our example's target (4, 4) has shortest distance 8. Many equally short routes can exist; the parent map retains one under the declared neighbor order.</Prose>
     <RunnableExample example={graphTraversalExamples.gridWavefront}><Prose>The grid is preserved. A distance of −1 means no distance was assigned; look at the original grid to distinguish a wall from an open but unreachable cell. The distance array and parent map require O(RC) state for R rows and C columns. Each cell generates at most four candidate moves, so full traversal is O(RC), including distance-array initialization. “Implicit” removes explicit edge storage, not search memory.</Prose></RunnableExample>
     <H3>Several sources can share one wavefront</H3>
     <Prose>Suppose you need each cell's distance to the nearest of several starting locations. Put <em>all</em> sources in the queue at distance 0 before processing any of them. The next layer contains cells one move from some source, then two moves from the nearest source, and so on. This <strong>multi-source BFS</strong> computes the minimum distance over sources in one traversal. A parent chain ends at the source that first reached that cell; a tie may be resolved either way.</Prose>

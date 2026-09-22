@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { affineFixtures, affineGradientState, calculusNumber as number, chainDerivatives, differenceCheck, differenceSteps, localApproximation } from '../../data/matrix-calculus-models.js';
 import './matrix-calculus-labs.css';
 const pair = values => '(' + values.map(number).join(', ') + ')';
@@ -88,6 +88,7 @@ export function JacobianMeaningFigure() {
     </figure>;
 }
 export function LocalJacobianLab() {
+  const controlsId = useId();
   const [input, setInput] = useState([2, 3]);
   const [directionKey, setDirectionKey] = useState('mixed');
   const [step, setStep] = useState(0.25);
@@ -108,9 +109,9 @@ export function LocalJacobianLab() {
     setStep(0.25);
   };
   return <Investigation id="local-jacobian" title="How far can the tangent prediction travel?">
-      <p>We move along x+t·v. Predict whether halving t halves the error, then compare t=0.25 and 0.125. Gold is actual Δf; dashed blue is tJv. Changing controls applies immediately. Both curves in each plot share axes; the two outputs can have different vertical ranges.</p>
+      <p>We move along x+t·v. Inspect whether halving t halves the error, then compare t=0.25 and 0.125. Gold is actual Δf; dashed blue is tJv. Changing controls applies immediately. Both curves in each plot share axes; the two outputs can have different vertical ranges.</p>
       <div className="calculus-controls">
-        {input.map((value, index) => <label key={index}>Base x{index + 1}<output>{number(value)}</output><input type="range" min="-3" max="3" step="0.5" value={value} onChange={event => setInput(input.map((entry, coordinate) => coordinate === index ? Number(event.target.value) : entry))} /></label>)}
+        {input.map((value, index) => <label key={index} htmlFor={`${controlsId}-base-${index}`}>Base x{index + 1}<output>{number(value)}</output><input id={`${controlsId}-base-${index}`} aria-label={`Base x${index + 1}`} type="range" min="-3" max="3" step="0.5" value={value} onChange={event => setInput(input.map((entry, coordinate) => coordinate === index ? Number(event.target.value) : entry))} /></label>)}
         <label>Direction v<select value={directionKey} onChange={event => setDirectionKey(event.target.value)}><option value="mixed">(1,−2): both inputs</option><option value="first">(1,0): first input only</option><option value="second">(0,1): second input only</option><option value="zero">(0,0): no movement</option></select></label>
         <label>Selected step t<select value={step} onChange={event => setStep(Number(event.target.value))}>{[-0.5, -0.25, 0, 0.01, 0.125, 0.25, 0.5].map(value => <option key={value} value={value}>{value}</option>)}</select></label>
       </div>
@@ -214,7 +215,7 @@ export function ChainRuleLab() {
     setStage(0);
   };
   return <Investigation id="chain-rule" title="Send a direction forward, or bring a gradient back">
-      <p>Fixed A=[[1,2],[−1,1]], then square each component. The weighted scalar L=q·z is a teaching objective, not necessarily a nonnegative training loss. The forward values are always visible. Predict the derivative at the next node before propagating it. Editing a control resets the derivative trace.</p>
+      <p>Fixed A=[[1,2],[−1,1]], then square each component. The weighted scalar L=q·z is a teaching objective, not necessarily a nonnegative training loss. The forward values are always visible. Inspect the derivative at the next node as you propagate it. Editing a control resets the derivative trace.</p>
       <div className="calculus-controls">
         <label>Question<select value={mode} onChange={event => {
           setMode(event.target.value);
@@ -312,7 +313,7 @@ export function FiniteDifferenceLab() {
   };
   const positiveErrors = key => rows.filter(row => row[key] > 0).map(row => [Math.log10(row.step), Math.log10(row[key])]).reverse();
   return <Investigation id="finite-difference" title="A smaller numerical step is not always a better check">
-      <p>Compare independent differences with the known derivative. These are actual JavaScript double-precision calculations, not illustrative error rankings. Predict what happens at |x| with x=0 before selecting it. Changes apply immediately.</p>
+      <p>Compare independent differences with the known derivative. These are actual JavaScript double-precision calculations, not illustrative error rankings. Inspect what happens at |x| with x=0 when selecting it. Changes apply immediately.</p>
       <div className="calculus-controls">
         <label>Function<select value={kind} onChange={event => setKind(event.target.value)}><option value="cubic">f(x)=x³: smooth</option><option value="absolute">f(x)=|x|: kink at zero</option></select></label>
         <label>Base point x<select value={point} onChange={event => setPoint(Number(event.target.value))}>{[0, 0.3, -0.3, 2].map(value => <option key={value} value={value}>{value}</option>)}</select></label>

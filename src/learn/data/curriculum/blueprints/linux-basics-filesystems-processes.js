@@ -20,13 +20,13 @@ export default {
   "visual": {
     "type": "Stepped path tree",
     "question": "Which directory does this relative path reach, and when does the shell move?",
-    "interaction": "Predict, step through components, inspect a missing entry or file target, then reset and compare an absolute path."
+    "interaction": "Edit a path and see the destination or first failure immediately; walk through its components, reset and compare an absolute path."
   },
   "additionalVisuals": [
     {
       "type": "Stream routing lab",
       "question": "Where do the result and warning go?",
-      "interaction": "Predict destinations, change routes/status, reveal exact output and explain descriptor ordering in optional depth."
+      "interaction": "Change routes/status and see exact stdout, stderr and exit outcomes immediately; inspect descriptor ordering in optional depth."
     },
     {
       "type": "Permission gates lab",

@@ -1,0 +1,294 @@
+{
+  "checkedAt": "2026-09-21T22:08:37.900Z",
+  "base": "http://127.0.0.1:4194",
+  "checks": [
+    {
+      "case": "/learn at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "/learn/paths at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "/learn/projects at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "/learn/modules?group=start at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "/learn/catalogue at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "/learn at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "/learn/paths at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "/learn/projects at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "/learn/modules?group=start at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "/learn/catalogue at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "/learn at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "/learn/paths at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "/learn/projects at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "/learn/modules?group=start at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "/learn/catalogue at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Search, planned companion and reciprocal project link",
+      "passed": true
+    },
+    {
+      "case": "Project investigation at 390px",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": []
+    },
+    {
+      "case": "Live temperature, candidates, cost policy and reset",
+      "passed": true
+    },
+    {
+      "case": "Milestone persistence, isolation and first-unfinished resume",
+      "passed": true
+    },
+    {
+      "case": "Project define at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project data at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project baseline at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project architecture at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project training at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project calibration at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project evaluation at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project serving at 1366px",
+      "width": 1366,
+      "scrollWidth": 1366,
+      "controls": []
+    },
+    {
+      "case": "Project define at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project data at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project baseline at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project architecture at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project training at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project calibration at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project evaluation at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Project serving at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "On-demand canonical source disclosures",
+      "passed": true
+    },
+    {
+      "case": "Existing lesson and shared navigation at 320px",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": []
+    },
+    {
+      "case": "Unknown route recovery and existing lesson compatibility",
+      "passed": true
+    },
+    {
+      "case": "Failed project import, disabled completion and explicit reload recovery",
+      "passed": true
+    }
+  ],
+  "payloads": [
+    {
+      "route": "/learn",
+      "measurements": [
+        {
+          "file": "/assets/index-CgwUv0On.js",
+          "encodedBytes": 83798,
+          "decodedBytes": 266316,
+          "transferBytes": 84098
+        },
+        {
+          "file": "/assets/index-BrRpS9WY.css",
+          "encodedBytes": 4076,
+          "decodedBytes": 17409,
+          "transferBytes": 4376
+        },
+        {
+          "file": "/assets/LearnHub-BbQXIn49.js",
+          "encodedBytes": 5387,
+          "decodedBytes": 17766,
+          "transferBytes": 5687
+        },
+        {
+          "file": "/assets/LearningNav-UU1mM-mv.js",
+          "encodedBytes": 128616,
+          "decodedBytes": 888571,
+          "transferBytes": 128916
+        },
+        {
+          "file": "/assets/LearningNav-tjhHtg5z.css",
+          "encodedBytes": 3142,
+          "decodedBytes": 14214,
+          "transferBytes": 3442
+        },
+        {
+          "file": "/assets/LevelBadge-C4TuxjuV.js",
+          "encodedBytes": 4398,
+          "decodedBytes": 11910,
+          "transferBytes": 4698
+        },
+        {
+          "file": "/assets/useProjectProgress-HMlsAuEQ.js",
+          "encodedBytes": 649,
+          "decodedBytes": 1210,
+          "transferBytes": 949
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    "docs/teaching/projects/evidence/workspace-desktop.png",
+    "docs/teaching/projects/evidence/decision-lab-desktop.png",
+    "docs/teaching/projects/evidence/decision-lab-mobile.png"
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "src/learn/LearnHub.jsx": "e2eda81d27bcab05825e14bc571df07971df06087507f624b9a558687353af28",
+    "src/learn/ProjectReader.jsx": "511a9c1a195447348a6dab646c6164947c345e1d51c404da6332b1d8f2867414",
+    "src/learn/components/LearningNav.jsx": "d33625e8995089a422e0eed4f67aa0c1c023d85b5a87be0acaa3629127135442",
+    "src/learn/hooks/useProjectProgress.js": "9937c12ada145003a7ac57e2532143bafafb7d89c725be343cf01d4ddc08db2b",
+    "src/learn/learning-workspace.css": "9c979153246257245fca478a0b178c77591810f628f6b197cb243bc03238a4e5",
+    "src/learn/project-reader.css": "9b4591659afa806511a2510ce9220f2b5171f431ceee7edd130093c595ee6dcc",
+    "src/learn/data/projects/typed-decision-model/content.jsx": "9997f2394bb52358309d2c2254c4ea8fc9253d79c5fc201120d7e31bacc56c6d",
+    "src/learn/data/projects/typed-decision-model/decision-model.js": "b5f050529f6fd0ae9c9becafa9a6074611792d76d735814a0cb14b2985094232"
+  },
+  "passed": true
+}

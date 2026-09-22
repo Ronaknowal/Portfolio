@@ -1,5 +1,21 @@
 # RWKV & Linear Attention Models — visual and investigation handoff
 
+## Live exploration contract — 21 September 2026
+
+Open each investigation with its current inputs, intermediate mechanism and complete current output visible. Apply valid edits to meaningful entities immediately and update diagrams, tables, units and causal explanation together. No prediction entry, predicted-answer choices, commitment, prediction grading or answer-unlock feature is part of this packet, even optionally. Model predictions and mathematical masks/gates remain subject matter.
+
+Use the topic-specific controls and checked fixtures below. Pair sliders or direct manipulation with labeled keyboard/numeric controls; keep presets as starting points, not the only editable values. A pinned baseline preserves its inputs, seed, units and outputs while the current case changes. Explain both a meaningful contrast and an unchanged/null result, then connect the observed effect to a practical design decision. Reset restores the stated fixture and current result. Invalid text has a local explanation and a clearly identified last valid result; never silently clamp or pair new inputs with old output.
+
+Step/Back and bounded Run controls advance a real computation or reveal its chronological stages, not permission to view an answer. Show the current state and its result throughout. Keep exact small calculations live. For costly frozen inference, debounce or run bounded work with pending/current state labels and stale-result cancellation; inspect saved measurements without implying fresh training. Respect reduced motion, keep focus stable and avoid announcing every animation frame. Independent written practice and its hints/solutions stay separate.
+
+Phase two must test default results without any action, meaningful edits, quick consecutive edits, valid extremes, null/invalid cases, reset, linked-view agreement, keyboard operation and readable phone layouts. The mathematical/reference checks already specified below remain; these live browser checks have not been performed in this content-only revision.
+
+### Topic-specific live route
+**Read and write a compact memory.** Edit keys/queries/values, decay, current-token bonus, memory write/correction inputs and real stream interruptions.
+**See the consequence.** Update summary matrices/denominators, present output versus stored history and chronological state together. Compare a continued stream with an explicit reset.
+**Decision connection.** Choose the correct current-read and future-memory semantics and see what compact state cannot retain.
+
+
 Content phase only,13 September 2026. These specifications are not implemented visuals. Read the complete [lesson](lesson.md), [design](design.md), [provenance](data-provenance.md), [mechanism results](mechanism-results.json) and [fitted-model fixtures](investigation-checks.json). Preserve the named operators and tensor orientations.
 
 ## Shared rendering and interaction contract
@@ -8,9 +24,9 @@ Use existing reader typography and control tokens, with topic-owned semantic fil
 
 Each figure has a visible caption stating the intended inference, every axis/shape/unit, and exact calculation versus measured fitted output. Accessible text/tables communicate the same relationship without color or motion. Use outline, labels and patterns alongside color. Signed matrix entries are not probabilities. No decorative speed races or fabricated performance curves.
 
-All investigations start with editable inputs and **no recorded prediction**. Use explicit numeric/choice/free-text answers without preselected radio responses. A prediction record contains the exact current input snapshot, the learner's answer and the model/operator revision. “Run and compare” requires that record. Editing any computation-bearing input invalidates the record and hides the old answer until the learner records another prediction. Preserve an unsubmitted explanation draft if useful. Purely presentational zoom/tabs do not invalidate results.
+Use direct numeric/entity controls and computed readouts, with no learner answer field. Keep a baseline and current state when a before/after comparison helps. Each explanation describes the actual numerator, denominator or memory update, including unchanged/null cases.
 
-Every lab has Reset to its fresh starting problem, Clear prediction and appropriate restore controls. Reset restores all inputs, states, selected row/cut/model/seed and controls, then clears predictions/results. No state leaks between topics or source examples. Hints and solutions initially remain closed.
+Every lab has Reset restores the stated inputs and immediately displays their computed result. Reset restores all inputs, states, selected row/cut/model/seed and controls, then recomputes current outputs/results. No state leaks between topics or source examples. Hints and solutions initially remain closed.
 
 Keyboard users can edit every entity available through a pointer. Pair coordinates/matrix entries with labeled numeric fields, row insert/delete controls with clear names, and sliders with numeric fields. Dragging is optional. Announce completed runs concisely, not every animation frame. Respect reduced motion and preserve focus through rerender.
 
@@ -52,11 +68,11 @@ Toy calculations use bounded finite numbers and float64. Validate invalid inputs
 
 **Fresh editable problem.** Q=[[1,1],[2,1],[1,2],[3,1]],K=[[1,0],[0,1],[1,1],[2,1]],values [3,−2,7,1],chunk3,readposition4. Those values are not solved in the manuscript. Allow1–12 sequence rows, two features and scalar values. Query/key entries0–4, values −12…12, chunk1…12 and chosen read1…T. Insert/delete changes actual entities.
 
-**Prediction.** Ask for the selected output or its direction of change and which earlier outputs can change. Initially unset. Bind Q,K,V,chunk,readposition and operator revision. After record/run show causal weight table, stateS/z, normalized output and direct-versus-chunk difference. Inspection controls can reveal individual contributions without changing the problem.
+**Live comparison:** display the selected output, its change and every earlier output that remains fixed. Query, write and chunk controls recompute from the current entities. Selecting a contribution only changes the inspection view; it does not alter the model.
 
 **Checked contrasts and null.** Fresh outputs [3,4/3,10/3,2.8]. Chunk sizes1,2,3,4,8 agree. Worked values [2,8,−1,5] give [2,4,2.5,3]; changing only last value to 11 leaves earlier outputs unchanged and gives last 5.8. Every value 4 gives every output 4. Zero-query input is an undefined normalized operator, with a local error rather than invented output 0. Check the actual denominator for each row.
 
-**Feedback and reset.** Explain which key score, write or total caused the observed change. Equivalent algorithms agree within 1e−10. Reset fresh inputs, empty S/z and unset prediction; chunk changes invalidate the recorded input snapshot. A purely presentational panel switch does not.
+**Feedback and reset.** Explain which key score, write or total caused the observed change. Equivalent algorithms agree within 1e−10. Reset fresh inputs, empty S/z and current comparison; chunk changes invalidate the recorded input snapshot. A purely presentational panel switch does not.
 
 **Accessibility, bounds and phase two.** At most144 scores, no worker required. Accessible row/column headings and named table/state/output panels; keyboard row editing. Independently compare direct and chunk computations for changed inputs, shorter final chunk,T1,zero-denominator recovery,last-edit causality,constant-value null and full reset. Then review the visible learning flow.
 
@@ -66,13 +82,13 @@ Toy calculations use bounded finite numbers and float64. Validate invalid inputs
 
 **Fresh editable problem.** Logkeys[0,log(2),0,log4],values [3,−2,7,1],retention.5,currentbonuslog(2),commonoffset0,readposition3. Allow1–12 positions; keys −8…8, values −12…12, retention.01…1, bonus−4…4 and common key offset−1000…1000. Edits alter actual sequence values and weights.
 
-**Prediction.** Record output increase/decrease/same or numeric answer, whether stored history changes, and a reason. Bind sequence,retention,bonus,offset,selected read and operator revision. All computational edits invalidate the record. Stepping an already computed trace is presentation-only.
+**Live comparison:** show the current output, normalized weights and stored history side by side. Editing the current-token bonus and editing the retained state are separate operations. Explain the exact change to each, including scale changes that preserve normalized weights.
 
 **Mechanism view.** Read and write branches remain separate. Old/current contributions are labeled, with stable a,b,p below. p is a dimensionless weight log scale. Optional direct history view evaluates shifted logweights; it must not turn overflowing raw exponentials into valid finite bars.
 
 **Exact contrasts and null.** Fresh outputs [3,−1,23/9,55/41]. Worked values [2,8,−1,5] with bonuslog(2) give [2,6.8,10/3,190/41]; bonus0 gives [2,6,32/7,4.4]. Stored history is identical under this bonus change. Common offset+1000 gives maximum difference1.05694e−13 while raw exp overflows. All values 7 from empty state produce 7 throughout. Retention1 is a meaningful no-decay boundary; phase two must independently verify its unrolling.
 
-**Feedback/reset.** Explain why bonus belongs only to the read and retention changes history. A scale-change misconception should reveal the same normalized weights. Reset all fresh inputs, empty a/b,p=−∞ and unanswered prediction. User values outside bounds get a local error, not silent clipping.
+**Feedback/reset.** Explain why bonus belongs only to the read and retention changes history. A scale-change misconception should reveal the same normalized weights. Reset restores the stated inputs and immediately displays their computed result. User values outside bounds get a local error, not silent clipping.
 
 **Accessibility/budget/phase two.** One channel,12 steps; optional second channel only if it clarifies distinct timescales. Numeric logkey/retention/bonus fields, readable signed contribution labels, stacked circuit on narrow screens. Check direct enumeration versus stable recurrence, signed values, first-step initialization, current-bonus/state invariance, large offset, constant-value null, retention1 and recovery/reset. The internal initial −∞ is valid empty-state representation; it is not an editable nonfinite key.
 
@@ -82,13 +98,13 @@ Toy calculations use bounded finite numbers and float64. Validate invalid inputs
 
 **Fresh editable problem.** Unit keys [[0,1],[1,0],[0,1]],values [4,−3,9],rate .5,query [0,1],initialM=[0,0]. Allow1–10 writes, key/query angles−180…180degrees converted to [cos,sin], values −12…12 and rate 0…1. Optional initial-state entries−6…6. This differs from the solved A2/B7/A5 sequence.
 
-**Prediction.** Initially unset retrieved-value guess, preserved-address judgment and explanation. Bind order,angles,values,rate,initial state,query and operator revision. Run additive and delta memory on identical inputs. If a query has no specified target, show its retrieval without inventing a ground-truth error.
+**Live comparison:** display the retrieved value, address contributions and memory residuals. Editing a write or correction recomputes the actual memory, and the unchanged-address case remains visible as a null. No guessed value or explanation is submitted.
 
 **Visual result.** Key compass, numbered writes, query arrow, signed memory row, before-read/target/residual/correction per step. Show changed-address and untouched-address retrieval together. State is value-by-key M, explicitly transposed relative to the earlier S. No claim this ordinary delta simulation is the full RWKV-7 model.
 
 **Contrasts/nulls.** Fresh additivefinal[−3,13],deltafinal[−1.5,5.5]; querysecond retrieves 13 versus5.5. Worked orthogonal writes atβ1 yield[7,7] versus[5,7]. Correlated key [.6,.8] yields intermediate[5.48,4.64],final[5,4.64],final B retrieval6.712. Rate0 leaves empty delta memory zero. Repeating an identical unit-key/value write after β1 gives zero correction. With nonempty initial state, rate 0 preserves that state. An optional nonunit branch must explain the ||k||² factor rather than silently normalize.
 
-**Feedback/reset/bounds.** Feedback identifies the key dot product and both retrieval changes. Reset fresh keys/values/.5rate/empty memory/unset prediction. At most10×2 arithmetic. Angle fields duplicate dragging; keys have numeric names and visible direction labels. Narrow layout stacks compass, write editor and result. Phase two checks fresh/orthogonal/correlated/rate 0/repeated-target/changed-initial fixtures, independent gradient calculation, edited keys, reset and keyboard use.
+**Feedback/reset/bounds.** Feedback identifies the key dot product and both retrieval changes. Reset fresh keys/values/.5rate/empty memory/current comparison. At most10×2 arithmetic. Angle fields duplicate dragging; keys have numeric names and visible direction labels. Narrow layout stacks compass, write editor and result. Phase two checks fresh/orthogonal/correlated/rate 0/repeated-target/changed-initial fixtures, independent gradient calculation, edited keys, reset and keyboard use.
 
 ## Investigation D — interrupt a real stream
 
@@ -98,7 +114,7 @@ Toy calculations use bounded finite numbers and float64. Validate invalid inputs
 
 **Fresh start.** Source20, second validation row, class 1 curved swing, cut after 15of45 points, RWKVseed17, original path. Its answers are not worked in the manuscript. Choose a source row, edit any point through numeric fields or dragging, cut1…44, reverse order, and compare carry/reset. Display source coordinates in unit-space[0,1]; compute2x−1. Edited paths are labeled modified and do not receive certified new class labels.
 
-**Prediction contract.** Before fitted outputs are revealed, ask whether carry matches uninterrupted computation, whether reset changes the predicted class and/or how a chosen probability changes, with a reason. Bind all 45 coordinate pairs, source row,cut,model,seed,fitted-weight digest and comparison mode. All computational edits invalidate the record. The original known class may remain visible; model bars wait for record/run.
+**Live stream comparison:** show uninterrupted, carried and reset computations together for the chosen boundary. Display logits, class probabilities and their differences immediately. An interrupted process preserves its function only when all required state is carried; a reset can change probabilities with or without changing the top class.
 
 **Result.** Show uninterrupted, carry-all-state and intentional-reset routes. Mark the cut on a chronological path with start/end arrows. Carry the previous normalized time/channel inputs and all memory slots. Temporal mean uses sum/count across chunks. A max-logit-difference indicator is separate from original-label correctness. All15 class probabilities are available in an accessible text table; plot selected original/predicted classes without silently hiding alternatives.
 
@@ -113,7 +129,7 @@ Carry probabilities are .0125181954 and .0998163074. These unequal and sometimes
 
 **Additional contrast/null.** Worked source 7/cut22: RWKV originalpred1,p.753938913;carry equal within 2.38419e−7;resetpred10,p.0470251255. Kernel originalpred10,p.251895875;resetpred7,p.0546496287. Point23 normalized x reflection+.249520→−.249520 and reversal have exact results in JSON. Restore-original produces the same CPU result. Future point31 perturbation leaves earlier per-position features unchanged, CPU error0; final mean prediction may change. All four fitted models preserve features within 7.62940e−6 over chunk lengths 1/12/16/16 on the first five source rows.
 
-**Feedback, bounds and reset.** Explain the lost state or changed path and distinguish equivalence from correctness. One active45-point example, two width 16 blocks, one selected fit, at most three main forwards per recorded run. Compute on explicit run, not every pointer event; share fixed arrays and lazy-load this lab. Never recompute the whole corpus in the browser. Reset row 20,cut15,model/seed,path,empty state and unanswered prediction. Restore-original only changes coordinates and invalidates the old prediction as expected.
+**Feedback, bounds and reset.** Explain the lost state or changed path and distinguish equivalence from correctness. One active45-point example, two width 16 blocks, one selected fit, at most three main forwards per recorded run. Compute on explicit run, not every pointer event; share fixed arrays and lazy-load this lab. Never recompute the whole corpus in the browser. Reset restores the stated inputs and immediately displays their computed result. Reset restores the stated inputs and immediately displays their computed result.
 
 **Accessibility/mobile/phase-two checks.** Point selector and numericx/y, cut range plus numeric entry, named reversal/restore actions and sourceID/class/role labels. Match unit-space axes. Stack editor/state/results without tiny labels. Independently verify the complete frozen forward, state orientation, transformed retention, normalization epsilon, squared-ReLU channel branch, all carried slots, weighted mean, source-role selection and coordinate conversion. Ported logits target 1e−5 tolerance, adjusted only after documented precision investigation. Verify all contrasts/nulls, actual input editing, reset, focus and keyboard path controls; measure payload and long tasks. No assessment dataset or training path is needed for this interactive lab.
 
@@ -121,3 +137,9 @@ Carry probabilities are .0125181954 and .0998163074. These unequal and sometimes
 
 Read the complete manuscript before implementation. Build topic-owned visuals/investigations, verify the new shipped model against the exact fixtures, and complete independent correctness and learning-experience review plus browser/accessibility/performance checks. Author calculations are reusable evidence for unchanged inputs, not proof that a JavaScript port works. A changed or omitted visual must preserve the teaching need and record why its replacement works better.
 
+
+## Written implementation route and placement — 22 September 2026
+
+The state-continuation timeline in §8 now points to rwkv_checkpoint_state.py. Show prefix identity and branch copies alongside the existing scratch state slots; actual checkpoint tensors/logits belong to an optional learner-run program, not fabricated browser output. No checkpoint or tokenizer download on page load.
+
+Use topic-owned responsive diagrams and local scrolling for code/matrices. Long filenames and links wrap within the reader at 320px. Show source/setup/download dependencies at the relevant explanation; deferred Python programs load only on request. Keep labels outside geometric marks where possible, fixed scale comparisons truthful, and current results visible during edits. No learner prediction field, submit button, answer lock or optional prediction gate is specified. Existing numerical/interaction checks still apply, and optional package/checkpoint routes carry their actual unexecuted status until phase two supplies evidence.

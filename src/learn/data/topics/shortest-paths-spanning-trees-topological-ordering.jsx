@@ -5,10 +5,11 @@ import { DijkstraFrontierLab, BellmanFordPassLab, SpanningForestLab, Topological
 import { DsaPractice } from '../../components/lesson-labs/DsaPractice.jsx';
 import { weightedGraphExamples } from '../weighted-graph-examples.js';
 import graphPractice from '../practice/shortest-paths-spanning-trees-topological-ordering.js';
+import WeightedGraphLibraryBridge from '../../components/lesson-labs/WeightedGraphLibraryBridge.jsx';
 
 export default {
   title: 'Shortest Paths, Spanning Trees & Topological Ordering',
-  readTime: '~90 min read + 3–5 hours practice',
+  readTime: '~100 min read + 3–5 hours practice',
   hasIntegratedGuide: true,
   content: () => <div className="lesson-pilot weighted-graphs-lesson">
     <LessonIntro prerequisites="Graphs' vertices, adjacency lists, directed edges and equal-cost BFS; Heaps' priorities and stale entries; Union-Find's component joins; Greedy's exchange reasoning; DP's states and transitions. The needed invariants, edge budgets and path witnesses are derived here."
@@ -156,6 +157,7 @@ export default {
     <RunnableExample example={weightedGraphExamples.schedule}><Prose>Durations [3,2,4,6,2,1] produce starts [0,0,3,2,8,10], finishes [3,2,7,8,10,11], and critical chain B→D→E→F. Tied critical chains may exist; the function returns one using first strict improvement. Zero-duration jobs are legal. Empty input has makespan 0 and an empty chain.</Prose></RunnableExample>
     <Prose>The recurrence and witness reconstruction cost O(V+E) time and storage including the graph. A single worker would forbid A and B from overlapping, so 11 would only be a dependency lower bound, not the complete answer. With multiple limited resources, deadlines or setup rules, choose a scheduling model that actually represents those constraints. A topological ordering alone is not a resource schedule.</Prose>
 
+    <WeightedGraphLibraryBridge />
     <H2>8. Practice the changed question</H2>
     <Prose>Before reopening a program, state the exact objective, graph direction, allowed weights, output contract and event that makes an answer trustworthy. Draw an adversarial example, propose a simple oracle, then justify the optimized method. The following tasks change the problem rather than asking you to reproduce the default trace.</Prose>
     <H3>Exercise: distinguish labels from a proof of a route</H3>

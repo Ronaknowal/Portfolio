@@ -115,7 +115,7 @@ Completed full own-manuscript reread from the opening through every exercise, so
 - The opening supplies a practical reason to care and explains association before terminology.
 - Every core symbol and operation receives a local explanation; projection Wₑ is distinct from memory count P, and theorem scalar K is distinct from key matrix K.
 - Each core mechanism has an inline explanatory representation at its introduction, before requiring lab interaction.
-- The four investigations use different meaningful entities: signed bits/order, geometric memories/cue, paired keys/values and real handwriting pixels. All fresh predictions start unset and are bound to active inputs.
+- The four investigations use different meaningful entities: signed bits/order, geometric memories/cue, paired keys/values and real handwriting pixels. All fresh Current results are visible on opening. and are bound to active inputs.
 - Contrast and null fixtures are computed, including failures, ties, payload changes and restore behavior; results are not hardcoded responses to presets.
 - Core and optional routes are explicit; no undocumented transformer prerequisite or forced source-paper section template.
 - Exercises change inputs, criteria or constraints; all ten hints/solutions are initially closed. Practical outcomes include interpretation, failure cases and a fair extension plan.
@@ -126,6 +126,32 @@ Completed full own-manuscript reread from the opening through every exercise, so
 
 ## Deferred implementation work
 
-Phase two implements all 21 inline figures and four investigations from visual-specifications.md, derives compact attributed lazy digit/model assets and retains the complete downloadable packet. It must validate pure browser numerical functions against the saved fixtures and full validation arrays, preserve blank/tied outcomes and score/value distinctions, and test input-bound prediction invalidation, keyboard access, narrow layouts, reduced motion, alt/table alternatives and reset behavior. No browser training or eager loading of all models/data.
+Phase two implements all 21 inline figures and four investigations from visual-specifications.md, derives compact attributed lazy digit/model assets and retains the complete downloadable packet. It must validate pure browser numerical functions against the saved fixtures and full validation arrays, preserve blank/tied outcomes and score/value distinctions, and test input-bound live recomputation, keyboard access, narrow layouts, reduced motion, alt/table alternatives and reset behavior. No browser training or eager loading of all models/data.
 
 Phase two also handles production lesson structure, download URLs, approved title/catalogue decisions if any, source-bound implementation review, runtime/build/navigation checks and browser performance/accessibility evidence. It must not mark this content checkpoint as implementation completion. Root performs the shared ledger/checkpoint updates and any cross-packet review. No open author content finding remains; future review can still correct substantive issues rather than treating the freeze as a ban on evidence-based changes.
+
+## Live exploration revision — 21 September 2026
+
+The user replaced prediction-and-reveal lab assessment with immediately visible, playable exploration, including removal of optional prediction controls. The manuscript and specifications now use that contract. This changes the teaching interaction, not the topic's model predictions or its mathematical masks/gates.
+
+**Topic disposition:** Shape an associative memory. Flip cue bits and visit order; edit continuous memory vectors, temperature, keys/queries/values and real handwriting pixels. Show current energy, attractor steps, retrieval weights, payload and classifier/reconstruction outputs. Step iteration without hiding its current state. See how ambiguity, scale and address/content choices change retrieval and when classification and reconstruction objectives diverge.
+
+Retain all source data, formulas, measured results, code programs, references and independent practice. The existing author calculations remain evidence for those unchanged quantities, not evidence that a browser implementation already satisfies this new interaction contract. Phase two must implement and verify live updates, linked-view agreement, bounded work, reset, invalid/null cases, keyboard access and responsive diagrams. Content remains prepared; implementation remains not started.
+
+## Implementation ownership and content-depth revision — 22 September 2026
+
+Delivery remains **content-first**. The complete computational teaching route is part of this prepared packet now; phase two receives written code, explanations, mapped state/settings and closed practice, rather than an instruction to invent the missing mechanism. Earlier authoring records remain dated evidence; this section supersedes their incomplete depth handoffs. The title and stable ID are retained because the new material fulfills the existing scope.
+
+| Advertised computational outcome | Scratch/source owner | Ordinary tool route | Matching bridge | Independent practice | Scope boundary |
+| --- | --- | --- | --- | --- | --- |
+| Classical binary storage, asynchronous retrieval and energy | associative_memory.py::store_binary/binary_recall/binary_energy | NumPy arrays and indexed coordinate updates | explicit zero diagonal, tie-preserving asynchronous state | Practice 1,9; order-dependent examples | Finite binary network; not universal capacity guarantee |
+| Stable modern retrieval and attention relation | associative_memory.py::retrieve/iterate/energy | torch.nn.functional.scaled_dot_product_attention in main | matched Q/K/V/scale; new query-gradient exercise | Practice 2–4,8; distinct-value gradient extension | Energy interpretation requires its fixed-bank assumptions |
+| Learned bank and class-mass read | digit_memory.py::read_memory/main | nn.Linear, log_softmax/logsumexp, nll_loss, Adam | projection parameters and log class-mass learning | Practice 5–7,10 | Explicit tensor composition is ordinary route; optional hflayers APIs are not required outcomes |
+
+All local source owners above were inspected at their actual function/class definitions. Full model fitting, data/provenance and existing worked results are retained. Reused actual prerequisite code is named explicitly in the manuscript; prepared owners are not described as already published updated instruction. Whole-family releases mentioned for context do not expand the promised executable outcome into every checkpoint or every GPU kernel.
+
+The teaching sequence is construct → explain the state/update → normal tool use → compare the same contract → changed-constraint practice, inserted where the relevant mechanism is explained. Original mechanism programs remain canonical; new programs depend on them only where the import is explicit. No browser program, published lesson, manifest or curriculum sequence is changed by this revision.
+
+Author checks for this revision: source/API-contract reading, Python syntax parsing, matching embedded/downloadable source and local links, and scoped arithmetic probes where recorded in the specialist-writing report. These are content-authoring checks. Earlier fit outputs remain their original evidence; new multi-process/GPU/specialist-package execution, formal independent implementation review, rendered diagrams/labs and browser/accessibility/integration checks are **deferred**, with exact targets in the current visual specifications and specialist report.
+
+Next action: after the root records the new content checkpoint, consume the full current packet for an authorized finish request, execute the relevant new programs and capture honest outputs, build the specified topic-owned views, independently check the translated models and integrate them. No core scratch/library manuscript writing is left as a finish-only TODO.

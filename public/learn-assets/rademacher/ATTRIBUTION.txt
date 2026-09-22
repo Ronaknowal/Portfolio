@@ -1,0 +1,78 @@
+Banknote Authentication -- attribution for the copy served with the
+Rademacher Complexity & Generalization Bounds lesson
+=====================================================================
+
+Source
+  UCI Machine Learning Repository, dataset 267, "banknote authentication".
+  https://archive.ics.uci.edu/dataset/267/banknote+authentication
+  Donated by Volker Lohweg (University of Applied Sciences, Ostwestfalen-Lippe),
+  2012. DOI 10.24432/C55P57.
+
+Licence
+  Creative Commons Attribution 4.0 International (CC BY 4.0).
+  https://creativecommons.org/licenses/by/4.0/
+  You may reuse and adapt these measurements, including commercially, provided
+  you give appropriate credit and indicate whether changes were made.
+
+What was retrieved
+  The archive https://archive.ics.uci.edu/static/public/267/banknote+authentication.zip
+  was retrieved on 12 September 2026.
+    archive             SHA-256 1e2acd9a2085fadf3d8145c12d3d22af853320d52294a6590c2eaf75fdc05227
+    member              data_banknote_authentication.txt
+    member              SHA-256 d0539aaed2139ba7a587b3e34fb345ce503ff7d5d33dbf9912d8e195ce425cb9
+
+What was changed
+  The original file has 1,372 rows and no header. The file served here,
+  banknote-subset.csv, is a 480-row subset selected with
+
+      numpy.random.default_rng(23).permutation(1372)[:480]
+
+  and written with a header row. Two columns were ADDED and no measurement was
+  altered:
+
+    source_row   the one-based row number in the original file, retained so any
+                 row can be traced back to the source
+    split        a historical pool/dev/test label from an earlier lesson that
+                 uses the same subset
+
+  The four measurements and the class code are the source values, unmodified.
+
+    banknote-subset.csv SHA-256 d28fa993ed459d2f706816395475af08eebd2f394be67f2ad42dd9b511fc6b5a
+                        21,237 bytes, 480 data rows
+
+  This lesson serves its own copy. Two other lessons serve the same subset under
+  their own directories; none of them reads this one, and this one reads none of
+  theirs.
+
+What the columns mean
+  variance, skewness, curtosis, entropy
+      wavelet-derived statistics of a banknote image. "curtosis" is the source's
+      own spelling and is kept.
+  class
+      the source's binary code, 0 or 1. The lesson converts it to a label in
+      {-1, +1} and does NOT assert which code means a genuine note: the UCI
+      record does not state it, and nothing in the lesson depends on it.
+
+How this lesson uses it
+  The 480 retained rows are given four disjoint roles by position in the
+  retained order: rows 1-80 fit the feature means and scales, rows 81-320 fit
+  the coefficients, rows 321-400 select the coefficient budget, and rows 401-480
+  are scored once at the end. The historical `split` column plays no part in
+  that allocation.
+
+  The row ids are disjoint; the feature vectors are not quite. Four pairs of
+  rows have identical measurements in all four coordinates -- 476 distinct
+  vectors among 480 rows. Two of those pairs cross the fitting and validation
+  roles, one crosses representation design and fitting, and one lies inside
+  fitting. None involves assessment.
+
+  These rows were drawn without replacement from a fixed corpus. That is not the
+  same as drawing new independent observations from a population, and the lesson
+  says so where it uses the numbers.
+
+The two programs served beside this file
+  complexity_calculations.py   exact sign enumeration and the small examples
+  bounded_norm_experiment.py   the constrained-logistic experiment on this CSV
+
+  Both are the content packet's own programs, byte for byte. Run them in one
+  directory together with this CSV; they need no network access.

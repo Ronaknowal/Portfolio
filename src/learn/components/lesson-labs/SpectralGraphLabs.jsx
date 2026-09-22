@@ -56,7 +56,7 @@ export function SpectralCutLab() {
   }
   return <section className="lesson-lab spectral-investigation" aria-label="Spectral cut sweep">
     <h3>Move the cut along the normalized coordinates</h3>
-    <p>Each node gets yᵢ=v₂ᵢ/√dᵢ. Sort these numbers, place a threshold between unequal neighbors, and inspect the actual crossing edges. Predict which threshold separates the weakly linked triangles.</p>
+    <p>Each node gets yᵢ=v₂ᵢ/√dᵢ. Sort these numbers, place a threshold between unequal neighbors, and inspect the actual crossing edges. Inspect which threshold separates the weakly linked triangles.</p>
     <div className="lesson-controls">
       <label>Graph<select aria-label="Cut graph" value={kind} onChange={event => {
           setKind(event.target.value);
@@ -125,7 +125,7 @@ export function SpectralEmbeddingLab() {
   }
   return <section className="lesson-lab spectral-investigation" aria-label="Spectral row embedding and clustering">
     <h3>One row becomes one point</h3>
-    <p>There are nine nodes and three intended groups. Compute the three lowest normalized modes, then normalize each node’s three-number row. Predict whether updating a center changes the points or only their grouping.</p>
+    <p>There are nine nodes and three intended groups. Compute the three lowest normalized modes, then normalize each node’s three-number row. Inspect whether updating a center changes the points or only their grouping.</p>
     <div className="lesson-controls">
       <label>Joining edges: {weight.toFixed(2)}<input aria-label="Embedding bridge weight" type="range" min="0" max="1.5" step="0.02" value={weight} onChange={event => {
           setWeight(Number(event.target.value));
@@ -162,7 +162,7 @@ export function SpectralFilterLab() {
   }
   return <section className="lesson-lab spectral-investigation" aria-label="Graph spectral filtering">
     <h3>Price each mode, then reconstruct the signal</h3>
-    <p>Keep the graph fixed while comparing filters. Predict which coefficients heat suppresses most. Then remove the bridge and ask which part of the signal can survive indefinitely.</p>
+    <p>Keep the graph fixed while comparing filters. Inspect which coefficients heat suppresses most. Then remove the bridge and ask which part of the signal can survive indefinitely.</p>
     <div className="lesson-controls">
       <label>Signal<select aria-label="Filter signal" value={signal} onChange={event => setSignal(event.target.value)}><option value="noisy">Groups plus local variation</option><option value="groups">Two constant groups</option><option value="spike">One-node impulse</option><option value="constant">Constant two</option></select></label>
       <label>Filter<select aria-label="Spectral filter" value={filter} onChange={event => {

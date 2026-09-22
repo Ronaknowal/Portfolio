@@ -1,0 +1,95 @@
+{
+  "status": "passed",
+  "baseUrl": "http://127.0.0.1:4194",
+  "results": [
+    {
+      "width": 1366,
+      "groups": [
+        "Initial results, rendered mathematics and no learner-prediction controls",
+        "Geometry rescale, pinned identity, crossing, null, invalid text and reset",
+        "Every native slider endpoint/interior, exact numeric twins and actual pointer gesture",
+        "XOR full repair, rational one-corner failure and inactive-feature null",
+        "Activation weight/sign distinction, sigmoid compensation, SiLU negative slope and ReLU corner",
+        "Observed digit identity and recorded-seed/count inspection",
+        "All representation bounds, unique IDs and complete displayed programs"
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "groups": [
+        "Initial results, rendered mathematics and no learner-prediction controls",
+        "Geometry rescale, pinned identity, crossing, null, invalid text and reset",
+        "Every native slider endpoint/interior, exact numeric twins and actual pointer gesture",
+        "XOR full repair, rational one-corner failure and inactive-feature null",
+        "Activation weight/sign distinction, sigmoid compensation, SiLU negative slope and ReLU corner",
+        "Observed digit identity and recorded-seed/count inspection",
+        "All representation bounds, unique IDs and complete displayed programs"
+      ],
+      "errors": []
+    },
+    {
+      "width": 320,
+      "groups": [
+        "Initial results, rendered mathematics and no learner-prediction controls",
+        "Geometry rescale, pinned identity, crossing, null, invalid text and reset",
+        "Every native slider endpoint/interior, exact numeric twins and actual pointer gesture",
+        "XOR full repair, rational one-corner failure and inactive-feature null",
+        "Activation weight/sign distinction, sigmoid compensation, SiLU negative slope and ReLU corner",
+        "Observed digit identity and recorded-seed/count inspection",
+        "All representation bounds, unique IDs and complete displayed programs"
+      ],
+      "errors": []
+    }
+  ],
+  "screenshots": [
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-geometry-zero-weight.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-xor-one-corner-repair.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-silu-negative-slope.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-recorded-comparison-seed-3-zoom.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-weighted-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-geometry-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-xor-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-xor-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-activation-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-digits-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-comparison-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-swiglu-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\1366-perceptron-triangle-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-geometry-zero-weight.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-xor-one-corner-repair.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-silu-negative-slope.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-recorded-comparison-seed-3-zoom.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-weighted-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-geometry-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-xor-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-xor-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-activation-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-digits-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-comparison-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-swiglu-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\390-perceptron-triangle-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-geometry-zero-weight.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-xor-one-corner-repair.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-silu-negative-slope.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-recorded-comparison-seed-3-zoom.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-weighted-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-geometry-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-xor-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-xor-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-activation-lab.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-digits-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-comparison-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-swiglu-figure.png",
+    "docs\\teaching\\evidence\\perceptron-browser\\320-perceptron-triangle-figure.png"
+  ],
+  "sourceHashes": {
+    "src/learn/data/topics/perceptrons-neurons-activation-functions.jsx": "f4fd2a1e6e55e2779dda00ab856a727168b06f4db0c7b713db9f49455085b7c7",
+    "src/learn/data/perceptron-models.js": "629fca099a9b936f8a74251e834b93732c8dfcc900ec42e770e73b49cab5f0fd",
+    "src/learn/components/lesson-labs/PerceptronLabs.jsx": "e954605d3df0bf4d8d583ddfa174eceef1da49ae182dee01395e8dffc852aeee",
+    "src/learn/components/lesson-labs/PerceptronFigures.jsx": "914e9264d76e3c68be60ec8e6e180a97ee76659c203b227a3e8e843d4c492919",
+    "src/learn/components/lesson-labs/PerceptronShared.jsx": "35887315deacf6c1c58cafaf4cd4b41c674e379f78bb9169539179e2d2be364d",
+    "src/learn/components/lesson-labs/perceptron-labs.css": "bd7ae52d92ca3c9b50f6075e1f35ae0144fe7dc474909f48f43e6cf5b4a21f1c"
+  },
+  "visualReview": "Captures retained for separate human/agent visual inspection; passing assertions do not certify every label collision."
+}

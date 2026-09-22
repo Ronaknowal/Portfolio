@@ -1,0 +1,168 @@
+{
+  "startedAt": "2026-09-21T06:19:58.437Z",
+  "passed": true,
+  "base": "http://127.0.0.1:4184",
+  "cases": [
+    "Whole-document held-out numbers, count/prose, report and stdout absent before freeze; development stdout remains exact",
+    "12 slice states: all four candidates, both sides, exact observed cutoff boundary and two empty slices; every error-ring ID matches independently filtered saved rows, coordinates unchanged",
+    "Specimen inspector links the same fixed scatter/added-feature positions and remains usable after compare",
+    "Same-winner alternative metric refused; declared decision still withholds report until second commitment; exact held-out output appears afterward",
+    "Keyboard reset closes all held-out report, summary, stdout and interval regions",
+    "Fractional costs: active0.45 versus proposed0.6000000000000001; numeric grading uses proposed total with1e-9 tolerance",
+    "Two edited scores equal threshold0.8 are accepted, preserving two wrong outcomes; proposed total28",
+    "All seven diagrams and changed lab states captured at1366/390/320; no page overflow or collapsed/errored KaTeX",
+    "All10 equal scores and ten adjacent hundredths remain visible without rectangle overlap, with score coordinates unchanged",
+    "Threshold1.01: no automatic answers, total20, undefined conditional error explicitly retained",
+    "No page errors"
+  ],
+  "screenshots": [
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-slice-lower-desktop.png",
+      "sha256": "445c6a39de1071778d961dcaa6d31bb6675a5b1fd80983d9466dd2f832986786"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-slice-upper-desktop.png",
+      "sha256": "a6f0a2b12fc3f381f864b9b40523c823911401ba8defaf3c3559f5ed145b9f74"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-heldout-desktop.png",
+      "sha256": "07e80019e9e423105a809017a6c13eb8810f42689b18a5f84a1b2f860135bdee"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-acceptance-ties-desktop.png",
+      "sha256": "7024ad2bd929661e296415266c6efcfe90f30b9769bedef00f6881a30af44234"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-1-1366.png",
+      "sha256": "1d2651cd0d9f62d393e13bce8d7d75eac47db423a40e7124f7f2136a3c66fbd3"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-2-1366.png",
+      "sha256": "36f935d8044a8cd6c6ddcc5d98883417463c8adacc01887b80d76988ac56efdc"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-3-1366.png",
+      "sha256": "fc47eb52cd58c274edd89d9281cf0b1167fa4afa31abe8145d03f019b0bc86b1"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-4-1366.png",
+      "sha256": "800af5ee1328a64f6d7f304c5902d82d56e48da659e8c8d3ef9478d3551d92fb"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-5-1366.png",
+      "sha256": "cf0dc3e357ad7e46fdc5c1caa6e69fb906e401405393c0ee4d37a78beecbd863"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-6-1366.png",
+      "sha256": "50450a01aaab0af88c9033b96e994e428ab571c22c8ddb2c4ddbc08c7677b5a8"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-7-1366.png",
+      "sha256": "0fedad28dcdab201b2e53acd46c7aaf0a622bd19b7bdf905bfaadb5f5de9fd31"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-1-390.png",
+      "sha256": "0ecda4ed249910a58bf334bfd3d3466a8e9d4cf4c4ed6c49190d4b7c89f59239"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-2-390.png",
+      "sha256": "691cfacad1dbfcbb2f5e780167a92bc9e186b2f77f5e5fca882f2c3db6a29987"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-3-390.png",
+      "sha256": "9bf024d5b00baff349a45a9e959021be8156df9c20b6471bceb7067cb8e6f583"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-4-390.png",
+      "sha256": "20c86c596e38b57135a2b4060b216671229e8ed37ed6c571e0ea5f49dba8f738"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-5-390.png",
+      "sha256": "10f4471affcaca78d5960822d67a9828ede2b0232376fd3c446577f28c54486b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-6-390.png",
+      "sha256": "4b6799f6e812f986b30287c37e69ca795e52bd7ba67050c057e2216eac7a53ef"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-7-390.png",
+      "sha256": "5263dea22a0328e38785b02c933f36f5e4a864fcb06e6bf80df6ae3e13592d2b"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-slice-lower-390.png",
+      "sha256": "8c0d717299f39b67a60c5ad8f98b7631478c69e26dabc915a52fc1ec1a99b1af"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-acceptance-ties-390.png",
+      "sha256": "5989f325b3aeb1108a695948876a3ef345b356d9280c3abe4a659508ee1d622f"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-1-320.png",
+      "sha256": "73fea3a4b42865d0d667158e997209b39470ae3ab7baaa9786976d220ba54e73"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-2-320.png",
+      "sha256": "75954ca66ec7d49c07710b0d80fcec79065eb0664f28c7113f2d9c7e9f503bed"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-3-320.png",
+      "sha256": "3851013392112fbed74fcb9815ad16e420658408e177bcfa2cbe7be7362f1640"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-4-320.png",
+      "sha256": "5fb6f9bf4f61e9a4e8d8fa2990537db37edbf33e84229514488db201a51e8b15"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-5-320.png",
+      "sha256": "c07be492ed8e911732dbb5f6ac56ea31b3443ebc7ad3c4c2918fa9e5badcf30c"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-6-320.png",
+      "sha256": "780310520b3f1e57e8d6418a6f36a11dfc997aa3b5014367afd3958ff22308c6"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-figure-7-320.png",
+      "sha256": "f557cd13ad2b8bf0ca071527dfbf6b4fd074fb11d93b1ad928bb2aec1b091a8d"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-slice-lower-320.png",
+      "sha256": "711da848346c6b7b84a7baa934698438c49b7c0f7f21559b7b6d434496e2a55f"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-acceptance-ties-320.png",
+      "sha256": "078814233c3d5242b4a073e6df2b3c56021f124e9e999f70e44c28b84f2f2891"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-all-ten-tied-320.png",
+      "sha256": "c1fd39b7df8cc7434b4825e0235e37da540dc8a55bd3ee80cc70459007e0a3c2"
+    },
+    {
+      "path": "docs/teaching/evidence/screenshots/final-audit-endtoend-acceptance-none-320.png",
+      "sha256": "11721993d4327dd6562921472fc5f1e67145aae2e60447d05b9f199d6f8598d2"
+    }
+  ],
+  "limitations": [
+    "Complementary dev-server review, not production integration or a repeat of the full historical campaign.",
+    "Screenshot captures hide only the fixed reader navigation; visual inspection is recorded separately."
+  ],
+  "finishedAt": "2026-09-21T06:20:31.666Z",
+  "sourceHashes": {
+    "src/learn/data/topics/end-to-end-supervised-learning-error-analysis.jsx": "b581068c09db7cee090646b6acc8e6babc49164ca4983ea5d455b21f45e3e4cc",
+    "src/learn/data/endtoend-data.js": "92a4d405e75ff085554a3268fac1b97b0854ef82c1addae6c27f2f2ad68b75ff",
+    "src/learn/data/endtoend-models.js": "d35048d9057747786c5bef5960055ff05643c11c9f9449e1989fc954a12d15c4",
+    "src/learn/data/endtoend-examples.js": "f17d70ef6a313ff0d6922fa06c224cace3681170d7b69652103813d73e5c1952",
+    "src/learn/components/lesson-labs/EndToEndLabs.jsx": "b9a590129c4ba46b2c878fef9bb080eb5b749ded15678696f618043b14cd086f",
+    "src/learn/components/lesson-labs/EndToEndShared.jsx": "95e87750838ebcfcb3ecebf189e91db961702fdaac5140afc2b34182f3f20aac",
+    "src/learn/components/lesson-labs/EndToEndFigures.jsx": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+    "src/learn/components/lesson-labs/endtoend-labs.css": "b421dc0a035c0dfbd8ae6bc20a8a35e420d6a1cf8a4039da51d181aca16e1242",
+    "scripts/verify-endtoend-final-audit.cjs": "0b17e77a225a9e81d9cf98fba6e65bf21529c8d82ec9ca59e5d3d1360248b765"
+  },
+  "postRunCopyCorrection": {
+    "at": "2026-09-21T13:07:05.301Z",
+    "path": "src/learn/components/lesson-labs/EndToEndFigures.jsx",
+    "runSourceSha256": "329c6b155b42938d9590e9980e219bd8f5ad71be4bccdd21cc57dfae17d58cde",
+    "currentSha256": "2bc3c3389eae63997769379cd9cdd7cb6007fcc2ff9a777b12f3611077c0188c",
+    "change": "Training-minus-validation footnote now describes the subtraction in the correct order",
+    "validation": "Direct expression/wording assertions pass; numerical logic and screenshots unchanged; no rerun claimed"
+  }
+}

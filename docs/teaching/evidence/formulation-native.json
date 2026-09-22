@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-09-20T23:20:23.624085+00:00",
+  "verifier": "scripts/verify-formulation-examples.py",
+  "verifierSha256": "e95e3d4f2998db42a9c694280362e403272439a6772e66d6b7403590fc3cbab0",
+  "mode": "read-only",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.9.1"
+  },
+  "manuscriptSha256": "1ff63549d7055024cdc8a4a982d1af05b6c575e305b824f88f90d8f0642b3139",
+  "fencedBlocksFound": 2,
+  "displayed": [
+    {
+      "key": "latest-known",
+      "file": "latest_known.py",
+      "blockIndex": 0,
+      "extractedSha256": "fb9be4a437ef9d61386ae35543ae5509632d15bc8f452fb5968f9bef6bece4f9",
+      "extractedLines": 24,
+      "composedLines": 0,
+      "outputLines": 4,
+      "readsServedDataset": false
+    },
+    {
+      "key": "experiment",
+      "file": "pre_call_experiment.py",
+      "blockIndex": 1,
+      "extractedSha256": "dc239183325293cfe1c6b1712b55afb861a88783f67effe4c7d787827bd49950",
+      "extractedLines": 56,
+      "composedLines": 0,
+      "outputLines": 3,
+      "readsServedDataset": true
+    }
+  ],
+  "downloads": [
+    {
+      "file": "formulation-calculations.py",
+      "sha256": "7a5f34931369f274e2de608c92c269fa40f0f215012a00409aadc0dace85dda0",
+      "reproduces": "docs/teaching/drafts/ml-problem-formulation-baselines-data-leakage/calculated-inputs.json",
+      "reproducedSha256": "d694b6546ba00e7bc6d4592d21e973a4f7faa3d81551b252762b5b7d26b405a7",
+      "byteIdentical": true
+    }
+  ],
+  "packetUnchanged": true,
+  "oracles": 40,
+  "scope": "Both displayed programs are whole fenced blocks extracted from the frozen manuscript, pinned by SHA-256, written to a scratch workspace and executed with this repository's shared interpreter. Nothing is composed and nothing is transcribed: the recorded output is captured standard output. The experiment reads the dataset SERVED by this lesson rather than the packet's copy, so a served-asset regression fails here too. The downloadable calculation program is run the same way and must reproduce the packet's calculated-inputs.json byte for byte. The content packet directory is fingerprinted before and after and must be unchanged.",
+  "limitations": [
+    "One interpreter, one platform, one set of library versions, all recorded above. Reproducing these numbers on a different BLAS or a different scikit-learn is not claimed.",
+    "This verifier executes programs and compares their output with the packet. Whether the page DISPLAYS that code and output is checked by scripts/verify-formulation-browser.cjs."
+  ],
+  "passed": true
+}

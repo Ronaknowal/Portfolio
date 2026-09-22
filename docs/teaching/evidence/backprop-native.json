@@ -1,0 +1,101 @@
+{
+  "versions": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "torch": "2.14.0+cpu",
+    "sklearn": "1.9.1"
+  },
+  "programs": {
+    "finite-differences.py": {
+      "stdout": "1e-01 9.001e-04 0.999755859\n1e-03 9.005e-08 0.976562500\n1e-05 1.114e-11 0.000000000\n1e-09 2.970e-09 0.000000000\n1e-13 1.788e-04 0.000000000\n1e-15 1.481e-02 0.000000000\n",
+      "warnings": []
+    },
+    "pytorch-accumulation.py": {
+      "stdout": "6.0\n12.0\n6.0\n",
+      "warnings": []
+    },
+    "directional-products.py": {
+      "stdout": "[0.21, 0.29552020666133955, 0.48999999999999994]\n[1.2999999999999998, 0.955336489125606, 2.8]\n[-0.255336489125606, 3.0999999999999996]\n5.944663510874394 5.944663510874394\n",
+      "warnings": [
+        "`torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`."
+      ]
+    },
+    "hessian-vector.py": {
+      "stdout": "[1.2999999999999998, 4.499999999999999]\n[4.0, 13.0]\n",
+      "warnings": []
+    },
+    "custom-hard-sigmoid.py": {
+      "stdout": "True\n[0.0, 0.2, 0.2, 0.2, 0.0]\n",
+      "warnings": []
+    },
+    "microbatch-means.py": {
+      "stdout": "full -44.0\nweighted -44.00000000000001\nunweighted -76.66666666666666\n",
+      "warnings": []
+    },
+    "activation-checkpoint.py": {
+      "stdout": "True\n",
+      "warnings": []
+    },
+    "teaching-autodiff.py": {
+      "stdout": "XOR [{\"step\": 0, \"mse\": 2.903633084230992, \"outputs\": [[0.0], [-0.1482390330485893], [-1.6832054148424451], [-1.759684108488735]]}, {\"step\": 1, \"mse\": 1.2478828413900263, \"outputs\": [[0.5807591778110699], [0.6861349294831112], [-0.9407567143786835], [-0.8883705510944184]]}, {\"step\": 10, \"mse\": 0.29906111038238986, \"outputs\": [[0.7438154061583503], [0.7762917781015164], [0.2807012051140074], [0.27485806923142253]]}, {\"step\": 100, \"mse\": 0.11330142594226617, \"outputs\": [[0.28706403708732664], [0.671041710499783], [0.6469722641766602], [0.3714267140213911]]}, {\"step\": 500, \"mse\": 1.8255812217653348e-09, \"outputs\": [[2.277699330066607e-05], [0.999958771425926], [0.9999549149301377], [5.523653336858558e-05]]}, {\"step\": 2000, \"mse\": 7.817734830256668e-30, \"outputs\": [[1.5543122344752192e-15], [0.9999999999999973], [0.9999999999999971], [3.6637359812630166e-15]]}]\nDigits [{\"step\": 0, \"trainLoss\": 3.597476697698935, \"validationCorrect\": 17}, {\"step\": 1, \"trainLoss\": 3.0487483231969015, \"validationCorrect\": 17}, {\"step\": 10, \"trainLoss\": 1.9571559786379509, \"validationCorrect\": 40}, {\"step\": 100, \"trainLoss\": 0.45625789514297893, \"validationCorrect\": 101}, {\"step\": 250, \"trainLoss\": 0.16402456917775768, \"validationCorrect\": 105}, {\"step\": 500, \"trainLoss\": 0.06588226680185141, \"validationCorrect\": 112}]\n",
+      "warnings": []
+    },
+    "author-calculations.py": {
+      "stdout": "{\"graph\": [{\"coefficient\": 2.0, \"x\": 3.0, \"square\": 9.0, \"loss\": 27.0, \"gradient\": 18.0}, {\"coefficient\": -1.0, \"x\": 3.0, \"square\": 9.0, \"loss\": 0.0, \"gradient\": 0.0}, {\"coefficient\": 0.0, \"x\": 3.0, \"square\": 9.0, \"loss\": 9.0, \"gradient\": 6.0}], \"stableLoss\": {\"loss\": 1000.6566308437591, \"torchLoss\": 1000.6566308437591, \"gradient\": [[0.5, -0.5], [-0.36552928931500245, 0.36552928931500245]]}, \"products\": {\"value\": [0.21, 0.29552020666133955, 0.48999999999999994], \"jvp\": [1.2999999999999998, 0.955336489125606, 2.8], \"vjp\": [-0.255336489125606, 3.0999999999999996], \"dualityLeft\": 5.944663510874394, \"dualityRight\": 5.944663510874394}, \"higherOrder\": {\"gradient\": [1.2999999999999998, 4.499999999999999], \"hvp\": [4.0, 13.0]}, \"updates\": [{\"rate\": 0.0, \"weight\": 1.0, \"bias\": 0.0, \"predictions\": [1.0, 2.0], \"mse\": 0.5}, {\"rate\": 0.1, \"weight\": 1.2, \"bias\": 0.1, \"predictions\": [1.3, 2.5], \"mse\": 0.17}, {\"rate\": 1.0, \"weight\": 3.0, \"bias\": 1.0, \"predictions\": [4.0, 7.0], \"mse\": 12.5}], \"accumulation\": {\"full\": -44.0, \"weighted\": -44.00000000000001, \"unweighted\": -76.66666666666666}, \"digitTraining\": [{\"step\": 0, \"trainLoss\": 3.597476697698935, \"validationCorrect\": 17}, {\"step\": 1, \"trainLoss\": 3.0487483231969015, \"validationCorrect\": 17}, {\"step\": 10, \"trainLoss\": 1.9571559786379509, \"validationCorrect\": 40}, {\"step\": 100, \"trainLoss\": 0.45625789514297893, \"validationCorrect\": 101}, {\"step\": 250, \"trainLoss\": 0.16402456917775768, \"validationCorrect\": 105}, {\"step\": 500, \"trainLoss\": 0.06588226680185141, \"validationCorrect\": 112}]}\n",
+      "warnings": []
+    }
+  },
+  "assertions": 51,
+  "networkGradientChecks": [
+    {
+      "parameter": 0,
+      "shape": [
+        2,
+        3
+      ],
+      "maxTorchAbsError": 5.551115123125783e-17,
+      "maxFiniteDifferenceAbsError": 1.1559031509733586e-11
+    },
+    {
+      "parameter": 1,
+      "shape": [
+        3
+      ],
+      "maxTorchAbsError": 1.0408340855860843e-17,
+      "maxFiniteDifferenceAbsError": 3.785000307968134e-12
+    },
+    {
+      "parameter": 2,
+      "shape": [
+        3,
+        2
+      ],
+      "maxTorchAbsError": 1.3877787807814457e-17,
+      "maxFiniteDifferenceAbsError": 9.038499115820997e-12
+    },
+    {
+      "parameter": 3,
+      "shape": [
+        2
+      ],
+      "maxTorchAbsError": 0.0,
+      "maxFiniteDifferenceAbsError": 6.375067140851343e-12
+    }
+  ],
+  "sourceHashes": {
+    "public/learn-assets/backpropagation/activation-checkpoint.py": "a688caea007f95bff5d4bbb511b0a008fd26f4d6ceb468d8e8216b3085a2ea96",
+    "public/learn-assets/backpropagation/author-calculations.py": "c76dbf1881e962a1cabd1d996ba65d391a0c0fa71bb26510b7da00920db62733",
+    "public/learn-assets/backpropagation/calculated-inputs.json": "c994b1d71a5ff8c3698e8db671080523beaa430431a9e54ace7349d48d51d342",
+    "public/learn-assets/backpropagation/custom-hard-sigmoid.py": "1ebf18e01475194cd0b69713def0881255bebbded98e80e19528fa6f32c462be",
+    "public/learn-assets/backpropagation/data-provenance.md": "7395ad322a042ca697f5655edb6a3d3235986eb6cd63d84df3f54c758519d242",
+    "public/learn-assets/backpropagation/digits-400.csv": "a5b50ff0418e2b470140153a399c9200b2bba68468232507fd393ba89c4fc672",
+    "public/learn-assets/backpropagation/directional-products.py": "4dd3474a8bce51a41d75a4b7e44601a99ad8309a9a535eb1aa310d82a7d8fd8d",
+    "public/learn-assets/backpropagation/finite-differences.py": "c59b80f8c5a1db341876de3503da34e396c6db414bc9111e02c2ea36e4f00219",
+    "public/learn-assets/backpropagation/hessian-vector.py": "c050e4a33ea32720be82e1977c1d9cc521c34609c3817371634f623870f248a1",
+    "public/learn-assets/backpropagation/microbatch-means.py": "1b0006f63c11de8677aa7b6762cf41c50bd4af3e9c2c7fc2fbf4119bf6158008",
+    "public/learn-assets/backpropagation/programs.json": "8427f50b50b420dcf009a53281a77df71e0c7f1f35d082af60e26060f1e15a5d",
+    "public/learn-assets/backpropagation/pytorch-accumulation.py": "43204df0754946be02d1343246fb353dc78bbba02a60ae6a882257dafabac9ea",
+    "public/learn-assets/backpropagation/teaching-autodiff.py": "74f16553bde85cd7bf6731e34c4219185e55b9f8e0197759eced1799402afb1d",
+    "scripts/verify-backprop-native.py": "386de503df2bd9dfacf5669eadf9b24bf1991406f102b67d945e76ed2b7c6a4d"
+  }
+}

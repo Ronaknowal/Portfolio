@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "reviewer": "convnext_finish",
+  "freshNativeScoreValues": 300,
+  "gradientStates": 3,
+  "fourLayerSchedules": 6561,
+  "maxAbsoluteDifference": 1.4210854715202004e-14,
+  "findings": [
+    {
+      "issue": "Cost-bar flex/padding selector collision",
+      "status": "Closed: scoped selectors and measured proportional widths at1366/390/320; see modern-convolution-browser report"
+    },
+    {
+      "issue": "Small grid targets without full-size alternatives",
+      "status": "Closed: synchronized row/column selectors measured44px at all three widths; see browser report"
+    }
+  ],
+  "checks": [
+    "Independent effective-kernel Torch forward matches browser grouped route on thirty new model/rank/image states",
+    "Fresh autograd gradients and simultaneous updates match hand model on signed arbitrary states",
+    "All6561four-layer schedules match polynomial support and81path total",
+    "Comparison guards reject nonfinite and incorrect fixtures"
+  ],
+  "sources": {
+    "src/learn/data/depthwise-convolution-models.js": "3ab5780ba00a4cff9a9a6d378246ca6c2df506bd512cedac51c84595682efdee",
+    "src/learn/components/lesson-labs/DepthwiseConvolutionLabs.jsx": "191a8472e294d88d23ae8121b80c5b0aff263294173c68c154125868a504f791",
+    "src/learn/components/lesson-labs/depthwise-convolutions.css": "b91f08bbb7ff3a8f974f48f0e796e2e530dd188455e349e0967ad325228ddc2d",
+    "src/learn/data/topics/depthwise-separable-dilated-convolutions.jsx": "e996d422c08ef8acc3ae71bc2a445743fcab42c0c56574edd89ac3ec51fef38f",
+    "scripts/verify-depthwise-independent.py": "85db9d8792ac2962b27938b1070800a1323c6f9bda917d4e9a45f0ecfbe6b8b6",
+    "scripts/verify-depthwise-independent.mjs": "bec31cce1b2a94c6b8d47f465fdc687060467efb0094e67894346d3c56b38094"
+  },
+  "limits": "Numerical review is distinct from modern-convolution-browser evidence; require its final production source match. No training rerun."
+}

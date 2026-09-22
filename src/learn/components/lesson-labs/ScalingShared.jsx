@@ -1,15 +1,6 @@
 import { cloneElement, isValidElement, useId, useState } from 'react';
 import './scaling-labs.css';
 
-/** Shared controls for the feature-preparation investigations.
- *
- * The contract every investigation keeps: the learner edits a draft, records a
- * prediction, and commits both together. The answer is computed from the draft
- * at the moment of committing, so a prediction is graded against the inputs it
- * was recorded with and never against whatever happens to be on screen. Any
- * later edit retires the recorded prediction rather than re-grading it.
- */
-
 export const round = (value, digits = 6) => {
   if (value === null || value === undefined || Number.isNaN(value)) return '—';
   if (!Number.isFinite(value)) return value > 0 ? '∞' : '−∞';
@@ -43,7 +34,7 @@ export function fraction(value, limit = 40) {
 
 export function Investigation({ title, question, note, children, onReset }) {
   const id = useId();
-  return <section className="sc-investigation" aria-labelledby={id}>
+  return <section className="sc-investigation" aria-labelledby={id} data-live-exploration>
     <header><h3 id={id}>{title}</h3><button type="button" onClick={onReset}>Reset</button></header>
     {question && <p className="sc-question">{question}</p>}
     {note && <p className="sc-note">{note}</p>}
@@ -84,7 +75,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
     }
     return null;
   })();
-  return <Field label={label} error={problem} value={suffix}>
+  return <div><Field label={label} error={problem} value={suffix}>
     <input type="number" inputMode="decimal" min={min} max={max} step={step} value={shown}
       onChange={event => {
         const text = event.target.value;
@@ -97,7 +88,7 @@ export function NumberField({ label, value, onChange, min, max, step = 'any', de
         }
       }}
       onBlur={() => setDraft(null)} aria-invalid={Boolean(problem)} />
-  </Field>;
+  </Field>{/divisor|smoothing/i.test(label) && Number.isFinite(value) && Number.isFinite(min) && Number.isFinite(max) && <input type="range" aria-label={label + ' slider'} min={min} max={max} step={step} value={value} disabled={false} style={{width:'100%',accentColor:'var(--accent, #e7b94a)'}} onChange={event => {setDraft(null);onChange(Number(event.target.value));}} />}</div>;
 }
 
 export function SelectField({ label, value, onChange, options }) {
@@ -116,66 +107,6 @@ export function Table({ caption, headings, rows, rowClass = () => undefined, scr
       <tbody>{rows.map((row, index) => <tr key={index} className={rowClass(index)}>{row.map((cellValue, column) => <td key={column}>{cellValue}</td>)}</tr>)}</tbody>
     </table>
   </div>;
-}
-
-/** A radio group that starts with nothing selected, plus the two commit
- * actions. The check is disabled until a choice exists. */
-export function Prediction({ prompt, options, state, answerFor, describe, label, exploreLabel = 'Calculate without recording a prediction' }) {
-  const name = useId();
-  const textOf = key => options.find(([value]) => value === key)?.[1] ?? key;
-  const shown = state.result;
-  const correct = shown?.graded && shown.choice === shown.answer;
-  return <div className="sc-prediction">
-    <fieldset>
-      <legend>Record a prediction first.</legend>
-      <p>{prompt}</p>
-      <div className="sc-choices">
-        {options.map(([value, text]) => (
-          <label className="sc-choice" key={value}>
-            <input type="radio" name={name} value={value} checked={state.choice === value}
-              onChange={() => state.setChoice(value)} disabled={Boolean(shown)} />
-            <span>{text}</span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
-    <Reason value={state.reason} onChange={state.setReason} disabled={Boolean(shown)} />
-    {state.pending && <p className="sc-pending" role="status">
-      Inputs changed; record a new prediction. The calculation below will use the values now in the fields.
-    </p>}
-    <div className="sc-buttons">
-      <button type="button" className="is-primary" disabled={state.choice === '' || Boolean(shown)}
-        onClick={() => state.check(answerFor, label)}>Check prediction</button>
-      <button type="button" disabled={Boolean(shown)} onClick={() => state.explore(answerFor, label)}>{exploreLabel}</button>
-    </div>
-    {shown?.reason && <p className="sc-caption">Your reason, kept as you wrote it: “{shown.reason}”</p>}
-    {shown && (shown.graded
-      ? <p className={`sc-verdict ${correct ? '' : 'is-miss'}`} role="status">
-        <span className="sc-verdict-mark" aria-hidden="true">{correct ? '=' : '≠'}</span>
-        {correct
-          ? `Your prediction matches: ${textOf(shown.answer)}.`
-          : `You recorded ${textOf(shown.choice)}; the calculation gives ${textOf(shown.answer)}.`}
-        {describe ? ` ${describe}` : ''}
-      </p>
-      : <p className="sc-verdict is-plain" role="status">
-        <span className="sc-verdict-mark" aria-hidden="true">·</span>
-        Calculated without a recorded prediction: {textOf(shown.answer)}. {describe}
-      </p>)}
-    {state.previous && <p className="sc-previous" role="note">
-      Previous trial, kept for comparison and not current evidence: {state.previous.label ?? textOf(state.previous.answer)}
-      {state.previous.graded ? ` · you had recorded ${textOf(state.previous.choice)}` : ' · not graded'}.
-    </p>}
-  </div>;
-}
-
-/** An optional sentence saying why. It is never graded. */
-export function Reason({ value, onChange, disabled = false, label = 'Why? Optional, never graded' }) {
-  const id = useId();
-  return <label className="sc-field sc-reason" htmlFor={id}>
-    <span>{label}</span>
-    <textarea id={id} rows={2} value={value} disabled={disabled} onChange={event => onChange(event.target.value)}
-      placeholder="One sentence on the mechanism you expect to decide it" />
-  </label>;
 }
 
 /** A framed plot with one shared scale for everything drawn on it. The viewBox
